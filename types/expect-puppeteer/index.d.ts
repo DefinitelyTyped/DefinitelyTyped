@@ -39,7 +39,6 @@ interface ExpectPuppeteer {
     toClick(selector: string, options?: ExpectToClickOptions): Promise<void>;
     toDisplayDialog(block: () => Promise<void>): Promise<void>;
     toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
-    toMatch(value: string, options?: ExpectTimingActions): Promise<void>;
     toMatchElement(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
     toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
     toUploadFile(selector: string, filePath: string, options?: ExpectTimingActions): Promise<void>;
@@ -51,4 +50,5 @@ declare global {
     }
 }
 
-export function expectPuppeteer(instance: ElementHandle | Page): ExpectPuppeteer;
+declare function expectPuppeteer(instance: ElementHandle | Page): ExpectPuppeteer;
+export = expectPuppeteer;
