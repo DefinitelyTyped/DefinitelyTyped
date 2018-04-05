@@ -2619,7 +2619,7 @@ declare module "mongoose" {
     insertMany(docs: any[], callback?: (error: any, docs: T[]) => void): Promise<T[]>;
     insertMany(docs: any[], options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, docs: T[]) => void): Promise<T[]>;
     insertMany(doc: any, callback?: (error: any, doc: T) => void): Promise<T>;
-    insertMany(doc: any, options?: { rdered?: boolean, rawResult?: boolean }, callback?: (error: any, doc: T) => void): Promise<T>;
+    insertMany(doc: any, options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, doc: T) => void): Promise<T>;
 
     /**
      * Executes a mapReduce command.
