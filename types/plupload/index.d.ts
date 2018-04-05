@@ -73,31 +73,31 @@ interface plupload_queue_progress {
 }
 
 interface plupload_event {
-    (uploader: plupload): any;
+    (uploader: plupload.Uploader): any;
 }
 
 interface plupload_event_file {
-    (uploader: plupload, file: any): any;
+    (uploader: plupload.Uploader, file: any): any;
 }
 
 interface plupload_event_files {
-    (uploader: plupload, files: any[]): any;
+    (uploader: plupload.Uploader, files: any[]): any;
 }
 
 interface plupload_event_OptionChanged {
-    (uploader: plupload, name: string, value: any, oldValue: any): any;
+    (uploader: plupload.Uploader, name: string, value: any, oldValue: any): any;
 }
 
 interface plupload_event_FileUploaded {
-    (uploader: plupload, file: any, response: plupload_response): any;
+    (uploader: plupload.Uploader, file: any, response: plupload_response): any;
 }
 
 interface plupload_event_ChunkUploaded {
-    (uploader: plupload, file: any, response: plupload_chunk_response): any;
+    (uploader: plupload.Uploader, file: any, response: plupload_chunk_response): any;
 }
 
 interface plupload_event_Error {
-    (uploader: plupload, error: plupload_error): any;
+    (uploader: plupload.Uploader, error: plupload_error): any;
 }
 
 interface plupload_events {
@@ -137,63 +137,98 @@ interface plupload_error extends plupload_response {
     file: any;
 }
 
-declare class plupload {
-    static Uploader(settings: plupload_settings): void;
+declare namespace plupload {
 
-    static VERSION: string;
+    class Uploader {
 
-    static STOPPED: number;
-    static STARTED: number;
-    static QUEUED: number;
-    static UPLOADING: number;
-    static FAILED: number;
-    static DONE: number;
-    static GENERIC_ERROR: number;
-    static HTTP_ERROR: number;
-    static IO_ERROR: number;
-    static SECURITY_ERROR: number;
-    static INIT_ERROR: number;
-    static FILE_SIZE_ERROR: number;
-    static FILE_EXTENSION_ERROR: number;
-    static FILE_DUPLICATE_ERROR: number;
-    static IMAGE_FORMAT_ERROR: number;
-    static MEMORY_ERROR: number;
-    static IMAGE_DIMENSIONS_ERROR: number;
+        constructor(settings: plupload_settings);
 
-    static mimeTypes: any;
-    static ua: any;
+        /** Properties */
+        id: string;
+        state: number;
+        features: string;
+        runtime: string;
+        files: any;
+        settings: any;
+        total: plupload_queue_progress;
 
-    static typeOf(o: any): string;
-    static extend(target: any): any;
-    static guid(guid: string): string;
+        /** Methods */
+        init(): any;
+        setOption(option: string | any, value?: any): any;
+        getOption(option?: string): any;
+        refresh(): any;
+        start(): any;
+        stop(): any;
+        disableBrowse(disable: boolean): any;
+        getFile(id: string): any;
+        addFile(file: any, fileName?: string): any;
+        removeFile(file: any): any;
+        splice(start?: number, length?: number): any;
+        trigger(name: string, Multiple: any): any;
+        hasEventListener(name: string): any;
+        bind(name: string, func: any, scope?: any): any;
+        unbind(name: string, func: any): any;
+        unbindAll(): any;
+        destroy(): any;
+    }
 
-    /** Properties */
-    id: string;
-    state: number;
-    features: string;
-    runtime: string;
-    files: any;
-    settings: any;
-    total: plupload_queue_progress;
+    export const VERSION: string;
 
-    /** Methods */
-    init(): any;
-    setOption(option: string | any, value?: any): any;
-    getOption(option?: string): any;
-    refresh(): any;
-    start(): any;
-    stop(): any;
-    disableBrowse(disable: boolean): any;
-    getFile(id: string): any;
-    addFile(file: any, fileName?: string): any;
-    removeFile(file: any): any;
-    splice(start?: number, length?: number): any;
-    trigger(name: string, Multiple: any): any;
-    hasEventListener(name: string): any;
-    bind(name: string, func: any, scope: any): any;
-    unbind(name: string, func: any): any;
-    unbindAll(): any;
-    destroy(): any;
+    export const STOPPED: number;
+    export const STARTED: number;
+    export const QUEUED: number;
+    export const UPLOADING: number;
+    export const FAILED: number;
+    export const DONE: number;
+    export const GENERIC_ERROR: number;
+    export const HTTP_ERROR: number;
+    export const IO_ERROR: number;
+    export const SECURITY_ERROR: number;
+    export const INIT_ERROR: number;
+    export const FILE_SIZE_ERROR: number;
+    export const FILE_EXTENSION_ERROR: number;
+    export const FILE_DUPLICATE_ERROR: number;
+    export const IMAGE_FORMAT_ERROR: number;
+    export const MEMORY_ERROR: number;
+    export const IMAGE_DIMENSIONS_ERROR: number;
+
+    export const mimeTypes: any;
+    export const ua: any;
+
+    /**
+     * Gets the true type of the built-in object (better version of typeof).
+     * @credits Angus Croll (http://javascriptweblog.wordpress.com/)
+     *
+     * @method typeOf
+     * @static
+     * @param {Object} o Object to check.
+     * @return {String} Object [[Class]]
+     */
+    function typeOf(o: any): string;
+
+    /**
+     * Extends the specified object with another object.
+     *
+     * @method extend
+     * @static
+     * @param {Object} target Object to extend.
+     * @param {Object..} obj Multiple objects to extend with.
+     * @return {Object} Same as target, the extended object.
+     */
+    function extend(target: any): any;
+
+    /**
+     * Generates an unique ID. This is 99.99% unique since it takes the current time and 5 random numbers.
+     * The only way a user would be able to get the same ID is if the two persons at the same exact millisecond manages
+     * to get 5 the same random numbers between 0-65535 it also uses a counter so each call will be guaranteed to be page unique.
+     * It's more probable for the earth to be hit with an asteriod. You can also if you want to be 100% sure set the plupload.guidPrefix property
+     * to an user unique key.
+     *
+     * @method guid
+     * @static
+     * @return {String} Virtually unique id.
+     */
+    function guid(guid: string): string;
 
     /** Utility methods **/
 
@@ -206,7 +241,7 @@ declare class plupload {
      * @param {Object} obj Object to iterate.
      * @param {function} callback Callback function to execute for each item.
      */
-    static each(obj: any, callback: Function): void;
+    function each(obj: any, callback: Function): void;
 
     /**
      * Returns the absolute x, y position of an Element. The position will be returned in a object with x, y fields.
@@ -217,7 +252,7 @@ declare class plupload {
      * @param {Element} root Optional root element to stop calculations at.
      * @return {object} Absolute position of the specified element object with x, y fields.
      */
-    static getPos(node: Element, root: Element): any;
+    function getPos(node: Element, root: Element): any;
 
     /**
      * Returns the size of the specified node in pixels.
@@ -227,7 +262,7 @@ declare class plupload {
      * @param {Node} node Node to get the size of.
      * @return {Object} Object with a w and h property.
      */
-    static getSize(node: Node): any;
+    function getSize(node: Node): any;
 
     /**
      * Encodes the specified string.
@@ -237,7 +272,7 @@ declare class plupload {
      * @param {String} s String to encode.
      * @return {String} Encoded string.
      */
-    static xmlEncode(str: string): string;
+    function xmlEncode(str: string): string;
 
     /**
      * Forces anything into an array.
@@ -247,7 +282,7 @@ declare class plupload {
      * @param {Object} obj Object with length field.
      * @return {Array} Array object containing all items.
      */
-    static toArray(obj: any): Array<any>;
+    function toArray(obj: any): Array<any>;
 
     /**
      * Find an element in array and return its index if present, otherwise return -1.
@@ -258,7 +293,7 @@ declare class plupload {
      * @param {Array} array
      * @return {Int} Index of the element, or -1 if not found
      */
-    static inArray(needle: any, array: Array<any>): number;
+    function inArray(needle: any, array: Array<any>): number;
 
     /**
     Recieve an array of functions (usually async) to call in sequence, each  function
@@ -271,7 +306,7 @@ declare class plupload {
     @param {Array} queue Array of functions to call in sequence
     @param {Function} cb Main callback that is called in the end, or in case of error
     */
-    static inSeries(queue: Array<any>, callback: Function): void;
+    function inSeries(queue: Array<any>, callback: Function): void;
 
     /**
      * Extends the language pack object with new items.
@@ -281,7 +316,7 @@ declare class plupload {
      * @param {Object} pack Language pack items to add.
      * @return {Object} Extended language pack object.
      */
-    static addI18n(pack: any): any;
+    function addI18n(pack: any): any;
 
     /**
      * Translates the specified string by checking for the english string in the language pack lookup.
@@ -291,7 +326,7 @@ declare class plupload {
      * @param {String} str String to look for.
      * @return {String} Translated string or the input string if it wasn't found.
      */
-    static translate(str: string): string;
+    function translate(str: string): string;
 
     /**
      * Pseudo sprintf implementation - simple way to replace tokens with specified values.
@@ -299,7 +334,7 @@ declare class plupload {
      * @param {String} str String with tokens
      * @return {String} String with replaced tokens
      */
-    static sprintf(str: string): string;
+    function sprintf(str: string): string;
 
     /**
      * Checks if object is empty.
@@ -309,7 +344,7 @@ declare class plupload {
      * @param {Object} obj Object to check.
      * @return {Boolean}
      */
-    static isEmptyObj(obj: any): boolean;
+    function isEmptyObj(obj: any): boolean;
 
     /**
      * Checks if specified DOM element has specified class.
@@ -319,7 +354,7 @@ declare class plupload {
      * @param {Object} obj DOM element like object to add handler to.
      * @param {String} name Class name
      */
-    static hasClass(obj: any, name: string): any;
+    function hasClass(obj: any, name: string): any;
 
     /**
      * Adds specified className to specified DOM element.
@@ -329,7 +364,7 @@ declare class plupload {
      * @param {Object} obj DOM element like object to add handler to.
      * @param {String} name Class name
      */
-    static addClass(obj: any, name: string): any;
+    function addClass(obj: any, name: string): any;
 
     /**
      * Removes specified className from specified DOM element.
@@ -339,7 +374,7 @@ declare class plupload {
      * @param {Object} obj DOM element like object to add handler to.
      * @param {String} name Class name
      */
-    static removeClass(obj: any, name: string): any;
+    function removeClass(obj: any, name: string): any;
 
     /**
      * Returns a given computed style of a DOM element.
@@ -349,7 +384,7 @@ declare class plupload {
      * @param {Object} obj DOM element like object.
      * @param {String} name Style you want to get from the DOM element
      */
-    static getStyle(obj: any, name: string): any;
+    function getStyle(obj: any, name: string): any;
 
     /**
      * Adds an event handler to the specified object and store reference to the handler
@@ -362,7 +397,7 @@ declare class plupload {
      * @param {Function} callback Function to call when event occurs.
      * @param {String} (optional) key that might be used to add specifity to the event record.
      */
-    static addEvent(obj: any, name: string, callback: Function, key?: string);
+    function addEvent(obj: any, name: string, callback: Function, key?: string): any;
 
     /**
      * Remove event handler from the specified object. If third argument (callback)
@@ -374,7 +409,7 @@ declare class plupload {
      * @param {String} name Name of event listener to remove.
      * @param {Function|String} (optional) might be a callback or unique key to match.
      */
-    static removeEvent(obj: any, name: string, optional?: Function | string);
+    function removeEvent(obj: any, name: string, optional?: Function | string): any;
 
     /**
      * Remove all kind of events from the specified object
@@ -384,7 +419,7 @@ declare class plupload {
      * @param {Object} obj DOM element to remove event listeners from.
      * @param {String} (optional) unique key to match, when removing events.
      */
-    static removeAllEvents(obj: any, key?: string);
+    function removeAllEvents(obj: any, key?: string): any;
 
     /**
      * Cleans the specified name from national characters (diacritics). The result will be a name with only a-z, 0-9 and _.
@@ -394,7 +429,7 @@ declare class plupload {
      * @param {String} s String to clean up.
      * @return {String} Cleaned string.
      */
-    static cleanName(name: string): string;
+    function cleanName(name: string): string;
 
     /**
      * Builds a full url out of a base URL and an object with items to append as query string items.
@@ -405,7 +440,7 @@ declare class plupload {
      * @param {Object} items Name/value object to serialize as a querystring.
      * @return {String} String with url + serialized query string items.
      */
-    static buildUrl(url, items): string;
+    function buildUrl(url: string, items: any): string;
 
     /**
      * Formats the specified number as a size string for example 1024 becomes 1 KB.
@@ -415,7 +450,7 @@ declare class plupload {
      * @param {Number} size Size to format as string.
      * @return {String} Formatted size string.
      */
-    static formatSize(size: number): string;
+    function formatSize(size: number): string;
 
     /**
      * Parses the specified size string into a byte value. For example 10kb becomes 10240.
@@ -425,7 +460,7 @@ declare class plupload {
      * @param {String|Number} size String to parse or number to just pass through.
      * @return {Number} Size in bytes.
      */
-    static parseSize(size: number | string): number;
+    function parseSize(size: number | string): number;
 
 
     /**
@@ -438,7 +473,7 @@ declare class plupload {
      * @param {String} [runtimes] Comma-separated list of runtimes to check against
      * @return {String} Type of compatible runtime
      */
-    static predictRuntime(config: any, runtimes: string): string;
+    function predictRuntime(config: any, runtimes: string): string;
 
     /**
      * Registers a filter that will be executed for each file added to the queue.
@@ -452,5 +487,5 @@ declare class plupload {
      * @param {String} name Name of the filter by which it can be referenced in settings.filters
      * @param {String} cb Callback - the actual routine that every added file must pass
      */
-    static addFileFilter(name: string, cb: Function): void;
+    function addFileFilter(name: string, cb: Function): void;
 }
