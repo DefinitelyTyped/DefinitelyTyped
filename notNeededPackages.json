@@ -211,6 +211,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "catalog",
+            "typingsPackageName": "catalog",
+            "sourceRepoURL": "https://github.com/interactivethings/catalog",
+            "asOfVersion": "3.5.0"
+        },
+        {
             "libraryName": "chalk",
             "typingsPackageName": "chalk",
             "sourceRepoURL": "https://github.com/chalk/chalk",
