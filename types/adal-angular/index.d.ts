@@ -17,7 +17,6 @@ declare class AuthenticationContext {
 
     /**
      * Enum for request type
-     * @enum {string}
      */
     REQUEST_TYPE: AuthenticationContext.RequestType;
     RESPONSE_TYPE: AuthenticationContext.ResponseType;
@@ -117,11 +116,11 @@ declare class AuthenticationContext {
     /**
      * Creates a request info object from the URL fragment and returns it.
      */
-    getRequestInfo(hash: string): RequestInfo;
+    getRequestInfo(hash: string): AuthenticationContext.RequestInfo;
     /**
      * Saves token or error received in the response from AAD in the cache. In case of `id_token`, it also creates the user object.
      */
-    saveTokenFromHash(requestInfo: RequestInfo): void;
+    saveTokenFromHash(requestInfo: AuthenticationContext.RequestInfo): void;
     /**
      * Gets resource for given endpoint if mapping is provided with config.
      * @param endpoint Resource URI identifying the target resource.
@@ -163,10 +162,10 @@ declare class AuthenticationContext {
     verbose(message: string): void;
 
     /**
-    * Logs Pii messages when Logging Level is set to 0 and window.piiLoggingEnabled is set to true.
-    * @param message Message to log.
-    * @param error Error to log.
-    */
+     * Logs Pii messages when Logging Level is set to 0 and window.piiLoggingEnabled is set to true.
+     * @param message Message to log.
+     * @param error Error to log.
+     */
     errorPii(message: string, error: any): void;
 
     /**
@@ -189,190 +188,188 @@ declare class AuthenticationContext {
 }
 
 declare namespace AuthenticationContext {
+    function inject(config: Options): AuthenticationContext;
 
-    export function inject(config: Options): AuthenticationContext;
+    type LoggingLevel = 0 | 1 | 2 | 3;
 
-    export type LoggingLevel = 0 | 1 | 2 | 3;
+    type RequestType = "LOGIN" | "RENEW_TOKEN" | "UNKNOWN";
 
-    export type RequestType = "LOGIN" | "RENEW_TOKEN" | "UNKNOWN";
+    type ResponseType = "id_token token" | "token";
 
-    export type ResponseType = "id_token token" | "token";
-
-    export interface RequestInfo {
+    interface RequestInfo {
         /**
-        * Object comprising of fields such as id_token/error, session_state, state, e.t.c.
-        */
+         * Object comprising of fields such as id_token/error, session_state, state, e.t.c.
+         */
         parameters: any;
         /**
-        * Request type.
-        */
+         * Request type.
+         */
         requestType: RequestType;
         /**
-        * Whether state is valid.
-        */
+         * Whether state is valid.
+         */
         stateMatch: boolean;
         /**
-        * Unique guid used to match the response with the request.
-        */
+         * Unique guid used to match the response with the request.
+         */
         stateResponse: string;
         /**
-        * Whether `requestType` contains `id_token`, `access_token` or error.
-        */
+         * Whether `requestType` contains `id_token`, `access_token` or error.
+         */
         valid: boolean;
     }
 
-    export interface UserInfo {
+    interface UserInfo {
         /**
-        * Username assigned from UPN or email.
-        */
+         * Username assigned from UPN or email.
+         */
         userName: string;
         /**
-        * Properties parsed from `id_token`.
-        */
+         * Properties parsed from `id_token`.
+         */
         profile: any;
     }
 
-    export type TokenCallback = (
+    type TokenCallback = (
         errorDesc: string | null,
         token: string | null,
         error: any
     ) => void;
 
-    export type UserCallback = (errorDesc: string | null, user: UserInfo | null) => void;
+    type UserCallback = (errorDesc: string | null, user: UserInfo | null) => void;
 
     /**
-    * Configuration options for Authentication Context
-    */
-    export interface Options {
+     * Configuration options for Authentication Context
+     */
+    interface Options {
         /**
-        * Client ID assigned to your app by Azure Active Directory.
-        */
+         * Client ID assigned to your app by Azure Active Directory.
+         */
         clientId: string;
         /**
-        * Endpoint at which you expect to receive tokens.Defaults to `window.location.href`.
-        */
+         * Endpoint at which you expect to receive tokens.Defaults to `window.location.href`.
+         */
         redirectUri?: string;
         /**
-        * Azure Active Directory instance. Defaults to `https://login.microsoftonline.com/`.
-        */
+         * Azure Active Directory instance. Defaults to `https://login.microsoftonline.com/`.
+         */
         instance?: string;
         /**
-        * Your target tenant. Defaults to `common`.
-        */
+         * Your target tenant. Defaults to `common`.
+         */
         tenant?: string;
         /**
-        * Query parameters to add to the authentication request.
-        */
+         * Query parameters to add to the authentication request.
+         */
         extraQueryParameter?: string;
         /**
-        * Unique identifier used to map the request with the response. Defaults to RFC4122 version 4 guid (128 bits).
-        */
+         * Unique identifier used to map the request with the response. Defaults to RFC4122 version 4 guid (128 bits).
+         */
         correlationId?: string;
         /**
-        * User defined function of handling the navigation to Azure AD authorization endpoint in case of login.
-        */
+         * User defined function of handling the navigation to Azure AD authorization endpoint in case of login.
+         */
         displayCall?: (url: string) => void;
         /**
-        * Set this to true to enable login in a popup winodow instead of a full redirect. Defaults to `false`.
-        */
+         * Set this to true to enable login in a popup winodow instead of a full redirect. Defaults to `false`.
+         */
         popUp?: boolean;
         /**
-        * Set this to the resource to request on login. Defaults to `clientId`.
-        */
+         * Set this to the resource to request on login. Defaults to `clientId`.
+         */
         loginResource?: string;
         /**
-        * Set this to redirect the user to a custom login page.
-        */
+         * Set this to redirect the user to a custom login page.
+         */
         localLoginUrl?: string;
         /**
-        * Redirects to start page after login. Defaults to `true`.
-        */
+         * Redirects to start page after login. Defaults to `true`.
+         */
         navigateToLoginRequestUrl?: boolean;
         /**
-        * Set this to redirect the user to a custom logout page.
-        */
+         * Set this to redirect the user to a custom logout page.
+         */
         logOutUri?: string;
         /**
-        * Redirects the user to postLogoutRedirectUri after logout. Defaults to `redirectUri`.
-        */
+         * Redirects the user to postLogoutRedirectUri after logout. Defaults to `redirectUri`.
+         */
         postLogoutRedirectUri?: string;
         /**
-        * Sets browser storage to either 'localStorage' or sessionStorage'. Defaults to `sessionStorage`.
-        */
+         * Sets browser storage to either 'localStorage' or sessionStorage'. Defaults to `sessionStorage`.
+         */
         cacheLocation?: "localStorage" | "sessionStorage";
         /**
-        * Array of keywords or URIs. Adal will attach a token to outgoing requests that have these keywords or URIs.
-        */
+         * Array of keywords or URIs. Adal will attach a token to outgoing requests that have these keywords or URIs.
+         */
         endpoints?: { [resource: string]: string };
         /**
-        * Array of keywords or URIs. Adal will not attach a token to outgoing requests that have these keywords or URIs.
-        */
+         * Array of keywords or URIs. Adal will not attach a token to outgoing requests that have these keywords or URIs.
+         */
         anonymousEndpoints?: string[];
         /**
-        * If the cached token is about to be expired in the expireOffsetSeconds (in seconds), Adal will renew the token instead of using the cached token. Defaults to 300 seconds.
-        */
+         * If the cached token is about to be expired in the expireOffsetSeconds (in seconds), Adal will renew the token instead of using the cached token. Defaults to 300 seconds.
+         */
         expireOffsetSeconds?: number;
         /**
-        * The number of milliseconds of inactivity before a token renewal response from AAD should be considered timed out. Defaults to 6 seconds.
-        */
+         * The number of milliseconds of inactivity before a token renewal response from AAD should be considered timed out. Defaults to 6 seconds.
+         */
         loadFrameTimeout?: number;
         /**
-        * Callback to be invoked when a token is acquired.
-        */
+         * Callback to be invoked when a token is acquired.
+         */
         callback?: TokenCallback;
     }
 
-    export interface LoggingConfig {
+    interface LoggingConfig {
         level: LoggingLevel;
         log: (message: string) => void;
         piiLoggingEnabled: boolean;
     }
 
     /**
-    * Enum for storage constants
-    * @enum {string}
-    */
-    export interface Constants {
-        ACCESS_TOKEN: 'access_token',
-        EXPIRES_IN: 'expires_in',
-        ID_TOKEN: 'id_token',
-        ERROR_DESCRIPTION: 'error_description',
-        SESSION_STATE: 'session_state',
+     * Enum for storage constants
+     */
+    interface Constants {
+        ACCESS_TOKEN: 'access_token';
+        EXPIRES_IN: 'expires_in';
+        ID_TOKEN: 'id_token';
+        ERROR_DESCRIPTION: 'error_description';
+        SESSION_STATE: 'session_state';
         STORAGE: {
-            TOKEN_KEYS: 'adal.token.keys',
-            ACCESS_TOKEN_KEY: 'adal.access.token.key',
-            EXPIRATION_KEY: 'adal.expiration.key',
-            STATE_LOGIN: 'adal.state.login',
-            STATE_RENEW: 'adal.state.renew',
-            NONCE_IDTOKEN: 'adal.nonce.idtoken',
-            SESSION_STATE: 'adal.session.state',
-            USERNAME: 'adal.username',
-            IDTOKEN: 'adal.idtoken',
-            ERROR: 'adal.error',
-            ERROR_DESCRIPTION: 'adal.error.description',
-            LOGIN_REQUEST: 'adal.login.request',
-            LOGIN_ERROR: 'adal.login.error',
-            RENEW_STATUS: 'adal.token.renew.status'
-        },
-        RESOURCE_DELIMETER: '|',
-        LOADFRAME_TIMEOUT: '6000',
-        TOKEN_RENEW_STATUS_CANCELED: 'Canceled',
-        TOKEN_RENEW_STATUS_COMPLETED: 'Completed',
-        TOKEN_RENEW_STATUS_IN_PROGRESS: 'In Progress',
+            TOKEN_KEYS: 'adal.token.keys';
+            ACCESS_TOKEN_KEY: 'adal.access.token.key';
+            EXPIRATION_KEY: 'adal.expiration.key';
+            STATE_LOGIN: 'adal.state.login';
+            STATE_RENEW: 'adal.state.renew';
+            NONCE_IDTOKEN: 'adal.nonce.idtoken';
+            SESSION_STATE: 'adal.session.state';
+            USERNAME: 'adal.username';
+            IDTOKEN: 'adal.idtoken';
+            ERROR: 'adal.error';
+            ERROR_DESCRIPTION: 'adal.error.description';
+            LOGIN_REQUEST: 'adal.login.request';
+            LOGIN_ERROR: 'adal.login.error';
+            RENEW_STATUS: 'adal.token.renew.status';
+        };
+        RESOURCE_DELIMETER: '|';
+        LOADFRAME_TIMEOUT: '6000';
+        TOKEN_RENEW_STATUS_CANCELED: 'Canceled';
+        TOKEN_RENEW_STATUS_COMPLETED: 'Completed';
+        TOKEN_RENEW_STATUS_IN_PROGRESS: 'In Progress';
         LOGGING_LEVEL: {
-            ERROR: 0,
-            WARN: 1,
-            INFO: 2,
-            VERBOSE: 3
-        },
+            ERROR: 0;
+            WARN: 1;
+            INFO: 2;
+            VERBOSE: 3;
+        };
         LEVEL_STRING_MAP: {
-            0: 'ERROR:',
-            1: 'WARNING:',
-            2: 'INFO:',
-            3: 'VERBOSE:'
-        },
-        POPUP_WIDTH: 483,
-        POPUP_HEIGHT: 600
+            0: 'ERROR:';
+            1: 'WARNING:';
+            2: 'INFO:';
+            3: 'VERBOSE:';
+        };
+        POPUP_WIDTH: 483;
+        POPUP_HEIGHT: 600;
     }
 }
 
