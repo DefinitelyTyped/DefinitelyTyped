@@ -1,9 +1,6 @@
 import { ClearBlade, Resp, QuerySortDirections, QueryConditions } from ".";
 
 // Sample code for clearbladejs Node SDK v1.0.0 used to test typescript definitions
-// Project: https://github.com/ClearBlade/Node-SDK
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 const constants = require("./constants.json");
 

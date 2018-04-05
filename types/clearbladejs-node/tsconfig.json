@@ -18,8 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "clearbladejs-node-tests.ts",
-        "../../node_modules/mqtt/types/index.d.ts"
+        "clearbladejs-node-tests.ts"
     ],
     "exclude": [
         "**/clearbladejs-client/*",
