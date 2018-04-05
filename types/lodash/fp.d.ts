@@ -32,23 +32,8 @@ declare namespace _ {
     type LodashEvery1x1<T> = (collection: lodash.List<T> | object | null | undefined) => boolean;
     type LodashEvery1x2<T> = (predicate: lodash.ValueIterateeCustom<T, boolean>) => boolean;
     type LodashEvery2x2<T> = (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>) => boolean;
-    type LodashOverEvery =
-        /**
-         * Creates a function that checks if all of the predicates return truthy when invoked with the arguments
-         * provided to the created function.
-         *
-         * @param predicates The predicates to check.
-         * @return Returns the new function.
-         */
-        <T>(predicates: lodash.Many<(...args: T[]) => boolean>) => (...args: T[]) => boolean;
-    type LodashConstant =
-        /**
-         * Creates a function that returns value.
-         *
-         * @param value The value to return from the new function.
-         * @return Returns the new function.
-         */
-        <T>(value: T) => () => T;
+    type LodashOverEvery = <T>(predicates: lodash.Many<(...args: T[]) => boolean>) => (...args: T[]) => boolean;
+    type LodashConstant = <T>(value: T) => () => T;
     interface LodashSome {
         <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashSome1x1<T>;
         <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashSome1x2<T>;
@@ -59,26 +44,8 @@ declare namespace _ {
     type LodashSome1x1<T> = (collection: lodash.List<T> | object | null | undefined) => boolean;
     type LodashSome1x2<T> = (predicate: lodash.ValueIterateeCustom<T, boolean>) => boolean;
     type LodashSome2x2<T> = (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>) => boolean;
-    type LodashOverSome =
-        /**
-         * Creates a function that checks if any of the predicates return truthy when invoked with the arguments
-         * provided to the created function.
-         *
-         * @param predicates The predicates to check.
-         * @return Returns the new function.
-         */
-        <T>(predicates: lodash.Many<(...args: T[]) => boolean>) => (...args: T[]) => boolean;
-    type LodashApply =
-        /**
-         * Creates a function that invokes func with the this binding of the created function and an array of arguments
-         * much like Function#apply.
-         *
-         * Note: This method is based on the spread operator.
-         *
-         * @param func The function to spread arguments over.
-         * @return Returns the new function.
-         */
-        <TResult>(func: (...args: any[]) => TResult) => (...args: any[]) => TResult;
+    type LodashOverSome = <T>(predicates: lodash.Many<(...args: T[]) => boolean>) => (...args: T[]) => boolean;
+    type LodashApply = <TResult>(func: (...args: any[]) => TResult) => (...args: any[]) => TResult;
     interface LodashAry {
         (n: number): LodashAry1x1;
         (n: lodash.__, func: (...args: any[]) => any): LodashAry1x2;
@@ -93,36 +60,7 @@ declare namespace _ {
     }
     type LodashAssign1x1<TObject> = <TSource>(source: TSource) => TObject & TSource;
     type LodashAssign1x2<TSource> = <TObject>(object: TObject) => TObject & TSource;
-    type LodashAssignAll =
-        /**
-         * Assigns own enumerable properties of source objects to the destination
-         * object. Source objects are applied from left to right. Subsequent sources
-         * overwrite property assignments of previous sources.
-         *
-         * **Note:** This method mutates `object` and is loosely based on
-         * [`Object.assign`](https://mdn.io/Object/assign).
-         *
-         * @category Object
-         * @param object The destination object.
-         * @param [sources] The source objects.
-         * @returns Returns `object`.
-         * @example
-         *
-         * function Foo() {
-         *   this.c = 3;
-         * }
-         *
-         * function Bar() {
-         *   this.e = 5;
-         * }
-         *
-         * Foo.prototype.d = 4;
-         * Bar.prototype.f = 6;
-         *
-         * _.assign({ 'a': 1 }, new Foo, new Bar);
-         * // => { 'a': 1, 'c': 3, 'e': 5 }
-         */
-        (object: ReadonlyArray<any>) => any;
+    type LodashAssignAll = (object: ReadonlyArray<any>) => any;
     interface LodashAssignAllWith {
         (customizer: lodash.AssignCustomizer): LodashAssignAllWith1x1;
         (customizer: lodash.__, args: ReadonlyArray<any>): LodashAssignAllWith1x2;
@@ -137,35 +75,7 @@ declare namespace _ {
     }
     type LodashAssignIn1x1<TObject> = <TSource>(source: TSource) => TObject & TSource;
     type LodashAssignIn1x2<TSource> = <TObject>(object: TObject) => TObject & TSource;
-    type LodashAssignInAll =
-        /**
-         * This method is like `_.assign` except that it iterates over own and
-         * inherited source properties.
-         *
-         * **Note:** This method mutates `object`.
-         *
-         * @alias extend
-         * @category Object
-         * @param object The destination object.
-         * @param [sources] The source objects.
-         * @returns Returns `object`.
-         * @example
-         *
-         * function Foo() {
-         *   this.b = 2;
-         * }
-         *
-         * function Bar() {
-         *   this.d = 4;
-         * }
-         *
-         * Foo.prototype.c = 3;
-         * Bar.prototype.e = 5;
-         *
-         * _.assignIn({ 'a': 1 }, new Foo, new Bar);
-         * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
-         */
-        <TResult>(object: ReadonlyArray<any>) => TResult;
+    type LodashAssignInAll = <TResult>(object: ReadonlyArray<any>) => TResult;
     interface LodashAssignInAllWith {
         (customizer: lodash.AssignCustomizer): LodashAssignInAllWith1x1;
         (customizer: lodash.__, args: ReadonlyArray<any>): LodashAssignInAllWith1x2;
@@ -284,15 +194,7 @@ declare namespace _ {
     type LodashAt1x2<T> = (props: lodash.PropertyPath) => T[];
     type LodashAt2x1<T> = (object: T | null | undefined) => Array<T[keyof T]>;
     type LodashAt2x2<T> = (props: lodash.Many<keyof T>) => Array<T[keyof T]>;
-    type LodashAttempt =
-        /**
-         * Attempts to invoke func, returning either the result or the caught error object. Any additional arguments
-         * are provided to func when it’s invoked.
-         *
-         * @param func The function to attempt.
-         * @return Returns the func result or error object.
-         */
-        <TResult>(func: (...args: any[]) => TResult) => TResult|Error;
+    type LodashAttempt = <TResult>(func: (...args: any[]) => TResult) => TResult|Error;
     interface LodashBefore {
         <TFunc extends (...args: any[]) => any>(func: TFunc): LodashBefore1x1<TFunc>;
         (func: lodash.__, n: number): LodashBefore1x2;
@@ -323,39 +225,10 @@ declare namespace _ {
     }
     type LodashBindKey1x1 = (key: string) => (...args: any[]) => any;
     type LodashBindKey1x2 = (object: object) => (...args: any[]) => any;
-    type LodashCamelCase =
-        /**
-         * Converts string to camel case.
-         *
-         * @param string The string to convert.
-         * @return Returns the camel cased string.
-         */
-        (string: string) => string;
-    type LodashCapitalize =
-        /**
-         * Converts the first character of string to upper case and the remaining to lower case.
-         *
-         * @param string The string to capitalize.
-         * @return Returns the capitalized string.
-         */
-        (string: string) => string;
-    type LodashCastArray =
-        /**
-         * Casts value as an array if it’s not one.
-         *
-         * @param value The value to inspect.
-         * @return Returns the cast array.
-         */
-        <T>(value: lodash.Many<T>) => T[];
-    type LodashCeil =
-        /**
-         * Calculates n rounded up to precision.
-         *
-         * @param n The number to round up.
-         * @param precision The precision to round up to.
-         * @return Returns the rounded up number.
-         */
-        (n: number) => number;
+    type LodashCamelCase = (string: string) => string;
+    type LodashCapitalize = (string: string) => string;
+    type LodashCastArray = <T>(value: lodash.Many<T>) => T[];
+    type LodashCeil = (n: number) => number;
     interface LodashChunk {
         (size: number): LodashChunk1x1;
         <T>(size: lodash.__, array: lodash.List<T> | null | undefined): LodashChunk1x2<T>;
@@ -390,27 +263,8 @@ declare namespace _ {
     }
     type LodashClamp1x5 = (upper: number) => number;
     type LodashClamp1x6 = (lower: number) => number;
-    type LodashClone =
-        /**
-         * Creates a shallow clone of value.
-         *
-         * Note: This method is loosely based on the structured clone algorithm and supports cloning arrays,
-         * array buffers, booleans, date objects, maps, numbers, Object objects, regexes, sets, strings, symbols,
-         * and typed arrays. The own enumerable properties of arguments objects are cloned as plain objects. An empty
-         * object is returned for uncloneable values such as error objects, functions, DOM nodes, and WeakMaps.
-         *
-         * @param value The value to clone.
-         * @return Returns the cloned value.
-         */
-        <T>(value: T) => T;
-    type LodashCloneDeep =
-        /**
-         * This method is like _.clone except that it recursively clones value.
-         *
-         * @param value The value to recursively clone.
-         * @return Returns the deep cloned value.
-         */
-        <T>(value: T) => T;
+    type LodashClone = <T>(value: T) => T;
+    type LodashCloneDeep = <T>(value: T) => T;
     interface LodashCloneDeepWith {
         <T>(customizer: lodash.CloneDeepWithCustomizer<T>): LodashCloneDeepWith1x1<T>;
         <T>(customizer: lodash.__, value: T): LodashCloneDeepWith1x2<T>;
@@ -431,24 +285,8 @@ declare namespace _ {
         <TResult>(customizer: lodash.CloneWithCustomizer<T, TResult | undefined>): TResult | T;
     }
     type LodashCloneWith2x1<T, TResult> = (value: T) => TResult | T;
-    type LodashCompact =
-        /**
-         * Creates an array with all falsey values removed. The values false, null, 0, "", undefined, and NaN are
-         * falsey.
-         *
-         * @param array The array to compact.
-         * @return Returns the new array of filtered values.
-         */
-        <T>(array: lodash.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
-    type LodashNegate =
-        /**
-         * Creates a function that negates the result of the predicate func. The func predicate is invoked with
-         * the this binding and arguments of the created function.
-         *
-         * @param predicate The predicate to negate.
-         * @return Returns the new function.
-         */
-        <T extends (...args: any[]) => any>(predicate: T) => T;
+    type LodashCompact = <T>(array: lodash.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
+    type LodashNegate = <T extends (...args: any[]) => any>(predicate: T) => T;
     interface LodashFlowRight {
         <R2, R1>(f2: (a: R1) => R2, f1: () => R1): () => R2;
         <R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): () => R3;
@@ -496,35 +334,7 @@ declare namespace _ {
     }
     type LodashConcat1x1<T> = (values: lodash.Many<T>) => T[];
     type LodashConcat1x2<T> = (array: lodash.Many<T>) => T[];
-    type LodashCond =
-        /**
-         * Creates a function that iterates over `pairs` and invokes the corresponding
-         * function of the first predicate to return truthy. The predicate-function
-         * pairs are invoked with the `this` binding and arguments of the created
-         * function.
-         *
-         * @since 4.0.0
-         * @category Util
-         * @param pairs The predicate-function pairs.
-         * @returns Returns the new composite function.
-         * @example
-         *
-         * var func = _.cond([
-         *   [_.matches({ 'a': 1 }),   _.constant('matches A')],
-         *   [_.conforms({ 'b': _.isNumber }), _.constant('matches B')],
-         *   [_.stubTrue,  _.constant('no match')]
-         * ]);
-         *
-         * func({ 'a': 1, 'b': 2 });
-         * // => 'matches A'
-         *
-         * func({ 'a': 0, 'b': 1 });
-         * // => 'matches B'
-         *
-         * func({ 'a': '1', 'b': '2' });
-         * // => 'no match'
-         */
-        <T, R>(pairs: Array<lodash.CondPair<T, R>>) => (Target: T) => R;
+    type LodashCond = <T, R>(pairs: Array<lodash.CondPair<T, R>>) => (Target: T) => R;
     interface LodashConformsTo {
         <T>(source: lodash.ConformsPredicateObject<T>): LodashConformsTo1x1<T>;
         <T>(source: lodash.__, object: T): LodashConformsTo1x2<T>;
@@ -554,16 +364,7 @@ declare namespace _ {
     type LodashCountBy2x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<number>;
     type LodashCountBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<number>;
     type LodashCountBy3x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<number>;
-    type LodashCreate =
-        /**
-         * Creates an object that inherits from the given prototype object. If a properties object is provided its own
-         * enumerable properties are assigned to the created object.
-         *
-         * @param prototype The object to inherit from.
-         * @param properties The properties to assign to the object.
-         * @return Returns the new object.
-         */
-        <T extends object, U extends object>(prototype: T) => T & U;
+    type LodashCreate = <T extends object, U extends object>(prototype: T) => T & U;
     interface LodashCurry {
         <T1, R>(func: (t1: T1) => R): lodash.CurriedFunction1<T1, R>;
         <T1, T2, R>(func: (t1: T1, t2: T2) => R): lodash.CurriedFunction2<T1, T2, R>;
@@ -649,15 +450,7 @@ declare namespace _ {
     }
     type LodashDebounce1x1 = <T extends (...args: any[]) => any>(func: T) => T & lodash.Cancelable;
     type LodashDebounce1x2<T> = (wait: number) => T & lodash.Cancelable;
-    type LodashDeburr =
-        /**
-         * Deburrs string by converting latin-1 supplementary letters to basic latin letters and removing combining
-         * diacritical marks.
-         *
-         * @param string The string to deburr.
-         * @return Returns the deburred string.
-         */
-        (string: string) => string;
+    type LodashDeburr = (string: string) => string;
     interface LodashDefaults {
         <TSource>(source: TSource): LodashDefaults1x1<TSource>;
         <TObject>(source: lodash.__, object: TObject): LodashDefaults1x2<TObject>;
@@ -665,19 +458,7 @@ declare namespace _ {
     }
     type LodashDefaults1x1<TSource> = <TObject>(object: TObject) => TSource & TObject;
     type LodashDefaults1x2<TObject> = <TSource>(source: TSource) => TSource & TObject;
-    type LodashDefaultsAll =
-        /**
-         * Assigns own enumerable properties of source object(s) to the destination object for all destination
-         * properties that resolve to undefined. Once a property is set, additional values of the same property are
-         * ignored.
-         *
-         * Note: This method mutates object.
-         *
-         * @param object The destination object.
-         * @param sources The source objects.
-         * @return The destination object.
-         */
-        (object: ReadonlyArray<any>) => any;
+    type LodashDefaultsAll = (object: ReadonlyArray<any>) => any;
     interface LodashDefaultsDeep {
         (sources: any): LodashDefaultsDeep1x1;
         (sources: lodash.__, object: any): LodashDefaultsDeep1x2;
@@ -685,14 +466,7 @@ declare namespace _ {
     }
     type LodashDefaultsDeep1x1 = (object: any) => any;
     type LodashDefaultsDeep1x2 = (sources: any) => any;
-    type LodashDefaultsDeepAll =
-        /**
-         * This method is like _.defaults except that it recursively assigns default properties.
-         * @param object The destination object.
-         * @param sources The source objects.
-         * @return Returns object.
-         **/
-        (object: ReadonlyArray<any>) => any;
+    type LodashDefaultsDeepAll = (object: ReadonlyArray<any>) => any;
     interface LodashDefaultTo {
         <T>(defaultValue: T): LodashDefaultTo1x1<T>;
         <T>(defaultValue: lodash.__, value: T | null | undefined): LodashDefaultTo1x2<T>;
@@ -706,16 +480,7 @@ declare namespace _ {
         <TDefault>(defaultValue: TDefault): T | TDefault;
     }
     type LodashDefaultTo2x1<TDefault> = <T>(value: T | null | undefined) => T | TDefault;
-    type LodashDefer =
-        /**
-         * Defers invoking the func until the current call stack has cleared. Any additional arguments are provided to
-         * func when it’s invoked.
-         *
-         * @param func The function to defer.
-         * @param args The arguments to invoke the function with.
-         * @return Returns the timer id.
-         */
-        (func: (...args: any[]) => any, ...args: any[]) => number;
+    type LodashDefer = (func: (...args: any[]) => any, ...args: any[]) => number;
     interface LodashDelay {
         (wait: number): LodashDelay1x1;
         (wait: lodash.__, func: (...args: any[]) => any): LodashDelay1x2;
@@ -935,34 +700,8 @@ declare namespace _ {
     }
     type LodashIsEqual1x1 = (other: any) => boolean;
     type LodashIsEqual1x2 = (value: any) => boolean;
-    type LodashEscape =
-        /**
-         * Converts the characters "&", "<", ">", '"', "'", and "`" in string to their corresponding HTML entities.
-         *
-         * Note: No other characters are escaped. To escape additional characters use a third-party library like he.
-         *
-         * hough the ">" character is escaped for symmetry, characters like ">" and "/" don’t need escaping in HTML
-         * and have no special meaning unless they're part of a tag or unquoted attribute value. See Mathias Bynens’s
-         * article (under "semi-related fun fact") for more details.
-         *
-         * Backticks are escaped because in IE < 9, they can break out of attribute values or HTML comments. See #59,
-         * #102, #108, and #133 of the HTML5 Security Cheatsheet for more details.
-         *
-         * When working with HTML you should always quote attribute values to reduce XSS vectors.
-         *
-         * @param string The string to escape.
-         * @return Returns the escaped string.
-         */
-        (string: string) => string;
-    type LodashEscapeRegExp =
-        /**
-         * Escapes the RegExp special characters "^", "$", "\", ".", "*", "+", "?", "(", ")", "[", "]",
-         * "{", "}", and "|" in string.
-         *
-         * @param string The string to escape.
-         * @return Returns the escaped string.
-         */
-        (string: string) => string;
+    type LodashEscape = (string: string) => string;
+    type LodashEscapeRegExp = (string: string) => string;
     interface LodashExtend {
         <TObject>(object: TObject): LodashExtend1x1<TObject>;
         <TSource>(object: lodash.__, source: TSource): LodashExtend1x2<TSource>;
@@ -970,35 +709,7 @@ declare namespace _ {
     }
     type LodashExtend1x1<TObject> = <TSource>(source: TSource) => TObject & TSource;
     type LodashExtend1x2<TSource> = <TObject>(object: TObject) => TObject & TSource;
-    type LodashExtendAll =
-        /**
-         * This method is like `_.assign` except that it iterates over own and
-         * inherited source properties.
-         *
-         * **Note:** This method mutates `object`.
-         *
-         * @alias extend
-         * @category Object
-         * @param object The destination object.
-         * @param [sources] The source objects.
-         * @returns Returns `object`.
-         * @example
-         *
-         * function Foo() {
-         *   this.b = 2;
-         * }
-         *
-         * function Bar() {
-         *   this.d = 4;
-         * }
-         *
-         * Foo.prototype.c = 3;
-         * Bar.prototype.e = 5;
-         *
-         * _.assignIn({ 'a': 1 }, new Foo, new Bar);
-         * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
-         */
-        <TResult>(object: ReadonlyArray<any>) => TResult;
+    type LodashExtendAll = <TResult>(object: ReadonlyArray<any>) => TResult;
     interface LodashExtendAllWith {
         (customizer: lodash.AssignCustomizer): LodashExtendAllWith1x1;
         (customizer: lodash.__, args: ReadonlyArray<any>): LodashExtendAllWith1x2;
@@ -1033,13 +744,7 @@ declare namespace _ {
     }
     type LodashExtendWith1x5<TSource> = <TObject>(object: TObject) => TObject & TSource;
     type LodashExtendWith1x6<TObject, TSource> = (customizer: lodash.AssignCustomizer) => TObject & TSource;
-    type LodashStubFalse =
-        /**
-         * This method returns `false`.
-         *
-         * @returns Returns `false`.
-         */
-        () => boolean;
+    type LodashStubFalse = () => boolean;
     interface LodashFill {
         (start: number): LodashFill1x1;
         (start: lodash.__, end: number): LodashFill1x2;
@@ -1496,16 +1201,7 @@ declare namespace _ {
     }
     type LodashFindLastKey1x1<T> = (object: object | null | undefined) => string | undefined;
     type LodashFindLastKey1x2<T> = (predicate: lodash.ValueIteratee<T[keyof T]>) => string | undefined;
-    type LodashHead =
-        /**
-         * Gets the first element of array.
-         *
-         * @alias _.first
-         *
-         * @param array The array to query.
-         * @return Returns the first element of array.
-         */
-        <T>(array: lodash.List<T> | null | undefined) => T | undefined;
+    type LodashHead = <T>(array: lodash.List<T> | null | undefined) => T | undefined;
     interface LodashFlatMap {
         <T, TResult>(iteratee: (value: T) => lodash.Many<TResult>): LodashFlatMap1x1<T, TResult>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashFlatMap1x2<T>;
@@ -1641,22 +1337,8 @@ declare namespace _ {
     }
     type LodashFlatMapDepth4x3 = (collection: object | null | undefined) => boolean[];
     type LodashFlatMapDepth4x5 = (depth: number) => boolean[];
-    type LodashFlatten =
-        /**
-         * Flattens `array` a single level deep.
-         *
-         * @param array The array to flatten.
-         * @return Returns the new flattened array.
-         */
-        <T>(array: lodash.List<lodash.Many<T>> | null | undefined) => T[];
-    type LodashFlattenDeep =
-        /**
-         * Recursively flattens a nested array.
-         *
-         * @param array The array to recursively flatten.
-         * @return Returns the new flattened array.
-         */
-        <T>(array: lodash.ListOfRecursiveArraysOrValues<T> | null | undefined) => T[];
+    type LodashFlatten = <T>(array: lodash.List<lodash.Many<T>> | null | undefined) => T[];
+    type LodashFlattenDeep = <T>(array: lodash.ListOfRecursiveArraysOrValues<T> | null | undefined) => T[];
     interface LodashFlattenDepth {
         (depth: number): LodashFlattenDepth1x1;
         <T>(depth: lodash.__, array: lodash.ListOfRecursiveArraysOrValues<T> | null | undefined): LodashFlattenDepth1x2<T>;
@@ -1664,32 +1346,8 @@ declare namespace _ {
     }
     type LodashFlattenDepth1x1 = <T>(array: lodash.ListOfRecursiveArraysOrValues<T> | null | undefined) => T[];
     type LodashFlattenDepth1x2<T> = (depth: number) => T[];
-    type LodashFlip =
-        /**
-         * Creates a function that invokes `func` with arguments reversed.
-         *
-         * @category Function
-         * @param func The function to flip arguments for.
-         * @returns Returns the new function.
-         * @example
-         *
-         * var flipped = _.flip(function() {
-         *   return _.toArray(arguments);
-         * });
-         *
-         * flipped('a', 'b', 'c', 'd');
-         * // => ['d', 'c', 'b', 'a']
-         */
-        <T extends (...args: any[]) => any>(func: T) => T;
-    type LodashFloor =
-        /**
-         * Calculates n rounded down to precision.
-         *
-         * @param n The number to round down.
-         * @param precision The precision to round down to.
-         * @return Returns the rounded down number.
-         */
-        (n: number) => number;
+    type LodashFlip = <T extends (...args: any[]) => any>(func: T) => T;
+    type LodashFloor = (n: number) => number;
     interface LodashFlow {
         <R1, R2>(f1: () => R1, f2: (a: R1) => R2): () => R2;
         <R1, R2, R3>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): () => R3;
@@ -1791,48 +1449,8 @@ declare namespace _ {
         <T>(pairs: lodash.List<[lodash.PropertyName, T]> | null | undefined): lodash.Dictionary<T>;
         (pairs: lodash.List<any[]> | null | undefined): lodash.Dictionary<any>;
     }
-    type LodashFunctions =
-        /**
-         * Creates an array of function property names from own enumerable properties
-         * of `object`.
-         *
-         * @category Object
-         * @param object The object to inspect.
-         * @returns Returns the new array of property names.
-         * @example
-         *
-         * function Foo() {
-         *   this.a = _.constant('a');
-         *   this.b = _.constant('b');
-         * }
-         *
-         * Foo.prototype.c = _.constant('c');
-         *
-         * _.functions(new Foo);
-         * // => ['a', 'b']
-         */
-        (object: any) => string[];
-    type LodashFunctionsIn =
-        /**
-         * Creates an array of function property names from own and inherited
-         * enumerable properties of `object`.
-         *
-         * @category Object
-         * @param object The object to inspect.
-         * @returns Returns the new array of property names.
-         * @example
-         *
-         * function Foo() {
-         *   this.a = _.constant('a');
-         *   this.b = _.constant('b');
-         * }
-         *
-         * Foo.prototype.c = _.constant('c');
-         *
-         * _.functionsIn(new Foo);
-         * // => ['a', 'b', 'c']
-         */
-        (object: any) => string[];
+    type LodashFunctions = (object: any) => string[];
+    type LodashFunctionsIn = (object: any) => string[];
     interface LodashGet {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashGet1x1<TObject, TKey>;
         <TObject extends object>(path: lodash.__, object: TObject): LodashGet1x2<TObject>;
@@ -2091,14 +1709,7 @@ declare namespace _ {
     }
     type LodashIndexOfFrom1x5 = (fromIndex: number) => number;
     type LodashIndexOfFrom1x6<T> = (value: T) => number;
-    type LodashInitial =
-        /**
-         * Gets all but the last element of array.
-         *
-         * @param array The array to query.
-         * @return Returns the slice of array.
-         */
-        <T>(array: lodash.List<T> | null | undefined) => T[];
+    type LodashInitial = <T>(array: lodash.List<T> | null | undefined) => T[];
     interface LodashInRange {
         (start: number): LodashInRange1x1;
         (start: lodash.__, end: number): LodashInRange1x2;
@@ -2187,16 +1798,7 @@ declare namespace _ {
     }
     type LodashIntersectionWith1x5<T1> = (array: lodash.List<T1> | null | undefined) => T1[];
     type LodashIntersectionWith1x6<T1, T2> = (comparator: lodash.Comparator2<T1, T2>) => T1[];
-    type LodashInvert =
-        /**
-         * Creates an object composed of the inverted keys and values of object. If object contains duplicate values,
-         * subsequent values overwrite property assignments of previous values unless multiValue is true.
-         *
-         * @param object The object to invert.
-         * @param multiValue Allow multiple values per key.
-         * @return Returns the new inverted object.
-         */
-        (object: object) => lodash.Dictionary<string>;
+    type LodashInvert = (object: object) => lodash.Dictionary<string>;
     interface LodashInvertBy {
         <T>(interatee: lodash.ValueIteratee<T>): LodashInvertBy1x1<T>;
         <T>(interatee: lodash.__, object: lodash.List<T> | lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashInvertBy1x2<T>;
@@ -2299,30 +1901,9 @@ declare namespace _ {
         <TResult>(method: (...args: any[]) => TResult): TResult[];
     }
     type LodashInvokeMap2x1<TResult> = (collection: object | null | undefined) => TResult[];
-    type LodashIsArguments =
-        /**
-         * Checks if value is classified as an arguments object.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is IArguments;
-    type LodashIsArray =
-        /**
-         * Checks if value is classified as an Array object.
-         * @param value The value to check.
-         *
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is any[];
-    type LodashIsArrayBuffer =
-        /**
-         * Checks if value is classified as an ArrayBuffer object.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is ArrayBuffer;
+    type LodashIsArguments = (value: any) => value is IArguments;
+    type LodashIsArray = (value: any) => value is any[];
+    type LodashIsArrayBuffer = (value: any) => value is ArrayBuffer;
     interface LodashIsArrayLike {
         <T>(value: T & string & number): boolean;
         (value: ((...args: any[]) => any) | null | undefined): value is never;
@@ -2335,47 +1916,11 @@ declare namespace _ {
         // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
         <T extends object>(value: T | ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is T & { length: number };
     }
-    type LodashIsBoolean =
-        /**
-         * Checks if value is classified as a boolean primitive or object.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is boolean;
-    type LodashIsBuffer =
-        /**
-         * Checks if value is a buffer.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is a buffer, else false.
-         */
-        (value: any) => boolean;
-    type LodashIsDate =
-        /**
-         * Checks if value is classified as a Date object.
-         * @param value The value to check.
-         *
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is Date;
-    type LodashIsElement =
-        /**
-         * Checks if value is a DOM element.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is a DOM element, else false.
-         */
-        (value: any) => boolean;
-    type LodashIsEmpty =
-        /**
-         * Checks if value is empty. A value is considered empty unless it’s an arguments object, array, string, or
-         * jQuery-like collection with a length greater than 0 or an object with own enumerable properties.
-         *
-         * @param value The value to inspect.
-         * @return Returns true if value is empty, else false.
-         */
-        (value: any) => boolean;
+    type LodashIsBoolean = (value: any) => value is boolean;
+    type LodashIsBuffer = (value: any) => boolean;
+    type LodashIsDate = (value: any) => value is Date;
+    type LodashIsElement = (value: any) => boolean;
+    type LodashIsEmpty = (value: any) => boolean;
     interface LodashIsEqualWith {
         (customizer: lodash.IsEqualCustomizer): LodashIsEqualWith1x1;
         (customizer: lodash.__, value: any): LodashIsEqualWith1x2;
@@ -2403,89 +1948,12 @@ declare namespace _ {
     }
     type LodashIsEqualWith1x5 = (value: any) => boolean;
     type LodashIsEqualWith1x6 = (customizer: lodash.IsEqualCustomizer) => boolean;
-    type LodashIsError =
-        /**
-         * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError
-         * object.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is an error object, else false.
-         */
-        (value: any) => value is Error;
-    type LodashIsFinite =
-        /**
-         * Checks if value is a finite primitive number.
-         *
-         * Note: This method is based on Number.isFinite.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is a finite number, else false.
-         */
-        (value: any) => boolean;
-    type LodashIsFunction =
-        /**
-         * Checks if value is a callable function.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is (...args: any[]) => any;
-    type LodashIsInteger =
-        /**
-         * Checks if `value` is an integer.
-         *
-         * **Note:** This method is based on [`Number.isInteger`](https://mdn.io/Number/isInteger).
-         *
-         * @category Lang
-         * @param value The value to check.
-         * @returns Returns `true` if `value` is an integer, else `false`.
-         * @example
-         *
-         * _.isInteger(3);
-         * // => true
-         *
-         * _.isInteger(Number.MIN_VALUE);
-         * // => false
-         *
-         * _.isInteger(Infinity);
-         * // => false
-         *
-         * _.isInteger('3');
-         * // => false
-         */
-        (value: any) => boolean;
-    type LodashIsLength =
-        /**
-         * Checks if `value` is a valid array-like length.
-         *
-         * **Note:** This function is loosely based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
-         *
-         * @category Lang
-         * @param value The value to check.
-         * @returns Returns `true` if `value` is a valid length, else `false`.
-         * @example
-         *
-         * _.isLength(3);
-         * // => true
-         *
-         * _.isLength(Number.MIN_VALUE);
-         * // => false
-         *
-         * _.isLength(Infinity);
-         * // => false
-         *
-         * _.isLength('3');
-         * // => false
-         */
-        (value: any) => boolean;
-    type LodashIsMap =
-        /**
-         * Checks if value is classified as a Map object.
-         *
-         * @param value The value to check.
-         * @returns Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is Map<any, any>;
+    type LodashIsError = (value: any) => value is Error;
+    type LodashIsFinite = (value: any) => boolean;
+    type LodashIsFunction = (value: any) => value is (...args: any[]) => any;
+    type LodashIsInteger = (value: any) => boolean;
+    type LodashIsLength = (value: any) => boolean;
+    type LodashIsMap = (value: any) => value is Map<any, any>;
     interface LodashIsMatch {
         (source: object): LodashIsMatch1x1;
         (source: lodash.__, object: object): LodashIsMatch1x2;
@@ -2520,201 +1988,23 @@ declare namespace _ {
     }
     type LodashIsMatchWith1x5 = (source: object) => boolean;
     type LodashIsMatchWith1x6 = (customizer: lodash.isMatchWithCustomizer) => boolean;
-    type LodashIsNaN =
-        /**
-         * Checks if value is NaN.
-         *
-         * Note: This method is not the same as isNaN which returns true for undefined and other non-numeric values.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is NaN, else false.
-         */
-        (value: any) => boolean;
-    type LodashIsNative =
-        /**
-         * Checks if value is a native function.
-         * @param value The value to check.
-         *
-         * @retrun Returns true if value is a native function, else false.
-         */
-        (value: any) => value is (...args: any[]) => any;
-    type LodashIsNil =
-        /**
-         * Checks if `value` is `null` or `undefined`.
-         *
-         * @category Lang
-         * @param value The value to check.
-         * @returns Returns `true` if `value` is nullish, else `false`.
-         * @example
-         *
-         * _.isNil(null);
-         * // => true
-         *
-         * _.isNil(void 0);
-         * // => true
-         *
-         * _.isNil(NaN);
-         * // => false
-         */
-        (value: any) => value is null | undefined;
-    type LodashIsNull =
-        /**
-         * Checks if value is null.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is null, else false.
-         */
-        (value: any) => value is null;
-    type LodashIsNumber =
-        /**
-         * Checks if value is classified as a Number primitive or object.
-         *
-         * Note: To exclude Infinity, -Infinity, and NaN, which are classified as numbers, use the _.isFinite method.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is number;
-    type LodashIsObject =
-        /**
-         * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes, new Number(0),
-         * and new String(''))
-         *
-         * @param value The value to check.
-         * @return Returns true if value is an object, else false.
-         */
-        (value: any) => boolean;
-    type LodashIsObjectLike =
-        /**
-         * Checks if `value` is object-like. A value is object-like if it's not `null`
-         * and has a `typeof` result of "object".
-         *
-         * @category Lang
-         * @param value The value to check.
-         * @returns Returns `true` if `value` is object-like, else `false`.
-         * @example
-         *
-         * _.isObjectLike({});
-         * // => true
-         *
-         * _.isObjectLike([1, 2, 3]);
-         * // => true
-         *
-         * _.isObjectLike(_.noop);
-         * // => false
-         *
-         * _.isObjectLike(null);
-         * // => false
-         */
-        (value: any) => boolean;
-    type LodashIsPlainObject =
-        /**
-         * Checks if value is a plain object, that is, an object created by the Object constructor or one with a
-         * [[Prototype]] of null.
-         *
-         * Note: This method assumes objects created by the Object constructor have no inherited enumerable properties.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is a plain object, else false.
-         */
-        (value: any) => boolean;
-    type LodashIsRegExp =
-        /**
-         * Checks if value is classified as a RegExp object.
-         * @param value The value to check.
-         *
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is RegExp;
-    type LodashIsSafeInteger =
-        /**
-         * Checks if `value` is a safe integer. An integer is safe if it's an IEEE-754
-         * double precision number which isn't the result of a rounded unsafe integer.
-         *
-         * **Note:** This method is based on [`Number.isSafeInteger`](https://mdn.io/Number/isSafeInteger).
-         *
-         * @category Lang
-         * @param value The value to check.
-         * @returns Returns `true` if `value` is a safe integer, else `false`.
-         * @example
-         *
-         * _.isSafeInteger(3);
-         * // => true
-         *
-         * _.isSafeInteger(Number.MIN_VALUE);
-         * // => false
-         *
-         * _.isSafeInteger(Infinity);
-         * // => false
-         *
-         * _.isSafeInteger('3');
-         * // => false
-         */
-        (value: any) => boolean;
-    type LodashIsSet =
-        /**
-         * Checks if value is classified as a Set object.
-         *
-         * @param value The value to check.
-         * @returns Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is Set<any>;
-    type LodashIsString =
-        /**
-         * Checks if value is classified as a String primitive or object.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is string;
-    type LodashIsSymbol =
-        /**
-         * Checks if `value` is classified as a `Symbol` primitive or object.
-         *
-         * @category Lang
-         * @param value The value to check.
-         * @returns Returns `true` if `value` is correctly classified, else `false`.
-         * @example
-         *
-         * _.isSymbol(Symbol.iterator);
-         * // => true
-         *
-         * _.isSymbol('abc');
-         * // => false
-         */
-        (value: any) => boolean;
-    type LodashIsTypedArray =
-        /**
-         * Checks if value is classified as a typed array.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is correctly classified, else false.
-         */
-        (value: any) => boolean;
-    type LodashIsUndefined =
-        /**
-         * Checks if value is undefined.
-         *
-         * @param value The value to check.
-         * @return Returns true if value is undefined, else false.
-         */
-        (value: any) => value is undefined;
-    type LodashIsWeakMap =
-        /**
-         * Checks if value is classified as a WeakMap object.
-         *
-         * @param value The value to check.
-         * @returns Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is WeakMap<object, any>;
-    type LodashIsWeakSet =
-        /**
-         * Checks if value is classified as a WeakSet object.
-         *
-         * @param value The value to check.
-         * @returns Returns true if value is correctly classified, else false.
-         */
-        (value: any) => value is WeakSet<object>;
+    type LodashIsNaN = (value: any) => boolean;
+    type LodashIsNative = (value: any) => value is (...args: any[]) => any;
+    type LodashIsNil = (value: any) => value is null | undefined;
+    type LodashIsNull = (value: any) => value is null;
+    type LodashIsNumber = (value: any) => value is number;
+    type LodashIsObject = (value: any) => boolean;
+    type LodashIsObjectLike = (value: any) => boolean;
+    type LodashIsPlainObject = (value: any) => boolean;
+    type LodashIsRegExp = (value: any) => value is RegExp;
+    type LodashIsSafeInteger = (value: any) => boolean;
+    type LodashIsSet = (value: any) => value is Set<any>;
+    type LodashIsString = (value: any) => value is string;
+    type LodashIsSymbol = (value: any) => boolean;
+    type LodashIsTypedArray = (value: any) => boolean;
+    type LodashIsUndefined = (value: any) => value is undefined;
+    type LodashIsWeakMap = (value: any) => value is WeakMap<object, any>;
+    type LodashIsWeakSet = (value: any) => value is WeakSet<object>;
     interface LodashIteratee {
         <TFunction extends (...args: any[]) => any>(func: TFunction): TFunction;
         (func: string | object): (...args: any[]) => any;
@@ -2726,51 +2016,11 @@ declare namespace _ {
     }
     type LodashJoin1x1 = (array: lodash.List<any> | null | undefined) => string;
     type LodashJoin1x2 = (separator: string) => string;
-    type LodashOver =
-        /**
-         * Creates a function that invokes iteratees with the arguments provided to the created function and returns
-         * their results.
-         *
-         * @param iteratees The iteratees to invoke.
-         * @return Returns the new function.
-         */
-        <TResult>(iteratees: lodash.Many<(...args: any[]) => TResult>) => (...args: any[]) => TResult[];
-    type LodashKebabCase =
-        /**
-         * Converts string to kebab case.
-         *
-         * @param string The string to convert.
-         * @return Returns the kebab cased string.
-         */
-        (string: string) => string;
-    type LodashKeys =
-        /**
-         * Creates an array of the own enumerable property names of object.
-         *
-         * Note: Non-object values are coerced to objects. See the ES spec for more details.
-         *
-         * @param object The object to query.
-         * @return Returns the array of property names.
-         */
-        (object: any) => string[];
-    type LodashKeysIn =
-        /**
-         * Creates an array of the own and inherited enumerable property names of object.
-         *
-         * Note: Non-object values are coerced to objects.
-         *
-         * @param object The object to query.
-         * @return An array of property names.
-         */
-        (object: any) => string[];
-    type LodashLast =
-        /**
-         * Gets the last element of array.
-         *
-         * @param array The array to query.
-         * @return Returns the last element of array.
-         */
-        <T>(array: lodash.List<T> | null | undefined) => T | undefined;
+    type LodashOver = <TResult>(iteratees: lodash.Many<(...args: any[]) => TResult>) => (...args: any[]) => TResult[];
+    type LodashKebabCase = (string: string) => string;
+    type LodashKeys = (object: any) => string[];
+    type LodashKeysIn = (object: any) => string[];
+    type LodashLast = <T>(array: lodash.List<T> | null | undefined) => T | undefined;
     interface LodashLastIndexOf {
         <T>(value: T): LodashLastIndexOf1x1<T>;
         <T>(value: lodash.__, array: lodash.List<T> | null | undefined): LodashLastIndexOf1x2<T>;
@@ -2805,22 +2055,8 @@ declare namespace _ {
     }
     type LodashLastIndexOfFrom1x5 = (fromIndex: true|number) => number;
     type LodashLastIndexOfFrom1x6<T> = (value: T) => number;
-    type LodashLowerCase =
-        /**
-         * Converts `string`, as space separated words, to lower case.
-         *
-         * @param string The string to convert.
-         * @return Returns the lower cased string.
-         */
-        (string: string) => string;
-    type LodashLowerFirst =
-        /**
-         * Converts the first character of `string` to lower case.
-         *
-         * @param string The string to convert.
-         * @return Returns the converted string.
-         */
-        (string: string) => string;
+    type LodashLowerCase = (string: string) => string;
+    type LodashLowerFirst = (string: string) => string;
     interface LodashLt {
         (value: any): LodashLt1x1;
         (value: lodash.__, other: any): LodashLt1x2;
@@ -2926,16 +2162,7 @@ declare namespace _ {
     }
     type LodashMatchesProperty1x1 = <T>(srcValue: T) => (value: any) => boolean;
     type LodashMatchesProperty1x2 = (path: lodash.PropertyPath) => (value: any) => boolean;
-    type LodashMax =
-        /**
-          * Computes the maximum value of `array`. If `array` is empty or falsey
-          * `undefined` is returned.
-          *
-          * @category Math
-          * @param array The array to iterate over.
-          * @returns Returns the maximum value.
-          */
-        <T>(collection: lodash.List<T> | null | undefined) => T | undefined;
+    type LodashMax = <T>(collection: lodash.List<T> | null | undefined) => T | undefined;
     interface LodashMaxBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashMaxBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashMaxBy1x2<T>;
@@ -2943,19 +2170,7 @@ declare namespace _ {
     }
     type LodashMaxBy1x1<T> = (collection: lodash.List<T> | null | undefined) => T | undefined;
     type LodashMaxBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => T | undefined;
-    type LodashMean =
-        /**
-         * Computes the mean of the values in `array`.
-         *
-         * @category Math
-         * @param array The array to iterate over.
-         * @returns Returns the mean.
-         * @example
-         *
-         * _.mean([4, 2, 8, 6]);
-         * // => 5
-         */
-        (collection: lodash.List<any> | null | undefined) => number;
+    type LodashMean = (collection: lodash.List<any> | null | undefined) => number;
     interface LodashMeanBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashMeanBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashMeanBy1x2<T>;
@@ -2963,18 +2178,7 @@ declare namespace _ {
     }
     type LodashMeanBy1x1<T> = (collection: lodash.List<T> | null | undefined) => number;
     type LodashMeanBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => number;
-    type LodashMemoize =
-        /**
-         * Creates a function that memoizes the result of func. If resolver is provided it determines the cache key for
-         * storing the result based on the arguments provided to the memoized function. By default, the first argument
-         * provided to the memoized function is coerced to a string and used as the cache key. The func is invoked with
-         * the this binding of the memoized function.
-         *
-         * @param func The function to have its output memoized.
-         * @param resolver The function to resolve the cache key.
-         * @return Returns the new memoizing function.
-         */
-        <T extends (...args: any[]) => any>(func: T) => T & lodash.MemoizedFunction;
+    type LodashMemoize = <T extends (...args: any[]) => any>(func: T) => T & lodash.MemoizedFunction;
     interface LodashMerge {
         <TObject>(object: TObject): LodashMerge1x1<TObject>;
         <TSource>(object: lodash.__, source: TSource): LodashMerge1x2<TSource>;
@@ -2982,35 +2186,7 @@ declare namespace _ {
     }
     type LodashMerge1x1<TObject> = <TSource>(source: TSource) => TObject & TSource;
     type LodashMerge1x2<TSource> = <TObject>(object: TObject) => TObject & TSource;
-    type LodashMergeAll =
-        /**
-         * Recursively merges own and inherited enumerable properties of source
-         * objects into the destination object, skipping source properties that resolve
-         * to `undefined`. Array and plain object properties are merged recursively.
-         * Other objects and value types are overridden by assignment. Source objects
-         * are applied from left to right. Subsequent sources overwrite property
-         * assignments of previous sources.
-         *
-         * **Note:** This method mutates `object`.
-         *
-         * @category Object
-         * @param object The destination object.
-         * @param [sources] The source objects.
-         * @returns Returns `object`.
-         * @example
-         *
-         * var users = {
-         *   'data': [{ 'user': 'barney' }, { 'user': 'fred' }]
-         * };
-         *
-         * var ages = {
-         *   'data': [{ 'age': 36 }, { 'age': 40 }]
-         * };
-         *
-         * _.merge(users, ages);
-         * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
-         */
-        (object: ReadonlyArray<any>) => any;
+    type LodashMergeAll = (object: ReadonlyArray<any>) => any;
     interface LodashMergeAllWith {
         (customizer: lodash.MergeWithCustomizer): LodashMergeAllWith1x1;
         (customizer: lodash.__, args: ReadonlyArray<any>): LodashMergeAllWith1x2;
@@ -3045,36 +2221,9 @@ declare namespace _ {
     }
     type LodashMergeWith1x5<TSource> = <TObject>(object: TObject) => TObject & TSource;
     type LodashMergeWith1x6<TObject, TSource> = (customizer: lodash.MergeWithCustomizer) => TObject & TSource;
-    type LodashMethod =
-        /**
-         * Creates a function that invokes the method at path on a given object. Any additional arguments are provided
-         * to the invoked method.
-         *
-         * @param path The path of the method to invoke.
-         * @param args The arguments to invoke the method with.
-         * @return Returns the new function.
-         */
-        (path: lodash.PropertyPath) => (object: any) => any;
-    type LodashMethodOf =
-        /**
-         * The opposite of _.method; this method creates a function that invokes the method at a given path on object.
-         * Any additional arguments are provided to the invoked method.
-         *
-         * @param object The object to query.
-         * @param args The arguments to invoke the method with.
-         * @return Returns the new function.
-         */
-        (object: object) => (path: lodash.PropertyPath) => any;
-    type LodashMin =
-        /**
-         * Computes the minimum value of `array`. If `array` is empty or falsey
-         * `undefined` is returned.
-         *
-         * @category Math
-         * @param array The array to iterate over.
-         * @returns Returns the minimum value.
-         */
-        <T>(collection: lodash.List<T> | null | undefined) => T | undefined;
+    type LodashMethod = (path: lodash.PropertyPath) => (object: any) => any;
+    type LodashMethodOf = (object: object) => (path: lodash.PropertyPath) => any;
+    type LodashMin = <T>(collection: lodash.List<T> | null | undefined) => T | undefined;
     interface LodashMinBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashMinBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashMinBy1x2<T>;
@@ -3089,27 +2238,9 @@ declare namespace _ {
     }
     type LodashMultiply1x1 = (multiplicand: number) => number;
     type LodashMultiply1x2 = (multiplier: number) => number;
-    type LodashNoConflict =
-        /**
-         * Reverts the _ variable to its previous value and returns a reference to the lodash function.
-         *
-         * @return Returns the lodash function.
-         */
-        () => typeof _;
-    type LodashNoop =
-        /**
-         * A no-operation function that returns undefined regardless of the arguments it receives.
-         *
-         * @return undefined
-         */
-        (...args: any[]) => void;
-    type LodashNow =
-        /**
-         * Gets the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
-         *
-         * @return The number of milliseconds.
-         */
-        () => number;
+    type LodashNoConflict = () => typeof _;
+    type LodashNoop = (...args: any[]) => void;
+    type LodashNow = () => number;
     interface LodashNth {
         (n: number): LodashNth1x1;
         <T>(n: lodash.__, array: lodash.List<T> | null | undefined): LodashNth1x2<T>;
@@ -3117,14 +2248,7 @@ declare namespace _ {
     }
     type LodashNth1x1 = <T>(array: lodash.List<T> | null | undefined) => T | undefined;
     type LodashNth1x2<T> = (n: number) => T | undefined;
-    type LodashNthArg =
-        /**
-         * Creates a function that returns its nth argument.
-         *
-         * @param n The index of the argument to return.
-         * @return Returns the new function.
-         */
-        (n: number) => (...args: any[]) => any;
+    type LodashNthArg = (n: number) => (...args: any[]) => any;
     interface LodashOmit {
         (paths: lodash.PropertyPath): LodashOmit1x1;
         <T extends lodash.AnyKindOfDictionary>(paths: lodash.__, object: T | null | undefined): LodashOmit1x2<T>;
@@ -3145,15 +2269,7 @@ declare namespace _ {
     }
     type LodashOmitBy1x1<T> = <T1 extends object>(object: T1 | null | undefined) => lodash.PartialObject<T1>;
     type LodashOmitBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
-    type LodashOnce =
-        /**
-         * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
-         * of the first call. The func is invoked with the this binding and arguments of the created function.
-         *
-         * @param func The function to restrict.
-         * @return Returns the new restricted function.
-         */
-        <T extends (...args: any[]) => any>(func: T) => T;
+    type LodashOnce = <T extends (...args: any[]) => any>(func: T) => T;
     interface LodashOrderBy {
         <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>): LodashOrderBy1x1<T>;
         (iteratees: lodash.__, orders: lodash.Many<boolean|string>): LodashOrderBy1x2;
@@ -4181,18 +3297,7 @@ declare namespace _ {
     }
     type LodashReplace1x5 = (replacement: lodash.ReplaceFunction | string) => string;
     type LodashReplace1x6 = (pattern: RegExp | string) => string;
-    type LodashRest =
-        /**
-         * Creates a function that invokes func with the this binding of the created function and arguments from start
-         * and beyond provided as an array.
-         *
-         * Note: This method is based on the rest parameter.
-         *
-         * @param func The function to apply a rest parameter to.
-         * @param start The start position of the rest parameter.
-         * @return Returns the new function.
-         */
-        (func: (...args: any[]) => any) => (...args: any[]) => any;
+    type LodashRest = (func: (...args: any[]) => any) => (...args: any[]) => any;
     interface LodashRestFrom {
         (start: number): LodashRestFrom1x1;
         (start: lodash.__, func: (...args: any[]) => any): LodashRestFrom1x2;
@@ -4207,44 +3312,9 @@ declare namespace _ {
     }
     type LodashResult1x1 = <TResult>(object: any) => TResult;
     type LodashResult1x2 = <TResult>(path: lodash.PropertyPath) => TResult;
-    type LodashReverse =
-        /**
-         * Reverses `array` so that the first element becomes the last, the second
-         * element becomes the second to last, and so on.
-         *
-         * **Note:** This method mutates `array` and is based on
-         * [`Array#reverse`](https://mdn.io/Array/reverse).
-         *
-         * @category Array
-         * @returns Returns `array`.
-         * @example
-         *
-         * var array = [1, 2, 3];
-         *
-         * _.reverse(array);
-         * // => [3, 2, 1]
-         *
-         * console.log(array);
-         * // => [3, 2, 1]
-         */
-        <TList extends lodash.List<any>>(array: TList) => TList;
-    type LodashRound =
-        /**
-         * Calculates n rounded to precision.
-         *
-         * @param n The number to round.
-         * @param precision The precision to round to.
-         * @return Returns the rounded number.
-         */
-        (n: number) => number;
-    type LodashRunInContext =
-        /**
-         * Create a new pristine lodash function using the given context object.
-         *
-         * @param context The context object.
-         * @return Returns a new lodash function.
-         */
-        (context: object) => lodash.LoDashStatic;
+    type LodashReverse = <TList extends lodash.List<any>>(array: TList) => TList;
+    type LodashRound = (n: number) => number;
+    type LodashRunInContext = (context: object) => lodash.LoDashStatic;
     interface LodashSample {
         <T>(collection: lodash.List<T> | lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): T | undefined;
         <T extends object>(collection: T | null | undefined): T[keyof T] | undefined;
@@ -4353,15 +3423,7 @@ declare namespace _ {
         <T>(collection: lodash.List<T> | null | undefined): T[];
         <T extends object>(collection: T | null | undefined): Array<T[keyof T]>;
     }
-    type LodashSize =
-        /**
-         * Gets the size of collection by returning its length for array-like values or the number of own enumerable
-         * properties for objects.
-         *
-         * @param collection The collection to inspect.
-         * @return Returns the size of collection.
-         */
-        (collection: object | string | null | undefined) => number;
+    type LodashSize = (collection: object | string | null | undefined) => number;
     interface LodashSlice {
         (start: number): LodashSlice1x1;
         (start: lodash.__, end: number): LodashSlice1x2;
@@ -4389,14 +3451,7 @@ declare namespace _ {
     }
     type LodashSlice1x5<T> = (end: number) => T[];
     type LodashSlice1x6<T> = (start: number) => T[];
-    type LodashSnakeCase =
-        /**
-         * Converts string to snake case.
-         *
-         * @param string The string to convert.
-         * @return Returns the snake cased string.
-         */
-        (string: string) => string;
+    type LodashSnakeCase = (string: string) => string;
     interface LodashSortBy {
         <T>(iteratees: lodash.Many<lodash.ValueIteratee<T>>): LodashSortBy1x1<T>;
         <T>(iteratees: lodash.__, collection: lodash.List<T> | null | undefined): LodashSortBy1x2<T>;
@@ -4489,20 +3544,7 @@ declare namespace _ {
     }
     type LodashSortedLastIndexOf1x1<T> = (array: lodash.List<T> | null | undefined) => number;
     type LodashSortedLastIndexOf1x2<T> = (value: T) => number;
-    type LodashSortedUniq =
-        /**
-         * This method is like `_.uniq` except that it's designed and optimized
-         * for sorted arrays.
-         *
-         * @category Array
-         * @param array The array to inspect.
-         * @returns Returns the new duplicate free array.
-         * @example
-         *
-         * _.sortedUniq([1, 1, 2]);
-         * // => [1, 2]
-         */
-        <T>(array: lodash.List<T> | null | undefined) => T[];
+    type LodashSortedUniq = <T>(array: lodash.List<T> | null | undefined) => T[];
     interface LodashSortedUniqBy {
         (iteratee: (value: string) => lodash.NotVoid): LodashSortedUniqBy1x1;
         (iteratee: lodash.__, array: string | null | undefined): LodashSortedUniqBy1x2;
@@ -4522,17 +3564,7 @@ declare namespace _ {
     }
     type LodashSplit1x1 = (string: string) => string[];
     type LodashSplit1x2 = (separator: RegExp|string) => string[];
-    type LodashSpread =
-        /**
-         * Creates a function that invokes func with the this binding of the created function and an array of arguments
-         * much like Function#apply.
-         *
-         * Note: This method is based on the spread operator.
-         *
-         * @param func The function to spread arguments over.
-         * @return Returns the new function.
-         */
-        <TResult>(func: (...args: any[]) => TResult) => (...args: any[]) => TResult;
+    type LodashSpread = <TResult>(func: (...args: any[]) => TResult) => (...args: any[]) => TResult;
     interface LodashSpreadFrom {
         (start: number): LodashSpreadFrom1x1;
         <TResult>(start: lodash.__, func: (...args: any[]) => TResult): LodashSpreadFrom1x2<TResult>;
@@ -4540,14 +3572,7 @@ declare namespace _ {
     }
     type LodashSpreadFrom1x1 = <TResult>(func: (...args: any[]) => TResult) => (...args: any[]) => TResult;
     type LodashSpreadFrom1x2<TResult> = (start: number) => (...args: any[]) => TResult;
-    type LodashStartCase =
-        /**
-         * Converts string to start case.
-         *
-         * @param string The string to convert.
-         * @return Returns the start cased string.
-         */
-        (string: string) => string;
+    type LodashStartCase = (string: string) => string;
     interface LodashStartsWith {
         (target: string): LodashStartsWith1x1;
         (target: lodash.__, string: string): LodashStartsWith1x2;
@@ -4555,34 +3580,10 @@ declare namespace _ {
     }
     type LodashStartsWith1x1 = (string: string) => boolean;
     type LodashStartsWith1x2 = (target: string) => boolean;
-    type LodashStubArray =
-        /**
-         * This method returns a new empty array.
-         *
-         * @returns Returns the new empty array.
-         */
-        () => any[];
-    type LodashStubObject =
-        /**
-         * This method returns a new empty object.
-         *
-         * @returns Returns the new empty object.
-         */
-        () => any;
-    type LodashStubString =
-        /**
-         * This method returns an empty string.
-         *
-         * @returns Returns the empty string.
-         */
-        () => string;
-    type LodashStubTrue =
-        /**
-         * This method returns `true`.
-         *
-         * @returns Returns `true`.
-         */
-        () => boolean;
+    type LodashStubArray = () => any[];
+    type LodashStubObject = () => any;
+    type LodashStubString = () => string;
+    type LodashStubTrue = () => boolean;
     interface LodashSubtract {
         (minuend: number): LodashSubtract1x1;
         (minuend: lodash.__, subtrahend: number): LodashSubtract1x2;
@@ -4590,19 +3591,7 @@ declare namespace _ {
     }
     type LodashSubtract1x1 = (subtrahend: number) => number;
     type LodashSubtract1x2 = (minuend: number) => number;
-    type LodashSum =
-        /**
-         * Computes the sum of the values in `array`.
-         *
-         * @category Math
-         * @param array The array to iterate over.
-         * @returns Returns the sum.
-         * @example
-         *
-         * _.sum([4, 2, 8, 6]);
-         * // => 20
-         */
-        (collection: lodash.List<any> | null | undefined) => number;
+    type LodashSum = (collection: lodash.List<any> | null | undefined) => number;
     interface LodashSumBy {
         <T>(iteratee: ((value: T) => number) | string): LodashSumBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashSumBy1x2<T>;
@@ -4671,14 +3660,7 @@ declare namespace _ {
     }
     type LodashXorWith1x5<T> = (arrays: lodash.List<T> | null | undefined) => T[];
     type LodashXorWith1x6<T> = (comparator: lodash.Comparator<T>) => T[];
-    type LodashTail =
-        /**
-         * Gets all but the first element of array.
-         *
-         * @param array The array to query.
-         * @return Returns the slice of array.
-         */
-        <T>(array: lodash.List<T> | null | undefined) => T[];
+    type LodashTail = <T>(array: lodash.List<T> | null | undefined) => T[];
     interface LodashTake {
         (n: number): LodashTake1x1;
         <T>(n: lodash.__, array: lodash.List<T> | null | undefined): LodashTake1x2<T>;
@@ -4714,34 +3696,7 @@ declare namespace _ {
     }
     type LodashTap1x1<T> = (value: T) => T;
     type LodashTap1x2<T> = (interceptor: (value: T) => void) => T;
-    type LodashTemplate =
-        /**
-         * Creates a compiled template function that can interpolate data properties in "interpolate" delimiters,
-         * HTML-escape interpolated data properties in "escape" delimiters, and execute JavaScript in "evaluate"
-         * delimiters. Data properties may be accessed as free variables in the template. If a setting object is
-         * provided it takes precedence over _.templateSettings values.
-         *
-         * Note: In the development build _.template utilizes
-         * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl) for easier
-         * debugging.
-         *
-         * For more information on precompiling templates see
-         * [lodash's custom builds documentation](https://lodash.com/custom-builds).
-         *
-         * For more information on Chrome extension sandboxes see
-         * [Chrome's extensions documentation](https://developer.chrome.com/extensions/sandboxingEval).
-         *
-         * @param string The template string.
-         * @param options The options object.
-         * @param options.escape The HTML "escape" delimiter.
-         * @param options.evaluate The "evaluate" delimiter.
-         * @param options.imports An object to import into the template as free variables.
-         * @param options.interpolate The "interpolate" delimiter.
-         * @param options.sourceURL The sourceURL of the template's compiled source.
-         * @param options.variable The data object variable name.
-         * @return Returns the compiled template function.
-         */
-        (string: string) => lodash.TemplateExecutor;
+    type LodashTemplate = (string: string) => lodash.TemplateExecutor;
     interface LodashThrottle {
         (wait: number): LodashThrottle1x1;
         <T extends (...args: any[]) => any>(wait: lodash.__, func: T): LodashThrottle1x2<T>;
@@ -4768,193 +3723,16 @@ declare namespace _ {
         <T>(value: T): Array<T[keyof T]>;
         (): any[];
     }
-    type LodashToFinite =
-        /**
-         * Converts `value` to a finite number.
-         *
-         * @since 4.12.0
-         * @category Lang
-         * @param value The value to convert.
-         * @returns Returns the converted number.
-         * @example
-         *
-         * _.toFinite(3.2);
-         * // => 3.2
-         *
-         * _.toFinite(Number.MIN_VALUE);
-         * // => 5e-324
-         *
-         * _.toFinite(Infinity);
-         * // => 1.7976931348623157e+308
-         *
-         * _.toFinite('3.2');
-         * // => 3.2
-         */
-        (value: any) => number;
-    type LodashToInteger =
-        /**
-         * Converts `value` to an integer.
-         *
-         * **Note:** This function is loosely based on [`ToInteger`](http://www.ecma-international.org/ecma-262/6.0/#sec-tointeger).
-         *
-         * @category Lang
-         * @param value The value to convert.
-         * @returns Returns the converted integer.
-         * @example
-         *
-         * _.toInteger(3);
-         * // => 3
-         *
-         * _.toInteger(Number.MIN_VALUE);
-         * // => 0
-         *
-         * _.toInteger(Infinity);
-         * // => 1.7976931348623157e+308
-         *
-         * _.toInteger('3');
-         * // => 3
-         */
-        (value: any) => number;
-    type LodashToLength =
-        /**
-         * Converts `value` to an integer suitable for use as the length of an
-         * array-like object.
-         *
-         * **Note:** This method is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
-         *
-         * @category Lang
-         * @param value The value to convert.
-         * @return Returns the converted integer.
-         * @example
-         *
-         * _.toLength(3);
-         * // => 3
-         *
-         * _.toLength(Number.MIN_VALUE);
-         * // => 0
-         *
-         * _.toLength(Infinity);
-         * // => 4294967295
-         *
-         * _.toLength('3');
-         * // => 3
-         */
-        (value: any) => number;
-    type LodashToLower =
-        /**
-         * Converts `string`, as a whole, to lower case.
-         *
-         * @param string The string to convert.
-         * @return Returns the lower cased string.
-         */
-        (string: string) => string;
-    type LodashToNumber =
-        /**
-         * Converts `value` to a number.
-         *
-         * @category Lang
-         * @param value The value to process.
-         * @returns Returns the number.
-         * @example
-         *
-         * _.toNumber(3);
-         * // => 3
-         *
-         * _.toNumber(Number.MIN_VALUE);
-         * // => 5e-324
-         *
-         * _.toNumber(Infinity);
-         * // => Infinity
-         *
-         * _.toNumber('3');
-         * // => 3
-         */
-        (value: any) => number;
-    type LodashToPath =
-        /**
-         * Converts `value` to a property path array.
-         *
-         * @category Util
-         * @param value The value to convert.
-         * @returns Returns the new property path array.
-         * @example
-         *
-         * _.toPath('a.b.c');
-         * // => ['a', 'b', 'c']
-         *
-         * _.toPath('a[0].b.c');
-         * // => ['a', '0', 'b', 'c']
-         *
-         * var path = ['a', 'b', 'c'],
-         * newPath = _.toPath(path);
-         *
-         * console.log(newPath);
-         * // => ['a', 'b', 'c']
-         *
-         * console.log(path === newPath);
-         * // => false
-         */
-        (value: any) => string[];
-    type LodashToPlainObject =
-        /**
-         * Converts value to a plain object flattening inherited enumerable properties of value to own properties
-         * of the plain object.
-         *
-         * @param value The value to convert.
-         * @return Returns the converted plain object.
-         */
-        (value: any) => any;
-    type LodashToSafeInteger =
-        /**
-         * Converts `value` to a safe integer. A safe integer can be compared and
-         * represented correctly.
-         *
-         * @category Lang
-         * @param value The value to convert.
-         * @returns Returns the converted integer.
-         * @example
-         *
-         * _.toSafeInteger(3);
-         * // => 3
-         *
-         * _.toSafeInteger(Number.MIN_VALUE);
-         * // => 0
-         *
-         * _.toSafeInteger(Infinity);
-         * // => 9007199254740991
-         *
-         * _.toSafeInteger('3');
-         * // => 3
-         */
-        (value: any) => number;
-    type LodashToString =
-        /**
-         * Converts `value` to a string if it's not one. An empty string is returned
-         * for `null` and `undefined` values. The sign of `-0` is preserved.
-         *
-         * @category Lang
-         * @param value The value to process.
-         * @returns Returns the string.
-         * @example
-         *
-         * _.toString(null);
-         * // => ''
-         *
-         * _.toString(-0);
-         * // => '-0'
-         *
-         * _.toString([1, 2, 3]);
-         * // => '1,2,3'
-         */
-        (value: any) => string;
-    type LodashToUpper =
-        /**
-         * Converts `string`, as a whole, to upper case.
-         *
-         * @param string The string to convert.
-         * @return Returns the upper cased string.
-         */
-        (string: string) => string;
+    type LodashToFinite = (value: any) => number;
+    type LodashToInteger = (value: any) => number;
+    type LodashToLength = (value: any) => number;
+    type LodashToLower = (string: string) => string;
+    type LodashToNumber = (value: any) => number;
+    type LodashToPath = (value: any) => string[];
+    type LodashToPlainObject = (value: any) => any;
+    type LodashToSafeInteger = (value: any) => number;
+    type LodashToString = (value: any) => string;
+    type LodashToUpper = (string: string) => string;
     interface LodashTransform {
         <T, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult[]>): LodashTransform1x1<T, TResult>;
         <TResult>(iteratee: lodash.__, accumulator: ReadonlyArray<TResult>): LodashTransform1x2<TResult>;
@@ -5025,15 +3803,7 @@ declare namespace _ {
     type LodashTransform3x6<T, TResult> = (iteratee: lodash.MemoVoidIteratorCapped<T, lodash.Dictionary<TResult>>) => lodash.Dictionary<TResult>;
     type LodashTransform4x5<TResult> = (accumulator: ReadonlyArray<TResult>) => TResult[];
     type LodashTransform4x6<T, TResult> = (iteratee: lodash.MemoVoidIteratorCapped<T, TResult[]>) => TResult[];
-    type LodashTrim =
-        /**
-         * Removes leading and trailing whitespace or specified characters from string.
-         *
-         * @param string The string to trim.
-         * @param chars The characters to trim.
-         * @return Returns the trimmed string.
-         */
-        (string: string) => string;
+    type LodashTrim = (string: string) => string;
     interface LodashTrimChars {
         (chars: string): LodashTrimChars1x1;
         (chars: lodash.__, string: string): LodashTrimChars1x2;
@@ -5055,24 +3825,8 @@ declare namespace _ {
     }
     type LodashTrimCharsStart1x1 = (string: string) => string;
     type LodashTrimCharsStart1x2 = (chars: string) => string;
-    type LodashTrimEnd =
-        /**
-         * Removes trailing whitespace or specified characters from string.
-         *
-         * @param string The string to trim.
-         * @param chars The characters to trim.
-         * @return Returns the trimmed string.
-         */
-        (string: string) => string;
-    type LodashTrimStart =
-        /**
-         * Removes leading whitespace or specified characters from string.
-         *
-         * @param string The string to trim.
-         * @param chars The characters to trim.
-         * @return Returns the trimmed string.
-         */
-        (string: string) => string;
+    type LodashTrimEnd = (string: string) => string;
+    type LodashTrimStart = (string: string) => string;
     interface LodashTruncate {
         (options: lodash.TruncateOptions): LodashTruncate1x1;
         (options: lodash.__, string: string): LodashTruncate1x2;
@@ -5080,44 +3834,9 @@ declare namespace _ {
     }
     type LodashTruncate1x1 = (string: string) => string;
     type LodashTruncate1x2 = (options: lodash.TruncateOptions) => string;
-    type LodashUnapply =
-        /**
-         * Creates a function that invokes func with the this binding of the created function and arguments from start
-         * and beyond provided as an array.
-         *
-         * Note: This method is based on the rest parameter.
-         *
-         * @param func The function to apply a rest parameter to.
-         * @param start The start position of the rest parameter.
-         * @return Returns the new function.
-         */
-        (func: (...args: any[]) => any) => (...args: any[]) => any;
-    type LodashUnary =
-        /**
-         * Creates a function that accepts up to one argument, ignoring any
-         * additional arguments.
-         *
-         * @category Function
-         * @param func The function to cap arguments for.
-         * @returns Returns the new function.
-         * @example
-         *
-         * _.map(['6', '8', '10'], _.unary(parseInt));
-         * // => [6, 8, 10]
-         */
-        <T, TResult>(func: (arg1: T, ...args: any[]) => TResult) => (arg1: T) => TResult;
-    type LodashUnescape =
-        /**
-         * The inverse of _.escape; this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, &#39;, and &#96;
-         * in string to their corresponding characters.
-         *
-         * Note: No other HTML entities are unescaped. To unescape additional HTML entities use a third-party library
-         * like he.
-         *
-         * @param string The string to unescape.
-         * @return Returns the unescaped string.
-         */
-        (string: string) => string;
+    type LodashUnapply = (func: (...args: any[]) => any) => (...args: any[]) => any;
+    type LodashUnary = <T, TResult>(func: (arg1: T, ...args: any[]) => TResult) => (arg1: T) => TResult;
+    type LodashUnescape = (string: string) => string;
     interface LodashUnion {
         <T>(arrays2: lodash.List<T> | null | undefined): LodashUnion1x1<T>;
         <T>(arrays2: lodash.__, arrays: lodash.List<T> | null | undefined): LodashUnion1x2<T>;
@@ -5179,22 +3898,7 @@ declare namespace _ {
     }
     type LodashUnionWith1x5<T> = (arrays: lodash.List<T> | null | undefined) => T[];
     type LodashUnionWith1x6<T> = (comparator: lodash.Comparator<T>) => T[];
-    type LodashUniq =
-        /**
-         * Creates a duplicate-free version of an array, using
-         * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
-         * for equality comparisons, in which only the first occurrence of each element
-         * is kept.
-         *
-         * @category Array
-         * @param array The array to inspect.
-         * @returns Returns the new duplicate free array.
-         * @example
-         *
-         * _.uniq([2, 1, 2]);
-         * // => [2, 1]
-         */
-        <T>(array: lodash.List<T> | null | undefined) => T[];
+    type LodashUniq = <T>(array: lodash.List<T> | null | undefined) => T[];
     interface LodashUniqBy {
         (iteratee: (value: string) => lodash.NotVoid): LodashUniqBy1x1;
         (iteratee: lodash.__, array: string | null | undefined): LodashUniqBy1x2;
@@ -5207,14 +3911,7 @@ declare namespace _ {
     type LodashUniqBy1x2 = (iteratee: (value: string) => lodash.NotVoid) => string[];
     type LodashUniqBy2x1<T> = (array: lodash.List<T> | null | undefined) => T[];
     type LodashUniqBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
-    type LodashUniqueId =
-        /**
-         * Generates a unique ID. If prefix is provided the ID is appended to it.
-         *
-         * @param prefix The value to prefix the ID with.
-         * @return Returns the unique ID.
-         */
-        (prefix: string) => string;
+    type LodashUniqueId = (prefix: string) => string;
     interface LodashUniqWith {
         <T>(comparator: lodash.Comparator<T>): LodashUniqWith1x1<T>;
         <T>(comparator: lodash.__, array: lodash.List<T> | null | undefined): LodashUniqWith1x2<T>;
@@ -5222,15 +3919,7 @@ declare namespace _ {
     }
     type LodashUniqWith1x1<T> = (array: lodash.List<T> | null | undefined) => T[];
     type LodashUniqWith1x2<T> = (comparator: lodash.Comparator<T>) => T[];
-    type LodashUnzip =
-        /**
-         * This method is like _.zip except that it accepts an array of grouped elements and creates an array
-         * regrouping the elements to their pre-zip configuration.
-         *
-         * @param array The array of grouped elements to process.
-         * @return Returns the new array of regrouped elements.
-         */
-        <T>(array: T[][] | lodash.List<lodash.List<T>> | null | undefined) => T[][];
+    type LodashUnzip = <T>(array: T[][] | lodash.List<lodash.List<T>> | null | undefined) => T[][];
     interface LodashUnzipWith {
         <T, TResult>(iteratee: (...values: T[]) => TResult): LodashUnzipWith1x1<T, TResult>;
         <T>(iteratee: lodash.__, array: lodash.List<lodash.List<T>> | null | undefined): LodashUnzipWith1x2<T>;
@@ -5352,22 +4041,8 @@ declare namespace _ {
     }
     type LodashUpdateWith1x13<T> = (path: lodash.PropertyPath) => T;
     type LodashUpdateWith1x14<T> = (customizer: lodash.SetWithCustomizer<T>) => T;
-    type LodashUpperCase =
-        /**
-         * Converts `string`, as space separated words, to upper case.
-         *
-         * @param string The string to convert.
-         * @return Returns the upper cased string.
-         */
-        (string: string) => string;
-    type LodashUpperFirst =
-        /**
-         * Converts the first character of `string` to upper case.
-         *
-         * @param string The string to convert.
-         * @return Returns the converted string.
-         */
-        (string: string) => string;
+    type LodashUpperCase = (string: string) => string;
+    type LodashUpperFirst = (string: string) => string;
     interface LodashValues {
         <T>(object: lodash.Dictionary<T> | lodash.NumericDictionary<T> | lodash.List<T> | null | undefined): T[];
         <T extends object>(object: T | null | undefined): Array<T[keyof T]>;
@@ -5384,15 +4059,7 @@ declare namespace _ {
     }
     type LodashWithout1x1<T> = (array: lodash.List<T> | null | undefined) => T[];
     type LodashWithout1x2<T> = (values: ReadonlyArray<T>) => T[];
-    type LodashWords =
-        /**
-         * Splits `string` into an array of its words.
-         *
-         * @param string The string to inspect.
-         * @param pattern The pattern to match words.
-         * @return Returns the words of `string`.
-         */
-        (string: string) => string[];
+    type LodashWords = (string: string) => string[];
     interface LodashWrap {
         <T, TArgs, TResult>(wrapper: (value: T, ...args: TArgs[]) => TResult): LodashWrap1x1<T, TArgs, TResult>;
         <T>(wrapper: lodash.__, value: T): LodashWrap1x2<T>;
@@ -5413,15 +4080,7 @@ declare namespace _ {
     }
     type LodashZip1x1<T1> = <T2>(arrays2: lodash.List<T2>) => Array<[T1 | undefined, T2 | undefined]>;
     type LodashZip1x2<T2> = <T1>(arrays1: lodash.List<T1>) => Array<[T1 | undefined, T2 | undefined]>;
-    type LodashZipAll =
-        /**
-         * Creates an array of grouped elements, the first of which contains the first elements of the given arrays,
-         * the second of which contains the second elements of the given arrays, and so on.
-         *
-         * @param arrays The arrays to process.
-         * @return Returns the new array of grouped elements.
-         */
-        <T>(arrays: ReadonlyArray<lodash.List<T> | null | undefined>) => Array<Array<T | undefined>>;
+    type LodashZipAll = <T>(arrays: ReadonlyArray<lodash.List<T> | null | undefined>) => Array<Array<T | undefined>>;
     interface LodashZipObject {
         (props: lodash.List<lodash.PropertyName>): LodashZipObject1x1;
         <T>(props: lodash.__, values: lodash.List<T>): LodashZipObject1x2<T>;
