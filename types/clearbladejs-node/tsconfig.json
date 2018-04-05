@@ -2,23 +2,17 @@
     "compileOnSave": true,
     "compilerOptions": {
         "target": "ES5",
-        "module": "es6",
-        "moduleResolution": "Node",
+        "module": "commonjs",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "noStrictGenericChecks": false,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            ".",
-            "../",
-            "../../node_modules/"
-        ],
-        "types": ["node"],
+        "typeRoots": ["../"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
