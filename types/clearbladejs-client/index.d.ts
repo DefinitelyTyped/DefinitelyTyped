@@ -3,7 +3,7 @@
 // Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 /// <reference types="paho-mqtt" />
 
@@ -134,12 +134,12 @@ interface Collection {
     count(query: Query, callback: CbCallback): void;
 }
 
-declare const enum QuerySortDirections {
+declare enum QuerySortDirections {
     QUERY_SORT_ASCENDING = "ASC",
     QUERY_SORT_DESCENDING = "DESC"
 }
 
-declare const enum QueryConditions {
+declare enum QueryConditions {
     QUERY_EQUAL = "EQ",
     QUERY_NOTEQUAL = "NEQ",
     QUERY_GREATERTHAN = "GT",

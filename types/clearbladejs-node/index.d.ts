@@ -1,3 +1,6 @@
+/// <reference types="request" />
+/// <reference types="mqtt" />
+
 import { Response, RequestCallback } from "request/index";
 import { MqttClient, PacketCallback } from "mqtt";
 
@@ -6,10 +9,7 @@ import { MqttClient, PacketCallback } from "mqtt";
 // Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
-// TypeScript Version: 2.1
-
-/// <reference types="request" />
-/// <reference types="mqtt" />
+// TypeScript Version: 2.4
 
 declare enum MessagingQOS {
     MESSAGING_QOS_AT_MOST_ONCE = 0,
@@ -116,12 +116,12 @@ export interface Collection {
     remove(query: Query, callback: CbCallback): void;
 }
 
-export declare const enum QuerySortDirections {
+export declare enum QuerySortDirections {
     QUERY_SORT_ASCENDING = 'ASC',
     QUERY_SORT_DESCENDING = 'DESC'
 }
 
-export declare const enum QueryConditions {
+export declare enum QueryConditions {
     QUERY_EQUAL = 'EQ',
     QUERY_NOTEQUAL = 'NEQ',
     QUERY_GREATERTHAN = 'GT',

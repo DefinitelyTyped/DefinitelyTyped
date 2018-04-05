@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
         "target": "ES5",
-        "moduleResolution": "node",
-        "module": "none",
+        "module": "commonjs",
         "lib": [
             "es6"
         ],
@@ -11,12 +10,8 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            ".",
-            "../",
-            "../../node_modules/"
-        ],
-        "types": ["node"],
+        "typeRoots": ["../"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
