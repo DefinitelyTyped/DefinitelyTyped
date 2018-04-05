@@ -618,8 +618,74 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): this;
-    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): this;
+    pre<T extends Document = Document>(
+      method: "init" | "validate" | "save" | "remove",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Query<any> = Query<any>>(
+      method:
+        | "count"
+        | "find"
+        | "findOne"
+        | "findOneAndRemove"
+        | "findOneAndUpdate"
+        | "update",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Aggregate<any> = Aggregate<any>>(
+      method: "aggregate",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Model<Document> = Model<Document>>(
+      method: "insertMany",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
+      method: string,
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+
+    pre<T extends Document = Document>(
+      method: "init" | "validate" | "save" | "remove",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Query<any> = Query<any>>(
+      method:
+        | "count"
+        | "find"
+        | "findOne"
+        | "findOneAndRemove"
+        | "findOneAndUpdate"
+        | "update",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Aggregate<any> = Aggregate<any>>(
+      method: "aggregate",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Model<Document> = Model<Document>>(
+      method: "insertMany",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
+      method: string,
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
 
     /**
      * Adds a method call to the queue.
@@ -679,12 +745,12 @@ declare module "mongoose" {
   }
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
-  interface HookSyncCallback {
-    (next: HookNextFunction): any;
+  interface HookSyncCallback<T> {
+    (this: T, next: HookNextFunction): Promise<any> | void;
   }
 
-  interface HookAsyncCallback {
-    (next: HookNextFunction, done: HookDoneFunction): any;
+  interface HookAsyncCallback<T> {
+    (this: T, next: HookNextFunction, done: HookDoneFunction): Promise<any> | void;
   }
 
   interface HookErrorCallback {
