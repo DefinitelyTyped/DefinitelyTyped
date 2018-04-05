@@ -1,15 +1,14 @@
+// Type definitions for clearbladejs Node SDK v1.0.0
+// Project: https://github.com/ClearBlade/Node-SDK
+// Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
+
 /// <reference types="request" />
 /// <reference types="mqtt" />
 
 import { Response, RequestCallback } from "request/index";
 import { MqttClient, PacketCallback } from "mqtt";
-
-// Type definitions for clearbladejs Node SDK v1.0.0
-// Project: https://github.com/ClearBlade/Node-SDK
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-//
-// TypeScript Version: 2.4
 
 declare enum MessagingQOS {
     MESSAGING_QOS_AT_MOST_ONCE = 0,

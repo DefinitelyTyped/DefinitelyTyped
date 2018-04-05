@@ -1,11 +1,10 @@
-/// <reference types="paho-mqtt" />
-
 // Type definitions for clearbladejs Server SDK v1.0.0
 // Project: https://docs.clearblade.com/v/3/4-developer_reference/platformsdk/ClearBlade.js/
 // Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-//
 // TypeScript Version: 2.4
+
+/// <reference types="paho-mqtt" />
 
 interface BasicReq {
     readonly isLogging: boolean;
