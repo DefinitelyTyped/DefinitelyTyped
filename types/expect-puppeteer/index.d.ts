@@ -2,7 +2,7 @@
 // Project: https://github.com/smooth-code/jest-puppeteer
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="jest" />
 
@@ -46,6 +46,7 @@ interface ExpectPuppeteer {
 
 declare global {
     namespace jest {
+        // tslint:disable-next-line no-empty-interface
         interface Matchers<R> extends ExpectPuppeteer { }
     }
 }
