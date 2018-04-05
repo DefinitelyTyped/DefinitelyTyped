@@ -1,5 +1,5 @@
 // Type definitions for expect-puppeteer 2.2
-// Project: https://github.com/smooth-code/jest-puppeteer
+// Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/expect-puppeteer
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
