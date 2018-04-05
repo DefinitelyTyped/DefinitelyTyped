@@ -1,4 +1,4 @@
-import * as AuthenticationContext from "adal-angular";
+import AuthenticationContext = require("adal-angular");
 
 const onLogin: AuthenticationContext.TokenCallback = (errorDescription, idToken, error) => {
     if (error) {
