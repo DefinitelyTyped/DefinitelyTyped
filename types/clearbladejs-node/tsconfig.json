@@ -1,0 +1,34 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "es6",
+        "moduleResolution": "Node",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "noStrictGenericChecks": false,
+        "strictNullChecks": false,
+        "strictFunctionTypes": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            ".",
+            "../",
+            "../../node_modules/"
+        ],
+        "types": ["node"],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "clearbladejs-node-tests.ts",
+        "../../node_modules/mqtt/types/index.d.ts"
+    ],
+    "exclude": [
+        "**/clearbladejs-client/*",
+        "**/clearbladejs-server/*"
+    ]
+}
