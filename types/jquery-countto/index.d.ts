@@ -35,7 +35,7 @@ export interface Options {
     /**
      * A handler that is used to format the current value before rendering to the DOM
      */
-    formatter: (value: number, options: Options) => string;
+    formatter?: (value: number, options: Options) => string;
 
     /**
      * A callback function that is triggered for every iteration that the counter updates
