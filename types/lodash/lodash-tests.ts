@@ -3535,6 +3535,7 @@ fp.now(); // $ExpectType number
     _.curry(testCurry)(_.curry.placeholder, 2, true)("1"); // $ExpectType [string, number, boolean]
     _.curry(testCurry)("1", _, true)(2); // $ExpectType [string, number, boolean]
     _.curry(testCurry)(_, 2)("1", true); // $ExpectType [string, number, boolean]
+    _.curry(testCurry)(_.curry.placeholder, 2)("1", true); // $ExpectType [string, number, boolean]
     _(testCurry).curry(); // $ExpectType LoDashImplicitWrapper<CurriedFunction3<string, number, boolean, [string, number, boolean]>>
     _.chain(testCurry).curry(); // $ExpectType LoDashExplicitWrapper<CurriedFunction3<string, number, boolean, [string, number, boolean]>>
 
@@ -3547,6 +3548,8 @@ fp.now(); // $ExpectType number
     fp.curry(testCurry)("1"); // $ExpectType CurriedFunction2<number, boolean, [string, number, boolean]>
     fp.curry(testCurry); // $ExpectType CurriedFunction3<string, number, boolean, [string, number, boolean]>
     fp.curry(testCurry)(fp.__, 2, true)("1"); // $ExpectType [string, number, boolean]
+    fp.curry(testCurry)(fp.curry.placeholder, 2, true)("1"); // $ExpectType [string, number, boolean]
+    fp.curryN(3)(testCurry)(fp.curryN.placeholder, 2, true)("1"); // $ExpectType [string, number, boolean]
 
     // _.curryRight
     _.curryRight(testCurry)("1", 2, true); // $ExpectType [string, number, boolean]
@@ -3560,6 +3563,7 @@ fp.now(); // $ExpectType number
     _.curryRight(testCurry)("1", _, true)(2); // $ExpectType [string, number, boolean]
     _.curryRight(testCurry)("1", _.curryRight.placeholder, true)(2); // $ExpectType [string, number, boolean]
     _.curryRight(testCurry)(true)("1", _)(2); // $ExpectType [string, number, boolean]
+    _.curryRight(testCurry)(true)("1", _.curryRight.placeholder)(2); // $ExpectType [string, number, boolean]
     _(testCurry).curryRight(); // $ExpectType LoDashImplicitWrapper<RightCurriedFunction3<string, number, boolean, [string, number, boolean]>>
     _.chain(testCurry).curryRight(); // $ExpectType LoDashExplicitWrapper<RightCurriedFunction3<string, number, boolean, [string, number, boolean]>>
 
@@ -3572,6 +3576,8 @@ fp.now(); // $ExpectType number
     fp.curryRight(testCurry)(true); // $ExpectType RightCurriedFunction2<string, number, [string, number, boolean]>
     fp.curryRight(testCurry); // $ExpectType RightCurriedFunction3<string, number, boolean, [string, number, boolean]>
     fp.curryRight(testCurry)("1", fp.__, true)(2); // $ExpectType [string, number, boolean]
+    fp.curryRight(testCurry)("1", fp.curryRight.placeholder, true)(2); // $ExpectType [string, number, boolean]
+    fp.curryRightN(3)(testCurry)("1", fp.curryRightN.placeholder, true)(2); // $ExpectType [string, number, boolean]
 }
 
 // _.debounce
@@ -7253,6 +7259,8 @@ _.templateSettings; // $ExpectType TemplateSettings
     fp.partial([], func0); // $ExpectType (...args: any[]) => any
     fp.partial([])(func0); // $ExpectType (...args: any[]) => any
     fp.partial([42])(func1); // $ExpectType (...args: any[]) => any
+    fp.partial([fp.partial.placeholder, "foo"])(func2);
     fp.partialRight([])(func0); // $ExpectType (...args: any[]) => any
     fp.partialRight([42])(func1); // $ExpectType (...args: any[]) => any
+    fp.partialRight([fp.partialRight.placeholder, "foo"])(func2);
 }

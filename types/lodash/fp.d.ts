@@ -304,6 +304,7 @@ declare namespace _ {
         (func: (...args: any[]) => any): LodashBind1x1;
         (func: lodash.__, thisArg: any): LodashBind1x2;
         (func: (...args: any[]) => any, thisArg: any): (...args: any[]) => any;
+        placeholder: lodash.__;
     }
     type LodashBind1x1 = (thisArg: any) => (...args: any[]) => any;
     type LodashBind1x2 = (func: (...args: any[]) => any) => (...args: any[]) => any;
@@ -318,6 +319,7 @@ declare namespace _ {
         (object: object): LodashBindKey1x1;
         (object: lodash.__, key: string): LodashBindKey1x2;
         (object: object, key: string): (...args: any[]) => any;
+        placeholder: lodash.__;
     }
     type LodashBindKey1x1 = (key: string) => (...args: any[]) => any;
     type LodashBindKey1x2 = (object: object) => (...args: any[]) => any;
@@ -569,6 +571,7 @@ declare namespace _ {
         <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R): lodash.CurriedFunction4<T1, T2, T3, T4, R>;
         <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R): lodash.CurriedFunction5<T1, T2, T3, T4, T5, R>;
         (func: (...args: any[]) => any): (...args: any[]) => any;
+        placeholder: lodash.__;
     }
     interface LodashCurryN {
         (arity: number): LodashCurryN1x1;
@@ -584,6 +587,7 @@ declare namespace _ {
         <T1, T2, T3, T4, T5, R>(arity: number, func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R): lodash.CurriedFunction5<T1, T2, T3, T4, T5, R>;
         (arity: lodash.__, func: (...args: any[]) => any): LodashCurryN6x2;
         (arity: number, func: (...args: any[]) => any): (...args: any[]) => any;
+        placeholder: lodash.__;
     }
     interface LodashCurryN1x1 {
         <T1, R>(func: (t1: T1) => R): lodash.CurriedFunction1<T1, R>;
@@ -606,6 +610,7 @@ declare namespace _ {
         <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R): lodash.RightCurriedFunction4<T1, T2, T3, T4, R>;
         <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R): lodash.RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         (func: (...args: any[]) => any): (...args: any[]) => any;
+        placeholder: lodash.__;
     }
     interface LodashCurryRightN {
         (arity: number): LodashCurryRightN1x1;
@@ -621,6 +626,7 @@ declare namespace _ {
         <T1, T2, T3, T4, T5, R>(arity: number, func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R): lodash.RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         (arity: lodash.__, func: (...args: any[]) => any): LodashCurryRightN6x2;
         (arity: number, func: (...args: any[]) => any): (...args: any[]) => any;
+        placeholder: lodash.__;
     }
     interface LodashCurryRightN1x1 {
         <T1, R>(func: (t1: T1) => R): lodash.RightCurriedFunction1<T1, R>;
@@ -3331,6 +3337,7 @@ declare namespace _ {
         (args: ReadonlyArray<any>): LodashPartial1x1;
         (args: lodash.__, func: (...args: any[]) => any): LodashPartial1x2;
         (args: ReadonlyArray<any>, func: (...args: any[]) => any): (...args: any[]) => any;
+        placeholder: lodash.__;
     }
     type LodashPartial1x1 = (func: (...args: any[]) => any) => (...args: any[]) => any;
     type LodashPartial1x2 = (args: ReadonlyArray<any>) => (...args: any[]) => any;
@@ -3338,6 +3345,7 @@ declare namespace _ {
         (args: ReadonlyArray<any>): LodashPartialRight1x1;
         (args: lodash.__, func: (...args: any[]) => any): LodashPartialRight1x2;
         (args: ReadonlyArray<any>, func: (...args: any[]) => any): (...args: any[]) => any;
+        placeholder: lodash.__;
     }
     type LodashPartialRight1x1 = (func: (...args: any[]) => any) => (...args: any[]) => any;
     type LodashPartialRight1x2 = (args: ReadonlyArray<any>) => (...args: any[]) => any;

@@ -95,7 +95,7 @@ declare module "../index" {
     // bind
 
     interface FunctionBind {
-        placeholder: any;
+        placeholder: __;
 
         (
             func: (...args: any[]) => any,
@@ -145,7 +145,7 @@ declare module "../index" {
     // bindKey
 
     interface FunctionBindKey {
-        placeholder: any;
+        placeholder: __;
 
         (
             object: object,
