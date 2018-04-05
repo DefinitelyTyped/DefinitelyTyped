@@ -60,6 +60,7 @@ myApp.config((
 
     // Add custom dialog preset
     $mdDialogProvider.addPreset('testPreset', {
+        methods: ['entityName'],
         options: () => {
             return {
                 template:
@@ -212,7 +213,7 @@ myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.
 
     // Show custom dialog preset
     $mdDialog.show(
-        $mdDialog['testPreset']()
+        $mdDialog['testPreset']().entityName('Product #6')
     );
 });
 

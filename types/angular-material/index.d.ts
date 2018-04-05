@@ -139,7 +139,7 @@ declare module 'angular' {
         }
 
         interface IDialogProvider {
-            addPreset(presetName: string, presetOptions: { options: () => IDialogOptions }): IDialogProvider;
+            addPreset(presetName: string, presetOptions: { methods?: ReadonlyArray<string>, options: () => IDialogOptions }): IDialogProvider;
         }
 
         type IIcon = (id: string) => IPromise<Element>; // id is a unique ID or URL
