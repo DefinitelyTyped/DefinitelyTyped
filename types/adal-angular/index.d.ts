@@ -19,7 +19,8 @@ declare class AuthenticationContext {
      * Enum for request type
      * @enum {string}
      */
-    REQUEST_TYPE: AuthenticationContext.RequestType
+    REQUEST_TYPE: AuthenticationContext.RequestType;
+    RESPONSE_TYPE: AuthenticationContext.ResponseType;
     CONSTANTS: AuthenticationContext.Constants;
 
     constructor(options: AuthenticationContext.Options);
@@ -191,11 +192,7 @@ declare namespace AuthenticationContext {
 
     export function inject(config: Options): AuthenticationContext;
 
-<<<<<<< HEAD
     export type LoggingLevel = 0 | 1 | 2 | 3;
-=======
-  export type LoggingLevel = 0 | 1 | 2 | 3;
->>>>>>> cbea76b638b14254183d26e5fc281a80303a5768
 
     export type RequestType = "LOGIN" | "RENEW_TOKEN" | "UNKNOWN";
 
@@ -235,7 +232,6 @@ declare namespace AuthenticationContext {
         profile: any;
     }
 
-<<<<<<< HEAD
     export type TokenCallback = (
         errorDesc: string | null,
         token: string | null,
@@ -378,150 +374,6 @@ declare namespace AuthenticationContext {
         POPUP_WIDTH: 483,
         POPUP_HEIGHT: 600
     }
-=======
-  export type TokenCallback = (
-      errorDesc: string | null,
-      token: string | null,
-      error: any
-  ) => void;
-
-  export type UserCallback = (errorDesc: string | null, user: UserInfo | null) => void;
-
-  /**
-   * Configuration options for Authentication Context
-   */
-  export interface Options {
-      /**
-       * Client ID assigned to your app by Azure Active Directory.
-       */
-      clientId: string;
-      /**
-       * Endpoint at which you expect to receive tokens.Defaults to `window.location.href`.
-       */
-      redirectUri?: string;
-      /**
-       * Azure Active Directory instance. Defaults to `https://login.microsoftonline.com/`.
-       */
-      instance?: string;
-      /**
-       * Your target tenant. Defaults to `common`.
-       */
-      tenant?: string;
-      /**
-       * Query parameters to add to the authentication request.
-       */
-      extraQueryParameter?: string;
-      /**
-       * Unique identifier used to map the request with the response. Defaults to RFC4122 version 4 guid (128 bits).
-       */
-      correlationId?: string;
-      /**
-       * User defined function of handling the navigation to Azure AD authorization endpoint in case of login.
-       */
-      displayCall?: (url: string) => void;
-      /**
-       * Set this to true to enable login in a popup winodow instead of a full redirect. Defaults to `false`.
-       */
-      popUp?: boolean;
-      /**
-       * Set this to the resource to request on login. Defaults to `clientId`.
-       */
-      loginResource?: string;
-      /**
-       * Set this to redirect the user to a custom login page.
-       */
-      localLoginUrl?: string;
-      /**
-       * Redirects to start page after login. Defaults to `true`.
-       */
-      navigateToLoginRequestUrl?: boolean;
-      /**
-       * Set this to redirect the user to a custom logout page.
-       */
-      logOutUri?: string;
-      /**
-       * Redirects the user to postLogoutRedirectUri after logout. Defaults to `redirectUri`.
-       */
-      postLogoutRedirectUri?: string;
-      /**
-       * Sets browser storage to either 'localStorage' or sessionStorage'. Defaults to `sessionStorage`.
-       */
-      cacheLocation?: "localStorage" | "sessionStorage";
-      /**
-       * Array of keywords or URIs. Adal will attach a token to outgoing requests that have these keywords or URIs.
-       */
-      endpoints?: { [resource: string]: string };
-      /**
-       * Array of keywords or URIs. Adal will not attach a token to outgoing requests that have these keywords or URIs.
-       */
-      anonymousEndpoints?: string[];
-      /**
-       * If the cached token is about to be expired in the expireOffsetSeconds (in seconds), Adal will renew the token instead of using the cached token. Defaults to 300 seconds.
-       */
-      expireOffsetSeconds?: number;
-      /**
-       * The number of milliseconds of inactivity before a token renewal response from AAD should be considered timed out. Defaults to 6 seconds.
-       */
-      loadFrameTimeout?: number;
-      /**
-       * Callback to be invoked when a token is acquired.
-       */
-      callback?: TokenCallback;
-  }
-
-  export interface LoggingConfig {
-    level: LoggingLevel;
-    log: (message: string) => void;
-    piiLoggingEnabled: boolean;
-  }
-
-  /**
-   * Enum for storage constants
-   * @enum {string}
-   */
-  export interface Constants {
-    ACCESS_TOKEN: 'access_token',
-    EXPIRES_IN: 'expires_in',
-    ID_TOKEN: 'id_token',
-    ERROR_DESCRIPTION: 'error_description',
-    SESSION_STATE: 'session_state',
-    STORAGE: {
-        TOKEN_KEYS: 'adal.token.keys',
-        ACCESS_TOKEN_KEY: 'adal.access.token.key',
-        EXPIRATION_KEY: 'adal.expiration.key',
-        STATE_LOGIN: 'adal.state.login',
-        STATE_RENEW: 'adal.state.renew',
-        NONCE_IDTOKEN: 'adal.nonce.idtoken',
-        SESSION_STATE: 'adal.session.state',
-        USERNAME: 'adal.username',
-        IDTOKEN: 'adal.idtoken',
-        ERROR: 'adal.error',
-        ERROR_DESCRIPTION: 'adal.error.description',
-        LOGIN_REQUEST: 'adal.login.request',
-        LOGIN_ERROR: 'adal.login.error',
-        RENEW_STATUS: 'adal.token.renew.status'
-    },
-    RESOURCE_DELIMETER: '|',
-    LOADFRAME_TIMEOUT: '6000',
-    TOKEN_RENEW_STATUS_CANCELED: 'Canceled',
-    TOKEN_RENEW_STATUS_COMPLETED: 'Completed',
-    TOKEN_RENEW_STATUS_IN_PROGRESS: 'In Progress',
-    LOGGING_LEVEL: {
-        ERROR: 0,
-        WARN: 1,
-        INFO: 2,
-        VERBOSE: 3
-    },
-    LEVEL_STRING_MAP: {
-        0: 'ERROR:',
-        1: 'WARNING:',
-        2: 'INFO:',
-        3: 'VERBOSE:'
-    },
-    POPUP_WIDTH: 483,
-    POPUP_HEIGHT: 600
-  }
->>>>>>> cbea76b638b14254183d26e5fc281a80303a5768
 }
 
 declare global {
