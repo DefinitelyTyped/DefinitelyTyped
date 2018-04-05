@@ -24,14 +24,14 @@ const loggerOptions: winston.LoggerOptions = {
 
 declare const options: any;
 let value: any;
-let transport: winston.TransportInstance;
+const transport: winston.TransportInstance = new winston.transports.Console();
 let logger: winston.LoggerInstance;
 let profiler: winston.ProfileHandler;
 
 declare const writeableStream: NodeJS.WritableStream;
 let readableStream: NodeJS.ReadableStream;
 
-const transportStatic: winston.TransportStatic = winston.Transport;
+const transportStatic: winston.Transport = winston.Transport;
 
 let transportInstance: winston.TransportInstance = new (winston.Transport)(transportOptions);
 transportInstance = new (winston.Transport)();
@@ -58,14 +58,6 @@ logger = winston.loggers.get('category1');
 bool = containerInstance.has(str);
 logger = containerInstance.get(str, loggerOptions);
 containerInstance.close(str);
-
-transport = winston.transports.Console;
-transport = winston.transports.DailyRotateFile;
-transport = winston.transports.File;
-transport = winston.transports.Http;
-transport = winston.transports.Loggly;
-transport = winston.transports.Memory;
-transport = winston.transports.Webhook;
 
 value = transport.formatQuery({});
 queryOptions = transport.normalizeQuery(queryOptions);
@@ -187,22 +179,6 @@ logger = new (winston.Logger)({
       debugStdout: bool,
       depth: num,
     }),
-    new (winston.transports.DailyRotateFile)({
-      level: str,
-      silent: bool,
-      json: bool,
-      colorize: bool,
-      maxsize: num,
-      maxFiles: num,
-      maxRetries: num,
-      prettyPrint: bool,
-      timestamp: stamp,
-      filename: str,
-      dirname: str,
-      datePattern: str,
-      eol: str,
-      stream: writeableStream,
-    }),
     new (winston.transports.File)({
       level: str,
       silent: bool,
@@ -231,13 +207,6 @@ logger = new (winston.Logger)({
       auth: { username: str, password: str },
       ssl: bool,
     }),
-    new (winston.transports.Loggly)({
-      level: str,
-      subdomain: str,
-      auth: {},
-      inputName: str,
-      json: bool,
-    }),
     new (winston.transports.Memory)({
       level: str,
       json: bool,
@@ -246,16 +215,6 @@ logger = new (winston.Logger)({
       depth: num,
       timestamp: stamp,
       label: str,
-    }),
-    new (winston.transports.Webhook)({
-      level: str,
-      name: str,
-      host: str,
-      port: num,
-      method: str,
-      path: str,
-      auth: { username: str, password: str },
-      ssl: {ca: {}},
     }),
   ]
 });

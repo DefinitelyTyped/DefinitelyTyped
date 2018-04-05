@@ -88,9 +88,9 @@ declare namespace winston {
     interface Winston {
         config: Config;
         transports: Transports;
-        Transport: TransportStatic;
-        Logger: LoggerStatic;
-        Container: ContainerStatic;
+        Transport: Transport;
+        Logger: Logger;
+        Container: Container;
         loggers: ContainerInstance;
         default: LoggerInstance;
 
@@ -183,7 +183,7 @@ declare namespace winston {
 
     type MetadataFilter = (level: string, msg: string, meta: any) => string | { msg: any; meta: any; };
 
-    interface LoggerStatic {
+    interface Logger {
         new (options?: LoggerOptions): LoggerInstance;
     }
 
@@ -250,7 +250,7 @@ declare namespace winston {
         [optionName: string]: any;
     }
 
-    interface TransportStatic {
+    interface Transport {
         new(options?: TransportOptions): TransportInstance;
     }
 
@@ -286,12 +286,8 @@ declare namespace winston {
         stringify?(obj: Object): string;
     }
 
-    interface ConsoleTransportStatic {
+    interface ConsoleTransport {
         new(options?: ConsoleTransportOptions): ConsoleTransportInstance;
-    }
-
-    interface DailyRotateFileTransportStatic {
-        new(options?: DailyRotateFileTransportOptions): TransportInstance;
     }
 
     interface FileTransportInstance extends TransportInstance {
@@ -315,7 +311,7 @@ declare namespace winston {
         stringify?(obj: Object): string;
     }
 
-    interface FileTransportStatic {
+    interface FileTransport {
         new(options?: FileTransportOptions): FileTransportInstance;
     }
 
@@ -329,7 +325,7 @@ declare namespace winston {
         agent?: Agent|null;
     }
 
-    interface HttpTransportStatic {
+    interface HttpTransport {
         new(options?: HttpTransportOptions): HttpTransportInstance;
     }
 
@@ -348,19 +344,11 @@ declare namespace winston {
         stringify?(obj: Object): string;
     }
 
-    interface MemoryTransportStatic {
+    interface MemoryTransport {
         new(options?: MemoryTransportOptions): MemoryTransportInstance;
     }
 
-
-    interface WebhookTransportStatic {
-        new(options?: WebhookTransportOptions): TransportInstance;
-    }
-
-    interface WinstonModuleTrasportStatic {
-        new(options?: WinstonModuleTransportOptions): TransportInstance;
-    }
-    interface ContainerStatic {
+    interface Container {
         new(options: LoggerOptions): ContainerInstance;
     }
 
@@ -373,15 +361,15 @@ declare namespace winston {
         loggers: {[key: string]: LoggerInstance};
         default: LoggerOptions;
     }
+
     interface Transports {
-        File: FileTransportInstance;
-        Console: ConsoleTransportInstance;
-        Http: HttpTransportInstance;
-        Memory: MemoryTransportInstance;
+        File: FileTransport;
+        Console: ConsoleTransport;
+        Http: HttpTransport;
+        Memory: MemoryTransport;
     }
 
-    type TransportOptions = ConsoleTransportOptions | DailyRotateFileTransportOptions | FileTransportOptions
-        | HttpTransportOptions | MemoryTransportOptions | WebhookTransportOptions | WinstonModuleTransportOptions;
+    type TransportOptions = ConsoleTransportOptions | FileTransportOptions | HttpTransportOptions | MemoryTransportOptions;
 
     interface GenericTransportOptions {
         level?: string;
@@ -423,22 +411,6 @@ declare namespace winston {
         debugStdout?: boolean;
     }
 
-    interface DailyRotateFileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
-        logstash?: boolean;
-        maxsize?: number;
-        maxFiles?: number;
-        eol?: string;
-        maxRetries?: number;
-        datePattern?: string;
-        filename?: string;
-        dirname?: string;
-        options?: {
-            flags?: string;
-            highWaterMark?: number;
-        };
-        stream?: NodeJS.WritableStream;
-    }
-
     interface FileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
         logstash?: boolean;
         maxsize?: number;
@@ -462,19 +434,6 @@ declare namespace winston {
     }
 
     interface MemoryTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
-    }
-
-    interface WebhookTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
-        method?: string;
-        ssl?: {
-            key?: any;
-            cert?: any;
-            ca: any;
-        };
-    }
-
-    interface WinstonModuleTransportOptions extends GenericTransportOptions {
-        [optionName: string]: any;
     }
 
     interface QueryOptions {
