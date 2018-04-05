@@ -1798,6 +1798,26 @@ function legend_custom() {
         });
 }
 
+function legend_tiles() {
+    const chart = c3.generate({
+        data: {
+            columns: [
+                ["sample", 30, 200, 100, 400, 150, 250]
+            ]
+        },
+        legend: {
+            // amount of padding to put between each legend element
+            padding: 5,
+            // define custom height and width for the legend item tile
+            item: {
+                tile: {
+                    width: 15,
+                    height: 2
+                }
+            }
+        }});
+}
+
 /////////////////////
 // Tooltip Tests
 /////////////////////
