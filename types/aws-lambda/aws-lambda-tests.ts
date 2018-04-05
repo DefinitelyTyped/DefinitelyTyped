@@ -572,6 +572,28 @@ const CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
     ]
 };
 
+/* Kinesis Data Stream Events */
+declare let kinesisStreamEvent: AWSLambda.KinesisStreamEvent;
+declare let kinesisStreamRecord: AWSLambda.KinesisStreamRecord;
+declare let kinesisStreamRecordPayload: AWSLambda.KinesisStreamRecordPayload;
+
+kinesisStreamRecord = kinesisStreamEvent.Records[0];
+
+str = kinesisStreamRecord.awsRegion;
+str = kinesisStreamRecord.eventID;
+str = kinesisStreamRecord.eventName;
+str = kinesisStreamRecord.eventSource;
+str = kinesisStreamRecord.eventSourceARN;
+str = kinesisStreamRecord.eventVersion;
+str = kinesisStreamRecord.invokeIdentityArn;
+kinesisStreamRecordPayload = kinesisStreamRecord.kinesis;
+
+num = kinesisStreamRecordPayload.approximateArrivalTimestamp;
+str = kinesisStreamRecordPayload.data;
+str = kinesisStreamRecordPayload.kinesisSchemaVersion;
+str = kinesisStreamRecordPayload.partitionKey;
+str = kinesisStreamRecordPayload.sequenceNumber;
+
 /* Compatibility functions */
 context.done();
 context.done(error);
@@ -661,3 +683,5 @@ let customHandler: AWSLambda.Handler<CustomEvent, CustomResult> = (event, contex
     // $ExpectError
     cb(null, { resultString: bool });
 };
+
+let kinesisStreamHandler: AWSLambda.KinesisStreamHandler = (event: AWSLambda.KinesisStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
