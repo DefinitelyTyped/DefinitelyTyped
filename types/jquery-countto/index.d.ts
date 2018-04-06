@@ -6,47 +6,47 @@
 
 /// <reference types="jquery" />
 
-export interface Options {
+export type Options = Partial<{
     /**
      * The number to start counting from
      */
-    from?: number;
+    from: number;
 
     /**
      * The number to stop counting at
      */
-    to?: number;
+    to: number;
 
     /**
      * The number of milliseconds it should take to finish counting
      */
-    speed?: number;
+    speed: number;
 
     /**
-     * he number of milliseconds to wait between refreshing the counter
+     * The number of milliseconds to wait between refreshing the counter
      */
-    refreshInterval?: number;
+    refreshInterval: number;
 
     /**
      * The number of decimal places to show when using the default formatter
      */
-    decimals?: number;
+    decimals: number;
 
     /**
      * A handler that is used to format the current value before rendering to the DOM
      */
-    formatter?: (value: number, options: Options) => string;
+    formatter: (value: number, options: Options) => string;
 
     /**
      * A callback function that is triggered for every iteration that the counter updates
      */
-    onUpdate?: (value: number) => void;
+    onUpdate: (value: number) => void;
 
     /**
      * A callback function that is triggered when counting finishes
      */
-    onComplete?: (value: number) => void;
-}
+    onComplete: (value: number) => void;
+}>;
 
 export type Method = 'start' | 'stop' | 'toggle' | 'restart';
 
