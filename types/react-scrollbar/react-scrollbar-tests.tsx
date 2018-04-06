@@ -1,4 +1,4 @@
-import ScrollArea = require('react-scrollbar');
+import ScrollArea from 'react-scrollbar';
 import * as React from 'react';
 
 let scrollArea =  <ScrollArea
