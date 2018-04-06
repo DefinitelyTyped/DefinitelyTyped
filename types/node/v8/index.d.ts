@@ -943,6 +943,7 @@ declare module "http" {
         'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
+        'authorization'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
