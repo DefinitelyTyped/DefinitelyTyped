@@ -18,7 +18,8 @@ export type BrowserName =
     "phantomjs" |
     "safari" |
     "vivaldi" |
-    "yandexbrowser";
+    "yandexbrowser" |
+    "node";
 
 export function detect(): null | {
     name: BrowserName | "node";
