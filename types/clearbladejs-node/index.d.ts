@@ -5,10 +5,9 @@
 // TypeScript Version: 2.4
 
 /// <reference types="request" />
-/// <reference types="mqtt" />
 
 import { Response, RequestCallback } from "request/index";
-import { MqttClient, PacketCallback } from "mqtt";
+//import {//PacketCallback } from "mqtt";
 
 declare enum MessagingQOS {
     MESSAGING_QOS_AT_MOST_ONCE = 0,
@@ -224,12 +223,12 @@ export interface Messaging {
     URI: string;
     systemKey: string;
     systemSecret: string;
-    client: MqttClient;
+    client: Object;
 
     getMessageHistory(topic: string, startTime: number, count: number, callback: CbCallback): void;
     publish(topic: string, payload: Object): void;
     subscribe(topic: string, options: MessagingSubscribeOptions, messageCallback: MessageCallback): void;
-    unsubscribe(topic: string, callback?: PacketCallback): void;
+    unsubscribe(topic: string, callback?: (error?: Error, packet?: Object) => any): void;
 }
 
 export interface CommonMessagingProperties {
