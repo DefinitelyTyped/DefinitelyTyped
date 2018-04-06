@@ -100,7 +100,7 @@ class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigat
         // Implicit type checks.
         const navigationStateParams: NextScreenNavigationParams | undefined = this.props.navigation.state.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
-        const name = this.props.navigation.state.params && this.props.navigation.state.params.name;
+        const name = this.props.navigation.getParam('name', 'Peter');
 
         return (
             <View />
@@ -134,7 +134,14 @@ export const AppNavigator = StackNavigator(
     },
 );
 
-const StatelessScreen: NavigationScreenComponent = () => <View />;
+interface StatelessScreenParams {
+    testID: string;
+}
+
+const StatelessScreen: NavigationScreenComponent<StatelessScreenParams> = (props) =>
+    <View testID={props.navigation.getParam('testID', 'fallback')}/>;
+
+StatelessScreen.navigationOptions = { title: 'Stateless' };
 
 const SimpleStackNavigator = StackNavigator(
     {

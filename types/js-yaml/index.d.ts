@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+export as namespace jsyaml;
+
 export type DocumentLoadResult = object | undefined;
 
 export function safeLoad(str: string, opts?: LoadOptions): DocumentLoadResult;

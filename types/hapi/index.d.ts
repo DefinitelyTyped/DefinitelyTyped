@@ -1143,7 +1143,7 @@ export interface RouteOptionsAccess {
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscache)
  */
 export type RouteOptionsCache = {
-    privacy?: 'default' | 'public' | 'privacy';
+    privacy?: 'default' | 'public' | 'private';
     statuses?: number[];
     otherwise?: string;
 } & (
@@ -2586,7 +2586,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * sets the initial value of request.app, defaults to {}.
      */
-    app: ApplicationState;
+    app?: ApplicationState;
     /**
      * sets the initial value of request.plugins, defaults to {}.
      */

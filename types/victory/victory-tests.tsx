@@ -30,7 +30,7 @@ let test = <VictoryAnimation
     onEnd={() => {}}
 >
     {(style: AnimationStyle) =>
-        <span style={{color: style["color"]}}>Hello!</span>
+        <span style={{color: style["color"] as string}}>Hello!</span>
     }
 </VictoryAnimation>
 
