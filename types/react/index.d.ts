@@ -269,14 +269,14 @@ declare namespace React {
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     // Context Api
-    type ReactContextProvider<T> = React.ComponentType<{ value: T }>;
-    type ReactContextConsumer<T> = React.ComponentType<{ children: (value: T) => React.ReactNode }>;
+    type ReactContextProvider<T> = ComponentType<{ value: T }>;
+    type ReactContextConsumer<T> = ComponentType<{ children: (value: T) => ReactNode }>;
     interface ReactContext<T> {
         Provider: ReactContextProvider<T>;
         Consumer: ReactContextConsumer<T>;
     }
     function createContext<T>(value: T): ReactContext<T>;
-                   
+
     const Children: ReactChildren;
     const Fragment: ComponentType;
     const StrictMode: ComponentType;
