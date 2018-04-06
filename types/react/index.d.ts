@@ -16,6 +16,7 @@
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
+//                 Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -267,6 +268,15 @@ declare namespace React {
         ...children: ReactNode[]): ReactElement<P>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
+
+    // Context Api
+    type ReactContextProvider<T> = ComponentType<{ value: T }>;
+    type ReactContextConsumer<T> = ComponentType<{ children: (value: T) => ReactNode }>;
+    interface ReactContext<T> {
+        Provider: ReactContextProvider<T>;
+        Consumer: ReactContextConsumer<T>;
+    }
+    function createContext<T>(value: T): ReactContext<T>;
 
     const Children: ReactChildren;
     const Fragment: ComponentType;
