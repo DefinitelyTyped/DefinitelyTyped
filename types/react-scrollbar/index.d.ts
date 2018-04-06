@@ -31,5 +31,5 @@ declare module "react-scrollbar" {
 
   class ScrollArea extends React.Component<ScrollAreaProps> {}
 
-  export = ScrollArea;
+  export default ScrollArea;
 }
