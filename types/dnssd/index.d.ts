@@ -15,7 +15,6 @@ export class Advertisement {
     stop(forceImmediate: any, callback: any): void;
 
     updateTXT(txtObj: any): void;
-
 }
 
 export class Browser {
@@ -26,7 +25,6 @@ export class Browser {
     start(): any;
 
     stop(): any;
-
 }
 
 export class ServiceType {
@@ -39,7 +37,6 @@ export class ServiceType {
     static tcp(...args: any[]): any;
 
     static udp(...args: any[]): any;
-
 }
 
 export const resolveA: any;
@@ -59,4 +56,3 @@ export function resolveTXT(name: any, opts: any): any;
 export function tcp(...args: any[]): any;
 
 export function udp(...args: any[]): any;
-
