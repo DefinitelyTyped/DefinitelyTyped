@@ -4804,10 +4804,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten<T>(style?: RegisteredStyle<T>): T;
-    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
-    export function flatten(style?: StyleProp<TextStyle>): TextStyle;
-    export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
+    export function flatten<T>(style?: StyleProp<T>): T;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
