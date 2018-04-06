@@ -8,6 +8,7 @@
 //                 Mariano Cortesi <https://github.com/mcortesi>
 //                 Enrico Picci <https://github.com/EnricoPicci>
 //                 Alexander Christie <https://github.com/AJCStriker>
+//                 Julien Chaumond <https://github.com/julien-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -465,8 +466,8 @@ export interface Collection<TSchema = Default> {
     // Get current index hint for collection.
     hint: any;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#aggregate */
-    aggregate<T = TSchema>(pipeline: Object[], callback: MongoCallback<T[]>): AggregationCursor<T>;
-    aggregate<T = TSchema>(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<T[]>): AggregationCursor<T>;
+    aggregate<T = TSchema>(pipeline: Object[], callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
+    aggregate<T = TSchema>(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>;
