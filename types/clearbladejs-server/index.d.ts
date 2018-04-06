@@ -1,6 +1,6 @@
-// Type definitions for clearbladejs Server SDK v1.0.0
+// Type definitions for clearbladejs-server 1.0
 // Project: https://docs.clearblade.com/v/3/4-developer_reference/platformsdk/ClearBlade.js/
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
+// Definitions by: Jim Bouquet <https://github.com/ClearBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -24,14 +24,14 @@ interface Resp {
     success(msg: any): never;
 }
 declare var resp: Resp;
- 
+
 declare enum MessagingQOS {
     MESSAGING_QOS_AT_MOST_ONCE = 0,
     MESSAGING_QOS_AT_LEAST_ONCE = 1,
     MESSAGING_QOS_EXACTLY_ONCE = 2
 }
 
-interface InitOptions { 
+interface InitOptions {
     systemKey: string;
     systemSecret: string;
     logging?: boolean;
@@ -49,7 +49,7 @@ interface InitOptions {
     callTimeout?: number;
 }
 
-interface APIUser { 
+interface APIUser {
     email: string;
     authToken: string;
     user_id?: string;
@@ -59,9 +59,7 @@ interface KeyValuePair {
     [key: string]: any;
 }
 
-interface CbCallback {
-    (error: boolean, response: Resp): void
-} 
+type CbCallback = (error: boolean, response: Resp) => void;
 
 interface ClearBladeGlobal extends ClearBladeInt {
     user: APIUser;
@@ -76,18 +74,18 @@ interface ClearBladeInt {
     addFilterToQuery(queryObj: QueryObj, condition: QueryConditions, key: string, value: QueryValue): void;
     addSortToQuery(queryObj: QueryObj, direction: QuerySortDirections, column: string): void;
     Code(): Code;
-    Collection(options: string | CollectionOptionsWithName | CollectionOptionsWithID | CollectionOptionsWithCollection) :Collection;
+    Collection(options: string | CollectionOptionsWithName | CollectionOptionsWithID | CollectionOptionsWithCollection): Collection;
     Deployment(): Deployment;
     Device(): Device;
     edgeId(): string;
-    execute(error: Object, response: Object, callback: CbCallback): any;
+    execute(error: object, response: object, callback: CbCallback): any;
     getAllCollections(callback: CbCallback): void;
-    http(): Object;
+    http(): object;
     init(options: InitOptions | {request: BasicReq}): void;
     isEdge(callback: CbCallback): boolean;
     isCurrentUserAuthenticated(callback: CbCallback): void;
-    isObjectEmpty(obj: Object): boolean;
-    Item(data: Object, options: string | ItemOptions): Item;
+    isObjectEmpty(obj: object): boolean;
+    Item(data: object, options: string | ItemOptions): Item;
     logger(message: string): void;
     loginAnon(callback: CbCallback): void;
     loginUser(email: string, password: string, callback: CbCallback): void;
@@ -107,18 +105,18 @@ interface ClearBladeInt {
     updateDevice(name: string, data: object, causeTrigger: boolean, callback: CbCallback): void;
     getDeviceByName(name: string, callback: CbCallback): void;
     getAllDevicesForSystem(callback: CbCallback): void;
-    validateEmailPassword(email: string, password:string): void;
+    validateEmailPassword(email: string, password: string): void;
 }
 
-interface CollectionOptionsWithCollection { 
+interface CollectionOptionsWithCollection {
     collection: string;
 }
 
-interface CollectionOptionsWithName { 
+interface CollectionOptionsWithName {
     collectionName: string;
 }
 
-interface CollectionOptionsWithID { 
+interface CollectionOptionsWithID {
     collectionID: string;
 }
 
@@ -128,12 +126,12 @@ interface Collection {
     systemKey: string;
     systemSecret: string;
 
-    addColumn(options: Object, callback: CbCallback): void;
+    addColumn(options: object, callback: CbCallback): void;
     dropColumn(name: string, callback: CbCallback): void;
     deleteCollection(callback: CbCallback): void;
     fetch(query: Query, callback: CbCallback): void;
     create(newItem: Item, callback: CbCallback): void;
-    update(query: Query, changes: Object, callback: CbCallback): void;
+    update(query: Query, changes: object, callback: CbCallback): void;
     remove(query: Query, callback: CbCallback): void;
     columns(callback: CbCallback): void;
     count(query: Query, callback: CbCallback): void;
@@ -156,14 +154,16 @@ declare enum QueryConditions {
 
 type QueryValue = string|number|boolean;
 
-interface QueryOptions { 
+interface QueryOptions {
     offset?: number;
     limit?: number;
 }
 
-interface QueryOptionsWithCollection extends CollectionOptionsWithCollection, QueryOptions{}
-interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOptions{}
-interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions{}
+interface QueryOptionsWithCollection extends CollectionOptionsWithCollection, QueryOptions {}
+
+interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOptions {}
+
+interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions {}
 
 interface Query {
     SELECTCOLUMNS?: string[];
@@ -174,11 +174,11 @@ interface Query {
 }
 
 interface QueryFilter {
-    [QueryConditions: string]: QueryFilterValue
+    [QueryConditions: string]: QueryFilterValue;
 }
 
 interface QueryFilterValue {
-    [name: string]: QueryValue
+    [name: string]: QueryValue;
 }
 
 interface QueryObj {
@@ -204,15 +204,15 @@ interface QueryObj {
     or(query: QueryObj): void;
     setPage(pageSize: number, pageNum: number): void;
     fetch(callback: CbCallback): void;
-    update(changes: Object, callback: CbCallback): void;
+    update(changes: object, callback: CbCallback): void;
     columns(columnsArray: string[]): void;
     remove(callback: CbCallback): void;
 }
 
-interface ItemOptions extends CollectionOptionsWithID{}
+interface ItemOptions extends CollectionOptionsWithID {}
 
 interface Item {
-    data: Object;
+    data: object;
 
     save(): void;
     refresh(): void;
@@ -224,11 +224,11 @@ interface Code {
     systemKey: string;
     systemSecret: string;
 
-    execute(name: string, params: Object, loggingEnabled: boolean, callback: CbCallback): void;
+    execute(name: string, params: object, loggingEnabled: boolean, callback: CbCallback): void;
     getAllServices(callback: CbCallback): void;
 }
 
-interface DeploymentOptions{}
+interface DeploymentOptions {}
 
 interface Deployment {
     user: APIUser;
@@ -249,8 +249,8 @@ interface AppUser {
     systemSecret: string;
 
     getUser(callback: CbCallback): void;
-    setUser(data: Object, callback: CbCallback): void;
-    setUsers(query: QueryObj, data: Object, callback: CbCallback): void;
+    setUser(data: object, callback: CbCallback): void;
+    setUsers(query: QueryObj, data: object, callback: CbCallback): void;
     allUsers(query: QueryObj, callback: CbCallback): void;
     count(query: QueryObj, callback: CbCallback): void;
 }
@@ -275,9 +275,9 @@ interface Device {
     systemSecret: string;
 
     fetch(query: Query, callback: CbCallback): void;
-    update(query: Query, changes: Object, callback: CbCallback): void;
+    update(query: Query, changes: object, callback: CbCallback): void;
     delete(query: Query, callback: CbCallback): void;
-    create(newDevice: Object, callback: CbCallback): void;
+    create(newDevice: object, callback: CbCallback): void;
 }
 
 declare enum TriggerModule {
@@ -320,7 +320,7 @@ interface TriggerInstance {
     name: string;
     systemKey: string;
 
-    Update(options: Object, callback: CbCallback): void;
+    Update(options: object, callback: CbCallback): void;
     Delete(callback: CbCallback): void;
 }
 
@@ -328,7 +328,7 @@ interface TimerInstance {
     name: string;
     systemKey: string;
 
-    Update(options: Object, callback: CbCallback): void;
+    Update(options: object, callback: CbCallback): void;
     Delete(callback: CbCallback): void;
 }
 

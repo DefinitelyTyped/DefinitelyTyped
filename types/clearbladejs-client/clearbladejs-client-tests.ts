@@ -1,12 +1,12 @@
-// Testing type definitions for clearbladejs Client SDK v1.0.0
+// Testing type definitions for clearbladejs-client 1.0
 // Project: https://github.com/ClearBlade/JavaScript-API
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
+// Definitions by: Jim Bouquet <https://github.com/ClearBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-var genericCallback = function(error: boolean, response: Resp) {};
+let genericCallback = (error: boolean, response: Resp) => {};
 
 ///////////////////////////////////////
-//ClearBlade object API invocations
+// ClearBlade object API invocations
 ///////////////////////////////////////
 ClearBlade.init({
     systemKey: "abcdef",
@@ -24,34 +24,34 @@ ClearBlade.loginUserMqtt("test@test.com", "password", genericCallback);
 ClearBlade.sendPush(["user1", "user2"], {data: "Test"}, "appId: string", genericCallback);
 ClearBlade.getAllCollections(genericCallback);
 
-var coll1 = ClearBlade.Collection("collectionID");
-var coll2 = ClearBlade.Collection({ collectionName: "collectionName" });
-var coll3 = ClearBlade.Collection({ collectionID: "collectionID" });
+let coll1 = ClearBlade.Collection("collectionID");
+let coll2 = ClearBlade.Collection({ collectionName: "collectionName" });
+let coll3 = ClearBlade.Collection({ collectionID: "collectionID" });
 
-var query1 = ClearBlade.Query("collectionID");
-var query2 = ClearBlade.Query({ offset: 5, limit: 5, collectionID: "collectionID" });
-var query3 = ClearBlade.Query({ collectionName: "collectionName" });
+let query1 = ClearBlade.Query("collectionID");
+let query2 = ClearBlade.Query({ offset: 5, limit: 5, collectionID: "collectionID" });
+let query3 = ClearBlade.Query({ collectionName: "collectionName" });
 
-var item1 = ClearBlade.Item({}, "collectionID");
-var item2 = ClearBlade.Item({}, { collectionID: "collectionID" });
+let item1 = ClearBlade.Item({}, "collectionID");
+let item2 = ClearBlade.Item({}, { collectionID: "collectionID" });
 
-var code = ClearBlade.Code();
-var user = ClearBlade.User();
+let code = ClearBlade.Code();
+let user = ClearBlade.User();
 
-var messaging = ClearBlade.Messaging({}, genericCallback);
-var stats = ClearBlade.MessagingStats();
+let messaging = ClearBlade.Messaging({}, genericCallback);
+let stats = ClearBlade.MessagingStats();
 
-var edge = ClearBlade.Edge();
-var metrics = ClearBlade.Metrics();
-var device = ClearBlade.Device();
-var analytics = ClearBlade.Analytics();
-var portal = ClearBlade.Portal("MyPortal");
-var triggers = ClearBlade.Triggers();
+let edge = ClearBlade.Edge();
+let metrics = ClearBlade.Metrics();
+let device = ClearBlade.Device();
+let analytics = ClearBlade.Analytics();
+let portal = ClearBlade.Portal("MyPortal");
+let triggers = ClearBlade.Triggers();
 
 ClearBlade.getEdges(query1.query, genericCallback);
 
 ///////////////////////////////////////
-//Collection API invocations
+// Collection API invocations
 ///////////////////////////////////////
 coll1.fetch(query1.query, genericCallback);
 coll1.create(ClearBlade.Item({}, ""), genericCallback);
@@ -61,7 +61,7 @@ coll1.columns(genericCallback);
 coll1.count(query1.query, genericCallback);
 
 ///////////////////////////////////////
-//Query API invocations
+// Query API invocations
 ///////////////////////////////////////
 query1.addSortToQuery(
     query1,
@@ -91,14 +91,14 @@ query1.columns([]);
 query1.remove(genericCallback);
 
 ///////////////////////////////////////
-//Item API invocations
+// Item API invocations
 ///////////////////////////////////////
 item1.save(genericCallback);
 item1.refresh(genericCallback);
 item1.destroy(genericCallback);
 
 ///////////////////////////////////////
-//Code API invocations
+// Code API invocations
 ///////////////////////////////////////
 code.create("codeName", "body: string", genericCallback);
 code.update("codeName", "body: string", genericCallback);
@@ -109,7 +109,7 @@ code.getFailedServices(genericCallback);
 code.getAllServices(genericCallback);
 
 ///////////////////////////////////////
-//User API invocations
+// User API invocations
 ///////////////////////////////////////
 user.getUser(genericCallback);
 user.setUser({}, genericCallback);
@@ -118,7 +118,7 @@ user.setPassword("old_password", "new_password", genericCallback);
 user.count(query1.query, genericCallback);
 
 ///////////////////////////////////////
-//Messaging API invocations
+// Messaging API invocations
 ///////////////////////////////////////
 messaging.getMessageHistoryWithTimeFrame("topic", 5, 10, 15, 20, genericCallback);
 messaging.getMessageHistory("topic", 5, 15, genericCallback);
@@ -126,20 +126,20 @@ messaging.getAndDeleteMessageHistory("topic", 5, 10, 1, 20, genericCallback);
 messaging.currentTopics(genericCallback);
 messaging.publish("topic", {});
 messaging.publishREST("topic", { payload: Object }, genericCallback);
-var mcb = function(message: string) {};
+let mcb = (message: string) => {};
 messaging.subscribe("topic", {}, mcb);
 messaging.unsubscribe("topic", {});
 messaging.disconnect();
 
 ///////////////////////////////////////
-//MessagingStats API invocations
+// MessagingStats API invocations
 ///////////////////////////////////////
 stats.getAveragePayloadSize("topic: string", 5, 5, genericCallback);
 stats.getOpenConnections(genericCallback);
 stats.getCurrentSubscribers("topic: string", genericCallback);
 
 ///////////////////////////////////////
-//Edge API invocations
+// Edge API invocations
 ///////////////////////////////////////
 edge.updateEdgeByName("edgename", {changedColumn: "New value"}, genericCallback);
 edge.deleteEdgeByName("edgename", genericCallback);
@@ -148,7 +148,7 @@ edge.columns(genericCallback);
 edge.count(query1.query, genericCallback);
 
 ///////////////////////////////////////
-//Metrics API invocations
+// Metrics API invocations
 ///////////////////////////////////////
 metrics.setQuery(query1.query);
 metrics.getStatistics(genericCallback);
@@ -157,7 +157,7 @@ metrics.getDBConnections(genericCallback);
 metrics.getLogs(genericCallback);
 
 ///////////////////////////////////////
-//Device API invocations
+// Device API invocations
 ///////////////////////////////////////
 device.getDeviceByName("devicename", genericCallback);
 device.updateDeviceByName("devicename", { object: Object }, true, genericCallback);
@@ -170,7 +170,7 @@ device.columns(genericCallback);
 device.count(query1.query, genericCallback);
 
 ///////////////////////////////////////
-//Analytics API invocations
+// Analytics API invocations
 ///////////////////////////////////////
 analytics.getStorage({}, genericCallback);
 analytics.getCount({}, genericCallback);
@@ -179,13 +179,13 @@ analytics.getEventTotals({}, genericCallback);
 analytics.getUserEvents({}, genericCallback);
 
 ///////////////////////////////////////
-//Portal API invocations
+// Portal API invocations
 ///////////////////////////////////////
 portal.fetch(genericCallback);
 portal.update({data: Object}, genericCallback);
 
 ///////////////////////////////////////
-//Triggers API invocations
+// Triggers API invocations
 ///////////////////////////////////////
 triggers.fetchDefinitions(genericCallback);
 triggers.create("triggername", {data: Object}, genericCallback);

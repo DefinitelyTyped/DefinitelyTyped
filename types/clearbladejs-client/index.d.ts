@@ -1,6 +1,6 @@
-// Type definitions for clearbladejs Client SDK v1.0.0
+// Type definitions for clearbladejs-client 1.0
 // Project: https://github.com/ClearBlade/JavaScript-API
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
+// Definitions by: Jim Bouquet <https://github.com/ClearBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -52,9 +52,7 @@ interface APIUser {
     authToken: string;
 }
 
-interface CbCallback {
-    (error: boolean, response: Resp): void;
-}
+type CbCallback = (error: boolean, response: Resp) => void;
 
 interface ClearBladeGlobal extends ClearBladeInt {
     MESSAGING_QOS_AT_MOST_ONCE: MessagingQOS.MESSAGING_QOS_AT_MOST_ONCE;
@@ -87,14 +85,14 @@ interface ClearBladeInt {
     Query(
         options: string | QueryOptionsWithName | QueryOptionsWithID
     ): QueryObj;
-    Item(data: Object, collectionID: string | ItemOptions): Item;
+    Item(data: object, collectionID: string | ItemOptions): Item;
     Code(): Code;
     User(): AppUser;
     Messaging(options: MessagingOptions, callback: CbCallback): Messaging;
     MessagingStats(): MessagingStats;
     sendPush(
         users: string[],
-        payload: Object,
+        payload: object,
         appId: string,
         callback: CbCallback
     ): void;
@@ -127,7 +125,7 @@ interface Collection {
 
     fetch(query: Query, callback: CbCallback): void;
     create(newItem: Item, callback: CbCallback): void;
-    update(query: Query, changes: Object, callback: CbCallback): void;
+    update(query: Query, changes: object, callback: CbCallback): void;
     remove(query: Query, callback: CbCallback): void;
     columns(callback: CbCallback): void;
     count(query: Query, callback: CbCallback): void;
@@ -210,7 +208,7 @@ interface QueryObj {
     or(query: QueryObj): void;
     setPage(pageSize: number, pageNum: number): void;
     fetch(callback: CbCallback): void;
-    update(changes: Object, callback: CbCallback): void;
+    update(changes: object, callback: CbCallback): void;
     columns(columnsArray: string[]): void;
     remove(callback: CbCallback): void;
 }
@@ -218,7 +216,7 @@ interface QueryObj {
 interface ItemOptions extends CollectionOptionsWithID {}
 
 interface Item {
-    data: Object;
+    data: object;
 
     save(callback: CbCallback): void;
     refresh(callback: CbCallback): void;
@@ -235,7 +233,7 @@ interface Code {
     create(name: string, body: string, callback: CbCallback): void;
     update(name: string, body: string, callback: CbCallback): void;
     delete(name: string, callback: CbCallback): void;
-    execute(name: string, params: Object, callback: CbCallback): void;
+    execute(name: string, params: object, callback: CbCallback): void;
     getCompletedServices(callback: CbCallback): void;
     getFailedServices(callback: CbCallback): void;
     getAllServices(callback: CbCallback): void;
@@ -250,7 +248,7 @@ interface AppUser {
     callTimeout: number;
 
     getUser(callback: CbCallback): void;
-    setUser(data: Object, callback: CbCallback): void;
+    setUser(data: object, callback: CbCallback): void;
     allUsers(query: Query, callback: CbCallback): void;
     setPassword(
         old_password: string,
@@ -292,8 +290,8 @@ interface Messaging {
         callback: CbCallback
     ): void;
     currentTopics(callback: CbCallback): void;
-    publish(topic: string, payload: Object): void;
-    publishREST(topic: string, payload: Object, callback: CbCallback): void;
+    publish(topic: string, payload: object): void;
+    publishREST(topic: string, payload: object, callback: CbCallback): void;
     subscribe(
         topic: string,
         options: MessagingSubscribeOptions,
@@ -321,13 +319,11 @@ interface MessagingConfiguration extends CommonMessagingProperties {
     password: string;
 }
 
-interface MessageCallback {
-    (message: string): void;
-}
+type MessageCallback = (message: string) => void;
 
 interface MessagingSubscribeOptions {
     qos?: MessagingQOS;
-    invocationContext?: Object;
+    invocationContext?: object;
     onSuccess?: Function;
     onFailure?: Function;
     timeout?: number;
@@ -355,9 +351,9 @@ interface Edge {
     systemKey: string;
     systemSecret: string;
 
-    updateEdgeByName(name: string, object: Object, callback: CbCallback): void;
+    updateEdgeByName(name: string, object: object, callback: CbCallback): void;
     deleteEdgeByName(name: string, callback: CbCallback): void;
-    create(newEdge: Object, name: string, callback: CbCallback): void;
+    create(newEdge: object, name: string, callback: CbCallback): void;
     columns(callback: CbCallback): void;
     count(query: Query, callback: CbCallback): void;
 }
@@ -383,7 +379,7 @@ interface Device {
     getDeviceByName(name: string, callback: CbCallback): void;
     updateDeviceByName(
         name: string,
-        object: Object,
+        object: object,
         trigger: boolean,
         callback: CbCallback
     ): void;
@@ -391,12 +387,12 @@ interface Device {
     fetch(query: Query, callback: CbCallback): void;
     update(
         query: Query,
-        object: Object,
+        object: object,
         trigger: boolean,
         callback: CbCallback
     ): void;
     delete(query: Query, callback: CbCallback): void;
-    create(newDevice: Object, callback: CbCallback): void;
+    create(newDevice: object, callback: CbCallback): void;
     columns(callback: CbCallback): void;
     count(query: Query, callback: CbCallback): void;
 }
@@ -422,7 +418,7 @@ interface Portal {
     systemSecret: string;
 
     fetch(callback: CbCallback): void;
-    update(data: Object, callback: CbCallback): void;
+    update(data: object, callback: CbCallback): void;
 }
 
 interface Triggers {
@@ -432,8 +428,8 @@ interface Triggers {
     systemSecret: string;
 
     fetchDefinitions(callback: CbCallback): void;
-    create(name: string, data: Object, callback: CbCallback): void;
-    update(name: string, data: Object, callback: CbCallback): void;
+    create(name: string, data: object, callback: CbCallback): void;
+    update(name: string, data: object, callback: CbCallback): void;
     delete(name: string, callback: CbCallback): void;
 }
 

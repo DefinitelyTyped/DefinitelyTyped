@@ -1,26 +1,26 @@
-// Type definitions for clearbladejs Node SDK v1.0.0
+// Type definitions for clearbladejs-node 1.0
 // Project: https://github.com/ClearBlade/Node-SDK
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade/>
+// Definitions by: Jim Bouquet <https://github.com/ClearBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="request" />
 
 import { Response, RequestCallback } from "request/index";
-//import {//PacketCallback } from "mqtt";
+// import {//PacketCallback } from "mqtt";
 
-declare enum MessagingQOS {
+export enum MessagingQOS {
     MESSAGING_QOS_AT_MOST_ONCE = 0,
     MESSAGING_QOS_AT_LEAST_ONCE = 1,
     MESSAGING_QOS_EXACTLY_ONCE = 2
 }
 
 export interface Resp {
-    error(msg: any): never; // todo: figure out if we can have the compiler throw an error if someone adds code after this
+    error(msg: any): never;
     success(msg: any): never;
 }
 
-export interface InitOptions { 
+export interface InitOptions {
     systemKey: string;
     systemSecret: string;
     logging?: boolean;
@@ -49,7 +49,7 @@ export interface RequestOptions {
     user?: APIUser;
 }
 
-export interface APIUser { 
+export interface APIUser {
     email: string;
     authToken: string;
 }
@@ -58,9 +58,7 @@ export interface KeyValuePair {
     [key: string]: any;
 }
 
-export interface CbCallback {
-    (error: boolean, response: Resp): void
-} 
+export type CbCallback = (error: boolean, response: Resp) => void;
 
 export default interface ClearBladeGlobal extends ClearBladeInt {
     isCurrentUserAuthenticated(callback: CbCallback): void;
@@ -70,12 +68,12 @@ export interface ClearBladeInt {
     addToQuery(queryObj: QueryObj, key: string, value: string): void;
     addFilterToQuery(queryObj: QueryObj, condition: QueryConditions, key: string, value: QueryValue): void;
     addSortToQuery(queryObj: QueryObj, direction: QuerySortDirections, column: string): void;
-    Code() :Code;
-    Collection(options: string | CollectionOptionsWithName | CollectionOptionsWithID) :Collection;
-    execute(error: Object, response: Object, callback: CbCallback): void;
+    Code(): Code;
+    Collection(options: string | CollectionOptionsWithName | CollectionOptionsWithID): Collection;
+    execute(error: object, response: object, callback: CbCallback): void;
     init(options: InitOptions): void;
-    isObjectEmpty(obj: Object): boolean;
-    Item(data: Object, options: string | ItemOptions) :Item;
+    isObjectEmpty(obj: object): boolean;
+    Item(data: object, options: string | ItemOptions): Item;
     logger(message: string): void;
     loginAnon(callback: CbCallback): void;
     loginUser(email: string, password: string, callback: CbCallback): void;
@@ -83,21 +81,21 @@ export interface ClearBladeInt {
     makeKVPair(key: string, value: string): KeyValuePair;
     parseOperationQuery(query: Query): string;
     parseQuery(query: Query | QueryObj): string;
-    Query(options: string | QueryOptionsWithCollection | QueryOptionsWithName | QueryOptionsWithID) :QueryObj;
+    Query(options: string | QueryOptionsWithCollection | QueryOptionsWithName | QueryOptionsWithID): QueryObj;
     registerUser(email: string, password: string, callback: CbCallback): void;
     request(options: RequestOptions, callback: RequestCallback): void;
     setUser(email: string, password: string): void;
-    User() :AppUser;
-    Messaging(options: MessagingOptions, callback: CbCallback) :Messaging;
-    sendPush(users: string[], payload: Object, appId: string, callback: CbCallback): void;
-    validateEmailPassword(email: string, password:string): void;
+    User(): AppUser;
+    Messaging(options: MessagingOptions, callback: CbCallback): Messaging;
+    sendPush(users: string[], payload: object, appId: string, callback: CbCallback): void;
+    validateEmailPassword(email: string, password: string): void;
 }
 
-export interface CollectionOptionsWithName { 
+export interface CollectionOptionsWithName {
     collectionName: string;
 }
 
-export interface CollectionOptionsWithID { 
+export interface CollectionOptionsWithID {
     collectionID: string;
 }
 
@@ -110,16 +108,16 @@ export interface Collection {
 
     fetch(query: QueryObj, callback: CbCallback): void;
     create(newItem: Item, callback: CbCallback): void;
-    update(query: Query, changes: Object, callback: CbCallback): void;
+    update(query: Query, changes: object, callback: CbCallback): void;
     remove(query: Query, callback: CbCallback): void;
 }
 
-export declare enum QuerySortDirections {
+export enum QuerySortDirections {
     QUERY_SORT_ASCENDING = 'ASC',
     QUERY_SORT_DESCENDING = 'DESC'
 }
 
-export declare enum QueryConditions {
+export enum QueryConditions {
     QUERY_EQUAL = 'EQ',
     QUERY_NOTEQUAL = 'NEQ',
     QUERY_GREATERTHAN = 'GT',
@@ -131,17 +129,18 @@ export declare enum QueryConditions {
 
 export type QueryValue = string|number|boolean;
 
-export interface QueryOptions { 
+export interface QueryOptions {
     offset?: number;
     limit?: number;
 }
 
-export interface QueryOptionsWithCollection extends QueryOptions{
+export interface QueryOptionsWithCollection extends QueryOptions {
     collection: string;
 }
 
-export interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOptions{}
-export interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions{}
+export interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOptions {}
+
+export interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions {}
 
 export interface Query {
     SELECTCOLUMNS?: string[];
@@ -152,11 +151,11 @@ export interface Query {
 }
 
 export interface QueryFilter {
-    [QueryConditions: string]: QueryFilterValue
+    [QueryConditions: string]: QueryFilterValue;
 }
 
 export interface QueryFilterValue {
-    [name: string]: QueryValue
+    [name: string]: QueryValue;
 }
 
 export interface QueryObj {
@@ -182,14 +181,14 @@ export interface QueryObj {
     or(query: QueryObj): Query;
     setPage(pageSize: number, pageNum: number): Query;
     fetch(callback: CbCallback): void;
-    update(changes: Object, callback: CbCallback): void;
+    update(changes: object, callback: CbCallback): void;
     remove(callback: CbCallback): void;
 }
 
-export interface ItemOptions extends CollectionOptionsWithID{}
+export interface ItemOptions extends CollectionOptionsWithID {}
 
 export interface Item {
-    data: Object;
+    data: object;
 
     save(): void;
     refresh(): void;
@@ -204,7 +203,7 @@ export interface Code {
     callTimeout: number;
     URIPrefix: string;
 
-    execute(name: string, params: Object, callback: CbCallback): void;
+    execute(name: string, params: object, callback: CbCallback): void;
 }
 
 export interface AppUser {
@@ -214,7 +213,7 @@ export interface AppUser {
     systemSecret: string;
 
     getUser(callback: CbCallback): void;
-    setUser(data: Object, callback: CbCallback): void;
+    setUser(data: object, callback: CbCallback): void;
     allUsers(query: Query, callback: CbCallback): void;
 }
 
@@ -223,12 +222,12 @@ export interface Messaging {
     URI: string;
     systemKey: string;
     systemSecret: string;
-    client: Object;
+    client: object;
 
     getMessageHistory(topic: string, startTime: number, count: number, callback: CbCallback): void;
-    publish(topic: string, payload: Object): void;
+    publish(topic: string, payload: object): void;
     subscribe(topic: string, options: MessagingSubscribeOptions, messageCallback: MessageCallback): void;
-    unsubscribe(topic: string, callback?: (error?: Error, packet?: Object) => any): void;
+    unsubscribe(topic: string, callback?: (error?: Error, packet?: object) => any): void;
 }
 
 export interface CommonMessagingProperties {
@@ -237,7 +236,7 @@ export interface CommonMessagingProperties {
 }
 
 export interface MessagingOptions extends CommonMessagingProperties {
-    qos?: MessagingQOS
+    qos?: MessagingQOS;
 }
 
 export interface MessagingSubscribeOptions {
@@ -245,10 +244,6 @@ export interface MessagingSubscribeOptions {
     timeout?: number;
 }
 
-export interface MessageCallback {
-    (message: string): void;
-}
+export type MessageCallback = (message: string) => void;
 
-declare var ClearBlade: ClearBladeGlobal;
-
-export {ClearBlade};
+export let ClearBlade: ClearBladeGlobal;
