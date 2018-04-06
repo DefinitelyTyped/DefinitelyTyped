@@ -5,7 +5,7 @@
 // TypeScript Version: 2.6
 
 import { Component } from 'react';
-import flatpickr from 'flatpickr';
+import flatpickr = require('flatpickr');
 
 export interface DateTimePickerProps {
     defaultValue?: string;

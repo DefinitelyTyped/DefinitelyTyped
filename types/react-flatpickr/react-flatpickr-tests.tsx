@@ -1,4 +1,4 @@
-import flatpickr from 'flatpickr';
+import flatpickr = require('flatpickr');
 import * as React from 'react';
 import DatePicker from 'react-flatpickr';
 
