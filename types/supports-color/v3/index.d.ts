@@ -1,9 +1,9 @@
-// Type definitions for supports-color 3.1.2
+// Type definitions for supports-color 3.1
 // Project: https://github.com/chalk/supports-color
 // Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface SupportsColor {
+export interface SupportsColor {
     level: number;
     hasBasic: boolean;
     has256: boolean;
