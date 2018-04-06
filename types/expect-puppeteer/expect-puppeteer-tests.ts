@@ -10,6 +10,9 @@ const testGlobal = async (instance: ElementHandle | Page) => {
     await expect(instance).toFill("selector", "value");
     await expect(instance).toFill("selector", "value", { polling: 777 });
 
+    await expect(instance).toMatch("selector");
+    await expect(instance).toMatch("selector", { timeout: 777 });
+
     await expect(instance).toMatchElement("selector", "value");
     await expect(instance).toMatchElement("selector", "value", { polling: "mutation" });
 

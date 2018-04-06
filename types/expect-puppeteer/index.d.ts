@@ -36,9 +36,12 @@ interface ExpectToClickOptions extends ExpectTimingActions {
 }
 
 interface ExpectPuppeteer {
+    // These must all match the ExpectPuppeteer interface above.
+    // We can't extend from it directly because some method names conflict in type-incompatible ways.
     toClick(selector: string, options?: ExpectToClickOptions): Promise<void>;
     toDisplayDialog(block: () => Promise<void>): Promise<void>;
     toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
+    toMatch(selector: string, options?: ExpectTimingActions): Promise<void>;
     toMatchElement(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
     toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
     toUploadFile(selector: string, filePath: string, options?: ExpectTimingActions): Promise<void>;
@@ -47,7 +50,17 @@ interface ExpectPuppeteer {
 declare global {
     namespace jest {
         // tslint:disable-next-line no-empty-interface
-        interface Matchers<R> extends ExpectPuppeteer { }
+        interface Matchers<R> {
+            // These must all match the ExpectPuppeteer interface above.
+            // We can't extend from it directly because some method names conflict in type-incompatible ways.
+            toClick(selector: string, options?: ExpectToClickOptions): Promise<void>;
+            toDisplayDialog(block: () => Promise<void>): Promise<void>;
+            toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
+            toMatch(selector: string, options?: ExpectTimingActions): Promise<void>;
+            toMatchElement(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
+            toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
+            toUploadFile(selector: string, filePath: string, options?: ExpectTimingActions): Promise<void>;
+        }
     }
 }
 
