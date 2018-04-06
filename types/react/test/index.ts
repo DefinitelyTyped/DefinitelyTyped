@@ -222,6 +222,20 @@ const clonedSvgElement: React.ReactSVGElement =
         className: "clonedVGElement"
     });
 
+interface myVal {
+    a: number;
+}
+const value: myVal = { a: 1 };
+const SomeContext = React.createContext(value);
+
+function ContentConsumingComponent() {
+    return React.createElement(SomeContext.Consumer, undefined, (value: myVal) => value.a);
+}
+
+function ContentProvidingComponent() {
+    return React.createElement(SomeContext.Provider, { value: { a: 2 } });
+}
+
 // React.render
 const component: ModernComponent = ReactDOM.render(element, container);
 const componentNullContainer: ModernComponent = ReactDOM.render(element, null);
