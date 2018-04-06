@@ -21,6 +21,7 @@ const options: Options = {
   };
 
 $('.timer').countTo(options);
+$('.timer').countTo({from: 50});
 
 // Controls
 $('.timer').countTo('start');
