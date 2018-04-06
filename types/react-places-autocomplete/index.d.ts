@@ -2,7 +2,7 @@
 // Project: https://github.com/kenny-hibino/react-places-autocomplete/
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 //
 /// <reference types="googlemaps" />
 

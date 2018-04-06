@@ -5,7 +5,7 @@
 //                 janb87 <https://github.com/janb87>
 //                 corydeppen <https://github.com/corydeppen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import {
     Dispatch,

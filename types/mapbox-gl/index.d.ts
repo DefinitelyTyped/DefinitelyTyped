@@ -2,7 +2,7 @@
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="geojson" />
 
@@ -26,11 +26,11 @@ declare namespace mapboxgl {
         constructor(options?: MapboxOptions);
 
         addControl(control: Control, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
-        
+
         addControl(control: IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
 
         removeControl(control: Control): this;
-        
+
         removeControl(control: IControl): this;
 
         addClass(klass: string, options?: mapboxgl.StyleOptions): this;

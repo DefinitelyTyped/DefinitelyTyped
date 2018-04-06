@@ -8,7 +8,7 @@
 //                 Anton Novik <https://github.com/tehbi4>
 //                 Huw Martin <https://github.com/huwmartin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import {
   ComponentClass,

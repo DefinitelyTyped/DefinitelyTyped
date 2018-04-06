@@ -16,7 +16,7 @@
 //                 Armando Assuncao <https://github.com/ArmandoAssuncao>
 //                 Ciaran Liedeman <https://github.com/cliedeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /**
  * Reference: https://github.com/react-navigation/react-navigation/tree/a37473c5e4833f48796ee6c7c9cb4a8ac49d9c06

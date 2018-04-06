@@ -3,7 +3,7 @@
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export as namespace L;
 

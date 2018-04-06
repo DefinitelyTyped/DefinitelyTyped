@@ -9,15 +9,15 @@
 //                 Dibyo Majumdar <https://github.com/mdibyo>
 //                 Prashant Deva <https://github.com/pdeva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-    
+// TypeScript Version: 2.8
+
 // Known Issue:
-// There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes 
+// There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @connect() decorator in your code,
 // you will see a bunch of errors from TypeScript. The current workaround is to use connect() as a function call on
 // a separate line instead of as a decorator. Discussed in this github issue:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
-    
+
 import * as React from 'react';
 import * as Redux from 'redux';
 

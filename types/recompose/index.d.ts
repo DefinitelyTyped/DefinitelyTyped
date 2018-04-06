@@ -5,7 +5,7 @@
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Rasmus Eneman <https://github.com/Pajn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///<reference types="react" />
 
