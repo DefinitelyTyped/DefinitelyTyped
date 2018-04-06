@@ -153,7 +153,7 @@ export interface Feature<G extends GeometryObject | null, P = GeoJsonProperties>
     /**
      * Properties associated with this feature.
      */
-    properties: P;
+    properties?: P;
 }
 
 /**
