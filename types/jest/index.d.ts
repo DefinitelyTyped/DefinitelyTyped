@@ -14,7 +14,7 @@
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -538,16 +538,16 @@ declare namespace jest {
         mock: MockContext<T>;
         mockClear(): void;
         mockReset(): void;
-        mockImplementation(fn: (...args: any[]) => any): Mock<T>;
-        mockImplementationOnce(fn: (...args: any[]) => any): Mock<T>;
+        mockImplementation(fn: (...args: any[]) => ReturnType<T>): Mock<T>;
+        mockImplementationOnce(fn: (...args: any[]) => ReturnType<T>): Mock<T>;
         mockName(name: string): Mock<T>;
         mockReturnThis(): Mock<T>;
-        mockReturnValue(value: any): Mock<T>;
-        mockReturnValueOnce(value: any): Mock<T>;
-        mockResolvedValue(value: any): Mock<T>;
-        mockResolvedValueOnce(value: any): Mock<T>;
-        mockRejectedValue(value: any): Mock<T>;
-        mockRejectedValueOnce(value: any): Mock<T>;
+        mockReturnValue(value: ReturnType<T>): Mock<T>;
+        mockReturnValueOnce(value: ReturnType<T>): Mock<T>;
+        mockResolvedValue(value: ReturnType<T>): Mock<T>;
+        mockResolvedValueOnce(value: ReturnType<T>): Mock<T>;
+        mockRejectedValue(value: ReturnType<T>): Mock<T>;
+        mockRejectedValueOnce(value: ReturnType<T>): Mock<T>;
     }
 
     interface MockContext<T> {
