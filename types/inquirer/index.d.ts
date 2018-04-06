@@ -17,7 +17,7 @@ import through = require('through');
 declare namespace inquirer {
     type Prompts = { [name: string]: PromptModule };
     type ChoiceType = string | objects.ChoiceOption | objects.Separator;
-    type Questions<T> =
+    type Questions<T = Answers> =
         | Question<T>
         | ReadonlyArray<Question<T>>
         | Rx.Observable<Question<T>>;

@@ -2024,6 +2024,9 @@ declare module "url" {
     export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
 
+    export function domainToASCII(domain: string): string;
+    export function domainToUnicode(domain: string): string;
+
     export interface URLFormatOptions {
         auth?: boolean;
         fragment?: boolean;
@@ -3981,7 +3984,7 @@ declare module "assert" {
             });
         }
 
-        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
