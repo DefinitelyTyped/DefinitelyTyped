@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 import {
-    Action as ReduxAction,
     Middleware,
     Reducer,
+    Action as ReduxAction,
 } from 'redux';
 
 export const KEY: {
@@ -39,6 +39,7 @@ export interface ActionMeta<TState = {}, TSuccessPayload = {}, TErrorPayload = {
     onFailure?(error: TErrorPayload, getState: GetState<TState>): void;
     ['redux-pack/LIFECYCLE']?: keyof LIFECYCLEValues;
     ['redux-pack/TRANSACTION']?: string;
+    [key: string]: any;
 }
 export interface Action<TState = {}, TSuccessPayload = {}, TErrorPayload = {}, TStartPayload = {}> extends ReduxAction {
     promise?: Promise<TSuccessPayload>;
