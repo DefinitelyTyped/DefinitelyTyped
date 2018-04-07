@@ -13,7 +13,7 @@ declare function commandLineUsage(sections: Section | Section[]): string;
 export default commandLineUsage;
 
 /** Section object. */
-type Section = Content | OptionList;
+export type Section = Content | OptionList;
 
 /** A Content section comprises a header and one or more lines of content. */
 export interface Content {
@@ -29,7 +29,7 @@ export interface Content {
      */
     content: string | string[] | any[];
     /** Set to true to avoid indentation and wrapping. Useful for banners. */
-    raw: boolean;
+    raw?: boolean;
 }
 
 /** Describes a command-line option. Additionally, if generating a usage guide with command-line-usage you could optionally add description and typeLabel properties to each definition. */
