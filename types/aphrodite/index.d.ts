@@ -6,11 +6,25 @@
 
 import * as React from "react";
 
+type FontFamily =
+    | React.CSSProperties['fontFamily']
+    | Pick<React.CSSProperties,
+        | 'fontFamily'
+        | 'fontStyle'
+        | 'fontWeight'
+        | 'src'
+    >
+
 /**
  * Aphrodite style declaration
  */
 export interface StyleDeclaration {
-    [key: string]: React.CSSProperties;
+    [key: string]: Pick<React.CSSProperties, (
+        & React.CSSProperties
+        & { fontFamily: never }
+    )[keyof React.CSSProperties]> & {
+        fontFamily?: FontFamily | FontFamily[];
+    };
 }
 
 interface StyleSheetStatic {

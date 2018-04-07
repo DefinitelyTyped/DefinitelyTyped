@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.8
+// Type definitions for Sequelize 4.27.9
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -12,6 +12,7 @@
 //                 Nikola Vidic <https://github.com/nidzov>
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
+//                 Nick Schultz <https://github.com/nrschultz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3793,7 +3794,7 @@ declare namespace sequelize {
          * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
          *     model will clear the previous scope.
          */
-        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
 
         /**
          * Search for multiple instances.
@@ -3864,8 +3865,8 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
-        findByPrimary<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -4006,9 +4007,9 @@ declare namespace sequelize {
          * whether the row was inserted or not.
          */
         upsert(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
 
         /**
          * Create and insert multiple instances in bulk.
@@ -4045,7 +4046,7 @@ declare namespace sequelize {
          * elements. The first element is always the number of affected rows, while the second element is the actual
          * affected rows (only supported in postgres with `options.returning` true.)
          */
-        update(values: TAttributes, options: UpdateOptions): Promise<[number, TInstance[]]>;
+        update(values: TAttributes, options?: UpdateOptions): Promise<[number, TInstance[]]>;
 
         /**
          * Run a describe query on the table. The result will be return to the listener as a hash of attributes and

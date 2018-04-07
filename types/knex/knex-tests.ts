@@ -763,6 +763,10 @@ knex.schema.createTable('users', function (table) {
   table.timestamps(true, true);
 });
 
+knex.schema.alterTable('users', function (table) {
+  table.string('role').nullable();
+});
+
 knex.schema.renameTable('users', 'old_users');
 
 knex.schema.dropTable('users');
@@ -1024,6 +1028,9 @@ knex('users')
     let self: Knex.QueryBuilder = this;
     self = builder;
   }).unionAll(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).modify(function(builder) {
     let self: Knex.QueryBuilder = this;
     self = builder;
   });

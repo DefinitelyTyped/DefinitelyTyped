@@ -53,6 +53,7 @@ declare const FIND_MY_CONSTRUCTION_SITES: 114;
 declare const FIND_HOSTILE_CONSTRUCTION_SITES: 115;
 declare const FIND_MINERALS: 116;
 declare const FIND_NUKES: 117;
+declare const FIND_TOMBSTONES: 118;
 
 declare const TOP: 1;
 declare const TOP_RIGHT: 2;
@@ -246,7 +247,7 @@ declare const RESOURCE_CATALYZED_KEANIUM_ALKALIDE: "XKHO2";
 declare const RESOURCE_CATALYZED_LEMERGIUM_ACID: "XLH2O";
 declare const RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: "XLHO2";
 declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
-declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "ZXHO2";
+declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "XZHO2";
 declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
 declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
 declare const RESOURCES_ALL: ResourceConstant[];
@@ -627,11 +628,14 @@ declare const LOOK_FLAGS: "flag";
 declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
 declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
+declare const LOOK_TOMBSTONES: 'tombstone';
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
 
 declare const SYSTEM_USERNAME: string;
+
+declare const TOMBSTONE_DECAY_PER_PART: 5;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -1190,6 +1194,31 @@ interface CPU {
      * @memberof CPU
      */
     setShardLimits(limits: CPUShardLimits): OK | ERR_BUSY | ERR_INVALID_ARGS;
+
+    /**
+     * Use this method to get heap statistics for your virtual machine.
+     *
+     * This method will be undefined if you are not using IVM.
+     *
+     * The return value is almost identical to the Node.js function v8.getHeapStatistics().
+     * This function returns one additional property: externally_allocated_size which is the total amount of currently
+     * allocated memory which is not included in the v8 heap but counts against this isolate's memory limit.
+     * ArrayBuffer instances over a certain size are externally allocated and will be counted here.
+     */
+    getHeapStatistics?(): HeapStatistics;
+}
+
+interface HeapStatistics {
+  total_heap_size: number;
+  total_heap_size_executable: number;
+  total_physical_size: number;
+  total_available_size: number;
+  used_heap_size: number;
+  heap_size_limit: number;
+  malloced_memory: number;
+  peak_malloced_memory: number;
+  does_zap_garbage: 0 | 1;
+  externally_allocated_size: number;
 }
 
 /**
@@ -1250,6 +1279,7 @@ interface AllLookAtTypes {
     source: Source;
     structure: Structure;
     terrain: Terrain;
+    tombstone: Tombstone;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
@@ -1280,7 +1310,7 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-  [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke;
+  [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
   1: RoomPosition; // FIND_EXIT_TOP
   3: RoomPosition; // FIND_EXIT_RIGHT
   5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -1303,6 +1333,7 @@ interface FindTypes {
   115: ConstructionSite; // FIND_HOSTILE_CONSTRUCTION_SITES
   116: Mineral; // FIND_MINERALS
   117: Nuke; // FIND_NUKES
+  118: Tombstone; // FIND_TOMBSTONES
 }
 
 interface FindPathOpts {
@@ -1531,7 +1562,8 @@ type FindConstant =
   FIND_MY_CONSTRUCTION_SITES |
   FIND_HOSTILE_CONSTRUCTION_SITES |
   FIND_MINERALS |
-  FIND_NUKES;
+  FIND_NUKES |
+  FIND_TOMBSTONES;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -1556,6 +1588,7 @@ type FIND_MY_CONSTRUCTION_SITES = 114;
 type FIND_HOSTILE_CONSTRUCTION_SITES = 115;
 type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
+type FIND_TOMBSTONES = 118;
 
 type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filter: FilterFunction<T> };
 
@@ -1594,7 +1627,8 @@ type LookConstant =
   LOOK_FLAGS |
   LOOK_CONSTRUCTION_SITES |
   LOOK_NUKES |
-  LOOK_TERRAIN;
+  LOOK_TERRAIN |
+  LOOK_TOMBSTONES;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -1606,6 +1640,7 @@ type LOOK_RESOURCES = "resource";
 type LOOK_SOURCES = "source";
 type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
+type LOOK_TOMBSTONES = "tombstone";
 
 // Direction Constants
 
@@ -1844,9 +1879,11 @@ type RESOURCE_CATALYZED_KEANIUM_ALKALIDE = "XKHO2";
 type RESOURCE_CATALYZED_LEMERGIUM_ACID = "XLH2O";
 type RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE = "XLHO2";
 type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
-type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "ZXHO2";
+type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "XZHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
+
+type TOMBSTONE_DECAY_PER_PART = 5;
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -3078,11 +3115,8 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     name: string;
     /**
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
-     * @param name The name of a new creep.
-     * @param needTime Time needed in total to complete the spawning.
-     * @param remainingTime Remaining time to go.
      */
-    spawning: { name: string, needTime: number, remainingTime: number };
+    spawning: Spawning | null;
 
     /**
      * Check if a creep can be created.
@@ -3180,11 +3214,56 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
 }
 
 interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {
+    Spawning: SpawningConstructor;
 }
 
 declare const StructureSpawn: StructureSpawnConstructor;
 declare const Spawn: StructureSpawnConstructor; // legacy alias
 // declare type Spawn = StructureSpawn;
+
+interface Spawning {
+    readonly prototype: Spawning;
+
+    /**
+     * An array with the spawn directions
+     * @see http://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections
+     */
+    directions: DirectionConstant[];
+
+    /**
+     * The name of the creep
+     */
+    name: string;
+
+    /**
+     * Time needed in total to complete the spawning.
+     */
+    needTime: number;
+
+    /**
+     * Remaining time to go.
+     */
+    remainingTime: number;
+
+    /**
+     * A link to the spawn
+     */
+    spawn: StructureSpawn;
+
+    /**
+     * Cancel spawning immediately. Energy spent on spawning is not returned.
+     */
+    cancel(): ScreepsReturnCode & (OK | ERR_NOT_OWNER);
+
+    /**
+     * Set desired directions where the creep should move when spawned.
+     * @param directions An array with the spawn directions
+     */
+    setDirections(directions: DirectionConstant[]): ScreepsReturnCode & (OK | ERR_NOT_OWNER | ERR_INVALID_ARGS);
+}
+
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {
+}
 /**
  * Parent object for structure classes
  */
@@ -3642,7 +3721,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     /**
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
      */
-    mineralType: MineralConstant;
+    mineralType: _ResourceConstantSansEnergy | undefined;
     /**
      * The total amount of minerals the lab can contain.
      */
@@ -3819,3 +3898,17 @@ type AnyStructure =
     StructurePortal |
     StructureRoad |
     StructureWall;
+interface Tombstone extends RoomObject {
+    /** The tick that the creep died. */
+    deathTime: number;
+    store: StoreDefinition;
+    /** How many ticks until this tombstone decays */
+    ticksToDecay: number;
+    /** The creep that died to create this tombstone */
+    creep: Creep;
+}
+
+interface TombstoneConstructor extends _Constructor<Tombstone>, _ConstructorById<Tombstone> {
+}
+
+declare const Tombstone: TombstoneConstructor;

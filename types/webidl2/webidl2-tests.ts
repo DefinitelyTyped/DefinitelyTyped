@@ -64,23 +64,27 @@ function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
                 break;
             case "const":
                 console.log(member.name);
+                logIdlType(member.idlType);
                 console.log(member.value);
                 console.log(member.nullable);
                 break;
             case "iterable":
                 console.log(member.readonly);
+                member.idlType.forEach(logIdlType);
                 break;
             case "legacyiterable":
                 console.log(member.readonly);
+                member.idlType.forEach(logIdlType);
                 break;
             case "setlike":
                 console.log(member.readonly);
+                member.idlType.forEach(logIdlType);
                 break;
             case "maplike":
                 console.log(member.readonly);
+                member.idlType.forEach(logIdlType);
                 break;
         }
-        logIdlType(member.idlType);
         logExtAttrs(member.extAttrs);
     }
 }
@@ -120,7 +124,13 @@ function logArguments(args: webidl2.Argument[]) {
     }
 }
 
-function logIdlType(idlType: string | webidl2.IDLTypeDescription | webidl2.IDLTypeDescription[] | null) {
+function logIdlType(idlType: webidl2.IDLTypeDescription) {
+    console.log(idlType.type);
+    console.log(idlType.generic, idlType.nullable, idlType.sequence, idlType.union);
+    logSubIdlType(idlType.idlType);
+}
+
+function logSubIdlType(idlType: string | webidl2.IDLTypeDescription | webidl2.IDLTypeDescription[] | null) {
     if (!idlType) {
         return;
     }
@@ -130,15 +140,9 @@ function logIdlType(idlType: string | webidl2.IDLTypeDescription | webidl2.IDLTy
     }
     if (Array.isArray(idlType)) {
         for (const t of idlType) {
-            logEachType(t);
+            logIdlType(t);
         }
         return;
     }
-    logEachType(idlType);
-
-    function logEachType(t: webidl2.IDLTypeDescription) {
-        console.log(t.type);
-        console.log(t.generic, t.nullable, t.sequence, t.union);
-        logIdlType(t.idlType);
-    }
+    logIdlType(idlType);
 }

@@ -16,6 +16,14 @@ interface SomeTestResult {
     someTestResultProp: string;
 }
 
+const batchFunction = (sources: ReadonlyArray<SomeTestSource>) => {
+    const someTestResult: SomeTestResult = {
+        someTestResultProp: "Hello"
+    };
+
+    return sources.map(source => someTestResult);
+};
+
 const asyncBatchFunction = async (sources: ReadonlyArray<SomeTestSource>) => {
     return new Promise<SomeTestResult[]>(resolve => {
         const res = [
@@ -27,19 +35,35 @@ const asyncBatchFunction = async (sources: ReadonlyArray<SomeTestSource>) => {
     });
 };
 
+const asyncBatchFunctionWhenTReturnIsArray = async (
+    sources: ReadonlyArray<SomeTestSource>
+) => {
+    const sourceBatches = sources.map(() => {
+        return new Promise<SomeTestResult[]>(resolve => {
+            const res = [
+                {
+                    someTestResultProp: ""
+                }
+            ];
+            resolve(res);
+        });
+    });
+
+    return Promise.all(sourceBatches);
+};
+
+// $ExpectType ResolverFunction<SomeTestSource, any, any, SomeTestResult>
 const withSourceAndResultTyped = createBatchResolver<
     SomeTestSource,
     SomeTestResult
 >((sources, _, __) => {
-    return sources.map(source => {
-        const res: SomeTestResult = {
-            someTestResultProp: ""
-        };
+    // $ExpectType ReadonlyArray<SomeTestSource>
+    const verifySources = sources;
 
-        return res;
-    });
+    return batchFunction(sources);
 });
 
+// $ExpectType ResolverFunction<SomeTestSource, any, any, SomeTestResult>
 const withSourceAndResultTypedAsPromise = createBatchResolver<
     SomeTestSource,
     SomeTestResult
@@ -50,6 +74,7 @@ const withSourceAndResultTypedAsPromise = createBatchResolver<
     return result;
 });
 
+// $ExpectType ResolverFunction<SomeTestSource, SomeTestArgs, any, SomeTestResult>
 const withSourceAndArgsAndResultTyped = createBatchResolver<
     SomeTestSource,
     SomeTestResult,
@@ -64,6 +89,7 @@ const withSourceAndArgsAndResultTyped = createBatchResolver<
     return result;
 });
 
+// $ExpectType ResolverFunction<SomeTestSource, SomeTestArgs, SomeTestContext, SomeTestResult>
 const withSourceAndArgsAndContextTyped = createBatchResolver<
     SomeTestSource,
     SomeTestResult,
@@ -80,3 +106,13 @@ const withSourceAndArgsAndContextTyped = createBatchResolver<
     const result = await asyncBatchFunction(sources);
     return result;
 });
+
+// $ExpectType ResolverFunction<SomeTestSource, any, any, SomeTestResult[]>
+const withResultIsArray = createBatchResolver<SomeTestSource, SomeTestResult[]>(
+    (sources, _, __) => {
+        // $ExpectType ReadonlyArray<SomeTestSource>
+        const verifySources = sources;
+
+        return asyncBatchFunctionWhenTReturnIsArray(sources);
+    }
+);

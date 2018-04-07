@@ -7,6 +7,7 @@
 export as namespace async;
 
 export interface Dictionary<T> { [key: string]: T; }
+export type IterableCollection<T> = T[] | IterableIterator<T> | Dictionary<T>
 
 export interface ErrorCallback<T> { (err?: T): void; }
 export interface AsyncBooleanResultCallback<E> { (err?: E, truthValue?: boolean): void; }
@@ -36,11 +37,9 @@ export interface AsyncQueue<T> {
     running(): number;
     idle(): boolean;
     concurrency: number;
-    push<E>(task: T, callback?: ErrorCallback<E>): void;
+    push<E>(task: T | T[], callback?: ErrorCallback<E>): void;
     push<R,E>(task: T, callback?: AsyncResultCallback<R, E>): void;
-    push<E>(task: T[], callback?: ErrorCallback<E>): void;
-    unshift<E>(task: T, callback?: ErrorCallback<E>): void;
-    unshift<E>(task: T[], callback?: ErrorCallback<E>): void;
+    unshift<E>(task: T | T[], callback?: ErrorCallback<E>): void;
     saturated: () => any;
     empty: () => any;
     drain: () => any;
@@ -62,8 +61,7 @@ export interface AsyncPriorityQueue<T> {
     concurrency: number;
     started: boolean;
     paused: boolean;
-    push<R,E>(task: T, priority: number, callback?: AsyncResultArrayCallback<R, E>): void;
-    push<R,E>(task: T[], priority: number, callback?: AsyncResultArrayCallback<R, E>): void;
+    push<R,E>(task: T | T[], priority: number, callback?: AsyncResultArrayCallback<R, E>): void;
     saturated: () => any;
     empty: () => any;
     drain: () => any;
@@ -86,7 +84,6 @@ export interface AsyncCargo {
     length(): number;
     payload?: number;
     push(task: any, callback? : Function): void;
-    push(task: any[], callback? : Function): void;
     saturated(): void;
     empty(): void;
     drain(): void;
@@ -97,39 +94,28 @@ export interface AsyncCargo {
 }
 
 // Collections
-export function each<T, E>(arr: T[] | IterableIterator<T>, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
-export function each<T, E>(arr: Dictionary<T>, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
+export function each<T, E>(arr: IterableCollection<T>, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
 export const eachSeries: typeof each;
-export function eachLimit<T, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
-export function eachLimit<T, E>(arr: Dictionary<T>, limit: number, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
+export function eachLimit<T, E>(arr: IterableCollection<T>, limit: number, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
 export const forEach: typeof each;
 export const forEachSeries: typeof each;
 export const forEachLimit: typeof eachLimit;
-export function forEachOf<T, E>(obj: T[] | IterableIterator<T>, iterator: AsyncForEachOfIterator<T, E>, callback?: ErrorCallback<E>): void;
-export function forEachOf<T, E>(obj: Dictionary<T>, iterator: AsyncForEachOfIterator<T, E>, callback?: ErrorCallback<E>): void;
+export function forEachOf<T, E>(obj: IterableCollection<T>, iterator: AsyncForEachOfIterator<T, E>, callback?: ErrorCallback<E>): void;
 export const forEachOfSeries: typeof forEachOf;
-export function forEachOfLimit<T, E>(obj: T[] | IterableIterator<T>, limit: number, iterator: AsyncForEachOfIterator<T, E>, callback?: ErrorCallback<E>): void;
-export function forEachOfLimit<T, E>(obj: Dictionary<T>, limit: number, iterator: AsyncForEachOfIterator<T, E>, callback?: ErrorCallback<E>): void;
+export function forEachOfLimit<T, E>(obj: IterableCollection<T>, limit: number, iterator: AsyncForEachOfIterator<T, E>, callback?: ErrorCallback<E>): void;
 export const eachOf: typeof forEachOf;
 export const eachOfSeries: typeof forEachOf;
 export const eachOfLimit: typeof forEachOfLimit;
 export function map<T, R, E>(arr: T[] | IterableIterator<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export function map<T, R, E>(arr: Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export const mapSeries: typeof map;
-export function mapLimit<T, R, E>(
-    arr: T[] | Dictionary<T> | IterableIterator<T>,
-    limit: number,
-    iterator: AsyncResultIterator<T, R, E>,
-    callback?: AsyncResultArrayCallback<R, E>
-): void;
+export function mapLimit<T, R, E>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export function mapValuesLimit<T, R, E>(obj: Dictionary<T>, limit: number, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
 export function mapValues<T, R, E>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
 export const mapValuesSeries: typeof mapValues;
-export function filter<T, E>(arr: T[] | IterableIterator<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
-export function filter<T, E>(arr: Dictionary<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
+export function filter<T, E>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
 export const filterSeries: typeof filter;
-export function filterLimit<T, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
-export function filterLimit<T, E>(arr: Dictionary<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
+export function filterLimit<T, E>(arr: IterableCollection<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
 export const select: typeof filter;
 export const selectSeries: typeof filter;
 export const selectLimit: typeof filterLimit;
@@ -141,36 +127,28 @@ export const inject: typeof reduce;
 export const foldl: typeof reduce;
 export const reduceRight: typeof reduce;
 export const foldr: typeof reduce;
-export function detect<T, E>(arr: T[] | IterableIterator<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultCallback<T, E>): void;
-export function detect<T, E>(arr: Dictionary<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultCallback<T, E>): void;
+export function detect<T, E>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultCallback<T, E>): void;
 export const detectSeries: typeof detect;
-export function detectLimit<T, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultCallback<T, E>): void;
-export function detectLimit<T, E>(arr: Dictionary<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultCallback<T, E>): void;
+export function detectLimit<T, E>(arr: IterableCollection<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultCallback<T, E>): void;
 export const find: typeof detect;
 export const findSeries: typeof detect;
 export const findLimit: typeof detectLimit;
 export function sortBy<T, V, E>(arr: T[] | IterableIterator<T>, iterator: AsyncResultIterator<T, V, E>, callback?: AsyncResultArrayCallback<T, E>): void;
-export function some<T, E>(arr: T[] | IterableIterator<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
-export function some<T, E>(arr: Dictionary<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
+export function some<T, E>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
 export const someSeries: typeof some;
-export function someLimit<T, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
-export function someLimit<T, E>(arr: Dictionary<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
+export function someLimit<T, E>(arr: IterableCollection<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
 export const any: typeof some;
 export const anySeries: typeof someSeries;
 export const anyLimit: typeof someLimit;
-export function every<T, E>(arr: T[] | IterableIterator<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
-export function every<T, E>(arr: Dictionary<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
+export function every<T, E>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
 export const everySeries: typeof every;
-export function everyLimit<T, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
-export function everyLimit<T, E>(arr: Dictionary<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
+export function everyLimit<T, E>(arr: IterableCollection<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
 export const all: typeof every;
 export const allSeries: typeof every;
 export const allLimit: typeof everyLimit;
 
-export function concat<T, R, E>(arr: T[] | IterableIterator<T>, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
-export function concat<T, R, E>(arr: Dictionary<T>, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
-export function concatLimit<T, R, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
-export function concatLimit<T, R, E>(arr: Dictionary<T>, limit: number,iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function concat<T, R, E>(arr: IterableCollection<T>, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function concatLimit<T, R, E>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export const concatSeries: typeof concat;
 
 // Control Flow

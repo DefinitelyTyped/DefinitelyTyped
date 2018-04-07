@@ -29,6 +29,10 @@ declare namespace DataTables {
 
     interface Api extends CoreMethods {
         /**
+         * API should be array-like
+         */
+        [key: number]: any;
+        /**
          * Returns DataTables API instance
          *
          * @param table Selector string for table
@@ -221,7 +225,7 @@ declare namespace DataTables {
          * @param event Event name to remove.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        off(event: string, callback?: ((e: Event, settings: Settings, json: any) => void)): Api;
+        off(event: string, callback?: ((e: Event, ...args: any[]) => void)): Api;
 
         /**
          * Table events listener.
@@ -229,7 +233,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        on(event: string, callback: ((e: Event, settings: Settings, json: any) => void)): Api;
+        on(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
 
         /**
          * Listen for a table event once and then remove the listener.
@@ -237,7 +241,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        one(event: string, callback: ((e: Event, settings: Settings, json: any) => void)): Api;
+        one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
 
         /**
          * Page Methods / object
@@ -1297,7 +1301,7 @@ declare namespace DataTables {
         /**
          * Data to use as the display data for the table. Since: 1.10
          */
-        data?: object;
+        data?: any[];
 
         //#endregion "Data"
 
@@ -1931,6 +1935,7 @@ declare namespace DataTables {
     }
 
     interface ColumnLegacy {
+        idx: number;
         aDataSort: any;
         asSorting: string[];
         bSearchable: boolean;

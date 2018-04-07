@@ -120,7 +120,7 @@ export interface PluginBase<T> {
      * * server - the server object with a plugin-specific server.realm.
      * * options - any options passed to the plugin during registration via server.register().
      */
-    register: (server: Server, options: T) => Promise<void>;
+    register: (server: Server, options: T) => void | Promise<void>;
 
     /** (optional) if true, allows the plugin to be registered multiple times with the same server. Defaults to false. */
     multiple?: boolean;
@@ -1143,7 +1143,7 @@ export interface RouteOptionsAccess {
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscache)
  */
 export type RouteOptionsCache = {
-    privacy?: 'default' | 'public' | 'privacy';
+    privacy?: 'default' | 'public' | 'private';
     statuses?: number[];
     otherwise?: string;
 } & (
@@ -1706,7 +1706,7 @@ export interface RouteOptions {
      * * credentials - if true, allows user credentials to be sent ('Access-Control-Allow-Credentials'). Defaults to false.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscors)
      */
-    cors?: false | RouteOptionsCors;
+    cors?: boolean | RouteOptionsCors;
 
     /**
      * Default value: none.
@@ -3257,7 +3257,7 @@ export class Server extends Podium {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app?: ApplicationState;
+    app: ApplicationState;
 
     /**
      * Server Auth: properties and methods

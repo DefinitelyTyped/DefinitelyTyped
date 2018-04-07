@@ -1158,37 +1158,35 @@ declare namespace adone {
          */
         function watch(paths: string | string[], options?: I.Watcher.ConstructorOptions): Watcher;
 
-        namespace is {
-            /**
-             * Returns true if the given path refers to a file
-             */
-            function file(path: string): Promise<boolean>;
+        /**
+         * Returns true if the given path refers to a file
+         */
+        function isFile(path: string): Promise<boolean>;
 
-            /**
-             * Returns true if the given path refers to a file
-             */
-            function fileSync(path: string): boolean;
+        /**
+         * Returns true if the given path refers to a file
+         */
+        function isFileSync(path: string): boolean;
 
-            /**
-             * Returns true if the given path refers to a direcotry
-             */
-            function directory(path: string): Promise<boolean>;
+        /**
+         * Returns true if the given path refers to a direcotry
+         */
+        function isDirectory(path: string): Promise<boolean>;
 
-            /**
-             * Returns true if the given path refers to a direcotry
-             */
-            function directorySync(path: string): boolean;
+        /**
+         * Returns true if the given path refers to a direcotry
+         */
+        function isDirectorySync(path: string): boolean;
 
-            /**
-             * Returns true if the given path refers to an executable file
-             */
-            function executable(path: string): Promise<boolean>;
+        /**
+         * Returns true if the given path refers to an executable file
+         */
+        function isExecutable(path: string): Promise<boolean>;
 
-            /**
-             * Returns true if the given path refers to an executable file
-             */
-            function executableSync(path: string): boolean;
-        }
+        /**
+         * Returns true if the given path refers to an executable file
+         */
+        function isExecutableSync(path: string): boolean;
 
         namespace I.Which {
             interface Options {
@@ -1920,5 +1918,19 @@ declare namespace adone {
          * Creates a new TailWatcher instance with the given arguments
          */
         function watchTail(filename: string, options?: I.TailWatcher.ConstructorOptions): TailWatcher;
+
+        namespace I {
+            interface WriteFileAtomicOptions {
+                chown?: {
+                    gid?: number;
+                    uid?: number;
+                };
+                encoding?: string | null;
+                fsync?: boolean;
+                mode?: number;
+            }
+        }
+
+        function writeFileAtomic(filename: string, data: Buffer | string | Uint8Array, options?: I.WriteFileAtomicOptions): Promise<void>;
     }
 }

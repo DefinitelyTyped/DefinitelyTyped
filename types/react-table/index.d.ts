@@ -613,9 +613,6 @@ export interface RowInfo {
     /** Materialized row of data */
     row: any;
 
-    /** Original row from your data */
-    original: any;
-
     /** The post-accessed values from the original row */
     rowValues: any;
 
@@ -645,9 +642,6 @@ export interface RowInfo {
 
     /** An array of any expandable sub-rows contained in this row */
     subRows: any[];
-
-    /** Original object passed to row */
-    original: any;
 }
 
 export interface FinalState extends TableProps {

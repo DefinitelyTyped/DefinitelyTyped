@@ -529,8 +529,4 @@ declare module "../index" {
             iteratee?: ((value: T) => number) | string
         ): LoDashExplicitWrapper<number>;
     }
-
-    /**********
-     * Number *
-     **********/
 }

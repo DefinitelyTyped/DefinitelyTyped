@@ -10,9 +10,9 @@ export declare namespace json2csv {
     }
 
     export interface Options<T> {
-        fields?: (string | FieldInfo<T>);
+        fields?: Array<string | FieldInfo<T>>;
         ndjson?: boolean;
-        unwind?: string | string[];
+        unwind?: string | Array<string>;
         flatten?: boolean;
         defaultValue?: string;
         quote?: string;

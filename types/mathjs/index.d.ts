@@ -3,7 +3,11 @@
 // Definitions by: Ilya Shestakov <https://github.com/siavol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { Decimal } from 'decimal.js';
+
 declare var math: mathjs.IMathJsStatic;
+export as namespace math;
+export = math;
 
 declare namespace mathjs {
 
@@ -304,7 +308,7 @@ declare namespace mathjs {
 		 * @param x The base
 		 * @param y The exponent
 		 */
-		pow(x: number|BigNumber|Complex|MathArray|Matrix, y: number|BigNumber|Complex): number|BigNumber|Complex|MathArray|Matrix;
+		pow(x: MathType, y: number|BigNumber|Complex): MathType;
 
 		/**
 		 * Round a value towards the nearest integer. For matrices, the function is evaluated element wise.
@@ -1333,12 +1337,14 @@ declare namespace mathjs {
 		swapRows(i: number, j: number): Matrix;
 	}
 
-	export interface BigNumber {
+	export interface BigNumber extends Decimal {
 
 	}
 
 	export interface Fraction {
-
+		s: number;
+		n: number;
+		d: number;
 	}
 
 	export interface Complex {
@@ -1349,9 +1355,9 @@ declare namespace mathjs {
 	}
 
 	export interface IPolarCoordinates {
-                r: number;
+        r: number;
 		phi: number;
-        }
+    }
 
 	export interface Unit {
 		to(unit: string): Unit;
@@ -2308,8 +2314,4 @@ declare namespace mathjs {
 		valueOf(): any;
 		toString(): string;
 	}
-}
-
-declare module 'mathjs'{
-	export = math;
 }

@@ -49,6 +49,7 @@ export class Query<T> extends Readable implements Promise<T> {
     // Implementing promise methods
     then<T, never>(onfulfilled?: any): Promise<T | never>;
     catch<never>(onrejected?: any): Promise<T>;
+    finally<never>(): Promise<T>;
     [Symbol.toStringTag]: "Promise";
 }
 

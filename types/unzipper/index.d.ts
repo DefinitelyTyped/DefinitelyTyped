@@ -97,7 +97,8 @@ export interface CentralDirectory {
 }
 
 export class ParseOptions {
-	verbose: boolean;
+	verbose?: boolean;
+	path?: string;
 	// more options?
 }
 
