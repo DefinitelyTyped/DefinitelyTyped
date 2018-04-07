@@ -17,6 +17,7 @@
 //                 Simon Buchan <https://github.com/simonbuchan>
 //                 David Hayden <https://github.com/Haydabase>
 //                 Chris Redekop <https://github.com/repl-chris>
+//                 Aneil Mallavarapu <https://github.com/aneilbaboo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -438,27 +439,51 @@ export interface CustomAuthorizerResult {
     principalId: string;
     policyDocument: PolicyDocument;
     context?: AuthResponseContext;
+    usageIdentifierKey?: string;
 }
 export type AuthResponse = CustomAuthorizerResult;
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-output.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Condition
  */
 export interface PolicyDocument {
     Version: string;
-    Statement: [Statement];
+    Id?: string;
+    Statement: Statement[];
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Condition.
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html
+ */
+export interface ConditionBlock {
+    [condition: string]: Condition | Condition[];
+}
+
+export interface Condition {
+    [key: string]: string | string[];
 }
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html
  */
-export interface Statement {
-    Action: string | string[];
+export type Statement = BaseStatement & StatementAction & StatementResource;
+
+export interface BaseStatement {
     Effect: string;
-    Resource: string | string[];
+    Sid?: string;
+    Condition?: ConditionBlock;
+    Principal?: string | string[];
+    NotPrincipal?: string | string[];
 }
+
+export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
+export type StatementResource = { Resource: string | string[] } | { NotResource: string | string[] };
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
