@@ -28,7 +28,7 @@ declare namespace commandLineUsage {
          *     consistent throughout the array.
          *  4. An object with two properties - data and options. In this case, the data and options will be passed directly to the underlying table layout module for rendering.
          */
-        content: string | string[] | any[];
+        content?: string | string[] | any[] | { data: any; options: any };
         /** Set to true to avoid indentation and wrapping. Useful for banners. */
         raw?: boolean;
     }
@@ -68,7 +68,7 @@ declare namespace commandLineUsage {
     interface OptionList {
         header?: string;
         /** An array of option definition objects. */
-        optionList: OptionDefinition[];
+        optionList?: OptionDefinition[];
         /** If specified, only options from this particular group will be printed.  */
         group?: string | string[];
         /** The names of one of more option definitions to hide from the option list.  */
