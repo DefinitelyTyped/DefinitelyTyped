@@ -27,28 +27,28 @@ export type NumberOptions = {
 
 export function knob<T>(name: string, options: KnobOption<T>): T;
 
-export function text(name: string, value: string | null, groupId? : string): string;
+export function text(name: string, value: string | null, groupId?: string): string;
 
-export function boolean(name: string, value: boolean, groupId? : string): boolean;
+export function boolean(name: string, value: boolean, groupId?: string): boolean;
 
 export function files(label: string, accept: string, defaultValue: string[]): string[];
 
-export function number(name: string, value: number, options?: NumberOptions, groupId? : string): number;
+export function number(name: string, value: number, options?: NumberOptions, groupId?: string): number;
 
-export function color(name: string, value: string, groupId? : string): string;
+export function color(name: string, value: string, groupId?: string): string;
 
-export function object<T>(name: string, value: T, groupId? : string): T;
+export function object<T>(name: string, value: T, groupId?: string): T;
 
 export type SelectValue = string | number;
-export function select<T extends string>(name: string, options: { [s: string]: string }, value: T, groupId? : string): T;
-export function select<T extends number>(name: string, options: { [s: number]: string }, value: T, groupId? : string): T;
-export function select<T extends SelectValue>(name: string, options: T[], value: T, groupId? : string): T;
+export function select<T extends string>(name: string, options: { [s: string]: string }, value: T, groupId?: string): T;
+export function select<T extends number>(name: string, options: { [s: number]: string }, value: T, groupId?: string): T;
+export function select<T extends SelectValue>(name: string, options: T[], value: T, groupId?: string): T;
 
-export function date(name: string, value?: Date, groupId? : string): Date;
+export function date(name: string, value?: Date, groupId?: string): Date;
 
-export function array<T>(name: string, value: T[], separator?: string, groupId? : string): T[];
+export function array<T>(name: string, value: T[], separator?: string, groupId?: string): T[];
 
-export function button(name: string, handler: () => any, groupId? : string): void;
+export function button(name: string, handler: () => any, groupId?: string): void;
 
 export interface WrapStoryProps {
     context?: object;
