@@ -252,7 +252,7 @@ export function geoLength(object: GeoGeometryObjects): number;
  *
  * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
  */
-export function geoLength(object: ExtendedGeometryCollection<GeoGeometryObjects>): number;
+export function geoLength(object: ExtendedGeometryCollection): number;
 
 /**
  * Returns an interpolator function given two points a and b.
@@ -586,7 +586,7 @@ export function geoStream(object: GeoGeometryObjects, stream: GeoStream): void;
  * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
  * @param stream A projection stream.
  */
-export function geoStream(object: ExtendedGeometryCollection<GeoGeometryObjects>, stream: GeoStream): void;
+export function geoStream(object: ExtendedGeometryCollection, stream: GeoStream): void;
 
 // ----------------------------------------------------------------------
 // Projections
@@ -778,7 +778,7 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
-    fitExtent(extent: [[number, number], [number, number]], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+    fitExtent(extent: [[number, number], [number, number]], object: ExtendedGeometryCollection): this;
 
     /**
      * Sets the projection’s scale and translate to fit the specified geographic feature in the center of an extent with the given size and top-left corner of [0, 0].
@@ -819,7 +819,7 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param size The size of the extent, specified as an array [width, height].
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
-    fitSize(size: [number, number], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+    fitSize(size: [number, number], object: ExtendedGeometryCollection): this;
 
     /**
      * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
@@ -848,7 +848,7 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param width The width of the extent.
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
-    fitWidth(width: number, object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+    fitWidth(width: number, object: ExtendedGeometryCollection): this;
 
     /**
      * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
@@ -877,7 +877,7 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param height The height of the extent.
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
-    fitHeight(height: number, object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+    fitHeight(height: number, object: ExtendedGeometryCollection): this;
 
     /**
      * Returns a new array [longitude, latitude] in degrees representing the unprojected point of the given projected point.
@@ -1567,7 +1567,7 @@ export interface GeoIdentityTranform extends GeoStreamWrapper {
      * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
-    fitExtent(extent: [[number, number], [number, number]], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+    fitExtent(extent: [[number, number], [number, number]], object: ExtendedGeometryCollection): this;
 
     /**
      * Sets the projection’s scale and translate to fit the specified geographic feature in the center of an extent with the given size and top-left corner of [0, 0].
@@ -1608,7 +1608,7 @@ export interface GeoIdentityTranform extends GeoStreamWrapper {
      * @param size The size of the extent, specified as an array [width, height].
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
-    fitSize(size: [number, number], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+    fitSize(size: [number, number], object: ExtendedGeometryCollection): this;
 
     /**
      * Returns true if x-reflection is enabled, which defaults to false.
