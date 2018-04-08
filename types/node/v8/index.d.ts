@@ -5169,9 +5169,9 @@ declare module "crypto" {
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
-        setAutoPadding(auto_padding?: boolean): Cipher;
+        setAutoPadding(auto_padding?: boolean): Decipher;
         setAuthTag(tag: Buffer): void;
-        setAAD(buffer: Buffer): Cipher;
+        setAAD(buffer: Buffer): Decipher;
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
