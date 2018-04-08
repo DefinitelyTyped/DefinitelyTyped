@@ -481,7 +481,7 @@ export declare class Connection extends events.EventEmitter {
      * @param name A string representing a name to associate with the transaction. Optional, and defaults to an empty string. In case of a nested transaction, naming the transaction name has no effect.
      * @param isolationLevel The isolation level that the transaction is to be run with.
      */
-    transaction(callback: (error: Error, done: (error?: Error) => void) => void, name?: string, isolationLevel?: ISOLATION_LEVEL): void;
+    transaction(callback: (error: Error, done: (error?: Error, doneCallback?: (error?: Error, ...args: any[]) => void, ...args: any[]) => void) => void, name?: string, isolationLevel?: ISOLATION_LEVEL): void;
 
     /**
      * Prepare the SQL represented by the request. The request can then be used in subsequent calls to execute and unprepare

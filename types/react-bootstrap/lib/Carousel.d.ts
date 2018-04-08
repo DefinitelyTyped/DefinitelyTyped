@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Omit, Sizes, SelectCallback } from 'react-bootstrap';
-import * as CarouselItem from './CarouselItem';
-import * as CarouselCaption from './CarouselCaption';
+import CarouselItem = require('./CarouselItem');
+import CarouselCaption = require('./CarouselCaption');
 
 declare namespace Carousel {
     export type CarouselProps = Omit<React.HTMLProps<Carousel>, 'wrap'> & {

@@ -5,11 +5,10 @@
 
 ///<reference types="node" />
 
-declare module 'socket.io' {
-	var server: SocketIOStatic;
-
-	export = server;
-}
+declare const SocketIO: SocketIOStatic;
+export = SocketIO;
+/** @deprecated Available as a global for backwards-compatibility. */
+export as namespace SocketIO;
 
 interface SocketIOStatic {
 	/**
@@ -45,7 +44,6 @@ interface SocketIOStatic {
 }
 
 declare namespace SocketIO {
-
 	interface Server {
 		engine: { ws: any };
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/glenjamin/webpack-hot-middleware#readme
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>, Ron Martinez <https://github.com/icylace>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { NextHandleFunction } from 'connect';
 import * as webpack from 'webpack';

@@ -1,8 +1,8 @@
 // Typescript adaptation of mithril's test suite.
 // Not intended to be run; only to compile & check types.
 
-import * as m from 'mithril';
-import * as stream from 'mithril/stream';
+import m = require('mithril');
+import stream = require('mithril/stream');
 
 const FRAME_BUDGET = 100;
 

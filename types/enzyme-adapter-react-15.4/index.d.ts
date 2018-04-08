@@ -2,7 +2,7 @@
 // Project: http://airbnb.io/enzyme/
 // Definitions by: Nabeelah Ali <https://github.com/nali>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { EnzymeAdapter } from 'enzyme';
 

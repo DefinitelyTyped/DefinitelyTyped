@@ -1,4 +1,4 @@
-import * as spawn from 'cross-spawn';
+import spawn = require('cross-spawn');
 import * as cp from 'child_process';
 
 const p1: cp.ChildProcess = spawn('my-cmd', ['foo', 'bar']);

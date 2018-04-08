@@ -1,4 +1,4 @@
-import * as WebSocket from 'ws';
+import WebSocket = require('ws');
 import * as http from 'http';
 import * as https from 'https';
 

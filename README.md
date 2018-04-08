@@ -6,11 +6,11 @@
 
 Also see the [definitelytyped.org](http://definitelytyped.org) website, although information in this README is more up-to-date.
 
+*[You can also read this README in Spanish!](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)*
 
 ## What are declaration files?
 
 See the [TypeScript handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
-
 
 ## How do I get them?
 

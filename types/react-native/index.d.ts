@@ -6,8 +6,9 @@
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
+//                 Alex Dunne <https://github.com/alexdunne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -758,11 +759,7 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900";
     letterSpacing?: number;
     lineHeight?: number;
-    /**
-     * Specifies text alignment.
-     * The value 'justify' is only supported on iOS.
-     */
-    textAlign?: "auto" | "left" | "right" | "center";
+    textAlign?: "auto" | "left" | "right" | "center" | "justify";
     textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through";
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
     textDecorationColor?: string;
@@ -976,7 +973,7 @@ export interface TextInputIOSProperties {
      * Pressed key value is passed as an argument to the callback handler.
      * Fires before onChange callbacks.
      */
-    onKeyPress?: (key: string) => void;
+    onKeyPress?: (event: {nativeEvent: {key: string}}) => void;
 
     /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
@@ -1047,10 +1044,12 @@ export type KeyboardTypeIOS =
     | "twitter"
     | "web-search";
 export type KeyboardTypeAndroid = "visible-password";
+export type KeyboardTypeOptions = KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS
 
 export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
 export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call";
+export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS
 
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
@@ -1106,7 +1105,7 @@ export interface TextInputProperties
      * The following values work on iOS: - ascii-capable - numbers-and-punctuation - url - number-pad - name-phone-pad - decimal-pad - twitter - web-search
      * The following values work on Android: - visible-password
      */
-    keyboardType?: KeyboardType | KeyboardTypeIOS | KeyboardTypeAndroid;
+    keyboardType?: KeyboardTypeOptions;
 
     /**
      * Limits the maximum number of characters that can be entered.
@@ -1187,7 +1186,7 @@ export interface TextInputProperties
      * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
      * Determines how the return key should look.
      */
-    returnKeyType?: ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS;
+    returnKeyType?: ReturnKeyTypeOptions;
 
     /**
      * If true, the text input obscures the text entered so that sensitive text like passwords stay secure.
@@ -1527,7 +1526,7 @@ export interface GestureResponderHandlers {
      * So if a parent View wants to prevent the child from becoming responder on a touch start,
      * it should have a onStartShouldSetResponderCapture handler which returns true.
      */
-    onMoveShouldSetResponderCapture?: () => void;
+    onMoveShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean;
 }
 
 // @see https://facebook.github.io/react-native/docs/view.html#style
@@ -2188,6 +2187,11 @@ export interface WebViewStatic extends React.ClassicComponentClass<WebViewProper
      * Returns the native webview node.
      */
     getWebViewHandle: () => any;
+
+    /**
+     * Inject JavaScript to be executed immediately.
+     */
+    injectJavaScript: (script: string) => void;
 }
 
 /**
@@ -3290,6 +3294,7 @@ interface ImagePropertiesAndroid {
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
+export type ImagePropertiesSourceOptions = ImageURISource | ImageURISource[] | ImageRequireSource;
 export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid, AccessibilityProperties {
     /**
      * onLayout function
@@ -3385,7 +3390,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      * their width and height. The native side will then choose the best `uri` to display
      * based on the measured size of the image container.
      */
-    source: ImageURISource | ImageURISource[] | ImageRequireSource;
+    source: ImagePropertiesSourceOptions;
 
     /**
      * similarly to `source`, this property represents the resource used to render
@@ -3647,11 +3652,11 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
     scrollToEnd: (params?: { animated?: boolean }) => void;
 
     /**
-     * Scrolls to the item at a the specified index such that it is positioned in the viewable area
-     * such that `viewPosition` 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
-     * May be janky without `getItemLayout` prop.
+     * Scrolls to the item at the specified index such that it is positioned in the viewable area
+     * such that viewPosition 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
+     * Cannot scroll to locations outside the render window without specifying the getItemLayout prop.
      */
-    scrollToIndex: (params: { animated?: boolean; index: number; viewPosition?: number }) => void;
+    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset?: number; viewPosition?: number }) => void;
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
@@ -3710,7 +3715,7 @@ export interface SectionListProperties<ItemT> extends VirtualizedListProperties<
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
 
     /**
      * Rendered in between each section.
@@ -3912,6 +3917,17 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
      * sure to also set the `refreshing` prop correctly.
      */
     onRefresh?: (() => void) | null;
+
+    /**
+     * Used to handle failures when scrolling to an index that has not been measured yet.
+     * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
+     * as possible and then try again after more items have been rendered.
+     */
+    onScrollToIndexFailed?: (info: {
+        index: number,
+        highestMeasuredFrameIndex: number,
+        averageItemLength: number
+    }) => void;
 
     /**
      * Called when the viewability of rows changes, as defined by the
@@ -4383,6 +4399,11 @@ export interface ModalProperties {
      * @platform ios
      */
     onDismiss?: () => void;
+    /**
+     * The `presentationStyle` determines the style of modal to show
+     * @platform ios
+     */
+    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
 }
 
 export interface ModalStatic extends React.ComponentClass<ModalProperties> {}
@@ -5203,7 +5224,7 @@ export type PlatformOSType = "ios" | "android" | "macos" | "windows" | "web";
 
 interface PlatformStatic {
     OS: PlatformOSType;
-    Version: number;
+    Version: number | string;
 
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
@@ -6113,6 +6134,7 @@ export interface ActionSheetIOSOptions {
     cancelButtonIndex?: number;
     destructiveButtonIndex?: number;
     message?: string;
+    tintColor?: string;
 }
 
 export interface ShareActionSheetIOSOptions {
@@ -6215,7 +6237,16 @@ export interface ShareStatic {
     dismissedAction: string;
 }
 
-type AccessibilityChangeEventName = "change" | "announcementFinished";
+type AccessibilityEventName = "change" | "announcementFinished";
+
+type AccessibilityChangeEvent = boolean;
+
+type AccessibilityAnnoucementFinishedEvent = {
+    announcement: string;
+    success: boolean
+};
+
+type AccessibilityEvent = AccessibilityChangeEvent | AccessibilityAnnoucementFinishedEvent;
 
 /**
  * @see https://facebook.github.io/react-native/docs/accessibilityinfo.html
@@ -6238,12 +6269,12 @@ export interface AccessibilityInfoStatic {
      *                          - announcement: The string announced by the screen reader.
      *                          - success: A boolean indicating whether the announcement was successfully made.
      */
-    addEventListener: (eventName: AccessibilityChangeEventName, handler: () => void) => void;
+    addEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
 
     /**
      * Remove an event handler.
      */
-    removeEventListener: (eventName: AccessibilityChangeEventName, handler: () => void) => void;
+    removeEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
 
     /**
      * Set acessibility focus to a react component.
@@ -6529,7 +6560,7 @@ export interface BackAndroidStatic {
  */
 export interface BackHandlerStatic {
     exitApp(): void;
-    addEventListener(eventName: BackPressEventName, handler: () => void): void;
+    addEventListener(eventName: BackPressEventName, handler: () => void): NativeEventSubscription;
     removeEventListener(eventName: BackPressEventName, handler: () => void): void;
 }
 
@@ -7716,7 +7747,7 @@ export interface EasingStatic {
     ease: EasingFunction;
     quad: EasingFunction;
     cubic: EasingFunction;
-    poly: EasingFunction;
+    poly(n: number): EasingFunction;
     sin: EasingFunction;
     circle: EasingFunction;
     exp: EasingFunction;
@@ -7730,8 +7761,7 @@ export interface EasingStatic {
 }
 
 export namespace Animated {
-    // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
-    type AnimatedValue = Animated;
+    type AnimatedValue = Value;
     type AnimatedValueXY = ValueXY;
 
     type Base = Animated;
@@ -8237,26 +8267,71 @@ interface ImageEditorStatic {
     ): void;
 }
 
-export interface ARTShapeProps {
-    d: string;
-    strokeWidth: number;
+export interface ARTNodeMixin {
+    opacity?: number;
+    originX?: number;
+    originY?: number;
+    scaleX?: number;
+    scaleY?: number;
+    scale?: number;
+    title?: string;
+    x?: number;
+    y?: number;
+    visible?: boolean;
+}
+
+export interface ARTGroupProps extends ARTNodeMixin {
+    width?: number;
+    height?: number;
+}
+
+export interface ARTClippingRectangleProps extends ARTNodeMixin {
+    width?: number;
+    height?: number;
+}
+
+export interface ARTRenderableMixin extends ARTNodeMixin {
+    fill?: string;
+    stroke?: string;
+    strokeCap?: "butt" | "square" | "round";
     strokeDash?: number[];
-    stroke: string;
+    strokeJoin?: "bevel" | "miter" | "round";
+    strokeWidth?: number;
+}
+
+export interface ARTShapeProps extends ARTRenderableMixin {
+    d: string;
+    width?: number;
+    height?: number;
+}
+
+export interface ARTTextProps extends ARTRenderableMixin {
+    font?: string;
+    alignment?: string;
 }
 
 export interface ARTSurfaceProps {
-    style: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
     width: number;
     height: number;
 }
+
+export interface ClippingRectangleStatic extends React.ComponentClass<ARTClippingRectangleProps> {}
+
+export interface GroupStatic extends React.ComponentClass<ARTGroupProps> {}
 
 export interface ShapeStatic extends React.ComponentClass<ARTShapeProps> {}
 
 export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {}
 
+export interface ARTTextStatic extends React.ComponentClass<ARTTextProps> {}
+
 export interface ARTStatic {
+    ClippingRectangle: ClippingRectangleStatic;
+    Group: GroupStatic;
     Shape: ShapeStatic;
     Surface: SurfaceStatic;
+    Text: ARTTextStatic;
 }
 
 export interface KeyboardStatic extends NativeEventEmitter {
@@ -8594,6 +8669,8 @@ export function findNodeHandle(
 
 export function processColor(color: any): number;
 
+export const YellowBox: React.Component<any, any> & { ignoreWarnings: (warnings: string[]) => void };
+
 //////////////////////////////////////////////////////////////////////////
 //
 // Additional ( and controversial)
@@ -8630,6 +8707,7 @@ export namespace addons {
 export var ColorPropType: React.Requireable<any>;
 export var EdgeInsetsPropType: React.Requireable<any>;
 export var PointPropType: React.Requireable<any>;
+export var ViewPropTypes: React.Requireable<any>;
 
 declare global {
     function require(name: string): any;

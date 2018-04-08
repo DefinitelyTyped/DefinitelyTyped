@@ -1,6 +1,8 @@
 // Type definitions for ui-grid
 // Project: http://www.ui-grid.info/
-// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <https://github.com/joeskeen>
+// Definitions by: Ben Tesser <https://github.com/btesser>
+//                 Joe Skeen <https://github.com/joeskeen>
+//                 Peter Bojanczyk <https://github.com/pbojanczyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -125,6 +127,7 @@ declare namespace uiGrid {
         scrollbars: {
             NEVER: number;
             ALWAYS: number;
+            WHEN_NEEDED: number;
         };
     }
     export type IGridInstance = IGridInstanceOf<any>;
@@ -625,7 +628,7 @@ declare namespace uiGrid {
         enableGridMenu?: boolean;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the horizontal scrollbar for the grid.
-         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER
+         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
         enableHorizontalScrollbar?: boolean | number;
@@ -658,7 +661,7 @@ declare namespace uiGrid {
         enableSorting?: boolean;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the vertical scrollbar for the grid.
-         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER
+         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
         enableVerticalScrollbar?: boolean | number;
@@ -895,7 +898,7 @@ declare namespace uiGrid {
          * which is provided when you want to remove an item.  The id should be unique.
 
          */
-        addToGridMenu(grid: IGridInstanceOf<TEntity>, items: Array<IMenuItem>):  void;
+        addToGridMenu(grid: IGridInstanceOf<TEntity>, items: Array<IMenuItem>): void;
         /**
          * Clears all filters and optionally refreshes the visible rows.
          * @param {boolean} [refreshRows=true] Defaults to true.
@@ -3545,6 +3548,8 @@ declare namespace uiGrid {
     export interface IGridColumnOf<TEntity> {
         /** Column definition */
         colDef: uiGrid.IColumnDefOf<TEntity>;
+        /** Default sort on this column */
+        defaultSort?: ISortInfo;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.
@@ -3683,6 +3688,8 @@ declare namespace uiGrid {
          * @default false
          */
         cellTooltip?: boolean | string | ICellTooltipGetter<TEntity>;
+        /** Default object of sort information */
+        defaultSort?: ISortInfo;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.

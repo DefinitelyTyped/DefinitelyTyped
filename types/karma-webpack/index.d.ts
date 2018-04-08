@@ -36,6 +36,6 @@ declare module 'karma' {
 
     interface ConfigOptions {
         webpack: Webpack.Configuration;
-        webpackMiddlewareOptions: KarmaWebpackMiddlewareOptions;
+        webpackMiddleware: KarmaWebpackMiddlewareOptions;
     }
 }

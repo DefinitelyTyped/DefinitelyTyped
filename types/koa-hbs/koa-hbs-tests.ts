@@ -1,4 +1,4 @@
-import * as Koa from 'koa';
+import Koa = require('koa');
 import hbs = require("koa-hbs");
 import * as Path from 'path';
 

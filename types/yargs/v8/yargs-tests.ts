@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as yargs from 'yargs';
+import yargs = require('yargs');
 
 import * as fs from 'fs';
 import * as path from 'path';

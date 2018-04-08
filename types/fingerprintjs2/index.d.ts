@@ -41,3 +41,6 @@ interface Fingerprint2Options {
     excludePixelRatio?: boolean;
     excludeHardwareConcurrency?: boolean;
 }
+
+export = Fingerprint2;
+export as namespace Fingerprint2;

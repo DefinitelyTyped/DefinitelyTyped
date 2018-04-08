@@ -23,6 +23,9 @@ declare namespace pc {
      */
     class BasicMaterial extends pc.Material {
 
+        color: pc.Color;
+        colorMap: pc.Texture;
+
         /**
          * @function
          * @name pc.BasicMaterial#clone

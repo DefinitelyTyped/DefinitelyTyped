@@ -87,7 +87,7 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: [Parameter];
+  parameters?: Parameter[];
 }
 
 // ----------------------------- Operation -----------------------------------

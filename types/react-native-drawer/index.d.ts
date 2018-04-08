@@ -2,7 +2,7 @@
 // Project: https://github.com/root-two/react-native-drawer
 // Definitions by: jnbt <https://github.com/jnbt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { ViewStyle, ScaledSize } from 'react-native';

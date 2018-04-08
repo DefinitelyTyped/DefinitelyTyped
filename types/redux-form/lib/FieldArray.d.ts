@@ -47,11 +47,12 @@ interface FieldsProps<FieldValue> {
 
 interface FieldArrayMetaProps {
     dirty: boolean;
-    error?: string;
+    error?: any;
     form: string;
     invalid: boolean;
     pristine: boolean;
+    submitFailed: boolean;
     submitting: boolean;
     valid: boolean;
-    warning?: string;
+    warning?: any;
 }

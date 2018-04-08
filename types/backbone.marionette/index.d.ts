@@ -1,6 +1,9 @@
 // Type definitions for Marionette 3.3
 // Project: https://github.com/marionettejs/
-// Definitions by: Zeeshan Hamid <https://github.com/zhamid>, Natan Vivo <https://github.com/nvivo>, Sven Tschui <https://github.com/sventschui>
+// Definitions by: Zeeshan Hamid <https://github.com/zhamid>,
+//                 Natan Vivo <https://github.com/nvivo>,
+//                 Sven Tschui <https://github.com/sventschui>,
+//                 Volker Nauruhn <https://github.com/razorness>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1394,27 +1397,27 @@ export class CollectionView<TModel extends Backbone.Model, TView extends View<TM
      * instance is about to be added to the collection view. It provides
      * access to the view instance for the child that was added.
      */
-    onBeforeAddChild(childView: TView): void;
+    onBeforeAddChild(collectionView: CollectionView<TModel, TView, TCollection>, childView: TView): void;
 
     /**
      * This callback function allows you to know when a child / child view
      * instance has been added to the collection view. It provides access to
      * the view instance for the child that was added.
      */
-    onAddChild(childView: TView): void;
+    onAddChild(collectionView: CollectionView<TModel, TView, TCollection>, childView: TView): void;
 
     /**
      * This callback function allows you to know when a childView instance is
      * about to be removed from the collectionView. It provides access to the
      * view instance for the child that was removed.
      */
-    onBeforeRemoveChild(childView: TView): void;
+    onBeforeRemoveChild(collectionView: CollectionView<TModel, TView, TCollection>, childView: TView): void;
 
     /**
      * This callback function allows you to know when a child / childView
      * instance has been deleted or removed from the collection.
      */
-    onRemoveChild(childView: TView): void;
+    onRemoveChild(collectionView: CollectionView<TModel, TView, TCollection>, childView: TView): void;
 
     /**
      * Automatically destroys this Collection's children and cleans up

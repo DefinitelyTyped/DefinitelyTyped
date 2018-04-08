@@ -1,4 +1,4 @@
-/// <reference types="node"/>;
+/// <reference types="node"/>
 import * as assert from "assert";
 import { create, env } from "sanctuary";
 

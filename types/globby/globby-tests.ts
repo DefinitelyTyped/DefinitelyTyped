@@ -1,6 +1,6 @@
 import { IOptions } from 'glob';
 
-import * as globby from "globby";
+import globby = require("globby");
 
 (async () => {
     let result: string[];

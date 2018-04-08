@@ -1,7 +1,8 @@
-// Type definitions for Chance 0.7.4
+// Type definitions for Chance 1.0.13
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon>
 //                 Brice BERNARD <https://github.com/brikou>
+//                 Carlos Sanchez <https://github.com/cafesanu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chance {
@@ -11,24 +12,23 @@ declare namespace Chance {
         seed: Seed;
     }
 
-    type SeededChance = Chance & Seeded;
-
     interface ChanceStatic {
         (): Chance;
-        (seed: Seed): SeededChance;
+        (seed: Seed): Chance;
         (generator: () => any): Chance;
 
         new (): Chance;
-        new (seed: Seed): SeededChance;
+        new (seed: Seed): Chance;
         new (generator: () => any): Chance;
     }
 
-    interface Chance {
+    interface Chance extends Seeded {
         // Basics
         bool(opts?: Options): boolean;
         character(opts?: Options): string;
         floating(opts?: Options): number;
         integer(opts?: Options): number;
+        letter(opts?: Options): string;
         natural(opts?: Options): number;
         string(opts?: Options): string;
 
@@ -43,6 +43,7 @@ declare namespace Chance {
         gender(): string;
         birthday(): Date;
         birthday(opts?: Options): Date | string;
+        cf(opts?: Options): string;
         cpf(): string;
         first(opts?: Options): string;
         last(opts?: Options): string;
@@ -54,6 +55,9 @@ declare namespace Chance {
         suffix(opts?: Options): string;
 
         // Mobile
+        animal(opts?: Options): string;
+
+        // Mobile
         android_id(): string;
         apple_token(): string;
         bb_pin(): string;
@@ -61,7 +65,9 @@ declare namespace Chance {
         wp8_anid2(): string;
 
         // Web
+        avatar(opts?: Options): string;
         color(opts?: Options): string;
+        company(): string;
         domain(opts?: Options): string;
         email(opts?: Options): string;
         fbid(): string;
@@ -70,6 +76,7 @@ declare namespace Chance {
         ip(): string;
         ipv6(): string;
         klout(): string;
+        profession(opts?: Options): string;
         tld(): string;
         twitter(): string;
         url(opts?: Options): string;
@@ -104,6 +111,8 @@ declare namespace Chance {
         month(opts: Options): Month;
         second(): number;
         timestamp(): number;
+        timezone(): Timezone;
+        weekday(opts: Options): 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
         year(opts?: Options): string;
 
         // Finance
@@ -113,6 +122,7 @@ declare namespace Chance {
         currency(): Currency;
         currency_pair(): [Currency, Currency];
         dollar(opts?: Options): string;
+        euro(opts?: Options): string;
         exp(): string;
         exp(opts: Options): string | CreditCardExpiration;
         exp_month(opts?: Options): string;
@@ -136,6 +146,7 @@ declare namespace Chance {
         shuffle<T>(arr: T[]): T[];
 
         // Miscellaneous
+        coin(): string;
         d4(): number;
         d6(): number;
         d8(): number;
@@ -225,13 +236,17 @@ declare namespace Chance {
         name: string;
         abbreviation: string;
     }
+
+    interface Timezone {
+        name: string;
+        abbr: string;
+        offset: number;
+        isdst: boolean;
+        text: string;
+        utc: string[];
+    }
 }
 
-// window.chance
-declare var chance: Chance.Chance;
-declare var Chance: Chance.ChanceStatic;
-
-// import Chance = require('chance');
 declare module "chance" {
     interface ExportedChance extends Chance.ChanceStatic {
         Chance: ExportedChance;

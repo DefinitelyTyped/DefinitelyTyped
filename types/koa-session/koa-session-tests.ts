@@ -1,5 +1,5 @@
-import * as Koa from 'koa';
-import * as session from 'koa-session';
+import Koa = require('koa');
+import session = require('koa-session');
 import * as ContextSession from "koa-session/lib/context";
 
 import {

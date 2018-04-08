@@ -1631,12 +1631,18 @@ function test_Gauge() {
             type: 'gauge'
         },
         pane: {
+            center: ['50%', '85%'],
             startAngle: -150,
             endAngle: 150
         },
         yAxis: {
             min: 0,
-            max: 100
+            max: 100,
+            stops: [
+                [0.1, '#DF5353'],
+                [0.5, '#DDDF0D'],
+                [0.9, '#55BF3B'],
+            ],
         },
         plotOptions: {
             gauge: {

@@ -3,7 +3,11 @@
 // Definitions by: Ilya Shestakov <https://github.com/siavol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { Decimal } from 'decimal.js';
+
 declare var math: mathjs.IMathJsStatic;
+export as namespace math;
+export = math;
 
 declare namespace mathjs {
 
@@ -229,6 +233,13 @@ declare namespace mathjs {
 		hypot(...args: number[]): number;
 		hypot(...args: BigNumber[]): BigNumber;
 
+        /**
+         * Calculate the kronecker product of two matrices or vectors
+         * @param x First Matrix
+         * @param y Second Matrix
+         */
+        kron(x: Matrix|MathArray, y: Matrix|MathArray): Matrix;
+
 		/**
 		 * Calculate the least common multiple for two or more values or arrays. lcm is defined as:
 		 * lcm(a, b) = abs(a * b) / gcd(a, b)
@@ -297,7 +308,7 @@ declare namespace mathjs {
 		 * @param x The base
 		 * @param y The exponent
 		 */
-		pow(x: number|BigNumber|Complex|MathArray|Matrix, y: number|BigNumber|Complex): number|BigNumber|Complex|MathArray|Matrix;
+		pow(x: MathType, y: number|BigNumber|Complex): MathType;
 
 		/**
 		 * Round a value towards the nearest integer. For matrices, the function is evaluated element wise.
@@ -1326,12 +1337,14 @@ declare namespace mathjs {
 		swapRows(i: number, j: number): Matrix;
 	}
 
-	export interface BigNumber {
+	export interface BigNumber extends Decimal {
 
 	}
 
 	export interface Fraction {
-
+		s: number;
+		n: number;
+		d: number;
 	}
 
 	export interface Complex {
@@ -1342,9 +1355,9 @@ declare namespace mathjs {
 	}
 
 	export interface IPolarCoordinates {
-                r: number;
+        r: number;
 		phi: number;
-        }
+    }
 
 	export interface Unit {
 		to(unit: string): Unit;
@@ -1655,6 +1668,13 @@ declare namespace mathjs {
 		 */
 		hypot(...args: number[]): IMathJsChain;
 		hypot(...args: BigNumber[]): IMathJsChain;
+
+        /**
+         * Calculate the kronecker product of two matrices or vectors
+         * @param x First Matrix
+         * @param y Second Matrix
+         */
+        kron(x: Matrix|MathArray, y: Matrix|MathArray): IMathJsChain;
 
 		/**
 		 * Calculate the least common multiple for two or more values or arrays. lcm is defined as:
@@ -2294,8 +2314,4 @@ declare namespace mathjs {
 		valueOf(): any;
 		toString(): string;
 	}
-}
-
-declare module 'mathjs'{
-	export = math;
 }

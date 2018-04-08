@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface TableProps {
+export interface TableProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   size?: string;

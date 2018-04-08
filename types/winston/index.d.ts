@@ -223,7 +223,7 @@ declare namespace winston {
         unhandleExceptions(...transports: TransportInstance[]): void;
         add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
         clear(): void;
-        remove(transport: TransportInstance): LoggerInstance;
+        remove(transport: string | TransportInstance): LoggerInstance;
         startTimer(): ProfileHandler;
         profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
         configure(options: LoggerOptions): void;
@@ -272,7 +272,7 @@ declare namespace winston {
 
     interface ConsoleTransportInstance extends TransportInstance {
         json: boolean;
-        colorize: boolean;
+        colorize: boolean | 'all' | 'level' | 'message';
         prettyPrint: boolean;
         timestamp: boolean | (() => string | boolean);
         showLevel: boolean;
@@ -294,7 +294,7 @@ declare namespace winston {
     interface FileTransportInstance extends TransportInstance {
         json: boolean;
         logstash: boolean;
-        colorize: boolean;
+        colorize: boolean | 'all' | 'level' | 'message';
         maxsize: number|null;
         rotationFormat: boolean;
         zippedArchive: boolean;
@@ -330,7 +330,7 @@ declare namespace winston {
         writeOutput: GenericTextTransportOptions[];
 
         json: boolean;
-        colorize: boolean;
+        colorize: boolean | 'all' | 'level' | 'message';
         prettyPrint: boolean;
         timestamp: boolean | (() => string | boolean);
         showLevel: boolean;
@@ -390,7 +390,7 @@ declare namespace winston {
 
     interface GenericTextTransportOptions {
         json?: boolean;
-        colorize?: boolean;
+        colorize?: boolean | 'all' | 'level' | 'message';
         colors?: any;
         prettyPrint?: boolean;
         showLevel?: boolean;

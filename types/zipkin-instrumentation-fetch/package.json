@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "zipkin": "^0.11.2"
+    "zipkin": ">=0.11.0"
   }
 }

@@ -1,4 +1,4 @@
-import * as errorHandler from 'api-error-handler';
+import errorHandler = require('api-error-handler');
 import * as express from 'express';
 
 var api = express.Router();

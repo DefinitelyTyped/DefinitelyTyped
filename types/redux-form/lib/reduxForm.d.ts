@@ -116,6 +116,8 @@ export interface ConfigProps<FormData = {}, P = {}> {
     propNamespace?: string;
     pure?: boolean;
     shouldValidate?(params: ValidateCallback<FormData, P>): boolean;
+    shouldError?(params: ValidateCallback<FormData, P>): boolean;
+    shouldWarn?(params: ValidateCallback<FormData, P>): boolean;
     shouldAsyncValidate?(params: AsyncValidateCallback<FormData>): boolean;
     touchOnBlur?: boolean;
     touchOnChange?: boolean;

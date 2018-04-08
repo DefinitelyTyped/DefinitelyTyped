@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import * as mongoose_simple_random from "mongoose-simple-random";
+import mongoose_simple_random = require("mongoose-simple-random");
 
 // test compatibility with other libraries - from @types/mongoose
 import * as _ from 'lodash';

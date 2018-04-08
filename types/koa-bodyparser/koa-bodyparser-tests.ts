@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as bodyParser from "koa-bodyparser";
+import Koa = require("koa");
+import bodyParser = require("koa-bodyparser");
 
 const app = new Koa();
 

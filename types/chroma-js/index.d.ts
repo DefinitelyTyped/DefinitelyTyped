@@ -303,10 +303,10 @@ declare namespace chroma {
          * You can call scale.colors(n) to quickly grab `c` equi-distant colors from a color scale. If called with no
          * arguments, scale.colors returns the original array of colors used to create the scale.
          */
-        colors(c?: number, format?: 'hex' | 'name'): string[];
-        colors(c?: number, format?: null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
-        colors(c?: number, format?: 'luminance' | 'temperature'): number[];
-        colors<K extends keyof ColorSpaces>(c?: number, format?: K): Array<ColorSpaces[K]>;
+        colors(c: number | undefined, format: undefined | null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
+        colors(c: number | undefined, format: 'luminance' | 'temperature'): number[];
+        colors<K extends keyof ColorSpaces>(c: number | undefined, format: K): Array<ColorSpaces[K]>;
+        colors(c: number | undefined, format?: 'hex' | 'name'): string[];
 
         /**
          * If you want the scale function to return a distinct set of colors instead of a continuous gradient, you can

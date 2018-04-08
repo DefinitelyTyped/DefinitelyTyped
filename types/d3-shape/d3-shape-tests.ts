@@ -17,6 +17,7 @@ import { HierarchyPointLink, HierarchyPointNode } from 'd3-hierarchy';
 
 let context: CanvasRenderingContext2D | null = document.querySelector('canvas')!.getContext('2d');
 let num: number;
+let padAngleMaybe: number | undefined;
 let pathStringMaybe: string | null;
 
 // -----------------------------------------------------------------------------------
@@ -28,7 +29,7 @@ interface ArcDatum {
     oRadius: number;
     sAngle: number;
     eAngle: number;
-    pAngle: number;
+    pAngle?: number;
 }
 
 const arcDefaultDatum: d3Shape.DefaultArcObject = {
@@ -37,6 +38,13 @@ const arcDefaultDatum: d3Shape.DefaultArcObject = {
     startAngle: 0,
     endAngle: Math.PI / 2,
     padAngle: 0.03
+};
+
+const arcReducedDefaultDatum: d3Shape.DefaultArcObject = {
+    innerRadius: 40,
+    outerRadius: 60,
+    startAngle: 0,
+    endAngle: Math.PI / 2
 };
 
 const arcDatum: ArcDatum = {
@@ -48,6 +56,7 @@ const arcDatum: ArcDatum = {
 };
 
 let accessorArcDatumNumber: (this: any, d: ArcDatum, ...args: any[]) => number;
+let accessorArcDatumNumberOrUndefined: (this: any, d: ArcDatum, ...args: any[]) => number | undefined;
 let accessorArcDatumNumberOrNull: ((this: any, d: ArcDatum, ...args: any[]) => number) | null;
 
 // DefaultArcObject interface ========================================================
@@ -64,7 +73,7 @@ num = defaultArcObject.innerRadius;
 num = defaultArcObject.outerRadius;
 num = defaultArcObject.startAngle;
 num = defaultArcObject.endAngle;
-num = defaultArcObject.padAngle;
+padAngleMaybe = defaultArcObject.padAngle;
 
 // arc(...) create Arc generator =====================================================
 
@@ -134,7 +143,7 @@ canvasArc = canvasArc.padAngle(0);
 svgArc = svgArc.padAngle(d => {
     return d.pAngle; // datum type is ArcDatum
 });
-accessorArcDatumNumber = svgArc.padAngle();
+accessorArcDatumNumberOrUndefined = svgArc.padAngle();
 
 // padRadius(...) ----------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-import * as MulterGridfsStorage from 'multer-gridfs-storage';
+import MulterGridfsStorage = require('multer-gridfs-storage');
 import { Db, MongoClient, Server } from "mongodb";
 
 // Exported interfaces

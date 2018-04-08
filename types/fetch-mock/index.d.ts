@@ -1,9 +1,11 @@
-// Type definitions for fetch-mock 5.12
+// Type definitions for fetch-mock 6.0
 // Project: https://github.com/wheresrhys/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Tamir Duberstein <https://github.com/tamird>
 //                 Risto Keravuori <https://github.com/merrywhether>
 //                 Chris Sinclair <https://github.com/chrissinclair>
+//                 Matt Tennison <https://github.com/matttennison>
+//                 Quentin Bouygues <https://github.com/quentinbouygues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -57,6 +59,17 @@ declare namespace fetchMock {
          * @default true
          */
         sendAsJson?: boolean;
+        /**
+         * Setting this property to true will automatically add the
+         * content-length header
+         * @default true
+         */
+        includeContentLength?: boolean;
+        /**
+         * The URL the response should be from (to imitate followed redirects
+         *  - will set redirected: true on the response)
+         */
+        redirectUrl?: string;
     }
     /**
      * Response: A Response instance - will be used unaltered
@@ -101,9 +114,19 @@ declare namespace fetchMock {
          */
         headers?: { [key: string]: string };
         /**
+         * key/value map of query strings to match, in any order
+         */
+        query?: { [key: string]: string };
+        /**
          * as specified above
          */
         matcher?: MockMatcher;
+        /**
+         * This option allows for existing routes in a mock to be overwritten.
+         * It’s also possible to define multiple routes with ‘the same’ matcher.
+         * Default behaviour is to error
+         */
+        overwriteRoutes?: boolean;
         /**
          * as specified above
          */
@@ -115,7 +138,7 @@ declare namespace fetchMock {
          * any other routes defined (which may eventually result in an error
          * if nothing matches it).
          */
-        times?: number;
+        repeat?: number;
     }
 
     type MockCall = [string, MockRequest];

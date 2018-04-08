@@ -1,5 +1,5 @@
-import * as koa from 'koa';
-import * as logger from 'koa-logger-winston';
+import koa = require('koa');
+import logger = require('koa-logger-winston');
 import * as winston from 'winston';
 
 const app = new koa();

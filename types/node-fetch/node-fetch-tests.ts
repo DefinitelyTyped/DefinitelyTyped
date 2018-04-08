@@ -30,6 +30,10 @@ function test_fetchUrl() {
 	handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php"));
 }
 
+function test_fetchUrlArrayBuffer() {
+	handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php"), true);
+}
+
 function test_fetchUrlWithRequestObject() {
 	var requestOptions: RequestInit = {
 		method: "POST",
@@ -53,13 +57,17 @@ function test_globalFetchVar() {
 		});
 }
 
-function handlePromise(promise: Promise<Response>) {
-	promise.then((response) => {
+function handlePromise(promise: Promise<Response>, isArrayBuffer: boolean = false) {
+	promise.then((response):Promise<string | ArrayBuffer> => {
 		if (response.type === 'basic') {
 			// for test only
 		}
-		return response.text();
-	}).then((text) => {
+		if (isArrayBuffer) {
+			return response.arrayBuffer();
+		} else {
+			return response.text();
+		}
+	}).then((text:string | ArrayBuffer) => {
 		console.log(text);
 	});
 }

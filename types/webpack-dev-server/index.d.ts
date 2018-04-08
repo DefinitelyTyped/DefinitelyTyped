@@ -5,7 +5,7 @@
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Alan Agius <https://github.com/alan-agius4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as webpack from 'webpack';
 import * as core from 'express-serve-static-core';
@@ -15,6 +15,10 @@ import * as spdy from 'spdy';
 import * as httpProxyMiddleware from 'http-proxy-middleware';
 
 declare namespace WebpackDevServer {
+    interface ListeningApp {
+        address(): { port?: number };
+    }
+
     interface proxyConfigMap {
         [url: string]: string | httpProxyMiddleware.Config;
     }
@@ -75,6 +79,12 @@ declare class WebpackDevServer {
         webpack: webpack.Compiler | webpack.MultiCompiler,
         config: WebpackDevServer.Configuration
     );
+
+    static addDevServerEntrypoints(
+        webpackOptions: webpack.Configuration | webpack.Configuration[],
+        config: WebpackDevServer.Configuration,
+        listeningApp?: WebpackDevServer.ListeningApp
+    ): void;
 
     listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
 

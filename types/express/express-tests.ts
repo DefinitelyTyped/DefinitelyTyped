@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express = require('express');
 
 namespace express_tests {
     const app = express();

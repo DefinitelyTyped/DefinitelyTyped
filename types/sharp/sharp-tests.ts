@@ -1,4 +1,4 @@
-import * as sharp from "sharp";
+import sharp = require("sharp");
 import { createReadStream, createWriteStream } from "fs";
 
 // Test samples taken from the official documentation
