@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-import fs = require("fs");
+import fs = require('fs');
 
 export function pack(cwd: string, opts?: PackOptions): any;
 export function extract(cwd: string, opts?: ExtractOptions): any;
