@@ -20,6 +20,10 @@ export interface Options {
     filter?: (name: string) => boolean;
     map?: (header: Headers) => Headers;
     mapStream?: (fileStream: fs.ReadStream, header: Headers) => fs.ReadStream;
+    dmode?: number;
+    fmode?: number;
+    readable?: boolean;
+    writable?: boolean;
     strict?: boolean;
 }
 
@@ -33,10 +37,6 @@ export interface PackOptions extends Options {
 export interface ExtractOptions extends Options {
     ignore?: (name: string, header?: Headers) => boolean;
     filter?: (name: string, header?: Headers) => boolean;
-    dmode?: number;
-    fmode?: number;
-    readable?: boolean;
-    writable?: boolean;
 }
 
 export interface Headers {
