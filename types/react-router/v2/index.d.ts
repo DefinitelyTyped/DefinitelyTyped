@@ -7,7 +7,7 @@
 //                 Alex Wendland <https://github.com/awendland>
 //                 Kostya Esmukov <https://github.com/KostyaEsmukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 export as namespace ReactRouter;
 

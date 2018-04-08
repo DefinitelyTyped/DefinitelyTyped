@@ -1,4 +1,4 @@
-import * as Database from 'better-sqlite3';
+import Database = require('better-sqlite3');
 
 const integer = Database.Integer(1);
 const err = new Database.SqliteError('ok', 'ok');

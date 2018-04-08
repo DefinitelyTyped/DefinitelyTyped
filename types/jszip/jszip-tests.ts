@@ -1,4 +1,4 @@
-import * as JSZip from 'jszip';
+import JSZip = require('jszip');
 
 const SEVERITY = {
 	DEBUG: 0,

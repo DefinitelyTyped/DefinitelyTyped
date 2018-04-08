@@ -1,6 +1,3 @@
-
-
-
 import gulp = require('gulp');
 import path = require('path');
 import nodemon = require('gulp-nodemon');

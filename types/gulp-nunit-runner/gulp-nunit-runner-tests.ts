@@ -1,4 +1,4 @@
-import * as nunit from "gulp-nunit-runner";
+import nunit = require("gulp-nunit-runner");
 
 const stream = nunit({
     executable: 'c:/Program Files/NUnit/bin',

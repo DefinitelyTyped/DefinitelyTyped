@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NativeRouter as Router, Route, Link } from 'react-router-native';
+import { NativeRouter as Router, Route, Link, AndroidBackButton, BackButton } from 'react-router-native';
 
 const Home: React.SFC = () => {
   return (
@@ -27,19 +27,22 @@ const About: React.SFC = () => {
 export default class App extends React.Component {
   render() {
     return (
-      <Router>
-        <View style={styles.container}>
-          <View style={styles.nav}>
-            <Link to="/" style={styles.navItem}>
-              <Text>Home</Text>
-            </Link>
-            <Link to="/about" style={styles.navItem}>
+      <Router initialEntries={['/']} initialIndex={0}>
+        <BackButton />
+        <AndroidBackButton>
+          <View style={styles.container}>
+            <View style={styles.nav}>
+              <Link to="/" style={styles.navItem}>
+                <Text>Home</Text>
+              </Link>
+              <Link to="/about" style={styles.navItem}>
                 <Text>About</Text>
-            </Link>
+              </Link>
+            </View>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
           </View>
-          <Route exact path="/" component={Home}/>
-          <Route path="/about" component={About}/>
-        </View>
+        </AndroidBackButton>
       </Router>
     );
   }

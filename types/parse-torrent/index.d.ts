@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as MagnetUri from 'magnet-uri';
+import MagnetUri = require('magnet-uri');
 import * as ParseTorrentFile from 'parse-torrent-file';
 
 declare const ParseTorrent: ParseTorrent.ParseTorrent;

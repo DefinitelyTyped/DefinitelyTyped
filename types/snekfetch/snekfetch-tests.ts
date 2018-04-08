@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as util from 'util';
-import * as snekfetch from 'snekfetch';
+import snekfetch = require('snekfetch');
 
 const writeFile = util.promisify(fs.writeFile);
 

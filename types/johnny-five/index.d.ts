@@ -2,6 +2,7 @@
 // Project: https://github.com/rwaldron/johnny-five
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 //                 Zoltan Ujvary <https://github.com/ujvzolee>
+//                 Simon Colmer <https://github.com/workshop2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node"/>
@@ -290,30 +291,6 @@ export declare class IMU {
 }
 
 export declare module IR {
-    export interface MotionOption {
-        pin: number | string;
-    }
-
-    export class Motion {
-        constructor(option: number | MotionOption);
-        on(event: string, cb: () => void): this;
-        on(event: "data", cb: (data: any) => void): this;
-        on(event: "motionstart", cb: () => void): this;
-        on(event: "motionend", cb: () => void): this;
-        on(event: "calibrated", cb: () => void): this;
-    }
-
-    export interface PloximityOption {
-        pin: number | string;
-        controller: string;
-    }
-
-    export class Proximity {
-        constructor(option: number | PloximityOption);
-        on(event: string, cb: () => void): this;
-        on(event: "data", cb: (data: any) => void): this;
-        on(event: "change", cb: () => void): this;
-    }
 
     export interface ArrayOption {
         pins: Array<number> | Array<string>;
@@ -510,15 +487,28 @@ export declare module Led {
 
         on(): void;
         off(): void;
-        color(value: number): void;
+        color(value: string): void;
         toggle(): void;
         strobe(ms: number): void;
-        brightness(value: number): void;
+        intensity(value: number): void;
         fadeIn(ms: number): void;
         fadeOut(ms: number): void;
         pulse(ms: number): void;
         stop(ms: number): void;
     }
+}
+
+export interface MotionOption {
+    pin: number | string;
+}
+
+export class Motion {
+    constructor(option: number | MotionOption);
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    on(event: "motionstart", cb: () => void): this;
+    on(event: "motionend", cb: () => void): this;
+    on(event: "calibrated", cb: () => void): this;
 }
 
 export interface MotorOption {
@@ -607,12 +597,12 @@ export declare class Pin {
     mode: number;
 
     static write(pin: number, value: number): void;
-    static read(pin: number, cb: (data: number) => void): void;
+    static read(pin: number, cb: (error: Error, data: number) => void): void;
     query(cb: (pin: PinState) => void): void;
     high(): void;
     low(): void;
     write(value: number): void;
-    read(cb: (value: number) => void): void;
+    read(cb: (error: Error, value: number) => void): void;
     on(event: string, cb: () => void): this;
     on(event: "high", cb: () => void): this;
     on(event: "low", cb: () => void): this;
@@ -627,6 +617,23 @@ export interface PingOption {
 
 export declare class Ping {
     constructor(option: number | PingOption);
+}
+
+export declare interface ProximityOption {
+    pin: number | string;
+    controller: string;
+}   
+
+export declare interface ProximityData {
+    cm: number;
+    in: number;
+}
+
+export declare class Proximity {
+    constructor(option: number | ProximityOption);
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: ProximityData) => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface RelayOption {

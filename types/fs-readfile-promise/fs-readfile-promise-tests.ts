@@ -1,4 +1,4 @@
-import * as readFile from "fs-readfile-promise";
+import readFile = require("fs-readfile-promise");
 
 declare const path: string;
 declare const encoding: string;

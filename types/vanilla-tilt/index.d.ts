@@ -1,4 +1,4 @@
-// Type definitions for vanilla-tilt 1.3
+// Type definitions for vanilla-tilt 1.4
 // Project: https://github.com/micku7zu/vanilla-tilt.js
 // Definitions by: Livio Brunner <https://github.com/BrunnerLivio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -47,6 +47,19 @@ export namespace VanillaTilt {
          * Easing on enter/exit.
          */
         easing?: string;
+        /**
+         * if it should have a "glare" effect
+         */
+        glare?: boolean;
+        /**
+         * the maximum "glare" opacity
+         */
+        "max-glare"?: number;
+        /**
+         * false = VanillaTilt creates the glare elements for you, otherwise
+         * you need to add .js-tilt-glare>.js-tilt-glare-inner by yourself
+         */
+        "glare-prerender"?: boolean;
     }
 
     interface TiltValues {

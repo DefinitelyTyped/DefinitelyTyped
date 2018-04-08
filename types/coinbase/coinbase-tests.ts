@@ -85,7 +85,7 @@ client.getAccount("abcdef", (error: Error, account: coinbase.Account): void => {
     });
 });
 
-client.getBuyPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.MoneyHash): void => undefined);
+client.getBuyPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.Price): void => undefined);
 
 client.getCurrencies((error: Error, result: coinbase.Currency[]): void => undefined);
 
@@ -95,10 +95,10 @@ client.getPaymentMethod("foo", (error: Error, result: coinbase.PaymentMethod): v
 
 client.getPaymentMethods((error: Error, result: coinbase.PaymentMethod[]): void => undefined);
 
-client.getSellPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.MoneyHash): void => undefined);
+client.getSellPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.Price): void => undefined);
 
-client.getSpotPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.MoneyHash): void => undefined);
-client.getSpotPrice({ currencyPair: "USD-BTC", date: "2017-22-01" }, (error: Error, result: coinbase.MoneyHash): void => undefined);
+client.getSpotPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.Price): void => undefined);
+client.getSpotPrice({ currencyPair: "USD-BTC", date: "2017-22-01" }, (error: Error, result: coinbase.Price): void => undefined);
 
 client.getTime((error: Error, result: coinbase.Time): void => undefined);
 

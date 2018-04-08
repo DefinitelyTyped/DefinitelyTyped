@@ -3,7 +3,7 @@
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
 //                 Jovica Zoric <https://github.com/jzoric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { ListProps, Index } from 'react-virtualized';
@@ -51,13 +51,12 @@ export interface ExtendedNodeData extends NodeData {
 export interface OnVisibilityToggleData extends FullTree, TreeNode {
     expanded: boolean;
 }
-export interface PreviousAnNextLocation {
-    prevPath: number[];
-    prevParent: TreeItem;
+export interface PreviousAndNextLocation {
     prevTreeIndex: number;
-    nextPath: number[];
-    nextParent: TreeItem;
+    prevPath: number[];
     nextTreeIndex: number;
+    nextPath: number[];
+    nextParentNode: TreeItem;
 }
 
 export type NodeRenderer = React.ComponentClass<NodeRendererProps>;
@@ -113,7 +112,7 @@ export interface ReactSortableTreeProps {
     onMoveNode?(data: NodeData & FullTree): void;
     onVisibilityToggle?(data: OnVisibilityToggleData): void;
     canDrag?: ((data: ExtendedNodeData) => boolean) | boolean;
-    canDrop?(data: PreviousAnNextLocation & NodeData): boolean;
+    canDrop?(data: PreviousAndNextLocation & NodeData): boolean;
     reactVirtualizedListProps?: ListProps;
     rowHeight?: ((info: Index) => number) | number;
     slideRegionSize?: number;

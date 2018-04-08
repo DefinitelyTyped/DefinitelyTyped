@@ -8,8 +8,9 @@ const options: SMTPServerOptions = {
     onRcptTo,
     onData,
     onClose,
-    port: 2525
 };
+
+const port = 2525;
 
 function onConnect(session: SMTPServerSession, callback: (err?: Error) => void): void {
     console.log(`[${session.id}] onConnect`);
@@ -69,7 +70,7 @@ server.on('close', () => {
     console.log('Server closed');
 });
 
-server.listen(options.port, () => {
+server.listen(port, () => {
     const address = server.server.address();
     console.log(`Listening on [${address.address}]:${address.port}`);
 });

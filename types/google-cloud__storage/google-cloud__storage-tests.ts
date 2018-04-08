@@ -26,7 +26,7 @@ import {
     WriteStreamOptions,
     UploadOptions
 } from "@google-cloud/storage";
-import * as CloudStorage from "@google-cloud/storage";
+import CloudStorage = require("@google-cloud/storage");
 
 /**
  * Test the storage service.

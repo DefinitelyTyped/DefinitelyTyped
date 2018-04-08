@@ -3,7 +3,7 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Alan Brazil Lins <https://github.com/alanblins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from 'moment';
+import moment = require('moment');
 
 // require("moment-timezone") === require("moment")
 export = moment;

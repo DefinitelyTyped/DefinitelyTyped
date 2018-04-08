@@ -1,4 +1,4 @@
-import * as strftime from "strftime";
+import strftime = require("strftime");
 
 strftime('%B %d, %Y %H:%M:%S');
 strftime('%F %T', new Date(1307472705067));

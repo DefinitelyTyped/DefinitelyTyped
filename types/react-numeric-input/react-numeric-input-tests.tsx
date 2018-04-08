@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import * as NumericInput from 'react-numeric-input';
+import NumericInput = require('react-numeric-input');
 
 export class NumericInputTest extends Component {
   render() {

@@ -231,7 +231,7 @@ interface TestProperty {
 }
 
 const testProps: TestProperty = {
-    foo: "bar",
+    foo: "baz",
     hello: "world"
 };
 
@@ -248,3 +248,77 @@ const typedPropertiesFeatureCollection: FeatureCollection<Point> = {
     type: "FeatureCollection",
     features: [typedPropertiesFeature]
 };
+
+// Strict Null Checks
+
+let isNull: null;
+let isPoint: Point;
+let isPointOrNull: Point | null;
+let isProperty: TestProperty;
+let isPropertyOrNull: TestProperty | null;
+
+const featureAllNull: Feature<null, null> = {
+    type: "Feature",
+    properties: null,
+    geometry: null
+};
+
+const featurePropertyNull: Feature<Point, null> = {
+    type: "Feature",
+    properties: null,
+    geometry: point
+};
+
+const featureGeometryNull: Feature<null, TestProperty> = {
+    type: "Feature",
+    properties: testProps,
+    geometry: null
+};
+
+const featureNoNull: Feature<Point, TestProperty> = {
+    type: "Feature",
+    properties: testProps,
+    geometry: point
+};
+
+const collectionAllNull: FeatureCollection<null, null> = {
+    type: "FeatureCollection",
+    features: [featureAllNull],
+};
+
+const collectionMaybeNull: FeatureCollection<Point | null, TestProperty | null> = {
+    type: "FeatureCollection",
+    features: [featureAllNull, featurePropertyNull, featureGeometryNull, featureNoNull],
+};
+
+const collectionPropertyMaybeNull: FeatureCollection<Point, TestProperty | null> = {
+    type: "FeatureCollection",
+    features: [featurePropertyNull, featureNoNull],
+};
+
+const collectionGeometryMaybeNull: FeatureCollection<Point | null, TestProperty> = {
+    type: "FeatureCollection",
+    features: [featureGeometryNull, featureNoNull],
+};
+
+const collectionNoNull: FeatureCollection<Point, TestProperty> = {
+    type: "FeatureCollection",
+    features: [featureNoNull],
+};
+
+isNull = featureAllNull.geometry;
+isPoint = featurePropertyNull.geometry;
+isNull = featureAllNull.properties;
+isProperty = featureGeometryNull.properties;
+
+isNull = collectionAllNull.features[0].geometry;
+isPointOrNull = collectionMaybeNull.features[0].geometry;
+isPoint = collectionPropertyMaybeNull.features[0].geometry;
+isPointOrNull = collectionGeometryMaybeNull.features[0].geometry;
+isPoint = collectionNoNull.features[0].geometry;
+
+isNull = collectionAllNull.features[0].properties;
+isPropertyOrNull = collectionMaybeNull.features[0].properties;
+isPropertyOrNull = collectionPropertyMaybeNull.features[0].properties;
+isProperty = collectionGeometryMaybeNull.features[0].properties;
+isProperty = collectionNoNull.features[0].properties;

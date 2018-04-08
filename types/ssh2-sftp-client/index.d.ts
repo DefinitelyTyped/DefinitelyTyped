@@ -10,7 +10,7 @@ export = sftp;
 declare class sftp {
   connect(options: ssh2.ConnectConfig): Promise<void>;
   list(remoteFilePath: string): Promise<sftp.FileInfo[]>;
-  get(remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<NodeJS.ReadableStream>;
+  get(remoteFilePath: string, useCompression?: boolean, encoding?: string | null): Promise<NodeJS.ReadableStream>;
   put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<void>;
   mkdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
   rmdir(remoteFilePath: string, recursive?: boolean): Promise<void>;

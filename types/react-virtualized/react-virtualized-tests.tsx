@@ -114,7 +114,7 @@ export class AutoSizerExample extends PureComponent<any, any> {
     }
 }
 import { } from 'react'
-import { CellMeasurer, CellMeasurerCache } from 'react-virtualized'
+import { CellMeasurer, CellMeasurerCache, ListRowProps } from 'react-virtualized'
 
 export class DynamicHeightList extends PureComponent<any> {
 
@@ -148,7 +148,7 @@ export class DynamicHeightList extends PureComponent<any> {
         )
     }
 
-    _rowRenderer({ index, isScrolling, key, parent, style }) {
+    _rowRenderer({ index, isScrolling, key, parent, style }: ListRowProps) {
         const { getClassName, list } = this.props
 
         const datum = list.get(index % list.size)
@@ -1546,12 +1546,14 @@ export class TableExample extends PureComponent<{}, any> {
                                     }
                                     dataKey='index'
                                     disableSort={!this._isSortEnabled()}
+                                    defaultSortDirection={SortDirection.DESC}
                                     width={60}
                                 />
                             }
                             <Column
                                 dataKey='name'
                                 disableSort={!this._isSortEnabled()}
+                                defaultSortDirection={SortDirection.ASC}
                                 headerRenderer={this._headerRenderer}
                                 width={90}
                             />
@@ -1832,4 +1834,115 @@ export class WindowScrollerExample extends PureComponent<{}, any> {
     _onCheckboxChange(event) {
         this.context.setScrollingCustomElement(event.target.checked)
     }
+}
+
+import { GridCellProps, GridCellRangeProps } from 'react-virtualized'
+
+export class GridCellRangeRendererExample extends PureComponent<{}, any> {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            columnWidth: 75,
+            columnCount: 50,
+            height: 300,
+            rowHeight: 40,
+            rowCount: 100
+        }
+
+        this._cellRangeRenderer = this._cellRangeRenderer.bind(this)
+    }
+
+    render() {
+        const {
+            columnCount,
+            columnWidth,
+            height,
+            rowHeight,
+            rowCount
+        } = this.state
+
+        return (
+            <Grid
+                cellRangeRenderer={this._cellRangeRenderer}
+                cellRenderer={(props: GridCellProps): React.ReactNode => (
+                    <div key={props.key} style={props.style}>
+                        I'm a table cell
+                    </div>
+                )}
+                columnCount={columnCount}
+                columnWidth={columnWidth}
+                height={height}
+                rowCount={rowCount}
+                rowHeight={rowHeight}
+                width={columnWidth}
+            />
+        )
+    }
+
+    _cellRangeRenderer({
+        cellCache,                    // Temporary cell cache used while scrolling
+        cellRenderer,                 // Cell renderer prop supplied to Grid
+        columnSizeAndPositionManager, // @see CellSizeAndPositionManager,
+        columnStartIndex,             // Index of first column (inclusive) to render
+        columnStopIndex,              // Index of last column (inclusive) to render
+        horizontalOffsetAdjustment,   // Horizontal pixel offset (required for scaling)
+        isScrolling,                  // The Grid is currently being scrolled
+        rowSizeAndPositionManager,    // @see CellSizeAndPositionManager,
+        rowStartIndex,                // Index of first column (inclusive) to render
+        rowStopIndex,                 // Index of last column (inclusive) to render
+        scrollLeft,                   // Current horizontal scroll offset of Grid
+        scrollTop,                    // Current vertical scroll offset of Grid
+        styleCache,                   // Temporary style (size & position) cache used while scrolling
+        verticalOffsetAdjustment,     // Vertical pixel offset (required for scaling)
+        parent,
+        visibleColumnIndices,
+        visibleRowIndices,
+      }: GridCellRangeProps): React.ReactNode[] {
+        const renderedCells: React.ReactNode[] = []
+        const style: React.CSSProperties = {}
+
+        for (let rowIndex = rowStartIndex; rowIndex <= rowStopIndex; rowIndex++) {
+            // This contains :offset (top) and :size (height) information for the cell
+            const rowDatum = rowSizeAndPositionManager.getSizeAndPositionOfCell(rowIndex)
+
+            for (let columnIndex = columnStartIndex; columnIndex <= columnStopIndex; columnIndex++) {
+                // This contains :offset (left) and :size (width) information for the cell
+                const columnDatum = columnSizeAndPositionManager.getSizeAndPositionOfCell(columnIndex)
+
+                // Be sure to adjust cell position in case the total set of cells is too large to be supported by the browser natively.
+                // In this case, Grid will shift cells as a user scrolls to increase cell density.
+                const left = columnDatum.offset + horizontalOffsetAdjustment
+                const top = rowDatum.offset + verticalOffsetAdjustment
+
+                // The rest of the information you need to render the cell are contained in the data.
+                // Be sure to provide unique :key attributes.
+                const key = `${rowIndex}-${columnIndex}`
+                const height = rowDatum.size
+                const width = columnDatum.size
+                const isVisible =
+                    columnIndex >= visibleColumnIndices.start &&
+                    columnIndex <= visibleColumnIndices.stop &&
+                    rowIndex >= visibleRowIndices.start &&
+                    rowIndex <= visibleRowIndices.stop
+
+                // Now render your cell and additional UI as you see fit.
+                // Add all rendered children to the :renderedCells Array.
+                const gridCellProps: GridCellProps = {
+                    columnIndex,
+                    isScrolling,
+                    isVisible,
+                    key,
+                    parent,
+                    rowIndex,
+                    style,
+                }
+
+                renderedCells.push(cellRenderer(gridCellProps))
+            }
+        }
+
+        return renderedCells
+      }
 }

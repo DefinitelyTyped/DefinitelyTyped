@@ -2,7 +2,7 @@
 // Project: https://github.com/LouisBrunner/react-dnd-multi-backend
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { CSSProperties, PureComponent } from "react";
 import { Backend } from "react-dnd";

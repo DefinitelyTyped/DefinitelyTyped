@@ -552,3 +552,7 @@ QUnit.module( "module", {
 QUnit.test( "test with beforeEach and afterEach", function( assert ) {
   assert.expect( 2 );
 });
+
+QUnit.todo( "a todo test", function( assert ) {
+  assert.equal( 0, 1, "0 does not equal 1, so this todo should pass" );
+});

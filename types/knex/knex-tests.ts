@@ -126,6 +126,22 @@ var knex = Knex({
     searchPath: ['public', 'private'],
 });
 
+// postProcessResponse
+var knex = Knex({
+  client: 'pg',
+  postProcessResponse: function(result, queryContext){
+    return result;
+  }
+});
+
+// wrapIdentifier
+var knex = Knex({
+  client: 'pg',
+  wrapIdentifier: function(value, origImpl, queryContext){
+    return origImpl(value + 'foo');
+  }
+});
+
 // useNullAsDefault
 var knex = Knex({
   client: 'sqlite',
@@ -160,6 +176,7 @@ var knex = Knex({
 
 // Knex Query Builder
 knex.select('title', 'author', 'year').from('books');
+knex.select({ name: 'title', writer: 'author' }).from(knex.raw('books'));
 knex.select().table('books');
 
 knex.avg('sum_column1').from(function() {
@@ -184,6 +201,10 @@ knex('users').where(() => {
 }).orWhere({name: 'Tester'});
 
 knex('users').where('votes', '>', 100);
+
+// Let null be used in a two or 3 parameter where filter
+knex('users').where('votes', null);
+knex('users').where('votes', 'is not', null);
 
 var subquery = knex('users').where('votes', '>', 100).andWhere('status', 'active').orWhere('name', 'John').select('id');
 knex('accounts').where('id', 'in', subquery);
@@ -742,6 +763,10 @@ knex.schema.createTable('users', function (table) {
   table.timestamps(true, true);
 });
 
+knex.schema.alterTable('users', function (table) {
+  table.string('role').nullable();
+});
+
 knex.schema.renameTable('users', 'old_users');
 
 knex.schema.dropTable('users');
@@ -1005,6 +1030,9 @@ knex('users')
   }).unionAll(function(builder) {
     let self: Knex.QueryBuilder = this;
     self = builder;
+  }).modify(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
   });
 
 //
@@ -1039,6 +1067,10 @@ knex.schema
   .dropTableIfExists('A')
   .createTable('A', table => {
     table.integer('C').unsigned().references('B.id').notNullable();
+    table.integer('D').primary('PK').notNullable();
+    table.string('E').unique('UX').nullable();
+    table.foreign('E', 'FK').references('F.id');
+    table.timestamp('T', false).notNullable();
   });
 
 

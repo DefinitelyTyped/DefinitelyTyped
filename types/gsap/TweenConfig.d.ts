@@ -1,6 +1,9 @@
 declare namespace gsap {
     export interface TweenConfig {
 
+        /** Any tweenable property */
+        [p: string]: any;
+
         /** Amount of delay in seconds (or frames for frames-based tweens) before the animation should begin.*/
         delay?: number;
 

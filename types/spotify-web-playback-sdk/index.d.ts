@@ -1,6 +1,8 @@
 // Type definitions for spotify-web-playback-sdk 0.1
 // Project: https://beta.developer.spotify.com/documentation/web-playback-sdk/reference/
 // Definitions by: Festify Dev Team <https://github.com/Festify>
+//                 Marcus Weiner <https://github.com/mraerino>
+//                 Moritz Gunz <https://github.com/NeoLegends>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Window {
@@ -86,6 +88,10 @@ declare namespace Spotify {
         FULL_REPEAT = 2,
     }
 
+    type ErrorListener = (err: Error) => void;
+    type PlaybackInstanceListener = (inst: WebPlaybackInstance) => void;
+    type PlaybackStateListener = (s: PlaybackState) => void;
+
     class SpotifyPlayer {
         constructor(options: PlayerInit);
 
@@ -95,9 +101,17 @@ declare namespace Spotify {
         getVolume(): Promise<number>;
         nextTrack(): Promise<void>;
 
-        on(event: 'ready', cb: (pb: WebPlaybackInstance) => void): void;
-        on(event: 'player_state_changed', cb: (pb: PlaybackState) => void): void;
-        on(event: ErrorTypes, cb: (err: Error) => void): void;
+        addListener(event: 'ready', cb: PlaybackInstanceListener): void;
+        addListener(event: 'player_state_changed', cb: PlaybackStateListener): void;
+        addListener(event: ErrorTypes, cb: ErrorListener): void;
+        on(event: 'ready', cb: PlaybackInstanceListener): void;
+        on(event: 'player_state_changed', cb: PlaybackStateListener): void;
+        on(event: ErrorTypes, cb: ErrorListener): void;
+
+        removeListener(
+            event: 'ready' | 'player_state_changed' | ErrorTypes,
+            cb?: ErrorListener | PlaybackInstanceListener | PlaybackStateListener,
+        ): void;
 
         pause(): Promise<void>;
         previousTrack(): Promise<void>;

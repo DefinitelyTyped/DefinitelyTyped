@@ -1,5 +1,4 @@
-import * as mustache from "gulp-mustache";
-// noinspection ES6UnusedImports
+import mustache = require("gulp-mustache");
 import { Transform } from "stream";
 
 mustache({ // $ExpectType Transform

@@ -52,6 +52,10 @@ declare namespace AceAjax {
     export interface TokenInfo {
 
         value: string;
+
+        index?: number;
+
+        start?: number;
     }
 
     export interface Position {
@@ -575,7 +579,7 @@ declare namespace AceAjax {
          * @param row The row number to retrieve from
          * @param column The column number to retrieve from
         **/
-        getTokenAt(row: number, column: number): TokenInfo;
+        getTokenAt(row: number, column: number): TokenInfo|null;
 
         /**
          * Sets the undo manager.

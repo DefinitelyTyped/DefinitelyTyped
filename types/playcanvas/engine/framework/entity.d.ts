@@ -54,6 +54,8 @@ declare namespace pc {
         constructor(name?: string, app?: pc.Application)
         constructor(app?: pc.Application)
 
+        private _app: pc.Application;
+
         /**
          * @function
          * @name pc.Entity#addComponent
@@ -102,13 +104,12 @@ declare namespace pc {
         removeComponent(type: pc.ComponentTypes): void;
 
         /**
-         * @private
          * @function
          * @name pc.Entity#getGuid
          * @description Get the GUID value for this Entity
          * @returns {String} The GUID of the Entity
          */
-        private getGuid(): string;
+        public getGuid(): string;
 
         /**
          * @private

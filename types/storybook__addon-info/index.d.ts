@@ -3,7 +3,7 @@
 // Definitions by: Mark Kornblum <https://github.com/mkornblum>
 //                 Mattias Wikstrom <https://github.com/fyrkant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { RenderFunction } from '@storybook/react';

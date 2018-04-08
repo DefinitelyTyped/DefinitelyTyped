@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as DOM from "react-dom-factories";
-import * as createReactClass from "create-react-class";
+import createReactClass = require("create-react-class");
 
 interface Props {
     foo: string;

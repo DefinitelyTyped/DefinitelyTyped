@@ -1,4 +1,4 @@
-// Type definitions for QUnit v2.0.1
+// Type definitions for QUnit v2.5.0
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -579,6 +579,21 @@ interface QUnit {
      * @param callback Callback to execute
      */
     testStart(callback: (details: { name: string; module: string;}) => void): void;
+
+    /**
+     * Adds a test which expects at least one failing assertion during its run.
+     *
+     * Use this method to test a unit of code which is still under development
+     * (in a “todo” state). The test will pass as long as one failing assertion
+     * is present.
+     *
+     * If all assertions pass, then the test will fail signaling that QUnit.todo
+     * should be replaced by QUnit.test.
+     *
+     * @param {string} Title of unit being tested
+     * @param callback Function to close over assertions
+     */
+    todo(name: string, callback?: (assert: Assert) => void): void;
 
     /**
      * Are the test running from the server or not.

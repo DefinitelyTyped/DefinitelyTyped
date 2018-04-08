@@ -1,7 +1,8 @@
-// Type definitions for electron-packager 8.7
+// Type definitions for electron-packager 10.1
 // Project: https://github.com/electron-userland/electron-packager
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Juan Jimenez-Anca <https://github.com/cortopy>
+//                 John Kleinschmidt <https://github.com/jkleinsc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -31,8 +32,8 @@ declare namespace electronPackager {
 
     type ignoreFunction = (path: string) => boolean;
     type onCompleteFn = (buildPath: string, electronVersion: string, platform: string, arch: string, callbackFn: () => void) => void;
-    type arch = "ia32" | "x64" | "armv7l" | "all";
-    type packageManager = "npm" | "cnpm" | "yarn";
+    type arch = "ia32" | "x64" | "armv7l" | "arm64" |"all";
+    type packageManager = "npm" | "cnpm" | "yarn" | false;
     type platform = "linux" | "win32" | "darwin" | "mas" | "all";
 
     interface AsarOptions {
@@ -94,7 +95,7 @@ declare namespace electronPackager {
          * Arbitrary combinations of individual architectures are also supported via a comma-delimited string or array of strings.
          * The non-all values correspond to the architecture names used by Electron releases. This value is not restricted to the official set if download.mirror is set.
          */
-        arch?: arch;
+        arch?: arch | arch[];
         /**
          * Whether to package the application's source code into an archive, using Electron's archive format
          */
@@ -120,6 +121,10 @@ declare namespace electronPackager {
          * One or more files to be copied directly into the app's Contents/Resources directory for OS X target platforms, and the resources directory for other target platforms.
          */
         extraResource?: string | string[];
+        /**
+         * The name of the executable file, sans file extension. Defaults to the value for the name parameter
+         */
+        executableName?: string;
         /**
          * The local path to the icon file, if the target platform supports setting embedding an icon.
          */

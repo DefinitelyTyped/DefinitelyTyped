@@ -1,4 +1,4 @@
-import * as knex from "knex";
+import knex = require("knex");
 import * as mockDb from "mock-knex";
 
 const db = knex({

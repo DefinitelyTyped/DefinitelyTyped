@@ -1,4 +1,4 @@
-import * as Archiver from 'archiver';
+import Archiver = require('archiver');
 import * as fs from 'fs';
 
 const options: Archiver.ArchiverOptions = {
@@ -64,6 +64,6 @@ archiver.setModule(() => {});
 archiver.pointer();
 archiver.use(() => {});
 
-archiver.finalize().then();
+archiver.finalize();
 
 archiver.symlink('./path', './target');

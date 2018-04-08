@@ -157,6 +157,9 @@ export class Icon extends React.Component<IconProps, any> {
   static loadFont(
     file?: string
   ): Promise<void>;
+  static hasIcon(
+    name: string,
+  ): boolean;
 }
 
 export namespace Icon {

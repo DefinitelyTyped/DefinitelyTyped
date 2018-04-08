@@ -2,15 +2,17 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import {
     Application,
     Paginated
 } from '@feathersjs/feathers';
 import { Request } from 'express';
+import * as self from '@feathersjs/authentication-oauth2';
 
-export default function feathersAuthenticationOAuth2(options?: FeathersAuthenticationOAuth2Options): () => void;
+declare const feathersAuthenticationOAuth2: ((options?: FeathersAuthenticationOAuth2Options) => () => void) & typeof self;
+export default feathersAuthenticationOAuth2;
 
 export interface FeathersAuthenticationOAuth2Options {
     /**
@@ -62,7 +64,7 @@ export interface FeathersAuthenticationOAuth2Options {
 }
 
 export class OAuth2Verifier {
-    constructor(app: Application<any>, options: any)
+    constructor(app: Application, options: any)
 
     _updateEntity(entity: any, data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // updates an existing entity
     _createEntity(data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // creates an entity if they didn't exist already

@@ -415,7 +415,7 @@ R.times(i, 5);
  */
 () => {
     function mergeThree(a: number, b: number, c: number): number[] {
-        return ([]).concat(a, b, c);
+        return (new Array<number>()).concat(a, b, c);
     }
 
     mergeThree(1, 2, 3); // => [1, 2, 3]
@@ -665,6 +665,36 @@ interface Obj {
 };
 
 () => {
+    interface MyObject {
+        id: string;
+        quantity: number;
+    }
+
+    const reduceWithCombinedQuantities = (items: MyObject[]) =>
+        items.reduce<MyObject>(
+            (acc, item) => ({...item, quantity: acc.quantity + item.quantity}),
+            {id: '', quantity: 0},
+        );
+
+    const combineMyObjects = R.pipe(
+        R.groupBy<MyObject>(s => s.id),
+        R.values,
+        R.map(reduceWithCombinedQuantities),
+    );
+
+    const combined = combineMyObjects([
+        {id: 'foo', quantity: 4},
+        {id: 'bar', quantity: 3},
+        {id: 'foo', quantity: 2},
+    ]);
+
+    return {
+        id: combined[0].id,
+        quantity: combined[0].quantity
+    };
+};
+
+() => {
     R.groupWith(R.equals)([0, 1, 1, 2, 3, 5, 8, 13, 21]);
 
     R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
@@ -694,7 +724,9 @@ interface Obj {
     const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
     const a1 = R.indexBy(R.prop("id"), list);
     const a2 = R.indexBy(R.prop("id"))(list);
-    const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
+    const a3 = R.indexBy<{ id: string }>(R.prop("id"))(list);
+    const a4 = R.indexBy(R.prop<"id", string>("id"))(list);
+    const a5 = R.indexBy<{ id: string }>(R.prop<"id", string>("id"))(list);
 
     const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
         R.map((x: Book) => x.title),
@@ -978,6 +1010,13 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    R.reverse('abc');      // => 'cba'
+    R.reverse('ab');       // => 'ba'
+    R.reverse('a');        // => 'a'
+    R.reverse('');         // => ''
+};
+
+() => {
     const numbers = [1, 2, 3, 4];
     R.scan(R.multiply, 1, numbers); // => [1, 1, 2, 6, 24]
     R.scan(R.multiply, 1)(numbers); // => [1, 1, 2, 6, 24]
@@ -1124,7 +1163,8 @@ type Pair = KeyValuePair<string, number>;
 
 () => {
     const x          = R.prop("x");
-    const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a: boolean  = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a1: boolean = R.tryCatch(R.prop<"x", true>("x"), R.F)({x: true}); // => true
     const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
     const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      // => true
 };
@@ -1590,13 +1630,14 @@ class Rectangle {
 };
 
 () => {
-    const a = R.toPairs<string, number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
+    const a = R.toPairs<number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
+    const b = R.toPairs({1: 'a'}); // => [['1', 'something']]
 };
 
 () => {
     const f    = new F();
     const a1 = R.toPairsIn(f); // => [['x','X'], ['y','Y']]
-    const a2 = R.toPairsIn<string, string>(f); // => [['x','X'], ['y','Y']]
+    const a2 = R.toPairsIn<string>(f); // => [['x','X'], ['y','Y']]
 };
 
 () => {
@@ -1716,7 +1757,7 @@ class Rectangle {
 
     const format = R.converge(
         R.call, [
-            R.pipe<{}, number, (s: string) => string>(R.prop("indent"), indentN),
+            R.pipe(R.prop<"indent", number>("indent"), indentN),
             R.prop("value")
         ]
     );
@@ -2129,6 +2170,14 @@ class Rectangle {
     const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
 };
 
+() => {
+    const eqL = R.eqBy<string, number>(s => s.length);
+    const l1 = ['bb', 'ccc', 'dddd'];
+    const l2 = ['aaa', 'bb', 'c'];
+    R.symmetricDifferenceWith(eqL, l1, l2); // => ['dddd', 'c']
+    R.symmetricDifferenceWith(eqL)(l1, l2); // => ['dddd', 'c']
+};
+
 /*****************************************************************
  * String category
  */
@@ -2249,6 +2298,12 @@ class Rectangle {
     defaultTo42(null);  // => 42
     defaultTo42(undefined);  // => 42
     defaultTo42("Ramda");  // => 'Ramda'
+
+    const valueOrUndefined = 2 as number | undefined;
+    defaultTo42(valueOrUndefined) - 2; // => 0
+
+    const valueOrNull = 2 as number | null;
+    defaultTo42(valueOrNull) - 2; // => 0
 };
 
 () => {
@@ -2314,7 +2369,7 @@ class Why {
     const x0: boolean        = R.or(false, true); // => false
     const x1: number | any[] = R.or(0, []); // => []
     const x2: number | any[] = R.or(0)([]); // => []
-    const x3: string         = R.or(null, ""); // => ''
+    const x3: string | null  = R.or(null, ""); // => ''
 
     const why = new Why(true);
     why.or(true);

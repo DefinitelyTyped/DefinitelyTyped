@@ -133,7 +133,6 @@ declare namespace NewRelic {
          * @param name This will be used as the name of the tracer. If you do not include a name,
          *   New Relic Browser does not add a node to the interaction tree. The callback time will be
          *   attributed to the parent node.
-         * @param syncCallback
          * @returns This method ends the async time. It calls (and times) the callback that was passed into createTracer().
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-create-tracer
          */
@@ -170,7 +169,6 @@ declare namespace NewRelic {
          * has finished. You can invoke methods to modify the interaction, but methods that have asynchronous
          * side effects will not have an effect.
          *
-         * @param callback
          * @returns This method returns the same API object created by interaction().
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-on-end
          */

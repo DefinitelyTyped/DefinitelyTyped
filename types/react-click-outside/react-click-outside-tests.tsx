@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import * as enhanceWithClickOutside from 'react-click-outside';
+import enhanceWithClickOutside = require('react-click-outside');
 
 interface Props {
     text: string;
