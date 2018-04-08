@@ -5110,6 +5110,7 @@ export class Mesh extends Object3D {
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
+	isMesh: boolean;
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
