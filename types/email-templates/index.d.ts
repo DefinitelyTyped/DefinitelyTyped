@@ -43,9 +43,6 @@ interface EmailConfig {
      */
     htmlToText?: any;
     /**
-     * <https://github.com/Automattic/juice>
-     */
-    /**
      * You can pass an option to prefix subject lines with a string
      * env === 'production' ? false : `[${env.toUpperCase()}] `; // <--- HERE
      */
