@@ -1015,8 +1015,8 @@ export class DirectGeometry extends EventDispatcher {
     uvs2: Vector2[];
     groups: {start: number, materialIndex: number}[];
     morphTargets: MorphTarget[];
-    skinWeights: number[];
-    skinIndices: number[];
+    skinWeights: Vector4[];
+    skinIndices: Vector4[];
     boundingBox: Box3;
     boundingSphere: Sphere;
     verticesNeedUpdate: boolean;
@@ -1270,12 +1270,12 @@ export class Geometry extends EventDispatcher {
     /**
      * Array of skinning weights, matching number and order of vertices.
      */
-    skinWeights: number[];
+    skinWeights: Vector4[];
 
     /**
      * Array of skinning indices, matching number and order of vertices.
      */
-    skinIndices: number[];
+    skinIndices: Vector4[];
 
     /**
      *
@@ -5020,9 +5020,7 @@ export class QuaternionLinearInterpolant extends Interpolant {
 // Objects //////////////////////////////////////////////////////////////////////////////////
 
 export class Bone extends Object3D {
-    constructor(skin: SkinnedMesh);
-
-    skin: SkinnedMesh;
+    constructor();
 }
 
 export class Group extends Object3D {
