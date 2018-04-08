@@ -7,6 +7,7 @@
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
 //                 Alex Dunne <https://github.com/alexdunne>
+//                 Michele Bombardi <https://github.com/bm-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -466,6 +467,8 @@ export namespace AppRegistry {
     function unmountApplicationComponentAtRootTag(rootTag: number): void;
 
     function runApplication(appKey: string, appParameters: any): void;
+
+    function registerHeadlessTask(appKey: string, task: any): void;
 }
 
 export interface LayoutAnimationTypes {
