@@ -21,10 +21,22 @@ export class ElementClass extends Component<any, any> {
 /* These are purposefully stripped down versions of React.ComponentClass and React.StatelessComponent.
  * The optional static properties on them break overload ordering for wrapper methods if they're not
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
+ *
+ * The Class1/2/3 is kind of ugly, but we need to allow any of the variations of no-constructor,
+ * one-arg constructor, and two-arg constructor. We can't do this with a single definition like
+ * `new(props?, context?)` because `props | undefined` is actually a wider type definition than
+ * just `constructor(props, context)`.
  */
-export interface ComponentClass<Props> {
-    new(props?: Props, context?: any): Component<Props, any>;
+export interface ComponentClass1<Props> {
+    new(): Component<Props, any>;
 }
+export interface ComponentClass2<Props> {
+    new(props: Props): Component<Props, any>;
+}
+export interface ComponentClass3<Props> {
+    new(props: Props, context: any): Component<Props, any>;
+}
+export type ComponentClass<Props> = ComponentClass1<Props> | ComponentClass2<Props> | ComponentClass3<Props>;
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
 
@@ -354,7 +366,7 @@ export interface CommonWrapper<P = {}, S = {}> {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
+export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> { }
 export class ShallowWrapper<P = {}, S = {}> {
     constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper<any, any>, options?: ShallowRendererProps);
     shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
@@ -440,7 +452,7 @@ export class ShallowWrapper<P = {}, S = {}> {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
+export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> { }
 export class ReactWrapper<P = {}, S = {}> {
     constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper<any, any>, options?: MountRendererProps);
 
@@ -577,7 +589,7 @@ export interface MountRendererProps {
     /**
      * DOM Element to attach the component to
      */
-    attachTo?: HTMLElement;
+    attachTo?: HTMLElement | null;
     /**
      * Merged contextTypes for all children of the wrapper
      */
