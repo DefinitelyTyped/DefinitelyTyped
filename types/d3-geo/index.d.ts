@@ -303,7 +303,7 @@ export function geoRotation(angles: [number, number] | [number, number, number])
  *
  * The second generic corresponds to the type of the Datum which will be passed into the geo circle generator.
  */
-export interface GeoCircleGenerator<This, Datum> {
+export interface GeoCircleGenerator<This = any, Datum = any> {
     /**
      * Returns a new GeoJSON geometry object of type “Polygon” approximating a circle on the surface of a sphere,
      * with the current center, radius and precision. Any arguments are passed to the accessors.
@@ -374,7 +374,7 @@ export interface GeoCircleGenerator<This, Datum> {
 /**
  * Returns a new geo circle generator
  */
-export function geoCircle(): GeoCircleGenerator<any, any>;
+export function geoCircle(): GeoCircleGenerator;
 /**
  * Returns a new geo circle generator
  *
@@ -1024,7 +1024,7 @@ export interface GeoContext {
  *
  * The second generic corresponds to the type of the DatumObject which will be passed into the geo path generator for rendering.
  */
-export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
+export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects = GeoPermissibleObjects> {
     /**
      * Renders the given object, which may be any GeoJSON feature or geometry object:
      *
@@ -1234,7 +1234,7 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
-export function geoPath(projection?: GeoProjection | GeoStreamWrapper | null, context?: GeoContext | null): GeoPath<any, GeoPermissibleObjects>;
+export function geoPath(projection?: GeoProjection | GeoStreamWrapper | null, context?: GeoContext | null): GeoPath;
 /**
  * Creates a new geographic path generator with the default settings.
  *
