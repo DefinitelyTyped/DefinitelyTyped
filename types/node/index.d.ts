@@ -1987,7 +1987,7 @@ declare module "vm" {
         cachedData?: Buffer;
         produceCachedData?: boolean;
     }
-    export type RunningScriptOptions {
+    export interface RunningScriptOptions {
         filename?: string;
         lineOffset?: number;
         columnOffset?: number;
