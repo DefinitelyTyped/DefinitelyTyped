@@ -102,7 +102,7 @@ function ShallowWrapperTest() {
         elementWrapper = shallowWrapper.find('.selector');
         // Since AnotherComponent does not have a constructor, it cannot match the
         // previous selector overload of ComponentClass { new(props?, contenxt? ) }
-        let selector: EnzymeComponentClass<AnotherComponentProps> = AnotherComponent;
+        const selector: EnzymeComponentClass<AnotherComponentProps> = AnotherComponent;
     }
 
     function test_findWhere() {
