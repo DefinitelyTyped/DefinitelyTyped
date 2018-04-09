@@ -45,6 +45,8 @@ import {
     TabBarIOS,
     NativeModules,
     MaskedViewIOS,
+    TextInput,
+    InputAccessoryView,
 } from "react-native";
 
 declare module "react-native" {
@@ -366,6 +368,17 @@ class MaskedViewTest extends React.Component {
                 <View />
             </MaskedViewIOS>
         );
+    }
+}
+
+class InputAccessoryViewTest extends React.Component {
+    render() {
+        const uniqueID = "foobar";
+        return (
+            <InputAccessoryView nativeID={uniqueID}>
+                <TextInput inputAccessoryViewID={uniqueID} />
+            </InputAccessoryView>
+        )
     }
 }
 
