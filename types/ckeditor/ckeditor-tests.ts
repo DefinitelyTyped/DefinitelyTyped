@@ -347,12 +347,14 @@ function test_adding_dialog_by_definition() {
     });
 }
 
-function test_adding_plugin() {
+function test_plugins() {
     CKEDITOR.plugins.add( 'abbr', {
         init: function( editor: CKEDITOR.editor ) {
             // empty logic
         }
     });
+
+    console.log(CKEDITOR.plugins.registered['abbr']);
 }
 
 function test_adding_widget() {

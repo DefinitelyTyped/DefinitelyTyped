@@ -1095,7 +1095,7 @@ declare namespace CKEDITOR {
         function getPath(name: string): string;
         function load(name: string, callback: Function, scope?: Object): void;
         function setLang(pluginName: string, languageCode: string, languageEntries: any): void;
-
+        var registered: {[key: string]: IPluginDefinition};
     }
 
     interface IMenuItemDefinition {
