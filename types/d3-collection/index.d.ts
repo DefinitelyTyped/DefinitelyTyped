@@ -23,7 +23,7 @@ export interface Stringifiable {
  *
  * @param obj An object.
  */
-export function keys(obj: object): string[];
+export function keys(obj: Object): string[];
 
 /**
  * Returns an array containing the property values of the specified object (an associative array).
@@ -40,7 +40,7 @@ export function values<T>(obj: { [key: string]: T } | ArrayLike<T>): T[];
  *
  * @param obj An object.
  */
-export function values(obj: object): any[];
+export function values(obj: Object): any[];
 
 /**
  * Returns an array containing the property keys and values of the specified object (an associative array).
@@ -57,7 +57,7 @@ export function entries<T>(obj: { [key: string]: T } | ArrayLike<T>): Array<{ ke
  *
  * @param obj An object.
  */
-export function entries(obj: object): Array<{ key: string, value: any }>;
+export function entries(obj: Object): Array<{ key: string, value: any }>;
 
 // ---------------------------------------------------------------------
 // map / Map
@@ -145,7 +145,7 @@ export interface Map<T> {
  *
  * The generic refers to the data type of the map entry values.
  */
-export function map<T = any>(): Map<T>;
+export function map<T>(): Map<T>;
 /**
  * Constructs a new map by copying another map.
  *
@@ -480,4 +480,4 @@ export interface Nest<Datum, RollupType> {
  * nest operator. If not explicitly set, this generic parameter defaults to undefined, implying that
  * no rollup function will be applied.
  */
-export function nest<Datum, RollupType = undefined>(): Nest<Datum, RollupType>;
+export function nest<Datum, RollupType>(): Nest<Datum, RollupType>;
