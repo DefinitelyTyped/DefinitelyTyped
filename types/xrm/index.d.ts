@@ -964,7 +964,7 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/customize/actions External Link: Actions overview}
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/create-own-actions External Link: Create your own actions}
          */
-        invokeProcessAction(name: string, parameters: Collection.Dictionary<any>): Async.PromiseLike<any>;
+        invokeProcessAction(name: string, parameters: Collection.StringIndexable<any>): Async.PromiseLike<any>;
 
         /**
          * Opens a lookup control to select one or more items.
@@ -1299,31 +1299,29 @@ declare namespace Xrm {
         type IterativeDelegate<T> = (item: T, index?: number) => void;
 
         /**
-         * Interface for an item collection.
-         * @param T Generic type parameter.
+         * Defines collections that are index-able by string
+         * @param Generic type parameter.
          */
-        interface Dictionary<T> {
+        interface StringIndexable<T> {
             [key: string]: T;
-            [index: number]: T;
         }
 
+        /**
+         * Defines item collections that are index-able by string
+         * @param Generic type parameter.
+         */
+        type StringIndexableItemCollection<T> = StringIndexable<T> & ItemCollection<T>;
+        
         /**
          * Collections are structures to provide access to data that represent an array, but without the ability to modify the data in the array.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
-        type ItemCollection<T> = Dictionary<T> & {
+        interface ItemCollection<T> {
             /**
              * Applies an operation to all items in this collection.
              * @param delegate An iterative delegate function
              */
             forEach(delegate: IterativeDelegate<T>): void;
-
-            /**
-             * Gets the item using a delegate matching function
-             * @param delegate A matching delegate function
-             * @returns A T[] whose members have been validated by delegate.
-             */
-            get(delegate: MatchingDelegate<T>): T[];
 
             /**
              * Gets the item given by the index.
@@ -1367,7 +1365,7 @@ declare namespace Xrm {
              * @returns The length.
              */
             getLength(): number;
-        };
+        }
     }
 
     /**
@@ -4403,7 +4401,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            Attributes: Collection.ItemCollection<AttributeMetadata>;
+            Attributes: Collection.StringIndexableItemCollection<AttributeMetadata>;
             AutoRouteToOwnerQueue: boolean;
             CanEnableSyncToExternalSearchIndex: boolean;
             CanBeInManyToMany: boolean;
@@ -4466,7 +4464,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            LocalizedLabels: Collection.ItemCollection<LocalizedLabel>;
+            LocalizedLabels: LocalizedLabel[];
             UserLocalizedLabel: LocalizedLabel;
         }
 
@@ -4486,7 +4484,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            options: Collection.ItemCollection<string>;
+            options: string[];
             logicalName: string;
             displayName: string;
             attributeType: XrmEnum.AttributeTypeCode;
@@ -4494,7 +4492,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            optionSet: Collection.ItemCollection<OptionMetadata>;
+            optionSet: OptionMetadata[];
         }
 
         /**
