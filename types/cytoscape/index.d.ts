@@ -8,7 +8,7 @@
 //
 // Translation from Objects in help to Typescript interface.
 // http://js.cytoscape.org/#notation/functions
-//
+// TypeScript Version: 2.2
 
 /**
  * cy   --> Cy.Core
@@ -3145,7 +3145,7 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends PaddingNode {
+        interface Node extends Partial<Overlay>, PaddingNode {
             "label"?: string;
             /**
              * The width of the node’s body.
@@ -3320,7 +3320,7 @@ declare namespace cytoscape {
             "pie-i-background-opacity": number;
         }
 
-        interface Edge extends EdgeLine, EdgeArror { }
+        interface Edge extends EdgeLine, EdgeArror, Partial<Overlay> { }
 
         /**
          * These properties affect the styling of an edge’s line:
