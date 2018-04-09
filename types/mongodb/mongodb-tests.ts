@@ -113,5 +113,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
                 $and: [{ $gt: 0, $lt: 100 }]
             }
         });
+
+        const res: mongodb.Cursor<TestCollection> = testCollection.find({ _id: 123 });
     }
 })
