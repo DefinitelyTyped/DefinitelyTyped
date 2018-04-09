@@ -38,7 +38,7 @@ function test_CKEDITOR() {
 }
 
 function test_CKEDITOR_events() {
-    CKEDITOR.on("instanceCreated", function(event) {
+    CKEDITOR.on('instanceCreated', function(event) {
         // $ExpectType editor
         event.editor;
     });
@@ -62,18 +62,18 @@ function test_config() {
     var config3: CKEDITOR.config = {
         toolbarGroups: [
             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-		    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-		    { name: 'links', groups: [ 'links' ] },
-		    { name: 'insert', groups: [ 'insert' ] },
-		    { name: 'tools', groups: [ 'tools' ] },
-		    { name: 'document', groups: [ 'mode' ] },
-		    { name: 'about', groups: [ 'about' ] },
-		    '/',
-		    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-		    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'paragraph' ] },
-		    '/',
-		    { name: 'styles', groups: [ 'styles' ] },
-		    { name: 'colors', groups: [ 'colors' ] },
+            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+            { name: 'links', groups: [ 'links' ] },
+            { name: 'insert', groups: [ 'insert' ] },
+            { name: 'tools', groups: [ 'tools' ] },
+            { name: 'document', groups: [ 'mode' ] },
+            { name: 'about', groups: [ 'about' ] },
+            '/',
+            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'paragraph' ] },
+            '/',
+            { name: 'styles', groups: [ 'styles' ] },
+            { name: 'colors', groups: [ 'colors' ] },
         ],
     }
 }
@@ -517,9 +517,9 @@ function test_editor_instance_event() {
 }
 
 function test_dtd() {
-    var brConsideredEmptyTag = CKEDITOR.dtd.$empty["br"];
-    var spanCanContainText = CKEDITOR.dtd["span"]["#"];
-    var divCanContainSpan = CKEDITOR.dtd["div"]["span"];
+    var brConsideredEmptyTag = CKEDITOR.dtd.$empty['br'];
+    var spanCanContainText = CKEDITOR.dtd['span']['#'];
+    var divCanContainSpan = CKEDITOR.dtd['div']['span'];
 }
 
 function test_getSelectedHtml() {
@@ -566,7 +566,7 @@ function test_selection() {
 }
 
 function test_tools() {
-    var obj = { key: "value" };
+    var obj = { key: 'value' };
     CKEDITOR.tools.clone(obj);
     CKEDITOR.tools.copy(obj);
     CKEDITOR.tools.prototypedCopy(obj);
