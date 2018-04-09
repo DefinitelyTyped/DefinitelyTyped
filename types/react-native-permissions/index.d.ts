@@ -3,18 +3,18 @@
 // Definitions by: Vincent Langlet <https://github.com/vincentlanglet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Status = 'authorized' | 'denied' | 'restricted' | 'undetermined';
+export type Status = 'authorized' | 'denied' | 'restricted' | 'undetermined';
 
-interface Rationale {
+export interface Rationale {
     title: string;
     message: string;
 }
 
-type CheckOptions = string | { type: string };
+export type CheckOptions = string | { type: string };
 
-type RequestOptions = string | { type: string, rationale?: Rationale };
+export type RequestOptions = string | { type: string, rationale?: Rationale };
 
-interface ReactNativePermissions {
+export interface ReactNativePermissions {
     canOpenSettings: () => Promise<boolean>;
     openSettings: () => Promise<any>;
     getTypes: () => string[];
