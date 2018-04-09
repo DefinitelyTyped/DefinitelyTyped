@@ -1,4 +1,4 @@
-// Type definitions for node-red 0.17
+// Type definitions for node-red 0.18
 // Project: http://nodered.org
 // Definitions by: Anders E. Andersen <https://github.com/andersea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -42,31 +42,31 @@ export interface Node extends EventEmitter, NodeProperties {
      * of a single message.
      * @param msg - array of messages and/or message bundle arrays.
      */
-    send(msg: any[]): void;
+    send(msg: Message[]): void;
     /**
      * Send a message to the downstream node. If msg is null or
      * undefined, no message is sent.
      * @param msg - optional message to send.
      */
-    send(msg?: any): void;
+    send(msg?: Message): void;
     /**
      * Send a message to this node.
      * @param msg - optional message to send.
      */
-    receive(msg: any): void;
+    receive(msg: Message): void;
     /**
      * Log an log-level event. Used for mundane events
      * that are part of the normal functioning of the
      * node.
      * @param msg - message to log.
      */
-    log(msg: any): void;
+    log(msg: Message): void;
     /**
      * Log a warn-level event. For important events
      * that the user should be made aware of.
      * @param msg - message to log.
      */
-    warn(msg: any): void;
+    warn(msg: Message): void;
     /**
      * Log an error-level event. To trigger catch nodes on
      * the workflow call the function with msg set to the
@@ -74,20 +74,20 @@ export interface Node extends EventEmitter, NodeProperties {
      * @param logMessage - description of the error.
      * @param msg - optional payload that caused the error.
      */
-    error(logMessage: any, msg?: any): void;
+    error(logMessage: any, msg?: Message): void;
     /**
      * Log a debug-level event. Use this is for logging
      * internal detail not needed for normal operation.
      * @param msg - message to log.
      */
-    debug(msg: any): void;
+    debug(msg: Message): void;
     /**
      * Log a trace-level event. Even more internal details than
      * debug-level.
      * @param msg - message to log.
      */
-    trace(msg: any): void;
-    metric(eventname?: any, msg?: any, metricValue?: any): void;
+    trace(msg: Message): void;
+    metric(eventname?: any, msg?: Message, metricValue?: any): void;
     /**
      * Set or clear node status.
      *
@@ -209,4 +209,9 @@ export interface Nodes {
      * @param opts - optional additional options for the node
      */
     registerType(type: string, constructor: (props: NodeProperties) => any, opts?: any): void;
+}
+
+export interface Message {
+    _msgid: string;
+    payload?: any;
 }
