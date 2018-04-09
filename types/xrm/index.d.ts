@@ -964,7 +964,7 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/customize/actions External Link: Actions overview}
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/create-own-actions External Link: Create your own actions}
          */
-        invokeProcessAction(name: string, parameters: Collection.StringIndexable<any>): Async.PromiseLike<any>;
+        invokeProcessAction(name: string, parameters: Collection.Dictionary<any>): Async.PromiseLike<any>;
 
         /**
          * Opens a lookup control to select one or more items.
@@ -1302,7 +1302,7 @@ declare namespace Xrm {
          * Defines collections that are index-able by string
          * @param Generic type parameter.
          */
-        interface StringIndexable<T> {
+        interface Dictionary<T> {
             [key: string]: T;
         }
 
@@ -1310,7 +1310,7 @@ declare namespace Xrm {
          * Defines item collections that are index-able by string
          * @param Generic type parameter.
          */
-        type StringIndexableItemCollection<T> = StringIndexable<T> & ItemCollection<T>;
+        type StringIndexableItemCollection<T> = Dictionary<T> & ItemCollection<T>;
 
         /**
          * Collections are structures to provide access to data that represent an array, but without the ability to modify the data in the array.
