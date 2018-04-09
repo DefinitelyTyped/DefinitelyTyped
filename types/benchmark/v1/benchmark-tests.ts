@@ -17,22 +17,22 @@ suite.add('RegExp#test', function() {
   console.log(String(event.target));
 })
 .on('complete', function() {
-  console.log('Fastest is ' + this.filter('fastest').map('name'));
+  console.log('Fastest is ' + this.filter('fastest').pluck('name'));
 })
 // run async
 .run({ 'async': true });
 
-var fn: () => void;
-var onStart: () => void;
-var onCycle: () => void;
-var onAbort: () => void;
-var onError: () => void;
-var onReset: () => void;
-var onComplete: () => void;
-var setup: () => void;
-var teardown: () => void;
+var fn: Function;
+var onStart: Function;
+var onCycle: Function;
+var onAbort: Function;
+var onError: Function;
+var onReset: Function;
+var onComplete: Function;
+var setup: Function;
+var teardown: Function;
 var benches: Benchmark[];
-var listener: () => void;
+var listener: Function;
 var count: number;
 
 // basic usage (the `new` operator is optional)
@@ -100,19 +100,19 @@ var bench = new Benchmark('foo', function() {
   'My name is '.concat(this.name); // My name is foo
 });
 
-// $ExpectType number[]
+// get odd numbers
 Benchmark.filter([1, 2, 3, 4, 5], function(n) {
-  return n % 2 !== 0;
-});
+  return n % 2;
+}); // -> [1, 3, 5];
 
 // get fastest benchmarks
-Benchmark.filter(benches, 'fastest'); // $ExpectType Benchmark[]
+Benchmark.filter(benches, 'fastest');
 
 // get slowest benchmarks
-Benchmark.filter(benches, 'slowest'); // $ExpectType Benchmark[]
+Benchmark.filter(benches, 'slowest');
 
 // get benchmarks that completed without erroring
-Benchmark.filter(benches, 'successful'); // $ExpectType Benchmark[]
+Benchmark.filter(benches, 'successful');
 
 // invoke `reset` on all benchmarks
 Benchmark.invoke(benches, 'reset');
@@ -171,53 +171,50 @@ var bench = new Benchmark({
      }())'
 });
 
-// $ExpectType Benchmark
 var bizarro = bench.clone({
   'name': 'doppelganger'
 });
 
 // unregister a listener for an event type
-bench.off('cycle', listener); // $ExpectType Benchmark
+bench.off('cycle', listener);
 
 // unregister a listener for multiple event types
-bench.off('start cycle', listener); // $ExpectType Benchmark
+bench.off('start cycle', listener);
 
 // unregister all listeners for an event type
-bench.off('cycle'); // $ExpectType Benchmark
+bench.off('cycle');
 
 // unregister all listeners for multiple event types
-bench.off('start cycle complete'); // $ExpectType Benchmark
+bench.off('start cycle complete');
 
 // unregister all listeners for all event types
-bench.off(); // $ExpectType Benchmark
+bench.off();
 
 // register a listener for an event type
-bench.on('cycle', listener); // $ExpectType Benchmark
+bench.on('cycle', listener);
 
 // register a listener for multiple event types
-bench.on('start cycle', listener); // $ExpectType Benchmark
+bench.on('start cycle', listener);
 
 // basic usage
-bench.run(); // $ExpectType Benchmark
+bench.run();
 
 // or with options
-bench.run({ 'async': true }); // $ExpectType Benchmark
+bench.run({ 'async': true });
 
 // basic usage
-suite.add(fn); // $ExpectType Suite
+suite.add(fn);
 
 // or using a name first
-suite.add('foo', fn); // $ExpectType Suite
+suite.add('foo', fn);
 
 // or with options
-// $ExpectType Suite
 suite.add('foo', fn, {
   'onCycle': onCycle,
   'onComplete': onComplete
 });
 
 // or name and options
-// $ExpectType Suite
 suite.add('foo', {
   'fn': fn,
   'onCycle': onCycle,
@@ -225,7 +222,6 @@ suite.add('foo', {
 });
 
 // or options only
-// $ExpectType Suite
 suite.add({
   'name': 'foo',
   'fn': fn,
@@ -234,28 +230,28 @@ suite.add({
 });
 
 // unregister a listener for an event type
-suite.off('cycle', listener); // $ExpectType Suite
+suite.off('cycle', listener) as Benchmark.Suite;
 
 // unregister a listener for multiple event types
-suite.off('start cycle', listener); // $ExpectType Suite
+suite.off('start cycle', listener) as Benchmark.Suite;
 
 // unregister all listeners for an event type
-suite.off('cycle'); // $ExpectType Suite
+suite.off('cycle') as Benchmark.Suite;
 
 // unregister all listeners for multiple event types
-suite.off('start cycle complete'); // $ExpectType Suite
+suite.off('start cycle complete') as Benchmark.Suite;
 
 // unregister all listeners for all event types
-suite.off(); // $ExpectType Suite
+suite.off() as Benchmark.Suite;
 
 // register a listener for an event type
-suite.on('cycle', listener); // $ExpectType Suite
+suite.on('cycle', listener) as Benchmark.Suite;
 
 // register a listener for multiple event types
-suite.on('start cycle', listener); // $ExpectType Suite
+suite.on('start cycle', listener) as Benchmark.Suite;
 
 // basic usage
-suite.run(); // $ExpectType Suite
+suite.run();
 
 // or with options
 suite.run({ 'async': true, 'queued': true });
