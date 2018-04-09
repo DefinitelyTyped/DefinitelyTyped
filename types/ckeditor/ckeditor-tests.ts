@@ -218,7 +218,7 @@ function test_dom_event() {
         domEvent.getTarget().addClass('clicked');
     });
     element.on('click', ev=> {
-        var domEvent = ev.data;
+        var domEvent = ev.data as CKEDITOR.dom.event;
         domEvent.preventDefault();
     });
 }

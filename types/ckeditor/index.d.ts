@@ -331,11 +331,11 @@ declare namespace CKEDITOR {
             deleteContents(mergeThen?: boolean): void;
             extractContents(mergeThen?: boolean): documentFragment;
             createBookmark(serializable?: boolean): bookmark;
-            createBookmark2(normalized: boolean): Object;
+            createBookmark2(normalized?: boolean): Object;
             createIterator(): iterator;
             moveToBookmark(bookmark: Object): void;
             getBoundaryNodes(): { startNode: node; endNode: node; };
-            getCommonAncestor(includeSelf: boolean, ignoreTextNode: boolean): element;
+            getCommonAncestor(includeSelf?: boolean, ignoreTextNode?: boolean): element;
             optimize(): void;
             optimizeBookmark(): void;
             trim(ignoreStart?: boolean, ignoreEnd?: boolean): void;
@@ -441,7 +441,7 @@ declare namespace CKEDITOR {
             insertAfter(node: node): node;
             insertBefore(node: node): node;
             insertBeforeMe(node: node): node;
-            getAddress(normalized: boolean): Object[];
+            getAddress(normalized?: boolean): Object[];
             getDocument(): document;
             getIndex(normalized?: boolean): number;
             getNextSourceNode(startFromSibling: Object, nodeType: Object, guard: Object): void;
@@ -474,7 +474,7 @@ declare namespace CKEDITOR {
             constructor(domEvent: Event);
             getKey(): number;
             getKeystroke(): number;
-            preventDefault(stopPropagation: boolean): void;
+            preventDefault(stopPropagation?: boolean): void;
             stopPropagation(): void;
             getTarget(): node;
             getPhase(): number;
