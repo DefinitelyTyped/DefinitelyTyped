@@ -340,6 +340,9 @@ export function createElement<P>(
 
 export type Runnable = (appParameters: any) => void;
 
+type Task = (taskData: any) => Promise<void>;
+type TaskProvider = () => Task;
+
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
@@ -468,7 +471,7 @@ export namespace AppRegistry {
 
     function runApplication(appKey: string, appParameters: any): void;
 
-    function registerHeadlessTask(appKey: string, task: any): void;
+    function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 }
 
 export interface LayoutAnimationTypes {
