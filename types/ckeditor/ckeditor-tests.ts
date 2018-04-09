@@ -519,3 +519,24 @@ function test_dtd() {
     var spanCanContainText = CKEDITOR.dtd["span"]["#"];
     var divCanContainSpan = CKEDITOR.dtd["div"]["span"];
 }
+
+function test_getSelectedHtml() {
+    var textarea = document.createElement('textarea');
+    var editor = CKEDITOR.replace(textarea);
+
+    // $ExpectType documentFragment
+    var sel1 = editor.getSelectedHtml();
+    console.log(sel1);
+
+    // $ExpectType documentFragment
+    var sel2 = editor.getSelectedHtml(false);
+    console.log(sel2);
+
+    // $ExpectType string
+    var sel3 = editor.getSelectedHtml(true);
+    console.log(sel3);
+
+    // $ExpectType string | documentFragment
+    var sel4 = editor.getSelectedHtml(Math.random() > 0.5);
+    console.log(sel4);
+}

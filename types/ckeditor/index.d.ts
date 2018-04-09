@@ -1165,6 +1165,9 @@ declare namespace CKEDITOR {
         getData(noEvents?: Object): string;
         getMenuItem(name: string): Object;
         getResizable(forContents: boolean): dom.element;
+        getSelectedHtml(toString?: false): dom.documentFragment;
+        getSelectedHtml(toString: true): string;
+        getSelectedHtml(toString?: boolean): CKEDITOR.dom.documentFragment | string;
         getSelection(forceRealSelection?: boolean): dom.selection;
         getSnapshot(): string;
         getStylesSet(callback: Function): void;
