@@ -80,7 +80,6 @@ declare namespace CKEDITOR {
     var version: string;
     var config: config;
 
-
     // Methods
     function add(editor: editor): void;
     function addCss(css: string): void;
@@ -100,6 +99,17 @@ declare namespace CKEDITOR {
     function replace(element: string | HTMLTextAreaElement, config?: config): editor;
     function replaceAll(className?: string): void;
     function replaceAll(assertionFunction: (textarea: HTMLTextAreaElement, config: config) => boolean): void;
+
+    // Event interface
+    function capture(): void;
+    function define(name: string, meta: Object): void;
+    function fire(eventName: string, data?: Object, editor?: editor): any;
+    function fireOnce(eventName: string, data?: Object, editor?: editor): any;
+    function hasListeners(eventName: string): boolean;
+    function on(eventName: string, listenerFunction: (eventInfo: eventInfo) => void, scopeObj?: Object, listenerData?: Object, priority?: number): void;
+    function once(eventName: string, listenerFunction: (eventInfo: eventInfo) => void, scopeObj?: Object, listenerData?: Object, priority?: number): void;
+    function removeAllListeners(): void;
+    function removeListener(eventName: string, listenerFunction: (eventInfo: eventInfo) => void): void;
 
     type listenerRegistration = {
         removeListener: () => void;

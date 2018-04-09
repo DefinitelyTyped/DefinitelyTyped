@@ -37,6 +37,13 @@ function test_CKEDITOR() {
     CKEDITOR.replaceAll((textarea, config) => false);
 }
 
+function test_CKEDITOR_events() {
+    CKEDITOR.on("instanceCreated", function(event) {
+        // $ExpectType editor
+        event.editor;
+    });
+}
+
 function test_config() {
     var config1: CKEDITOR.config = {
         toolbar: 'basic',
