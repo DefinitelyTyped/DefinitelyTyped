@@ -3,7 +3,7 @@
 // Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface SupportsColor {
+interface SupportsColor {
     level: number;
     hasBasic: boolean;
     has256: boolean;
