@@ -149,8 +149,8 @@ import * as http from 'http';
 
 namespace node_tests {
     {
-    // http.createServer can take express application
-    const app: express.Application = express();
-    http.createServer(app).listen(5678);
-}
+        // http.createServer can take express application
+        const app: express.Application = express();
+        http.createServer(app).listen(5678);
+    }
 }
