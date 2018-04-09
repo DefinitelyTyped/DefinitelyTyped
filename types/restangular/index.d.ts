@@ -107,15 +107,6 @@ declare namespace restangular {
     getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
   }
 
-  interface IScopedService extends IService {
-    one(id: number): IElement;
-    one(id: string): IElement;
-    post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
-    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
-    getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
-    getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
-  }
-
   interface IElement extends IService {
     get(queryParams?: any, headers?: any): IPromise<any>;
     get<T>(queryParams?: any, headers?: any): IPromise<T>;
