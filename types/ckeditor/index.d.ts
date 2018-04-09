@@ -1857,6 +1857,7 @@ declare namespace CKEDITOR {
             clone(): element;
             filter(filter: filter): boolean;
             filterChildren(filter: filter): void;
+            forEach(callback: (node: node, type?: number) => void|false, type?: number, skipRoot?: boolean): void;
             writeHtml(writer: basicWriter, filter: filter): void;
             writeChildrenHtml(writer: basicWriter, filter: filter): void;
             replaceWithChildren(): void;
@@ -1887,6 +1888,7 @@ declare namespace CKEDITOR {
             add(node: node, index?: number): void;
             filter(filter: filter): void;
             filterChildren(filter: filter, filterRoot?: boolean): void;
+            forEach(callback: (node: node, type?: number) => void|false, type?: number, skipRoot?: boolean): void;
             writeHtml(writer: basicWriter, filter?: filter): void;
             writeChildrenHtml(writer: basicWriter, filter?: filter, filterRoot?: boolean): void;
             forEach(callback: (node: node, type?: number) => boolean, type?: number, skipRoot?: boolean): void;

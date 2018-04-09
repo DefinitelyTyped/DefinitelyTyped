@@ -582,3 +582,15 @@ function test_tools() {
         };
     });
 }
+
+function test_htmlParser() {
+    var html = '<div><span>text</span></div>';
+    var fragment = CKEDITOR.htmlParser.fragment.fromHtml(html);
+    fragment.forEach(function(node) {
+        if (node instanceof CKEDITOR.htmlParser.element) {
+            node.forEach(function(node) {
+                console.log(node);
+            });
+        }
+    }, CKEDITOR.NODE_ELEMENT, true);
+}
