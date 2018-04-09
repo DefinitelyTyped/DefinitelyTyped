@@ -45,7 +45,7 @@ export type MasonryProps = {
     scrollingResetTimeInterval?: number,
     scrollTop?: number,
     style?: React.CSSProperties,
-    tabIndex?: number,
+    tabIndex?: number | null,
     width: number,
     /**
      * PLEASE NOTE
