@@ -6,6 +6,7 @@
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Orblazer <https://github.com/orblazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -148,6 +149,8 @@ declare namespace WebSocket {
         clientNoContextTakeover?: boolean;
         serverMaxWindowBits?: number;
         clientMaxWindowBits?: number;
+        zlibDeflateOptions?: object;
+        zlibInflateOptions?: object;
         level?: number;
         memLevel?: number;
         threshold?: number;
@@ -176,6 +179,7 @@ declare namespace WebSocket {
 
         constructor(options?: ServerOptions, callback?: () => void);
 
+        address<T={ port: number, family: string, address: string }>(): T;
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
