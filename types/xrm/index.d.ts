@@ -1323,6 +1323,13 @@ declare namespace Xrm {
              */
             forEach(delegate: IterativeDelegate<T>): void;
 
+            /**	
+             * Gets the item using a delegate matching function	
+             * @param delegate A matching delegate function	
+             * @returns A T[] whose members have been validated by delegate.	
+             */	
+            get(delegate: MatchingDelegate<T>): T[];
+
             /**
              * Gets the item given by the index.
              * @param itemNumber The item number to get.
