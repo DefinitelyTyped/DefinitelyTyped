@@ -2129,9 +2129,9 @@ interface WebTwain {
 
     /**
      * Returns or sets the page size(s) the Source can/should use to acquire image data. This is a runtime property.
-     * @type {number}
+     * @type {EnumDWT_CapSupportedSizes}
      */
-    PageSize: number;
+    PageSize: EnumDWT_CapSupportedSizes;
 
     /**
      * Returns the number of transfers the Source is ready to supply, upon demand. This is a runtime, read-only property.
@@ -2225,9 +2225,9 @@ interface WebTwain {
 
     /**
      * Returns or sets the unit of measure. This is a runtime property.
-     * @type {number}
+     * @type {EnumDWT_UnitType}
      */
-    Unit: number;
+    Unit: EnumDWT_UnitType;
 
     /**
      * Specifies whether to show the vertical scroll bar
