@@ -3,7 +3,6 @@
 // Definitions by: Philippe Vaillancourt <https://github.com/Neoflash1979>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="webvr-api" />
 /// <reference path="./engine/scriptype.d.ts" />
 /// <reference path="./engine/core/debug.d.ts" />
 /// <reference path="./engine/core/color.d.ts" />
