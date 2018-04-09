@@ -13,6 +13,8 @@ declare class Pubnub {
 
   static generateUUID(): string;
 
+  channelGroups: Pubnub.ChannelGroups;
+
   setUUID(uuid: string): void;
 
   getUUID(): string;
@@ -88,6 +90,11 @@ declare class Pubnub {
   setState(
     params: Pubnub.SetStateParameters
   ): Promise<Pubnub.SetStateResponse>;
+
+  grant(
+    params: Pubnub.GrantChannelParameteres | Pubnub.GrantChannelGroupParameters,
+    callback: (status: Pubnub.GrantStatus) => void,
+  ): void;
 }
 
 declare namespace Pubnub {
@@ -331,6 +338,57 @@ declare namespace Pubnub {
     PNRemoveChannelsFromGroupOperation: string;
     PNAccessManagerGrant: string;
     PNAccessManagerAudit: string;
+  }
+
+  interface GrantParameters {
+    authKeys: string[];
+    manage: boolean;
+    read: boolean;
+    ttl?: number;
+    write: boolean;
+  }
+
+  interface GrantChannelParameters extends GrantParameters {
+    channels: string[];
+  }
+
+  interface GrantChannelGroupParameters extends GrantParameters {
+    channelGroups: string[];
+  }
+
+  interface GrantStatus {
+    [key: string]: any;
+  }
+
+  interface AddChannelParameters {
+    channelGroup: string;
+    channels: string[];
+  }
+
+  interface ListChannelsParameters {
+    channelGroup: string;
+  }
+
+  interface ChannelGroupsListChannelsStatus {
+    error: boolean;
+	statusCode: number;
+	operation: string;
+  }
+
+  interface ChannelGroupsListChannelsResponse {
+    channels: string[];
+  }
+
+  interface ChannelGroups {
+    addChannels(
+      params: AddChannelParameters,
+      callback: (status: ChannelGroupsListChannelsStatus) => void,
+    ): void;
+
+    listChannels(
+      params: ListChannelsParameters,
+	  callback: (status: { error: boolean, statusCode: number, }, response: ChannelGroupsListChannelsResponse) => void,
+    ): void;
   }
 }
 
