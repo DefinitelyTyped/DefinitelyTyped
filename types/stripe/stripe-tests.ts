@@ -796,13 +796,15 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 
 stripe.products.create({
     name: "My amazing product",
-    type: "service"
+    type: "service",
+    attributes: ["color"]
 }, function (err, coupon) {
     // asynchronously called
 });
 stripe.products.create({
     name: "My amazing product",
-    type: "service"
+    type: "service",
+    attributes: ["color"]
 }).then(function (product) {
     // asynchronously called
     const prodType: "service" | "good" = product.type;

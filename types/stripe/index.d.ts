@@ -3029,7 +3029,7 @@ declare namespace Stripe {
              * A list of up to 5 alphanumeric attributes that each SKU can provide values for (e.g. ["color", "size"]).
              * Applicable to both service and good types.
              */
-            attribute?: Array<string>;
+            attributes?: Array<string>;
 
             /**
              * A short one-line description of the product, meant to be displayable to the customer. May only be set if type=good.
