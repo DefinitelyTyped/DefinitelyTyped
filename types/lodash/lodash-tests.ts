@@ -3691,7 +3691,6 @@ fp.now(); // $ExpectType number
         get(key: string): any { return 1; },
         has(key: string) { return true; },
         set(key: string, value: any): _.Dictionary<any> { return {}; },
-        clear() { },
     };
 
     const memoizeFn = (a1: string, a2: number): boolean => true;
@@ -3707,6 +3706,12 @@ fp.now(); // $ExpectType number
 
     // $ExpectType MapCache
     new _.memoize.Cache();
+    _.memoize.Cache = WeakMap;
+    _.memoize.Cache = Map;
+
+    const memoizedFn = _.memoize(memoizeFn);
+    memoizedFn.cache = new WeakMap();
+    memoizedFn.cache = new Map();
 }
 
 // _.overArgs
