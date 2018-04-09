@@ -1,6 +1,7 @@
 // Type definitions for react-dates v16.0.0
 // Project: https://github.com/airbnb/react-dates
-// Definitions by: Artur Ampilogov <https://github.com/Artur-A>
+// Definitions by: Artur Ampilogov <https://github.com/Artur-A> 
+//                 Nathan Holland <https://github.com/NathanNZ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -21,6 +22,35 @@ declare namespace ReactDates {
     type FocusedInputShape = 'startDate' | 'endDate';
     type OrientationShape = 'horizontal' | 'vertical';
     type ScrollableOrientationShape = 'horizontal' | 'vertical' | 'verticalScrollable';
+    type CalendarInfoPositionShape = 'top' | 'bottom' | 'before' | 'after';
+
+    type SingleDayPickerPhrasesShape = {
+        closeDatePicker: string,
+        clearDate: string,
+        jumpToPrevMonth: string,
+        jumpToNextMonth: string,
+        keyboardShortcuts: string,
+        showKeyboardShortcutsPanel: string,
+        hideKeyboardShortcutsPanel: string,
+        openThisPanel: string,
+        enterKey: string,
+        leftArrowRightArrow: string,
+        upArrowDownArrow: string,
+        pageUpPageDown: string,
+        homeEnd: string,
+        escape: string,
+        questionMark: string,
+        selectFocusedDate: string,
+        moveFocusByOneDay: string,
+        moveFocusByOneWeek: string,
+        moveFocusByOneMonth: string,
+        moveFocustoStartAndEndOfWeek: string,
+        returnFocusToInput: string,
+        keyboardNavigationInstructions: string,
+
+        chooseAvailableDate: (date: string) => string,
+        dateIsUnavailable: (date: string) => string,
+    };
 
 
     interface DateRangePickerShape {
@@ -60,7 +90,7 @@ declare namespace ReactDates {
         withPortal?: boolean,
         withFullScreenPortal?: boolean,
         initialVisibleMonth?: () => momentPropTypes.momentObj,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6,
         numberOfMonths?: number,
         keepOpenOnDateSelect?: boolean,
         reopenPickerOnClearDates?: boolean,
@@ -91,35 +121,7 @@ declare namespace ReactDates {
         displayFormat?: (string | (() => string)),
         monthFormat?: string,
         weekDayFormat?: string,
-        phrases?: {
-            closeDatePicker: string,
-            clearDates: string,
-            focusStartDate: string,
-            jumpToPrevMonth: string,
-            jumpToNextMonth: string,
-            keyboardShortcuts: string,
-            showKeyboardShortcutsPanel: string,
-            hideKeyboardShortcutsPanel: string,
-            openThisPanel: string,
-            enterKey: string,
-            leftArrowRightArrow: string,
-            upArrowDownArrow: string,
-            pageUpPageDown: string,
-            homeEnd: string,
-            escape: string,
-            questionMark: string,
-            selectFocusedDate: string,
-            moveFocusByOneDay: string,
-            moveFocusByOneWeek: string,
-            moveFocusByOneMonth: string,
-            moveFocustoStartAndEndOfWeek: string,
-            returnFocusToInput: string,
-            keyboardNavigationInstructions: string,
-
-            chooseAvailableStartDate: (date: string) => string,
-            chooseAvailableEndDate: (date: string) => string,
-            dateIsUnavailable: (date: string) => string
-        }
+        phrases?: SingleDayPickerPhrasesShape
     }
 
     type DateRangePicker = React.ClassicComponentClass<DateRangePickerShape>;
@@ -158,7 +160,7 @@ declare namespace ReactDates {
         withPortal?: boolean,
         withFullScreenPortal?: boolean,
         initialVisibleMonth?: () => momentPropTypes.momentObj,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6,
         numberOfMonths?: number,
         keepOpenOnDateSelect?: boolean,
         reopenPickerOnClearDates?: boolean,
@@ -166,8 +168,8 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean,
         daySize?: number,
         isRTL?: boolean,
-        verticalSpacing?: number,        
-        verticalHeight?: number| null,
+        verticalSpacing?: number,
+        verticalHeight?: number | null,
 
         // navigation related props
         navPrev?: string | JSX.Element,
@@ -219,8 +221,6 @@ declare namespace ReactDates {
     type SingleDatePicker = React.ClassicComponentClass<SingleDatePickerShape>;
     var SingleDatePicker: React.ClassicComponentClass<SingleDatePickerShape>;
 
-
-
     interface DayPickerRangeControllerShape {
         // REQUIRED props
         startDate: momentPropTypes.momentObj | null,
@@ -243,7 +243,7 @@ declare namespace ReactDates {
         onOutsideClick?: (e: any) => void,
         keepOpenOnDateSelect?: boolean,
         noBorder?: boolean,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6,
 
         // navigation related props
         navPrev?: string | JSX.Element,
@@ -273,8 +273,61 @@ declare namespace ReactDates {
     type DayPickerRangeController = React.ClassicComponentClass<DayPickerRangeControllerShape>;
     var DayPickerRangeController: React.ClassicComponentClass<DayPickerRangeControllerShape>;
 
+    interface DayPickerSingleDateControllerShape {
+        date: momentPropTypes.momentObj | null,
+        onDateChange: (date: momentPropTypes.momentObj | null) => void,
+        focused: boolean,
 
+        onFocusChange: (arg: { focused: boolean | null }) => void,
+        onClose?: (final: { date: momentPropTypes.momentObj }) => void,
 
+        keepOpenOnDateSelect?: boolean,
+        isOutsideRange?: (day: any) => boolean,
+        isDayBlocked?: (day: any) => boolean,
+        isDayHighlighted?: (day: any) => boolean,
+
+        // DayPicker props
+        renderMonth?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        enableOutsideDays?: boolean,
+        numberOfMonths?: number,
+        orientation?: ScrollableOrientationShape,
+        withPortal?: boolean,
+        initialVisibleMonth?: () => momentPropTypes.momentObj,
+        firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        hideKeyboardShortcutsPanel?: boolean,
+        daySize?: number,
+        verticalHeight?: number,
+        noBorder?: boolean,
+        transitionDuration?: number,
+
+        navPrev?: string | JSX.Element,
+        navNext?: string | JSX.Element,
+
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onOutsideClick?: (e: any) => void,
+        renderCalendarDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderDayContents?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderCalendarInfo?: () => (string | JSX.Element),
+        calendarInfoPosition?: CalendarInfoPositionShape,
+
+        // accessibility
+        onBlur?: () => void,
+        isFocused?: boolean,
+        showKeyboardShortcuts?: boolean,
+
+        // i18n
+        monthFormat?: string,
+        weekDayFormat?: string,
+        phrases?: SingleDayPickerPhrasesShape,
+        dayAriaLabelFormat?: string,
+
+        isRTL?: boolean,
+
+    }
+
+    type DayPickerSingleDateController = React.ClassicComponentClass<DayPickerSingleDateControllerShape>;
+    var DayPickerSingleDateController: React.ClassicComponentClass<DayPickerSingleDateControllerShape>;
 
     var isInclusivelyAfterDay: (a: moment.Moment, b: moment.Moment) => boolean;
     var isInclusivelyBeforeDay: (a: moment.Moment, b: moment.Moment) => boolean;
