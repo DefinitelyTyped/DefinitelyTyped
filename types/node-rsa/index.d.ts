@@ -1,6 +1,7 @@
 // Type definitions for node-rsa 0.4
 // Project: https://github.com/rzcoder/node-rsa
 // Definitions by: Ali Taheri <https://github.com/alitaheri>
+//                 Christian Moniz <https://github.com/xm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -16,6 +17,11 @@ declare class NodeRSA {
      * Load key from string/buffer/components.
      */
     constructor(key: NodeRSA.Key, format?: NodeRSA.Format, options?: NodeRSA.Options);
+
+    /**
+     * Set and validate options for key instance.
+     */
+    setOptions(options: NodeRSA.Options): void;
 
     /**
      * @param bits Key size in bits. 2048 by default.

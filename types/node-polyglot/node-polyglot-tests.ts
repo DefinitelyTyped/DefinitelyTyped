@@ -47,6 +47,9 @@ function translate(): void {
 		_: "I like to write in %{language}.",
 		language: "Javascript"
 	});
+  
+	polyglot.has("hello");
+	polyglot.has("world");
 
 	polyglot.replace({
 		"hello": "hey",

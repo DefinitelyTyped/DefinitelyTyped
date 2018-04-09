@@ -506,3 +506,9 @@ function test_editor_instance_event() {
         }
     });
 }
+
+function test_dtd() {
+    var brConsideredEmptyTag = CKEDITOR.dtd.$empty["br"];
+    var spanCanContainText = CKEDITOR.dtd["span"]["#"];
+    var divCanContainSpan = CKEDITOR.dtd["div"]["span"];
+}

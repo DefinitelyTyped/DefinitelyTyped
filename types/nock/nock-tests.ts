@@ -72,10 +72,10 @@ scope = inst.reply(num, str);
 scope = inst.reply(num, str, headers);
 scope = inst.reply(num, obj, headers);
 scope = inst.reply(num, (uri: string, body: string) => {
-	return str;
+  return str;
 });
 scope = inst.reply(num, (uri: string, body: string) => {
-	return str;
+  return str;
 }, headers);
 scope = inst.replyWithFile(num, str);
 
@@ -97,11 +97,11 @@ inst = inst.delayConnection(num);
 
 scope = scope.filteringPath(regex, str);
 scope = scope.filteringPath((path: string) => {
-	return str;
+  return str;
 });
 scope = scope.filteringRequestBody(regex, str);
 scope = scope.filteringRequestBody((path: string) => {
-	return str;
+  return str;
 });
 
 scope = scope.log(() => { });
@@ -126,8 +126,8 @@ scope.restore();
 nock.recorder.rec();
 nock.recorder.rec(true);
 nock.recorder.rec({
-	dont_print: true,
-	output_objects: true
+  dont_print: true,
+  output_objects: true
 });
 nock.recorder.clear();
 strings = nock.recorder.play() as string[];
@@ -713,6 +713,12 @@ nockBack('zomboFixture.json', { before, after }, (nockDone: () => void) => {
   });
 });
 
+// in promise mode
+nockBack('promisedFixture.json')
+  .then(({nockDone, context}) => {
+    context.assertScopesFinished();
 
-
-
+    // do your tests returning a promise and chain it with
+    Promise.resolve('foo')
+      .then(nockDone);
+  });
