@@ -3,7 +3,7 @@
 // Definitions by: Iker Pérez Brunelli <https://github.com/DarkerTV>
 //                 Shayne Hartford <https://github.com/ShayBox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
