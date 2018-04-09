@@ -1089,7 +1089,7 @@ declare namespace CKEDITOR {
 
         function add(name: string, definition: IPluginDefinition): void;
         function add(name: string): void;
-        function addExternal(name: string, path: string, fileName: string): void;
+        function addExternal(name: string, path: string, fileName?: string): void;
         function get(name: string): any;
         function getFilePath(name: string): string;
         function getPath(name: string): string;
