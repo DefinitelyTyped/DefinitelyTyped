@@ -555,3 +555,21 @@ function test_selection() {
         range.setEndAfter(testNode);
     }
 }
+
+function test_tools() {
+    var obj = { key: "value" };
+    CKEDITOR.tools.clone(obj);
+    CKEDITOR.tools.copy(obj);
+    CKEDITOR.tools.prototypedCopy(obj);
+
+    console.log(CKEDITOR.tools.isArray([1])); // true
+    console.log(CKEDITOR.tools.isArray(obj)); // false
+    console.log(CKEDITOR.tools.isArray(null)); // false
+    console.log(CKEDITOR.tools.isArray(undefined)); // false
+
+    CKEDITOR.tools.override(parseInt, function(_parseInt) {
+        return function(value: any, radix?: number) {
+            return _parseInt(value, radix);
+        };
+    });
+}

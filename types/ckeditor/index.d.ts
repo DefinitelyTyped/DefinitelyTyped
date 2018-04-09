@@ -1923,8 +1923,13 @@ declare namespace CKEDITOR {
 
     namespace tools {
         var callFunction: Function;
+        function clone(source: Object): Object;
+        function copy(source: Object): Object;
         function enableHtml5Elements(doc: Object, withAppend?: Boolean): void;
+        function isArray<T>(object: any|null|undefined): object is T[];
+        function override<T extends Function>(originalFunction: T, functionBuilder: (originalFunction: T) => T): T;
         function parseCssText(styleText: string, normalize?: Boolean, nativeNormalize?: Boolean): { [key: string]: string }
+        function prototypedCopy(source: Object): Object;
         function writeCssText(style: { [key: string]: string }, sort?: Boolean): string;
     }
 
