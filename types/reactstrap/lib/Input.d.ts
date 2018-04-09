@@ -41,5 +41,5 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   cssModule?: CSSModule;
 }
 
-declare const Input: React.StatelessComponent<InputProps>;
+declare const Input: React.ComponentClass<InputProps>;
 export default Input;
