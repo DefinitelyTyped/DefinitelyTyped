@@ -5082,6 +5082,7 @@ export class Line extends Object3D {
     geometry: Geometry|BufferGeometry;
     material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
 
+    computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: any): void;
 }
 
