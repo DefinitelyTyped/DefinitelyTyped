@@ -105,7 +105,7 @@ export interface SSLOptions {
     // Use ssl connection (needs to have a mongod server with ssl support)
     ssl?: boolean;
     // Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
-    sslValidate?: Object;
+    sslValidate?: boolean;
     // Default: true; Server identity checking during SSL
     checkServerIdentity?: boolean | Function;
     // Array of valid certificates either as Buffers or Strings

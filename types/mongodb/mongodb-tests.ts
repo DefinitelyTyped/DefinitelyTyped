@@ -20,7 +20,7 @@ let options: mongodb.MongoClientOptions = {
     reconnectInterval: 123456,
 
     ssl: true,
-    sslValidate: {},
+    sslValidate: false,
     checkServerIdentity: function () { },
     sslCA: ['str'],
     sslCert: new Buffer(999),

@@ -5156,9 +5156,9 @@ declare module "crypto" {
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
-        setAutoPadding(auto_padding?: boolean): void;
+        setAutoPadding(auto_padding?: boolean): this;
         getAuthTag(): Buffer;
-        setAAD(buffer: Buffer): void;
+        setAAD(buffer: Buffer): this;
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
@@ -5169,9 +5169,9 @@ declare module "crypto" {
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
-        setAutoPadding(auto_padding?: boolean): void;
-        setAuthTag(tag: Buffer): void;
-        setAAD(buffer: Buffer): void;
+        setAutoPadding(auto_padding?: boolean): this;
+        setAuthTag(tag: Buffer): this;
+        setAAD(buffer: Buffer): this;
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {

@@ -282,7 +282,7 @@ export type GridCoreProps = {
     /** Optional inline style */
     style?: React.CSSProperties;
     /** Tab index for focus */
-    tabIndex?: number;
+    tabIndex?: number | null;
     /**
      * Width of Grid; this property determines the number of visible (vs virtualized) columns.
      */

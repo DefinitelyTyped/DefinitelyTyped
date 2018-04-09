@@ -607,8 +607,27 @@ context.fail(str);
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 
-// async methods return Promise, test assignability
-let asyncHandler: AWSLambda.Handler = async (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+/* In node8.10 runtime, handlers may return a promise for the result value, so existing async
+ * handlers that return Promise<void> before calling the callback will now have a `null` result.
+ * Be safe and make that badly typed with a major verson bump to 8.10 so users expect the breaking change,
+ * since the upgrade effort should be pretty low in most cases, and it points them at a nicer solution.
+ */
+// $ExpectError
+let legacyAsyncHandler: AWSLambda.APIGatewayProxyHandler = async (
+    event: AWSLambda.APIGatewayProxyEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.Callback<AWSLambda.APIGatewayProxyResult>,
+) => {
+    cb(null, { statusCode: 200, body: 'No longer valid' });
+};
+
+let node8AsyncHandler: AWSLambda.APIGatewayProxyHandler = async (
+    event: AWSLambda.APIGatewayProxyEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.Callback<AWSLambda.APIGatewayProxyResult>,
+) => {
+    return { statusCode: 200, body: 'Is now valid!' };
+};
 
 let inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
     // $ExpectType S3Event
