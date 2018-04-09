@@ -934,6 +934,7 @@ declare namespace React {
         hidden?: boolean;
         id?: string;
         lang?: string;
+        placeholder?: string;
         slot?: string;
         spellCheck?: boolean;
         style?: CSSProperties;
