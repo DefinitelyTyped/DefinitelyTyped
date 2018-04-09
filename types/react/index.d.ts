@@ -129,6 +129,8 @@ declare namespace React {
     }
 
     interface ReactPortal {
+        type: keyof ReactPortal;
+        props: void;
         key: Key | null;
         children: ReactNode;
     }
