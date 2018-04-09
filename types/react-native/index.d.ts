@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.52
+// Type definitions for react-native 0.55
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -7,6 +7,8 @@
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
 //                 Alex Dunne <https://github.com/alexdunne>
+//                 Manuel Alabor <https://github.com/swissmanu>
+//                 Michele Bombardi <https://github.com/bm-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -339,6 +341,9 @@ export function createElement<P>(
 
 export type Runnable = (appParameters: any) => void;
 
+type Task = (taskData: any) => Promise<void>;
+type TaskProvider = () => Task;
+
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
@@ -466,6 +471,8 @@ export namespace AppRegistry {
     function unmountApplicationComponentAtRootTag(rootTag: number): void;
 
     function runApplication(appKey: string, appParameters: any): void;
+
+    function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 }
 
 export interface LayoutAnimationTypes {
@@ -1219,6 +1226,13 @@ export interface TextInputProperties
      * Used to locate this view in end-to-end tests
      */
     testID?: string;
+
+    /**
+     * Used to connect to an InputAccessoryView. Not part of react-natives documentation, but present in examples and
+     * code.
+     * See https://facebook.github.io/react-native/docs/inputaccessoryview.html for more information.
+     */
+    inputAccessoryViewID?: string;
 
     /**
      * The value to show for the text input. TextInput is a controlled component,
@@ -2250,6 +2264,27 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
 export interface SafeAreaViewStatic extends NativeMethodsMixin, React.ClassicComponentClass<ViewProperties> {}
+
+
+/**
+ * A component which enables customization of the keyboard input accessory view on iOS. The input accessory view is
+ * displayed above the keyboard whenever a TextInput has focus. This component can be used to create custom toolbars.
+ *
+ * To use this component wrap your custom toolbar with the InputAccessoryView component, and set a nativeID. Then, pass
+ * that nativeID as the inputAccessoryViewID of whatever TextInput you desire.
+ */
+export interface InputAccessoryViewStatic extends React.ClassicComponentClass<InputAccessoryViewProperties> {}
+
+export interface InputAccessoryViewProperties {
+    backgroundColor?: string;
+
+    /**
+     * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
+     */
+    nativeID?: string;
+
+    style?: StyleProp<ViewStyle>;
+}
 
 /**
  * Use `SegmentedControlIOS` to render a UISegmentedControl iOS.
@@ -8369,6 +8404,9 @@ export type ImageBackground = ImageBackgroundStatic;
 
 export var ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
+
+export var InputAccessoryView: InputAccessoryViewStatic;
+export type InputAccessoryView = InputAccessoryViewStatic;
 
 export var FlatList: FlatListStatic<any>;
 export type FlatList<ItemT> = FlatListStatic<ItemT>;

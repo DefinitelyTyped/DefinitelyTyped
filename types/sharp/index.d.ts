@@ -1,6 +1,7 @@
 // Type definitions for sharp 0.17
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
+//                 Wooseop Kim <https://github.com/wooseopkim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -359,9 +360,16 @@ declare namespace sharp {
         toBuffer(callback: (err: Error, buffer: Buffer, info: OutputInfo) => void): SharpInstance;
         /**
          * Write output to a Buffer. JPEG, PNG, WebP, and RAW output are supported. By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * @param options resolve options
          * @returns A promise that fulfills with the resulting Buffer
          */
-        toBuffer(): Promise<Buffer>;
+        toBuffer(options?: { resolveWithObject: false }): Promise<Buffer>;
+        /**
+         * Write output to a Buffer. JPEG, PNG, WebP, and RAW output are supported. By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * @param options resolve options
+         * @returns A promise that fulfills with an object containing the Buffer data and an info object containing the output image format, size (bytes), width, height and channels
+         */
+        toBuffer(options: { resolveWithObject: true }): Promise<{ data: Buffer, info: OutputInfo }>;
         /**
          * Use these JPEG options for output image.
          * @param options Output options.
