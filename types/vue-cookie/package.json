@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "vue": "^2.5.16",
+    "vue-cookie": "^1.1.4"
+  }
+}
