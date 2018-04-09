@@ -7,18 +7,19 @@ const app = express();
 // Logger with all options
 app.use(expressWinston.logger({
   baseMeta: { foo: 'foo' },
-  bodyBlacklist: [ 'foo' ],
-  bodyWhitelist: [ 'bar' ],
+  bodyBlacklist: ['foo'],
+  bodyWhitelist: ['bar'],
   colorize: true,
   dynamicMeta: (req, res, err) => ({ foo: 'bar' }),
   expressFormat: true,
   ignoreRoute: (req, res) => true,
-  ignoredRoutes: [ 'foo' ],
+  ignoredRoutes: ['foo'],
   level: 'level',
+  meta: true,
   metaField: 'metaField',
   msg: 'msg',
   requestFilter: (req, prop) => true,
-  requestWhitelist: [ 'foo', 'bar' ],
+  requestWhitelist: ['foo', 'bar'],
   skip: (req, res) => false,
   statusLevels: ({ error: 'error', success: 'success', warn: 'warn' }),
   transports: [
@@ -52,7 +53,7 @@ app.use(expressWinston.errorLogger({
   metaField: 'metaField',
   msg: 'msg',
   requestFilter: (req, prop) => true,
-  requestWhitelist: [ 'foo', 'bar' ],
+  requestWhitelist: ['foo', 'bar'],
   transports: [
     new winston.transports.Console({
       json: true,
@@ -87,8 +88,8 @@ expressWinston.responseWhitelist.push('body');
 const router = express.Router();
 
 router.post('/user/register', (req, res, next) => {
-    const expressWinstonReq = req as expressWinston.ExpressWinstonRequest;
-    expressWinstonReq._routeWhitelists.body = [ 'username', 'email', 'age' ];
-    expressWinstonReq._routeWhitelists.req = [ 'userId' ];
-    expressWinstonReq._routeWhitelists.res = [ '_headers' ];
+  const expressWinstonReq = req as expressWinston.ExpressWinstonRequest;
+  expressWinstonReq._routeWhitelists.body = ['username', 'email', 'age'];
+  expressWinstonReq._routeWhitelists.req = ['userId'];
+  expressWinstonReq._routeWhitelists.res = ['_headers'];
 });
