@@ -2,6 +2,7 @@
 // Project: https://github.com/GusCaplan/snekfetch
 // Definitions by: Iker Pérez Brunelli <https://github.com/DarkerTV>
 //                 Shayne Hartford <https://github.com/ShayBox>
+//                 Yukine <https://github.com/Dev-Yukine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -107,13 +108,13 @@ declare class Snekfetch extends Readable {
     static unsubscribe(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static brew(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
 
-    query(name: string, value: string): Snekfetch;
+    query(name: string | { [key: string]: string | string[] }, value?: string): Snekfetch;
 
     set(name: string | { [key: string]: string | string[] }, value?: string | string[]): Snekfetch;
 
     attach(name: string, data: string | object | Buffer, filename?: string): Snekfetch;
 
-    send(data?: any): Snekfetch;
+    send(data?: string|Buffer|Object): Snekfetch;
 
     then(): Promise<Snekfetch.Result>;
     then<T>(resolver: (res: Snekfetch.Result) => T, rejector?: (err: Error) => any): Promise<T>;
