@@ -164,19 +164,19 @@ function testUpload() {
             }
         };
 
-        const select = UIkit.uploadSelect($("#upload-select"), settings);
-        const drop   = UIkit.uploadDrop($("#upload-drop"), settings);
+        const select = UIkit.upload($("#upload-select"), settings);
+        const drop   = UIkit.upload($("#upload-drop"), settings);
     });
 
     // Test with object literal
-    const select2 = UIkit.uploadSelect($("#upload-select"), {
+    const select2 = UIkit.upload($("#upload-select"), {
         action: '/', // upload url
         allow: '*.(jpg|jpeg|gif|png)', // allow only images
         loadstart: () => {},
         progress: (percent: number) => {},
         allcomplete: (response: any) => {}
     });
-    const drop2 = UIkit.uploadDrop($("#upload-drop"), {
+    const drop2 = UIkit.upload($("#upload-drop"), {
         action: '/', // upload url
         allow: '*.(jpg|jpeg|gif|png)', // allow only images
         loadstart: () => {},
