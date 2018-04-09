@@ -1311,7 +1311,7 @@ declare namespace Xrm {
          * @param Generic type parameter.
          */
         type StringIndexableItemCollection<T> = StringIndexable<T> & ItemCollection<T>;
-        
+
         /**
          * Collections are structures to provide access to data that represent an array, but without the ability to modify the data in the array.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
@@ -1323,11 +1323,11 @@ declare namespace Xrm {
              */
             forEach(delegate: IterativeDelegate<T>): void;
 
-            /**	
-             * Gets the item using a delegate matching function	
-             * @param delegate A matching delegate function	
-             * @returns A T[] whose members have been validated by delegate.	
-             */	
+            /**
+             * Gets the item using a delegate matching function
+             * @param delegate A matching delegate function
+             * @returns A T[] whose members have been validated by delegate.
+             */
             get(delegate: MatchingDelegate<T>): T[];
 
             /**
