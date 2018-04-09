@@ -2306,7 +2306,7 @@ export class CubeTextureLoader {
     crossOrigin: string;
     path?: string;
 
-    load(urls: ReadonlyArray<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): CubeTexture;
+    load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): CubeTexture;
     setCrossOrigin(crossOrigin: string): this;
     setPath(path: string): this;
 }
