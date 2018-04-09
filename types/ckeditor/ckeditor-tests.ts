@@ -540,3 +540,18 @@ function test_getSelectedHtml() {
     var sel4 = editor.getSelectedHtml(Math.random() > 0.5);
     console.log(sel4);
 }
+
+function test_selection() {
+    var editor = new CKEDITOR.editor();
+    var testNode = CKEDITOR.document.getById('myElement');
+
+    var selection = editor.getSelection();
+    var ranges = selection.getRanges();
+    for (var i = 0, c = ranges.length; i < c; i++) {
+        var range = ranges[i];
+        range.setStartBefore(testNode);
+        range.setStartAfter(testNode);
+        range.setEndBefore(testNode);
+        range.setEndAfter(testNode);
+    }
+}

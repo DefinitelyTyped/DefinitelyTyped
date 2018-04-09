@@ -347,6 +347,8 @@ declare namespace CKEDITOR {
             selectNodeContents(node: node): void;
             setStart(startNode: node, startOffset: number): void;
             setEnd(endNode: node, endOffset: number): void;
+            setEndAfter(node: node): void;
+            setEndBefore(node: node): void;
             setStartAfter(node: node): void;
             setStartBefore(node: node): void;
             setStartAt(node: node, position: number): void;
