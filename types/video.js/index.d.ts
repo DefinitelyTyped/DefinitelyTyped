@@ -4,6 +4,7 @@
 //                 Simon Clériot <https://github.com/scleriot>
 //                 Sean Bennett <https://github.com/SWBennett06>
 //                 Christoph Wagner <https://github.com/IgelCampus>
+//                 Ciprian Florescu <https://github.com/cipacda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -42,7 +43,8 @@ declare namespace videojs {
 		src: string;
 	}
 
-	interface Player {
+	class Player {
+		constructor(techId: string, options: any);
 		play(): Player;
 		pause(): Player;
 		paused(): boolean;
@@ -77,4 +79,137 @@ declare namespace videojs {
         autoplay(value?: boolean): string;
         loop(value?: boolean): string;
 	}
+
+	interface Component {
+		options_: any;
+		el_: HTMLElement;
+		player_: any;
+		isReady_: boolean;
+
+    new(options: any, ready: () => void);
+		setTimeout(fn: () => void, timeout?: number): string;
+    dispose(): void;
+    trigger(event: any): void;
+    triggerReady(): void;
+	}
+
+	type TechType = Tech;
+
+	interface Tech extends Component {
+    new (options: any, ready: () => void);
+
+    featuresFullscreenResize: boolean;
+    featuresNativeTextTracks: boolean;
+    featuresPlaybackRate: boolean;
+    featuresProgressEvents: boolean;
+    featuresTimeupdateEvents: boolean;
+    featuresVolumeControl: boolean;
+
+		getTech(name: string): Tech;
+    setPoster(poster: any): void;
+    manualProgressOn(): void;
+    manualProgressOff(): void;
+    trackProgress(event: any): void;
+    onDurationChange(event: any): void;
+    buffered(): any;
+    bufferedPercent(): number;
+    stopTrackingProgress(): void;
+    manualTimeUpdatesOn(): void;
+    manualTimeUpdatesOff(): void;
+    trackCurrentTime(): void;
+    stopTrackingCurrentTime(): void;
+    clearTracks(types: string|string[]): void;
+    cleanupAutoTextTracks(): void;
+    reset(): void;
+    error(error: MediaError): MediaError;
+    played(): any;
+    setCurrentTime(seconds: number): void;
+    initTrackListeners(): void;
+    addWebVttScript_(): void;
+    emulateTextTracks(): void;
+    addTextTrack(kind: string, label: string, language: string): TextTrack;
+    createRemoteTextTrack(options: any): any;
+    addRemoteTextTrack(options?: any, manualCleanup?: boolean): HTMLTrackElement;
+    removeRemoteTextTrack(track: TextTrack): void;
+    getVideoPlaybackQuality(): any;
+    playsinline(): boolean;
+    setPlaysinline(playsinline: boolean): void;
+    canPlayType(type: string): boolean;
+    remoteTextTrackEls(): HtmlTrackElementList;
+    canPlaySource(srcObj: any, options: any): boolean;
+    isTech(component: any): boolean;
+    registerTech(name: string, tech: any): void;
+    registerSourceHandler(handler: any, priority: number): void;
+    withSourceHandlers(tech: Tech): void;
+	}
+
+	interface MediaError {
+		code: number;
+		message: string;
+		status?: any[];
+	}
+
+  class Track {
+		id: string;
+		kind: string;
+		label: string;
+		language: string;
+	}
+
+  class TextTrack extends Track {
+		default: boolean;
+		mode: string;
+	}
+
+  class AudioTrack extends Track {
+		enabled: boolean;
+	}
+
+  class VideoTrack extends Track {
+		selected: boolean;
+	}
+
+	class TrackList {
+		addTrack(track: Track): void;
+		removeTrack(track: Track): void;
+	}
+
+	class AudioTrackList extends TrackList {
+    addTrack(track: AudioTrack): void;
+	}
+
+  class VideoTrackList extends TrackList {
+    addTrack(track: VideoTrack): void;
+	}
+
+  class TextTrackList extends TrackList {
+    addTrack(track: TextTrack): void;
+	}
+
+	interface HTMLTrackElement {
+		track: TextTrack;
+		readyState: HTMLTrackElementReadyState;
+	}
+
+	interface HTMLTrackElementReadyState {
+		NONE: 0;
+		LOADING: 1;
+		LOADED: 2;
+		ERROR: 3;
+	}
+
+  interface HtmlTrackElementList {
+    tracks: HTMLTrackElement[];
+  }
+
+	function getComponent(name: string): Component;
+	function getTech(name: string): TechType;
+	function registerTech(name: string, tech: Tech): void;
+	function createTimeRange(start?: number, end?: number): any;
+  function mergeOptions(...args: any[]): any;
+
+  const log: any;
+  const browser: any;
+  const url: any;
+  const dom: any;
 }
