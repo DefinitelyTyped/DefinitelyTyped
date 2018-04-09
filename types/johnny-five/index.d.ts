@@ -513,19 +513,46 @@ export class Motion {
 }
 
 export interface MotorOption {
-    pins: any;
-    current?: any;
+    pins: {
+        pwm: number;
+        dir: number;
+        cdir: number;
+        brake: number;
+    } | Array<number>;
+    current?: SensorOption;
     invertPWM?: boolean;
     address?: number;
     controller?: string;
-    register?: any;
-    bits?: any;
+    frequency?: number;
+    register?: {
+        data: number;
+        clock: number;
+        latch: number;
+    };
+    bits?: {
+        a: number;
+        b: number;
+    }
 }
 
 export declare class Motor {
-    constructor(option: Array<number> | MotorOption);
+    constructor(option: number | Array<number> | MotorOption);
 
     readonly isOn: boolean;
+
+    forward(speed: number): void;
+    fwd(speed: number): void;
+    reverse(speed: number): void;
+    rev(speed: number): void;
+    start(): void;
+    start(speed: number): void;
+    stop(): void;
+    brake(): void;
+    release(): void;
+}
+
+export declare class Motors {
+    constructor(options: Array<number> | Array<MotorOption>);
 
     forward(speed: number): void;
     fwd(speed: number): void;
@@ -663,6 +690,7 @@ export interface SensorOption {
     pin: number | string;
     freq?: boolean;
     threshold?: number;
+    enabled?: boolean;
 }
 
 export declare class Sensor {
