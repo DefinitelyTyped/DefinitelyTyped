@@ -44,7 +44,7 @@ export interface Headers {
     mode: number;
     mtime: Date;
     size: number;
-    type: "file" | "directory" | "symlink";
+    type: 'file' | 'directory' | 'link' | 'symlink';
     uid: number;
     gid: number;
 }
