@@ -135,6 +135,8 @@ declare namespace uiGrid {
         /**
          * adds a row header column to the grid
          * @param {IColumnDef} colDef The column definition
+         * @param {number} order Number that indicates where the column should be placed in the grid.
+         * @param {boolean} stopColumnBuild Prevents the buildColumn callback from being triggered. This is useful to improve performance of the grid during initial load.
          */
         addRowHeaderColumn(colDef: IColumnDefOf<TEntity>, order?: number, stopColumnBuild?: boolean): void;
         /**
