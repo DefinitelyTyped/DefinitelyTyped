@@ -454,7 +454,7 @@ declare namespace CKEDITOR {
             getPosition(otherNode: Object): void;
             getAscendant(reference: string, includeSelf?: boolean): node;
             hasAscendant(name: Object, includeSelf: any): boolean;
-            move(preserveChildren?: boolean): node;
+            remove(preserveChildren?: boolean): node;
             replace(nodeToReplace: node): void;
             trim(): void;
             ltrim(): void;
