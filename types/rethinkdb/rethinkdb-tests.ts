@@ -6,6 +6,8 @@ function cursorCallback(cursor: r.Cursor): void {}
 r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Connection) {
     console.log("HI", err, conn);
 
+    conn.server((err, server) => {});
+
     const testDb = r.db("test");
 
     r.table("players").hasFields("games_won").run(conn, errorAndCursorCallback);
@@ -63,6 +65,10 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
 // use promises instead of callbacks
 r.connect({ host: "localhost", port: 28015 }).then(function(conn: r.Connection) {
     console.log("HI", conn);
+
+    conn.server().then(server => {
+        console.log(server.id, server.proxy);
+    });
 
     const testDb = r.db("test");
     testDb.wait({timeout: 1});

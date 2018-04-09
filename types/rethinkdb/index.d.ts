@@ -139,6 +139,12 @@ declare module "rethinkdb" {
         noreplyWait: boolean;
     }
 
+    interface ServerResult {
+        id: string;
+        proxy: boolean;
+        name?: string;
+    }
+
     interface Connection {
         open: boolean;
 
@@ -150,6 +156,9 @@ declare module "rethinkdb" {
         reconnect(cb: (err: Error, conn: Connection) => void): void;
         reconnect(opts: NoReplyWait, cb: (err: Error, conn: Connection) => void): void;
         reconnect(opts?: NoReplyWait): Promise<Connection>;
+
+        server(cb: (err: Error, conn: ServerResult) => void): void;
+        server(): Promise<ServerResult>;
 
         use(dbName: string): void;
         addListener(event: string, cb: Function): void;
@@ -239,7 +248,7 @@ declare module "rethinkdb" {
          * See: https://rethinkdb.com/api/javascript/has_fields/
          */
         hasFields(...fields: string[]): T;
-    } 
+    }
 
     interface Geometry { }
 
