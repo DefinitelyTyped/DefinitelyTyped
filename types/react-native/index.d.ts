@@ -3731,7 +3731,7 @@ export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
 
-export interface SectionListProperties<ItemT> extends VirtualizedListProperties<ItemT> {
+export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -3805,7 +3805,7 @@ export interface SectionListProperties<ItemT> extends VirtualizedListProperties<
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem: ListRenderItem<ItemT>;
+    renderItem?: ListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
