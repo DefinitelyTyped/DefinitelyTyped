@@ -8,7 +8,7 @@
 //
 // Translation from Objects in help to Typescript interface.
 // http://js.cytoscape.org/#notation/functions
-//
+// TypeScript Version: 2.2
 
 /**
  * cy   --> Cy.Core
