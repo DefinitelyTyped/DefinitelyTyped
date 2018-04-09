@@ -144,6 +144,7 @@ interface Auth0LockConstructorOptions {
     theme?: Auth0LockThemeOptions;
     usernameStyle?: string;
     _enableImpersonation?: boolean;
+    _enableIdPInitiatedLogin?: boolean;
 }
 
 interface Auth0LockFlashMessageOptions {
