@@ -1093,7 +1093,7 @@ export interface TextInputProperties
     blurOnSubmit?: boolean;
 
     /**
-     * If true, the caret is hidden
+     * If true, caret is hidden. The default value is false.
      */
     caretHidden?: boolean
 
