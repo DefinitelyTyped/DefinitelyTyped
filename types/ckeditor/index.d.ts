@@ -890,7 +890,8 @@ declare namespace CKEDITOR {
         applyToRange(range: Range, editor: editor): void;
     }
 
-    interface editable extends dom.element {
+    class editable extends dom.element {
+        constructor(editor: editor, element: HTMLElement | dom.element);
         hasFocus: boolean;
         attachListener(obj: event | editable, eventName: string, listenerFunction: (ei: eventInfo) => void,
             scopeobj?: {}, listenerData?: any, priority?: number): listenerRegistration;
