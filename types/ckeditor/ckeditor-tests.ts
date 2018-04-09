@@ -543,6 +543,13 @@ function test_getSelectedHtml() {
     console.log(sel4);
 }
 
+function test_element() {
+    var el = CKEDITOR.document.getById('myElement');
+    el.addClass('class');
+    console.log(el.hasClass('class'));
+    el.removeClass('class');
+}
+
 function test_selection() {
     var editor = new CKEDITOR.editor();
     var testNode = CKEDITOR.document.getById('myElement');

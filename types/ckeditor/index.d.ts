@@ -1853,6 +1853,7 @@ declare namespace CKEDITOR {
             type: number;
             add(node: node): number;
             add(node: node, index: number): void;
+            addClass(className: string): void;
             clone(): element;
             filter(filter: filter): boolean;
             filterChildren(filter: filter): void;
