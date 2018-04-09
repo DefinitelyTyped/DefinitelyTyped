@@ -390,8 +390,8 @@ declare namespace CKEDITOR {
             constructor(target: document);
             constructor(target: element);
             constructor(target: selection);
-            createBookmarks(serializable: Object): any[];
-            createBookmarks2(normalized?: Object): any[];
+            createBookmarks(serializable: Object): bookmark[];
+            createBookmarks2(normalized: Object): Object[];
             fake(element: element): void;
             getCommonAncestor(): element;
             getNative(): Object;
@@ -416,8 +416,8 @@ declare namespace CKEDITOR {
             constructor(ranges: range[]);
             constructor(range: range);
             createIterator(): rangeListIterator;
-            createBokmark(serializable: boolean): Object[];
-            createBookmark2(normalized: boolean): Object[];
+            createBokmarks(serializable?: boolean): bookmark[];
+            createBookmarks2(normalized?: boolean): Object[];
             moveToBookmark(bookmarks: Object[]): void;
         }
 
