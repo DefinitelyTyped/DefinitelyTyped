@@ -1,4 +1,4 @@
-// Type definitions for WebdriverIO 4.10
+// Type definitions for WebdriverIO 4.12
 // Project: http://www.webdriver.io/
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 //                 Tim Brust <https://github.com/timbru31>
@@ -6,6 +6,7 @@
 //                 Tanvir ul Islam <https://github.com/tanvirislam06>
 //                 Phil Leger <https://github.com/phil-lgr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node"/>
 
@@ -243,6 +244,7 @@ declare namespace WebdriverIO {
         changeMaxConnections?: boolean;
         profile?: string;
         pageLoadingStrategy?: string;
+        'moz:firefoxOptions'?: any;
 
         // IE specific
         'ie.forceCreateProcessApi'?: boolean;
@@ -331,9 +333,10 @@ declare namespace WebdriverIO {
         currentTest: string;
         passed: boolean;
         duration: any;
+        fullName: string;
     }
 
-    interface Hooks {
+    interface Hooks<T = void> {
         onError?<T>(error: Error): Promise<T> & undefined;
 
         onPrepare?<T>(
@@ -428,6 +431,8 @@ declare namespace WebdriverIO {
         screenshotPath?: string;
         specs?: string[];
         seleniumLogs?: string;
+        seleniumInstallArgs?: any;
+        seleniumArgs?: any;
         suites?: { [name: string]: string[]; };
         sync?: boolean;
         waitforTimeout?: number;
