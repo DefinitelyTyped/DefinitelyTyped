@@ -2281,7 +2281,7 @@ declare module "../index" {
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T, TResult>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, callback: DictionaryIterator<T, TResult>): Dictionary<TResult>;
+        mapValues<T, TResult>(obj: NumericDictionary<T> | null | undefined, callback: DictionaryIterator<T, TResult>): Dictionary<TResult>;
 
         /**
          * @see _.mapValues
@@ -2293,7 +2293,7 @@ declare module "../index" {
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: object): Dictionary<boolean>;
+        mapValues<T>(obj: NumericDictionary<T> | null | undefined, iteratee: object): Dictionary<boolean>;
 
         /**
          * @see _.mapValues
@@ -2305,14 +2305,14 @@ declare module "../index" {
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T, TKey extends keyof T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: TKey): Dictionary<T[TKey]>;
+        mapValues<T, TKey extends keyof T>(obj: NumericDictionary<T> | null | undefined, iteratee: TKey): Dictionary<T[TKey]>;
 
         /**
          * @see _.mapValues
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: string): Dictionary<any>;
+        mapValues<T>(obj: NumericDictionary<T> | null | undefined, iteratee: string): Dictionary<any>;
 
         /**
          * @see _.mapValues
@@ -2329,7 +2329,7 @@ declare module "../index" {
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined): Dictionary<T>;
+        mapValues<T>(obj: NumericDictionary<T> | null | undefined): Dictionary<T>;
 
         /**
          * @see _.mapValues

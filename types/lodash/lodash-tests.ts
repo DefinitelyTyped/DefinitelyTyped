@@ -5651,6 +5651,14 @@ fp.now(); // $ExpectType number
     _.mapValues(abcObject); // $ExpectType AbcObject
     _.mapValues(abcObjectOrNull); // $ExpectType Partial<AbcObject>
 
+    // $ExpectType { a: number; b: number; c: number; }
+    _.mapValues({ a: 1, b: 1, c: 1 }, (value, key, collection) => {
+        value; // $ExpectType number
+        key; // $ExpectType string
+        collection; // $ExpectType { a: number; b: number; c: number; }
+        return value + 1;
+    });
+
     // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
     _("foo").mapValues((char, index, str) => {
         char; // $ExpectType string
