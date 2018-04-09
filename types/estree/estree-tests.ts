@@ -223,7 +223,7 @@ boolean = memberExpression.computed;
 
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
-identifier = functionDeclaration.id;
+var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
 var params: Array<ESTree.Pattern> = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
 booleanMaybe = functionDeclaration.generator;
