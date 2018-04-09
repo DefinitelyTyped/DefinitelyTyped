@@ -48,7 +48,7 @@ declare namespace Dynamsoft {
             bChrome: boolean, bEdge: boolean, bFileSystem: boolean, bFirefox: boolean,
             bIE: boolean, bLinux: boolean, bMac: boolean, bSafari: boolean, bWin: boolean, bWin64: boolean,
             basePath: string, iPluginLength: number, isX64: boolean, pathType: number,
-            strChromeVersion: number, strFirefoxVersion: string, strIEVersion: string
+            strChromeVersion: string, strFirefoxVersion: string, strIEVersion: string
         };
 
         /*ignored
@@ -103,8 +103,8 @@ declare namespace Dynamsoft {
         function ShowDialog(_dialogWidth: number, _dialogHeight: number, _strDialogMessageWithHtmlFormat: string, _bChangeImage: boolean, bHideCloseButton: boolean): void;
         let Trial: boolean;
         function Unload(): void;
-        let UseDefaultInstallUI: string;
-        let initQueue: number[];
+        let UseDefaultInstallUI: boolean;
+        let initQueue: any[];
         let inited: boolean;
     }
 }
@@ -1607,9 +1607,9 @@ interface WebTwain {
 
     /**
      * Returns whether the source supports duplex. If so, it further returns the level of duplex the Source supports (one pass or two pass duplex). This is a runtime, read-only property.
-     * @type {number}
+     * @type {EnumDWT_DUPLEX}
      */
-    Duplex: number;
+    Duplex: EnumDWT_DUPLEX;
 
     /**
      * [Deprecated.] Returns or sets whether the user can zoom image using hot key.
