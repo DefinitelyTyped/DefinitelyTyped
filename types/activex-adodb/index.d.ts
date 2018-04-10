@@ -620,9 +620,15 @@ declare namespace ADODB {
         /**
          * @param Options [Options=-1]
          *
-         * The **RecordsAffected** parameter is meant to take a variable to be modified by reference; passing variables byref is unsupported by Javascript.
+         * The **RecordsAffected** parameter is meant to take a variable to be modified by reference, which is not supported by Javascript
+         * 
+         * The return value is as follows:
+         * 
+         * * If the **adExecuteNoRecords** option is passed in, the method will return `null`. Otherwise:
+         * * If the command specifies a row-returning query, then the method will return a new read-only, forward-only **Recordset** object with the results.
+         * * If the command isn't intended to return results (e.g. an `UPDATE` statement), a closed empty **Recordset** will be returned.
          */
-        Execute(RecordsAffected?: number, Parameters?: SafeArray, Options?: number): Recordset | null;
+        Execute(RecordsAffected?: undefined, Parameters?: SafeArray, Options?: number): Recordset | null;
         Name: string;
         NamedParameters: boolean;
         readonly Parameters: Parameters;
@@ -649,7 +655,13 @@ declare namespace ADODB {
         /**
          * @param Options [Options=-1]
          *
-         * The **RecordsAffected** parameter is meant to take a variable to be modified by reference; byref is unsupported by Javascript
+         * The **RecordsAffected** parameter is meant to take a variable to be modified by reference, which is not supported by Javascript
+         * 
+         * The return value is as follows:
+         * 
+         * * If the **adExecuteNoRecords** option is passed in, the method will return `null`. Otherwise:
+         * * If **CommandText** specifies a row-returning query, then the method will return a new read-only, forward-only **Recordset** object with the results
+         * * If **CommandText** isn't intended to return results (e.g. an `UPDATE` statement), a closed empty **Recordset** will be returned.
          */
         Execute(CommandText: string, RecordsAffected?: undefined, Options?: CommandTypeEnum | ExecuteOptionEnum): Recordset | null;
         IsolationLevel: IsolationLevelEnum;
@@ -849,8 +861,6 @@ declare namespace ADODB {
     }
 
     interface Recordset {
-        // private 'ADODB.Recordset_typekey': Recordset;
-        // private constructor();
         _xClone(): Recordset;
 
         /** @param ADODB.AffectEnum [AffectRecords=3] */
