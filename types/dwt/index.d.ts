@@ -2502,7 +2502,7 @@ interface WebTwain {
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc: (result: any) => void, optionalAsyncFailureFunc: (errorCode: number, errorString: string) => void): boolean;
+    ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType, asyncSuccessFunc: (result: any) => void, asyncFailureFunc: (errorCode: number, errorString: string) => void): boolean;
 
     /**
      * Converts the images specified by the indices to blob synchronously.
@@ -2522,7 +2522,7 @@ interface WebTwain {
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    ConvertToBlob(indices: number[], enumImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc: (result: any) => void, optionalAsyncFailureFunc: (errorCode: number, errorString: string) => void): boolean;
+    ConvertToBlob(indices: number[], enumImageType: EnumDWT_ImageType, asyncSuccessFunc: (result: any) => void, asyncFailureFunc: (errorCode: number, errorString: string) => void): boolean;
 
     /**
      * Changes a specified image to gray scale.
