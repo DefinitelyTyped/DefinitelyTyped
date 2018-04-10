@@ -22,6 +22,10 @@ export interface ModalProps extends React.HTMLAttributes<HTMLElement> {
   fade?: boolean;
   backdropTransition?: FadeProps;
   modalTransition?: FadeProps;
+  centered?: boolean;
+  external?: React.ReactNode;
+  labelledBy?: string;
+  role?: string;
 }
 
 declare const Modal: React.StatelessComponent<ModalProps>;

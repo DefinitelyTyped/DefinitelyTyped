@@ -1093,6 +1093,11 @@ export interface TextInputProperties
     blurOnSubmit?: boolean;
 
     /**
+     * If true, caret is hidden. The default value is false.
+     */
+    caretHidden?: boolean
+
+    /**
      * Provides an initial value that will change when the user starts typing.
      * Useful for simple use-cases where you don't want to deal with listening to events
      * and updating the value prop to keep the controlled state in sync.
@@ -3731,7 +3736,7 @@ export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
 
-export interface SectionListProperties<ItemT> extends VirtualizedListProperties<ItemT> {
+export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -3805,7 +3810,7 @@ export interface SectionListProperties<ItemT> extends VirtualizedListProperties<
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem: ListRenderItem<ItemT>;
+    renderItem?: ListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
@@ -4840,9 +4845,9 @@ export namespace StyleSheet {
      * the alternative use.
      */
     export function flatten<T>(style?: RegisteredStyle<T>): T;
-    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
     export function flatten(style?: StyleProp<TextStyle>): TextStyle;
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
+    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -7331,13 +7336,36 @@ export interface PushNotificationIOSStatic {
      *
      * The type MUST be 'notification'
      */
-    addEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    addEventListener(type: "notification" | "localNotification", handler: (notification: PushNotification) => void): void;
+
+    /**
+     * Fired when the user registers for remote notifications.
+     *
+     * The handler will be invoked with a hex string representing the deviceToken.
+     *
+     * The type MUST be 'register'
+     */
+    addEventListener(type: "register", handler: (deviceToken: string) => void): void;
+
+    /**
+     * Fired when the user fails to register for remote notifications.
+     * Typically occurs when APNS is having issues, or the device is a simulator.
+     *
+     * The handler will be invoked with {message: string, code: number, details: any}.
+     *
+     * The type MUST be 'registrationError'
+     */
+    addEventListener(type: "registrationError", handler: (error: { message: string, code: number, details: any }) => void): void;
 
     /**
      * Removes the event listener. Do this in `componentWillUnmount` to prevent
      * memory leaks
      */
-    removeEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    removeEventListener(type: PushNotificationEventName,
+        handler: ((notification: PushNotification) => void)
+            | ((deviceToken: string) => void)
+            | ((error: { message: string, code: number, details: any }) => void)
+    ): void;
 
     /**
      * Requests all notification permissions from iOS, prompting the user's
@@ -8787,7 +8815,7 @@ declare global {
      *
      * @see https://github.com/facebook/react-native/issues/934
      */
-    var originalXMLHttpRequest: Object;
+    var originalXMLHttpRequest: any;
 
     var __BUNDLE_START_TIME__: number;
     var ErrorUtils: ErrorUtils;

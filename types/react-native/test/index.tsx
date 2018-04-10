@@ -22,10 +22,12 @@ import {
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
+    ImageStyle,
     InteractionManager,
     ListView,
     ListViewDataSource,
     StyleSheet,
+    StyleProp,
     Systrace,
     Text,
     TextStyle,
@@ -126,6 +128,20 @@ const stylesAlt = StyleSheet.create({
 });
 
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
+
+const viewStyle: StyleProp<ViewStyle> = {
+  backgroundColor: "#F5FCFF",
+}
+const textStyle: StyleProp<TextStyle> = {
+  fontSize: 20,
+}
+const imageStyle: StyleProp<ImageStyle> = {
+  resizeMode: 'contain',
+}
+
+const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
+const textProperty = StyleSheet.flatten(textStyle).fontSize;
+const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 
 class CustomView extends React.Component {
     render() {

@@ -19,6 +19,7 @@
 //                 Alberto Schiabel <https://github.com/jkomyno>
 //                 Huw <https://github.com/hoo29>
 //                 Nicolas Even <https://github.com/n-e>
+//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -1996,10 +1997,10 @@ declare module "vm" {
     }
     export function createContext(sandbox?: Context): Context;
     export function isContext(sandbox: Context): boolean;
-    export function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions): any;
+    export function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
     export function runInDebugContext(code: string): any;
-    export function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions): any;
-    export function runInThisContext(code: string, options?: RunningScriptOptions): any;
+    export function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
+    export function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
 }
 
 declare module "child_process" {
@@ -4667,11 +4668,11 @@ declare module "path" {
     /**
      * The platform-specific file separator. '\\' or '/'.
      */
-    export var sep: string;
+    export var sep: '\\' | '/';
     /**
      * The platform-specific file delimiter. ';' or ':'.
      */
-    export var delimiter: string;
+    export var delimiter: ';' | ':';
     /**
      * Returns an object from a path string - the opposite of format().
      *
