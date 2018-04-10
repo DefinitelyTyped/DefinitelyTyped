@@ -18,12 +18,19 @@ export interface StoryContext {
     story: string;
 }
 
-export type NumberOptions = {
+export interface NumberOptions {
     range: boolean;
     min: number;
     max: number;
     step: number;
-} | {};
+};
+
+type EmptyNumberOptions = {
+    range?: undefined;
+    min?: undefined;
+    max?: undefined;
+    step?: undefined;
+}
 
 export function knob<T>(name: string, options: KnobOption<T>): T;
 
@@ -33,7 +40,7 @@ export function boolean(name: string, value: boolean, groupId?: string): boolean
 
 export function files(label: string, accept: string, defaultValue: string[]): string[];
 
-export function number(name: string, value: number, options?: NumberOptions, groupId?: string): number;
+export function number(name: string, value: number, options?: NumberOptions | EmptyNumberOptions, groupId?: string): number;
 
 export function color(name: string, value: string, groupId?: string): string;
 
