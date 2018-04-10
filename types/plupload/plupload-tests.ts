@@ -24,7 +24,6 @@ import 'plupload';
     if (!uploader.features.chunks || !uploader.features.multipart) {
         window.alert('Your browser does not support a feature required for uploads.  Try installing Flash or Silverlight.');
     }
-
 }
 
 {
