@@ -594,6 +594,11 @@ declare namespace ADODB {
         adXactSyncPhaseOne = 1048576,
     }
 
+    class Bookmark {
+        private 'ADODB.Bookmark_typekey': Bookmark;
+        private constructor();
+    }
+
     class Command {
         private 'ADODB.Command_typekey': Command;
         private constructor();
@@ -883,7 +888,7 @@ declare namespace ADODB {
         AddNew(Fields: SafeArray<string | number>, Values: SafeArray): void;
         AddNew(Field: string, Value: any): void;
         readonly BOF: boolean;
-        Bookmark: any;
+        Bookmark: Bookmark;
         CacheSize: number;
         Cancel(): void;
 
@@ -895,7 +900,7 @@ declare namespace ADODB {
         Clone(LockType?: LockTypeEnum): Recordset;
         Close(): void;
         Collect(Index: any): any;
-        CompareBookmarks(Bookmark1: any, Bookmark2: any): CompareEnum;
+        CompareBookmarks(Bookmark1: Bookmark, Bookmark2: Bookmark): CompareEnum;
         CursorLocation: CursorLocationEnum;
         CursorType: CursorTypeEnum;
         DataMember: string;
@@ -913,7 +918,7 @@ declare namespace ADODB {
          * * Array of bookmarks — an array of unique bookmark values that point to records in the Recordset object.
          * * A FilterGroupEnum value
          */
-        Filter: string | SafeArray | FilterGroupEnum;
+        Filter: string | SafeArray<Bookmark> | FilterGroupEnum;
 
         /**
          * @param SkipRecords [SkipRecords=0]
@@ -977,7 +982,7 @@ declare namespace ADODB {
         Save(Destination: string | Stream, PersistFormat?: PersistFormatEnum): void;
 
         /** @param SeekOption [SeekOption=1] */
-        Seek(KeyValues: SafeArray, SeekOption?: SeekEnum): void;
+        Seek(KeyValues: Primitive | SafeArray<Primitive>, SeekOption?: SeekEnum): void;
         Sort: string;
         Source: string | Command;
         readonly State: number;
@@ -1072,6 +1077,8 @@ declare namespace ADODB {
             Source: string;
         }
     }
+
+    type Primitive = string | number | boolean | Date | null;
 }
 
 interface ActiveXObject {
