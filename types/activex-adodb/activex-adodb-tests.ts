@@ -98,7 +98,11 @@ const withConnection = (initialCatalog: string, fn: (conn: ADODB.Connection) => 
     }
 };
 
-const withRs = (catalogOrConnection: string | ADODB.Connection, tableOrCommand: string | ADODB.Command, fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorTypeEnum = ADODB.CursorTypeEnum.adOpenUnspecified, location: ADODB.CursorLocationEnum = ADODB.CursorLocationEnum.adUseNone, lockType: ADODB.LockTypeEnum = ADODB.LockTypeEnum.adLockOptimistic) => {
+const withRs = (catalogOrConnection: string | ADODB.Connection, tableOrCommand: string | ADODB.Command, fn: (rs: ADODB.Recordset) => void,
+    type: ADODB.CursorTypeEnum = ADODB.CursorTypeEnum.adOpenUnspecified,
+    location: ADODB.CursorLocationEnum = ADODB.CursorLocationEnum.adUseNone,
+    lockType: ADODB.LockTypeEnum = ADODB.LockTypeEnum.adLockOptimistic
+) => {
     let connection = catalogOrConnection;
     if (typeof connection === 'string') {
         // expand catalog to full connection string
