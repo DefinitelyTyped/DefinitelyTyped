@@ -617,8 +617,12 @@ declare namespace ADODB {
         CreateParameter(Name?: string, Type?: DataTypeEnum, Direction?: ParameterDirectionEnum, Size?: number, Value?: any): Parameter;
         Dialect: string;
 
-        /** @param Options [Options=-1] */
-        Execute(RecordsAffected?: number, Parameters?: SafeArray, Options?: number): Recordset;
+        /** 
+         * @param Options [Options=-1]
+         * 
+         * The **RecordsAffected** parameter is meant to take a variable to be modified by reference; passing variables byref is unsupported by Javascript.
+         */
+        Execute(RecordsAffected?: number, Parameters?: SafeArray, Options?: number): Recordset | null;
         Name: string;
         NamedParameters: boolean;
         readonly Parameters: Parameters;
@@ -642,8 +646,12 @@ declare namespace ADODB {
         DefaultDatabase: string;
         readonly Errors: Errors;
 
-        /** @param Options [Options=-1] */
-        Execute(CommandText: string, RecordsAffected: any, Options?: CommandTypeEnum | ExecuteOptionEnum): Recordset | undefined;
+        /** 
+         * @param Options [Options=-1]
+         * 
+         * The **RecordsAffected** parameter is meant to take a variable to be modified by reference; byref is unsupported by Javascript
+         */
+        Execute(CommandText: string, RecordsAffected?: undefined, Options?: CommandTypeEnum | ExecuteOptionEnum): Recordset | null;
         IsolationLevel: IsolationLevelEnum;
         Mode: ConnectModeEnum;
 
@@ -840,9 +848,9 @@ declare namespace ADODB {
         readonly State: ObjectStateEnum;
     }
 
-    class Recordset {
-        private 'ADODB.Recordset_typekey': Recordset;
-        private constructor();
+    interface Recordset {
+        // private 'ADODB.Recordset_typekey': Recordset;
+        // private constructor();
         _xClone(): Recordset;
 
         /** @param ADODB.AffectEnum [AffectRecords=3] */
@@ -972,6 +980,7 @@ declare namespace ADODB {
 
         /** @param AffectRecords [AffectRecords=3] */
         UpdateBatch(AffectRecords?: AffectEnum): void;
+        (FieldIndex: string | number): Field;
     }
 
     class Stream {
