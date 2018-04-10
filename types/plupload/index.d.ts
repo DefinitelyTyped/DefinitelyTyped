@@ -146,7 +146,16 @@ declare namespace plupload {
         /** Properties */
         id: string;
         state: number;
-        features: string;
+
+        /**
+		 * Map of features that are available for the uploader runtime. Features will be filled
+		 * before the init event is called, these features can then be used to alter the UI for the end user.
+		 * Some of the current features that might be in this map is: dragdrop, chunks, jpgresize, pngresize.
+		 *
+		 * @property features
+		 * @type Object
+		 */
+        features: any;
         runtime: string;
         files: any;
         settings: any;
