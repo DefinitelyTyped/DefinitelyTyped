@@ -2555,6 +2555,10 @@ namespace vm_tests {
         const Debug = vm.runInDebugContext('Debug');
         Debug.scripts().forEach((script: any) => { console.log(script.name); });
     }
+
+    {
+        vm.runInThisContext('console.log("hello world"', './my-file.js');
+    }
 }
 
 /////////////////////////////////////////////////////
