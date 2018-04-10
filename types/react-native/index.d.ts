@@ -8792,7 +8792,7 @@ declare global {
      *
      * @see https://github.com/facebook/react-native/issues/934
      */
-    var originalXMLHttpRequest: Object;
+    var originalXMLHttpRequest: any;
 
     var __BUNDLE_START_TIME__: number;
     var ErrorUtils: ErrorUtils;
