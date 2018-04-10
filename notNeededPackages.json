@@ -211,6 +211,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "catalog",
+            "typingsPackageName": "catalog",
+            "sourceRepoURL": "https://github.com/interactivethings/catalog",
+            "asOfVersion": "3.5.0"
+        },
+        {
             "libraryName": "chalk",
             "typingsPackageName": "chalk",
             "sourceRepoURL": "https://github.com/chalk/chalk",
@@ -1271,6 +1277,12 @@
             "typingsPackageName": "router5",
             "sourceRepoURL": "https://github.com/router5/router5",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "rrule",
+            "typingsPackageName": "rrule",
+            "sourceRepoURL": "https://github.com/jakubroztocil/rrule",
+            "asOfVersion": "2.2.9"
         },
         {
             "libraryName": "rvo2",

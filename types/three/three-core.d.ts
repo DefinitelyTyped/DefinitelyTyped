@@ -1015,8 +1015,8 @@ export class DirectGeometry extends EventDispatcher {
     uvs2: Vector2[];
     groups: {start: number, materialIndex: number}[];
     morphTargets: MorphTarget[];
-    skinWeights: number[];
-    skinIndices: number[];
+    skinWeights: Vector4[];
+    skinIndices: Vector4[];
     boundingBox: Box3;
     boundingSphere: Sphere;
     verticesNeedUpdate: boolean;
@@ -1270,12 +1270,12 @@ export class Geometry extends EventDispatcher {
     /**
      * Array of skinning weights, matching number and order of vertices.
      */
-    skinWeights: number[];
+    skinWeights: Vector4[];
 
     /**
      * Array of skinning indices, matching number and order of vertices.
      */
-    skinIndices: number[];
+    skinIndices: Vector4[];
 
     /**
      *
@@ -2251,7 +2251,7 @@ export class MaterialLoader {
     manager: LoadingManager;
     textures: { [key: string]: Texture };
 
-    load(url: string, onLoad: (material: Material) => void): void;
+    load(url: string, onLoad: (material: Material) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: Error | ErrorEvent) => void): void;
     setTextures(textures: { [key: string]: Texture }): void;
     getTexture(name: string): Texture;
     parse(json: any): Material;
@@ -2303,12 +2303,12 @@ export class CubeTextureLoader {
     constructor(manager?: LoadingManager);
 
     manager: LoadingManager;
-    corssOrigin: string;
-    path: string;
+    crossOrigin: string;
+    path?: string;
 
     load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): CubeTexture;
-    setCrossOrigin(crossOrigin: string): CubeTextureLoader;
-    setPath(path: string): CubeTextureLoader;
+    setCrossOrigin(crossOrigin: string): this;
+    setPath(path: string): this;
 }
 
 export class DataTextureLoader {
@@ -5020,9 +5020,7 @@ export class QuaternionLinearInterpolant extends Interpolant {
 // Objects //////////////////////////////////////////////////////////////////////////////////
 
 export class Bone extends Object3D {
-    constructor(skin: SkinnedMesh);
-
-    skin: SkinnedMesh;
+    constructor();
 }
 
 export class Group extends Object3D {
@@ -5082,6 +5080,7 @@ export class Line extends Object3D {
     geometry: Geometry|BufferGeometry;
     material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
 
+    computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: any): void;
 }
 
@@ -5110,6 +5109,7 @@ export class Mesh extends Object3D {
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
+	isMesh: boolean;
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
@@ -5492,7 +5492,7 @@ export class WebGLRenderer implements Renderer {
      * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
      */
     getCurrentRenderTarget(): RenderTarget;
-    setRenderTarget(renderTarget: RenderTarget): void;
+    setRenderTarget(renderTarget?: RenderTarget): void;
     readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
 
     /**
@@ -7440,6 +7440,15 @@ export class VertexNormalsHelper extends LineSegments {
     size: number;
 
     update(object?: Object3D): void;
+}
+
+export class PlaneHelper extends LineSegments {
+    constructor(plane: Plane, size?: number, hex?: number);
+
+    plane: Plane;
+    size: number;
+
+    updateMatrixWorld(force: boolean): void;
 }
 
 /**

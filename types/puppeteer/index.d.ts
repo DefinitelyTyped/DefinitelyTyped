@@ -1042,6 +1042,12 @@ export interface Page extends EventEmitter, FrameBase {
   select(selector: string, ...values: string[]): Promise<string[]>;
 
   /**
+   * Determines whether cache is enabled on the page.
+   * @param enabled Whether or not to enable cache on the page.
+   */
+  setCacheEnabled(enabled: boolean): Promise<void>;
+
+  /**
    * Sets the cookies on the page.
    * @param cookies The cookies to set.
    */

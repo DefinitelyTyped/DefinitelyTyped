@@ -118,7 +118,7 @@ interface Auth0LockConstructorOptions {
     auth?: Auth0LockAuthOptions;
     autoclose?: boolean;
     autofocus?: boolean;
-    avatar?: Auth0LockAvatarOptions;
+    avatar?: Auth0LockAvatarOptions | null;
     clientBaseUrl?: string;
     closable?: boolean;
     configurationBaseUrl?: string;
@@ -144,6 +144,7 @@ interface Auth0LockConstructorOptions {
     theme?: Auth0LockThemeOptions;
     usernameStyle?: string;
     _enableImpersonation?: boolean;
+    _enableIdPInitiatedLogin?: boolean;
 }
 
 interface Auth0LockFlashMessageOptions {

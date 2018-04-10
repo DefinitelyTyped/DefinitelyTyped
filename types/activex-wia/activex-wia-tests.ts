@@ -11,6 +11,9 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     return results;
 };
 
+WScript.Echo('Hello, world');
+WScript.Quit();
+
 // source -- https://msdn.microsoft.com/en-us/library/windows/desktop/ms630826(v=vs.85).aspx
 {
     const cd = new ActiveXObject('WIA.CommonDialog');
@@ -51,7 +54,7 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     {
         const dev = cd.ShowSelectDevice();
         if (dev) {
-            collectionToArray(dev.Properties).forEach(p => {
+            for (const p of collectionToArray(dev.Properties)) {
                 let s = `${p.Name} (${p.PropertyID}) = `;
                 if (p.IsVector) {
                     s += '[vector of data]';
@@ -84,7 +87,7 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
                 }
 
                 WScript.Echo(s);
-            });
+            }
         }
     }
 
@@ -112,7 +115,7 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     {
         const img = cd.ShowAcquireImage();
         if (img) {
-            collectionToArray(img.Properties).forEach(p => {
+            for (const p of collectionToArray(img.Properties)) {
                 let contents = '';
                 if (p.IsVector) {
                     contents = '[vector data not emitted]';
@@ -124,7 +127,7 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
                     contents = p.Value;
                 }
                 WScript.Echo(`${p.Name} (${p.PropertyID}) = ${contents}`);
-            });
+            }
         }
     }
 
@@ -133,12 +136,12 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
         const dev = cd.ShowSelectDevice();
         if (dev) {
             const actionEvent = WIA.WiaEventFlag.ActionEvent;
-            collectionToArray(dev.Events).forEach(e => {
+            for (const e of collectionToArray(dev.Events)) {
                 const msg = (e.Type & actionEvent) === actionEvent ?
                     `${e.Name} is an Action event` :
                     `${e.Name} is not an Action event`;
                 WScript.Echo(msg);
-            });
+            }
         }
     }
 
@@ -208,14 +211,14 @@ Frame count = ${img.FrameCount}}
     // Create an imageprocess object and enumerate filters
     {
         const ip = new ActiveXObject('WIA.ImageProcess');
-        collectionToArray(ip.FilterInfos).forEach(fi => {
+        for (const fi of collectionToArray(ip.FilterInfos)) {
             const s = [
                 fi.Name,
                 new Array(51).join('='),
                 fi.Description
             ].join('\n');
             WScript.Echo(s);
-        });
+        }
     }
 
     // Create an imageprocess object and create one of each available filter
@@ -269,11 +272,11 @@ Frame count = ${img.FrameCount}}
             WScript.Echo(s);
         };
 
-        collectionToArray(ip.FilterInfos).forEach(fi => {
+        for (const fi of collectionToArray(ip.FilterInfos)) {
             ip.Filters.Add(fi.FilterID);
             listProperties(ip.Filters(1));
             ip.Filters.Remove(1);
-        });
+        }
     }
 
     // List the supported transfer formats
@@ -308,14 +311,14 @@ Frame count = ${img.FrameCount}}
     {
         const dev = cd.ShowSelectDevice();
         if (dev) {
-            collectionToArray(dev.Items).forEach(item => {
+            for (const item of collectionToArray(dev.Items)) {
                 let s: string = item.Properties("Item Name").Value;
                 if (item.Properties.Exists("Item Time Stamp")) {
                     const v: WIA.Vector = item.Properties("Item Time Stamp").Value;
                     if (v.Count === 8) { s += ` (${v.Date})`; }
                 }
                 WScript.Echo(s);
-            });
+            }
         }
     }
 
@@ -340,16 +343,16 @@ Frame count = ${img.FrameCount}}
     }
 
     // List all available devices by name and deviceid
-    collectionToArray(dm.DeviceInfos).forEach(di => {
+    for (const di of collectionToArray(dm.DeviceInfos)) {
         const name: string = di.Properties("Name").Value;
         WScript.Echo(`${name} (${di.DeviceID})`);
-    });
+    }
 
     // Display all the properties for the selected device
     {
         const dev = cd.ShowSelectDevice();
         if (dev) {
-            collectionToArray(dev.Properties).forEach(p => {
+            for (const p of collectionToArray(dev.Properties)) {
                 const name = `${p.Name} (${p.PropertyID})`;
                 let contents: string;
                 if (p.IsVector) {
@@ -360,7 +363,7 @@ Frame count = ${img.FrameCount}}
                     contents = p.Value;
                 }
                 WScript.Echo(`${name} = ${contents}`);
-            });
+            }
         }
     }
 
@@ -430,7 +433,7 @@ Frame count = ${img.FrameCount}}
                 if (args[0] === 'connect') {
                     const deviceID = args[1].substr(12);
                     const device = dm.DeviceInfos(deviceID).Connect();
-                    collectionToArray(device.Items).forEach(item => {
+                    for (const item of collectionToArray(device.Items)) {
                         const img = item.Transfer();
                         img.SaveFile(`C:\\${item.Properties('Item Name').Value}.${img.FileExtension}`);
 
@@ -445,7 +448,7 @@ Frame count = ${img.FrameCount}}
                                 WScript.Echo(error);
                             }
                         }
-                    });
+                    }
                     WScript.Quit();
                 }
                 break;

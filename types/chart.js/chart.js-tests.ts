@@ -21,6 +21,9 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         hover: {
             intersect: true
         },
+        onHover(ev: MouseEvent, points: any[]) {
+          return;
+        },
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,

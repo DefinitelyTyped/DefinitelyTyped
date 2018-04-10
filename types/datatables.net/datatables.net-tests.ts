@@ -225,7 +225,7 @@ let config: DataTables.Settings = {
         ],
         // Data
         ajax: "url",
-        data: {},
+        data: [],
         // Features
         autoWidth: true,
         deferRender: true,
