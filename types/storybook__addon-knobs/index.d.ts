@@ -23,14 +23,14 @@ export interface NumberOptions {
     min: number;
     max: number;
     step: number;
-};
+}
 
 type EmptyNumberOptions = {
     range?: undefined;
     min?: undefined;
     max?: undefined;
     step?: undefined;
-}
+};
 
 export function knob<T>(name: string, options: KnobOption<T>): T;
 
