@@ -1,4 +1,5 @@
 /*!
+* Dynamsoft WebTwain PDF Addon
 * Based on Dynamsoft WebTwain JavaScript Intellisense
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
@@ -8,9 +9,9 @@
 * Version: 13.4
 */
 
-declare enum EnumDWT_ConverMode {
+declare enum EnumDWT_ConvertMode {
     CM_DEFAULT = 0,
-    TWPT_CM_RENDERALLGRAY = 1
+    CM_RENDERALL = 1
 }
 
 /**
@@ -42,10 +43,10 @@ interface PDF {
     /**
      *  Set the image convert mode for PDF Rasterizer in Dynamic Web TWAIN.
      * @method Dynamsoft.WebTwain#SetConvertMode
-     * @param {EnumDWT_ConverMode} convertMode Specifies the image convert mode.
+     * @param {EnumDWT_ConvertMode} convertMode Specifies the image convert mode.
      * @return {boolean}
      */
-    SetConvertMode(convertMode: EnumDWT_ConverMode): boolean;
+    SetConvertMode(convertMode: EnumDWT_ConvertMode): boolean;
 
     /**
      *  Set the output resolution for the PDF Rasterizer in Dynamic Web TWAIN.

@@ -2,6 +2,11 @@ import NodeRSA = require('node-rsa');
 
 const key = new NodeRSA({ b: 512 });
 
+key.setOptions({
+	encryptionScheme: 'pkcs1_oaep',
+	signingScheme: 'pkcs1'
+});
+
 const text = 'Hello RSA!';
 const encrypted = key.encrypt(text, 'base64');
 const decrypted = key.decrypt(encrypted, 'utf8');

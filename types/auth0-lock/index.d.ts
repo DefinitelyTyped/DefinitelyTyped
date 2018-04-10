@@ -1,4 +1,4 @@
-// Type definitions for auth0-lock 10.16
+// Type definitions for auth0-lock 11.4
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
 //                 Dan Caddigan <https://github.com/goldcaddy77>
@@ -118,7 +118,7 @@ interface Auth0LockConstructorOptions {
     auth?: Auth0LockAuthOptions;
     autoclose?: boolean;
     autofocus?: boolean;
-    avatar?: Auth0LockAvatarOptions;
+    avatar?: Auth0LockAvatarOptions | null;
     clientBaseUrl?: string;
     closable?: boolean;
     configurationBaseUrl?: string;
@@ -143,6 +143,8 @@ interface Auth0LockConstructorOptions {
     socialButtonStyle?: "big" | "small";
     theme?: Auth0LockThemeOptions;
     usernameStyle?: string;
+    _enableImpersonation?: boolean;
+    _enableIdPInitiatedLogin?: boolean;
 }
 
 interface Auth0LockFlashMessageOptions {

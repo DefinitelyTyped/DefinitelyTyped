@@ -42,7 +42,7 @@ declare namespace Bull {
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
      * This is useful if you want to re-use connections.
      */
-    createClient?(type: 'client' | 'subscriber', redisOpts?: Redis.RedisOptions): Redis.Redis;
+    createClient?(type: 'client' | 'subscriber' | 'bclient', redisOpts?: Redis.RedisOptions): Redis.Redis;
 
     /**
      * Prefix to use for all redis keys

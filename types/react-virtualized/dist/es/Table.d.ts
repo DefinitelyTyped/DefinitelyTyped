@@ -291,7 +291,7 @@ export type TableProps = GridCoreProps & {
     /** Optional inline style */
     style?: React.CSSProperties;
     /** Tab index for focus */
-    tabIndex?: number;
+    tabIndex?: number | null;
     /** Width of list */
     width?: number;
 }

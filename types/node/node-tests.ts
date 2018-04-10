@@ -636,6 +636,11 @@ namespace url_tests {
     }
 
     {
+        const ascii: string = url.domainToASCII('español.com');
+        const unicode: string = url.domainToUnicode('xn--espaol-zwa.com');
+    }
+
+    {
         let myURL = new url.URL('https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
         assert.equal(myURL.hash, '#bar');
         assert.equal(myURL.host, 'example.org:81');
@@ -2549,6 +2554,10 @@ namespace vm_tests {
     {
         const Debug = vm.runInDebugContext('Debug');
         Debug.scripts().forEach((script: any) => { console.log(script.name); });
+    }
+
+    {
+        vm.runInThisContext('console.log("hello world"', './my-file.js');
     }
 }
 

@@ -610,6 +610,11 @@ namespace url_tests {
     }
 
     {
+        const ascii: string = url.domainToASCII('español.com');
+        const unicode: string = url.domainToUnicode('xn--espaol-zwa.com');
+    }
+
+    {
         let myURL = new url.URL('https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
         assert.equal(myURL.hash, '#bar');
         assert.equal(myURL.host, 'example.org:81');
@@ -2025,14 +2030,17 @@ namespace string_decoder_tests {
 namespace child_process_tests {
     {
         childProcess.exec("echo test");
+        childProcess.exec("echo test", {windowsHide: true});
         childProcess.spawnSync("echo test");
+        childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
     }
 
     {
         childProcess.execFile("npm", () => {});
+        childProcess.execFile("npm", { windowsHide: true }, () => {});
         childProcess.execFile("npm", ["-v"], () => {});
-        childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-        childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     }
@@ -2520,6 +2528,10 @@ namespace vm_tests {
     {
         const Debug = vm.runInDebugContext('Debug');
         Debug.scripts().forEach((script: any) => { console.log(script.name); });
+    }
+
+    {
+        vm.runInThisContext('console.log("hello world"', './my-file.js');
     }
 }
 
@@ -3944,6 +3956,7 @@ namespace module_tests {
 
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
+    const b: string[] = Module.builtinModules;
     let paths: string[] = module.paths;
     paths = m1.paths;
 }

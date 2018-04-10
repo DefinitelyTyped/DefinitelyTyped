@@ -36,6 +36,7 @@ import {
     NavigationParams,
     NavigationPopAction,
     NavigationPopToTopAction,
+    NavigationScreenComponent,
 } from 'react-navigation';
 
 // Constants
@@ -48,14 +49,19 @@ const viewStyle: ViewStyle = {
 
 const ROUTE_NAME_START_SCREEN = "StartScreen";
 
+interface StartScreenNavigationParams {
+    id: number;
+    s: string;
+}
+
 /**
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
-class StartScreen extends React.Component<NavigationScreenProps> {
+class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
     render() {
         // Implicit type checks.
-        const navigationStateParams = this.props.navigation.state.params;
+        const navigationStateParams: StartScreenNavigationParams | undefined = this.props.navigation.state.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
         const s = this.props.navigation.state.params && this.props.navigation.state.params.s;
 
@@ -84,12 +90,17 @@ class StartScreen extends React.Component<NavigationScreenProps> {
 
 const ROUTE_NAME_NEXT_SCREEN = "NextScreen";
 
-class NextScreen extends React.Component<NavigationScreenProps> {
+interface NextScreenNavigationParams {
+    id: number;
+    name: string;
+}
+
+class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
     render() {
         // Implicit type checks.
-        const navigationStateParams = this.props.navigation.state.params;
+        const navigationStateParams: NextScreenNavigationParams | undefined = this.props.navigation.state.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
-        const name = this.props.navigation.state.params && this.props.navigation.state.params.name;
+        const name = this.props.navigation.getParam('name', 'Peter');
 
         return (
             <View />
@@ -100,7 +111,7 @@ class NextScreen extends React.Component<NavigationScreenProps> {
 const navigationOptions = {
     headerBackTitle: null,
 };
-const initialRouteParams: NavigationParams = {
+const initialRouteParams: StartScreenNavigationParams = {
     id: 1,
     s: "Start",
 };
@@ -121,6 +132,23 @@ export const AppNavigator = StackNavigator(
         initialRouteParams,
         navigationOptions,
     },
+);
+
+interface StatelessScreenParams {
+    testID: string;
+}
+
+const StatelessScreen: NavigationScreenComponent<StatelessScreenParams> = (props) =>
+    <View testID={props.navigation.getParam('testID', 'fallback')}/>;
+
+StatelessScreen.navigationOptions = { title: 'Stateless' };
+
+const SimpleStackNavigator = StackNavigator(
+    {
+        simple: {
+            screen: StatelessScreen,
+        },
+    }
 );
 
 /**

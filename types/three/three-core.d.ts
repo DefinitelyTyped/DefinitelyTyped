@@ -1015,8 +1015,8 @@ export class DirectGeometry extends EventDispatcher {
     uvs2: Vector2[];
     groups: {start: number, materialIndex: number}[];
     morphTargets: MorphTarget[];
-    skinWeights: number[];
-    skinIndices: number[];
+    skinWeights: Vector4[];
+    skinIndices: Vector4[];
     boundingBox: Box3;
     boundingSphere: Sphere;
     verticesNeedUpdate: boolean;
@@ -1270,12 +1270,12 @@ export class Geometry extends EventDispatcher {
     /**
      * Array of skinning weights, matching number and order of vertices.
      */
-    skinWeights: number[];
+    skinWeights: Vector4[];
 
     /**
      * Array of skinning indices, matching number and order of vertices.
      */
-    skinIndices: number[];
+    skinIndices: Vector4[];
 
     /**
      *
@@ -2251,7 +2251,7 @@ export class MaterialLoader {
     manager: LoadingManager;
     textures: { [key: string]: Texture };
 
-    load(url: string, onLoad: (material: Material) => void): void;
+    load(url: string, onLoad: (material: Material) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: Error | ErrorEvent) => void): void;
     setTextures(textures: { [key: string]: Texture }): void;
     getTexture(name: string): Texture;
     parse(json: any): Material;
@@ -2303,12 +2303,12 @@ export class CubeTextureLoader {
     constructor(manager?: LoadingManager);
 
     manager: LoadingManager;
-    corssOrigin: string;
-    path: string;
+    crossOrigin: string;
+    path?: string;
 
     load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): CubeTexture;
-    setCrossOrigin(crossOrigin: string): CubeTextureLoader;
-    setPath(path: string): CubeTextureLoader;
+    setCrossOrigin(crossOrigin: string): this;
+    setPath(path: string): this;
 }
 
 export class DataTextureLoader {
@@ -4319,6 +4319,9 @@ export class Vector2 implements Vector {
      */
     set(x: number, y: number): Vector2;
 
+    /**
+     * Sets the x and y values of this vector both equal to scalar.
+     */
     setScalar(scalar: number): Vector2;
 
     /**
@@ -4335,11 +4338,11 @@ export class Vector2 implements Vector {
      * Sets a component of this vector.
      */
     setComponent(index: number, value: number): void;
-
     /**
      * Gets a component of this vector.
      */
     getComponent(index: number): number;
+
     /**
      * Clones this vector.
      */
@@ -4353,29 +4356,44 @@ export class Vector2 implements Vector {
      * Adds v to this vector.
      */
     add(v: Vector2): Vector2;
-
+    /**
+     * Adds the scalar value s to this vector's x and y values.
+     */
+    addScalar(s: number): Vector2;
     /**
      * Sets this vector to a + b.
      */
-    addScalar(s: number): Vector2;
     addVectors(a: Vector2, b: Vector2): Vector2;
-    addScaledVector( v: Vector2, s: number ): Vector2;
+    /**
+     * Adds the multiple of v and s to this vector.
+     */
+    addScaledVector(v: Vector2, s: number): Vector2;
+
     /**
      * Subtracts v from this vector.
-     */
+    */
     sub(v: Vector2): Vector2;
-
+    /**
+     * Subtracts s from this vector's x and y components.
+     */
+    subScalar(s: number): Vector2;
     /**
      * Sets this vector to a - b.
      */
     subVectors(a: Vector2, b: Vector2): Vector2;
 
+    /**
+     * Multiplies this vector by v.
+     */
     multiply(v: Vector2): Vector2;
     /**
      * Multiplies this vector by scalar s.
      */
     multiplyScalar(scalar: number): Vector2;
 
+    /**
+     * Divides this vector by v.
+     */
     divide(v: Vector2): Vector2;
     /**
      * Divides this vector by scalar s.
@@ -4383,15 +4401,57 @@ export class Vector2 implements Vector {
      */
     divideScalar(s: number): Vector2;
 
-    min(v: Vector2): Vector2;
+    /**
+     * Multiplies this vector (with an implicit 1 as the 3rd component) by m.
+     */
+    applyMatrix3(m: Matrix3): Vector2;
 
+    /**
+     * If this vector's x or y value is greater than v's x or y value, replace that value with the corresponding min value.
+     */
+    min(v: Vector2): Vector2;
+    /**
+     * If this vector's x or y value is less than v's x or y value, replace that value with the corresponding max value.
+     */
     max(v: Vector2): Vector2;
+
+    /**
+     * If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value.
+     * If this vector's x or y value is less than the min vector's x or y value, it is replaced by the corresponding value.
+     * @param min the minimum x and y values.
+     * @param max the maximum x and y values in the desired range.
+     */
     clamp(min: Vector2, max: Vector2): Vector2;
+    /**
+     * If this vector's x or y values are greater than the max value, they are replaced by the max value.
+     * If this vector's x or y values are less than the min value, they are replaced by the min value.
+     * @param min the minimum value the components will be clamped to.
+     * @param max the maximum value the components will be clamped to.
+     */
     clampScalar(min: number, max: number): Vector2;
+    /**
+     * If this vector's length is greater than the max value, it is replaced by the max value.
+     * If this vector's length is less than the min value, it is replaced by the min value.
+     * @param min the minimum value the length will be clamped to.
+     * @param max the maximum value the length will be clamped to.
+     */
     clampLength(min: number, max: number): Vector2;
+
+    /**
+     * The components of the vector are rounded down to the nearest integer value.
+     */
     floor(): Vector2;
+    /**
+     * The x and y components of the vector are rounded up to the nearest integer value.
+     */
     ceil(): Vector2;
+    /**
+     * The components of the vector are rounded to the nearest integer value.
+     */
     round(): Vector2;
+    /**
+     * The components of the vector are rounded towards zero (up if negative, down if positive) to an integer value.
+     */
     roundToZero(): Vector2;
 
     /**
@@ -4433,12 +4493,10 @@ export class Vector2 implements Vector {
      * Computes distance of this vector to v.
      */
     distanceTo(v: Vector2): number;
-
     /**
      * Computes squared distance of this vector to v.
      */
     distanceToSquared(v: Vector2): number;
-
     /**
      * @deprecated Use {@link Vector2#manhattanDistanceTo .manhattanDistanceTo()} instead.
      */
@@ -4449,8 +4507,18 @@ export class Vector2 implements Vector {
      */
     setLength(length: number): Vector2;
 
+    /**
+     * Linearly interpolates between this vector and v, where alpha is the distance along the line - alpha = 0 will be this vector, and alpha = 1 will be v.
+     * @param v vector to interpolate towards.
+     * @param alpha interpolation factor in the closed interval [0, 1].
+     */
     lerp(v: Vector2, alpha: number): Vector2;
-
+    /**
+     * Sets this vector to be the vector linearly interpolated between v1 and v2 where alpha is the distance along the line connecting the two vectors - alpha = 0 will be v1, and alpha = 1 will be v2.
+     * @param v1 the starting vector.
+     * @param v2 vector to interpolate towards.
+     * @param alpha interpolation factor in the closed interval [0, 1].
+     */
     lerpVectors(v1: Vector2, v2: Vector2, alpha: number): Vector2;
 
     /**
@@ -4458,13 +4526,32 @@ export class Vector2 implements Vector {
      */
     equals(v: Vector2): boolean;
 
-    fromArray(xy: number[], offset?: number): Vector2;
+    /**
+     * Sets this vector's x value to be array[offset] and y value to be array[offset + 1].
+     * @param array the source array.
+     * @param offset (optional) offset into the array. Default is 0.
+     */
+    fromArray(array: number[], offset?: number): Vector2;
+    /**
+     * Returns an array [x, y], or copies x and y into the provided array.
+     * @param array (optional) array to store the vector to. If this is not provided, a new array will be created.
+     * @param offset (optional) optional offset into the array.
+     */
+    toArray(array?: number[], offset?: number): number[];
 
-    toArray(xy?: number[], offset?: number): number[];
+    /**
+     * Sets this vector's x and y values from the attribute.
+     * @param attribute the source attribute.
+     * @param index index in the attribute.
+     */
+    fromBufferAttribute(attribute: BufferAttribute, index: number): Vector2;
 
-    fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector2;
-
-    rotateAround( center: Vector2, angle: number ): Vector2;
+    /**
+     * Rotates the vector around center by angle radians.
+     * @param center the point around which to rotate.
+     * @param angle the angle to rotate, in radians.
+     */
+    rotateAround(center: Vector2, angle: number): Vector2;
 
     /**
      * Computes the Manhattan length of this vector.
@@ -4933,9 +5020,7 @@ export class QuaternionLinearInterpolant extends Interpolant {
 // Objects //////////////////////////////////////////////////////////////////////////////////
 
 export class Bone extends Object3D {
-    constructor(skin: SkinnedMesh);
-
-    skin: SkinnedMesh;
+    constructor();
 }
 
 export class Group extends Object3D {
@@ -4995,6 +5080,7 @@ export class Line extends Object3D {
     geometry: Geometry|BufferGeometry;
     material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
 
+    computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: any): void;
 }
 
@@ -5023,6 +5109,7 @@ export class Mesh extends Object3D {
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
+	isMesh: boolean;
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
@@ -5405,7 +5492,7 @@ export class WebGLRenderer implements Renderer {
      * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
      */
     getCurrentRenderTarget(): RenderTarget;
-    setRenderTarget(renderTarget: RenderTarget): void;
+    setRenderTarget(renderTarget?: RenderTarget): void;
     readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
 
     /**
@@ -6903,6 +6990,18 @@ export class ExtrudeGeometry extends Geometry {
     addShape(shape: Shape, options?: any): void;
 }
 
+export class ExtrudeBufferGeometry extends BufferGeometry {
+    constructor(shapes?: Shape[], options?: any);
+
+    static WorldUVGenerator: {
+        generateTopUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number): Vector2[];
+        generateSideWallUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
+    };
+
+    addShapeList(shapes: Shape[], options?: any): void;
+    addShape(shape: Shape, options?: any): void;
+}
+
 export class IcosahedronBufferGeometry extends PolyhedronBufferGeometry {
     constructor(radius?: number, detail?: number);
 }
@@ -7093,6 +7192,7 @@ export interface TextGeometryParameters {
     bevelEnabled?: boolean;
     bevelThickness?: number;
     bevelSize?: number;
+    bevelSegments?: number;
 }
 
 export class TextGeometry extends ExtrudeGeometry {
@@ -7106,6 +7206,22 @@ export class TextGeometry extends ExtrudeGeometry {
         bevelEnabled: boolean;
         bevelThickness: number;
         bevelSize: number;
+        bevelSegments: number;
+    };
+}
+
+export class TextBufferGeometry extends ExtrudeBufferGeometry {
+    constructor(text: string, parameters?: TextGeometryParameters);
+
+    parameters: {
+        font: Font;
+        size: number;
+        height: number;
+        curveSegments: number;
+        bevelEnabled: boolean;
+        bevelThickness: number;
+        bevelSize: number;
+        bevelSegments: number;
     };
 }
 
@@ -7324,6 +7440,15 @@ export class VertexNormalsHelper extends LineSegments {
     size: number;
 
     update(object?: Object3D): void;
+}
+
+export class PlaneHelper extends LineSegments {
+    constructor(plane: Plane, size?: number, hex?: number);
+
+    plane: Plane;
+    size: number;
+
+    updateMatrixWorld(force: boolean): void;
 }
 
 /**

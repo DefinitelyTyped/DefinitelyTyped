@@ -14,7 +14,7 @@ gfs.renameSync(str, str);
 gfs2.chmodSync(buf, 1);
 
 const gracefulified = gfs.gracefulify(fs);
-gracefulified; // $ExpectType typeof "fs" & Lutimes
+const _fs: typeof fs = gracefulified;
 gracefulified.lutimes; // $ExpectType typeof lutimes
 promisify(gracefulified.lutimes); // $ExpectType (path: PathLike, atime: string | number | Date, mtime: string | number | Date) => Promise<void>
 

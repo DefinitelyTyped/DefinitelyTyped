@@ -6,6 +6,7 @@
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -2024,6 +2025,9 @@ declare module "url" {
     export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
 
+    export function domainToASCII(domain: string): string;
+    export function domainToUnicode(domain: string): string;
+
     export interface URLFormatOptions {
         auth?: boolean;
         fragment?: boolean;
@@ -3089,11 +3093,11 @@ declare module "path" {
     /**
      * The platform-specific file separator. '\\' or '/'.
      */
-    export var sep: string;
+    export var sep: '\\' | '/';
     /**
      * The platform-specific file delimiter. ';' or ':'.
      */
-    export var delimiter: string;
+    export var delimiter: ';' | ':';
     /**
      * Returns an object from a path string - the opposite of format().
      *
@@ -3981,7 +3985,7 @@ declare module "assert" {
             });
         }
 
-        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
