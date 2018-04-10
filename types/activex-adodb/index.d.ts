@@ -617,9 +617,9 @@ declare namespace ADODB {
         CreateParameter(Name?: string, Type?: DataTypeEnum, Direction?: ParameterDirectionEnum, Size?: number, Value?: any): Parameter;
         Dialect: string;
 
-        /** 
+        /**
          * @param Options [Options=-1]
-         * 
+         *
          * The **RecordsAffected** parameter is meant to take a variable to be modified by reference; passing variables byref is unsupported by Javascript.
          */
         Execute(RecordsAffected?: number, Parameters?: SafeArray, Options?: number): Recordset | null;
@@ -646,9 +646,9 @@ declare namespace ADODB {
         DefaultDatabase: string;
         readonly Errors: Errors;
 
-        /** 
+        /**
          * @param Options [Options=-1]
-         * 
+         *
          * The **RecordsAffected** parameter is meant to take a variable to be modified by reference; byref is unsupported by Javascript
          */
         Execute(CommandText: string, RecordsAffected?: undefined, Options?: CommandTypeEnum | ExecuteOptionEnum): Recordset | null;

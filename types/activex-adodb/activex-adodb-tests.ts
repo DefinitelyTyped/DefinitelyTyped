@@ -22,11 +22,11 @@ const toConnectionString = (o: { [index: string]: any }) => {
     o['Data Source'] = o['Data Source'] || 'Server';
     o['Integrated Security'] = o['Integrated Security'] || 'SSPI';
 
-    let parts: string[] = [];
-    for (let key in o) {
+    const parts: string[] = [];
+    for (const key in o) {
         let val = o[key];
         if (typeof val === 'string') { val = `'${val}'`; }
-        parts.push(`${key}=${val}`)
+        parts.push(`${key}=${val}`);
     }
     return parts.join(';');
 };
@@ -35,8 +35,8 @@ const printLine = () => WScript.Echo(new Array(26).join('-'));
 
 {
     // open connection to an Excel file
-    let pathToExcelFile = 'C:\\path\\to\\excel\\file.xlsx';
-    let conn = new ActiveXObject('ADODB.Connection');
+    const pathToExcelFile = 'C:\\path\\to\\excel\\file.xlsx';
+    const conn = new ActiveXObject('ADODB.Connection');
     conn.ConnectionString = toConnectionString({
         Provider: 'Microsoft.ACE.OLEDB.12.0',
         'Data Source': pathToExcelFile,
@@ -45,23 +45,23 @@ const printLine = () => WScript.Echo(new Array(26).join('-'));
     conn.Open();
 
     // create a Command to access the data
-    let cmd = new ActiveXObject('ADODB.Command');
+    const cmd = new ActiveXObject('ADODB.Command');
     cmd.ActiveConnection = conn;
     cmd.CommandText = 'SELECT DISTINCT LastName, CityName FROM [Sheet1$]';
     // get a Recordset
-    let rs = cmd.Execute() as ADODB.Recordset;
+    const rs = cmd.Execute() as ADODB.Recordset;
     // build a string from the Recordset
-    let s = rs.GetString(ADODB.StringFormatEnum.adClipString, -1, '\t', '\n', '(NULL)');
+    const s = rs.GetString(ADODB.StringFormatEnum.adClipString, -1, '\t', '\n', '(NULL)');
     rs.Close();
     WScript.Echo(s);
 }
 
 // create a disconnected recordset -- https://support.microsoft.com/en-us/help/184397/how-to-create-ado-disconnected-recordsets-in-vba-c-java
 {
-    let conn = new ActiveXObject('ADODB.Connection');
+    const conn = new ActiveXObject('ADODB.Connection');
     conn.Open(); // pass connection details here
 
-    let rs = new ActiveXObject('ADODB.Recordset');
+    const rs = new ActiveXObject('ADODB.Recordset');
     rs.CursorLocation = ADODB.CursorLocationEnum.adUseClient;
     rs.Open('SELECT * FROM Table1', conn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockBatchOptimistic);
     rs.ActiveConnection = null;
@@ -72,7 +72,7 @@ const printLine = () => WScript.Echo(new Array(26).join('-'));
 
 // update with SafeArray
 {
-    let rs = new ActiveXObject('ADODB.Recordset');
+    const rs = new ActiveXObject('ADODB.Recordset');
     rs.Open(); // missing connection details here
     const fields = toSafeArray('FirstName', 'LastName', 'DOB');
     const values = toSafeArray<any>('Plony', 'Almony', new Date(1980, 1, 1).getVarDate());
@@ -82,7 +82,7 @@ const printLine = () => WScript.Echo(new Array(26).join('-'));
 
 const withConnection = (initialCatalog: string, fn: (conn: ADODB.Connection) => void) => {
     let conn: ADODB.Connection | null = new ActiveXObject('ADODB.Connection');
-    let connectionString = toConnectionString({
+    const connectionString = toConnectionString({
         'Initial Catalog': initialCatalog
     });
     try {
@@ -152,10 +152,9 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
 {
     withConnection('Northwind', conn => {
         withEmployees(rs => {
-
-            // Set PageSize to five to display names and hire dates of five employees at a time 
+            // Set PageSize to five to display names and hire dates of five employees at a time
             rs.PageSize = 5;
-            let pageCount = rs.PageCount;
+            const pageCount = rs.PageCount;
 
             WScript.Echo(`There are ${pageCount} pages, each containing ${rs.PageSize} or fewer records`.trim());
 
@@ -163,15 +162,15 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
                 rs.AbsolutePage = i;
 
                 for (let iRecord = 1; iRecord <= rs.PageSize; iRecord++) {
-                    // First column in row contains page number on 
-                    // first record of each page. Otherwise, the column 
-                    // contains a non-breaking space. 
+                    // First column in row contains page number on
+                    // first record of each page. Otherwise, the column
+                    // contains a non-breaking space.
                     const page = iRecord === 1 ? `Page ${i} of ${rs.PageCount}` : '';
 
                     // First and last name are in first column.
                     const name = `${rs('FirstName')} ${rs('LastName')}`;
 
-                    // Hire date in second column. 
+                    // Hire date in second column.
                     const hireDate = new Date(rs('HireDate').Value as VarDate).toString();
 
                     // Write the row
@@ -194,18 +193,17 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
             WScript.Echo(['AbsolutePosition', 'Name', 'Hire Date'].join('\t'));
 
             while (!rs.EOF) {
-                // First column in row contains AbsolutePosition value. 
+                // First column in row contains AbsolutePosition value.
                 const recordCount = `${rs.AbsolutePosition} of ${rs.RecordCount}`;
 
-                // First and last name are in first column. 
+                // First and last name are in first column.
                 const name = `${rs('FirstName')} ${rs('LastName')}`;
 
-                // Hire date in second column. 
+                // Hire date in second column.
                 const hireDate = new Date(rs('HireDate').Value as VarDate).toString();
 
                 WScript.Echo([recordCount, name, hireDate].join('\t'));
             }
-
         }, ADODB.CursorTypeEnum.adOpenStatic);
     });
 }
@@ -216,17 +214,17 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
         WScript.Echo('Enter city name, and press ENTER:');
         const cityName = WScript.StdIn.ReadLine();
 
-        let cmdContact = new ActiveXObject('ADODB.Command');
+        const cmdContact = new ActiveXObject('ADODB.Command');
         cmdContact.CommandText = 'SELECT ContactName FROM Customers WHERE City = ?';
         cmdContact.ActiveConnection = conn;
 
-        // create parameter and insert variable value 
+        // create parameter and insert variable value
         const param = cmdContact.CreateParameter('CityName', ADODB.DataTypeEnum.adChar, ADODB.ParameterDirectionEnum.adParamInput, 30, cityName);
         cmdContact.Parameters.Append(param);
 
         let rsContact: ADODB.Recordset | null = null;
         try {
-            // Open a recordset using the command object 
+            // Open a recordset using the command object
             rsContact = cmdContact.Execute() as ADODB.Recordset;
 
             while (!rsContact.EOF) {
@@ -236,7 +234,7 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
         } catch (e) {
             WScript.Echo(e.message);
         } finally {
-            if (rsContact && rsContact.State == ADODB.ObjectStateEnum.adStateOpen) {
+            if (rsContact && rsContact.State === ADODB.ObjectStateEnum.adStateOpen) {
                 rsContact.Close();
             }
         }
@@ -247,7 +245,7 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
 // https://msdn.microsoft.com/en-us/library/jj249494.aspx
 {
     WScript.Echo('Enter royalty value, and press ENTER:');
-    const iRoyalty = parseInt(WScript.StdIn.ReadLine());
+    const iRoyalty = parseInt(WScript.StdIn.ReadLine(), 10);
     if (iRoyalty > -1) {
         withConnection('pubs', conn => {
             const cmdByRoyalty = new ActiveXObject('ADODB.Command');
@@ -255,14 +253,14 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
             cmdByRoyalty.CommandType = ADODB.CommandTypeEnum.adCmdStoredProc;
             cmdByRoyalty.CommandTimeout = 15;
 
-            // The stored procedure called above is as follows: 
+            // The stored procedure called above is as follows:
             /*
-            CREATE PROCEDURE byroyalty 
-                @percentage int 
-            AS 
-                SELECT au_id from titleauthor 
-                WHERE titleauthor.royaltyper = @percentage 
-            GO 
+            CREATE PROCEDURE byroyalty
+                @percentage int
+            AS
+                SELECT au_id from titleauthor
+                WHERE titleauthor.royaltyper = @percentage
+            GO
             */
 
             const prmByRoyalty = new ActiveXObject('ADODB.Parameter');
@@ -308,9 +306,9 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
 {
     withRs('Northwind', 'Customers', rs => {
         const loop20 = () => {
-            let start = new Date().getTime();
+            const start = new Date().getTime();
 
-            // loop through the recordset 20 times 
+            // loop through the recordset 20 times
             for (let i = 0; i < 20; i++) {
                 rs.MoveFirst();
                 while (!rs.EOF) {
@@ -320,17 +318,17 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
                 }
             }
 
-            let end = new Date().getTime();
+            const end = new Date().getTime();
             return end - start;
         };
 
-        let noCache = loop20();
+        const noCache = loop20();
 
         // cache records in groups of 30
         rs.MoveFirst();
         rs.CacheSize = 30;
 
-        let cache = loop20();
+        const cache = loop20();
 
         WScript.Echo(`No cache: ${noCache}; with cache: ${cache}`);
     }, ADODB.CursorTypeEnum.adOpenUnspecified, ADODB.CursorLocationEnum.adUseClient);
@@ -346,7 +344,7 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
             const name = `${rs('au_fname')} ${rs('au_lname')}`;
             WScript.Echo(name);
 
-            // get next record 
+            // get next record
             rs.MoveNext;
         }
     };
@@ -355,20 +353,20 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
     const lastName = WScript.StdIn.ReadLine() || '';
     if (lastName.length > 0) {
         withConnection('pubs', conn => {
-            // command object parameters 
+            // command object parameters
             const cmdAuthor = new ActiveXObject('ADODB.Command');
             cmdAuthor.CommandText = 'SELECT * FROM Authors WHERE au_name = ?';
             const lastNameParameter = cmdAuthor.CreateParameter('Last Name', ADODB.DataTypeEnum.adChar, ADODB.ParameterDirectionEnum.adParamInput, 20, lastName);
             cmdAuthor.Parameters.Append(lastNameParameter);
             cmdAuthor.ActiveConnection = conn;
 
-            // recordset from command.execute 
+            // recordset from command.execute
             const rsAuthor = cmdAuthor.Execute() as ADODB.Recordset;
 
-            // recordset from connection.execute 
+            // recordset from connection.execute
             const rsAuthor2 = conn.Execute('SELECT * FROM Authors') as ADODB.Recordset;
 
-            let errs = collectionToArray(conn.Errors);
+            const errs = collectionToArray(conn.Errors);
             if (errs.length > 0) {
                 for (const err of errs) {
                     WScript.Echo(err);
@@ -396,28 +394,28 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
             // print headings for each field name
             WScript.Echo(collectionToArray(rs.Fields).map(fld => fld.Name).join('\t'));
 
-            // JScript doesn't support multi-dimensional arrays 
-            // so we'll convert the returned array to a single 
-            // dimensional JScript array and then display the data. 
+            // JScript doesn't support multi-dimensional arrays
+            // so we'll convert the returned array to a single
+            // dimensional JScript array and then display the data.
             const safeArray = rs.GetRows();
             const data = new VBArray(safeArray).toArray();
 
             const fieldCount = rs.Fields.Count;
 
             data.forEach((cellValue, index) => {
-                let currentField = index % fieldCount;
-                if (currentField == 0) {
-                    WScript.StdOut.WriteBlankLines(1);
-                } else if (currentField < fieldCount - 1) {
-                    // the last column doesn't need a tab character following it
+                const currentField = index % fieldCount;
+
+                // don't print tab character for first and last columns
+                if (currentField > 0 && currentField < fieldCount - 1) {
                     WScript.StdOut.Write('\t');
                 }
-                const displayValue =
-                    cellValue === null ?
-                        '-null-' :
-                        cellValue;
-                WScript.StdOut.Write(displayValue);
 
+                const displayValue = cellValue === null ? '-null-' : cellValue;
+                if (currentField === fieldCount - 1) {
+                    WScript.StdOut.WriteLine(displayValue);
+                } else {
+                    WScript.StdOut.Write(displayValue);
+                }
             });
         }, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.CursorLocationEnum.adUseClient, ADODB.LockTypeEnum.adLockOptimistic);
     });
