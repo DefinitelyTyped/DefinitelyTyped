@@ -4326,6 +4326,20 @@ fp.now(); // $ExpectType number
 
 // _.isFinite
 {
+    const value: string | number = 0;
+
+    if (_.isFinite(value)) {
+        const result: number = value;
+    } else {
+        const result: string = value;
+    }
+
+    if (fp.isFinite(value)) {
+        const result: number = value;
+    } else {
+        const result: string = value;
+    }
+
     _.isFinite(NaN); // $ExpectType boolean
     _(42).isFinite(); // $ExpectType boolean
     _.chain([]).isFinite(); // $ExpectType LoDashExplicitWrapper<boolean>
