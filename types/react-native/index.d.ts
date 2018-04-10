@@ -7313,7 +7313,11 @@ export interface PushNotificationIOSStatic {
      * Removes the event listener. Do this in `componentWillUnmount` to prevent
      * memory leaks
      */
-    removeEventListener(type: PushNotificationEventName, handler: ((notification: PushNotification) => void) | ((deviceToken: string) => void) | ((error: { message: string, code: number, details: any }) => void)): void;
+    removeEventListener(type: PushNotificationEventName,
+        handler: ((notification: PushNotification) => void)
+            | ((deviceToken: string) => void)
+            | ((error: { message: string, code: number, details: any }) => void)
+    ): void;
 
     /**
      * Requests all notification permissions from iOS, prompting the user's
