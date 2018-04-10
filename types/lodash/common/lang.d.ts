@@ -823,7 +823,7 @@ declare module "../index" {
          * @param value The value to check.
          * @return Returns true if value is a finite number, else false.
          */
-        isFinite(value?: any): boolean;
+        isFinite(value?: any): value is number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
