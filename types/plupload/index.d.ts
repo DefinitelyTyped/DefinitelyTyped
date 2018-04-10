@@ -143,8 +143,21 @@ declare namespace plupload {
 
         constructor(settings: plupload_settings);
 
-        /** Properties */
+        /**
+		 * Unique id for the Uploader instance.
+		 *
+		 * @property id
+		 * @type String
+		 */
         id: string;
+
+        /**
+		 * Current state of the total uploading progress. This one can either be plupload.STARTED or plupload.STOPPED.
+		 * These states are controlled by the stop/start methods. The default value is STOPPED.
+		 *
+		 * @property state
+		 * @type Number
+		 */
         state: number;
 
         /**
@@ -156,24 +169,146 @@ declare namespace plupload {
 		 * @type Object
 		 */
         features: any;
+
+        /**
+		 * Current runtime name.
+		 *
+		 * @property runtime
+		 * @type String
+		 */
         runtime: string;
-        files: any;
+
+        /**
+		 * Current upload queue, an array of File instances.
+		 *
+		 * @property files
+		 * @type Array
+		 * @see plupload.File
+		 */
+        files: Array<any>;
+
+        /**
+		 * Object with name/value settings.
+		 *
+		 * @property settings
+		 * @type Object
+		 */
         settings: any;
+
+        /**
+		 * Total progess information. How many files has been uploaded, total percent etc.
+		 *
+		 * @property total
+		 * @type plupload.QueueProgress
+		 */
         total: plupload_queue_progress;
 
-        /** Methods */
-        init(): any;
-        setOption(option: string | any, value?: any): any;
+        /**
+		 * Initializes the Uploader instance and adds internal event listeners.
+		 *
+		 * @method init
+		 */
+        init(): void;
+
+        /**
+		 * Set the value for the specified option(s).
+		 *
+		 * @method setOption
+		 * @since 2.1
+		 * @param {String|Object} option Name of the option to change or the set of key/value pairs
+		 * @param {Mixed} [value] Value for the option (is ignored, if first argument is object)
+		 */
+        setOption(option: string | any, value?: any): void;
+
+        /**
+		 * Get the value for the specified option or the whole configuration, if not specified.
+		 *
+		 * @method getOption
+		 * @since 2.1
+		 * @param {String} [option] Name of the option to get
+		 * @return {Mixed} Value for the option or the whole set
+		 */
         getOption(option?: string): any;
-        refresh(): any;
-        start(): any;
-        stop(): any;
-        disableBrowse(disable: boolean): any;
+
+        /**
+		 * Refreshes the upload instance by dispatching out a refresh event to all runtimes.
+		 * This would for example reposition flash/silverlight shims on the page.
+		 *
+		 * @method refresh
+		 */
+        refresh(): void;
+
+        /**
+		 * Starts uploading the queued files.
+		 *
+		 * @method start
+		 */
+        start(): void;
+
+        /**
+		 * Stops the upload of the queued files.
+		 *
+		 * @method stop
+		 */
+        stop(): void;
+
+        /**
+		 * Disables/enables browse button on request.
+		 *
+		 * @method disableBrowse
+		 * @param {Boolean} disable Whether to disable or enable (default: true)
+		 */
+        disableBrowse(disable: boolean): void;
+
+        // TODO: Make plupload.File typing
+        /**
+		 * Returns the specified file object by id.
+		 *
+		 * @method getFile
+		 * @param {String} id File id to look for.
+		 * @return {plupload.File} File object or undefined if it wasn't found;
+		 */
         getFile(id: string): any;
-        addFile(file: any, fileName?: string): any;
+
+        /**
+		 * Adds file to the queue programmatically. Can be native file, instance of Plupload.File,
+		 * instance of mOxie.File, input[type="file"] element, or array of these. Fires FilesAdded,
+		 * if any files were added to the queue. Otherwise nothing happens.
+		 *
+		 * @method addFile
+		 * @since 2.0
+		 * @param {plupload.File|mOxie.File|File|Node|Array} file File or files to add to the queue.
+		 * @param {String} [fileName] If specified, will be used as a name for the file
+		 */
+        addFile(file: any, fileName?: string): void;
+
+        /**
+		 * Removes a specific file.
+		 *
+		 * @method removeFile
+		 * @param {plupload.File|String} file File to remove from queue.
+		 */
         removeFile(file: any): any;
+
+        /**
+		 * Removes part of the queue and returns the files removed. This will also trigger the
+		 * FilesRemoved and QueueChanged events.
+		 *
+		 * @method splice
+		 * @param {Number} [start=0] Start index to remove from.
+		 * @param {Number} [length] Number of files to remove (defaults to number of files in the queue).
+		 * @return {Array} Array of files that was removed.
+		 */
         splice(start?: number, length?: number): any;
+
+        /**
+		 * Dispatches the specified event name and its arguments to all listeners.
+		 * @method trigger
+	 	 * @param {String} name Event name to fire.
+         * @param {Object..} Multiple arguments to pass along to the listener functions.
+		*/
         trigger(name: string, Multiple: any): any;
+        
         hasEventListener(name: string): any;
         bind(name: string, func: any, scope?: any): any;
         unbind(name: string, func: any): any;
