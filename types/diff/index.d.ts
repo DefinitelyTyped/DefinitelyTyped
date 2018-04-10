@@ -29,6 +29,13 @@ declare namespace JsDiff {
         removed?: boolean;
     }
 
+    interface IDiffArraysResult<T> {
+        value: T[];
+        count?: number;
+        added?: boolean;
+        removed?: boolean;
+    }
+
     interface IBestPath {
         newPos: number;
         componenets: IDiffResult[];
@@ -85,7 +92,7 @@ declare namespace JsDiff {
 
     function diffSentences(oldStr: string, newStr: string, options?: IOptions): IDiffResult[];
 
-    function diffArrays(oldArr: any[], newArr: any[], options?: IArrayOptions): IDiffResult[];
+    function diffArrays<T>(oldArr: T[], newArr: T[], options?: IArrayOptions): Array<IDiffArraysResult<T>>;
 
     function createPatch(fileName: string, oldStr: string, newStr: string, oldHeader: string, newHeader: string, options?: {context: number}): string;
 
