@@ -44,14 +44,11 @@ http.createServer((req, res) => {
     } else if (pLen === 2 && p[1].indexOf('code') === 0) {
         /** Github sends auth code so that access_token can be obtained */
         /** To obtain and parse code='...' from code?code='...' */
-        const qsObj = qs.parse(p[1].split('?')[1]);
-        if (qsObj.code instanceof Array) {
-          qsObj.code = qsObj.code.join();
-        }
+        const qsObj = qs.parse<{[key: string]: string}>(p[1].split('?')[1]);
 
         /** Obtaining access_token */
         oauth2.getOAuthAccessToken(
-            qsObj.code,
+            qsObj['code'],
             {redirect_uri: 'http://localhost:8080/code/'},
             (e, access_token, refresh_token, results) => {
                 if (e) {

@@ -2,7 +2,6 @@
 // Project: https://github.com/ciaranj/node-oauth#readme
 // Definitions by: nonAlgebraic <https://github.com/nonAlgebraic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
 
 /// <reference types='node' />
 
@@ -11,21 +10,21 @@ import { Agent, ClientRequest, IncomingMessage, OutgoingHttpHeaders, RequestOpti
 import { UrlWithStringQuery } from 'url';
 
 export type oauth1tokenCallback = (
-  err: {statusCode: number, data: any},
+  err: {statusCode: number, data?: any},
   token: string,
   token_secret: string,
-  parsedQueryString: object
+  parsedQueryString: any
 ) => any;
 
 export type oauth2tokenCallback = (
-  err: {statusCode: number, data: any},
+  err: {statusCode: number, data?: any},
   access_token: string,
   refresh_token: string,
   result: any
 ) => any;
 
 export type dataCallback = (
-  err: {statusCode: number, data: any},
+  err: {statusCode: number, data?: any},
   result: string | Buffer,
   response: IncomingMessage
 ) => any;
@@ -109,7 +108,7 @@ export class OAuth {
     url: string,
     oauth_token: string,
     oauth_token_secret: string,
-    post_body?: string | object,
+    post_body?: any,
     post_content_type?: string,
     callback?: dataCallback
   ): ClientRequest;
@@ -118,13 +117,13 @@ export class OAuth {
     url: string,
     oauth_token: string,
     oauth_token_secret: string,
-    post_body?: string | object,
+    post_body?: any,
     post_content_type?: string,
     callback?: dataCallback
   ): ClientRequest;
 
   getOAuthRequestToken(
-    extraparams: object,
+    extraparams: any,
     callback: oauth1tokenCallback
   ): void;
   getOAuthRequestToken(callback: oauth1tokenCallback): void;
@@ -194,13 +193,13 @@ export class OAuth {
     oauth_token_secret: string,
     method: string,
     url: string,
-    extra_params?: object
+    extra_params?: any
   ): string[][];
   protected _prepareParameters(
     oauth_token_secret: string,
     method: string,
     url: string,
-    extra_params?: object
+    extra_params?: any
   ): string[][];
 
   protected _performSecureRequest(
@@ -208,8 +207,8 @@ export class OAuth {
     oauth_token_secret: string,
     method: string,
     url: string,
-    extra_params?: object,
-    post_body?: string | object,
+    extra_params?: any,
+    post_body?: any,
     post_content_type?: string,
     callback?: dataCallback
   ): ClientRequest;
@@ -219,7 +218,7 @@ export class OAuth {
     url: string,
     oauth_token: string,
     oauth_token_secret: string,
-    post_body?: string | object,
+    post_body?: any,
     post_content_type?: string,
     callback?: dataCallback
   ): ClientRequest;
@@ -269,11 +268,11 @@ export class OAuth2 {
 
   buildAuthHeader(token: string): string;
 
-  getAuthorizeUrl(params?: object): string;
+  getAuthorizeUrl(params?: any): string;
 
   getOAuthAccessToken(
     code: string,
-    params: object,
+    params: any,
     callback: oauth2tokenCallback
   ): void;
   getOAuthAccessToken(code: string, callback: oauth2tokenCallback): void;
@@ -297,7 +296,7 @@ export class OAuth2 {
     method: string,
     url: string,
     headers: OutgoingHttpHeaders | null,
-    post_body: string | object | null,
+    post_body: any,
     access_token: string | null,
     callback: dataCallback
   ): void;
@@ -305,7 +304,7 @@ export class OAuth2 {
   protected _executeRequest(
     http_library: string,
     options: RequestOptions,
-    post_body: string | object,
+    post_body: any,
     callback: dataCallback
   ): void;
   protected _executeRequest(
