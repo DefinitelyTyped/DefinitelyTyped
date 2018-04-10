@@ -7336,13 +7336,36 @@ export interface PushNotificationIOSStatic {
      *
      * The type MUST be 'notification'
      */
-    addEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    addEventListener(type: "notification" | "localNotification", handler: (notification: PushNotification) => void): void;
+
+    /**
+     * Fired when the user registers for remote notifications.
+     *
+     * The handler will be invoked with a hex string representing the deviceToken.
+     *
+     * The type MUST be 'register'
+     */
+    addEventListener(type: "register", handler: (deviceToken: string) => void): void;
+
+    /**
+     * Fired when the user fails to register for remote notifications.
+     * Typically occurs when APNS is having issues, or the device is a simulator.
+     *
+     * The handler will be invoked with {message: string, code: number, details: any}.
+     *
+     * The type MUST be 'registrationError'
+     */
+    addEventListener(type: "registrationError", handler: (error: { message: string, code: number, details: any }) => void): void;
 
     /**
      * Removes the event listener. Do this in `componentWillUnmount` to prevent
      * memory leaks
      */
-    removeEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    removeEventListener(type: PushNotificationEventName,
+        handler: ((notification: PushNotification) => void)
+            | ((deviceToken: string) => void)
+            | ((error: { message: string, code: number, details: any }) => void)
+    ): void;
 
     /**
      * Requests all notification permissions from iOS, prompting the user's
