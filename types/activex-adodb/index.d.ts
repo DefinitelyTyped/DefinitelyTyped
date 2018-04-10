@@ -868,7 +868,7 @@ declare namespace ADODB {
     interface Recordset {
         _xClone(): Recordset;
 
-        /** @param ADODB.AffectEnum [AffectRecords=3] */
+        /** @param AffectRecords [AffectRecords=3] */
         _xResync(AffectRecords?: AffectEnum): void;
 
         /**
