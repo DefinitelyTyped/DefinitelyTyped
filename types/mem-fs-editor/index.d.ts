@@ -41,7 +41,7 @@ export namespace memFsEditor {
         copyTpl: (from: string, to: string, context: object, templateOptions?: TemplateOptions, copyOptions?: CopyOptions) => void;
         move: (from: string, to: string, options?: { globOptions: GlobOptions }) => void;
         exists: (filepath: string) => boolean;
-        commit: (filters: Transform[], callback: () => void) => void;
+        commit: (filters: ReadonlyArray<Transform>, callback: () => void) => void;
     }
 
     const prototype: {
