@@ -114,7 +114,7 @@ declare class Snekfetch extends Readable {
 
     attach(name: string, data: string | object | Buffer, filename?: string): Snekfetch;
 
-    send(data?: string|Buffer|Object): Snekfetch;
+    send(data?: string|Buffer|object): Snekfetch;
 
     then(): Promise<Snekfetch.Result>;
     then<T>(resolver: (res: Snekfetch.Result) => T, rejector?: (err: Error) => any): Promise<T>;
