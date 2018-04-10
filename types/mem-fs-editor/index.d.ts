@@ -3,13 +3,17 @@
 // Definitions by: My Food Bag <https://github.com/MyFoodBag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// TypeScript Version: 2.2
+
 /// <reference types="node" />
 
 import * as Buffer from 'buffer';
 import { Transform } from 'stream';
+import { Store } from 'mem-fs';
+import { Options as TemplateOptions } from 'ejs';
+import { IOptions as GlobOptions } from 'glob';
 
-// TODO: type of store comes from mem-fs
-export function create(store: any): memFsEditor.Editor;
+export function create(store: Store): memFsEditor.Editor;
 
 export namespace memFsEditor {
     type Contents = string|Buffer;
@@ -18,13 +22,11 @@ export namespace memFsEditor {
 
     type Space = string|number;
 
-    type GlobOptions = any;
-
     type ProcessFunc = (contents: Buffer) => Contents;
 
     interface CopyOptions {
-        process: ProcessFunc;
-        globOptions: GlobOptions;
+        process?: ProcessFunc;
+        globOptions?: GlobOptions;
     }
 
     interface Editor {
@@ -34,11 +36,9 @@ export namespace memFsEditor {
         writeJSON: (filepath: string, contents: object, replacer?: ReplacerFunc, space?: Space) => void;
         append: (filepath: string, contents: Contents, options?: { trimEnd: boolean, separator: string }) => void;
         extendJSON: (filepath: string, contents: object, replacer?: ReplacerFunc, space?: Space) => void;
-        // TODO: see if there are typings for node-glob
         delete: (filepath: string, options?: { globOptions: GlobOptions }) => void;
         copy: (from: string, to: string, options?: CopyOptions) => void;
-        // TODO: create type for TemplateOptions
-        copyTpl: (from: string, to: string, context: object, templateOptions?: any, copyOptions?: CopyOptions) => void;
+        copyTpl: (from: string, to: string, context: object, templateOptions?: TemplateOptions, copyOptions?: CopyOptions) => void;
         move: (from: string, to: string, options?: { globOptions: GlobOptions }) => void;
         exists: (filepath: string) => boolean;
         commit: (filters: Transform[], callback: () => void) => void;
