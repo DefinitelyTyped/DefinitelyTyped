@@ -194,19 +194,16 @@ React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
 
 const clonedElement2: React.CElement<Props, ModernComponent> =
-    // known problem: cloning with key or ref requires cast
     React.cloneElement(element, {
         ref: c => c && c.reset()
-    } as React.ClassAttributes<ModernComponent>);
+    });
 const clonedElement3: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, {
         key: "8eac7",
         foo: 55
-    } as { foo: number } & React.Attributes);
+    });
 const clonedStatelessElement: React.SFCElement<SCProps> =
-    // known problem: cloning with optional props don't work properly
-    // workaround: cast to actual props type
-    React.cloneElement(statelessElement, { foo: 44 } as SCProps);
+    React.cloneElement(statelessElement, { foo: 44 });
 // Clone base DOMElement
 const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
