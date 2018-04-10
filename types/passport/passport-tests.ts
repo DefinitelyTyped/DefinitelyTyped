@@ -38,26 +38,42 @@ passport.framework(newFramework);
 interface TestUser {
     id: number;
 }
-passport.serializeUser((user: TestUser, done: (err: any, id?: number) => void) => {
+passport.serializeUser<TestUser, number>((user: TestUser, done: (err: any, id?: number) => void) => {
     done(null, user.id);
 });
-passport.serializeUser<TestUser, number>((user, done) => {
+passport.serializeUser<TestUser, number>((user: TestUser, done: (err: any, id?: number) => void) => {
     if (user.id > 0) {
         done(null, user.id);
     } else {
         done(new Error('user ID is invalid'));
     }
 });
-passport.deserializeUser((id, done) => {
+passport.serializeUser<TestUser, number>((req: express.Request, user: TestUser, done: (err: any, id?: number) => void) => {
+    if (user.id > 0) {
+        done(null, user.id);
+    } else {
+        done(new Error('user ID is invalid'));
+    }
+});
+passport.deserializeUser<TestUser, number>((id: number, done: (err: any, user?: TestUser) => void) => {
     done(null, { id });
 });
-passport.deserializeUser<TestUser, number>((id, done) => {
+passport.deserializeUser<TestUser, number>((id: number, done: (err: any, user?: TestUser) => void) => {
     const fetchUser = (id: number): Promise<TestUser> => {
         return Promise.reject(new Error(`user not found: ${id}`));
     };
 
     fetchUser(id)
         .then((user) => done(null, user))
+        .catch(done);
+});
+passport.deserializeUser<TestUser, number>((req: express.Request, id: number, done: (err: any, user?: TestUser) => void) => {
+    const fetchUser = (id: number): Promise<TestUser> => {
+        return Promise.reject(new Error(`user not found: ${id}`));
+    };
+
+    fetchUser(id)
+        .then((user: TestUser) => done(null, user))
         .catch(done);
 });
 
