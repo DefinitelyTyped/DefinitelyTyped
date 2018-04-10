@@ -25,12 +25,12 @@ export interface NumberOptions {
     step: number;
 }
 
-type EmptyNumberOptions = {
+export interface EmptyNumberOptions {
     range?: undefined;
     min?: undefined;
     max?: undefined;
     step?: undefined;
-};
+}
 
 export function knob<T>(name: string, options: KnobOption<T>): T;
 
