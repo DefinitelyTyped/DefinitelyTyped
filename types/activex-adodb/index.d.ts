@@ -797,7 +797,9 @@ declare namespace ADODB {
     class Property {
         private 'ADODB.Property_typekey': Property;
         private constructor();
-        Attributes: number;
+
+        /** Sum of one or more of the values in the **ADODB.PropertyAttributesEnum** */
+        Attributes: ADODB.PropertyAttributesEnum;
         readonly Name: string;
         readonly Type: DataTypeEnum;
         Value: any;
