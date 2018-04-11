@@ -1,4 +1,4 @@
-import * as QRCode from "qrcode.react";
+import QRCode = require("qrcode.react");
 import * as React from "react";
 
 const qrcodes = [

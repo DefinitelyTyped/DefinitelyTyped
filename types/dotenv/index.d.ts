@@ -13,7 +13,6 @@ export function parse(src: string | Buffer): {[name: string]: string};
 /**
  * Loads `.env` into `process.env`.
  *
- * @param options
  * @return Object Object with either
  * - "parsed" containing the parsed keys and values or
  * - "error" containing an Error object
@@ -21,6 +20,7 @@ export function parse(src: string | Buffer): {[name: string]: string};
  * Example: 'KEY=value' becomes { parsed: { KEY: 'value' } }
  */
 export function config(options?: DotenvOptions): DotenvResult;
+export const load: typeof config;
 
 export interface DotenvOptions {
     /**

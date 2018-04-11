@@ -72,6 +72,10 @@ function setTheme(shellFrame: IShellFrame) {
 function OnNewShellUI(shellUI: IShellUI) {
 	shellUI.Events.Register(MFiles.Event.NewShellFrame, newShellFrameHandler);
 	shellUI.Events.Register(MFiles.Event.NewNormalShellFrame, newShellFrameHandler);
+	if (MFiles.CurrentApplicationPlatform !== MFExtApplicationPlatformWeb) {
+		// We are not executing on the web, AxtiveX is available
+		const html = `<object classid='clsid:${MFiles.CLSID.ShellListingCtrl}' style='width: 400px; height: 300px;'> </object>`;
+	}
 }
 
 function newShellFrameHandler(shellFrame: IShellFrame) {

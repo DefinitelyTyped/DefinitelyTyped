@@ -18,24 +18,14 @@ async function main(): Promise<void> {
         }
     }
 
-    const lodashEsDir = path.join("..", "..", "lodash-es");
-
     // Generate lodash/tsconfig.json
     fs.writeFileSync(path.join("..", "tsconfig.json"), lodashTsconfig(all));
-
-    // Generate lodash-es index and tsconfig
-    fs.writeFileSync(path.join(lodashEsDir, "index.d.ts"), lodashEsIndex(all));
-    //`export {\n    ${all.join(",\n    ")}\n} from "lodash";\n`);
-    fs.writeFileSync(path.join(lodashEsDir, "tsconfig.json"), lodashEsTsconfig(all));
 
     for (const module of all) {
         console.log(module);
 
         // Generate local module
         fs.writeFileSync(path.join("..", `${module}.d.ts`), `import { ${module} } from "./index";\nexport = ${module};\n`);
-
-        // Generate lodash-es module
-        fs.writeFileSync(path.join(lodashEsDir, `${module}.d.ts`), `import { ${module} } from "lodash";\nexport default ${module};\n`);
 
         // Generate `lodash.foo` module
         if (!notOnNpm.has(module)) {
@@ -84,6 +74,7 @@ function compilerOptions(): object {
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -92,21 +83,6 @@ function compilerOptions(): object {
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     };
-};
-
-function lodashEsIndex(moduleNames: ReadonlyArray<string>): string {
-    return `// Type definitions for lodash-es 4.14
-// Project: http://lodash.com/
-// Definitions by: Stephen Lautier <https://github.com/stephenlautier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-// Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
-
-export {
-    ${moduleNames.join(",\n    ")}
-} from "lodash";
-`;
 }
 
 function lodashTsconfig(moduleNames: ReadonlyArray<string>): string {
@@ -115,17 +91,6 @@ function lodashTsconfig(moduleNames: ReadonlyArray<string>): string {
         files: [
             "index.d.ts",
             "lodash-tests.ts",
-            ...moduleNames.map(m => `${m}.d.ts`),
-        ]
-    }, undefined, 4);
-}
-
-function lodashEsTsconfig(moduleNames: ReadonlyArray<string>): string {
-    return JSON.stringify({
-        compilerOptions: compilerOptions(),
-        files: [
-            "index.d.ts",
-            "lodash-es-tests.ts",
             ...moduleNames.map(m => `${m}.d.ts`),
         ]
     }, undefined, 4);
@@ -160,6 +125,8 @@ function modulesNotOnNpm(): string[] {
         "chain",
         "each",
         "eachRight",
+        "entries",
+        "entriesIn",
         "extend",
         "extendWith",
         "noConflict",
@@ -199,6 +166,7 @@ function allModuleNames(): string[] {
         "cloneWith",
         "compact",
         "concat",
+        "cond",
         "constant",
         "countBy",
         "create",
@@ -213,6 +181,7 @@ function allModuleNames(): string[] {
         "difference",
         "differenceBy",
         "differenceWith",
+        "divide",
         "drop",
         "dropRight",
         "dropRightWhile",
@@ -220,6 +189,8 @@ function allModuleNames(): string[] {
         "each",
         "eachRight",
         "endsWith",
+        "entries",
+        "entriesIn",
         "eq",
         "escape",
         "escapeRegExp",
@@ -236,6 +207,8 @@ function allModuleNames(): string[] {
         "findLastKey",
         "first",
         "flatMap",
+        "flatMapDeep",
+        "flatMapDepth",
         "flatten",
         "flattenDeep",
         "flattenDepth",
@@ -260,10 +233,10 @@ function allModuleNames(): string[] {
         "hasIn",
         "head",
         "identity",
-        "inRange",
         "includes",
         "indexOf",
         "initial",
+        "inRange",
         "intersection",
         "intersectionBy",
         "intersectionWith",
@@ -341,6 +314,7 @@ function allModuleNames(): string[] {
         "noConflict",
         "noop",
         "now",
+        "nth",
         "nthArg",
         "omit",
         "omitBy",
@@ -364,6 +338,7 @@ function allModuleNames(): string[] {
         "pull",
         "pullAll",
         "pullAllBy",
+        "pullAllWith",
         "pullAt",
         "random",
         "range",
@@ -416,6 +391,7 @@ function allModuleNames(): string[] {
         "thru",
         "times",
         "toArray",
+        "toFinite",
         "toInteger",
         "toLength",
         "toLower",
@@ -439,12 +415,13 @@ function allModuleNames(): string[] {
         "unionWith",
         "uniq",
         "uniqBy",
-        "uniqWith",
         "uniqueId",
+        "uniqWith",
         "unset",
         "unzip",
         "unzipWith",
         "update",
+        "updateWith",
         "upperCase",
         "upperFirst",
         "values",
@@ -457,6 +434,7 @@ function allModuleNames(): string[] {
         "xorWith",
         "zip",
         "zipObject",
+        "zipObjectDeep",
         "zipWith"
     ];
 }

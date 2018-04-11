@@ -2,15 +2,29 @@
 // Project: https://github.com/Khan/aphrodite
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
+
+type FontFamily =
+    | React.CSSProperties['fontFamily']
+    | Pick<React.CSSProperties,
+        | 'fontFamily'
+        | 'fontStyle'
+        | 'fontWeight'
+        | 'src'
+    >
 
 /**
  * Aphrodite style declaration
  */
 export interface StyleDeclaration {
-    [key: string]: React.CSSProperties;
+    [key: string]: Pick<React.CSSProperties, (
+        & React.CSSProperties
+        & { fontFamily: never }
+    )[keyof React.CSSProperties]> & {
+        fontFamily?: FontFamily | FontFamily[];
+    };
 }
 
 interface StyleSheetStatic {

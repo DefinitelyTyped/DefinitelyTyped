@@ -2,7 +2,11 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODO
+        "ban-types": false,
         "no-boolean-literal-compare": false,
-        "no-unnecessary-generics": false
+        "no-declare-current-package": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false,
+        "unified-signatures": false
     }
 }

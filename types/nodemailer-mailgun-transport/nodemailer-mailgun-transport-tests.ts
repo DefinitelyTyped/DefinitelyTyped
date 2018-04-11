@@ -24,6 +24,7 @@ const mailOptions: nodemailer.SendMailOptions = {
     text: 'Hello world ✔', // plaintext body
     html: '<b>Hello world ✔</b>' // html body
 };
-transport.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
+
+transport.sendMail(mailOptions, (error: Error | null, info: nodemailer.SentMessageInfo): void => {
 	// nothing
 });

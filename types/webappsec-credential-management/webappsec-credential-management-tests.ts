@@ -138,9 +138,10 @@ function federatedSignIn() {
                         break;
                 }
             } else {
+                const pwCred = credential as PasswordCredential;
                 fetch(
                     'https://example.com/loginEndpoint',
-                    {credentials: credential, method: 'POST'});
+                    {credentials: pwCred, method: 'POST'});
             }
         });
 }
@@ -268,5 +269,73 @@ function createFederatedCredential() {
         federated: {id: 'username', provider: 'provider'}
     }).then((credential) => {
         // Credential created!
+    });
+}
+
+function webauthnRegister() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    const challenge = new Uint8Array(32);
+    window.crypto.getRandomValues(challenge);
+
+    const credPromise = navigator.credentials.create({
+        publicKey: {
+            rp: {
+                id: document.domain,
+                name: document.domain,
+            },
+            user: {
+                id: (new Uint8Array(1)).buffer,
+                name: 'test user',
+                displayName: 'test user',
+            },
+            challenge,
+            pubKeyCredParams: [
+                {type: 'public-key', alg: -7},
+            ],
+            timeout: 5000,
+            authenticatorSelection: {},
+        }
+    });
+
+    credPromise.then((cred) => {
+        const pubKeyCred = cred as PublicKeyCredential;
+        console.log(pubKeyCred);
+    }, (e) => {
+        console.log(e.message);
+    });
+}
+
+function webauthnAuthenticate() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    const credentialID = new Uint8Array(64);
+    const challenge = new Uint8Array(32);
+    window.crypto.getRandomValues(challenge);
+
+    const authPromise = navigator.credentials.get({publicKey: {
+        challenge,
+        timeout: 5000,
+        rpId: document.domain,
+        allowCredentials: [{
+            type: "public-key",
+            id: credentialID,
+        }],
+    }});
+
+    authPromise.then((cred) => {
+        if (cred === null) {
+            return;
+        }
+
+        const pubKeyCred = cred as PublicKeyCredential;
+        const response = <AuthenticatorAssertionResponse> pubKeyCred.response;
+        const authData = new Uint8Array(response.authenticatorData);
+    }, (e) => {
+        console.log(e.message);
     });
 }

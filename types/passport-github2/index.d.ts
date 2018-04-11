@@ -3,7 +3,7 @@
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 //                 Maarten Mulders <https://github.com/mthmulders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import passport = require('passport');
 import express = require('express');
@@ -19,6 +19,7 @@ export interface StrategyOption {
 
     scope?: string[];
     userAgent?: string;
+    state?: boolean;
 
     authorizationURL?: string;
     tokenURL?: string;
@@ -27,10 +28,10 @@ export interface StrategyOption {
     userProfileURL?: string;
 }
 
-export class Strategy implements passport.Strategy {
+export class Strategy extends passport.Strategy {
     constructor(options: StrategyOption, verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
     userProfile: (accessToken: string, done?: (error: any, profile: Profile) => void) => void;
 
     name: string;
-    authenticate: (req: express.Request, options?: passport.AuthenticateOptions) => void;
+    authenticate(req: express.Request, options?: passport.AuthenticateOptions): void;
 }

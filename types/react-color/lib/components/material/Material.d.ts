@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ColorPickerProps } from "react-color";
+import { ColorPickerProps } from "../../..";
 
 export type MaterialPickerProps = ColorPickerProps<MaterialPicker>;
 

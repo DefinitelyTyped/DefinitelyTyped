@@ -254,7 +254,7 @@ describe('toHaveRef', () => {
 describe('toHaveState', () => {
 	class Fixture extends React.Component {
 		constructor() {
-			super();
+			super({});
 			this.state = {
 				foo: false,
 			};

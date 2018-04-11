@@ -2,7 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-facebook
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>, Lucas Acosta <https://github.com/lucasmacosta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import passport = require('passport');
 import express = require('express');
@@ -47,10 +47,10 @@ export type VerifyFunction =
 export type VerifyFunctionWithRequest =
     (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
 
-export class Strategy implements passport.Strategy {
+export class Strategy extends passport.Strategy {
     constructor(options: StrategyOptionWithRequest, verify: VerifyFunctionWithRequest);
     constructor(options: StrategyOption, verify: VerifyFunction);
 
     name: string;
-    authenticate: (req: express.Request, options?: object) => void;
+    authenticate(req: express.Request, options?: object): void;
 }

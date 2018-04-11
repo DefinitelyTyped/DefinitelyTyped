@@ -1,10 +1,11 @@
 // Type definitions for python-shell 0.4
 // Project: https://github.com/extrabacon/python-shell
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
+// Definitions by: Dolan Miu <https://github.com/dolanmiu>, Colin Richardson <https://github.com/WORMSS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class PythonShell {
-    on(message: string, callback: (message: string) => void): void;
+import { EventEmitter } from "events";
+
+export class PythonShell extends EventEmitter {
     end(callback: (message: string) => void): void;
     send(message: any | string): void;
 

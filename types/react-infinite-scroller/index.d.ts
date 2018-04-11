@@ -3,7 +3,7 @@
 // Definitions by: Lauri Lavanti <https://github.com/Lapanti>,
 //                 Piotr Srebniak <https://github.com/psrebniak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 
@@ -63,6 +63,7 @@ declare namespace InfiniteScroll {
         loader?: React.ReactElement<any>;
     }
     class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
+    namespace InfiniteScroll {}
 }
 
 export = InfiniteScroll.InfiniteScroll;

@@ -62,6 +62,15 @@ declare module 'angular' {
             timezone?: string;
         }
 
+        type DatepickerCallback<T> = (args: IDatepickerCellArgs) => T;
+
+        type DatepickerMode = "day" | "month" | "year";
+
+        interface IDatepickerCellArgs {
+            date: Date;
+            mode: DatepickerMode;
+        }
+
         interface IDatepickerConfig {
             /**
              * Format of day in month.
@@ -110,7 +119,7 @@ declare module 'angular' {
              *
              * @default 'day'
              */
-            datepickerMode?: string;
+            datepickerMode?: DatepickerMode;
 
             /**
              * Set a lower limit for mode.
@@ -201,7 +210,21 @@ declare module 'angular' {
              *
              * @default {}
              */
-            ngModelOptions?: IDropdownConfigNgOptions
+            ngModelOptions?: IDropdownConfigNgOptions;
+
+            /**
+             * Defines an optional expression to disable visible options based on passing an object with date and current mode properties.
+             *
+             * @default null
+             */
+            dateDisabled?: DatepickerCallback<boolean>;
+            
+            /**
+             * Defines an optional expression to add classes based on passing an object with date and current mode properties.
+             *
+             * @default null
+             */
+            customClass?: DatepickerCallback<string>;
         }
 
         interface IDatepickerPopupConfig {

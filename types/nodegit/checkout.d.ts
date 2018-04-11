@@ -46,48 +46,16 @@ export namespace Checkout {
 export class Checkout {
     /**
      * Patch head checkout to automatically coerce objects.
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {CheckoutOptions} [options]
-     * @returns {Promise<void>}
-     *
-     * @memberof Checkout
      */
     static head(repo: Repository, options?: CheckoutOptions): Promise<void>;
     /**
      * Patch index checkout to automatically coerce objects.
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Index} The
-     * @param {CheckoutOptions} [options]
-     * @returns {Promise<void>}
-     *
-     * @memberof Checkout
      */
     static index(repo: Repository, The: Index, options?: CheckoutOptions): Promise<void>;
-    /**
-     *
-     *
-     * @static
-     * @param {CheckoutOptions} opts
-     * @param {number} version
-     * @returns {number}
-     *
-     * @memberof Checkout
-     */
+
     static initOptions(opts: CheckoutOptions, version: number): number;
     /**
      * Patch tree checkout to automatically coerce objects.
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {(Oid | Tree | Commit | Reference)} treeish
-     * @param {CheckoutOptions} [options]
-     * @returns {Promise<void>}
-     *
-     * @memberof Checkout
      */
     static tree(repo: Repository, treeish: Oid | Tree | Commit | Reference, options?: CheckoutOptions): Promise<void>;
 }

@@ -23,6 +23,8 @@ rp('http://google.com').finally(() => {});
 rp('http://google.com').then(console.dir);
 rp('http://google.com').catch(console.error);
 rp('http://google.com').then(console.dir, console.error);
+rp('http://google.com').cancel();
+rp('http://google.com').promise().then(console.dir);
 
 // This works as well since additional methods are only used AFTER the FIRST call in the chain:
 
@@ -304,7 +306,7 @@ request.post({ url, oauth }, (e, r, body) => {
     consumer_key: CONSUMER_KEY,
     consumer_secret: CONSUMER_SECRET,
     token: auth_data.oauth_token,
-    token_secret: req_data.oauth_token_secret,
+    token_secret: req_data.oauth_token_secret as string,
     verifier: auth_data.oauth_verifier,
   };
   const url = 'https://api.twitter.com/oauth/access_token';

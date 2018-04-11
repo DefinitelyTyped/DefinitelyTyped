@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 import * as L from 'leaflet';
-import { Component, PropTypes } from 'react';
+import { Component } from 'react';
 import {
     Children,
     Circle,

@@ -11,6 +11,8 @@ dotenv.config({
     encoding: 'utf8'
 });
 
+dotenv.load();
+
 const parsed = dotenv.parse("ENVIRONMENT=production\nDEBUG=no\n");
 const debug: string = parsed['DEBUG'];
 

@@ -4,6 +4,7 @@
 //                 Amiram Korach <https://github.com/amiram>
 //                 Christian D. <https://github.com/pc-jedi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -98,6 +99,7 @@ export declare class Job extends events.EventEmitter {
     ttl(param: any): Job;
     private _getBackoffImpl(): void;
     priority(level: string | number): Job;
+    priority(): number | string;
     attempt(fn: Function): Job;
     reattempt(attempt: number, fn?: Function): void;
     attempts(n: number): Job;

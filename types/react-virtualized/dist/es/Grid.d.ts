@@ -9,7 +9,7 @@ export type GridCellProps = {
     isScrolling: boolean;
     isVisible: boolean;
     key: string;
-    parent: Grid | List | Table;
+    parent: typeof Grid | typeof List | typeof Table;
     rowIndex: number;
     style: React.CSSProperties;
 };
@@ -126,7 +126,14 @@ export type GridCellRangeProps = {
     rowStartIndex: number,
     rowStopIndex: number,
     scrollLeft: number,
-    scrollTop: number
+    scrollTop: number,
+    deferredMeasurementCache: CellMeasurerCache,
+    horizontalOffsetAdjustment: number,
+    parent: typeof Grid | typeof List | typeof Table,
+    styleCache: Map<React.CSSProperties>,
+    verticalOffsetAdjustment: number,
+    visibleColumnIndices: VisibleCellRange,
+    visibleRowIndices: VisibleCellRange
 }
 export type GridCellRangeRenderer = (params: GridCellRangeProps) => React.ReactNode[];
 
@@ -275,7 +282,7 @@ export type GridCoreProps = {
     /** Optional inline style */
     style?: React.CSSProperties;
     /** Tab index for focus */
-    tabIndex?: number;
+    tabIndex?: number | null;
     /**
      * Width of Grid; this property determines the number of visible (vs virtualized) columns.
      */
@@ -375,7 +382,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
         onScroll: () => null,
         onSectionRendered: () => null,
         overscanColumnCount: 0,
-        overscanIndicesGetter: OverscanIndicesGetterParams,
+        overscanIndicesGetter: OverscanIndicesGetter,
         overscanRowCount: 10,
         role: 'grid',
         scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL,

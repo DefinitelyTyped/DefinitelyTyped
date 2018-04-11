@@ -1,6 +1,7 @@
 // Type definitions for node-rpio
 // Project: https://github.com/jperkin/node-rpio
 // Definitions by: Dominik Palo <https://github.com/DominikPalo>
+//                 Hannes Früchtenicht <https://github.com/Pencl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -129,7 +130,7 @@ interface Rpio {
      * @param cb
      * @param direction
      */
-    poll(pin: number, cb: RPIO.CallbackFunction, direction?: number): void;
+    poll(pin: number, cb: RPIO.CallbackFunction | null, direction?: number): void;
 
     /**
      * Reset pin to INPUT and clear any pullup/pulldown resistors and poll events.

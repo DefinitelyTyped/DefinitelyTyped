@@ -2,6 +2,7 @@
 // Project: https://github.com/75lb/command-line-usage#readme
 // Definitions by: matrumz <https://github.com/matrumz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /**
  * Generates a usage guide suitable for a command-line app.

@@ -406,7 +406,7 @@ declare namespace vg {
     description?: string;
     from?: Mark.From;
     key?: string;
-    delay?: ValueRef;
+    delay?: ValueRefs;
     /**
     * "linear-in" | "linear-out" | "linear-in-out" | "linear-out-in" | "quad-in" | "quad-out" | "quad-in-out" |
     * "quad-out-in" | "cubic-in" | "cubic-out" | "cubic-in-out" | "cubic-out-in" | "sin-in" | "sin-out" | "sin-in-out" |
@@ -465,54 +465,54 @@ declare namespace vg {
     // TODO docs
 
     // -- Shared visual properties
-    x?: ValueRef;
-    x2?: ValueRef;
-    width?: ValueRef;
-    y?: ValueRef;
-    y2?: ValueRef;
-    height?: ValueRef;
-    opacity?: ValueRef;
-    fill?: ValueRef;
-    fillOpacity?: ValueRef;
-    stroke?: ValueRef;
-    strokeWidth?: ValueRef;
-    strokeOpacity?: ValueRef;
-    strokeDash?: ValueRef;
-    strokeDashOffset?: ValueRef;
+    x?: ValueRefs;
+    x2?: ValueRefs;
+    width?: ValueRefs;
+    y?: ValueRefs;
+    y2?: ValueRefs;
+    height?: ValueRefs;
+    opacity?: ValueRefs;
+    fill?: ValueRefs;
+    fillOpacity?: ValueRefs;
+    stroke?: ValueRefs;
+    strokeWidth?: ValueRefs;
+    strokeOpacity?: ValueRefs;
+    strokeDash?: ValueRefs;
+    strokeDashOffset?: ValueRefs;
 
     // -- symbol
-    size?: ValueRef;
-    shape?: ValueRef;
+    size?: ValueRefs;
+    shape?: ValueRefs;
 
     // -- path
-    path?: ValueRef;
+    path?: ValueRefs;
 
     // -- arc
-    innerRadius?: ValueRef;
-    outerRadius?: ValueRef;
-    startAngle?: ValueRef;
-    endAngle?: ValueRef;
+    innerRadius?: ValueRefs;
+    outerRadius?: ValueRefs;
+    startAngle?: ValueRefs;
+    endAngle?: ValueRefs;
 
     // -- area / line
-    interpolate?: ValueRef;
-    tension?: ValueRef;
+    interpolate?: ValueRefs;
+    tension?: ValueRefs;
 
     // -- image / text
-    align?: ValueRef;
-    baseline?: ValueRef;
+    align?: ValueRefs;
+    baseline?: ValueRefs;
 
     // -- image
-    url?: ValueRef;
+    url?: ValueRefs;
 
     // -- text
-    text?: ValueRef;
-    dx?: ValueRef;
-    dy?: ValueRef;
-    angle?: ValueRef;
-    font?: ValueRef;
-    fontSize?: ValueRef;
-    fontWeight?: ValueRef;
-    fontStyle?: ValueRef;
+    text?: ValueRefs;
+    dx?: ValueRefs;
+    dy?: ValueRefs;
+    angle?: ValueRefs;
+    font?: ValueRefs;
+    fontSize?: ValueRefs;
+    fontWeight?: ValueRefs;
+    fontStyle?: ValueRefs;
   }
 
   export interface ValueRef {
@@ -524,7 +524,10 @@ declare namespace vg {
     mult?: number;
     offset?: number;
     band?: boolean;
+    test?: string;
   }
+
+  export type ValueRefs = ValueRef | ValueRef[];
 
   export var parse: Parse;
   export namespace scene {

@@ -1,4 +1,5 @@
-import { PropTypes, PureComponent, Validator, Requireable } from 'react'
+import { PureComponent, Validator, Requireable } from 'react'
+import * as PropTypes from 'prop-types'
 
 export type Dimensions = {
     height: number,

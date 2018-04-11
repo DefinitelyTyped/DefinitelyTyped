@@ -7,4 +7,6 @@ export interface FormSectionProps<P = {}> {
     component?: string | ComponentType<P>;
 }
 
-declare class FormSection extends Component<FormSectionProps> {}
+export declare class FormSection extends Component<FormSectionProps> {}
+
+export default FormSection;

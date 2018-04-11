@@ -1,6 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-any-union": false
+        // TODOs
+        "no-declare-current-package": false,
+        "no-any-union": false,
+        // TODO: Fixing this lint error will require a large refactor
+        "no-single-declare-module": false
     }
 }

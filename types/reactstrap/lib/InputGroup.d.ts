@@ -1,11 +1,11 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   size?: string;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var InputGroup: React.StatelessComponent<Props>;
+declare const InputGroup: React.StatelessComponent<InputGroupProps>;
 export default InputGroup;

@@ -5,7 +5,7 @@
 
 declare namespace memoizee {
   interface Options {
-    length?: number;
+    length?: number | false;
     maxAge?: number;
     max?: number;
     preFetch?: number | true;

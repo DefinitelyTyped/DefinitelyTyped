@@ -28,7 +28,7 @@ interface BaseFieldProps {
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    component?: ComponentConstructor<any> | "input" | "select" | "textarea",
+    component?: ComponentConstructor<any> | "input" | "select" | "textarea";
 
     /**
      * Formats the value from the Redux store to be displayed in the field input.
@@ -243,7 +243,6 @@ interface WrappedFieldInputProps {
  * These props are metadata about the state of this field that redux-form is tracking for you.
  */
 interface WrappedFieldMetaProps<S> {
-
     /**
      * true if this field currently has focus. It will only work if you are
      * passing onFocus to your input element.

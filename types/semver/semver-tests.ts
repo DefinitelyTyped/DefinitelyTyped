@@ -65,6 +65,9 @@ bool = semver.ltr(version, str, loose);
 bool = semver.outside(version, str, '<', loose);
 bool = semver.intersects(str, str, loose);
 
+// Coercion
+sem = semver.coerce(str);
+
 let ver = new semver.SemVer(str, bool);
 str = ver.raw;
 bool = ver.loose;

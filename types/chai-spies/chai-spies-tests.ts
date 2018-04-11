@@ -1,6 +1,5 @@
 import * as chai from 'chai';
 import * as spies from 'chai-spies';
-import * as Mocha from 'mocha';
 
 function original(): void {
   // do something cool

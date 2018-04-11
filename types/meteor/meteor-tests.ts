@@ -206,13 +206,7 @@ Posts.insert({ title: "Hello world", body: "First post" });
  **/
 
 class Animal {
-    private sound: string;
-    constructor(doc: any) {
-
-    }
-    makeNoise() {
-        console.log(this.sound)
-    }
+    constructor(doc: any) {}
 }
 
 interface AnimalDAO {

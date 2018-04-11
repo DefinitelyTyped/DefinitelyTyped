@@ -3,6 +3,8 @@
 // Definitions by: Arsène von Wyss <https://github.com/avonwyss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare const MFExtApplicationPlatformWeb: any;
+
 interface IAccessControlEntry {
 	ChangePermissionsPermission: MFiles.MFPermission;
 	EditPermission: MFiles.MFPermission;
@@ -309,6 +311,11 @@ interface IClassGroups {
 	Item(Index: number): IClassGroup;
 }
 
+interface ICLSIDs {
+	readonly PreviewerCtrl: string;
+	readonly ShellListingCtrl: string;
+}
+
 interface ICollection {
 	readonly Count: number;
 	readonly Events: IEvents;
@@ -393,9 +400,9 @@ interface IDailyTrigger {
 	DaysInterval: number;
 }
 
-interface IDashboard {
+interface IDashboard<T> {
 	AutoStopWithParent: boolean;
-	readonly CustomData: any;
+	readonly CustomData: T;
 	readonly Events: IDashboardEvents;
 	readonly IsPopupDashboard: boolean;
 	readonly Parent: (IShellPaneContainer | IShellFrame | IVaultUI | IShellUI);
@@ -6169,6 +6176,8 @@ declare namespace MFiles {
 	const XMLSearchResult: { new(): IXMLSearchResult; };
 
 	const ApplicationPath: string;
+	const CLSID: ICLSIDs;
+	const CurrentApplicationPlatform: any;
 
 	function CreateInstance(name: string): any;
 	function CreateObjectCLR(assemblyFile: string, className: string): any;

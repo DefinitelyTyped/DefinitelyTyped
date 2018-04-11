@@ -49,8 +49,6 @@ declare namespace morgan {
          * client error codes, cyan for redirection codes, and uncolored for
          * all other codes.
          * :method :url :status :response-time ms - :res[content-length]
-         * @param format
-         * @param options
          */
         (format: 'dev', options?: Options): express.RequestHandler;
 

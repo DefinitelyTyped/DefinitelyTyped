@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as express from 'express';
+import express = require('express');
 import * as samlp from 'samlp';
 
 

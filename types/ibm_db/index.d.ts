@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-interface ConnStr {
+export interface ConnStr {
     DATABASE: string;
     HOSTNAME: string;
     PORT: number | string;
@@ -13,7 +13,7 @@ interface ConnStr {
     PWD: string;
 }
 
-interface Options {
+export interface Options {
     odbc?: ODBC;
     queue?: SimpleQueue | any[];
     fetchMode?: number | null;
@@ -22,7 +22,7 @@ interface Options {
     systemNaming?: boolean;
 }
 
-interface DescribeObject {
+export interface DescribeObject {
     database: string;
     schema?: string;
     type?: string;
@@ -30,7 +30,7 @@ interface DescribeObject {
     column?: string;
 }
 
-interface PoolOptions {
+export interface PoolOptions {
     idleTimeout?: number;
     autoCleanIdle?: boolean;
     maxPoolSize?: number;
@@ -38,7 +38,7 @@ interface PoolOptions {
     systemNaming?: any;
 }
 
-declare class SimpleQueue {
+export class SimpleQueue {
     fifo: any[];
     executing: boolean;
     push(fn: (foo: any, bar: any) => void): void;
@@ -46,7 +46,7 @@ declare class SimpleQueue {
     next(): void;
 } // Class SimpleQueue
 
-export default (options?: Options) => new Database(options);
+export default function(options?: Options): Database;
 
 export class Database implements Options {
     odbc: ODBC;

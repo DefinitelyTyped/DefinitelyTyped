@@ -1,6 +1,7 @@
 // Type definitions for cannon 0.1
 // Project: https://github.com/clark-stevenson/cannon.d.ts
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
+//                 Grzegorz Rozdzialik <https://github.com/Gelio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -20,10 +21,14 @@ declare module CANNON {
 
         constructor(options?: IAABBOptions);
 
-        setFromPoints(points: Vec3[], position?: Vec3, quaternion?: Quaternion, skinSize?: number): void;
+        clone(): AABB;
         copy(aabb: AABB): void;
         extend(aabb: AABB): void;
+        getCorners(a: Vec3, b: Vec3, c: Vec3, d: Vec3, e: Vec3, f: Vec3, g: Vec3, h: Vec3): void;
         overlaps(aabb: AABB): boolean;
+        setFromPoints(points: Vec3[], position?: Vec3, quaternion?: Quaternion, skinSize?: number): AABB;
+        toLocalFrame(frame: Transform, target: AABB): AABB;
+        toWorldFrame(frame: Transform, target: AABB): AABB;
 
     }
 
@@ -32,7 +37,7 @@ declare module CANNON {
         matrix: Mat3[];
 
         get(i: number, j: number): number;
-        set(i: number, j: number, value?: number): void;
+        set(i: number, j: number, value: number): void;
         reset(): void;
         setNumObjects(n: number): void;
 
@@ -148,6 +153,8 @@ declare module CANNON {
         constructor(bodyA: Body, bodyB: Body, options?: IConstraintOptions);
 
         update(): void;
+        disable(): void;
+        enable(): void;
 
     }
 
@@ -188,9 +195,24 @@ declare module CANNON {
 
     }
 
+    export interface ILockConstraintOptions {
+        maxForce?: number;
+    }
 
     export class LockConstraint extends Constraint {
-        constructor(bodyA: Body, bodyB: Body, options?:any);
+        constructor(bodyA: Body, bodyB: Body, options?: ILockConstraintOptions);
+    }
+
+    export interface IConeTwistConstraintOptions {
+        pivotA?: Vec3;
+        pivotB?: Vec3;
+        axisA?: Vec3;
+        axisB?: Vec3;
+        maxForce?: number;
+    }
+
+    export class ConeTwistConstraint extends Constraint {
+        constructor(bodyA: Body, bodyB: Body, options?: IConeTwistConstraintOptions);
     }
 
 
@@ -428,7 +450,7 @@ declare module CANNON {
         angularVelocity?: Vec3;
         quaternion?: Quaternion;
         mass?: number;
-        material?: number;
+        material?: Material;
         type?: number;
         linearDamping?: number;
         angularDamping?: number;
@@ -478,7 +500,7 @@ declare module CANNON {
         interpolatedQuaternion: Quaternion;
         shapes: Shape[];
         shapeOffsets: any[];
-        shapeOrentiations: any[];
+        shapeOrientations: any[];
         inertia: Vec3;
         invInertia: Vec3;
         invInertiaWorld: Mat3;
@@ -735,7 +757,7 @@ declare module CANNON {
         vertices: Vec3[];
         worldVertices: Vec3[];
         worldVerticesNeedsUpdate: boolean;
-        faces: number[];
+        faces: number[][];
         faceNormals: Vec3[];
         uniqueEdges: Vec3[];
 
@@ -776,7 +798,7 @@ declare module CANNON {
 
     export class Heightfield extends Shape {
 
-        data: number[];
+        data: number[][];
         maxValue: number;
         minValue: number;
         elementSize: number;
@@ -930,7 +952,7 @@ declare module CANNON {
     }
 
     export class World extends EventTarget {
-
+        iterations: number;
         dt: number;
         allowSleep: boolean;
         contacts: ContactEquation[];
@@ -990,6 +1012,10 @@ declare module CANNON {
 
         body: Body;
 
+    }
+
+    export interface ICollisionEvent extends IBodyEvent {
+        contact: any;
     }
 
 }

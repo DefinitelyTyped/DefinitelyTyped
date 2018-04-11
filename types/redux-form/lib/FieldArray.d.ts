@@ -1,9 +1,9 @@
 import { Component, ComponentType } from "react";
-import { Validator } from "redux-form";
+import { Validator } from "../index";
 
 interface BaseFieldArrayProps<P = {}> {
     name: string;
-    component: ComponentType<P>,
+    component: ComponentType<P>;
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
     withRef?: boolean;
@@ -47,11 +47,12 @@ interface FieldsProps<FieldValue> {
 
 interface FieldArrayMetaProps {
     dirty: boolean;
-    error?: string;
+    error?: any;
     form: string;
     invalid: boolean;
     pristine: boolean;
+    submitFailed: boolean;
     submitting: boolean;
     valid: boolean;
-    warning?: string;
+    warning?: any;
 }

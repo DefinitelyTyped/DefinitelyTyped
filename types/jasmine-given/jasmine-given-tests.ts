@@ -4,6 +4,8 @@ When(() => { });
 
 Then(() => { });
 
+Then('expected condition 1', () => { });
+
 And(() => { });
 
 Invariant(() => { });
@@ -20,7 +22,7 @@ When((done) => {
   }
 });
 
-Then((done) => {
+Then('expected condition 2', (done) => {
   if (done) {
     done();
   }

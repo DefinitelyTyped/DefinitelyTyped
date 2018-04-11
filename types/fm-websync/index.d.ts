@@ -469,8 +469,6 @@ declare namespace fm {
              * While this method will typically run asychronously, the WebSync client is designed to be used without (much) consideration for its asynchronous nature.
              * To that end, any calls to methods that require an active connection, like bind, subscribe and publish, will be queued automatically and executed once this
              * method has completed successfully.
-             *
-             * @param connectConfig
              */
             connect(config: connectConfig): client;
 
@@ -506,7 +504,6 @@ declare namespace fm {
              * Unsubscribes the client from receiving messages on one or more channels.
              * When the unsubscribe completes successfully, the callback specified by onSuccess will be invoked, passing in the unsubscribed channel(s),
              * including any modifications made on the server.
-             * @param config
              */
             unsubscribe(config: unsubscribeConfig): client;
         }

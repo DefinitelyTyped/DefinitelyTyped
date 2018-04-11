@@ -1,382 +1,631 @@
-// Type definitions for RSVP 3.3.3
+// Type definitions for RSVP 4.0
 // Project: https://github.com/tildeio/rsvp.js
-// Definitions by: Taylor Brown <https://github.com/Taytay>
-//                 Mikael Kohlmyr <https://github.com/mkohlmyr>
-//                 Theron Cross <https://github.com/theroncross>
-//                 Chris Krycho <https://github.com/chriskrycho>
+// Definitions by: Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-// Some of this file was taken from the type definitions for es6-promise https://github.com/borisyankov/DefinitelyTyped/blob/master/es6-promise/es6-promise.d.ts
-// Credit for that file goes to: François de Campredon <https://github.com/fdecampredon>
+// These types are derived in large part from the Microsoft-supplied types for
+// ES2015 Promises. They have been tweaked to support RSVP's extensions to the
+// Promises A+ spec and the additional helper functions it supplies.
 
-// Some of this file was taken from the type definitions for Q : https://github.com/borisyankov/DefinitelyTyped/blob/master/q/Q.d.ts
-// Credit for that file goes to: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar>, John Reilly <https://github.com/johnnyreilly>
+declare module 'rsvp' {
+    namespace RSVP {
+        // All the Promise methods essentially flatten existing promises, so that
+        // you don't end up with `Promise<Promise<Promise<string>>>` if you happen
+        // to return another `Promise` from a `.then()` invocation, etc. So all of
+        // them can take a type or a promise-like/then-able type.
+        type Arg<T> = T | PromiseLike<T>;
 
-declare namespace RSVP {
-    type Resolution<T, U, C> = (value: T) => U | Thenable<U, C>;
-    type Rejection<T, C, D> = (error: C) => D | Thenable<T, D>;
+        // RSVP supplies status for promises in certain places.
+        enum State {
+            fulfilled = 'fulfilled',
+            rejected = 'rejected',
+            pending = 'pending',
+        }
 
-    interface Thenable<T, C> {
-        then(label?: string): Thenable<T, C>;
-        then<U>(onFulfillment: Resolution<T, U, C>, label?: string): Thenable<U, C>;
-        then<U, D>(
-            onFulfillment: Resolution<T, U, C>,
-            onRejected: Rejection<T, C, D>,
-            label?: string
-        ): Thenable<U, D>;
-    }
+        type Resolved<T> = {
+            state: State.fulfilled;
+            value: T;
+        };
 
-    interface Catchable<C> {
-        catch(label?: string): Catchable<C>;
-        catch<D>(onRejection: (error: C) => D, label?: string): Catchable<D>;
-    }
+        type Rejected<T = any> = {
+            state: State.rejected;
+            reason: T;
+        };
 
-    interface Deferred<T, C> {
-        promise: Promise<T, C>;
-        resolve(value: T): void;
-        reject(reason: C): void;
-    }
+        type Pending = {
+            state: State.pending;
+        };
 
-    type PromiseStates = 'fulfilled' | 'rejected' | 'pending';
-    interface IPromiseState<T, C> {
-        state: PromiseStates;
-        value: T;
-        reason: C;
-    }
+        type PromiseState<T> = Resolved<T> | Rejected | Pending;
 
-    class Resolved<T, C> implements IPromiseState<T, C> {
-        state: 'fulfilled';
-        value: T;
-        reason: never;
-    }
+        type Deferred<T> = {
+            promise: Promise<T>;
+            resolve: (value?: RSVP.Arg<T>) => void;
+            reject: (reason?: any) => void;
+        };
 
-    class Rejected<T, C> implements IPromiseState<T, C> {
-        state: 'rejected';
-        value: never;
-        reason: C;
-    }
+        interface InstrumentEvent {
+            guid: string; // guid of promise. Must be globally unique, not just within the implementation
+            childGuid: string; // child of child promise (for chained via `then`)
+            eventName: string; // one of ['created', 'chained', 'fulfilled', 'rejected']
+            detail: any; // fulfillment value or rejection reason, if applicable
+            label: string; // label passed to promise's constructor
+            timeStamp: number; // milliseconds elapsed since 1 January 1970 00:00:00 UTC up until now
+        }
 
-    class Pending<T, C> implements IPromiseState<T, C> {
-        state: 'pending';
-        value: never;
-        reason: never;
-    }
+        interface ObjectWithEventMixins {
+            on(
+                eventName: 'created' | 'chained' | 'fulfilled' | 'rejected',
+                listener: (event: InstrumentEvent) => void
+            ): void;
+            on(eventName: 'error', errorHandler: (reason: any) => void): void;
+            on(eventName: string, callback: (value: any) => void): void;
+            off(eventName: string, callback?: (value: any) => void): void;
+            trigger(eventName: string, options?: any, label?: string): void;
+        }
 
-    type PromiseState<T, C> = Resolved<T, C> | Rejected<C, C> | Pending<T, C>;
+        class EventTarget {
+            /** `RSVP.EventTarget.mixin` extends an object with EventTarget methods. */
+            static mixin(object: object): ObjectWithEventMixins;
 
-    type PromiseHash<T, C> = { [P in keyof T]: Thenable<T[P], C> | T[P] };
+            /** Registers a callback to be executed when `eventName` is triggered */
+            static on(
+                eventName: 'created' | 'chained' | 'fulfilled' | 'rejected',
+                listener: (event: InstrumentEvent) => void
+            ): void;
+            static on(eventName: 'error', errorHandler: (reason: any) => void): void;
+            static on(eventName: string, callback: (value: any) => void): void;
 
-    type SettledHash<T, C> = { [P in keyof T]: PromiseState<T[P], C> };
-
-    interface InstrumentEvent {
-        guid: string; // guid of promise. Must be globally unique, not just within the implementation
-        childGuid: string; // child of child promise (for chained via `then`)
-        eventName: string; // one of ['created', 'chained', 'fulfilled', 'rejected']
-        detail: any; // fulfillment value or rejection reason, if applicable
-        label: string; // label passed to promise's constructor
-        timeStamp: number; // milliseconds elapsed since 1 January 1970 00:00:00 UTC up until now
-    }
-
-    interface ObjectWithEventMixins {
-        on(
-            eventName: 'created' | 'chained' | 'fulfilled' | 'rejected',
-            listener: (event: InstrumentEvent) => void
-        ): void;
-        on(eventName: 'error', errorHandler: (reason: any) => void): void;
-        on(eventName: string, callback: (value: any) => void): void;
-        off(eventName: string, callback?: (value: any) => void): void;
-        trigger(eventName: string, options?: any, label?: string): void;
-    }
-
-    class Promise<T, C> implements Thenable<T, C>, Catchable<C> {
-        /**
-          * If you call resolve in the body of the callback passed to the constructor,
-          * your promise is fulfilled with result object passed to resolve.
-          * If you call reject your promise is rejected with the object passed to reject.
-          * For consistency and debugging (eg stack traces), obj should be an instanceof Error.
-          * Any errors thrown in the constructor callback will be implicitly passed to reject().
-          */
-        constructor(
-            callback: (
-                resolve: (result?: T | Thenable<T, never>) => void,
-                reject: (error: C | Thenable<never, C>) => void
-            ) => void,
-            label?: string
-        );
-
-        /**
-          * onFulfillment is called when/if "promise" resolves. onRejected is called when/if "promise" rejects.
-          * Both are optional, if either/both are omitted the next onFulfillment/onRejected in the chain is called.
-          * Both callbacks have a single parameter , the fulfillment value or rejection reason.
-          * "then" returns a new promise equivalent to the value you return from onFulfillment/onRejected after being passed through Promise.resolve.
-          * If an error is thrown in the callback, the returned promise rejects with that error.
-          *
-          * @param onFulfillment called when/if "promise" resolves
-          * @param onRejected called when/if "promise" rejects
-          * @param label useful for tooling
-          */
-        then<U, D>(
-            onFulfillment: Resolution<T, U, C>,
-            onRejected: Rejection<T, C, D>,
-            label?: string
-        ): Promise<U, D>;
-        then<U>(onFulfillment: Resolution<T, U, C>, label?: string): Promise<U, C>;
-        then(label?: string): Promise<T, C>;
-
-        /**
-          * Sugar for promise.then(undefined, onRejected)
-          */
-        catch(label?: string): Promise<T, C>;
-        catch<D>(onRejection: Rejection<T, C, D>, label?: string): Promise<T, D>;
-
-        finally(finallyCallback: Function): Promise<T, C>;
-
-        /**
-             * `RSVP.Promise.all` accepts an array of promises, and returns a new promise which
-             * is fulfilled with an array of fulfillment values for the passed promises, or
-             * rejected with the reason of the first passed promise to be rejected. It casts all
-             * elements of the passed iterable to promises as it runs this algorithm.
+            /**
+             * You can use `off` to stop firing a particular callback for an event.
+             *
+             * If you don't pass a `callback` argument to `off`, ALL callbacks for the
+             * event will not be executed when the event fires.
              */
-        static all<T, C>(promises: Thenable<T, C>[], label?: string): Promise<T[], C>;
+            static off(eventName: string, callback?: (value: any) => void): void;
 
-        /**
-          * `RSVP.Promise.race` returns a new promise which is settled in the same way as the
-          * first passed promise to settle.
-          *
-          * `RSVP.Promise.race` is deterministic in that only the state of the first
-          * settled promise matters. For example, even if other promises given to the
-          * `promises` array argument are resolved, but the first settled promise has
-          * become rejected before the other promises became fulfilled, the returned
-          * promise will become rejected.
-          */
-        static race<T, C>(promises: Promise<T, C>[]): Promise<T, C>;
+            /**
+             * Use `trigger` to fire custom events.
+             *
+             * You can also pass a value as a second argument to `trigger` that will be
+             * passed as an argument to all event listeners for the event
+             */
+            static trigger(eventName: string, options?: any, label?: string): void;
+        }
 
-        /**
-          * Returns a promise that will become resolved with the passed `value`
-          */
-        static resolve<T>(value: T, label?: string): Promise<T, never>;
+        class Promise<T> implements PromiseLike<T> {
+            constructor(
+                executor: (
+                    resolve: (value?: RSVP.Arg<T>) => void,
+                    reject: (reason?: any) => void
+                ) => void
+            );
 
-        /**
-          * Deprecated in favor of resolve
-          */
-        static cast<T>(value: T, label?: string): Promise<T, never>;
+            new<T>(
+                executor: (
+                    resolve: (value?: RSVP.Arg<T>) => void,
+                    reject: (reason?: any) => void
+                ) => void
+            ): RSVP.Promise<T>;
 
-        /**
-          * Returns a promise rejected with the passed `reason`.
-          */
-        static reject<C>(reason: C): Promise<never, C>;
+            then<TResult1 = T, TResult2 = never>(
+                onFulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+                onRejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+                label?: string
+            ): RSVP.Promise<TResult1 | TResult2>;
+
+            catch<TResult = never>(
+                onRejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
+                label?: string
+            ): RSVP.Promise<T | TResult>;
+
+            finally<U>(onFinally?: U | PromiseLike<U>): RSVP.Promise<T>;
+
+            readonly [Symbol.toStringTag]: "Promise";
+
+            static all<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+                values: [
+                    Arg<T1>,
+                    Arg<T2>,
+                    Arg<T3>,
+                    Arg<T4>,
+                    Arg<T5>,
+                    Arg<T6>,
+                    Arg<T7>,
+                    Arg<T8>,
+                    Arg<T9>,
+                    Arg<T10>
+                ],
+                label?: string
+            ): RSVP.Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]>;
+            static all<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+                values: [
+                    Arg<T1>,
+                    Arg<T2>,
+                    Arg<T3>,
+                    Arg<T4>,
+                    Arg<T5>,
+                    Arg<T6>,
+                    Arg<T7>,
+                    Arg<T8>,
+                    Arg<T9>
+                ],
+                label?: string
+            ): RSVP.Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9]>;
+            static all<T1, T2, T3, T4, T5, T6, T7, T8>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
+                label?: string
+            ): RSVP.Promise<[T1, T2, T3, T4, T5, T6, T7, T8]>;
+            static all<T1, T2, T3, T4, T5, T6, T7>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
+                label?: string
+            ): RSVP.Promise<[T1, T2, T3, T4, T5, T6, T7]>;
+            static all<T1, T2, T3, T4, T5, T6>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
+                label?: string
+            ): RSVP.Promise<[T1, T2, T3, T4, T5, T6]>;
+            static all<T1, T2, T3, T4, T5>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
+                label?: string
+            ): RSVP.Promise<[T1, T2, T3, T4, T5]>;
+            static all<T1, T2, T3, T4>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
+                label?: string
+            ): RSVP.Promise<[T1, T2, T3, T4]>;
+            static all<T1, T2, T3>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>],
+                label?: string
+            ): RSVP.Promise<[T1, T2, T3]>;
+            static all<T1, T2>(values: [Arg<T1>, Arg<T2>], label?: string): Promise<[T1, T2]>;
+            static all<T>(values: (Arg<T>)[], label?: string): RSVP.Promise<T[]>;
+
+            static race<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+                values: [
+                    Arg<T1>,
+                    Arg<T2>,
+                    Arg<T3>,
+                    Arg<T4>,
+                    Arg<T5>,
+                    Arg<T6>,
+                    Arg<T7>,
+                    Arg<T8>,
+                    Arg<T9>,
+                    T10 | PromiseLike<T10>
+                ],
+                label?: string
+            ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10>;
+            static race<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+                values: [
+                    Arg<T1>,
+                    Arg<T2>,
+                    Arg<T3>,
+                    Arg<T4>,
+                    Arg<T5>,
+                    Arg<T6>,
+                    Arg<T7>,
+                    Arg<T8>,
+                    Arg<T9>
+                ],
+                label?: string
+            ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>;
+            static race<T1, T2, T3, T4, T5, T6, T7, T8>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
+                label?: string
+            ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>;
+            static race<T1, T2, T3, T4, T5, T6, T7>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
+                label?: string
+            ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7>;
+            static race<T1, T2, T3, T4, T5, T6>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
+                label?: string
+            ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6>;
+            static race<T1, T2, T3, T4, T5>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
+                label?: string
+            ): RSVP.Promise<T1 | T2 | T3 | T4 | T5>;
+            static race<T1, T2, T3, T4>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
+                label?: string
+            ): RSVP.Promise<T1 | T2 | T3 | T4>;
+            static race<T1, T2, T3>(
+                values: [Arg<T1>, Arg<T2>, Arg<T3>],
+                label?: string
+            ): RSVP.Promise<T1 | T2 | T3>;
+            static race<T1, T2>(values: [Arg<T1>, Arg<T2>], label?: string): RSVP.Promise<T1 | T2>;
+            static race<T>(values: (Arg<T>)[], label?: string): RSVP.Promise<T>;
+
+            static reject(reason?: any, label?: string): RSVP.Promise<never>;
+
+            static resolve<T>(value?: Arg<T>, label?: string): RSVP.Promise<T>;
+            static resolve(): RSVP.Promise<void>;
+
+            /**
+             * @deprecated
+             */
+            static cast: typeof RSVP.Promise.resolve;
+        }
+
+        const all: typeof Promise.all;
+        const race: typeof Promise.race;
+        const reject: typeof Promise.reject;
+        const resolve: typeof Promise.resolve;
+        function rethrow(reason: any): void;
+
+        const cast: typeof Promise.cast;
+
+        const on: typeof EventTarget.on;
+        const off: typeof EventTarget.off;
+
+        // ----- denodeify ----- //
+        // Here be absurd things because we don't have variadic types. All of
+        // this will go away if we can ever write this:
+        //
+        //     denodeify<...T, ...A>(
+        //         nodeFunc: (...args: ...A, callback: (err: any, ...cbArgs: ...T) => any) => void,
+        //         options?: false
+        //     ): (...args: ...A) => RSVP.Promise<...T>
+        //
+        // That day, however, may never come. So, in the meantime, we do this.
+
+        function denodeify<T1, T2, T3, A>(
+            nodeFunc: (
+                arg1: A,
+                callback: (err: any, data1: T1, data2: T2, data3: T3) => void
+            ) => void,
+            options?: false
+        ): (arg1: A) => RSVP.Promise<T1>;
+
+        function denodeify<T1, T2, A>(
+            nodeFunc: (arg1: A, callback: (err: any, data1: T1, data2: T2) => void) => void,
+            options?: false
+        ): (arg1: A) => RSVP.Promise<T1>;
+
+        function denodeify<T, A>(
+            nodeFunc: (arg1: A, callback: (err: any, data: T) => void) => void,
+            options?: false
+        ): (arg1: A) => RSVP.Promise<T>;
+
+        function denodeify<T1, T2, T3, A>(
+            nodeFunc: (
+                arg1: A,
+                callback: (err: any, data1: T1, data2: T2, data3: T3) => void
+            ) => void,
+            options: true
+        ): (arg1: A) => RSVP.Promise<[T1, T2, T3]>;
+
+        function denodeify<T1, T2, A>(
+            nodeFunc: (arg1: A, callback: (err: any, data1: T1, data2: T2) => void) => void,
+            options: true
+        ): (arg1: A) => RSVP.Promise<[T1, T2]>;
+
+        function denodeify<T, A>(
+            nodeFunc: (arg1: A, callback: (err: any, data: T) => void) => void,
+            options: true
+        ): (arg1: A) => RSVP.Promise<[T]>;
+
+        function denodeify<T1, T2, T3, A, K1 extends string, K2 extends string, K3 extends string>(
+            nodeFunc: (
+                arg1: A,
+                callback: (err: any, data1: T1, data2: T2, data3: T3) => void
+            ) => void,
+            options: [K1, K2, K3]
+        ): (arg1: A) => RSVP.Promise<{ [K in K1]: T1 } & { [K in K2]: T2 } & { [K in K3]: T3 }>;
+
+        function denodeify<T1, T2, A, K1 extends string, K2 extends string>(
+            nodeFunc: (arg1: A, callback: (err: any, data1: T1, data2: T2) => void) => void,
+            options: [K1, K2]
+        ): (arg1: A) => RSVP.Promise<{ [K in K1]: T1 } & { [K in K2]: T2 }>;
+
+        function denodeify<T, A, K1 extends string>(
+            nodeFunc: (arg1: A, callback: (err: any, data: T) => void) => void,
+            options: [K1]
+        ): (arg1: A) => RSVP.Promise<{ [K in K1]: T }>;
+
+        // ----- hash and hashSettled ----- //
+        function hash<T>(object: { [P in keyof T]: Arg<T[P]> }, label?: string): RSVP.Promise<T>;
+        function hashSettled<T>(
+            object: { [P in keyof T]: Arg<T[P]> },
+            label?: string
+        ): RSVP.Promise<{ [P in keyof T]: PromiseState<T[P]> }>;
+
+        function allSettled<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            entries: [
+                Arg<T1>,
+                Arg<T2>,
+                Arg<T3>,
+                Arg<T4>,
+                Arg<T5>,
+                Arg<T6>,
+                Arg<T7>,
+                Arg<T8>,
+                Arg<T9>,
+                Arg<T10>
+            ],
+            label?: string
+        ): RSVP.Promise<
+            [
+                PromiseState<T1>,
+                PromiseState<T2>,
+                PromiseState<T3>,
+                PromiseState<T4>,
+                PromiseState<T5>,
+                PromiseState<T6>,
+                PromiseState<T7>,
+                PromiseState<T8>,
+                PromiseState<T9>
+            ]
+        >;
+        function allSettled<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            entries: [
+                Arg<T1>,
+                Arg<T2>,
+                Arg<T3>,
+                Arg<T4>,
+                Arg<T5>,
+                Arg<T6>,
+                Arg<T7>,
+                Arg<T8>,
+                Arg<T9>
+            ],
+            label?: string
+        ): RSVP.Promise<
+            [
+                PromiseState<T1>,
+                PromiseState<T2>,
+                PromiseState<T3>,
+                PromiseState<T4>,
+                PromiseState<T5>,
+                PromiseState<T6>,
+                PromiseState<T7>,
+                PromiseState<T8>,
+                PromiseState<T9>
+            ]
+        >;
+        function allSettled<T1, T2, T3, T4, T5, T6, T7, T8>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
+            label?: string
+        ): RSVP.Promise<
+            [
+                PromiseState<T1>,
+                PromiseState<T2>,
+                PromiseState<T3>,
+                PromiseState<T4>,
+                PromiseState<T5>,
+                PromiseState<T6>,
+                PromiseState<T7>,
+                PromiseState<T8>
+            ]
+        >;
+        function allSettled<T1, T2, T3, T4, T5, T6, T7>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
+            label?: string
+        ): RSVP.Promise<
+            [
+                PromiseState<T1>,
+                PromiseState<T2>,
+                PromiseState<T3>,
+                PromiseState<T4>,
+                PromiseState<T5>,
+                PromiseState<T6>,
+                PromiseState<T7>
+            ]
+        >;
+        function allSettled<T1, T2, T3, T4, T5, T6>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
+            label?: string
+        ): RSVP.Promise<
+            [
+                PromiseState<T1>,
+                PromiseState<T2>,
+                PromiseState<T3>,
+                PromiseState<T4>,
+                PromiseState<T5>,
+                PromiseState<T6>
+            ]
+        >;
+        function allSettled<T1, T2, T3, T4, T5>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
+            label?: string
+        ): RSVP.Promise<
+            [
+                PromiseState<T1>,
+                PromiseState<T2>,
+                PromiseState<T3>,
+                PromiseState<T4>,
+                PromiseState<T5>
+            ]
+        >;
+        function allSettled<T1, T2, T3, T4>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
+            label?: string
+        ): RSVP.Promise<[PromiseState<T1>, PromiseState<T2>, PromiseState<T3>, PromiseState<T4>]>;
+        function allSettled<T1, T2, T3>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>],
+            label?: string
+        ): RSVP.Promise<[PromiseState<T1>, PromiseState<T2>, PromiseState<T3>]>;
+        function allSettled<T1, T2>(
+            entries: [Arg<T1>, Arg<T2>],
+            label?: string
+        ): RSVP.Promise<[PromiseState<T1>, PromiseState<T2>]>;
+        function allSettled<T>(entries: Arg<T>[], label?: string): RSVP.Promise<[PromiseState<T>]>;
+
+        function map<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(
+            entries: [
+                Arg<T1>,
+                Arg<T2>,
+                Arg<T3>,
+                Arg<T4>,
+                Arg<T5>,
+                Arg<T6>,
+                Arg<T7>,
+                Arg<T8>,
+                Arg<T9>,
+                Arg<T10>
+            ],
+            mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 10 }>;
+
+        function map<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(
+            entries: [
+                Arg<T1>,
+                Arg<T2>,
+                Arg<T3>,
+                Arg<T4>,
+                Arg<T5>,
+                Arg<T6>,
+                Arg<T7>,
+                Arg<T8>,
+                Arg<T9>
+            ],
+            mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 9 }>;
+        function map<T1, T2, T3, T4, T5, T6, T7, T8, U>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
+            mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 8 }>;
+        function map<T1, T2, T3, T4, T5, T6, T7, U>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
+            mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 7 }>;
+        function map<T1, T2, T3, T4, T5, T6, U>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
+            mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 6 }>;
+        function map<T1, T2, T3, T4, T5, U>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
+            mapFn: (item: T1 | T2 | T3 | T4 | T5) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 5 }>;
+        function map<T1, T2, T3, T4, U>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
+            mapFn: (item: T1 | T2 | T3 | T4) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 4 }>;
+        function map<T1, T2, T3, U>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>],
+            mapFn: (item: T1 | T2 | T3) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 3 }>;
+        function map<T1, T2, U>(
+            entries: [Arg<T1>, Arg<T2>],
+            mapFn: (item: T1 | T2) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 2 }>;
+        function map<T, U>(
+            entries: Arg<T>[],
+            mapFn: (item: T) => U,
+            label?: string
+        ): RSVP.Promise<Array<U> & { length: 1 }>;
+
+        function filter<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            entries: [
+                Arg<T1>,
+                Arg<T2>,
+                Arg<T3>,
+                Arg<T4>,
+                Arg<T5>,
+                Arg<T6>,
+                Arg<T7>,
+                Arg<T8>,
+                Arg<T9>,
+                Arg<T10>
+            ],
+            filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10>>;
+        function filter<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            entries: [
+                Arg<T1>,
+                Arg<T2>,
+                Arg<T3>,
+                Arg<T4>,
+                Arg<T5>,
+                Arg<T6>,
+                Arg<T7>,
+                Arg<T8>,
+                Arg<T9>
+            ],
+            filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>>;
+        function filter<T1, T2, T3, T4, T5, T6, T7, T8>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
+            filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>>;
+        function filter<T1, T2, T3, T4, T5, T6, T7>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
+            filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6 | T7>>;
+        function filter<T1, T2, T3, T4, T5, T6>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
+            filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6> & { length: 6 }>;
+        function filter<T1, T2, T3, T4, T5>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
+            filterFn: (item: T1 | T2 | T3 | T4 | T5) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5>>;
+        function filter<T1, T2, T3, T4>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
+            filterFn: (item: T1 | T2 | T3 | T4) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T1 | T2 | T3 | T4>>;
+        function filter<T1, T2, T3>(
+            entries: [Arg<T1>, Arg<T2>, Arg<T3>],
+            filterFn: (item: T1 | T2 | T3) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T1 | T2 | T3>>;
+        function filter<T1, T2>(
+            entries: [Arg<T1>, Arg<T2>],
+            filterFn: (item: T1 | T2) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T1 | T2>>;
+        function filter<T>(
+            entries: Arg<T>[],
+            filterFn: (item: T) => boolean,
+            label?: string
+        ): RSVP.Promise<Array<T>>;
+
+        function defer<T>(label?: string): Deferred<T>;
+
+        function configure<T>(name: string): T;
+        function configure<T>(name: string, value: T): void;
+
+        function asap<T, U>(callback: (callbackArg: T) => U, arg: T): void;
+
+        const async: typeof asap;
     }
 
-    export namespace EventTarget {
-        /** `RSVP.EventTarget.mixin` extends an object with EventTarget methods. */
-        function mixin(object: object): ObjectWithEventMixins;
+    export default RSVP;
 
-        /** Registers a callback to be executed when `eventName` is triggered */
-        function on(
-            eventName: 'created' | 'chained' | 'fulfilled' | 'rejected',
-            listener: (event: InstrumentEvent) => void
-        ): void;
-        function on(eventName: 'error', errorHandler: (reason: any) => void): void;
-        function on(eventName: string, callback: (value: any) => void): void;
-
-        /**
-         * You can use `off` to stop firing a particular callback for an event.
-         *
-         * If you don't pass a `callback` argument to `off`, ALL callbacks for the
-         * event will not be executed when the event fires.
-         */
-        function off(eventName: string, callback?: (value: any) => void): void;
-
-        /**
-         * Use `trigger` to fire custom events.
-         *
-         * You can also pass a value as a second argument to `trigger` that will be
-         * passed as an argument to all event listeners for the event
-         */
-        function trigger(eventName: string, options?: any, label?: string): void;
-    }
-
-    export function configure(
-        configName: 'instrument' | 'instrument-with-stack',
-        shouldInstrument: boolean
-    ): void;
-    export function configure(configName: string, value: any): void;
-
-    /**
-     * Make a promise that fulfills when every item in the array fulfills, and rejects if (and when) any item rejects.
-     * the array passed to all can be a mixture of promise-like objects and other objects.
-     * The fulfillment value is an array (in order) of fulfillment values. The rejection value is the first rejection value.
-     */
-    export function all<T, C>(promises: Thenable<T, C>[]): Promise<T[], C>;
-
-    /**
-     *  `RSVP.hash` is similar to `RSVP.all`, but takes an object instead of an array
-     *  for its `promises` argument.
-     *
-     *  Returns a promise that is fulfilled when all the given promises have been
-     *  fulfilled, or rejected if any of them become rejected. The returned promise
-     *  is fulfilled with a hash that has the same key names as the `promises` object
-     *  argument. If any of the values in the object are not promises, they will
-     *  simply be copied over to the fulfilled object.
-     *
-     *  If any of the `promises` given to `RSVP.hash` are rejected, the first promise
-     *  that is rejected will be given as the reason to the rejection handler.
-     */
-    export function hash<T, C>(promises: PromiseHash<T, C>): Promise<T, C>;
-
-    /**
-     * `RSVP.map` is similar to JavaScript's native `map` method. `mapFn` is eagerly called
-     * meaning that as soon as any promise resolves its value will be passed to `mapFn`.
-     * `RSVP.map` returns a promise that will become fulfilled with the result of running
-     * `mapFn` on the values the promises become fulfilled with.
-     *
-     * If any of the `promises` given to `RSVP.map` are rejected, the first promise
-     * that is rejected will be given as an argument to the returned promise's
-     * rejection handler.
-     */
-    export function map<T, U, C>(
-        promises: Thenable<T, C>[],
-        mapFn: (item: T) => U,
-        label?: string
-    ): Promise<U[], C>;
-
-    /**
-     * `RSVP.allSettled` is similar to `RSVP.all`, but instead of implementing
-     * a fail-fast method, it waits until all the promises have returned and
-     * shows you all the results. This is useful if you want to handle multiple
-     * promises' failure states together as a set.
-     */
-    export function allSettled<T, C>(promises: Thenable<T, C>[]): Promise<PromiseState<T, C>[], C>;
-
-    /**
-     * `RSVP.hashSettled` is similar to `RSVP.allSettled`, but takes an object
-     * instead of an array for its `promises` argument.
-     *
-     * Unlike `RSVP.all` or `RSVP.hash`, which implement a fail-fast method,
-     * but like `RSVP.allSettled`, `hashSettled` waits until all the
-     * constituent promises have returned and then shows you all the results
-     * with their states and values/reasons. This is useful if you want to
-     * handle multiple promises' failure states together as a set.
-     */
-    export function hashSettled<T, C>(promises: PromiseHash<T, C>): Promise<SettledHash<T, C>, C>;
-
-    /**
-     * Make a Promise that fulfills when any item fulfills, and rejects if any item rejects.
-     */
-    function race<T, C>(promises: Promise<T, C>[]): Promise<T, C>;
-
-    /**
-    * `RSVP.denodeify` takes a "node-style" function and returns a function that
-    *  will return an `RSVP.Promise`. You can use `denodeify` in Node.js or the
-    *  browser when you'd prefer to use promises over using callbacks. For example,
-    * `denodeify` transforms the following:
-    *
-    * ```
-    * let fs = require('fs');
-    *
-    * fs.readFile('myfile.txt', function(err, data){
-    *   if (err) return handleError(err);
-    *   handleData(data);
-    * });
-    * ```
-    *
-    * into:
-    *
-    * ```
-    * let fs = require('fs');
-    * let readFile = RSVP.denodeify(fs.readFile);
-    *
-    * readFile('myfile.txt').then(handleData, handleError);
-    * ```
-    *
-    * If the node function has multiple success parameters, then denodeify just
-    * returns the first one:
-    *
-    * ```
-    * let request = RSVP.denodeify(require('request'));
-    *
-    * request('http://example.com').then(function(res) {
-    *   // ...
-    * });
-    * ```
-    *
-    * However, if you need all success parameters, setting denodeify's second
-    * parameter to true causes it to return all success parameters as an array:
-    *
-    * ```
-    * let request = RSVP.denodeify(require('request'), true);
-    *
-    * request('http://example.com').then(function(result) {
-    *   // result[0] -> res
-    *   // result[1] -> body
-    * });
-    * ```
-    *
-    * Or if you pass it an array with names it returns the parameters as a hash:
-    *
-    * ```
-    * let request = RSVP.denodeify(require('request'), ['res', 'body']);
-    *
-    * request('http://example.com').then(function(result) {
-    *   // result.res
-    *   // result.body
-    * });
-    * ```
-    */
-    export function denodeify<A, T, C>(
-        nodeFunction: Function,
-        options: boolean | string[]
-    ): (...args: A[]) => Promise<T, C>;
-
-    /**
-     * `RSVP.defer` returns an object similar to jQuery's `$.Deferred`.
-     * `RSVP.defer` should be used when porting over code reliant on `$.Deferred`'s
-     * interface. New code should use the `RSVP.Promise` constructor instead.
-     *
-     * The object returned from `RSVP.defer` is a plain object with three properties:
-     * * promise - an `RSVP.Promise`.
-     * * reject - a function that causes the `promise` property on this object to become rejected
-     * * resolve - a function that causes the `promise` property on this object to become fulfilled.
-     */
-    export function defer<T, C>(label?: string): Deferred<T, C>;
-
-    /**
-     * `RSVP.Promise.reject` returns a promise rejected with the passed `reason`.
-     */
-    export function reject<C>(reason: C): Promise<never, C>;
-
-    /**
-     * `RSVP.Promise.resolve` returns a promise that will become resolved with the
-     * passed `value`.
-     */
-    export function resolve<T>(value: T): Promise<T, never>;
-
-    /**
-     * `RSVP.filter` is similar to JavaScript's native `filter` method, except that it
-     * waits for all promises to become fulfilled before running the `filterFn` on
-     * each item in given to `promises`. `RSVP.filter` returns a promise that will
-     * become fulfilled with the result of running `filterFn` on the values the
-     * promises become fulfilled with.
-     */
-    export function filter<T, C>(
-        promises: Thenable<T, C>[],
-        filterFn: (value: T) => boolean | Promise<any, any>
-    ): Promise<T[], C>;
-
-    /**
-     * `RSVP.rethrow` will rethrow an error on the next turn of the JavaScript event
-     * loop in order to aid debugging.
-     *
-     * Promises A+ specifies that any exceptions that occur with a promise must be
-     * caught by the promises implementation and bubbled to the last handler. For
-     * this reason, it is recommended that you always specify a second rejection
-     * handler function to `then`. However, `RSVP.rethrow` will throw the exception
-     * outside of the promise, so it bubbles up to your console if in the browser,
-     * or domain/cause uncaught exception in Node. `rethrow` will also throw the
-     * error again so the error can be handled by the promise per the spec.
-     */
-    export function rethrow<C>(reason: C): void;
+    export const asap: typeof RSVP.asap;
+    export const cast: typeof RSVP.cast;
+    export const Promise: typeof RSVP.Promise;
+    export const EventTarget: typeof RSVP.EventTarget;
+    export const all: typeof RSVP.all;
+    export const allSettled: typeof RSVP.allSettled;
+    export const race: typeof RSVP.race;
+    export const hash: typeof RSVP.hash;
+    export const hashSettled: typeof RSVP.hashSettled;
+    export const rethrow: typeof RSVP.rethrow;
+    export const defer: typeof RSVP.defer;
+    export const denodeify: typeof RSVP.denodeify;
+    export const configure: typeof RSVP.configure;
+    export const on: typeof RSVP.on;
+    export const off: typeof RSVP.off;
+    export const resolve: typeof RSVP.resolve;
+    export const reject: typeof RSVP.reject;
+    export const map: typeof RSVP.map;
+    export const async: typeof RSVP.async;
+    export const filter: typeof RSVP.filter;
 }
-
-export = RSVP;

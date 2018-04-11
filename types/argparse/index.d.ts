@@ -22,8 +22,8 @@ export class ArgumentParser extends ArgumentGroup {
 export class Namespace {
     constructor(options: object);
     get<K extends keyof this, D extends any>(key: K, defaultValue?: D): this[K] | D;
-    isset<K extends keyof this>(key: K): boolean;
-    set<K extends keyof this, V extends this[K]>(key: K, value: V): this;
+    isset(key: keyof this): boolean;
+    set<K extends keyof this>(key: K, value: this[K]): this;
     set<K extends string, V extends any>(key: K, value: V): this & Record<K, V>;
     set<K extends object>(obj: K): this & K;
     unset<K extends keyof this, D extends any>(key: K, defaultValue?: D): this[K] | D;

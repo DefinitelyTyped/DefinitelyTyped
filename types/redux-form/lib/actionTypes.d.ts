@@ -15,6 +15,7 @@ export interface ActionTypes {
     CLEAR_SUBMIT: string;
     CLEAR_SUBMIT_ERRORS: string;
     CLEAR_ASYNC_ERROR: string;
+    CLEAR_FIELDS: string;
     DESTROY: string;
     FOCUS: string;
     INITIALIZE: string;

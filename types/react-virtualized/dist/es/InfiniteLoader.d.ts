@@ -77,7 +77,7 @@ export class InfiniteLoader extends PureComponent<InfiniteLoaderProps> {
 
     constructor(props: InfiniteLoaderProps, context: any);
 
-    resetLoadMoreRowsCache(): void;
+    resetLoadMoreRowsCache(autoReload?: boolean): void;
 
     render(): JSX.Element;
 }

@@ -1,4 +1,4 @@
-import * as OpenTok from 'opentok';
+import OpenTok = require('opentok');
 
 const client = new OpenTok('API_KEY', 'API_SECRET');
 
@@ -26,6 +26,21 @@ const archiveOptions: OpenTok.ArchiveOptions = {
   hasAudio: true,
   hasVideo: true,
   outputMode: 'individual',
+};
+
+const archiveCustomLayoutOptions: OpenTok.ArchiveOptions = {
+  outputMode: 'composed',
+  layout: {
+    type: 'custom',
+    stylesheet: 'derp',
+  }
+};
+
+const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
+  outputMode: 'composed',
+  layout: {
+    type: 'pip',
+  }
 };
 
 client.startArchive('SESSION_ID', archiveOptions, (err: Error, archive: OpenTok.Archive) => {

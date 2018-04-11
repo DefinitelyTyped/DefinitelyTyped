@@ -1,12 +1,11 @@
-import * as Affix from './Affix';
-import * as AutoAffix from './AutoAffix';
-import * as Modal from './Modal';
-import * as ModalManager from './ModalManager';
-import * as Overlay from './Overlay';
-import * as Portal from './Portal';
-import * as Position from './Position';
-import * as Transition from './Transition';
-import * as RootCloseWrapper from './RootCloseWrapper';
+import Affix = require('./Affix');
+import AutoAffix = require('./AutoAffix');
+import Modal = require('./Modal');
+import ModalManager = require('./ModalManager');
+import Overlay = require('./Overlay');
+import Portal = require('./Portal');
+import Position = require('./Position');
+import RootCloseWrapper = require('./RootCloseWrapper');
 
 export {
   Affix,
@@ -16,6 +15,5 @@ export {
   Overlay,
   Portal,
   Position,
-  Transition,
   RootCloseWrapper,
 };

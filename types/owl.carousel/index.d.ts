@@ -1,6 +1,7 @@
 // Type definitions for owl.carousel 2.2
 // Project: https://github.com/OwlCarousel2/OwlCarousel2
 // Definitions by: Ismael Gorissen <https://github.com/igorissen>
+//                 Kenneth Ceyer <https://github.com/KennethanCeyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,8 +37,8 @@ declare namespace OwlCarousel {
         autoplay?: boolean;
         autoplayTimeout?: number;
         autoplayHoverPause?: boolean;
-        smartSpeed?: boolean;
-        fluidSpeed?: boolean;
+        smartSpeed?: number | boolean;
+        fluidSpeed?: number | boolean;
         autoplaySpeed?: number | boolean;
         navSpeed?: number | boolean;
         dotsSpeed?: number | boolean;

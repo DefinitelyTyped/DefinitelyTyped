@@ -5147,7 +5147,7 @@ declare namespace Box2D.Dynamics.Joints {
 	/**
 	* The pulley joint is connected to two bodies and two fixed ground points. The pulley supports a ratio such that: length1 + ratio length2 <= constant Yes, the force transmitted is scaled by the ratio. The pulley also enforces a maximum length limit on both sides. This is useful to prevent one side of the pulley hitting the top.
 	**/
-	export class b2PullyJoint extends b2Joint {
+	export class b2PulleyJoint extends b2Joint {
 
 		/**
 		* Get the anchor point on bodyA in world coordinates.
@@ -5207,7 +5207,7 @@ declare namespace Box2D.Dynamics.Joints {
 	/**
 	* Pulley joint definition. This requires two ground anchors, two dynamic body anchor points, max lengths for each side, and a pulley ratio.
 	**/
-	export class b2PullyJointDef extends b2JointDef {
+	export class b2PulleyJointDef extends b2JointDef {
 
 		/**
 		* The first ground anchor in world coordinates. This point never moves.

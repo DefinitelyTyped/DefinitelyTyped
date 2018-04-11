@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "path-exists": ["path-exists/v1"]
+            "path-exists": [
+                "path-exists/v1"
+            ]
         },
         "types": [],
         "noEmit": true,

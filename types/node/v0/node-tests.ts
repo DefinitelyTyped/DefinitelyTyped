@@ -1,5 +1,4 @@
-
-import * as assert from "assert";
+import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
 import * as zlib from "zlib";
@@ -8,6 +7,7 @@ import * as util from "util";
 import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
+import * as https from "https";
 import * as net from "net";
 import * as dgram from "dgram";
 import * as querystring from "querystring";
@@ -250,6 +250,15 @@ namespace http_tests {
 	});
 
 	var agent: http.Agent = http.globalAgent;
+
+    http.request('http://www.example.com/xyz');
+}
+
+////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html
+////////////////////////////////////////////////////
+namespace https_tests {
+    https.request('http://www.example.com/xyz');
 }
 
 ////////////////////////////////////////////////////

@@ -4,15 +4,15 @@
 //                 dpetrezselyova <https://github.com/dpetrezselyova>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = InlineStylePrefixer;
-
-interface Configuration {
-    userAgent?: string;
-    keepUnprefixed?: boolean;
+declare namespace InlineStylePrefixer {
+    interface Configuration {
+        userAgent?: string;
+        keepUnprefixed?: boolean;
+    }
 }
 
 declare class InlineStylePrefixer {
-    constructor(cfg?: Configuration);
+    constructor(cfg?: InlineStylePrefixer.Configuration);
 
     prefix(style: CSSStyleDeclaration): CSSStyleDeclaration;
 
@@ -24,3 +24,5 @@ declare class InlineStylePrefixer {
     // support for React.CSSProperties
     static prefixAll<T>(style: T): T;
 }
+
+export = InlineStylePrefixer;

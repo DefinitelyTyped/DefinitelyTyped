@@ -383,7 +383,7 @@ declare namespace YT
 		/**
 		 * ID of the video to load.
 		 */
-		videoId: string;
+		videoId?: string;
 
 		/**
 		 * Player parameters.

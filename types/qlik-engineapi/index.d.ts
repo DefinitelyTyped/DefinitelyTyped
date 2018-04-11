@@ -1,5 +1,5 @@
-// Type definitions for qlik-engineapi 12.20
-// Project: http://help.qlik.com/en-US/sense-developer/June2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
+// Type definitions for qlik-engineapi 12.67
+// Project: http://help.qlik.com/en-US/sense-developer/November2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -10,6 +10,20 @@ declare namespace EngineAPI {
     type FieldAttributesType = "U" | "A" | "I" | "R" | "F" | "M" | "D" | "T" | "TS" | "IV";
     type FileDataFormatType = "CSV" | "FIX" | "DIF" | "EXCEL_BIFF" | "EXCEL_OOXML" | "HTML" | "XML" | "QVX" | "JSON" | "KML";
     type TableRecordKeyType = "NOT_KEY" | "ANY_KEY" | "PRIMARY_KEY" | "PERFECT_KEY";
+
+    /**
+     * One of:
+     * - Cleared: In this mode, the first step is to clear any current selections in the app.
+     *            The second step is to search for one or more terms in the values of the app.
+     * - LockedFieldsOnly: In this mode, the search applies only to the values associated with
+     *                     the selections made in locked fields, ignoring selections in any unlocked field.
+     *                     If no locked fields, the behavior is identical to the Cleared context.
+     *                     You cannot make any new selections in a locked field. You can get search hits for
+     *                     the associated values of a locked field but you cannot get the search hits for the non associative values.
+     * - CurrentSelections: In this mode, the current selections are kept (if any). Search for one or more terms in the values of the app.
+     *                      New selections are made on top of the current selections. If no selections were made before the search,
+     *                      this mode is identical to the Cleared context.
+     */
     type ContextType = "Cleared" | "LockedFieldsOnly" | "CurrentSelections";
     type SearchObjectsGroupType = "DatasetType" | "GenericObjectsType";
     type SearchObjectsItemType = "0" | "1";
@@ -27,18 +41,113 @@ declare namespace EngineAPI {
     type OtherLimitModeType = "OTHER_GE_LIMIT" | "OTHER_LE_LIMIT" | "OTHER_GT_LIMIT" | "OTHER_LT_LIMIT";
     type OtherSortModeType = "OTHER_SORT_DEFAULT" | "OTHER_SORT_DESCENDING" | "OTHER_SORT_ASCENDING";
     type TotalModeType = "TOTAL_OFF" | "TOTAL_EXPR";
+
     type BnfType = "S" | "E";
+    /**
+     * One of:
+     * - N for NOT_META
+     * - D for META_DOC_NAME
+     * - R for META_RET_TYPE
+     */
     type MTType = "N" | "D" | "R";
+
+    /**
+     * One of:
+     * - CONNECT_DEFAULT: used internally
+     * - CONNECT_64
+     * - CONNECT_32
+     */
     type MachineModeType = "CONNECT_DEFAULT" | "CONNECT_64" | "CONNECT_32";
+
+    /**
+     * One of:
+     * - IT_SCRIPTLINE; the engine returns the statement that will be executed next.
+     * - IT_MSGBOX; the engine returns a script execution error message. This type can only be returned if the parameter qInteractOnError was set to true when calling the ConfigureReload method.
+     * - IT_BREAK; the engine breaks and waits for a response on what to do next.
+     * - IT_END; the engine has finished to execute all statements in the script.
+     */
     type InteractionType = "IT_SCRIPTLINE" | "IT_MSGBOX" | "IT_BREAK" | "IT_END";
+
     type ErrorDataCodeType = "0" | "1" | "2";
+
+    /**
+     * One of:
+     * - ALL for FUNC_GROUP_ALL,
+     * - U for FUNC_GROUP_UNKNOWN,
+     * - NONE for FUNC_GROUP_NONE,
+     * - AGGR for FUNC_GROUP_AGGR,
+     * - NUM for FUNC_GROUP_NUMERIC,
+     * - RNG for FUNC_GROUP_RANGE,
+     * - EXP for FUNC_GROUP_EXPONENTIAL_AND_LOGARITHMIC,
+     * - TRIG for FUNC_GROUP_TRIGONOMETRIC_AND_HYPERBOLIC,
+     * - FIN for FUNC_GROUP_FINANCIAL,
+     * - MATH for FUNC_GROUP_MATH_CONSTANT_AND_PARAM_FREE,
+     * - COUNT for FUNC_GROUP_COUNTER,
+     * - STR for FUNC_GROUP_STRING,
+     * - MAPP for FUNC_GROUP_MAPPING,
+     * - RCRD for FUNC_GROUP_INTER_RECORD,
+     * - CND for FUNC_GROUP_CONDITIONAL,
+     * - LOG for FUNC_GROUP_LOGICAL,
+     * - NULL for FUNC_GROUP_NULL,
+     * - SYS for FUNC_GROUP_SYSTEM,
+     * - FILE for FUNC_GROUP_FILE,
+     * - TBL for FUNC_GROUP_TABLE,
+     * - DATE for FUNC_GROUP_DATE_AND_TIME,
+     * - NUMI for FUNC_GROUP_NUMBER_INTERPRET,
+     * - FRMT for FUNC_GROUP_FORMATTING,
+     * - CLR for FUNC_GROUP_COLOR,
+     * - RNK for FUNC_GROUP_RANKING
+     * - GEO for FUNC_GROUP_GEO
+     * - EXT for FUNC_GROUP_EXTERNAL
+     */
     type FunctionGroupType = "ALL" | "U" | "NONE" | "AGGR" | "NUM" | "RNG" | "EXP" | "TRIG" | "FIN" | "MATH" | "COUNT" | "STR" | "MAPP" |
         "RCRD" | "CND" | "LOG" | "NULL" | "SYS" | "FILE" | "TBL" | "DATE" | "NUMI" | "FRMT" | "CLR" | "RNK" | "GEO" | "EXT";
+
     type DimensionType = "D" | "N" | "T";
-    type NxHypercubeMode = "P" | "K" | "S" | string;
+
+    /**
+     * One of:
+     * - S for DATA_MODE_STRAIGHT; straight table representation
+     * - P for DATA_MODE_PIVOT; pivot table representation
+     * - K for DATA_MODE_PIVOT_STACK; stacked table representation
+     * - T for DATA_MODE_TREE; tree representation
+     */
+    type NxHypercubeMode = "S" | "P" | "K" | "T";
+
+    /**
+     * One of:
+     * - NX_FREQUENCY_NONE
+     * - NX_FREQUENCY_VALUE
+     * - NX_FREQUENCY_PERCENT. The percentage is between 0 and 100.
+     * - NX_FREQUENCY_RELATIVE. Same as percent except that the relative value is between 0 and 1.
+     */
     type FrequencyModeType = "NX_FREQUENCY_NONE" | "NX_FREQUENCY_VALUE" | "NX_FREQUENCY_PERCENT" | "NX_FREQUENCY_RELATIVE";
+
     type TypeSortDirection = "1" | "-1" | "0";
+
+    /**
+     * Type of the drive. Can be:
+     * - REMOVABLE
+     * - FIXED
+     * - NETWORK
+     * - CD_ROM
+     * - RAM
+     * - UNKNOWN_TYPE
+     */
     type DriveType = "REMOVABLE" | "FIXED" | "NETWORK" | "CD_ROM" | "RAM" | "UNKNOWN_TYPE";
+
+    /**
+     * One of:
+     * - V for NX_DIM_CELL_VALUE. Applies to values in the data matrix.
+     * - E for NX_DIM_CELL_EMPTY. Applies to empty cells in the top and left dimensions.
+     * - G for NX_DIM_CELL_GENERATED. Applies to generated nodes that are inserted into the returned tree when there is no actual value (qAllValues in NxPageTreeNode set to true).
+     * - N for NX_DIM_CELL_NORMAL. Applies to left and top dimensions cells.
+     * - T for NX_DIM_CELL_TOTAL. Applies to cells marked with Total.
+     * - P for NX_DIM_CELL_PSEUDO. Applies to pseudo dimensions.
+     * - R for NX_DIM_CELL_ROOT. Applies to root node.
+     * - U for NX_DIM_CELL_NULL. Applies to Null values in the data matrix.
+     */
+    type NxTreeNodeType = "V" | "E" | "G" | "N" | "T" | "P" | "R" | "U";
 
     /**
      * NxRange...
@@ -421,7 +530,7 @@ declare namespace EngineAPI {
         qThou: string;
 
         /**
-         *
+         * no / empty docu
          */
         qSAFEARRAY: any[];
     }
@@ -1036,7 +1145,7 @@ declare namespace EngineAPI {
 
         /**
          * String that marks the beginning of the comment line.
-         * Example: “#” or “//”
+         * Example: # or //
          * The engine ignores the commented lines during the data load.
          * This property is only used for delimited files.
          */
@@ -2135,11 +2244,11 @@ declare namespace EngineAPI {
          * For example, if the user requests SearchObjects with SearchObjectOptions.qAttributes = [],
          * then the outputted qAttributes will be empty.
          *
-         * Otherwise, if SearchObjectOptions.qAttributes = [“qProperty”],
-         * SearchGroupItemMatch.qAttributes = [“qProperty”, qMetaDef/title”]
+         * Otherwise, if SearchObjectOptions.qAttributes = [qProperty],
+         * SearchGroupItemMatch.qAttributes = [qProperty, qMetaDef/title]
          * if the match has been found in the title of the item.
          *
-         * For dimension values, the returned “qProperty” will be “*”.
+         * For dimension values, the returned qProperty will be *.
          */
         qAttributes: ISearchAttribute[];
 
@@ -2293,49 +2402,49 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at app level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the app.
      */
-    interface IApp {
+    interface IApp extends enigmaJS.IGeneratedAPI {
         global: IGlobal;
 
         /**
          * Aborts any selection mode in an app. For more information about selection mode!
-         * @param {boolean} qAccept - Set this parameter to true to accept the selections before exiting the selection mode.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qAccept - Set this parameter to true to accept the selections before exiting the selection mode.
+         * @returns - A promise of a Qlik engine reply.
          */
         abortModal(qAccept: boolean): Promise<void>;
 
         /**
          * You can create multiple states within a Qlik Sense app and apply these states to specific objects within the app.
          * Objects in a given state are not affected by user selections in the other states.
-         * @param {string} qStateName - Name of the alternate state. >> This parameter is mandatory.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qStateName - Name of the alternate state. >> This parameter is mandatory.
+         * @returns - A promise of a Qlik engine reply.
          */
         addAlternateState(qStateName: string): Promise<void>;
 
         /**
          * Adds a field on the fly. The expression of a field on the fly is persisted but not its values.
-         * @param {string} qName - Name of the field.
-         * @param {string} qExpr - Expression value. It is not possible to use all aggregation functions.
+         * @param qName - Name of the field.
+         * @param qExpr - Expression value. It is not possible to use all aggregation functions.
          * For example, you cannot add a field on the fly with an expression that uses the Sum or Count aggregation functions.
-         * @returns {Promise} - true or false
+         * @returns - true or false
          */
         addFieldFromExpression(qName: string, qExpr: string): Promise<boolean>;
 
         /**
          * Applies a bookmark.
-         * @param {string} qId - Identifier of the bookmark.
-         * @returns {Promise} - true or false
+         * @param qId - Identifier of the bookmark.
+         * @returns - true or false
          */
         applyBookmark(qId: string): Promise<boolean>;
 
         /**
          * Returns the number of entries on the Back stack..
-         * @returns {Promise} - "qReturn": <Number of entries in the back stack>
+         * @returns - "qReturn": <Number of entries in the back stack>
          */
         backCount(): Promise<number>;
 
         /**
          * Loads the last logical operation (if any).
-         * @returns {Promise} - "{}"
+         * @returns"
          */
         back(): Promise<void>;
 
@@ -2343,9 +2452,9 @@ declare namespace EngineAPI {
          * Checks if a given expression is valid.
          *
          * Note: The expression is correct if the parameters qErrorMsg, qBadFieldNames and qDangerousFieldNames are empty.
-         * @param {string} qExpr - Expression to check..
-         * @param {Array} qLabels - (Array of String) List of labels. This parameter is optional.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qExpr - Expression to check..
+         * @param qLabels - (Array of String) List of labels. This parameter is optional.
+         * @returns - A promise of a Qlik engine reply.
          */
         checkExpression(qExpr: string, qLabels?: string[]): Promise<ICheckExpressionResult>;
 
@@ -2356,8 +2465,8 @@ declare namespace EngineAPI {
          * - a number is correct according to the locale.
          *
          * Note: The expression is correct if the parameters qErrorMsg and qBadFieldNames are empty.
-         * @param {string} qExpr - Expression to check.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qExpr - Expression to check.
+         * @returns - A promise of a Qlik engine reply.
          */
         checkNumberOrExpression(qExpr: string): Promise<ICheckNumberOrExpressionResult>;
 
@@ -2380,26 +2489,26 @@ declare namespace EngineAPI {
 
         /**
          * Clears all selections in all fields of the current app.
-         * @param {Boolean} qLockedAlso - This parameter is optional. Default is false. Selections on locked fields are not cleared.
+         * @param qLockedAlso - This parameter is optional. Default is false. Selections on locked fields are not cleared.
          *                                Set this parameter to true to clear all selections, including the locked fields.
-         * @param {String} qStateName - Name of the alternate state. If an alternate state is defined in qStateName, only the selections
+         * @param qStateName - Name of the alternate state. If an alternate state is defined in qStateName, only the selections
          *                              related to this alternate state are cleared. This parameter is optional.
          *                              Default state is current selections.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         clearAll(qLockedAlso: boolean, qStateName?: string): Promise<void>;
 
         /**
          * Clears entirely the undo and redo buffer.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         clearUndoBuffer(): Promise<void>;
 
         /**
          * Clones a bookmark.
          *
-         * @param {String} qId - Identifier of the object to clone
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qId - Identifier of the object to clone
+         * @returns - A promise of a Qlik engine reply.
          */
         cloneBookmark(qId: string): Promise<string>;
 
@@ -2407,8 +2516,8 @@ declare namespace EngineAPI {
          * Clones a dimension.
          *
          * Note: The identifier is set by the engine.
-         * @param {String} qId - Identifier of the object to clone
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qId - Identifier of the object to clone
+         * @returns - A promise of a Qlik engine reply.
          */
         cloneDimension(qId: string): Promise<string>;
 
@@ -2416,8 +2525,8 @@ declare namespace EngineAPI {
          * Clones a measure.
          *
          * Note: The identifier is set by the engine.
-         * @param {String} qId - Identifier of the object to clone
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qId - Identifier of the object to clone
+         * @returns - A promise of a Qlik engine reply.
          */
         cloneMeasure(qId: string): Promise<string>;
 
@@ -2426,8 +2535,8 @@ declare namespace EngineAPI {
          * When you clone an object that contains children, the children are cloned as well.
          *
          * Note: The identifier is set by the engine.
-         * @param {String} qId - Identifier of the object to clone
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qId - Identifier of the object to clone
+         * @returns - A promise of a Qlik engine reply.
          */
         cloneObject(qId: string): Promise<string>;
 
@@ -2436,22 +2545,22 @@ declare namespace EngineAPI {
          * Committing a draft replaces the corresponding published object.
          *
          * Note: The identifier is set by the engine.
-         * @param {String} qId - Identifier of the draft to commit.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qId - Identifier of the draft to commit.
+         * @returns - A promise of a Qlik engine reply.
          */
         commitDraft(qId: string): Promise<void>;
 
         /**
          * Creates a bookmark.
-         * @param {GenericBookmarkProperties} qProp - Information about the object. >> This parameter is mandatory.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qProp - Information about the object. >> This parameter is mandatory.
+         * @returns - A promise of a Qlik engine reply.
          */
         createBookmark(qProp: IGenericBookmarkProperties): Promise<IGenericBookmark>;
 
         /**
          * Creates a connection. A connection indicates from which data source, the data should be taken.
-         * @param {Connection} qConnection - Information about the connection. >> This parameter is mandatory.
-         * @returns {Promise} - returns a ConnectionId
+         * @param qConnection - Information about the connection. >> This parameter is mandatory.
+         * @returns - returns a ConnectionId
          */
         createConnection(qConnection: IConnection): Promise<string>;
 
@@ -2459,8 +2568,8 @@ declare namespace EngineAPI {
          * Creates a master dimension.
          * A master dimension is stored in the library of an app and can be used in many objects.
          * Several generic objects can contain the same dimension.
-         * @param {GenericDimensionProperties} qProp - Information about the properties. >> This parameter is mandatory.
-         * @returns {Promise} - returns a GenericDimension object
+         * @param qProp - Information about the properties. >> This parameter is mandatory.
+         * @returns - returns a GenericDimension object
          */
         createDimension(qProp: IGenericDimensionProperties): Promise<IGenericDimension>;
 
@@ -2471,8 +2580,8 @@ declare namespace EngineAPI {
          * Replace the published object by the content of the draft by invoking the CommitDraft method.
          *
          * Note: The identifier is set by the engine.
-         * @param {String} qId - Identifier of the object to create a draft from.
-         * @returns {Promise} - returns a DraftId
+         * @param qId - Identifier of the object to create a draft from.
+         * @returns - returns a DraftId
          */
         createDraft(qId: string): Promise<string>;
 
@@ -2480,8 +2589,8 @@ declare namespace EngineAPI {
          * Creates a master measure.
          * A master measure is stored in the library of an app and can be used in many objects.
          * Several generic objects can contain the same measure.
-         * @param {GenericMeasureProperties} gProp - Information about the properties >> This parameter is mandatory.
-         * @returns {Promise} - returns a GenericMeasure
+         * @param gProp - Information about the properties >> This parameter is mandatory.
+         * @returns - returns a GenericMeasure
          */
         createMeasure(qProp: IGenericMeasureProperties): Promise<IGenericMeasure>;
 
@@ -2492,8 +2601,8 @@ declare namespace EngineAPI {
          * The linking object is defined in the properties of the linked object (in qExtendsId).
          * The linked object has the same properties as the linking object.
          * Notre: The linking object cannot be a transient object.
-         * @param {GenericObjectProperties} gProp - Information about the properties >> This parameter is mandatory.
-         * @returns {Promise} - returns a GenericObject
+         * @param gProp - Information about the properties >> This parameter is mandatory.
+         * @returns - returns a GenericObject
          */
         createObject(qProp: IGenericObjectProperties): Promise<IGenericObject>;
 
@@ -2503,24 +2612,24 @@ declare namespace EngineAPI {
          * A linked object is an object that points to a linking object.
          * The linking object is defined in the properties of the linked object (in qExtendsId).
          * The linked object has the same properties as the linking object.
-         * @param {GenericObjectProperties} gProp - Information about the properties >> This parameter is mandatory.
-         * @returns {Promise} - returns a GenericObject
+         * @param gProp - Information about the properties >> This parameter is mandatory.
+         * @returns - returns a GenericObject
          */
         createSessionObject(qProp: IGenericObjectProperties): Promise<IGenericObject>;
 
         /**
          * Creates a transient variable.
-         * @param {GenericVariableProperties} gProp - Name of the variable. Variable names are case sensitive.
+         * @param gProp - Name of the variable. Variable names are case sensitive.
          * >> This parameter is mandatory.
-         * @returns {Promise} - returns a GenericVariable
+         * @returns - returns a GenericVariable
          */
         createSessionVariable(qProp: IGenericVariableProperties): Promise<IGenericVariable>;
         /**
          * Creates a variable.
          *
          * Note: This method is deprecated (not recommended to use). Use CreateVariableEx method instead.
-         * @param {String} qName - Name of the variable. Variable names are case sensitive. >> This parameter is mandatory.
-         * @returns {Promise} - returns a Boolean
+         * @param qName - Name of the variable. Variable names are case sensitive. >> This parameter is mandatory.
+         * @returns - returns a Boolean
          */
         createVariable(qName: string): Promise<boolean>;
 
@@ -2528,9 +2637,9 @@ declare namespace EngineAPI {
          * Creates a variable.
          *
          * Note: This method is deprecated (not recommended to use). Use CreateVariableEx method instead.
-         * @param {GenericVariableProperties} qProp - Name of the variable. Variable names are case sensitive and must be unique.
+         * @param qProp - Name of the variable. Variable names are case sensitive and must be unique.
          *                                             >> This parameter is mandatory.
-         * @returns {Promise} - returns a NxInfo. Identifier and type of the object. >> This parameter is mandatory.
+         * @returns - returns a NxInfo. Identifier and type of the object. >> This parameter is mandatory.
          */
         createVariableEx(qProp: IGenericVariableProperties): Promise<INxInfo>;
 
@@ -2539,8 +2648,8 @@ declare namespace EngineAPI {
          * The AttachedFiles connection can only be removed by the administrator of the system.
          *
          * Note: In Qlik Sense Enterprise, there is an additional file connection named AttachedFiles.
-         * @param {String} qConnectionId - Identifier of the connection to remove. >> This parameter is mandatory.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qConnectionId - Identifier of the connection to remove. >> This parameter is mandatory.
+         * @returns - A promise of a Qlik engine reply.
          */
         deleteConnection(qConnectionId: string): Promise<void>;
 
@@ -2548,8 +2657,8 @@ declare namespace EngineAPI {
          * Removes a bookmark.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param {String} qId - Identifier of the bookmark
-         * @returns {Promise} - A promise of  Boolean
+         * @param qId - Identifier of the bookmark
+         * @returns - A promise of  Boolean
          */
         destroyBookmark(qId: string): Promise<boolean>;
 
@@ -2557,8 +2666,8 @@ declare namespace EngineAPI {
          * Removes a dimension.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param {String} qId - Identifier of the dimension to remove. >> This parameter is mandatory.
-         * @returns {Promise} - A promise of  Boolean
+         * @param qId - Identifier of the dimension to remove. >> This parameter is mandatory.
+         * @returns - A promise of  Boolean
          */
         destroyDimension(qId: string): Promise<boolean>;
 
@@ -2566,9 +2675,9 @@ declare namespace EngineAPI {
          * Removes a dimension.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param {String} qId - Identifier of the draft object to remove. >> This parameter is mandatory.
-         * @param {String} qSourceId - Identifier of the source object (the object from which a draft was created).
-         * @returns {Promise} - A promise of  Boolean
+         * @param qId - Identifier of the draft object to remove. >> This parameter is mandatory.
+         * @param qSourceId - Identifier of the source object (the object from which a draft was created).
+         * @returns - A promise of  Boolean
          */
         destroyDraft(qId: string, qSourceId: string): Promise<boolean>;
 
@@ -2576,8 +2685,8 @@ declare namespace EngineAPI {
          * Removes a generic measure.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param {String} qId - Identifier of the measure to remove. >> This parameter is mandatory.
-         * @returns {Promise} - A promise of  Boolean
+         * @param qId - Identifier of the measure to remove. >> This parameter is mandatory.
+         * @returns - A promise of  Boolean
          */
         destroyMeasure(qId: string): Promise<boolean>;
 
@@ -2585,8 +2694,8 @@ declare namespace EngineAPI {
          * Removes an app object.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param {String} qId - Identifier of the object to remove. >> This parameter is mandatory.
-         * @returns {Promise} - A promise of  Boolean
+         * @param qId - Identifier of the object to remove. >> This parameter is mandatory.
+         * @returns - A promise of  Boolean
          */
         destroyObject(qId: string): Promise<boolean>;
 
@@ -2594,8 +2703,8 @@ declare namespace EngineAPI {
          * Removes a transient object.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param {String} qId - Identifier of the object to remove. >> This parameter is mandatory.
-         * @returns {Promise} - A promise of Boolean
+         * @param qId - Identifier of the object to remove. >> This parameter is mandatory.
+         * @returns - A promise of Boolean
          */
         destroySessionObject(qId: string): Promise<boolean>;
 
@@ -2603,8 +2712,8 @@ declare namespace EngineAPI {
          * Removes a transient variable.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param {String} qId - Identifier of the object to remove. >> This parameter is mandatory.
-         * @returns {Promise} - A promise of Boolean
+         * @param qId - Identifier of the object to remove. >> This parameter is mandatory.
+         * @returns - A promise of Boolean
          */
         destroySessionVariable(qId: string): Promise<boolean>;
 
@@ -2613,8 +2722,8 @@ declare namespace EngineAPI {
          *
          * Note: The operation is successful if qSuccess is set to true.
          * Script-defined variables cannot be removed using the DestroyVariableById method or the DestroyVariableByName method.
-         * @param {String} qId - Identifier of the variable.
-         * @returns {Promise} - A promise of Boolean
+         * @param qId - Identifier of the variable.
+         * @returns - A promise of Boolean
          */
         destroyVariableById(qId: string): Promise<boolean>;
 
@@ -2623,8 +2732,8 @@ declare namespace EngineAPI {
          *
          * Note: The operation is successful if qSuccess is set to true.
          * Script-defined variables cannot be removed using the DestroyVariableById method or the DestroyVariableByName method.
-         * @param {String} qName - Name of the variable..
-         * @returns {Promise} - A promise of Boolean
+         * @param qName - Name of the variable..
+         * @returns - A promise of Boolean
          */
         destroyVariableByName(qName: string): Promise<boolean>;
 
@@ -2632,19 +2741,19 @@ declare namespace EngineAPI {
          * Reloads the script that is set in an app.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param {Integer} qMode - Error handling mode.
+         * @param qMode - Error handling mode.
          *
          * 0: for default mode
          * 1: for ABEND; the reload of the script ends if an error occurs
          * 2: for ignore; the reload of the script continues even if an error is detected in the script.
          *
          * This parameter is optional.
-         * @param {Boolean} qPartial - Set to true for partial reload. This parameter is optional.
+         * @param qPartial - Set to true for partial reload. This parameter is optional.
          * The default value is false.
-         * @param {Boolean} qDebug - Set to true if debug breakpoints are to be honored.
+         * @param qDebug - Set to true if debug breakpoints are to be honored.
          * The execution of the script will be in debug mode.
          * This parameter is optional. The default value is false.
-         * @returns {Promise} - A promise of Boolean
+         * @returns - A promise of Boolean
          */
         doReload(qMode?: number, qPartial?: boolean, qDebug?: boolean): Promise<boolean>;
 
@@ -2652,8 +2761,8 @@ declare namespace EngineAPI {
          * Reloads the script that is set in an app and returns the path to the script log file.
          *
          * Note: A log file is created per reload.
-         * @param {DoReloadExParams} qParams - This parameter is optional.
-         * @returns {Promise} - If the data load has successfully finished, no matter how the indexing behaves, true is returned.
+         * @param qParams - This parameter is optional.
+         * @returns - If the data load has successfully finished, no matter how the indexing behaves, true is returned.
          * This happens even if there is a timeout, a memory limit is reached or any other error occurs during the indexing.
          */
         doReloadEx(qParams?: IDoReloadExParams): Promise<IDoReloadExResult>;
@@ -2661,90 +2770,98 @@ declare namespace EngineAPI {
         /**
          * Saves an app. All objects and data in the data model are saved.
          * Script-defined variables cannot be removed using the DestroyVariableById method or the DestroyVariableByName method.
-         * @param {String} qFileName - Name of the file to save. This parameter is optional.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qFileName - Name of the file to save. This parameter is optional.
+         * @returns - A promise of a Qlik engine reply.
          */
         doSave(qFileName?: string): Promise<void>;
 
         /**
          * Evaluates an expression as a string.
          * Script-defined variables cannot be removed using the DestroyVariableById method or the DestroyVariableByName method.
-         * @param {String} qExpression - Expression to evaluate.
-         * @returns {Promise} - return a expression evaluated as a string
+         * @param qExpression - Expression to evaluate.
+         * @returns - return a expression evaluated as a string
          */
         evaluate(qExpression: string): Promise<string>;
 
         /**
          * Evaluates an expression as a dual.
          * Script-defined variables cannot be removed using the DestroyVariableById method or the DestroyVariableByName method.
-         * @param {String} qExpression - Expression to evaluate.
-         * @returns {Promise} - return a Promise width a FieldValue
+         * @param qExpression - Expression to evaluate.
+         * @returns - return a Promise with a FieldValue
          */
         evaluateEx(qExpression: string): Promise<IFieldValue>;
+
+        /**
+         * Export an Qlik QVF with a reduced datamodel
+         * @param qOptions - qBookmarkId - bookmark to export
+         *                   qExpires - download expires in [s]
+         * @returns - return a Promise with the qDownloadInfo
+         */
+        exportReducedData(qOptions?: { qBookmarkId?: string, qExpires?: number}): Promise<{ qDownloadInfo: any }>;
 
         /**
          * Retrieves any fields that belong to the same archipelago as the specified field and
          * that match at least one of the specified tags.
          * Tags set by Qlik Sense are prefixed by the $ sign.
-         * @param {String} qFieldName - Name of the field. This method looks for fields that
+         * @param qFieldName - Name of the field. This method looks for fields that
          * belong to the same archipelago as this specified field.
-         * @param {Array} qTags - List of tags. This method looks for fields that match at least one of the tags in this list.
-         * @returns {Promise} - A promise of FieldValue.
+         * @param qTags - List of tags. This method looks for fields that match at least one of the tags in this list.
+         * @returns - A promise of FieldValue.
          */
         findMatchingFields(qFieldName: string, qTags: string[]): Promise<INxMatchingFieldInfo[]>;
 
         /**
          * Loads the next logical operation (if any).
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         forward(): Promise<void>;
 
         /**
          * Returns the number of entries on the Forward stack.
-         * @returns {Promise} - A promise and Number of entries in the forward stack
+         * @returns - A promise and Number of entries in the forward stack
          */
         forwardCount(): Promise<number>;
 
         /**
          * Returns the identifier and the type of any generic object in the app.
          * Script-defined variables cannot be removed using the DestroyVariableById method or the DestroyVariableByName method.
-         * @param {Array} qInfos - (Array of NxInfo) Information about all generic objects in the app.
-         * @returns {Promise} - return a Promise Array of INxInfo
+         * @param qInfos - (Array of NxInfo) Information about all generic objects in the app.
+         * @returns - return a Promise Array of INxInfo
          */
         getAllInfos(): Promise<INxInfo[]>;
 
         /**
          * Returns dynamic properties (if any) in addition to the engine (fixed) properties.
          * Script-defined variables cannot be removed using the DestroyVariableById method or the DestroyVariableByName method.
-         * @returns {Promise} - return a Promise  of a data set NxAppLayout
+         * @returns - return a Promise  of a data set NxAppLayout
          */
         getAppLayout(): Promise<INxAppLayout>;
 
         /**
          * Gets the properties of an app.
-         * @returns {Promise} - return a Promise of NxAppProperties qProp. Information about the properties of the app.
+         * @returns - return a Promise of NxAppProperties qProp. Information about the properties of the app.
          */
         getAppProperties(): Promise<INxAppProperties>;
 
         /**
          * Computes a set of association scores for each pair of fields between two given tables that have been loaded in an app.
-         * @param {String} qTable1 - Name of the first table.
-         * @param {String} qTable2 - Name of the second table.
-         * @returns {Promise} - return a Promise of IAssociationScore qScore.
+         * @param qTable1 - Name of the first table.
+         * @param qTable2 - Name of the second table.
+         * @returns - return a Promise of IAssociationScore qScore.
          */
         getAssociationScores(qTable1: string, qTable2: string): Promise<IAssociationScore>;
 
         /**
          * Returns the handle of a bookmark.
-         * @param {String} qId - Identifier of the bookmark.
-         * @returns {Promise} - return a Promise of IGenericBookmark.
+         * @param qId - Identifier of the bookmark.
+         * @returns - return a Promise of IGenericBookmark.
          */
         getBookmark(qId: string): Promise<IGenericBookmark>;
 
         /**
          * Returns a list of bookmarks in the app.
-         * @param {INxGetBookmarkOptions} qOptions - Information about the list of bookmarks.
-         * @returns {Promise} - return a Promise of INxContainerEntry.
+         * @param qOptions - Information about the list of bookmarks.
+         * @returns - return a Promise of INxContainerEntry.
          */
         getBookmarks(qOptions: INxGetBookmarkOptions): Promise<INxContainerEntry<any>>;
 
@@ -2755,8 +2872,8 @@ declare namespace EngineAPI {
          * - The type of the connection
          * - The name of the connection
          * - The connection string
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @returns {Promise} - return a Connection.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @returns - return a Connection.
          */
         getConnection(qConnectionId: string): Promise<IConnection>;
 
@@ -2765,7 +2882,7 @@ declare namespace EngineAPI {
          *
          * Note: In Qlik Sense Enterprise, there is an additional file connection named AttachedFiles.
          * This connection is stored in the Qlik Sense repository.
-         * @returns {Promise} - return a Promise of Array of Connection.
+         * @returns - return a Promise of Array of Connection.
          */
         getConnections(): Promise<IConnection[]>;
 
@@ -2776,71 +2893,71 @@ declare namespace EngineAPI {
          * If this property is set to true, it means that the content library is app specific.
          *
          * Note: There is always one specific content library per app.
-         * @returns {Promise} - return a Promise of ContentLibraryList.
+         * @returns - return a Promise of ContentLibraryList.
          */
         getContentLibraries(): Promise<IContentLibraryList>;
 
         /**
          * Gives information about an ODBC, OLEDB or CUSTOM connection.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise of DatabaseInfo.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @returns - return a Promise of DatabaseInfo.
          */
         getDatabaseInfo(qConnectionId: string): Promise<IDatabaseInfo>;
 
         /**
          * Lists the owners of a database for a ODBC, OLEDB or CUSTOM connection.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {String} qDatabase - Name of the database. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise Array of DatabaseOwner.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qDatabase - Name of the database. >> This parameter is mandatory.
+         * @returns - return a Promise Array of DatabaseOwner.
          */
         getDatabaseOwners(qConnectionId: string, qDatabase?: string): Promise<IDatabaseOwner[]>;
 
         /**
          * Lists the databases inside a ODBC, OLEDB or CUSTOM data source.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise Array of Database.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @returns - return a Promise Array of Database.
          */
         getDatabases(qConnectionId: string): Promise<IDatabase[]>;
 
         /**
          * Lists the fields inside a table of a database for a ODBC, OLEDB or CUSTOM connection.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {String} qDatabase - Name of the database. >> This parameter is mandatory.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qDatabase - Name of the database. >> This parameter is mandatory.
          * (If qDatabase is not set then qOwner must be set.)
-         * @param {String} qOwner - Owner of the database. >> This parameter is mandatory.
+         * @param qOwner - Owner of the database. >> This parameter is mandatory.
          * (If qOwner is not set then qDatabase must be set.)
-         * @param {String} qTable - Name of the table. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise Array of DataField.
+         * @param qTable - Name of the table. >> This parameter is mandatory.
+         * @returns - return a Promise Array of DataField.
          */
         getDatabaseTableFields(qConnectionId: string, qTable: string, qDatabase?: string, qOwner?: string): Promise<IDataField[]>;
 
         /**
          * Retrieves the values of the specified table of a database for a ODBC, OLEDB or CUSTOM connection.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {String} qDatabase - Name of the database. >> This parameter is mandatory.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qDatabase - Name of the database. >> This parameter is mandatory.
          * (If qDatabase is not set then qOwner must be set.)
-         * @param {String} qOwner - Owner of the database. >> This parameter is mandatory.
+         * @param qOwner - Owner of the database. >> This parameter is mandatory.
          * (If qOwner is not set then qDatabase must be set.)
-         * @param {String} qTable - Name of the table. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise Array of DataRecord.
+         * @param qTable - Name of the table. >> This parameter is mandatory.
+         * @returns - return a Promise Array of DataRecord.
          */
         getDatabaseTablePreview(qConnectionId: string, qTable: string, qDatabase?: string, qOwner?: string): Promise<IDataRecord[]>;
 
         /**
          * Lists the tables inside a database for a ODBC, OLEDB or CUSTOM connection.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {String} qDatabase - Name of the database. >> This parameter is mandatory.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qDatabase - Name of the database. >> This parameter is mandatory.
          * (If qDatabase is not set then qOwner must be set.)
-         * @param {String} qOwner - Owner of the database. >> This parameter is mandatory.
+         * @param qOwner - Owner of the database. >> This parameter is mandatory.
          * (If qOwner is not set then qDatabase must be set.)
-         * @returns {Promise} - return a Promise Array of DataTable.
+         * @returns - return a Promise Array of DataTable.
          */
         getDatabaseTables(qConnectionId: string, qDatabase?: string, qOwner?: string): Promise<IDataTable[]>;
 
         /**
          * Returns the handle of a dimension.
-         * @param {String} qId - Identifier of the dimension. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise GenericDimension.
+         * @param qId - Identifier of the dimension. >> This parameter is mandatory.
+         * @returns - return a Promise GenericDimension.
          */
         getDimension(qId: string): Promise<IGenericDimension>;
 
@@ -2849,67 +2966,74 @@ declare namespace EngineAPI {
          * This section contains Set statements that give localized information from the regional settings of the computer.
          *
          * Note: The computer regional settings are retrieved when the engine starts.
-         * @param {String} qLocalizedMainSection - Name of the script section. The default value is Main. This parameter is optional.
-         * @returns {Promise} - return a Promise <List of script variables>.
+         * @param qLocalizedMainSection - Name of the script section. The default value is Main. This parameter is optional.
+         * @returns - return a Promise <List of script variables>.
          */
         getEmptyScript(qLocalizedMainSection?: string): Promise<string>;
 
         /**
          * Retrieves the variables that are tagged as favorite.
-         * @returns {Promise} - return a Promise 	Array of String
+         * @returns - return a Promise 	Array of String
          */
         getFavoriteVariables(): Promise<string[]>;
 
         /**
          * Retrieves the description of a field.
-         * @param {String} qFieldName - Name of the field. >> This parameter is mandatory
-         * @returns {Promise} - return a Promise of FieldDescription.
+         * @param qFieldName - Name of the field. >> This parameter is mandatory
+         * @returns - return a Promise of FieldDescription.
          */
         getFieldDescription(qFieldName: string): Promise<IFieldDescription>;
 
         /**
+         * Fetches the Expression behind a Field that is declared with DECLARE FIELD DEFINITIO
+         * @param qReadableName: name of a Field that is declared with DECLARE FIELD DEFINITION
+         * @returns qname wich contains the expression
+         */
+        getFieldOnTheFlyByName(qReadableName: string): Promise<{qName: string}>;
+
+        /**
          * Retrieves the description of a field.
-         * @param {String} qFieldName - Name of the field. >> This parameter is mandatory.
-         * @param {String} qStateName - Name of the alternate state. This parameter is optional. Default state is current selections.
-         * @returns {Promise} - return a Promise of FieldDescription.
+         * @param qFieldName - Name of the field. >> This parameter is mandatory.
+         * @param qStateName - Name of the alternate state. This parameter is optional. Default state is current selections.
+         * @returns - return a Promise of FieldDescription.
          */
         getField(qFieldName: string, qStateName?: string): Promise<IField>;
 
         /**
          * Lists the fields of a table for a folder connection.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {String} qRelativePath - Path of the connection file. This parameter is optional.
-         * @param {FileDataFormat} qDataFormat - Type of the file.
-         * @param {String} qTable - Name of the table. This parameter must be set for XLS, XLSX, HTML and XML files.
-         * @returns {Promise} - return a Promise Array of DataField or String.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qRelativePath - Path of the connection file. This parameter is optional.
+         * @param qDataFormat - Type of the file.
+         * @param qTable - Name of the table. This parameter must be set for XLS, XLSX, HTML and XML files.
+         * @returns - return a Promise Array of DataField or String.
          */
         getFileTableFields(qConnectionId: string, qDataFormat: IFileDataFormat, qTable: string, qRelativePath?: string): Promise<IDataField[]> | Promise<string>;
 
         /**
          * Lists the values in a table for a folder connection.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {String} qRelativePath - Path of the connection file. This parameter is optional.
-         * @param {FileDataFormat} qDataFormat - Type of the file.
-         * @param {String} qTable - Name of the table. This parameter must be set for XLS, XLSX, HTML and XML files.
-         * @returns {Promise} - return a Promise <Array of DataField> or <String>.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qRelativePath - Path of the connection file. This parameter is optional.
+         * @param qDataFormat - Type of the file.
+         * @param qTable - Name of the table. This parameter must be set for XLS, XLSX, HTML and XML files.
+         * @returns - return a Promise <Array of DataField> or <String>.
          */
         getFileTablePreview(qConnectionId: string, qRelativePath: string, qDataFormat: IFileDataFormat, qTable: string): Promise<IDataRecord[]> | Promise<string>;
 
         /**
          * Lists the tables and fields of a JSON or XML file for a folder connection.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {String} qRelativePath - Path of the connection file. This parameter is optional.
-         * @param {FileDataFormat} qDataFormat - Type of the file.
-         * @returns {Promise} - return a Promise Array of DataTableEx.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qRelativePath - Path of the connection file. This parameter is optional.
+         * @param qDataFormat - Type of the file.
+         * @returns - return a Promise Array of DataTableEx.
          */
         getFileTablesEx(qConnectionId: string, qRelativePath: string, qDataFormat: IFileDataFormat): Promise<IDataTableEx[]>;
 
         /**
          * Lists the tables for a folder connection.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {String} qRelativePath - Path of the connection file. This parameter is optional.
-         * @param {FileDataFormat} qDataFormat - Type of the file.
-         * @returns {Promise} - return a Promise Array of DataTable.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qRelativePath - Path of the connection file. This parameter is optional.
+         * @param qDataFormat - Type of the file.
+         * @returns - return a Promise Array of DataTable.
          */
         getFileTables(qConnectionId: string, qRelativePath: string, qDataFormat: IFileDataFormat): Promise<IDataTable[]>;
 
@@ -2917,32 +3041,38 @@ declare namespace EngineAPI {
          * There are two ways to specify the directory to retrieve the files from:
          * - Enter the connection identifier; the directory associated to the connection is used.
          * - Enter the connection identifier and a relative path
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {String} qRelativePath - Path of the connection file. This parameter is optional.
-         * @returns {Promise} - return a Promise Array of FolderItem.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qRelativePath - Path of the connection file. This parameter is optional.
+         * @returns - return a Promise Array of FolderItem.
          */
         getFolderItemsForConnection(qConnectionId: string, qRelativePath: string): Promise<IFolderItem[]>;
 
         /**
          * Gets the content of a file.
-         * @param {String} qLibPath - ["lib://CONNECTION_NAME\\<the name of the file you want to use>.txt"] or
+         * @param qLibPath - ["lib://CONNECTION_NAME\\<the name of the file you want to use>.txt"] or
          * - ["lib://Connection_Name\\<Folder under your connection>\\<the name of the file you want to use>.txt"]
          * - [ ] should be used when having a lib reference in the first variable.
-         * @returns {Promise} - return a Promise of String.
+         * @returns - return a Promise of String.
          */
         getIncludeFileContent(qLibPath: string): Promise<string>;
 
         /**
          * Returns the content of a library.
-         * @param {String} qName - Name of the content library. It corresponds to the property
+         * @param qName - Name of the content library. It corresponds to the property
          * qContentLibraryListItem/qName returned by the GetContentLibraries method.
-         * @returns {Promise} - return a Promise of StaticContentList.
+         * @returns - return a Promise of StaticContentList.
          */
         getLibraryContent(qName: string): Promise<IStaticContentList>;
 
         /**
+         * Returns the lineage of the datamodel.
+         * @returns - return a Promise of qLineage.
+         */
+        getLineage(): Promise<{ qLineage: Array<{ qDiscriminator: string }> }>;
+
+        /**
          * Retrieves locale information.
-         * @returns {Promise} - return a Promise of LocaleInfo.
+         * @returns - return a Promise of LocaleInfo.
          */
         getLocaleInfo(): Promise<ILocaleInfo>;
 
@@ -2957,7 +3087,7 @@ declare namespace EngineAPI {
          *
          * Note: The last three values in the vector are extra values. These values are for internal use.
          * Note: In case of circular references, the engine automatically create loosely coupled tables
-         * @returns {Promise} - return a Promise <Array of bytes>.
+         * @returns - return a Promise <Array of bytes>.
          */
         getLooselyCoupledVector(): Promise<number[]>;
 
@@ -2965,13 +3095,13 @@ declare namespace EngineAPI {
          * Retrieves any fields that match all or one of the specified tags in the data model of an app.
          *
          * Note: Tags set by Qlik Sense are prefixed by the $ sign.
-         * @param {Array} qTags - List of tags. Array of String
+         * @param qTags - List of tags. Array of String
          * The GetMatchingFields method looks for fields that match one or all of the tags in this list,
          * depending on the value of qMatchingFieldMode.
-         * @param {String} qMatchingFieldMode - Matching field mode.
+         * @param qMatchingFieldMode - Matching field mode.
          * This parameter is optional.
          * The default value is 0.
-         * @returns {Promise} - return a Promise Array of NxMatchingFieldInfo.
+         * @returns - return a Promise Array of NxMatchingFieldInfo.
          */
         getMatchingFields(qTags: string[], qMatchingFieldMode?: boolean): Promise<INxMatchingFieldInfo[]>;
 
@@ -2979,31 +3109,31 @@ declare namespace EngineAPI {
          * Lists the media files.
          *
          * Note: This method is deprecated (not recommended to use). Use GetLibraryContent method instead.
-         * @returns {Promise} - return a Promise Boolean or MediaList
+         * @returns - return a Promise Boolean or MediaList
          */
         getMediaList(): Promise<MediaList[]> | Promise<boolean>;
 
         /**
          * Returns the handle of a measure.
          *
-         * @param {String} qId - Identifier of the measure. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise String GenericMeasure
+         * @param qId - Identifier of the measure. >> This parameter is mandatory.
+         * @returns - return a Promise String GenericMeasure
          */
         getMeasure(qId: string): Promise<IGenericMeasure>;
 
         /**
          * Returns the type of the app object and the corresponding handle.
          *
-         * @param {String} qId - Identifier of the measure. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise String GenericObject
+         * @param qId - Identifier of the measure. >> This parameter is mandatory.
+         * @returns - return a Promise String GenericObject
          */
         getObject(qId: string): Promise<IGenericObject>;
 
         /**
          * Returns a list of objects in the app.
          *
-         * @param {INxGetObjectOptions} qOptions - Information about the list of objects.
-         * @returns {Promise} - return a Promise array of NxContainerEntry.
+         * @param qOptions - Information about the list of objects.
+         * @returns - return a Promise array of NxContainerEntry.
          */
         getObjects(qOptions: INxGetObjectOptions): Promise<INxContainerEntry<any>>;
 
@@ -3013,7 +3143,7 @@ declare namespace EngineAPI {
          * Returns the identifier and the definition of the measure.
          *
          * Note: If the member delta is set to true in the request object, only the delta is retrieved.
-         * @returns {Promise} - return a Promise GenericObject
+         * @returns - return a Promise GenericObject
          */
         getProperties(): Promise<INxAppProperties>;
 
@@ -3021,27 +3151,27 @@ declare namespace EngineAPI {
          * Lists the breakpoints in the script of an app.
          *
          * Returns information about the breakpoints. <Array of EditorBreakpoint>
-         * @returns {Promise} - return a Promise Array of EditorBreakpoint
+         * @returns - return a Promise Array of EditorBreakpoint
          */
         getScriptBreakpoints(): Promise<IEditorBreakpoint[]>;
 
         /**
          * Gets values in script.
-         * @returns {Promise} - return a Promise String <script values>
+         * @returns - return a Promise String <script values>
          */
         getScript(): Promise<string>;
 
         /**
          * Retrieves the data of a specific table.
-         * @param {Integer} qOffset - Position from the top
+         * @param qOffset - Position from the top
          * starting from 0.
          * If the offset is set to 0,
          * the rows starting from the position/index 0 are shown.
-         * @param {Integer} qRows - Number of rows to show.
-         * @param {Boolean} qSyntheticMode - If this parameter is set to true, the internal data/table representation is shown.
+         * @param qRows - Number of rows to show.
+         * @param qSyntheticMode - If this parameter is set to true, the internal data/table representation is shown.
          * Synthetic fields are present (if any).
-         * @param {String} qTableName - Name of the table.
-         * @returns {Promise} - return a Promise Array of TableRow.
+         * @param qTableName - Name of the table.
+         * @returns - return a Promise Array of TableRow.
          */
         getTableData(qOffset: number, qRows: number, qSyntheticMode: boolean, qTableName: string): Promise<ITableRow[]>;
 
@@ -3052,16 +3182,16 @@ declare namespace EngineAPI {
          * - the list of derived fields
          * - the list of key fields
          *
-         * @param {Size} qWindowSize - Defines the size of the window that is used to display the results.
-         * @param {Size} qNullSize
-         * @param {Integer} qCellHeight - Height of a cell in a table in pixels.
-         * @param {Boolean} qSyntheticMode  One of:
+         * @param qWindowSize - Defines the size of the window that is used to display the results.
+         * @param qNullSize - (no infos in help)
+         * @param qCellHeight - Height of a cell in a table in pixels.
+         * @param qSyntheticMode  One of:
          *   - true for internal table viewer
          *   - false for source table viewer
          *
          * >> This parameter is mandatory.
-         * @param {Boolean} qIncludeSysVars - If set to true, the system variables are included.
-         * @returns {Promise} - return a Promise <Array of TableRecord> or <Array of SourceKeyRecord>
+         * @param qIncludeSysVars - If set to true, the system variables are included.
+         * @returns - return a Promise <Array of TableRecord> or <Array of SourceKeyRecord>
          */
         getTablesAndKeys(qWindowSize: ISize, qNullSize: ISize, qCellHeight: number, qSyntheticMode: boolean, qIncludeSysVars: boolean): Promise<ITableRecord[]> | Promise<ISourceKeyRecord[]>;
 
@@ -3069,7 +3199,7 @@ declare namespace EngineAPI {
          * Fetches updated variables after a statement execution.
          *
          * Returns: List of variables. <Array of TextMacro>
-         * @returns {Promise} - return a Promise Array of TextMacro
+         * @returns - return a Promise Array of TextMacro
          */
         getTextMacros(): Promise<ITextMacro[]>;
 
@@ -3078,22 +3208,22 @@ declare namespace EngineAPI {
          *
          * Note: This method is deprecated (not recommended to use).
          * Use GetVariableById method or GetVariableByName method instead.
-         * @param {String} qName - Name of the variable. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise Variable
+         * @param qName - Name of the variable. >> This parameter is mandatory.
+         * @returns - return a Promise Variable
          */
         getVariable(qName: string): Promise<IVariable>;
 
         /**
          * Gets the handle of a variable.
-         * @param {String} qId - Identifier of the variable. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise GenericVariable
+         * @param qId - Identifier of the variable. >> This parameter is mandatory.
+         * @returns - return a Promise GenericVariable
          */
         getVariableById(qId: string): Promise<IGenericVariable>;
 
         /**
          * Gets the handle of a variable.
-         * @param {String} qName - Name of the variable. >> This parameter is mandatory.
-         * @returns {Promise} - return a Promise GenericVariable
+         * @param qName - Name of the variable. >> This parameter is mandatory.
+         * @returns - return a Promise GenericVariable
          */
         getVariableByName(qName: string): Promise<IGenericVariable>;
 
@@ -3101,7 +3231,7 @@ declare namespace EngineAPI {
          * Retrieves information about the position of the tables in the data model viewer.
          *
          * Note: The position of the broom points and the position of the connection points cannot be retrieved in Qlik Sense.
-         * @returns {Promise} - return a Promise of TableViewDlgSaveInfo
+         * @returns - return a Promise of TableViewDlgSaveInfo
          */
         getViewDlgSaveInfo(): Promise<ITableViewDlgSaveInfo>;
 
@@ -3121,34 +3251,50 @@ declare namespace EngineAPI {
          * - JSON for JSON format
          * - KML for KML file
          *
-         * @param {String} qConnectionId - Identifier of the connection file. >> This parameter is mandatory.
-         * @param {String} qRelativePath - Path of the connection file. This parameter is optional.
-         * @returns {Promise} - return a Promise of FileDataFormat
+         * @param qConnectionId - Identifier of the connection file. >> This parameter is mandatory.
+         * @param qRelativePath - Path of the connection file. This parameter is optional.
+         * @returns - return a Promise of FileDataFormat
          */
         guessFileType(qConnectionId: string, qRelativePath: string): Promise<IFileDataFormat>;
 
         /**
          * Locks all selections in all fields of the current app.
          *
-         * @param {string} qStateName - Alternate state name.
+         * @param qStateName - Alternate state name.
          * If this parameter is set, the method locks all selections that are in the specified state name.
          * This parameter is optional.
          * The default value is an empty string.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         lockAll(qStateName: string): Promise<void>;
+
+        /**
+         * migrateDerivedFields.
+         *
+         * Note: from shema file
+         * @returns - A promise of a Qlik engine reply.
+         */
+        migrateDerivedFields(): Promise<void>;
+
+        /**
+         * migrateDerivedFields.
+         *
+         * Note: from shema file
+         * @returns - A promise of a Qlik engine reply.
+         */
+        migrateVariables(): Promise<void>;
 
         /**
          * Updates a connection.
          *
          * Note: The identifier of a connection cannot be updated. qType cannot be modified with the ModifyConnection method.
-         * @param {String} qConnectionId - Identifier of the connection. >> This parameter is mandatory.
-         * @param {Connection} qConnection - Information about the connection.
+         * @param qConnectionId - Identifier of the connection. >> This parameter is mandatory.
+         * @param qConnection - Information about the connection.
          * Properties that can be updated.
          * >> This parameter is mandatory.
-         * @param {Boolean} qOverrideCredentials - Set this parameter to true to override the user name and password.
+         * @param qOverrideCredentials - Set this parameter to true to override the user name and password.
          * This parameter is optional.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         modifyConnection(qConnectionId: string, qConnection: IConnection, qOverrideCredentials: boolean): Promise<void>;
 
@@ -3158,10 +3304,10 @@ declare namespace EngineAPI {
          *
          * Note: This operation is possible only in Qlik Sense Enterprise.
          * Note: An app can only be published once and cannot be published to more than one stream.
-         * @param {String} qStreamId - Identifier of the stream.
-         * @param {String} qName - ame of the published app.
+         * @param qStreamId - Identifier of the stream.
+         * @param qName - ame of the published app.
          * This parameter is optional. If this parameter is not set, the engine automatically gives a new name to the published app.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         publish(qStreamId: string, qName: string): Promise<void>;
 
@@ -3169,14 +3315,14 @@ declare namespace EngineAPI {
          * Redoes the previous operation.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         redo(): Promise<boolean>;
 
         /**
          * Removes an alternate state in the app.
-         * @param {String} qStateName - Name of the alternate state. >> This parameter is mandatory.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qStateName - Name of the alternate state. >> This parameter is mandatory.
+         * @returns - A promise of a Qlik engine reply.
          */
         removeAlternateState(qStateName: string): Promise<void>;
 
@@ -3185,15 +3331,15 @@ declare namespace EngineAPI {
          *
          * Note: This method is deprecated (not recommended to use).
          * Use DestroyVariableById method or DestroyVariableByName method instead.
-         * @param {String} qName - Name of the variable. Variable names are case sensitive.
+         * @param qName - Name of the variable. Variable names are case sensitive.
          * >> This parameter is mandatory.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         removeVariable(qName: string): Promise<boolean>;
 
         /**
          * Resumes the app as the user left it.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         resume(): Promise<void>;
 
@@ -3202,9 +3348,17 @@ declare namespace EngineAPI {
          *
          * Note: Data from the data model are not saved.
          * Note: This operation is possible only in Qlik Sense Enterprise.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         saveObjects(): Promise<void>;
+
+        /**
+         * Scramble a field in the qlik datamodel.
+         *
+         * @param qFieldName - Fieldname
+         * @returns - A promise of a Qlik engine reply.
+         */
+        scramble(qFieldName: string): Promise<void>;
 
         /**
          * Returns the search matches for one or more search terms.
@@ -3213,25 +3367,25 @@ declare namespace EngineAPI {
          * See: SearchCombinationOptions
          *
          * Note: This method is deprecated (not recommended to use). Use SearchResults method instead.
-         * @param {SearchCombinationOptions} qOptions - Information about the search fields and the search context.
-         * @param {Array} qTerms - List of terms to search for.
-         * @param {SearchPage} qPage - Array of pages to retrieve.
+         * @param qOptions - Information about the search fields and the search context.
+         * @param qTerms - List of terms to search for.
+         * @param qPage - Array of pages to retrieve.
          * >> This parameter is mandatory.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         searchAssociations(qOptions: ISearchCombinationOptions, qTerms: string[], qPage: ISearchPage): Promise<void>;
 
         /**
          * Returns the generic objects corresponding to one or more search terms. The search is performed within the title,
          * subtitle, footnote and type. In addition, associated dimension values are also searched in. For example,
-         * if the country “Japan” is selected and the object contains the dimension City, the object will appear in the
-         * results for “Osaka” but not for “Johannesburg”. The generic objects with the following types will never appear
+         * if the country Japan is selected and the object contains the dimension City, the object will appear in the
+         * results for Osaka but not for Johannesburg. The generic objects with the following types will never appear
          * in the results: slideitem, sheet, story, slide, masterobject, snapshot, LoadModel, appprops and searchhistory.
-         * @param {SearchCombinationOptions} qOptions - Information about the search fields and the search context.
-         * @param {Array} qTerms - List of terms to search for.
-         * @param {SearchPage} qPage - Array of pages to retrieve.
+         * @param qOptions - Information about the search fields and the search context.
+         * @param qTerms - List of terms to search for.
+         * @param qPage - Array of pages to retrieve.
          * >> This parameter is mandatory.
-         * @returns {Promise} - A Promise of SearchResult
+         * @returns - A Promise of SearchResult
          */
         searchObjects(qOptions: ISearchObjectOptions, qTerms: string[], qPage: ISearchPage): Promise<ISearchResult>;
 
@@ -3253,19 +3407,19 @@ declare namespace EngineAPI {
          * For every search group, there are one or more search group items.
          * Each subgroup item contains results that correspond to an item type (for example a field).
          * For every search group item, there are one or several search matches. The position of the match in each search result is given.
-         * @param {SearchCombinationOptions} qOptions - Information about the search fields and the search context.
-         * @param {Array} qTerms - List of terms to search for.
-         * @param {SearchPage} qPage - Array of pages to retrieve.
+         * @param qOptions - Information about the search fields and the search context.
+         * @param qTerms - List of terms to search for.
+         * @param qPage - Array of pages to retrieve.
          * >> This parameter is mandatory.
-         * @returns {Promise} - A Promise List of SearchResults
+         * @returns - A Promise List of SearchResults
          */
         searchResults(qOptions: ISearchCombinationOptions, qTerms: string[], qPage: ISearchPage): Promise<ISearchResult>;
 
         /**
          * For every search group item, there are one or several search matches. The position of the match in each search result is given.
-         * @param {SearchCombinationOptions} qOptions - Information about the search combinations.
-         * @param {Array} qTerms - List of terms to search for. <Array of String>
-         * @returns {Promise} - A Promise List of SearchSuggestionResults
+         * @param qOptions - Information about the search combinations.
+         * @param qTerms - List of terms to search for. <Array of String>
+         * @returns - A Promise List of SearchSuggestionResults
          */
         searchSuggest(qOptions: ISearchCombinationOptions, qTerms: string[]): Promise<ISearchSuggestionResult>;
 
@@ -3273,50 +3427,50 @@ declare namespace EngineAPI {
          * Selects all search hits for a specified group.
          * The results depend on the search context.
          * See: SearchCombinationOptions
-         * @param {SearchCombinationOptions} qOptions - Information about the search fields and the search context.
-         * @param {Array} qTerms - List of terms to search for.
-         * @param {Integer} qMatchIx - Index (value of qId) of the search result to select.
-         * @param {Boolean} qSoftLock - This parameter is deprecated and should not be set.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qOptions - Information about the search fields and the search context.
+         * @param qTerms - List of terms to search for.
+         * @param qMatchIx - Index (value of qId) of the search result to select.
+         * @param qSoftLock - This parameter is deprecated and should not be set.
+         * @returns - A promise of a Qlik engine reply.
          */
         selectAssociations(qOptions: ISearchCombinationOptions, qTerms: string[], qMatchIx: number, qSoftLock: boolean): Promise<void>;
 
         /**
          * Sends a generic command to a custom connector.
          * For more information on the commands that can be sent to a custom connector, see the QVX SDK help.
-         * @param {String} qProvider - Connector file name. Command to be executed by the connector.
-         * @param {String} qCommand  One of:
+         * @param qProvider - Connector file name. Command to be executed by the connector.
+         * @param qCommand  One of:
          *                               - JsonRequest
          *                               - GetCustomCaption
          *                               - IsConnected
          *                               - DisableQlikViewSelectButton
          *                               - HaveStarField
-         * @param {String} qMethod - Method name to be used within the command. The available methods depend on the chosen connector.
-         * @param {Array} qParameters - Parameters of the command. No parameters are required. This parameter is optional.
-         * @param {String} qAppendConnection - Name of the connection. This parameter is optional.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qMethod - Method name to be used within the command. The available methods depend on the chosen connector.
+         * @param qParameters - Parameters of the command. No parameters are required. This parameter is optional.
+         * @param qAppendConnection - Name of the connection. This parameter is optional.
+         * @returns - A promise of a Qlik engine reply.
          */
         sendGenericCommandToCustomConnector(qProvider: string, qCommand: CommandType, qMethod: string, qParameters: string[], qAppendConnection: string[]): Promise<string>;
 
         /**
          * Sets properties to an app.
-         * @param {NxAppProperties} qProp - Information about the properties of an app. / NxAppProperties
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qProp - Information about the properties of an app. / NxAppProperties
+         * @returns - A promise of a Qlik engine reply.
          */
         setAppProperties(qProp: INxAppProperties): Promise<void>;
 
         /**
          * Set some variables as favorite.
-         * @param {Array} qNames - Variables to set as favorite.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qNames - Variables to set as favorite.
+         * @returns - A promise of a Qlik engine reply.
          */
         setFavoriteVariables(qNames: string[]): Promise<void>;
 
         /**
          * Limits the number of rows of data to load from a data source.
          * This method works when reloading in debug mode.
-         * @param {Integer} qLimit - Fetch limit. Number of rows to load.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qLimit - Fetch limit. Number of rows to load.
+         * @returns - A promise of a Qlik engine reply.
          */
         setFetchLimit(qLimit: number): Promise<void>;
 
@@ -3326,27 +3480,27 @@ declare namespace EngineAPI {
          * Note: The last three values in the vector are extra values. These values are for internal use.
          *
          * Note: The engine returns true if the vector has been updated.
-         * @param {Array} qv - <Array of Byte> Vector of loosely coupled state flags, one element for each table in the app.
+         * @param qv - <Array of Byte> Vector of loosely coupled state flags, one element for each table in the app.
          * Set the flag to 1 to loose a table.
          * Set the flag to 0 to not loose a table.
          *
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         setLooselyCoupledVector(qv: number[]): Promise<boolean>;
 
         /**
          * Set some breakpoints in the script of an app.
          *
-         * @param {Array} qBreakpoints - Information about the breakpoints. <Array of EditorBreakpoint>
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qBreakpoints - Information about the breakpoints. <Array of EditorBreakpoint>
+         * @returns - A promise of a Qlik engine reply.
          */
         setScriptBreakpoints(qBreakpoints: IEditorBreakpoint[]): Promise<void>;
 
         /**
          * Sets values in script.
          *
-         * @param {String} qScript - Script content
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qScript - Script content
+         * @returns - A promise of a Qlik engine reply.
          */
         setScript(qScript: string): Promise<void>;
 
@@ -3354,8 +3508,8 @@ declare namespace EngineAPI {
          * Sets the positions of the tables in the data model viewer.
          *
          * Note: The position of the broom points and the position of the connection points cannot be set in Qlik Sense.
-         * @param {TableViewDlgSaveInfo} qInfo - Information about the table.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qInfo - Information about the table.
+         * @returns - A promise of a Qlik engine reply.
          */
         setViewDlgSaveInfo(qInfo: ITableViewDlgSaveInfo): Promise<void>;
 
@@ -3363,19 +3517,18 @@ declare namespace EngineAPI {
          * Undoes the previous operation.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param {String} qScript - Script content
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         undo(): Promise<boolean>;
 
         /**
          * Unlocks all selections in all fields of the current app.
          *
-         * @param {String} qStateName - Alternate state name.
+         * @param qStateName - Alternate state name.
          * If this parameter is set, the method unlocks all selections that are in the specified state name.
          * This parameter is optional.
          * The default value is an empty string.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         unlockAll(qStateName: string): Promise<void>;
     }
@@ -3391,10 +3544,10 @@ declare namespace EngineAPI {
     interface IField {
         /**
          * Maintains the selections in the current field while clearing the selections in the other fields.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         clearAllButThis(qSoftLock?: boolean): Promise<boolean>;
 
@@ -3402,7 +3555,7 @@ declare namespace EngineAPI {
          * Clears the selections in a specific field.
          *
          * Note: The operation is successful if qReturn is set to true.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         clear(): Promise<boolean>;
 
@@ -3410,7 +3563,7 @@ declare namespace EngineAPI {
          * Returns the AND mode status of a field.
          *
          * Note: The field is in AND mode if qReturn is set to true.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         getAndMode(): Promise<boolean>;
 
@@ -3418,13 +3571,13 @@ declare namespace EngineAPI {
          * Retrieves the number of distinct values in a field.
          *
          * Note: The field is in AND mode if qReturn is set to true.
-         * @returns {Promise} - A promise a number <cardinal value>
+         * @returns - A promise a number <cardinal value>
          */
         getCardinal(): Promise<number>;
 
         /**
          * Gets the properties of a field.
-         * @returns {Promise} - A promise of NxFieldProperties
+         * @returns - A promise of NxFieldProperties
          */
         getNxProperties(): Promise<INxFieldProperties>;
 
@@ -3432,7 +3585,7 @@ declare namespace EngineAPI {
          * Locks all selected values of a specific field.
          *
          * Note: The operation is successful if Return is set to true.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         lock(): Promise<boolean>;
 
@@ -3440,14 +3593,14 @@ declare namespace EngineAPI {
          * Selects some values in a field, by entering the element numbers related to the values to select.
          *
          * Note: The operation is successful if qReturn is set to true.
-         * @param {Array} qValues - Indexes (or element numbers) of the values to select.
-         * @param {Boolean} qToggleMode - Set to true to keep any selections present in the list object.
+         * @param qValues - Indexes (or element numbers) of the values to select.
+         * @param qToggleMode - Set to true to keep any selections present in the list object.
          * If this parameter is set to false, selections made before accepting the list object search become alternative.
          * >> This parameter is mandatory.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         lowLevelSelect(qValues: number[], qToggleMode: boolean, qSoftLock?: boolean): Promise<boolean>;
 
@@ -3455,10 +3608,10 @@ declare namespace EngineAPI {
          * Selects all values of a field. Excluded values are also selected.
          *
          * Note: The operation is successful if qReturn is set to true.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         selectAll(qSoftLock?: boolean): Promise<boolean>;
 
@@ -3466,10 +3619,10 @@ declare namespace EngineAPI {
          * Selects all alternatives values in a specific field.
          *
          * Note: In a field that contains at least one selected value, the values that are neither selected nor excluded are alternatives values.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         selectAlternative(qSoftLock?: boolean): Promise<boolean>;
 
@@ -3477,10 +3630,10 @@ declare namespace EngineAPI {
          * Inverts the current selections.
          *
          * Note: In a field that contains at least one selected value, the values that are neither selected nor excluded are alternatives values.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         selectExcluded(qSoftLock?: boolean): Promise<boolean>;
 
@@ -3489,12 +3642,12 @@ declare namespace EngineAPI {
          *
          * Note: In a field that contains at least one selected value,
          * the values that are neither selected nor excluded are alternatives values.
-         * @param {String} qMatch - String to search for. Can contain wild cards or numeric search criteria.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qMatch - String to search for. Can contain wild cards or numeric search criteria.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @param {Integer} qExcludedValuesMode - Include excluded values in search. This parameter is optional.
-         * @returns {Promise} - A promise true or false
+         * @param qExcludedValuesMode - Include excluded values in search. This parameter is optional.
+         * @returns - A promise true or false
          */
         select(qMatch: string, qSoftLock?: boolean, qExcludedValuesMode?: number): Promise<boolean>;
 
@@ -3502,10 +3655,10 @@ declare namespace EngineAPI {
          * Selects all possible values in a specific field.
          *
          * Note: The operation is successful if qReturn is set to true.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         selectPossible(qSoftLock?: boolean): Promise<boolean>;
 
@@ -3513,12 +3666,12 @@ declare namespace EngineAPI {
          * Selects some values in a field, by entering the values to select.
          *
          * Note: The operation is successful if qReturn is set to true.
-         * @param {Array} qFieldValues - List of the values to select.
-         * @param {Boolean} qToggleMode - The default value is false. This parameter is optional.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qFieldValues - List of the values to select.
+         * @param qToggleMode - The default value is false. This parameter is optional.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         selectValues(qFieldValues: IFieldValue[], qToggleMode?: boolean, qSoftLock?: boolean): Promise<boolean>;
 
@@ -3526,10 +3679,10 @@ declare namespace EngineAPI {
          * Sets a field in the AND mode.
          *
          * Note: The operation is successful if Return is set to true.
-         * @param {Boolean} qAndMode - Specifies if the AND mode applies to the field.
+         * @param qAndMode - Specifies if the AND mode applies to the field.
          * Set this parameter to true to enter the AND mode.
          * >> This parameter is mandatory.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         setAndMode(qAndMode: boolean): Promise<void>;
 
@@ -3537,8 +3690,8 @@ declare namespace EngineAPI {
          * Sets some properties to a field.
          *
          * In addition to the properties described below, dynamic properties can be added.
-         * @param {NxFieldProperties} qProperties - Information about the properties of the field
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qProperties - Information about the properties of the field
+         * @returns - A promise of a Qlik engine reply.
          */
         setNxProperties(qProperties: INxFieldProperties): Promise<void>;
 
@@ -3546,19 +3699,19 @@ declare namespace EngineAPI {
          * Toggle selects field values matching a search string.
          *
          * In addition to the properties described below, dynamic properties can be added.
-         * @param {String} qMatch - String to search for. Can contain wild cards or numeric search criteria.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qMatch - String to search for. Can contain wild cards or numeric search criteria.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @param {Integer} qExcludedValuesMode - Include excluded values in search.
+         * @param qExcludedValuesMode - Include excluded values in search.
          * This parameter is optional.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         toggleSelect(qMatch: string, qSoftLock?: boolean, qExcludedValuesMode?: number): Promise<boolean>;
 
         /**
          * Unlocks all selected values of a specific field if the target (or handle ) is a field.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         unlock(): Promise<boolean>;
     }
@@ -3776,7 +3929,7 @@ declare namespace EngineAPI {
     interface IGenericBookmark {
         /**
          * Applies a bookmark.
-         * @returns {Promise} - A promise true or false
+         * @returns - A promise true or false
          */
         apply(): Promise<boolean>;
 
@@ -3784,10 +3937,21 @@ declare namespace EngineAPI {
          * Applies a patch to the properties of an object. Allows an update to some of the properties.
          *
          * Note: Applying a patch takes less time than resetting all the properties.
-         * @param {Array} qPatches - Array of patches.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qPatches - Array of patches.
+         * @returns - A promise of a Qlik engine reply.
          */
         applyPatches(qPatches: INxPatch[]): Promise<void>;
+
+        /**
+         * Get the selected values in the bookmark for a specific field.
+         *
+         * Note: from shema file
+         * @param qField - Name of the field
+         * @param qGetExcludedValues - Get Excluded Values
+         * @param qDataPage - Start and End of DataPage
+         * @returns - A promise of Array of FieldValues.
+         */
+        getFieldValues(qField: string, qGetExcludedValues: boolean, qDataPage: {"qStartIndex": number, "qEndIndex": number}): Promise<{qFieldValues: IFieldValue[]}>;
 
         /**
          * Returns:
@@ -3796,27 +3960,27 @@ declare namespace EngineAPI {
          * - the identifier of the object
          *
          * Note: Applying a patch takes less time than resetting all the properties.
-         * @returns {Promise} - A promise InfoObject
+         * @returns - A promise InfoObject
          */
         getInfo(): Promise<INxInfo>;
 
         /**
          * Evaluates an object and displays its properties including the dynamic properties.
          * If the member delta is set to true in the request object, only the delta is evaluated..
-         * @returns {Promise} - A promise of GenericBookmarkLayout
+         * @returns - A promise of GenericBookmarkLayout
          */
         getLayout(): Promise<IGenericBookmarkLayout>;
 
         /**
          * Shows the properties of an object.
          * If the member delta is set to true in the request object, only the delta is retrieved.
-         * @returns {Promise} - A promise of GenericBookmarkProperties
+         * @returns - A promise of GenericBookmarkProperties
          */
         getProperties(): Promise<IGenericBookmarkProperties>;
 
         /**
          * Publishes a bookmark.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         publish(): Promise<void>;
 
@@ -3824,15 +3988,15 @@ declare namespace EngineAPI {
          * Sets some properties for a bookmark.
          *
          * Note: Applying a patch takes less time than resetting all the properties.
-         * @param {GenericBookmarkProperties} qProp - Information about the bookmark
+         * @param qProp - Information about the bookmark
          * >> This parameter is mandatory.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         setProperties(qProp: IGenericBookmarkProperties): Promise<void>;
 
         /**
          * Unpublishes a bookmark.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @returns - A promise of a Qlik engine reply.
          */
         unPublish(): Promise<void>;
     }
@@ -3903,7 +4067,7 @@ declare namespace EngineAPI {
         /**
          * Identifier and type of the dimension.
          */
-        qDim: INxLibraryMeasureDef;
+        qDim: INxLibraryDimensionDef;
 
         /**
          * Cardinal and tags related to the dimension.
@@ -3939,17 +4103,17 @@ declare namespace EngineAPI {
          * Applies a patch to the properties of an object. Allows an update to some of the properties.
          *
          * Note: Applying a patch takes less time than resetting all the properties.
-         * @param {Array} qPatches - Array of patches.
-         * @returns {Promise} - A promise of a Qlik engine reply.
+         * @param qPatches - Array of patches.
+         * @returns - A promise of a Qlik engine reply.
          */
         applyPatches(qPatches: INxPatch[]): Promise<void>;
 
         /**
          * Returns the definition of a dimension.
          *
-         * @returns {Promise} - A promise GenericDimension.
+         * @returns - A promise GenericDimension.
          */
-        getDimension(): Promise<IGenericDimension>;
+        getDimension(): Promise<IGenericDimensionProperties>;
 
         /**
          * Returns the type and identifier of the object.
@@ -3959,13 +4123,13 @@ declare namespace EngineAPI {
         /**
          * Evaluates a dimension and displays its properties, including the dynamic properties.
          *
-         * @returns {Promise} - A promise GenericDimensionLayout.
+         * @returns - A promise GenericDimensionLayout.
          */
         getLayout(): Promise<IGenericDimensionLayout>;
 
         /**
          * Return a lists the linked objects to a generic object, a dimension or a measure.
-         * @returns {Promise} - A promise Array of NxLinkedObjectInfo
+         * @returns - A promise Array of NxLinkedObjectInfo
          */
         getLinkedObjects(): Promise<INxLinkedObjectInfo[]>;
 
@@ -4785,39 +4949,139 @@ declare namespace EngineAPI {
          * Row index to select
          * Indexing starts from 0.
          * If the cell's type is:
-         *   D, the index is based on the data matrix.
-         *   T, the index is based on the top dimensions indexes
-         *   L, the index is based on the data matrix
+         * - D, the index is based on the data matrix.
+         * - T, the index is based on the top dimensions indexes
+         * - L, the index is based on the data matrix
          */
         qRow: number;
     }
 
-    /**
-     * ImplementOn...
-     */
-    interface IImplementOn {
+    interface INxTreeDataOption {
         /**
-         * register a function for events
-         * @param {String} event - function called if this event occures
-         * @param {object} func - function that is called
+         * Maximum number of nodes in the tree. If this limit is exceeded, no nodes are returned. All nodes are counted.
          */
-        on(event: "changed" | "closed", func: () => void): void;
+        MaxNbrOfNodes: number;
 
         /**
-         * manual emit an events
-         * @param {String} event - event that occures
+         * Defines areas of the tree to be fetched. Areas must be defined left to right.
          */
-        emit(event: "changed" | "closed"): void;
+        TreeNodes: INxPageTreeNode[];
 
-        // ? not in Docu
-        id: string;
+        /**
+         * Filters out complete dimensions from the fetched tree.
+         */
+        TreeLevels: INxPageTreeLevel;
+    }
+
+    interface INxPageTreeNode {
+        /**
+         * The area of the tree to be fetched. If no area is defined on a dimension, all existing nodes are included.
+         */
+        qArea: IRect;
+
+        /**
+         * When set to true, generated nodes (based on current selection) will be inserted into the returned tree even when
+         * there is no actual value. For example, suppose you are looking for hybrid car sales at all car dealerships.
+         * Normally, only dealerships where hybrid cars are sold would be part of the returned tree but with qAllValues set to true,
+         * all available dealerships will be included regardless if they sold any hybrid cars or not.
+         */
+        qAllValues: boolean;
+    }
+
+    interface INxPageTreeLevel {
+        /**
+         * The first dimension that is to be part of the tree, counted from the left.
+         * For example, if qLeft is equal to 1, omit nodes from the first dimension in the current sort order.
+         */
+        qLeft: number;
+
+        /**
+         * Number of dimensions to include in the tree.
+         */
+        qDepth: number;
+    }
+
+    interface INxTreeNode {
+        /**
+         * The text version of the value, if available.
+         */
+        qText: string;
+
+        /**
+         * Element number
+         */
+        qElemNo: number;
+
+        /**
+         * Row index in the data matrix.
+         * The indexing starts from 0.
+         */
+        qRow: number;
+
+        /**
+         * A generated number applicable to this page only. Used so that children can easily identify who their parents are.
+         */
+        qNodeNr: number;
+
+        /**
+         * The qNodeNr of this node's parent for the current page.
+         */
+        qParentNode: number;
+
+        /**
+         * Type of the cell.
+         */
+        qType: NxTreeNodeType;
+
+        /**
+         * The measures for this node.
+         */
+        qValues: INxTreeValue;
+
+        /**
+         * The children of this node in the tree structure.
+         */
+        qNodes: INxTreeNode;
+
+        /**
+         * Attribute expression values.
+         */
+        qAttrExps?: INxAttributeExpressionValues;
+
+        /**
+         * Attribute dimension values.
+         */
+        qAttrDims?: INxAttributeDimValues;
+    }
+
+    interface INxTreeValue {
+        /**
+         * The text version of the value, if available.
+         */
+        qText: string;
+
+        /**
+         * Value of the cell.
+         * Is set to NaN, if the value is not a number.
+         */
+        qValue: number;
+
+        /**
+         * Attribute expression values.
+         */
+        qAttrExps?: INxAttributeExpressionValues;
+
+        /**
+         * Attribute dimension values.
+         */
+        qAttrDims?: INxAttributeDimValues;
     }
 
     /**
      * This class describes all the methods that apply at generic object level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic object.
      */
-    interface IGenericObject extends IImplementOn {
+    interface IGenericObject extends enigmaJS.IGeneratedAPI {
         /**
          * app describes all the methods that apply at app level.
          */
@@ -4828,9 +5092,9 @@ declare namespace EngineAPI {
          * Note: This method applies to list objects (objects with one dimension).
          * Note: After an abort on a list object search, the GetLayout method does not
          *       return any more search results but it does return the values in the field.
-         * @param {String} qPath - Path to the definition of the list object.
+         * @param qPath - Path to the definition of the list object.
          * For example, /qListObjectDef.
-         * @returns {Promise} -
+         * @returns -
          */
         abortListObjectSearch(qPath: string): Promise<void>;
 
@@ -4839,15 +5103,15 @@ declare namespace EngineAPI {
          *
          * Note: This method applies to list objects (objects with one dimension).
          * Note: The search results are displayed using the GetLayout method.
-         * @param {String} qPath - Path to the definition of the list object.
+         * @param qPath - Path to the definition of the list object.
          * For example, /qListObjectDef.
-         * @param {Boolean} qToggleMode - Set to true to keep any selections present in the list object.
+         * @param qToggleMode - Set to true to keep any selections present in the list object.
          * If this parameter is set to false, selections made before accepting the list object search become alternative.
          * >> This parameter is mandatory.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * This parameter is optional.
-         * @returns {Promise} -
+         * @returns -
          */
         acceptListObjectSearch(qPath: string, qToggleMode: boolean, qSoftLock?: boolean): Promise<void>;
 
@@ -4862,12 +5126,12 @@ declare namespace EngineAPI {
          *
          * Note: Soft properties apply only to generic objects.
          * Check: Applying a patch takes less time than resetting all the properties.
-         * @param {Array} qPatches - Array of patches.
-         * @param {Boolean} qSoftPatch - If set to true, it means that the properties to be applied are not persistent.
+         * @param qPatches - Array of patches.
+         * @param qSoftPatch - If set to true, it means that the properties to be applied are not persistent.
          * The patch is a soft patch.
          * This parameter is optional.
          * Default is false.
-         * @returns {Promise} -
+         * @returns -
          */
         applyPatches(qPatches: INxPatch[], qSoftPatch?: boolean): Promise<void>;
 
@@ -4887,59 +5151,59 @@ declare namespace EngineAPI {
          *
          * A sheet contains a list object and a chart. If the list object is in selection mode then the chart cannot be in selection mode.
          * No selection on the chart can be made until the list object exits the selection mode.
-         * @param {Array} qPaths - List of the paths to the definition of the objects to enter selection mode.
+         * @param qPaths - List of the paths to the definition of the objects to enter selection mode.
          * For example, /qListObjectDef.
-         * @returns {Promise} -
+         * @returns -
          */
         beginSelections(qPaths: string[]): Promise<void>;
 
         /**
          * Clears the selections in a dimension of a visualization.
-         * @param {String} qPath - Path to the definition of the visualization.
+         * @param qPath - Path to the definition of the visualization.
          * For example, /qListObjectDef.
-         * @param {Array} qColIndices - Array of dimension numbers or indexes. The selections are cleared in the specified dimensions.
+         * @param qColIndices - Array of dimension numbers or indexes. The selections are cleared in the specified dimensions.
          * Dimension numbers/indexes start from 0.
          * This parameter is optional. If this parameter is not set, all dimensions are cleared.
-         * @returns {Promise} -
+         * @returns -
          */
         clearSelections(qPath: string, qColIndices?: number[]): Promise<void>;
 
         /**
          * Clears the soft properties of a generic object.
          * For more information on how to add soft properties to a generic object,
-         * @returns {Promise} -
+         * @returns -
          */
         clearSoftPatches(): Promise<void>;
 
         /**
          * Collapses the left dimensions of a pivot table. This method applies only to pivot tables that are not always fully expanded.
          * In the definition of the hypercube (in HyperCubeDef), the parameter qAlwaysFullyExpanded must be set to false.
-         * @param {String} qPath - Path to the definition of the object to be collapsed
+         * @param qPath - Path to the definition of the object to be collapsed
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Integer} qRow - Row index in the data matrix.
+         * @param qRow - Row index in the data matrix.
          * Indexing starts from 0.
-         * @param {Integer} qCol - Column index. The index is based on the left dimension indexes.
+         * @param qCol - Column index. The index is based on the left dimension indexes.
          * Indexing starts from 0.
-         * @param {Boolean} qAll - If set to true, it collapses all cells.
+         * @param qAll - If set to true, it collapses all cells.
          * Parameters qRow and qCol are not used if qAll is set to true, but they need to be set (for example to 0).
-         * @returns {Promise} -
+         * @returns -
          */
         collapseLeft(qPath: string, qRow: number, qCol: number, qAll: boolean): Promise<void>;
 
         /**
          * Collapses the top dimensions of a pivot table. This method applies only to pivot tables that are not always fully expanded.
          * In the definition of the hypercube (in HyperCubeDef), the parameter qAlwaysFullyExpanded must be set to false.
-         * @param {String} qPath - Path to the definition of the object to be collapsed
+         * @param qPath - Path to the definition of the object to be collapsed
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Integer} qRow - Row index in the data matrix.
+         * @param qRow - Row index in the data matrix.
          * Indexing starts from 0.
-         * @param {Integer} qCol - Column index. The index is based on the left dimension indexes.
+         * @param qCol - Column index. The index is based on the left dimension indexes.
          * Indexing starts from 0.
-         * @param {Boolean} qAll - If set to true, it collapses all cells.
+         * @param qAll - If set to true, it collapses all cells.
          * Parameters qRow and qCol are not used if qAll is set to true, but they need to be set (for example to 0).
-         * @returns {Promise} -
+         * @returns -
          */
         collapseTop(qPath: string, qRow: number, qCol: number, qAll: boolean): Promise<void>;
 
@@ -4948,8 +5212,8 @@ declare namespace EngineAPI {
          * The source object is specified by the parameter qFromId and the destination object is referenced by its handle.
          *
          * Note: The identifier of the destination object is the same as before the copy takes place.
-         * @param {GenericObjectProperties} qFromId - Identifier of the object to copy.
-         * @returns {Promise} -
+         * @param qFromId - Identifier of the object to copy.
+         * @returns -
          */
         copyFrom(qFromId: IGenericObjectProperties): Promise<void>;
 
@@ -4962,22 +5226,22 @@ declare namespace EngineAPI {
          *
          * Note: In addition to the parameters specified above, the parameter qProp
          * can get any properties defined in the Generic objects section.
-         * @param {GenericObjectProperties} qProp - Information about the child
+         * @param qProp - Information about the child
          * >> This parameter is mandatory.
          * It is possible to create a child that is linked to another object.
-         * @param {GenericObjectProperties} qPropForThis - This parameter is optional.
+         * @param qPropForThis - This parameter is optional.
          * Identifier of the parent's object.
          * Should be set to update the properties of the parent's object at the same time the child is created.
-         * @returns {Promise} - A Promise of GenericObject
+         * @returns - A Promise of GenericObject
          */
         createChild(qProp: IGenericObjectProperties, qPropForThis?: IGenericObjectProperties): Promise<IGenericObject>;
 
         /**
          * Removes all children and all children to the children on an object.
-         * @param {GenericObjectProperties} qPropForThis - This parameter is optional.
+         * @param qPropForThis - This parameter is optional.
          * Identifier of the parent's object and property to update.
          * Should be set to update the properties of the parent's object at the same time the child is created.
-         * @returns {Promise} -
+         * @returns -
          */
         destroyAllChildren(qPropForThis?: IGenericObjectProperties): Promise<void>;
 
@@ -4988,12 +5252,12 @@ declare namespace EngineAPI {
          *
          * Note: Removing a linked object, invalidate the linking object.
          *
-         * @param {String} qid - Identifier of the child to remove.
+         * @param qid - Identifier of the child to remove.
          * >> This parameter is mandatory.
-         * @param {GenericObjectProperties} qPropForThis - This parameter is optional.
+         * @param qPropForThis - This parameter is optional.
          * Identifier of the parent's object and property to update.
          * Should be set to update the properties of the parent's object at the same time the child is created.
-         * @returns {Promise} - true or false
+         * @returns - true or false
          */
         destroyChild(qid: string, qPropForThis?: IGenericObjectProperties): Promise<boolean>;
 
@@ -5003,14 +5267,14 @@ declare namespace EngineAPI {
          * (from a detailed level to a less detailed level of information).
          * You can go back to previous visualizations up to the highest level of the hierarchy.
          * If you try to drill up more steps than there are available levels, the first level of the hierarchy is displayed.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Integer} qDimNo - Dimension number or index starting from 0
+         * @param qDimNo - Dimension number or index starting from 0
          * The default value is 0.
-         * @param {Integer} qNbrSteps - Number of steps you want to drill up.
+         * @param qNbrSteps - Number of steps you want to drill up.
          * The default value is 0.
-         * @returns {Promise} -
+         * @returns -
          */
         drillUp(qPath: string, qDimNo: number, qNbrSteps: number): Promise<void>;
 
@@ -5020,16 +5284,16 @@ declare namespace EngineAPI {
          * Note: Only one snapshot can be embedded in a generic object.
          * Note: If you embed a snapshot in an object that already contains a snapshot,
          * the new snapshot overwrites the previous one.
-         * @param {String} qId Identifier of the bookmark. >> This parameter is mandatory.
-         * @returns {Promise} -
+         * @param qId Identifier of the bookmark. >> This parameter is mandatory.
+         * @returns -
          */
         embedSnapshotObject(qId: string): Promise<void>;
 
         /**
          * Ends the selection mode on a visualization. The selections are accepted or aborted when exiting the selection mode,
          * depending on the qAccept parameter value.
-         * @param {Boolean} qAccept - Set this parameter to true to accept the selections before exiting the selection mode.
-         * @returns {Promise} -
+         * @param qAccept - Set this parameter to true to accept the selections before exiting the selection mode.
+         * @returns -
          */
         endSelections(qAccept: boolean): Promise<void>;
 
@@ -5037,16 +5301,16 @@ declare namespace EngineAPI {
          * Expands the left dimensions of a pivot table.
          * This method applies only to pivot tables that are not always fully expanded.
          * In the definition of the hypercube (in HyperCubeDef), the parameter qAlwaysFullyExpanded must be set to false.
-         * @param {String} qPath - Path to the definition of the object to be collapsed
+         * @param qPath - Path to the definition of the object to be collapsed
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Integer} qRow - Row index in the data matrix.
+         * @param qRow - Row index in the data matrix.
          * Indexing starts from 0.
-         * @param {Integer} qCol - Column index. The index is based on the left dimension indexes.
+         * @param qCol - Column index. The index is based on the left dimension indexes.
          * Indexing starts from 0.
-         * @param {Boolean} qAll - If set to true, it collapses all cells.
+         * @param qAll - If set to true, it collapses all cells.
          * Parameters qRow and qCol are not used if qAll is set to true, but they need to be set (for example to 0).
-         * @returns {Promise} -
+         * @returns -
          */
         expandLeft(qPath: string, qRow: number, qCol: number, qAll: boolean): Promise<void>;
 
@@ -5054,16 +5318,16 @@ declare namespace EngineAPI {
          * Expands the top dimensions of a pivot table.
          * This method applies only to pivot tables that are not always fully expanded.
          * In the definition of the hypercube (in HyperCubeDef), the parameter qAlwaysFullyExpanded must be set to false.
-         * @param {String} qPath - Path to the definition of the object to be collapsed
+         * @param qPath - Path to the definition of the object to be collapsed
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Integer} qRow - Row index in the data matrix.
+         * @param qRow - Row index in the data matrix.
          * Indexing starts from 0.
-         * @param {Integer} qCol - Column index. The index is based on the left dimension indexes.
+         * @param qCol - Column index. The index is based on the left dimension indexes.
          * Indexing starts from 0.
-         * @param {Boolean} qAll - If set to true, it collapses all cells.
+         * @param qAll - If set to true, it collapses all cells.
          * Parameters qRow and qCol are not used if qAll is set to true, but they need to be set (for example to 0).
-         * @returns {Promise} -
+         * @returns -
          */
         expandTop(qPath: string, qRow: number, qCol: number, qAll: boolean): Promise<void>;
 
@@ -5088,18 +5352,18 @@ declare namespace EngineAPI {
          * If the exported file is larger than the maximum value, then an out of memory error with code 13000 is returned.
          *
          * Note: Exported files are temporary and are available only for a certain time span and only to the user who created them.
-         * @param {FileType} qFileType - Type of the file to export. >> This parameter is mandatory.
-         * @param {String} qPath - Path to the definition of the object to be exported. For example, /qHyperCubeDef.
+         * @param qFileType - Type of the file to export. >> This parameter is mandatory.
+         * @param qPath - Path to the definition of the object to be exported. For example, /qHyperCubeDef.
          * >> This parameter is mandatory if the file type is CSV_C or CSV_T.
-         * @param {String} qFileName - Name of the exported file after download from browser.
+         * @param qFileName - Name of the exported file after download from browser.
          * This parameter is optional and only used in Qlik Sense Desktop.
-         * @param {ExportStateType} qExportState - Defines the values to be exported.
+         * @param qExportState - Defines the values to be exported.
          * This parameter is optional.
          * One of:
          *           P to export only the possible values
          *           A to export all values (default)
          *
-         * @returns {Promise} - A Promise of String qUrl: <url of the exported file> and qWarnings: [1000] only if exported data is truncated
+         * @returns - A Promise of String qUrl: <url of the exported file> and qWarnings: [1000] only if exported data is truncated
          */
         exportData(qFileType: FileType, qPath: string, qFileName?: string, qExportState?: ExportStateType): Promise<string>;
 
@@ -5108,15 +5372,15 @@ declare namespace EngineAPI {
          * If the child contains extra properties in qInfos,these properties are returned.
          *
          * Note: Full dynamic properties are optional and are returned if they exist in the definition of the object.
-         * @returns {Promise} - A Promise Array of NxInfo
+         * @returns - A Promise Array of NxInfo
          */
         getChildInfos(): Promise<INxInfo[]>;
 
         /**
          * Returns the type of the object and the corresponding handle.
-         * @param {String} qId - Identifier of the object.
+         * @param qId - Identifier of the object.
          * >> This parameter is mandatory.
-         * @returns {Promise} - A Promise of GenericObject
+         * @returns - A Promise of GenericObject
          */
         getChild(qId: string): Promise<IGenericObject>;
 
@@ -5124,7 +5388,7 @@ declare namespace EngineAPI {
          * Returns the identifier, the type and the properties of the object.
          * If the object contains some soft properties, the soft properties are returned.
          * If the object is linked to another object, the properties of the linking object are returned.
-         * @returns {Promise} - A Promise of GenericObjectProperties
+         * @returns - A Promise of GenericObjectProperties
          */
         getEffectiveProperties(): Promise<IGenericObjectProperties>;
 
@@ -5133,7 +5397,7 @@ declare namespace EngineAPI {
          *       - a generic object
          *       - the children of the generic object
          *       - the bookmarks/embedded snapshots of the generic object
-         * @returns {Promise} - A Promise  GenericObjectEntry
+         * @returns - A Promise  GenericObjectEntry
          */
         getFullPropertyTree(): Promise<IGenericObjectEntry>;
 
@@ -5151,33 +5415,33 @@ declare namespace EngineAPI {
          * Note: The generic object should contain two or three measures and one dimension.
          * When the refinement is high, the first two measures are represented on the x-axis and on the y-axis,
          * while the third measure is visualized as color or point size.
-         * @param {String} qPath - Path to the definition of the object.
+         * @param qPath - Path to the definition of the object.
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Array} qPages - Array of pages to retrieve.
+         * @param qPages - Array of pages to retrieve.
          * Since the generic object contains two measures and one dimension, qWidth should be set to 3.
          * If the value of a measure is Null, the value cannot be rendered. Therefore, the number of
          * elements rendered in a page can be less than the number defined in the property qHeight.
          * >> This parameter is mandatory.
-         * @param {NxViewPort} qViewport - Defines the canvas and the zoom level.
+         * @param qViewport - Defines the canvas and the zoom level.
          * This parameter is not yet used and is optional.
-         * @param {Array} qDataRanges - Range of the data to render.
+         * @param qDataRanges - Range of the data to render.
          * This range applies to the measure values.
          * The lowest and highest values of a measure can be retrieved
          * by using the GetLayout method ( in /qHyperCube/qMeasureInfo).
          * >> This parameter is mandatory.
-         * @param {Integer} qMaxNbrCells - Maximum number of cells in the grid.
+         * @param qMaxNbrCells - Maximum number of cells in the grid.
          * >> This parameter is mandatory.
-         * @param {Integer} qQueryLevel - Level of details. The higher the level, the more detailed information you get (zoom-in).
+         * @param qQueryLevel - Level of details. The higher the level, the more detailed information you get (zoom-in).
          * When the number of points to render falls below a certain threshold,
          * the values are no longer rendered as cells but as points.
          * The query level should be no greater than 20.
          * This parameter is optional.
-         * @param {Integer} qBinningMethod - Selects the algorithm.
+         * @param qBinningMethod - Selects the algorithm.
          * The default value is 0.
          * One of:
          *           0: Adaptive grid
-         * @returns {Promise} - A Promise Array of NxDataPage
+         * @returns - A Promise Array of NxDataPage
          */
         getHyperCubeBinnedData(qPath: string, qPages: INxPage[], qViewport: INxViewPort, qDataRanges: INxDataAreaPage,
                                qMaxNbrCells: number, qQueryLevel: number, qBinningMethod: number): Promise<INxDataPage[]>;
@@ -5187,35 +5451,35 @@ declare namespace EngineAPI {
          *
          * Note: Binning is done on the time stamp data as well as the date.
          * This means that you can zoom in to a level of granularity as low as seconds.
-         * @param {String} qPath - Path to the definition of the object.
+         * @param qPath - Path to the definition of the object.
          * For example, /qHyperCubeDef. >> This parameter is mandatory.
-         * @param {Array} qOptions - Array of (NxContinuousDataOptions)
+         * @param qOptions - Array of (NxContinuousDataOptions)
          * Options.NbrPoints is number of bins for binning.
          * Options.MaxNbrTicks - maximum number of ticks.
-         * @returns {Promise} - A Promise <Boolean> or <Array of NxDataPage> or <Array of NxAxisData>
+         * @returns - A Promise <Boolean> or <Array of NxDataPage> or <Array of NxAxisData>
          */
         getHyperCubeContinuousData(qPath: string, qOptions: IContinuousDataOptions[]): Promise<boolean> | Promise<INxDataPage[]> | Promise<INxAxisData[]>;
 
         /**
          * Retrieves the values of a chart, a table, or a scatter plot. It is possible to retrieve specific pages of data.
          * Note: This method does not apply to stacked tables.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Array} qPages - <Array of NxPage> to retrieve.
+         * @param qPages - <Array of NxPage> to retrieve.
          * >> This parameter is mandatory.
-         * @returns {Promise} - A data set Array of NxDataPage
+         * @returns - A data set Array of NxDataPage
          */
         getHyperCubeData(qPath: string, qPages: INxPage[]): Promise<INxDataPage[]>;
 
         /**
          * Retrieves the values of a pivot table. It is possible to retrieve specific pages of data.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Array} qPages - Array of pages to retrieve
+         * @param qPages - Array of pages to retrieve
          * >> This parameter is mandatory.
-         * @returns {Promise} - A data set Array of NxPivotPage
+         * @returns - A data set Array of NxPivotPage
          */
         getHyperCubePivotData(qPath: string, qPages: INxPage[]): Promise<INxPivotPage[]>;
 
@@ -5249,40 +5513,49 @@ declare namespace EngineAPI {
          *
          * Example:
          * If you have a scatter plot chart and the zoom factor is set to 2, the scatter plot chart resolution is reduced by 4.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qHyperCubeDef.
-         * @param {Array} Pages - Array of NxPage.
-         * @param {Integer} qZoomFactor - Defines the zoom factor.
+         * @param Pages - Array of NxPage.
+         * @param qZoomFactor - Defines the zoom factor.
          * If set to -1, the engine decides of the zoom factor.
          * If the reduction mode is D1 or S, the zoom factor is 2n.
          * If the zoom factor is 5, the data are reduced by a factor 32.
          * If the reduction mode is C, the zoom factor defines the number of centroids.
-         * @param {String} qReductionMode - Defines the reduction mode.
+         * @param qReductionMode - Defines the reduction mode.
          * One of:
          *       - N for no data reduction.
          *       - D1 to reduce a bar chart or line chart. The profile of the chart is reduced whatever the number of dimensions in the chart.
          *       - S to reduce the resolution of a scatter plot.
          *       - C to reduce the data of a scatter plot chart.
          *       - ST to reduce the data of a stacked pivot table.
-         * @returns {Promise} - A data set Array of NxDataPage.
+         * @returns - A data set Array of NxDataPage.
          */
         getHyperCubeReducedData(qPath: string, qPages: INxPage[], qZoomFactor: number, qReductionMode: ReductionModeType): Promise<INxDataPage[]>;
 
         /**
          * Retrieves the values of a stacked pivot table. It is possible to retrieve specific pages of data.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qHyperCubeDef.
-         * @param {Array} Pages - Array of pages to retrieve.
+         * @param Pages - Array of pages to retrieve.
          * >> This parameter is mandatory.
-         * @param {Integer} qMaxNbrCells - Maximum number of cells at outer level.
+         * @param qMaxNbrCells - Maximum number of cells at outer level.
          * >> This parameter is optional. The default value is 10 000.
-         * @returns {Promise} - A data set Array of NxStackPage.
+         * @returns - A data set Array of NxStackPage.
          */
         getHyperCubeStackData(qPath: string, qPages: INxPage[], qMaxNbrCells?: number): Promise<INxStackPage[]>;
 
         /**
+         * Retrieves the values of a stacked pivot table. It is possible to retrieve specific pages of data.
+         * @param qPath - Path to the definition of the object to be selected.
+         * For example, /qHyperCubeDef.
+         * @param qNodeOptions - Specifies all the paging filters needed to define the tree to be fetched.
+         * @returns - A data set Array of NxTreeNode.
+         */
+        getHyperCubeTreeData(qPath: string, qNodeOptions: INxTreeDataOption[]): Promise<INxTreeNode>;
+
+        /**
          * Returns the type and identifier of the object.
-         * @returns {Promise} - A Promise of NxInfo.
+         * @returns - A Promise of NxInfo.
          */
         getInfo(): Promise<INxInfo>;
 
@@ -5294,33 +5567,33 @@ declare namespace EngineAPI {
          * Note: In addition to the parameters displayed above, the GetLayout method can return other properties according
          * to what is defined in the generic object. For example, if qHyperCubeDef is defined in the generic object,
          * the GetLayout method returns the properties described in HyperCube.
-         * @returns {Promise} - A Promise of GenericBaseLayout.
+         * @returns - A Promise of GenericBaseLayout.
          */
         getLayout(): Promise<IGenericBaseLayout>;
 
         /**
          * Lists the linked objects to a generic object, a dimension or a measure.
-         * @returns {Array} - Array of NxLinkedObjectInfo
+         * @returns - Array of NxLinkedObjectInfo
          */
         getLinkedObjects(): Promise<INxLinkedObjectInfo[]>;
 
         /**
          * GetListObjectContinuousData method
-         * @param {String} qPath - Path to the definition of the object.
+         * @param qPath - Path to the definition of the object.
          * For example, /qHyperCubeDef.
          * This parameter is mandatory.
-         * @param {Array} qOptions - Options.NbrPoints is number of bins for binning.
+         * @param qOptions - Options.NbrPoints is number of bins for binning.
          * - Options.MaxNbrTicks - maximum number of ticks.
-         * @returns {Promise} - A data set Array of (NxDataPage) or (NxAxisData)
+         * @returns - A data set Array of (NxDataPage) or (NxAxisData)
          */
         getListObjectContinuousData(qPath: string, qOptions: IContinuousDataOptions): Promise<INxDataPage[]> | Promise<INxAxisData[]>;
 
         /**
          * Retrieves the values of a list object.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qListObjectDef.
-         * @param {Array} qPages -Array of pages you are interested in.
-         * @returns {Promise} - Array of NxDataPage
+         * @param qPages -Array of pages you are interested in.
+         * @returns - Array of NxDataPage
          */
         getListObjectData(qPath: string, qPages: INxPage[]): Promise<INxDataPage[]>;
 
@@ -5334,21 +5607,21 @@ declare namespace EngineAPI {
          * by the GetProperties method. Use the GetEffectiveProperties method instead.
          *
          * Note: If the member delta is set to true in the request object, only the delta is retrieved.
-         * @returns {Promise} - A Promise of GenericObjectProperties
+         * @returns - A Promise of GenericObjectProperties
          */
         getProperties(): Promise<IGenericObjectProperties>;
 
         /**
          * Returns the type of the object and the corresponding handle.
-         * @returns {Promise} - A Promise of GenericBookmark
+         * @returns - A Promise of GenericBookmark
          */
         getSnapshotObject(): Promise<IGenericBookmark>;
 
         /**
          * Locks the selected values of a generic object.
-         * @param {String} qPath - Path to the definition of the object.
+         * @param qPath - Path to the definition of the object.
          * For example, /qListObjectDef.
-         * @param {Array} qColIndices - Dimension numbers or dimension indexes where the lock should apply.
+         * @param qColIndices - Dimension numbers or dimension indexes where the lock should apply.
          * Dimension numbers/indexes start from 0.
          * This parameter is optional. If this parameter is not set, the selected values in all dimensions are locked.
          */
@@ -5365,50 +5638,50 @@ declare namespace EngineAPI {
          * Make range selections in measures.
          *
          * Note: This method applies to hypercubes. For example, bar charts, tables and scatter plots.
-         * @param {String} qPath - Path to the definition of the object.
+         * @param qPath - Path to the definition of the object.
          * For example, /qListObjectDef.
          * >> This parameter is mandatory.
-         * @param {Array} qRanges - Ranges of selection.
+         * @param qRanges - Ranges of selection.
          * >>This parameter is mandatory.
-         * @param {Array} qColumnsToSelect - Indicates which dimensions to select.
+         * @param qColumnsToSelect - Indicates which dimensions to select.
          * The dimensions numbering starts at 0 (first dimension is 0).
          * If the array is empty, all dimensions are selected.
          * >> This parameter is optional.
-         * @param {Boolean} qOrMode - Applies to hypercubes with multiple measures.
+         * @param qOrMode - Applies to hypercubes with multiple measures.
          * If set to true, it means that at least one of the measures must be in the range of
          * selections for the group of measures to be selected.
          * If set to false, it means that all measures must be in the range of
          * selections for the group of measures to be selected.
          * This parameter is optional. The default value is false.
-         * @param {Boolean} qDeselectOnlyOneSelected - Set this parameter to true to unselect the last
+         * @param qDeselectOnlyOneSelected - Set this parameter to true to unselect the last
          * single selected value. There must be only one selected value in the field.
          * >> The default value is false.
-         * @returns {Promise} - true or false
+         * @returns - true or false
          */
         multiRangeSelectHyperCubeValues(qPath: string, qRanges: INxMultiRangeSelectInfo, qDeselectOnlyOneSelected: boolean, qColumnsToSelect?: number[], qOrMode?: boolean): Promise<boolean>;
 
         /**
          * Make range selections in measures.
          * Note: This method applies to hypercubes. For example, bar charts, tables and scatter plots.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Array} qRanges - Ranges of selection.
+         * @param qRanges - Ranges of selection.
          * >>This parameter is mandatory.
-         * @param {Boolean} qDeselectOnlyOneSelected - Set this parameter to true to unselect the last
+         * @param qDeselectOnlyOneSelected - Set this parameter to true to unselect the last
          * single selected value. There must be only one selected value in the field.
          * >> The default value is false.
-         * @param {Array} qColumnsToSelect - Indicates which dimensions to select.
+         * @param qColumnsToSelect - Indicates which dimensions to select.
          * The dimensions numbering starts at 0 (first dimension is 0).
          * If the array is empty, all dimensions are selected.
          * >> This parameter is optional.
-         * @param {Boolean} qOrMode - Applies to hypercubes with multiple measures.
+         * @param qOrMode - Applies to hypercubes with multiple measures.
          * If set to true, it means that at least one of the measures must be in the range of
          * selections for the group of measures to be selected.
          * If set to false, it means that all measures must be in the range of
          * selections for the group of measures to be selected.
          * This parameter is optional. The default value is false.
-         * @returns {Promise} - true or false
+         * @returns - true or false
          */
         rangeSelectHyperCubeValues(qPath: string, qRanges: INxRangeSelectInfo[], qDeselectOnlyOneSelected: boolean, qColumnsToSelect?: number[], qOrMode?: boolean): Promise<boolean>;
 
@@ -5422,14 +5695,14 @@ declare namespace EngineAPI {
          *
          * Note: This method applies to list objects (objects with one dimension).
          * Note: The search results can be displayed using the GetLayout method.
-         * @param {String} qPath - Path to the definition of the list object.
+         * @param qPath - Path to the definition of the list object.
          * For example, /qListObjectDef.
-         * @param {String} qMatch - Search string.
+         * @param qMatch - Search string.
          * Wild card characters are allowed. The search is not case sensitive.
          * Examples:
          *        P*U*: retrieves only values that start with P and contain U
          *        P U S: retrieves values that start with P, U or S
-         * @returns {Promise} - The operation is successful if qSuccess is set to true.
+         * @returns - The operation is successful if qSuccess is set to true.
          */
         searchListObjectFor(qPath: string, qMatch: string): Promise<boolean>;
 
@@ -5437,13 +5710,13 @@ declare namespace EngineAPI {
          * Makes selections in multiple dimensions and measures.
          *
          * Note: This method applies to hypercubes, such as bar charts, tables and scatter plots.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qHyperCubeDef.
          * This parameter is mandatory.
-         * @param {Array} qRowIndices - Array of row indexes to select, starting from 0.
+         * @param qRowIndices - Array of row indexes to select, starting from 0.
          * If the array is empty [ ], all rows are selected.
          * >> This parameter is mandatory.
-         * @param {Array} qColIndices - Indexes of the columns to select, starting from 0.
+         * @param qColIndices - Indexes of the columns to select, starting from 0.
          * A column corresponds to a dimension or a measure depending on the definition of the hypercube.
          * Example:
          *   If the hypercube has two dimensions and one measure:
@@ -5452,26 +5725,26 @@ declare namespace EngineAPI {
          *        [2] selects the third column (i.e the measure)
          *    If the array is empty [ ], all columns are selected.
          * >>This parameter is mandatory.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * >> This parameter is mandatory.
-         * @param {Boolean} qDeselectOnlyOneSelected - Set this parameter to true to unselect the last single selected value.
+         * @param qDeselectOnlyOneSelected - Set this parameter to true to unselect the last single selected value.
          * There must be only one selected value in the field.
          * The default value is false.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectHyperCubeCells(qPath: string, qRowIndices: number[], qColIndices: number[], qSoftLock: boolean, qDeselectOnlyOneSelected: boolean): Promise<boolean>;
 
         /**
          * SelectHyperCubeContinuousRange method
-         * @param {String} qPath - Path to the definition of the object.
+         * @param qPath - Path to the definition of the object.
          * For example, /qHyperCubeDef.
          * >>This parameter is mandatory.
-         * @param {Array} qRanges - Selects ranges in a hypercube in (Ranges[N].Min,Ranges[N].Max) intervals.
+         * @param qRanges - Selects ranges in a hypercube in (Ranges[N].Min,Ranges[N].Max) intervals.
          * If either Ranges[N].MinInclEq or Ranges[N].MaxInclEq, or both flags are set to true
          * then Min and Max values will be selected.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * >> This parameter is mandatory.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectHyperCubeContinuousRange(qPath: string, qRanges: INxContinuousRangeSelectInfo[], qSoftLock: boolean): Promise<boolean>;
 
@@ -5480,18 +5753,18 @@ declare namespace EngineAPI {
          * The values are identified by their element numbers.
          *
          * Note: This method applies to charts, tables and scatter plots.
-         * @param {String} qPath - Path to the definition of the object.
+         * @param qPath - Path to the definition of the object.
          * For example, /qHyperCubeDef.
          * >>This parameter is mandatory.
-         * @param {Integer} qDimNo - Dimension number or index to select.
+         * @param qDimNo - Dimension number or index to select.
          * Dimension numbers/index start from 0.
          * >> This parameter is mandatory.
-         * @param {Array} qValues - Element numbers of the field to select.
+         * @param qValues - Element numbers of the field to select.
          * You can select multiple elements; the separator is the comma.
          * >> This parameter is mandatory.
-         * @param {Boolean} qToggleMode - Set to true to toggle.
+         * @param qToggleMode - Set to true to toggle.
          * >> This parameter is mandatory.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectHyperCubeValues(qPath: string, qDimNo: number, qValues: number[], qToggleMode: boolean): Promise<boolean>;
 
@@ -5499,13 +5772,13 @@ declare namespace EngineAPI {
          * Selects all values of a field.
          *
          * Note: This method applies to list objects (objects with one dimension).
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qListObjectDef.
          * >> This parameter is mandatory.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * >> This parameter is optional.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectListObjectAll(qPath: string, qSoftLock?: boolean): Promise<boolean>;
 
@@ -5513,27 +5786,27 @@ declare namespace EngineAPI {
          * Selects all values of a field.
          *
          * Note: This method applies to list objects (objects with one dimension).
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qListObjectDef.
          * >> This parameter is mandatory.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * >> This parameter is optional.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectListObjectAlternative(qPath: string, qSoftLock?: boolean): Promise<boolean>;
 
         /**
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qListObjectDef.
          * >> This parameter is mandatory.
-         * @param {Array} qRanges -Selects ranges in a hypercube in (Ranges[N].Min,Ranges[N].Max) intervals.
+         * @param qRanges -Selects ranges in a hypercube in (Ranges[N].Min,Ranges[N].Max) intervals.
          * If either Ranges[N].MinInclEq or Ranges[N].MaxInclEq, or both flags are set to true
          * then Min and Max values will be selected.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * >> This parameter is optional.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectListObjectContinuousRange(qPath: string, qRanges: Range[], qSoftLock?: boolean): Promise<boolean>;
 
@@ -5541,13 +5814,13 @@ declare namespace EngineAPI {
          * Inverts the current selections in a specific field.
          *
          * Note: This method applies to list objects (objects with one dimension).
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qListObjectDef.
          * >> This parameter is mandatory.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * >> This parameter is optional.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectListObjectExcluded(qPath: string, qSoftLock?: boolean): Promise<boolean>;
 
@@ -5555,13 +5828,13 @@ declare namespace EngineAPI {
          * Selects all possible values of a list object.
          *
          * Note: This method applies to list objects (objects with one dimension).
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qListObjectDef.
          * >> This parameter is mandatory.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * >> This parameter is optional.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectListObjectPossible(qPath: string, qSoftLock?: boolean): Promise<boolean>;
 
@@ -5569,18 +5842,18 @@ declare namespace EngineAPI {
          * Makes single selections in dimensions.
          *
          * Note: This method applies to list objects only.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qListObjectDef.
          * >> This parameter is mandatory.
-         * @param {Array} qValues - Element numbers to select.
+         * @param qValues - Element numbers to select.
          * You can select multiple values; the separator is the comma.
          * >> This parameter is mandatory.
-         * @param {Boolean} qToggleMode - Set to true to toggle.
+         * @param qToggleMode - Set to true to toggle.
          * >> This parameter is mandatory.
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * >> This parameter is optional.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectListObjectValues(qPath: string, qValues: number[], qToggleMode: boolean, qSoftLock?: boolean): Promise<boolean>;
 
@@ -5596,17 +5869,17 @@ declare namespace EngineAPI {
          * Makes selections in the left dimension cells of a stacked table or in the data matrix.
          *
          * Note: There is no top dimensions in a stacked table. A stacked table can only contain one measure.
-         * @param {String} qPath - Path to the definition of the object to be selected.
+         * @param qPath - Path to the definition of the object to be selected.
          * For example, /qHyperCubeDef.
          * >> This parameter is mandatory.
-         * @param {Array} qSelections - Information about the selections to perform
-         * @param {Boolean} qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
+         * @param qSelections - Information about the selections to perform
+         * @param qSoftLock - Set to true to ignore locks; in that case, locked fields can be selected.
          * The default value is false.
          * >> This parameter is optional.
-         * @param {Boolean} qDeselectOnlyOneSelected - Set this parameter to true to unselect the last single selected value.
+         * @param qDeselectOnlyOneSelected - Set this parameter to true to unselect the last single selected value.
          * There must be only one selected value in the field.
          * The default value is false.
-         * @returns {Promise} - true or false.
+         * @returns - true or false.
          */
         selectPivotCells(qPath: string, qSelections: INxSelectionCell[], qDeselectOnlyOneSelected: boolean, qSoftLock?: boolean): Promise<boolean>;
 
@@ -5615,7 +5888,7 @@ declare namespace EngineAPI {
          *
          * Note: To change the order of the children in a generic object, the identifiers of all the children
          * must be included in the list of the identifiers (in qIds).
-         * @returns {Promise} -
+         * @returns -
          */
         setChildArrayOrder(qIds: string[]): Promise<void>;
 
@@ -5642,9 +5915,9 @@ declare namespace EngineAPI {
 
         /**
          * Unlocks the selected values of a generic object if the target (or handle ) is a generic object
-         * @param {String} qPath - Path to the definition of the object.
+         * @param qPath - Path to the definition of the object.
          * For example, /qListObjectDef.
-         * @param {Array} qColIndices - Dimension numbers/indexes where the unlock should apply.
+         * @param qColIndices - Dimension numbers/indexes where the unlock should apply.
          * Dimension numbers/indexes start from 0.
          * This parameter is optional. If this parameter is not set, the locked values in all dimensions are unlocked.
          */
@@ -5720,51 +5993,94 @@ declare namespace EngineAPI {
         qActiveExpression: number;
     }
 
+    interface IGenericDerivedFieldProperties extends IGenericProperties {
+    }
+
+    interface IGenericDerivedFields extends enigmaJS.IGeneratedAPI {
+        /**
+         * Shows the properties of an object.
+         * Returns the identifier and the definition of the derived field.
+         *
+         * @returns - A Promise IGenericDerivedFieldProperties
+         */
+        getProperties(): Promise<IGenericDerivedFieldProperties>;
+
+        /**
+         * @returns qInfo
+         */
+        getInfo(): Promise<any>;
+
+        /**
+         * @returns qData
+         */
+        getDerivedFieldData(): Promise<any>;
+
+        /**
+         * @returns qField
+         */
+        getDerivedField(qId: string): Promise<any>;
+
+        /**
+         * @returns qListData
+         */
+        getListData(): Promise<any>;
+
+        /**
+         * @returns qFields
+         */
+        getDerivedFields(): Promise<any>;
+
+        /**
+         * @returns qGroups
+         */
+        getDerivedGroups(): Promise<any>;
+    }
+
     /**
      * This class describes all the methods that apply at measure level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the measure.
      */
-    interface IGenericMeasure extends IImplementOn {
+    interface IGenericMeasure extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of an object. Allows an update to some of the properties.
          *
          * Note: Applying a patch takes less time than resetting all the properties.
-         * @param {Array} qPatches - Array of patches.
-         * @returns {Promise} -
+         * @param qPatches - Array of patches.
+         * @returns -
          */
         applyPatches(qPatches: INxPatch[]): Promise<void>;
 
         /**
          * Returns the type and identifier of the object.
-         * @returns {Promise} - A Promise of NxInfo
+         * @returns - A Promise of NxInfo
          */
         getInfo(): Promise<INxInfo>;
 
         /**
          * Evaluates a measure and displays its properties, including the dynamic properties.
-         * @returns {Promise} - A Promise of GenericMeasureLayout
+         * @returns - A Promise of GenericMeasureLayout
          */
         getLayout(): Promise<IGenericMeasureLayout>;
 
         /**
          * Lists the linked objects to a generic object, a dimension or a measure.
-         * @returns {Promise} - Array of NxLinkedObjectInfo
+         * @returns - Array of NxLinkedObjectInfo
          */
         getLinkedObjects(): Promise<INxLinkedObjectInfo>;
 
         /**
          * Returns the definition of a measure
-         * @returns {Promise} - Information about the measure.
+         * @returns - Information about the measure.
          * >> This parameter is mandatory.
          */
-        getMeasure(): Promise<INxLibraryMeasureDef>;
+        getMeasure(): Promise<IGenericMeasureProperties>;
 
         /**
          * Shows the properties of an object.
          * Returns the identifier and the definition of the measure.
          *
          * Note: If the member delta is set to true in the request object, only the delta is retrieved.
-         * @returns {Promise} - A Promise GenericMeasureProperties
+         * @returns - A Promise GenericMeasureProperties
          * >> This parameter is mandatory.
          */
         getProperties(): Promise<IGenericMeasureProperties>;
@@ -5776,9 +6092,9 @@ declare namespace EngineAPI {
 
         /**
          * Sets some properties for a measure.
-         * @param {Array} qProp - Information about the measure.
+         * @param qProp - Information about the measure.
          * This parameter is mandatory.
-         * @returns {Promise} - A Promise of GenericMeasureProperties
+         * @returns - A Promise of GenericMeasureProperties
          */
         setProperties(qProp: IGenericMeasureProperties): Promise<void>;
 
@@ -5792,12 +6108,12 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at generic variable level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic variable.
      */
-    interface IGenericVariable extends IImplementOn {
+    interface IGenericVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of a variable. Allows an update to some of the properties.
          *
          * Note: Applying a patch takes less time than resetting all the properties.
-         * @param {Array} qPatches - Array of NxPatch
+         * @param qPatches - Array of NxPatch
          */
         applyPatches(qPatches: INxPatch[]): Promise<void>;
 
@@ -5809,7 +6125,7 @@ declare namespace EngineAPI {
         /**
          * Evaluates an object and displays its properties including the dynamic properties.
          * If the member delta is set to true in the request object, only the delta is evaluated.
-         * @returns {Promise} GenericVariableLayout Information on the object
+         * @returns GenericVariableLayout Information on the object
          */
         getLayout(): Promise<IGenericVariableLayout>;
 
@@ -5817,7 +6133,7 @@ declare namespace EngineAPI {
          * Shows the properties of an object.
          *
          * Note: If the member delta is set to true in the request, only the delta is retrieved.
-         * @returns {Promise} GenericVariableProperties Information about the generic object
+         * @returns GenericVariableProperties Information about the generic object
          */
         getProperties(): Promise<IGenericVariableProperties>;
 
@@ -5825,10 +6141,10 @@ declare namespace EngineAPI {
          * Sets the value of a dual variable.
          *
          * Note: These changes are not persistent. They only last the duration of the engine session.
-         * @param {String} qText - String representation of a dual value. Set this parameter to "",
+         * @param qText - String representation of a dual value. Set this parameter to "",
          * if the string representation is to be Null.
          * >> This parameter is mandatory.
-         * @param {Double} qNum - Numeric representation of a dual value.
+         * @param qNum - Numeric representation of a dual value.
          * >> This parameter is mandatory.
          */
         setDualValue(qText: string, qNum: number): Promise<void>;
@@ -5837,7 +6153,7 @@ declare namespace EngineAPI {
          * Sets a numerical value to a variable.
          *
          * Note: These changes are not persistent. They only last the duration of the engine session.
-         * @param {Double} qVal - Value of the variable.
+         * @param qVal - Value of the variable.
          */
         setNumValue(qVal: number): Promise<void>;
 
@@ -5846,7 +6162,7 @@ declare namespace EngineAPI {
          *
          * Note: The identifier of a variable cannot be modified.
          * You cannot update the properties of a script-defined variable using the SetProperties method.
-         * @param {GenericVariableProperties} - Information about the variable.
+         * @param - Information about the variable.
          * >> This parameter is mandatory.
          */
         setProperties(qProp: IGenericVariableProperties): Promise<void>;
@@ -5854,7 +6170,7 @@ declare namespace EngineAPI {
         /**
          * Sets a string value to a variable.
          * Note: These changes are not persistent. They only last the duration of the engine session.
-         * @param {String} qVal - Value of the variable. The string can contain an expression.
+         * @param qVal - Value of the variable. The string can contain an expression.
          */
         setStringValue(qVal: string): Promise<void>;
     }
@@ -5915,16 +6231,16 @@ declare namespace EngineAPI {
      *
      * The handle member in the JSON request for all methods listed in this section is the handle of the variable.
      */
-    interface IVariable extends IImplementOn {
+    interface IVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Sets the value of a dual variable overriding any input constraints.
          *
          * Note: This method is deprecated (not recommended to use). Use SetProperties method instead.
          * Note: The ForceContent method does not evaluate any expression.
-         * @param {String} qs - String representation of a dual value.
+         * @param qs - String representation of a dual value.
          * Set this parameter to "", if the string representation is to be Null.
          * >> This parameter is mandatory.
-         * @param {Double} qd - Numeric representation of a dual value.
+         * @param qd - Numeric representation of a dual value.
          * >> This parameter is mandatory.
          */
         forceContent(qs: string, qd: number): Promise<void>;
@@ -5948,15 +6264,15 @@ declare namespace EngineAPI {
          *
          * Note: This method is deprecated (not recommended to use). Use GetProperties method instead.
          */
-        getRawContent(): string;
+        getRawContent(): Promise<string>;
 
         /**
          * Sets a value to a variable.
          *
          * Note: This method is deprecated (not recommended to use). Use SetProperties method instead.
-         * @param {String} qContent - Value of the variable.
+         * @param qContent - Value of the variable.
          * >> This parameter is mandatory.
-         * @param {Boolean} qUpdateMRU - If set to true, the value is added to the Most Recently Used (MRU) list.
+         * @param qUpdateMRU - If set to true, the value is added to the Most Recently Used (MRU) list.
          * >> This parameter is mandatory.
          */
         setContent(qContent: string, qUpdateMRU: boolean): Promise<boolean>;
@@ -5967,7 +6283,7 @@ declare namespace EngineAPI {
          * Note: This method is deprecated (not recommended to use). Use SetProperties method instead.
          *
          * In addition to the properties described below, dynamic properties can be added.
-         * @param {NxVariableProperties} qProperties - Information about the properties of the variable
+         * @param qProperties - Information about the properties of the variable
          */
         setNxProperties(qProperties: INxVariableProperties): Promise<void>;
     }
@@ -6549,11 +6865,54 @@ declare namespace EngineAPI {
         qSignature: string;
     }
 
+    interface IQDownloadInfo {
+        /**
+         * URL of the generated QVF
+         */
+        qUrl: string;
+
+        /**
+         * FileSize of the generated QVF
+         */
+        qFileSize: number;
+    }
+
+    interface IQVersion {
+        qVersion: {
+            qComponentVersion: string;
+        };
+    }
+
+    interface IQConfig {
+        qFeatures: {
+            qIsDesktop: boolean;
+            qSSOEnabled: boolean;
+        };
+
+        qServices: Array<{
+            /**
+             * Name of the Service
+             */
+            qName: string;
+            /**
+             * URL of the Service
+             */
+            qUrl: string;
+        }>;
+
+        qSystemProperties: {
+            /**
+             * Path Separator for the OS
+             */
+            qPathSeparator: string;
+        };
+    }
+
     /**
      * This class describes all the methods that apply at global level.
      * The handle member in the JSON request for all methods listed in this section is -1.
      */
-    interface IGlobal {
+    interface IGlobal extends enigmaJS.IGeneratedAPI {
         /**
          * Sets an abort flag on all pending and ongoing requests in the current engine session.
          * If an abort flag is set on a pending request, the request is aborted.
@@ -6562,7 +6921,13 @@ declare namespace EngineAPI {
         abortAll(): Promise<void>;
 
         /**
-         *
+         * Aborts a specific request
+         * @param qRequestId - Identifier of the request to stop.
+         */
+        abortRequest(qRequestId: number): Promise<void>;
+
+        /**
+         * no / empty docu
          */
         allowCreateApp(): Promise<boolean>;
 
@@ -6574,7 +6939,7 @@ declare namespace EngineAPI {
         /**
          * Cancels an ongoing reload. The reload of the app is stopped.
          * The indexation can be canceled and true is still the return value of the reload task.
-         * @param {Integer} qRequestId - Identifier of the request to stop.
+         * @param qRequestId - Identifier of the request to stop.
          */
         cancelRequest(qRequestId: number): Promise<void>;
 
@@ -6582,12 +6947,12 @@ declare namespace EngineAPI {
          * Configures the engine's behavior during a reload.
          *
          * Note: The ConfigureReload method should be run before the DoReload method.
-         * @param {Boolean} qCancelOnScriptError - If set to true, the script execution is halted on error.
+         * @param qCancelOnScriptError - If set to true, the script execution is halted on error.
          * Otherwise, the engine continues the script execution.
          * This parameter is relevant only if the variable ErrorMode is set to 1.
-         * @param {Boolean} qUseErrorData - If set to true, any script execution error
+         * @param qUseErrorData - If set to true, any script execution error
          * is returned in qErrorData by the GetProgress method.
-         * @param {Boolean} qInteractOnError - If set to true, the script execution is halted on error and
+         * @param qInteractOnError - If set to true, the script execution is halted on error and
          * the engine is waiting for an interaction to be performed. If the result from the interaction
          * is 1 (qDef.qResult is 1), the engine continues the script execution otherwise the execution is halted.
          *
@@ -6601,12 +6966,12 @@ declare namespace EngineAPI {
          * The engine copies the app into an app entity that was previously created by the repository. See the QRS API (REST API) help for more information.
          *
          * Note: This operation is possible only in Qlik Sense Enterprise.
-         * @param {String} qTargetAppId - Identifier (GUID) of the app entity in the Qlik Sense repository.
+         * @param qTargetAppId - Identifier (GUID) of the app entity in the Qlik Sense repository.
          * The app entity must have been previously created by the repository (via the REST API).
          * >> This parameter is mandatory.
-         * @param {String} qSrcAppId - Identifier (GUID) of the source app in the Qlik Sense repository.
+         * @param qSrcAppId - Identifier (GUID) of the source app in the Qlik Sense repository.
          * >> This parameter is mandatory.
-         * @param {Array} qIds - Array of QRS identifiers.
+         * @param qIds - Array of QRS identifiers.
          * The list of all the objects in the app to be copied must be given. This list must contain the GUIDs of all these objects.
          * If the list of the QRS identifiers is empty, the CopyApp method copies all objects to the target app.
          * Script-defined variables are automatically copied when copying an app. To be able to copy variables not created via script,
@@ -6616,16 +6981,16 @@ declare namespace EngineAPI {
          * The following example returns the QRS identifiers of all the objects in a specified app:
          * GET /qrs/app/9c3f8634-6191-4a34-a114-a39102058d13
          * Where 9c3f8634-6191-4a34-a114-a39102058d13 is the identifier of the app.
-         * @returns {Promise} - true or false
+         * @returns - true or false
          * Note: The operation is successful if qSuccess is set to true.
          */
         copyApp(qTargetAppId: string, qSrcAppId: string, qIds: string[]): Promise<boolean>;
 
         /**
          * Creates an app.
-         * @param {String} qAppName - Name of the app.
+         * @param qAppName - Name of the app.
          * >> This parameter is mandatory.
-         * @param {String} qLocalizedScriptMainSection - Name of the first section in the script editor.
+         * @param qLocalizedScriptMainSection - Name of the first section in the script editor.
          * >> This parameter is optional.
          * >> The default value is Main.
          */
@@ -6634,18 +6999,18 @@ declare namespace EngineAPI {
         /**
          * Creates an app and opens an engine session.
          * This operation is possible only in Qlik Sense Desktop.
-         * @param {String} qDocName - Name of the app.
+         * @param qDocName - Name of the app.
          * >> This parameter is mandatory.
-         * @param {String} qUserName - Name of the user.
+         * @param qUserName - Name of the user.
          * >> This parameter is optional.
-         * @param {String} qPassword - Password of the user.
+         * @param qPassword - Password of the user.
          * >> This parameter is optional.
-         * @param {String} qSerial - Current Qlik Sense serial number
+         * @param qSerial - Current Qlik Sense serial number
          * >> This parameter is optional.
-         * @param {String} qLocalizedScriptMainSection - Name of the first section in the script editor.
+         * @param qLocalizedScriptMainSection - Name of the first section in the script editor.
          * >> This parameter is optional.
          * >> The default value is Main.
-         * @returns {Promise} - A Promise of App
+         * @returns - A Promise of App
          */
         createDocEx(qDocName: string, qUserName?: string, qPassword?: string, qSerial?: string, qLocalizedScriptMainSection?: string): Promise<IApp>;
 
@@ -6656,7 +7021,7 @@ declare namespace EngineAPI {
          * The name of a session app cannot be chosen. The engine automatically assigns a unique identifier to the session app.
          * A session app is not persisted and cannot be saved. Everything created during a session app is non-persisted;
          * for example: objects, data connections.
-         * @returns {Promise} - A Promise of App
+         * @returns - A Promise of App
          */
         createSessionApp(): Promise<IApp>;
 
@@ -6669,10 +7034,10 @@ declare namespace EngineAPI {
          * - The name of a session app cannot be chosen. The engine automatically assigns a unique identifier to the session app.
          * - A session app is not persisted and cannot be saved. Everything created during a session app is non-persisted;
          *   for example: objects, data connections.
-         * @param {String} qSrcAppId - App identifier of the source app.
+         * @param qSrcAppId - App identifier of the source app.
          * It corresponds to qAppId returned by the CreateApp method when creating the source app.
          * This parameter is mandatory.
-         * @returns {Promise} - A Promise of App
+         * @returns - A Promise of App
          */
         createSessionAppFromApp(qSrcAppId: string): Promise<IApp>;
 
@@ -6686,30 +7051,36 @@ declare namespace EngineAPI {
          *
          * -- Qlik Sense Desktop --
          * The app is deleted from the directory %userprofile%\Documents\Qlik\Sense\Apps.
-         * @param {String} qAppId - Identifier of the app to delete.
+         * @param qAppId - Identifier of the app to delete.
          * In Qlik Sense Enterprise, the identifier of the app is a GUID in the Qlik Sense repository.
          * In Qlik Sense Desktop, the identifier of the app is the name of the app,
          * as defined in the apps folder %userprofile%\Documents\Qlik\Sense\Apps.
          * >> This parameter is mandatory.
-         * @returns {Promise} - true or false
+         * @returns - true or false
          *
          * Note: The operation is successful if qSuccess is set to true.
          */
         deleteApp(qAppId: string): Promise<boolean>;
 
         /**
+         * Get the current EngineVersion
+         * @returns - qVersion
+         */
+        engineVersion(): Promise<IQVersion>;
+
+        /**
          * Exports an app from the Qlik Sense repository to the file system.
          *
          * Note: This operation is possible only in Qlik Sense Enterprise.
-         * @param {String} qTargetPath - Path and name of the target app.
+         * @param qTargetPath - Path and name of the target app.
          * >> This parameter is mandatory.
-         * @param {String} qSrcAppId - Identifier of the source app.
+         * @param qSrcAppId - Identifier of the source app.
          * The identifier is a GUID from the Qlik Sense repository.
          * >> This parameter is mandatory.
-         * @param {Array} qIds - Array of identifiers.
+         * @param qIds - Array of identifiers.
          * The list of all the objects in the app to be exported must be given.
          * This list must contain the GUIDs of all these objects.
-         * @returns {Promise} The operation is successful if qSuccess is set to true.
+         * @returns The operation is successful if qSuccess is set to true.
          */
         exportApp(qTargetPath: string, qSrcAppId: string, qIds: string[]): Promise<boolean>;
 
@@ -6723,19 +7094,19 @@ declare namespace EngineAPI {
 
         /**
          * Retrieves the meta data of an app.
-         * @param {String} qAppID - Identifier of the app, as returned by the CreateApp method.
+         * @param qAppID - Identifier of the app, as returned by the CreateApp method.
          * One of:
          *           - Path and name of the app (Qlik Sense Desktop)
          *           - GUID (Qlik Sense Enterprise)
          *
          * >> This parameter is mandatory.
-         * @returns {Promise} A Promise of AppEntry
+         * @returns A Promise of AppEntry
          */
         getAppEntry(qAppID: string): Promise<IAppEntry>;
 
         /**
          * Retrieves information about the authenticated user.
-         * @returns {Promise} Returns UserDirectory=<directory>; UserId=<identifier>
+         * @returns Returns UserDirectory=<directory>; UserId=<identifier>
          */
         getAuthenticatedUser(): Promise<string>;
 
@@ -6750,10 +7121,10 @@ declare namespace EngineAPI {
          * BNF stands for Backus-Naur Form.
          * A token is a string of one or more characters that is significant as a group.
          * For example, a token can be a function name, a parenthesis '('.
-         * @param {BnfType} qBnfType - Returns a set of rules defining the syntax for:
+         * @param qBnfType - Returns a set of rules defining the syntax for:
          * - the script statements and the script functions if qBnfType is set to S.
          * - the chart functions if qBnfType is set to E.
-         * @returns {Promise} A Promise of  Array of BNFDef
+         * @returns A Promise of  Array of BNFDef
          */
         getBNF(qBnfType: BnfType): Promise<IBNFDef>;
 
@@ -6767,10 +7138,10 @@ declare namespace EngineAPI {
          * BNF stands for Backus- Naur Form.
          * A token is a string of one or more characters that is significant as a group.
          * For example, a token can be a function name, a parenthesis '('.
-         * @param { BnfType } qBnfType - Returns a set of rules defining the syntax for:
+         * @param qBnfType - Returns a set of rules defining the syntax for:
          * - the script statements and the script functions if qBnfType is set to S.
          * - the chart functions if qBnfType is set to E.
-         * @returns { Promise } A Promise of IBNFDefResult
+         * @returns A Promise of IBNFDefResult
          */
         getBaseBNF(qBnfType: BnfType): Promise<IBNFDefResult>;
 
@@ -6779,29 +7150,50 @@ declare namespace EngineAPI {
          * of the Qlik engine scripting language. If the hash changes between subsequent
          * calls to this method, this indicates that the BNF grammar has changed.
          *
-         * @param { BnfType } qBnfType - Returns a set of rules defining the syntax for:
+         * @param qBnfType - Returns a set of rules defining the syntax for:
          * - the script statements and the script functions if qBnfType is set to S.
          * - the chart functions if qBnfType is set to E.
-         * @returns { Promise } A Promise qBnfHash
+         * @returns A Promise qBnfHash
          */
         getBaseBNFHash(qBnfType: BnfType): Promise<{ qBnfHash: string }>;
 
         /**
+         * Gets the current Backus-Naur Form (BNF) grammar of the Qlik engine scripting language,
+         * as well as a string hash calculated from that grammar. The BNF rules define the syntax
+         * for the script statements and the script or chart functions. If the hash changes between
+         * subsequent calls to this method, this indicates that the BNF has changed.
+         *
+         * In the Qlik engine grammars, a token is a string of one or more characters that is significant as a group.
+         * For example, a token could be a function name, a number, a letter, a parenthesis, and so on.
+         * @param qBnfType The type of grammar to return:
+         *                   S: returns the script statements and the script functions.
+         *                   E: returns the chart functions.
+         * @returns qBnfDefs and qBnfHash
+         */
+        getBaseBNFString(qBnfType: BnfType): Promise<{qBnfDefs: IBNFDef, qBnfHash: string}>;
+
+        /**
+         * Get a Config Object
+         * @returns A Promise qConfig
+         */
+        getConfiguration(): Promise<IQConfig>;
+
+        /**
          * List the custom connectors available in the system.
-         * @param {Boolean} qReloadList Sets if the list of custom connectors should be reloaded or not.
+         * @param qReloadList Sets if the list of custom connectors should be reloaded or not.
          * This parameter is optional and the default value is false.
          * If set to false, only the connectors that were returned the previous time are returned.
          * If new connectors have been added since the last call to the GetCustomConnectors method was made,
          * the new connectors are not returned.
          * If set to true, the GetCustomConnectors method looks for new connectors in the file system.
-         * @returns {Promise} A Promise Array of CustomConnector
+         * @returns A Promise Array of CustomConnector
          */
         getCustomConnectors(qReloadList: boolean): Promise<ICustomConnector[]>;
 
         /**
          * Lists the databases in a ODBC, OLEDB or CUSTOM data source.
-         * @param {Connection} qConnection Information about the connection.
-         * @returns {Promise} A Promise Array of Database
+         * @param qConnection Information about the connection.
+         * @returns A Promise Array of Database
          */
         getDatabasesFromConnectionString(qConnection: IConnection): Promise<IDatabase[]>;
 
@@ -6809,7 +7201,7 @@ declare namespace EngineAPI {
          * Returns the folder where the apps are stored.
          *
          * Note: This method applies only if running Qlik Sense Desktop.
-         * @returns {Promise} Returns a path of the folder where the apps are stored.
+         * @returns Returns a path of the folder where the apps are stored.
          */
         getDefaultAppFolder(): Promise<string>;
 
@@ -6819,13 +7211,13 @@ declare namespace EngineAPI {
          * The list is generated by the QRS. The GetDocList method only returns documents the current user is allowed to access.
          * -- In Qlik Sense Desktop:
          * The apps are located in C:\Users\<user name>\Documents\Qlik\Sense\Apps.
-         * @returns {Promise} A Promise Array of DocListEntry
+         * @returns A Promise Array of DocListEntry
          */
         getDocList(): Promise<IDocListEntry>;
 
         /**
          * Returns the files and folders located at a specified path.
-         * @param {String} qPath Absolute or relative path.
+         * @param qPath Absolute or relative path.
          * Relative paths are relative to the default Apps folder.
          *
          * In Qlik Sense Enterprise:
@@ -6833,16 +7225,16 @@ declare namespace EngineAPI {
          *
          * In Qlik Sense Desktop:
          * The apps are located in C:\Users\<user name>\Documents\Qlik\Sense\Apps.
-         * @returns {Promise} Path of the folder where the apps are stored.
+         * @returns Path of the folder where the apps are stored.
          */
         getFolderItemsForPath(qPath: string): Promise<IFolderItem>;
 
         /**
          * Gets the list of all the script functions.
-         * @param {FunctionGroupType} qGroup Name of the group
+         * @param qGroup Name of the group
          * >> This parameter is optional.
          * >> Default is all groups.
-         * @returns {Promise} A Promise <Function> or undefined
+         * @returns A Promise <Function> or undefined
          */
         getFunctions(qGroup?: FunctionGroupType): Promise<IFunction | undefined>;
 
@@ -6860,9 +7252,9 @@ declare namespace EngineAPI {
          * To know if the engine is paused and waits for a response to an interaction request,
          * the GetProgress method should be used. The engine waits for a response if the property qUserInteractionWanted
          * is set to true in the response of the GetProgress request.
-         * @param {Integer} qRequestId Identifier of the request.
+         * @param qRequestId Identifier of the request.
          * Corresponds to the identifier of the DoReload request.
-         * @returns {Promise} A Promise of InteractDef
+         * @returns A Promise of InteractDef
          */
         getInteract(qRequestId: number): Promise<IInteractDef>;
 
@@ -6870,19 +7262,25 @@ declare namespace EngineAPI {
          * Lists the logical drives in the system.
          *
          * Note: This method applies only if running Qlik Sense Desktop.
-         * @returns {Promise} A Promise Array of DriveInfo
+         * @returns A Promise Array of DriveInfo
          */
         getLogicalDriveStrings(): Promise<IDriveInfo[]>;
 
         /**
+         * Gets the MyDocumenstFolder Path in the system.
+         * @returns A Promise of the MyDocumenstFolder Path
+         */
+        getMyDocumentsFolder(): Promise<{ qFolder: string; }>;
+
+        /**
          * Returns the list of the ODBC connectors that are installed in the system.
-         * @returns {Promise} A Promise Array of OdbcDsn
+         * @returns A Promise Array of OdbcDsn
          */
         getOdbcDsns(): Promise<IOdbcDsn[]>;
 
         /**
          * Returns the list of the OLEDB providers installed on the system.
-         * @returns {Promise} A Promise Array of OleDbProvider
+         * @returns A Promise Array of OleDbProvider
          */
         getOleDbProviders(): Promise<IOleDbProvider[]>;
 
@@ -6890,11 +7288,11 @@ declare namespace EngineAPI {
          * Gives information about the progress of the DoReload and DoSave calls.
          *
          * Note: For more information on DoReload and DoSave, see the DoReload method and DoSave method.
-         * @param {Integer} qRequestId Identifier of the DoReload or DoSave request or 0.
+         * @param qRequestId Identifier of the DoReload or DoSave request or 0.
          * Complete information is returned if the identifier of the request is given.
          * If the identifier is 0, less information is given. Progress messages and
          * error messages are returned but information like when the request started and finished is not returned.
-         * @returns {Promise} Information about the progress of the request.
+         * @returns Information about the progress of the request.
          */
         getProgress(qRequestId: number): Promise<IProgressData>;
 
@@ -6903,7 +7301,7 @@ declare namespace EngineAPI {
          *
          * Note: This method is deprecated (not recommended to use).
          * Use general purpose endpoint in QRS API: GET qrs/stream/ instead.
-         * @returns {Promise} Array of NxStreamListEntry
+         * @returns Array of NxStreamListEntry
          */
         getStreamList(): Promise<INxStreamListEntry[]>;
 
@@ -6916,17 +7314,38 @@ declare namespace EngineAPI {
          * Returns the unique identifier of the endpoint for the current user in the current app.
          *
          * Note: This unique identifier can be used for logging purposes.
-         * @returns {Promise} Identifier of the endpoint.
+         * @returns Identifier of the endpoint.
          * This identifier is unique.
          */
         getUniqueID(): Promise<string>;
 
         /**
+         * Import an App
+         * @param qAppId - new AppId
+         * @param qSrcPath - source path
+         * @param qIds - ???
+         * Note: from shema file
+         * Note: This operation is possible only in Qlik Sense Enterprise.
+         */
+        importApp(qAppId: string, qSrcPath: string, qIds: string[]): Promise<void>;
+
+        /**
+         * Import an App Extended
+         * @param qAppId - new AppId
+         * @param qSrcPath - source path
+         * @param qIds - ???
+         * @param qExcludeConnections - true to exclude the embedded connection from import
+         * Note: from shema file
+         * Note: This operation is possible only in Qlik Sense Enterprise.
+         */
+        importAppEx(qAppId: string, qSrcPath: string, qIds: string[], qExcludeConnections: boolean): Promise<void>;
+
+        /**
          * Informs the engine that a user interaction (which was earlier requested by the engine)
          * was performed and indicates the engine what to do next.
-         * @param {Integer} qRequestId Identifier of the request.
+         * @param qRequestId Identifier of the request.
          * Corresponds to the identifier of the DoReload request.
-         * @param {InteractDef} qDef User response to the current interaction.
+         * @param qDef User response to the current interaction.
          */
         interactDone(qRequestId: number, qDef: IInteractDef): Promise<void>;
 
@@ -6939,14 +7358,14 @@ declare namespace EngineAPI {
          * Indicates whether or not the user is working in personal mode (Qlik Sense Desktop).
          *
          * Note: This method is deprecated.
-         * @returns {Promise} The engine returns true if the user is working with Qlik Sense Desktop.
+         * @returns The engine returns true if the user is working with Qlik Sense Desktop.
          */
         isPersonalMode(): Promise<boolean>;
 
         /**
          * Checks if a connection string is valid.
-         * @param {Connection} qConnection Information about the connection.
-         * @returns {Promise} True means that the connection string is correct.
+         * @param qConnection Information about the connection.
+         * @returns True means that the connection string is correct.
          */
         isValidConnectionString(qConnection: IConnection): Promise<boolean>;
 
@@ -6967,19 +7386,19 @@ declare namespace EngineAPI {
          * In Qlik Sense Desktop, apps are automatically backed up before a migration.
          * The backup files are located in %userprofile%\Documents\Qlik\Sense\AppsBackup\<Qlik Sense Desktop version>.
          * In Qlik Sense Enterprise, no automatic back up is run. The back up should be done manually.
-         * @param {String} qDocName The GUID (in Qlik Sense Enterprise) or Name (in Qlik Sense Desktop) of the app to retrieve.
-         * @param {String} qUserName Name of the user that opens the app.
+         * @param qDocName The GUID (in Qlik Sense Enterprise) or Name (in Qlik Sense Desktop) of the app to retrieve.
+         * @param qUserName Name of the user that opens the app.
          * >> This parameter is optional.
-         * @param {String} qPassword Password of the user.
+         * @param qPassword Password of the user.
          * >> This parameter is optional.
-         * @param {String} qSerial Current Qlik Sense serial number.
+         * @param qSerial Current Qlik Sense serial number.
          * >> This parameter is optional.
-         * @param {String} qNoData Set this parameter to true to be able to open an app without loading its data.
+         * @param qNoData Set this parameter to true to be able to open an app without loading its data.
          * When this parameter is set to true, the objects in the app are present but contain no data.
          * The script can be edited and reloaded.
          * >> This parameter is optional
          * >> The default value is false.
-         * @returns {Promise} A Promise of App
+         * @returns A Promise of App
          */
         openDoc(qDocName: string, qUserName?: string, qPassword?: string, qSerial?: string, qNoData?: boolean): Promise<IApp>;
 
@@ -6998,6 +7417,15 @@ declare namespace EngineAPI {
          * Returns the Qlik Sense version number.
          */
         productVersion(): Promise<string>;
+
+        /**
+         * Publish an App to a Stream
+         * @param qStreamId - Id of the stream there it should published
+         * @param qName - new name
+         * Note: from shema file
+         * Note: This operation is possible only in Qlik Sense Enterprise.
+         */
+        publishApp(qStreamId: string, qName: string): Promise<void>;
 
         /**
          * Returns the Qlik product name.
@@ -7021,20 +7449,20 @@ declare namespace EngineAPI {
          * The list of objects in the app to be replaced must be defined in qIds.
          * Note: The data model of the app cannot be updated.
          * Note: This operation is possible only in Qlik Sense Enterprise.
-         * @param {String} qTargetAppId Identifier (GUID) of the target app.
+         * @param qTargetAppId Identifier (GUID) of the target app.
          * The target app is the app to be replaced.
          * >> This parameter is mandatory.
-         * @param {String} qSrcAppID Identifier (GUID) of the source app.
+         * @param qSrcAppID Identifier (GUID) of the source app.
          * The objects in the source app will replace the objects in the target app.
          * >> This parameter is mandatory.
-         * @param {Array} qIds QRS identifiers (GUID) of the objects in the target app to be replaced.
+         * @param qIds QRS identifiers (GUID) of the objects in the target app to be replaced.
          * Only QRS-approved GUIDs are applicable.
          * An object that is QRS-approved, is for example an object that has been published (i.e not private anymore).
          * If an object is private, it should not be included in this list.
          * If qIds is empty, the engine automatically creates a list that contains all QRS-approved objects.
          * If the array of identifiers contains objects that are not present in the source app,
          * the objects related to these identifiers are removed from the target app.
-         * @returns {Promise} The operation is successful if qSuccess is set to true.
+         * @returns The operation is successful if qSuccess is set to true.
          */
         replaceAppFromID(qTargetAppId: string, qSrcAppID: string, qIds: string[]): Promise<boolean>;
 
@@ -7715,12 +8143,12 @@ declare namespace EngineAPI {
         qAttributeDimensions?: INxAttrDimDef[];
 
         /**
-         *
+         * no / empty docu
          */
         qIncludeElemValue?: boolean; // ?Nicht in Doku
 
         /**
-         *
+         * no / empty docu
          */
         qShowTotal?: boolean; // ?Nicht in Doku
     }
@@ -7789,7 +8217,7 @@ declare namespace EngineAPI {
         qExpression?: IValueExpr;
 
         /**
-         *
+         * no / empty docu
          */
         qSortByGreyness?: TypeSortDirection; // ?Nicht in Doku
     }
@@ -8702,8 +9130,7 @@ declare namespace EngineAPI {
     /**
      * SelectionListObject width extend GenericObject
      */
-    interface ISelectionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericSelectionListLayout>;
+    interface ISelectionListObject extends IGenericObjectPrototype<IGenericSelectionListProperties, IGenericSelectionListLayout> {
     }
 
     interface IApp {
@@ -8765,8 +9192,7 @@ declare namespace EngineAPI {
     /**
      * BookmarkListObject width extend GenericObject
      */
-    interface IBookmarkListObject extends IGenericObject {
-        getLayout(): Promise<IGenericBookmarkListLayout>;
+    interface IBookmarkListObject extends IGenericObjectPrototype<IGenericBookmarkListProperties, IGenericBookmarkListLayout> {
     }
 
     interface IApp {
@@ -8828,8 +9254,7 @@ declare namespace EngineAPI {
     /**
      * IMeassureListObject
      */
-    interface IMeassureListObject extends IGenericObject {
-        getLayout(): Promise<IGenericMeasureListLayout>;
+    interface IMeassureListObject extends IGenericObjectPrototype<IGenericMeasureListProperties, IGenericMeasureListLayout> {
     }
 
     interface IApp {
@@ -8896,8 +9321,7 @@ declare namespace EngineAPI {
         qData: any;
     }
 
-    interface IDimensionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericDimensionListLayout>;
+    interface IDimensionListObject extends IGenericObjectPrototype<IGenericDimensionsListProperties, IGenericDimensionListLayout> {
     }
 
     interface IApp {
@@ -8974,15 +9398,15 @@ declare namespace EngineAPI {
     /**
      * VariableListObject...
      */
-    interface IVariableListObject {
+    interface IVariableList {
         qItems: INxVariableListItem[];
     }
 
     /**
      * GenericVariableLayout width extend GenericObjectLayout
      */
-    interface IGenericVariableLayout extends IGenericObjectLayout {
-        qVariableListObject: IVariableListObject;
+    interface IGenericVariableListLayout extends IGenericBaseLayout {
+        qVariableListObject: IVariableList;
     }
 
     /**
@@ -9020,8 +9444,7 @@ declare namespace EngineAPI {
     /**
      * VariableListObject width extend GenericObject
      */
-    interface IVariableListObject extends IGenericObject {
-        getLayout(): Promise<IGenericVariableLayout>;
+    interface IVariableListObject extends IGenericObjectPrototype<IGenericVariableListProperties, IGenericVariableListLayout> {
     }
 
     interface IApp {
@@ -9036,21 +9459,11 @@ declare namespace EngineAPI {
     /**
      * FieldListObject...
      */
-    interface IFieldListObject {
+    interface IFieldList {
         /**
          * NxFieldDescription[]
          */
         qItems: INxFieldDescription[];
-    }
-
-    /**
-     * GenericFieldLayout width extend GenericObjectLayout
-     */
-    interface IGenericFieldLayout extends IGenericObjectLayout {
-        /**
-         * FieldListObject...
-         */
-        qFieldListObject: IFieldListObject;
     }
 
     /**
@@ -9267,9 +9680,30 @@ declare namespace EngineAPI {
         qShowImplicit?: boolean;
     }
 
+    /**
+     * GenericFieldLayout width extend GenericObjectLayout
+     */
+    interface IGenericFieldLayout extends IGenericBaseLayout {
+        /**
+         * FieldListObject...
+         */
+        qFieldListObject: IFieldList;
+    }
+
+    /**
+     * FieldListObject width extend GenericObject
+     */
+    interface IFieldListObject extends IGenericObjectPrototype<IGenericFieldListProperties, IGenericFieldLayout> {
+    }
+
     interface IApp {
         createObject(qProp: IGenericFieldListProperties): Promise<IFieldListObject>;
         createSessionObject(qProp: IGenericFieldListProperties): Promise<IFieldListObject>;
     }
 }
 //#endregion
+
+declare namespace enigmaJS {
+    interface IGeneratedAPI {
+    }
+}

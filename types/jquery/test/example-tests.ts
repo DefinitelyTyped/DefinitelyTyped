@@ -1,5 +1,3 @@
-/* tslint:disable:no-arg object-literal-shorthand one-variable-per-declaration only-arrow-functions prefer-const prefer-for-of triple-equals no-var */
-
 function examples() {
     function add_0() {
         $('div').css('border', '2px solid red')
@@ -3061,7 +3059,7 @@ function examples() {
             type: 'dog',
 
             // Note that event comes *after* one and two
-            test: function(one: typeof you, two: typeof they, event: JQuery.Event<HTMLButtonElement>) {
+            test: function(one: typeof you, two: typeof they, event: JQuery.Event<HTMLElement>) {
                 $('#log')
 
                 // `one` maps to `you`, the 1st additional
@@ -3081,7 +3079,7 @@ function examples() {
 
                     // The clicked element is `event.target`,
                     // and its type is "button"
-                    .append('the ' + event.target.type + '.');
+                    .append('the ' + (event.target as HTMLButtonElement).type + '.');
             },
         };
 

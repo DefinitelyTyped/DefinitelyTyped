@@ -2,9 +2,10 @@
 // http://gaearon.github.io/react-dnd/docs-tutorial.html
 
 import * as React from "react";
+import * as DOM from "react-dom-factories";
 import * as ReactDnd from "react-dnd";
 
-const r = React.DOM;
+const r = DOM;
 
 import DragSource = ReactDnd.DragSource;
 import DropTarget = ReactDnd.DropTarget;
@@ -153,7 +154,7 @@ namespace BoardSquare {
     export class BoardSquare extends React.Component<BoardSquareP> {
         static defaultProps: BoardSquareP;
 
-        private _renderOverlay = (color: string) => {
+        private readonly _renderOverlay = (color: string) => {
             return r.div({
                 style: {
                     position: 'absolute',
@@ -230,7 +231,7 @@ namespace Board {
     }
 
     export class Board extends React.Component<BoardP> {
-        private _renderPiece = (x: number, y: number) => {
+        private readonly _renderPiece = (x: number, y: number) => {
             const knightX = this.props.knightPosition[0];
             const knightY = this.props.knightPosition[1];
             return x === knightX && y === knightY ?
@@ -238,7 +239,7 @@ namespace Board {
                     null;
         }
 
-        private _renderSquare = (i: number) => {
+        private readonly _renderSquare = (i: number) => {
             const x = i % 8;
             const y = Math.floor(i / 8);
 

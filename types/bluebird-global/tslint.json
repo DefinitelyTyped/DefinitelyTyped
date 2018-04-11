@@ -6,6 +6,7 @@
         "array-type": false,
         "unified-signatures": false,
         "ban-types": false,
+        "no-redundant-undefined": false,
         "no-unnecessary-generics": false
     }
 }

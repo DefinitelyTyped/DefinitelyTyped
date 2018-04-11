@@ -2,6 +2,8 @@
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
 // Last Update  : 20-7-2017
 // Compatible with Orientdb >= 2.2.15 and orientjs >= 2.2.x features .
 // Developed with love in www.nowcando.com
@@ -27,18 +29,18 @@ import Promise = require('bluebird');
     });
  =============================================== */
 
-/**  A lightweight definiton for orientjs module, Official node.js driver for OrientDB.
+/**
+ * A lightweight definiton for orientjs module, Official node.js driver for OrientDB.
  *
  * @description Official node.js driver for OrientDB. Fast, lightweight, uses the binary protocol.
  *
  * @author Saeed Tabrizi (saeed a_t nowcando.com)
  * @version 3.0.1
- *
  */
 
 /**
  * Make a orientdb server client in binary protocol  .
- * @param {orientjs.ServerConfig} config The configuration for server connection.
+ * @param config The configuration for server connection.
  */
 declare function orientjs(config: orientjs.ServerConfig): orientjs.Server;
 declare namespace orientjs {
@@ -110,7 +112,7 @@ declare namespace orientjs {
             /**
              * # Migration Manager
              *
-             * @param {Object} config The configuration for the migration manager.
+             * @param config The configuration for the migration manager.
              */
             constructor(config?: MigrationManagerConfig);
 
@@ -123,14 +125,14 @@ declare namespace orientjs {
             /**
              * Create a new migration.
              *
-             * @param   {string|Object} config  The name or configuration for the new migration.
+             * @param   config  The name or configuration for the new migration.
              * @promise {string}                The full path to the created migration.
              */
             create(param: string): Promise<string>;
             /**
              * Generate the content for a migration.
-             * @param  {Object} config The configuration object.
-             * @return {string}        The generated JavaScript source code.
+             * @param  config The configuration object.
+             * @return        The generated JavaScript source code.
              */
             generateMigration(config: any): string;
             /**
@@ -160,35 +162,35 @@ declare namespace orientjs {
             /**
              * Perform the migration.
              *
-             * @param   {Integer} limit The maximum number of migrations to apply, if any.
+             * @param   limit The maximum number of migrations to apply, if any.
              * @promise {Mixed} The result of the migration.
              */
             up(limit?: number): Promise<any>;
             /**
              * Revert the migration.
              *
-             * @param   {Integer} limit The maximum number of migrations to revert, if any.
+             * @param   limit The maximum number of migrations to revert, if any.
              * @promise {Mixed} The result of the migration.
              */
             down(limit?: number): Promise<any>;
             /**
              * Load the migration with the given name.
              *
-             * @param  {string}    name The name of the migation.
-             * @return {Migration}      The loaded migration instance.
+             * @param     name The name of the migation.
+             * @return      The loaded migration instance.
              */
             loadMigration(name: string): Migration;
             /**
              * Apply the migration with the given name.
              *
-             * @param   {string} name The name of the migation.
+             * @param   name The name of the migation.
              * @promise {Mixed} The result of the migration.
              */
             applyMigration(name: string): Promise<any>;
             /**
              * Revert the migration with the given name.
              *
-             * @param   {string} name The name of the migation.
+             * @param   name The name of the migation.
              * @promise {Mixed} The result of the migration.
              */
             revertMigration(name: string): Promise<any>;
@@ -218,22 +220,22 @@ declare namespace orientjs {
         /**
          * Get the value of the given custom field.
          *
-         * @param  {string} key The name of the field to get.
-         * @return {Mixed}      The field value, or undefined if it doesn't exist.
+         * @param  key The name of the field to get.
+         * @return      The field value, or undefined if it doesn't exist.
          */
         get(key: string): CustomField;
         /**
          * Set a custom field.
          *
-         * @param   {string|Object} key   The key to set, or map of keys to values.
-         * @param   {string}        value The value to set, if `key` is not an object.
+         * @param   key   The key to set, or map of keys to values.
+         * @param          value The value to set, if `key` is not an object.
          * @promise {Object|null}         The new set of custom fields, or null if none are present.
          */
         set(key: string, value: any): CustomField;
         /**
          * Unset the custom field with the given name,
          *
-         * @param   {string}      key The name of the custom field to remove.
+         * @param        key The name of the custom field to remove.
          * @promise {Object|null}     The new set of custom fields, or null if none are present.
          */
         unset(key: string): CustomField;
@@ -301,8 +303,8 @@ declare namespace orientjs {
         /**
          * Create a new property.
          *
-         * @param  {string|Object} config The property name or configuration.
-         * @param   {Boolean} reload      Whether to reload the property, default to true.
+         * @param  config The property name or configuration.
+         * @param   reload      Whether to reload the property, default to true.
          * @promise {Object}              The created property.
          */
         create(config?: PropertyCreateConfig | string, reload?: boolean): Promise<Property>;
@@ -310,15 +312,15 @@ declare namespace orientjs {
         /**
          * Get the property with the given name.
          *
-         * @param   {string} name   The property to get.
+         * @param   name   The property to get.
          * @promise {Object|null}   The retrieved property.
          */
         get(name: string): Promise<Property>;
         /**
          * Update the given property.
          *
-         * @param   {Object}  property The property settings.
-         * @param   {Boolean} reload   Whether to reload the property, default to true.
+         * @param    property The property settings.
+         * @param   reload   Whether to reload the property, default to true.
          * @promise {Object}           The updated property.
          */
         update(config: PropertyUpdateConfig, reload?: boolean): Promise<Property>;
@@ -332,7 +334,7 @@ declare namespace orientjs {
 
     /**
      * The class constructor.
-     * @param {Object} config The configuration for the class
+     * @param config The configuration for the class
      */
     class Class {
         db?: Db;
@@ -344,48 +346,48 @@ declare namespace orientjs {
         clusterIds?: number[];
         /**
          * Configure the class instance.
-         * @param  {Object} config The configuration object.
+         * @param  config The configuration object.
          */
         configure(config?: any): void;
         /**
          * Retreive a list of classes from the database.
          *
-         * @param  {Boolean} refresh Whether to refresh the list or not.
+         * @param  refresh Whether to refresh the list or not.
          * @promise {Object[]}       An array of class objects.
          */
         list(limit: number | boolean | any, offset?: number): Promise<Class[]>;
         /**
          * Find a list of records in the class.
          *
-         * @param  {Object}  attributes The attributes to search with.
-         * @param  {Integer} limit      The maximum number of records to return
-         * @param  {Integer} offset     The offset to start returning records from.
+         * @param   attributes The attributes to search with.
+         * @param  limit      The maximum number of records to return
+         * @param  offset     The offset to start returning records from.
          * @promise {Object[]}          An array of records in the class.
          */
         find(attributes: any, limit?: number, offset?: number): Promise<Record[]>;
         /**
          * Create a record for this class.
          *
-         * @param   {Object} record The record to create.
+         * @param   record The record to create.
          * @promise {Object}        The created record.
          */
         create(record: Record): Promise<Record>;
         /**
          * Create a new class.
          *
-         * @param  {string} name            The name of the class to create.
-         * @param  {string} parentName      The name of the parent to extend, if any.
-         * @param  {string|Integer} cluster The cluster name or id.
-         * @param  {Boolean} isAbstract     The flag for the abstract class
-         * @param  {Boolean} ifnotexist     The flag for the if not exist class
+         * @param  name            The name of the class to create.
+         * @param  parentName      The name of the parent to extend, if any.
+         * @param  cluster The cluster name or id.
+         * @param  isAbstract     The flag for the abstract class
+         * @param  ifnotexist     The flag for the if not exist class
          * @promise {Object}                The created class object
          */
         create(name: string, parentName?: string, cluster?: string, isAbstract?: boolean, ifnotexist?: boolean): Promise<Class>;
         /**
          * Update the given class.
          *
-         * @param   {Object}  class    The class settings.
-         * @param   {Boolean} reload   Whether to reload the class, default to true.
+         * @param    class    The class settings.
+         * @param   reload   Whether to reload the class, default to true.
          * @promise {Object}           The updated class.
          */
         update(cls: any, reload: boolean): Promise<Class>;
@@ -398,8 +400,8 @@ declare namespace orientjs {
         /**
          * Delete a class.
          *
-         * @param  {string} name The name of the class to delete.
-         * @param  {Object} config The config.
+         * @param  name The name of the class to delete.
+         * @param  config The config.
          * @promise {Db}         The database instance.
          */
         drop(name: string, config?: {
@@ -409,16 +411,16 @@ declare namespace orientjs {
         /**
          * Get a class by name.
          *
-         * @param   {Integer|string} name The name of the class.
-         * @param   {Boolean} refresh Whether to refresh the data, defaults to false.
+         * @param   name The name of the class.
+         * @param   refresh Whether to refresh the data, defaults to false.
          * @promise {Object}          The class object if it exists.
          */
         get(name: string, refresh?: boolean): Promise<Class>;
         /**
          * Cache the given class data for fast lookup later.
          *
-         * @param  {Object[]} classes The class objects to cache.
-         * @return {Db}                The db instance.
+         * @param  classes The class objects to cache.
+         * @return                The db instance.
          */
         cacheData(classes: Class[]): Db;
         property: Property;
@@ -440,7 +442,7 @@ declare namespace orientjs {
 
     /**
      * The sequence constructor.
-     * @param {Object} config The configuration for the sequence
+     * @param config The configuration for the sequence
      */
     class Sequence {
         db?: Db;
@@ -452,13 +454,13 @@ declare namespace orientjs {
         cache?: number;
         /**
          * Configure the sequence instance.
-         * @param  {Object} config The configuration object.
+         * @param  config The configuration object.
          */
         configure(config?: any): void;
         /**
          * Retreive a list of sequences from the database.
          *
-         * @param  {Boolean} refresh Whether to refresh the list or not.
+         * @param  refresh Whether to refresh the list or not.
          * @promise {Object[]}       An array of class objects.
          */
 
@@ -467,21 +469,21 @@ declare namespace orientjs {
         /**
          * Create a new sequence.
          *
-         * @param  {string} name            The name of the sequence to create.
-         * @param  {string} type      The type of sequence.
-         * @param  {Integer} start The start number.
-         * @param  {Integer} incerement The increment number.
-         * @param  {Integer} cache     The cache number
+         * @param  name            The name of the sequence to create.
+         * @param  type      The type of sequence.
+         * @param  start The start number.
+         * @param  incerement The increment number.
+         * @param  cache     The cache number
          * @promise {Object}                The created sequence object
          */
         create(name: string, type: "ORDERED" | "CACHED", start?: number, incerement?: number, cache?: number): Promise<Sequence>;
         /**
          * update a  sequence.
          *
-         * @param  {string} name            The name of the sequence to create.
-         * @param {Integer} incerement The increment number.
-         * @param {Integer} cache The cache number
-         * @param  {Integer} start The start number.
+         * @param  name            The name of the sequence to create.
+         * @param incerement The increment number.
+         * @param cache The cache number
+         * @param  start The start number.
          * @promise {Object} The created sequence object
          */
         update(name: string, start?: number, incerement?: number, cache?: number): Promise<Sequence>;
@@ -494,8 +496,8 @@ declare namespace orientjs {
         /**
          * Delete a sequence.
          *
-         * @param  {string} name The name of the sequence to delete.
-         * @param  {Object} config The config.
+         * @param  name The name of the sequence to delete.
+         * @param  config The config.
          * @promise {Db}         The database instance.
          */
         drop(name: string, config?: {
@@ -503,16 +505,16 @@ declare namespace orientjs {
         /**
          * Get a sequence by name.
          *
-         * @param   {Integer|string} name The name of the sequence.
-         * @param   {Boolean} refresh Whether to refresh the data, defaults to false.
+         * @param   name The name of the sequence.
+         * @param   refresh Whether to refresh the data, defaults to false.
          * @promise {Object}          The sequence object if it exists.
          */
         get(name: string, refresh?: boolean): Promise<Sequence>;
         /**
          * Cache the given class data for fast lookup later.
          *
-         * @param  {Object[]} sequences The sequence objects to cache.
-         * @return {Db}                The db instance.
+         * @param  sequences The sequence objects to cache.
+         * @return                The db instance.
          */
         cacheData(sequences: Sequence[]): Db;
     }
@@ -533,16 +535,16 @@ declare namespace orientjs {
         /**
          * Insert the given record into the database.
          *
-         * @param  {Object} record  The record to insert.
-         * @param  {Object} options The command options.
+         * @param  record  The record to insert.
+         * @param  options The command options.
          * @promise {Object}        The inserted record.
          */
         create(record: ODocument | Record | BinaryRecord, options?: any): Promise<Record>;
         /**
          * Insert the given record into the database.
          *
-         * @param  {Object} record  The record to insert.
-         * @param  {Object} options The command options.
+         * @param  record  The record to insert.
+         * @param  options The command options.
          * @promise {Object}        The inserted record.
          */
         create(records: ODocument[] | Record[] | BinaryRecord[], options?: any): Promise<Record[]>;
@@ -550,40 +552,40 @@ declare namespace orientjs {
         /**
          * Read the given record.
          *
-         * @param  {Object} record  The record to load.
-         * @param  {Object} options The query options.
+         * @param  record  The record to load.
+         * @param  options The query options.
          * @promise {Object}        The loaded record.
          */
         get(record: Record | RID, options?: any): Promise<Record | Buffer>;
         /**
          * Read the given record.
          *
-         * @param  {Object} records  The record to load.
-         * @param  {Object} options The query options.
+         * @param  records  The record to load.
+         * @param  options The query options.
          * @promise {Object[]}        The loaded record.
          */
         get(records: Record[] | RID[], options?: any): Promise<Record[] | Buffer[]>;
         /**
          * Resolve all references within the given collection of records.
          *
-         * @param  {Object[]} records  The records to resolve.
-         * @return {Object}            The records with references replaced.
+         * @param  records  The records to resolve.
+         * @return            The records with references replaced.
          */
         resolveReferences(records: Record[]): Record[];
 
         /**
          * Read the metadata for the given record.
          *
-         * @param  {Object} record  The record to load.
-         * @param  {Object} options The query options.
+         * @param  record  The record to load.
+         * @param  options The query options.
          * @promise {Object}        The record object with loaded meta data.
          */
         meta(record: Record | RID | string, options?: any): Promise<RecordMeta>;
         /**
          * Read the metadata for the given record.
          *
-         * @param  {Object} record  The record to load.
-         * @param  {Object} options The query options.
+         * @param  record  The record to load.
+         * @param  options The query options.
          * @promise {Object}        The record object with loaded meta data.
          */
         meta(records: Record[] | RID[], options?: any): Promise<RecordMeta[]>;
@@ -591,8 +593,8 @@ declare namespace orientjs {
         /**
          * Update the given record.
          *
-         * @param  {Object} record  The record to update.
-         * @param  {Object} options The query options.
+         * @param  record  The record to update.
+         * @param  options The query options.
          * @promise {Object}        The updated record.
          */
         update(record?: Record | RID, options?: any): Promise<Record>;
@@ -601,8 +603,8 @@ declare namespace orientjs {
         /**
          * Delete the given record.
          *
-         * @param   {string|RID|Object} record  The record or record id to delete.
-         * @param   {Object}            options The query options.
+         * @param   record  The record or record id to delete.
+         * @param              options The query options.
          * @promise {Object}                    The deleted record object.
          */
         delete(record: Record | RID, options?: any): Promise<Record>;
@@ -781,8 +783,8 @@ declare namespace orientjs {
         sequence: Sequence;
         /**
          * Configure the database instance.
-         * @param  {Object} config The configuration for the database.
-         * @return {Db}            The configured database object.
+         * @param  config The configuration for the database.
+         * @return            The configured database object.
          */
         configure(config: DbConfig): Db;
         /**
@@ -805,8 +807,8 @@ declare namespace orientjs {
          * Send the given operation to the server, ensuring the
          * database is open first.
          *
-         * @param  {Integer} operation The operation to send.
-         * @param  {Object} data       The data for the operation.
+         * @param  operation The operation to send.
+         * @param  data       The data for the operation.
          * @promise {Mixed}            The result of the operation.
          */
         send(operation: number, data: any): Promise<any>;
@@ -819,14 +821,14 @@ declare namespace orientjs {
         /**
          * Begin a new transaction.
          *
-         * @return {Transaction} The transaction instance.
+         * @return The transaction instance.
          */
         begin(): Transaction;
         /**
          * Execute an SQL query against the database and retreive the raw, parsed response.
          *
-         * @param   {string} query   The query or command to execute.
-         * @param   {Object} options The options for the query / command.
+         * @param   query   The query or command to execute.
+         * @param   options The options for the query / command.
          * @promise {Mixed}          The results of the query / command.
          */
         exec(query: string, options?: QueryOptions): Promise<any>;
@@ -834,29 +836,29 @@ declare namespace orientjs {
         /**
          * Execute an SQL query against the database and retreive the results
          *
-         * @param   {string} query   The query or command to execute.
-         * @param   {Object} options The options for the query / command.
+         * @param   query   The query or command to execute.
+         * @param   options The options for the query / command.
          * @promise {Mixed}          The results of the query / command.
          */
         query(command: string, options?: QueryOptions): Promise<any>;
         /**
          * Execute a live query against the database
          *
-         * @param   {string} query   The query or command to execute.
-         * @param   {Object} options The options for the query / command.
+         * @param   query   The query or command to execute.
+         * @param   options The options for the query / command.
          * @promise {Mixed}          The token of the live query.
          */
         liveQuery(command: string, options?: QueryOptions): Promise<any>;
         /**
          * Normalize a result, where possible.
-         * @param  {Object} result The result to normalize.
-         * @return {Object}        The normalized result.
+         * @param  result The result to normalize.
+         * @return        The normalized result.
          */
         normalizeResult(result: any): any;
         /**
          * Normalize the content for a result.
-         * @param  {Mixed} content The content to normalize.
-         * @return {Mixed}         The normalized content.
+         * @param  content The content to normalize.
+         * @return         The normalized content.
          */
         normalizeResultContent(content: any): any;
         /**
@@ -864,96 +866,99 @@ declare namespace orientjs {
          * This function will be invoked for each document of the specified class
          * in all future result sets.
          *
-         * @param  {string}   className   The name of the document class.
-         * @param  {Function} transformer The transformer function.
-         * @return {Db}                   The database instance.
+         * @param    className   The name of the document class.
+         * @param  transformer The transformer function.
+         * @return                   The database instance.
          */
         registerTransformer<T>(className: string, transformer: (item: Record) => T): Db;
         /**
          * Transform a document according to its `@class` property, using the registered transformers.
-         * @param  {Object} document The document to transform.
-         * @return {Mixed}           The transformed document.
+         * @param  document The document to transform.
+         * @return           The transformed document.
          */
         transformDocument(document: ODocument): any;
 
         /**
          * Create a query instance for this database.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         createQuery(): Statement;
         /**
          * Create a raw expression.
          *
-         * @return {RawExpression} The raw expression instance.
+         * @return The raw expression instance.
          */
         rawExpression(param: string): RawExpression;
 
-        /** Create a sql Function.
+        /**
+         * Create a sql Function.
          *
-         * @return {SqlFunction} The sql function instance.
+         * @return The sql function instance.
          */
         sqlFunction(options?: any): SqlFunction;
 
         /**
          * Create a create query.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         create(params?: any): Statement;
         create(paramtype: string, paramname: string): Statement;
         /**
          * Create a select query.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         select(params?: any): Statement;
         /**
          * Create a traverse query.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         traverse(params?: any): Statement;
         /**
          * Create an insert query.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         insert(params?: any): Statement;
         /**
          * Create an update query.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         update(params?: any): Statement;
         /**
          * Create a delete query.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         delete(params?: any): Statement;
         /**
          * Create a transactional query.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         let(params?: any): Statement;
         let(name: string, value: string | Statement): Statement;
-        /** Create a transactional query with if.
+        /**
+         * Create a transactional query with if.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         if(condition: SqlExpression, statements: Statement[]): Statement;
-        /** Create a transactional query with if.
+        /**
+         * Create a transactional query with if.
          *
-         * @return {Query} The query instance.
+         * @return The query instance.
          */
         if(condition: SqlExpression, ...statements: Statement[]): Statement;
         /**
          * Escape the given input.
          *
-         * @param  {string} input The input to escape.
-         * @return {string}       The escaped input.
+         * @param  input The input to escape.
+         * @return       The escaped input.
          */
         escape(input: string): string;
         /**
@@ -961,17 +966,17 @@ declare namespace orientjs {
          * The context includes the query builder methods, which will be executed
          * on behalf of the user.
          *
-         * @param  {Buffer|string} token The authentication token.
-         * @return {Object}              The object containing the query builder methods.
+         * @param  token The authentication token.
+         * @return              The object containing the query builder methods.
          */
         createUserContext(token: any): any;
 
         /**
          * Create a orient function from a plain Javascript function
          *
-         * @param   {string} name     The name of the function
-         * @param   {Object} fn       Plain Javascript function to stringify
-         * @param   {Object} options  Not currently used but will be used for 'IDEMPOTENT' arg
+         * @param   name     The name of the function
+         * @param   fn       Plain Javascript function to stringify
+         * @param   options  Not currently used but will be used for 'IDEMPOTENT' arg
          * @promise {Mixed}           The results of the query / command.
          */
         createFn(name: string, fn: (...args: any[]) => any, options?: any): Promise<any>;
@@ -988,7 +993,7 @@ declare namespace orientjs {
      * # Server
      * Represents a connection to an orientdb server.
      *
-     * @param {string|Object} options The server URL, or configuration object
+     * @param options The server URL, or configuration object
      */
     class Server {
         constructor(options?: ServerConfig);
@@ -1002,87 +1007,87 @@ declare namespace orientjs {
         /**
          * Configure the server instance.
          *
-         * @param  {Object} config The configuration for the server.
-         * @return {Server}            The configured server object.
+         * @param  config The configuration for the server.
+         * @return            The configured server object.
          */
         configure(config: ServerConfig): Server;
         /**
          * Configure the transport for the server.
          *
-         * @param  {Object} config The server config.
-         * @return {Server}        The configured server object.
+         * @param  config The server config.
+         * @return        The configured server object.
          */
         configureTransport(config: any): Server;
         /**
          * Configure the logger for the server.
          *
-         * @param  {Object} config The logger config
-         * @return {Server}        The server instance with the configured logger.
+         * @param  config The logger config
+         * @return        The server instance with the configured logger.
          */
         configureLogger(logger: Logger): Server;
         /**
          * Send an operation to the server,
          *
-         * @param  {Integer} operation The id of the operation to send.
-         * @param  {Object} options    The options for the operation.
+         * @param  operation The id of the operation to send.
+         * @param  options    The options for the operation.
          * @promise {Mixed}            The result of the operation.
          */
         send(operation: number, options: any): any;
         /**
          * Close the connection to the server.
          *
-         * @return {Server} the disconnected server instance
+         * @return the disconnected server instance
          */
         close(): Server;
         /**
          * Use the database with the given name / config.
          *
-         * @param  {string | DbConfig} config The database name, or configuration object.
-         * @return {Db}                   The database instance.
+         * @param  config The database name, or configuration object.
+         * @return                   The database instance.
          */
         use(name: string | DbConfig): Db;
         /**
          * Create a database with the given name / config.
          *
-         * @param  {string | DbConfig} config The database name or configuration object.
+         * @param  config The database name or configuration object.
          * @promise {Db}                  The database instance
          */
         create(name: string | DbConfig): Promise<Db>;
         /**
          * Destroy a database with the given name / config.
          *
-         * @param   {string | DbConfig} config The database name or configuration object.
+         * @param   config The database name or configuration object.
          * @promise {Mixed}               The server response.
          */
         drop(name: string | DbConfig): Promise<Db>;
         /**
          * List all the databases on the server.
          *
-         * @return {Db[]} An array of databases.
+         * @return An array of databases.
          */
         list(): Promise<Db[]>;
         /**
          * Determine whether a database exists with the given name.
          *
-         * @param   {string} name        The database name.
-         * @param   {string} storageType The storage type, defaults to `plocal`.
+         * @param   name        The database name.
+         * @param   storageType The storage type, defaults to `plocal`.
          * @promise {Boolean}            true if the database exists.
          */
         exists(name: string, storageType?: string): Promise<boolean>;
         /**
          * Freeze the database with the given name.
          *
-         * @param   {string} name        The database name.
-         * @param   {string} storageType The storage type, defaults to `plocal`.
-         * @return {Object}              The response from the server.
+         * @param   name        The database name.
+         * @param   storageType The storage type, defaults to `plocal`.
+         * @return              The response from the server.
          */
         freeze(name: string, storageType?: string): any;
         /**
          * Release the database with the given name.
          *
-         * @param   {string} name        The database name.
-         * @param   {string} storageType The storage type, defaults to `plocal`.
-         * @return {Object}              The response from the server.
+         * @param   name        The database name.
+         * @param   storageType The storage type, defaults to `plocal`.
+         * @return              The response from the server.
          */
         release(name: string, storageType?: string): any;
 

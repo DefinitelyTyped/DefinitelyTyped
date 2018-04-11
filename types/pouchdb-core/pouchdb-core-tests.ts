@@ -1,4 +1,4 @@
-import * as PouchDB from 'pouchdb-core';
+import PouchDB = require('pouchdb-core');
 
 function isString(someString: string) {
 }
@@ -47,10 +47,19 @@ function testBulkDocs() {
     const model = { property: 'test' };
     const model2 = { property: 'test' };
 
+    const isError = (
+        result: PouchDB.Core.Response | PouchDB.Core.Error
+    ): result is PouchDB.Core.Error => {
+        return !!(<PouchDB.Core.Error> result).error;
+    };
+
     db.bulkDocs([model, model2]).then((result) => {
-        result.forEach(({ ok, id, rev }) => {
+        result.forEach(result => {
+          if (!isError(result)) {
+            const { ok, id, rev } = result;
             isString(id);
             isString(rev);
+          }
         });
     });
 
@@ -60,7 +69,14 @@ function testBulkDocs() {
 
 function testBulkGet() {
     const db = new PouchDB();
-    db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}).then((result) => {});
+    db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}).then((response) => {
+        const results = response.results;
+        results.forEach((result) => {
+            const id = result.id;
+            const docs = result.docs;
+            docs.map((doc) => doc);
+        });
+    });
     db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}, (error, response) => {});
 }
 function testRevsDiff() {
@@ -121,6 +137,9 @@ function testBasics() {
     });
     db.info((error, result) => {
     });
+
+    // "Round-trippable": can put back a document from get
+    db.get('id').then(doc => db.put(doc));
 
     PouchDB.debug.enable('*');
 }
@@ -236,11 +255,28 @@ function heterogeneousGenericsDatabase(db: PouchDB.Database) {
         thud: boolean;
     }
 
+    // Attachment test
+    db.put<Cat>({
+        _attachments: {
+            ['meme.gif']: {
+                content_type: 'image/gif',
+                data: new Blob(['fake example'])
+            }
+        },
+        meow: 'roar'
+    });
+
     db.allDocs<Cat>({ startkey: 'cat/', endkey: 'cat/\uffff', include_docs: true })
         .then(cats => {
             for (const row of cats.rows) {
                 if (row.doc) {
                     row.doc.meow; // $ExpectType string
+
+                    // Round-trip test
+                    db.put(row.doc);
+                    db.put<Cat>(row.doc);
+                    // Generic strictness test
+                    db.put<Boot>(row.doc); // $ExpectError
                 }
             }
         });

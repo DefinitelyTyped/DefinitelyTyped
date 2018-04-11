@@ -2,7 +2,7 @@
 // Project: https://github.com/apigee-127/swagger-restify#readme
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /* =================== USAGE ===================
 import * as SwaggerRestify from "swagger-restify-mw";

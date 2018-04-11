@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-scale module 1.0
+// Type definitions for D3JS d3-scale module 2.0
 // Project: https://github.com/d3/d3-scale/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.4
+// Last module patch version validated against: 2.0.0
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
@@ -87,7 +87,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[]): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Sets the scale’s range to the specified array of values while also setting the scale’s interpolator to interpolateRound.
@@ -152,7 +152,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      * Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using continuous.domain.
      * You must re-nice the scale after setting the new domain, if desired.
      *
-     * @param count An optional number of ticks expexted to be used.
+     * @param count An optional number of ticks expected to be used.
      */
     nice(count?: number): this;
 
@@ -664,7 +664,7 @@ export interface ScaleIdentity {
      * Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using continuous.domain.
      * You must re-nice the scale after setting the new domain, if desired.
      *
-     * @param count An optional number of ticks expexted to be used.
+     * @param count An optional number of ticks expected to be used.
      */
     nice(count?: number): this;
 
@@ -756,7 +756,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[]): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Sets the scale’s range to the specified array of values while also setting the scale’s interpolator to interpolateRound.
@@ -1082,71 +1082,6 @@ export interface ScaleSequential<Output> {
 export function scaleSequential<Output>(interpolator: ((t: number) => Output)): ScaleSequential<Output>;
 
 // -------------------------------------------------------------------------------
-// Color Interpolators for Sequential Scale Factory
-// -------------------------------------------------------------------------------
-
-/**
- * Given a number t in the range [0,1], returns the corresponding color from the “viridis” perceptually-uniform color scheme designed by van der Walt, Smith and Firing for matplotlib,
- * represented as an RGB string.
- *
- * @param t A number in the interval [0, 1].
- */
-export function interpolateViridis(t: number): string;
-
-/**
- * Given a number t in the range [0,1], returns the corresponding color from the “inferno” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
- * represented as an RGB string.
- *
- * @param t A number in the interval [0, 1].
- */
-export function interpolateInferno(t: number): string;
-
-/**
- * Given a number t in the range [0,1], returns the corresponding color from the “magma” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
- * represented as an RGB string.
- *
- * @param t A number in the interval [0, 1].
- */
-export function interpolateMagma(t: number): string;
-
-/**
- * Given a number t in the range [0,1], returns the corresponding color from the “plasma” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
- * represented as an RGB string.
- *
- * @param t A number in the interval [0, 1].
- */
-export function interpolatePlasma(t: number): string;
-
-/**
- * Given a number t in the range [0,1], returns the corresponding color from a 180° rotation of Niccoli’s perceptual rainbow, represented as an RGB string.
- *
- * @param t A number in the interval [0, 1].
- */
-export function interpolateWarm(t: number): string;
-
-/**
- * Given a number t in the range [0,1], returns the corresponding color from Niccoli’s perceptual rainbow, represented as an RGB string.
- *
- * @param t A number in the interval [0, 1].
- */
-export function interpolateCool(t: number): string;
-
-/**
- * Given a number t in the range [0,1], returns the corresponding color from d3.interpolateWarm scale from [0.0, 0.5] followed by the d3.interpolateCool scale from [0.5, 1.0],
- * thus implementing the cyclical less-angry rainbow color scheme.
- *
- * @param t A number in the interval [0, 1].
- */
-export function interpolateRainbow(t: number): string;
-
-/**
- * Given a number t in the range [0,1], returns the corresponding color from Green’s default Cubehelix represented as an RGB string.
- *
- * @param t A number in the interval [0, 1].
- */
-export function interpolateCubehelixDefault(t: number): string;
-
-// -------------------------------------------------------------------------------
 // Quantize Scale Factory
 // -------------------------------------------------------------------------------
 
@@ -1195,7 +1130,7 @@ export interface ScaleQuantize<Range> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[]): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Returns approximately count representative values from the scale’s domain.
@@ -1231,7 +1166,7 @@ export interface ScaleQuantize<Range> {
      * Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using continuous.domain.
      * You must re-nice the scale after setting the new domain, if desired.
      *
-     * @param count An optional number of ticks expexted to be used.
+     * @param count An optional number of ticks expected to be used.
      */
     nice(count?: number): this;
 
@@ -1311,7 +1246,7 @@ export interface ScaleQuantile<Range> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[]): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Returns the quantile thresholds. If the range contains n discrete values, the returned array will contain n - 1 thresholds.
@@ -1385,7 +1320,7 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Domain[]): this;
+    domain(domain: ReadonlyArray<Domain>): this;
 
     /**
      * Returns the scale’s current range.
@@ -1398,7 +1333,7 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[]): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
@@ -1463,7 +1398,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Domain[]): this;
+    domain(domain: ReadonlyArray<Domain>): this;
 
     /**
      * Returns the scale's current range.
@@ -1478,7 +1413,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[]): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Returns the current unknown value, which defaults to "implicit".
@@ -1509,7 +1444,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
  *
  * @parm range An optional array of range values to initialize the scale with.
  */
-export function scaleOrdinal<Range>(range?: Range[]): ScaleOrdinal<string, Range>;
+export function scaleOrdinal<Range>(range?: ReadonlyArray<Range>): ScaleOrdinal<string, Range>;
 /**
  * Constructs a new ordinal scale with an empty domain and the specified range.
  * If a range is not specified, it defaults to the empty array; an ordinal scale always returns undefined until a non-empty range is defined.
@@ -1522,7 +1457,7 @@ export function scaleOrdinal<Range>(range?: Range[]): ScaleOrdinal<string, Range
  *
  * @parm range An optional array of range values to initialize the scale with.
  */
-export function scaleOrdinal<Domain extends { toString(): string }, Range>(range?: Range[]): ScaleOrdinal<Domain, Range>;
+export function scaleOrdinal<Domain extends { toString(): string }, Range>(range?: ReadonlyArray<Range>): ScaleOrdinal<Domain, Range>;
 
 /**
  * A special value for ordinal.unknown that enables implicit domain construction: unknown values are implicitly added to the domain.
@@ -1561,7 +1496,7 @@ export interface ScaleBand<Domain extends { toString(): string }> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Domain[]): this;
+    domain(domain: ReadonlyArray<Domain>): this;
 
     /**
      * Returns the scale’s current range, which defaults to [0, 1].
@@ -1713,7 +1648,7 @@ export interface ScalePoint<Domain extends { toString(): string }> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Domain[]): this;
+    domain(domain: ReadonlyArray<Domain>): this;
 
     /**
      * Returns the scale’s current range, which defaults to [0, 1].
@@ -1813,28 +1748,3 @@ export function scalePoint(): ScalePoint<string>;
  * The generic corresponds to the data type of domain elements.
  */
 export function scalePoint<Domain extends { toString(): string }>(): ScalePoint<Domain>;
-
-// -------------------------------------------------------------------------------
-// Categorical Color Schemas for Ordinal Scales
-// -------------------------------------------------------------------------------
-
-/**
- * An array of ten categorical colors represented as RGB hexadecimal strings.
- */
-export const schemeCategory10: string[];
-
-/**
- * An array of twenty categorical colors represented as RGB hexadecimal strings.
- */
-export const schemeCategory20: string[];
-
-/**
- * An array of twenty categorical colors represented as RGB hexadecimal strings.
- */
-export const schemeCategory20b: string[];
-
-/**
- * An array of twenty categorical colors represented as RGB hexadecimal strings.
- * This color scale includes color specifications and designs developed by Cynthia Brewer (colorbrewer2.org).
- */
-export const schemeCategory20c: string[];

@@ -1,10 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [ "es6", "dom" ],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
@@ -17,6 +21,5 @@
     "files": [
         "index.d.ts",
         "redux-infinite-scroll-tests.tsx"
-
     ]
 }

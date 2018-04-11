@@ -16,7 +16,7 @@ import {
 // are the same as before but now we see them inside a modal
 // on top of the old screen.
 
-class ModalSwitch extends React.Component<RouteComponentProps<void>> {
+class ModalSwitch extends React.Component<RouteComponentProps<{}>> {
   // We can pass a location to <Switch/> that will tell it to
   // ignore the router's current location and use the location
   // prop instead.
@@ -31,7 +31,7 @@ class ModalSwitch extends React.Component<RouteComponentProps<void>> {
   // is still `/` even though its `/images/2`.
   previousLocation = this.props.location;
 
-  componentWillUpdate(nextProps: RouteComponentProps<void>) {
+  componentWillUpdate(nextProps: RouteComponentProps<{}>) {
     const { location } = this.props;
     // set previousLocation if props.location is not modal
     if (

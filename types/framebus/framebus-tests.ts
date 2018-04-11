@@ -1,6 +1,7 @@
 import * as framebus from "framebus";
 
-const popup = window.open('https://example.com');
+// tslint:disable-next-line no-unnecessary-type-assertion (in older TS versions `window.open` is not nullable)
+const popup = window.open('https://example.com')!;
 framebus.include(popup);
 framebus.emit('hello popup and friends!');
 

@@ -1,8 +1,9 @@
 // Type definitions for react-native-collapsible 0.8
 // Project: https://github.com/oblador/react-native-collapsible
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
+//                 Umidbek Karimov <https://github.com/umidbekkarimov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 

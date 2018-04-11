@@ -2,6 +2,7 @@
 // Project: https://github.com/fex-team/yog2-kernel
 // Definitions by: ssddi456 <https://github.com/ssddi456>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as express from "express";
 import * as _ from "lodash";
@@ -54,7 +55,7 @@ export interface ActionObject {
 
 export interface Router extends express.Router {
     action(actionName: string): express.RequestHandler | ActionObject;
-    wrapAsync(fn: (req?: express.Request, resp?: express.Response, next?: express.NextFunction) => any): express.RequestHandler;
+    wrapAsync(fn: (req: Request, resp: Response, next: express.NextFunction) => any): express.RequestHandler;
 }
 
 export namespace yog {

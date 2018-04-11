@@ -1,26 +1,22 @@
-// Type definitions for medium-editor v5.0.0
+// Type definitions for medium-editor 5.0
 // Project: https://yabwe.github.io/medium-editor/
 // Definitions by: keika299 <https://github.com/keika299>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace MediumEditor {
-
     export interface MediumEditor {
-
         // Initialization Functions
-        new (elements: elementType, options?: CoreOptions): MediumEditor;
+        new(elements: elementType, options?: CoreOptions): MediumEditor;
         destroy(): void;
         setup(): void;
         addElements(elements: elementType): void;
         removeElements(elements: elementType): void;
 
         // Event Functions
-        on(targets: HTMLElement | NodeList, event: string, listener: (event: Event) => void, useCapture: boolean): MediumEditor;
         on(targets: HTMLElement | NodeList, event: string, listener: EventListenerOrEventListenerObject, useCapture: boolean): MediumEditor;
-        off(targets: HTMLElement | NodeList, event: string, listener: Function, useCapture: boolean): MediumEditor;
         off(targets: HTMLElement | NodeList, event: string, listener: EventListenerOrEventListenerObject, useCapture: boolean): MediumEditor;
         subscribe(name: string, listener: (data: any, editable: HTMLElement) => void): MediumEditor;
-        unsubscribe(name: string, listener: Function): MediumEditor;
+        unsubscribe(name: string, listener: (data: any, editable: HTMLElement) => void): MediumEditor;
         trigger(name: string, data: any, editable: HTMLElement): MediumEditor;
 
         // Selection Functions
@@ -39,14 +35,13 @@ declare namespace MediumEditor {
         // Editor Action Functions
         cleanPaste(text: string): void;
         createLink(opts: CreateLinkOptions): void;
-        execAction(action: string, opts?: string): boolean;
-        execAction(action: string, opts?: CreateLinkOptions): boolean;
-        pasteHTML(html: string, options?:PasteHTMLOptions): void;
+        execAction(action: string, opts?: string | CreateLinkOptions): boolean;
+        pasteHTML(html: string, options?: PasteHTMLOptions): void;
         queryCommandState(action: string): boolean;
 
         // Helper Functions
         checkContentChanged(editable?: HTMLElement): void;
-        delay(fn: Function): void;
+        delay(fn: () => any): void;
         getContent(index?: number): string;
         getExtensionByName(name: string): any;
         resetContent(element: HTMLElement): void;
@@ -62,8 +57,8 @@ declare namespace MediumEditor {
             minor: number;
             revision: number;
             preRelease: string;
-            toString: Function;
-        }
+            toString(): string;
+        };
     }
 
     export interface CoreOptions {
@@ -94,7 +89,7 @@ declare namespace MediumEditor {
     export interface ToolbarOptions {
         align?: string;
         allowMultiParagraphSelection?: boolean;
-        buttons?: string[];
+        buttons?: Button[];
         diffLeft?: number;
         diffTop?: number;
         firstButtonClass?: string;
@@ -131,11 +126,11 @@ declare namespace MediumEditor {
     export interface PasteOptions {
         forcePlainText?: boolean;
         cleanPastedHTML?: boolean;
-        preCleanReplacements?: any[],
-        cleanReplacements?: any[],
+        preCleanReplacements?: any[];
+        cleanReplacements?: any[];
         cleanAttrs?: string[];
         cleanTags?: string[];
-        unwrapTags?: string[],
+        unwrapTags?: string[];
     }
 
     export interface KeyboardCommandsOptions {
@@ -156,14 +151,31 @@ declare namespace MediumEditor {
         buttonClass?: string;
     }
 
-    export interface PasteHTMLOptions{
+    export interface PasteHTMLOptions {
         cleanAttrs?: string[];
         cleanTags?: string[];
         unwrapTags?: string[];
     }
 
+    export interface ButtonOptions {
+        name?: string;
+        action?: string;
+        aria?: string;
+        tagNames?: string[];
+        style?: { prop: string, value: string };
+        useQueryState?: boolean;
+        contentDefault?: string;
+        contentFA?: string;
+        classList?: string[];
+        attrs?: { [key: string]: string };
+    }
+
+    export type Button = string | ButtonOptions;
     export type elementType = string | HTMLElement | HTMLElement[] | NodeList | NodeListOf<Element> | HTMLCollection;
-    export type selectionObject = {start: number, end: number};
+    export interface selectionObject {
+        start: number;
+        end: number;
+    }
 }
 
 declare var MediumEditor: MediumEditor.MediumEditor;

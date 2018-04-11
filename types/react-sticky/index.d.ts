@@ -2,7 +2,7 @@
 // Project: https://github.com/captivationsoftware/react-sticky
 // Definitions by: Matej Lednicky <http://www.thinkcreatix.com/>, Curtis Warren <https://github.com/curtisw0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 

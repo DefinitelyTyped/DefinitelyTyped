@@ -6,7 +6,7 @@ declare namespace Button {
         bsClass?: string;
         active?: boolean;
         block?: boolean;
-        bsStyle?: string;
+        bsStyle?: string | null;
         bsSize?: Sizes;
         componentClass?: React.ReactType;
         disabled?: boolean;

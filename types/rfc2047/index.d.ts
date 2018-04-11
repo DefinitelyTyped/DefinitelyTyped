@@ -5,14 +5,14 @@
 
 /**
  * Decode
- * @param  {string} encodedText Encoded Text
- * @return {string} Decoded Text
+ * @param encodedText Encoded Text
+ * @return Decoded Text
  */
 export function decode(encodedText: string): string;
 
 /**
  * Encode
- * @param  {string} decodedText Decoded Text
- * @return {string} Encoded Text
+ * @param decodedText Decoded Text
+ * @return Encoded Text
  */
 export function encode(decodedText: string): string;

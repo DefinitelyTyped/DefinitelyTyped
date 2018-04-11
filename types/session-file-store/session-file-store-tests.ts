@@ -1,11 +1,11 @@
-import FileStore = require("session-file-store");
+import session = require("express-session");
+import f = require("session-file-store");
 
-const options: FileStore.Options = {
+const options: f.Options = {
     path: "./tmp/sessions/",
     logFn: (a: string) => {
     }
 };
+const FileStore = f(session);
 
-const sessionStore = new FileStore(options);
-
-sessionStore.list((err: any, file: string[]) => {});
+const sessionStore: session.Store = new FileStore(options);

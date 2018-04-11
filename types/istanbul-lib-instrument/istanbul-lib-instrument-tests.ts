@@ -5,6 +5,7 @@ import {
 } from 'istanbul-lib-instrument';
 
 import * as babelTypes from 'babel-types';
+import { RawSourceMap } from 'source-map';
 
 const code = 'foo';
 const filename = 'bar.txt';
@@ -24,8 +25,8 @@ const instrumenter = createInstrumenter({
 	debug: false
 });
 
-const sourceMap = {
-	version: 1,
+const sourceMap: RawSourceMap = {
+	version: 1 as any as string, // Fixed by https://github.com/mozilla/source-map/pull/293 but the fix is not yet published
 	sources: ['foo', 'bar'],
 	names: ['foo', 'bar'],
 	mappings: 'foo',

@@ -1,9 +1,12 @@
-// Type definitions for Umzug v2.0.1
+// Type definitions for Umzug v2.1.0
 // Project: https://github.com/sequelize/umzug
 // Definitions by: Ivan Drinchev <https://github.com/drinchev>
+//                 Margus Lamp <https://github.com/mlamp>
+//                 Troy McKinnon <https://github.com/trodi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { EventEmitter } from 'events';
 import Sequelize = require("sequelize");
 
 declare namespace umzug {
@@ -28,9 +31,41 @@ declare namespace umzug {
          */
         wrap?: <T>(fn: T) => T;
 
+        /**
+         * A function that maps a file path to a migration object in the form
+         * { up: Function, down: Function }. The default for this is to require(...)
+         * the file as javascript, but you can use this to transpile TypeScript,
+         * read raw sql etc.
+         * See https://github.com/sequelize/umzug/tree/master/test/fixtures
+         * for examples.
+         */
+        customResolver?(path: string): { up: () => Promise<any>, down?: () => Promise<any> };
+
     }
 
-    interface JSONStorageOptions {
+    /**
+     * In order to keep track of already executed tasks, umzug logs successfully executed migrations.
+     * This is done in order to allow rollbacks of tasks. This is the interface these `Storages` must
+     * follow.
+     */
+    interface Storage {
+        /**
+         * Logs migration to be considered as executed.
+         *
+         * @param migrationName - Name of the migration to be logged.
+         */
+        logMigration(migrationName: string): Promise<void>;
+        /**
+         * Unlogs migration to be considered as pending.
+         *
+         * @param migrationName - Name of the migration to be unlogged.
+         */
+        unlogMigration(migrationName: string): Promise<void>;
+        /** Gets list of executed migrations. */
+        executed(): Promise<String[]>;
+    }
+
+    interface JSONStorageOptions extends Storage {
 
         /**
          * The path to the json storage.
@@ -40,7 +75,7 @@ declare namespace umzug {
 
     }
 
-    interface SequelizeStorageOptions {
+    interface SequelizeStorageOptions extends Storage {
 
         /**
          * The configured instance of Sequelize.
@@ -87,12 +122,10 @@ declare namespace umzug {
     }
 
     interface UmzugOptions {
-
         /**
          * The storage.
-         * Possible values: 'json', 'sequelize', an object
          */
-        storage?: string;
+        storage?: "json" | "sequelize" | Storage;
 
         /**
          * The options for the storage.
@@ -159,7 +192,7 @@ declare namespace umzug {
         file: string;
     }
 
-    interface Umzug {
+    interface Umzug extends EventEmitter {
         /**
          * The execute method is a general purpose function that runs for
          * every specified migrations the respective function.
@@ -190,6 +223,10 @@ declare namespace umzug {
         down(migrations?: string[]): Promise<Migration[]>;
         down(options?: DownToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
 
+        on(eventName: 'migrating' | 'reverting' | 'migrated' | 'reverted', cb?: (name: string, migration: Migration) => void): this;
+        addListener(eventName: 'migrating' | 'reverting' | 'migrated' | 'reverted', cb?: (name: string, migration: Migration) => void): this;
+        removeListener(eventName: 'migrating' | 'reverting' | 'migrated' | 'reverted', cb?: (name: string, migration: Migration) => void): this;
+
     }
 
     interface UmzugStatic {
@@ -197,5 +234,5 @@ declare namespace umzug {
     }
 }
 
-declare var umzug: umzug.UmzugStatic;
+declare const umzug: umzug.UmzugStatic;
 export = umzug;

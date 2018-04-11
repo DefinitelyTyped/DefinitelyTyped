@@ -1,5 +1,8 @@
 import * as bson from 'bson';
 
+// enable hex string caching
+bson.ObjectID.cacheHexString = true
+
 let BSON = new bson.BSON();
 let Long = bson.Long;
 

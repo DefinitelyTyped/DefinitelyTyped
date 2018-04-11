@@ -1,18 +1,22 @@
-// Type definitions for mathjs
+// Type definitions for mathjs 3.20
 // Project: http://mathjs.org/
-// Definitions by: Ilya Shestakov <https://github.com/siavol>
+// Definitions by: Ilya Shestakov <https://github.com/siavol>,
+// 				   Andy Patterson <https://github.com/andnp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-declare var math: mathjs.IMathJsStatic;
+import { Decimal } from 'decimal.js';
 
-declare namespace mathjs {
+declare const math: math.MathJsStatic; // tslint:disable-line strict-export-declare-modifiers
+export as namespace math; // tslint:disable-line strict-export-declare-modifiers
+export = math; // tslint:disable-line strict-export-declare-modifiers
 
+declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 	type MathArray = number[]|number[][];
 	type MathType = number|BigNumber|Fraction|Complex|Unit|MathArray|Matrix;
 	type MathExpression = string|string[]|MathArray|Matrix;
 
-	export interface IMathJsStatic {
-
+	interface MathJsStatic {
 		e: number;
 		pi: number;
 		i: number;
@@ -30,10 +34,10 @@ declare namespace mathjs {
 
 		uninitialized: any;
 		version: string;
-		
-		config(options: any): void;
 
-                expression: MathNode;
+		expression: MathNode;
+
+		config: (options: any) => void;
 
 		/**
 		 * Solves the linear equation system by forwards substitution. Matrix must be a lower triangular matrix.
@@ -44,7 +48,7 @@ declare namespace mathjs {
 		lsolve(L: Matrix|MathArray, b: Matrix|MathArray): Matrix|MathArray;
 
 		/**
-                 * Calculate the Matrix LU decomposition with partial pivoting. Matrix A is decomposed in two matrices (L, U)
+		 * Calculate the Matrix LU decomposition with partial pivoting. Matrix A is decomposed in two matrices (L, U)
 		 * and a row permutation vector p where A[p,:] = L * U
 		 * @param A A two dimensional matrix or array for which to get the LUP decomposition.
 		 * @returns The lower triangular matrix, the upper triangular matrix and the permutation matrix.
@@ -57,22 +61,22 @@ declare namespace mathjs {
 		 * @param b Column Vector
 		 * @returns Column vector with the solution to the linear system A * x = b
 		 */
-		lusolve(A: Matrix|MathArray|Number, b: Matrix|MathArray): Matrix|MathArray;
+		lusolve(A: Matrix|MathArray|number, b: Matrix|MathArray): Matrix|MathArray;
 
 		/**
-                 * Calculate the Sparse Matrix LU decomposition with full pivoting. Sparse Matrix A is decomposed in
+		 * Calculate the Sparse Matrix LU decomposition with full pivoting. Sparse Matrix A is decomposed in
 		 * two matrices (L, U) and two permutation vectors (pinv, q) where P * A * Q = L * U
 		 * @param A A two dimensional sparse matrix for which to get the LU decomposition.
-                 * @param order The Symbolic Ordering and Analysis order: 0 - Natural ordering, no permutation vector q is
-                 * returned 1 - Matrix must be square, symbolic ordering and analisis is performed on M = A + A' 2 - Symbolic
-                 * ordering and analisis is performed on M = A' * A. Dense columns from A' are dropped, A recreated from A'.
-                 * This is appropriatefor LU factorization of unsymmetric matrices. 3 - Symbolic ordering and analisis is performed
-                 * on M = A' * A. This is best used for LU factorization is matrix M has no dense rows. A dense row is a row with
+		 * @param order The Symbolic Ordering and Analysis order: 0 - Natural ordering, no permutation vector q is
+		 * returned 1 - Matrix must be square, symbolic ordering and analisis is performed on M = A + A' 2 - Symbolic
+		 * ordering and analysis is performed on M = A' * A. Dense columns from A' are dropped, A recreated from A'.
+		 * This is appropriate for LU factorization of non-symmetric matrices. 3 - Symbolic ordering and analysis is performed
+		 * on M = A' * A. This is best used for LU factorization is matrix M has no dense rows. A dense row is a row with
 		 * more than 10*sqr(columns) entries.
 		 * @param threshold Partial pivoting threshold (1 for partial pivoting)
 		 * @returns The lower triangular matrix, the upper triangular matrix and the permutation vectors.
 		 */
-		slu(A: Matrix, order: Number, threshold: Number): any;
+		slu(A: Matrix, order: number, threshold: number): any;
 
 		/**
 		 * Solves the linear equation system by backward substitution. Matrix must be an upper triangular matrix. U * x = b
@@ -80,7 +84,7 @@ declare namespace mathjs {
 		 * @param b A column vector with the b values
 		 * @returns A column vector with the linear system solution (x)
 		 */
-		usolve(U: Matrix|MathArray, b:Matrix|MathArray): Matrix|MathArray;
+		usolve(U: Matrix|MathArray, b: Matrix|MathArray): Matrix|MathArray;
 
 		/**
 		 * Calculate the absolute value of a number. For matrices, the function is evaluated element wise.
@@ -130,7 +134,7 @@ declare namespace mathjs {
 		ceil(x: Matrix): Matrix;
 		ceil(x: Unit): Unit;
 
-                /**
+		/**
 		 * Compute the cube of a value, x * x * x. For matrices, the function is evaluated element wise.
 		 * @param x Number for which to calculate the cube
 		 * @returns Cube of x
@@ -151,7 +155,7 @@ declare namespace mathjs {
 		 */
 		divide(x: Unit, y: Unit): Unit;
 		divide(x: number, y: number): number;
-		divide(x:MathType, y:MathType): MathType;
+		divide(x: MathType, y: MathType): MathType;
 
 		/**
 		 * Divide two matrices element wise. The function accepts both matrices and scalar values.
@@ -169,7 +173,7 @@ declare namespace mathjs {
 		 */
 		dotMultiply(x: MathType, y: MathType): MathType;
 
-                /**
+		/**
 		 * Calculates the power of x to y element wise.
 		 * @param x The base
 		 * @param y The exponent
@@ -183,21 +187,21 @@ declare namespace mathjs {
 		 * #returns Exponent of x
 		 */
 		exp(x: number): number;
-		exp(x: BigNumber ): BigNumber ;
-		exp(x: Complex ): Complex ;
-		exp(x: MathArray ): MathArray ;
+		exp(x: BigNumber): BigNumber ;
+		exp(x: Complex): Complex ;
+		exp(x: MathArray): MathArray ;
 		exp(x: Matrix): Matrix;
 
-                /**
+		/**
 		 * Round a value towards zero. For matrices, the function is evaluated element wise.
 		 * @param x Number to be rounded
 		 * @returns Rounded value
 		 */
 		fix(x: number): number;
-		fix(x: BigNumber ): BigNumber ;
-		fix(x: Fraction ): Fraction ;
-		fix(x: Complex ): Complex ;
-		fix(x: MathArray ): MathArray ;
+		fix(x: BigNumber): BigNumber ;
+		fix(x: Fraction): Fraction ;
+		fix(x: Complex): Complex ;
+		fix(x: MathArray): MathArray ;
 		fix(x: Matrix): Matrix;
 
 		/**
@@ -206,10 +210,10 @@ declare namespace mathjs {
 		 * @returns Rounded value
 		 */
 		floor(x: number): number;
-		floor(x: BigNumber ): BigNumber ;
-		floor(x: Fraction ): Fraction ;
-		floor(x: Complex ): Complex ;
-		floor(x: MathArray ): MathArray ;
+		floor(x: BigNumber): BigNumber ;
+		floor(x: Fraction): Fraction ;
+		floor(x: Complex): Complex ;
+		floor(x: MathArray): MathArray ;
 		floor(x: Matrix): Matrix;
 
 		/**
@@ -229,13 +233,20 @@ declare namespace mathjs {
 		hypot(...args: number[]): number;
 		hypot(...args: BigNumber[]): BigNumber;
 
+        /**
+         * Calculate the kronecker product of two matrices or vectors
+         * @param x First Matrix
+         * @param y Second Matrix
+         */
+        kron(x: Matrix|MathArray, y: Matrix|MathArray): Matrix;
+
 		/**
 		 * Calculate the least common multiple for two or more values or arrays. lcm is defined as:
 		 * lcm(a, b) = abs(a * b) / gcd(a, b)
 		 * For matrices, the function is evaluated element wise.
 		 */
 		lcm(a: number, b: number): number;
-		lcm(a: BigNumber , b: BigNumber ): BigNumber ;
+		lcm(a: BigNumber , b: BigNumber): BigNumber ;
 		lcm(a: MathArray, b: MathArray): MathArray;
 		lcm(a: Matrix, b: Matrix): Matrix;
 
@@ -260,7 +271,7 @@ declare namespace mathjs {
 		 * Calculates the modulus, the remainder of an integer division. For matrices, the function is evaluated element wise.
 		 * The modulus is defined as:
 		 * x - y * floor(x / y)
-		 * See http://en.wikipedia.org/wiki/Modulo_operation.
+		 * @see http://en.wikipedia.org/wiki/Modulo_operation.
 		 * @param x Dividend
 		 * @param y Divisor
 		 */
@@ -269,7 +280,6 @@ declare namespace mathjs {
 		/**
 		 * Multiply two values, x * y. The result is squeezed. For matrices, the matrix product is calculated.
 		 */
-		multiply(x: MathArray|Matrix, y: MathArray|Matrix): Matrix;
 		multiply(x: MathArray|Matrix, y: MathType): Matrix;
 		multiply(x: Unit, y: Unit): Unit;
 		multiply(x: number, y: number): number;
@@ -297,7 +307,7 @@ declare namespace mathjs {
 		 * @param x The base
 		 * @param y The exponent
 		 */
-		pow(x: number|BigNumber|Complex|MathArray|Matrix, y: number|BigNumber|Complex): number|BigNumber|Complex|MathArray|Matrix;
+		pow(x: MathType, y: number|BigNumber|Complex): MathType;
 
 		/**
 		 * Round a value towards the nearest integer. For matrices, the function is evaluated element wise.
@@ -314,9 +324,9 @@ declare namespace mathjs {
 		 * For matrices, the function is evaluated element wise.
 		 */
 		sign(x: number): number;
-		sign(x: BigNumber ): BigNumber;
-		sign(x: Fraction ): Fraction ;
-		sign(x: Complex ): Complex ;
+		sign(x: BigNumber): BigNumber;
+		sign(x: Fraction): Fraction ;
+		sign(x: Complex): Complex ;
 		sign(x: MathArray): MathArray;
 		sign(x: Matrix): Matrix;
 		sign(x: Unit): Unit;
@@ -325,8 +335,8 @@ declare namespace mathjs {
 		 * Calculate the square root of a value. For matrices, the function is evaluated element wise.
 		 */
 		sqrt(x: number): number;
-		sqrt(x: BigNumber ): BigNumber;
-		sqrt(x: Complex ): Complex ;
+		sqrt(x: BigNumber): BigNumber;
+		sqrt(x: Complex): Complex ;
 		sqrt(x: MathArray): MathArray;
 		sqrt(x: Matrix): Matrix;
 		sqrt(x: Unit): Unit;
@@ -335,9 +345,9 @@ declare namespace mathjs {
 		 * Compute the square of a value, x * x. For matrices, the function is evaluated element wise.
 		 */
 		square(x: number): number;
-		square(x: BigNumber ): BigNumber;
-		square(x: Fraction ): Fraction ;
-		square(x: Complex ): Complex ;
+		square(x: BigNumber): BigNumber;
+		square(x: Fraction): Fraction ;
+		square(x: Complex): Complex ;
 		square(x: MathArray): MathArray;
 		square(x: Matrix): Matrix;
 		square(x: Unit): Unit;
@@ -352,9 +362,9 @@ declare namespace mathjs {
 		 * For matrices, the function is evaluated element wise. Boolean values and strings will be converted to a number. For complex numbers, both real and complex value are inverted.
 		 */
 		unaryMinus(x: number): number;
-		unaryMinus(x: BigNumber ): BigNumber;
-		unaryMinus(x: Fraction ): Fraction ;
-		unaryMinus(x: Complex ): Complex ;
+		unaryMinus(x: BigNumber): BigNumber;
+		unaryMinus(x: Fraction): Fraction ;
+		unaryMinus(x: Complex): Complex ;
 		unaryMinus(x: MathArray): MathArray;
 		unaryMinus(x: Matrix): Matrix;
 		unaryMinus(x: Unit): Unit;
@@ -364,10 +374,10 @@ declare namespace mathjs {
 		 * For matrices, the function is evaluated element wise.
 		 */
 		unaryPlus(x: number): number;
-		unaryPlus(x: BigNumber ): BigNumber;
-		unaryPlus(x: Fraction ): Fraction ;
+		unaryPlus(x: BigNumber): BigNumber;
+		unaryPlus(x: Fraction): Fraction ;
 		unaryPlus(x: string): string;
-		unaryPlus(x: Complex ): Complex ;
+		unaryPlus(x: Complex): Complex ;
 		unaryPlus(x: MathArray): MathArray;
 		unaryPlus(x: Matrix): Matrix;
 		unaryPlus(x: Unit): Unit;
@@ -386,7 +396,7 @@ declare namespace mathjs {
 		 * Bitwise NOT value, ~x. For matrices, the function is evaluated element wise. For units, the function is evaluated on the best prefix base.
 		 */
 		bitNot(x: number): number;
-		bitNot(x: BigNumber ): BigNumber ;
+		bitNot(x: BigNumber): BigNumber ;
 		bitNot(x: MathArray): MathArray;
 		bitNot(x: Matrix): Matrix;
 
@@ -394,7 +404,7 @@ declare namespace mathjs {
 		 * Bitwise OR two values, x | y. For matrices, the function is evaluated element wise. For units, the function is evaluated on the lowest print base.
 		 */
 		bitOr(x: number): number;
-		bitOr(x: BigNumber ): BigNumber ;
+		bitOr(x: BigNumber): BigNumber ;
 		bitOr(x: MathArray): MathArray;
 		bitOr(x: Matrix): Matrix;
 
@@ -425,17 +435,19 @@ declare namespace mathjs {
 		rightLogShift(x: number|MathArray|Matrix, y: number): number|MathArray|Matrix;
 
 		/**
-		 * The Bell Numbers count the number of partitions of a set. A partition is a pairwise disjoint subset of S whose union is S. bellNumbers only takes integer arguments. The following condition must be enforced: n >= 0
+		 * The Bell Numbers count the number of partitions of a set.
+		 * A partition is a pairwise disjoint subset of S whose union is S. bellNumbers only takes integer arguments.
+		 * The following condition must be enforced: n >= 0
 		 * @param n Total number of objects in the set
 		 */
-		bellNumbers(n: Number): Number;
+		bellNumbers(n: number): number;
 		bellNumbers(n: BigNumber): BigNumber;
 
 		/**
 		 * The Catalan Numbers enumerate combinatorial structures of many different types. catalan only takes integer arguments. The following condition must be enforced: n >= 0
-		 * @pararm n nth Catalan number
+		 * @param n nth Catalan number
 		 */
-		catalan(n: Number): Number;
+		catalan(n: number): number;
 		catalan(n: BigNumber): BigNumber;
 
 		/**
@@ -444,22 +456,22 @@ declare namespace mathjs {
 		 * @param k Number of objects in the subset
 		 * @returns Returns the composition counts of n into k parts.
 		 */
-		composition(n: Number|BigNumber, k: Number|BigNumber): Number|BigNumber
+		composition(n: number|BigNumber, k: number|BigNumber): number|BigNumber;
 
 		/**
-		 * The Stirling numbers of the second kind, counts the number of ways to partition a set of n labelled objects into k nonempty unlabelled subsets. stirlingS2 only takes integer arguments. The following condition must be enforced: k <= n.
+		 * The Stirling numbers of the second kind, counts the number of ways to partition a set of n labelled objects into k nonempty unlabelled subsets.
+		 * stirlingS2 only takes integer arguments. The following condition must be enforced: k <= n.
 		 * If n = k or k = 1, then s(n,k) = 1
 		 * @param n Total number of objects in the set
 		 * @param k Number of objects in the subset
 		 */
-		stirlingS2(n: Number|BigNumber, k: Number|BigNumber): Number|BigNumber;
+		stirlingS2(n: number|BigNumber, k: number|BigNumber): number|BigNumber;
 
 		/**
 		 * Compute the argument of a complex value. For a complex number a + bi, the argument is computed as atan2(b, a). For matrices, the function is evaluated element wise.
 		 * @param x A complex number or array with complex numbers
 		 */
-		arg(x: number): number;
-		arg(x: Complex): number;
+		arg(x: number|Complex): number;
 		arg(x: MathArray): MathArray;
 		arg(x: Matrix): Matrix;
 
@@ -469,8 +481,8 @@ declare namespace mathjs {
 		 */
 		conj(x: number|BigNumber|Complex|MathArray|Matrix): number|BigNumber|Complex|MathArray|Matrix;
 
-                /**
-                 * Get the imaginary part of a complex number. For a complex number a + bi, the function returns b.
+		/**
+		 * Get the imaginary part of a complex number. For a complex number a + bi, the function returns b.
 		 * For matrices, the function is evaluated element wise.
 		 */
 		im(x: number|BigNumber|Complex|MathArray|Matrix): number|BigNumber|MathArray|Matrix;
@@ -487,29 +499,28 @@ declare namespace mathjs {
 		bignumber(x?: number|string|MathArray|Matrix|boolean): BigNumber;
 
 		/**
-		 * Create a boolean or convert a string or number to a boolean. In case of a number, true is returned for non-zero numbers, and false in case of zero. Strings can be 'true' or 'false', or can contain a number. When value is a matrix, all elements will be converted to boolean.
+		 * Create a boolean or convert a string or number to a boolean.
+		 * In case of a number, true is returned for non-zero numbers, and false in case of zero.
+		 * Strings can be 'true' or 'false', or can contain a number. When value is a matrix, all elements will be converted to boolean.
 		 */
-		boolean(x: string|number|boolean|MathArray|Matrix ): boolean|MathArray|Matrix;
+		boolean(x: string|number|boolean|MathArray|Matrix): boolean|MathArray|Matrix;
 
 		/**
 		 * Wrap any value in a chain, allowing to perform chained operations on the value.
-		 * All methods available in the math.js library can be called upon the chain, and then will be evaluated with the value itself as first argument. The chain can be closed by executing chain.done(), which returns the final value.
+		 * All methods available in the math.js library can be called upon the chain, and then will be evaluated with the value itself as first argument.
+		 * The chain can be closed by executing chain.done(), which returns the final value.
 		 * The chain has a number of special functions:
 		 * done() Finalize the chain and return the chain's value.
 		 * valueOf() The same as done()
 		 * toString() Executes math.format() onto the chain's value, returning a string representation of the value.
 		 */
-		chain(value?: any): IMathJsChain;
+		chain(value?: any): MathJsChain;
 
 		/**
 		 * Create a complex value or convert a value to a complex value.
 		 */
-		complex(): Complex;
+		complex(arg?: Complex|string|MathArray| PolarCoordinates): Complex;
 		complex(re: number, im: number): Complex;
-		complex(complex: Complex): Complex;
-		complex(arg: string): Complex;
-		complex(array: MathArray): Complex;
-		complex(obj: IPolarCoordinates): Complex;
 
 		/**
 		 * Create a fraction convert a value to a fraction.
@@ -522,8 +533,8 @@ declare namespace mathjs {
 		index(...ranges: any[]): Index;
 
 		/**
-                 * Create a Matrix. The function creates a new math.type.Matrix object from an Array. A Matrix has utility functions
-                 * to manipulate the data in the matrix, like getting the size and getting or setting values in the matrix. Supported
+		 * Create a Matrix. The function creates a new math.type.Matrix object from an Array. A Matrix has utility functions
+		 * to manipulate the data in the matrix, like getting the size and getting or setting values in the matrix. Supported
 		 * storage formats are 'dense' and 'sparse'.
 		 */
 		matrix(format?: 'sparse'|'dense'): Matrix;
@@ -532,15 +543,15 @@ declare namespace mathjs {
 		/**
 		 * Create a number or convert a string, boolean, or unit to a number. When value is a matrix, all elements will be converted to number.
 		 */
-		number(value?: string|number|boolean|MathArray|Matrix|Unit): number|MathArray|Matrix;
+		number(value?: string|number|boolean|MathArray|Matrix|Unit|BigNumber): number|MathArray|Matrix;
 		number(unit: Unit, valuelessUnit: Unit|string): number|MathArray|Matrix;
 
 		/**
-                 * Create a Sparse Matrix. The function creates a new math.type.Matrix object from an Array. A Matrix has utility
+		 * Create a Sparse Matrix. The function creates a new math.type.Matrix object from an Array. A Matrix has utility
 		 * functions to manipulate the data in the matrix, like getting the size and getting or setting values in the matrix.
 		 * @param data A two dimensional array
 		 */
-		sparse(data?: MathArray|Matrix, dataType?:string): Matrix;
+		sparse(data?: MathArray|Matrix, dataType?: string): Matrix;
 
 		/**
 		 * Create a string or convert any object into a string. Elements of Arrays and Matrices are processed element wise.
@@ -549,11 +560,17 @@ declare namespace mathjs {
 		string(value: any): string|MathArray|Matrix;
 
 		/**
-                 * Create a unit. Depending on the passed arguments, the function will create and return a new math.type.Unit object.
+		 * Create a unit. Depending on the passed arguments, the function will create and return a new math.type.Unit object.
 		 * When a matrix is provided, all elements will be converted to units.
 		 */
 		unit(unit: string): Unit;
 		unit(value: number, unit: string): Unit;
+
+		/**
+		 * Create a user-defined unit and register it with the Unit type.
+		 */
+		createUnit(name: string, definition?: string|UnitDefinition, options?: CreateUnitOptions): Unit;
+		createUnit(units: Record<string, string|UnitDefinition>, options?: CreateUnitOptions): Unit;
 
 		/**
 		 * Parse and compile an expression. Returns a an object with a function eval([scope]) to evaluate the compiled expression.
@@ -564,8 +581,7 @@ declare namespace mathjs {
 		/**
 		 * Evaluate an expression.
 		 */
-		eval(expr: MathExpression, scope?: any): any;
-		eval(exprs: MathExpression[], scope?: any): any;
+		eval(expr: MathExpression|MathExpression[], scope?: any): any;
 
 		/**
 		 * Retrieve help on a function or data type. Help files are retrieved from the documentation in math.expression.docs.
@@ -584,21 +600,21 @@ declare namespace mathjs {
 		parser(): Parser;
 
 		/**
-                 * Calculates: The eucledian distance between two points in 2 and 3 dimensional spaces. Distance between point
-                 * and a line in 2 and 3 dimensional spaces. Pairwise distance between a set of 2D or 3D points NOTE: When
-                 * substituting coefficients of a line(a, b and c), use ax + by + c = 0 instead of ax + by = c For parametric
+		 * Calculates: The eucledian distance between two points in 2 and 3 dimensional spaces. Distance between point
+		 * and a line in 2 and 3 dimensional spaces. Pairwise distance between a set of 2D or 3D points NOTE: When
+		 * substituting coefficients of a line(a, b and c), use ax + by + c = 0 instead of ax + by = c For parametric
 		 * equation of a 3D line, x0, y0, z0, a, b, c are from: (x−x0, y−y0, z−z0) = t(a, b, c)
 		 */
-		distance(x: MathArray|Matrix|any, y: MathArray|Matrix|any): Number | BigNumber;
+		distance(x: MathType, y: MathType): number | BigNumber;
 
 		/**
-                 * Calculates the point of intersection of two lines in two or three dimensions and of a line and a plane in
-                 * three dimensions. The inputs are in the form of arrays or 1 dimensional matrices. The line intersection functions
+		 * Calculates the point of intersection of two lines in two or three dimensions and of a line and a plane in
+		 * three dimensions. The inputs are in the form of arrays or 1 dimensional matrices. The line intersection functions
 		 * return null if the lines do not meet.
 		 * Note: Fill the plane coefficients as x + y + z = c and not as x + y + z + c = 0.
 		 * @param w Co-ordinates of first end-point of first line
 		 * @param x Co-ordinates of second end-point of first line
-		 * @param y Co-ordinates of first end-point of second line OR Co-efficients of the plane's equation
+		 * @param y Co-ordinates of first end-point of second line OR Coefficients of the plane's equation
 		 * @param z Co-ordinates of second end-point of second line OR null if the calculation is for line and plane
 		 * @returns Returns the point of intersection of lines/lines-planes
 		 */
@@ -628,10 +644,10 @@ declare namespace mathjs {
 		 * Concatenate two or more matrices.
 		 * dim: number is a zero-based dimension over which to concatenate the matrices. By default the last dimension of the matrices.
 		 */
-		concat(...args: (MathArray|Matrix|number)[]): MathArray|Matrix;
+		concat(...args: Array<MathArray|Matrix|number>): MathArray|Matrix;
 
 		/**
-                 * Calculate the cross product for two vectors in three dimensional space. The cross product of A = [a1, a2, a3]
+		 * Calculate the cross product for two vectors in three dimensional space. The cross product of A = [a1, a2, a3]
 		 * and B =[b1, b2, b3] is defined as:
 		 * cross(A, B) = [ a2 * b3 - a3 * b2, a3 * b1 - a1 * b3, a1 * b2 - a2 * b1 ]
 		 */
@@ -644,9 +660,9 @@ declare namespace mathjs {
 
 		/**
 		 * Create a diagonal matrix or retrieve the diagonal of a matrix.
-                 * When x is a vector, a matrix with vector x on the diagonal will be returned. When x is a two dimensional matrix,
+		 * When x is a vector, a matrix with vector x on the diagonal will be returned. When x is a two dimensional matrix,
 		 * the matrixes kth diagonal will be returned
-                 * as vector. When k is positive, the values are placed on the super diagonal. When k is negative, the values are
+		 * as vector. When k is positive, the values are placed on the super diagonal. When k is negative, the values are
 		 * placed on the sub diagonal.
 		 * @param X A two dimensional matrix or a vector
 		 * @param k The diagonal where the vector will be filled in or retrieved. Default value: 0.
@@ -656,7 +672,8 @@ declare namespace mathjs {
 		diag(X: MathArray|Matrix, k: number|BigNumber, format?: string): Matrix;
 
 		/**
-                 * Calculate the dot product of two vectors. The dot product of A = [a1, a2, a3, ..., an] and B = [b1, b2, b3, ..., bn]
+		 * Calculate the dot product of two vectors.
+		 * The dot product of A = [a1, a2, a3, ..., an] and B = [b1, b2, b3, ..., bn]
 		 * is defined as:
 		 * dot(A, B) = a1 * b1 + a2 * b2 + a3 * b3 + ... + an * bn
 		 */
@@ -665,14 +682,13 @@ declare namespace mathjs {
 		/**
 		 * Create a 2-dimensional identity matrix with size m x n or n x n. The matrix has ones on the diagonal and zeros elsewhere.
 		 */
-		eye(n: number, format?: string): Matrix;
+		eye(n: number|number[], format?: string): Matrix;
 		eye(m: number, n: number, format?: string): Matrix;
-		eye(size: number[], format?: string): Matrix;
 
 		/**
 		 * Flatten a multi dimensional matrix into a single dimensional matrix.
 		 */
-                flatten(x: MathArray|Matrix): MathArray|Matrix;
+        flatten(x: MathArray|Matrix): MathArray|Matrix;
 
 		/**
 		 * Calculate the inverse of a square matrix.
@@ -682,9 +698,8 @@ declare namespace mathjs {
 		/**
 		 * Create a matrix filled with ones. The created matrix can have one or multiple dimensions.
 		 */
-		ones(n: number, format?: string): MathArray|Matrix;
+		ones(n: number|number[], format?: string): MathArray|Matrix;
 		ones(m: number, n: number, format?: string): MathArray|Matrix;
-		ones(size: number[], format?: string): MathArray|Matrix;
 
 		/**
 		 * Create an array from a range. By default, the range end is excluded. This can be customized by providing an extra parameter includeEnd.
@@ -695,8 +710,8 @@ declare namespace mathjs {
 		 * @returns Parameters describing the ranges start, end, and optional step.
 		 */
 		range(str: string, includeEnd?: boolean): Matrix;
-		range(start: number|BigNumber, end:number|BigNumber, includeEnd?:boolean): Matrix;
-		range(start: number|BigNumber, end: number|BigNumber, step: number|BigNumber, includeEnd?:boolean): Matrix;
+		range(start: number|BigNumber, end: number|BigNumber, includeEnd?: boolean): Matrix;
+		range(start: number|BigNumber, end: number|BigNumber, step: number|BigNumber, includeEnd?: boolean): Matrix;
 
 		/**
 		 * Resize a matrix
@@ -738,12 +753,11 @@ declare namespace mathjs {
 		/**
 		 * Create a matrix filled with zeros. The created matrix can have one or multiple dimensions.
 		 */
-		zeros(n: number, format?: string): MathArray|Matrix;
+		zeros(n: number|number[], format?: string): MathArray|Matrix;
 		zeros(m: number, n: number, format?: string): MathArray|Matrix;
-		zeros(size: number[], format?: string): MathArray|Matrix;
 
 		/**
-                 * Compute the number of ways of picking k unordered outcomes from n possibilities.
+		 * Compute the number of ways of picking k unordered outcomes from n possibilities.
 		 * Combinations only takes integer arguments. The following condition must be enforced: k <= n.
 		 */
 		combinations(n: number|BigNumber, k: number|BigNumber): number|BigNumber;
@@ -761,7 +775,7 @@ declare namespace mathjs {
 		factorial(n: number|BigNumber|MathArray|Matrix): number|BigNumber|MathArray|Matrix;
 
 		/**
-                 * Compute the gamma function of a value using Lanczos approximation for small values, and an extended
+		 * Compute the gamma function of a value using Lanczos approximation for small values, and an extended
 		 * Stirling approximation for large values.
 		 * For matrices, the function is evaluated element wise.
 		 */
@@ -784,7 +798,7 @@ declare namespace mathjs {
 		 * @param n The number of objects in total
 		 * @param k The number of objects in the subset
 		 */
-		permutations(n: number|BigNumber, k?:number|BigNumber): number|BigNumber;
+		permutations(n: number|BigNumber, k?: number|BigNumber): number|BigNumber;
 
 		/**
 		 * Random pick a value from a one dimensional array. Array element is picked using a random function with uniform distribution.
@@ -794,23 +808,18 @@ declare namespace mathjs {
 		/**
 		 * Return a random number larger or equal to min and smaller than max using a uniform distribution.
 		 */
-		random(): number;
-		random(max: number): number;
-		random(min: number, max: number): number;
-		random(size: MathArray|Matrix, max?: number): MathArray|Matrix;
-		random(size: MathArray|Matrix, min:number, max: number): MathArray|Matrix;
+		random(min?: number, max?: number): number;
+		random(size: MathArray|Matrix, min?: number, max?: number): MathArray|Matrix;
 
 		/**
 		 * Return a random integer number larger or equal to min and smaller than max using a uniform distribution.
 		 */
-		randomInt(max: number): number;
-		randomInt(min: number, max: number): number;
-		randomInt(size: MathArray|Matrix, max?: number): MathArray|Matrix;
-		randomInt(size: MathArray|Matrix, min:number, max: number): MathArray|Matrix;
+		randomInt(min: number, max?: number): number;
+		randomInt(size: MathArray|Matrix, min?: number, max?: number): MathArray|Matrix;
 
 		/**
 		 * Compare two values. Returns 1 when x > y, -1 when x < y, and 0 when x == y.
-                 * x and y are considered equal when the relative difference between x and y is smaller than the configured epsilon.
+		 * x and y are considered equal when the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
 		 * For matrices, the function is evaluated element wise.
 		 */
@@ -823,91 +832,78 @@ declare namespace mathjs {
 
 		/**
 		 * Test whether two values are equal.
-                 *
-                 * The function tests whether the relative difference between x and y is smaller than the configured epsilon.
+		 *
+		 * The function tests whether the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise. In case of complex numbers, x.re must equal y.re, and x.im must equal y.im.
-                 *
 		 * Values null and undefined are compared strictly, thus null is only equal to null and nothing else, and undefined is only equal to undefined and nothing else.
 		 */
 		equal(x: MathType, y: MathType): boolean|MathArray|Matrix;
 
 		/**
 		 * Test whether value x is larger than y.
-                 *
-                 * The function returns true when x is larger than y and the relative difference between x and y is larger than the configured epsilon.
+		 * The function returns true when x is larger than y and the relative difference between x and y is larger than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise.
 		 */
 		larger(x: MathType, y: MathType): boolean|MathArray|Matrix;
 
 		/**
 		 * Test whether value x is larger or equal to y.
-                 *
-                 * The function returns true when x is larger than y or the relative difference between x and y is smaller than the configured epsilon.
+		 * The function returns true when x is larger than y or the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise.
 		 */
 		largerEq(x: MathType, y: MathType): boolean|MathArray|Matrix;
 
 		/**
 		 * Test whether value x is smaller than y.
-                 *
-                 * The function returns true when x is smaller than y and the relative difference between x and y is smaller than the configured epsilon.
+		 * The function returns true when x is smaller than y and the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise.
 		 */
 		smaller(x: MathType, y: MathType): boolean|MathArray|Matrix;
 
 		/**
 		 * Test whether value x is smaller or equal to y.
-                 *
-                 * The function returns true when x is smaller than y or the relative difference between x and y is smaller than the configured epsilon.
+		 * The function returns true when x is smaller than y or the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16. For matrices, the function is evaluated element wise.
 		 */
 		smallerEq(x: MathType, y: MathType): boolean|MathArray|Matrix;
 
 		/**
 		 * Test whether two values are unequal.
-                 *
-                 * The function tests whether the relative difference between x and y is larger than the configured epsilon. The function cannot
+		 * The function tests whether the relative difference between x and y is larger than the configured epsilon. The function cannot
 		 * be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise. In case of complex numbers, x.re must unequal y.re, or x.im must unequal y.im.
-                 *
-                 * Values null and undefined are compared strictly, thus null is unequal with everything except null, and undefined is unequal with
-		 * everying except. undefined.
+		 * Values null and undefined are compared strictly, thus null is unequal with everything except null, and undefined is unequal with
+		 * everything except undefined.
 		 */
 		unequal(x: MathType, y: MathType): boolean|MathArray|Matrix;
 
 		/**
-                 * Compute the maximum value of a matrix or a list with values. In case of a multi dimensional array, the maximum of the flattened
+		 * Compute the maximum value of a matrix or a list with values. In case of a multi dimensional array, the maximum of the flattened
 		 * array will be calculated. When dim is provided, the maximum over the selected dimension will be calculated. Parameter dim is zero-based.
 		 */
 		max(...args: MathType[]): any;
 		max(A: MathArray|Matrix, dim?: number): any;
 
 		/**
-                 * Compute the mean value of matrix or a list with values. In case of a multi dimensional array, the mean of the flattened array will be
+		 * Compute the mean value of matrix or a list with values. In case of a multi dimensional array, the mean of the flattened array will be
 		 * calculated. When dim is provided, the maximum over the selected dimension will be calculated. Parameter dim is zero-based.
 		 */
 		mean(...args: MathType[]): any;
 		mean(A: MathArray|Matrix, dim?: number): any;
 
 		/**
-                 * Compute the median of a matrix or a list with values. The values are sorted and the middle value is returned. In case of an
+		 * Compute the median of a matrix or a list with values. The values are sorted and the middle value is returned. In case of an
 		 * even number of values, the average of the two middle values is returned. Supported types of values are: Number, BigNumber, Unit
-                 *
 		 * In case of a (multi dimensional) array or matrix, the median of all elements will be calculated.
 		 */
 		median(...args: MathType[]): any;
 
 		/**
-                 * Compute the maximum value of a matrix or a list of values. In case of a multi dimensional array, the maximum of the flattened
+		 * Compute the maximum value of a matrix or a list of values. In case of a multi dimensional array, the maximum of the flattened
 		 * array will be calculated. When dim is provided, the maximum over the selected dimension will be calculated. Parameter dim is zero-based.
 		 */
 		min(...args: MathType[]): any;
@@ -924,21 +920,18 @@ declare namespace mathjs {
 		prod(...args: MathType[]): any;
 
 		/**
-                 * Compute the prob order quantile of a matrix or a list with values. The sequence is sorted and the middle value is returned.
+		 * Compute the prob order quantile of a matrix or a list with values. The sequence is sorted and the middle value is returned.
 		 * Supported types of sequence values are: Number, BigNumber, Unit Supported types of probability are: Number, BigNumber
-                 *
 		 * In case of a (multi dimensional) array or matrix, the prob order quantile of all elements will be calculated.
 		 */
-		quantileSeq(A: MathArray|Matrix, prob: Number|BigNumber|MathArray, sorted?: boolean): Number|BigNumber|Unit|MathArray;
+		quantileSeq(A: MathArray|Matrix, prob: number|BigNumber|MathArray, sorted?: boolean): number|BigNumber|Unit|MathArray;
 
 		/**
-                 * Compute the standard deviation of a matrix or a list with values. The standard deviations is defined as the square root of the
-                 * variance: std(A) = sqrt(var(A)). In case of a (multi dimensional) array or matrix, the standard deviation over all elements will
+		 * Compute the standard deviation of a matrix or a list with values. The standard deviations is defined as the square root of the
+		 * variance: std(A) = sqrt(var(A)). In case of a (multi dimensional) array or matrix, the standard deviation over all elements will
 		 * be calculated.
-                 *
-                 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the following
+		 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the following
 		 * values:
-                 *
 		 * 'unbiased' (default) The sum of squared errors is divided by (n - 1)
 		 * 'uncorrected' The sum of squared errors is divided by n
 		 * 'biased' The sum of squared errors is divided by (n + 1)
@@ -948,23 +941,21 @@ declare namespace mathjs {
 		/**
 		 * Compute the sum of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the sum of all elements will be calculated.
 		 */
-		sum(...args: (Number|BigNumber|Fraction)[]): any;
+		sum(...args: Array<number|BigNumber|Fraction>): any;
 		sum(array: MathArray|Matrix): any;
 
 		/**
-                 * Compute the variance of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the variance over all
+		 * Compute the variance of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the variance over all
 		 * elements will be calculated.
-                 *
-                 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the
+		 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the
 		 * following values:
-                 *
 		 * 'unbiased' (default) The sum of squared errors is divided by (n - 1)
 		 * 'uncorrected' The sum of squared errors is divided by n
 		 * 'biased' The sum of squared errors is divided by (n + 1)
-                 * Note that older browser may not like the variable name var. In that case, the function can be called as math['var'](...)
+		 * Note that older browser may not like the variable name var. In that case, the function can be called as math['var'](...)
 		 * instead of math.var(...).
 		 */
-		var(...args: (Number|BigNumber|Fraction)[]): any;
+		var(...args: Array<number|BigNumber|Fraction>): any;
 		var(array: MathArray|Matrix, normalization?: string): any;
 
 		/**
@@ -1062,9 +1053,8 @@ declare namespace mathjs {
 		atan(x: Matrix): Matrix;
 
 		/**
-                 * Calculate the inverse tangent function with two arguments, y/x. By providing two arguments, the right quadrant of the
+		 * Calculate the inverse tangent function with two arguments, y/x. By providing two arguments, the right quadrant of the
 		 * computed angle can be determined.
-                 *
 		 * For matrices, the function is evaluated element wise.
 		 */
 		atan2(y: number, x: number): number;
@@ -1080,126 +1070,104 @@ declare namespace mathjs {
 		atanh(x: Matrix): Matrix;
 
 		/**
-		 * Calculate the cosine of a value. For matrices, the function is evaluated element wise.
-		 */
-		asin(x: number): number;
-		asin(x: BigNumber): BigNumber;
-		asin(x: Complex): Complex;
-		asin(x: Unit): number;
-		asin(x: MathArray): MathArray;
-		asin(x: Matrix): Matrix;
-
-		/**
 		 * Calculate the hyperbolic cosine of a value, defined as cosh(x) = 1/2 * (exp(x) + exp(-x)). For matrices, the function is evaluated element wise.
 		 */
-		cosh(x: number): number;
+		cosh(x: number|Unit): number;
 		cosh(x: BigNumber): BigNumber;
 		cosh(x: Complex): Complex;
-		cosh(x: Unit): number;
 		cosh(x: MathArray): MathArray;
 		cosh(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the cotangent of a value. cot(x) is defined as 1 / tan(x). For matrices, the function is evaluated element wise.
 		 */
-		cot(x: number): number;
+		cot(x: number|Unit): number;
 		cot(x: Complex): Complex;
-		cot(x: Unit): number;
 		cot(x: MathArray): MathArray;
 		cot(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the hyperbolic cotangent of a value, defined as coth(x) = 1 / tanh(x). For matrices, the function is evaluated element wise.
 		 */
-		coth(x: number): number;
+		coth(x: number|Unit): number;
 		coth(x: Complex): Complex;
-		coth(x: Unit): number;
 		coth(x: MathArray): MathArray;
 		coth(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the cosecant of a value, defined as csc(x) = 1/sin(x). For matrices, the function is evaluated element wise.
 		 */
-		csc(x: number): number;
+		csc(x: number|Unit): number;
 		csc(x: Complex): Complex;
-		csc(x: Unit): number;
 		csc(x: MathArray): MathArray;
 		csc(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the hyperbolic cosecant of a value, defined as csch(x) = 1 / sinh(x). For matrices, the function is evaluated element wise.
 		 */
-		csch(x: number): number;
+		csch(x: number|Unit): number;
 		csch(x: Complex): Complex;
-		csch(x: Unit): number;
 		csch(x: MathArray): MathArray;
 		csch(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the secant of a value, defined as sec(x) = 1/cos(x). For matrices, the function is evaluated element wise.
 		 */
-		sec(x: number): number;
+		sec(x: number|Unit): number;
 		sec(x: Complex): Complex;
-		sec(x: Unit): number;
 		sec(x: MathArray): MathArray;
 		sec(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the hyperbolic secant of a value, defined as sech(x) = 1 / cosh(x). For matrices, the function is evaluated element wise.
 		 */
-		sech(x: number): number;
+		sech(x: number|Unit): number;
 		sech(x: Complex): Complex;
-		sech(x: Unit): number;
 		sech(x: MathArray): MathArray;
 		sech(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the sine of a value. For matrices, the function is evaluated element wise.
 		 */
-		sin(x: number): number;
+		sin(x: number|Unit): number;
 		sin(x: BigNumber): BigNumber;
 		sin(x: Complex): Complex;
-		sin(x: Unit): number;
 		sin(x: MathArray): MathArray;
 		sin(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the cosine of a value. For matrices, the function is evaluated element wise.
 		 */
-		cos(x: number): number;
+		cos(x: number|Unit): number;
 		cos(x: BigNumber): BigNumber;
 		cos(x: Complex): Complex;
-		cos(x: Unit): number;
 		cos(x: MathArray): MathArray;
 		cos(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the hyperbolic sine of a value, defined as sinh(x) = 1/2 * (exp(x) - exp(-x)). For matrices, the function is evaluated element wise.
 		 */
-		sinh(x: number): number;
+		sinh(x: number|Unit): number;
 		sinh(x: BigNumber): BigNumber;
 		sinh(x: Complex): Complex;
-		sinh(x: Unit): number;
 		sinh(x: MathArray): MathArray;
 		sinh(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the tangent of a value. tan(x) is equal to sin(x) / cos(x). For matrices, the function is evaluated element wise.
 		 */
-		tan(x: number): number;
+		tan(x: number|Unit): number;
 		tan(x: BigNumber): BigNumber;
 		tan(x: Complex): Complex;
-		tan(x: Unit): number;
 		tan(x: MathArray): MathArray;
 		tan(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the hyperbolic tangent of a value, defined as tanh(x) = (exp(2 * x) - 1) / (exp(2 * x) + 1). For matrices, the function is evaluated element wise.
 		 */
-		tanh(x: number): number;
+		tanh(x: number|Unit): number;
 		tanh(x: BigNumber): BigNumber;
 		tanh(x: Complex): Complex;
-		tanh(x: Unit): number;
 		tanh(x: MathArray): MathArray;
 		tanh(x: Matrix): Matrix;
 
@@ -1208,7 +1176,7 @@ declare namespace mathjs {
 		 * @param x The unit to be converted.
 		 * @param unit New unit. Can be a string like "cm" or a unit without value.
 		 */
-		to(x: Unit|MathArray|Matrix, unit: Unit|string): Unit|MathArray|Matrix
+		to(x: Unit|MathArray|Matrix, unit: Unit|string): Unit|MathArray|Matrix;
 
 		/**
 		 * Clone an object.
@@ -1218,25 +1186,25 @@ declare namespace mathjs {
 		/**
 		 * Filter the items in an array or one dimensional matrix.
 		 * @param x A one dimensional matrix or array to filter
-                 * @param test
+		 * @param test
 		 */
-		filter(x: MathArray|Matrix, test: RegExp|((item: any)=>boolean)): MathArray|Matrix;
+		filter(x: MathArray|Matrix, test: RegExp|((item: any) => boolean)): MathArray|Matrix;
 
 		/**
 		 * Iterate over all elements of a matrix/array, and executes the given callback function.
 		 * @param x The matrix to iterate on.
 		 * @param callback The callback function is invoked with three parameters: the value of the element, the index of the element, and the Matrix/array being traversed.
 		 */
-		forEach(x: MathArray|Matrix, callback: (item: any)=>any): void;
+		forEach: (x: MathArray|Matrix, callback: (item: any) => any) => void;
 
 		/**
 		 * Format a value of any type into a string.
 		 * @param value The value to be formatted
 		 */
-		format(value: any, options?: IFormatOptions|number|((item: any)=>string)): string;
+		format(value: any, options?: FormatOptions|number|((item: any) => string)): string;
 
 		/**
-                 * Test whether a value is an integer number. The function supports number, BigNumber, and Fraction.
+		 * Test whether a value is an integer number. The function supports number, BigNumber, and Fraction.
 		 * The function is evaluated element-wise in case of Array or Matrix input.
 		 */
 		isInteger(x: any): boolean;
@@ -1269,7 +1237,7 @@ declare namespace mathjs {
 		 * @param x The matrix to iterate on.
 		 * @param callback The callback method is invoked with three parameters: the value of the element, the index of the element, and the matrix being traversed.
 		 */
-		map(x: MathArray|Matrix, callback: (item: any)=>any): MathArray|Matrix;
+		map(x: MathArray|Matrix, callback: (item: any) => any): MathArray|Matrix;
 
 		/**
 		 * Partition-based selection of an array or 1D matrix. Will find the kth smallest value, and mutates the input array. Uses Quickselect.
@@ -1278,7 +1246,7 @@ declare namespace mathjs {
 		 * @param compare  An optional comparator function. The function is called as compare(a, b), and must return 1 when a > b, -1 when a < b, and 0 when a == b. Default value: 'asc'.
 		 * @returns Returns the kth lowest value.
 		 */
-		partitionSelect(x: MathArray|Matrix, k: number, compare?: string|((a: any, b: any)=>number)): any;
+		partitionSelect(x: MathArray|Matrix, k: number, compare?: string|((a: any, b: any) => number)): any;
 
 		/**
 		 * Interpolate values into a string template.
@@ -1286,14 +1254,14 @@ declare namespace mathjs {
 		 * @param values An object containing variables which will be filled in in the template.
 		 * @param precision Number of digits to format numbers. If not provided, the value will not be rounded.
 		 */
-		print(template:string, values: any, precision?: number): void;
+		print: (template: string, values: any, precision?: number) => void;
 
 		/**
 		 * Sort the items in a matrix.
 		 * @param x A one dimensional matrix or array to sort
 		 * @param compare  An optional comparator function. The function is called as compare(a, b), and must return 1 when a > b, -1 when a < b, and 0 when a == b. Default value: 'asc'.
 		 */
-		sort(x: MathArray|Matrix, compare?: string|((a: any, b: any)=>number)): MathArray|Matrix;
+		sort(x: MathArray|Matrix, compare?: string|((a: any, b: any) => number)): MathArray|Matrix;
 
 		/**
 		 * Determine the type of a variable.
@@ -1301,7 +1269,7 @@ declare namespace mathjs {
 		typeof(x: any): string;
 	}
 
-	export interface Matrix {
+	interface Matrix {
 		type: string;
 		storage(): string;
 		datatype(): string;
@@ -1313,371 +1281,380 @@ declare namespace mathjs {
 		clone(): Matrix;
 		size(): number[];
 		map(callback: (a: any, b: number, c: Matrix) => any, skipZeros?: boolean): Matrix;
-		forEach(callback: (a: any, b: number, c: Matrix) => void, skipZeros?: boolean): void;
+		forEach: (callback: (a: any, b: number, c: Matrix) => void, skipZeros?: boolean) => void;
 		toJSON(): any;
 		diagonal(k?: number|BigNumber): any[];
 		swapRows(i: number, j: number): Matrix;
 	}
 
-	export interface BigNumber {
+	interface BigNumber extends Decimal {} // tslint:disable-line no-empty-interface
 
+	interface Fraction {
+		s: number;
+		n: number;
+		d: number;
 	}
 
-	export interface Fraction {
-
-	}
-
-	export interface Complex {
+	interface Complex {
 		re: number;
 		im: number;
-		toPolar(): IPolarCoordinates;
+		toPolar(): PolarCoordinates;
 		clone(): Complex;
 	}
 
-	export interface IPolarCoordinates {
-                r: number;
+	interface PolarCoordinates {
+        r: number;
 		phi: number;
-        }
+    }
 
-	export interface Unit {
+	interface Unit {
 		to(unit: string): Unit;
 		toNumber(unit: string): number;
 	}
 
-	export interface Index {
-
+	interface CreateUnitOptions {
+		override?: boolean;
 	}
 
-	export interface EvalFunction {
+	interface UnitDefinition {
+		definition?: string|Unit;
+		prefixes?: string;
+		offset?: number;
+		aliases?: string[];
+	}
+
+	interface Index {} // tslint:disable-line no-empty-interface
+
+	interface EvalFunction {
 		eval(scope?: any): any;
 	}
 
-	export interface MathNode {
-                isNode: boolean;
-                isSymbolNode?: boolean;
-                isConstantNode?: boolean;
-                isOperatorNode?: boolean;
-                op?: string;
-                fn?: string;
-                args?: MathNode[];
-                type: string;
-                name?: string;
-                value?: any;
+	interface MathNode {
+		isNode: boolean;
+		isSymbolNode?: boolean;
+		isConstantNode?: boolean;
+		isOperatorNode?: boolean;
+		op?: string;
+		fn?: string;
+		args?: MathNode[];
+		type: string;
+		name?: string;
+		value?: any;
 
-                compile(): EvalFunction;
-                eval(): any;
-                eval(expr: string): any;
-                /**
-                 *
-                 * Filter nodes in an expression tree. The callback function is called as callback(node: Node, path: string, parent: Node) : boolean for every node in the tree,
-                 * and must return a boolean. The function filter returns an array with nodes for which the test returned true.
-                 * Parameter path is a string containing a relative JSON Path.
-                 *
-                 * Example:
-                 *
-                 * ```
-                 * var node = math.parse('x^2 + x/4 + 3*y');
-                 * var filtered = node.filter(function (node) {
-                  * return node.isSymbolNode && node.name == 'x';
-                 * });
-                 * // returns an array with two entries: two SymbolNodes 'x'
-                 * ```
-                 *
-                 * @param The callback function is called as callback(node: Node, path: string, parent: Node) : boolean for every node in the tree, and must return a boolean. The function filter returns an array with nodes for which the test returned true. Parameter path is a string containing a relative JSON Path.
-                 * @param  {Function} callback(node [description]
-                 * @return {[Mathnode]}           Returns an array with nodes for which test returned true
-                 */
-                filter(callback: (node: MathNode, path: string, parent: MathNode)=>any ): MathNode[];
+		compile(): EvalFunction;
+		eval(expr?: string): any;
+		/**
+		 *
+		 * Filter nodes in an expression tree. The callback function is called as callback(node: Node, path: string, parent: Node) : boolean for every node in the tree,
+		 * and must return a boolean. The function filter returns an array with nodes for which the test returned true.
+		 * Parameter path is a string containing a relative JSON Path.
+		 *
+		 * Example:
+		 *
+		 * ```
+		 * var node = math.parse('x^2 + x/4 + 3*y');
+		 * var filtered = node.filter(function (node) {
+		 * return node.isSymbolNode && node.name == 'x';
+		 * });
+		 * // returns an array with two entries: two SymbolNodes 'x'
+		 * ```
+		 *
+		 * The callback function is called as callback(node: Node, path: string, parent: Node) : boolean for every node in the tree, and must return a boolean.
+		 * The function filter returns an array with nodes for which the test returned true. Parameter path is a string containing a relative JSON Path.
+		 * @return Returns an array with nodes for which test returned true
+		 */
+		filter(callback: (node: MathNode, path: string, parent: MathNode) => any): MathNode[];
 
+		/**
+		 * [forEach description]
+		 */
+		forEach(callback: (node: MathNode, path: string, parent: MathNode) => any): MathNode[];
 
-                /**
-                 * [forEach description]
-                 * @param  {MathNode} callback(node [description]
-                 * @return {[type]}                 [description]
-                 */
-                forEach(callback: (node: MathNode, path: string, parent: MathNode)=>any): MathNode[];
-		
+		/**
+		 * `traverse(callback)`
+		 *
+		 * Recursively traverse all nodes in a node tree.
+		 * Executes given callback for this node and each of its child nodes.
+		 * Similar to Array.forEach, except recursive.
+		 * The callback function is a mapping function accepting a node, and returning a replacement for the node or the original node.
+		 * Function callback is called as callback(node: Node, path: string, parent: Node) for every node in the tree.
+		 * Parameter path is a string containing a relative JSON Path. Example:
+		 *
+		 * ```
+		 * var node = math.parse('3 * x + 2');
+		 * node.traverse(function (node, path, parent) {
+		 * switch (node.type) {
+		 * case 'OperatorNode': console.log(node.type, node.op);    break;
+		 * case 'ConstantNode': console.log(node.type, node.value); break;
+		 * case 'SymbolNode':   console.log(node.type, node.name);  break;
+		 * default:             console.log(node.type);
+		 * }
+		 * });
+		 * // outputs:
+		 * //   OperatorNode +
+		 * //   OperatorNode *
+		 * //   ConstantNode 3
+		 * //   SymbolNode x
+		 * //   ConstantNode 2
+		 * ```
+		 */
+		traverse(callback: (node: MathNode, path: string, parent: MathNode) => void): any;
+		/**
+		 * Recursively transform an expression tree via a transform function. Similar to Array.map,
+		 * but recursively executed on all nodes in the expression tree. The callback function is a
+		 * mapping function accepting a node, and returning a replacement for the node or the original node.
+		 * Function callback is called as callback(node: Node, path: string, parent: Node) for every node in
+		 * the tree, and must return a Node. Parameter path is a string containing a relative JSON Path.
+		 *
+		 * For example, to replace all nodes of type SymbolNode having name ‘x’ with a ConstantNode with value 3:
+		 * ```js
+		 * var node = math.parse('x^2 + 5*x');
+		 * var transformed = node.transform(function (node, path, parent) {
+		 *   if (node.SymbolNode && node.name == 'x') {
+		 *     return new math.expression.node.ConstantNode(3);
+		 *   }
+		 *   else {
+		 *     return node;
+		 *   }
+		 * });
+		 * transformed.toString(); // returns '(3 ^ 2) + (5 * 3)'
+		 * ```
+		 */
+		transform(callback: (node: MathNode, path: string, parent: MathNode) => MathNode): MathNode;
 
-                /**
-                * `traverse(callback)`
-                *
-                * Recursively traverse all nodes in a node tree. Executes given callback for this node and each of its child nodes. Similar to Array.forEach, except recursive. The callback function is a mapping function accepting a node, and returning a replacement for the node or the original node. Function callback is called as callback(node: Node, path: string, parent: Node) for every node in the tree. Parameter path is a string containing a relative JSON Path. Example:
-                *
-                * ```
-                * var node = math.parse('3 * x + 2');
-                * node.traverse(function (node, path, parent) {
-                * switch (node.type) {
-                * case 'OperatorNode': console.log(node.type, node.op);    break;
-                * case 'ConstantNode': console.log(node.type, node.value); break;
-                * case 'SymbolNode':   console.log(node.type, node.name);  break;
-                * default:             console.log(node.type);
-                * }
-                * });
-                * // outputs:
-                * //   OperatorNode +
-                * //   OperatorNode *
-                * //   ConstantNode 3
-                * //   SymbolNode x
-                * //   ConstantNode 2
-                * ```
-                *
-                * @param  {MathNode} callback=(node [description]
-                * @return {[type]}                  [description]
-                */
-                traverse(callback: (node: MathNode, path: string, parent: MathNode)=> void): any;
-//addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any);
-                /**
-                 * Recursively transform an expression tree via a transform function. Similar to Array.map, 
-                 * but recursively executed on all nodes in the expression tree. The callback function is a 
-                 * mapping function accepting a node, and returning a replacement for the node or the original node. 
-                 * Function callback is called as callback(node: Node, path: string, parent: Node) for every node in 
-                 * the tree, and must return a Node. Parameter path is a string containing a relative JSON Path.
-                 *
-                 * For example, to replace all nodes of type SymbolNode having name ‘x’ with a ConstantNode with value 3:
-                 * ```js
-                 * var node = math.parse('x^2 + 5*x');
-                 * var transformed = node.transform(function (node, path, parent) {
-                 *   if (node.SymbolNode && node.name == 'x') {
-                 *     return new math.expression.node.ConstantNode(3);
-                 *   }
-                 *   else {
-                 *     return node;
-                 *   }
-                 * });
-                 * transformed.toString(); // returns '(3 ^ 2) + (5 * 3)'
-                 * ```
-                 */
-                transform(callback: (node: MathNode, path: string, parent: MathNode)=>MathNode): MathNode;
-                /**
-                 * Transform a node. Creates a new Node having it’s childs be the results of calling the provided 
-                 * callback function for each of the childs of the original node. The callback function is called 
-                 * as `callback(child: Node, path: string, parent: Node)` and must return a Node. 
-                 * Parameter path is a string containing a relative JSON Path.
-                 *
-                 *
-                 * See also transform, which is a recursive version of map.
-                */
-                map(callback: (node: MathNode, path: string, parent: MathNode)=>MathNode): MathNode;
+		/**
+		 * Transform a node. Creates a new Node having it’s child's be the results of calling the provided
+		 * callback function for each of the child's of the original node. The callback function is called
+		 * as `callback(child: Node, path: string, parent: Node)` and must return a Node.
+		 * Parameter path is a string containing a relative JSON Path.
+		 *
+		 *
+		 * See also transform, which is a recursive version of map.
+		 */
+		map(callback: (node: MathNode, path: string, parent: MathNode) => MathNode): MathNode;
 	}
 
-
-	export interface Parser {
+	interface Parser {
 		eval(expr: string): any;
 		get(variable: string): any;
-		set(variable: string, value: any): void;
-		clear(): void;
+		set: (variable: string, value: any) => void;
+		clear: () => void;
 	}
 
-	export interface Distribution {
+	interface Distribution {
 		random(size: any, min?: any, max?: any): any;
 		randomInt(min: any, max?: any): any;
 		pickRandom(array: any): any;
 	}
 
-	export interface IFormatOptions {
+	interface FormatOptions {
 		/**
 		 * Number notation. Choose from:
 		 * 'fixed' Always use regular number notation. For example '123.40' and '14000000'
 		 * 'exponential' Always use exponential notation. For example '1.234e+2' and '1.4e+7'
-                 * 'auto' (default) Regular number notation for numbers having an absolute value between lower and upper bounds, and
+		 * 'auto' (default) Regular number notation for numbers having an absolute value between lower and upper bounds, and
 		 * uses exponential notation elsewhere. Lower bound is included, upper bound is excluded. For example '123.4' and '1.4e7'.
 		 */
 		notation?: string;
 
 		/**
-                 * A number between 0 and 16 to round the digits of the number. In case of notations 'exponential' and 'auto',
-                 * precision defines the total number of significant digits returned and is undefined by default. In case of notation 'fixed',
+		 * A number between 0 and 16 to round the digits of the number. In case of notations 'exponential' and 'auto',
+		 * precision defines the total number of significant digits returned and is undefined by default. In case of notation 'fixed',
 		 * precision defines the number of significant digits after the decimal point, and is 0 by default.
 		 */
 		precision?: number;
 
 		/**
-                 * An object containing two parameters, {number} lower and {number} upper, used by notation 'auto' to determine
+		 * An object containing two parameters, {number} lower and {number} upper, used by notation 'auto' to determine
 		 * when to return exponential notation. Default values are lower=1e-3 and upper=1e5. Only applicable for notation auto.
 		 */
 		exponential?: {lower: number; upper: number};
 
 		/**
-                 * Available values: 'ratio' (default) or 'decimal'. For example format(fraction(1, 3)) will output '1/3' when 'ratio'
+		 * Available values: 'ratio' (default) or 'decimal'. For example format(fraction(1, 3)) will output '1/3' when 'ratio'
 		 * is configured, and will output 0.(3) when 'decimal' is configured.
 		 */
 		fraction?: string;
 
-                /**
-                 * A custom formatting function. Can be used to override the built-in notations. Function fn is called with
-                 * value as parameter and must return a string. Is useful for example to format all values inside a matrix in a particular way.
-		 * */
-		fn?: (item: any)=>string;
+		/**
+		 * A custom formatting function. Can be used to override the built-in notations. Function fn is called with
+		 * value as parameter and must return a string. Is useful for example to format all values inside a matrix in a particular way.
+		 */
+		fn?: (item: any) => string;
 	}
 
-	export interface Help {
+	interface Help {
 		toString(): string;
 		toJSON(): string;
-        }
+    }
 
-        export interface IMathJsChain {
+    interface MathJsChain {
 		/**
 		 * Solves the linear equation system by forwards substitution. Matrix must be a lower triangular matrix.
 		 * @param b A column vector with the b values
 		 */
-		lsolve(b: Matrix|MathArray): IMathJsChain;
+		lsolve(b: Matrix|MathArray): MathJsChain;
 
 		/**
-                 * Calculate the Matrix LU decomposition with partial pivoting. Matrix A is decomposed in two matrices (L, U)
+		 * Calculate the Matrix LU decomposition with partial pivoting. Matrix A is decomposed in two matrices (L, U)
 		 * and a row permutation vector p where A[p,:] = L * U
 		 */
-		lup(): IMathJsChain;
+		lup(): MathJsChain;
 
 		/**
 		 * Solves the linear system A * x = b where A is an [n x n] matrix and b is a [n] column vector.
 		 * @param b Column Vector
 		 */
-		lusolve(b: Matrix|MathArray): IMathJsChain;
+		lusolve(b: Matrix|MathArray): MathJsChain;
 
 		/**
-                 * Calculate the Sparse Matrix LU decomposition with full pivoting. Sparse Matrix A is decomposed in
+		 * Calculate the Sparse Matrix LU decomposition with full pivoting. Sparse Matrix A is decomposed in
 		 * two matrices (L, U) and two permutation vectors (pinv, q) where P * A * Q = L * U
-                 * @param order The Symbolic Ordering and Analysis order: 0 - Natural ordering, no permutation vector q is
-                 * returned 1 - Matrix must be square, symbolic ordering and analisis is performed on M = A + A' 2 - Symbolic
-                 * ordering and analisis is performed on M = A' * A. Dense columns from A' are dropped, A recreated from A'.
-                 * This is appropriatefor LU factorization of unsymmetric matrices. 3 - Symbolic ordering and analisis is performed
-                 * on M = A' * A. This is best used for LU factorization is matrix M has no dense rows. A dense row is a row with
+		 * @param order The Symbolic Ordering and Analysis order: 0 - Natural ordering, no permutation vector q is
+		 * returned 1 - Matrix must be square, symbolic ordering and analysis is performed on M = A + A' 2 - Symbolic
+		 * ordering and analysis is performed on M = A' * A. Dense columns from A' are dropped, A recreated from A'.
+		 * This is appropriate for LU factorization of non-symmetric matrices. 3 - Symbolic ordering and analysis is performed
+		 * on M = A' * A. This is best used for LU factorization is matrix M has no dense rows. A dense row is a row with
 		 * more than 10*sqr(columns) entries.
 		 * @param threshold Partial pivoting threshold (1 for partial pivoting)
 		 * @returns The lower triangular matrix, the upper triangular matrix and the permutation vectors.
 		 */
-		slu(order: Number, threshold: Number): IMathJsChain;
+		slu(order: number, threshold: number): MathJsChain;
 
 		/**
 		 * Solves the linear equation system by backward substitution. Matrix must be an upper triangular matrix. U * x = b
 		 * @param b A column vector with the b values
 		 * @returns A column vector with the linear system solution (x)
 		 */
-		usolve(b:Matrix|MathArray): IMathJsChain;
+		usolve(b: Matrix|MathArray): MathJsChain;
 
 		/**
 		 * Calculate the absolute value of a number. For matrices, the function is evaluated element wise.
 		 */
-		abs(): IMathJsChain;
+		abs(): MathJsChain;
 
 		/**
 		 * Add two values, x + y. For matrices, the function is evaluated element wise.
 		 * @param y Second value to add
 		 */
-		add(y: MathType): IMathJsChain;
+		add(y: MathType): MathJsChain;
 
 		/**
 		 * Calculate the cubic root of a value. For matrices, the function is evaluated element wise.
 		 * @param allRoots Optional, false by default. Only applicable when x is a number or complex number. If true, all complex roots are returned, if false (default) the principal root is returned.
 		 */
-		cbrt(allRoots?: boolean): IMathJsChain;
+		cbrt(allRoots?: boolean): MathJsChain;
 
 		/**
 		 * Round a value towards plus infinity If x is complex, both real and imaginary part are rounded towards plus infinity. For matrices, the function is evaluated element wise.
 		 */
-		ceil(): IMathJsChain;
+		ceil(): MathJsChain;
 
-                /**
+		/**
 		 * Compute the cube of a value, x * x * x. For matrices, the function is evaluated element wise.
 		 */
-		cube(): IMathJsChain;
+		cube(): MathJsChain;
 
 		/**
 		 * Divide two values, x / y. To divide matrices, x is multiplied with the inverse of y: x * inv(y).
 		 * @param y Denominator
 		 */
-		divide(y:MathType): IMathJsChain;
+		divide(y: MathType): MathJsChain;
 
 		/**
 		 * Divide two matrices element wise. The function accepts both matrices and scalar values.
 		 * @param y Denominator
 		 */
-		dotDivide(y: MathType): IMathJsChain;
+		dotDivide(y: MathType): MathJsChain;
 
 		/**
 		 * Multiply two matrices element wise. The function accepts both matrices and scalar values.
 		 * @param y Right hand value
 		 */
-		dotMultiply(y: MathType): IMathJsChain;
+		dotMultiply(y: MathType): MathJsChain;
 
-                /**
+		/**
 		 * Calculates the power of x to y element wise.
 		 * @param y The exponent
 		 */
-		dotPow(y: MathType): IMathJsChain;
+		dotPow(y: MathType): MathJsChain;
 
 		/**
 		 * Calculate the exponent of a value. For matrices, the function is evaluated element wise.
 		 */
-		exp(): IMathJsChain;
+		exp(): MathJsChain;
 
-                /**
+		/**
 		 * Round a value towards zero. For matrices, the function is evaluated element wise.
 		 */
-		fix(): IMathJsChain;
+		fix(): MathJsChain;
 
 		/**
 		 * Round a value towards minus infinity. For matrices, the function is evaluated element wise.
 		 */
-		floor(): IMathJsChain;
+		floor(): MathJsChain;
 
 		/**
 		 * Calculate the greatest common divisor for two or more values or arrays. For matrices, the function is evaluated element wise.
 		 */
-		gcd(...args: number[]): IMathJsChain;
-		gcd(...args: BigNumber[]): IMathJsChain ;
-		gcd(...args: Fraction[]): IMathJsChain ;
-		gcd(...args: MathArray[]): IMathJsChain ;
-		gcd(...args: Matrix[]): IMathJsChain;
+		gcd(...args: number[]): MathJsChain;
+		gcd(...args: BigNumber[]): MathJsChain ;
+		gcd(...args: Fraction[]): MathJsChain ;
+		gcd(...args: MathArray[]): MathJsChain ;
+		gcd(...args: Matrix[]): MathJsChain;
 
 		/**
-		 * Calculate the hypotenusa of a list with values. The hypotenusa is defined as:
+		 * Calculate the hypotenuse of a list with values. The hypotenuse is defined as:
 		 * hypot(a, b, c, ...) = sqrt(a^2 + b^2 + c^2 + ...)
-		 * For matrix input, the hypotenusa is calculated for all values in the matrix.
+		 * For matrix input, the hypotenuse is calculated for all values in the matrix.
 		 */
-		hypot(...args: number[]): IMathJsChain;
-		hypot(...args: BigNumber[]): IMathJsChain;
+		hypot(...args: number[]): MathJsChain;
+		hypot(...args: BigNumber[]): MathJsChain;
+
+        /**
+         * Calculate the kronecker product of two matrices or vectors
+         * @param x First Matrix
+         * @param y Second Matrix
+         */
+        kron(x: Matrix|MathArray, y: Matrix|MathArray): MathJsChain;
 
 		/**
 		 * Calculate the least common multiple for two or more values or arrays. lcm is defined as:
 		 * lcm(a, b) = abs(a * b) / gcd(a, b)
 		 * For matrices, the function is evaluated element wise.
 		 */
-		lcm(b: number): IMathJsChain;
-		lcm(b: BigNumber ): IMathJsChain ;
-		lcm(b: MathArray): IMathJsChain;
-		lcm(b: Matrix): IMathJsChain;
+		lcm(b: number|BigNumber|MathArray|Matrix): MathJsChain;
 
 		/**
 		 * Calculate the logarithm of a value. For matrices, the function is evaluated element wise.
 		 * @param base Optional base for the logarithm. If not provided, the natural logarithm of x is calculated. Default value: e.
 		 */
-		log(base?: number|BigNumber|Complex): IMathJsChain;
+		log(base?: number|BigNumber|Complex): MathJsChain;
 
 		/**
 		 * Calculate the 10-base of a value. This is the same as calculating log(x, 10). For matrices, the function is evaluated element wise.
 		 */
-		log10(): IMathJsChain;
+		log10(): MathJsChain;
 
 		/**
 		 * Calculates the modulus, the remainder of an integer division. For matrices, the function is evaluated element wise.
 		 * The modulus is defined as:
 		 * x - y * floor(x / y)
-		 * See http://en.wikipedia.org/wiki/Modulo_operation.
+		 * @see http://en.wikipedia.org/wiki/Modulo_operation.
 		 * @param y Divisor
 		 */
-		mod(y: number|BigNumber|Fraction|MathArray|Matrix): IMathJsChain;
+		mod(y: number|BigNumber|Fraction|MathArray|Matrix): MathJsChain;
 
 		/**
 		 * Multiply two values, x * y. The result is squeezed. For matrices, the matrix product is calculated.
 		 */
-		multiply(y: MathType): IMathJsChain;
+		multiply(y: MathType): MathJsChain;
 
 		/**
 		 * Calculate the norm of a number, vector or matrix. The second parameter p is optional. If not provided, it defaults to 2.
 		 * @param p Vector space. Supported numbers include Infinity and -Infinity. Supported strings are: 'inf', '-inf', and 'fro' (The Frobenius norm) Default value: 2.
 		 */
-		norm(p?: number|BigNumber|string): IMathJsChain;
+		norm(p?: number|BigNumber|string): MathJsChain;
 
 		/**
 		 * Calculate the nth root of a value. The principal nth root of a positive real number A, is the positive real solution of the equation
@@ -1685,19 +1662,19 @@ declare namespace mathjs {
 		 * For matrices, the function is evaluated element wise.
 		 * @param root The root. Default value: 2.
 		 */
-		nthRoot(root?: number|BigNumber): IMathJsChain;
+		nthRoot(root?: number|BigNumber): MathJsChain;
 
 		/**
 		 * Calculates the power of x to y, x ^ y. Matrix exponentiation is supported for square matrices x, and positive integer exponents y.
 		 * @param y The exponent
 		 */
-		pow(y: number|BigNumber|Complex): IMathJsChain;
+		pow(y: number|BigNumber|Complex): MathJsChain;
 
 		/**
 		 * Round a value towards the nearest integer. For matrices, the function is evaluated element wise.
 		 * @param n Number of decimals Default value: 0.
 		 */
-		round(n?: number|BigNumber|MathArray): IMathJsChain;
+		round(n?: number|BigNumber|MathArray): MathJsChain;
 
 		/**
 		 * Compute the sign of a value. The sign of a value x is:
@@ -1706,92 +1683,94 @@ declare namespace mathjs {
 		 * 0 when x == 0
 		 * For matrices, the function is evaluated element wise.
 		 */
-		sign(): IMathJsChain;
+		sign(): MathJsChain;
 
 		/**
 		 * Calculate the square root of a value. For matrices, the function is evaluated element wise.
 		 */
-		sqrt(): IMathJsChain;
+		sqrt(): MathJsChain;
 
 		/**
 		 * Compute the square of a value, x * x. For matrices, the function is evaluated element wise.
 		 */
-		square(): IMathJsChain;
+		square(): MathJsChain;
 
 		/**
 		 * Subtract two values, x - y. For matrices, the function is evaluated element wise.
 		 */
-		subtract(y: MathType): IMathJsChain;
+		subtract(y: MathType): MathJsChain;
 
 		/**
 		 * Inverse the sign of a value, apply a unary minus operation.
 		 * For matrices, the function is evaluated element wise. Boolean values and strings will be converted to a number. For complex numbers, both real and complex value are inverted.
 		 */
-		unaryMinus(): IMathJsChain;
+		unaryMinus(): MathJsChain;
 
 		/**
 		 * Unary plus operation. Boolean values and strings will be converted to a number, numeric values will be returned as is.
 		 * For matrices, the function is evaluated element wise.
 		 */
-		unaryPlus(): IMathJsChain;
+		unaryPlus(): MathJsChain;
 
 		/**
 		 * Calculate the extended greatest common divisor for two values. See http://en.wikipedia.org/wiki/Extended_Euclidean_algorithm.
 		 */
-		xgcd(b: number|BigNumber): IMathJsChain;
+		xgcd(b: number|BigNumber): MathJsChain;
 
 		/**
 		 * Bitwise AND two values, x & y. For matrices, the function is evaluated element wise.
 		 */
-		bitAnd(y: number|BigNumber|MathArray|Matrix): IMathJsChain;
+		bitAnd(y: number|BigNumber|MathArray|Matrix): MathJsChain;
 
 		/**
 		 * Bitwise NOT value, ~x. For matrices, the function is evaluated element wise. For units, the function is evaluated on the best prefix base.
 		 */
-		bitNot(): IMathJsChain;
+		bitNot(): MathJsChain;
 
 		/**
 		 * Bitwise OR two values, x | y. For matrices, the function is evaluated element wise. For units, the function is evaluated on the lowest print base.
 		 */
-		bitOr(): IMathJsChain;
+		bitOr(): MathJsChain;
 
 		/**
 		 * Bitwise XOR two values, x ^ y. For matrices, the function is evaluated element wise.
 		 */
-		bitXor(y: number|BigNumber|MathArray|Matrix): IMathJsChain;
+		bitXor(y: number|BigNumber|MathArray|Matrix): MathJsChain;
 
 		/**
 		 * Bitwise left logical shift of a value x by y number of bits, x << y. For matrices, the function is evaluated element wise. For units, the function is evaluated on the best prefix base.
 		 * @param x Value to be shifted
 		 * @param y Amount of shifts
 		 */
-		leftShift(y: number|BigNumber): IMathJsChain;
+		leftShift(y: number|BigNumber): MathJsChain;
 
 		/**
 		 * Bitwise right arithmetic shift of a value x by y number of bits, x >> y. For matrices, the function is evaluated element wise. For units, the function is evaluated on the best prefix base.
 		 * @param x Value to be shifted
 		 * @param y Amount of shifts
 		 */
-		rightArithShift(y: number|BigNumber): IMathJsChain;
+		rightArithShift(y: number|BigNumber): MathJsChain;
 
 		/**
 		 * Bitwise right logical shift of value x by y number of bits, x >>> y. For matrices, the function is evaluated element wise. For units, the function is evaluated on the best prefix base.
 		 * @param x Value to be shifted
 		 * @param y Amount of shifts
 		 */
-		rightLogShift(y: number): IMathJsChain;
+		rightLogShift(y: number): MathJsChain;
 
 		/**
-		 * The Bell Numbers count the number of partitions of a set. A partition is a pairwise disjoint subset of S whose union is S. bellNumbers only takes integer arguments. The following condition must be enforced: n >= 0
+		 * The Bell Numbers count the number of partitions of a set.
+		 * A partition is a pairwise disjoint subset of S whose union is S.
+		 * bellNumbers only takes integer arguments. The following condition must be enforced: n >= 0
 		 * @param n Total number of objects in the set
 		 */
-		bellNumbers(): IMathJsChain;
+		bellNumbers(): MathJsChain;
 
 		/**
 		 * The Catalan Numbers enumerate combinatorial structures of many different types. catalan only takes integer arguments. The following condition must be enforced: n >= 0
-		 * @pararm n nth Catalan number
+		 * @param n nth Catalan number
 		 */
-		catalan(): IMathJsChain;
+		catalan(): MathJsChain;
 
 		/**
 		 * The composition counts of n into k parts. Composition only takes integer arguments. The following condition must be enforced: k <= n.
@@ -1799,51 +1778,52 @@ declare namespace mathjs {
 		 * @param k Number of objects in the subset
 		 * @returns Returns the composition counts of n into k parts.
 		 */
-		composition(k: Number|BigNumber): IMathJsChain;
+		composition(k: number|BigNumber): MathJsChain;
 
 		/**
-		 * The Stirling numbers of the second kind, counts the number of ways to partition a set of n labelled objects into k nonempty unlabelled subsets. stirlingS2 only takes integer arguments. The following condition must be enforced: k <= n.
+		 * The Stirling numbers of the second kind, counts the number of ways to partition a set of n labelled objects into k nonempty unlabelled subsets.
+		 * stirlingS2 only takes integer arguments. The following condition must be enforced: k <= n.
 		 * If n = k or k = 1, then s(n,k) = 1
 		 * @param n Total number of objects in the set
 		 * @param k Number of objects in the subset
 		 */
-		stirlingS2(k: Number|BigNumber): IMathJsChain;
+		stirlingS2(k: number|BigNumber): MathJsChain;
 
 		/**
 		 * Compute the argument of a complex value. For a complex number a + bi, the argument is computed as atan2(b, a). For matrices, the function is evaluated element wise.
 		 * @param x A complex number or array with complex numbers
 		 */
-		arg(): IMathJsChain;
+		arg(): MathJsChain;
 
 		/**
 		 * Compute the complex conjugate of a complex value. If x = a+bi, the complex conjugate of x is a - bi. For matrices, the function is evaluated element wise.
 		 * @param x A complex number or array with complex numbers
 		 */
-		conj(): IMathJsChain;
+		conj(): MathJsChain;
 
-                /**
-                 * Get the imaginary part of a complex number. For a complex number a + bi, the function returns b.
+		/**
+		 * Get the imaginary part of a complex number. For a complex number a + bi, the function returns b.
 		 * For matrices, the function is evaluated element wise.
 		 */
-		im(): IMathJsChain;
+		im(): MathJsChain;
 
 		/**
 		 * Get the real part of a complex number. For a complex number a + bi, the function returns a.
 		 * For matrices, the function is evaluated element wise.
 		 */
-		re(): IMathJsChain;
+		re(): MathJsChain;
 
 		/**
-                 * Calculates: The eucledian distance between two points in 2 and 3 dimensional spaces. Distance between point
-                 * and a line in 2 and 3 dimensional spaces. Pairwise distance between a set of 2D or 3D points NOTE: When
-                 * substituting coefficients of a line(a, b and c), use ax + by + c = 0 instead of ax + by = c For parametric
+		 * Calculates: The eucledian distance between two points in 2 and 3 dimensional spaces. Distance between point
+		 * and a line in 2 and 3 dimensional spaces. Pairwise distance between a set of 2D or 3D points NOTE: When
+		 * substituting coefficients of a line(a, b and c), use ax + by + c = 0 instead of ax + by = c For parametric
 		 * equation of a 3D line, x0, y0, z0, a, b, c are from: (x−x0, y−y0, z−z0) = t(a, b, c)
 		 */
-		distance(y: MathArray|Matrix|any): IMathJsChain;
+		distance(y: MathType): MathJsChain;
 
 		/**
-                 * Calculates the point of intersection of two lines in two or three dimensions and of a line and a plane in
-                 * three dimensions. The inputs are in the form of arrays or 1 dimensional matrices. The line intersection functions
+		 * Calculates the point of intersection of two lines in two or three dimensions and of a line and a plane in
+		 * three dimensions. The inputs are in the form of arrays or 1 dimensional matrices. The line intersection functions
 		 * return null if the lines do not meet.
 		 * Note: Fill the plane coefficients as x + y + z = c and not as x + y + z + c = 0.
 		 * @param w Co-ordinates of first end-point of first line
@@ -1852,39 +1832,39 @@ declare namespace mathjs {
 		 * @param z Co-ordinates of second end-point of second line OR null if the calculation is for line and plane
 		 * @returns Returns the point of intersection of lines/lines-planes
 		 */
-		intersect(x: MathArray|Matrix, y: MathArray|Matrix, z: MathArray|Matrix): IMathJsChain;
+		intersect(x: MathArray|Matrix, y: MathArray|Matrix, z: MathArray|Matrix): MathJsChain;
 
 		/**
 		 * Logical and. Test whether two values are both defined with a nonzero/nonempty value. For matrices, the function is evaluated element wise.
 		 */
-		and(y: number|BigNumber|Complex|Unit|MathArray|Matrix): IMathJsChain;
+		and(y: number|BigNumber|Complex|Unit|MathArray|Matrix): MathJsChain;
 
 		/**
 		 * Logical not. Flips boolean value of a given parameter. For matrices, the function is evaluated element wise.
 		 */
-		not(): IMathJsChain;
+		not(): MathJsChain;
 
 		/**
 		 * Logical or. Test if at least one value is defined with a nonzero/nonempty value. For matrices, the function is evaluated element wise.
 		 */
-		or(y: number|BigNumber|Complex|Unit|MathArray|Matrix): IMathJsChain;
+		or(y: number|BigNumber|Complex|Unit|MathArray|Matrix): MathJsChain;
 
 		/**
 		 * Logical xor. Test whether one and only one value is defined with a nonzero/nonempty value. For matrices, the function is evaluated element wise.
 		 */
-		xor(y: number|BigNumber|Complex|Unit|MathArray|Matrix): IMathJsChain;
+		xor(y: number|BigNumber|Complex|Unit|MathArray|Matrix): MathJsChain;
 
 		/**
-                 * Calculate the cross product for two vectors in three dimensional space. The cross product of A = [a1, a2, a3]
+		 * Calculate the cross product for two vectors in three dimensional space. The cross product of A = [a1, a2, a3]
 		 * and B =[b1, b2, b3] is defined as:
 		 * cross(A, B) = [ a2 * b3 - a3 * b2, a3 * b1 - a1 * b3, a1 * b2 - a2 * b1 ]
 		 */
-		cross(y: MathArray|Matrix): IMathJsChain;
+		cross(y: MathArray|Matrix): MathJsChain;
 
 		/**
 		 * Calculate the determinant of a matrix.
 		 */
-		det(): IMathJsChain;
+		det(): MathJsChain;
 
 		/**
 		 * Resize a matrix
@@ -1892,17 +1872,17 @@ declare namespace mathjs {
 		 * @param size One dimensional array with numbers
 		 * @param defaultValue Zero by default, except in case of a string, in that case defaultValue = ' ' Default value: 0.
 		 */
-		resize(size: MathArray|Matrix, defaultValue?: number|string): IMathJsChain;
+		resize(size: MathArray|Matrix, defaultValue?: number|string): MathJsChain;
 
 		/**
 		 * Calculate the size of a matrix or scalar.
 		 */
-		size(): IMathJsChain;
+		size(): MathJsChain;
 
 		/**
 		 * Squeeze a matrix, remove inner and outer singleton dimensions from a matrix.
 		 */
-		squeeze(): IMathJsChain;
+		squeeze(): MathJsChain;
 
 		/**
 		 * Get or set a subset of a matrix or string.
@@ -1911,352 +1891,328 @@ declare namespace mathjs {
 		 * @param replacement An array, matrix, or scalar. If provided, the subset is replaced with replacement. If not provided, the subset is returned
 		 * @param defaultValue Default value, filled in on new entries when the matrix is resized. If not provided, math.matrix elements will be left undefined. Default value: undefined.
 		 */
-		subset(index: Index, replacement?: any, defaultValue?: any): IMathJsChain;
+		subset(index: Index, replacement?: any, defaultValue?: any): MathJsChain;
 
 		/**
 		 * Calculate the trace of a matrix: the sum of the elements on the main diagonal of a square matrix.
 		 */
-		trace(): IMathJsChain;
+		trace(): MathJsChain;
 
 		/**
 		 * Transpose a matrix. All values of the matrix are reflected over its main diagonal. Only two dimensional matrices are supported.
 		 */
-		transpose(): IMathJsChain;
+		transpose(): MathJsChain;
 
 		/**
 		 * Random pick a value from a one dimensional array. Array element is picked using a random function with uniform distribution.
 		 */
-		pickRandom(): IMathJsChain;
+		pickRandom(): MathJsChain;
 
 		/**
 		 * Return a random number larger or equal to min and smaller than max using a uniform distribution.
 		 */
-		random(): IMathJsChain;
-		random(max?: number): IMathJsChain;
-		random(min:number, max: number): IMathJsChain;
+		random(min?: number, max?: number): MathJsChain;
 
 		/**
 		 * Return a random integer number larger or equal to min and smaller than max using a uniform distribution.
 		 */
-		randomInt(max?: number): IMathJsChain;
-		randomInt(min:number, max: number): IMathJsChain;
+		randomInt(min?: number, max?: number): MathJsChain;
 
 		/**
 		 * Compare two values. Returns 1 when x > y, -1 when x < y, and 0 when x == y.
-                 * x and y are considered equal when the relative difference between x and y is smaller than the configured epsilon.
+		 * x and y are considered equal when the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
 		 * For matrices, the function is evaluated element wise.
 		 */
-		compare(y: MathType): IMathJsChain;
+		compare(y: MathType): MathJsChain;
 
 		/**
 		 * Test element wise whether two matrices are equal. The function accepts both matrices and scalar values.
 		 */
-		deepEqual(y: MathType): IMathJsChain;
+		deepEqual(y: MathType): MathJsChain;
 
 		/**
 		 * Test whether two values are equal.
-                 *
-                 * The function tests whether the relative difference between x and y is smaller than the configured epsilon.
+		 * The function tests whether the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise. In case of complex numbers, x.re must equal y.re, and x.im must equal y.im.
-                 *
 		 * Values null and undefined are compared strictly, thus null is only equal to null and nothing else, and undefined is only equal to undefined and nothing else.
 		 */
-		equal(y: MathType): IMathJsChain;
+		equal(y: MathType): MathJsChain;
 
 		/**
 		 * Test whether value x is larger than y.
-                 *
-                 * The function returns true when x is larger than y and the relative difference between x and y is larger than the configured epsilon.
+		 * The function returns true when x is larger than y and the relative difference between x and y is larger than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise.
 		 */
-		larger(y: MathType): IMathJsChain;
+		larger(y: MathType): MathJsChain;
 
 		/**
 		 * Test whether value x is larger or equal to y.
-                 *
-                 * The function returns true when x is larger than y or the relative difference between x and y is smaller than the configured epsilon.
+		 * The function returns true when x is larger than y or the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise.
 		 */
-		largerEq(y: MathType): IMathJsChain;
+		largerEq(y: MathType): MathJsChain;
 
 		/**
 		 * Test whether value x is smaller than y.
-                 *
-                 * The function returns true when x is smaller than y and the relative difference between x and y is smaller than the configured epsilon.
+		 * The function returns true when x is smaller than y and the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise.
 		 */
-		smaller(IMathJsChainy: MathType): IMathJsChain;
+		smaller(MathJsChainy: MathType): MathJsChain;
 
 		/**
 		 * Test whether value x is smaller or equal to y.
-                 *
-                 * The function returns true when x is smaller than y or the relative difference between x and y is smaller than the configured epsilon.
+		 * The function returns true when x is smaller than y or the relative difference between x and y is smaller than the configured epsilon.
 		 * The function cannot be used to compare values smaller than approximately 2.22e-16. For matrices, the function is evaluated element wise.
 		 */
-		smallerEq(IMathJsChainy: MathType): IMathJsChain;
+		smallerEq(MathJsChainy: MathType): MathJsChain;
 
 		/**
 		 * Test whether two values are unequal.
-                 *
-                 * The function tests whether the relative difference between x and y is larger than the configured epsilon. The function cannot
+		 * The function tests whether the relative difference between x and y is larger than the configured epsilon. The function cannot
 		 * be used to compare values smaller than approximately 2.22e-16.
-                 *
 		 * For matrices, the function is evaluated element wise. In case of complex numbers, x.re must unequal y.re, or x.im must unequal y.im.
-                 *
-                 * Values null and undefined are compared strictly, thus null is unequal with everything except null, and undefined is unequal with
-		 * everying except. undefined.
+		 * Values null and undefined are compared strictly, thus null is unequal with everything except null, and undefined is unequal with
+		 * everything except undefined.
 		 */
-		unequal(IMathJsChainy: MathType): IMathJsChain;
+		unequal(MathJsChainy: MathType): MathJsChain;
 
 		/**
-                 * Compute the maximum value of a matrix or a list with values. In case of a multi dimensional array, the maximum of the flattened
+		 * Compute the maximum value of a matrix or a list with values. In case of a multi dimensional array, the maximum of the flattened
 		 * array will be calculated. When dim is provided, the maximum over the selected dimension will be calculated. Parameter dim is zero-based.
 		 */
-		max(dim?: number): IMathJsChain;
+		max(dim?: number): MathJsChain;
 
 		/**
-                 * Compute the mean value of matrix or a list with values. In case of a multi dimensional array, the mean of the flattened array will be
+		 * Compute the mean value of matrix or a list with values. In case of a multi dimensional array, the mean of the flattened array will be
 		 * calculated. When dim is provided, the maximum over the selected dimension will be calculated. Parameter dim is zero-based.
 		 */
-		mean(dim?: number): IMathJsChain;
+		mean(dim?: number): MathJsChain;
 
 		/**
-                 * Compute the median of a matrix or a list with values. The values are sorted and the middle value is returned. In case of an
+		 * Compute the median of a matrix or a list with values. The values are sorted and the middle value is returned. In case of an
 		 * even number of values, the average of the two middle values is returned. Supported types of values are: Number, BigNumber, Unit
-                 *
 		 * In case of a (multi dimensional) array or matrix, the median of all elements will be calculated.
 		 */
-		median(): IMathJsChain;
+		median(): MathJsChain;
 
 		/**
-                 * Compute the maximum value of a matrix or a list of values. In case of a multi dimensional array, the maximum of the flattened
+		 * Compute the maximum value of a matrix or a list of values. In case of a multi dimensional array, the maximum of the flattened
 		 * array will be calculated. When dim is provided, the maximum over the selected dimension will be calculated. Parameter dim is zero-based.
 		 */
-		min(dim?: number): IMathJsChain;
+		min(dim?: number): MathJsChain;
 
 		/**
 		 * Computes the mode of a set of numbers or a list with values(numbers or characters). If there are more than one modes, it returns a list of those values.
 		 */
-		mode(): IMathJsChain;
+		mode(): MathJsChain;
 
 		/**
 		 * Compute the product of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the sum of all elements will be calculated.
 		 */
-		prod(): IMathJsChain;
+		prod(): MathJsChain;
 
 		/**
-                 * Compute the prob order quantile of a matrix or a list with values. The sequence is sorted and the middle value is returned.
+		 * Compute the prob order quantile of a matrix or a list with values. The sequence is sorted and the middle value is returned.
 		 * Supported types of sequence values are: Number, BigNumber, Unit Supported types of probability are: Number, BigNumber
-                 *
 		 * In case of a (multi dimensional) array or matrix, the prob order quantile of all elements will be calculated.
 		 */
-		quantileSeq(prob: Number|BigNumber|MathArray, sorted?: boolean): IMathJsChain;
+		quantileSeq(prob: number|BigNumber|MathArray, sorted?: boolean): MathJsChain;
 
 		/**
-                 * Compute the standard deviation of a matrix or a list with values. The standard deviations is defined as the square root of the
-                 * variance: std(A) = sqrt(var(A)). In case of a (multi dimensional) array or matrix, the standard deviation over all elements will
+		 * Compute the standard deviation of a matrix or a list with values. The standard deviations is defined as the square root of the
+		 * variance: std(A) = sqrt(var(A)). In case of a (multi dimensional) array or matrix, the standard deviation over all elements will
 		 * be calculated.
-                 *
-                 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the following
+		 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the following
 		 * values:
-                 *
 		 * 'unbiased' (default) The sum of squared errors is divided by (n - 1)
 		 * 'uncorrected' The sum of squared errors is divided by n
 		 * 'biased' The sum of squared errors is divided by (n + 1)
 		 */
-		std(normalization?: string): IMathJsChain;
+		std(normalization?: string): MathJsChain;
 
 		/**
 		 * Compute the sum of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the sum of all elements will be calculated.
 		 */
-		sum(): IMathJsChain;
+		sum(): MathJsChain;
 
 		/**
-                 * Compute the variance of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the variance over all
+		 * Compute the variance of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the variance over all
 		 * elements will be calculated.
-                 *
-                 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the
+		 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the
 		 * following values:
-                 *
 		 * 'unbiased' (default) The sum of squared errors is divided by (n - 1)
 		 * 'uncorrected' The sum of squared errors is divided by n
 		 * 'biased' The sum of squared errors is divided by (n + 1)
-                 * Note that older browser may not like the variable name var. In that case, the function can be called as math['var'](...)
+		 * Note that older browser may not like the variable name var. In that case, the function can be called as math['var'](...)
 		 * instead of math.var(...).
 		 */
-		var(normalization?: string): IMathJsChain;
+		var(normalization?: string): MathJsChain;
 
 		/**
 		 * Calculate the inverse cosine of a value. For matrices, the function is evaluated element wise.
 		 */
-		acos(): IMathJsChain;
+		acos(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic arccos of a value, defined as acosh(x) = ln(sqrt(x^2 - 1) + x).
 		 * For matrices, the function is evaluated element wise.
 		 */
-		acosh(): IMathJsChain;
+		acosh(): MathJsChain;
 
 		/**
 		 * Calculate the inverse cotangent of a value. For matrices, the function is evaluated element wise.
 		 */
-		acot(): IMathJsChain;
+		acot(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic arccotangent of a value, defined as acoth(x) = (ln((x+1)/x) + ln(x/(x-1))) / 2.
 		 * For matrices, the function is evaluated element wise.
 		 */
-		acoth(): IMathJsChain;
+		acoth(): MathJsChain;
 
 		/**
 		 * Calculate the inverse cosecant of a value. For matrices, the function is evaluated element wise.
 		 */
-		acsc(): IMathJsChain;
+		acsc(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic arccosecant of a value, defined as acsch(x) = ln(1/x + sqrt(1/x^2 + 1)).
 		 * For matrices, the function is evaluated element wise.
 		 */
-		acsch(): IMathJsChain;
+		acsch(): MathJsChain;
 
 		/**
 		 * Calculate the inverse secant of a value. For matrices, the function is evaluated element wise.
 		 */
-		asec(): IMathJsChain;
+		asec(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic arcsecant of a value, defined as asech(x) = ln(sqrt(1/x^2 - 1) + 1/x). For matrices, the function is evaluated element wise.
 		 */
-		asech(): IMathJsChain;
+		asech(): MathJsChain;
 
-                /**
+		/**
 		 * Calculate the inverse sine of a value. For matrices, the function is evaluated element wise.
 		 */
-		asin(): IMathJsChain;
+		asin(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic arcsine of a value, defined as asinh(x) = ln(x + sqrt(x^2 + 1)). For matrices, the function is evaluated element wise.
 		 */
-		asinh(): IMathJsChain;
+		asinh(): MathJsChain;
 
 		/**
 		 * Calculate the inverse tangent of a value. For matrices, the function is evaluated element wise.
 		 */
-		atan(): IMathJsChain;
+		atan(): MathJsChain;
 
 		/**
-                 * Calculate the inverse tangent function with two arguments, y/x. By providing two arguments, the right quadrant of the
+		 * Calculate the inverse tangent function with two arguments, y/x. By providing two arguments, the right quadrant of the
 		 * computed angle can be determined.
-                 *
 		 * For matrices, the function is evaluated element wise.
 		 */
-		atan2(x: number): IMathJsChain;
-		atan2(x: MathArray|Matrix): IMathJsChain;
+		atan2(x: number|MathArray|Matrix): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic arctangent of a value, defined as atanh(x) = ln((1 + x)/(1 - x)) / 2.
 		 * For matrices, the function is evaluated element wise.
 		 */
-		atanh(): IMathJsChain;
+		atanh(): MathJsChain;
 
 		/**
 		 * Calculate the cosine of a value. For matrices, the function is evaluated element wise.
 		 */
-		asin(): IMathJsChain;
+		asin(): MathJsChain; // tslint:disable-line adjacent-overload-signatures
 
 		/**
 		 * Calculate the hyperbolic cosine of a value, defined as cosh(x) = 1/2 * (exp(x) + exp(-x)). For matrices, the function is evaluated element wise.
 		 */
-		cosh(): IMathJsChain;
+		cosh(): MathJsChain;
 
 		/**
 		 * Calculate the cotangent of a value. cot(x) is defined as 1 / tan(x). For matrices, the function is evaluated element wise.
 		 */
-		cot(): IMathJsChain;
+		cot(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic cotangent of a value, defined as coth(x) = 1 / tanh(x). For matrices, the function is evaluated element wise.
 		 */
-		coth(): IMathJsChain;
+		coth(): MathJsChain;
 
 		/**
 		 * Calculate the cosecant of a value, defined as csc(x) = 1/sin(x). For matrices, the function is evaluated element wise.
 		 */
-		csc(): IMathJsChain;
+		csc(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic cosecant of a value, defined as csch(x) = 1 / sinh(x). For matrices, the function is evaluated element wise.
 		 */
-		csch(): IMathJsChain;
+		csch(): MathJsChain;
 
 		/**
 		 * Calculate the secant of a value, defined as sec(x) = 1/cos(x). For matrices, the function is evaluated element wise.
 		 */
-		sec(): IMathJsChain;
+		sec(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic secant of a value, defined as sech(x) = 1 / cosh(x). For matrices, the function is evaluated element wise.
 		 */
-		sech(): IMathJsChain;
+		sech(): MathJsChain;
 
 		/**
 		 * Calculate the sine of a value. For matrices, the function is evaluated element wise.
 		 */
-		sin(): IMathJsChain;
+		sin(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic sine of a value, defined as sinh(x) = 1/2 * (exp(x) - exp(-x)). For matrices, the function is evaluated element wise.
 		 */
-		sinh(): IMathJsChain;
+		sinh(): MathJsChain;
 
 		/**
 		 * Calculate the tangent of a value. tan(x) is equal to sin(x) / cos(x). For matrices, the function is evaluated element wise.
 		 */
-		tan(): IMathJsChain;
+		tan(): MathJsChain;
 
 		/**
 		 * Calculate the hyperbolic tangent of a value, defined as tanh(x) = (exp(2 * x) - 1) / (exp(2 * x) + 1). For matrices, the function is evaluated element wise.
 		 */
-		tanh(): IMathJsChain;
+		tanh(): MathJsChain;
 
 		/**
 		 * Change the unit of a value. For matrices, the function is evaluated element wise.
 		 * @param x The unit to be converted.
 		 * @param unit New unit. Can be a string like "cm" or a unit without value.
 		 */
-		to(unit: Unit|string): IMathJsChain;
+		to(unit: Unit|string): MathJsChain;
 
 		/**
 		 * Clone an object.
 		 */
-		clone(): IMathJsChain;
+		clone(): MathJsChain;
 
 		/**
 		 * Filter the items in an array or one dimensional matrix.
 		 * @param x A one dimensional matrix or array to filter
-                 * @param test
+		 * @param test
 		 */
-		filter(test: RegExp|((item: any)=>boolean)): IMathJsChain;
+		filter(test: RegExp|((item: any) => boolean)): MathJsChain;
 
 		/**
 		 * Format a value of any type into a string.
 		 */
-		format(options?: IFormatOptions|number|((item: any)=>string)): IMathJsChain;
+		format(options?: FormatOptions|number|((item: any) => string)): MathJsChain;
 
 		/**
 		 * Create a new matrix or array with the results of the callback function executed on each entry of the matrix/array.
 		 * @param callback The callback method is invoked with three parameters: the value of the element, the index of the element, and the matrix being traversed.
 		 */
-		map(callback: (item: any)=>any): IMathJsChain;
+		map(callback: (item: any) => any): MathJsChain;
 
 		/**
 		 * Partition-based selection of an array or 1D matrix. Will find the kth smallest value, and mutates the input array. Uses Quickselect.
@@ -2264,21 +2220,16 @@ declare namespace mathjs {
 		 * @param compare  An optional comparator function. The function is called as compare(a, b), and must return 1 when a > b, -1 when a < b, and 0 when a == b. Default value: 'asc'.
 		 * @returns Returns the kth lowest value.
 		 */
-		partitionSelect(k: number, compare?: string|((a: any, b: any)=>number)): IMathJsChain;
+		partitionSelect(k: number, compare?: string|((a: any, b: any) => number)): MathJsChain;
 
 		/**
 		 * Sort the items in a matrix.
 		 * @param compare  An optional comparator function. The function is called as compare(a, b), and must return 1 when a > b, -1 when a < b, and 0 when a == b. Default value: 'asc'.
 		 */
-		sort(compare?: string|((a: any, b: any)=>number)): IMathJsChain;
+		sort(compare?: string|((a: any, b: any) => number)): MathJsChain;
 
 		done(): any;
 		valueOf(): any;
 		toString(): string;
 	}
 }
-
-declare module 'mathjs'{
-	export = math;
-}
-

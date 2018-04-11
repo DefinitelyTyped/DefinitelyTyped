@@ -3,6 +3,7 @@
 // Definitions by: Tim Jacobi <https://github.com/timjacobi>
 //                 Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -16,6 +17,7 @@ declare function nano(
 declare namespace nano {
   interface Configuration {
     url: string;
+    cookie?: string;
     requestDefaults?: CoreOptions;
     log?(id: string, args: any): void;
     parseUrl?: boolean;
@@ -259,28 +261,42 @@ declare namespace nano {
       params: DocumentViewParams,
       callback?: Callback<any>
     ): Request;
+    // http://docs.couchdb.org/en/latest/api/database/find.html#db-find
+    find(query: MangoQuery, callback?: Callback<MangoResponse<D>>): Request;
     server: ServerScope;
+  }
+
+  interface AttachmentData {
+      name: string;
+      data: any;
+      content_type: any;
   }
 
   interface Multipart<D> {
     // http://docs.couchdb.org/en/latest/api/document/common.html#creating-multiple-attachments
-    insert(doc: D, attachments: any[], callback?: Callback<DocumentInsertResponse>): Request;
+    insert(doc: D, attachments: AttachmentData[], callback?: Callback<DocumentInsertResponse>): Request;
     // http://docs.couchdb.org/en/latest/api/document/common.html#creating-multiple-attachments
-    insert(doc: D, attachments: any[], params: any, callback?: Callback<DocumentInsertResponse>): Request;
+    insert(doc: D, attachments: AttachmentData[], params: any, callback?: Callback<DocumentInsertResponse>): Request;
     get(docname: string, callback?: Callback<any>): Request;
     get(docname: string, params: any, callback?: Callback<any>): Request;
   }
 
   interface Attachment {
     insert(docname: string, attname: string, att: null, contenttype: string, params?: any): NodeJS.WritableStream;
-    insert(docname: string, attname: string, att: any, contenttype: string, callback?: Callback<any>): Request;
+    insert(
+      docname: string,
+      attname: string,
+      att: any,
+      contenttype: string,
+      callback?: Callback<DocumentInsertResponse>
+    ): Request;
     insert(
       docname: string,
       attname: string,
       att: any,
       contenttype: string,
       params: any,
-      callback?: Callback<any>
+      callback?: Callback<DocumentInsertResponse>
     ): Request;
     get(docname: string, attname: string): NodeJS.ReadableStream;
     get(docname: string, attname: string, callback?: Callback<any>): Request;
@@ -332,7 +348,7 @@ declare namespace nano {
   }
 
   interface DocumentScopeFollowUpdatesParams {
-    inlucde_docs?: boolean;
+    include_docs?: boolean;
     since?: string;
     heartbeat?: number;
     feed?: "continuous";
@@ -1029,6 +1045,91 @@ declare namespace nano {
 
     // Current update sequence for the database
     update_seq: any;
+  }
+
+  type MangoValue = number | string | Date | boolean;
+
+  // http://docs.couchdb.org/en/latest/api/database/find.html#selector-syntax
+  interface MangoSelector {
+    [key: string]: MangoSelector | MangoValue | MangoValue[];
+  }
+
+  // http://docs.couchdb.org/en/latest/api/database/find.html#sort-syntax
+  type SortOrder = string | string[] | { [key: string]: 'asc' | 'desc' };
+
+  interface MangoQuery {
+    // JSON object describing criteria used to select documents.
+    selector: MangoSelector;
+
+    // Maximum number of results returned. Default is 25.
+    limit?: number;
+
+    // Skip the first 'n' results, where 'n' is the value specified.
+    skip?: number;
+
+    // JSON array following sort syntax.
+    sort?: SortOrder[];
+
+    // JSON array specifying which fields of each object should be returned. If it is omitted,
+    // the entire object is returned.
+    // http://docs.couchdb.org/en/latest/api/database/find.html#filtering-fields
+    fields?: string[];
+
+    // Instruct a query to use a specific index.
+    // Specified either as "<design_document>" or ["<design_document>", "<index_name>"].
+    use_index?: string | [string, string];
+
+    // Read quorum needed for the result. This defaults to 1.
+    r?: number;
+
+    // A string that enables you to specify which page of results you require. Used for paging through result sets.
+    bookmark?: string;
+
+    // Whether to update the index prior to returning the result. Default is true.
+    update?: boolean;
+
+    // Whether or not the view results should be returned from a “stable” set of shards.
+    stable?: boolean;
+
+    // Combination of update = false and stable = true options.Possible options: "ok", false (default).
+    stale?: 'ok' | false;
+
+    // Include execution statistics in the query response. Optional, default: false.
+    execution_stats?: boolean;
+  }
+
+  interface MangoResponse<D> {
+    // Array of documents matching the search. In each matching document, the fields specified in
+    // the fields part of the request body are listed, along with their values.
+    docs: D[];
+
+    // A string that enables you to specify which page of results you require. Used for paging through result sets.
+    bookmark?: string;
+
+    // Execution warnings
+    warning?: string;
+
+    // Basic execution statistics for a specific request.
+    execution_stats?: MangoExecutionStats;
+  }
+
+  // http://docs.couchdb.org/en/latest/api/database/find.html#execution-statistics
+  interface MangoExecutionStats {
+    // Number of index keys examined. Currently always 0.
+    total_keys_examined: number;
+
+    // Number of documents fetched from the database / index, equivalent to using include_docs = true in a view.
+    total_docs_examined: number;
+
+    // Number of documents fetched from the database using an out - of - band document fetch.
+    // This is only non - zero when read quorum > 1 is specified in the query parameters.
+    total_quorum_docs_examined: number;
+
+    // Number of results returned from the query.
+    results_returned: number;
+
+    // Total execution time in milliseconds as measured by the database.
+    execution_time_ms: number;
   }
 }
 

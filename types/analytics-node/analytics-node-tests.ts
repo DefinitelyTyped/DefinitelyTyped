@@ -18,6 +18,22 @@ function testIdentify(): void {
       friends: 42
     }
   });
+
+  analytics.identify({
+    userId: '019mr8mf4r',
+    traits: {
+      name: 'Michael Bolton',
+      email: 'mbolton@initech.com',
+      plan: 'Enterprise',
+      friends: 42
+    }
+  }, (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
+    }
+  });
 }
 
 function testTrack(): void {
@@ -27,6 +43,21 @@ function testTrack(): void {
     properties: {
       revenue: 39.95,
       shippingMethod: '2-day'
+    }
+  });
+
+  analytics.track({
+    userId: '019mr8mf4r',
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    }
+  }, (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
     }
   });
 }
@@ -41,6 +72,24 @@ function testPage(): void {
       path: '/docs/libraries/node/',
       title: 'Node.js Library - Segment',
       referrer: 'https://github.com/segmentio/analytics-node'
+    }
+  });
+
+  analytics.page({
+    userId: '019mr8mf4r',
+    category: 'Docs',
+    name: 'Node.js Library',
+    properties: {
+      url: 'https://segment.com/docs/libraries/node',
+      path: '/docs/libraries/node/',
+      title: 'Node.js Library - Segment',
+      referrer: 'https://github.com/segmentio/analytics-node'
+    }
+  }, (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
     }
   });
 }
@@ -65,6 +114,21 @@ function testGroup(): void {
       description: 'Accounting Software'
     }
   });
+
+  analytics.group({
+    userId: '019mr8mf4r',
+    groupId: '56',
+    traits: {
+      name: 'Initech',
+      description: 'Accounting Software'
+    }
+  }, (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
+    }
+  });
 }
 
 function testIntegrations(): void {
@@ -77,11 +141,27 @@ function testIntegrations(): void {
       'Google Analytics': false
     }
   });
+
+  analytics.track({
+    event: 'Upgraded Membershipt',
+    userId: '97234974',
+    integrations: {
+      'All': false,
+      'Vero': true,
+      'Google Analytics': false
+    }
+  }, (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
+    }
+  });
 }
 
 function testFlush(): void {
   analytics.flush();
-  analytics.flush(function(err, batch) {
+  analytics.flush((err, batch) => {
     if (err) { alert("Oh nos!"); }
     else { console.log(batch.batch[0].type); }
   });

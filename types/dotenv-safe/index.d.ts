@@ -21,20 +21,28 @@ export interface MissingEnvVarsError extends Error {
 /**
  * Loads environment variables file into 'process.env'.
  *
- * @param {object}  options
- * @param {string}  [options.sample=".env.example"] Path to example environment file.
- * @param {string}  [options.path=".env"] Path to environment file.
- * @param {string}  [options.encoding="utf8"] Encoding of your file containing environment variables.
- * @param {boolean} [options.allowEmptyValues=false] Enabling this option will not throw an error after loading.
- *
  * @throws MissingEnvVarsError
- *
- * @return env.DotenvResult
  */
 export function load(options?: {
   path?: string,
+  /**
+   * Path to example environment file.
+   * @default ".env.example"
+   */
   sample?: string,
+  /**
+   * Path to environment file.
+   * @default ".env"
+   */
   silent?: boolean,
+  /**
+   * Encoding of your file containing environment variables.
+   * @default "utf8"
+   */
   encoding?: string,
+  /**
+   * Enabling this option will not throw an error after loading.
+   * @default false
+   */
   allowEmptyValues?: boolean,
 }): env.DotenvResult

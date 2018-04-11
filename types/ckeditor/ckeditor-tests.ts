@@ -52,6 +52,23 @@ function test_config() {
             [ 'list', 'indent', 'blocks', 'align', 'bidi' ],
         ],
     };
+    var config3: CKEDITOR.config = {
+        toolbarGroups: [
+            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+		    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+		    { name: 'links', groups: [ 'links' ] },
+		    { name: 'insert', groups: [ 'insert' ] },
+		    { name: 'tools', groups: [ 'tools' ] },
+		    { name: 'document', groups: [ 'mode' ] },
+		    { name: 'about', groups: [ 'about' ] },
+		    '/',
+		    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'paragraph' ] },
+		    '/',
+		    { name: 'styles', groups: [ 'styles' ] },
+		    { name: 'colors', groups: [ 'colors' ] },
+        ],
+    }
 }
 
 function test_dom_comment() {
@@ -488,4 +505,10 @@ function test_editor_instance_event() {
             widgetDefinition: function() {}
         }
     });
+}
+
+function test_dtd() {
+    var brConsideredEmptyTag = CKEDITOR.dtd.$empty["br"];
+    var spanCanContainText = CKEDITOR.dtd["span"]["#"];
+    var divCanContainSpan = CKEDITOR.dtd["div"]["span"];
 }

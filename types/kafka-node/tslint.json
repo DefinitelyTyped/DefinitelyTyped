@@ -1,7 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
-        "no-any-union": false
+        // TODOs
+        "no-any-union": false,
+        "no-unnecessary-class": false
     }
 }

@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/react-virtual-keyboard
 // Definitions by: Bogdan Surai <https://github.com/bsurai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import { Component } from "react";
 import { KeyboardOptions, NavigateOptions } from "virtual-keyboard";

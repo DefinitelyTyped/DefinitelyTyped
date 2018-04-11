@@ -2,6 +2,7 @@
 // Project: https://github.com/alexmingoia/koa-router/
 // Definitions by: Jerry Chin <https://github.com/hellopao>, Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -33,15 +34,25 @@ declare module Router {
 
     export interface IRouterOptions {
         /**
-         * Router prefixes 
+         * Prefix for all routes.
          */
         prefix?: string;
         /**
-         * HTTP verbs
+         * Methods which should be supported by the router.
          */
         methods?: string[];
         routerPath?: string;
+        /**
+         * Whether or not routing should be case-sensitive.
+         */
         sensitive?: boolean;
+        /**
+         * Whether or not routes should matched strictly.
+         *
+         * If strict matching is enabled, the trailing slash is taken into
+         * account when matching routes.
+         */
+        strict?: boolean;
     }
 
     export interface IRouterContext extends Koa.Context {
@@ -139,7 +150,7 @@ declare class Router {
      * "down" the middleware stack.
      */
     use(...middleware: Array<Router.IMiddleware>): Router;
-    use(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    use(path: string | string[] | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP get method
@@ -208,7 +219,7 @@ declare class Router {
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    middlewares(): Router.IMiddleware;
+    middleware(): Router.IMiddleware;
 
     /**
      * Returns separate middleware for responding to `OPTIONS` requests with

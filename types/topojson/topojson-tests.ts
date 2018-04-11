@@ -1,6 +1,4 @@
-import * as topojson from 'topojson';
+const hello = "world";
 
-// TODO: complete tests.
-
-topojson.feature(null, null); // $ExpectType { features: any[]; type: string; }
-topojson.mesh(null, null, (a: any, b: any) => a !== b); // $ExpectType { type: any; coordinates: any[]; }
+// NOTE: The standard bundle definition has no particular function.
+// See ./test/ for per bundle tests.

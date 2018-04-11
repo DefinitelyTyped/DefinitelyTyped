@@ -1,7 +1,6 @@
 import * as React from "react";
 import { DragEvent, SyntheticEvent } from "react";
-import Dropzone = require("react-dropzone");
-import { ImageFile } from "react-dropzone";
+import Dropzone, { ImageFile } from "react-dropzone";
 
 class Test extends React.Component {
 
@@ -34,14 +33,19 @@ class Test extends React.Component {
           onFileDialogCancel={this.handleFileDialog}
           style={{ borderStyle: "dashed" }}
           activeStyle={{ borderStyle: "dotted" }}
+          acceptStyle={{ borderStyle: "dotted" }}
           rejectStyle={{ borderStyle: "dotted" }}
+          disabledStyle={{ borderStyle: "dotted" }}
           className="regular"
           activeClassName="active"
+          acceptClassName="accept"
           rejectClassName="reject"
+          disabledClassName="disabled"
           minSize={2000}
           maxSize={Infinity}
           disablePreview
           disableClick
+          disabled
           multiple={false}
           accept="*.png"
           name="dropzone"

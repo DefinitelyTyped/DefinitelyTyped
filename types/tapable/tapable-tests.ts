@@ -1,4 +1,4 @@
-import Tapable = require('tapable');
+import {Tapable, MultiHook, SyncHook} from "tapable";
 
 class DllPlugin {
     apply(compiler: Compiler) {
@@ -43,3 +43,5 @@ compiler.applyPluginsAsyncWaterfall('doSomething', 'a', callback);
 compiler.applyPluginsParallel('doSomething', 'a', 'b');
 compiler.applyPluginsParallelBailResult('doSomething', 'a', 'b');
 compiler.applyPluginsParallelBailResult1('doSomething', 'a', callback);
+
+const multi = new MultiHook([new SyncHook(['hi'])]);

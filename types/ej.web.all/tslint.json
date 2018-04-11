@@ -3,11 +3,40 @@
   "rules": {
     // All are TODOs
     "comment-format": false,
+    "jsdoc-format": false,
     "no-consecutive-blank-lines": false,
     "no-mergeable-namespace": false,
     "no-padding": false,
     "no-any-union": false,
+    "no-redundant-jsdoc": false,
+    "no-redundant-jsdoc-2": false,
+    "no-unnecessary-generics": false,
     "no-unnecessary-qualifier": false,
-    "strict-export-declare-modifiers": false
+
+    "strict-export-declare-modifiers": false,
+    "whitespace": false,
+    "prefer-conditional-expression": false,
+    "no-var-keyword": false,
+    "object-literal-shorthand": false,
+    "space-before-function-paren": false,
+    "no-namespace": false,
+    "no-internal-module": false,
+    "only-arrow-functions": false,
+    "no-empty-interface": false,
+    "prefer-const": false,
+    "max-line-length": false,
+    "array-type": false,
+    "ban-types": false,
+    "semicolon": false,
+    "object-literal-key-quotes": false,
+    "one-variable-per-declaration": false,
+    "triple-equals": false,
+    "typedef-whitespace": false,
+    "prefer-template": false,
+    "no-duplicate-variable": false,
+    "radix": false,
+    "prefer-for-of": false,
+    "one-line": false,
+    "no-unnecessary-type-assertion": false
   }
 }

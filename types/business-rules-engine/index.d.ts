@@ -2,6 +2,7 @@
 // Project: https://github.com/rsamec/form
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Source: typings/business-rules-engine/Validation.d.ts
 

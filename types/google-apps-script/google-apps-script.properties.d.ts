@@ -20,7 +20,7 @@ declare namespace GoogleAppsScript {
     export interface Properties {
       deleteAllProperties(): Properties;
       deleteProperty(key: string): Properties;
-      getKeys(): String[];
+      getKeys(): string[];
       getProperties(): Object;
       getProperty(key: string): string | null;
       setProperties(properties: Object): Properties;
@@ -58,7 +58,7 @@ declare namespace GoogleAppsScript {
     export interface ScriptProperties {
       deleteAllProperties(): ScriptProperties;
       deleteProperty(key: string): ScriptProperties;
-      getKeys(): String[];
+      getKeys(): string[];
       getProperties(): Object;
       getProperty(key: string): string | null;
       setProperties(properties: Object): ScriptProperties;
@@ -75,7 +75,7 @@ declare namespace GoogleAppsScript {
     export interface UserProperties {
       deleteAllProperties(): UserProperties;
       deleteProperty(key: string): UserProperties;
-      getKeys(): String[];
+      getKeys(): string[];
       getProperties(): Object;
       getProperty(key: string): string | null;
       setProperties(properties: Object): UserProperties;

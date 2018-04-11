@@ -2,7 +2,7 @@
 // Project: https://github.com/react-component/tree
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import {
     Component,
@@ -56,6 +56,24 @@ export interface SelectData {
     selectedNodes: TreeNode[];
     node: TreeNode;
     event: "select";
+}
+
+export interface OnDragStartData {
+    event: Event;
+    node: TreeNode;
+}
+
+export interface OnDragEnterData {
+    event: Event;
+    node: TreeNode;
+    expandedKeys: string[];
+}
+
+export interface OnDropData {
+    event: Event;
+    node: TreeNode;
+    dragNode: TreeNode;
+    dragNodesKeys: string[];
 }
 
 export interface TreeProps extends Props<Tree> {
@@ -149,6 +167,18 @@ export interface TreeProps extends Props<Tree> {
      * whether can drag treeNode.
      */
     draggable?: boolean;
+    /**
+     * event on drag start
+     */
+    onDragStart?: (props: OnDragStartData) => void;
+    /**
+     * event on drag enter
+     */
+    onDragEnter?: (props: OnDragEnterData) => void;
+    /**
+     * event on drag drop
+     */
+    onDrop?: (props: OnDropData) => void;
 }
 
 export default class Tree extends Component<TreeProps> { }

@@ -5,7 +5,6 @@
 // TypeScript Version: 2.3
 
 /// <reference types="angular" />
-/// <reference types="jquery" />
 
 declare namespace angularModal {
 
@@ -28,7 +27,8 @@ declare namespace angularModal {
     }
 
     export interface AngularModal {
-        activate(): angular.IPromise<void>;
+        activate(locals?: {}): angular.IPromise<void>;
+        activate<T>(locals: T): angular.IPromise<void>;
         deactivate(): angular.IPromise<void>;
         active(): boolean;
     }

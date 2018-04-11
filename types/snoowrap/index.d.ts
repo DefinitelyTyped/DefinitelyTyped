@@ -62,7 +62,7 @@ declare class Snoowrap {
   getFriends(): Promise<_RedditUser[]>;
   getGoldSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
   getHot(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
-  getInbox(options?: { filter?: string }): _Listing<_PrivateMessage | Comment>;
+  getInbox(options?: { filter?: string }): _Listing<_PrivateMessage | _Comment>;
   getKarma(): Promise<Array<{ sr: _Subreddit; comment_karma: number; link_karma: number; }>>;
   getLivethread(threadId: string): _LiveThread;
   getMe(): _RedditUser;
@@ -73,7 +73,7 @@ declare class Snoowrap {
   getMyTrophies(): Promise<Snoowrap.Trophy[]>;
   getNew(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
   getNewCaptchaIdentifier(): Promise<string>;
-  getNewComments(subredditName?: string, options?: ListingOptions): _Listing<Comment>;
+  getNewComments(subredditName?: string, options?: ListingOptions): _Listing<_Comment>;
   getNewSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
   getOauthScopeList(): Promise<{ [key: string]: { description: string; id: string; name: string } }>;
   getPopularSubreddit(options?: ListingOptions): _Listing<_Subreddit>;

@@ -2,17 +2,19 @@
 // Project: https://github.com/pedronauck/micro-router#readme
 // Definitions by: Mathieu Dutour <https://github.com/mathieudutour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node"/>
 
 import { IncomingMessage, ServerResponse, Server } from 'http';
 import { RequestHandler } from 'micro';
-
+export type ServerResponse = ServerResponse;
+export type ServerRequest = IncomingMessage & {
+    params: { [key: string]: string },
+    query: { [key: string]: string }
+};
 export type AugmentedRequestHandler = (
-    req: IncomingMessage & {
-        params: {[key: string]: string},
-        query: {[key: string]: string}
-    },
+    req: ServerRequest,
     res: ServerResponse
 ) => any;
 

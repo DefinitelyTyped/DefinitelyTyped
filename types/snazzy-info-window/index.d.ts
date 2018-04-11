@@ -2,6 +2,7 @@
 // Project: https://github.com/atmist/snazzy-info-window
 // Definitions by: Milos Danilov <https://github.com/milosd92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="googlemaps" />
 
@@ -304,7 +305,6 @@ declare class SnazzyInfoWindow extends google.maps.OverlayView {
      * Set the position of the info window.
      * A valid Google Map instance must be associated to the info window.
      * This could be either through the marker or map option.
-     * @param latLng
      */
     setPosition(latLng: google.maps.LatLng | google.maps.LatLngLiteral): void;
 

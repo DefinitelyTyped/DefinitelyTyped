@@ -1,4 +1,4 @@
-// Type definitions for jQuery Knob 1.2.11
+// Type definitions for jQuery Knob 1.2.13
 // Project: http://anthonyterrien.com/knob/
 // Definitions by: Iain Buchanan <https://github.com/iain8>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,6 +58,10 @@ declare namespace JQueryKnob {
 		 * dial width
 		 */
 		width?: number;
+		/**
+		 * dial height
+		 */
+		height?: number;
 		/**
 		 * default=true | false=hide input
 		 */

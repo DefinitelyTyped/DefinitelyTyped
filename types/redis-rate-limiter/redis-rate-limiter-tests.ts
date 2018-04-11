@@ -1,6 +1,6 @@
-import * as express from 'express';
+import express = require('express');
 import * as redis from 'redis';
-import * as rateLimiter from 'redis-rate-limiter';
+import rateLimiter = require('redis-rate-limiter');
 
 var num: number;
 var str: string;

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { TransitionCallbacks } from 'react-overlays';
+import { TransitionProps } from 'react-transition-group/Transition';
 import * as ModalManager from './ModalManager';
 import { PortalProps } from './Portal';
 
@@ -10,6 +11,8 @@ declare namespace Modal { }
 export = Modal;
 
 interface ModalProps extends TransitionCallbacks, PortalProps {
+  className?: string;
+
   /**
    * Set the visibility of the Modal
    */
@@ -86,13 +89,13 @@ interface ModalProps extends TransitionCallbacks, PortalProps {
    * A `react-transition-group@2.0.0` `<Transition/>` component used
    * to control animations for the dialog component.
    */
-  transition?: Element;
+  transition?: React.ComponentType<TransitionProps>;
 
   /**
    * A `react-transition-group@2.0.0` `<Transition/>` component used
    * to control animations for the backdrop components.
    */
-  backdropTransition?: Element;
+  backdropTransition?: React.ComponentType<TransitionProps>;
 
   /**
    * When `true` The modal will automatically shift focus to itself when it opens, and
@@ -122,5 +125,5 @@ interface ModalProps extends TransitionCallbacks, PortalProps {
    * A ModalManager instance used to track and manage the state of open
    * Modals. Useful when customizing how modals interact within a container
    */
-  manager: ModalManager;
+  manager?: ModalManager;
 }
