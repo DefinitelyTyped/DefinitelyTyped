@@ -18,8 +18,9 @@ type Diff<T extends string, U extends string> = (
     & { [P in U]: never }
     & { [x: string]: never }
 )[T];
+type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 
-type CSSProperties = Partial<Pick<BaseCSSProperties, Diff<keyof BaseCSSProperties, 'fontFamily'>>> & {
+type CSSProperties = Omit<BaseCSSProperties, 'fontFamily'> & {
     fontFamily?: FontFamily | FontFamily[];
 };
 
