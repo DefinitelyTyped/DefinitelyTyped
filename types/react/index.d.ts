@@ -14,7 +14,6 @@
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
