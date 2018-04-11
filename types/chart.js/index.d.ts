@@ -199,6 +199,7 @@ declare namespace Chart {
         cutoutPercentage?: number;
         circumference?: number;
         rotation?: number;
+        devicePixelRatio?: number;
         // Plugins can require any options
         plugins?: { [plugin: string]: any };
     }

@@ -55,6 +55,7 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                 padding: 40
             }
         },
+        devicePixelRatio: 2,
     }
 });
 chart.update();
