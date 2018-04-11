@@ -83,7 +83,7 @@ export interface ConstructorOptions {
     sampleRate?: number;
     sendTimeout?: number;
     shouldSendCallback?: ShouldSendCallback;
-    transport?: TransportCallback;
+    transport?: transports.Transport;
     captureUnhandledRejections?: boolean;
     maxBreadcrumbs?: number;
     autoBreadcrumbs?: boolean | { [breadcrumbType: string]: boolean };
@@ -114,8 +114,6 @@ export type CaptureCallback = (sendErr: Error | null | undefined, eventId: any) 
 export type DataCallback = (data: { [key: string]: any }) => any;
 
 export type ShouldSendCallback = (data: { [key: string]: any }) => boolean;
-
-export type TransportCallback = (options: { [key: string]: any }) => void;
 
 export interface CaptureOptions {
     tags?: { [key: string]: string };
