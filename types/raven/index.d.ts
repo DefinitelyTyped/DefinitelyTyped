@@ -1,4 +1,4 @@
-// Type definitions for raven 2.1
+// Type definitions for raven 2.5
 // Project: https://github.com/getsentry/raven-node
 // Definitions by: Scott Cooper <https://github.com/scttcper>
 //                 Dmitrii Sorin <https://github.com/1999>
