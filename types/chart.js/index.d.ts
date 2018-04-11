@@ -219,7 +219,7 @@ declare namespace Chart {
         fontColor?: ChartColor;
         fontStyle?: string;
         padding?: number;
-        text?: string;
+        text?: string | string[];
     }
 
     interface ChartLegendOptions {
