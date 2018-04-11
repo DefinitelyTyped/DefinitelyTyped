@@ -1,6 +1,8 @@
 // Type definitions for react-owl-carousel
 // Project: https://github.com/seal789ie/react-owl-carousel
 // Definitions by: T Bounsiar <https://github.com/tbounsiar>,
+//                 Ismael Gorissen <https://github.com/igorissen>,
+//                 Kenneth Ceyer <https://github.com/KennethanCeyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Credits : These definitions were written by,
 //           Ismael Gorissen <https://github.com/igorissen>,
@@ -10,7 +12,7 @@ import * as React from "react"
 
 export interface Options {
   // OPTIONS
-  className: string,
+  className?: string,
   items?: number;
   margin?: number;
   loop?: boolean;
@@ -97,4 +99,4 @@ export interface Options {
 
 export type HandlerCallback = (...args: any[]) => void
 
-export default class OwlCarousel extends React.Component<Options, any> {}
+export default class OwlCarousel extends React.Component<Options, any> { }
