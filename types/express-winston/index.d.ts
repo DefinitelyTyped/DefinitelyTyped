@@ -26,6 +26,7 @@ export interface BaseLoggerOptions {
   ignoreRoute?: RouteFilter;
   ignoredRoutes?: string[];
   level?: string;
+  meta?: boolean;
   metaField?: string;
   msg?: string;
   requestFilter?: RequestFilter;
@@ -91,9 +92,9 @@ export let defaultResponseFilter: ResponseFilter;
 export function defaultSkip(): boolean;
 
 export interface ExpressWinstonRequest extends Request {
-    _routeWhitelists: {
-        body: string[];
-        req: string[];
-        res: string[];
-    };
+  _routeWhitelists: {
+    body: string[];
+    req: string[];
+    res: string[];
+  };
 }
