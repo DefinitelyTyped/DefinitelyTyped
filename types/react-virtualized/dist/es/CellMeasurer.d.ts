@@ -1,6 +1,6 @@
 import { PureComponent } from "react";
 
-export interface CellMeasurerCacheInterface {
+export type CellMeasurerCacheInterface = {
     hasFixedWidth(): boolean;
     hasFixedHeight(): boolean;
     has(rowIndex: number, columnIndex: number): boolean;
@@ -12,7 +12,7 @@ export interface CellMeasurerCacheInterface {
     ): void;
     getHeight(rowIndex: number, columnIndex?: number): number;
     getWidth(rowIndex: number, columnIndex?: number): number;
-}
+};
 
 export type KeyMapper = (rowIndex: number, columnIndex: number) => any;
 
