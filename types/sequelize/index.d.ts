@@ -3477,7 +3477,7 @@ declare namespace sequelize {
          * Fields to update if row key already exists (on duplicate key update)? (only supported by mysql &
          * mariadb). By default, all fields are updated.
          */
-        updateOnDuplicate?: string[];
+        updateOnDuplicate?: string[] | boolean;
     }
 
     /**
