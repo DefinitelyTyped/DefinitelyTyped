@@ -70,7 +70,8 @@ export interface Action<TFullState = {}, TSuccessPayload = {}, TErrorPayload = P
     error?: boolean | null;
 }
 
-export function handle<TState, TSuccessPayload, TErrorPayload, TStartPayload, TFullState, TMetaPayload>(
+export interface TFullState { [key: string]: any; }
+export function handle<TState, TSuccessPayload, TErrorPayload, TStartPayload, TMetaPayload>(
     state: TState,
     action: Action<TFullState, TSuccessPayload, TErrorPayload, TStartPayload, TMetaPayload>,
     handlers: Handlers<TState, TSuccessPayload, TErrorPayload, TStartPayload, TMetaPayload>,
