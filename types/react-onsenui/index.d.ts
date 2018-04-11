@@ -336,6 +336,18 @@ export class Range extends Component<{
     disabled?: boolean,
 }, any> {}
 
+export class Select extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?: (e: React.ChangeEvent<any>) => void,
+    value?: string,
+    multiple?: boolean,
+    autofocus?: boolean,
+    required?: boolean,
+    form?: string,
+    size?: string
+}, any> {}
+
 export class Switch extends Component<{
     onChange?(e: SwitchChangeEvent): void,
     checked?: boolean,
