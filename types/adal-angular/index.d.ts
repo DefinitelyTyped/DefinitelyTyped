@@ -62,9 +62,9 @@ export interface AuthenticationContextOptions {
      */
     clientId: string;
     /**
-     * Endpoint at which you expect to receive tokens.Defaults to `window.location.href`.
+     * Endpoint at which you expect to receive tokens. Defaults to `window.location.href`.
      */
-    redirectUri: string;
+    redirectUri?: string;
     /**
      * Azure Active Directory instance. Defaults to `https://login.microsoftonline.com/`.
      */
@@ -133,9 +133,34 @@ export interface AuthenticationContextOptions {
      * Callback to be invoked when a token is acquired.
      */
     callback?: TokenCallback;
+    /**
+     * Indicates whether Angular framework is in use.
+     */
+    isAngular?: boolean;
 }
 
 export default class AuthenticationContext {
+    /**
+     * Azure Active Directory instance. Defaults to `https://login.microsoftonline.com/`.
+     */
+    public instance: string | undefined;
+    /**
+     * Configuration options for Authentication Context.
+     */
+    public config: AuthenticationContextOptions;
+    /**
+     * Callback to be invoked when a token is acquired.
+     */
+    public callback: TokenCallback | undefined;
+    /**
+     * Set this to true to enable login in a popup winodow instead of a full redirect. Defaults to `false`.
+     */
+    public popUp: boolean | undefined;
+    /**
+     * Indicates whether Angular framework is in use.
+     */
+    public isAngular: boolean | undefined;
+
     constructor(options: AuthenticationContextOptions);
     /**
      * Initiates the login process by redirecting the user to Azure AD authorization endpoint.
