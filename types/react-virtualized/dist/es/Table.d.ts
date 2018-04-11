@@ -9,20 +9,20 @@ import {
 } from "../../index";
 import { Grid, GridCoreProps } from "./Grid";
 
-type SortParams = {
+export type SortParams = {
     defaultSortDirection: SortDirectionType;
     event: MouseEvent;
     sortBy: string;
 };
 
-type SortDirectionMap = { [key: string]: SortDirectionType };
+export type SortDirectionMap = { [key: string]: SortDirectionType };
 
-type MultiSortOptions = {
+export type MultiSortOptions = {
     defaultSortBy?: string[];
     defaultSortDirection?: SortDirectionMap;
 };
 
-type MultiSortReturn = {
+export type MultiSortReturn = {
     /**
      * Sort property to be passed to the `Table` component.
      * This function updates `sortBy` and `sortDirection` values.
@@ -33,7 +33,7 @@ type MultiSortReturn = {
      * Specifies the fields currently responsible for sorting data,
      * In order of importance.
      */
-    sortBy: Array<string>;
+    sortBy: string[];
 
     /**
      * Specifies the direction a specific field is being sorted in.

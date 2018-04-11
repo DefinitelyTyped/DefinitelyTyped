@@ -1,6 +1,6 @@
 import { PureComponent, Validator, Requireable } from "react";
 import {
-    ICellMeasurerCache,
+    CellMeasurerCacheInterface,
     KeyMapper,
     MeasuredCellParent
 } from "./CellMeasurer";
@@ -39,7 +39,7 @@ export type CellRenderer = (props: MasonryCellProps) => React.ReactNode;
 export type MasonryProps = {
     autoHeight: boolean;
     cellCount: number;
-    cellMeasurerCache: ICellMeasurerCache;
+    cellMeasurerCache: CellMeasurerCacheInterface;
     cellPositioner: Positioner;
     cellRenderer: CellRenderer;
     className?: string;
@@ -135,7 +135,7 @@ export type Position = {
 };
 
 export type createCellPositionerParams = {
-    cellMeasurerCache: ICellMeasurerCache;
+    cellMeasurerCache: CellMeasurerCacheInterface;
     columnCount: number;
     columnWidth: number;
     spacer?: number;

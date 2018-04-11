@@ -76,7 +76,7 @@ export class WindowScroller extends PureComponent<
         onResize: () => {};
         onScroll: () => {};
         scrollingResetTimeInterval: typeof IS_SCROLLING_TIMEOUT;
-        scrollElement: typeof window extends undefined ? undefined : Window;
+        scrollElement: Window | undefined;
         serverHeight: 0;
         serverWidth: 0;
     };

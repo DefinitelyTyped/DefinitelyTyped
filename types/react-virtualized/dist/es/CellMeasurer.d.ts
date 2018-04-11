@@ -1,6 +1,6 @@
 import { PureComponent } from "react";
 
-export interface ICellMeasurerCache {
+export interface CellMeasurerCacheInterface {
     hasFixedWidth(): boolean;
     hasFixedHeight(): boolean;
     has(rowIndex: number, columnIndex: number): boolean;
@@ -25,13 +25,13 @@ export type CellMeasurerCacheParams = {
     minWidth?: number;
     keyMapper?: KeyMapper;
 };
-export class CellMeasurerCache implements ICellMeasurerCache {
+export class CellMeasurerCache implements CellMeasurerCacheInterface {
     constructor(params?: CellMeasurerCacheParams);
     clear(rowIndex: number, columnIndex: number): void;
     clearAll(): void;
     columnWidth: (params: { index: number }) => number | undefined;
-    get defaultHeight(): number;
-    get defaultWidth(): number;
+    readonly defaultHeight: number;
+    readonly defaultWidth: number;
     hasFixedHeight(): boolean;
     hasFixedWidth(): boolean;
     getHeight(rowIndex: number, columnIndex: number): number | undefined;
@@ -57,7 +57,7 @@ export type MeasuredCellParent = {
 };
 
 export type CellMeasurerProps = {
-    cache: ICellMeasurerCache;
+    cache: CellMeasurerCacheInterface;
     children:
         | ((props: { measure: () => void }) => React.ReactNode)
         | React.ReactNode;
