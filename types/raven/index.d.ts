@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { 
+import {
   IncomingMessage, ServerResponse, OutgoingHttpHeaders, Agent, ClientRequest
 } from 'http';
 import { EventEmitter } from 'events';
