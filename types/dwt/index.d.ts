@@ -3005,7 +3005,7 @@ interface WebTwain {
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    HTTPUpload(url: string, optionalAsyncSuccessFunc: (httppostresponsestring: string) => void, optionalAsyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUpload(url: string, asyncSuccessFunc: (httppostresponsestring: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
 
     /**
      * Uploads the images specified by the indices to the HTTP server.
@@ -3018,7 +3018,7 @@ interface WebTwain {
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, optionalAsyncSuccessFunc: (httppostresponsestring: string) => void, optionalAsyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, asyncSuccessFunc: (httppostresponsestring: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
 
     /**
      * Uploads all images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page TIFF.
@@ -3615,12 +3615,12 @@ interface WebTwain {
     /**
      * Sets a text parameter as a filed in a web form. This form is maintained by the component itself (meaning it's not on the page). All fields in this form will be passed to the server when uploading images.
      * @method WebTwain#SetHTTPFormField
-     * @param {string} FieldName specifies the name of a text field in web form.
+     * @param {string} FieldName specifies the name of the field which could later be used to retrieve the blob
      * @param {Blob} blobValue specifies the blob to be put in the form.
-     * @param {string} FieldValue specifies the value of a text field in web form.
+     * @param {string} optionalFileName specifies the file name for the blob
      * @return {boolean}
      */
-    SetHTTPFormField(FieldName: string, blobValue: Blob, FieldValue: string): boolean;
+    SetHTTPFormField(FieldName: string, blobValue: Blob, optionalFileName?: string): boolean;
 
     /**
      * Sets a header for the current HTTP Post request.
