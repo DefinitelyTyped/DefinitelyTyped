@@ -239,7 +239,7 @@ If types are part of a web standard, they should be contributed to [TSJS-lib-gen
 
 #### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
 
-If default imports work in your environment, consider turning on the [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) compiler option.
+If you are using TypeScript 2.7 or later, use `--esModuleInterop` in your project. Otherwise, if default imports work in your environment, consider turning on the [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) compiler option.
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the export, and `export default` is accurate if `node -p 'require("foo").default'` is the export.
 
