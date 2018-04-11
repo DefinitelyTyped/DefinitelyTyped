@@ -6,8 +6,7 @@
 
 /**
  * Generates a usage guide suitable for a command-line app.
- * @param {Section|Section[]} sections One or more Section objects
- * @returns {string}
+ * @param sections One or more Section objects
  * @alias module:command-line-usage
  */
 declare function commandLineUsage(sections: commandLineUsage.Section | commandLineUsage.Section[]): string;
