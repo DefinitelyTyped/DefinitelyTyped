@@ -143,23 +143,23 @@ export default class AuthenticationContext {
     /**
      * Azure Active Directory instance. Defaults to `https://login.microsoftonline.com/`.
      */
-    public instance: string | undefined;
+    instance: string | undefined;
     /**
      * Configuration options for Authentication Context.
      */
-    public config: AuthenticationContextOptions;
+    config: AuthenticationContextOptions;
     /**
      * Callback to be invoked when a token is acquired.
      */
-    public callback: TokenCallback | undefined;
+    callback: TokenCallback | undefined;
     /**
      * Set this to true to enable login in a popup winodow instead of a full redirect. Defaults to `false`.
      */
-    public popUp: boolean | undefined;
+    popUp: boolean | undefined;
     /**
      * Indicates whether Angular framework is in use.
      */
-    public isAngular: boolean | undefined;
+    isAngular: boolean | undefined;
 
     constructor(options: AuthenticationContextOptions);
     /**
