@@ -310,7 +310,11 @@ R.times(i, 5);
 })();
 
 (() => {
-    type Vector = { x: number, y: number };
+    interface Vector {
+      x: number;
+      y: number;
+    }
+
     let numberOfCalls = 0;
 
     function vectorSum(a: Vector, b: Vector): Vector {
@@ -321,7 +325,7 @@ R.times(i, 5);
         };
     }
 
-    const memoVectorSum = memoizeWith(JSON.stringify, vectorSum);
+    const memoVectorSum = R.memoizeWith(JSON.stringify, vectorSum);
 
     memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
     numberOfCalls; // => 1
