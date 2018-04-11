@@ -3,4 +3,5 @@
 // Definitions by: weekens <https://github.com/weekens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function writeSnapshot(dumpFileName: string, callback: (err?: Error) => void): void;
+export function writeSnapshot(dumpFileName?: string, callback?: (err: Error | null, filename: string | undefined) => void): void;
+export function writeSnapshot(callback: (err: Error | null, filename: string | undefined) => void): void;
