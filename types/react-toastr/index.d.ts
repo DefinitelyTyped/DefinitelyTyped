@@ -1,4 +1,4 @@
-// Type definitions for react-toastr 3.0
+// Type definitions for react-toastr 3.1
 // Project: https://github.com/tomchentw/react-toastr
 // Definitions by: Josh Holmer <https://github.com/shssoichiro>, Dan Regazzi <https://github.com/DanRegazzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
