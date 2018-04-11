@@ -73,8 +73,8 @@ export class WindowScroller extends PureComponent<
     WindowScrollerState
 > {
     static defaultProps: {
-        onResize: () => {};
-        onScroll: () => {};
+        onResize: () => void;
+        onScroll: () => void;
         scrollingResetTimeInterval: typeof IS_SCROLLING_TIMEOUT;
         scrollElement: Window | undefined;
         serverHeight: 0;

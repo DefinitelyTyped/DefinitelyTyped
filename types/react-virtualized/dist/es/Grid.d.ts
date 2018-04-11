@@ -371,9 +371,9 @@ export class Grid extends PureComponent<GridProps, GridState> {
         estimatedRowSize: 30;
         getScrollbarSize: () => number;
         noContentRenderer: () => React.ReactNode;
-        onScroll: () => {};
-        onScrollbarPresenceChange: () => {};
-        onSectionRendered: () => {};
+        onScroll: () => void;
+        onScrollbarPresenceChange: () => void;
+        onSectionRendered: () => void;
         overscanColumnCount: 0;
         overscanIndicesGetter: OverscanIndicesGetter;
         overscanRowCount: 10;

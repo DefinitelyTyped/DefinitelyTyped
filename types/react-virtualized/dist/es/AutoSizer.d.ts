@@ -58,7 +58,7 @@ export type AutoSizerProps = {
  */
 export class AutoSizer extends PureComponent<AutoSizerProps, Size> {
     static defaultProps: {
-        onResize: () => {};
+        onResize: () => void;
         disableHeight: false;
         disableWidth: false;
         style: {};

@@ -93,9 +93,9 @@ export class List extends PureComponent<ListProps> {
     static defaultProps: {
         autoHeight: false;
         estimatedRowSize: 30;
-        onScroll: () => {};
+        onScroll: () => void;
         noRowsRenderer: () => null;
-        onRowsRendered: () => {};
+        onRowsRendered: () => void;
         overscanIndicesGetter: OverscanIndicesGetter;
         overscanRowCount: 10;
         scrollToAlignment: "auto";
