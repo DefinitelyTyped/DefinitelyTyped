@@ -269,7 +269,26 @@ declare namespace When {
         // be a constructor with prototype set to an instance of Error.
         otherwise<U>(exceptionType: any, onRejected?: (reason: any) => U | Promise<U>): Promise<U>;
 
-        then<U>(onFulfilled: (value: T) => U | Promise<U>, onRejected?: (reason: any) => U | Promise<U>, onProgress?: (update: any) => void): Promise<U>;
+        then(
+            onFulfilled?: ((value: T) => T | Thenable<T>) | undefined | null,
+            onRejected?: ((reason: any) => never | Thenable<never>) | undefined | null,
+            onProgress?: (update: any) => void
+        ): Promise<T>;
+        then<TResult1>(
+            onFulfilled?: ((value: T) => TResult1 | Thenable<TResult1>) | undefined | null,
+            onRejected?: ((reason: any) => never | Thenable<never>) | undefined | null,
+            onProgress?: (update: any) => void
+        ): Promise<TResult1 | never>;
+        then<TResult2>(
+            onFulfilled?: ((value: T) => T | Thenable<T>) | undefined | null,
+            onRejected?: ((reason: any) => TResult2 | Thenable<TResult2>) | undefined | null,
+            onProgress?: (update: any) => void
+        ): Promise<T | TResult2>;
+        then<TResult1, TResult2>(
+            onFulfilled?: ((value: T) => TResult1 | Thenable<TResult1>) | undefined | null,
+            onRejected?: ((reason: any) => TResult2 | Thenable<TResult2>) | undefined | null,
+            onProgress?: (update: any) => void
+        ): Promise<TResult1 | TResult2>;
 
         spread<T>(onFulfilled: _.Fn0<Promise<T> | T>): Promise<T>;
         spread<A1, T>(onFulfilled: _.Fn1<A1, Promise<T> | T>): Promise<T>;

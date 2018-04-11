@@ -10,13 +10,14 @@ class ForeignPromise<T> {
 	constructor(private readonly value: T) {
 	}
 
-	then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U) { return new ForeignPromise<U>(onFulfilled(this.value)); }
+	then<U>(onFulfilled?: (value: T) => U, onRejected?: (reason: any) => U) { return new ForeignPromise<U>(onFulfilled(this.value)); }
 };
 
 var promise: when.Promise<number>;
 var foreign = new ForeignPromise<number>(1);
 var error = new Error("boom!");
 var example: () => void;
+var native: Promise<number>;
 
 /* * * * * * *
  *   Core    *
@@ -174,13 +175,16 @@ deferred.reject(error);
 
 when(1).done();
 when(1).done((val: number) => console.log(val));
+when(1).done(undefined, (err: any) => console.log(err));
 when(1).done((val: number) => console.log(val), (err: any) => console.log(err));
 
 /* promise.then(onFulfilled) */
 
+promise = when(1).then();
 promise = when(1).then((val: number) => val + val);
 promise = when(1).then((val: number) => when(val + val));
 
+promise = when(1).then(undefined, (err: any) => 2);
 promise = when(1).then((val: number) => val + val, (err: any) => 2);
 promise = when(1).then((val: number) => when(val + val), (err: any) => 2);
 
@@ -443,3 +447,10 @@ example = function () {
 			(value: number) => console.log(value),
 			(err: any) => console.error(err));
 };
+
+/* * * * * * * * * * *
+ *  Native Promises  *
+ * * * * * * * * * * */
+
+native = Promise.resolve(when(1));
+native = Promise.all([when(1)]).then(([x]) => x);
