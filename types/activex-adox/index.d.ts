@@ -26,48 +26,6 @@ declare namespace ADOX {
         adColNullable = 2,
     }
 
-    const enum DataTypeEnum {
-        adBigInt = 20,
-        adBinary = 128,
-        adBoolean = 11,
-        adBSTR = 8,
-        adChapter = 136,
-        adChar = 129,
-        adCurrency = 6,
-        adDate = 7,
-        adDBDate = 133,
-        adDBTime = 134,
-        adDBTimeStamp = 135,
-        adDecimal = 14,
-        adDouble = 5,
-        adEmpty = 0,
-        adError = 10,
-        adFileTime = 64,
-        adGUID = 72,
-        adIDispatch = 9,
-        adInteger = 3,
-        adIUnknown = 13,
-        adLongVarBinary = 205,
-        adLongVarChar = 201,
-        adLongVarWChar = 203,
-        adNumeric = 131,
-        adPropVariant = 138,
-        adSingle = 4,
-        adSmallInt = 2,
-        adTinyInt = 16,
-        adUnsignedBigInt = 21,
-        adUnsignedInt = 19,
-        adUnsignedSmallInt = 18,
-        adUnsignedTinyInt = 17,
-        adUserDefined = 132,
-        adVarBinary = 204,
-        adVarChar = 200,
-        adVariant = 12,
-        adVarNumeric = 139,
-        adVarWChar = 202,
-        adWChar = 130,
-    }
-
     const enum InheritTypeEnum {
         adInheritBoth = 3,
         adInheritContainers = 2,
@@ -171,7 +129,7 @@ declare namespace ADOX {
         readonly Properties: ADODB.Properties;
         RelatedColumn: string;
         SortOrder: SortOrderEnum;
-        Type: DataTypeEnum;
+        Type: ADODB.DataTypeEnum;
     }
 
     interface Columns {
@@ -179,7 +137,7 @@ declare namespace ADOX {
          * @param Type [Type=202]
          * @param DefinedSize [DefinedSize=0]
          */
-        Append(Item: Column | string, Type?: DataTypeEnum, DefinedSize?: number): void;
+        Append(Item: Column | string, Type?: ADODB.DataTypeEnum, DefinedSize?: number): void;
         readonly Count: number;
         Delete(Item: string | number): void;
         Item(Item: string | number): Column;
@@ -283,15 +241,6 @@ declare namespace ADOX {
         Item(Item: string | number): Procedure;
         Refresh(): void;
         (Item: string | number): Procedure;
-    }
-
-    class Property {
-        private constructor();
-        private 'ADOX.Property_typekey': Property;
-        Attributes: number;
-        readonly Name: string;
-        readonly Type: DataTypeEnum;
-        Value: any;
     }
 
     class Table {

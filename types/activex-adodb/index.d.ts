@@ -645,7 +645,9 @@ declare namespace ADODB {
     class Connection {
         private 'ADODB.Connection_typekey': Connection;
         private constructor();
-        Attributes: number;
+
+        /** Sum of one or more of the values in the **XactAttributeEnum** enum */
+        Attributes: XactAttributeEnum;
         BeginTrans(): number;
         Cancel(): void;
         Close(): void;
@@ -724,7 +726,9 @@ declare namespace ADODB {
         private constructor();
         readonly ActualSize: number;
         AppendChunk(Data: any): void;
-        Attributes: number;
+
+        /** Sum of one or more of the values in the **FieldAttributeEnum** enum */
+        Attributes: FieldAttributeEnum;
         DataFormat: any;
         DefinedSize: number;
         GetChunk(Length: number): any;
@@ -767,7 +771,9 @@ declare namespace ADODB {
         private 'ADODB.Parameter_typekey': Parameter;
         private constructor();
         AppendChunk(Val: any): void;
-        Attributes: number;
+
+        /** Sum of one or more of the values in the **ParameterAttributesEnum** enum */
+        Attributes: ParameterAttributesEnum;
         Direction: ParameterDirectionEnum;
         Name: string;
         NumericScale: number;
@@ -798,8 +804,8 @@ declare namespace ADODB {
         private 'ADODB.Property_typekey': Property;
         private constructor();
 
-        /** Sum of one or more of the values in the **ADODB.PropertyAttributesEnum** */
-        Attributes: ADODB.PropertyAttributesEnum;
+        /** Sum of one or more of the values in the **PropertyAttributesEnum** enum */
+        Attributes: PropertyAttributesEnum;
         readonly Name: string;
         readonly Type: DataTypeEnum;
         Value: any;
