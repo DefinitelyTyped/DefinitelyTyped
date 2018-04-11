@@ -524,7 +524,7 @@ declare namespace angular {
 
         $parent: IScope;
         $root: IRootScopeService;
-        $id: number;
+        $id: string;
 
         // Hidden members
         $$isolateBindings: any;
