@@ -158,7 +158,7 @@ test = (
           grid: {strokeWidth: 2},
           ticks: {stroke: "red"},
           tickLabels: {fontSize: 12},
-          axisLabel: {fontsize: 16}
+          axisLabel: {fontSize: 16}
         }}
         label="Planets"
         tickValues={[
