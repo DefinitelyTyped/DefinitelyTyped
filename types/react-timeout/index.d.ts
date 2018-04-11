@@ -6,12 +6,10 @@
 
 import * as React from 'react';
 
-declare module 'react-timeout' {
-  function ReactTimeout(
+declare function ReactTimeout(
     SourceComponent: React.ComponentClass<any>
-  ): React.ComponentType<any>;
+): React.ComponentType<any>;
 
-  namespace ReactTimeout {}
+declare namespace ReactTimeout {}
 
-  export = ReactTimeout;
-}
+export = ReactTimeout;
