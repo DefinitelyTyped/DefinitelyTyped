@@ -1550,8 +1550,12 @@ export class WindowScrollerExample extends PureComponent<{}, any> {
     }
 }
 
-import { GridCellProps, GridCellRangeProps } from "react-virtualized";
-import { SortParams, SortDirectionType } from "./dist/es/Table";
+import {
+    GridCellProps,
+    GridCellRangeProps,
+    SortParams,
+    SortDirectionType
+} from "react-virtualized";
 
 export class GridCellRangeRendererExample extends PureComponent<{}, any> {
     state = {
