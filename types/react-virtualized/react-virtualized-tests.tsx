@@ -261,9 +261,6 @@ export class CollectionExample extends PureComponent<any, any> {
 
         const datum = list.get(index % list.size);
 
-        // Customize style
-        style.backgroundColor = datum.color;
-
         return (
             <div className={"styles.cell"} key={key} style={style}>
                 {showScrollingPlaceholder && isScrolling ? "..." : index}
