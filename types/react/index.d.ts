@@ -1192,6 +1192,9 @@ declare namespace React {
         hrefLang?: string;
         htmlFor?: string;
         httpEquiv?: string;
+        // Note: indeterminate can only be set in JavaScript,
+        // it cannot be set using an HTML attribute
+        indeterminate?: boolean;
         integrity?: string;
         keyParams?: string;
         keyType?: string;
@@ -1406,6 +1409,9 @@ declare namespace React {
         formNoValidate?: boolean;
         formTarget?: string;
         height?: number | string;
+        // Note: indeterminate can only be set in JavaScript,
+        // it cannot be set using an HTML attribute
+        indeterminate?: boolean;
         list?: string;
         max?: number | string;
         maxLength?: number;
