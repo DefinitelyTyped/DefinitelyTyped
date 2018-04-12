@@ -8802,7 +8802,7 @@ declare global {
      */
     interface Navigator {
         readonly product: string;
-        readonly geolocation: Geolocation;
+        readonly Geolocation: Geolocation;
     }
 
     var navigator: Navigator;
