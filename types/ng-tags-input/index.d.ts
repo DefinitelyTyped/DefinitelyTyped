@@ -1,4 +1,4 @@
-// Type definitions for ngTagsInput
+// Type definitions for ng-tags-input
 // Project: https://github.com/mbenford/ngTagsInput
 // Definitions by: George Pap <https://github.com/GiorgosPap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
