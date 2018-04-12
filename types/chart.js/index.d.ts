@@ -125,7 +125,10 @@ declare namespace Chart {
         lineWidth?: number;
         strokeStyle?: string;
         pointStyle?: PointStyle;
-        datasetIndex?: number;
+    }
+
+    interface ChartLegendLabelItem extends ChartLegendItem {
+        datasetIndex: number;
     }
 
     interface ChartTooltipItem {
@@ -227,8 +230,8 @@ declare namespace Chart {
         display?: boolean;
         position?: PositionType;
         fullWidth?: boolean;
-        onClick?(event: MouseEvent, legendItem: ChartLegendItem): void;
-        onHover?(event: MouseEvent, legendItem: ChartLegendItem): void;
+        onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
+        onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
@@ -241,7 +244,7 @@ declare namespace Chart {
         fontFamily?: string;
         padding?: number;
         generateLabels?(chart: any): any;
-        filter?(item: ChartLegendItem, data: ChartData): any;
+        filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
         usePointStyle?: boolean;
     }
 
