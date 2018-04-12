@@ -5,92 +5,6 @@
 // TypeScript Version: 2.4
 
 declare namespace tableau {
-    interface VizCreateOptions {
-        /** Undoes action on sheet, defaults to a single undo unless optional parameters is specified. */
-        hideTabs?: boolean;
-        /** Indicates whether the toolbar is hidden or shown. */
-        hideToolbar?: boolean;
-        /**
-         * Specifies the ID of an existing instance to make a copy (clone) of.
-         * This is useful if the user wants to continue analysis of an existing visualization without losing the state of the original.
-         * If the ID does not refer to an existing visualization, the cloned version is derived from the original visualization.
-         */
-        instanceIdToClone?: string;
-        /** Can be any valid CSS size specifier. If not specified, defaults to the published height of the view. */
-        height?: string;
-        /** Can be any valid CSS size specifier. If not specified, defaults to the published height of the view. */
-        width?: string;
-        /**
-         * Specifies a device layout for a dashboard, if it exists.
-         * Values can be desktop, tablet, or phone.
-         * If not specified, defaults to loading a layout based on the smallest dimension of the hosting iframe element.
-         */
-        device?: string;
-        /**
-         * Callback function that is invoked when the Viz object first becomes interactive.
-         * This is only called once, but it’s guaranteed to be called.
-         * If the Viz object is already interactive, it will be called immediately, but on a separate "thread."
-         */
-        onFirstInteractive?: (e: TableauEvent) => void;
-        /**
-         * Callback function that's invoked when the size of the Viz object is known.
-         * You can use this callback to perform tasks such as resizing the elements surrounding the Viz object once the object's size has been established.
-         */
-        onFirstVizSizeKnown?: (e: VizResizeEvent) => void;
-        /**
-         * Apply a filter that you specify to the view when it is first rendered.
-         * For example, if you have an Academic Year filter and only want to display data for 2017,
-         * you might enter "Academic Year": "2016". For more information, see Filtering.
-         */
-        [filter: string]: any;
-    }
-
-    class TableauEvent {
-        /** Gets the Viz object associated with the event. */
-        getViz(): Viz;
-
-        /** Gets the name of the event, which is a string, but is also one of the items in the TableauEventName enum. */
-        getEventName(): TableauEventName;
-    }
-
-    class CustomViewEvent extends TableauEvent {
-        getCustomViewAsync(): Promise<CustomView>;
-    }
-
-    class FilterEvent extends TableauEvent {
-        /** Gets the Worksheet object associated with the event. */
-        getWorksheet(): Worksheet;
-
-        /** Gets the name of the field. */
-        getFieldName(): string;
-
-        /** Gets the Filter object associated with the event. */
-        getFilterAsync(): Promise<ConcreteFilter>;
-    }
-
-    class VizResizeEvent extends TableauEvent {
-        /** Gets the Viz object associated with the event. */
-        getViz(): Viz;
-        /** Gets the name of the event, which is a string, but is also one of the items in the TableauEventName enum. */
-        getEventName(): TableauEventName;
-        /** Gets the sheetSize record for the current sheet. For more information, see SheetSizeOptions Record. */
-        getVizSize(): Size;
-    }
-
-    enum TableauEventName {
-        CUSTOM_VIEW_LOAD = 'customviewload',
-        CUSTOM_VIEW_REMOVE = 'customviewremove',
-        CUSTOM_VIEW_SAVE = 'customviewsave',
-        CUSTOM_VIEW_SET_DEFAULT = 'customviewsetdefault',
-        FILTER_CHANGE = 'filterchange',
-        MARKS_SELECTION = 'marksselection',
-        PARAMETER_VALUE_CHANGE = 'parametervaluechange',
-        STORY_POINT_SWITCH = 'storypointswitch',
-        TAB_SWITCH = 'tabswitch',
-        TOOLBAR_STATE_CHANGE = 'toolbarstatechange',
-        VIZ_RESIZE = 'vizresize',
-    }
-
     enum DashboardObjectType {
         BLANK = 'blank',
         WORKSHEET = 'worksheet',
@@ -151,26 +65,10 @@ declare namespace tableau {
         DIMENSION, MEASURE, UKNOWN
     }
 
-    enum FilterType {
-        CATEGORICAL = 'categorical',
-        QUANTITATIVE = 'quantitative',
-        HIERARCHICAL = 'hierarchical',
-        RELATIVE_DATE = 'relativedate',
-    }
-
     enum SheetType {
         WORKSHEET = 'worksheet',
         DASHBOARD = 'dashboard',
         STORY = 'story',
-    }
-
-    enum DateRangeType {
-        LAST = 'last', /** Refers to the last day, week, month, etc. of the date period. */
-        LASTN = 'lastn', /** Refers to the last N days, weeks, months, etc. of the date period. */
-        NEXT = 'next', /** Refers to the next day, week, month, etc. of the date period. */
-        NEXTN = 'nextn', /** Refers to the next N days, weeks, months, etc. of the date period. */
-        CURRENT = 'current', /** Refers to the current day, week, month, etc. of the date period. */
-        TODATE = 'todate', /** Refers to everything up to and including the current day, week, month, etc. of the date period. */
     }
 
     enum ParameterAllowableValuesType {
@@ -188,23 +86,94 @@ declare namespace tableau {
         DATETIME = 'datetime'
     }
 
-    enum PeriodType {
-        YEARS = 'years',
-        QUARTERS = 'quarters',
-        MONTHS = 'months',
-        WEEKS = 'weeks',
-        DAYS = 'days',
-        HOURS = 'hours',
-        MINUTES = 'minutes',
-        SECONDS = 'seconds',
+    //#region Error Classes
+    class TableauException extends Error {
+        tableauSoftwareErrorCode: ErrorCode;
     }
 
-    //#region
+    enum ErrorCode {
+        /** The browser is not capable of supporting the Tableau JavaScript API. */
+        BROWSER_NOT_CAPABLE = 'browserNotCapable',
+        /** The permissions on a workbook or a view do not allow downloading the workbook. */
+        DOWNLOAD_WORKBOOK_NOT_ALLOWED = 'downloadWorkbookNotAllowed',
+        /** An error occurred while attempting to perform a filter operation. */
+        FILTER_CANNOT_BE_PERFORMED = 'filterCannotBePerformed',
+        /** Attempted to switch to a sheet by index that does not exist in the workbook. */
+        INDEX_OUT_OF_RANGE = 'indexOutOfRange',
+        /** An error occurred within the Tableau JavaScript API. Contact Tableau Support. */
+        INTERNAL_ERROR = 'internalError',
+        /** An invalid aggregation was specified for the filter, such as setting a range filter to "SUM(Sales)" instead of "Sales". */
+        INVALID_AGGREGATION_FIELD_NAME = 'invalidAggregationFieldName',
+        /** An operation was attempted on a custom view that does not exist. */
+        INVALID_CUSTOM_VIEW_NAME = 'invalidCustomViewName',
+        /** An invalid date was specified in a method that required a date parameter. */
+        INVALID_DATE_PARAMETER = 'invalidDateParameter',
+        /** A filter operation was attempted on a field that does not exist in the data source. */
+        INVALID_FILTER_FIELDNAME = 'invalidFilterFieldName',
+        /**
+         * Either a filter operation was attempted on a field that does not exist in the data source,
+         * or the value supplied in the filter operation is the wrong data type or format.
+         */
+        INVALID_FILTER_FIELDNAME_OR_VALUE = 'invalidFilterFieldNameOrValue',
+        /** A filter operation was attempted using a value that is the wrong data type or format. */
+        INVALID_FILTER_FIELDVALUE = 'invalidFilterFieldValue',
+        /** A parameter is not the correct data type or format. The name of the parameter is specified in the Error.message field. */
+        INVALID_PARAMETER = 'invalidParameter',
+        /** An invalid date value was specified in a Sheet.selectMarksAsync() call for a date field. */
+        INVALID_SELECTION_DATE = 'invalidSelectionDate',
+        /** A field was specified in a Sheet.selectMarksAsync() call that does not exist in the data source. */
+        INVALID_SELECTION_FIELDNAME = 'invalidSelectionFieldName',
+        /** An invalid value was specified in a Sheet.selectMarksAsync() call. */
+        INVALID_SELECTION_VALUE = 'invalidSelectionValue',
+        /** A negative size was specified or the maxSize value is less than minSize in Sheet.changeSizeAsync(). */
+        INVALID_SIZE = 'invalidSize',
+        /**
+         * A behavior other than SheetSizeBehavior.AUTOMATIC was specified in
+         * Sheet.changeSizeAsync() when the sheet is a Worksheet instance.
+         */
+        INVALID_SIZE_BEHAVIOR_ON_WORKSHEET = 'invalidSizeBehaviorOnWorksheet',
+        /** The URL specified in the Viz class constructor is not valid. */
+        INVALID_URL = 'invalidUrl',
+        /** The maxSize field is missing in Sheet.changeSizeAsync() when specifying SheetSizeBehavior.ATMOST. */
+        MISSING_MAX_SIZE = 'missingMaxSize',
+        /** The minSize field is missing in Sheet.changeSizeAsync() when specifying SheetSizeBehavior.ATLEAST. */
+        MISSING_MIN_SIZE = 'missingMinSize',
+        /**
+         * Either or both of the minSize or maxSize fields is missing in
+         * Sheet.changeSizeAsync() when specifying SheetSizeBehavior.RANGE.
+         */
+        MISSING_MINMAX_SIZE = 'missingMinMaxSize',
+        /** The rangeN field is missing for a relative date filter of type LASTN or NEXTN. */
+        MISSING_RANGEN_FOR_RELATIVE_DATE_FILTERS = 'missingRangeNForRelativeDateFilters',
+        /** An attempt was made to access Sheet.getUrl() on a hidden sheet. Hidden sheets do not have URLs. */
+        NO_URL_FOR_HIDDEN_WORKSHEET = 'noUrlForHiddenWorksheet',
+        /** One or both of the parentElement or the URL parameters is not specified in the Viz constructor. */
+        NO_URL_OR_PARENT_ELEMENT_NOT_FOUND = 'noUrlOrParentElementNotFound',
+        /** An operation was attempted on a sheet that is not active or embedded within the active dashboard. */
+        NOT_ACTIVE_SHEET = 'notActiveSheet',
+        /** A required parameter was not specified, null, or an empty string/array. */
+        NULL_OR_EMPTY_PARAMETER = 'nullOrEmptyParameter',
+        /** A general-purpose server error occurred. Details are contained in the Error object. */
+        SERVER_ERROR = 'serverError',
+        /** An operation was attempted on a sheet that does not exist in the workbook. */
+        SHEET_NOT_IN_WORKBOOK = 'sheetNotInWorkbook',
+        /** An operation is performed on a CustomView object that is no longer valid (it has been removed). */
+        STALE_DATA_REFERENCE = 'staleDataReference',
+        /** An unknown event name was specified in the call to Viz.addEventListener or Viz.removeEventListener. */
+        UNSUPPORTED_EVENT_NAME = 'unsupportedEventName',
+        /** A Viz object has already been created as a child of the parentElement specified in the Viz constructor. */
+        VIZ_ALREADY_IN_MANAGER = 'vizAlreadyInManager',
+        INVALID_TOOLBAR_BUTTON_NAME = 'invalidToolbarButtonName',
+        MAX_VIZ_RESIZE_ATTEMPTS = 'maxVizResizeAttempts',
+    }
+    //#endregion
+
+    //#region Viz Classes
     class VizManager {
         getVizs(): Viz[];
     }
 
-    type ListenerFunction = (event: TableauEvent) => void;
+    type ListenerFunction<T extends TableauEvent> = (event: T) => void;
 
     class Viz {
         /**
@@ -230,11 +199,19 @@ declare namespace tableau {
         /** Indicates whether automatic updates are currently paused. */
         getAreAutomaticUpdatesPaused(): boolean;
 
-        addEventListener(event: TableauEventName.FILTER_CHANGE, f: (event: FilterEvent) => void): void;
-        addEventListener(event: TableauEventName.CUSTOM_VIEW_LOAD, f: (event: CustomViewEvent) => void): void;
+        addEventListener(event: TableauEventName.FILTER_CHANGE, f: ListenerFunction<FilterEvent>): void;
+        addEventListener(
+            event: TableauEventName.CUSTOM_VIEW_LOAD | TableauEventName.CUSTOM_VIEW_REMOVE | TableauEventName.CUSTOM_VIEW_SAVE | TableauEventName.CUSTOM_VIEW_SET_DEFAULT,
+            f: ListenerFunction<CustomViewEvent>): void;
+        addEventListener(event: TableauEventName.MARKS_SELECTION, f: ListenerFunction<MarksEvent>): void;
+        addEventListener(event: TableauEventName.PARAMETER_VALUE_CHANGE, f: ListenerFunction<ParameterEvent>): void;
+        addEventListener(event: TableauEventName.STORY_POINT_SWITCH, f: ListenerFunction<StoryPointSwitchEvent>): void;
+        addEventListener(event: TableauEventName.TAB_SWITCH, f: ListenerFunction<TabSwitchEvent>): void;
+        addEventListener(event: TableauEventName.TOOLBAR_STATE_CHANGE, f: ListenerFunction<ToolbarStateEvent>): void;
+        addEventListener(event: TableauEventName.VIZ_RESIZE, f: ListenerFunction<VizResizeEvent>): void;
 
         /** Removes an event listener from the specified event. */
-        removeEventListener(type: TableauEventName, f: ListenerFunction): void;
+        removeEventListener(type: TableauEventName, f: ListenerFunction<TableauEvent>): void;
         /** Shows or hides the iframe element hosting the visualization. */
         show(): void;
         /** Shows or hides the iframe element hosting the visualization. */
@@ -283,6 +260,179 @@ declare namespace tableau {
         redoAsync(): Promise<void>;
         /** Undoes action on sheet, defaults to a single undo unless optional parameters is specified. */
         undoAsync(): Promise<void>;
+    }
+
+    interface VizCreateOptions {
+        /** Undoes action on sheet, defaults to a single undo unless optional parameters is specified. */
+        hideTabs?: boolean;
+        /** Indicates whether the toolbar is hidden or shown. */
+        hideToolbar?: boolean;
+        /**
+         * Specifies the ID of an existing instance to make a copy (clone) of.
+         * This is useful if the user wants to continue analysis of an existing visualization without losing the state of the original.
+         * If the ID does not refer to an existing visualization, the cloned version is derived from the original visualization.
+         */
+        instanceIdToClone?: string;
+        /** Can be any valid CSS size specifier. If not specified, defaults to the published height of the view. */
+        height?: string;
+        /** Can be any valid CSS size specifier. If not specified, defaults to the published height of the view. */
+        width?: string;
+        /**
+         * Specifies a device layout for a dashboard, if it exists.
+         * Values can be desktop, tablet, or phone.
+         * If not specified, defaults to loading a layout based on the smallest dimension of the hosting iframe element.
+         */
+        device?: string;
+        /**
+         * Callback function that is invoked when the Viz object first becomes interactive.
+         * This is only called once, but it’s guaranteed to be called.
+         * If the Viz object is already interactive, it will be called immediately, but on a separate "thread."
+         */
+        onFirstInteractive?: (e: TableauEvent) => void;
+        /**
+         * Callback function that's invoked when the size of the Viz object is known.
+         * You can use this callback to perform tasks such as resizing the elements surrounding the Viz object once the object's size has been established.
+         */
+        onFirstVizSizeKnown?: (e: VizResizeEvent) => void;
+        /**
+         * Apply a filter that you specify to the view when it is first rendered.
+         * For example, if you have an Academic Year filter and only want to display data for 2017,
+         * you might enter "Academic Year": "2016". For more information, see Filtering.
+         */
+        [filter: string]: any;
+    }
+
+    enum ToolbarPosition {
+        /** Positions the toolbar along the top of the visualization. */
+        TOP = 'top',
+        /** Positions the toolbar along the bottom of the visualization. */
+        BOTTOM = 'bottom',
+    }
+
+    class ToolbarState {
+        /** Gets the Viz object associated with the toolbar. */
+        getViz(): Viz;
+        /**
+         * Gets a value indicating whether the specified toolbar button is enabled.
+         * The supported buttons are defined in the ToobarButtonName enum.
+         * Currently, only Undo and Redo are supported.
+         * Checking this property with a toolbar button that is not supported causes an InvalidToolbarButtonName error.
+         */
+        isButtonEnabled(toolbarButtonName: ToolbarButtonName): boolean;
+    }
+
+    enum ToolbarButtonName {
+        /** Specifies the Undo button in the toolbar. */
+        UNDO = 'undo',
+        /** Specifies the Redo button in the toolbar. */
+        REDO = 'redo',
+    }
+    //#endregion
+
+    //#region Viz Event Classes
+    /**
+     * Defines strings passed to the Viz.addEventListener and Viz.removeEventListener methods.
+     * The values of the enums are all lowercase strings with no underscores.
+     * For example, CUSTOM_VIEW_LOAD is customviewload.
+     * Either the fully-qualified enum (tableau.TableauEventName.FILTER_CHANGE) or the raw string (filterchange) is acceptable.
+     */
+    enum TableauEventName {
+        /**
+         * Raised when a custom view has finished loading.
+         * This event is raised after the callback function for onFirstInteractive (if any) has been called.
+         */
+        CUSTOM_VIEW_LOAD = 'customviewload',
+        /** Raised when the user removes a custom view. */
+        CUSTOM_VIEW_REMOVE = 'customviewremove',
+        /** Raised when the user saves a new or existing custom view. */
+        CUSTOM_VIEW_SAVE = 'customviewsave',
+        /** Raised when a custom view has been made the default view for this visualization. */
+        CUSTOM_VIEW_SET_DEFAULT = 'customviewsetdefault',
+        /** Raised when any filter has changed state. The Viz object may not be interactive yet. */
+        FILTER_CHANGE = 'filterchange',
+        /** Raised when marks are selected or deselected. */
+        MARKS_SELECTION = 'marksselection',
+        /** Raised when any parameter has changed state. */
+        PARAMETER_VALUE_CHANGE = 'parametervaluechange',
+        /** Raised after a story point becomes active. */
+        STORY_POINT_SWITCH = 'storypointswitch',
+        /** Raised after the tab switched, but the Viz object may not yet be interactive. */
+        TAB_SWITCH = 'tabswitch',
+        /** Raised when the state of the specified toolbar button changes. See API Reference. */
+        TOOLBAR_STATE_CHANGE = 'toolbarstatechange',
+        /** Raised every time the frame size is calculated from the available size and the Viz object's published size. */
+        VIZ_RESIZE = 'vizresize',
+    }
+
+    class TableauEvent {
+        /** Gets the Viz object associated with the event. */
+        getViz(): Viz;
+
+        /** Gets the name of the event, which is a string, but is also one of the items in the TableauEventName enum. */
+        getEventName(): TableauEventName;
+    }
+
+    class CustomViewEvent extends TableauEvent {
+        /** Gets the CustomView object associated with the event. */
+        getCustomViewAsync(): Promise<CustomView>;
+    }
+
+    class FilterEvent extends TableauEvent {
+        /** Gets the Worksheet object associated with the event. */
+        getWorksheet(): Worksheet;
+
+        /** Gets the name of the field. */
+        getFieldName(): string;
+
+        /** Gets the Filter object associated with the event. */
+        getFilterAsync(): Promise<ConcreteFilter>;
+    }
+
+    class MarksEvent extends TableauEvent {
+        /** Gets the Worksheet object associated with the event. */
+        getWorksheet(): Worksheet;
+
+        /** Gets the selected marks on the Worksheet that triggered the event. */
+        getMarksAsync(): Promise<Mark[]>;
+    }
+
+    class ParameterEvent extends TableauEvent {
+        /** Gets the name of the parameter that changed. */
+        getParameterName(): string;
+        /** Gets the Parameter object that triggered the event. */
+        getParameterAsync(): Promise<Parameter>;
+    }
+
+    class StoryPointSwitchEvent extends TableauEvent {
+        /**
+         * Gets the StoryPointInfo that was active before the story point switch event occurred.
+         * The returned object reflects the state of the story point before the switch occurred.
+         * The returned object reflects the state of the story point after the switch occured.
+         */
+        getOldStoryPointInfo(): StoryPointInfo;
+        /** Gets the StoryPoint that is currently active. */
+        getNewStoryPoint(): StoryPoint;
+    }
+
+    class TabSwitchEvent extends TableauEvent {
+        /** Gets the name of the sheet that was active before the tab switch event occurred. */
+        getOldSheetName(): string;
+        /** Gets the name of the sheet that is currently active. */
+        getNewSheetName(): string;
+    }
+
+    class ToolbarStateEvent extends TableauEvent {
+        /** Returns the new ToolbarState. */
+        getToolbarState(): ToolbarState;
+    }
+
+    class VizResizeEvent extends TableauEvent {
+        /** Gets the Viz object associated with the event. */
+        getViz(): Viz;
+        /** Gets the name of the event, which is a string, but is also one of the items in the TableauEventName enum. */
+        getEventName(): TableauEventName;
+        /** Gets the sheetSize record for the current sheet. For more information, see SheetSizeOptions Record. */
+        getVizSize(): Size;
     }
     //#endregion
 
@@ -407,6 +557,51 @@ declare namespace tableau {
          * You can specify options with an optional parameter. This can only be called on sheets of the WORKSHEET type.
          */
         getUnderlyingDataAsync(options: getUnderlyingDataOptions): Promise<DataTable>;
+        /** Fetches the collection of filters used on the sheet. */
+        getFiltersAsync(): Promise<Filter[]>;
+        /**
+         * Applies a simple categorical filter (non-date).
+         * See the filtering examples for more details on these functions.
+         * Returns the fieldName that was filtered.
+         */
+        applyFilterAsync(fieldName: string, values: object[] | object, updateType: FilterUpdateType, options?: FilterOptions): Promise<string>;
+        /**
+         * Applies a quantitative filter to a field or to a date.
+         * If a range is specified that is outside of the domain min/max values, no error is raised and the command is allowed.
+         * Subsequent calls to getFiltersAsync[] will return these values even if they are outside of the bounds of the domain.
+         * This is equivalent to the behavior in Tableau Desktop.
+         */
+        applyRangeFilterAsync(fieldName: string, range: RangeFilterOptions): Promise<string>;
+        /** Applies a relative date filter. */
+        applyRelativeDateFilterAsync(fieldName: string, options: RelativeDateFilterOptions): Promise<string>;
+        /**
+         * Applies a hierarchical filter.
+         * The values parameter is either a single value, an array of values, or an object { levels: ["1", "2"] }.
+         */
+        applyHierarchicalFilterAsync(fieldName: string, values: object, options: any): Promise<string>;
+        /**
+         * Clears the filter, no matter what kind of filter it is.
+         * Note that the filter is removed as long as no associated quick filter is showing for the field.
+         * If there is a quick filter showing, then the filter is kept, but it’s reset to the “All” state (effectually canceling the filter).
+         * For relative date filters, however, an error is returned since there is no “All” state for a relative date filter.
+         * To clear a relative date filter with a quick filter showing, you can call applyRelativeDateFilter()
+         * instead using a range that makes sense for the specific field.
+         */
+        clearFilterAsync(fieldName: string): Promise<string>;
+        /** Clears the selection for this worksheet. */
+        clearSelectedMarksAsync(): Promise<void>;
+        /** Gets the collection of marks that are currently selected. */
+        getSelectedMarksAsync(): Promise<Mark[]>;
+        /** Selects the marks and returns them. */
+        selectMarksAsync(fieldName: string, value: object | object[], updateType: SelectionUpdateType): Promise<void>;
+        /**
+         * Allows selection based on this syntax for the first parameter:
+         * {
+         *   "Field1": value,
+         *   "Field2": [1, 2, 3]
+         * }
+         */
+        selectMarksAsync(fieldValuesMap: object | Mark[], updateType: SelectionUpdateType): Promise<void>;
     }
 
     interface getSummaryDataOptions {
@@ -631,6 +826,35 @@ declare namespace tableau {
     //#endregion
 
     //#region Filtering
+    interface FilterOptions {
+        /**
+         * Determines whether the filter will apply in exclude mode or include mode.
+         * The default is include, which means that you use the fields as part of a filter.
+         * Exclude mode means that you include everything else except the specified fields.
+         */
+        isExcludeMode: boolean;
+    }
+
+    interface RangeFilterOptions {
+        /** Minimum value for the range (inclusive). Optional. Leave blank if you want a <= filter. */
+        min: number | Date;
+        /** Maximum value for the range (inclusive). Optional. Leave blank if you want a >= filter. */
+        max: number | Date;
+        /** The null values to include */
+        nullOption: NullOption;
+    }
+
+    interface RelativeDateFilterOptions {
+        /** The UTC date from which to filter. */
+        anchorDate: Date;
+        /** Year, quarter, month, etc. */
+        periodType: PeriodType;
+        /** LAST, LASTN, NEXT, etc. */
+        rangeType: DateRangeType;
+        /** The number used when the rangeType is LASTN or NEXTN. */
+        rangeN: number;
+    }
+
     class Filter {
         /** Gets the parent worksheet */
         getWorksheet(): Worksheet;
@@ -640,6 +864,16 @@ declare namespace tableau {
         getFieldName(): string;
         /** Gets the field that is currently being filtered. */
         getFieldAsync(): Promise<Field>;
+    }
+
+    /** An enumeration that indicates what to do with null values for a given filter or mark selection call. */
+    enum NullOption {
+        /** Only include null values in the filter. */
+        NULL_VALUES = 'nullValues',
+        /** Only include non-null values in the filter. */
+        NON_NULL_VALUES = 'nonNullValues',
+        /** Include null and non-null values in the filter. */
+        ALL_VALUES = 'allValues',
     }
 
     class CategoricalFilter extends Filter {
@@ -683,8 +917,84 @@ declare namespace tableau {
         /** The value formatted according to the locale and the formatting applied to the field or parameter. */
         formattedValue: string;
     }
+
+    enum FilterType {
+        /** Categorical filters are used to filter to a set of values within the domain. */
+        CATEGORICAL = 'categorical',
+        /** Quantitative filters are used to filter to a range of values from a continuous domain. */
+        QUANTITATIVE = 'quantitative',
+        /** Hierarchical filters are used to filter to a set of values organized into a hierarchy within the domain. */
+        HIERARCHICAL = 'hierarchical',
+        /** Relative date filters are used to filter a date/time domain to a range of values relative to a fixed point in time. */
+        RELATIVE_DATE = 'relativedate',
+    }
+
+    enum FilterUpdateType {
+        /** Adds all values to the filter. Equivalent to checking the (All) value in a quick filter. */
+        ALL = 'all',
+        /** Replaces the current filter values with new ones specified in the call */
+        REPLACE = 'replace',
+        /** Adds the filter values as specified in the call to the current filter values. Equivalent to checking a value in a quick filter. */
+        ADD = 'add',
+        /** Removes the filter values as specified in the call from the current filter values. Equivalent to unchecking a value in a quick filter. */
+        REMOVE = 'remove',
+    }
+
+    enum PeriodType {
+        YEARS = 'years',
+        QUARTERS = 'quarters',
+        MONTHS = 'months',
+        WEEKS = 'weeks',
+        DAYS = 'days',
+        HOURS = 'hours',
+        MINUTES = 'minutes',
+        SECONDS = 'seconds',
+    }
+
+    enum DateRangeType {
+        LAST = 'last', /** Refers to the last day, week, month, etc. of the date period. */
+        LASTN = 'lastn', /** Refers to the last N days, weeks, months, etc. of the date period. */
+        NEXT = 'next', /** Refers to the next day, week, month, etc. of the date period. */
+        NEXTN = 'nextn', /** Refers to the next N days, weeks, months, etc. of the date period. */
+        CURRENT = 'current', /** Refers to the current day, week, month, etc. of the date period. */
+        TODATE = 'todate', /** Refers to everything up to and including the current day, week, month, etc. of the date period. */
+    }
     //#endregion
 
+    //#region Marks Selection
+    /**
+     * A mark represents a single data point on the visualization.
+     * It is independent of the type of visualization (bar, line, pie, etc.).
+     */
+    class Mark {
+        /** Creates a new Mark with the specified pairs. */
+        constructor(pairs: Pair[]);
+        /** Gets a collection of field name/value pairs associated with the mark. */
+        getPairs(): Pair[];
+    }
+
+    class Pair {
+        /** The value formatted according to the locale and the formatting applied to the field. */
+        formattedValue: string;
+        /** The field name to which the value is applied. */
+        fieldName: string;
+        /** Contains the raw native value for the field as a JavaScript type, which is one of String, Number, Boolean, or Date. */
+        value: string | number | boolean | Date;
+        /** Creates a new Pair with the specified field name/value pairing */
+        constructor(fieldName: string, value: string | number | boolean | Date);
+    }
+
+    enum SelectionUpdateType {
+        /** Replaces the current marks values with new ones specified in the call. */
+        REPLACE = 'replace',
+        /** Adds the values as specified in the call to the current selection. Equivalent to control-clicking in desktop. */
+        ADD = 'add',
+        /** Removes the values as specified in the call from the current selection. Equivalent to control-clicking an already selected mark in desktop. */
+        REMOVE = 'remove',
+    }
+    //#endregion
+
+    //#region Other
     interface Size {
         width: number;
         height: number;
@@ -694,4 +1004,5 @@ declare namespace tableau {
         x: number;
         y: number;
     }
+    //#endregion
 }
