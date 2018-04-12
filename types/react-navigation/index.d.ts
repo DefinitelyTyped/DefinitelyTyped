@@ -304,7 +304,7 @@ export interface NavigationStackScreenOptions {
   headerBackground?: React.ReactNode | React.ReactType;
   gesturesEnabled?: boolean;
   gestureResponseDistance?: { vertical?: number; horizontal?: number };
-};
+}
 
 export interface NavigationStackRouterConfig {
   headerTransitionPreset?: 'fade-in-place' | 'uikit';
