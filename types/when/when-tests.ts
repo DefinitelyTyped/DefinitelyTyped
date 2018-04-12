@@ -10,7 +10,10 @@ class ForeignPromise<T> {
 	constructor(private readonly value: T) {
 	}
 
-	then<U>(onFulfilled?: (value: T) => U, onRejected?: (reason: any) => U) { return new ForeignPromise<U>(onFulfilled(this.value)); }
+	then<U>(onFulfilled?: (value: T) => U, onRejected?: (reason: any) => U): ForeignPromise<U>
+	then(onFulfilled?: (value: T) => T, onRejected?: (reason: any) => T): ForeignPromise<T> {
+		return new ForeignPromise(onFulfilled ? onFulfilled(this.value) : this.value);
+	}
 };
 
 var promise: when.Promise<number>;
@@ -101,8 +104,16 @@ when.all<number[]>([when(1), when(2), when(3)]).then(results => {
 when.map<number[]>([when(1), 2, 3], (num: number, index: number) => num * index).then((results) => {
 	return results.reduce((r, x) => r + x, 0);
 });
+when.map<number[]>([when(1), 2, 3], (num: number) => num * num).then((results) => {
+	return results.reduce((r, x) => r + x, 0);
+});
 
 /* when.reduce(arr, reduceFunc, initialValue) */
+when.reduce<number>([when(1), 2, 3], (reduction: number, value: number, index: number) => {
+	return reduction += value * index;
+}, 0).then((result: number) => {
+	return result;
+});
 when.reduce<number>([when(1), 2, 3], (reduction: number, value: number) => {
 	return reduction += value;
 }, 0).then((result: number) => {
@@ -110,6 +121,12 @@ when.reduce<number>([when(1), 2, 3], (reduction: number, value: number) => {
 });
 
 /* when.reduceRight(arr, reduceFunc, initialValue) */
+when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number, index: number) => {
+	return when(value * index)
+	.then((v) => reduction += v);
+}, 0).then((result: number) => {
+	return result;
+});
 when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number) => {
 	return when(value)
 	.then((v) => reduction += v);
@@ -119,7 +136,24 @@ when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number) => 
 
 /* when.settle(arr) */
 when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(descriptors => {
-	return descriptors.filter(d => d.state === 'rejected').reduce((r, d) => r + d.value, 0);
+	return descriptors.reduce((r, d) => {
+		if (d.state === 'fulfilled') {
+			return r + d.value;
+		} else {
+			console.error(d.reason);
+			return r;
+		}
+	}, 0);
+});
+when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(descriptors => {
+	return descriptors.reduce((r, d) => {
+		if (d.state === 'rejected') {
+			console.error(d.reason);
+			return r;
+		} else {
+			return r + d.value;
+		}
+	}, 0);
 });
 
 /* when.iterate(f, predicate, handler, seed) */
@@ -264,6 +298,17 @@ var status: {
 };
 
 status = when(1).inspect()
+
+var status2: when.Snapshot<number>;
+
+status2 = when(1).inspect();
+if (status2.state === 'fulfilled') {
+	console.log(status2.value + 2);
+} else if (status2.state === 'rejected') {
+	console.log(status2.reason);
+} else {
+	console.log(status2.state === 'pending');
+}
 
 /* promise.with(thisArg) */
 
@@ -420,8 +465,8 @@ example = function () {
 /* node.liftCallback */
 
 example = function () {
-	var fetchData: (key: string) => when.Promise<number>;
-	var handleData: (err: any, result: number) => void;
+	var fetchData: (key: string) => when.Promise<number> = () => when(1);
+	var handleData: (err: any, result: number) => void = () => undefined;
 
 	var handlePromisedData: (result: when.Promise<number>) => when.Promise<number>;
 	handlePromisedData = nodefn.liftCallback(handleData);
@@ -432,8 +477,8 @@ example = function () {
 /* node.bindCallback */
 
 example = function () {
-	var fetchData: (key: string) => when.Promise<number>;
-	var handleData: (err: any, result: number) => void;
+	var fetchData: (key: string) => when.Promise<number> = () => when(1);
+	var handleData: (err: any, result: number) => void = () => undefined;
 
 	nodefn.bindCallback(fetchData('thing'), handleData);
 };
@@ -441,7 +486,7 @@ example = function () {
 /* node.createCallback */
 
 example = function () {
-	when.promise((resolve, reject) =>
+	when.promise<number>((resolve, reject) =>
 			nodeFn2(1, '2', nodefn.createCallback({ resolve: resolve, reject: reject })))
 		.then(
 			(value: number) => console.log(value),
