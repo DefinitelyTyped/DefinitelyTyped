@@ -3938,6 +3938,8 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
     inverted?: boolean;
 
     keyExtractor?: (item: ItemT, index: number) => string;
+                                       
+    listKey?: string;
 
     /**
      * The maximum number of items to render in each incremental render batch. The more rendered at
