@@ -290,16 +290,16 @@ declare namespace When {
             onRejected?: ((reason: any) => T | Thenable<T>) | undefined | null,
             onProgress?: (update: any) => void
         ): Promise<T>;
-        then<TResult1>(
-            onFulfilled: ((value: T) => TResult1 | Thenable<TResult1>),
-            onRejected?: ((reason: any) => TResult1 | Thenable<TResult1>) | undefined | null,
+        then<TResult>(
+            onFulfilled: ((value: T) => TResult | Thenable<TResult>),
+            onRejected?: ((reason: any) => TResult | Thenable<TResult>) | undefined | null,
             onProgress?: (update: any) => void
-        ): Promise<TResult1>;
-        then<TResult2>(
+        ): Promise<TResult>;
+        then<TResult>(
             onFulfilled: ((value: T) => T | Thenable<T>) | undefined | null,
-            onRejected: ((reason: any) => TResult2 | Thenable<TResult2>),
+            onRejected: ((reason: any) => TResult | Thenable<TResult>),
             onProgress?: (update: any) => void
-        ): Promise<T | TResult2>;
+        ): Promise<T | TResult>;
         then<TResult1, TResult2>(
             onFulfilled: ((value: T) => TResult1 | Thenable<TResult1>),
             onRejected: ((reason: any) => TResult2 | Thenable<TResult2>),
