@@ -1,4 +1,4 @@
-// Type definitions for React Onsen UI (react-onsenui) 2.8
+// Type definitions for React Onsen UI (react-onsenui) 2.9
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>, Jemmyw <https://github.com/jemmyw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -334,6 +334,18 @@ export class Range extends Component<{
     onChange?(e: Event): void,
     value?: number,
     disabled?: boolean,
+}, any> {}
+
+export class Select extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?: (e: React.ChangeEvent<any>) => void,
+    value?: string,
+    multiple?: boolean,
+    autofocus?: boolean,
+    required?: boolean,
+    form?: string,
+    size?: string
 }, any> {}
 
 export class Switch extends Component<{
