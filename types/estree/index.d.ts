@@ -196,7 +196,7 @@ interface BaseDeclaration extends BaseStatement { }
 
 export interface FunctionDeclaration extends BaseFunction, BaseDeclaration {
   type: "FunctionDeclaration";
-  // `id` is null when a function declaration is a part of the `export default function` statement
+  /** It is null when a function declaration is a part of the `export default function` statement */
   id: Identifier | null;
   body: BlockStatement;
 }

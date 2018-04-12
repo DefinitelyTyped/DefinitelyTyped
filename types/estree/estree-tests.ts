@@ -224,6 +224,7 @@ boolean = memberExpression.computed;
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
 var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
+functionDeclaration.id = null;
 var params: Array<ESTree.Pattern> = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
 booleanMaybe = functionDeclaration.generator;
