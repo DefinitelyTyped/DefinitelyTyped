@@ -19,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "focus-within-tests.ts",
-        "focus-within-import-tests.ts"
+        "test/focus-within-global-tests.ts",
+        "test/focus-within-import-default-tests.ts"
     ]
 }
