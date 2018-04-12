@@ -3,15 +3,14 @@
 // Definitions by: Damien Erambert <https://github.com/eramdam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare global {
-interface FocusWithinOpts {
-    attr?: boolean;
-    className?: string;
+declare namespace focusWithin {
+    interface FocusWithinOpts {
+      attr?: boolean;
+      className?: string;
+    }
 }
 
-type FocusWithin = (document: HTMLDocument, opts?: FocusWithinOpts) => void;
+declare function focusWithin(document: HTMLDocument, opts?: focusWithin.FocusWithinOpts): void;
 
-const focusWithin: FocusWithin;
-}
-
-export default focusWithin;
+export as namespace focusWithin;
+export = focusWithin;
