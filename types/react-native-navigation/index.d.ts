@@ -187,7 +187,7 @@ export interface NavigatorStyle {
     navBarSubtitleFontFamily?: string;
     navBarSubtitleFontSize?: number;
     screenBackgroundColor?: string;
-    orientation?: 'auto ' | 'landscape' | 'portrait';
+    orientation?: 'auto' | 'landscape' | 'portrait';
     disabledButtonColor?: string;
     // iOS only
     statusBarTextColorSchemeSingleScreen?: string;
