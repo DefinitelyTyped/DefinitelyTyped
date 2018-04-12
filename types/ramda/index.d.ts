@@ -956,6 +956,7 @@ declare namespace R {
         map<T, U>(fn: (x: T) => U, list: ReadonlyArray<T>): U[];
         map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
         map<T, U>(fn: (x: T) => U): (list: ReadonlyArray<T>) => U[];
+        map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors curried
         map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T], obj: T): U;
         map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T]): (obj: T) => U;
 
@@ -1286,8 +1287,8 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, K extends keyof T>(names: ReadonlyArray<K>, obj: T): Pick<T, K>;
-        pick<K extends keyof { [index: string]: any }>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Diff<keyof T, keyof Omit<T, K>>>
+        pick<T, K extends keyof { [index: string]: any }>(names: ReadonlyArray<K>, obj: T): Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
+        pick<K extends keyof { [index: string]: any }>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
