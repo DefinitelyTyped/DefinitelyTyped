@@ -238,6 +238,10 @@ var variableDeclarator: ESTree.VariableDeclarator;
 pattern = variableDeclarator.id; // Pattern
 expressionMaybe = variableDeclarator.init;
 
+var classDeclaration: ESTree.ClassDeclaration;
+identifierOrNull = classDeclaration.id;
+classDeclaration.id = null;
+
 // Clauses
 // SwitchCase
 string = switchCase.type;
