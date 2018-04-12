@@ -9,6 +9,7 @@
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
 //                 Sergey Rubanov <https://github.com/chicoxyzzy>
+//                 Simon Archer <https://github.com/archy-bold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -126,6 +127,10 @@ declare namespace Chart {
         pointStyle?: PointStyle;
     }
 
+    interface ChartLegendLabelItem extends ChartLegendItem {
+        datasetIndex: number;
+    }
+
     interface ChartTooltipItem {
         xLabel?: string;
         yLabel?: string;
@@ -227,8 +232,8 @@ declare namespace Chart {
         display?: boolean;
         position?: PositionType;
         fullWidth?: boolean;
-        onClick?(event: MouseEvent, legendItem: ChartLegendItem): void;
-        onHover?(event: MouseEvent, legendItem: ChartLegendItem): void;
+        onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
+        onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
@@ -241,7 +246,7 @@ declare namespace Chart {
         fontFamily?: string;
         padding?: number;
         generateLabels?(chart: any): any;
-        filter?(item: ChartLegendItem, data: ChartData): any;
+        filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
         usePointStyle?: boolean;
     }
 
