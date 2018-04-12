@@ -12,6 +12,11 @@ server.route({
                     return h.continue;
                 },
             },
+            onPostHandler: [{
+                method(_request, h) {
+                    return h.continue;
+                },
+            }],
         }
     }
 });

@@ -1725,7 +1725,7 @@ export interface RouteOptions {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#request-lifecycle)
      */
     ext?: {
-        [key in RouteRequestExtType]?: RouteExtObject;
+        [key in RouteRequestExtType]?: RouteExtObject | RouteExtObject[];
     };
 
     /**
