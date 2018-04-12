@@ -8,7 +8,7 @@
 //                 Steve Zhang <https://github.com/Stevearzh>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.6
 
 export {
     ArrowKeyStepper,
