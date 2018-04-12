@@ -54,12 +54,7 @@ export type ScrollParams = {
     scrollTop: number;
     scrollWidth: number;
 };
-export type SectionRenderedParams = {
-    columnStartIndex: number;
-    columnStopIndex: number;
-    rowStartIndex: number;
-    rowStopIndex: number;
-};
+export type SectionRenderedParams = RenderedSection;
 export type SCROLL_DIRECTION_HORIZONTAL = "horizontal";
 export type SCROLL_DIRECTION_VERTICAL = "vertical";
 export type OverscanIndicesGetterParams = {

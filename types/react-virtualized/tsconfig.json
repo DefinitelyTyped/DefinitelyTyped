@@ -2,10 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": ["es6", "dom"],
-        "noImplicitAny": false,
-        "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strict": true,
         "jsx": "react",
         "baseUrl": "../",
         "typeRoots": ["../"],

@@ -208,9 +208,7 @@ export type TableProps = GridCoreProps & {
      */
     autoHeight?: boolean;
     /** One or more Columns describing the data displayed in this row */
-    children?:
-        | React.ReactElement<ColumnProps>[]
-        | React.ReactElement<ColumnProps>;
+    children?: React.ReactNode;
     /** Optional CSS class name */
     className?: string;
     /** Disable rendering the header at all */
@@ -372,7 +370,7 @@ export const SortDirection: SortDirectionStatic;
 export type SortDirectionType = "ASC" | "DESC";
 
 export const SortIndicator: React.StatelessComponent<{
-    sortDirection: SortDirectionType;
+    sortDirection?: SortDirectionType;
 }>;
 
 /**
