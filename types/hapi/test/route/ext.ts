@@ -7,8 +7,10 @@ server.route({
     path: "/test",
     options: {
         ext: {
-            onPreResponse(request, h) {
-                return h.continue;
+            onPreResponse: {
+                method(_request, h) {
+                    return h.continue;
+                },
             },
         }
     }
