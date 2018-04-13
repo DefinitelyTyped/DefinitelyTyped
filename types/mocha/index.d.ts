@@ -8,6 +8,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/// <reference types="node" />
+
 interface MochaSetupOptions {
     // milliseconds to wait before considering a test slow
     slow?: number;
@@ -197,7 +199,7 @@ declare namespace Mocha {
     }
 
     /** Partial interface for Mocha's `Runner` class. */
-    interface IRunner {
+    interface IRunner extends NodeJS.EventEmitter {
         stats?: IStats;
         started: boolean;
         suite: ISuite;
