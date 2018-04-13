@@ -396,6 +396,9 @@ declare namespace Chart {
     interface TickOptions {
         autoSkip?: boolean;
         autoSkipPadding?: number;
+        backdropColor?: ChartColor;
+        backdropPaddingX?: number;
+        backdropPaddingY?: number;
         beginAtZero?: boolean;
         callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
@@ -404,14 +407,17 @@ declare namespace Chart {
         fontSize?: number;
         fontStyle?: string;
         labelOffset?: number;
+        max?: any;
         maxRotation?: number;
+        maxTicksLimit?: number;
+        min?: any;
         minRotation?: number;
         mirror?: boolean;
         padding?: number;
         reverse?: boolean;
-        min?: any;
-        max?: any;
+        showLabelBackdrop?: boolean;
     }
+
     interface AngleLineOptions {
         display?: boolean;
         color?: ChartColor;
@@ -426,17 +432,7 @@ declare namespace Chart {
         fontStyle?: string;
     }
 
-    interface TickOptions {
-        backdropColor?: ChartColor;
-        backdropPaddingX?: number;
-        backdropPaddingY?: number;
-        maxTicksLimit?: number;
-        showLabelBackdrop?: boolean;
-    }
     interface LinearTickOptions extends TickOptions {
-        beginAtZero?: boolean;
-        min?: number;
-        max?: number;
         maxTicksLimit?: number;
         stepSize?: number;
         suggestedMin?: number;
@@ -444,8 +440,6 @@ declare namespace Chart {
     }
 
     interface LogarithmicTickOptions extends TickOptions {
-        min?: number;
-        max?: number;
     }
 
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
