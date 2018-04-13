@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "azure-functions-tests.ts"
+        "azure-functions-typed-tests.ts"
     ]
 }
