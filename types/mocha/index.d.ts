@@ -119,6 +119,7 @@ declare class Mocha {
     noHighlighting(value: boolean): Mocha;
     /** Runs tests and invokes `onComplete()` when finished. */
     run(onComplete?: (failures: number) => void): Mocha.IRunner;
+    loadFiles(cb?: () => any);
 }
 
 // merge the Mocha class declaration with a module
