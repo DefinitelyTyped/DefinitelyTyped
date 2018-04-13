@@ -439,6 +439,7 @@ declare namespace Chart {
         suggestedMax?: number;
     }
 
+    // tslint:disable-next-line no-empty-interface
     interface LogarithmicTickOptions extends TickOptions {
     }
 
