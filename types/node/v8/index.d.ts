@@ -20,6 +20,7 @@
 //                 Huw <https://github.com/hoo29>
 //                 Nicolas Even <https://github.com/n-e>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
+//                 Max Kaplan <https://github.com/kaplanmaxe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -4971,6 +4972,7 @@ declare module "tls" {
         SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
         sessionTimeout?: number;
         ticketKeys?: Buffer;
+        checkServerIdentity?: (host: string, cert: PeerCertificate) => Error | undefined;
     }
 
     export interface ConnectionOptions extends SecureContextOptions {
