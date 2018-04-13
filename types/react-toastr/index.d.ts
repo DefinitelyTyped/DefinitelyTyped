@@ -10,10 +10,10 @@ export class ToastContainer extends Component<{
     toastMessageFactory: any;
     className?: string;
 }> {
-    error: (message: string | React.ReactNode, title: string | React.ReactNode, optionsOverride?: {}) => void;
-    info: (message: string | React.ReactNode, title: string | React.ReactNode, optionsOverride?: {}) => void;
-    success: (message: string | React.ReactNode, title: string | React.ReactNode, optionsOverride?: {}) => void;
-    warning: (message: string | React.ReactNode, title: string | React.ReactNode, optionsOverride?: {}) => void;
+    error: (message: React.ReactNode, title: React.ReactNode, optionsOverride?: {}) => void;
+    info: (message: React.ReactNode, title: React.ReactNode, optionsOverride?: {}) => void;
+    success: (message: React.ReactNode, title: React.ReactNode, optionsOverride?: {}) => void;
+    warning: (message: React.ReactNode, title: React.ReactNode, optionsOverride?: {}) => void;
     clear: () => void;
 }
 export const ToastMessageAnimated: keyof ReactHTML;
