@@ -54,12 +54,7 @@ export type ScrollParams = {
     scrollTop: number;
     scrollWidth: number;
 };
-export type SectionRenderedParams = {
-    columnStartIndex: number;
-    columnStopIndex: number;
-    rowStartIndex: number;
-    rowStopIndex: number;
-};
+export type SectionRenderedParams = RenderedSection;
 export type SCROLL_DIRECTION_HORIZONTAL = "horizontal";
 export type SCROLL_DIRECTION_VERTICAL = "vertical";
 export type OverscanIndicesGetterParams = {
@@ -244,7 +239,16 @@ export type GridCoreProps = {
     onScroll?: (params: ScrollParams) => any;
     /**
      * Callback invoked with information about the section of the Grid that was just rendered.
-     * ({ columnStartIndex, columnStopIndex, rowStartIndex, rowStopIndex }): void
+     * ({
+     *   columnOverscanStartIndex,
+     *   columnOverscanStopIndex,
+     *   columnStartIndex,
+     *   columnStopIndex,
+     *   rowOverscanStartIndex,
+     *   rowOverscanStopIndex,
+     *   rowStartIndex,
+     *   rowStopIndex
+     * }): void
      */
     onSectionRendered?: (params: SectionRenderedParams) => any;
     /**
