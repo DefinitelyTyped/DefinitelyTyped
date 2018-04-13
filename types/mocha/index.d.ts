@@ -74,6 +74,8 @@ interface ReporterConstructor {
 
 declare class Mocha {
     currentTest: Mocha.ITestDefinition;
+    suite: Mocha.ISuite;
+    
     constructor(options?: {
         grep?: RegExp;
         ui?: string;
@@ -169,6 +171,7 @@ declare namespace Mocha {
     interface ISuite {
         parent: ISuite;
         title: string;
+        suites: ISuite[];
 
         fullTitle(): string;
     }
