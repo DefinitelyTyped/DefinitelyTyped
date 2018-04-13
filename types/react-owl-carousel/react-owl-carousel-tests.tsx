@@ -2,12 +2,15 @@ import * as React from "react";
 import OwlCarousel from "react-owl-carousel";
 
 export class ReactOwlCarouselTest extends React.Component {
+    callback() {
+        alert('Callback: ' + JSON.stringify(arguments));
+    }
     render() {
         return (
             <div>
                 <OwlCarousel
                     className="owl-theme"
-                    loop margin={10} nav={false}
+                    loop={false} margin={10} nav={false}
                 >
                     <div className="item"><h4>1</h4></div>
                     <div className="item"><h4>2</h4></div>

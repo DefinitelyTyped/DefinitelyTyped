@@ -11,7 +11,7 @@
             "dom"
         ],
         "jsx": "react",
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
