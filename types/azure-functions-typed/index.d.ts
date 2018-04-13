@@ -107,7 +107,7 @@ export interface HttpContext extends Context {
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'TRACE' | 'CONNECT' | 'PATCH';
 
-export const enum HttpStatusCode {
+export enum HttpStatusCode {
     // 1XX Informational
     Continue = 100,
     SwitchingProtocols = 101,
