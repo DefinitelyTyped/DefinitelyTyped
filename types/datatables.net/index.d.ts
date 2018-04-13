@@ -1667,6 +1667,17 @@ declare namespace DataTables {
          * Column width assignment. Since: 1.10
          */
         width?: string;
+        
+        /**
+         * Enable or disable the responsible datatable. Since: 1.10
+         */
+        responsive?: boolean;
+        
+        
+        /**
+         * Display the datatable buttons. Since: 1.10
+         */
+        buttons?: object;
     }
 
     interface ColumnDefsSettings extends ColumnSettings {
