@@ -323,7 +323,11 @@ function test_adding_dialog_by_definition() {
             title: 'Abbreviation Properties',
             minWidth: 400,
             minHeight: 200,
-
+            onLoad: () => {},
+            onOk: () => {},
+            onCancel: () => {},
+            onShow: () => {},
+            onHide: () => {},
             contents: [
                 {
                     id: 'tab-basic',

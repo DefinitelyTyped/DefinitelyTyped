@@ -1735,6 +1735,7 @@ declare namespace CKEDITOR {
             onLoad?: Function;
             onOk?: Function;
             onShow?: Function;
+            onHide?: Function;
             resizable?: number;
             title?: string;
             width?: number;
