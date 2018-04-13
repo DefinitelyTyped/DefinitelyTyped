@@ -3938,7 +3938,7 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
     inverted?: boolean;
 
     keyExtractor?: (item: ItemT, index: number) => string;
-                                       
+
     listKey?: string;
 
     /**
