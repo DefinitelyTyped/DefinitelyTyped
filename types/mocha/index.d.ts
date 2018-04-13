@@ -75,7 +75,7 @@ interface ReporterConstructor {
 declare class Mocha {
     currentTest: Mocha.ITestDefinition;
     suite: Mocha.ISuite;
-    
+
     constructor(options?: {
         grep?: RegExp;
         ui?: string;
@@ -121,7 +121,7 @@ declare class Mocha {
     noHighlighting(value: boolean): Mocha;
     /** Runs tests and invokes `onComplete()` when finished. */
     run(onComplete?: (failures: number) => void): Mocha.IRunner;
-    loadFiles(cb?: () => any);
+    loadFiles(cb?: () => any): void;
 }
 
 // merge the Mocha class declaration with a module
