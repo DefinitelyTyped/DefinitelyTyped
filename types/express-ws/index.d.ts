@@ -14,12 +14,10 @@ declare module 'express' {
     function Router(options?: RouterOptions): expressWs.Router;
 }
 
-declare function expressWs(app: express.Application, httpServer?: expressWs.ServerOption, options?: expressWs.Options): expressWs.Instance;
+declare function expressWs(app: express.Application, server?: http.Server | https.Server, options?: expressWs.Options): expressWs.Instance;
 declare namespace expressWs {
-    type Application = express.Application & WithWebsocketMethod<express.Application>;
-    type Router = express.Router & WithWebsocketMethod<express.Router>;
-
-    type ServerOption = http.Server | https.Server;
+    type Application = express.Application & WithWebsocketMethod;
+    type Router = express.Router & WithWebsocketMethod;
 
     interface Options {
         leaveRouterUntouched?: boolean;
@@ -41,8 +39,8 @@ declare namespace expressWs {
     type WebsocketRequestHandler = (ws: ws, req: express.Request, next: express.NextFunction) => void;
     type WebsocketMethod<T> = (route: core.PathParams, ...middlewares: WebsocketRequestHandler[]) => T;
 
-    interface WithWebsocketMethod<T> {
-        ws: WebsocketMethod<T>;
+    interface WithWebsocketMethod {
+        ws: WebsocketMethod<this>;
     }
 }
 
