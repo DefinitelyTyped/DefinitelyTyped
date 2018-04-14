@@ -1207,14 +1207,14 @@ declare module "../index" {
          * @param context The context object.
          * @return Returns a new lodash function.
          */
-        runInContext(context?: object): typeof _;
+        runInContext(context?: object): LoDashStatic;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.runInContext
          */
-        runInContext(): typeof _;
+        runInContext(): LoDashStatic;
     }
 
     // stubArray
