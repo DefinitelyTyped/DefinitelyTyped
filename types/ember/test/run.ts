@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import RSVP from 'rsvp';
-import { run } from '@ember/runloop';
 import { assertType } from "./lib/assert";
+
+const { run } = Ember;
 
 assertType<string[]>(Ember.run.queues);
 
