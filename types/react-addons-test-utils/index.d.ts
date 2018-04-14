@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import { AbstractView, Component, ComponentClass,
+import { AbstractView, Component, ComponentClass, ComponentState, ComponentSnapshot,
     ReactElement, ReactInstance, ClassType,
     DOMElement, SFCElement, CElement,
     ReactHTMLElement, DOMAttributes, SFC } from 'react';
@@ -62,7 +62,7 @@ declare namespace TestUtils {
     }
 
     export interface EventSimulator {
-        (element: Element | Component<any>, eventData?: SyntheticEventData): void;
+        (element: Element | Component<any, ComponentState, ComponentSnapshot>, eventData?: SyntheticEventData): void;
     }
 
     export interface MockedComponentClass {
@@ -120,10 +120,10 @@ declare namespace TestUtils {
         element: DOMElement<any, T>): T;
     export function renderIntoDocument(
         element: SFCElement<any>): void;
-    export function renderIntoDocument<T extends Component<any>>(
+    export function renderIntoDocument<T extends Component<any, ComponentState, ComponentSnapshot>>(
         element: CElement<any, T>): T;
     export function renderIntoDocument<P>(
-        element: ReactElement<P>): Component<P> | Element | void;
+        element: ReactElement<P>): Component<P, ComponentState, ComponentSnapshot> | Element | void;
 
     export function mockComponent(
         mocked: MockedComponentClass, mockTagName?: string): typeof TestUtils;
@@ -138,34 +138,34 @@ declare namespace TestUtils {
         element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
 
     export function isDOMComponent(instance: ReactInstance): instance is Element;
-    export function isCompositeComponent(instance: ReactInstance): instance is Component<any>;
-    export function isCompositeComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
+    export function isCompositeComponent(instance: ReactInstance): instance is Component<any, ComponentState, ComponentSnapshot>;
+    export function isCompositeComponentWithType<T extends Component<any, ComponentState, ComponentSnapshot>, C extends ComponentClass<any>>(
         instance: ReactInstance, type: ClassType<any, T, C>): T;
 
     export function findAllInRenderedTree(
-        root: Component<any>,
+        root: Component<any, ComponentState, ComponentSnapshot>,
         fn: (i: ReactInstance) => boolean): ReactInstance[];
 
     export function scryRenderedDOMComponentsWithClass(
-        root: Component<any>,
+        root: Component<any, ComponentState, ComponentSnapshot>,
         className: string): Element[];
     export function findRenderedDOMComponentWithClass(
-        root: Component<any>,
+        root: Component<any, ComponentState, ComponentSnapshot>,
         className: string): Element;
 
     export function scryRenderedDOMComponentsWithTag(
-        root: Component<any>,
+        root: Component<any, ComponentState, ComponentSnapshot>,
         tagName: string): Element[];
     export function findRenderedDOMComponentWithTag(
-        root: Component<any>,
+        root: Component<any, ComponentState, ComponentSnapshot>,
         tagName: string): Element;
 
-    export function scryRenderedComponentsWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
-        root: Component<any>,
+    export function scryRenderedComponentsWithType<T extends Component<{}, ComponentState, ComponentSnapshot>, C extends ComponentClass<{}>>(
+        root: Component<any, ComponentState, ComponentSnapshot>,
         type: ClassType<any, T, C>): T[];
 
-    export function findRenderedComponentWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
-        root: Component<any>,
+    export function findRenderedComponentWithType<T extends Component<{}, ComponentState, ComponentSnapshot>, C extends ComponentClass<{}>>(
+        root: Component<any, ComponentState, ComponentSnapshot>,
         type: ClassType<any, T, C>): T;
 
     export function createRenderer(): ShallowRenderer;

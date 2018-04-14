@@ -25,6 +25,10 @@ interface State {
     seconds?: number;
 }
 
+interface Snapshot {
+    foo: string;
+}
+
 interface Context {
     someValue?: string;
 }
@@ -33,7 +37,7 @@ interface ChildContext {
     someOtherValue: string;
 }
 
-interface MyComponent extends React.Component<Props, State> {
+interface MyComponent extends React.Component<Props, State, Snapshot> {
     reset(): void;
 }
 
@@ -51,7 +55,7 @@ declare const container: Element;
 // Top-Level API
 // --------------------------------------------------------------------------
 
-class ModernComponent extends React.Component<Props, State>
+class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
         foo: PropTypes.number
@@ -102,6 +106,14 @@ class ModernComponent extends React.Component<Props, State>
 
     shouldComponentUpdate(nextProps: Props, nextState: State, nextContext: any): boolean {
         return shallowCompare(this, nextProps, nextState);
+    }
+
+    getSnapshotBeforeUpdate(prevProps: Readonly<Props>) {
+        return { foo: `${prevProps.foo}baz` };
+    }
+
+    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot: { foo: string }) {
+        return;
     }
 }
 

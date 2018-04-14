@@ -11,7 +11,7 @@
 export as namespace ReactDOM;
 
 import {
-    ReactInstance, Component, ComponentState,
+    ReactInstance, Component, ComponentState, ComponentSnapshot,
     ReactElement, SFCElement, CElement,
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
@@ -34,7 +34,7 @@ export function unstable_renderSubtreeIntoContainer<T extends Element>(
     element: DOMElement<DOMAttributes<T>, T>,
     container: Element,
     callback?: (element: T) => any): T;
-export function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState>>(
+export function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState, ComponentSnapshot>>(
     parentComponent: Component<any>,
     element: CElement<P, T>,
     container: Element,
@@ -43,7 +43,7 @@ export function unstable_renderSubtreeIntoContainer<P>(
     parentComponent: Component<any>,
     element: ReactElement<P>,
     container: Element,
-    callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
+    callback?: (component?: Component<P, ComponentState, ComponentSnapshot> | Element) => any): Component<P, ComponentState, ComponentSnapshot> | Element | void;
 
 export interface Renderer {
     // Deprecated(render): The return value is deprecated.
@@ -67,7 +67,7 @@ export interface Renderer {
         callback?: () => void
     ): void;
 
-    <P, T extends Component<P, ComponentState>>(
+    <P, T extends Component<P, ComponentState, ComponentSnapshot>>(
         element: CElement<P, T>,
         container: Element | null,
         callback?: () => void
@@ -83,7 +83,7 @@ export interface Renderer {
         element: ReactElement<P>,
         container: Element | null,
         callback?: () => void
-    ): Component<P, ComponentState> | Element | void;
+    ): Component<P, ComponentState, ComponentSnapshot> | Element | void;
 
     (
         element: Array<ReactElement<any>>,
