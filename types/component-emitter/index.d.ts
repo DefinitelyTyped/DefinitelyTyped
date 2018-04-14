@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/emitter-component
 
 
-interface Emitter {
+declare interface Emitter {
     on(event: string, listener: Function): Emitter;
     once(event: string, listener: Function): Emitter;
     off(event?: string, listener?: Function): Emitter;
@@ -13,9 +13,9 @@ interface Emitter {
     hasListeners(event: string): boolean;
 }
 
-declare const constructor: {
+declare const Emitter: {
     (obj?: any): Emitter;
     new (obj?: any): Emitter;
 };
 
-export = constructor;
+export = Emitter;
