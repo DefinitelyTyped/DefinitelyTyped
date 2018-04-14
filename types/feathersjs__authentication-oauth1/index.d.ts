@@ -9,8 +9,10 @@ import {
     Paginated
 } from '@feathersjs/feathers';
 import { Request } from 'express';
+import * as self from '@feathersjs/authentication-oauth1';
 
-export default function feathersAuthenticationOAuth1(options?: FeathersAuthenticationOAuth1Options): () => void;
+declare const feathersAuthenticationOAuth1: ((options?: FeathersAuthenticationOAuth1Options) => () => void) & typeof self;
+export default feathersAuthenticationOAuth1;
 
 export interface FeathersAuthenticationOAuth1Options {
     /**

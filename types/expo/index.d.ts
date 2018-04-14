@@ -1701,7 +1701,7 @@ export namespace Pedometer {
  */
 export namespace Permissions {
     type PermissionType = 'remoteNotifications' | 'location' |
-        'camera' | 'contacts' | 'audioRecording';
+        'camera' | 'contacts' | 'audioRecording' | 'calendar';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1733,6 +1733,7 @@ export namespace Permissions {
     const NOTIFICATIONS: RemoteNotificationPermission;
     const CONTACTS: 'contacts';
     const SYSTEM_BRIGHTNESS: 'systemBrightness';
+    const CALENDAR: 'calendar';
 }
 
 /**
@@ -1872,6 +1873,7 @@ export namespace SQLite {
 export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
+    fillRule?: 'nonzero' | 'evenodd';
     stroke?: string;
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
@@ -1882,6 +1884,7 @@ export interface SvgCommonProps {
     x?: number | string;
     y?: number | string;
     rotate?: number | string;
+    rotation?: number | string;
     scale?: number | string;
     origin?: number | string;
     originX?: number | string;

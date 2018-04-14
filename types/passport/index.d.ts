@@ -73,6 +73,7 @@ declare namespace passport {
     interface PassportStatic extends Authenticator {
         Authenticator: { new(): Authenticator };
         Passport: PassportStatic["Authenticator"];
+        Strategy: { new(): Strategy & StrategyCreatedStatic };
     }
 
     interface Strategy {

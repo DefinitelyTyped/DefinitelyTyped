@@ -25,7 +25,7 @@ export interface TypeError extends Error {name: "TypeError"; message: string; me
 export type EventName = "play" | "pause" | "ended" | "timeupdate" | "progress" | "seeked" | "texttrackchange" | "cuechange" | "cuepoint" | "volumechange" | "error" | "loaded" |  string;
 export type EventCallback = (data: any) => any;
 
-export default class Player {
+export class Player {
     constructor(element: HTMLIFrameElement|HTMLElement|string, options: Options);
 
     on(event: EventName, callback: EventCallback): void;
@@ -60,6 +60,7 @@ export default class Player {
     getVideoUrl(): VimeoPromise<string, PrivacyError | Error>;
     getVolume(): VimeoPromise<number, Error>;
     setVolume(volume: number): VimeoPromise<number, RangeError | Error>;
+    destroy(): VimeoPromise<void, Error>;
 }
 
 export interface VimeoCuePoint {
@@ -105,3 +106,4 @@ export interface VimeoPromise<Result, Reason> extends Promise<Result> {
 /*~ You can declare properties of the module using const, let, or var */
 export const playerMap: WeakMap<any, any>;
 export const readyMap: WeakMap<any, any>;
+export default Player;

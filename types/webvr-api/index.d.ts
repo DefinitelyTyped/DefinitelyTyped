@@ -1,8 +1,15 @@
 // Type definitions for WebVR API
 // Project: https://w3c.github.io/webvr/
-// Definitions by: six a <https://github.com/lostfictions>
+// Definitions by: efokschaner <https://github.com/efokschaner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Typescript doesn't allow redefinition of type aliases even if they match,
+// thus the _dt_alias to signal this being an alias for the use of DefinitelyTyped
+type VRDisplayEventReason_dt_alias = "mounted" | "navigation" | "requested" | "unmounted";
+
+// Typescript doesn't allow redefinition of type aliases even if they match,
+// thus the _dt_alias to signal this being an alias for the use of DefinitelyTyped
+type VREye_dt_alias = "left" | "right";
 
 interface VRDisplay extends EventTarget {
     /**
@@ -55,7 +62,7 @@ interface VRDisplay extends EventTarget {
     exitPresent(): Promise<void>;
 
     /* Return the current VREyeParameters for the given eye. */
-    getEyeParameters(whichEye: string): VREyeParameters;
+    getEyeParameters(whichEye: VREye_dt_alias): VREyeParameters;
 
     /**
      * Populates the passed VRFrameData with the information required to render
@@ -69,6 +76,7 @@ interface VRDisplay extends EventTarget {
     getLayers(): VRLayer[];
 
     /**
+     * @deprecated
      * Return a VRPose containing the future predicted pose of the VRDisplay
      * when the current frame will be presented. The value returned will not
      * change until JavaScript has returned control to the browser.
@@ -138,6 +146,11 @@ interface VRDisplayCapabilities {
     readonly maxLayers: number;
 }
 
+declare var VRDisplayCapabilities: {
+    prototype: VRDisplayCapabilities;
+    new(): VRDisplayCapabilities;
+};
+
 interface VREyeParameters {
     /** @deprecated */
     readonly fieldOfView: VRFieldOfView;
@@ -146,12 +159,22 @@ interface VREyeParameters {
     readonly renderWidth: number;
 }
 
+declare var VREyeParameters: {
+    prototype: VREyeParameters;
+    new(): VREyeParameters;
+};
+
 interface VRFieldOfView {
     readonly downDegrees: number;
     readonly leftDegrees: number;
     readonly rightDegrees: number;
     readonly upDegrees: number;
 }
+
+declare var VRFieldOfView: {
+    prototype: VRFieldOfView;
+    new(): VRFieldOfView;
+};
 
 interface VRFrameData {
     readonly leftProjectionMatrix: Float32Array;
@@ -162,6 +185,11 @@ interface VRFrameData {
     readonly timestamp: number;
 }
 
+declare var VRFrameData: {
+    prototype: VRFrameData;
+    new(): VRFrameData;
+};
+
 interface VRPose {
     readonly angularAcceleration: Float32Array | null;
     readonly angularVelocity: Float32Array | null;
@@ -171,6 +199,11 @@ interface VRPose {
     readonly position: Float32Array | null;
     readonly timestamp: number;
 }
+
+declare var VRPose: {
+    prototype: VRPose;
+    new(): VRPose;
+};
 
 interface VRStageParameters {
     sittingToStandingTransform?: Float32Array;
@@ -183,13 +216,40 @@ interface Navigator {
     readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
 }
 
+interface VRDisplayEventInit extends EventInit {
+    display: VRDisplay;
+    reason?: VRDisplayEventReason_dt_alias;
+}
+
+interface VRDisplayEvent extends Event {
+    readonly display: VRDisplay;
+    readonly reason: VRDisplayEventReason_dt_alias | null;
+}
+
+declare var VRDisplayEvent: {
+    prototype: VRDisplayEvent;
+    new(type: string, eventInitDict: VRDisplayEventInit): VRDisplayEvent;
+};
+
 interface Window {
-    onvrdisplayconnected: ((this: Window, ev: Event) => any) | null;
-    onvrdisplaydisconnected: ((this: Window, ev: Event) => any) | null;
+    onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
+    onvrdisplayblur: ((this: Window, ev: Event) => any) | null;
+    onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
+    onvrdisplaydeactivate: ((this: Window, ev: Event) => any) | null;
+    onvrdisplaydisconnect: ((this: Window, ev: Event) => any) | null;
+    onvrdisplayfocus: ((this: Window, ev: Event) => any) | null;
+    onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
+    onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
     onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
-    addEventListener(type: "vrdisplayconnected", listener: (ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "vrdisplaydisconnected", listener: (ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "vrdisplaypresentchange", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplayactivate", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplayblur", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplayconnect", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaydeactivate", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaydisconnect", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplayfocus", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaypointerrestricted", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaypointerunrestricted", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaypresentchange", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
 }
 
 interface Gamepad {

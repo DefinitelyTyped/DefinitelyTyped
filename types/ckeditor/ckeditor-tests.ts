@@ -323,7 +323,11 @@ function test_adding_dialog_by_definition() {
             title: 'Abbreviation Properties',
             minWidth: 400,
             minHeight: 200,
-
+            onLoad: () => {},
+            onOk: () => {},
+            onCancel: () => {},
+            onShow: () => {},
+            onHide: () => {},
             contents: [
                 {
                     id: 'tab-basic',
@@ -505,4 +509,10 @@ function test_editor_instance_event() {
             widgetDefinition: function() {}
         }
     });
+}
+
+function test_dtd() {
+    var brConsideredEmptyTag = CKEDITOR.dtd.$empty["br"];
+    var spanCanContainText = CKEDITOR.dtd["span"]["#"];
+    var divCanContainSpan = CKEDITOR.dtd["div"]["span"];
 }

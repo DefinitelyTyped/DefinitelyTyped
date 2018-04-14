@@ -16,7 +16,15 @@ export default class Geosuggest extends Component<GeosuggestProps> {
     selectSuggest(value?: Suggest): void;
 }
 
-export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
+// Replace with Exclude once on 2.8+
+export type Diff<T extends string, U extends string> = (
+    & { [P in T]: P }
+    & { [P in U]: never }
+    & { [x: string]: never }
+)[T];
+export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+
+export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'style'> {
     placeholder?: string;
     initialValue?: string;
     className?: string;

@@ -187,7 +187,7 @@ export interface NavigatorStyle {
     navBarSubtitleFontFamily?: string;
     navBarSubtitleFontSize?: number;
     screenBackgroundColor?: string;
-    orientation?: 'auto ' | 'landscape' | 'portrait';
+    orientation?: 'auto' | 'landscape' | 'portrait';
     disabledButtonColor?: string;
     // iOS only
     statusBarTextColorSchemeSingleScreen?: string;
@@ -241,6 +241,8 @@ export type SystemItemIOS = 'done' | 'cancel' | 'edit' | 'save' | 'add' |
     'bookmarks' | 'search' | 'refresh' | 'stop' | 'camera' | 'trash' | 'play' |
     'pause' | 'rewind' | 'fastForward' | 'undo' | 'redo';
 
+export type ShowAsActionAndroid = 'ifRoom' | 'always' | 'withText' | 'never';
+
 export interface NavigatorButton {
     id: string | IdAndroid;
     title?: string;
@@ -254,6 +256,7 @@ export interface NavigatorButton {
     buttonFontSize?: number;
     buttonFontWeight?: string | number;
     systemItem?: SystemItemIOS;
+    showAsAction?: ShowAsActionAndroid;
 }
 
 export interface FABAndroid {

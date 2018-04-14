@@ -37,14 +37,15 @@ interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-const props: Props & React.ClassAttributes<{}> = {
+// use any for ClassAttribute type sine we're using string refs
+const props: Props & React.ClassAttributes<any> = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
     foo: 42
 };
 
-const container: Element = document.createElement("div");
+declare const container: Element;
 
 //
 // Top-Level API
@@ -193,19 +194,16 @@ React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
 
 const clonedElement2: React.CElement<Props, ModernComponent> =
-    // known problem: cloning with key or ref requires cast
     React.cloneElement(element, {
         ref: c => c && c.reset()
-    } as React.ClassAttributes<ModernComponent>);
+    });
 const clonedElement3: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, {
         key: "8eac7",
         foo: 55
-    } as { foo: number } & React.Attributes);
+    });
 const clonedStatelessElement: React.SFCElement<SCProps> =
-    // known problem: cloning with optional props don't work properly
-    // workaround: cast to actual props type
-    React.cloneElement(statelessElement, { foo: 44 } as SCProps);
+    React.cloneElement(statelessElement, { foo: 44 });
 // Clone base DOMElement
 const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
@@ -226,9 +224,9 @@ const clonedSvgElement: React.ReactSVGElement =
 const component: ModernComponent = ReactDOM.render(element, container);
 const componentNullContainer: ModernComponent = ReactDOM.render(element, null);
 
-const componentElementOrNull: ModernComponent = ReactDOM.render(element, document.getElementById("anelement"));
+const componentElementOrNull: ModernComponent = ReactDOM.render(element, container);
 const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, document.getElementById("anelement"));
+const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, container);
 const domComponent: Element = ReactDOM.render(domElement, container);
 
 // Other Top-Level API
@@ -237,8 +235,8 @@ const str: string = ReactDOMServer.renderToString(element);
 const markup: string = ReactDOMServer.renderToStaticMarkup(element);
 const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
-let domNode: Element = ReactDOM.findDOMNode(component);
-domNode = ReactDOM.findDOMNode(domNode);
+let domNode = ReactDOM.findDOMNode(component);
+domNode = ReactDOM.findDOMNode(domNode as Element);
 const fragmentType: React.ComponentType = React.Fragment;
 
 //
@@ -288,6 +286,15 @@ DOM.div({ ref: node => domNodeRef = node });
 let inputNodeRef: HTMLInputElement | null;
 DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
 
+const ForwardingRefComponent = React.forwardRef((props: {}, ref: React.Ref<RefComponent>) => {
+    return React.createElement(RefComponent, { ref });
+});
+
+function RefCarryingComponent() {
+    const ref: React.RefObject<RefComponent> = React.createRef();
+    return React.createElement(ForwardingRefComponent, { ref });
+}
+
 //
 // Attributes
 // --------------------------------------------------------------------------
@@ -313,7 +320,7 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
         event.stopPropagation();
     },
     onAnimationStart: event => {
-        console.log(event.currentTarget.className);
+        const currentTarget: EventTarget & HTMLElement = event.currentTarget;
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
@@ -624,7 +631,7 @@ if (TestUtils.isElementOfType(emptyElement2, StatelessComponent)) {
 }
 
 if (TestUtils.isDOMComponent(container)) {
-    container.getAttribute("className");
+    const reassignedContainer: Element = container;
 } else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
     new ModernComponent({ hello: 'hi', foo: 3 }).props;
 }
@@ -670,7 +677,9 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
     render() {
         return DOM.textarea({
             value: this.state.value,
-            onChange: e => this.setState({ value: e.target.value })
+            onChange: e => {
+                const target: HTMLTextAreaElement = e.target;
+            }
         });
     }
 }
@@ -678,7 +687,7 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
 DOM.input({
     onChange: event => {
         // `event.target` is guaranteed to be HTMLInputElement
-        event.target.value;
+        const target: HTMLInputElement = event.target;
     }
 });
 

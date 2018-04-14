@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.52
+// Type definitions for react-native 0.55
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -6,6 +6,9 @@
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
+//                 Alex Dunne <https://github.com/alexdunne>
+//                 Manuel Alabor <https://github.com/swissmanu>
+//                 Michele Bombardi <https://github.com/bm-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -338,6 +341,9 @@ export function createElement<P>(
 
 export type Runnable = (appParameters: any) => void;
 
+type Task = (taskData: any) => Promise<void>;
+type TaskProvider = () => Task;
+
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
@@ -465,6 +471,8 @@ export namespace AppRegistry {
     function unmountApplicationComponentAtRootTag(rootTag: number): void;
 
     function runApplication(appKey: string, appParameters: any): void;
+
+    function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 }
 
 export interface LayoutAnimationTypes {
@@ -1043,10 +1051,12 @@ export type KeyboardTypeIOS =
     | "twitter"
     | "web-search";
 export type KeyboardTypeAndroid = "visible-password";
+export type KeyboardTypeOptions = KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS
 
 export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
 export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call";
+export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS
 
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
@@ -1083,6 +1093,11 @@ export interface TextInputProperties
     blurOnSubmit?: boolean;
 
     /**
+     * If true, caret is hidden. The default value is false.
+     */
+    caretHidden?: boolean
+
+    /**
      * Provides an initial value that will change when the user starts typing.
      * Useful for simple use-cases where you don't want to deal with listening to events
      * and updating the value prop to keep the controlled state in sync.
@@ -1102,7 +1117,7 @@ export interface TextInputProperties
      * The following values work on iOS: - ascii-capable - numbers-and-punctuation - url - number-pad - name-phone-pad - decimal-pad - twitter - web-search
      * The following values work on Android: - visible-password
      */
-    keyboardType?: KeyboardType | KeyboardTypeIOS | KeyboardTypeAndroid;
+    keyboardType?: KeyboardTypeOptions;
 
     /**
      * Limits the maximum number of characters that can be entered.
@@ -1183,7 +1198,7 @@ export interface TextInputProperties
      * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
      * Determines how the return key should look.
      */
-    returnKeyType?: ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS;
+    returnKeyType?: ReturnKeyTypeOptions;
 
     /**
      * If true, the text input obscures the text entered so that sensitive text like passwords stay secure.
@@ -1216,6 +1231,13 @@ export interface TextInputProperties
      * Used to locate this view in end-to-end tests
      */
     testID?: string;
+
+    /**
+     * Used to connect to an InputAccessoryView. Not part of react-natives documentation, but present in examples and
+     * code.
+     * See https://facebook.github.io/react-native/docs/inputaccessoryview.html for more information.
+     */
+    inputAccessoryViewID?: string;
 
     /**
      * The value to show for the text input. TextInput is a controlled component,
@@ -1523,7 +1545,7 @@ export interface GestureResponderHandlers {
      * So if a parent View wants to prevent the child from becoming responder on a touch start,
      * it should have a onStartShouldSetResponderCapture handler which returns true.
      */
-    onMoveShouldSetResponderCapture?: () => void;
+    onMoveShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean;
 }
 
 // @see https://facebook.github.io/react-native/docs/view.html#style
@@ -2247,6 +2269,27 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
 export interface SafeAreaViewStatic extends NativeMethodsMixin, React.ClassicComponentClass<ViewProperties> {}
+
+
+/**
+ * A component which enables customization of the keyboard input accessory view on iOS. The input accessory view is
+ * displayed above the keyboard whenever a TextInput has focus. This component can be used to create custom toolbars.
+ *
+ * To use this component wrap your custom toolbar with the InputAccessoryView component, and set a nativeID. Then, pass
+ * that nativeID as the inputAccessoryViewID of whatever TextInput you desire.
+ */
+export interface InputAccessoryViewStatic extends React.ClassicComponentClass<InputAccessoryViewProperties> {}
+
+export interface InputAccessoryViewProperties {
+    backgroundColor?: string;
+
+    /**
+     * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
+     */
+    nativeID?: string;
+
+    style?: StyleProp<ViewStyle>;
+}
 
 /**
  * Use `SegmentedControlIOS` to render a UISegmentedControl iOS.
@@ -3291,6 +3334,7 @@ interface ImagePropertiesAndroid {
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
+export type ImagePropertiesSourceOptions = ImageURISource | ImageURISource[] | ImageRequireSource;
 export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid, AccessibilityProperties {
     /**
      * onLayout function
@@ -3386,7 +3430,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      * their width and height. The native side will then choose the best `uri` to display
      * based on the measured size of the image container.
      */
-    source: ImageURISource | ImageURISource[] | ImageRequireSource;
+    source: ImagePropertiesSourceOptions;
 
     /**
      * similarly to `source`, this property represents the resource used to render
@@ -3692,7 +3736,7 @@ export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
 
-export interface SectionListProperties<ItemT> extends VirtualizedListProperties<ItemT> {
+export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -3711,7 +3755,7 @@ export interface SectionListProperties<ItemT> extends VirtualizedListProperties<
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
 
     /**
      * Rendered in between each section.
@@ -3766,7 +3810,7 @@ export interface SectionListProperties<ItemT> extends VirtualizedListProperties<
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem: ListRenderItem<ItemT>;
+    renderItem?: ListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
@@ -3894,6 +3938,8 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
     inverted?: boolean;
 
     keyExtractor?: (item: ItemT, index: number) => string;
+
+    listKey?: string;
 
     /**
      * The maximum number of items to render in each incremental render batch. The more rendered at
@@ -4395,6 +4441,11 @@ export interface ModalProperties {
      * @platform ios
      */
     onDismiss?: () => void;
+    /**
+     * The `presentationStyle` determines the style of modal to show
+     * @platform ios
+     */
+    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
 }
 
 export interface ModalStatic extends React.ComponentClass<ModalProperties> {}
@@ -4796,9 +4847,9 @@ export namespace StyleSheet {
      * the alternative use.
      */
     export function flatten<T>(style?: RegisteredStyle<T>): T;
-    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
     export function flatten(style?: StyleProp<TextStyle>): TextStyle;
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
+    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -7287,13 +7338,36 @@ export interface PushNotificationIOSStatic {
      *
      * The type MUST be 'notification'
      */
-    addEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    addEventListener(type: "notification" | "localNotification", handler: (notification: PushNotification) => void): void;
+
+    /**
+     * Fired when the user registers for remote notifications.
+     *
+     * The handler will be invoked with a hex string representing the deviceToken.
+     *
+     * The type MUST be 'register'
+     */
+    addEventListener(type: "register", handler: (deviceToken: string) => void): void;
+
+    /**
+     * Fired when the user fails to register for remote notifications.
+     * Typically occurs when APNS is having issues, or the device is a simulator.
+     *
+     * The handler will be invoked with {message: string, code: number, details: any}.
+     *
+     * The type MUST be 'registrationError'
+     */
+    addEventListener(type: "registrationError", handler: (error: { message: string, code: number, details: any }) => void): void;
 
     /**
      * Removes the event listener. Do this in `componentWillUnmount` to prevent
      * memory leaks
      */
-    removeEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    removeEventListener(type: PushNotificationEventName,
+        handler: ((notification: PushNotification) => void)
+            | ((deviceToken: string) => void)
+            | ((error: { message: string, code: number, details: any }) => void)
+    ): void;
 
     /**
      * Requests all notification permissions from iOS, prompting the user's
@@ -8258,26 +8332,71 @@ interface ImageEditorStatic {
     ): void;
 }
 
-export interface ARTShapeProps {
-    d: string;
-    strokeWidth: number;
+export interface ARTNodeMixin {
+    opacity?: number;
+    originX?: number;
+    originY?: number;
+    scaleX?: number;
+    scaleY?: number;
+    scale?: number;
+    title?: string;
+    x?: number;
+    y?: number;
+    visible?: boolean;
+}
+
+export interface ARTGroupProps extends ARTNodeMixin {
+    width?: number;
+    height?: number;
+}
+
+export interface ARTClippingRectangleProps extends ARTNodeMixin {
+    width?: number;
+    height?: number;
+}
+
+export interface ARTRenderableMixin extends ARTNodeMixin {
+    fill?: string;
+    stroke?: string;
+    strokeCap?: "butt" | "square" | "round";
     strokeDash?: number[];
-    stroke: string;
+    strokeJoin?: "bevel" | "miter" | "round";
+    strokeWidth?: number;
+}
+
+export interface ARTShapeProps extends ARTRenderableMixin {
+    d: string;
+    width?: number;
+    height?: number;
+}
+
+export interface ARTTextProps extends ARTRenderableMixin {
+    font?: string;
+    alignment?: string;
 }
 
 export interface ARTSurfaceProps {
-    style: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
     width: number;
     height: number;
 }
+
+export interface ClippingRectangleStatic extends React.ComponentClass<ARTClippingRectangleProps> {}
+
+export interface GroupStatic extends React.ComponentClass<ARTGroupProps> {}
 
 export interface ShapeStatic extends React.ComponentClass<ARTShapeProps> {}
 
 export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {}
 
+export interface ARTTextStatic extends React.ComponentClass<ARTTextProps> {}
+
 export interface ARTStatic {
+    ClippingRectangle: ClippingRectangleStatic;
+    Group: GroupStatic;
     Shape: ShapeStatic;
     Surface: SurfaceStatic;
+    Text: ARTTextStatic;
 }
 
 export interface KeyboardStatic extends NativeEventEmitter {
@@ -8315,6 +8434,9 @@ export type ImageBackground = ImageBackgroundStatic;
 
 export var ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
+
+export var InputAccessoryView: InputAccessoryViewStatic;
+export type InputAccessoryView = InputAccessoryViewStatic;
 
 export var FlatList: FlatListStatic<any>;
 export type FlatList<ItemT> = FlatListStatic<ItemT>;
@@ -8695,7 +8817,7 @@ declare global {
      *
      * @see https://github.com/facebook/react-native/issues/934
      */
-    var originalXMLHttpRequest: Object;
+    var originalXMLHttpRequest: any;
 
     var __BUNDLE_START_TIME__: number;
     var ErrorUtils: ErrorUtils;

@@ -7,6 +7,8 @@
 
 declare const SocketIO: SocketIOStatic;
 export = SocketIO;
+/** @deprecated Available as a global for backwards-compatibility. */
+export as namespace SocketIO;
 
 interface SocketIOStatic {
 	/**

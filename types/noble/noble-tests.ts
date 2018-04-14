@@ -39,7 +39,10 @@ var peripheral: noble.Peripheral = new noble.Peripheral();
 peripheral.uuid = "12ad4e81";
 peripheral.advertisement = {
     localName:        "device",
-    serviceData:      new Buffer(1),
+    serviceData:      {
+        uuid: "180a",
+        data: new Buffer(1)
+    },
     txPowerLevel:     1,
     manufacturerData: new Buffer(1),
     serviceUuids:     ["0x180a", "0x180d"]

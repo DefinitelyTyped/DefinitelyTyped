@@ -24,8 +24,8 @@ declare namespace CKEDITOR {
     var DIALOG_RESIZE_HEIGHT: number;
     var DIALOG_RESIZE_NONE: number;
     var DIALOG_RESIZE_WIDTH: number;
-	var DIALOG_STATE_IDLE: number;
-	var DIALOG_STATE_BUSY: number;
+    var DIALOG_STATE_IDLE: number;
+    var DIALOG_STATE_BUSY: number;
     var ELEMENT_MODE_APPENDTO: number;
     var ELEMENT_MODE_INLINE: number;
     var ELEMENT_MODE_NONE: number;
@@ -44,10 +44,10 @@ declare namespace CKEDITOR {
     var NODE_DOCUMENT_FRAGMENT: number;
     var NODE_ELEMENT: number;
     var NODE_TEXT: number;
-	var POSITION_BEFORE_START: number;
-	var POSITION_BEFORE_END: number;
-	var POSITION_AFTER_START: number;
-	var POSITION_AFTER_END: number;
+    var POSITION_BEFORE_START: number;
+    var POSITION_BEFORE_END: number;
+    var POSITION_AFTER_START: number;
+    var POSITION_AFTER_END: number;
     var SELECTION_ELEMENT: number;
     var SELECTION_NONE: number;
     var SELECTION_TEXT: number;
@@ -55,9 +55,9 @@ declare namespace CKEDITOR {
     var SHRINK_ELEMENT: number;
     var SHRINK_TEXT: number;
     var START: number;
-	var STYLE_BLOCK: string;
-	var STYLE_INLINE: string;
-	var STYLE_OBJECT: string;
+    var STYLE_BLOCK: string;
+    var STYLE_INLINE: string;
+    var STYLE_OBJECT: string;
     var TRISTATE_DISABLED: number;
     var TRISTATE_OFF: number;
     var TRISTATE_ON: number;
@@ -288,7 +288,7 @@ declare namespace CKEDITOR {
 
         class elementPath {
             constructor(startNode: element, root: element);
-			constructor(startNode: element);
+            constructor(startNode: element);
             block: element;
             blockLimit: element;
             root: element;
@@ -342,7 +342,7 @@ declare namespace CKEDITOR {
             setStartAt(node: node, position: number): void;
             setEndAt(node: node, position: number): void;
             fixBlock(isStart: boolean, blockTag: Object): Object;
-			select(): selection;
+            select(): selection;
             splitBlock(blockTag: Object): Object;
             splitElement(toSplit: element): element;
             removeEmptyBlocksAtEnd(atEnd: boolean): void;
@@ -836,7 +836,7 @@ declare namespace CKEDITOR {
         templates_files?: Object;
         templates_replaceContent?: boolean;
         title?: string | boolean;
-		toolbar?: string | (string | string[] | { name: string, items?: string[], groups?: string[] })[] | null;
+        toolbar?: string | (string | string[] | { name: string, items?: string[], groups?: string[] })[] | null;
         toolbarCanCollapse?: boolean;
         toolbarGroupCycling?: boolean;
         toolbarGroups?: (toolbarGroups | string)[];
@@ -869,19 +869,19 @@ declare namespace CKEDITOR {
     }
 
     module skin {
-		var icons: { [name: string]: { path: string } };
-		function addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
-	}
+        var icons: { [name: string]: { path: string } };
+        function addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
+    }
 
     class style {
-		constructor(something: { element: string, attributes: { [att: string]: string } });
-		applyToRange(range: Range, editor: editor): void;
-	}
+        constructor(something: { element: string, attributes: { [att: string]: string } });
+        applyToRange(range: Range, editor: editor): void;
+    }
 
     interface editable extends dom.element {
-		hasFocus: boolean;
-		attachListener(obj: event | editable, eventName: string, listenerFunction: (ei: eventInfo) => void,
-			scopeobj?: {}, listenerData?: any, priority?: number): listenerRegistration;
+        hasFocus: boolean;
+        attachListener(obj: event | editable, eventName: string, listenerFunction: (ei: eventInfo) => void,
+            scopeobj?: {}, listenerData?: any, priority?: number): listenerRegistration;
     }
 
 
@@ -978,7 +978,7 @@ declare namespace CKEDITOR {
                 destroy(widget: CKEDITOR.plugins.widget, offline?: boolean): void;
                 destroyAll(offline?: boolean): void;
                 finalizeCreation(container: any): void;
-				focused: widget;
+                focused: widget;
                 fire(eventName: string, data: Object, editor: editor): any; // should be boolean | Object
                 getByElement(element: any, checkWrapperOnly: boolean): CKEDITOR.plugins.widget;
                 hasListeners(eventName: string): boolean;
@@ -1089,7 +1089,7 @@ declare namespace CKEDITOR {
     interface IMenuItemDefinition {
         label:string,
         command:string,
-		icon: string
+        icon: string
         group:string,
         order:number
     }
@@ -1142,7 +1142,7 @@ declare namespace CKEDITOR {
         createFakeParserElement(realElement: Object, className: Object, realElementType: Object, isResizable: Object): void;
         createRange(): dom.range;
         destroy(noUpdate?: boolean): void;
-		editable(): editable | null;
+        editable(): editable | null;
         editable(elementOrEditable: dom.element): void;
         editable(elementOrEditable: editable): void;
         elementPath(startNode?: dom.node): dom.elementPath;
@@ -1300,14 +1300,14 @@ declare namespace CKEDITOR {
         stop(): void;
     }
 
-	module filter {
-		interface allowedContentRules {
+    module filter {
+        interface allowedContentRules {
 
-		}
-	}
+        }
+    }
 
     class filter {
-		allow(newRules: CKEDITOR.filter.allowedContentRules, featureName?: string, overrideCustom?: boolean): boolean;
+        allow(newRules: CKEDITOR.filter.allowedContentRules, featureName?: string, overrideCustom?: boolean): boolean;
 
     }
 
@@ -1370,9 +1370,27 @@ declare namespace CKEDITOR {
     }
 
 
-    class dtd {
-
+    interface dtdDefinition {
+        [outerTagName: string]: {[innerTagName: string]: 1};
+        $block:          {[tagName: string]: 1};
+        $blockLimit:     {[tagName: string]: 1};
+        $cdata:          {[tagName: string]: 1};
+        $editable:       {[tagName: string]: 1};
+        $empty:          {[tagName: string]: 1};
+        $inline:         {[tagName: string]: 1};
+        $intermediate:   {[tagName: string]: 1};
+        $list:           {[tagName: string]: 1};
+        $listItem:       {[tagName: string]: 1};
+        $nonBodyContent: {[tagName: string]: 1};
+        $nonEditable:    {[tagName: string]: 1};
+        $object:         {[tagName: string]: 1};
+        $removeEmpty:    {[tagName: string]: 1};
+        $tabIndex:       {[tagName: string]: 1};
+        $tableContent:   {[tagName: string]: 1};
+        $transparent:    {[tagName: string]: 1};
     }
+
+    var dtd: dtdDefinition;
 
 
     class ui extends event {
@@ -1717,6 +1735,7 @@ declare namespace CKEDITOR {
             onLoad?: Function;
             onOk?: Function;
             onShow?: Function;
+            onHide?: Function;
             resizable?: number;
             title?: string;
             width?: number;
@@ -1819,7 +1838,7 @@ declare namespace CKEDITOR {
             children: any[];
             type: number;
             add(node: node): number;
-			add(node: node, index: number): void;
+            add(node: node, index: number): void;
             clone(): element;
             filter(filter: filter): boolean;
             filterChildren(filter: filter): void;

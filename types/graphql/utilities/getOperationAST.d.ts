@@ -1,4 +1,4 @@
-import { DocumentNode, OperationDefinitionNode } from '../language/ast';
+import { DocumentNode, OperationDefinitionNode } from "../language/ast";
 
 /**
  * Returns an operation AST given a document AST and optionally an operation
@@ -6,6 +6,6 @@ import { DocumentNode, OperationDefinitionNode } from '../language/ast';
  * provided in the document.
  */
 export function getOperationAST(
-  documentAST: DocumentNode,
-  operationName?: string,
-): OperationDefinitionNode;
+    documentAST: DocumentNode,
+    operationName: string | void
+): OperationDefinitionNode | void;
