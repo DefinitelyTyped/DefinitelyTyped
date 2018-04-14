@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/emitter-component
 
 
-declare interface Emitter {
+interface Emitter {
     on(event: string, listener: Function): Emitter;
     once(event: string, listener: Function): Emitter;
     off(event?: string, listener?: Function): Emitter;
