@@ -37,7 +37,7 @@ declare namespace AFrame {
 		components: { [ key: string ]: ComponentDescriptor };
 		geometries: { [ key: string ]: GeometryDescriptor };
 		primitives: { [ key: string ]: Entity };
-		registerComponent<T extends Component<{}, System | undefined> = Component>(name: string, component: ComponentDefinition<T>): ComponentConstructor;
+		registerComponent<T extends Component = ComponentDefault>(name: string, component: ComponentDefinition<T>): ComponentConstructor<T>;
 		registerElement(name: string, element: ANode): void;
 		registerGeometry<T extends Geometry = Geometry>(name: string, geometry: GeometryDefinition<T>): T;
 		registerPrimitive(name: string, primitive: PrimitiveDefinition): void;
@@ -90,7 +90,7 @@ declare namespace AFrame {
 		tick(): void;
 	}
 
-	class Component<T extends CustomProperties = {}, S extends System | undefined = undefined> {
+	class Component<T extends CustomProperties = {}, S extends System | undefined = System | undefined> {
 		attrName?: string;
 		data: T['data'];
 		dependencies?: string[];
@@ -113,8 +113,10 @@ declare namespace AFrame {
 		flushToDOM(): void;
 	}
 
-	interface ComponentConstructor {
-		new (el: Entity, name: string, id: string): Component;
+	type ComponentDefault = Component<{}, undefined>;
+
+	interface ComponentConstructor<T extends Component> {
+		new (el: Entity, name: string, id: string): T;
 	}
 
 	interface CustomProperties {
@@ -122,7 +124,7 @@ declare namespace AFrame {
 		[key: string ]: any;
 	}
 
-	type ComponentDefinition<T extends Component<{}, System | undefined> = Component> = { [P in keyof T]?: T[P]; } & {
+	type ComponentDefinition<T extends Component = ComponentDefault> = { [P in keyof T]?: T[P]; } & {
 		dependencies?: string[];
 		el?: Entity;
 		id?: string;
@@ -170,7 +172,7 @@ declare namespace AFrame {
 		/**
 		 * @deprecated since 0.4.0
 		 */
-		getComputedAttribute<T = Component>(attr: string): T;
+		getComputedAttribute<T = ComponentDefault>(attr: string): T;
 		getDOMAttribute<T = any>(attr: string): T;
 		getObject3D(type: string): THREE.Object3D;
 		getOrCreateObject3D(type: string, construct: any): THREE.Object3D;
@@ -184,7 +186,7 @@ declare namespace AFrame {
 
 		// getAttribute specific usages
 		getAttribute(type: string): any;
-		getAttribute<T = Component>(attr: string): T;
+		getAttribute<T = ComponentDefault>(attr: string): T;
 		getAttribute(type: 'position' | 'rotation' | 'scale'): Coordinate;
 
 		// setAttribute specific usages
@@ -248,9 +250,9 @@ declare namespace AFrame {
 		schema: Schema;
 	}
 
-	type MultiPropertySchema<T> = {
-			[P in keyof T]: SinglePropertySchema<T[P]>;
-	}
+	type MultiPropertySchema<T extends { [key: string ]: any }> = {
+		[P in keyof T]: SinglePropertySchema<T[P]> | T[P];
+	};
 
 	interface PrimitiveDefinition {
 		defaultComponents?: any; // TODO cleanup type
@@ -303,8 +305,8 @@ declare namespace AFrame {
 		init?(this: T & Component, data?: T['data']): void;
 		update?(this: T & Component, data: T['data']): void;
 
-		vertexShader: string,
-		fragmentShader: string
+		vertexShader: string;
+		fragmentShader: string;
 	}
 
 	interface ShaderDescriptor {
