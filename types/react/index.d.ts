@@ -58,6 +58,8 @@ declare namespace React {
     // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
 
+    type ComponentSnapshot = any;
+
     interface Attributes {
         key?: Key;
     }
@@ -75,8 +77,8 @@ declare namespace React {
         type: SFC<P>;
     }
 
-    type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
-    interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
+    type CElement<P, T extends Component<P, ComponentState, ComponentSnapshot>> = ComponentElement<P, T>;
+    interface ComponentElement<P, T extends Component<P, ComponentState, ComponentSnapshot>> extends ReactElement<P> {
         type: ComponentClass<P>;
         ref?: Ref<T>;
     }
@@ -115,10 +117,10 @@ declare namespace React {
 
     type SFCFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => SFCElement<P>;
 
-    type ComponentFactory<P, T extends Component<P, ComponentState>> =
+    type ComponentFactory<P, T extends Component<P, ComponentState, ComponentSnapshot>> =
         (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<P, T>;
 
-    type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
+    type CFactory<P, T extends Component<P, ComponentState, ComponentSnapshot>> = ComponentFactory<P, T>;
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
     type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
@@ -163,7 +165,7 @@ declare namespace React {
     function createFactory<P>(type: SFC<P>): SFCFactory<P>;
     function createFactory<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
-    function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
+    function createFactory<P, T extends Component<P, ComponentState, ComponentSnapshot>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
@@ -195,7 +197,7 @@ declare namespace React {
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
         props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
         ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
-    function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
+    function createElement<P, T extends Component<P, ComponentState, ComponentSnapshot>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): CElement<P, T>;
@@ -231,7 +233,7 @@ declare namespace React {
         element: SFCElement<P>,
         props?: Partial<P> & Attributes,
         ...children: ReactNode[]): SFCElement<P>;
-    function cloneElement<P, T extends Component<P, ComponentState>>(
+    function cloneElement<P, T extends Component<P, ComponentState, ComponentSnapshot>>(
         element: CElement<P, T>,
         props?: Partial<P> & ClassAttributes<T>,
         ...children: ReactNode[]): CElement<P, T>;
@@ -251,7 +253,7 @@ declare namespace React {
     // Component API
     // ----------------------------------------------------------------------
 
-    type ReactInstance = Component<any> | Element;
+    type ReactInstance = Component<any, ComponentState, ComponentSnapshot> | Element;
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
@@ -283,7 +285,7 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P = {}, S = {}> extends Component<P, S> { }
+    class PureComponent<P = {}, S = {}, SS = never> extends Component<P, S, SS> { }
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
@@ -317,7 +319,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P = {}> extends StaticLifecycle<P, any> {
-        new (props: P, context?: any): Component<P, ComponentState>;
+        new (props: P, context?: any): Component<P, ComponentState, ComponentSnapshot>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -335,7 +337,7 @@ declare namespace React {
      * a single argument, which is useful for many top-level API defs.
      * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
      */
-    type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
+    type ClassType<P, T extends Component<P, ComponentState, ComponentSnapshot>, C extends ComponentClass<P>> =
         C &
         (new (props: P, context?: any) => T) &
         (new (props: P, context?: any) => { props: P });
@@ -2211,7 +2213,7 @@ declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
-        interface ElementClass extends React.Component<any> {
+        interface ElementClass extends React.Component<any, {}, any> {
             render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }

@@ -12,7 +12,7 @@ export = shallowCompare;
 // https://github.com/Microsoft/TypeScript/issues/5073
 declare namespace shallowCompare {}
 
-declare function shallowCompare<P, S>(
-    component: Component<P, S>,
+declare function shallowCompare<P, S, SS>(
+    component: Component<P, S, SS>,
     nextProps: P,
     nextState: S): boolean;
