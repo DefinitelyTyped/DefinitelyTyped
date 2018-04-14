@@ -28,7 +28,7 @@ declare namespace expressWs {
 
     interface Instance {
         app: Application;
-        applyTo(target: any): void;
+        applyTo(target: object): void;
         getWss(): ws.Server;
     }
 

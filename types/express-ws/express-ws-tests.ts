@@ -18,11 +18,35 @@ expressWs(dummyApp, httpServer, {
 });
 
 const { app, getWss, applyTo } = expressWs(express());
+
+/**
+ * applyTo accepts objects
+ */
+applyTo({});
+
+/**
+ * getWss function returns ws server
+ */
+getWss().clients.forEach(ws => {
+    if (ws.readyState !== ws.OPEN) {
+        return ws.terminate();
+    }
+    ws.ping();
+});
+
+/**
+ * ws method is added to express app instance
+ */
 app.ws('/', (ws, req) => {
     ws.on('message', msg => {
         console.log(msg);
     });
 });
+
+/**
+ * ws method is added to express.Router prototype
+ */
+const router = express.Router();
 
 router.ws(
     '/:id',
@@ -38,7 +62,3 @@ router.ws(
 );
 
 app.use(router);
-
-app.param('id', (req, res, next) => next());
-
-app.listen(3000);
