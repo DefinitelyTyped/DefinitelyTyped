@@ -14,7 +14,7 @@ app.use(expressWinston.logger({
   expressFormat: true,
   ignoreRoute: (req, res) => true,
   ignoredRoutes: ['foo'],
-  level: 'level',
+  level: (req, res) => 'level',
   meta: true,
   metaField: 'metaField',
   msg: 'msg',
@@ -49,7 +49,7 @@ app.use(expressWinston.logger({
 app.use(expressWinston.errorLogger({
   baseMeta: { foo: 'foo' },
   dynamicMeta: (req, res, err) => ({ foo: 'bar' }),
-  level: 'level',
+  level: (req, res) => 'level',
   metaField: 'metaField',
   msg: 'msg',
   requestFilter: (req, prop) => true,
