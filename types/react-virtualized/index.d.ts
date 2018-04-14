@@ -118,7 +118,8 @@ export {
     TableHeaderRowRenderer,
     TableProps,
     TableRowProps,
-    TableRowRenderer
+    TableRowRenderer,
+    SortParams
 } from "./dist/es/Table";
 export {
     WindowScroller,
