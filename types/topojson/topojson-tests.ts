@@ -1,4 +1,5 @@
-const hello = "world";
+// Export topojson-simplify functions
+topojson.planarRingArea([]);
 
-// NOTE: The standard bundle definition has no particular function.
-// See ./test/ for per bundle tests.
+// Export topojson-client functions
+topojson.transform(null);

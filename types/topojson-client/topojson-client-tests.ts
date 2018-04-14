@@ -1,9 +1,20 @@
-// Tests for: https://github.com/topojson/topojson-client
+import * as topojson from "topojson-client";
+import { UsAtlas, WorldAtlas } from "topojson";
+
+declare let us: UsAtlas;
+declare let world: WorldAtlas;
+
+interface UsAtlasObjects extends TopoJSON.Objects {
+    counties: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+    states: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+    nation: TopoJSON.GeometryCollection;
+}
 
 let geoMP: GeoJSON.MultiPolygon;
 let geoMLS: GeoJSON.MultiLineString;
-let topoMP: topojson.MultiPolygon;
-let topoMLS: topojson.MultiLineString;
+let topoMP: TopoJSON.MultiPolygon;
+let topoMLS: TopoJSON.MultiLineString;
+let newUs: TopoJSON.Topology<UsAtlasObjects>;
 let bbox: GeoJSON.BBox;
 let transformer: topojson.Transformer;
 let color: string;
@@ -14,7 +25,7 @@ interface TestProp {
     size: number;
 }
 
-const selectedGeometries: Array<topojson.Polygon | topojson.MultiPolygon> =
+const selectedGeometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon> =
     us.objects.states.geometries.filter((g) => ["be", 2, undefined].indexOf(g.id) >= 0);
 
 const topoWithProp = {
@@ -49,7 +60,7 @@ const featureCollection: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> =
     topojson.feature(us, us.objects.counties);
 
 const featureObject: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject, {}> =
-    topojson.feature(topoWithProp, topoWithProp.objects.foo as topojson.GeometryObject);
+    topojson.feature(topoWithProp, topoWithProp.objects.foo as TopoJSON.GeometryObject);
 
 const propColor = topojson.feature(topoWithProp, topoWithProp.objects.foo).properties;
 color = propColor.color;
@@ -79,7 +90,7 @@ topoMLS = topojson.meshArcs(us, us.objects.states, (a, b) => a !== b);
 const n: number[][] = topojson.neighbors(world.objects.countries.geometries);
 
 // Transforms
-const usTransform: topojson.Transform = us.transform;
+const usTransform: TopoJSON.Transform = us.transform;
 
 bbox = topojson.bbox(us);
 bbox = topojson.bbox({type: "Topology", objects: {}, arcs: []});
