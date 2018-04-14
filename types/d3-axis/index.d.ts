@@ -1,6 +1,9 @@
 // Type definitions for D3JS d3-axis module 1.0
 // Project: https://github.com/d3/d3-axis/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>,
+//                 Marco Buttini <https://github.com/borracciaBlu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Last module patch version validated against: 1.0.8
@@ -210,13 +213,20 @@ export interface Axis<Domain> {
     tickFormat(): ((domainValue: Domain, index: number) => string) | null;
 
     /**
-     *  Sets the tick format function and returns the axis.
+     * Sets the tick format function and returns the axis.
      *
      * @param format A function mapping a value from the axis Domain to a formatted string
      * for display purposes. When invoked, the format function is also passed a second argument representing the zero-based index
      * of the tick label in the array of generated tick labels.
      */
     tickFormat(format: (domainValue: Domain, index: number) => string): this;
+
+    /**
+     * Sets the tick format function and returns the axis.
+     *
+     * @param format string
+     */
+    tickFormat(format: string): this;
 
     /**
      * Reset the tick format function. A null format indicates that the scale’s

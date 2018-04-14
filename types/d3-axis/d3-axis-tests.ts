@@ -113,6 +113,7 @@ const tickValues: Date[] | null = rightAxis.tickValues();
 // tickFormat(...) ----------------------------------------------------------------
 
 topAxis = topAxis.tickFormat(format(',.0f'));
+topAxis = topAxis.tickFormat('');
 topAxis = topAxis.tickFormat(null);
 
 const formatFn: ((domainValue: string, index: number) => string) | null = bottomAxis.tickFormat();
