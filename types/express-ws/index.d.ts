@@ -10,18 +10,21 @@ import * as http from 'http';
 import * as ws from 'ws';
 
 declare module 'express' {
-    function Router(options?: RouterOptions): Router & expressWs.WithWebsocketMethod<Router>;
+    function Router(options?: RouterOptions): expressWs.Router;
 }
 
 declare function expressWs(app: express.Application, httpServer?: http.Server, options?: expressWs.Options): expressWs.Instance;
 declare namespace expressWs {
+    type Application = express.Application & WithWebsocketMethod<express.Application>;
+    type Router = express.Router & WithWebsocketMethod<express.Router>;
+
     interface Options {
         leaveRouterUntouched?: boolean;
         wsOptions?: ws.ServerOptions;
     }
 
     interface Instance {
-        app: express.Application & WithWebsocketMethod<express.Application>;
+        app: Application;
         applyTo(target: any): void;
         getWss(): ws.Server;
     }
