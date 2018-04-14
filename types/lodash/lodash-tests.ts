@@ -3085,27 +3085,34 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     }
     const initial: ABC = { a: 1, b: 2, c: 3 };
 
-    _.reduce([1, 2, 3], (sum: number, num: number) => sum + num); // $ExpectType number | undefined
+    // $ExpectType number | undefined
+    _.reduce([1, 2, 3], (sum, curr, key, coll) => {
+        sum; // $ExpectType number
+        curr; // $ExpectType number
+        key; // $ExpectType number
+        coll; // $ExpectType number[]
+        return sum + curr;
+    });
     _.reduce(null, (sum: number, num: number) => sum + num); // $ExpectType number | undefined
     _.reduce({ a: 1, b: 2, c: 3 }, (r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _([1, 2, 3]).reduce((sum: number, num: number) => sum + num); // $ExpectType number | undefined
+    _([1, 2, 3]).reduce((sum, num) => sum + num); // $ExpectType number | undefined
     _({ a: 1, b: 2, c: 3 }).reduce((r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _.chain([1, 2, 3]).reduce((sum: number, num: number) => sum + num); // $ExpectType LoDashExplicitWrapper<number | undefined>
+    _.chain([1, 2, 3]).reduce((sum, num) => sum + num); // $ExpectType LoDashExplicitWrapper<number | undefined>
     _.chain({ a: 1, b: 2, c: 3 }).reduce((r: ABC, num: number, key: string) => r, initial); // $ExpectType LoDashExplicitWrapper<ABC>
 
     fp.reduce((s: string, num: number) => s + num, "", [1, 2, 3]); // $ExpectType string
     fp.reduce((s: string, num: number) => s + num)("")([1, 2, 3]); // $ExpectType string
 
-    _.reduceRight([1, 2, 3], (sum: number, num: number) => sum + num); // $ExpectType number | undefined
+    _.reduceRight([1, 2, 3], (sum, num) => sum + num); // $ExpectType number | undefined
     _.reduceRight(null, (sum: number, num: number) => sum + num); // $ExpectType number | undefined
     _.reduceRight({ a: 1, b: 2, c: 3 }, (r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _([1, 2, 3]).reduceRight((sum: number, num: number) => sum + num); // $ExpectType number | undefined
+    _([1, 2, 3]).reduceRight((sum, num) => sum + num); // $ExpectType number | undefined
     _({ a: 1, b: 2, c: 3 }).reduceRight((r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _.chain([1, 2, 3]).reduceRight((sum: number, num: number) => sum + num); // $ExpectType LoDashExplicitWrapper<number | undefined>
+    _.chain([1, 2, 3]).reduceRight((sum, num) => sum + num); // $ExpectType LoDashExplicitWrapper<number | undefined>
     _.chain({ a: 1, b: 2, c: 3 }).reduceRight((r: ABC, num: number, key: string) => r, initial); // $ExpectType LoDashExplicitWrapper<ABC>
 
     fp.reduceRight((num: number, s: string) => s + num, "", [1, 2, 3]); // $ExpectType string

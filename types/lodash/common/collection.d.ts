@@ -2015,26 +2015,26 @@ declare module "../index" {
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             collection: T[] | null | undefined,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, T[]>
+        ): T | undefined;
 
         /**
          * @see _.reduce
          **/
-        reduce<T, TResult>(
+        reduce<T>(
             collection: List<T> | null | undefined,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, List<T>>
+        ): T | undefined;
 
         /**
         * @see _.reduce
         **/
-        reduce<T extends object, TResult>(
+        reduce<T extends object>(
             collection: T | null | undefined,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): TResult | undefined;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): T[keyof T] | undefined;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2068,26 +2068,26 @@ declare module "../index" {
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             this: LoDashImplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, T[]>
+        ): T | undefined;
 
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, List<T>>
+        ): T | undefined;
 
         /**
         * @see _.reduce
         **/
-        reduce<T extends object, TResult>(
+        reduce<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): TResult | undefined;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): T[keyof T] | undefined;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -2121,26 +2121,26 @@ declare module "../index" {
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             this: LoDashExplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoListIterator<T, T, T[]>
+        ): LoDashExplicitWrapper<T | undefined>;
 
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoListIterator<T, T, List<T>>
+        ): LoDashExplicitWrapper<T | undefined>;
 
         /**
         * @see _.reduce
         **/
-        reduce<T extends object, TResult>(
+        reduce<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): LoDashExplicitWrapper<T[keyof T] | undefined>;
     }
 
     // reduceRight
@@ -2181,26 +2181,26 @@ declare module "../index" {
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             collection: T[] | null | undefined,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, T[]>
+        ): T | undefined;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             collection: List<T> | null | undefined,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, List<T>>
+        ): T | undefined;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T extends object, TResult>(
+        reduceRight<T extends object>(
             collection: T | null | undefined,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): TResult | undefined;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): T[keyof T] | undefined;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2234,26 +2234,26 @@ declare module "../index" {
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             this: LoDashImplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, T[]>
+        ): T | undefined;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, List<T>>
+        ): T | undefined;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T extends object, TResult>(
+        reduceRight<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): TResult | undefined;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): T[keyof T] | undefined;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -2287,26 +2287,26 @@ declare module "../index" {
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             this: LoDashExplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoListIterator<T, T, T[]>
+        ): LoDashExplicitWrapper<T | undefined>;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoListIterator<T, T, List<T>>
+        ): LoDashExplicitWrapper<T | undefined>;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T extends object, TResult>(
+        reduceRight<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): LoDashExplicitWrapper<T[keyof T] | undefined>;
     }
 
     // reject
