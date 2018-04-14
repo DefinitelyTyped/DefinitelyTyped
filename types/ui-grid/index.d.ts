@@ -135,8 +135,10 @@ declare namespace uiGrid {
         /**
          * adds a row header column to the grid
          * @param {IColumnDef} colDef The column definition
+         * @param {number} order Number that indicates where the column should be placed in the grid.
+         * @param {boolean} stopColumnBuild Prevents the buildColumn callback from being triggered. This is useful to improve performance of the grid during initial load.
          */
-        addRowHeaderColumn(colDef: IColumnDefOf<TEntity>): void;
+        addRowHeaderColumn(colDef: IColumnDefOf<TEntity>, order?: number, stopColumnBuild?: boolean): void;
         /**
          * uses the first row of data to assign colDef.type for any types not defined.
          */
@@ -522,6 +524,8 @@ declare namespace uiGrid {
          * which tells us which direction we are scrolling. Set to NONE via debounced method
          */
         scrollDirection?: number;
+        
+        id: number;
     }
     export interface IBuildColumnsOptions {
         orderByColumnDefs?: boolean;
@@ -877,14 +881,18 @@ declare namespace uiGrid {
          * to generate one
          */
         rowIdentity?(row: IGridRowOf<TEntity>): any;
+
+        fastWatch?: boolean;
     }
     export interface IGridCoreApi<TEntity> {
         // Methods
         /**
          * adds a row header column to the grid
          * @param {IColumnDef} column Column Definition
+         * @param {number} order Number that indicates where the column should be placed in the grid.
+         * @param {boolean} stopColumnBuild Prevents the buildColumn callback from being triggered. This is useful to improve performance of the grid during initial load.
          */
-        addRowHeaderColumn(column: IColumnDefOf<TEntity>): void;
+        addRowHeaderColumn(column: IColumnDefOf<TEntity>, order?: number, stopColumnBuild?: boolean): void;
         /**
          * add items to the grid menu.  Used by features
          * to add their menu items if they are enabled, can also be used by
@@ -1217,21 +1225,21 @@ declare namespace uiGrid {
                  */
                 navigate: (scope: ng.IScope, handler: navigateHandler<TEntity>) => void;
                 /**
-                 * viewportKeyDown is raised when the viewPort receives a keyDown event.
+                 * viewPortKeyDown is raised when the viewPort receives a keyDown event.
                  * Cells never get focus in uiGrid due to the difficulties of setting focus on a cell that is
                  * not visible in the viewport. Use this event whenever you need a keydown event on a cell.
                  * @param {ng.IScope} scope The grid scope
                  * @param {viewportKeyDownHandler} handler Callback
                  */
-                viewportKeyDown: (scope: ng.IScope, handler: viewportKeyDownHandler<TEntity>) => void;
+                viewPortKeyDown: (scope: ng.IScope, handler: viewportKeyDownHandler<TEntity>) => void;
                 /**
-                 * viewportKeyPress is raised when the viewPort receives a keyPress event.
+                 * viewPortKeyPress is raised when the viewPort receives a keyPress event.
                  * Cells never get focus in uiGrid due to the difficulties of setting focus on a cell that is
                  * not visible in the viewport. Use this event whenever you need a keypress event on a cell.
                  * @param {ng.IScope} scope The grid scope
                  * @param {viewportKeyPressHandler} handler Callback
                  */
-                viewportKeyPress: (scope: ng.IScope, handler: viewportKeyPressHandler<TEntity>) => void;
+                viewPortKeyPress: (scope: ng.IScope, handler: viewportKeyPressHandler<TEntity>) => void;
             };
         }
 
@@ -1465,31 +1473,31 @@ declare namespace uiGrid {
             /**
              * raised when cell editing is complete
              * @param {TEntity} rowEntity the options.data element that was edited
-             * @param {IColumnDef} colDef The column that was edited
+             * @param {IColumnDefOf} colDef The column that was edited
              * @param {any} newValue New Value
              * @param {any} oldValue Old Value
              */
-            (rowEntity: TEntity, colDef: IColumnDef<TEntity>, newValue: any, oldValue: any): void;
+            (rowEntity: TEntity, colDef: IColumnDefOf<TEntity>, newValue: any, oldValue: any): void;
         }
 
         /**
          * raised when cell editing starts on a cell
          * @param {TEntity} rowEntity the options.data element that was edited
-         * @param {IColumnDef} colDef The column that was edited
+         * @param {IColumnDefOf} colDef The column that was edited
          * @param {JQueryEventObject} triggerEvent the event that triggered the edit. Useful to prevent losing
          *     keystrokes on some complex editors
          */
         export interface beginCellEditHandler<TEntity> {
-            (rowEntity: TEntity, colDef: IColumnDef<TEntity>, triggerEvent: JQueryEventObject): void;
+            (rowEntity: TEntity, colDef: IColumnDefOf<TEntity>, triggerEvent: JQueryEventObject): void;
         }
 
         /**
          * raised when cell editing is cancelled on a cell
          * @param {TEntity} rowEntity the options.data element that was edited
-         * @param {IColumnDef} colDef The column that was edited
+         * @param {IColumnDefOf} colDef The column that was edited
          */
         export interface cancelCellEditHandler<TEntity> {
-            (rowEntity: TEntity, colDef: IColumnDef<TEntity>): void;
+            (rowEntity: TEntity, colDef: IColumnDefOf<TEntity>): void;
         }
 
         /**

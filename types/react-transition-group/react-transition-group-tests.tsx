@@ -1,6 +1,6 @@
 import * as React from "react";
 import CSSTransition = require("react-transition-group/CSSTransition");
-import Transition from "react-transition-group/Transition";
+import Transition, { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING } from "react-transition-group/Transition";
 import TransitionGroup = require("react-transition-group/TransitionGroup");
 import Components = require("react-transition-group");
 

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type InputType =
@@ -41,5 +42,5 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   cssModule?: CSSModule;
 }
 
-declare const Input: React.StatelessComponent<InputProps>;
+declare class Input extends React.Component<InputProps> {}
 export default Input;

@@ -83,6 +83,7 @@ interface Options {
     interval?: number;
     stream?: NodeJS.WritableStream;
     enabled?: boolean;
+    hideCursor?: boolean;
 }
 
 interface PersistOptions {

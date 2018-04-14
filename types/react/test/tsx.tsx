@@ -89,6 +89,13 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
     </React.Fragment>
 </div>;
 
+// Strict Mode
+<div>
+    <React.StrictMode>
+        <div />
+    </React.StrictMode>
+</div>;
+
 // Below tests that setState() works properly for both regular and callback modes
 class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
     handleSomething = () => {
@@ -122,3 +129,39 @@ export abstract class SetStateTestForAndedState<P, S> extends React.Component<P,
 		this.setState({ baseProp: 'foobar' });
 	}
 }
+
+interface NewProps { foo: string; }
+interface NewState { bar: string; }
+
+class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { baz: string }> {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
+        return { bar: `${nextProps.foo}bar` };
+    }
+
+    getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
+        return { baz: `${prevProps.foo}baz` };
+    }
+
+    componentDidUpdate(prevProps: Readonly<NewProps>, prevState: Readonly<NewState>, snapshot: { baz: string }) {
+        return;
+    }
+
+    render() {
+        return this.state.bar;
+    }
+}
+
+class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', string>> {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a'|'b'|'c', string>> = () => {
+        return { a: 'a' };
+    }
+}
+const AssignedComponentWithLargeState: React.ComponentClass = ComponentWithLargeState;
+
+const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {})({});
+componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
+    return 'number';
+};
+componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
+    return;
+};

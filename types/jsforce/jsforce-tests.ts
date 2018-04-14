@@ -79,7 +79,7 @@ salesforceConnection.query('SELECT Id FROM Account')
     .on('end', (query: any) => {
         console.log(records);
     })
-    .on('error', (error) => {
+    .on('error', (error: Error) => {
         console.log('Error returned from query:', error);
     })
     .run({ autoFetch: true, maxFetch: 25 });
@@ -89,3 +89,191 @@ salesforceConnection.sobject<any>('Coverage__c')
 
 salesforceConnection.sobject<any>('Coverage__c')
     .select(['Id', 'Name']).del("test", () => { });
+
+async function testAnalytics(conn: sf.Connection): Promise<void> {
+    const analytics: sf.Analytics = conn.analytics;
+
+    const dashboards: sf.DashboardInfo[] = await analytics.dashboards();
+    const dashboard = dashboards[0] as any;
+    Object.keys(dashboards[0])
+        .forEach((key: string) => console.log(`key: ${key} : ${dashboard[key]}`));
+    console.log('dashboard keys from await');
+
+    analytics.dashboards((err, dashboards: sf.DashboardInfo[]) => {
+        const _dashboard: any = dashboards[0] as any;
+        Object.keys(_dashboard)
+            .forEach((key: string) => console.log(`key: ${key} : ${_dashboard[key]}`));
+        console.log('dashboard keys from callback');
+    });
+
+    const reports: sf.ReportInfo[] = await analytics.reports();
+    const report: any = reports[0] as any;
+    Object.keys(reports[0]).forEach((key: string) => console.log(`key: ${key} : ${report[key]}`));
+
+    analytics.reports((err, reports: sf.ReportInfo[]) => {
+        const _report: any = reports[0] as any;
+        Object.keys(reports[0])
+            .forEach((key: string) => console.log(`key: ${key} : ${_report[key]}`));
+        console.log('report keys from callback');
+    });
+}
+
+async function testMetadata(conn: sf.Connection): Promise<void> {
+    const md: sf.Metadata = conn.metadata;
+    const m: sf.DescribeMetadataResult = await md.describe('34.0');
+    const pages: sf.MetadataObject[] =
+        m.metadataObjects.filter((value: sf.MetadataObject) => value.directoryName === 'pages');
+    console.log(`ApexPage?: ${pages[0].xmlName === 'ApexPage'}`);
+
+    const types: sf.ListMetadataQuery[] = [{type: 'CustomObject', folder: null}];
+    md.list(types, '39.0', (err, properties: sf.FileProperties[]) => {
+        if (err) {
+            console.error('err', err);
+            return;
+        }
+        const meta: sf.FileProperties = properties[0];
+        console.log('metadata count: ' + properties.length);
+        console.log('createdById: ' + meta.createdById);
+        console.log('createdByName: ' + meta.createdByName);
+        console.log('createdDate: ' + meta.createdDate);
+        console.log('fileName: ' + meta.fileName);
+        console.log('fullName: ' + meta.fullName);
+        console.log('id: ' + meta.id);
+        console.log('lastModifiedById: ' + meta.lastModifiedById);
+        console.log('lastModifiedByName: ' + meta.lastModifiedByName);
+        console.log('lastModifiedDate: ' + meta.lastModifiedDate);
+        console.log('manageableState: ' + meta.manageableState);
+        console.log('namespacePrefix: ' + meta.namespacePrefix);
+        console.log('type: ' + meta.type);
+    });
+
+    const fullNames: string[] = [ 'Account', 'Contact' ];
+    const info: sf.MetadataInfo | sf.MetadataInfo[] = await md.read('CustomObject', fullNames);
+    console.log((info as sf.MetadataInfo[])[0].fullName);
+    console.log((info as sf.MetadataInfo[])[1].fullName);
+
+    const now: number = Date.now();
+    const now2: number = now + 1;
+    const metadata = [{
+        fullName: `TestObject${now}__c`,
+        label: `Test Object ${now}`,
+        pluralLabel: `Test Object ${now}`,
+        nameField: {
+            type: 'Text',
+            label: `Test Object Name ${now}`
+        },
+        deploymentStatus: 'Deployed',
+        sharingModel: 'ReadWrite'
+    }, {
+        fullName: `TestObject${now2}__c`,
+        label: `Test Object ${now2}`,
+        pluralLabel: `Test Object ${now2}`,
+        nameField: {
+            type: 'AutoNumber',
+            label: 'Test Object #'
+        },
+        deploymentStatus: 'InDevelopment',
+        sharingModel: 'Private'
+    }];
+
+    const result: sf.SaveResult | sf.SaveResult[] = await md.create('CustomObject', metadata);
+    console.log(`created ${(result as sf.SaveResult[])[0].fullName} - ${(result as sf.SaveResult[])[0].success}`);
+    console.log(`created ${(result as sf.SaveResult[])[1].fullName} - ${(result as sf.SaveResult[])[1].success}`);
+
+    const fullNames2: string[] = [`TestObject${now}__c`, `TestObject${now2}__c`];
+    const result2: sf.SaveResult | sf.SaveResult[] =
+        await (md.delete('CustomObject', fullNames2) as Promise<sf.SaveResult[]>);
+    console.log(`deleted ${result2[0].fullName} - ${result2[0].success}`);
+    console.log(`deleted ${result2[1].fullName} - ${result2[1].success}`);
+}
+
+async function testChatter(conn: sf.Connection): Promise<void> {
+    const chatter: sf.Chatter = conn.chatter;
+    chatter.resource('/feed-elements').create({
+        body: {
+            messageSegments: [{
+                type: 'Text',
+                text: 'This is new post'
+            }]
+        },
+        feedElementType : 'FeedItem',
+        subjectId: 'me'
+    }, (err: Error, result: any) => {
+        if (err) {
+            throw err;
+        }
+        const feedMessageUrl = `/feed-elements/${result.id}/capabilities/comments/items`;
+        chatter.resource(feedMessageUrl).create({
+            body: {
+                messageSegments: [{
+                    type: 'Text',
+                    text: 'This is new comment on the post'
+                }]
+            }
+        }, (err: Error, result: any) => {
+            if (err) {
+                throw err;
+            }
+            console.log("Id: " + result.id);
+            console.log("URL: " + result.url);
+            console.log("Body: " + result.body.messageSegments[0].text);
+        });
+    });
+
+    const resourceMe: sf.Resource<sf.RequestResult> = chatter.resource('/users/me');
+    resourceMe.retrieve((err, res: any) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log("username: " + res.username);
+        console.log("email: " + res.email);
+        console.log("small photo url: " + res.photo.smallPhotoUrl);
+    });
+
+    chatter.resource('/users', { q: 'Suzuki' }).retrieve((err, result: any) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log("current page URL: " + result['currentPageUrl']);
+        console.log("next page URL: " + result['nextPageUrl']);
+        console.log("users count: " + result['users'].length);
+        for (const user of result['users']) {
+            console.log('User ID: ' + user.id);
+            console.log('User URL: ' + user.url);
+            console.log('Username: ' + user.username);
+        }
+    });
+
+    const feedResource: sf.Resource<sf.RequestResult> = chatter.resource('/feed-elements');
+
+    const feedCreateRequest: any = await (feedResource.create({
+        body: {
+            messageSegments: [{
+                type: 'Text',
+                text: 'This is new comment on the post'
+            }]
+        },
+        feedElementType : 'FeedItem',
+        subjectId: 'me'
+    }) as Promise<sf.RequestResult>);
+
+    console.log(`feedCreateRequest.id: ${feedCreateRequest.id}`);
+    const itemLikesUrl = `/feed-elements/${feedCreateRequest.id}/capabilities/chatter-likes/items`;
+    const itemsLikeResource: sf.Resource<sf.RequestResult> = chatter.resource(itemLikesUrl);
+
+    const itemsLikeCreateResult: sf.RequestResult = await (itemsLikeResource.create('') as Promise<sf.RequestResult>);
+    console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any ['likedItem']}`);
+}
+
+(async () => {
+    const query2: sf.QueryResult<object> =
+        await (salesforceConnection.query("SELECT Id, Name FROM User") as Promise<sf.QueryResult<object>>);
+    console.log("Query Promise: total in database: " + query2.totalSize);
+    console.log("Query Promise: total fetched : " + query2.records[0]);
+
+    await testAnalytics(salesforceConnection);
+    await testChatter(salesforceConnection);
+    await testMetadata(salesforceConnection);
+})();

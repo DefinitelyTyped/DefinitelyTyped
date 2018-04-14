@@ -31,6 +31,7 @@ import * as React from 'react';
 import {
   Animated,
   TextStyle,
+  ViewProperties,
   ViewStyle,
   StyleProp,
 } from 'react-native';
@@ -202,6 +203,8 @@ export interface NavigationNavigateActionPayload {
 
   // The action to run inside the sub-router
   action?: NavigationNavigateAction;
+
+  key?: string;
 }
 
 export interface NavigationNavigateAction extends NavigationNavigateActionPayload {
@@ -277,7 +280,11 @@ export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
   cardStyle?: StyleProp<ViewStyle>;
-  transitionConfig?: () => TransitionConfig;
+  transitionConfig?: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps: NavigationTransitionProps,
+    isModal: boolean,
+  ) => TransitionConfig;
   onTransitionStart?: () => void;
   onTransitionEnd?: () => void;
 }
@@ -702,6 +709,7 @@ export function TabNavigator(
 export interface TabBarTopProps {
   activeTintColor: string;
   inactiveTintColor: string;
+  indicatorStyle: StyleProp<ViewStyle>;
   showIcon: boolean;
   showLabel: boolean;
   upperCaseLabel: boolean;
@@ -903,3 +911,20 @@ export function withNavigation<T = {}>(
 export function withNavigationFocus<T = {}>(
   Component: React.ComponentType<T & NavigationInjectedProps>
 ): React.ComponentType<T>;
+
+/**
+ * SafeAreaView Component
+ */
+export type SafeAreaViewForceInsetValue = 'always' | 'never';
+export interface SafeAreaViewProps extends ViewProperties {
+  forceInset?: {
+    top?: SafeAreaViewForceInsetValue;
+    bottom?: SafeAreaViewForceInsetValue;
+    left?: SafeAreaViewForceInsetValue;
+    right?: SafeAreaViewForceInsetValue;
+    horizontal?: SafeAreaViewForceInsetValue;
+    vertical?: SafeAreaViewForceInsetValue;
+  };
+}
+
+export const SafeAreaView: React.ComponentClass<SafeAreaViewProps>;
