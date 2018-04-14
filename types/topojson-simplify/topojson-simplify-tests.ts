@@ -1,24 +1,28 @@
-// Tests for: https://github.com/topojson/topojson-simplify
+import * as topojson from "topojson-simplify";
+import { UsAtlas, WorldAtlas } from "topojson";
 
-interface UsAtlasObjects extends topojson.Objects {
-    counties: {type: "GeometryCollection", geometries: Array<topojson.Polygon | topojson.MultiPolygon>};
-    states: {type: "GeometryCollection", geometries: Array<topojson.Polygon | topojson.MultiPolygon>};
-    nation: topojson.GeometryCollection;
+declare let us: UsAtlas;
+declare let world: WorldAtlas;
+
+interface UsAtlasObjects extends TopoJSON.Objects {
+    counties: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+    states: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+    nation: TopoJSON.GeometryCollection;
 }
 
-interface UsEmpty extends topojson.Objects {
-    counties: topojson.NullObject;
-    states: topojson.NullObject;
-    nation: topojson.NullObject;
+interface UsEmpty extends TopoJSON.Objects {
+    counties: TopoJSON.NullObject;
+    states: TopoJSON.NullObject;
+    nation: TopoJSON.NullObject;
 }
 
-let aTopology: topojson.Topology;
-let presimplifiedUs: topojson.Topology<UsAtlasObjects>;
-let newUs: topojson.Topology<UsAtlasObjects>;
-let emptyUs: topojson.Topology<UsEmpty>;
-let geomCollection: topojson.GeometryCollection;
-let geomCollectionOrNull: topojson.GeometryCollection | topojson.NullObject;
-let aNullObject: topojson.NullObject;
+let aTopology: TopoJSON.Topology;
+let presimplifiedUs: TopoJSON.Topology<UsAtlasObjects>;
+let newUs: TopoJSON.Topology<UsAtlasObjects>;
+let emptyUs: TopoJSON.Topology<UsEmpty>;
+let geomCollection: TopoJSON.GeometryCollection;
+let geomCollectionOrNull: TopoJSON.GeometryCollection | TopoJSON.NullObject;
+let aNullObject: TopoJSON.NullObject;
 let filter: topojson.Filter;
 
 presimplifiedUs = topojson.presimplify(us);
@@ -30,7 +34,7 @@ geomCollection = topojson.presimplify(us).objects.counties;
 geomCollection = topojson.presimplify(us).objects.nation;
 geomCollection = topojson.presimplify(us).objects.states;
 
-let minWeight = topojson.quantile(presimplifiedUs, 0.5);
+const minWeight = topojson.quantile(presimplifiedUs, 0.5);
 
 newUs = topojson.simplify(presimplifiedUs);
 newUs = topojson.simplify(presimplifiedUs, 1.23);
@@ -55,12 +59,12 @@ filter = topojson.filterWeight(us, 0.5, topojson.planarRingArea);
 filter = topojson.filterWeight(us, 0.5, (points: Array<[number, number]>) => 1.5);
 
 aTopology = topojson.filter(us, filter);
-newUs = topojson.filter(us, (ring: topojson.Ring, interior: boolean) => true) as topojson.UsAtlas;
-emptyUs = topojson.filter(us, () => false) as topojson.Topology<UsEmpty>;
+newUs = topojson.filter(us, (ring: topojson.Ring, interior: boolean) => true) as UsAtlas;
+emptyUs = topojson.filter(us, () => false) as TopoJSON.Topology<UsEmpty>;
 
 geomCollectionOrNull = topojson.filter(us, () => Math.random() > 0.9).objects.nation;
-aNullObject = topojson.filter(us, () => false).objects.nation as topojson.NullObject;
-geomCollection = topojson.filter(us, () => true).objects.nation as topojson.GeometryCollection;
+aNullObject = topojson.filter(us, () => false).objects.nation as TopoJSON.NullObject;
+geomCollection = topojson.filter(us, () => true).objects.nation as TopoJSON.GeometryCollection;
 
 // Geometry
 
@@ -72,14 +76,14 @@ area = topojson.sphericalTriangleArea([[0, 0], [0, 90], [90, 180]]);
 
 // Fails
 
-interface MyAtlas extends topojson.Topology {
+interface MyAtlas extends TopoJSON.Topology {
     objects: {
-        obj: topojson.GeometryCollection;
+        obj: TopoJSON.GeometryCollection;
     };
     more: "hello";
 }
 
-let myAtlas: MyAtlas = null as any; // shortcut...
+declare let myAtlas: MyAtlas;
 console.log(myAtlas.more);
 
 let s: string;
