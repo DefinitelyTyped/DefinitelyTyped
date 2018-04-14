@@ -2211,7 +2211,7 @@ declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
-        interface ElementClass extends React.Component<any> {
+        interface ElementClass extends React.Component<any, {}, any> {
             render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
