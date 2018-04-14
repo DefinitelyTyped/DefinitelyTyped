@@ -1,32 +1,23 @@
 import http = require('http');
+import https = require('https');
 import express = require('express');
 import expressWs = require('express-ws');
 
-const expressApp = express();
-const server = http.createServer(expressApp);
+const dummyApp = express();
+const httpServer = http.createServer(dummyApp);
+const httpsServer = https.createServer({}, dummyApp);
 
-const instance = expressWs(expressApp, server, {
+expressWs(dummyApp); // optional server argument
+expressWs(dummyApp, httpsServer); // https server allowed
+expressWs(dummyApp, httpServer, {
     leaveRouterUntouched: false,
+    // ws server options
     wsOptions: {
         clientTracking: true
     }
 });
-const router = express.Router();
-const wss = instance.getWss();
-const { app } = instance;
 
-instance.applyTo({});
-
-setInterval(() => {
-    wss.clients.forEach(client => {
-        if (client.readyState !== 1) {
-            client.terminate();
-            return;
-        }
-        client.ping();
-    });
-}, 5000);
-
+const { app, getWss, applyTo } = expressWs(express());
 app.ws('/', (ws, req) => {
     ws.on('message', msg => {
         console.log(msg);
