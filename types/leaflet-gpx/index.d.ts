@@ -19,10 +19,10 @@ declare module 'leaflet' {
         constructor(gpx: string, options?: GPXOptions);
         get_duration_string(duration: number, hidems: boolean): string;
         get_duration_string_iso(duration: number, hidems: boolean): string;
-        to_miles(v: number): number;
-        to_ft(v: number): number;
-        m_to_km(v: number): number;
-        m_to_mi(v: number): number;
+        to_miles(kilometers: number): number;
+        to_ft(meters: number): number;
+        m_to_km(meters: number): number;
+        m_to_mi(meters: number): number;
 
         get_name(): string;
         get_desc(): string;
