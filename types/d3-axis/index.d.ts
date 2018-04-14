@@ -1,11 +1,14 @@
 // Type definitions for D3JS d3-axis module 1.0
 // Project: https://github.com/d3/d3-axis/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Marco Buttini <https://github.com/borracciaBlu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Last module patch version validated against: 1.0.8
 
-import { Selection, TransitionLike } from 'd3-selection';
+import { Selection, TransitionLike, BaseType } from 'd3-selection';
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -47,7 +50,7 @@ export interface AxisScale<Domain> {
 /**
  * A helper type to alias elements which can serve as a container for an axis
  */
-export type AxisContainerElement = SVGSVGElement | SVGGElement;
+export type AxisContainerElement = SVGSVGElement | SVGGElement | BaseType;
 
 /**
  * Interface defining an axis generator. The generic <Domain> is the type of the axis domain

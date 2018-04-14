@@ -21,7 +21,7 @@ import {
     scaleTime,
     ScaleTime
 } from 'd3-scale';
-import { select, Selection } from 'd3-selection';
+import { select, Selection, BaseType } from 'd3-selection';
 import { Transition } from 'd3-transition';
 import { timeMinute } from 'd3-time';
 import { format } from 'd3-format';
@@ -157,6 +157,11 @@ svgTransition.call(leftAxis);
 
 const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
 const canvasTransition = canvasSelection.transition();
+
+const baseTypeSelection: Selection<BaseType, any, any, any>  = select('path');
+const baseTypeTransition = baseTypeSelection.transition();
+
+baseTypeTransition.call(leftAxis);
 
 // canvasSelection.call(rightAxis); // fails, incompatible context container element
 // canvasTransition.call(rightAxis); // fails, incompatible context container element
