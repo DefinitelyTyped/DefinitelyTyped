@@ -241,14 +241,18 @@ declare namespace React {
         ...children: ReactNode[]): ReactElement<P>;
 
     // Context via RenderProps
-    type Provider<T> = ComponentType<{
-        value: T,
-        children?: ReactNode
-    }>;
-    type Consumer<T> = ComponentType<{
-        children: (value: T) => ReactNode,
-        unstable_observedBits?: number
-    }>;
+    interface ProviderProps<T> {
+        value: T;
+        children?: ReactNode;
+    }
+
+    interface ConsumerProps<T> {
+        children: (value: T) => ReactNode;
+        unstable_observedBits?: number;
+    }
+
+    type Provider<T> = ComponentType<ProviderProps<T>>;
+    type Consumer<T> = ComponentType<ConsumerProps<T>>;
     interface Context<T> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
