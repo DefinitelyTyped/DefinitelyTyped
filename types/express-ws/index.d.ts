@@ -19,7 +19,7 @@ declare namespace expressWs {
     type Application = express.Application & WithWebsocketMethod<express.Application>;
     type Router = express.Router & WithWebsocketMethod<express.Router>;
 
-    type ServerOption = http.Server | https.Server | undefined;
+    type ServerOption = http.Server | https.Server;
 
     interface Options {
         leaveRouterUntouched?: boolean;

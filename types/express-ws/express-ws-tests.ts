@@ -29,7 +29,8 @@ applyTo({});
  */
 getWss().clients.forEach(ws => {
     if (ws.readyState !== ws.OPEN) {
-        return ws.terminate();
+        ws.terminate();
+        return;
     }
     ws.ping();
 });
