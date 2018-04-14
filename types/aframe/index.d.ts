@@ -37,12 +37,12 @@ declare namespace AFrame {
 		components: { [ key: string ]: ComponentDescriptor };
 		geometries: { [ key: string ]: GeometryDescriptor };
 		primitives: { [ key: string ]: Entity };
-		registerComponent(name: string, component: ComponentDefinition<any, any>): ComponentConstructor;
+		registerComponent<T extends Component<{}, System | undefined> = Component>(name: string, component: ComponentDefinition<T>): ComponentConstructor;
 		registerElement(name: string, element: ANode): void;
-		registerGeometry(name: string, geometry: GeometryDefinition): Geometry;
+		registerGeometry<T extends Geometry = Geometry>(name: string, geometry: GeometryDefinition<T>): T;
 		registerPrimitive(name: string, primitive: PrimitiveDefinition): void;
 		registerShader(name: string, shader: any): void;
-		registerSystem(name: string, definition: SystemDefinition<any>): void;
+		registerSystem(name: string, definition: SystemDefinition): void;
 		schema: SchemaUtils;
 		shaders: { [ key: string ]: ShaderDescriptor };
 		systems: { [key: string]: System };
@@ -90,9 +90,9 @@ declare namespace AFrame {
 		tick(): void;
 	}
 
-	type Component<T extends CustomProperties = {}, S extends System = undefined> = {[P in keyof T]?: T[P];} & {
+	class Component<T extends CustomProperties = {}, S extends System | undefined = undefined> {
 		attrName?: string;
-		data?: T['data'];
+		data: T['data'];
 		dependencies?: string[];
 		el: Entity;
 		id: string;
@@ -122,22 +122,21 @@ declare namespace AFrame {
 		[key: string ]: any;
 	}
 
-	type ComponentDefinition<T extends CustomProperties = {}, S extends System = undefined> = {[P in keyof T]?: T[P];} & {
-
+	type ComponentDefinition<T extends Component<{}, System | undefined> = Component> = { [P in keyof T]?: T[P]; } & {
 		dependencies?: string[];
 		el?: Entity;
 		id?: string;
 		multiple?: boolean;
 		schema?: Schema<T['data']>;
 
-		init?(this: Component<T, S> & T, data?: any): void;
-		pause?(this: Component<T, S> & T, ): void;
-		play?(this: Component<T, S> & T, ): void;
-		remove?(this: Component<T, S> & T, ): void;
-		tick?(this: Component<T, S> & T, time: number, timeDelta: number): void;
-		update?(this: Component<T, S> & T, oldData: T['data']): void;
-		updateSchema?(this: Component<T, S> & T): void;
-	}
+		init?(this: T, data?: any): void;
+		pause?(this: T): void;
+		play?(this: T): void;
+		remove?(this: T): void;
+		tick?(this: T, time: number, timeDelta: number): void;
+		update?(this: T, oldData: T['data']): void;
+		updateSchema?(this: T): void;
+	};
 
 	interface ComponentDescriptor {
 		Component: Component;
@@ -224,16 +223,24 @@ declare namespace AFrame {
 		'schemachanged': DetailEvent<{ componentName: string }>;
 	}
 
-	interface Geometry {
+	class Geometry {
+		constructor();
+
 		name: string;
 		geometry: THREE.Geometry;
-		schema: Schema;
-		update(data: object): void;
-		[ key: string ]: any;
+		schema: Schema<any>;
+
+		init(data: { [key: string ]: any }): void;
 	}
 
-	interface GeometryDefinition extends ComponentDefinition {
+	interface GeometryDefinition<T extends Geometry = Geometry> {
+		schema?: T['schema'];
 		geometry?: THREE.Geometry;
+
+		init?(this: T, data: { [P in keyof T['schema']]: any }): void;
+		// Would like the above to be:
+		//  init?(this: T, data?: { [P in keyof T['schema']]: T['schema'][P]['default'] } ): void;
+		//  I think this is prevented by the following issue: https://github.com/Microsoft/TypeScript/issues/21760.
 	}
 
 	interface GeometryDescriptor {
@@ -310,25 +317,24 @@ declare namespace AFrame {
 		'default'?: T;
 		parse?(value: string): T;
 		stringify?(value: T): string;
-		[ key: string ]: any;
 	}
 
-	type System<T extends CustomProperties = {}> = {[P in keyof T]?: T[P];} & {
+	class System<T extends CustomProperties = {}> {
 		data: T['data'];
 		schema: Schema<T['data']>;
-		init(this: System<T>): void;
-		pause(this: System<T>): void;
-		play(this: System<T>): void;
-		tick?(this: System<T>, t: number, dt: number): void;
+		init(): void;
+		pause(): void;
+		play(): void;
+		tick?(t: number, dt: number): void;
 	}
 
-	type SystemDefinition<T extends CustomProperties = {}> = {[P in keyof T]?: T[P];} & {
-		schema?: Schema<T['data']>;
-		init?(this: System<T>): void;
-		pause?(this: System<T>): void;
-		play?(this: System<T>): void;
-		tick?(this: System<T>): void;
-	}
+	type SystemDefinition<T extends System = System> = { [P in keyof T]?: T[P]; } & {
+		schema?: T['schema'];
+		init?(this: T): void;
+		pause?(this: T): void;
+		play?(this: T): void;
+		tick?(this: T): void;
+	};
 
 	interface Utils {
 		coordinates: {
