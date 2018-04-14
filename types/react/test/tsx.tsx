@@ -150,6 +150,7 @@ class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { b
         return this.state.bar;
     }
 }
+<ComponentWithNewLifecycles foo="bar" />;
 
 class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', string>> {
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a'|'b'|'c', string>> = () => {
