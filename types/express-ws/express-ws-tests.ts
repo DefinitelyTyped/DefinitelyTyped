@@ -20,9 +20,16 @@ expressWs(dummyApp, httpServer, {
 const { app, getWss, applyTo } = expressWs(express());
 
 /**
- * applyTo accepts objects
+ * applyTo accepts router object
  */
-applyTo({});
+applyTo(express.Router());
+
+/**
+ * applyTo accepts router-like objects
+ */
+applyTo({
+    get() { return this; }
+});
 
 /**
  * getWss function returns ws server

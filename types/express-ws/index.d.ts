@@ -26,9 +26,15 @@ declare namespace expressWs {
         wsOptions?: ws.ServerOptions;
     }
 
+    interface RouterLike {
+        get: express.IRouterMatcher<this>;
+        [key: string]: any;
+        [key: number]: any;
+    }
+
     interface Instance {
         app: Application;
-        applyTo(target: object): void;
+        applyTo(target: RouterLike): void;
         getWss(): ws.Server;
     }
 
