@@ -108,7 +108,7 @@ export function escapeRegexChars(s: string): string;
 export function escapeXML(markup: string): string;
 export interface Cache {
     set(key: string, val: TemplateFunction): void;
-    get(key: string): TemplateFunction;
+    get(key: string): TemplateFunction | undefined;
 }
 export let delimiter: string;
 

@@ -1,4 +1,4 @@
-// Script for converting the lodash types into unctional programming (FP) format.
+// Script for converting the lodash types into functional programming (FP) format.
 // The convertion is done based on this guide: https://github.com/lodash/lodash/wiki/FP-Guide
 
 // Assumptions:
@@ -17,12 +17,18 @@ import path from "path";
 interface Definition {
     name: string;
     overloads: Overload[];
+    constants: string[];
     jsdoc: string;
+}
+interface InterfaceGroup {
+    functionName: string;
+    interfaces: Interface[];
 }
 interface Interface {
     name: string;
     typeParams: TypeParam[];
     overloads: Overload[];
+    constants: string[];
 }
 interface Overload {
     typeParams: TypeParam[];
@@ -46,9 +52,9 @@ async function main() {
 
     // Read each function definition and fp-ify it
     const subfolders = ["common"];
-    const promises: Array<Promise<string[]>> = [];
+    const promises: Array<Promise<InterfaceGroup[]>> = [];
     for (const subfolder of subfolders) {
-        promises.push(new Promise<string[]>((resolve, reject) => {
+        promises.push(new Promise<InterfaceGroup[]>((resolve, reject) => {
             fs.readdir(path.join("..", subfolder), (err, files) => {
                 if (err) {
                     console.error(`failed to list directory contents for '${subfolder}': `, err);
@@ -66,40 +72,55 @@ async function main() {
         }));
     }
 
-    let functionNames: string[];
+    let interfaceGroups: InterfaceGroup[];
     try {
-        functionNames = _.flatten(await Promise.all(promises));
+        interfaceGroups = _.flatten(await Promise.all(promises));
     } catch (err) {
         console.error("Failed to parse all functions: ", err);
         return;
     }
-    functionNames = _.sortedUniq(_.sortBy(functionNames, _.toLower));
+    interfaceGroups = _.sortBy(interfaceGroups, g => _.toLower(g.functionName));
+    for (const interfaceGroup of interfaceGroups) {
+        // Rename interfaces for different versions of the same function with different arity (to avoid name conflicts).
+        // Don't rename aliases - instead they will be removed from the output when interfaces are written.
+        const interfaceName = interfaceGroup.interfaces[0].name;
+        const conflicts = interfaceGroups.filter(g => g.interfaces[0].name === interfaceName);
+        if (conflicts.length > 1 && _.some(conflicts, c => !_.isEqual(c.interfaces, conflicts[0].interfaces))) {
+            for (const conflict of conflicts) {
+                const oldName = conflict.interfaces[0].name;
+                const newName = getInterfaceBaseName(conflict.functionName);
+                for (const interfaceDef of conflict.interfaces) {
+                    interfaceDef.name = interfaceDef.name.replace(oldName, newName);
+                    for (const overload of interfaceDef.overloads)
+                        overload.returnType = overload.returnType.replace(oldName, newName);
+                }
+            }
+        }
+    }
+    const interfaces = _.uniqBy(_.flatMap(interfaceGroups, g => g.interfaces), i => i.name);
+    const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
+    const interfaceStrings = _(interfaces)
+        .map(i => tab(interfaceToString(i), 1))
+        .join(lineBreak)
+        .replace(commonTypeSearch, match => `lodash.${match}`);
     const fpFile = [
         "// AUTO-GENERATED: do not modify this file directly.",
         "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
         "// npm run fp",
         "",
-        ...functionNames.map(f => `import ${f} = require("./fp/${f}");`),
+        'import lodash = require("./index");',
         "",
         "export = _;",
         "",
         "declare const _: _.LoDashFp;",
         "declare namespace _ {",
-        "    interface LoDashFp {",
-        ...functionNames.map(f => `        ${f}: typeof ${f};`),
-        "    }",
-        "}",
+        interfaceStrings,
         "",
-        "// Backward compatibility with --target es5",
-        "declare global {",
-        "    // tslint:disable-next-line:no-empty-interface",
-        "    interface Set<T> { }",
-        "    // tslint:disable-next-line:no-empty-interface",
-        "    interface Map<K, V> { }",
-        "    // tslint:disable-next-line:no-empty-interface",
-        "    interface WeakSet<T> { }",
-        "    // tslint:disable-next-line:no-empty-interface",
-        "    interface WeakMap<K extends object, V> { }",
+        "    interface LoDashFp {",
+        ...interfaceGroups.map(g => `        ${g.functionName}: ${g.interfaces[0].name};`),
+        "        __: lodash.__;",
+        "        placehodler: lodash.__;",
+        "    }",
         "}",
         "",
     ].join(lineBreak);
@@ -110,7 +131,8 @@ async function main() {
 
     // Make sure the generated files are listed in tsconfig.json, so they are included in the lint checks
     const tsconfig = tsconfigFile.split(lineBreak).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
-    const newRows = functionNames.map(f => `        "fp/${f}.d.ts",`);
+    const newRows = interfaceGroups.map(g => `        "fp/${g.functionName}.d.ts",`)
+        .concat(["__", "placeholder"].map(p => `        "fp/${p}.d.ts",`));
     newRows[newRows.length - 1] = newRows[newRows.length - 1].replace(",", "");
 
     const insertIndex = _.findLastIndex(tsconfig, row => row.trim() === "]"); // Assume "files" is the last array
@@ -140,17 +162,17 @@ function readFile(filePath: string): Promise<string> {
     });
 }
 
-async function processDefinitions(filePaths: string[], commonTypes: string[]): Promise<string[]> {
+async function processDefinitions(filePaths: string[], commonTypes: string[]): Promise<InterfaceGroup[]> {
     const builder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     const unconvertedBuilder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     for (const filePath of filePaths) {
         const definitions = await parseFile(filePath, commonTypes);
         for (const definition of definitions) {
-            if (definition.overloads.every(o => o.params.length <= 1 && o.returnType === "typeof _")) {
+            if (definition.overloads.every(o => o.params.length <= 1 && (o.returnType === "typeof _" || o.returnType === "LoDashStatic"))) {
                 // Our convert technique doesn't work well on "typeof _" functions (or at least runInContext)
                 // Plus, if there are 0-1 parameters, there's nothing to curry anyways.
                 unconvertedBuilder[definition.name] = (...args: number[][]) => {
-                    return () => curryOverloads(definition.overloads, definition.name, args[0] || [], -1, false);
+                    return () => curryDefinition(definition, args[0] || [], -1, false);
                 };
             } else {
                 builder[definition.name] = (...args: Array<number | number[]>) => {
@@ -177,7 +199,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
                             args = _.sortBy(args as number[][], (a: number[]) => a[0]);
                     }
 
-                    return () => curryOverloads(definition.overloads, definition.name, _.flatten(args), spreadIndex, isFixed);
+                    return () => curryDefinition(definition, _.flatten(args), spreadIndex, isFixed);
                 };
             }
         }
@@ -188,31 +210,14 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     _.defaults(builderFp, unconvertedBuilder);
 
     const functionNames = Object.keys(builderFp).filter(key => key !== "convert" && typeof builderFp[key] === "function");
-    for (const functionName of functionNames) {
+    const interfaceGroups: InterfaceGroup[] = functionNames.map((functionName): InterfaceGroup => ({
+        functionName,
         // Assuming the maximum arity is 4. Pass one more arg than the max arity so we can detect if arguments weren't fixed.
-        const outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3], [4]);
-        const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
-        commonTypeSearch.lastIndex;
-        let importCommon = false;
-        let output = outputFn([0], [1], [2], [3], [4])
-            .map(interfaceToString)
-            .join(lineBreak)
-            .replace(commonTypeSearch, match => {
-                importCommon = true;
-                return `_.${match}`;
-            });
-        if (!importCommon && output.includes("typeof _"))
-            importCommon = true;
-        const interfaceNameMatch = output.match(/(?:interface|type) ([A-Za-z0-9]+)/);
-        const interfaceName = (interfaceNameMatch ? interfaceNameMatch[1] : undefined) || _.upperFirst(functionName);
-        output = [
-            "// AUTO-GENERATED: do not modify this file directly.",
-            "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
-            "// npm run fp",
-            importCommon ? `${lineBreak}import _ = require("../index");${lineBreak}` : '',
-            output,
-            "",
-            `declare const ${functionName}: ${interfaceName};`,
+        interfaces: builderFp[functionName]([0], [1], [2], [3], [4])([0], [1], [2], [3], [4]),
+    }));
+    for (const functionName of functionNames) {
+        const output = [
+            `import { ${functionName} } from "../fp";`,
             `export = ${functionName};`,
             "",
         ].join(lineBreak);
@@ -222,12 +227,12 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
                 console.error(`failed to write file: ${targetFile}`, err);
         });
     }
-    return functionNames;
+    return interfaceGroups;
 }
 
 async function parseFile(filePath: string, commonTypes: string[]): Promise<Definition[]> {
     const definitionString = await readFile(filePath);
-    const newCommonTypeRegExp = /    (?:type|interface) ([A-Za-z0-9]+)/g;
+    const newCommonTypeRegExp = /    (?:type|interface) ([A-Za-z0-9_]+)/g;
     let newCommonType = newCommonTypeRegExp.exec(definitionString);
     while (newCommonType) {
         if (!commonTypes.includes(newCommonType[1]))
@@ -246,14 +251,16 @@ async function parseFile(filePath: string, commonTypes: string[]): Promise<Defin
             console.warn(`Failed to find end of interface 'LoDashStatic' (starting at ${filePath} line ${lineNumber}).`);
             break;
         }
-        const definitions = parseDefinitions(definitionString, startIndex + lodashStaticMatch[0].length, endIndex, filePath, commonTypes);
-        definitons.push(...definitions);
+        const parsedDefinitions = parseDefinitions(definitionString, startIndex + lodashStaticMatch[0].length, endIndex, filePath, commonTypes);
+        definitons.push(...parsedDefinitions);
         lodashStaticMatch = lodashStaticRegExp.exec(definitionString);
     }
+    const __test = definitons.filter(d => !_.isEmpty(d.constants));
     return definitons;
 }
 
 function parseDefinitions(definitionString: string, startIndex: number, endIndex: number, filePath: string, commonTypes: string[], name?: string): Definition[] {
+    const parentName = name;
     const overloadRegExp = name ? /     [<(]/g : /     (\w+)[<(:]/g;
     overloadRegExp.lastIndex = startIndex;
     let overloadMatch = overloadRegExp.exec(definitionString);
@@ -271,7 +278,7 @@ function parseDefinitions(definitionString: string, startIndex: number, endIndex
         if (!currentDefinition || name !== currentDefinition.name) {
             if (currentDefinition && !_.isEmpty(currentDefinition.overloads))
                 definitons.push(currentDefinition);
-            currentDefinition = { name, overloads: [], jsdoc: "" };
+            currentDefinition = { name, overloads: [], constants: [], jsdoc: "" };
             const jsdocStartIndex = definitionString.lastIndexOf("/**", overloadStartIndex);
             const jsdocEndIndex = definitionString.indexOf("*/", jsdocStartIndex);
             if (jsdocStartIndex !== -1 && jsdocStartIndex > startIndex && jsdocEndIndex !== -1 && jsdocEndIndex < overloadStartIndex) {
@@ -382,31 +389,43 @@ function parseDefinitions(definitionString: string, startIndex: number, endIndex
             }
             const [definition] = parseDefinitions(definitionString, interfaceStartIndex, interfaceEndIndex, filePath, commonTypes, name);
             if (definition) {
-                for (const overload of definition.overloads)
-                    overload.jsdoc = currentDefinition.jsdoc;
+                if (currentDefinition.jsdoc)
+                    for (const overload of definition.overloads)
+                        overload.jsdoc = currentDefinition.jsdoc;
                 currentDefinition.overloads.push(...definition.overloads);
+                currentDefinition.constants.push(...definition.constants);
             }
         }
     }
+    if (parentName && currentDefinition) {
+        const constantRexExp = /    (\w+): *([^()\r\n]+);[\r\n]/g;
+        constantRexExp.lastIndex = startIndex;
+        for (let constantMatch = constantRexExp.exec(definitionString); constantMatch && constantMatch.index < endIndex; constantMatch = constantRexExp.exec(definitionString)) {
+            currentDefinition.constants.push(`${constantMatch[1]}: ${constantMatch[2]}`);
+        }
+    }
+
     if (currentDefinition && !_.isEmpty(currentDefinition.overloads))
         definitons.push(currentDefinition);
     return definitons;
 }
 
-function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], spreadIndex: number, isFixed: boolean): Interface[] {
-    overloads = _.cloneDeep(overloads);
-
+function curryDefinition(definition: Definition, paramOrder: number[], spreadIndex: number, isFixed: boolean): Interface[] {
+    // Remove any duplicate/redundant overloads
+    let overloads = _.uniqWith(_.cloneDeep(definition.overloads),
+        (a, b) => _.isEqual(a.params, b.params) && _.isEqual(getUsedTypeParams(a.params, a.typeParams), getUsedTypeParams(b.params, b.typeParams)));
+    const functionName = definition.name;
     // Remove unused type parameters
     for (const overload of overloads) {
         for (let i = 0; i < overload.typeParams.length; ++i) {
-            const search = new RegExp(`\\b${overload.typeParams[i].name}\\b`);
+            const typeParam = overload.typeParams[i];
+            const search = new RegExp(`\\b${typeParam.name}\\b`);
             if (overload.params.every(p => !search.test(p)) && !search.test(overload.returnType)) {
+                // overload.returnType = overload.returnType.replace(search, typeParam.extends || "any");
                 overload.typeParams.splice(i, 1);
                 --i;
             }
         }
-        if (overloads.some(o => o !== overload && _.isEqual(o, overload)))
-            _.pull(overloads, overload);
     }
 
     if (!isFixed) {
@@ -414,9 +433,10 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         for (const overload of overloads)
             overload.params = overload.params.map(p => p.replace(/\?:/g, ":")); // No optional parameters
         return [{
-            name: _.upperFirst(functionName),
+            name: getInterfaceBaseName(functionName),
             typeParams: [],
             overloads,
+            constants: definition.constants,
         }];
     }
     paramOrder = paramOrder.filter(p => typeof p === "number");
@@ -540,6 +560,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
     }
     for (const interfaceDef of interfaces)
         interfaceDef.overloads = mergeSimilarOverloads(interfaceDef.overloads);
+    interfaces[0].constants = definition.constants;
     return interfaces;
 }
 
@@ -550,6 +571,10 @@ function getParamName(param: string) {
 function getParamType(param: string) {
     const index = param.indexOf(":");
     return index !== -1 ? param.substring(index + 1).trim() : "any";
+}
+
+function isPlaceholder(param: string) {
+    return param.endsWith("__");
 }
 
 function preProcessOverload(overload: Overload, functionName: string, arity: number): void {
@@ -601,41 +626,26 @@ function capCallback(parameter: string, functionName: string): string {
 }
 
 function curryOverload(overload: Overload, functionName: string, overloadId: number): Interface[] {
-    let baseName = _.upperFirst(functionName);
-    if (baseName === "Pick") // A type called "Pick" already exists, so rename to avoid conflicts
-        baseName = "Lodash" + baseName;
+    const baseName = getInterfaceBaseName(functionName);
     if (overload.params.length <= 1) {
         // Functions with 0 or 1 arguments are not curried. Just use a basic function type.
         return [{
             name: baseName,
             overloads: [overload],
             typeParams: [],
+            constants: [],
         }];
     }
 
+    // Create a separate interface for each possible combination of parameters that could be passed.
+    // i = binary representation of which parameters were passed to result in this interface (reversed), e.g.
+    //   1 = 0001 = 1st parameter was passed; 2nd-4th remain
+    //   6 = 1010 = 2nd and 4th parameters were passed; 1st and 3rd remain
     const interfaces: Interface[] = [];
-    let passTypeParams: TypeParam[] = [];
-    for (let i = 0; i < overload.params.length; ++i) {
-        const interfaceDef = {
-            name: getInterfaceName(baseName, overloadId, i, []),
-            typeParams: _.cloneDeep(passTypeParams),
-            overloads: curryParams(
-                overload.params.slice(i),
-                _.without(overload.typeParams, ...passTypeParams),
-                overload.returnType,
-                baseName,
-                passTypeParams,
-                overloadId,
-                i,
-                overload.jsdoc,
-            ),
-        };
+    const interfaceCount = (1 << overload.params.length) - 1;
+    for (let i = 0; i < interfaceCount; ++i) {
+        const interfaceDef = curryParams(baseName, overloadId, overload, i);
         interfaces.push(interfaceDef);
-        const currentParams = overload.params.slice(0, i + 1);
-        const usedTypeParams = overload.typeParams.filter(tp => currentParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
-        usedTypeParams.unshift(...overload.typeParams.filter(tp => !usedTypeParams.includes(tp) && usedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
-        const unusedParams = overload.params.slice(i + 1).concat(overload.returnType);
-        passTypeParams = usedTypeParams.filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
     }
     // The T[keyof T] constraint doesn't work so well if it's the only constraint. Convert to a plain old T constraint so it can be merged with
     // other ValueIteratee<T> overloads
@@ -687,38 +697,87 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
 }
 
 function curryParams(
-    params: string[],
-    typeParams: TypeParam[],
-    returnType: string,
     baseName: string,
-    interfaceTypeParams: TypeParam[],
-    overloadId: number,
-    index: number,
-    jsdoc: string,
-): Overload[] {
-    // Assume params.length >= 1
-    const overloads: Overload[] = [{
+    sourceOverloadId: number,
+    sourceOverload: Overload,
+    interfaceIndex: number,
+): Interface {
+    const params = getInterfaceParams(sourceOverload, interfaceIndex);
+    const interfaceTypeParams = getInterfaceTypeParams(sourceOverload, interfaceIndex);
+
+    const prevParams = _.without(sourceOverload.params, ...params);
+    const prevTypeParams = getUsedTypeParams(prevParams, sourceOverload.typeParams);
+    const typeParams = _.without(sourceOverload.typeParams, ...prevTypeParams);
+    // 1st overload takes no parameters and just returns the same interface (effectively a no-op)
+    // HACK: omit the parameterless overload because it's not very useful, and it causes the build to run out of memory
+    // This assumes params.length > 0, which is true because curryParams is only called when params.length >= 2.
+    /*const overloads: Overload[] = [{
         typeParams: [],
         params: [],
-        returnType: getInterfaceName(baseName, overloadId, index, interfaceTypeParams),
-        jsdoc,
-    }];
-    for (let i = 1; i <= params.length; ++i) {
-        const currentParams = params.slice(0, i);
-        const usedTypeParams = i < params.length ? typeParams.filter(tp => currentParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p))) : typeParams;
-        usedTypeParams.unshift(...typeParams.filter(tp => !usedTypeParams.includes(tp) && usedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
-        const unusedParams = params.slice(i).concat(returnType);
-        const passTypeParams = usedTypeParams.concat(interfaceTypeParams).filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
-        const currentReturnType = i < params.length ? getInterfaceName(baseName, overloadId, index + i, passTypeParams) : returnType;
+        returnType: getInterfaceName(baseName, sourceOverloadId, interfaceIndex, interfaceTypeParams),
+        jsdoc: sourceOverload.jsdoc,
+    }];*/
+    const overloads: Overload[] = [];
+    const lastOverload = (1 << params.length) - 1;
+    for (let i = 1; i <= lastOverload; ++i) {
+        // xxxx i = number of parameters used by this overload
+        // const totalCombinations = nCk(params.length, i);
+        // i = binary representation of which parameters are used for this overload (reversed), e.g.
+        //   1 = 0001 -> 1000 = 1st parameter
+        //   6 = 1010 -> 0101 = 2nd and 4th parameters
+        const currentParams = params.map((p, j) => (i & (1 << j)) ? p : `${getParamName(p)}: __`);
+        while (currentParams.length > 0 && _.last(currentParams)!.endsWith("__"))
+            currentParams.pop(); // There's no point in passing a placeholder as the last parameter, so don't allow it.
+
+        const usedTypeParams = i < lastOverload ? getUsedTypeParams(currentParams, typeParams) : typeParams;
+        const combinedIndex = combineIndexes(interfaceIndex, i);
+        const passTypeParams = getInterfaceTypeParams(sourceOverload, combinedIndex);
+        const currentReturnType = i < lastOverload ? getInterfaceName(baseName, sourceOverloadId, combinedIndex, passTypeParams) : sourceOverload.returnType;
 
         overloads.push({
             typeParams: _.cloneDeep(usedTypeParams),
             params: currentParams,
             returnType: currentReturnType,
-            jsdoc,
+            jsdoc: interfaceIndex === 0 ? sourceOverload.jsdoc : "",
         });
     }
-    return overloads;
+    const interfaceDef: Interface = {
+        name: getInterfaceName(baseName, sourceOverloadId, interfaceIndex, []),
+        typeParams: _.cloneDeep(interfaceTypeParams),
+        overloads,
+        constants: [],
+    };
+    // Remove the `extends` constraint from interface type parameters, because sometimes they extend things that aren't passed to the interface.
+    for (const typeParam of interfaceDef.typeParams) {
+        if (!_.startsWith(typeParam.extends, "keyof ")) // We need to keep `extends keyof` constraints, because they're needed for TObject[TKey] to work.
+            delete typeParam.extends;
+    }
+    return interfaceDef;
+}
+
+function getInterfaceBaseName(functionName: string) {
+    return "Lodash" + _.upperFirst(functionName);
+}
+
+function getInterfaceParams(overload: Overload, interfaceIndex: number) {
+    return overload.params.filter((p, j) => !(interfaceIndex & (1 << j)));
+}
+
+function getUsedTypeParams(params: string[], typeParams: TypeParam[]) {
+    const usedTypeParams = typeParams.filter(tp => params.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
+    usedTypeParams.unshift(...typeParams.filter(tp =>
+        !usedTypeParams.includes(tp) && usedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
+    return usedTypeParams;
+}
+
+function getInterfaceTypeParams(overload: Overload, interfaceIndex: number) {
+    const currentParams = getInterfaceParams(overload, interfaceIndex);
+    const passedParams = _.without(overload.params, ...currentParams);
+    const passedTypeParams = getUsedTypeParams(passedParams, overload.typeParams);
+    const interfaceTypeParams = passedTypeParams.filter(tp => currentParams.concat(overload.returnType).some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
+    interfaceTypeParams.unshift(...overload.typeParams.filter(tp =>
+        !interfaceTypeParams.includes(tp) && interfaceTypeParams.some(tp2 => !!tp2.extends && new RegExp(`^keyof ${tp.name}\\b`).test(tp2.extends))));
+    return interfaceTypeParams;
 }
 
 function mergeInterfaces(interfaces: Interface[]): void {
@@ -732,10 +791,12 @@ function mergeSimilarOverloads(overloads: Overload[]): Overload[] {
     const newOverloads = _.cloneDeep(overloads);
     for (const overload of newOverloads) {
         // We can merge if all param types are the same except one, and the return types are the same.
+        // Also, we can't merge a placeholder param with a non-placeholder.
         const others = newOverloads.filter(o2 => o2 !== overload
             && _.isEqual(overload.typeParams, o2.typeParams)
             && overload.params.length === o2.params.length
             && overload.params.length >= 1
+            && overload.params.every((p, i) => isPlaceholder(p) === isPlaceholder(o2.params[i]))
             && overload.params.filter((p, i) => getParamType(p) !== getParamType(o2.params[i])).length <= 1
             && overload.returnType === o2.returnType);
         if (_.isEmpty(others))
@@ -748,8 +809,8 @@ function mergeSimilarOverloads(overloads: Overload[]): Overload[] {
             .value();
         if (differingParamIndexes.length > 1)
             continue; // Only one param is different, but it's a different param for some overloads, so we can't merge
+        const similarOverloads = [overload].concat(others);
         for (let i = 0; i < overload.params.length; ++i) {
-            const similarOverloads = [overload].concat(others);
             const paramNames = _.uniq(similarOverloads.map(o => getParamName(o.params[i])));
             const newParamName = (paramNames.length > 1) ? `${paramNames[0]}Or${paramNames.slice(1).map(_.upperFirst).join("Or")}` : paramNames[0];
 
@@ -767,6 +828,19 @@ function mergeSimilarOverloads(overloads: Overload[]): Overload[] {
     return newOverloads;
 }
 
+function combineIndexes(i1: number, i2: number): number {
+    let result = i1;
+    let resultMask = 1;
+    for (let i2mask = 1; i2mask <= i2; i2mask <<= 1) {
+        while (result & resultMask)
+            resultMask <<= 1;
+        if (i2 & i2mask)
+            result += resultMask;
+        resultMask <<= 1;
+    }
+    return result;
+}
+
 function getInterfaceName(baseName: string, overloadId: number, index: number, typeParams: TypeParam[]): string {
     let interfaceName = baseName;
     if (index > 0)
@@ -775,25 +849,31 @@ function getInterfaceName(baseName: string, overloadId: number, index: number, t
 }
 
 function interfaceToString(interfaceDef: Interface): string {
-    if (interfaceDef.overloads.length === 0) {
+    if (_.isEmpty(interfaceDef.overloads)) {
         // No point in creating an empty interface
         return "";
-    } else if (interfaceDef.overloads.length === 1) {
+    } else if (interfaceDef.overloads.length === 1 && _.isEmpty(interfaceDef.constants)) {
         // Don't create an interface for a single type. Instead use a basic type def.
-        let jsdoc = interfaceDef.overloads[0].jsdoc;
-        if (jsdoc)
-            jsdoc += lineBreak;
-        interfaceDef.overloads[0].jsdoc = "";
-        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} =${lineBreak}${tab(jsdoc + overloadToString(interfaceDef.overloads[0], true), 1)}`;
+        const overload = interfaceDef.overloads[0];
+        // HACK: omit jsdoc comments because they cause the build to run out of memory
+        // const jsdoc = overload.jsdoc;
+        const jsdoc = "";
+        overload.jsdoc = "";
+        let overloadString = overloadToString(overload, true);
+        overloadString = jsdoc ? lineBreak + tab(jsdoc + lineBreak + overloadString, 1) : " " + overloadString;
+        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} =${overloadString}`;
     } else {
-        const overloadStrings = interfaceDef.overloads.map(o => lineBreak + tab(overloadToString(o), 1)).join("");
+        const overloadStrings = interfaceDef.overloads.map(o => lineBreak + tab(overloadToString(o), 1)).join("")
+            + interfaceDef.constants.map(c => `${lineBreak}${tab(c, 1)};`).join("");
         return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}${lineBreak}}`;
     }
 }
 
 function overloadToString(overload: Overload, arrowSyntax = false): string {
     const joinedParams = overload.params.join(", ");
-    let jsdoc = overload.jsdoc;
+    // HACK: omit jsdoc comments because they cause the build to run out of memory
+    // let jsdoc = overload.jsdoc;
+    let jsdoc = "";
     if (jsdoc)
         jsdoc += lineBreak;
     if (overload.tslintDisable)
@@ -825,7 +905,7 @@ function getLineNumber(fileContents: string, index: number) {
 
 function tab(s: string, count: number) {
     const prepend: string = " ".repeat(count * 4);
-    return prepend + s.replace(/(?:\r\n|\n|\r)(.)/g, `${lineBreak}${prepend}$1`);
+    return (s[0] === "\n" || s[0] === "\r" ? "" : prepend) + s.replace(/(?:\r\n|\n|\r)(.)/g, `${lineBreak}${prepend}$1`);
 }
 
 function indexOfAny(source: string, values: string[], position?: number): number {

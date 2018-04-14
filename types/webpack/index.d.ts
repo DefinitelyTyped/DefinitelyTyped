@@ -421,6 +421,8 @@ declare namespace webpack {
         include?: Condition | Condition[];
         /** A Condition matched with the resource. */
         resource?: Condition | Condition[];
+        /** A Condition matched with the resource query. */
+        resourceQuery?: Condition | Condition[];
         /** A condition matched with the issuer */
         issuer?: Condition | Condition[];
         /**

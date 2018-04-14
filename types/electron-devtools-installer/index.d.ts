@@ -1,6 +1,7 @@
 // Type definitions for electron-devtools-installer v2.0.1
 // Project: https://github.com/MarshallOfSound/electron-devtools-installer
 // Definitions by: Robin Van den Broeck <https://github.com/gamesmaxed>
+//                 M. Fatih Mar <https://github.com/mfatihmar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "electron-devtools-installer" {
@@ -21,4 +22,7 @@ declare module "electron-devtools-installer" {
     export const VUEJS_DEVTOOLS: ExtensionReference;
     export const REDUX_DEVTOOLS: ExtensionReference;
     export const REACT_PERF: ExtensionReference;
+    export const CYCLEJS_DEVTOOL: ExtensionReference;
+    export const APOLLO_DEVELOPER_TOOLS: ExtensionReference;
+    export const MOBX_DEVTOOLS: ExtensionReference;
 }

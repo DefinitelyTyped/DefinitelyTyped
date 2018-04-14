@@ -174,7 +174,7 @@
             "sourceRepoURL": "https://github.com/MikeMcl/bignumber.js/",
             "asOfVersion": "5.0.0"
         },
-		{
+        {
             "libraryName": "bingmaps",
             "typingsPackageName": "bingmaps",
             "sourceRepoURL": "https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions",
@@ -211,6 +211,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "catalog",
+            "typingsPackageName": "catalog",
+            "sourceRepoURL": "https://github.com/interactivethings/catalog",
+            "asOfVersion": "3.5.0"
+        },
+        {
             "libraryName": "chalk",
             "typingsPackageName": "chalk",
             "sourceRepoURL": "https://github.com/chalk/chalk",
@@ -233,6 +239,12 @@
             "typingsPackageName": "chunked-dc",
             "sourceRepoURL": "https://github.com/saltyrtc/chunked-dc-js",
             "asOfVersion": "0.2.2"
+        },
+        {
+            "libraryName": "colors.js (colors)",
+            "typingsPackageName": "colors",
+            "sourceRepoURL": "https://github.com/Marak/colors.js",
+            "asOfVersion": "1.2.1"
         },
         {
             "libraryName": "commander",
@@ -1265,6 +1277,12 @@
             "typingsPackageName": "router5",
             "sourceRepoURL": "https://github.com/router5/router5",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "rrule",
+            "typingsPackageName": "rrule",
+            "sourceRepoURL": "https://github.com/jakubroztocil/rrule",
+            "asOfVersion": "2.2.9"
         },
         {
             "libraryName": "rvo2",

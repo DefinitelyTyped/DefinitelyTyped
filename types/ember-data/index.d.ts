@@ -71,7 +71,7 @@ declare module 'ember-data' {
                 inverse?: string | null;
                 polymorphic?: boolean;
             }
-        ): Ember.ComputedProperty<ModelRegistry[K] & PromiseObject<ModelRegistry[K]>>;
+        ): Ember.ComputedProperty<ModelRegistry[K] & PromiseObject<ModelRegistry[K]>, ModelRegistry[K]>;
         /**
          * `DS.hasMany` is used to define One-To-Many and Many-To-Many
          * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -91,7 +91,7 @@ declare module 'ember-data' {
                 inverse?: string | null;
                 polymorphic?: boolean;
             }
-        ): Ember.ComputedProperty<PromiseManyArray<ModelRegistry[K]>>;
+        ): Ember.ComputedProperty<PromiseManyArray<ModelRegistry[K]>, Ember.Array<ModelRegistry[K]>>;
         /**
          * This method normalizes a modelName into the format Ember Data uses
          * internally.

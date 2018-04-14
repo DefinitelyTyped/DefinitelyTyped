@@ -7,7 +7,7 @@
 import { Request } from 'express';
 import { Strategy } from 'passport';
 
-declare class OAuth2Strategy implements Strategy {
+declare class OAuth2Strategy extends Strategy {
     name: string;
 
     constructor(options: OAuth2Strategy.StrategyOptions, verify: OAuth2Strategy.VerifyFunction);

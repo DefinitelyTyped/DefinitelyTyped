@@ -1,11 +1,12 @@
-import { GraphQLObjectType } from './definition';
-import {
-  GraphQLType,
-  GraphQLNamedType,
-  GraphQLAbstractType,
-} from './definition';
-import { SchemaDefinitionNode } from '../language/ast';
-import { GraphQLDirective } from './directives';
+import { GraphQLObjectType } from "./definition";
+import { GraphQLType, GraphQLNamedType, GraphQLAbstractType } from "./definition";
+import { SchemaDefinitionNode } from "../language/ast";
+import { GraphQLDirective } from "./directives";
+
+/**
+ * Test if the given value is a GraphQL schema.
+ */
+export function isSchema(schema: any): schema is GraphQLSchema;
 
 /**
  * Schema Definition
@@ -34,59 +35,51 @@ import { GraphQLDirective } from './directives';
  *
  */
 export class GraphQLSchema {
-  astNode?: SchemaDefinitionNode;
-  // private _queryType: GraphQLObjectType;
-  // private _mutationType: GraphQLObjectType;
-  // private _subscriptionType: GraphQLObjectType;
-  // private _directives: Array<GraphQLDirective>;
-  // private _typeMap: TypeMap;
-  // private _implementations: { [interfaceName: string]: Array<GraphQLObjectType> };
-  // private _possibleTypeMap: { [abstractName: string]: { [possibleName: string]: boolean } };
+    astNode: SchemaDefinitionNode | void;
 
-  constructor(config: GraphQLSchemaConfig);
+    constructor(config: GraphQLSchemaConfig);
 
-  getQueryType(): GraphQLObjectType;
-  getMutationType(): GraphQLObjectType | null | undefined;
-  getSubscriptionType(): GraphQLObjectType | null | undefined;
-  getTypeMap(): { [typeName: string]: GraphQLNamedType };
-  getType(name: string): GraphQLNamedType;
-  getPossibleTypes(abstractType: GraphQLAbstractType): GraphQLObjectType[];
+    getQueryType(): GraphQLObjectType | void;
+    getMutationType(): GraphQLObjectType | void;
+    getSubscriptionType(): GraphQLObjectType | void;
+    getTypeMap(): TypeMap;
+    getType(name: string): GraphQLNamedType | void;
+    getPossibleTypes(abstractType: GraphQLAbstractType): ReadonlyArray<GraphQLObjectType>;
 
-  isPossibleType(
-    abstractType: GraphQLAbstractType,
-    possibleType: GraphQLObjectType,
-  ): boolean;
+    isPossibleType(abstractType: GraphQLAbstractType, possibleType: GraphQLObjectType): boolean;
 
-  getDirectives(): GraphQLDirective[];
-  getDirective(name: string): GraphQLDirective;
+    getDirectives(): ReadonlyArray<GraphQLDirective>;
+    getDirective(name: string): GraphQLDirective | void;
 }
 
-export type GraphQLSchemaValidationOptions = {
-  /**
-   * When building a schema from a GraphQL service's introspection result, it
-   * might be safe to assume the schema is valid. Set to true to assume the
-   * produced schema is valid.
-   *
-   * Default: false
-   */
-  assumeValid?: boolean;
+type TypeMap = { [key: string]: GraphQLNamedType };
 
-  /**
-   * If provided, the schema will consider fields or types with names included
-   * in this list valid, even if they do not adhere to the specification's
-   * schema validation rules.
-   *
-   * This option is provided to ease adoption and may be removed in a future
-   * major release.
-   */
-  allowedLegacyNames?: ReadonlyArray<string>;
-};
+export interface GraphQLSchemaValidationOptions {
+    /**
+     * When building a schema from a GraphQL service's introspection result, it
+     * might be safe to assume the schema is valid. Set to true to assume the
+     * produced schema is valid.
+     *
+     * Default: false
+     */
+    assumeValid?: boolean;
 
-export interface GraphQLSchemaConfig {
-  query: GraphQLObjectType;
-  mutation?: GraphQLObjectType;
-  subscription?: GraphQLObjectType;
-  types?: GraphQLNamedType[];
-  directives?: GraphQLDirective[];
-  astNode?: SchemaDefinitionNode;
+    /**
+     * If provided, the schema will consider fields or types with names included
+     * in this list valid, even if they do not adhere to the specification's
+     * schema validation rules.
+     *
+     * This option is provided to ease adoption and may be removed in a future
+     * major release.
+     */
+    allowedLegacyNames?: ReadonlyArray<string> | void;
+}
+
+export interface GraphQLSchemaConfig extends GraphQLSchemaValidationOptions {
+    query: GraphQLObjectType | void;
+    mutation?: GraphQLObjectType | void;
+    subscription?: GraphQLObjectType | void;
+    types?: GraphQLNamedType[] | void;
+    directives?: GraphQLDirective[] | void;
+    astNode?: SchemaDefinitionNode | void;
 }

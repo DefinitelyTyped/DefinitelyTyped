@@ -1861,7 +1861,7 @@ export interface EdgeOptions {
       enabled?: boolean,
       scaleFactor?: number,
     },
-    from: boolean | {
+    from?: boolean | {
       enabled?: boolean,
       scaleFactor?: number,
     }

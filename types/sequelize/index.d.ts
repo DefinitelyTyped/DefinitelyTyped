@@ -1200,7 +1200,7 @@ declare namespace sequelize {
          *  Attribute name for the relation
          */
         name?: string;
-
+        unique?: boolean | string;
     }
 
     /**
@@ -3794,7 +3794,7 @@ declare namespace sequelize {
          * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
          *     model will clear the previous scope.
          */
-        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
 
         /**
          * Search for multiple instances.
@@ -4046,7 +4046,7 @@ declare namespace sequelize {
          * elements. The first element is always the number of affected rows, while the second element is the actual
          * affected rows (only supported in postgres with `options.returning` true.)
          */
-        update(values: TAttributes, options: UpdateOptions): Promise<[number, TInstance[]]>;
+        update(values: TAttributes, options?: UpdateOptions): Promise<[number, TInstance[]]>;
 
         /**
          * Run a describe query on the table. The result will be return to the listener as a hash of attributes and

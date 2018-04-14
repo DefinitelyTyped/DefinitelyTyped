@@ -125,6 +125,7 @@ declare namespace Knex {
         havingRaw: RawQueryBuilder;
         orHaving: Having;
         orHavingRaw: RawQueryBuilder;
+        havingIn: HavingIn;
 
         // Clear
         clearSelect(): QueryBuilder;
@@ -322,6 +323,10 @@ declare namespace Knex {
 
     interface Having extends RawQueryBuilder, WhereWrapped {
         (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
+    }
+
+    interface HavingIn {
+        (columnName: string, values: Value[]): QueryBuilder;
     }
 
     // commons
