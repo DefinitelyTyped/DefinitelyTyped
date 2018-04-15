@@ -39,7 +39,7 @@ entity.addEventListener('child-detached', (event) => {
 
 // Components
 
-class TestComponent extends AFrame.Component {
+interface TestComponent extends AFrame.Component {
 	multiply: (f: number) => number;
 
 	data: {
@@ -79,7 +79,7 @@ scene.hasLoaded;
 
 // System
 
-class TestSystem extends AFrame.System {
+interface TestSystem extends AFrame.System {
 	data: {
 		counter: number;
 	};
@@ -99,7 +99,7 @@ AFRAME.registerSystem('test-component', testSystem);
 
 // Register Custom Geometry
 
-class TestGeometry extends AFrame.Geometry {
+interface TestGeometry extends AFrame.Geometry {
 	schema: AFrame.MultiPropertySchema<{
 		groupIndex: number;
 	}>;
