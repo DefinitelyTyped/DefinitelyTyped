@@ -20,7 +20,7 @@ declare var hasNativeWebVRImplementation: boolean;
 interface Document {
     createElement(tagName: string): AFrame.Entity;
     querySelector(selectors: 'a-scene'): AFrame.Scene;
-	querySelector<T extends AFrame.Entity<any>>(selectors: string): T;
+	querySelector(selectors: string): AFrame.Entity<any>;
 	querySelectorAll(selectors: string): NodeListOf<AFrame.Entity<any> | Element>;
 }
 
@@ -156,8 +156,8 @@ declare namespace AFrame {
 		/**
 		 * @deprecated since 0.4.0
 		 */
-		getComputedAttribute<T = Component>(attr: string): T;
-		getDOMAttribute<T = any>(attr: string): T;
+		getComputedAttribute(attr: string): Component;
+		getDOMAttribute(attr: string): any;
 		getObject3D(type: string): THREE.Object3D;
 		getOrCreateObject3D(type: string, construct: any): THREE.Object3D;
 		is(stateName: string): boolean;
@@ -170,7 +170,6 @@ declare namespace AFrame {
 
 		// getAttribute specific usages
 		getAttribute(type: string): any;
-		getAttribute<T = Component>(attr: string): T;
 		getAttribute(type: 'position' | 'rotation' | 'scale'): Coordinate;
 
 		// setAttribute specific usages
