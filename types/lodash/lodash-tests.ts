@@ -7134,10 +7134,10 @@ fp.now(); // $ExpectType number
 
 // _.stubFalse
 {
-    _.stubFalse(); // $ExpectType boolean
-    _(anything).stubFalse(); // $ExpectType boolean
-    _.chain(anything).stubFalse(); // $ExpectType LoDashExplicitWrapper<boolean>
-    fp.stubFalse(); // $ExpectType boolean
+    _.stubFalse(); // $ExpectType false
+    _(anything).stubFalse(); // $ExpectType false
+    _.chain(anything).stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
+    fp.stubFalse(); // $ExpectType false
 }
 
 // _.stubObject
@@ -7158,10 +7158,10 @@ fp.now(); // $ExpectType number
 
 // _.stubTrue
 {
-    _.stubTrue(); // $ExpectType boolean
-    _(anything).stubTrue(); // $ExpectType boolean
-    _.chain(anything).stubTrue(); // $ExpectType LoDashExplicitWrapper<boolean>
-    fp.stubTrue(); // $ExpectType boolean
+    _.stubTrue(); // $ExpectType true
+    _(anything).stubTrue(); // $ExpectType true
+    _.chain(anything).stubTrue(); // $ExpectType LoDashExplicitWrapper<true>
+    fp.stubTrue(); // $ExpectType true
 }
 
 // _.times

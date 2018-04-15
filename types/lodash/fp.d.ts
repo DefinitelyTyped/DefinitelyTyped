@@ -739,7 +739,7 @@ declare namespace _ {
     }
     type LodashExtendWith1x5<TSource> = <TObject>(object: TObject) => TObject & TSource;
     type LodashExtendWith1x6<TObject, TSource> = (customizer: lodash.AssignCustomizer) => TObject & TSource;
-    type LodashStubFalse = () => boolean;
+    type LodashStubFalse = () => false;
     interface LodashFill {
         (start: number): LodashFill1x1;
         (start: lodash.__, end: number): LodashFill1x2;
@@ -3563,7 +3563,7 @@ declare namespace _ {
     type LodashStubArray = () => any[];
     type LodashStubObject = () => any;
     type LodashStubString = () => string;
-    type LodashStubTrue = () => boolean;
+    type LodashStubTrue = () => true;
     interface LodashSubtract {
         (minuend: number): LodashSubtract1x1;
         (minuend: lodash.__, subtrahend: number): LodashSubtract1x2;
