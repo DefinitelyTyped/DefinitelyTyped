@@ -5242,6 +5242,96 @@ declare namespace Highcharts {
         upColor?: Color;
     }
 
+    interface WordCloudChart extends BarChart {
+        /**
+         * For some series, there is a limit that shuts down initial animation by default when the total number of points
+         * in the chart is too high. For example, for a column chart and its derivatives, animation doesn't run if there
+         * is more than 250 points totally. To disable this cap, set animationLimit to Infinity.
+         * @default undefined
+         * @since 6.0.0
+         */
+        animationLimit?: number;
+        /**
+         * By default, series are exposed to screen readers as regions. By enabling this option, the series element itself
+         * will be exposed in the same way as the data points. This is useful if the series is not used as a grouping entity
+         * in the chart, but you still want to attach a description to the series.
+         * Requires the Accessibility module.
+         * @default undefined
+         * @since 5.0.12
+         */
+        exposeElementToA11y?: boolean;
+        /**
+         * This option decides which algorithm is used for placement, and rotation of a word. The choice of algorith is
+         * therefore a crucial part of the resulting layout of the wordcloud. It is possible for users to add their own
+         * custom placement strategies for use in word cloud. Read more about it in our documentation
+         * @default center
+         * @since 6.0.0
+         */
+        placementStrategy?: string;
+        /**
+         * Same as accessibility.pointDescriptionFormatter, but for an individual series. Overrides the chart wide
+         * configuration.
+         * @default undefined
+         * @since 5.0.12
+         */
+        pointDescriptionFormatter?: () => string;
+        /**
+         * Rotation options for the words in the wordcloud.
+         * @since 6.0.0
+         */
+        rotation?: {
+            /**
+             * The smallest degree of rotation for a
+             * @default 0
+             * @since 6.0.0
+             */
+            from?: number;
+            /**
+             * The largest degree of rotation for a word.
+             * @default 90
+             * @since 6.0.0
+             */
+            to?: number;
+            /**
+             * The number of possible orientations for a word, within the range of rotation.from and rotation.to.
+             * @default 2
+             * @since 6.0.0
+             */
+            orientations?: number;
+        };
+
+        /**
+         * If set to True, the accessibility module will skip past the points in this series for keyboard navigation.
+         * @default undefined
+         * @since 5.0.12
+         */
+        skipKeyboardNavigation?: boolean;
+        /**
+         * Spiral used for placing a word after the inital position experienced a collision with either another word or the
+         * borders. It is possible for users to add their own custom spiralling algorithms for use in word cloud. Read more
+         * about it in our documentation
+         * @default rectangular
+         * @since 6.0.0
+         */
+        spiral?: string;
+        /**
+         * CSS styles for the words.
+         * @since 6.0.0
+         */
+        style?: {
+            /**
+             * @default sans-serif
+             * @since 6.0.0
+             */
+            fontFamily?: string;
+            /**
+             * @default 900
+             * @since 6.0.0
+             */
+            fontWeight?: number | string;
+        };
+    }
+
     /**
      * The plotOptions is a wrapper object for config objects for each series type. The config objects for each series can
      * also be overridden for each series item as given in the series array.
@@ -5423,6 +5513,7 @@ declare namespace Highcharts {
     interface SplineChartSeriesOptions extends IndividualSeriesOptions, SplineChart { }
     interface TreeMapChartSeriesOptions extends IndividualSeriesOptions, TreeMapChart { }
     interface WaterFallChartSeriesOptions extends IndividualSeriesOptions, WaterFallChart { }
+    interface WordCloudChartSeriesOptions extends IndividualSeriesOptions, WordCloudChart { }
 
     interface DataPoint {
         /**
@@ -6711,6 +6802,36 @@ declare namespace Highcharts {
         map(array: any[], fn: Function): any[];
 
         wrap(prototype: any, type: string, cb: (proceed: Function, ...args: any[]) => void): void;
+
+        /**
+         * Add an event listener.
+         *
+         * @see {@link https://api.highcharts.com/class-reference/Highcharts#addEvent}
+         * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+         *
+         * @param element The element or object to add a listener to. It can be a HTMLDOMElement, an Highcharts.SVGElement or any other object.
+         * @param type    The event type.
+         * @param cb      The function callback to execute when the event is fired.
+         * @returns A callback function to remove the added event.
+         */
+        addEvent(element: HTMLElement | ElementObject | object,
+                 type: string,
+                 cb: (evt: Event) => void): () => void;
+
+        /**
+         * Fire an event that was registered with
+         *
+         * @see {@link https://api.highcharts.com/class-reference/Highcharts#fireEvent}
+         *
+         * @param element         The element or object to add a listener to. It can be a HTMLDOMElement, an Highcharts.SVGElement or any other object.
+         * @param type            The event type.
+         * @param eventArguments  Custom event arguments that are passed on as an argument to the event handler.
+         * @param defaultFunction The default function to execute if the other listeners haven't returned false.
+         */
+        fireEvent(element: HTMLElement | ElementObject | object,
+                  type: string,
+                  eventArguments?: any,
+                  defaultFunction?: () => void): void;
     }
 
     /**

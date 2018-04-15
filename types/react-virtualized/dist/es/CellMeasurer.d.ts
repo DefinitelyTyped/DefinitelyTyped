@@ -29,15 +29,15 @@ export class CellMeasurerCache implements CellMeasurerCacheInterface {
     constructor(params?: CellMeasurerCacheParams);
     clear(rowIndex: number, columnIndex: number): void;
     clearAll(): void;
-    columnWidth: (params: { index: number }) => number | undefined;
+    columnWidth: (params: { index: number }) => number;
     readonly defaultHeight: number;
     readonly defaultWidth: number;
     hasFixedHeight(): boolean;
     hasFixedWidth(): boolean;
-    getHeight(rowIndex: number, columnIndex: number): number | undefined;
-    getWidth(rowIndex: number, columnIndex: number): number | undefined;
+    getHeight(rowIndex: number, columnIndex: number): number;
+    getWidth(rowIndex: number, columnIndex: number): number;
     has(rowIndex: number, columnIndex: number): boolean;
-    rowHeight: (params: { index: number }) => number | undefined;
+    rowHeight: (params: { index: number }) => number;
     set(
         rowIndex: number,
         columnIndex: number,

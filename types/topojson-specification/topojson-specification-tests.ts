@@ -1,38 +1,36 @@
-// Tests for: https://github.com/topojson/topojson-specification
-
 // Geometry Objects
 
-const point: topojson.Point = {
+const point: TopoJSON.Point = {
     type: "Point",
     coordinates: [0, 0],
 };
 
-const multiPoint: topojson.MultiPoint = {
+const multiPoint: TopoJSON.MultiPoint = {
     type: "MultiPoint",
     coordinates: [[0, 0]],
 };
 
-const lineString: topojson.LineString = {
+const lineString: TopoJSON.LineString = {
     type: "LineString",
     arcs: [0],
 };
 
-const multiLineString: topojson.MultiLineString = {
+const multiLineString: TopoJSON.MultiLineString = {
     type: "MultiLineString",
     arcs: [[3], [4]],
 };
 
-const polygon: topojson.Polygon = {
+const polygon: TopoJSON.Polygon = {
     type: "Polygon",
     arcs: [[0]],
 };
 
-const multiPolygon: topojson.MultiPolygon = {
+const multiPolygon: TopoJSON.MultiPolygon = {
     type: "MultiPolygon",
     arcs: [[[0]]],
 };
 
-const geometryCollection: topojson.GeometryCollection = {
+const geometryCollection: TopoJSON.GeometryCollection = {
     type: "GeometryCollection",
     geometries: [
         {type: "Polygon", arcs: [[0]]},
@@ -43,7 +41,7 @@ const geometryCollection: topojson.GeometryCollection = {
     ],
 };
 
-const nullObject: topojson.NullObject = {
+const nullObject: TopoJSON.NullObject = {
     type: null,
 };
 
@@ -54,7 +52,7 @@ interface TestProp {
     size: number;
 }
 
-const pointWithProp: topojson.Point<TestProp> = {
+const pointWithProp: TopoJSON.Point<TestProp> = {
     type: "Point",
     coordinates: [0, 0],
     properties: {color: "orange", size: 42},
@@ -65,7 +63,7 @@ const nbr: number = pointWithProp.properties!.size;
 
 // Topology
 
-let topology: topojson.Topology;
+let topology: TopoJSON.Topology;
 
 topology = {
     type: "Topology",
