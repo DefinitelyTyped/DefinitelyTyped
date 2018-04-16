@@ -639,7 +639,7 @@ declare namespace ADODB {
         readonly Parameters: Parameters;
         Prepared: boolean;
         readonly Properties: Properties;
-        readonly State: number;
+        readonly State: ObjectStateEnum;
     }
 
     class Connection {
@@ -697,7 +697,7 @@ declare namespace ADODB {
         readonly Properties: Properties;
         Provider: string;
         RollbackTrans(): void;
-        readonly State: number;
+        readonly State: ObjectStateEnum;
         readonly Version: string;
     }
 
@@ -993,7 +993,7 @@ declare namespace ADODB {
         Seek(KeyValues: Primitive | SafeArray<Primitive>, SeekOption?: SeekEnum): void;
         Sort: string;
         Source: string | Command;
-        readonly State: number;
+        readonly State: ObjectStateEnum;
         readonly Status: number;
         StayInSync: boolean;
         Supports(CursorOptions: CursorOptionEnum): boolean;

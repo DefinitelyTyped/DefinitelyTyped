@@ -424,6 +424,3 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
         }, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.CursorLocationEnum.adUseClient, ADODB.LockTypeEnum.adLockOptimistic);
     });
 }
-
-// TODO - check for methods that return Nothing, do they return null or undefined?
-// TODO - verify that recordset has default property that returns Field object

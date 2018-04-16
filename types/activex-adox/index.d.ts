@@ -2,7 +2,7 @@
 // Project: https://docs.microsoft.com/en-us/sql/ado/reference/adox-api/adox-object-model
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="activex-adodb" />
 
@@ -159,7 +159,7 @@ declare namespace ADOX {
         ParentCatalog: Catalog;
         readonly Properties: ADODB.Properties;
 
-        /** 
+        /**
          * @param Rights A bitmask of one or more of the **RightsEnum** constants, that indicates the rights to set.
          * @param Inherit [Inherit=0]
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
@@ -282,7 +282,7 @@ declare namespace ADOX {
         ParentCatalog: Catalog;
         readonly Properties: ADODB.Properties;
 
-        /** 
+        /**
          * @param Rights A bitmask of one or more of the **RightsEnum** constants, that indicates the rights to set.
          * @param Inherit [Inherit=0]
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
