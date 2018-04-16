@@ -1,6 +1,20 @@
 import express = require("express");
 import OAuth2Server = require("oauth2-server");
 
+const accessDeniedErr = new OAuth2Server.AccessDeniedError() 
+const insufficientScopeErr = new OAuth2Server.InsufficientScopeError()
+const invalidArgumentErr = new OAuth2Server.InvalidArgumentError()
+const invalidClientErr = new OAuth2Server.InvalidClientError()
+const invalidGrantErr = new OAuth2Server.InvalidGrantError()
+const invalidRequestErr = new OAuth2Server.InvalidRequestError()
+const invalidScopeErr = new OAuth2Server.InvalidScopeError()
+const invalidTokenErr = new OAuth2Server.InvalidTokenError()
+const serverErr = new OAuth2Server.ServerError()
+const unauthorizedClientErr = new OAuth2Server.UnauthorizedClientError()
+const unauthorizedRequestErr = new OAuth2Server.UnauthorizedRequestError()
+const unsupportedGrantTypeErr = new OAuth2Server.UnsupportedGrantTypeError()
+const unsupportedResponseTypeErr = new OAuth2Server.UnsupportedResponseTypeError()
+
 const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
         getClient: async (clientId: string, clientSecret: string): Promise<OAuth2Server.Client | OAuth2Server.Falsey> => {
             return undefined;

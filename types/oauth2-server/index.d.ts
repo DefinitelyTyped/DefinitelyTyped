@@ -381,6 +381,37 @@ declare namespace OAuth2Server {
         user: User;
         [key: string]: any;
     }
+
+    /**
+     * Error classes
+     * The base class is OAuthError
+     */
+    class OAuthError extends Error {
+        name: string
+        code: string
+        status: string
+        statusCode: string
+        message: string
+        error: string
+        error_description?: string
+        error_uri?: string
+        inner?: string
+        constructor(messageOrError?: string|Error, properties?: any)
+    }
+
+    class AccessDeniedError extends OAuthError {}
+    class InsufficientScopeError extends OAuthError {}
+    class InvalidArgumentError extends OAuthError {}
+    class InvalidClientError extends OAuthError {}
+    class InvalidGrantError extends OAuthError {}
+    class InvalidRequestError extends OAuthError {}
+    class InvalidScopeError extends OAuthError {}
+    class InvalidTokenError extends OAuthError {}
+    class ServerError extends OAuthError {}
+    class UnauthorizedClientError extends OAuthError {}
+    class UnauthorizedRequestError extends OAuthError {}
+    class UnsupportedGrantTypeError extends OAuthError {}
+    class UnsupportedResponseTypeError extends OAuthError {}
 }
 
 export = OAuth2Server;
