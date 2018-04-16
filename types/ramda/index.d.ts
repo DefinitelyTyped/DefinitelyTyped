@@ -1177,8 +1177,8 @@ declare namespace R {
         /**
          * Returns a partial copy of an object omitting the keys specified.
          */
-        omit<T, K extends keyof T>(names: ReadonlyArray<K>, obj: T): Omit<T, K>;
-        omit<K extends keyof { [index: string]: any }>(names: ReadonlyArray<K>): <T>(obj: T) => Omit<T, K>;
+        omit<T, K extends string>(names: ReadonlyArray<K>, obj: T): Omit<T, K>;
+        omit<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Omit<T, K>;
 
         /**
          * Accepts a function fn and returns a function that guards invocation of fn such that fn can only ever be
@@ -1288,8 +1288,8 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, K extends keyof { [index: string]: any }>(names: ReadonlyArray<K>, obj: T): Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
-        pick<K extends keyof { [index: string]: any }>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
+        pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
+        pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
