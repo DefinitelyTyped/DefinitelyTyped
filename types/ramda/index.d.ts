@@ -16,6 +16,7 @@
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Jack Leigh <https://github.com/leighman>
+//                 Keagan McClelland <https://github.com/CaptJakk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -951,10 +952,11 @@ declare namespace R {
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
         map<T, U>(fn: (x: T) => U, list: ReadonlyArray<T>): U[];
-        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
         map<T, U>(fn: (x: T) => U): (list: ReadonlyArray<T>) => U[];
-        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T], obj: T): U;
-        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T]): (obj: T) => U;
+        map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
+        map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
+        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
+        map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.
