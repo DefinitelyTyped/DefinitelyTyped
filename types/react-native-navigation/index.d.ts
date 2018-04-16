@@ -70,6 +70,7 @@ export interface Screen {
     title?: string;
     navigatorStyle?: NavigatorStyle;
     navigatorButtons?: NavigatorButtons;
+    overrideBackPress?: boolean;
 }
 
 export interface ModalScreen extends Screen {
