@@ -60,10 +60,10 @@ export interface FeathersAuthenticationOAuth2Options {
     /**
      * A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
      */
-    Verifier: OAuth2Verifier;
+    Verifier: Verifier;
 }
 
-export class OAuth2Verifier {
+export class Verifier {
     constructor(app: Application, options: any)
 
     _updateEntity(entity: any, data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // updates an existing entity
