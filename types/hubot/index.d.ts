@@ -42,8 +42,8 @@ declare namespace Hubot {
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
         hear(regex: RegExp, callback: ListenerCallback<this>): void;
         hear(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
-        helpCommands(): Array<string>;
-        loadFile(directory: string, fileName: string): void;                                       
+        helpCommands(): string[];
+        loadFile(directory: string, fileName: string): void;
         respond(regex: RegExp, callback: ListenerCallback<this>): void;
         respond(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
     }
