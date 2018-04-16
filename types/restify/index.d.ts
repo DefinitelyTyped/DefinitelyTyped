@@ -1,6 +1,6 @@
 // Type definitions for restify 5.0
 // Project: https://github.com/restify/node-restify
-// Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>
+// Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>, Leandro Almeida <https://github.com/leanazulyoro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -945,6 +945,17 @@ export namespace plugins {
      * Authorization header
      */
     function authorizationParser(options?: any): RequestHandler;
+
+    interface HandlerCandidate {
+        handler: RequestHandler | RequestHandler[];
+        version?: string | string[];
+        contentType?: string | string[];
+    }
+
+    /**
+     * Runs first handler that matches to the condition
+     */
+    function conditionalHandler(candidates: HandlerCandidate | HandlerCandidate[]): RequestHandler[];
 
     /**
      * Conditional headers (If-*)
