@@ -18,8 +18,8 @@ export class Advertisement {
     updateTXT(txtObj: any): void;
 }
 
-
-/** A service entry as returned by serviceUp
+/**
+ * A service entry as returned by serviceUp
  */
 export class Service {
     fullname: string;         // 'InstanceName._googlecast._tcp.local.'
@@ -28,7 +28,7 @@ export class Service {
     domain: string;           // 'local'
     host: string;             // 'Hostname.local.'
     port: number;             // 8009
-    addresses: Array<string>; // ['192.168.1.15']
+    addresses: string[];      // ['192.168.1.15']
     txt: any;                 // { id: 'strings' }
     txtRaw: any;
 }
