@@ -11,6 +11,7 @@ export interface LazyLoadProps {
     height?: number | string;
     offset?: number | string;
     overflow?: boolean;
+    resize?: boolean;
     scroll?: boolean;
     children?: JSX.Element;
     throttle?: number | boolean;
@@ -23,6 +24,6 @@ export default class LazyLoad extends Component<LazyLoadProps> {
     constructor(props: LazyLoad);
 }
 
-export  function lazyload(option: {}): LazyLoad;
+export function lazyload(option: {}): LazyLoad;
 
 export function forceCheck(): void;
