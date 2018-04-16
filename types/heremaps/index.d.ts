@@ -1638,7 +1638,7 @@ declare namespace H {
 
             /**
              * @property draggable
-             * @description This this property ensure that the marker can receive drag events.
+             * @description This property ensure that the marker can receive drag events.
              */
             draggable?: boolean;
         }
