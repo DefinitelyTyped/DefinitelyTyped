@@ -2,7 +2,6 @@
 // Project: https://github.com/aheckmann/muri
 // Definitions by: jloveridge <https://github.com/jloveridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 export = Muri;
 
