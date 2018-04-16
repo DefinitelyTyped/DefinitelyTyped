@@ -1637,9 +1637,10 @@ declare namespace H {
             setIcon(icon: (H.map.Icon | H.map.DomIcon)): H.map.AbstractMarker;
 
             /**
-             * This this property ensure that the marker can receive drag events
+             * @property draggable
+             * @description This this property ensure that the marker can receive drag events.
              */
-            draggable: boolean;
+            draggable?: boolean;
         }
 
         namespace AbstractMarker {
