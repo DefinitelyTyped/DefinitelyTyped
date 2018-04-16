@@ -1,8 +1,9 @@
 // Type definitions for is-ci 1.1
 // Project: https://github.com/watson/is-ci
-// Definitions by: Arne Schubert <https://github.com/atd-schubert>
+// Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const isACi: boolean;
+export = is_ci;
 
-export = isACi;
+declare const is_ci: boolean;
+
