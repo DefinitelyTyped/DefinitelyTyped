@@ -246,7 +246,7 @@ export type GridCoreProps = {
      * Called whenever a horizontal or vertical scrollbar is added or removed.
      * ({ horizontal: boolean, size: number, vertical: boolean }): void
      */
-    onScrollbarPresenceChange?: (params: ScrollbarPresenceParams) =>  any;
+    onScrollbarPresenceChange?: (params: ScrollbarPresenceParams) => any;
     /**
      * Callback invoked with information about the section of the Grid that was just rendered.
      * ({ columnStartIndex, columnStopIndex, rowStartIndex, rowStopIndex }): void
