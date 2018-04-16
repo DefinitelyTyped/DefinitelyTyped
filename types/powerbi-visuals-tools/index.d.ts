@@ -1,6 +1,6 @@
-// Type definitions for powerbi-visuals-tools 1.11
-// Project: https://github.com/Microsoft/PowerBI-visuals-tools#readme
-// Definitions by: pbicvsupport@microsoft.com
+// Type definitions for Powerbi-visuals-tools 1.11
+// Project: https://github.com/Microsoft/PowerBI-visuals-tools
+// Definitions by: Microsoft <https://github.com/Microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace powerbi {
