@@ -28,6 +28,10 @@ credstash.deleteSecrets({ name: 'foo' }).then((results) => {
 	if (result.ItemCollectionMetrics) return result.ItemCollectionMetrics.ItemCollectionKey;
 });
 
+credstash.getAllSecrets().then((result) => {
+	return result['foo'].toUpperCase();
+});
+
 credstash.getAllSecrets({ version: 1 }).then((result) => {
 	return result['foo'].toUpperCase();
 });
@@ -50,6 +54,12 @@ credstash.incrementVersion({ name: 'foo' }).then((result) => {
 
 credstash.listSecrets().then((result) => {
 	return result.map((str) => str.toUpperCase());
+});
+
+credstash.putSecret({ name: 'foo', secret: 'bar' }).then((result) => {
+	if (result.Attributes) return result.Attributes['foo'];
+	if (result.ConsumedCapacity) return result.ConsumedCapacity.TableName;
+	if (result.ItemCollectionMetrics) return result.ItemCollectionMetrics.ItemCollectionKey;
 });
 
 credstash.putSecret({ name: 'foo', secret: 'bar', context: { baz: 'qux' }, digest: 'quux', version: 1 }).then((result) => {

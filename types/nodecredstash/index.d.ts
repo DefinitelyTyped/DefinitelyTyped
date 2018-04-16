@@ -21,7 +21,7 @@ interface CredstashContext {
 interface PutSecretOptions {
 	name: string;
 	secret: string;
-	context: CredstashContext;
+	context?: CredstashContext;
 	digest?: string;
 	version?: number;
 }
@@ -36,7 +36,7 @@ interface Credstash {
 	deleteSecrets: (options: { name: string }) => Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput[]>;
 	deleteSecret: (options: { name: string, version: number }) => Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput>;
 	listSecrets: () => Promise<string[]>;
-	getAllSecrets: (options: { version?: number, context?: CredstashContext, startsWith?: string }) => Promise<{ [key: string]: string }>;
+	getAllSecrets: (options?: { version?: number, context?: CredstashContext, startsWith?: string }) => Promise<{ [key: string]: string }>;
 	createDdbTable: () => Promise<void>;
 }
 
