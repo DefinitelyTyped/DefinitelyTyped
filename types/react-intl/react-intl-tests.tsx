@@ -150,6 +150,20 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 {(text) => <div className="messageDiv">{text}</div>}
             </FormattedMessage>
 
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(text) => <input placeholder={text} />}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(...text) => <ul>{text.map(t => <li>{t}</li>)}</ul>}
+            </FormattedMessage>
+
             <FormattedHTMLMessage
                 id="test"
                 description="Test"
