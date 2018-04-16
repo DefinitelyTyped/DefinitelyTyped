@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "jsonwebtoken-tests.ts"
+        "jsonwebtoken-promisified-tests.ts"
     ]
 }

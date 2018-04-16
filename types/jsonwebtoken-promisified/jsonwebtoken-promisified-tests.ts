@@ -1,5 +1,3 @@
-import { test } from 'ember-qunit';
-import { signAsync } from './index';
 /**
  * Test suite created by Maxime LUCE <https://github.com/SomaticIT>
  *
