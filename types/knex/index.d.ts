@@ -18,6 +18,7 @@ import Bluebird = require("bluebird");
 type Callback = Function;
 type Client = Function;
 type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean> | Buffer | Knex.Raw;
+type ValueMap = { [key: string]: Value };
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string };
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
@@ -338,7 +339,7 @@ declare namespace Knex {
 
     interface RawQueryBuilder {
         (sql: string, ...bindings: Value[]): QueryBuilder;
-        (sql: string, bindings: Value[]): QueryBuilder;
+        (sql: string, bindings: Value[] | ValueMap): QueryBuilder;
         (raw: Raw): QueryBuilder;
     }
 
@@ -352,7 +353,7 @@ declare namespace Knex {
         (value: Value): Raw;
         (sql: string, ...bindings: Value[]): Raw;
         (sql: string, bindings: Value[]): Raw;
-        (sql: string, bindings: Object): Raw;
+        (sql: string, bindings: ValueMap): Raw;
     }
 
     //

@@ -246,6 +246,7 @@ knex('users').whereBetween('votes', [1, 100]);
 knex('users').whereNotBetween('votes', [1, 100]);
 
 knex('users').whereRaw('id = ?', [1]);
+knex('users').whereRaw('id = :id', { id: 1 });
 
 // Join methods
 knex('users')
