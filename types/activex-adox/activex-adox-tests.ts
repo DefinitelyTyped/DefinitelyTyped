@@ -44,7 +44,7 @@ const adOpenKeyset = ADODB.CursorTypeEnum.adOpenKeyset;
 const adLockOptimistic = ADODB.LockTypeEnum.adLockOptimistic;
 
 const tryClose = (obj: { State: ADODB.ObjectStateEnum, Close(): void } | null) => {
-    // TODO handle also flag enum
+    // TODO State could also be a combination of multiple values in this enum
     if (obj && obj.State === ADODB.ObjectStateEnum.adStateOpen) {
         obj.Close();
     }
