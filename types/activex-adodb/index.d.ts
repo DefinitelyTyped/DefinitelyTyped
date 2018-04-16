@@ -626,9 +626,9 @@ declare namespace ADODB {
          * @param Options [Options=-1]
          *
          * The **RecordsAffected** parameter is meant to take a variable to be modified by reference, which is not supported by Javascript
-         * 
+         *
          * The return value is as follows:
-         * 
+         *
          * * If the **adExecuteNoRecords** option is passed in, the method will return `null`. Otherwise:
          * * If the command specifies a row-returning query, then the method will return a new read-only, forward-only **Recordset** object with the results.
          * * If the command isn't intended to return results (e.g. an `UPDATE` statement), a closed empty **Recordset** will be returned.
@@ -663,9 +663,9 @@ declare namespace ADODB {
          * @param Options [Options=-1]
          *
          * The **RecordsAffected** parameter is meant to take a variable to be modified by reference, which is not supported by Javascript
-         * 
+         *
          * The return value is as follows:
-         * 
+         *
          * * If the **adExecuteNoRecords** option is passed in, the method will return `null`. Otherwise:
          * * If **CommandText** specifies a row-returning query, then the method will return a new read-only, forward-only **Recordset** object with the results
          * * If **CommandText** isn't intended to return results (e.g. an `UPDATE` statement), a closed empty **Recordset** will be returned.

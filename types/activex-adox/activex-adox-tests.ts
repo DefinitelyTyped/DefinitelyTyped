@@ -45,7 +45,7 @@ const adLockOptimistic = ADODB.LockTypeEnum.adLockOptimistic;
 
 const tryClose = (obj: { State: ADODB.ObjectStateEnum, Close(): void } | null) => {
     // TODO handle also flag enum
-    if (obj && obj.State == ADODB.ObjectStateEnum.adStateOpen) {
+    if (obj && obj.State === ADODB.ObjectStateEnum.adStateOpen) {
         obj.Close();
     }
     return null;
@@ -492,7 +492,7 @@ Owner: ${cat.GetObjectOwner(tblLoop.Name, adPermObjTable)}
 Enter fax number for ${rstEmployees('FirstName')} ${rstEmployees('LastName')}.
 [? - unknown, X - has no fax]
         `.trim());
-        let strInput = WScript.StdIn.ReadLine().toUpperCase().trim();
+        const strInput = WScript.StdIn.ReadLine().toUpperCase().trim();
         if (strInput) {
             let newValue: string | null;
             if (strInput === '?') {
@@ -506,7 +506,7 @@ Enter fax number for ${rstEmployees('FirstName')} ${rstEmployees('LastName')}.
             rstEmployees.Update();
 
             // Print report
-            let faxValue = rstEmployees('FaxPhone').Value;
+            const faxValue = rstEmployees('FaxPhone').Value;
             let faxDisplayString: string;
             if (faxValue === null) {
                 faxDisplayString = '[Unkown]';
@@ -697,7 +697,7 @@ ${rstEmployees('FirstName')} ${rstEmployees('LastName')}\t\t${faxDisplayString}
         // Connect to the catalog.
         cat = new ActiveXObject('ADOX.Catalog');
         cat.ActiveConnection = connectionString;
-        let tblEmployees = cat.Tables('Employees');
+        const tblEmployees = cat.Tables('Employees');
 
         // Print current information about the Employees table
         dateOutput('Current properties', tblEmployees);
@@ -713,7 +713,7 @@ ${rstEmployees('FirstName')} ${rstEmployees('LastName')}\t\t${faxDisplayString}
         tblEmployees.Columns.Delete('NewColumn');
 
         // Create and append new Table object to the Northwind database
-        let tblNewTable = new ActiveXObject('ADOX.Table');
+        const tblNewTable = new ActiveXObject('ADOX.Table');
         tblNewTable.Name = 'NewTable';
         tblNewTable.Columns.Append('NewColumn', adInteger);
         cat.Tables.Append(tblNewTable);
@@ -752,10 +752,10 @@ ${rstEmployees('FirstName')} ${rstEmployees('LastName')}\t\t${faxDisplayString}
         rstEmployees.MoveFirst();
         WScript.Echo('');
         WScript.Echo('Original Defined Size and Actual Size');
-        let firstnames: string[] = [];
+        const firstnames: string[] = [];
         for (let i = 0; !rstEmployees.EOF; i++) {
-            let firstField = rstEmployees('FirstName');
-            let [firstname, lastname] = [firstField.Value as string, rstEmployees('LastName').Value as string];
+            const firstField = rstEmployees('FirstName');
+            const [firstname, lastname] = [firstField.Value as string, rstEmployees('LastName').Value as string];
             WScript.Echo(`Employee name: ${firstname} ${lastname}`);
             WScript.Echo(`\tFirstName Defined size: ${firstField.DefinedSize}`);
             WScript.Echo(`\tFirstName Actual size: ${firstField.ActualSize}`);
@@ -784,7 +784,7 @@ ${rstEmployees('FirstName')} ${rstEmployees('LastName')}\t\t${faxDisplayString}
         WScript.Echo('');
         WScript.Echo('Original Defined Size and Actual Size');
         for (let i = 0; !rstEmployees.EOF; i++) {
-            let firstField = rstEmployees('FirstName');
+            const firstField = rstEmployees('FirstName');
             firstField.Value = firstnames[i];
             WScript.Echo(`Employee name: ${firstField.Value} ${rstEmployees('LastName').Value}`);
             WScript.Echo(`\tFirstName Defined size: ${firstField.DefinedSize}`);
@@ -865,20 +865,20 @@ ${rstEmployees('FirstName')} ${rstEmployees('LastName')}\t\t${faxDisplayString}
 // https://docs.microsoft.com/en-us/sql/ado/reference/adox-api/indexnulls-property-example-vb
 {
     // Connect the catalog.
-    let cnn = new ActiveXObject('ADODB.Connection');
+    const cnn = new ActiveXObject('ADODB.Connection');
     cnn.Open(connectionString);
 
     let catNorthwind: ADOX.Catalog | null = new ActiveXObject('ADOX.Catalog');
     catNorthwind.ActiveConnection = cnn;
 
     // Append Country column to new index
-    let idxNew = new ActiveXObject('ADOX.Index');
+    const idxNew = new ActiveXObject('ADOX.Index');
     idxNew.Columns.Append('Country');
     idxNew.Name = 'NewIndex';
 
     // Set IndexNulls based on user selection
     WScript.Echo('Allow nulls Y/N (Y to allow, N to ignore)?');
-    let input = WScript.StdIn.ReadLine().toUpperCase();
+    const input = WScript.StdIn.ReadLine().toUpperCase();
     switch (input) {
         case 'Y':
             idxNew.IndexNulls = ADOX.AllowNullsEnum.adIndexNullsAllow;
@@ -891,7 +891,7 @@ ${rstEmployees('FirstName')} ${rstEmployees('LastName')}\t\t${faxDisplayString}
     // Append new index to Employees table
     catNorthwind.Tables('Employees').Indexes.Append(idxNew);
 
-    let rstEmployees = new ActiveXObject('ADODB.Recordset');
+    const rstEmployees = new ActiveXObject('ADODB.Recordset');
     rstEmployees.Index = idxNew.Name;
     rstEmployees.Open('Employees', cnn, adOpenKeyset, adLockOptimistic, ADODB.CommandTypeEnum.adCmdTableDirect);
 
@@ -902,7 +902,7 @@ ${rstEmployees('FirstName')} ${rstEmployees('LastName')}\t\t${faxDisplayString}
     rstEmployees.Update();
 
     // Bookmark the newly added record
-    let bookmark = rstEmployees.Bookmark;
+    const bookmark = rstEmployees.Bookmark;
 
     // Use the new index to set the order of the records.
     rstEmployees.MoveFirst();
@@ -912,7 +912,7 @@ ${rstEmployees('FirstName')} ${rstEmployees('LastName')}\t\t${faxDisplayString}
 
     // Enumerate the Recordset. The value of the IndexNulls property will determine if the newly added record appears in the output.
     while (!rstEmployees.EOF) {
-        let country = rstEmployees('Country').Value as string | null || '[NULL]';
+        const country = rstEmployees('Country').Value as string | null || '[NULL]';
         WScript.Echo(`\t${country} - ${rstEmployees('FirstName').Value} ${rstEmployees('LastName').Value}`);
         rstEmployees.MoveNext();
     }
@@ -940,7 +940,7 @@ ${rstEmployees('FirstName')} ${rstEmployees('LastName')}\t\t${faxDisplayString}
         cat.ActiveConnection = cnn;
 
         // Retrieve the Order Details table
-        let tblOD = cat.Tables('Order Details');
+        const tblOD = cat.Tables('Order Details');
 
         // Display numeric scale and precision of small integer fields.
         for (colLoop of collectionToArray(tblOD.Columns)) {
@@ -1087,12 +1087,12 @@ Index ${idxLoop.Name}
 
             // Enumerate the Recordset. The value of the IndexNulls property will determine if the newly added record appears in the output.
             while (!rstEmployees.EOF) {
-                WScript.Echo(`\t${rstEmployees('Country').Value} - ${rstEmployees('FirstName').Value} ${rstEmployees('LastName').Value}`)
+                WScript.Echo(`\t${rstEmployees('Country').Value} - ${rstEmployees('FirstName').Value} ${rstEmployees('LastName').Value}`);
                 rstEmployees.MoveNext();
             }
 
             rstEmployees.Close();
-        }
+        };
 
         // Append Country column to new index.
         idxAscending = new ActiveXObject('ADOX.Index');
@@ -1154,7 +1154,7 @@ Index ${idxLoop.Name}
         // Retrieve Field information
         rst.Fields.Refresh();
 
-        for (const fld of collectionToArray(rst.Fields)) {
+        for (fld of collectionToArray(rst.Fields)) {
             WScript.Echo(`${fld.Name}.${fld.Type}`);
         }
     } catch (error) {
@@ -1163,5 +1163,6 @@ Index ${idxLoop.Name}
         cnn = tryClose(cnn);
         cat = null;
         rst = tryClose(rst);
+        fld = null;
     }
 }
