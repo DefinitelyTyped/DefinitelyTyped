@@ -1,7 +1,8 @@
 // Type definitions for Node OAuth2 Server 3.0
 // Project: https://github.com/oauthjs/node-oauth2-server
 // Definitions by:  Robbie Van Gorkom <https://github.com/vangorra>,
-//                  Charles Irick <https://github.com/cirick>
+//                  Charles Irick <https://github.com/cirick>,
+//                  R.A. Lucas <https://github.com/ralucas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -387,16 +388,16 @@ declare namespace OAuth2Server {
      * The base class is OAuthError
      */
     class OAuthError extends Error {
-        name: string
-        code: string
-        status: string
-        statusCode: string
-        message: string
-        error: string
-        error_description?: string
-        error_uri?: string
-        inner?: string
-        constructor(messageOrError?: string|Error, properties?: any)
+        name: string;
+        code: string;
+        status: string;
+        statusCode: string;
+        message: string;
+        error: string;
+        error_description?: string;
+        error_uri?: string;
+        inner?: string;
+        constructor(messageOrError?: string|Error, properties?: any);
     }
 
     class AccessDeniedError extends OAuthError {}
