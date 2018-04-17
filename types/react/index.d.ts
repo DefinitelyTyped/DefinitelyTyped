@@ -14,41 +14,10 @@
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Ferdy Budhidharma <https://github.com/ferdaber>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
-
-/*
-Known Problems & Workarounds
-1. The type of cloneElement is incorrect.
-cloneElement(element, props) should accept props object with a subset of properties on element.props.
-React attributes, such as key and ref, should also be accepted in props, but should not exist on element.props.
-The "correct" way to model this, then, is with:
-declare function cloneElement<P extends Q, Q>(
-    element: ReactElement<P>,
-    props?: Q & Attributes,
-    ...children: ReactNode[]): ReactElement<P>;
-However, type inference for Q defaults to {} when intersected with another type.
-(https://github.com/Microsoft/TypeScript/pull/5738#issuecomment-181904905)
-And since any object is assignable to {}, we would lose the type safety of the P extends Q constraint.
-Therefore, the type of props is left as Q, which should work for most cases.
-If you need to call cloneElement with key or ref, you'll need a type cast:
-interface ButtonProps {
-    label: string;
-    isDisabled?: boolean;
-}
-var element: React.CElement<ButtonProps, Button>;
-React.cloneElement(element, { label: "label" });
-// cloning with optional props requires a cast
-React.cloneElement(element, <{ isDisabled?: boolean }>{ isDisabled: true });
-// cloning with key or ref requires a cast
-React.cloneElement(element, <React.ClassAttributes<Button>>{ ref: button => button.reset() });
-React.cloneElement(element, <{ isDisabled?: boolean } & React.Attributes>{
-    key: "disabledButton",
-    isDisabled: true
-});
-*/
 
 /// <reference path="global.d.ts" />
 
@@ -79,7 +48,12 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
+
+    interface RefObject<T> {
+        readonly current: T | null;
+    }
+
+    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
 
     // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
@@ -253,18 +227,41 @@ declare namespace React {
         ...children: ReactNode[]): DOMElement<P, T>;
 
     // Custom components
-    function cloneElement<P extends Q, Q>(
+    function cloneElement<P>(
         element: SFCElement<P>,
-        props?: Q, // should be Q & Attributes, but then Q is inferred as {}
+        props?: Partial<P> & Attributes,
         ...children: ReactNode[]): SFCElement<P>;
-    function cloneElement<P extends Q, Q, T extends Component<P, ComponentState>>(
+    function cloneElement<P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
-        props?: Q, // should be Q & ClassAttributes<T>
+        props?: Partial<P> & ClassAttributes<T>,
         ...children: ReactNode[]): CElement<P, T>;
-    function cloneElement<P extends Q, Q>(
+    function cloneElement<P>(
         element: ReactElement<P>,
-        props?: Q, // should be Q & Attributes
+        props?: Partial<P> & Attributes,
         ...children: ReactNode[]): ReactElement<P>;
+
+    // Context via RenderProps
+    interface ProviderProps<T> {
+        value: T;
+        children?: ReactNode;
+    }
+
+    interface ConsumerProps<T> {
+        children: (value: T) => ReactNode;
+        unstable_observedBits?: number;
+    }
+
+    type Provider<T> = ComponentType<ProviderProps<T>>;
+    type Consumer<T> = ComponentType<ConsumerProps<T>>;
+    interface Context<T> {
+        Provider: Provider<T>;
+        Consumer: Consumer<T>;
+    }
+    function createContext<T>(
+        defaultValue: T,
+        calculateChangedBits?: (prev: T, next: T) => number
+    ): Context<T>;
+    function createContext<T>(): Context<T | undefined>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
@@ -328,6 +325,14 @@ declare namespace React {
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        propTypes?: ValidationMap<P>;
+        contextTypes?: ValidationMap<any>;
+        defaultProps?: Partial<P>;
+        displayName?: string;
+    }
+
+    interface RefForwardingComponent<T, P = {}> {
+        (props: P & { children?: ReactNode }, ref?: Ref<T>): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -534,6 +539,10 @@ declare namespace React {
 
         [propertyName: string]: any;
     }
+
+    function createRef<T>(): RefObject<T>;
+
+    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ComponentType<P & ClassAttributes<T>>;
 
     //
     // Event System
@@ -912,9 +921,14 @@ declare namespace React {
     }
 
     export interface CSSProperties extends CSS.Properties<string | number> {
-        // The string index signature fallback is needed at least until csstype
-        // provides SVG CSS properties: https://github.com/frenic/csstype/issues/4
-        [propertyName: string]: any;
+        /**
+         * The index signature was removed to enable closed typing for style
+         * using CSSType. You're able to use type assertion or module augmentation
+         * to add properties or an index signature of your own.
+         *
+         * For examples and more information, visit:
+         * https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
+         */
     }
 
     interface HTMLAttributes<T> extends DOMAttributes<T> {
@@ -934,6 +948,7 @@ declare namespace React {
         hidden?: boolean;
         id?: string;
         lang?: string;
+        placeholder?: string;
         slot?: string;
         spellCheck?: boolean;
         style?: CSSProperties;
@@ -1568,6 +1583,7 @@ declare namespace React {
         crossOrigin?: string;
         defer?: boolean;
         integrity?: string;
+        noModule?: boolean;
         nonce?: string;
         src?: string;
         type?: string;
@@ -1579,7 +1595,6 @@ declare namespace React {
         form?: string;
         multiple?: boolean;
         name?: string;
-        noModule?: boolean;
         required?: boolean;
         size?: number;
         value?: string | string[] | number;

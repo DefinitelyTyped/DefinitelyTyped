@@ -260,14 +260,37 @@ statement = {
 };
 
 statement = {
+    Sid: str,
     Action: [str, str],
     Effect: str,
-    Resource: [str, str]
+    Resource: [str, str],
+    Condition: {
+        condition1: { key: "value" },
+        condition2: [{
+                key1: "value",
+                key2: "value"
+        }, {
+            key3: "value"
+        }]
+    },
+    Principal: [str, str],
+    NotPrincipal: [str, str]
+};
+
+statement = {
+    Effect: str,
+    NotAction: str,
+    NotResource: str
 };
 
 policyDocument = {
     Version: str,
     Statement: [statement]
+};
+
+policyDocument = {
+    Version: str,
+    Statement: [statement, statement]
 };
 
 authResponse = {
@@ -572,6 +595,28 @@ const CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
     ]
 };
 
+/* Kinesis Data Stream Events */
+declare let kinesisStreamEvent: AWSLambda.KinesisStreamEvent;
+declare let kinesisStreamRecord: AWSLambda.KinesisStreamRecord;
+declare let kinesisStreamRecordPayload: AWSLambda.KinesisStreamRecordPayload;
+
+kinesisStreamRecord = kinesisStreamEvent.Records[0];
+
+str = kinesisStreamRecord.awsRegion;
+str = kinesisStreamRecord.eventID;
+str = kinesisStreamRecord.eventName;
+str = kinesisStreamRecord.eventSource;
+str = kinesisStreamRecord.eventSourceARN;
+str = kinesisStreamRecord.eventVersion;
+str = kinesisStreamRecord.invokeIdentityArn;
+kinesisStreamRecordPayload = kinesisStreamRecord.kinesis;
+
+num = kinesisStreamRecordPayload.approximateArrivalTimestamp;
+str = kinesisStreamRecordPayload.data;
+str = kinesisStreamRecordPayload.kinesisSchemaVersion;
+str = kinesisStreamRecordPayload.partitionKey;
+str = kinesisStreamRecordPayload.sequenceNumber;
+
 /* Compatibility functions */
 context.done();
 context.done(error);
@@ -585,8 +630,27 @@ context.fail(str);
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 
-// async methods return Promise, test assignability
-let asyncHandler: AWSLambda.Handler = async (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+/* In node8.10 runtime, handlers may return a promise for the result value, so existing async
+ * handlers that return Promise<void> before calling the callback will now have a `null` result.
+ * Be safe and make that badly typed with a major verson bump to 8.10 so users expect the breaking change,
+ * since the upgrade effort should be pretty low in most cases, and it points them at a nicer solution.
+ */
+// $ExpectError
+let legacyAsyncHandler: AWSLambda.APIGatewayProxyHandler = async (
+    event: AWSLambda.APIGatewayProxyEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.Callback<AWSLambda.APIGatewayProxyResult>,
+) => {
+    cb(null, { statusCode: 200, body: 'No longer valid' });
+};
+
+let node8AsyncHandler: AWSLambda.APIGatewayProxyHandler = async (
+    event: AWSLambda.APIGatewayProxyEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.Callback<AWSLambda.APIGatewayProxyResult>,
+) => {
+    return { statusCode: 200, body: 'Is now valid!' };
+};
 
 let inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
     // $ExpectType S3Event
@@ -661,3 +725,5 @@ let customHandler: AWSLambda.Handler<CustomEvent, CustomResult> = (event, contex
     // $ExpectError
     cb(null, { resultString: bool });
 };
+
+let kinesisStreamHandler: AWSLambda.KinesisStreamHandler = (event: AWSLambda.KinesisStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };

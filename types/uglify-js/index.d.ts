@@ -204,6 +204,7 @@ export interface MinifyOutput {
 }
 
 export interface SourceMapOptions {
+    includeSources?: boolean;
     filename?: string;
     url?: string | 'inline';
     root?: string;

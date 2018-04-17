@@ -10,14 +10,14 @@
 //                 Prashant Deva <https://github.com/pdeva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
-    
+
 // Known Issue:
-// There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes 
+// There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @connect() decorator in your code,
 // you will see a bunch of errors from TypeScript. The current workaround is to use connect() as a function call on
 // a separate line instead of as a decorator. Discussed in this github issue:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
-    
+
 import * as React from 'react';
 import * as Redux from 'redux';
 
@@ -80,17 +80,17 @@ export interface Connect {
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>
-    ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp<any>, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp<any> & TOwnProps, TOwnProps>;
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<TDispatchProps & TOwnProps, TOwnProps>;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps & TOwnProps, TOwnProps>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,

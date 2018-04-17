@@ -280,7 +280,11 @@ export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
   cardStyle?: StyleProp<ViewStyle>;
-  transitionConfig?: () => TransitionConfig;
+  transitionConfig?: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps: NavigationTransitionProps,
+    isModal: boolean,
+  ) => TransitionConfig;
   onTransitionStart?: () => void;
   onTransitionEnd?: () => void;
 }
