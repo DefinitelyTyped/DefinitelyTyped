@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-state 1.0
+// Type definitions for prosemirror-state 1.1
 // Project: https://github.com/ProseMirror/prosemirror-state
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -475,7 +475,7 @@ export class EditorState<S extends Schema = Schema> {
      * of plugins, pass an object mapping property names to use in the
      * resulting JSON object to plugin objects.
      */
-    toJSON(pluginFields?: { [name: string]: Plugin<S> }): { [key: string]: any };
+    toJSON(pluginFields?: { [name: string]: Plugin<S> } | string | number): { [key: string]: any };
     /**
      * Create a new state.
      */
