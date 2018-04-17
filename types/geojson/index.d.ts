@@ -3,6 +3,7 @@
 // Definitions by: Jacob Bruun <https://github.com/cobster>
 //                 Arne Schubert <https://github.com/atd-schubert>
 //                 Jeff Jacobson <https://github.com/JeffJacobson>
+//                 Ilia Choly <https://github.com/icholy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
