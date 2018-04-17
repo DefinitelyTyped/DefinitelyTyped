@@ -193,7 +193,10 @@ const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
     navigationOptions: {
         tabBarOnPress: ({scene, jumpToIndex}) => {
             jumpToIndex(scene.index);
-        }
+        },
+        headerStyle: {
+            backgroundColor: 'red',
+        },
     },
 };
 
