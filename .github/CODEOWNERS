@@ -1858,6 +1858,7 @@
 /types/jsonstream/                              @Bartvds
 /types/jsontoxml/                               @benstevens48
 /types/jsonwebtoken/                            @SomaticIT @danielheim @brikou
+/types/jsonwebtoken-promisified                 @aneilbaboo
 /types/jspdf/                                   @amberjs
 /types/jsqrcode/                                @lordazzi
 /types/jsrender/                                @zakki

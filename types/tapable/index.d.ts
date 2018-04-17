@@ -276,6 +276,7 @@ export class HookInterceptor {
     tap: (tap: Tap) => void;
     register: (tap: Tap) => Tap | undefined;
     context: boolean;
+    name: string;
 }
 
 /** A HookMap is a helper class for a Map with Hooks */

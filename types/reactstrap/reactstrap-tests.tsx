@@ -3676,3 +3676,9 @@ const Example116 = (props: any) => {
     </div>
   );
 };
+
+class Example117 extends React.Component {
+  render() {
+    return <Input ref={e => { console.log(e); }}/>;
+  }
+}

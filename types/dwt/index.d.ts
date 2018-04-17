@@ -48,7 +48,7 @@ declare namespace Dynamsoft {
             bChrome: boolean, bEdge: boolean, bFileSystem: boolean, bFirefox: boolean,
             bIE: boolean, bLinux: boolean, bMac: boolean, bSafari: boolean, bWin: boolean, bWin64: boolean,
             basePath: string, iPluginLength: number, isX64: boolean, pathType: number,
-            strChromeVersion: number, strFirefoxVersion: string, strIEVersion: string
+            strChromeVersion: string, strFirefoxVersion: string, strIEVersion: string
         };
 
         /*ignored
@@ -103,8 +103,8 @@ declare namespace Dynamsoft {
         function ShowDialog(_dialogWidth: number, _dialogHeight: number, _strDialogMessageWithHtmlFormat: string, _bChangeImage: boolean, bHideCloseButton: boolean): void;
         let Trial: boolean;
         function Unload(): void;
-        let UseDefaultInstallUI: string;
-        let initQueue: number[];
+        let UseDefaultInstallUI: boolean;
+        let initQueue: any[];
         let inited: boolean;
     }
 }
@@ -1372,11 +1372,46 @@ declare enum EnumDWT_UploadDataFormat {
     Base64 = 1
 }
 
-/** interface for a DWT container which basically defines a DIV on the page */
+/** 
+ * interface for a DWT container which basically defines a DIV on the page
+ */
 interface Container {
     ContainerId: string;
     Width: string | number;
     Height: string | number;
+}
+
+/** 
+ * interface for a base64 result
+ */
+interface Base64Result {
+    getLength(): number;
+    getData(offset: number, length: number): string;
+    getMD5(): string;
+}
+
+/**
+ * Copied from lib.d.ts (Typescript)
+ */
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    msClose(): void;
+    msDetachStream(): any;
+    slice(start?: number, end?: number, contentType?: string): Blob;
+}
+
+/**
+ * Details for each license
+ */
+interface LicenseDetailItem {
+    readonly Browser: string;
+    readonly EnumLicenseType: string;
+    readonly ExpireDate: string;
+    readonly LicenseType: string;
+    readonly OS: string;
+    readonly Trial: string;
+    readonly Version: string;
 }
 
 /**
@@ -1453,7 +1488,7 @@ interface WebTwain {
      * Returns the current deviation of the pixels in the image.
      * @type {number}
      */
-    BlankImageCurrentStdDev: number;
+    readonly BlankImageCurrentStdDev: number;
 
     /**
      * Returns or sets the standard deviation of the pixels in the image.
@@ -1507,7 +1542,7 @@ interface WebTwain {
      * Returns the index (0-based) of a list to indicate the Default Value when the value of the CapType property is TWON_ENUMERATION. If the data type of the capability is String, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime, read-only property.
      * @type {number}
      */
-    CapDefaultIndex: number;
+    readonly CapDefaultIndex: number;
 
     /**
      * Returns the default value in a range when the value of the CapType property is TWON_RANGE. This is a runtime, read-only property.
@@ -1591,25 +1626,25 @@ interface WebTwain {
      * Returns the device name of current source. This is a runtime, read-only property.
      * @type {string}
      */
-    CurrentSourceName: string;
+    readonly CurrentSourceName: string;
 
     /**
      * Returns the value indicating the data source status. This is a runtime, read-only property.
      * @type {number}
      */
-    DataSourceStatus: number;
+    readonly DataSourceStatus: number;
 
     /**
      * Returns the device name of default source. This is a runtime, read-only property.
      * @type {string}
      */
-    DefaultSourceName: string;
+    readonly DefaultSourceName: string;
 
     /**
      * Returns whether the source supports duplex. If so, it further returns the level of duplex the Source supports (one pass or two pass duplex). This is a runtime, read-only property.
-     * @type {number}
+     * @type {EnumDWT_DUPLEX}
      */
-    Duplex: number;
+    readonly Duplex: EnumDWT_DUPLEX;
 
     /**
      * [Deprecated.] Returns or sets whether the user can zoom image using hot key.
@@ -1621,13 +1656,13 @@ interface WebTwain {
      * Returns the error code. This is a runtime, read-only property.
      * @type {number}
      */
-    ErrorCode: number;
+    readonly ErrorCode: number;
 
     /**
      * Returns the error string. This is a runtime, read-only property.
      * @type {string}
      */
-    ErrorString: string;
+    readonly ErrorString: string;
 
     /**
      * Returns or sets the password used to log into the FTP server.
@@ -1657,7 +1692,7 @@ interface WebTwain {
      * Returns the response string from the HTTP server if an error occurs for HTTPUploadThroughPost() method. This is a runtime, read-only property.
      * @type {string}
      */
-    HTTPPostResponseString: string;
+    readonly HTTPPostResponseString: string;
 
     /**
      * Returns whether a HTTP request has credentials
@@ -1675,7 +1710,7 @@ interface WebTwain {
      * Returns how many images are in buffer. This is a runtime, read-only property.
      * @type {number}
      */
-    HowManyImagesInBuffer: number;
+    readonly HowManyImagesInBuffer: number;
 
     /**
      * Specifies the content type of a http upload.
@@ -1783,7 +1818,7 @@ interface WebTwain {
      * Returns whether or not there are documents loaded in the Source's feeder when IfFeederEnabled and IfPaperDetectable are TRUE. This is a runtime, read-only property.
      * @type {boolean}
      */
-    IfFeederLoaded: boolean;
+    readonly IfFeederLoaded: boolean;
 
     /**
      * Returns or sets whether to resize the image to fit the size of window when the view mode is set to -1 by -1. You can use SetViewMode method to set the view mode.
@@ -1813,7 +1848,7 @@ interface WebTwain {
      * Returns the value whether the Source has a paper sensor that can detect documents on the ADF or Flatbed. This is a runtime, read-only property.
      * @type {boolean}
      */
-    IfPaperDetectable: boolean;
+    readonly IfPaperDetectable: boolean;
 
     /**
      * Returns or sets whether SSL is used when uploading or downloading images.
@@ -1879,7 +1914,7 @@ interface WebTwain {
      * Returns whether the Source supports acquisition with the UI (User Interface) disabled. If FALSE, indicates that this Source can only support acquisition with the UI enabled. This is a runtime, read-only property.
      * @type {boolean}
      */
-    IfUIControllable: boolean;
+    readonly IfUIControllable: boolean;
 
     /**
      * Sets or returns whether Dynamic Web TWAIN uses the new TWAIN Data Source Manager (TWAINDSM.dll) when acquiring images from TWAIN devices.
@@ -1927,43 +1962,43 @@ interface WebTwain {
      * Returns the document number of the current image. This is a runtime, read-only property.
      * @type {number}
      */
-    ImageLayoutDocumentNumber: number;
+    readonly ImageLayoutDocumentNumber: number;
 
     /**
      * Returns the value of the bottom-most edge of the current image frame (in Unit). This is a read-only runtime property.
      * @type {number}
      */
-    ImageLayoutFrameBottom: number;
+    readonly ImageLayoutFrameBottom: number;
 
     /**
      * Returns the value of the left-most edge of the current image frame (in Unit). This is a runtime, read-only property.
      * @type {number}
      */
-    ImageLayoutFrameLeft: number;
+    readonly ImageLayoutFrameLeft: number;
 
     /**
      * Returns the frame number of the current image. This is a runtime, read-only property.
      * @type {number}
      */
-    ImageLayoutFrameNumber: number;
+    readonly ImageLayoutFrameNumber: number;
 
     /**
      * Returns the value of the right-most edge of the current image frame (in Unit). This is a runtime, read-only property.
      * @type {number}
      */
-    ImageLayoutFrameRight: number;
+    readonly ImageLayoutFrameRight: number;
 
     /**
      * Returns the value of the top-most edge of the current image frame (in Unit). This is a runtime, read-only property.
      * @type {number}
      */
-    ImageLayoutFrameTop: number;
+    readonly ImageLayoutFrameTop: number;
 
     /**
      * Returns the page number of the current image. This is a runtime, read-only property.
      * @type {Long}
      */
-    ImageLayoutPageNumber: number;
+    readonly ImageLayoutPageNumber: number;
 
     /**
      * [Deprecated.] Returns how tall/long, in pixels, the image is. This is a runtime, read-only property.
@@ -1981,7 +2016,7 @@ interface WebTwain {
      * Returns the pixel type of the current image. This is a runtime, read-only property. Please note the property is only valid in OnPreTransfer and OnPostTransfer event.
      * @type {EnumDWT_PixelType}
      */
-    ImagePixelType: EnumDWT_PixelType;
+    readonly ImagePixelType: EnumDWT_PixelType;
 
     /**
      * [Deprecated.] Returns how width, in pixels, the image is. This is a runtime, read-only property.
@@ -2017,13 +2052,13 @@ interface WebTwain {
      * Return the magnetic data if the scanner support magnetic data recognition.
      * @type {string}
      */
-    MagData: string;
+    readonly MagData: string;
 
     /**
      * Return the magnetic type if the scanner support magnetic data recognition.
      * @type {number}
      */
-    MagType: number;
+    readonly MagType: number;
 
     /**
      * Sets or returns the manufacture string for the application identity.
@@ -2059,13 +2094,13 @@ interface WebTwain {
      * Returns the X co-ordinate of the mouse. This is a runtime property.
      * @type {number}
      */
-    MouseX: number;
+    readonly MouseX: number;
 
     /**
      * Returns the Y co-ordinate of the mouse. This is a runtime property.
      * @type {number}
      */
-    MouseY: number;
+    readonly MouseY: number;
 
     /**
      * Returns or sets the name of the person who creates the PDF document.
@@ -2129,15 +2164,15 @@ interface WebTwain {
 
     /**
      * Returns or sets the page size(s) the Source can/should use to acquire image data. This is a runtime property.
-     * @type {number}
+     * @type {EnumDWT_CapSupportedSizes}
      */
-    PageSize: number;
+    PageSize: EnumDWT_CapSupportedSizes;
 
     /**
      * Returns the number of transfers the Source is ready to supply, upon demand. This is a runtime, read-only property.
      * @type {number}
      */
-    PendingXfers: number;
+    readonly PendingXfers: number;
 
     /**
      * Returns or sets the pixel flavor for acquired images. This is a runtime property.
@@ -2209,7 +2244,7 @@ interface WebTwain {
      * Returns how many sources are installed in the system. This is a runtime, read-only property.
      * @type {number}
      */
-    SourceCount: number;
+    readonly SourceCount: number;
 
     /**
      * Returns or sets the compression type of TIFF files. This is a runtime property.
@@ -2225,9 +2260,9 @@ interface WebTwain {
 
     /**
      * Returns or sets the unit of measure. This is a runtime property.
-     * @type {number}
+     * @type {EnumDWT_UnitType}
      */
-    Unit: number;
+    Unit: EnumDWT_UnitType;
 
     /**
      * Specifies whether to show the vertical scroll bar
@@ -2239,7 +2274,7 @@ interface WebTwain {
      * Sets or returns the version info string for the application identity.
      * @type {string}
      */
-    VersionInfo: string;
+    readonly VersionInfo: string;
 
     /**
      * Returns or sets the width of the dwt object viewer
@@ -2450,18 +2485,17 @@ interface WebTwain {
     CloseWorkingProcess(): boolean;
 
     /**
-     * Converts the images specified by the indices to base64.
+     * Converts the images specified by the indices to base64 synchronously.
      * @method WebTwain#ConvertToBase64
      * @param {Array} indices indices specifies which images are to be converted to base64.
      * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
-     * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
-     * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
-     * @return {boolean}
-     */
-    ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc?: (result: any) => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
+     * @return {Base64Result}
+ 
+    ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType): Base64Result;
+    */
 
     /**
-     * Converts the images specified by the indices to base64.
+     * Converts the images specified by the indices to base64 asynchronously.
      * @method WebTwain#ConvertToBase64
      * @param {Array} indices indices specifies which images are to be converted to base64.
      * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
@@ -2469,7 +2503,27 @@ interface WebTwain {
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    ConvertToBlob(indices: number[], enumImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc?: (result: any) => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
+    ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType, asyncSuccessFunc: (result: Base64Result) => void, asyncFailureFunc: (errorCode: number, errorString: string) => void): boolean;
+
+    /**
+     * Converts the images specified by the indices to blob synchronously.
+     * @method WebTwain#ConvertToBlob
+     * @param {Array} indices indices specifies which images are to be converted to base64.
+     * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
+     * @return {Blob}
+     */
+    ConvertToBlob(indices: number[], enumImageType: EnumDWT_ImageType): Blob;
+
+    /**
+     * Converts the images specified by the indices to blob asynchronously.
+     * @method WebTwain#ConvertToBlob
+     * @param {Array} indices indices specifies which images are to be converted to base64.
+     * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
+     * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
+     * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
+     * @return {boolean}
+     */
+    ConvertToBlob(indices: number[], enumImageType: EnumDWT_ImageType, asyncSuccessFunc: (result: any) => void, asyncFailureFunc: (errorCode: number, errorString: string) => void): boolean;
 
     /**
      * Changes a specified image to gray scale.
@@ -2737,9 +2791,9 @@ interface WebTwain {
     /**
      * Gets custom DS data, the returned string is base64 encoded.
      * @method WebTwain#GetCustomDSDataEx
-     * @return {string}
+     * @return {string | boolean}
      */
-    GetCustomDSDataEx(): string;
+    GetCustomDSDataEx(): string | boolean;
 
     // Get custom DS data, and save the data to the specified file
     /**
@@ -2753,9 +2807,9 @@ interface WebTwain {
     /**
      * Retrieve the device type of the currently selected data source, it might be a scanner, a web camera, etc.
      * @method WebTwain#GetDeviceType
-     * @return {number}
+     * @return {number | boolean}
      */
-    GetDeviceType(): number;
+    GetDeviceType(): number | boolean;
 
     /**
      * Returns the pixel bit depth of the selected image.
@@ -2773,9 +2827,15 @@ interface WebTwain {
      */
     GetImageHeight(sImageIndex: number): number;
 
-    /*work on
-    GetImagePartURL
-    */
+    /**
+     * Returns the direct URL of an image specified by index, if iWidth and iHeight are not specified, you get the original image, otherwise you get the image with specified iWidth or iHeight while keeping the same aspect ratio. The returned string is like this 'dwt://dwt_trial_13000404/img?id=306159652&index=0&t=1502184632022'
+     * @method WebTwain#GetImagePartURL
+     * @param {number} index the index of the image.
+     * @param {number} iWidth the width of the image, it must be 150 or bigger
+     * @param {number} iHeight the height of the image, it must be 150 or bigger
+     * @return {string}
+     */
+    GetImagePartURL(index: number, iWidth?: number, iHeight?: number): string;
 
     /**
      * Returns the file size of the new image resized from the image of a specified index in buffer.
@@ -2791,10 +2851,10 @@ interface WebTwain {
      * Pre-calculate the file size of the local image file that is saved from an image of a specified index in buffer.
      * @method WebTwain#GetImageSizeWithSpecifiedType
      * @param {number} sImageIndex specifies the index of image in buffer. The index is 0-based.
-     * @param {number} sImageType specifies the type of an image file..
+     * @param {EnumDWT_ImageType} sImageType specifies the type of an image file..
      * @return {number}
      */
-    GetImageSizeWithSpecifiedType(sImageIndex: number, sImageType: number): number;
+    GetImageSizeWithSpecifiedType(sImageIndex: number, sImageType: EnumDWT_ImageType): number;
 
     /**
      * Returns the direct URL of an image specified by index, if iWidth or iHeight is set to -1, you get the original image, otherwise you get the image with specified iWidth or iHeight while keeping the same aspect ratio.
@@ -2834,7 +2894,7 @@ interface WebTwain {
      * Return the runtime license info.
      * @method WebTwain#GetLicenseInfo
      */
-    GetLicenseInfo(): { Domain: string, Detail: any[] };
+    GetLicenseInfo(): { Domain: string, Detail: LicenseDetailItem[] };
 
     /**
      * Returns the index of the selected image.
@@ -2847,10 +2907,10 @@ interface WebTwain {
     /**
      * Pre-calculate the file size of the local image file that is saved from the selected images in buffer.
      * @method WebTwain#GetSelectedImagesSize
-     * @param {number} iImageType specifies the type of an image file.
+     * @param {EnumDWT_ImageType} iImageType specifies the type of an image file.
      * @return {number}
      */
-    GetSelectedImagesSize(iImageType: number): number;
+    GetSelectedImagesSize(iImageType: EnumDWT_ImageType): number;
 
     /**
      * Check the skew angle of an image by its index in buffer.
@@ -2939,6 +2999,16 @@ interface WebTwain {
     HTTPDownloadThroughPost(HTTPServer: string, HTTPRemoteFile: string, lImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
 
     /**
+     * Uploads just a form created by SetHTTPFormField and SetHTTPHeader
+     * @method WebTwain#HTTPUpload
+     * @param {string} url the url where the images are sent in a POST request.
+     * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
+     * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
+     * @return {boolean}
+     */
+    HTTPUpload(url: string, asyncSuccessFunc: (httppostresponsestring: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+
+    /**
      * Uploads the images specified by the indices to the HTTP server.
      * @method WebTwain#HTTPUpload
      * @param {string} url the url where the images are sent in a POST request.
@@ -2949,7 +3019,7 @@ interface WebTwain {
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, asyncSuccessFunc: (httppostresponsestring: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
 
     /**
      * Uploads all images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page TIFF.
@@ -3256,9 +3326,10 @@ interface WebTwain {
     /**
      * Shows the GUI of Image Printer.
      * @method WebTwain#Print
+     * @param {boolean} bUseSystemDefaultPrintUI specifies whether to use the system Print UI or not.
      * @return {boolean}
      */
-    Print(): boolean;
+    Print(bUseSystemDefaultPrintUI: boolean): boolean;
 
     /**
      * Binds a specified function to an event, so that the function gets called whenever the event fires.
@@ -3272,9 +3343,9 @@ interface WebTwain {
     /**
      * Removes all images in buffer.
      * @method WebTwain#RemoveAllImages
-     * @return {void}
+     * @return {boolean}
      */
-    RemoveAllImages(): void;
+    RemoveAllImages(): boolean;
 
     /**
      * Removes selected images in buffer.
@@ -3543,6 +3614,16 @@ interface WebTwain {
     SetHTTPFormField(FieldName: string, FieldValue: string): boolean;
 
     /**
+     * Sets a text parameter as a filed in a web form. This form is maintained by the component itself (meaning it's not on the page). All fields in this form will be passed to the server when uploading images.
+     * @method WebTwain#SetHTTPFormField
+     * @param {string} FieldName specifies the name of the field which could later be used to retrieve the blob
+     * @param {Blob} blobValue specifies the blob to be put in the form.
+     * @param {string} optionalFileName specifies the file name for the blob
+     * @return {boolean}
+     */
+    SetHTTPFormField(FieldName: string, blobValue: Blob, optionalFileName?: string): boolean;
+
+    /**
      * Sets a header for the current HTTP Post request.
      * @method WebTwain#SetHTTPHeader
      * @param {string} key the key of the header.
@@ -3604,9 +3685,9 @@ interface WebTwain {
      * @method WebTwain#SetSelectedImageIndex
      * @param {number} sSelectedIndex this is the index of an array that holds the indices of selected images.
      * @param {number} newVal specifies the index of an image that you want to select.
-     * @return {void}
+     * @return {boolean}
      */
-    SetSelectedImageIndex(selectedIndex: number, newVal: number): void;
+    SetSelectedImageIndex(selectedIndex: number, newVal: number): boolean;
 
     /**
      * Sets a custom tiff tag. Currently you can set up to 32 tags. The string to be set in a tag can be encoded with base64.

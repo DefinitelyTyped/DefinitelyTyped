@@ -4,7 +4,7 @@ import { TransitionProps } from 'react-transition-group/Transition';
 import { PortalProps } from './Portal';
 import { PositionProps } from './Position';
 
-declare class Overlay extends React.Component<OverlayProps> { }
+declare class Overlay extends React.Component<Overlay.OverlayProps> { }
 export = Overlay;
 
 declare namespace Overlay {
