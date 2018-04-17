@@ -20,6 +20,9 @@
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 Huw <https://github.com/hoo29>
 //                 Nicolas Even <https://github.com/n-e>
+//                 Mohsen Azimi <https://github.com/mohsen1>
+//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
+//                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -217,10 +220,6 @@ declare var Buffer: {
     new(buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
-     * Allocates a new Buffer using an {array} of octets.
-     */
-    from(array: any[]): Buffer;
-    /**
      * When passed a reference to the .buffer property of a TypedArray instance,
      * the newly created Buffer will share the same allocated memory as the TypedArray.
      * The optional {byteOffset} and {length} arguments specify a memory range
@@ -230,9 +229,10 @@ declare var Buffer: {
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
-     * Copies the passed {buffer} data onto a new Buffer instance.
+     * Creates a new Buffer using the passed {data}
+     * @param data data to create a new Buffer
      */
-    from(buffer: Buffer): Buffer;
+    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -953,6 +953,7 @@ declare module "http" {
         'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
+        'authorization'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -1749,17 +1750,9 @@ declare module "https" {
 
     export type ServerOptions = tls.SecureContextOptions & tls.TlsOptions;
 
-    export type RequestOptions = http.RequestOptions & {
+    export type RequestOptions = http.RequestOptions & tls.SecureContextOptions & {
         rejectUnauthorized?: boolean; // Defaults to true
         servername?: string; // SNI TLS Extension
-        pfx?: string | Buffer | Array<string | Buffer | Object>;
-        key?: string | Buffer | Array<Buffer | Object>;
-        passphrase?: string;
-        cert?: string | Buffer | Array<string | Buffer>;
-        ca?: string | Buffer | Array<string | Buffer>;
-        ciphers?: string;
-        clientCertEngine?: string;
-        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
     };
 
     export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
@@ -2001,10 +1994,11 @@ declare module "vm" {
     }
     export function createContext(sandbox?: Context): Context;
     export function isContext(sandbox: Context): boolean;
-    export function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions): any;
+    export function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
+    /** @deprecated */
     export function runInDebugContext(code: string): any;
-    export function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions): any;
-    export function runInThisContext(code: string, options?: RunningScriptOptions): any;
+    export function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
+    export function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
 }
 
 declare module "child_process" {
@@ -4683,11 +4677,11 @@ declare module "path" {
     /**
      * The platform-specific file separator. '\\' or '/'.
      */
-    export var sep: string;
+    export var sep: '\\' | '/';
     /**
      * The platform-specific file delimiter. ';' or ':'.
      */
-    export var delimiter: string;
+    export var delimiter: ';' | ':';
     /**
      * Returns an object from a path string - the opposite of format().
      *
@@ -4978,7 +4972,6 @@ declare module "tls" {
     }
 
     export interface TlsOptions extends SecureContextOptions {
-        clientCertEngine?: string;
         handshakeTimeout?: number;
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
@@ -5179,9 +5172,9 @@ declare module "crypto" {
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
-        setAutoPadding(auto_padding?: boolean): void;
+        setAutoPadding(auto_padding?: boolean): this;
         getAuthTag(): Buffer;
-        setAAD(buffer: Buffer): void;
+        setAAD(buffer: Buffer): this;
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
@@ -5192,9 +5185,9 @@ declare module "crypto" {
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
-        setAutoPadding(auto_padding?: boolean): void;
-        setAuthTag(tag: Buffer): void;
-        setAAD(buffer: Buffer): void;
+        setAutoPadding(auto_padding?: boolean): this;
+        setAuthTag(tag: Buffer): this;
+        setAAD(buffer: Buffer): this;
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {

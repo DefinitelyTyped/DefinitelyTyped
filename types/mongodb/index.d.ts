@@ -8,6 +8,7 @@
 //                 Mariano Cortesi <https://github.com/mcortesi>
 //                 Enrico Picci <https://github.com/EnricoPicci>
 //                 Alexander Christie <https://github.com/AJCStriker>
+//                 Julien Chaumond <https://github.com/julien-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -96,6 +97,10 @@ export interface MongoClientOptions extends
     validateOptions?: Object;
     // The name of the application that created this MongoClient instance.
     appname?: string;
+    auth?: {
+        user: string;
+        password: string;
+    }
 }
 
 export interface SSLOptions {
@@ -104,7 +109,7 @@ export interface SSLOptions {
     // Use ssl connection (needs to have a mongod server with ssl support)
     ssl?: boolean;
     // Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
-    sslValidate?: Object;
+    sslValidate?: boolean;
     // Default: true; Server identity checking during SSL
     checkServerIdentity?: boolean | Function;
     // Array of valid certificates either as Buffers or Strings
@@ -465,8 +470,8 @@ export interface Collection<TSchema = Default> {
     // Get current index hint for collection.
     hint: any;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#aggregate */
-    aggregate<T = TSchema>(pipeline: Object[], callback: MongoCallback<T[]>): AggregationCursor<T>;
-    aggregate<T = TSchema>(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<T[]>): AggregationCursor<T>;
+    aggregate<T = TSchema>(pipeline: Object[], callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
+    aggregate<T = TSchema>(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>;
@@ -508,9 +513,9 @@ export interface Collection<TSchema = Default> {
     dropIndexes(callback?: MongoCallback<any>): void;
     dropIndexes(options: {session?: ClientSession, maxTimeMS?: number}, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#find */
-    find<T = TSchema>(query?: FilterQuery<T>): Cursor<T>;
+    find<T = TSchema>(query?: FilterQuery<TSchema>): Cursor<T>;
     /** @deprecated */
-    find<T = TSchema>(query: FilterQuery<T>, options?: FindOneOptions): Cursor<T>;
+    find<T = TSchema>(query: FilterQuery<TSchema>, options?: FindOneOptions): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#findOne */
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T | null>): void;
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions): Promise<T | null>;

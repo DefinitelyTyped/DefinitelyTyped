@@ -3217,7 +3217,7 @@ declare module "../index" {
          * @param object The object to modify.
          * @param path The path of the property to set.
          * @param value The value to set.
-         * @parem customizer The function to customize assigned values.
+         * @param customizer The function to customize assigned values.
          * @return Returns object.
          */
         setWith<T extends object>(
