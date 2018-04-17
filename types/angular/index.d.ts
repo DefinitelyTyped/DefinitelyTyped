@@ -1998,7 +1998,7 @@ declare namespace angular {
             scope: TScope,
             instanceElement: JQLite,
             instanceAttributes: IAttributes,
-            controller?: IController | IController[] | {[key: string]: IController},
+            controller?: IController | IController[] | {[key: string]: IController} | INgModelController | INgModelController[] | {[key: string]: INgModelController},
             transclude?: ITranscludeFunction
         ): void;
     }
