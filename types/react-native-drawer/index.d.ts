@@ -109,6 +109,10 @@ export interface DrawerProperties {
      */
     onOpenStart?(): void;
     /**
+     * Callback fired when a drag gesture starts.
+     */
+    onDragStart?(): void;
+    /**
      * Will be called immediately after the drawer has entered the closed state
      */
     onClose?(): void;
@@ -137,6 +141,10 @@ export interface DrawerProperties {
      * disable the drawer while still allowing programmatic control
      */
     acceptPan?: boolean;
+    /**
+     * Allow Pan when drawer is 'open'
+    **/
+    acceptPanOnDrawer?: boolean;
     /**
      * Same as acceptTap, except only for close
      */
@@ -167,7 +175,7 @@ export interface DrawerProperties {
     /**
      * which side the drawer should be on.
      */
-    side?: 'left' | 'right';
+    side?: 'left' | 'right' | 'top' | 'bottom';
     /**
      * if true will run InteractionManager for open/close animations.
      */
