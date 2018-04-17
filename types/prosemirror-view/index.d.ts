@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.0
+// Type definitions for prosemirror-view 1.2
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -17,7 +17,8 @@ import {
     Node as ProsemirrorNode,
     ResolvedPos,
     Slice,
-    Schema
+    Schema,
+    Mark
 } from 'prosemirror-model';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { Mapping } from 'prosemirror-transform';
@@ -51,6 +52,7 @@ export class Decoration {
         dom: Node,
         spec?: {
             side?: number | null;
+            marks?: Mark[];
             stopEvent?: ((event: Event) => boolean) | null;
             key?: string | null;
         }
