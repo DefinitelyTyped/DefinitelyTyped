@@ -5,10 +5,6 @@
         "interface-name": false,
         "no-mergeable-namespace": false,
         "no-empty-interface": false,
-        "no-unnecessary-generics": false,
-        "no-const-enum": false,
-        "callable-types": false,
-        "unified-signatures": false,
-        "interface-over-type-literal": false
+        "no-const-enum": false
     }
 }

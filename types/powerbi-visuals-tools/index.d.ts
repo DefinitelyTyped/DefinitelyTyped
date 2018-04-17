@@ -1,6 +1,7 @@
 // Type definitions for Powerbi-visuals-tools 1.11
 // Project: https://github.com/Microsoft/PowerBI-visuals-tools
-// Definitions by: Microsoft <https://github.com/Microsoft>
+// Definitions by:  Ilfat Galiev <https://github.com/zBritva>
+//                  Microsoft <https://github.com/Microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace powerbi {
@@ -24,8 +25,7 @@ declare namespace powerbi {
         ResizeEnd = 32,
         All = 62,
     }
-    enum VisualPermissions {
-    }
+
     const enum CartesianRoleKind {
         X = 0,
         Y = 1,
@@ -135,11 +135,13 @@ declare namespace powerbi {
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
+        // tslint:disable-next-line
         defer<T>(): IDeferred<T>;
 
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
+        // tslint:disable-next-line
         defer<TSuccess, TError>(): IDeferred2<TSuccess, TError>;
 
         /**
@@ -175,6 +177,7 @@ declare namespace powerbi {
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          * Does not resolve until all promises finish (success or failure).
          */
+        // tslint:disable-next-line
         allSettled<T>(promises: Array<IPromise2<any, any>>): IPromise<Array<IPromiseResult<T>>>;
 
         /**
@@ -205,21 +208,7 @@ declare namespace powerbi {
          * the return value of the successCallback, errorCallback.
          */
         then<TSuccessResult, TErrorResult>(
-            successCallback: (promiseValue: TSuccess) => IPromise2<TSuccessResult, TErrorResult>,
-            errorCallback?: (reason: TError) => TErrorResult):
-        IPromise2<TSuccessResult, TErrorResult>;
-
-        /**
-         * Regardless of when the promise was or will be resolved or rejected,
-         * then calls one of the success or error callbacks asynchronously as soon as the result is available.
-         * The callbacks are called with a single argument: the result or rejection reason.
-         * Additionally, the notify callback may be called zero or more times to provide a progress indication,
-         * before the promise is resolved or rejected.
-         * This method returns a new promise which is resolved or rejected via
-         * the return value of the successCallback, errorCallback.
-         */
-        then<TSuccessResult, TErrorResult>(
-            successCallback: (promiseValue: TSuccess) => TSuccessResult,
+            successCallback: (promiseValue: TSuccess) => TSuccessResult | IPromise2<TSuccessResult, TErrorResult>,
             errorCallback?: (reason: TError) => TErrorResult):
         IPromise2<TSuccessResult, TErrorResult>;
 
@@ -243,6 +232,7 @@ declare namespace powerbi {
          * are not supported as property names by ES3, you'll need to invoke
          * the method like promise['finally'](callback) to make your code IE8 and Android 2.x compatible.
          */
+        // tslint:disable-next-line
         finally<T, U>(finallyCallback: () => any): IPromise2<T, U>;
     }
 
@@ -266,6 +256,7 @@ declare namespace powerbi {
     }
 
     interface IResultCallback<T> {
+        // tslint:disable-next-line
         (result: T, done: boolean): void;
     }
 
@@ -699,7 +690,9 @@ declare namespace powerbi {
         propertyName: string;
     }
 
-    type DataViewObjectMap = { [id: string]: DataViewObject };
+    interface DataViewObjectMap {
+        [id: string]: DataViewObject;
+    }
 
     type DataViewPropertyValue = PrimitiveValue | StructuralObjectValue;
 }
@@ -989,9 +982,6 @@ declare namespace powerbi {
         geoJson?: GeoJsonTypeDescriptor;
         queryTransform?: QueryTransformTypeDescriptor;
         dataBars?: DataBarsTypeDescriptor;
-
-        // border?: BorderTypeDescriptor;
-        // etc.
     }
 }
 
@@ -1201,6 +1191,7 @@ declare namespace powerbi.extensibility {
     }
 
     interface IVisualDataViewTransform {
+        // tslint:disable-next-line
         <T>(dataview: DataView[]): T;
     }
 
@@ -1329,6 +1320,7 @@ declare namespace powerbi.extensibility.visual {
      */
     interface IVisual extends extensibility.IVisual {
         /** Notifies the IVisual of an update (data, viewmode, size change). */
+        // tslint:disable-next-line
         update<T>(options: VisualUpdateOptions, viewModel?: T): void;
 
         /** Notifies the visual that it is being destroyed, and to do any cleanup necessary (such as unsubscribing event handlers). */
