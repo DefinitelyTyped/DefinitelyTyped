@@ -8,11 +8,10 @@ export async function run(context: HttpContext, req: FunctionRequest) {
             status: HttpStatusCode.OK,
             body: "Hello " + (req.query.name || req.body.name)
         };
-    }
-    else {
+    } else {
         context.res = {
             status: HttpStatusCode.BadRequest,
             body: "Please pass a name on the query string or in the request body"
         };
     }
-};
+}
