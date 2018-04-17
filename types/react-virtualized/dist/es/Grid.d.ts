@@ -54,6 +54,11 @@ export type ScrollParams = {
     scrollTop: number;
     scrollWidth: number;
 };
+export type ScrollbarPresenceParams = {
+    horizontal: boolean;
+    size: number;
+    vertical: boolean;
+};
 export type SectionRenderedParams = RenderedSection;
 export type SCROLL_DIRECTION_HORIZONTAL = "horizontal";
 export type SCROLL_DIRECTION_VERTICAL = "vertical";
@@ -237,6 +242,11 @@ export type GridCoreProps = {
      * ({ clientHeight, clientWidth, scrollHeight, scrollLeft, scrollTop, scrollWidth }): void
      */
     onScroll?: (params: ScrollParams) => any;
+    /**
+     * Called whenever a horizontal or vertical scrollbar is added or removed.
+     * ({ horizontal: boolean, size: number, vertical: boolean }): void
+     */
+    onScrollbarPresenceChange?: (params: ScrollbarPresenceParams) => any;
     /**
      * Callback invoked with information about the section of the Grid that was just rendered.
      * ({ columnStartIndex, columnStopIndex, rowStartIndex, rowStopIndex }): void
