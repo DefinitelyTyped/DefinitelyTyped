@@ -19,7 +19,7 @@ export interface Red {
     settings: any;
     events: any;
     util: any;
-    htttpAdmin: any;
+    httpAdmin: any;
     auth: any;
     comms: any;
     library: any;
