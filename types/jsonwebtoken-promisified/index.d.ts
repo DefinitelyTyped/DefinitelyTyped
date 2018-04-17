@@ -1,4 +1,4 @@
-// Type definitions for jsonwebtoken-promisified 1.0.3
+// Type definitions for jsonwebtoken-promisified 1.0
 // Project: https://github.com/joepie91/node-jsonwebtoken-promisified
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
 //                 Daniel Heim <https://github.com/danielheim>,
@@ -43,9 +43,9 @@ export interface SignOptions {
      */
     algorithm?: string;
     keyid?: string;
-    /** @member {string} - expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
+    /** {string} - expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
     expiresIn?: string | number;
-    /** @member {string} - expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
+    /** {string} - expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
     notBefore?: string | number;
     audience?: string | string[];
     subject?: string;
@@ -67,8 +67,8 @@ export interface VerifyOptions {
     jwtid?: string;
     subject?: string;
     /**
-     *@deprecated
-     *@member {string} - Max age of token
+     * @deprecated
+     * {string} - Max age of token
      */
     maxAge?: string;
 }
@@ -78,27 +78,23 @@ export interface DecodeOptions {
     json?: boolean;
 }
 
-export interface VerifyCallback {
-    (
-        err: JsonWebTokenError | NotBeforeError | TokenExpiredError,
-        decoded: object | string,
-    ): void;
-}
+export type VerifyCallback = (
+    err: JsonWebTokenError | NotBeforeError | TokenExpiredError,
+    decoded: object | string
+) => void;
 
-export interface SignCallback {
-    (err: Error, encoded: string): void;
-}
+export type SignCallback = (err: Error, encoded: string) => void;
 
 export type Secret = string | Buffer | { key: string; passphrase: string };
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string
- * @param {String|Object|Buffer} payload - Payload to sign, could be an literal, buffer or string
- * @param {String|Buffer} secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for RSA and ECDSA.
- * @param {SignOptions} [options] - Options for the signature
- * @returns {String} The JSON Web Token string
+ * @param payload - Payload to sign, could be an literal, buffer or string
+ * @param secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for RSA and ECDSA.
+ * @param [options] - Options for the signature
+ * @returns The JSON Web Token string
  */
-export declare function sign(
+export function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
     options?: SignOptions,
@@ -106,54 +102,44 @@ export declare function sign(
 
 /**
  * Sign the given payload into a JSON Web Token string
- * @param {String|Object|Buffer} payload - Payload to sign, could be an literal, buffer or string
- * @param {String|Buffer} secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for RSA and ECDSA.
- * @param {SignOptions} [options] - Options for the signature
- * @param {Function} callback - Callback to get the encoded token on
+ * @param payload - Payload to sign, could be an literal, buffer or string
+ * @param secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for RSA and ECDSA.
+ * @param options - Options for the signature
+ * @param callback - Callback to get the encoded token on
  */
-export declare function sign(
+export function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
     callback: SignCallback,
 ): void;
-export declare function sign(
+export function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
     options: SignOptions,
     callback: SignCallback,
 ): void;
 
-
 /**
  * Sign the given payload asynchronously into a JSON Web Token String
- * @export
- * @param {String|Object|Buffer} payload - Payload to sign, could be an literal, buffer or string
- * @param {String|Buffer} secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for RSA and ECDSA.
- * @param {SignOptions} [options] - Options for the signature
- * @returns {Promise<string>} A promise providing JSON Web Token string
+ * @param payload - Payload to sign, could be an literal, buffer or string
+ * @param secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for RSA and ECDSA.
+ * @param [options] - Options for the signature
+ * @returns A promise providing JSON Web Token string
  */
 export function signAsync(
     payload: string | Buffer | object,
-    secretOrPrivateKey: Secret
-): Promise<string>;
-export function signAsync(
-    payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
-    options: SignOptions
+    options?: SignOptions
 ): Promise<string>;
 
 /**
  * Synchronously verify given token using a secret or a public key to get a decoded token
- * @param {String} token - JWT string to verify
- * @param {String|Buffer} secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
- * @param {VerifyOptions} [options] - Options for the verification
+ * @param token - JWT string to verify
+ * @param secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
+ * @param [options] - Options for the verification
  * @returns The decoded token.
  */
-export declare function verify(
-    token: string,
-    secretOrPublicKey: string | Buffer,
-): object | string;
-export declare function verify(
+export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
     options?: VerifyOptions,
@@ -161,45 +147,42 @@ export declare function verify(
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
- * @param {String} token - JWT string to verify
- * @param {String|Buffer} secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
- * @param {VerifyOptions} [options] - Options for the verification
- * @param {Function} callback - Callback to get the decoded token on
+ * @param token - JWT string to verify
+ * @param secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
+ * @param options - Options for the verification
+ * @param callback - Callback to get the decoded token on
  */
-export declare function verify(
+export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
-    callback?: VerifyCallback,
+    callback?: VerifyCallback
 ): void;
-export declare function verify(
+export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions,
-    callback?: VerifyCallback,
+    options: VerifyOptions,
+    callback?: VerifyCallback
 ): void;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
- * @param {string} token - the JWT string to verify
- * @param {(string | Buffer)} secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
- * @returns {(Promise<object|string>)} - Promise returning the decoded token
+ * @param token - the JWT string to verify
+ * @param secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
+ * @returns - Promise returning the decoded token
  */
 export function verifyAsync(
     token: string,
-    secretOrPublicKey: string | Buffer
-): Promise<object|string>
-export function verifyAsync(token: string,
     secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions,
+    options?: VerifyOptions
 ): Promise<object|string>;
 
 /**
  * Returns the decoded payload without verifying if the signature is valid.
- * @param {String} token - JWT string to decode
- * @param {DecodeOptions} [options] - Options for decoding
- * @returns {Object} The decoded Token
+ * @param token - JWT string to decode
+ * @param [options] - Options for decoding
+ * @returns The decoded Token
  */
-export declare function decode(
+export function decode(
     token: string,
     options?: DecodeOptions,
 ): null | { [key: string]: any } | string;
