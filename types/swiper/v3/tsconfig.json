@@ -9,10 +9,19 @@
         "noImplicitThis": false,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "types": [],
+        "paths": {
+            "swiper": [
+                "swiper/v3"
+            ],
+            "swiper/*": [
+                "swiper/v3/*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
