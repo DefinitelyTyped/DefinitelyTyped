@@ -1243,7 +1243,7 @@ declare module 'ember' {
              * Returns a new enumerable that contains only items containing a unique property value.
              * The default implementation returns an array regardless of the receiver type.
              */
-            uniqBy(): NativeArray<T>;
+            uniqBy(property: string): NativeArray<T>;
             /**
              * Returns `true` if the passed object can be found in the enumerable.
              */
