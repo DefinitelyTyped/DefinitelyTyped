@@ -1,4 +1,4 @@
-import * as toobusy from "toobusy-js";
+import toobusy = require("toobusy-js");
 
 let numberValue = 1;
 let booleanValue = true;
