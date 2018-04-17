@@ -22,7 +22,7 @@ export type WindowScrollerProps = {
      */
     children: (
         params: {
-            onChildScroll: ({ scrollTop: number }) => void;
+            onChildScroll: (params: { scrollTop: number }) => void;
             registerChild: (params?: Element) => void;
             height: number;
             isScrolling: boolean;

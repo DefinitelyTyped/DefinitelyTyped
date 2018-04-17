@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "common/common.d.ts",
         "lodash-tests.ts",
         "add.d.ts",
         "after.d.ts",
@@ -715,6 +714,8 @@
         "fp/zipObj.d.ts",
         "fp/zipObject.d.ts",
         "fp/zipObjectDeep.d.ts",
-        "fp/zipWith.d.ts"
+        "fp/zipWith.d.ts",
+        "fp/__.d.ts",
+        "fp/placeholder.d.ts"
     ]
 }

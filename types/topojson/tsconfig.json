@@ -21,9 +21,6 @@
         "index.d.ts",
         "topojson-tests.ts",
         "test/atlas-tests.ts",
-        "test/client-tests.ts",
-        "test/server-tests.ts",
-        "test/simplify-tests.ts",
-        "test/specification-tests.ts"
+        "test/server-tests.ts"
     ]
 }
