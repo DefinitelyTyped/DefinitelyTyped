@@ -24,7 +24,7 @@ declare let R: R.Static;
 
 declare namespace R {
     type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
-    type Omit<T, K extends keyof { [index: string]: any }> = Pick<T, Diff<keyof T, K>>;
+    type Omit<T, K extends string> = Pick<T, Diff<keyof T, K>>;
 
     type Ord = number | string | boolean;
 
