@@ -119,6 +119,13 @@ namespace express_tests {
         router(req, res, next);
     });
 
+    router.get('/user/:id', (req, res, next) => {
+        if (req.params.id === "0") next('route');
+        else next();
+    }, (req, res, next) => {
+        res.render('regular');
+    });
+
     // Test append function
     app.use((req, res, next) => {
         res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);

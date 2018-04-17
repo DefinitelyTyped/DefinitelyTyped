@@ -5,7 +5,7 @@
 //                 Thomas Dvornik <https://github.com/amphro>
 //                 Tim Noonan <https://github.com/tnoonan-salesforce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as fs from 'fs';
 import * as stream from 'stream';
