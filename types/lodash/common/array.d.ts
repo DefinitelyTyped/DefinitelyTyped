@@ -1405,7 +1405,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -1444,7 +1444,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
         ): LoDashExplicitWrapper<T1[]>;
 
         /**

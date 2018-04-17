@@ -1873,6 +1873,7 @@ export namespace SQLite {
 export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
+    fillRule?: 'nonzero' | 'evenodd';
     stroke?: string;
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
@@ -1883,6 +1884,7 @@ export interface SvgCommonProps {
     x?: number | string;
     y?: number | string;
     rotate?: number | string;
+    rotation?: number | string;
     scale?: number | string;
     origin?: number | string;
     originX?: number | string;

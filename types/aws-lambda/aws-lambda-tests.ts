@@ -260,14 +260,37 @@ statement = {
 };
 
 statement = {
+    Sid: str,
     Action: [str, str],
     Effect: str,
-    Resource: [str, str]
+    Resource: [str, str],
+    Condition: {
+        condition1: { key: "value" },
+        condition2: [{
+                key1: "value",
+                key2: "value"
+        }, {
+            key3: "value"
+        }]
+    },
+    Principal: [str, str],
+    NotPrincipal: [str, str]
+};
+
+statement = {
+    Effect: str,
+    NotAction: str,
+    NotResource: str
 };
 
 policyDocument = {
     Version: str,
     Statement: [statement]
+};
+
+policyDocument = {
+    Version: str,
+    Statement: [statement, statement]
 };
 
 authResponse = {

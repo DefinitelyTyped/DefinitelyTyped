@@ -29,8 +29,9 @@ export type CollectionCellGroupRenderer = (
 ) => React.ReactNode[];
 export type CollectionCellRendererParams = {
     index: number;
-    key: string;
-    style?: React.CSSProperties;
+    isScrolling: boolean;
+    key: number;
+    style: React.CSSProperties;
 };
 export type CollectionCellRenderer = (
     params: CollectionCellRendererParams

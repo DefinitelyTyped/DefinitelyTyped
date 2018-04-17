@@ -12,6 +12,7 @@ export interface MetaObject {
 }
 
 export type DynamicMetaFunction = (req: Request, res: Response, err: Error) => MetaObject | undefined;
+export type DynamicLevelFunction = (req: Request, res: Response, err: Error) => string;
 export type RequestFilter = (req: Request, propName: string) => boolean;
 export type ResponseFilter = (res: Response, propName: string) => boolean;
 export type RouteFilter = (req: Request, res: Response) => boolean;
@@ -25,7 +26,7 @@ export interface BaseLoggerOptions {
   expressFormat?: boolean;
   ignoreRoute?: RouteFilter;
   ignoredRoutes?: string[];
-  level?: string;
+  level?: string | DynamicLevelFunction;
   meta?: boolean;
   metaField?: string;
   msg?: string;
@@ -56,7 +57,7 @@ export function logger(options: LoggerOptions): Handler;
 export interface BaseErrorLoggerOptions {
   baseMeta?: MetaObject;
   dynamicMeta?: DynamicMetaFunction;
-  level?: string;
+  level?: string | DynamicLevelFunction;
   metaField?: string;
   msg?: string;
   requestFilter?: RequestFilter;
