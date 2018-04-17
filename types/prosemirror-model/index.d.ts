@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.1
+// Type definitions for prosemirror-model 1.4
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -21,6 +21,16 @@ import OrderedMap = require('orderedmap');
  * a given position is a valid end of the node.
  */
 export class ContentMatch<S extends Schema = Schema> {
+    /**
+     * Get the first matching node type at this match position that can
+     * be generated.
+     */
+    defaultType?: NodeType;
+    /**
+     * The number of outgoing edges this node has in the finite automaton
+     * that describes the content expression.
+     */
+    edgeCount: number;
     /**
      * True when this match state represents a valid end of the node.
      */
@@ -51,6 +61,11 @@ export class ContentMatch<S extends Schema = Schema> {
      * exists.
      */
     findWrapping(target: NodeType<S>): Array<NodeType<S>> | null | void;
+    /**
+     * Get the _n_th outgoing edge from this node in the finite automaton
+     * that describes the content expression.
+     */
+    edge(n: number): { type: NodeType; next: ContentMatch };
 }
 /**
  * A fragment represents a node's collection of child nodes.
@@ -78,7 +93,8 @@ export class Fragment<S extends Schema = Schema> {
             start: number,
             parent: ProsemirrorNode<S>,
             index: number
-        ) => boolean | null | void
+        ) => boolean | null | void,
+        startPos?: number
     ): void;
     /**
      * Call the given callback for every descendant node. The callback
@@ -517,7 +533,8 @@ declare class ProsemirrorNode<S extends Schema = Schema> {
             pos: number,
             parent: ProsemirrorNode<S>,
             index: number
-        ) => boolean | null | void
+        ) => boolean | null | void,
+        startPos?: number
     ): void;
     /**
      * Call the given callback for every descendant node. Doesn't
