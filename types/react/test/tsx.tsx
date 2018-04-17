@@ -168,3 +168,17 @@ componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
 componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
     return;
 };
+
+// Below test that can't pass non-react node as children
+<div>{{foo: "bar"}}</div>; // $ExpectError
+<div><span/><span/></div>;
+<div>foo</div>;
+<div>{"foo"}</div>;
+<div>{["foo", <span/>, false, undefined, null]}</div>;
+<div><></></div>;
+
+// Below test that can use conditional rendering
+<div>{true && <span />}</div>;
+<div>{false || <span />}</div>;
+<div>{null && <span />}</div>;
+<div>{undefined || <span />}</div>;
