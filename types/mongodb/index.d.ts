@@ -104,6 +104,10 @@ export interface MongoClientOptions extends
 }
 
 export interface SSLOptions {
+    // Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info.
+    ciphers?: string;
+    // Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info.
+    ecdhCurve?: string;
     // Default:5; Number of connections for each server instance
     poolSize?: number;
     // Use ssl connection (needs to have a mongod server with ssl support)
@@ -115,7 +119,7 @@ export interface SSLOptions {
     // Array of valid certificates either as Buffers or Strings
     sslCA?: Array<Buffer | string>;
     // SSL Certificate revocation list binary buffer
-    sslCRL?: Buffer;
+    sslCRL?: Array<Buffer | string>;
     // SSL Certificate binary buffer
     sslCert?: Buffer | string;
     // SSL Key file binary buffer
