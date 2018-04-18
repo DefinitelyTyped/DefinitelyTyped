@@ -434,7 +434,7 @@ declare namespace ArangoDB {
         deduplicate?: boolean;
     }
 
-    interface IndexResult<T = object> {
+    interface IndexResult<T extends object = object> {
         id: string;
         type: IndexType;
         fields: Array<keyof T>;
@@ -470,17 +470,25 @@ declare namespace ArangoDB {
         _oldRev: string;
     }
 
-    type Document<T = object> = T &
-        DocumentMetadata & { _from?: string; _to?: string };
-    type DocumentData<T = object> = T & Partial<DocumentMetadata>;
-    type Edge<T = object> = Document<T> & { _from: string; _to: string };
+    type Document<T extends object = object> = T &
+        DocumentMetadata & { _from?: string; _to?: string } & {
+            [key: string]: any;
+        };
+    type DocumentData<T extends object = object> = T &
+        Partial<DocumentMetadata> & { [key: string]: any };
+    type Edge<T extends object = object> = Document<T> & {
+        _from: string;
+        _to: string;
+    };
 
-    type InsertResult<T = object> = DocumentMetadata | Document<T>;
-    type UpdateResult<T = object> = UpdateMetadata & {
+    type InsertResult<T extends object = object> =
+        | DocumentMetadata
+        | Document<T>;
+    type UpdateResult<T extends object = object> = UpdateMetadata & {
         old?: Document<T>;
         ["new"]?: Document<T>;
     };
-    interface RemoveResult<T = object> extends DocumentMetadata {
+    interface RemoveResult<T extends object = object> extends DocumentMetadata {
         old?: Document<T>;
     }
 
@@ -523,9 +531,12 @@ declare namespace ArangoDB {
         probability?: number;
     }
 
-    type DocumentIterator<T> = (document: Document<T>, number: number) => void;
+    type DocumentIterator<T extends object = object> = (
+        document: Document<T>,
+        number: number
+    ) => void;
 
-    interface Collection<T = object> {
+    interface Collection<T extends object = object> {
         // Collection
         checksum(
             withRevisions?: boolean,
@@ -1475,17 +1486,17 @@ declare module "@arangodb/general-graph" {
         [key: string]: number | undefined;
     }
     interface Path<
-        A = object,
-        B = object,
-        E = object,
-        V = never
+        A extends object = object,
+        B extends object = object,
+        E extends object = object,
+        V extends object = never
     > {
         source: ArangoDB.Document<A>;
         destination: ArangoDB.Document<B>;
         edges: Array<ArangoDB.Edge<E>>;
         vertice: Array<ArangoDB.Document<A | B | V>>;
     }
-    interface ShortestPath<T = object> {
+    interface ShortestPath<T extends object = object> {
         vertices: string[];
         edges: Array<ArangoDB.Edge<T>>;
         distance: number;
