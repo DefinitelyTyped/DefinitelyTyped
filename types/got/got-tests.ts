@@ -4,6 +4,7 @@ import FormData = require('form-data');
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
+import * as url from 'url';
 
 let str: string;
 let buf: Buffer;
@@ -244,4 +245,6 @@ got('todomvc', {
     cache: new Map()
 }).then(res => res.fromCache);
 
-got(new URL('http://todomvc.com'));
+got(new url.URL('http://todomvc.com'));
+
+got(url.parse('http://todomvc.com'));
