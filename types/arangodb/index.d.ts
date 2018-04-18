@@ -3,9 +3,6 @@
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface PlainObject {
-    [key: string]: any;
-}
 interface StringMap {
     [key: string]: string | undefined;
 }
@@ -437,7 +434,7 @@ declare namespace ArangoDB {
         deduplicate?: boolean;
     }
 
-    interface IndexResult<T = PlainObject> {
+    interface IndexResult<T = object> {
         id: string;
         type: IndexType;
         fields: Array<keyof T>;
@@ -473,17 +470,17 @@ declare namespace ArangoDB {
         _oldRev: string;
     }
 
-    type Document<T = PlainObject> = T &
+    type Document<T = object> = T &
         DocumentMetadata & { _from?: string; _to?: string };
-    type DocumentData<T = PlainObject> = T & Partial<DocumentMetadata>;
-    type Edge<T = PlainObject> = Document<T> & { _from: string; _to: string };
+    type DocumentData<T = object> = T & Partial<DocumentMetadata>;
+    type Edge<T = object> = Document<T> & { _from: string; _to: string };
 
-    type InsertResult<T = PlainObject> = DocumentMetadata | Document<T>;
-    type UpdateResult<T = PlainObject> = UpdateMetadata & {
+    type InsertResult<T = object> = DocumentMetadata | Document<T>;
+    type UpdateResult<T = object> = UpdateMetadata & {
         old?: Document<T>;
         ["new"]?: Document<T>;
     };
-    interface RemoveResult<T = PlainObject> extends DocumentMetadata {
+    interface RemoveResult<T = object> extends DocumentMetadata {
         old?: Document<T>;
     }
 
@@ -528,7 +525,7 @@ declare namespace ArangoDB {
 
     type DocumentIterator<T> = (document: Document<T>, number: number) => void;
 
-    interface Collection<T = PlainObject> {
+    interface Collection<T = object> {
         // Collection
         checksum(
             withRevisions?: boolean,
@@ -664,14 +661,14 @@ declare namespace ArangoDB {
         username: string;
         passwd?: string;
         active?: boolean;
-        extra?: PlainObject;
+        extra?: object;
     }
 
     // AQL
 
     interface Query {
         query: string;
-        bindVars?: PlainObject;
+        bindVars?: object;
         options?: QueryOptions;
     }
 
@@ -749,10 +746,10 @@ declare namespace ArangoDB {
     }
     interface Transaction {
         collections: TransactionCollections | string[];
-        action: (params: PlainObject) => void | string;
+        action: (params: object) => void | string;
         waitForSync?: boolean;
         lockTimeout?: number;
-        params?: PlainObject;
+        params?: object;
         // RocksDB
         maxTransactionsSize?: number;
         intermediateCommitSize?: number;
@@ -800,7 +797,7 @@ declare namespace ArangoDB {
         _createStatement(query: Query | string): Statement;
         _query(
             query: Query | string,
-            bindVars?: PlainObject,
+            bindVars?: object,
             options?: QueryOptions
         ): Cursor;
         _explain(query: Query | string): void;
@@ -812,11 +809,11 @@ declare namespace ArangoDB {
         _remove(selector: string | DocumentLike1): DocumentMetadata;
         _replace(
             selector: string | DocumentLike1,
-            data: PlainObject
+            data: object
         ): DocumentMetadata;
         _update(
             selector: string | DocumentLike1,
-            data: PlainObject
+            data: object
         ): DocumentMetadata;
 
         // TODO Views
@@ -827,7 +824,7 @@ declare namespace ArangoDB {
 
         // Global
         _engine(): EngineType;
-        _engineStats(): PlainObject;
+        _engineStats(): object;
         _executeTransaction(transaction: Transaction): void;
     }
 }
@@ -905,11 +902,11 @@ declare namespace Foxx {
         basePath: string;
         baseUrl: string;
         collectionPrefix: string;
-        configuration: PlainObject;
-        dependencies: PlainObject;
+        configuration: object;
+        dependencies: object;
         isDevelopment: boolean;
         isProduction: boolean;
-        manifest: PlainObject;
+        manifest: object;
         mount: string;
         collection(name: string): ArangoDB.Collection | null;
         collectionName(name: string): string;
@@ -946,7 +943,7 @@ declare namespace Foxx {
         pathParams: object;
         port: number;
         protocol: string;
-        queryParams: PlainObject;
+        queryParams: object;
         rawBody: Buffer;
         remoteAddress: string;
         remoteAddresses: string[];
@@ -978,7 +975,7 @@ declare namespace Foxx {
         makeAbsolute(path: string, query?: string | StringMap): string;
         param(name: string): any;
         range(size?: number): Ranges | number;
-        reverse(name: string, params?: PlainObject): string;
+        reverse(name: string, params?: object): string;
     }
 
     interface Response {
@@ -1179,7 +1176,7 @@ declare module "@arangodb/foxx/graphql" {
     interface GraphQLOptions {
         schema: GraphQLSchema;
         context?: any;
-        rootValue?: PlainObject;
+        rootValue?: object;
         pretty?: boolean;
         formatError?: GraphQLFormatErrorFunction;
         validationRules?: any[];
@@ -1376,7 +1373,7 @@ declare module "@arangodb/request" {
         throw(message?: string): void;
     }
     interface RequestOptions {
-        qs?: PlainObject;
+        qs?: object;
         useQuerystring?: boolean;
         headers?: StringMap;
         body?: any;
@@ -1478,9 +1475,9 @@ declare module "@arangodb/general-graph" {
         [key: string]: number | undefined;
     }
     interface Path<
-        A = PlainObject,
-        B = PlainObject,
-        E = PlainObject,
+        A = object,
+        B = object,
+        E = object,
         V = never
     > {
         source: ArangoDB.Document<A>;
@@ -1488,7 +1485,7 @@ declare module "@arangodb/general-graph" {
         edges: Array<ArangoDB.Edge<E>>;
         vertice: Array<ArangoDB.Document<A | B | V>>;
     }
-    interface ShortestPath<T = PlainObject> {
+    interface ShortestPath<T = object> {
         vertices: string[];
         edges: Array<ArangoDB.Edge<T>>;
         distance: number;
@@ -1503,7 +1500,7 @@ declare module "@arangodb/general-graph" {
     }
     type Closeness = Eccentricity;
     type Betweenness = Eccentricity;
-    type Example = Array<PlainObject | string> | PlainObject | string | null;
+    type Example = Array<object | string> | object | string | null;
     interface ConnectingEdgesOptions {
         edgeExamples?: Example;
         edgeCollectionRestriction?: string[] | string;
