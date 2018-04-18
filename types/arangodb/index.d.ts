@@ -25,6 +25,7 @@ declare namespace ArangoDB {
         | "OPTIONS";
     declare type EdgeDirection = "any" | "inbound" | "outbound";
     declare type EngineType = "mmfiles" | "rocksdb";
+    declare type IndexType = "hash" | "skiplist" | "fulltext" | "geo1" | "geo2";
     declare type ViewType = "arangosearch";
     declare type ErrorName =
         | "ERROR_NO_ERROR"
@@ -335,12 +336,12 @@ declare namespace ArangoDB {
         Edge = 3
     }
 
-    type CollectionChecksum = {
+    interface CollectionChecksum {
         checksum: string;
         revision: string;
-    };
+    }
 
-    type CollectionFigures = {
+    interface CollectionFigures {
         alive: {
             count: number;
             size: number;
@@ -390,9 +391,16 @@ declare namespace ArangoDB {
             bytesRead: number;
             bytesWritten: number;
         };
-    };
+    }
 
-    type CollectionProperties = {
+    interface CollectionPropertiesOptions {
+        waitForSync?: boolean;
+        journalSize?: number;
+        indexBuckets?: number;
+        replicationFactor?: number;
+    }
+
+    interface CollectionProperties {
         waitForSync: boolean;
         journalSize: number;
         isVolatile: boolean;
@@ -406,48 +414,46 @@ declare namespace ArangoDB {
         numberOfShards?: number;
         shardKeys?: string[];
         replicationFactor?: number;
-    };
+    }
 
     // Indexes
 
-    declare type IndexType = "hash" | "skiplist" | "fulltext" | "geo1" | "geo2";
-
-    type IndexLike = {
+    interface IndexLike {
         [key: string]: any;
         id: string;
-    };
+    }
 
-    type IndexDescription<T> = {
+    interface IndexDescription<T> {
         type: IndexType;
-        fields: (keyof T)[];
+        fields: Array<keyof T>;
         sparse?: boolean;
         unique?: boolean;
         deduplicate?: boolean;
-    };
+    }
 
-    type IndexResult<T> = {
+    interface IndexResult<T> {
         id: string;
         type: IndexType;
-        fields: (keyof T)[];
+        fields: Array<keyof T>;
         sparse: boolean;
         unique: boolean;
         deduplicate: boolean;
         isNewlyCreated: boolean;
         selectivityEstimate: number;
         code: number;
-    };
+    }
 
     // Document
 
-    type DocumentLike1 = {
+    interface DocumentLike1 {
         [key: string]: any;
         _id: string;
-    };
+    }
 
-    type DocumentLike2 = {
+    interface DocumentLike2 {
         [key: string]: any;
         _key: string;
-    };
+    }
 
     type DocumentLike = DocumentLike1 | DocumentLike2;
 
@@ -470,32 +476,48 @@ declare namespace ArangoDB {
         old?: Document<T>;
         new?: Document<T>;
     };
-    type RemoveResult<T> = DocumentMetadata & {
+    interface RemoveResult<T = PlainObject> extends DocumentMetadata {
         old?: Document<T>;
-    };
+    }
 
-    type InsertOptions = {
+    interface InsertOptions {
         waitForSync?: boolean;
         silent?: boolean;
         returnNew?: boolean;
-    };
+    }
 
-    type ReplaceOptions = InsertOptions & {
+    interface ReplaceOptions extends InsertOptions {
         overwrite?: boolean;
         returnOld?: boolean;
-    };
+    }
 
-    type UpdateOptions = ReplaceOptions & {
+    interface UpdateOptions extends ReplaceOptions {
         keepNull?: boolean;
         mergeObjects?: boolean;
-    };
+    }
 
-    type RemoveOptions = {
+    interface UpdateByExampleOptions {
+        keepNull?: boolean;
+        waitForSync?: boolean;
+        limit?: number;
+    }
+
+    interface RemoveOptions {
         waitForSync?: boolean;
         overwrite?: boolean;
         returnOld?: boolean;
         silent?: boolean;
-    };
+    }
+
+    interface RemoveByExampleOptions {
+        waitForSync?: boolean;
+        limit?: number;
+    }
+
+    interface IterateOptions {
+        limit?: number;
+        probability?: number;
+    }
 
     type DocumentIterator<T> = (document: Document<T>, number: number) => void;
 
@@ -510,16 +532,12 @@ declare namespace ArangoDB {
         figures(): CollectionFigures;
         load(): void;
         path(): string;
-        properties(): CollectionProperties;
-        properties(properties?: {
-            waitForSync?: boolean;
-            journalSize?: number;
-            indexBuckets?: number;
-            replicationFactor?: number;
-        }): CollectionProperties;
+        properties(
+            properties?: CollectionPropertiesOptions
+        ): CollectionProperties;
         revision(): string;
         rotate(): void;
-        toArray(): Document<T>[];
+        toArray(): Array<Document<T>>;
         truncate(): void;
         type(): CollectionType;
         unload(): void;
@@ -527,7 +545,7 @@ declare namespace ArangoDB {
         // Indexes
         dropIndex(index: string | IndexLike): boolean;
         ensureIndex(description: IndexDescription<T>): IndexResult<T>;
-        getIndexes(): IndexResult<T>[];
+        getIndexes(): Array<IndexResult<T>>;
         index(index: string | IndexLike): IndexResult<T> | null;
 
         // Document
@@ -535,38 +553,38 @@ declare namespace ArangoDB {
         any(): Document<T>;
         byExample(example: Partial<Document<T>>): Cursor<Document<T>>;
         document(selector: string | DocumentLike): Document<T>;
-        document(selectors: (string | DocumentLike)[]): Document<T>[];
+        document(selectors: Array<string | DocumentLike>): Array<Document<T>>;
         exists(name: string): boolean;
         firstExample(example: Partial<Document<T>>): Document<T> | null;
         insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         insert(
-            array: DocumentData<T>[],
+            array: Array<DocumentData<T>>,
             options?: InsertOptions
-        ): InsertResult<T>[];
+        ): Array<InsertResult<T>>;
         insert(
             from: string,
             to: string,
             data: DocumentData<T>,
             options?: InsertOptions
         ): InsertResult<T>;
-        edges(vertex: string | DocumentLike1): Edge<T>[];
-        edges(vertices: (string | DocumentLike1)[]): Edge<T>[];
-        inEdges(vertex: string | DocumentLike1): Edge<T>[];
-        inEdges(vertices: (string | DocumentLike1)[]): Edge<T>[];
-        outEdges(vertex: string | DocumentLike1): Edge<T>[];
-        outEdges(vertices: (string | DocumentLike1)[]): Edge<T>[];
-        iterate(
-            iterator: DocumentIterator<T>,
-            options?: { limit?: number; probability?: number }
-        ): void;
+        edges(
+            vertex: string | DocumentLike1 | Array<string | DocumentLike1>
+        ): Array<Edge<T>>;
+        inEdges(
+            vertex: string | DocumentLike1 | Array<string | DocumentLike1>
+        ): Array<Edge<T>>;
+        outEdges(
+            vertex: string | DocumentLike1 | Array<string | DocumentLike1>
+        ): Array<Edge<T>>;
+        iterate(iterator: DocumentIterator<T>, options?: IterateOptions): void;
         remove(
             selector: string | DocumentLike,
             options?: RemoveOptions
-        ): RemoveResult<T>;
+        ): RemoveResult;
         remove(
-            selectors: (string | DocumentLike)[],
+            selectors: Array<string | DocumentLike>,
             options?: RemoveOptions
-        ): RemoveResult<T>[];
+        ): Array<RemoveResult>;
         removeByExample(
             example: Partial<Document<T>>,
             waitForSync?: boolean,
@@ -574,7 +592,7 @@ declare namespace ArangoDB {
         ): number;
         removeByExample(
             example: Partial<Document<T>>,
-            options?: { waitForSync?: boolean; limit?: number }
+            options?: RemoveByExampleOptions
         ): number;
         rename(newName: string): void;
         replace(
@@ -629,22 +647,18 @@ declare namespace ArangoDB {
         updateByExample(
             example: Partial<Document<T>>,
             newValue: Partial<Document<T>>,
-            options?: {
-                keepNull?: boolean;
-                waitForSync?: boolean;
-                limit?: number;
-            }
+            options?: UpdateByExampleOptions
         ): number;
     }
 
     // Database
 
-    type DatabaseUser = {
+    interface DatabaseUser {
         username: string;
         passwd?: string;
         active?: boolean;
         extra?: PlainObject;
-    };
+    }
 
     // AQL
 
@@ -673,7 +687,7 @@ declare namespace ArangoDB {
         execute(): Cursor<T>;
     }
 
-    type QueryOptions = {
+    interface QueryOptions {
         memoryLimit?: number;
         failOnWarning?: boolean;
         cache?: boolean;
@@ -689,9 +703,9 @@ declare namespace ArangoDB {
         intermediateCommitCount?: number;
         // enterprise
         skipInaccessibleCollections?: boolean;
-    };
+    }
 
-    type QueryExtra = {
+    interface QueryExtra {
         stats: {
             writesExecuted: number;
             writesIgnored: number;
@@ -703,32 +717,31 @@ declare namespace ArangoDB {
             executionTime: number;
         };
         warnings: string[];
-    };
+    }
 
-    type QueryAstNode = {
+    interface QueryAstNode {
         type: string;
         subNodes?: QueryAstNode[];
         [key: string]: any;
-    };
+    }
 
-    type ParsedQuery = {
+    interface ParsedQuery {
         parsed: boolean;
         collections: string[];
         parameters: string[];
         bindVars: string[];
         ast: QueryAstNode[];
-    };
+    }
 
     // Global
 
-    type Transaction = {
-        collections:
-            | {
-                  read?: string | string[];
-                  write?: string | string[];
-                  allowImplicit?: boolean;
-              }
-            | string[];
+    interface TransactionCollections {
+        read?: string | string[];
+        write?: string | string[];
+        allowImplicit?: boolean;
+    }
+    interface Transaction {
+        collections: TransactionCollections | string[];
         action: (params: PlainObject) => void | string;
         waitForSync?: boolean;
         lockTimeout?: number;
@@ -737,7 +750,7 @@ declare namespace ArangoDB {
         maxTransactionsSize?: number;
         intermediateCommitSize?: number;
         intermediateCommitCount?: number;
-    };
+    }
 
     declare interface Database {
         // Database
@@ -764,30 +777,27 @@ declare namespace ArangoDB {
         _version(): string;
 
         // Collection
-        _collection<T = PlainObject>(name: string): Collection<T>;
+        _collection(name: string): Collection;
         _collections(): Collection[];
-        _create<T = PlainObject>(
+        _create(name: string, properties?: CollectionProperties): Collection;
+        _createDocumentCollection(
             name: string,
             properties?: CollectionProperties
-        ): Collection<T>;
-        _createDocumentCollection<T = PlainObject>(
+        ): Collection;
+        _createEdgeCollection(
             name: string,
             properties?: CollectionProperties
-        ): Collection<T>;
-        _createEdgeCollection<T = PlainObject>(
-            name: string,
-            properties?: CollectionProperties
-        ): Collection<T>;
+        ): Collection;
         _drop(name: string): void;
         _truncate(name: string): void;
 
         // AQL
-        _createStatement<T = any>(query: Query | string): Statement<T>;
-        _query<T = any>(
+        _createStatement(query: Query | string): Statement;
+        _query(
             query: Query | string,
             bindVars?: PlainObject,
             options?: QueryOptions
-        ): Cursor<T>;
+        ): Cursor;
         _explain(query: Query | string): void;
         _parse(query: string): ParsedQuery;
 
@@ -994,13 +1004,10 @@ declare namespace Foxx {
 
     declare interface Endpoint {
         header(name: string, schema: Schema, description?: string): this;
-        header(name: string, schema: Schema): this;
         header(name: string, description: string): this;
         pathParam(name: string, schema: Schema, description?: string): this;
-        pathParam(name: string, schema: Schema): this;
         pathParam(name: string, description: string): this;
         queryParam(name: string, schema: Schema, description?: string): this;
-        queryParam(name: string, schema: Schema): this;
         queryParam(name: string, description: string): this;
         body(
             schema: Schema | Model | [Model],
