@@ -868,7 +868,7 @@ declare namespace Foxx {
     }
 
     type Middleware = (req: Request, res: Response, next: NextFunction) => void;
-    type Handler = ((req: Request, res: Response) => void) | Middleware;
+    type Handler = ((req: Request, res: Response) => void);
     type NextFunction = () => void;
 
     interface ValidationResult<T> {
@@ -1083,14 +1083,102 @@ declare namespace Foxx {
         tag(...tags: string[]): this;
     }
 
+    function route(handler: Handler, name?: string): Endpoint;
     function route(
-        path: string,
-        ...handlers: Handler[],
+        pathOrMiddleware: string | Middleware,
+        handler: Handler,
         name?: string
     ): Endpoint;
-    function route(...handlers: Handler[], name?: string): Endpoint;
-    function route(path: string, handler: Handler, name?: string): Endpoint;
-    function route(handler: Handler, name?: string): Endpoint;
+    function route(
+        pathOrMiddleware: string | Middleware,
+        middleware: Middleware,
+        handler: Handler,
+        name?: string
+    ): Endpoint;
+    function route(
+        pathOrMiddleware: string | Middleware,
+        middleware1: Middleware,
+        middleware2: Middleware,
+        handler: Handler,
+        name?: string
+    ): Endpoint;
+    function route(
+        pathOrMiddleware: string | Middleware,
+        middleware1: Middleware,
+        middleware2: Middleware,
+        middleware3: Middleware,
+        handler: Handler,
+        name?: string
+    ): Endpoint;
+    function route(
+        pathOrMiddleware: string | Middleware,
+        middleware1: Middleware,
+        middleware2: Middleware,
+        middleware3: Middleware,
+        middleware4: Middleware,
+        handler: Handler,
+        name?: string
+    ): Endpoint;
+    function route(
+        pathOrMiddleware: string | Middleware,
+        middleware1: Middleware,
+        middleware2: Middleware,
+        middleware3: Middleware,
+        middleware4: Middleware,
+        middleware5: Middleware,
+        handler: Handler,
+        name?: string
+    ): Endpoint;
+    function route(
+        pathOrMiddleware: string | Middleware,
+        middleware1: Middleware,
+        middleware2: Middleware,
+        middleware3: Middleware,
+        middleware4: Middleware,
+        middleware5: Middleware,
+        middleware6: Middleware,
+        handler: Handler,
+        name?: string
+    ): Endpoint;
+    function route(
+        pathOrMiddleware: string | Middleware,
+        middleware1: Middleware,
+        middleware2: Middleware,
+        middleware3: Middleware,
+        middleware4: Middleware,
+        middleware5: Middleware,
+        middleware6: Middleware,
+        middleware7: Middleware,
+        handler: Handler,
+        name?: string
+    ): Endpoint;
+    function route(
+        pathOrMiddleware: string | Middleware,
+        middleware1: Middleware,
+        middleware2: Middleware,
+        middleware3: Middleware,
+        middleware4: Middleware,
+        middleware5: Middleware,
+        middleware6: Middleware,
+        middleware7: Middleware,
+        middleware8: Middleware,
+        handler: Handler,
+        name?: string
+    ): Endpoint;
+    function route(
+        pathOrMiddleware: string | Middleware,
+        middleware1: Middleware,
+        middleware2: Middleware,
+        middleware3: Middleware,
+        middleware4: Middleware,
+        middleware5: Middleware,
+        middleware6: Middleware,
+        middleware7: Middleware,
+        middleware8: Middleware,
+        middleware9: Middleware,
+        handler: Handler,
+        name?: string
+    ): Endpoint;
 
     interface Router {
         get: typeof route;
