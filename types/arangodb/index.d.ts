@@ -876,15 +876,28 @@ declare namespace Foxx {
         before: (req: Request, res: Response) => void | false;
     }
 
-    interface TypeDefinition {
-        // TODO
-        [key: string]: any;
+    interface MediaType {
+        type: string;
+        subtype: string;
+        suffix?: string;
+        parameters: {
+            charset: string;
+        };
     }
 
-    interface Ranges {
-        // TODO
-        [key: string]: any;
+    interface TypeDefinition {
+        fromClient?: (
+            body: string | Buffer,
+            req: Request,
+            type: MediaType
+        ) => any;
+        forClient?: (body: any) => { data: string; headers: StringMap };
     }
+
+    type Ranges = Array<{
+        start: number;
+        end: number;
+    }> & { type: string };
 
     declare interface Context {
         argv: any[];
