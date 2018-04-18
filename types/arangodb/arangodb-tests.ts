@@ -1,10 +1,12 @@
 import { db } from "@arangodb";
 
+const context = (module as Foxx.Module).context;
+
 interface User {
     username: string;
     password?: string;
 }
-const coll = db._collection("users");
+const coll = context.collection("users")!;
 coll.save({ username: "user" });
 const doc = coll.any();
 console.log(doc.username);

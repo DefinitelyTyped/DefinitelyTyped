@@ -5,6 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
+type NodeConsole = Console;
 
 interface StringMap {
     [key: string]: string | undefined;
@@ -850,6 +851,17 @@ declare namespace ArangoDB {
         _engineStats(): object;
         _executeTransaction(transaction: Transaction): void;
     }
+
+    interface Console extends NodeConsole {
+        errorLines: (...args: any[]) => void;
+        warnLines: (...args: any[]) => void;
+        infoLines: (...args: any[]) => void;
+        debugLines: (...args: any[]) => void;
+        errorStack: (err: Error, msg?: string) => void;
+        warnStack: (err: Error, msg?: string) => void;
+        infoStack: (err: Error, msg?: string) => void;
+        debugStack: (err: Error, msg?: string) => void;
+    }
 }
 
 declare namespace Foxx {
@@ -1197,8 +1209,8 @@ declare namespace Foxx {
         use(routerOrMiddleware: Router | Middleware, name?: string): Endpoint;
     }
 
-    interface Module extends NodeJS.Module {
-        context: Context;
+    interface Module extends NodeModule {
+        context: Foxx.Context;
     }
 }
 
@@ -1696,22 +1708,6 @@ declare module "@arangodb/general-graph" {
         edgeDefinitions: EdgeDefinition[],
         ...relations: EdgeDefinition[]
     ): EdgeDefinition[];
-}
-
-declare namespace NodeJS {
-    interface Module {
-        context: Foxx.Context;
-    }
-    interface Console {
-        errorLines: (...args: any[]) => void;
-        warnLines: (...args: any[]) => void;
-        infoLines: (...args: any[]) => void;
-        debugLines: (...args: any[]) => void;
-        errorStack: (err: Error, msg?: string) => void;
-        warnStack: (err: Error, msg?: string) => void;
-        infoStack: (err: Error, msg?: string) => void;
-        debugStack: (err: Error, msg?: string) => void;
-    }
 }
 
 // TODO figure out how to override `console` and `module`
