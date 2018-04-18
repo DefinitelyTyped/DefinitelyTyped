@@ -92,7 +92,7 @@ declare class IScroll {
 	disable(): void;
 	enable(): void;
 	stop(): void;
-	zoom(x: number, y: number, scale: number, time?: number): void;
+	zoom(scale: number, x?: number, y?: number, time?: number): void;
 	isReady(): boolean;
 
 	// Events
