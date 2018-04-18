@@ -12,7 +12,7 @@ export interface CallbackArgument {
 }
 
 export interface ReactCreditCardProps {
-    acceptedCards?: string[];
+    acceptedCards?: ReadonlyArray<string>;
     callback?: (type: CallbackArgument, isValid: boolean) => void;
     cvc: string | number;
     expiry: string | number;
