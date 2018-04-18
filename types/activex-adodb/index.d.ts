@@ -989,8 +989,14 @@ declare namespace ADODB {
         /** @param PersistFormat [PersistFormat=0] */
         Save(Destination: string | Stream, PersistFormat?: PersistFormatEnum): void;
 
-        /** @param SeekOption [SeekOption=1] */
-        Seek(KeyValues: Primitive | SafeArray<Primitive>, SeekOption?: SeekEnum): void;
+        /**
+         * @param SeekOption [SeekOption=1]
+         *
+         * For a single-column index, pass in a single value to seek in the column of the index
+         *
+         * For a multi-column index, pass in a SafeArray containing the multiple values to seek in the columns of the index.
+         */
+        Seek(KeyValues: any, SeekOption?: SeekEnum): void;
         Sort: string;
         Source: string | Command;
         readonly State: ObjectStateEnum;
@@ -1085,8 +1091,6 @@ declare namespace ADODB {
             Source: string;
         }
     }
-
-    type Primitive = string | number | boolean | Date | null;
 }
 
 interface ActiveXObject {

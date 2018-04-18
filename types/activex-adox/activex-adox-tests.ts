@@ -1166,3 +1166,39 @@ Index ${idxLoop.Name}
         fld = null;
     }
 }
+
+const flatten = <T>(arr: T[][], result: T[] = []) => {
+    for (let i = 0, length = arr.length; i < length; i++) {
+        const value: T | any[] = arr[i]; // any in this context is because the array might have an arbitrary depth
+        if (Array.isArray(value)) {
+            flatten(value, result);
+        } else {
+            result.push(value);
+        }
+    }
+    return result;
+};
+
+// List indexes with multiple columns
+{
+    interface TableIndex {
+        tbl: ADOX.Table;
+        idx: ADOX.Index;
+    }
+
+    const cat = new ActiveXObject('ADOX.Catalog');
+    cat.ActiveConnection = connectionString;
+
+    let multicolumnIndexes = flatten(
+        collectionToArray(cat.Tables).map(tbl =>
+            collectionToArray(tbl.Indexes).map<TableIndex>(idx =>
+                ({ tbl, idx })
+            )
+        )
+    ).filter(x => x.idx.Columns.Count > 1);
+    for (const x of multicolumnIndexes) {
+        const columns = collectionToArray(x.idx.Columns).map(col => col.Name).join(', ');
+        WScript.Echo(`${x.tbl.Name}.${x.idx.Name} -- ${columns}`);
+    }
+    multicolumnIndexes = [];
+}
