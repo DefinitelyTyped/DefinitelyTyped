@@ -1,8 +1,9 @@
-// Type definitions for react-scrollbar 0.4.1
+// Type definitions for react-scrollbar 0.5.0
 // Project: https://github.com/souhe/reactScrollbar
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
+//                 Jason Salzman <https://github.com/jasonsalzman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.7
 
 /// <reference types="react" />
 
@@ -31,5 +32,5 @@ declare module "react-scrollbar" {
 
   class ScrollArea extends React.Component<ScrollAreaProps> {}
 
-  export = ScrollArea;
+  export default ScrollArea;
 }
