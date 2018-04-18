@@ -286,7 +286,7 @@ declare namespace React {
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
         // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof this["state"]>(
-            state: ((prevState: Readonly<this["state"]>, props: P) => (Pick<this["state"], K> | this["state"] | null)) | (Pick<this["state"], K> | this["state"] | null),
+            state: ((prevState: Readonly<this["state"]>, props: P) => (Pick<this["state"], K> | this["state"] | S | null)) | (Pick<this["state"], K> | this["state"] | S | null),
             callback?: () => void
         ): void;
 
