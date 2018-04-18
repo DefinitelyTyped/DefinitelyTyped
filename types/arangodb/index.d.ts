@@ -2,6 +2,7 @@
 // Project: https://github.com/arangodb/arangodb
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 interface StringMap {
     [key: string]: string | undefined;
@@ -428,13 +429,13 @@ declare namespace ArangoDB {
 
     interface IndexDescription<T> {
         type: IndexType;
-        fields: Array<keyof T>;
+        fields: ReadonlyArray<keyof T>;
         sparse?: boolean;
         unique?: boolean;
         deduplicate?: boolean;
     }
 
-    interface IndexResult<T extends object = object> {
+    interface IndexResult<T extends object = any> {
         id: string;
         type: IndexType;
         fields: Array<keyof T>;
@@ -470,25 +471,23 @@ declare namespace ArangoDB {
         _oldRev: string;
     }
 
-    type Document<T extends object = object> = T &
+    type Document<T extends object = any> = { [K in keyof T]: T[K] } &
         DocumentMetadata & { _from?: string; _to?: string } & {
             [key: string]: any;
         };
-    type DocumentData<T extends object = object> = T &
-        Partial<DocumentMetadata> & { [key: string]: any };
-    type Edge<T extends object = object> = Document<T> & {
+    type DocumentData<T extends object = any> = { [K in keyof T]: T[K] } &
+        Partial<DocumentMetadata>;
+    type Edge<T extends object = any> = Document<T> & {
         _from: string;
         _to: string;
     };
 
-    type InsertResult<T extends object = object> =
-        | DocumentMetadata
-        | Document<T>;
-    type UpdateResult<T extends object = object> = UpdateMetadata & {
+    type InsertResult<T extends object = any> = DocumentMetadata | Document<T>;
+    type UpdateResult<T extends object = any> = UpdateMetadata & {
         old?: Document<T>;
         ["new"]?: Document<T>;
     };
-    interface RemoveResult<T extends object = object> extends DocumentMetadata {
+    interface RemoveResult<T extends object = any> extends DocumentMetadata {
         old?: Document<T>;
     }
 
@@ -531,12 +530,12 @@ declare namespace ArangoDB {
         probability?: number;
     }
 
-    type DocumentIterator<T extends object = object> = (
+    type DocumentIterator<T extends object> = (
         document: Document<T>,
         number: number
     ) => void;
 
-    interface Collection<T extends object = object> {
+    interface Collection<T extends object = any> {
         // Collection
         checksum(
             withRevisions?: boolean,
@@ -568,12 +567,14 @@ declare namespace ArangoDB {
         any(): Document<T>;
         byExample(example: Partial<Document<T>>): Cursor<Document<T>>;
         document(selector: string | DocumentLike): Document<T>;
-        document(selectors: Array<string | DocumentLike>): Array<Document<T>>;
+        document(
+            selectors: ReadonlyArray<string | DocumentLike>
+        ): Array<Document<T>>;
         exists(name: string): boolean;
         firstExample(example: Partial<Document<T>>): Document<T> | null;
         insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         insert(
-            array: Array<DocumentData<T>>,
+            array: ReadonlyArray<DocumentData<T>>,
             options?: InsertOptions
         ): Array<InsertResult<T>>;
         insert(
@@ -583,13 +584,22 @@ declare namespace ArangoDB {
             options?: InsertOptions
         ): InsertResult<T>;
         edges(
-            vertex: string | DocumentLike1 | Array<string | DocumentLike1>
+            vertex:
+                | string
+                | DocumentLike1
+                | ReadonlyArray<string | DocumentLike1>
         ): Array<Edge<T>>;
         inEdges(
-            vertex: string | DocumentLike1 | Array<string | DocumentLike1>
+            vertex:
+                | string
+                | DocumentLike1
+                | ReadonlyArray<string | DocumentLike1>
         ): Array<Edge<T>>;
         outEdges(
-            vertex: string | DocumentLike1 | Array<string | DocumentLike1>
+            vertex:
+                | string
+                | DocumentLike1
+                | ReadonlyArray<string | DocumentLike1>
         ): Array<Edge<T>>;
         iterate(iterator: DocumentIterator<T>, options?: IterateOptions): void;
         remove(
@@ -597,7 +607,7 @@ declare namespace ArangoDB {
             options?: RemoveOptions
         ): RemoveResult;
         remove(
-            selectors: Array<string | DocumentLike>,
+            selectors: ReadonlyArray<string | DocumentLike>,
             options?: RemoveOptions
         ): RemoveResult[];
         removeByExample(
@@ -616,8 +626,8 @@ declare namespace ArangoDB {
             options?: ReplaceOptions
         ): UpdateResult<T>;
         replace(
-            selectors: Array<string | DocumentLike>,
-            data: Array<DocumentData<T>>,
+            selectors: ReadonlyArray<string | DocumentLike>,
+            data: ReadonlyArray<DocumentData<T>>,
             options?: ReplaceOptions
         ): Array<UpdateResult<T>>;
         replaceByExample(
@@ -633,7 +643,7 @@ declare namespace ArangoDB {
         ): number;
         save(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         save(
-            array: Array<DocumentData<T>>,
+            array: ReadonlyArray<DocumentData<T>>,
             options?: InsertOptions
         ): Array<InsertResult<T>>;
         save(
@@ -648,8 +658,8 @@ declare namespace ArangoDB {
             options?: UpdateOptions
         ): UpdateResult<T>;
         update(
-            selectors: Array<string | DocumentLike>,
-            data: Array<Partial<Document<T>>>,
+            selectors: ReadonlyArray<string | DocumentLike>,
+            data: ReadonlyArray<Partial<Document<T>>>,
             options?: UpdateOptions
         ): Array<UpdateResult<T>>;
         updateByExample(
@@ -1486,9 +1496,9 @@ declare module "@arangodb/general-graph" {
         [key: string]: number | undefined;
     }
     interface Path<
-        A extends object = object,
-        B extends object = object,
-        E extends object = object,
+        A extends object = any,
+        B extends object = any,
+        E extends object = any,
         V extends object = never
     > {
         source: ArangoDB.Document<A>;
@@ -1496,7 +1506,7 @@ declare module "@arangodb/general-graph" {
         edges: Array<ArangoDB.Edge<E>>;
         vertice: Array<ArangoDB.Document<A | B | V>>;
     }
-    interface ShortestPath<T extends object = object> {
+    interface ShortestPath<T extends object = any> {
         vertices: string[];
         edges: Array<ArangoDB.Edge<T>>;
         distance: number;
