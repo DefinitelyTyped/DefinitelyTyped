@@ -72,6 +72,8 @@ declare module "mongoose" {
   export var STATES: any;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
+  /** Models registred on the default mongoose connection. */
+  export var models: { [index: string]: Model<any> };
   /** The node-mongodb-native driver Mongoose uses. */
   export var mongo: typeof mongodb;
   /** The Mongoose version */
@@ -253,6 +255,9 @@ declare module "mongoose" {
 
     /** A hash of the collections associated with this connection */
     collections: { [index: string]: Collection };
+
+    /** A hash of models registered with this connection */
+    models: { [index: string]: Model<any> };
 
     /**
      * Connection ready state
