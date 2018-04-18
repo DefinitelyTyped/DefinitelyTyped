@@ -932,10 +932,10 @@ declare namespace ADODB {
          * @param SkipRecords [SkipRecords=0]
          * @param SearchDirection [SearchDirection=1]
          */
-        Find(Criteria: string, SkipRecords?: number, SearchDirection?: SearchDirectionEnum, Start?: any): void;
+        Find(Criteria: string, SkipRecords?: number, SearchDirection?: SearchDirectionEnum, Start?: Bookmark): void;
 
         /** @param Rows [Rows=-1] */
-        GetRows(Rows?: number, Start?: any, Fields?: string | SafeArray<string | number>): SafeArray;
+        GetRows(Rows?: number, Start?: string | Bookmark | BookmarkEnum, Fields?: string | SafeArray<string | number>): SafeArray;
 
         /**
          * @param StringFormat [StringFormat=2]
@@ -949,7 +949,7 @@ declare namespace ADODB {
         LockType: LockTypeEnum;
         MarshalOptions: MarshalOptionsEnum;
         MaxRecords: number;
-        Move(NumRecords: number, Start?: any): void;
+        Move(NumRecords: number, Start?: string | Bookmark | BookmarkEnum): void;
         MoveFirst(): void;
         MoveLast(): void;
         MoveNext(): void;
