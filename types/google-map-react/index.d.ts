@@ -47,10 +47,10 @@ export interface Maps {
 }
 
 export interface Bounds {
-  nw: number;
-  ne: number;
-  sw: number;
-  se: number;
+  nw: Coords;
+  ne: Coords;
+  sw: Coords;
+  se: Coords;
 }
 
 export interface Point {
@@ -63,6 +63,11 @@ export interface Coords {
   lng: number;
 }
 
+export interface Size {
+  width: number;
+  height: number;
+}
+
 export interface ClickEventValue extends Point, Coords {
   event: any;
 }
@@ -72,6 +77,7 @@ export interface ChangeEventValue {
   zoom: number;
   bounds: Bounds;
   marginBounds: Bounds;
+  size: Size;
 }
 
 export interface Props {

@@ -95,7 +95,7 @@ export namespace pickle {
         locations: Location[];
         name: string;
         steps: Step[];
-        tags: string[];
+        tags: Tag[];
     }
 
     interface Location {
@@ -116,6 +116,11 @@ export namespace pickle {
     interface Cell {
         location: Location;
         value: string;
+    }
+
+    interface Tag {
+        name: string;
+        location: Location;
     }
 }
 

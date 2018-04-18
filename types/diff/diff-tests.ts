@@ -5,8 +5,16 @@ const other = 'beep boob blah';
 let diff = jsdiff.diffChars(one, other);
 printDiff(diff);
 
-diff = jsdiff.diffArrays(['a', 'b', 'c'], ['a', 'c', 'd']);
-printDiff(diff);
+const diffArraysResult = jsdiff.diffArrays<string>(['a', 'b', 'c'], ['a', 'c', 'd']);
+diffArraysResult.forEach(result => {
+    if (result.added) {
+        console.log(`added ${result.value.length} line(s):`, ...result.value);
+    } else if (result.removed) {
+        console.log(`removed ${result.value.length} line(s):`, ...result.value);
+    } else {
+        console.log(`no changes`);
+    }
+});
 
 // --------------------------
 

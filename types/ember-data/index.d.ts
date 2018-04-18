@@ -521,11 +521,11 @@ declare module 'ember-data' {
             /**
              * Get the reference for the specified belongsTo relationship.
              */
-            belongsTo(name: keyof ModelRegistry): BelongsToReference;
+            belongsTo(name: RelationshipsFor<this>): BelongsToReference;
             /**
              * Get the reference for the specified hasMany relationship.
              */
-            hasMany(name: keyof ModelRegistry): HasManyReference<any>;
+            hasMany(name: RelationshipsFor<this>): HasManyReference<any>;
             /**
              * Given a callback, iterates over each of the relationships in the model,
              * invoking the callback with the name of each relationship and its relationship

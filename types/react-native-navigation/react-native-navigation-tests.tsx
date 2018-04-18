@@ -10,7 +10,7 @@ class Screen1 extends React.Component<NavigationComponentProps & { height: numbe
     };
 
     componentDidMount() {
-        this.props.navigator.push({ screen: 'example.Screen2' });
+        this.props.navigator.push({ screen: 'example.Screen2', overrideBackPress: false });
         this.props.navigator.setTabBadge({ badge: null });
     }
 

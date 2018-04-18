@@ -1093,6 +1093,11 @@ export interface TextInputProperties
     blurOnSubmit?: boolean;
 
     /**
+     * If true, caret is hidden. The default value is false.
+     */
+    caretHidden?: boolean
+
+    /**
      * Provides an initial value that will change when the user starts typing.
      * Useful for simple use-cases where you don't want to deal with listening to events
      * and updating the value prop to keep the controlled state in sync.
@@ -3731,6 +3736,14 @@ export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
 
+export interface SectionListScrollParams {
+    animated?: boolean;
+    itemIndex: number;
+    sectionIndex: number;
+    viewOffset?: number;
+    viewPosition?: number;
+}
+
 export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
@@ -3839,6 +3852,13 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Only enabled by default on iOS because that is the platform standard there.
      */
     stickySectionHeadersEnabled?: boolean;
+
+    /**
+     * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
+     * positioned in the viewable area such that viewPosition 0 places it at the top
+     * (and may be covered by a sticky header), 1 at the bottom, and 0.5 centered in the middle.
+     */
+    scrollToLocation?(params: SectionListScrollParams): void;
 }
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {}
@@ -3933,6 +3953,8 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
     inverted?: boolean;
 
     keyExtractor?: (item: ItemT, index: number) => string;
+
+    listKey?: string;
 
     /**
      * The maximum number of items to render in each incremental render batch. The more rendered at
@@ -7331,13 +7353,36 @@ export interface PushNotificationIOSStatic {
      *
      * The type MUST be 'notification'
      */
-    addEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    addEventListener(type: "notification" | "localNotification", handler: (notification: PushNotification) => void): void;
+
+    /**
+     * Fired when the user registers for remote notifications.
+     *
+     * The handler will be invoked with a hex string representing the deviceToken.
+     *
+     * The type MUST be 'register'
+     */
+    addEventListener(type: "register", handler: (deviceToken: string) => void): void;
+
+    /**
+     * Fired when the user fails to register for remote notifications.
+     * Typically occurs when APNS is having issues, or the device is a simulator.
+     *
+     * The handler will be invoked with {message: string, code: number, details: any}.
+     *
+     * The type MUST be 'registrationError'
+     */
+    addEventListener(type: "registrationError", handler: (error: { message: string, code: number, details: any }) => void): void;
 
     /**
      * Removes the event listener. Do this in `componentWillUnmount` to prevent
      * memory leaks
      */
-    removeEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    removeEventListener(type: PushNotificationEventName,
+        handler: ((notification: PushNotification) => void)
+            | ((deviceToken: string) => void)
+            | ((error: { message: string, code: number, details: any }) => void)
+    ): void;
 
     /**
      * Requests all notification permissions from iOS, prompting the user's
@@ -8787,7 +8832,7 @@ declare global {
      *
      * @see https://github.com/facebook/react-native/issues/934
      */
-    var originalXMLHttpRequest: Object;
+    var originalXMLHttpRequest: any;
 
     var __BUNDLE_START_TIME__: number;
     var ErrorUtils: ErrorUtils;
