@@ -58,6 +58,8 @@ export interface Z {
             new (message?: string): RefreshAuthError;
         };
     };
+    stashFile: (promise: Promise<HttpResponse>, knownLength?: number | string, filename?: string, contentType?: string) => Promise<string>;
+    dehydrate: <T>(callback: (z: Z, bundle: Bundle<T>) => any, inputData: T) => string;
 }
 
 export interface AuthData {
