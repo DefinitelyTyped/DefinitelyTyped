@@ -22,7 +22,7 @@ import { EditorProps, EditorView } from 'prosemirror-view';
  * This is the type passed to the [`Plugin`](#state.Plugin)
  * constructor. It provides a definition for a plugin.
  */
-export interface PluginSpec<S extends Schema = Schema> {
+export interface PluginSpec<S extends Schema = any> {
   /**
    * The [view props](#view.EditorProps) added by this plugin. Props
    * that are functions will be bound to have the plugin instance as
@@ -82,7 +82,7 @@ export interface PluginSpec<S extends Schema = Schema> {
  * They are part of the [editor state](#state.EditorState) and
  * may influence that state and the view that contains it.
  */
-export class Plugin<S extends Schema = Schema> {
+export class Plugin<S extends Schema = any> {
   /**
    * Create a plugin.
    */
@@ -138,7 +138,7 @@ export interface StateField<T, S extends Schema = Schema> {
  * editor state. Assigning a key does mean only one plugin of that
  * type can be active in a state.
  */
-export class PluginKey<S extends Schema = Schema> {
+export class PluginKey<S extends Schema = any> {
   /**
    * Create a plugin key.
    */
@@ -157,7 +157,7 @@ export class PluginKey<S extends Schema = Schema> {
  * Superclass for editor selections. Every selection type should
  * extend this. Should not be instantiated directly.
  */
-export class Selection<S extends Schema = Schema> {
+export class Selection<S extends Schema = any> {
   /**
    * Initialize a selection with the head and anchor and ranges. If no
    * ranges are given, constructs a single range across `$anchor` and
@@ -259,7 +259,7 @@ export class Selection<S extends Schema = Schema> {
    * selections. Will return null when no valid selection position is
    * found.
    */
-  static findFrom<S extends Schema = Schema>(
+  static findFrom<S extends Schema = any>(
     $pos: ResolvedPos<S>,
     dir: number,
     textOnly?: boolean
@@ -269,24 +269,24 @@ export class Selection<S extends Schema = Schema> {
    * position. Searches forward first by default, but if `bias` is
    * negative, it will search backwards first.
    */
-  static near<S extends Schema = Schema>($pos: ResolvedPos<S>, bias?: number): Selection<S>;
+  static near<S extends Schema = any>($pos: ResolvedPos<S>, bias?: number): Selection<S>;
   /**
    * Find the cursor or leaf node selection closest to the start of
    * the given document. Will return an
    * [`AllSelection`](#state.AllSelection) if no valid position
    * exists.
    */
-  static atStart<S extends Schema = Schema>(doc: ProsemirrorNode<S>): Selection<S>;
+  static atStart<S extends Schema = any>(doc: ProsemirrorNode<S>): Selection<S>;
   /**
    * Find the cursor or leaf node selection closest to the end of the
    * given document.
    */
-  static atEnd<S extends Schema = Schema>(doc: ProsemirrorNode<S>): Selection<S>;
+  static atEnd<S extends Schema = any>(doc: ProsemirrorNode<S>): Selection<S>;
   /**
    * Deserialize the JSON representation of a selection. Must be
    * implemented for custom classes (as a static class method).
    */
-  static fromJSON<S extends Schema = Schema>(
+  static fromJSON<S extends Schema = any>(
     doc: ProsemirrorNode<S>,
     json: { [key: string]: any }
   ): Selection<S>;
@@ -303,7 +303,7 @@ export class Selection<S extends Schema = Schema> {
  * You can define a custom bookmark type for a custom selection class
  * to make the history handle it well.
  */
-export interface SelectionBookmark<S extends Schema = Schema> {
+export interface SelectionBookmark<S extends Schema = any> {
   /**
    * Map the bookmark through a set of changes.
    */
@@ -319,7 +319,7 @@ export interface SelectionBookmark<S extends Schema = Schema> {
 /**
  * Represents a selected range in a document.
  */
-export class SelectionRange<S extends Schema = Schema> {
+export class SelectionRange<S extends Schema = any> {
   constructor($from: ResolvedPos<S>, $to: ResolvedPos<S>);
   /**
    * The lower bound of the range.
@@ -336,7 +336,7 @@ export class SelectionRange<S extends Schema = Schema> {
  * point into textblock nodes. It can be empty (a regular cursor
  * position).
  */
-export class TextSelection<S extends Schema = Schema> extends Selection<S> {
+export class TextSelection<S extends Schema = any> extends Selection<S> {
   /**
    * Construct a text selection between the given points.
    */
@@ -349,7 +349,7 @@ export class TextSelection<S extends Schema = Schema> extends Selection<S> {
   /**
    * Create a text selection from non-resolved positions.
    */
-  static create<S extends Schema = Schema>(
+  static create<S extends Schema = any>(
     doc: ProsemirrorNode<S>,
     anchor: number,
     head?: number
@@ -362,7 +362,7 @@ export class TextSelection<S extends Schema = Schema> extends Selection<S> {
    * [`Selection.near`](#state.Selection^near) when the document
    * doesn't contain a valid text position.
    */
-  static between<S extends Schema = Schema>(
+  static between<S extends Schema = any>(
     $anchor: ResolvedPos<S>,
     $head: ResolvedPos<S>,
     bias?: number
@@ -375,7 +375,7 @@ export class TextSelection<S extends Schema = Schema> extends Selection<S> {
  * `to` point directly before and after the selected node, `anchor`
  * equals `from`, and `head` equals `to`..
  */
-export class NodeSelection<S extends Schema = Schema> extends Selection<S> {
+export class NodeSelection<S extends Schema = any> extends Selection<S> {
   /**
    * Create a node selection. Does not verify the validity of its
    * argument.
@@ -388,7 +388,7 @@ export class NodeSelection<S extends Schema = Schema> extends Selection<S> {
   /**
    * Create a node selection from non-resolved positions.
    */
-  static create<S extends Schema = Schema>(
+  static create<S extends Schema = any>(
     doc: ProsemirrorNode<S>,
     from: number
   ): NodeSelection<S>;
@@ -404,7 +404,7 @@ export class NodeSelection<S extends Schema = Schema> extends Selection<S> {
  * there are for example leaf block nodes at the start or end of the
  * document).
  */
-export class AllSelection<S extends Schema = Schema> extends Selection<S> {
+export class AllSelection<S extends Schema = any> extends Selection<S> {
   /**
    * Create an all-selection over the given document.
    */
@@ -419,7 +419,7 @@ export class AllSelection<S extends Schema = Schema> extends Selection<S> {
  * A state holds a number of built-in fields, and plugins can
  * [define](#state.PluginSpec.state) additional fields.
  */
-export class EditorState<S extends Schema = Schema> {
+export class EditorState<S extends Schema = any> {
   /**
    * The current document.
    */
@@ -475,7 +475,7 @@ export class EditorState<S extends Schema = Schema> {
   /**
    * Create a new state.
    */
-  static create<S extends Schema = Schema>(config: {
+  static create<S extends Schema = any>(config: {
     schema?: S | null;
     doc?: ProsemirrorNode<S> | null;
     selection?: Selection<S> | null;
@@ -488,7 +488,7 @@ export class EditorState<S extends Schema = Schema> {
    * to deserialize the state of plugins, by associating plugin
    * instances with the property names they use in the JSON object.
    */
-  static fromJSON<S extends Schema = Schema>(
+  static fromJSON<S extends Schema = any>(
     config: { schema: S; plugins?: Array<Plugin<S>> | null },
     json: { [key: string]: any },
     pluginFields?: { [name: string]: Plugin<S> }
@@ -513,7 +513,7 @@ export class EditorState<S extends Schema = Schema> {
  * selection transactions directly caused by mouse or touch input, and
  * a `"paste"` property of true to transactions caused by a paste..
  */
-export class Transaction<S extends Schema = Schema> extends Transform<S> {
+export class Transaction<S extends Schema = any> extends Transform<S> {
   /**
    * The timestamp associated with this transaction, in the same
    * format as `Date.now()`.

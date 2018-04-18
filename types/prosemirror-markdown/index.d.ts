@@ -16,7 +16,7 @@ import { Node as ProsemirrorNode, Schema } from 'prosemirror-model';
  * tokenize a file, and then runs the custom rules it is given over
  * the tokens to create a ProseMirror document tree.
  */
-export class MarkdownParser<S extends Schema = Schema> {
+export class MarkdownParser<S extends Schema = any> {
   /**
    * Create a parser with the given configuration. You can configure
    * the markdown-it parser to parse the dialect you want, and provide
@@ -78,7 +78,7 @@ export let defaultMarkdownParser: MarkdownParser;
  * A specification for serializing a ProseMirror document as
  * Markdown/CommonMark text.
  */
-export class MarkdownSerializer<S extends Schema = Schema> {
+export class MarkdownSerializer<S extends Schema = any> {
   constructor(
     nodes: {
       [name: string]: (
@@ -114,7 +114,7 @@ export let defaultMarkdownSerializer: MarkdownSerializer;
  * methods related to markdown serialization. Instances are passed to
  * node and mark serialization methods (see `toMarkdown`).
  */
-export class MarkdownSerializerState<S extends Schema = Schema> {
+export class MarkdownSerializerState<S extends Schema = any> {
   /**
    * The options passed to the serializer.
    */

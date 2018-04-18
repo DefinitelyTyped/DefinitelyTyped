@@ -51,7 +51,7 @@ export function addListNodes(
  * value to indicate whether this is possible, but don't actually
  * perform the change.
  */
-export function wrapInList<S extends Schema = Schema>(
+export function wrapInList<S extends Schema = any>(
   listType: NodeType<S>,
   attrs?: { [key: string]: any }
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
@@ -59,20 +59,20 @@ export function wrapInList<S extends Schema = Schema>(
  * Build a command that splits a non-empty textblock at the top level
  * of a list item by also splitting that list item.
  */
-export function splitListItem<S extends Schema = Schema>(
+export function splitListItem<S extends Schema = any>(
   itemType: NodeType<S>
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
 /**
  * Create a command to lift the list item around the selection up into
  * a wrapping list.
  */
-export function liftListItem<S extends Schema = Schema>(
+export function liftListItem<S extends Schema = any>(
   itemType: NodeType<S>
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
 /**
  * Create a command to sink the list item around the selection down
  * into an inner list.
  */
-export function sinkListItem<S extends Schema = Schema>(
+export function sinkListItem<S extends Schema = any>(
   itemType: NodeType<S>
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;

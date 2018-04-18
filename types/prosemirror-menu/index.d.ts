@@ -16,7 +16,7 @@ import { EditorView } from 'prosemirror-view';
  * display in your menu. Anything that conforms to this interface can
  * be put into a menu structure.
  */
-export interface MenuElement<S extends Schema = Schema> {
+export interface MenuElement<S extends Schema = any> {
   /**
    * Render the element for display in the menu. Must return a DOM
    * element and a function that can be used to update the element to
@@ -28,7 +28,7 @@ export interface MenuElement<S extends Schema = Schema> {
 /**
  * An icon or label that, when clicked, executes a command.
  */
-export class MenuItem<S extends Schema = Schema> {
+export class MenuItem<S extends Schema = any> {
   constructor(spec: MenuItemSpec<S>);
   /**
    * The spec used to create the menu item.
@@ -44,7 +44,7 @@ export class MenuItem<S extends Schema = Schema> {
 /**
  * The configuration object passed to the `MenuItem` constructor.
  */
-export interface MenuItemSpec<S extends Schema = Schema> {
+export interface MenuItemSpec<S extends Schema = any> {
   /**
    * The function to execute when the menu item is activated.
    */
@@ -112,7 +112,7 @@ export interface MenuItemSpec<S extends Schema = Schema> {
  * A drop-down menu, displayed as a label with a downwards-pointing
  * triangle to the right of it.
  */
-export class Dropdown<S extends Schema = Schema> {
+export class Dropdown<S extends Schema = any> {
   /**
    * Create a dropdown wrapping the elements. Options may include
    * the following properties:
@@ -141,7 +141,7 @@ export class Dropdown<S extends Schema = Schema> {
  * Represents a submenu wrapping a group of elements that start
  * hidden and expand to the right when hovered over or tapped.
  */
-export class DropdownSubmenu<S extends Schema = Schema> {
+export class DropdownSubmenu<S extends Schema = any> {
   /**
    * Creates a submenu for the given group of menu elements. The
    * following options are recognized:
@@ -161,7 +161,7 @@ export class DropdownSubmenu<S extends Schema = Schema> {
  * superfluous separators appear when some of the groups turn out to
  * be empty).
  */
-export function renderGrouped<S extends Schema = Schema>(
+export function renderGrouped<S extends Schema = any>(
   view: EditorView<S>,
   content: Array<MenuElement<S> | Array<MenuElement<S>>>
 ): { dom?: DocumentFragment | null; update(p: EditorState<S>): boolean };
@@ -199,7 +199,7 @@ export function redoItem(p: { [key: string]: any }): MenuItem;
  * `options`. `options.attrs` may be an object or a function, as in
  * `toggleMarkItem`.
  */
-export function wrapItem<S extends Schema = Schema>(
+export function wrapItem<S extends Schema = any>(
   nodeType: NodeType<S>,
   options: { [key: string]: any }
 ): MenuItem<S>;
@@ -209,7 +209,7 @@ export function wrapItem<S extends Schema = Schema>(
  * properties. Others must be given in `options`. `options.attrs` may
  * be an object to provide the attributes for the textblock node.
  */
-export function blockTypeItem<S extends Schema = Schema>(
+export function blockTypeItem<S extends Schema = any>(
   nodeType: NodeType<S>,
   options: { [key: string]: any }
 ): MenuItem<S>;
@@ -217,7 +217,7 @@ export function blockTypeItem<S extends Schema = Schema>(
  * A plugin that will place a menu bar above the editor. Note that
  * this involves wrapping the editor in an additional `<div>`.
  */
-export function menuBar<S extends Schema = Schema>(options: {
+export function menuBar<S extends Schema = any>(options: {
   content: Array<Array<MenuElement<S>>>;
   floating?: boolean | null;
 }): Plugin<S>;

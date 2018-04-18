@@ -102,7 +102,7 @@ export interface DecorationAttrs {
  * compare them. This is a persistent data structure—it is not
  * modified, updates create a new value.
  */
-export class DecorationSet<S extends Schema = Schema> {
+export class DecorationSet<S extends Schema = any> {
   /**
    * Find all decorations in this set which touch the given range
    * (including decorations that start or end directly at the
@@ -140,7 +140,7 @@ export class DecorationSet<S extends Schema = Schema> {
    * Create a set of decorations, using the structure of the given
    * document.
    */
-  static create<S extends Schema = Schema>(
+  static create<S extends Schema = any>(
     doc: ProsemirrorNode<S>,
     decorations: Decoration[]
   ): DecorationSet<S>;
@@ -154,7 +154,7 @@ export class DecorationSet<S extends Schema = Schema> {
  * editable document. Its state and behavior are determined by its
  * [props](#view.DirectEditorProps).
  */
-export class EditorView<S extends Schema = Schema> {
+export class EditorView<S extends Schema = any> {
   /**
    * Create a view. `place` may be a DOM node that the editor should
    * be appended to, a function that will place it into the document,
@@ -294,7 +294,7 @@ export class EditorView<S extends Schema = Schema> {
  * them returns true. For some props, the first plugin that yields a
  * value gets precedence.
  */
-export interface EditorProps<S extends Schema = Schema> {
+export interface EditorProps<S extends Schema = any> {
   /**
    * Can be an object mapping DOM event type names to functions that
    * handle them. Such functions will be called before any handling
@@ -518,7 +518,7 @@ export interface EditorProps<S extends Schema = Schema> {
  * The props object given directly to the editor view supports two
  * fields that can't be used in plugins:
  */
-export interface DirectEditorProps<S extends Schema = Schema> extends EditorProps<S> {
+export interface DirectEditorProps<S extends Schema = any> extends EditorProps<S> {
   /**
    * The current state of the editor.
    */
@@ -543,7 +543,7 @@ export interface DirectEditorProps<S extends Schema = Schema> extends EditorProp
  *
  * Objects returned as node views must conform to this interface.
  */
-export interface NodeView<S extends Schema = Schema> {
+export interface NodeView<S extends Schema = any> {
   /**
    * The outer DOM node that represents the document node. When not
    * given, the default strategy is used to create a DOM node.

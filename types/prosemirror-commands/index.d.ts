@@ -14,7 +14,7 @@ import { EditorView } from 'prosemirror-view';
 /**
  * Delete the selection, if there is one.
  */
-export function deleteSelection<S extends Schema = Schema>(
+export function deleteSelection<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -27,7 +27,7 @@ export function deleteSelection<S extends Schema = Schema>(
  * into a parent of the previous block. Will use the view for accurate
  * (bidi-aware) start-of-textblock detection if given.
  */
-export function joinBackward<S extends Schema = Schema>(
+export function joinBackward<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void,
   view?: EditorView<S>
@@ -40,7 +40,7 @@ export function joinBackward<S extends Schema = Schema>(
  * commands, as a fall-back behavior when the schema doesn't allow
  * deletion at the selected point.
  */
-export function selectNodeBackward<S extends Schema = Schema>(
+export function selectNodeBackward<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void,
   view?: EditorView<S>
@@ -52,7 +52,7 @@ export function selectNodeBackward<S extends Schema = Schema>(
  * block closer to this one in the tree structure. Will use the view
  * for accurate start-of-textblock detection if given.
  */
-export function joinForward<S extends Schema = Schema>(
+export function joinForward<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void,
   view?: EditorView<S>
@@ -65,7 +65,7 @@ export function joinForward<S extends Schema = Schema>(
  * commands, to provide a fall-back behavior when the schema doesn't
  * allow deletion at the selected point.
  */
-export function selectNodeForward<S extends Schema = Schema>(
+export function selectNodeForward<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void,
   view?: EditorView<S>
@@ -75,7 +75,7 @@ export function selectNodeForward<S extends Schema = Schema>(
  * closest ancestor block of the selection that can be joined, with
  * the sibling above it.
  */
-export function joinUp<S extends Schema = Schema>(
+export function joinUp<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -83,7 +83,7 @@ export function joinUp<S extends Schema = Schema>(
  * Join the selected block, or the closest ancestor of the selection
  * that can be joined, with the sibling after it.
  */
-export function joinDown<S extends Schema = Schema>(
+export function joinDown<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -91,7 +91,7 @@ export function joinDown<S extends Schema = Schema>(
  * Lift the selected block, or the closest ancestor block of the
  * selection that can be lifted, out of its parent node.
  */
-export function lift<S extends Schema = Schema>(
+export function lift<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -100,7 +100,7 @@ export function lift<S extends Schema = Schema>(
  * [`code`](#model.NodeSpec.code) property in its spec, replace the
  * selection with a newline character.
  */
-export function newlineInCode<S extends Schema = Schema>(
+export function newlineInCode<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -109,7 +109,7 @@ export function newlineInCode<S extends Schema = Schema>(
  * [`code`](#model.NodeSpec.code) property in its spec, create a
  * default block after the code block, and move the cursor there.
  */
-export function exitCode<S extends Schema = Schema>(
+export function exitCode<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -117,7 +117,7 @@ export function exitCode<S extends Schema = Schema>(
  * If a block node is selected, create an empty paragraph before (if
  * it is its parent's first child) or after it.
  */
-export function createParagraphNear<S extends Schema = Schema>(
+export function createParagraphNear<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -125,7 +125,7 @@ export function createParagraphNear<S extends Schema = Schema>(
  * If the cursor is in an empty textblock that can be lifted, lift the
  * block.
  */
-export function liftEmptyBlock<S extends Schema = Schema>(
+export function liftEmptyBlock<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -133,7 +133,7 @@ export function liftEmptyBlock<S extends Schema = Schema>(
  * Split the parent block of the selection. If the selection is a text
  * selection, also delete its content.
  */
-export function splitBlock<S extends Schema = Schema>(
+export function splitBlock<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -141,7 +141,7 @@ export function splitBlock<S extends Schema = Schema>(
  * Acts like [`splitBlock`](#commands.splitBlock), but without
  * resetting the set of active marks at the cursor.
  */
-export function splitBlockKeepMarks<S extends Schema = Schema>(
+export function splitBlockKeepMarks<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -149,14 +149,14 @@ export function splitBlockKeepMarks<S extends Schema = Schema>(
  * Move the selection to the node wrapping the current selection, if
  * any. (Will not select the document node.)
  */
-export function selectParentNode<S extends Schema = Schema>(
+export function selectParentNode<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 /**
  * Select the whole document.
  */
-export function selectAll<S extends Schema = Schema>(
+export function selectAll<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
@@ -164,7 +164,7 @@ export function selectAll<S extends Schema = Schema>(
  * Wrap the selection in a node of the given type with the given
  * attributes.
  */
-export function wrapIn<S extends Schema = Schema>(
+export function wrapIn<S extends Schema = any>(
   nodeType: NodeType<S>,
   attrs?: { [key: string]: any }
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
@@ -172,7 +172,7 @@ export function wrapIn<S extends Schema = Schema>(
  * Returns a command that tries to set the textblock around the
  * selection to the given node type with the given attributes.
  */
-export function setBlockType<S extends Schema = Schema>(
+export function setBlockType<S extends Schema = any>(
   nodeType: NodeType<S>,
   attrs?: { [key: string]: any }
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
@@ -185,7 +185,7 @@ export function setBlockType<S extends Schema = Schema>(
  * marks](#state.EditorState.storedMarks) instead of a range of the
  * document.
  */
-export function toggleMark<S extends Schema = Schema>(
+export function toggleMark<S extends Schema = any>(
   markType: MarkType<S>,
   attrs?: { [key: string]: any }
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
@@ -197,7 +197,7 @@ export function toggleMark<S extends Schema = Schema>(
  * array of strings was passed, if their node type name is in that
  * array.
  */
-export function autoJoin<S extends Schema = Schema>(
+export function autoJoin<S extends Schema = any>(
   command: (state: EditorState<S>, p1?: (tr: Transaction<S>) => void) => boolean,
   isJoinable: ((before: ProsemirrorNode<S>, after: ProsemirrorNode<S>) => boolean) | string[]
 ): (state: EditorState<S>, p1?: (tr: Transaction<S>) => void) => boolean;
@@ -205,7 +205,7 @@ export function autoJoin<S extends Schema = Schema>(
  * Combine a number of command functions into a single function (which
  * calls them one by one until one returns true).
  */
-export function chainCommands<S extends Schema = Schema>(
+export function chainCommands<S extends Schema = any>(
   ...commands: Array<
     (p1: EditorState<S>, p2?: (tr: Transaction<S>) => void, p3?: EditorView<S>) => boolean
     >

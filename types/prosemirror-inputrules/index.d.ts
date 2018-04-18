@@ -16,7 +16,7 @@ import { EditorState, Plugin, Transaction } from 'prosemirror-state';
  * changing two dashes into an emdash, wrapping a paragraph starting
  * with `"> "` into a blockquote, or something entirely different.
  */
-export class InputRule<S extends Schema = Schema> {
+export class InputRule<S extends Schema = any> {
   /**
    * Create an input rule. The rule applies when the user typed
    * something and the text directly in front of the cursor matches
@@ -50,14 +50,14 @@ export class InputRule<S extends Schema = Schema> {
  * input that matches any of the given rules to trigger the rule's
  * action.
  */
-export function inputRules<S extends Schema = Schema>(config: {
+export function inputRules<S extends Schema = any>(config: {
   rules: Array<InputRule<S>>;
 }): Plugin<S>;
 /**
  * This is a command that will undo an input rule, if applying such a
  * rule was the last thing that the user did.
  */
-export function undoInputRule<S extends Schema = Schema>(
+export function undoInputRule<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (p: Transaction<S>) => void
 ): boolean;
@@ -78,7 +78,7 @@ export function undoInputRule<S extends Schema = Schema>(
  * expression match and the node before the wrapped node, and can
  * return a boolean to indicate whether a join should happen.
  */
-export function wrappingInputRule<S extends Schema = Schema>(
+export function wrappingInputRule<S extends Schema = any>(
   regexp: RegExp,
   nodeType: NodeType<S>,
   getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | void),
@@ -92,7 +92,7 @@ export function wrappingInputRule<S extends Schema = Schema>(
  * the new node's attributes, and works the same as in the
  * `wrappingInputRule` function.
  */
-export function textblockTypeInputRule<S extends Schema = Schema>(
+export function textblockTypeInputRule<S extends Schema = any>(
   regexp: RegExp,
   nodeType: NodeType<S>,
   getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | void)

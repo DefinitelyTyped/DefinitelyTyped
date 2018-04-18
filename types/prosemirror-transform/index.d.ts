@@ -167,13 +167,13 @@ export class Mapping implements Mappable {
 /**
  * Add a mark to all inline content between two positions.
  */
-export class AddMarkStep<S extends Schema = Schema> extends Step<S> {
+export class AddMarkStep<S extends Schema = any> extends Step<S> {
   constructor(from: number, to: number, mark: Mark<S>);
 }
 /**
  * Remove a mark from all inline content between two positions.
  */
-export class RemoveMarkStep<S extends Schema = Schema> extends Step<S> {
+export class RemoveMarkStep<S extends Schema = any> extends Step<S> {
   constructor(from: number, to: number, mark: Mark<S>);
 }
 /**
@@ -183,7 +183,7 @@ export class RemoveMarkStep<S extends Schema = Schema> extends Step<S> {
  * Most transforming methods return the `Transform` object itself, so
  * that they can be chained.
  */
-export class Transform<S extends Schema = Schema> {
+export class Transform<S extends Schema = any> {
   /**
    * Create a transform that starts with the given document.
    */
@@ -358,7 +358,7 @@ export class Transform<S extends Schema = Schema> {
 /**
  * Replace a part of the document with a slice of new content.
  */
-export class ReplaceStep<S extends Schema = Schema> extends Step<S> {
+export class ReplaceStep<S extends Schema = any> extends Step<S> {
   /**
    * The given `slice` should fit the 'gap' between `from` and
    * `to`—the depths must line up, and the surrounding nodes must be
@@ -375,7 +375,7 @@ export class ReplaceStep<S extends Schema = Schema> extends Step<S> {
  * preserve a range of the replaced content by moving it into the
  * slice.
  */
-export class ReplaceAroundStep<S extends Schema = Schema> extends Step<S> {
+export class ReplaceAroundStep<S extends Schema = any> extends Step<S> {
   /**
    * Create a replace-around step with the given range and gap.
    * `insert` should be the point in the slice into which the content
@@ -398,7 +398,7 @@ export class ReplaceAroundStep<S extends Schema = Schema> extends Step<S> {
  * there's no meaningful way to insert the slice here, or inserting it
  * would be a no-op (an empty slice over an empty range).
  */
-export function replaceStep<S extends Schema = Schema>(
+export function replaceStep<S extends Schema = any>(
   doc: ProsemirrorNode<S>,
   from: number,
   to?: number,
@@ -415,7 +415,7 @@ export function replaceStep<S extends Schema = Schema>(
  * JSON-serialization identifier using
  * [`Step.jsonID`](#transform.Step^jsonID).
  */
-export class Step<S extends Schema = Schema> {
+export class Step<S extends Schema = any> {
   /**
    * Applies this step to the given document, returning a result
    * object that either indicates failure, if the step can not be
@@ -457,7 +457,7 @@ export class Step<S extends Schema = Schema> {
    * Deserialize a step from its JSON representation. Will call
    * through to the step class' own implementation of this method.
    */
-  static fromJSON<S extends Schema = Schema>(schema: S, json: { [key: string]: any }): Step<S>;
+  static fromJSON<S extends Schema = any>(schema: S, json: { [key: string]: any }): Step<S>;
   /**
    * To be able to serialize steps to JSON, each step needs a string
    * ID to attach to its JSON representation. Use this method to
@@ -470,7 +470,7 @@ export class Step<S extends Schema = Schema> {
  * The result of [applying](#transform.Step.apply) a step. Contains either a
  * new document or a failure value.
  */
-export class StepResult<S extends Schema = Schema> {
+export class StepResult<S extends Schema = any> {
   /**
    * The transformed document.
    */
@@ -482,7 +482,7 @@ export class StepResult<S extends Schema = Schema> {
   /**
    * Create a successful step result.
    */
-  static ok<S extends Schema = Schema>(doc: ProsemirrorNode<S>): StepResult<S>;
+  static ok<S extends Schema = any>(doc: ProsemirrorNode<S>): StepResult<S>;
   /**
    * Create a failed step result.
    */
@@ -492,7 +492,7 @@ export class StepResult<S extends Schema = Schema> {
    * arguments. Create a successful result if it succeeds, and a
    * failed one if it throws a `ReplaceError`.
    */
-  static fromReplace<S extends Schema = Schema>(
+  static fromReplace<S extends Schema = any>(
     doc: ProsemirrorNode<S>,
     from: number,
     to: number,
@@ -511,7 +511,7 @@ export function liftTarget(range: NodeRange): number | null | void;
  * the wrapper node, if necessary. Returns null if no valid wrapping
  * could be found.
  */
-export function findWrapping<S extends Schema = Schema>(
+export function findWrapping<S extends Schema = any>(
   range: NodeRange<S>,
   nodeType: NodeType<S>,
   attrs?: { [key: string]: any }
@@ -519,7 +519,7 @@ export function findWrapping<S extends Schema = Schema>(
 /**
  * Check whether splitting at the given position is allowed.
  */
-export function canSplit<S extends Schema = Schema>(
+export function canSplit<S extends Schema = any>(
   doc: ProsemirrorNode<S>,
   pos: number,
   depth?: number,
@@ -542,7 +542,7 @@ export function joinPoint(doc: ProsemirrorNode, pos: number, dir?: number): numb
  * isn't a valid place but is at the start or end of a node. Return
  * null if no position was found.
  */
-export function insertPoint<S extends Schema = Schema>(
+export function insertPoint<S extends Schema = any>(
   doc: ProsemirrorNode<S>,
   pos: number,
   nodeType: NodeType<S>

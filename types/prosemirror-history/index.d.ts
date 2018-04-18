@@ -15,7 +15,7 @@ import { EditorState, Plugin, Transaction } from 'prosemirror-state';
  * from being appended to an existing history event (so that they
  * require a separate undo command to undo).
  */
-export function closeHistory<S extends Schema = Schema>(tr: Transaction<S>): Transaction<S>;
+export function closeHistory<S extends Schema = any>(tr: Transaction<S>): Transaction<S>;
 /**
  * Returns a plugin that enables the undo history for an editor. The
  * plugin will track undo and redo stacks, which can be used with the
@@ -29,14 +29,14 @@ export function history(config?: { depth?: number | null; newGroupDelay?: number
 /**
  * A command function that undoes the last change, if any.
  */
-export function undo<S extends Schema = Schema>(
+export function undo<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 /**
  * A command function that redoes the last undone change, if any.
  */
-export function redo<S extends Schema = Schema>(
+export function redo<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;

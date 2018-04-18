@@ -40,7 +40,7 @@ export interface CellSelectionJSON {
   head: number;
 }
 
-export class CellSelection<S extends Schema = Schema> {
+export class CellSelection<S extends Schema = any> {
   constructor($anchorCell: ResolvedPos<S>, $headCell?: ResolvedPos<S>);
 
   from: number;
@@ -67,20 +67,20 @@ export class CellSelection<S extends Schema = Schema> {
   toJSON(): CellSelectionJSON;
   getBookmark(): { anchor: number; head: number };
 
-  static colSelection<S extends Schema = Schema>(
+  static colSelection<S extends Schema = any>(
     anchorCell: ResolvedPos<S>,
     headCell?: ResolvedPos<S>
   ): CellSelection<S>;
-  static rowSelection<S extends Schema = Schema>(
+  static rowSelection<S extends Schema = any>(
     anchorCell: ResolvedPos<S>,
     headCell?: ResolvedPos<S>
   ): CellSelection<S>;
-  static create<S extends Schema = Schema>(
+  static create<S extends Schema = any>(
     doc: ProsemirrorNode<S>,
     anchorCell: number,
     headCell?: number
   ): CellSelection<S>;
-  static fromJSON<S extends Schema = Schema>(
+  static fromJSON<S extends Schema = any>(
     doc: ProsemirrorNode<S>,
     json: CellSelectionJSON
   ): CellSelection<S>;
@@ -111,76 +111,76 @@ export class TableMap {
 
 export function tableEditing(): Plugin;
 
-export function deleteTable<S extends Schema = Schema>(
+export function deleteTable<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function goToNextCell<S extends Schema = Schema>(
+export function goToNextCell<S extends Schema = any>(
   direction: number
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
 
-export function toggleHeaderCell<S extends Schema = Schema>(
+export function toggleHeaderCell<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function toggleHeaderColumn<S extends Schema = Schema>(
+export function toggleHeaderColumn<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function toggleHeaderRow<S extends Schema = Schema>(
+export function toggleHeaderRow<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function setCellAttr<S extends Schema = Schema>(
+export function setCellAttr<S extends Schema = any>(
   name: string,
   value: any
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
 
-export function splitCell<S extends Schema = Schema>(
+export function splitCell<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function mergeCells<S extends Schema = Schema>(
+export function mergeCells<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function deleteRow<S extends Schema = Schema>(
+export function deleteRow<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function addRowAfter<S extends Schema = Schema>(
+export function addRowAfter<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function addRowBefore<S extends Schema = Schema>(
+export function addRowBefore<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function deleteColumn<S extends Schema = Schema>(
+export function deleteColumn<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function addColumnAfter<S extends Schema = Schema>(
+export function addColumnAfter<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function addColumnBefore<S extends Schema = Schema>(
+export function addColumnBefore<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
 
-export function columnResizing<S extends Schema = Schema>(props: {
+export function columnResizing<S extends Schema = any>(props: {
   handleWidth?: number;
   cellMinWidth?: number;
   View?: NodeView<S>;
@@ -197,17 +197,17 @@ export function updateColumnsOnResize(
   overrideValue?: number
 ): void;
 
-export function cellAround<S extends Schema = Schema>(pos: ResolvedPos<S>): ResolvedPos<S> | null;
+export function cellAround<S extends Schema = any>(pos: ResolvedPos<S>): ResolvedPos<S> | null;
 
 export function isInTable(state: EditorState): boolean;
 
-export function selectionCell<S extends Schema = Schema>(
+export function selectionCell<S extends Schema = any>(
   state: EditorState<S>
 ): ResolvedPos<S> | null | undefined;
 
-export function moveCellForward<S extends Schema = Schema>(pos: ResolvedPos<S>): ResolvedPos<S>;
+export function moveCellForward<S extends Schema = any>(pos: ResolvedPos<S>): ResolvedPos<S>;
 
-export function inSameTable<S extends Schema = Schema>(
+export function inSameTable<S extends Schema = any>(
   $a: ResolvedPos<S>,
   $b: ResolvedPos<S>
 ): boolean;
@@ -218,7 +218,7 @@ export function findCell(
 
 export function colCount(pos: ResolvedPos): number;
 
-export function nextCell<S extends Schema = Schema>(
+export function nextCell<S extends Schema = any>(
   pos: ResolvedPos<S>,
   axis: string,
   dir: number

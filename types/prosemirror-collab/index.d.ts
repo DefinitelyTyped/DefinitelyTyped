@@ -24,7 +24,7 @@ export function collab(config?: {
  * the authority. Applying this transaction moves the state forward to
  * adjust to the authority's view of the document.
  */
-export function receiveTransaction<S extends Schema = Schema>(
+export function receiveTransaction<S extends Schema = any>(
   state: EditorState<S>,
   steps: Array<Step<S>>,
   clientIDs: Array<number | string>
@@ -40,7 +40,7 @@ export function receiveTransaction<S extends Schema = Schema>(
  * rebased, whereas the origin transactions are still the old,
  * unchanged objects.
  */
-export function sendableSteps<S extends Schema = Schema>(
+export function sendableSteps<S extends Schema = any>(
   state: EditorState<S>
 ): {
   version: number;

@@ -16,7 +16,7 @@ import OrderedMap = require('orderedmap');
  * used to find out whether further content matches here, and whether
  * a given position is a valid end of the node.
  */
-export class ContentMatch<S extends Schema = Schema> {
+export class ContentMatch<S extends Schema = any> {
   /**
    * Get the first matching node type at this match position that can
    * be generated.
@@ -70,7 +70,7 @@ export class ContentMatch<S extends Schema = Schema> {
  * should not mutate them or their content. Rather, you create new
  * instances whenever needed. The API tries to make this easy.
  */
-export class Fragment<S extends Schema = Schema> {
+export class Fragment<S extends Schema = any> {
   /**
    * The size of the fragment, which is the total of the size of its
    * content nodes.
@@ -170,7 +170,7 @@ export class Fragment<S extends Schema = Schema> {
   /**
    * Deserialize a fragment from its JSON representation.
    */
-  static fromJSON<S extends Schema = Schema>(
+  static fromJSON<S extends Schema = any>(
     schema: S,
     value?: { [key: string]: any }
   ): Fragment<S>;
@@ -178,14 +178,14 @@ export class Fragment<S extends Schema = Schema> {
    * Build a fragment from an array of nodes. Ensures that adjacent
    * text nodes with the same marks are joined together.
    */
-  static fromArray<S extends Schema = Schema>(array: Array<ProsemirrorNode<S>>): Fragment<S>;
+  static fromArray<S extends Schema = any>(array: Array<ProsemirrorNode<S>>): Fragment<S>;
   /**
    * Create a fragment from something that can be interpreted as a set
    * of nodes. For `null`, it returns the empty fragment. For a
    * fragment, the fragment itself. For a node or array of nodes, a
    * fragment containing those nodes.
    */
-  static from<S extends Schema = Schema>(
+  static from<S extends Schema = any>(
     nodes?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>
   ): Fragment<S>;
   /**
@@ -200,7 +200,7 @@ export class Fragment<S extends Schema = Schema> {
  * [`parse`](#model.DOMParser.parse) and
  * [`parseSlice`](#model.DOMParser.parseSlice) methods.
  */
-export interface ParseOptions<S extends Schema = Schema> {
+export interface ParseOptions<S extends Schema = any> {
   /**
    * By default, whitespace is collapsed as per HTML's rules. Pass
    * `true` to preserve whitespace, but normalize newlines to
@@ -246,7 +246,7 @@ export interface ParseOptions<S extends Schema = Schema> {
  * A value that describes how to parse a given DOM node or inline
  * style as a ProseMirror node or mark.
  */
-export interface ParseRule<S extends Schema = Schema> {
+export interface ParseRule<S extends Schema = any> {
   /**
    * A CSS selector describing the kind of DOM elements to match. A
    * single rule should have _either_ a `tag` or a `style` property.
@@ -356,7 +356,7 @@ export interface ParseRule<S extends Schema = Schema> {
  * a ProseMirror document conforming to a given schema. Its behavior
  * is defined by an array of [rules](#model.ParseRule).
  */
-export class DOMParser<S extends Schema = Schema> {
+export class DOMParser<S extends Schema = any> {
   /**
    * Create a parser that targets the given schema, using the given
    * parsing rules.
@@ -389,7 +389,7 @@ export class DOMParser<S extends Schema = Schema> {
    * schema's [node specs](#model.NodeSpec.parseDOM), reordered by
    * [priority](#model.ParseRule.priority).
    */
-  static fromSchema<S extends Schema = Schema>(schema: S): DOMParser<S>;
+  static fromSchema<S extends Schema = any>(schema: S): DOMParser<S>;
 }
 /**
  * A mark is a piece of information that can be attached to a node,
@@ -399,7 +399,7 @@ export class DOMParser<S extends Schema = Schema> {
  * `Schema`, which controls which types exist and which
  * attributes they have.
  */
-export class Mark<S extends Schema = Schema> {
+export class Mark<S extends Schema = any> {
   /**
    * The type of this mark.
    */
@@ -434,16 +434,16 @@ export class Mark<S extends Schema = Schema> {
    * Convert this mark to a JSON-serializeable representation.
    */
   toJSON(): { [key: string]: any };
-  static fromJSON<S extends Schema = Schema>(schema: S, json: { [key: string]: any }): Mark<S>;
+  static fromJSON<S extends Schema = any>(schema: S, json: { [key: string]: any }): Mark<S>;
   /**
    * Test whether two sets of marks are identical.
    */
-  static sameSet<S extends Schema = Schema>(a: Array<Mark<S>>, b: Array<Mark<S>>): boolean;
+  static sameSet<S extends Schema = any>(a: Array<Mark<S>>, b: Array<Mark<S>>): boolean;
   /**
    * Create a properly sorted mark set from null, a single mark, or an
    * unsorted array of marks.
    */
-  static setFrom<S extends Schema = Schema>(marks?: Mark<S> | Array<Mark<S>>): Array<Mark<S>>;
+  static setFrom<S extends Schema = any>(marks?: Mark<S> | Array<Mark<S>>): Array<Mark<S>>;
   /**
    * The empty set of marks.
    */
@@ -463,7 +463,7 @@ export class Mark<S extends Schema = Schema> {
  * **Do not** directly mutate the properties of a `Node` object. See
  * [the guide](/docs/guide/#doc) for more information.
  */
-declare class ProsemirrorNode<S extends Schema = Schema> {
+declare class ProsemirrorNode<S extends Schema = any> {
   /**
    * The type of node that this is.
    */
@@ -716,7 +716,7 @@ declare class ProsemirrorNode<S extends Schema = Schema> {
   /**
    * Deserialize a node from its JSON representation.
    */
-  static fromJSON<S extends Schema = Schema>(
+  static fromJSON<S extends Schema = any>(
     schema: S,
     json: { [key: string]: any }
   ): ProsemirrorNode<S>;
@@ -732,7 +732,7 @@ export class ReplaceError extends Error { }
  * stores not only a fragment, but also the depth up to which nodes on
  * both side are ‘open’ (cut through).
  */
-export class Slice<S extends Schema = Schema> {
+export class Slice<S extends Schema = any> {
   /**
    * Create a slice. When specifying a non-zero open depth, you must
    * make sure that there are nodes of at least that depth at the
@@ -773,12 +773,12 @@ export class Slice<S extends Schema = Schema> {
   /**
    * Deserialize a slice from its JSON representation.
    */
-  static fromJSON<S extends Schema = Schema>(schema: S, json?: { [key: string]: any }): Slice<S>;
+  static fromJSON<S extends Schema = any>(schema: S, json?: { [key: string]: any }): Slice<S>;
   /**
    * Create a slice from a fragment by taking the maximum possible
    * open value on both side of the fragment.
    */
-  static maxOpen<S extends Schema = Schema>(
+  static maxOpen<S extends Schema = any>(
     fragment: Fragment<S>,
     openIsolating?: boolean
   ): Slice<S>;
@@ -797,7 +797,7 @@ export class Slice<S extends Schema = Schema> {
  * parameter will interpret undefined as `this.depth` and negative
  * numbers as `this.depth + value`.
  */
-export class ResolvedPos<S extends Schema = Schema> {
+export class ResolvedPos<S extends Schema = any> {
   /**
    * The position that was resolved.
    */
@@ -928,7 +928,7 @@ export class ResolvedPos<S extends Schema = Schema> {
  * Represents a flat range of content, i.e. one that starts and
  * ends in the same node.
  */
-export class NodeRange<S extends Schema = Schema> {
+export class NodeRange<S extends Schema = any> {
   /**
    * Construct a node range. `$from` and `$to` should point into the
    * same node until at least the given `depth`, since a node range
@@ -979,7 +979,7 @@ export class NodeRange<S extends Schema = Schema> {
  * about the node type, such as its name and what kind of node it
  * represents.
  */
-export class NodeType<S extends Schema = Schema> {
+export class NodeType<S extends Schema = any> {
   /**
    * The name the node type has in this schema.
    */
@@ -1086,7 +1086,7 @@ export class NodeType<S extends Schema = Schema> {
  * [tagged](#model.Mark.type) with type objects, which are
  * instantiated once per `Schema`.
  */
-export class MarkType<S extends Schema = Schema> {
+export class MarkType<S extends Schema = any> {
   /**
    * The name of the mark type.
    */
@@ -1387,7 +1387,7 @@ export type DOMOutputSpec = string | Node | DOMOutputSpecArray;
  * A DOM serializer knows how to convert ProseMirror nodes and
  * marks of various types to DOM nodes.
  */
-export class DOMSerializer<S extends Schema = Schema> {
+export class DOMSerializer<S extends Schema = any> {
   /**
    * Create a serializer. `nodes` should map node names to functions
    * that take a node and return a description of the corresponding
@@ -1437,5 +1437,5 @@ export class DOMSerializer<S extends Schema = Schema> {
    * Build a serializer using the [`toDOM`](#model.NodeSpec.toDOM)
    * properties in a schema's node and mark specs.
    */
-  static fromSchema<S extends Schema = Schema>(schema: S): DOMSerializer<S>;
+  static fromSchema<S extends Schema = any>(schema: S): DOMSerializer<S>;
 }
