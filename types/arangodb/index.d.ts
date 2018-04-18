@@ -698,8 +698,8 @@ declare namespace ArangoDB {
         memoryLimit?: number;
         failOnWarning?: boolean;
         cache?: boolean;
-        count?: boolean; // TODO ???
-        fullCount?: boolean; // TODO ???
+        count?: boolean;
+        fullCount?: boolean;
         profile?: boolean;
         maxWarningCount?: number;
         maxNumberOfPlans?: number;
