@@ -62,6 +62,7 @@ declare namespace DAO {
         dbVersion11 = 8,
         dbVersion120 = 128,
         dbVersion140 = 256,
+        dbVersion150 = 512,
         dbVersion20 = 16,
         dbVersion30 = 32,
         dbVersion40 = 64,
@@ -329,12 +330,11 @@ declare namespace DAO {
         readonly Updatable: boolean;
     }
 
-    class Connections {
-        private 'DAO.Connections_typekey': Connections;
-        private constructor();
+    interface Connections {
         readonly Count: number;
         Item(Item: any): Connection;
         Refresh(): void;
+        (Item: any): Connection;
     }
 
     class Container {
@@ -350,12 +350,11 @@ declare namespace DAO {
         UserName: string;
     }
 
-    class Containers {
-        private 'DAO.Containers_typekey': Containers;
-        private constructor();
+    interface Containers {
         readonly Count: number;
         Item(Item: any): Container;
         Refresh(): void;
+        (Item: any): Container;
     }
 
     class Database {
@@ -391,12 +390,11 @@ declare namespace DAO {
         readonly Version: string;
     }
 
-    class Databases {
-        private 'DAO.Databases_typekey': Databases;
-        private constructor();
+    interface Databases {
         readonly Count: number;
         Item(Item: any): Database;
         Refresh(): void;
+        (Item: any): Database;
     }
 
     class DBEngine {
@@ -404,7 +402,7 @@ declare namespace DAO {
         private constructor();
         BeginTrans(): void;
 
-        /** @param number [Option=0] */
+        /** @param Option [Option=0] */
         CommitTrans(Option?: number): void;
         CompactDatabase(SrcName: string, DstName: string, DstLocale?: any, Options?: any, SrcLocale?: any): void;
         CreateDatabase(Name: string, Locale: string, Option?: any): Database;
@@ -444,12 +442,11 @@ declare namespace DAO {
         UserName: string;
     }
 
-    class Documents {
-        private 'DAO.Documents_typekey': Documents;
-        private constructor();
+    interface Documents {
         readonly Count: number;
         Item(Item: any): Document;
         Refresh(): void;
+        (Item: any): Document;
     }
 
     class Error {
@@ -462,12 +459,11 @@ declare namespace DAO {
         readonly Source: string;
     }
 
-    class Errors {
-        private 'DAO.Errors_typekey': Errors;
-        private constructor();
+    interface Errors {
         readonly Count: number;
         Item(Item: any): Error;
         Refresh(): void;
+        (Item: any): Error;
     }
 
     class Field {
@@ -500,14 +496,13 @@ declare namespace DAO {
         readonly VisibleValue: any;
     }
 
-    class Fields {
-        private 'DAO.Fields_typekey': Fields;
-        private constructor();
+    interface Fields {
         Append(Object: any): void;
         readonly Count: number;
         Delete(Name: string): void;
         Item(Item: any): Field;
         Refresh(): void;
+        (Item: any): Field;
     }
 
     class Group {
@@ -520,14 +515,13 @@ declare namespace DAO {
         readonly Users: Users;
     }
 
-    class Groups {
-        private 'DAO.Groups_typekey': Groups;
-        private constructor();
+    interface Groups {
         Append(Object: any): void;
         readonly Count: number;
         Delete(Name: string): void;
         Item(Item: any): Group;
         Refresh(): void;
+        (Item: any): Group;
     }
 
     class Index {
@@ -547,14 +541,14 @@ declare namespace DAO {
         Unique: boolean;
     }
 
-    class Indexes {
-        private 'DAO.Indexes_typekey': Indexes;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface Indexes {
         Append(Object: any): void;
         readonly Count: number;
         Delete(Name: string): void;
         Item(Item: any): Index;
         Refresh(): void;
+        (Item: any): Index;
     }
 
     class Parameter {
@@ -567,12 +561,11 @@ declare namespace DAO {
         Value: any;
     }
 
-    class Parameters {
-        private 'DAO.Parameters_typekey': Parameters;
-        private constructor();
+    interface Parameters {
         readonly Count: number;
         Item(Item: any): Parameter;
         Refresh(): void;
+        (Item: any): Parameter;
     }
 
     /** DAO 3.0 DBEngine (private) */
@@ -581,7 +574,7 @@ declare namespace DAO {
         private constructor();
         BeginTrans(): void;
 
-        /** @param number [Option=0] */
+        /** @param Option [Option=0] */
         CommitTrans(Option?: number): void;
         CompactDatabase(SrcName: string, DstName: string, DstLocale?: any, Options?: any, SrcLocale?: any): void;
         CreateDatabase(Name: string, Locale: string, Option?: any): Database;
@@ -606,14 +599,13 @@ declare namespace DAO {
         readonly Workspaces: Workspaces;
     }
 
-    class Properties {
-        private 'DAO.Properties_typekey': Properties;
-        private constructor();
+    interface Properties {
         Append(Object: any): void;
         readonly Count: number;
         Delete(Name: string): void;
         Item(Item: any): Property;
         Refresh(): void;
+        (Item: any): Property;
     }
 
     class Property {
@@ -654,14 +646,13 @@ declare namespace DAO {
         readonly Updatable: boolean;
     }
 
-    class QueryDefs {
-        private 'DAO.QueryDefs_typekey': QueryDefs;
-        private constructor();
+    interface QueryDefs {
         Append(Object: any): void;
         readonly Count: number;
         Delete(Name: string): void;
         Item(Item: any): QueryDef;
         Refresh(): void;
+        (Item: any): QueryDef;
     }
 
     class Recordset {
@@ -679,7 +670,7 @@ declare namespace DAO {
         CacheStart: SafeArray<number>;
         Cancel(): void;
 
-        /** @param number [UpdateType=1] */
+        /** @param UpdateType [UpdateType=1] */
         CancelUpdate(UpdateType?: number): void;
         Clone(): Recordset;
         Close(): void;
@@ -707,7 +698,7 @@ declare namespace DAO {
         Move(Rows: number, StartBookmark?: any): void;
         MoveFirst(): void;
 
-        /** @param number [Options=0] */
+        /** @param Options [Options=0] */
         MoveLast(Options?: number): void;
         MoveNext(): void;
         MovePrevious(): void;
@@ -724,7 +715,7 @@ declare namespace DAO {
         readonly RecordStatus: number;
         Requery(NewQueryDef?: any): void;
         readonly Restartable: boolean;
-        Seek(
+        Seek(Comparison: string, Key1: any, Key2?: any, Key3?: any, Key4?: any, Key5?: any, Key6?: any, Key7?: any, Key8?: any, Key9?: any, Key10?: any, Key11?: any, Key12?: any, Key13?: any): void;
             Comparison: string, Key1: any, Key2?: any, Key3?: any, Key4?: any, Key5?: any, Key6?: any, Key7?: any, Key8?: any, Key9?: any, Key10?: any, Key11?: any, Key12?: any, Key13?: any): void;
         Sort: string;
         readonly StillExecuting: boolean;
@@ -733,8 +724,8 @@ declare namespace DAO {
         readonly Updatable: boolean;
 
         /**
-         * @param number [UpdateType=1]
-         * @param boolean [Force=false]
+         * @param UpdateType [UpdateType=1]
+         * @param Force [Force=false]
          */
         Update(UpdateType?: number, Force?: boolean): void;
         UpdateOptions: number;
@@ -742,12 +733,11 @@ declare namespace DAO {
         readonly ValidationText: string;
     }
 
-    class Recordsets {
-        private 'DAO.Recordsets_typekey': Recordsets;
-        private constructor();
+    interface Recordsets {
         readonly Count: number;
         Item(Item: any): Recordset;
         Refresh(): void;
+        (Item: any): Recordset;
     }
 
     class Relation {
@@ -763,14 +753,13 @@ declare namespace DAO {
         Table: string;
     }
 
-    class Relations {
-        private 'DAO.Relations_typekey': Relations;
-        private constructor();
+    interface Relations {
         Append(Object: any): void;
         readonly Count: number;
         Delete(Name: string): void;
         Item(Item: any): Relation;
         Refresh(): void;
+        (Item: any): Relation;
     }
 
     class TableDef {
@@ -798,14 +787,13 @@ declare namespace DAO {
         ValidationText: string;
     }
 
-    class TableDefs {
-        private 'DAO.TableDefs_typekey': TableDefs;
-        private constructor();
+    interface TableDefs {
         Append(Object: any): void;
         readonly Count: number;
         Delete(Name: string): void;
         Item(Item: any): TableDef;
         Refresh(): void;
+        (Item: any): TableDef;
     }
 
     class User {
@@ -820,14 +808,13 @@ declare namespace DAO {
         readonly Properties: Properties;
     }
 
-    class Users {
-        private 'DAO.Users_typekey': Users;
-        private constructor();
+    interface Users {
         Append(Object: any): void;
         readonly Count: number;
         Delete(Name: string): void;
         Item(Item: any): User;
         Refresh(): void;
+        (Item: any): User;
     }
 
     class Workspace {
@@ -836,7 +823,7 @@ declare namespace DAO {
         BeginTrans(): void;
         Close(): void;
 
-        /** @param number [Options=0] */
+        /** @param Options [Options=0] */
         CommitTrans(Options?: number): void;
         readonly Connections: Connections;
         CreateDatabase(Name: string, Connect: string, Option?: any): Database;
@@ -858,14 +845,13 @@ declare namespace DAO {
         readonly Users: Users;
     }
 
-    class Workspaces {
-        private 'DAO.Workspaces_typekey': Workspaces;
-        private constructor();
+    interface Workspaces {
         Append(Object: any): void;
         readonly Count: number;
         Delete(Name: string): void;
         Item(Item: any): Workspace;
         Refresh(): void;
+        (Item: any): Workspace;
     }
 }
 
@@ -875,7 +861,6 @@ interface ActiveXObject {
 
 interface ActiveXObjectNameMap {
     'DAO.DBEngine': DAO.DBEngine;
-    'DAO.DBEngine.120': DAO.DBEngine;
     'DAO.Field': DAO.Field;
     'DAO.Group': DAO.Group;
     'DAO.Index': DAO.Index;
@@ -884,27 +869,4 @@ interface ActiveXObjectNameMap {
     'DAO.Relation': DAO.Relation;
     'DAO.TableDef': DAO.TableDef;
     'DAO.User': DAO.User;
-}
-
-interface EnumeratorConstructor {
-    new(col: DAO.Connections): Enumerator<DAO.Connection>;
-    new(col: DAO.Containers): Enumerator<DAO.Container>;
-    new(col: DAO.Databases): Enumerator<DAO.Database>;
-    new(col: DAO.Documents): Enumerator<DAO.Document>;
-    new(col: DAO.Errors): Enumerator<DAO.Error>;
-    new(col: DAO.Fields): Enumerator<DAO.Field>;
-    new(col: DAO.Groups): Enumerator<DAO.Group>;
-    new(col: DAO.Indexes): Enumerator<DAO.Index>;
-    new(col: DAO.Parameters): Enumerator<DAO.Parameter>;
-    new(col: DAO.Properties): Enumerator<DAO.Property>;
-    new(col: DAO.QueryDefs): Enumerator<DAO.QueryDef>;
-    new(col: DAO.Recordsets): Enumerator<DAO.Recordset>;
-    new(col: DAO.Relations): Enumerator<DAO.Relation>;
-    new(col: DAO.TableDefs): Enumerator<DAO.TableDef>;
-    new(col: DAO.Users): Enumerator<DAO.User>;
-    new(col: DAO.Workspaces): Enumerator<DAO.Workspace>;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }
