@@ -435,7 +435,7 @@ declare namespace ArangoDB {
         deduplicate?: boolean;
     }
 
-    interface IndexResult<T> {
+    interface IndexResult<T = PlainObject> {
         id: string;
         type: IndexType;
         fields: Array<keyof T>;
@@ -589,7 +589,7 @@ declare namespace ArangoDB {
         remove(
             selectors: Array<string | DocumentLike>,
             options?: RemoveOptions
-        ): Array<RemoveResult>;
+        ): RemoveResult[];
         removeByExample(
             example: Partial<Document<T>>,
             waitForSync?: boolean,
@@ -606,10 +606,10 @@ declare namespace ArangoDB {
             options?: ReplaceOptions
         ): UpdateResult<T>;
         replace(
-            selectors: (string | DocumentLike)[],
-            data: DocumentData<T>[],
+            selectors: Array<string | DocumentLike>,
+            data: Array<DocumentData<T>>,
             options?: ReplaceOptions
-        ): UpdateResult<T>[];
+        ): Array<UpdateResult<T>>;
         replaceByExample(
             example: Partial<Document<T>>,
             newValue: DocumentData<T>,
@@ -769,9 +769,7 @@ declare namespace ArangoDB {
         _useDatabase(name: string): Database;
 
         // Indexes
-        _index<T = PlainObject>(
-            index: string | IndexLike
-        ): IndexResult<T> | null;
+        _index(index: string | IndexLike): IndexResult | null;
         _dropIndex(index: string | IndexLike): boolean;
 
         // Properties
@@ -783,7 +781,7 @@ declare namespace ArangoDB {
 
         // Collection
         _collection(name: string): Collection;
-        _collections(): Array<Collection>;
+        _collections(): Collection[];
         _create(name: string, properties?: CollectionProperties): Collection;
         _createDocumentCollection(
             name: string,
@@ -807,13 +805,17 @@ declare namespace ArangoDB {
         _parse(query: string): ParsedQuery;
 
         // Document
-        _document<T = PlainObject>(name: string): Document<T>;
-        _exists(name: string): boolean;
-        _remove(name: string): DocumentMetadata;
-        _replace(name: string, data: PlainObject): DocumentMetadata;
-        _replace(doc: DocumentLike, data: PlainObject): DocumentMetadata;
-        _update(name: string, data: PlainObject): DocumentMetadata;
-        _update(doc: DocumentLike, data: PlainObject): DocumentMetadata;
+        _document(name: string): Document;
+        _exists(selector: string | DocumentLike1): DocumentMetadata;
+        _remove(selector: string | DocumentLike1): DocumentMetadata;
+        _replace(
+            selector: string | DocumentLike1,
+            data: PlainObject
+        ): DocumentMetadata;
+        _update(
+            selector: string | DocumentLike1,
+            data: PlainObject
+        ): DocumentMetadata;
 
         // TODO Views
         // _view(name: string): ??? | null;
@@ -830,42 +832,42 @@ declare namespace ArangoDB {
 }
 
 declare namespace Foxx {
-    declare type Session = {
+    declare interface Session {
         uid: string | null;
         created: number;
-        data: any | null;
-    };
-    declare type SessionStorage = {
-        new?: () => Session;
+        data: any;
+    }
+    declare interface SessionStorage {
+        ["new"]?: () => Session;
         fromClient: (sid: string) => Session | null;
         forClient: (session: Session) => string | null;
-    };
-    declare type SessionTransport = {
-        get?: (req: Foxx.Request) => string | null;
-        set?: (res: Foxx.Response, sid: string) => void;
-        clear?: (res: Foxx.Response) => void;
-    };
+    }
+    declare interface SessionTransport {
+        get?: (req: Request) => string | null;
+        set?: (res: Response, sid: string) => void;
+        clear?: (res: Response) => void;
+    }
     type Handler = (req: Request, res: Response) => void;
 
     type Middleware = (req: Request, res: Response, next: NextFunction) => void;
 
     type NextFunction = () => void;
 
-    type ValidationResult<T> = {
+    interface ValidationResult<T> {
         value: T;
         error: any;
-    };
+    }
 
     interface Schema {
         isJoi: boolean;
         validate<T>(value: T): ValidationResult<T>;
     }
 
-    type Model = {
+    interface Model {
         schema: Schema;
         fromClient?: (value: any) => any;
         forClient?: (value: any) => any;
-    };
+    }
 
     interface DocumentationRouterOptions {
         mount: string;
@@ -895,27 +897,24 @@ declare namespace Foxx {
         isProduction: boolean;
         manifest: PlainObject;
         mount: string;
-        collection<T = PlainObject>(
-            name: string
-        ): ArangoDB.Collection<T> | null;
+        collection(name: string): ArangoDB.Collection | null;
         collectionName(name: string): string;
         createDocumentationRouter(
-            opts?: Partial<DocumentationRouterOptions>
-        ): Router;
-        createDocumentationRouter(
-            beforeFn: DocumentationRouterOptions["before"]
-        ): Router;
-        createDocumentationRouter(
-            swaggerRoot: DocumentationRouterOptions["swaggerRoot"]
+            opts?:
+                | Partial<DocumentationRouterOptions>
+                | DocumentationRouterOptions["before"]
+                | DocumentationRouterOptions["swaggerRoot"]
         ): Router;
         file(name: string): Buffer;
         file(name: string, encoding: string): string;
         fileName(name: string): string;
         registerType(type: string, def: TypeDefinition): void;
-        use(path: string, middleware: Middleware, name?: string): Endpoint;
-        use(middleware: Middleware, name?: string): Endpoint;
-        use(path: string, router: Router, name?: string): Endpoint;
-        use(router: Router, name?: string): Endpoint;
+        use(
+            path: string,
+            routerOrMiddleware: Router | Middleware,
+            name?: string
+        ): Endpoint;
+        use(routerOrMiddleware: Router | Middleware, name?: string): Endpoint;
     }
 
     declare interface Request {
@@ -963,7 +962,7 @@ declare namespace Foxx {
         is(...types: string[]): string;
         json(): any;
         makeAbsolute(path: string, query?: string | StringMap): string;
-        param(name: string): any | undefined;
+        param(name: string): any;
         range(size?: number): Ranges | number;
         reverse(name: string, params?: PlainObject): string;
     }
@@ -1026,24 +1025,19 @@ declare namespace Foxx {
         queryParam(name: string, description: string): this;
         body(
             schema: Schema | Model | [Model],
-            mimes: string[],
+            mimes?: string[],
             description?: string
         ): this;
-        body(schema: Schema | Model | [Model], mimes?: string[]): this;
-        body(schema: Schema | Model | [Model], description?: string): this;
-        body(schema: Schema | Model | [Model]): this;
-        body(mimes: string[], description?: string): this;
+        body(
+            schemaOrMimes: Schema | Model | [Model] | string[],
+            description?: string
+        ): this;
         body(description: string): this;
         response(
             status: number | string,
             schema: Schema | Model | [Model],
-            mimes: string[],
+            mimes?: string[],
             description?: string
-        ): this;
-        response(
-            status: number | string,
-            schema: Schema | Model | [Model],
-            mimes?: string[]
         ): this;
         response(
             status: number | string,
@@ -1137,10 +1131,12 @@ declare namespace Foxx {
             name?: string
         ): Endpoint;
         all(handler: Handler, name?: string): Endpoint;
-        use(path: string, middleware: Middleware, name?: string): Endpoint;
-        use(middleware: Middleware, name?: string): Endpoint;
-        use(path: string, router: Router, name?: string): Endpoint;
-        use(router: Router, name?: string): Endpoint;
+        use(
+            path: string,
+            routerOrMiddleware: Router | Middleware,
+            name?: string
+        ): Endpoint;
+        use(routerOrMiddleware: Router | Middleware, name?: string): Endpoint;
     }
 
     declare class Module extends NodeJS.Module {
@@ -1169,8 +1165,8 @@ declare module "@arangodb/foxx/router" {
 declare module "@arangodb/foxx/graphql" {
     type GraphQLSchema = any;
     type GraphQLModule = any;
-    type GraphQLFormatErrorFunction = Function;
-    type GraphQLOptions = {
+    type GraphQLFormatErrorFunction = () => any;
+    interface GraphQLOptions {
         schema: GraphQLSchema;
         context?: any;
         rootValue?: PlainObject;
@@ -1179,7 +1175,7 @@ declare module "@arangodb/foxx/graphql" {
         validationRules?: any[];
         graphiql?: boolean;
         graphql?: GraphQLModule;
-    };
+    }
     function createGraphQLRouter(
         options: GraphQLOptions | GraphQLSchema
     ): Foxx.Router;
@@ -1191,7 +1187,7 @@ declare module "@arangodb/foxx/sessions" {
         storage: Foxx.SessionStorage;
         transport: Foxx.SessionTransport[];
     };
-    type SessionsOptions = {
+    interface SessionsOptions {
         storage: Foxx.SessionStorage | string | ArangoDB.Collection;
         transport:
             | Foxx.SessionTransport
@@ -1199,52 +1195,52 @@ declare module "@arangodb/foxx/sessions" {
             | "cookie"
             | "header";
         autoCreate?: boolean;
-    };
+    }
     function sessionsMiddleware(options: SessionsOptions): Foxx.Middleware;
     export = sessionsMiddleware;
 }
 
 declare module "@arangodb/foxx/sessions/storages/collection" {
-    type CollectionStorageOptions<T> = {
-        collection: string | ArangoDB.Collection<T>;
+    interface CollectionStorageOptions {
+        collection: string | ArangoDB.Collection;
         ttl?: number;
         pruneExpired?: boolean;
         autoUpdate?: boolean;
-    };
-    type CollectionStorage = Foxx.SessionStorage & {
+    }
+    interface CollectionStorage extends Foxx.SessionStorage {
         prune: () => string[];
-    };
-    function collectionStorage<T>(
-        options: CollectionStorageOptions<T>
-    ): CollectionStorage;
-    function collectionStorage<T>(
-        collection: string | ArangoDB.Collection<T>
+    }
+    function collectionStorage(
+        options:
+            | CollectionStorageOptions
+            | CollectionStorageOptions["collection"]
     ): CollectionStorage;
     export = collectionStorage;
 }
 
 declare module "@arangodb/foxx/sessions/storages/jwt" {
-    type JwtStorageOptions =
-        | {
-              algorithm?: ArangoDB.JwtAlgorithm;
-              secret: string;
-              ttl?: number;
-              verify?: boolean;
-              maxExp?: number;
-          }
-        | {
-              algorithm: "none";
-              ttl?: number;
-              verify?: boolean;
-              maxExp?: number;
-          };
-    function jwtStorage(options: JwtStorageOptions): Foxx.SessionStorage;
-    function jwtStorage(secret: string): Foxx.SessionStorage;
+    interface SafeJwtStorageOptions {
+        algorithm?: ArangoDB.JwtAlgorithm;
+        secret: string;
+        ttl?: number;
+        verify?: boolean;
+        maxExp?: number;
+    }
+    interface UnsafeJwtStorageOptions {
+        algorithm: "none";
+        ttl?: number;
+        verify?: boolean;
+        maxExp?: number;
+    }
+    type JwtStorageOptions = SafeJwtStorageOptions | UnsafeJwtStorageOptions;
+    function jwtStorage(
+        options: JwtStorageOptions | SafeJwtStorageOptions["secret"]
+    ): Foxx.SessionStorage;
     export = jwtStorage;
 }
 
 declare module "@arangodb/foxx/sessions/transports/cookie" {
-    type CookieTransportOptions = {
+    interface CookieTransportOptions {
         name?: string;
         ttl?: number;
         algorithm?: ArangoDB.HashAlgorithm;
@@ -1253,7 +1249,7 @@ declare module "@arangodb/foxx/sessions/transports/cookie" {
         domain?: string;
         secure?: string;
         httpOnly?: string;
-    };
+    }
     function cookieTransport(
         options?: CookieTransportOptions
     ): Foxx.SessionTransport;
@@ -1262,9 +1258,9 @@ declare module "@arangodb/foxx/sessions/transports/cookie" {
 }
 
 declare module "@arangodb/foxx/sessions/transports/header" {
-    type HeaderTransportOptions = {
+    interface HeaderTransportOptions {
         name?: string;
-    };
+    }
     function headerTransport(
         options?: HeaderTransportOptions
     ): Foxx.SessionTransport;
@@ -1273,25 +1269,25 @@ declare module "@arangodb/foxx/sessions/transports/header" {
 }
 
 declare module "@arangodb/foxx/auth" {
-    type AuthData = {
+    interface AuthData {
         method: string;
         salt: string;
         hash: string;
-    };
+    }
     interface Authenticator {
         create(password: string): AuthData;
         verify(hash?: AuthData, password?: string): boolean;
     }
-    type AuthOptions = {
+    interface AuthOptions {
         method?: ArangoDB.HashAlgorithm;
         saltLength?: number;
-    };
+    }
     function createAuth(options?: AuthOptions): Authenticator;
     export = createAuth;
 }
 
 declare module "@arangodb/foxx/oauth1" {
-    type OAuth1Options = {
+    interface OAuth1Options {
         requestTokenEndpoint: string;
         authEndpoint: string;
         accessTokenEndpoint: string;
@@ -1299,7 +1295,7 @@ declare module "@arangodb/foxx/oauth1" {
         clientId: string;
         clientSecret: string;
         signatureMethod?: "HMAC-SHA1" | "PLAINTEXT";
-    };
+    }
     interface OAuth1Client {
         fetchRequestToken(oauth_callback: string, qs?: StringMap): any;
         getAuthUrl(oauth_token: string, qs?: StringMap): string;
@@ -1330,14 +1326,14 @@ declare module "@arangodb/foxx/oauth1" {
 }
 
 declare module "@arangodb/foxx/oauth2" {
-    type OAuth2Options = {
+    interface OAuth2Options {
         authEndpoint: string;
         tokenEndpoint: string;
         refreshEndpoint?: string;
         activeUserEndpoint?: string;
         clientId: string;
         clientSecret: string;
-    };
+    }
     interface OAuth2Client {
         getAuthUrl(
             redirect_uri: string,
@@ -1360,7 +1356,7 @@ declare module "@arangodb/foxx" {
 }
 
 declare module "@arangodb/request" {
-    export interface Response {
+    interface Response {
         rawBody: Buffer;
         body: string | Buffer;
         json?: any;
@@ -1370,7 +1366,7 @@ declare module "@arangodb/request" {
         message: string;
         throw(message?: string): void;
     }
-    type RequestOptions = {
+    interface RequestOptions {
         qs?: PlainObject;
         useQuerystring?: boolean;
         headers?: StringMap;
@@ -1384,10 +1380,10 @@ declare module "@arangodb/request" {
         encoding?: string | null;
         timeout?: number;
         returnBodyOnError?: boolean;
-    };
+    }
     function method(options: { url: string } & RequestOptions): Response;
     function method(url: string, options?: RequestOptions): Response;
-    type Request = {
+    interface Request {
         (
             options: {
                 url: string;
@@ -1400,7 +1396,7 @@ declare module "@arangodb/request" {
         put: typeof method;
         patch: typeof method;
         delete: typeof method;
-    };
+    }
     const request: Request;
     export = request;
 }
@@ -1450,34 +1446,34 @@ declare module "@arangodb/crypto" {
 }
 
 declare module "@arangodb/general-graph" {
-    type EdgeDefinition = {
+    interface EdgeDefinition {
         collection: string;
         from: string[];
         to: string[];
-    };
-    type CommonNeighbors = {
+    }
+    interface CommonNeighbors {
         left: string;
         right: string;
         neighbors: string[];
-    };
-    type CountCommonNeighbors = {
+    }
+    interface CountCommonNeighbors {
         [key: string]:
             | Array<{
                   [key: string]: number | undefined;
               }>
             | undefined;
-    };
-    type CommonProperties = {
+    }
+    interface CommonProperties {
         [key: string]:
             | Array<{
                   _id: string;
                   [key: string]: any;
               }>
             | undefined;
-    };
-    type CountCommonProperties = {
+    }
+    interface CountCommonProperties {
         [key: string]: number | undefined;
-    };
+    }
     interface Path<
         A = PlainObject,
         B = PlainObject,
@@ -1569,8 +1565,8 @@ declare module "@arangodb/general-graph" {
             vertexExample2: Example,
             options: ConnectingEdgesOptions
         ): ArangoDB.Edge;
-        _fromVertex<T = PlainObject>(edgeId: string): ArangoDB.Document<T>;
-        _toVertex<T = PlainObject>(edgeId: string): ArangoDB.Document<T>;
+        _fromVertex(edgeId: string): ArangoDB.Document;
+        _toVertex(edgeId: string): ArangoDB.Document;
         _neighbors(
             vertexExample: Example,
             options?: NeighborsOptions
@@ -1598,11 +1594,11 @@ declare module "@arangodb/general-graph" {
             options?: CommonPropertiesOptions
         ): CountCommonProperties[];
         _paths(options?: PathsOptions): Path[];
-        _shortestPath<T>(
+        _shortestPath(
             startVertexExample: Example,
             endVertexExample: Example,
             options?: ShortestPathOptions
-        ): ShortestPath<T>[];
+        ): ShortestPath[];
         _distanceTo(
             startVertexExample: Example,
             endVertexExample: Example,
