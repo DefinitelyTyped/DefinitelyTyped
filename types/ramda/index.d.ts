@@ -1033,7 +1033,7 @@ declare namespace R {
          * argument set and used to create the cache key under which the results of the function to be memoized will be stored.
          * Care must be taken when implementing key generation to avoid clashes that may overwrite previous entries erroneously.
          */
-        memoizeWith<T = any>(keyFn: (...v: any[]) => string, fn: T): T;
+        memoizeWith<T extends (...args: any[]) => any>(keyFn: (...v: any[]) => string, fn: T): T;
 
         /**
          * Create a new object with the own properties of a
