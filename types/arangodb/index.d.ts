@@ -478,7 +478,7 @@ declare namespace ArangoDB {
     type InsertResult<T = PlainObject> = DocumentMetadata | Document<T>;
     type UpdateResult<T = PlainObject> = UpdateMetadata & {
         old?: Document<T>;
-        new?: Document<T>;
+        ["new"]?: Document<T>;
     };
     interface RemoveResult<T = PlainObject> extends DocumentMetadata {
         old?: Document<T>;
