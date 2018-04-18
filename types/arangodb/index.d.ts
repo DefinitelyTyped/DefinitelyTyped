@@ -11,15 +11,15 @@ interface StringMap {
 }
 
 declare namespace ArangoDB {
-    declare type JwtAlgorithm = "HS512" | "HS384" | "HS256";
-    declare type HashAlgorithm =
+    type JwtAlgorithm = "HS512" | "HS384" | "HS256";
+    type HashAlgorithm =
         | "sha512"
         | "sha384"
         | "sha256"
         | "sha224"
         | "sha1"
         | "md5";
-    declare type HttpMethod =
+    type HttpMethod =
         | "HEAD"
         | "GET"
         | "POST"
@@ -27,11 +27,11 @@ declare namespace ArangoDB {
         | "PATCH"
         | "DELETE"
         | "OPTIONS";
-    declare type EdgeDirection = "any" | "inbound" | "outbound";
-    declare type EngineType = "mmfiles" | "rocksdb";
-    declare type IndexType = "hash" | "skiplist" | "fulltext" | "geo1" | "geo2";
-    declare type ViewType = "arangosearch";
-    declare type ErrorName =
+    type EdgeDirection = "any" | "inbound" | "outbound";
+    type EngineType = "mmfiles" | "rocksdb";
+    type IndexType = "hash" | "skiplist" | "fulltext" | "geo1" | "geo2";
+    type ViewType = "arangosearch";
+    type ErrorName =
         | "ERROR_NO_ERROR"
         | "ERROR_FAILED"
         | "ERROR_SYS_ERROR"
@@ -335,7 +335,7 @@ declare namespace ArangoDB {
 
     // Collection
 
-    declare const enum CollectionType {
+    export const enum CollectionType {
         Document = 2,
         Edge = 3
     }
@@ -526,7 +526,7 @@ declare namespace ArangoDB {
 
     type DocumentIterator<T> = (document: Document<T>, number: number) => void;
 
-    declare interface Collection<T = PlainObject> {
+    interface Collection<T = PlainObject> {
         // Collection
         checksum(
             withRevisions?: boolean,
@@ -667,13 +667,13 @@ declare namespace ArangoDB {
 
     // AQL
 
-    declare interface Query {
+    interface Query {
         query: string;
         bindVars?: PlainObject;
         options?: QueryOptions;
     }
 
-    declare interface Cursor<T = any> {
+    interface Cursor<T = any> {
         toArray(): T[];
         hasNext(): boolean;
         next(): T;
@@ -685,7 +685,7 @@ declare namespace ArangoDB {
         dispose(): void;
     }
 
-    declare interface Statement<T = any> {
+    interface Statement<T = any> {
         bind(name: string, value: any): void;
         setBatchSize(size: number): void;
         getBatchSize(): number;
@@ -757,7 +757,7 @@ declare namespace ArangoDB {
         intermediateCommitCount?: number;
     }
 
-    declare interface Database {
+    interface Database {
         // Database
         _createDatabase(
             name: string,
@@ -832,17 +832,17 @@ declare namespace ArangoDB {
 }
 
 declare namespace Foxx {
-    declare interface Session {
+    interface Session {
         uid: string | null;
         created: number;
         data: any;
     }
-    declare interface SessionStorage {
+    interface SessionStorage {
         ["new"]?: () => Session;
         fromClient: (sid: string) => Session | null;
         forClient: (session: Session) => string | null;
     }
-    declare interface SessionTransport {
+    interface SessionTransport {
         get?: (req: Request) => string | null;
         set?: (res: Response, sid: string) => void;
         clear?: (res: Response) => void;
@@ -899,7 +899,7 @@ declare namespace Foxx {
         end: number;
     }> & { type: string };
 
-    declare interface Context {
+    interface Context {
         argv: any[];
         basePath: string;
         baseUrl: string;
@@ -930,7 +930,7 @@ declare namespace Foxx {
         use(routerOrMiddleware: Router | Middleware, name?: string): Endpoint;
     }
 
-    declare interface Request {
+    interface Request {
         arangoUser: string | null;
         arangoVersion: number;
         baseUrl: string;
@@ -980,7 +980,7 @@ declare namespace Foxx {
         reverse(name: string, params?: PlainObject): string;
     }
 
-    declare interface Response {
+    interface Response {
         body: Buffer | string;
         context: Context;
         headers: object;
@@ -1029,7 +1029,7 @@ declare namespace Foxx {
         write(data: string | Buffer): this;
     }
 
-    declare interface Endpoint {
+    interface Endpoint {
         header(name: string, schema: Schema, description?: string): this;
         header(name: string, description: string): this;
         pathParam(name: string, schema: Schema, description?: string): this;
@@ -1065,7 +1065,7 @@ declare namespace Foxx {
         tag(...tags: string[]): this;
     }
 
-    declare interface Router {
+    interface Router {
         get(
             path: string,
             ...middlewares: Middleware[],
@@ -1152,22 +1152,18 @@ declare namespace Foxx {
         use(routerOrMiddleware: Router | Middleware, name?: string): Endpoint;
     }
 
-    declare class Module extends NodeJS.Module {
+    class Module extends NodeJS.Module {
         context: Context;
     }
 }
 
-declare module "@arangodb" {
+declare module "@arangodb/index" {
     export function aql(strings: string[], ...args: any[]): ArangoDB.Query;
     export function time(): number;
     export const db: ArangoDB.Database;
-    export type CollectionType = ArangoDB.CollectionType;
-
     export const errors: {
         [Name in ArangoDB.ErrorName]: { code: number; message: string }
     };
-    export type IndexType = ArangoDB.IndexType;
-    export type EngineType = ArangoDB.EngineType;
 }
 
 declare module "@arangodb/foxx/router" {
@@ -1364,8 +1360,7 @@ declare module "@arangodb/foxx/oauth2" {
 }
 
 declare module "@arangodb/foxx" {
-    import createRouter = require("@arangodb/foxx/router");
-    export { createRouter };
+    export function createRouter(): Foxx.Router;
 }
 
 declare module "@arangodb/request" {
@@ -1415,8 +1410,6 @@ declare module "@arangodb/request" {
 }
 
 declare module "@arangodb/crypto" {
-    export type JwtAlgorithm = ArangoDB.JwtAlgorithm;
-    export type HashAlgorithm = ArangoDB.HashAlgorithm;
     export function createNonce(): string;
     export function checkAndMarkNonce(nonce: string): void;
     export function rand(): number;
@@ -1426,7 +1419,7 @@ declare module "@arangodb/crypto" {
     export function jwtEncode(
         key: string,
         message: string,
-        algorithm: JwtAlgorithm
+        algorithm: ArangoDB.JwtAlgorithm
     ): string;
     export function jwtEncode(
         key: null,
@@ -1454,7 +1447,7 @@ declare module "@arangodb/crypto" {
     export function hmac(
         key: string,
         message: string,
-        algorithm: HashAlgorithm
+        algorithm: ArangoDB.HashAlgorithm
     ): string;
 }
 
