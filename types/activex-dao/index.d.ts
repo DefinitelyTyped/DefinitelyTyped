@@ -716,7 +716,6 @@ declare namespace DAO {
         Requery(NewQueryDef?: any): void;
         readonly Restartable: boolean;
         Seek(Comparison: string, Key1: any, Key2?: any, Key3?: any, Key4?: any, Key5?: any, Key6?: any, Key7?: any, Key8?: any, Key9?: any, Key10?: any, Key11?: any, Key12?: any, Key13?: any): void;
-            Comparison: string, Key1: any, Key2?: any, Key3?: any, Key4?: any, Key5?: any, Key6?: any, Key7?: any, Key8?: any, Key9?: any, Key10?: any, Key11?: any, Key12?: any, Key13?: any): void;
         Sort: string;
         readonly StillExecuting: boolean;
         readonly Transactions: boolean;
