@@ -325,7 +325,7 @@ declare module 'ember' {
              * `inject`) or for service lookup. Each factory is registered with
              * a full name including two parts: `type:name`.
              */
-            register(fullName: string, factory: Function, options: {}): any;
+            register(fullName: string, factory: Function, options?: { singleton?: boolean, instantiate?: boolean }): any;
             /**
              * Unregister a factory.
              */
@@ -1243,7 +1243,7 @@ declare module 'ember' {
              * Returns a new enumerable that contains only items containing a unique property value.
              * The default implementation returns an array regardless of the receiver type.
              */
-            uniqBy(): NativeArray<T>;
+            uniqBy(property: string): NativeArray<T>;
             /**
              * Returns `true` if the passed object can be found in the enumerable.
              */

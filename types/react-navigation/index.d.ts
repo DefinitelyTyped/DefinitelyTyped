@@ -158,9 +158,7 @@ export interface NavigationScreenDetails<T> {
   navigation: NavigationScreenProp<NavigationRoute>;
 }
 
-export interface NavigationScreenOptions {
-  title?: string;
-}
+export type NavigationScreenOptions = NavigationStackScreenOptions & NavigationTabScreenOptions & NavigationDrawerScreenOptions;
 
 export interface NavigationScreenConfigProps {
   navigation: NavigationScreenProp<NavigationRoute>;
@@ -289,7 +287,8 @@ export interface NavigationStackViewConfig {
   onTransitionEnd?: () => void;
 }
 
-export type NavigationStackScreenOptions = NavigationScreenOptions & {
+export interface NavigationStackScreenOptions {
+  title?: string;
   header?: (React.ReactElement<any> | ((headerProps: HeaderProps) => React.ReactElement<any>)) | null;
   headerTransparent?: boolean;
   headerTitle?: string | React.ReactElement<any>;
@@ -305,14 +304,14 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
   headerBackground?: React.ReactNode | React.ReactType;
   gesturesEnabled?: boolean;
   gestureResponseDistance?: { vertical?: number; horizontal?: number };
-};
+}
 
 export interface NavigationStackRouterConfig {
   headerTransitionPreset?: 'fade-in-place' | 'uikit';
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationStackScreenOptions>;
+  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
 }
 
 export type NavigationStackAction =
@@ -352,7 +351,7 @@ export interface NavigationPathsConfig {
 export interface NavigationTabRouterConfig {
   initialRouteName?: string;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationTabScreenOptions>;
+  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   order?: string[]; // todo: type these as the real route names rather than 'string'
 
   // Does the back button cause the router to switch to the initial tab
@@ -364,7 +363,8 @@ export interface TabScene {
     index: number;
     tintColor?: string;
 }
-export interface NavigationTabScreenOptions extends NavigationScreenOptions {
+export interface NavigationTabScreenOptions {
+  title?: string;
   tabBarIcon?:
     React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
@@ -384,7 +384,8 @@ export interface NavigationTabScreenOptions extends NavigationScreenOptions {
   }) => void;
 }
 
-export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
+export interface NavigationDrawerScreenOptions {
+  title?: string;
   drawerIcon?:
     React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
