@@ -5,9 +5,10 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
-        "types": ["../node/v6"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
