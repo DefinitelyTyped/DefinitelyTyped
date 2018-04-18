@@ -1319,11 +1319,11 @@ export class Schema<N extends string = any, M extends string = any> {
   /**
    * An object mapping the schema's node names to node type objects.
    */
-  nodes: { [name in N]: NodeType<Schema<N, M>> };
+  nodes: { [name in N]: NodeType<Schema<N, M>> } & { [key: string]: NodeType<Schema<N, M>> };
   /**
    * A map from mark names to mark type objects.
    */
-  marks: { [name in M]: MarkType<Schema<N, M>> };
+  marks: { [name in M]: MarkType<Schema<N, M>> } & { [key: string]: NodeType<Schema<N, M>> };
   /**
    * The type of the [default top node](#model.SchemaSpec.topNode)
    * for this schema.
