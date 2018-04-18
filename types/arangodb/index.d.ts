@@ -866,10 +866,9 @@ declare namespace Foxx {
         set?: (res: Response, sid: string) => void;
         clear?: (res: Response) => void;
     }
-    type Handler = (req: Request, res: Response) => void;
 
     type Middleware = (req: Request, res: Response, next: NextFunction) => void;
-
+    type Handler = ((req: Request, res: Response) => void) | Middleware;
     type NextFunction = () => void;
 
     interface ValidationResult<T> {
@@ -1084,85 +1083,22 @@ declare namespace Foxx {
         tag(...tags: string[]): this;
     }
 
+    function route(
+        path: string,
+        ...handlers: Handler[],
+        name?: string
+    ): Endpoint;
+    function route(...handlers: Handler[], name?: string): Endpoint;
+    function route(path: string, handler: Handler, name?: string): Endpoint;
+    function route(handler: Handler, name?: string): Endpoint;
+
     interface Router {
-        get(
-            path: string,
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        get(path: string, handler: Handler, name?: string): Endpoint;
-        get(
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        get(handler: Handler, name?: string): Endpoint;
-        post(
-            path: string,
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        post(path: string, handler: Handler, name?: string): Endpoint;
-        post(
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        post(handler: Handler, name?: string): Endpoint;
-        put(
-            path: string,
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        put(path: string, handler: Handler, name?: string): Endpoint;
-        put(
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        put(handler: Handler, name?: string): Endpoint;
-        patch(
-            path: string,
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        patch(path: string, handler: Handler, name?: string): Endpoint;
-        patch(
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        patch(handler: Handler, name?: string): Endpoint;
-        delete(
-            path: string,
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        delete(path: string, handler: Handler, name?: string): Endpoint;
-        delete(
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        delete(handler: Handler, name?: string): Endpoint;
-        all(
-            path: string,
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        all(path: string, handler: Handler, name?: string): Endpoint;
-        all(
-            ...middlewares: Middleware[],
-            handler: Handler,
-            name?: string
-        ): Endpoint;
-        all(handler: Handler, name?: string): Endpoint;
+        get: typeof route;
+        post: typeof route;
+        put: typeof route;
+        patch: typeof route;
+        delete: typeof route;
+        all: typeof route;
         use(
             path: string,
             routerOrMiddleware: Router | Middleware,
