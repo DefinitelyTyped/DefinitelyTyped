@@ -1,0 +1,1646 @@
+// Type definitions for ArangoDB 3.4
+// Project: https://github.com/arangodb/arangodb
+// Definitions by: Alan Plum <https://github.com/pluma>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+type PlainObject = { [key: string]: any };
+type StringMap = { [key: string]: string | undefined };
+
+declare namespace ArangoDB {
+    declare type JwtAlgorithm = "HS512" | "HS384" | "HS256";
+    declare type HashAlgorithm =
+        | "sha512"
+        | "sha384"
+        | "sha256"
+        | "sha224"
+        | "sha1"
+        | "md5";
+    declare type HttpMethod =
+        | "HEAD"
+        | "GET"
+        | "POST"
+        | "PUT"
+        | "PATCH"
+        | "DELETE"
+        | "OPTIONS";
+    declare type EdgeDirection = "any" | "inbound" | "outbound";
+    declare type EngineType = "mmfiles" | "rocksdb";
+    declare type ViewType = "arangosearch";
+    declare type ErrorName =
+        | "ERROR_NO_ERROR"
+        | "ERROR_FAILED"
+        | "ERROR_SYS_ERROR"
+        | "ERROR_OUT_OF_MEMORY"
+        | "ERROR_INTERNAL"
+        | "ERROR_ILLEGAL_NUMBER"
+        | "ERROR_NUMERIC_OVERFLOW"
+        | "ERROR_ILLEGAL_OPTION"
+        | "ERROR_DEAD_PID"
+        | "ERROR_NOT_IMPLEMENTED"
+        | "ERROR_BAD_PARAMETER"
+        | "ERROR_FORBIDDEN"
+        | "ERROR_OUT_OF_MEMORY_MMAP"
+        | "ERROR_CORRUPTED_CSV"
+        | "ERROR_FILE_NOT_FOUND"
+        | "ERROR_CANNOT_WRITE_FILE"
+        | "ERROR_CANNOT_OVERWRITE_FILE"
+        | "ERROR_TYPE_ERROR"
+        | "ERROR_LOCK_TIMEOUT"
+        | "ERROR_CANNOT_CREATE_DIRECTORY"
+        | "ERROR_CANNOT_CREATE_TEMP_FILE"
+        | "ERROR_REQUEST_CANCELED"
+        | "ERROR_DEBUG"
+        | "ERROR_IP_ADDRESS_INVALID"
+        | "ERROR_FILE_EXISTS"
+        | "ERROR_LOCKED"
+        | "ERROR_DEADLOCK"
+        | "ERROR_SHUTTING_DOWN"
+        | "ERROR_ONLY_ENTERPRISE"
+        | "ERROR_RESOURCE_LIMIT"
+        | "ERROR_ARANGO_ICU_ERROR"
+        | "ERROR_CANNOT_READ_FILE"
+        | "ERROR_HTTP_BAD_PARAMETER"
+        | "ERROR_HTTP_UNAUTHORIZED"
+        | "ERROR_HTTP_FORBIDDEN"
+        | "ERROR_HTTP_NOT_FOUND"
+        | "ERROR_HTTP_METHOD_NOT_ALLOWED"
+        | "ERROR_HTTP_NOT_ACCEPTABLE"
+        | "ERROR_HTTP_PRECONDITION_FAILED"
+        | "ERROR_HTTP_SERVER_ERROR"
+        | "ERROR_HTTP_SERVICE_UNAVAILABLE"
+        | "ERROR_HTTP_GATEWAY_TIMEOUT"
+        | "ERROR_HTTP_CORRUPTED_JSON"
+        | "ERROR_HTTP_SUPERFLUOUS_SUFFICES"
+        | "ERROR_ARANGO_ILLEGAL_STATE"
+        | "ERROR_ARANGO_DATAFILE_SEALED"
+        | "ERROR_ARANGO_READ_ONLY"
+        | "ERROR_ARANGO_DUPLICATE_IDENTIFIER"
+        | "ERROR_ARANGO_DATAFILE_UNREADABLE"
+        | "ERROR_ARANGO_DATAFILE_EMPTY"
+        | "ERROR_ARANGO_RECOVERY"
+        | "ERROR_ARANGO_DATAFILE_STATISTICS_NOT_FOUND"
+        | "ERROR_ARANGO_CORRUPTED_DATAFILE"
+        | "ERROR_ARANGO_ILLEGAL_PARAMETER_FILE"
+        | "ERROR_ARANGO_CORRUPTED_COLLECTION"
+        | "ERROR_ARANGO_MMAP_FAILED"
+        | "ERROR_ARANGO_FILESYSTEM_FULL"
+        | "ERROR_ARANGO_NO_JOURNAL"
+        | "ERROR_ARANGO_DATAFILE_ALREADY_EXISTS"
+        | "ERROR_ARANGO_DATADIR_LOCKED"
+        | "ERROR_ARANGO_COLLECTION_DIRECTORY_ALREADY_EXISTS"
+        | "ERROR_ARANGO_MSYNC_FAILED"
+        | "ERROR_ARANGO_DATADIR_UNLOCKABLE"
+        | "ERROR_ARANGO_SYNC_TIMEOUT"
+        | "ERROR_ARANGO_CONFLICT"
+        | "ERROR_ARANGO_DATADIR_INVALID"
+        | "ERROR_ARANGO_DOCUMENT_NOT_FOUND"
+        | "ERROR_ARANGO_DATA_SOURCE_NOT_FOUND"
+        | "ERROR_ARANGO_COLLECTION_PARAMETER_MISSING"
+        | "ERROR_ARANGO_DOCUMENT_HANDLE_BAD"
+        | "ERROR_ARANGO_MAXIMAL_SIZE_TOO_SMALL"
+        | "ERROR_ARANGO_DUPLICATE_NAME"
+        | "ERROR_ARANGO_ILLEGAL_NAME"
+        | "ERROR_ARANGO_NO_INDEX"
+        | "ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED"
+        | "ERROR_ARANGO_INDEX_NOT_FOUND"
+        | "ERROR_ARANGO_CROSS_COLLECTION_REQUEST"
+        | "ERROR_ARANGO_INDEX_HANDLE_BAD"
+        | "ERROR_ARANGO_DOCUMENT_TOO_LARGE"
+        | "ERROR_ARANGO_COLLECTION_NOT_UNLOADED"
+        | "ERROR_ARANGO_COLLECTION_TYPE_INVALID"
+        | "ERROR_ARANGO_VALIDATION_FAILED"
+        | "ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED"
+        | "ERROR_ARANGO_DOCUMENT_KEY_BAD"
+        | "ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED"
+        | "ERROR_ARANGO_DATADIR_NOT_WRITABLE"
+        | "ERROR_ARANGO_OUT_OF_KEYS"
+        | "ERROR_ARANGO_DOCUMENT_KEY_MISSING"
+        | "ERROR_ARANGO_DOCUMENT_TYPE_INVALID"
+        | "ERROR_ARANGO_DATABASE_NOT_FOUND"
+        | "ERROR_ARANGO_DATABASE_NAME_INVALID"
+        | "ERROR_ARANGO_USE_SYSTEM_DATABASE"
+        | "ERROR_ARANGO_ENDPOINT_NOT_FOUND"
+        | "ERROR_ARANGO_INVALID_KEY_GENERATOR"
+        | "ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE"
+        | "ERROR_ARANGO_INDEX_DOCUMENT_ATTRIBUTE_MISSING"
+        | "ERROR_ARANGO_INDEX_CREATION_FAILED"
+        | "ERROR_ARANGO_WRITE_THROTTLE_TIMEOUT"
+        | "ERROR_ARANGO_COLLECTION_TYPE_MISMATCH"
+        | "ERROR_ARANGO_COLLECTION_NOT_LOADED"
+        | "ERROR_ARANGO_DOCUMENT_REV_BAD"
+        | "ERROR_ARANGO_DATAFILE_FULL"
+        | "ERROR_ARANGO_EMPTY_DATADIR"
+        | "ERROR_ARANGO_TRY_AGAIN"
+        | "ERROR_ARANGO_BUSY"
+        | "ERROR_ARANGO_MERGE_IN_PROGRESS"
+        | "ERROR_ARANGO_IO_ERROR"
+        | "ERROR_REPLICATION_NO_RESPONSE"
+        | "ERROR_REPLICATION_INVALID_RESPONSE"
+        | "ERROR_REPLICATION_MASTER_ERROR"
+        | "ERROR_REPLICATION_MASTER_INCOMPATIBLE"
+        | "ERROR_REPLICATION_MASTER_CHANGE"
+        | "ERROR_REPLICATION_LOOP"
+        | "ERROR_REPLICATION_UNEXPECTED_MARKER"
+        | "ERROR_REPLICATION_INVALID_APPLIER_STATE"
+        | "ERROR_REPLICATION_UNEXPECTED_TRANSACTION"
+        | "ERROR_REPLICATION_INVALID_APPLIER_CONFIGURATION"
+        | "ERROR_REPLICATION_RUNNING"
+        | "ERROR_REPLICATION_APPLIER_STOPPED"
+        | "ERROR_REPLICATION_NO_START_TICK"
+        | "ERROR_REPLICATION_START_TICK_NOT_PRESENT"
+        | "ERROR_REPLICATION_WRONG_CHECKSUM"
+        | "ERROR_REPLICATION_SHARD_NONEMPTY"
+        | "ERROR_CLUSTER_NO_AGENCY"
+        | "ERROR_CLUSTER_NO_COORDINATOR_HEADER"
+        | "ERROR_CLUSTER_COULD_NOT_LOCK_PLAN"
+        | "ERROR_CLUSTER_COLLECTION_ID_EXISTS"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_COLLECTION_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_READ_CURRENT_VERSION"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_COLLECTION"
+        | "ERROR_CLUSTER_TIMEOUT"
+        | "ERROR_CLUSTER_COULD_NOT_REMOVE_COLLECTION_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_REMOVE_COLLECTION_IN_CURRENT"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_DATABASE_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_DATABASE"
+        | "ERROR_CLUSTER_COULD_NOT_REMOVE_DATABASE_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_REMOVE_DATABASE_IN_CURRENT"
+        | "ERROR_CLUSTER_SHARD_GONE"
+        | "ERROR_CLUSTER_CONNECTION_LOST"
+        | "ERROR_CLUSTER_MUST_NOT_SPECIFY_KEY"
+        | "ERROR_CLUSTER_GOT_CONTRADICTING_ANSWERS"
+        | "ERROR_CLUSTER_NOT_ALL_SHARDING_ATTRIBUTES_GIVEN"
+        | "ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES"
+        | "ERROR_CLUSTER_UNSUPPORTED"
+        | "ERROR_CLUSTER_ONLY_ON_COORDINATOR"
+        | "ERROR_CLUSTER_READING_PLAN_AGENCY"
+        | "ERROR_CLUSTER_COULD_NOT_TRUNCATE_COLLECTION"
+        | "ERROR_CLUSTER_AQL_COMMUNICATION"
+        | "ERROR_ARANGO_DOCUMENT_NOT_FOUND_OR_SHARDING_ATTRIBUTES_CHANGED"
+        | "ERROR_CLUSTER_COULD_NOT_DETERMINE_ID"
+        | "ERROR_CLUSTER_ONLY_ON_DBSERVER"
+        | "ERROR_CLUSTER_BACKEND_UNAVAILABLE"
+        | "ERROR_CLUSTER_UNKNOWN_CALLBACK_ENDPOINT"
+        | "ERROR_CLUSTER_AGENCY_STRUCTURE_INVALID"
+        | "ERROR_CLUSTER_AQL_COLLECTION_OUT_OF_SYNC"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_INDEX_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_DROP_INDEX_IN_PLAN"
+        | "ERROR_CLUSTER_CHAIN_OF_DISTRIBUTESHARDSLIKE"
+        | "ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE"
+        | "ERROR_CLUSTER_UNKNOWN_DISTRIBUTESHARDSLIKE"
+        | "ERROR_CLUSTER_INSUFFICIENT_DBSERVERS"
+        | "ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER"
+        | "ERROR_CLUSTER_SHARD_LEADER_REFUSES_REPLICATION"
+        | "ERROR_CLUSTER_SHARD_FOLLOWER_REFUSES_OPERATION"
+        | "ERROR_CLUSTER_SHARD_LEADER_RESIGNED"
+        | "ERROR_CLUSTER_AGENCY_COMMUNICATION_FAILED"
+        | "ERROR_CLUSTER_DISTRIBUTE_SHARDS_LIKE_REPLICATION_FACTOR"
+        | "ERROR_CLUSTER_DISTRIBUTE_SHARDS_LIKE_NUMBER_OF_SHARDS"
+        | "ERROR_CLUSTER_LEADERSHIP_CHALLENGE_ONGOING"
+        | "ERROR_CLUSTER_NOT_LEADER"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_VIEW_IN_PLAN"
+        | "ERROR_QUERY_KILLED"
+        | "ERROR_QUERY_PARSE"
+        | "ERROR_QUERY_EMPTY"
+        | "ERROR_QUERY_SCRIPT"
+        | "ERROR_QUERY_NUMBER_OUT_OF_RANGE"
+        | "ERROR_QUERY_VARIABLE_NAME_INVALID"
+        | "ERROR_QUERY_VARIABLE_REDECLARED"
+        | "ERROR_QUERY_VARIABLE_NAME_UNKNOWN"
+        | "ERROR_QUERY_COLLECTION_LOCK_FAILED"
+        | "ERROR_QUERY_TOO_MANY_COLLECTIONS"
+        | "ERROR_QUERY_DOCUMENT_ATTRIBUTE_REDECLARED"
+        | "ERROR_QUERY_FUNCTION_NAME_UNKNOWN"
+        | "ERROR_QUERY_FUNCTION_ARGUMENT_NUMBER_MISMATCH"
+        | "ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH"
+        | "ERROR_QUERY_INVALID_REGEX"
+        | "ERROR_QUERY_BIND_PARAMETERS_INVALID"
+        | "ERROR_QUERY_BIND_PARAMETER_MISSING"
+        | "ERROR_QUERY_BIND_PARAMETER_UNDECLARED"
+        | "ERROR_QUERY_BIND_PARAMETER_TYPE"
+        | "ERROR_QUERY_INVALID_LOGICAL_VALUE"
+        | "ERROR_QUERY_INVALID_ARITHMETIC_VALUE"
+        | "ERROR_QUERY_DIVISION_BY_ZERO"
+        | "ERROR_QUERY_ARRAY_EXPECTED"
+        | "ERROR_QUERY_FAIL_CALLED"
+        | "ERROR_QUERY_GEO_INDEX_MISSING"
+        | "ERROR_QUERY_FULLTEXT_INDEX_MISSING"
+        | "ERROR_QUERY_INVALID_DATE_VALUE"
+        | "ERROR_QUERY_MULTI_MODIFY"
+        | "ERROR_QUERY_INVALID_AGGREGATE_EXPRESSION"
+        | "ERROR_QUERY_COMPILE_TIME_OPTIONS"
+        | "ERROR_QUERY_EXCEPTION_OPTIONS"
+        | "ERROR_QUERY_COLLECTION_USED_IN_EXPRESSION"
+        | "ERROR_QUERY_DISALLOWED_DYNAMIC_CALL"
+        | "ERROR_QUERY_ACCESS_AFTER_MODIFICATION"
+        | "ERROR_QUERY_FUNCTION_INVALID_NAME"
+        | "ERROR_QUERY_FUNCTION_INVALID_CODE"
+        | "ERROR_QUERY_FUNCTION_NOT_FOUND"
+        | "ERROR_QUERY_FUNCTION_RUNTIME_ERROR"
+        | "ERROR_QUERY_BAD_JSON_PLAN"
+        | "ERROR_QUERY_NOT_FOUND"
+        | "ERROR_QUERY_IN_USE"
+        | "ERROR_QUERY_USER_ASSERT"
+        | "ERROR_QUERY_USER_WARN"
+        | "ERROR_CURSOR_NOT_FOUND"
+        | "ERROR_CURSOR_BUSY"
+        | "ERROR_TRANSACTION_INTERNAL"
+        | "ERROR_TRANSACTION_NESTED"
+        | "ERROR_TRANSACTION_UNREGISTERED_COLLECTION"
+        | "ERROR_TRANSACTION_DISALLOWED_OPERATION"
+        | "ERROR_TRANSACTION_ABORTED"
+        | "ERROR_USER_INVALID_NAME"
+        | "ERROR_USER_INVALID_PASSWORD"
+        | "ERROR_USER_DUPLICATE"
+        | "ERROR_USER_NOT_FOUND"
+        | "ERROR_USER_CHANGE_PASSWORD"
+        | "ERROR_USER_EXTERNAL"
+        | "ERROR_SERVICE_INVALID_NAME"
+        | "ERROR_SERVICE_INVALID_MOUNT"
+        | "ERROR_SERVICE_DOWNLOAD_FAILED"
+        | "ERROR_SERVICE_UPLOAD_FAILED"
+        | "ERROR_LDAP_CANNOT_INIT"
+        | "ERROR_LDAP_CANNOT_SET_OPTION"
+        | "ERROR_LDAP_CANNOT_BIND"
+        | "ERROR_LDAP_CANNOT_UNBIND"
+        | "ERROR_LDAP_CANNOT_SEARCH"
+        | "ERROR_LDAP_CANNOT_START_TLS"
+        | "ERROR_LDAP_FOUND_NO_OBJECTS"
+        | "ERROR_LDAP_NOT_ONE_USER_FOUND"
+        | "ERROR_LDAP_USER_NOT_IDENTIFIED"
+        | "ERROR_LDAP_INVALID_MODE"
+        | "ERROR_TASK_INVALID_ID"
+        | "ERROR_TASK_DUPLICATE_ID"
+        | "ERROR_TASK_NOT_FOUND"
+        | "ERROR_GRAPH_INVALID_GRAPH"
+        | "ERROR_GRAPH_COULD_NOT_CREATE_GRAPH"
+        | "ERROR_GRAPH_INVALID_VERTEX"
+        | "ERROR_GRAPH_COULD_NOT_CREATE_VERTEX"
+        | "ERROR_GRAPH_COULD_NOT_CHANGE_VERTEX"
+        | "ERROR_GRAPH_INVALID_EDGE"
+        | "ERROR_GRAPH_COULD_NOT_CREATE_EDGE"
+        | "ERROR_GRAPH_COULD_NOT_CHANGE_EDGE"
+        | "ERROR_GRAPH_TOO_MANY_ITERATIONS"
+        | "ERROR_GRAPH_INVALID_FILTER_RESULT"
+        | "ERROR_GRAPH_EMPTY"
+        | "ERROR_SESSION_UNKNOWN"
+        | "ERROR_SESSION_EXPIRED"
+        | "SIMPLE_CLIENT_UNKNOWN_ERROR"
+        | "SIMPLE_CLIENT_COULD_NOT_CONNECT"
+        | "SIMPLE_CLIENT_COULD_NOT_WRITE"
+        | "SIMPLE_CLIENT_COULD_NOT_READ"
+        | "COMMUNICATOR_REQUEST_ABORTED"
+        | "COMMUNICATOR_DISABLED"
+        | "ERROR_MALFORMED_MANIFEST_FILE"
+        | "ERROR_INVALID_SERVICE_MANIFEST"
+        | "ERROR_SERVICE_FILES_MISSING"
+        | "ERROR_SERVICE_FILES_OUTDATED"
+        | "ERROR_INVALID_FOXX_OPTIONS"
+        | "ERROR_INVALID_MOUNTPOINT"
+        | "ERROR_SERVICE_NOT_FOUND"
+        | "ERROR_SERVICE_NEEDS_CONFIGURATION"
+        | "ERROR_SERVICE_MOUNTPOINT_CONFLICT"
+        | "ERROR_SERVICE_MANIFEST_NOT_FOUND"
+        | "ERROR_SERVICE_OPTIONS_MALFORMED"
+        | "ERROR_SERVICE_SOURCE_NOT_FOUND"
+        | "ERROR_SERVICE_SOURCE_ERROR"
+        | "ERROR_SERVICE_UNKNOWN_SCRIPT"
+        | "ERROR_MODULE_NOT_FOUND"
+        | "ERROR_MODULE_SYNTAX_ERROR"
+        | "ERROR_MODULE_FAILURE"
+        | "ERROR_NO_SMART_COLLECTION"
+        | "ERROR_NO_SMART_GRAPH_ATTRIBUTE"
+        | "ERROR_CANNOT_DROP_SMART_COLLECTION"
+        | "ERROR_KEY_MUST_BE_PREFIXED_WITH_SMART_GRAPH_ATTRIBUTE"
+        | "ERROR_ILLEGAL_SMART_GRAPH_ATTRIBUTE"
+        | "ERROR_AGENCY_INQUIRY_SYNTAX"
+        | "ERROR_AGENCY_INFORM_MUST_BE_OBJECT"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_TERM"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_ID"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_ACTIVE"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_POOL"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_MIN_PING"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_MAX_PING"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_TIMEOUT_MULT"
+        | "ERROR_AGENCY_INQUIRE_CLIENT_ID_MUST_BE_STRING"
+        | "ERROR_AGENCY_CANNOT_REBUILD_DBS"
+        | "ERROR_SUPERVISION_GENERAL_FAILURE"
+        | "ERROR_DISPATCHER_IS_STOPPING"
+        | "ERROR_QUEUE_UNKNOWN"
+        | "ERROR_QUEUE_FULL";
+
+    // Collection
+
+    declare const enum CollectionType {
+        Document = 2,
+        Edge = 3
+    }
+
+    type CollectionChecksum = {
+        checksum: string;
+        revision: string;
+    };
+
+    type CollectionFigures = {
+        alive: {
+            count: number;
+            size: number;
+        };
+        dead: {
+            count: number;
+            size: number;
+            deletion: number;
+        };
+        datafiles: {
+            count: number;
+            fileSize: number;
+        };
+        journals: {
+            count: number;
+            fileSize: number;
+        };
+        compactors: {
+            count: number;
+            fileSize: number;
+        };
+        shapefiles: {
+            count: number;
+            fileSize: number;
+        };
+        shapes: {
+            count: number;
+            size: number;
+        };
+        attributes: {
+            count: number;
+            size: number;
+        };
+        indexes: {
+            count: number;
+            size: number;
+        };
+        lastTick: number;
+        uncollectedLogfileEntries: number;
+        documentReferences: number;
+        waitingFor: string;
+        compactionStatus: {
+            time: string;
+            message: string;
+            count: number;
+            filesCombined: number;
+            bytesRead: number;
+            bytesWritten: number;
+        };
+    };
+
+    type CollectionProperties = {
+        waitForSync: boolean;
+        journalSize: number;
+        isVolatile: boolean;
+        keyOptions?: {
+            type: string;
+            allowUserKeys: boolean;
+            increment?: number;
+            offset?: number;
+        };
+        indexBuckets: number;
+        numberOfShards?: number;
+        shardKeys?: string[];
+        replicationFactor?: number;
+    };
+
+    // Indexes
+
+    declare type IndexType = "hash" | "skiplist" | "fulltext" | "geo1" | "geo2";
+
+    type IndexLike = {
+        [key: string]: any;
+        id: string;
+    };
+
+    type IndexDescription<T> = {
+        type: IndexType;
+        fields: (keyof T)[];
+        sparse?: boolean;
+        unique?: boolean;
+        deduplicate?: boolean;
+    };
+
+    type IndexResult<T> = {
+        id: string;
+        type: IndexType;
+        fields: (keyof T)[];
+        sparse: boolean;
+        unique: boolean;
+        deduplicate: boolean;
+        isNewlyCreated: boolean;
+        selectivityEstimate: number;
+        code: number;
+    };
+
+    // Document
+
+    type DocumentLike1 = {
+        [key: string]: any;
+        _id: string;
+    };
+
+    type DocumentLike2 = {
+        [key: string]: any;
+        _key: string;
+    };
+
+    type DocumentLike = DocumentLike1 | DocumentLike2;
+
+    interface DocumentMetadata {
+        _key: string;
+        _id: string;
+        _rev: string;
+    }
+
+    interface UpdateMetadata extends DocumentMetadata {
+        _oldRev: string;
+    }
+
+    type Document<T> = T & DocumentMetadata & { _from?: string; _to?: string };
+    type DocumentData<T> = T & Partial<DocumentMetadata>;
+    type Edge<T> = Document<T> & { _from: string; _to: string };
+
+    type InsertResult<T> = DocumentMetadata | Document<T>;
+    type UpdateResult<T> = UpdateMetadata & {
+        old?: Document<T>;
+        new?: Document<T>;
+    };
+    type RemoveResult<T> = DocumentMetadata & {
+        old?: Document<T>;
+    };
+
+    type InsertOptions = {
+        waitForSync?: boolean;
+        silent?: boolean;
+        returnNew?: boolean;
+    };
+
+    type ReplaceOptions = InsertOptions & {
+        overwrite?: boolean;
+        returnOld?: boolean;
+    };
+
+    type UpdateOptions = ReplaceOptions & {
+        keepNull?: boolean;
+        mergeObjects?: boolean;
+    };
+
+    type RemoveOptions = {
+        waitForSync?: boolean;
+        overwrite?: boolean;
+        returnOld?: boolean;
+        silent?: boolean;
+    };
+
+    type DocumentIterator<T> = (document: Document<T>, number: number) => void;
+
+    declare interface Collection<T = PlainObject> {
+        // Collection
+        checksum(
+            withRevisions?: boolean,
+            withData?: boolean
+        ): CollectionChecksum;
+        count(): number;
+        drop(options?: { isSystem?: boolean }): void;
+        figures(): CollectionFigures;
+        load(): void;
+        path(): string;
+        properties(): CollectionProperties;
+        properties(properties?: {
+            waitForSync?: boolean;
+            journalSize?: number;
+            indexBuckets?: number;
+            replicationFactor?: number;
+        }): CollectionProperties;
+        revision(): string;
+        rotate(): void;
+        toArray(): Document<T>[];
+        truncate(): void;
+        type(): CollectionType;
+        unload(): void;
+
+        // Indexes
+        dropIndex(index: string | IndexLike): boolean;
+        ensureIndex(description: IndexDescription<T>): IndexResult<T>;
+        getIndexes(): IndexResult<T>[];
+        index(index: string | IndexLike): IndexResult<T> | null;
+
+        // Document
+        all(): Cursor<Document<T>>;
+        any(): Document<T>;
+        byExample(example: Partial<Document<T>>): Cursor<Document<T>>;
+        document(selector: string | DocumentLike): Document<T>;
+        document(selectors: (string | DocumentLike)[]): Document<T>[];
+        exists(name: string): boolean;
+        firstExample(example: Partial<Document<T>>): Document<T> | null;
+        insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
+        insert(
+            array: DocumentData<T>[],
+            options?: InsertOptions
+        ): InsertResult<T>[];
+        insert(
+            from: string,
+            to: string,
+            data: DocumentData<T>,
+            options?: InsertOptions
+        ): InsertResult<T>;
+        edges(vertex: string | DocumentLike1): Edge<T>[];
+        edges(vertices: (string | DocumentLike1)[]): Edge<T>[];
+        inEdges(vertex: string | DocumentLike1): Edge<T>[];
+        inEdges(vertices: (string | DocumentLike1)[]): Edge<T>[];
+        outEdges(vertex: string | DocumentLike1): Edge<T>[];
+        outEdges(vertices: (string | DocumentLike1)[]): Edge<T>[];
+        iterate(
+            iterator: DocumentIterator<T>,
+            options?: { limit?: number; probability?: number }
+        ): void;
+        remove(
+            selector: string | DocumentLike,
+            options?: RemoveOptions
+        ): RemoveResult<T>;
+        remove(
+            selectors: (string | DocumentLike)[],
+            options?: RemoveOptions
+        ): RemoveResult<T>[];
+        removeByExample(
+            example: Partial<Document<T>>,
+            waitForSync?: boolean,
+            limit?: number
+        ): number;
+        removeByExample(
+            example: Partial<Document<T>>,
+            options?: { waitForSync?: boolean; limit?: number }
+        ): number;
+        rename(newName: string): void;
+        replace(
+            selector: string | DocumentLike,
+            data: DocumentData<T>,
+            options?: ReplaceOptions
+        ): UpdateResult<T>;
+        replace(
+            selectors: (string | DocumentLike)[],
+            data: DocumentData<T>[],
+            options?: ReplaceOptions
+        ): UpdateResult<T>[];
+        replaceByExample(
+            example: Partial<Document<T>>,
+            newValue: DocumentData<T>,
+            waitForSync?: boolean,
+            limit?: number
+        ): number;
+        replaceByExample(
+            example: Partial<Document<T>>,
+            newValue: DocumentData<T>,
+            options?: { waitForSync?: boolean; limit?: number }
+        ): number;
+        save(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
+        save(
+            array: DocumentData<T>[],
+            options?: InsertOptions
+        ): InsertResult<T>[];
+        save(
+            from: string,
+            to: string,
+            data: DocumentData<T>,
+            options?: InsertOptions
+        ): InsertResult<T>;
+        update(
+            selector: string | DocumentLike,
+            data: Partial<Document<T>>,
+            options?: UpdateOptions
+        ): UpdateResult<T>;
+        update(
+            selectors: (string | DocumentLike)[],
+            data: Partial<Document<T>>[],
+            options?: UpdateOptions
+        ): UpdateResult<T>[];
+        updateByExample(
+            example: Partial<Document<T>>,
+            newValue: Partial<Document<T>>,
+            keepNull?: boolean,
+            waitForSync?: boolean,
+            limit?: number
+        ): number;
+        updateByExample(
+            example: Partial<Document<T>>,
+            newValue: Partial<Document<T>>,
+            options?: {
+                keepNull?: boolean;
+                waitForSync?: boolean;
+                limit?: number;
+            }
+        ): number;
+    }
+
+    // Database
+
+    type DatabaseUser = {
+        username: string;
+        passwd?: string;
+        active?: boolean;
+        extra?: PlainObject;
+    };
+
+    // AQL
+
+    declare interface Query {
+        query: string;
+        bindVars?: PlainObject;
+        options?: QueryOptions;
+    }
+
+    declare interface Cursor<T = any> {
+        toArray(): T[];
+        hasNext(): boolean;
+        next(): T;
+        count(count?: boolean): number;
+        getExtra(): QueryExtra;
+        setBatchSize(size: number): void;
+        getBatchSize(): number;
+        execute(batchSize?: number): void;
+        dispose(): void;
+    }
+
+    declare interface Statement<T = any> {
+        bind(name: string, value: any): void;
+        setBatchSize(size: number): void;
+        getBatchSize(): number;
+        execute(): Cursor<T>;
+    }
+
+    type QueryOptions = {
+        memoryLimit?: number;
+        failOnWarning?: boolean;
+        cache?: boolean;
+        count?: boolean; // TODO ???
+        fullCount?: boolean; // TODO ???
+        profile?: boolean;
+        maxWarningCount?: number;
+        maxNumberOfPlans?: number;
+        stream?: boolean;
+        // RocksDB
+        maxTransactionsSize?: number;
+        intermediateCommitSize?: number;
+        intermediateCommitCount?: number;
+        // enterprise
+        skipInaccessibleCollections?: boolean;
+    };
+
+    type QueryExtra = {
+        stats: {
+            writesExecuted: number;
+            writesIgnored: number;
+            scannedFull: number;
+            scannedIndex: number;
+            filtered: number;
+            httpRequests: number;
+            fullCount: number;
+            executionTime: number;
+        };
+        warnings: string[];
+    };
+
+    type QueryAstNode = {
+        type: string;
+        subNodes?: QueryAstNode[];
+        [key: string]: any;
+    };
+
+    type ParsedQuery = {
+        parsed: boolean;
+        collections: string[];
+        parameters: string[];
+        bindVars: string[];
+        ast: QueryAstNode[];
+    };
+
+    // Global
+
+    type Transaction = {
+        collections:
+            | {
+                  read?: string | string[];
+                  write?: string | string[];
+                  allowImplicit?: boolean;
+              }
+            | string[];
+        action: (params: PlainObject) => void | string;
+        waitForSync?: boolean;
+        lockTimeout?: number;
+        params?: PlainObject;
+        // RocksDB
+        maxTransactionsSize?: number;
+        intermediateCommitSize?: number;
+        intermediateCommitCount?: number;
+    };
+
+    declare interface Database {
+        // Database
+        _createDatabase(
+            name: string,
+            options?: never,
+            users?: DatabaseUser[]
+        ): true;
+        _databases(): string[];
+        _dropDatabase(name: string): true;
+        _useDatabase(name: string): Database;
+
+        // Indexes
+        _index<T = PlainObject>(
+            index: string | IndexLike
+        ): IndexResult<T> | null;
+        _dropIndex(index: string | IndexLike): boolean;
+
+        // Properties
+        _id(): string;
+        _isSystem(): boolean;
+        _name(): string;
+        _path(): string;
+        _version(): string;
+
+        // Collection
+        _collection<T = PlainObject>(name: string): Collection<T>;
+        _collections(): Collection[];
+        _create<T = PlainObject>(
+            name: string,
+            properties?: CollectionProperties
+        ): Collection<T>;
+        _createDocumentCollection<T = PlainObject>(
+            name: string,
+            properties?: CollectionProperties
+        ): Collection<T>;
+        _createEdgeCollection<T = PlainObject>(
+            name: string,
+            properties?: CollectionProperties
+        ): Collection<T>;
+        _drop(name: string): void;
+        _truncate(name: string): void;
+
+        // AQL
+        _createStatement<T = any>(query: Query | string): Statement<T>;
+        _query<T = any>(
+            query: Query | string,
+            bindVars?: PlainObject,
+            options?: QueryOptions
+        ): Cursor<T>;
+        _explain(query: Query | string): void;
+        _parse(query: string): ParsedQuery;
+
+        // Document
+        _document<T = PlainObject>(name: string): Document<T>;
+        _exists(name: string): boolean;
+        _remove(name: string): DocumentMetadata;
+        _replace(name: string, data: Object): DocumentMetadata;
+        _replace(doc: DocumentLike, data: Object): DocumentMetadata;
+        _update(name: string, data: Object): DocumentMetadata;
+        _update(doc: DocumentLike, data: Object): DocumentMetadata;
+
+        // TODO Views
+        // _view(name: string): ??? | null;
+        // _views(): ???[];
+        // _createView(name: string, type: ViewType, properties: ???): ???;
+        // _dropView(name: string): void;
+
+        // Global
+        _engine(): EngineType;
+        _engineStats(): PlainObject;
+        _executeTransaction(transaction: Transaction): void;
+        [name: string]: Collection | undefined;
+    }
+}
+
+declare namespace Foxx {
+    declare type Session = {
+        uid: string | null;
+        created: number;
+        data: any | null;
+    };
+    declare type SessionStorage = {
+        new?: () => Session;
+        fromClient: (sid: string) => Session | null;
+        forClient: (session: Session) => string | null;
+    };
+    declare type SessionTransport = {
+        get?: (req: Foxx.Request) => string | null;
+        set?: (res: Foxx.Response, sid: string) => void;
+        clear?: (res: Foxx.Response) => void;
+    };
+    type Handler = (req: Request, res: Response) => void;
+
+    type Middleware = (req: Request, res: Response, next: NextFunction) => void;
+
+    type NextFunction = () => void;
+
+    type ValidationResult<T> = {
+        value: T;
+        error: any;
+    };
+
+    interface Schema {
+        isJoi: boolean;
+        validate<T>(value: T): ValidationResult<T>;
+    }
+
+    type Model = {
+        schema: Schema;
+        fromClient?: (value: any) => any;
+        forClient?: (value: any) => any;
+    };
+
+    interface DocumentationRouterOptions {
+        mount: string;
+        indexFile: string;
+        swaggerRoot: string;
+        before: (req: Request, res: Response) => void | false;
+    }
+
+    declare interface Context {
+        argv: any[];
+        basePath: string;
+        baseUrl: string;
+        collectionPrefix: string;
+        configuration: PlainObject;
+        dependencies: PlainObject;
+        isDevelopment: boolean;
+        isProduction: boolean;
+        manifest: PlainObject;
+        mount: string;
+        collection<T = PlainObject>(
+            string: name
+        ): ArangoDB.Collection<T> | null;
+        collectionName(string: name): string;
+        createDocumentationRouter(
+            opts?: Partial<DocumentationRouterOptions>
+        ): Router;
+        createDocumentationRouter(
+            beforeFn: DocumentationRouterOptions["before"]
+        ): Router;
+        createDocumentationRouter(
+            swaggerRoot: DocumentationRouterOptions["swaggerRoot"]
+        ): Router;
+        file(name: string): Buffer;
+        file(name: string, encoding: string): string;
+        fileName(name: string): string;
+        registerType(type: string, def: TypeDefinition): void;
+        use(path: string, middleware: Middleware, name?: string): Endpoint;
+        use(middleware: Middleware, name?: string): Endpoint;
+        use(path: string, router: Router, name?: string): Endpoint;
+        use(router: Router, name?: string): Endpoint;
+    }
+
+    declare interface Request {
+        arangoUser: string | null;
+        arangoVersion: number;
+        baseUrl: string;
+        body: any;
+        context: Context;
+        database: string;
+        headers: { [key: string]: string | undefined };
+        hostname: string;
+        method: ArangoDB.HttpMethod;
+        originalUrl: string;
+        path: string;
+        pathParams: object;
+        port: number;
+        protocol: string;
+        queryParams: PlainObject;
+        rawBody: Buffer;
+        remoteAddress: string;
+        remoteAddresses: string[];
+        remotePort: number;
+        secure: boolean;
+        session?: Session;
+        sessionStorage?: SessionStorage;
+        suffix: string;
+        trustProxy: boolean;
+        url: string;
+        xhr: boolean;
+        accepts(types: string[]): string | false;
+        accepts(...types: string[]): string | false;
+        acceptsCharsets(charsets: string[]): string | false;
+        acceptsCharsets(...charsets: string[]): string | false;
+        acceptsEncodings(encodings: string[]): string | false;
+        acceptsEncodings(...encodings: string[]): string | false;
+        acceptsLanguages(languages: string[]): string | false;
+        acceptsLanguages(...languages: string[]): string | false;
+        cookie(
+            name: string,
+            options?: { secret?: string; algorithm?: ArangoDB.HashAlgorithm }
+        ): string | null;
+        get(name: string): string | undefined;
+        header(name: string): string | undefined;
+        is(types: string[]): string;
+        is(...types: string[]): string;
+        json(): any;
+        makeAbsolute(path: string, query?: string | StringMap): string;
+        param(name: string): any | undefined;
+        range(size?: number): Ranges | number;
+        reverse(name: string, params?: PlainObject): string;
+    }
+
+    declare interface Response {
+        body: Buffer | string;
+        context: Context;
+        headers: object;
+        statusCode: number;
+        attachment(filename?: string): this;
+        cookie(
+            name: string,
+            value: string,
+            options?: {
+                ttl?: number;
+                algorithm?: ArangoDB.HashAlgorithm;
+                secret?: string;
+                path?: string;
+                domain?: string;
+                secure?: boolean;
+                httpOnly?: boolean;
+            }
+        ): this;
+        download(path: string, filename?: string): this;
+        getHeader(name: string): string | undefined;
+        json(data: any): this;
+        redirect(status: number | string, path: string): this;
+        redirect(path: string): this;
+        removeHeader(name: string): this;
+        send(data: any, type?: string): this;
+        sendFile(path: string, options?: { lastModified: boolean }): this;
+        sendStatus(status: number | string): this;
+        setHeader(name: string, value: string): this;
+        set(name: string, value: string): this;
+        set(headers: { [name: string]: string }): this;
+        status(status: number | string): this;
+        throw(status: number | string, reason: string, error: Error): void;
+        throw(
+            status: number | string,
+            reason: string,
+            options?: { cause?: Error; extra?: any }
+        ): void;
+        throw(status: number | string, error: Error): void;
+        throw(
+            status: number | string,
+            options?: { cause?: Error; extra?: any }
+        ): void;
+        type(type?: string): string;
+        vary(names: string[]): this;
+        vary(...names: string[]): this;
+        write(data: string | Buffer): this;
+    }
+
+    declare interface Endpoint {
+        header(name: string, schema: Schema, description?: string): this;
+        header(name: string, schema: Schema): this;
+        header(name: string, description: string): this;
+        pathParam(name: string, schema: Schema, description?: string): this;
+        pathParam(name: string, schema: Schema): this;
+        pathParam(name: string, description: string): this;
+        queryParam(name: string, schema: Schema, description?: string): this;
+        queryParam(name: string, schema: Schema): this;
+        queryParam(name: string, description: string): this;
+        body(
+            schema: Schema | Model | [Model],
+            mimes: string[],
+            description?: string
+        ): this;
+        body(schema: Schema | Model | [Model], mimes?: string[]): this;
+        body(schema: Schema | Model | [Model], description?: string): this;
+        body(schema: Schema | Model | [Model]): this;
+        body(mimes: string[], description?: string): this;
+        body(description: string): this;
+        response(
+            status: number | string,
+            schema: Schema | Model | [Model],
+            mimes: string[],
+            description?: string
+        ): this;
+        response(
+            status: number | string,
+            schema: Schema | Model | [Model],
+            mimes?: string[]
+        ): this;
+        response(
+            status: number | string,
+            mimes: string[],
+            description?: string
+        ): this;
+        response(status: number | string, description: string): this;
+        summary(summary: string): this;
+        description(description: string): this;
+        deprecated(deprecated: boolean): this;
+        error(status: number | string, description: string): this;
+        tag(...tags: string[]): this;
+    }
+
+    declare interface Router {
+        get(
+            path: string,
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        get(path: string, handler: Handler, name?: string): Endpoint;
+        get(
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        get(handler: Handler, name?: string): Endpoint;
+        post(
+            path: string,
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        post(path: string, handler: Handler, name?: string): Endpoint;
+        post(
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        post(handler: Handler, name?: string): Endpoint;
+        put(
+            path: string,
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        put(path: string, handler: Handler, name?: string): Endpoint;
+        put(
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        put(handler: Handler, name?: string): Endpoint;
+        patch(
+            path: string,
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        patch(path: string, handler: Handler, name?: string): Endpoint;
+        patch(
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        patch(handler: Handler, name?: string): Endpoint;
+        delete(
+            path: string,
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        delete(path: string, handler: Handler, name?: string): Endpoint;
+        delete(
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        delete(handler: Handler, name?: string): Endpoint;
+        all(
+            path: string,
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        all(path: string, handler: Handler, name?: string): Endpoint;
+        all(
+            ...middlewares: Middleware[],
+            handler: Handler,
+            name?: string
+        ): Endpoint;
+        all(handler: Handler, name?: string): Endpoint;
+        use(path: string, middleware: Middleware, name?: string): Endpoint;
+        use(middleware: Middleware, name?: string): Endpoint;
+        use(path: string, router: Router, name?: string): Endpoint;
+        use(router: Router, name?: string): Endpoint;
+    }
+
+    declare class Module extends NodeJS.Module {
+        context: Context;
+    }
+}
+
+declare module "@arangodb" {
+    export function aql(strings: string[], ...args: any[]): ArangoDB.Query;
+    export function time(): number;
+    export const db: ArangoDB.Database;
+    export type CollectionType = ArangoDB.CollectionType;
+
+    export const errors: {
+        [Name in ArangoDB.ErrorName]: { code: number; message: string }
+    };
+    export type IndexType = ArangoDB.IndexType;
+    export type EngineType = ArangoDB.EngineType;
+}
+
+declare module "@arangodb/foxx/router" {
+    function createRouter(): Foxx.Router;
+    export = createRouter;
+}
+
+declare module "@arangodb/foxx/graphql" {
+    type GraphQLSchema = any;
+    type GraphQLModule = any;
+    type GraphQLFormatErrorFunction = Function;
+    type GraphQLOptions = {
+        schema: GraphQLSchema;
+        context?: any;
+        rootValue?: PlainObject;
+        pretty?: boolean;
+        formatError?: GraphQLFormatErrorFunction;
+        validationRules?: any[];
+        graphiql?: boolean;
+        graphql?: GraphQLModule;
+    };
+    function createGraphQLRouter(
+        options: GraphQLOptions | GraphQLSchema
+    ): Foxx.Router;
+    export = createGraphQLRouter;
+}
+
+declare module "@arangodb/foxx/sessions" {
+    type SessionsMiddleware = Foxx.Middleware & {
+        storage: Foxx.SessionStorage;
+        transport: Foxx.SessionTransport[];
+    };
+    type SessionsOptions = {
+        storage: Foxx.SessionStorage | string | ArangoDB.Collection;
+        transport:
+            | Foxx.SessionTransport
+            | Foxx.SessionTransport[]
+            | "cookie"
+            | "header";
+        autoCreate?: boolean;
+    };
+    function sessionsMiddleware(options: SessionsOptions): Foxx.Middleware;
+    export = sessionsMiddleware;
+}
+
+declare module "@arangodb/foxx/sessions/storages/collection" {
+    type CollectionStorageOptions<T> = {
+        collection: string | ArangoDB.Collection<T>;
+        ttl?: number;
+        pruneExpired?: boolean;
+        autoUpdate?: boolean;
+    };
+    type CollectionStorage = Foxx.SessionStorage & {
+        prune: () => string[];
+    };
+    function collectionStorage<T>(
+        options: CollectionStorageOptions<T>
+    ): CollectionStorage;
+    function collectionStorage<T>(
+        collection: string | ArangoDB.Collection<T>
+    ): CollectionStorage;
+    export = collectionStorage;
+}
+
+declare module "@arangodb/foxx/sessions/storages/jwt" {
+    type JwtStorageOptions =
+        | {
+              algorithm?: ArangoDB.JwtAlgorithm;
+              secret: string;
+              ttl?: number;
+              verify?: boolean;
+              maxExp?: number;
+          }
+        | {
+              algorithm: "none";
+              ttl?: number;
+              verify?: boolean;
+              maxExp?: number;
+          };
+    function jwtStorage(options: JwtStorageOptions): Foxx.SessionStorage;
+    function jwtStorage(secret: string): Foxx.SessionStorage;
+    export = jwtStorage;
+}
+
+declare module "@arangodb/foxx/sessions/transports/cookie" {
+    type CookieTransportOptions = {
+        name?: string;
+        ttl?: number;
+        algorithm?: ArangoDB.HashAlgorithm;
+        secret?: string;
+        path?: string;
+        domain?: string;
+        secure?: string;
+        httpOnly?: string;
+    };
+    function cookieTransport(
+        options?: CookieTransportOptions
+    ): Foxx.SessionTransport;
+    function cookieTransport(name: string): Foxx.SessionTransport;
+    export = cookieTransport;
+}
+
+declare module "@arangodb/foxx/sessions/transports/header" {
+    type HeaderTransportOptions = {
+        name?: string;
+    };
+    function headerTransport(
+        options?: HeaderTransportOptions
+    ): Foxx.SessionTransport;
+    function headerTransport(name: string): Foxx.SessionTransport;
+    export = headerTransport;
+}
+
+declare module "@arangodb/foxx/auth" {
+    type AuthData = {
+        method: string;
+        salt: string;
+        hash: string;
+    };
+    interface Authenticator {
+        create(password: string): AuthData;
+        verify(hash?: AuthData, password?: string): boolean;
+    }
+    type AuthOptions = {
+        method?: ArangoDB.HashAlgorithm;
+        saltLength?: number;
+    };
+    function createAuth(options?: AuthOptions): Authenticator;
+    export = createAuth;
+}
+
+declare module "@arangodb/foxx/oauth1" {
+    type OAuth1Options = {
+        requestTokenEndpoint: string;
+        authEndpoint: string;
+        accessTokenEndpoint: string;
+        activeUserEndpoint?: string;
+        clientId: string;
+        clientSecret: string;
+        signatureMethod?: "HMAC-SHA1" | "PLAINTEXT";
+    };
+    interface OAuth1Client {
+        fetchRequestToken(oauth_callback: string, qs?: StringMap): any;
+        getAuthUrl(oauth_token: string, qs?: StringMap): string;
+        exchangeRequestToken(
+            oauth_token: string,
+            oauth_verifier: string,
+            qs?: StringMap
+        ): any;
+        fetchActiveUser(
+            oauth_token: string,
+            oauth_token_secret: string,
+            qs?: StringMap
+        ): any;
+        createSignedRequest(
+            method: ArangoDB.HttpMethod,
+            url: string,
+            parameters: string | StringMap | null,
+            oauth_token: string,
+            oauth_token_secret: string
+        ): {
+            url: string;
+            qs: string;
+            headers: { accept: "application/json"; authorization: string };
+        };
+    }
+    function createOAuth1Client(options: OAuth1Options): OAuth1Client;
+    export = createOAuth1Client;
+}
+
+declare module "@arangodb/foxx/oauth2" {
+    type OAuth2Options = {
+        authEndpoint: string;
+        tokenEndpoint: string;
+        refreshEndpoint?: string;
+        activeUserEndpoint?: string;
+        clientId: string;
+        clientSecret: string;
+    };
+    interface OAuth2Client {
+        getAuthUrl(
+            redirect_uri: string,
+            options?: { response_type?: string }
+        ): string;
+        exchangeGrantToken(
+            code: string,
+            redirect_uri: string,
+            options?: { grant_type?: string }
+        ): any;
+        fetchActiveUser(access_token: string): any;
+    }
+    function createOAuth2Client(options: OAuth2Options): OAuth2Client;
+    export = createOAuth2Client;
+}
+
+declare module "@arangodb/foxx" {
+    import createRouter = require("@arangodb/foxx/router");
+    export { createRouter };
+}
+
+declare module "@arangodb/request" {
+    export interface Response {
+        rawBody: Buffer;
+        body: string | Buffer;
+        json?: any;
+        headers: StringMap;
+        status: number;
+        statusCode: number;
+        message: string;
+        throw(message?: string): void;
+    }
+    type RequestOptions = {
+        qs?: PlainObject;
+        useQuerystring?: boolean;
+        headers?: StringMap;
+        body?: any;
+        json?: boolean;
+        form?: any;
+        auth?: { username: string; password?: string } | { bearer: string };
+        sslProtocol?: number;
+        followRedirect?: boolean;
+        maxRedirects?: number;
+        encoding?: string | null;
+        timeout?: number;
+        returnBodyOnError?: boolean;
+    };
+    function method(options: { url: string } & RequestOptions): Response;
+    function method(url: string, options?: RequestOptions): Response;
+    type Request = {
+        (
+            options: {
+                url: string;
+                method?: ArangoDB.HttpMethod;
+            } & RequestOptions
+        ): Response;
+        head: typeof method;
+        get: typeof method;
+        post: typeof method;
+        put: typeof method;
+        patch: typeof method;
+        delete: typeof method;
+    };
+    const request: Request;
+    export = request;
+}
+
+declare module "@arangodb/crypto" {
+    export type JwtAlgorithm = ArangoDB.JwtAlgorithm;
+    export type HashAlgorithm = ArangoDB.HashAlgorithm;
+    export function createNonce(): string;
+    export function checkAndMarkNonce(nonce: string): void;
+    export function rand(): number;
+    export function genRandomAlphaNumbers(length: number): string;
+    export function genRandomNumbers(length: number): string;
+    export function genRandomSalt(length: number): string;
+    export function jwtEncode(
+        key: string,
+        message: string,
+        algorithm: JwtAlgorithm
+    ): string;
+    export function jwtEncode(
+        key: null,
+        message: string,
+        algorithm: "none"
+    ): string;
+    export function jwtDecode(
+        key: string | null,
+        token: string,
+        noVerify?: boolean
+    ): string | null;
+    export function md5(message: string): string;
+    export function sha1(message: string): string;
+    export function sha224(message: string): string;
+    export function sha256(message: string): string;
+    export function sha384(message: string): string;
+    export function sha512(message: string): string;
+    export function constantEquals(a: string, b: string): boolean;
+    export function pbkdf2(
+        salt: string,
+        password: string,
+        iterations: number,
+        keyLength: number
+    ): string;
+    export function hmac(
+        key: string,
+        message: string,
+        algorithm: HashAlgorithm
+    ): string;
+}
+
+declare module "@arangodb/general-graph" {
+    type EdgeDefinition = {
+        collection: string;
+        from: string[];
+        to: string[];
+    };
+    type CommonNeighbors = {
+        left: string;
+        right: string;
+        neighbors: string[];
+    };
+    type CountCommonNeighbors = {
+        [key: string]:
+            | {
+                  [key: string]: number | undefined;
+              }[]
+            | undefined;
+    };
+    type CommonProperties = {
+        [key: string]:
+            | {
+                  _id: string;
+                  [key: string]: any;
+              }[]
+            | undefined;
+    };
+    type CountCommonProperties = {
+        [key: string]: number | undefined;
+    };
+    type Path<A = PlainObject, B = PlainObject, E = PlainObject, V = never> = {
+        source: ArangoDB.Document<A>;
+        destination: ArangoDB.Document<B>;
+        edges: ArangoDB.Edge<E>[];
+        vertice: ArangoDB.Document<A | B | V>[];
+    };
+    type ShortestPath<T = PlainObject> = {
+        vertices: string[];
+        edges: ArangoDB.Edge<T>[];
+        distance: number;
+    };
+    type Distance = {
+        startVertex: string;
+        vertex: string;
+        distance: number;
+    };
+    type Eccentricity = {
+        [key: string]: number | undefined;
+    };
+    type Closeness = Eccentricity;
+    type Betweenness = Eccentricity;
+    type Example = (PlainObject | string)[] | PlainObject | string | null;
+    type ConnectingEdgesOptions = {
+        edgeExamples?: Example;
+        edgeCollectionRestriction?: string[] | string;
+        vertex1CollectionRestriction?: string[] | string;
+        vertex2CollectionRestriction?: string[] | string;
+    };
+    type NeighborsOptions = {
+        direction?: ArangoDB.EdgeDirection;
+        edgeExamples?: Example;
+        neighborExamples?: Example;
+        edgeCollectionRestriction?: string[] | string;
+        vertexCollectionRestriction?: string[] | string;
+        minDepth?: number;
+        maxDepth?: number;
+    };
+    type CommonPropertiesOptions = {
+        vertex1CollectionRestriction?: string[] | string;
+        vertex2CollectionRestriction?: string[] | string;
+        ignoredProperties?: string[] | string;
+    };
+    type PathsOptions = {
+        direction?: ArangoDB.EdgeDirection;
+        followCycles?: boolean;
+        minLength?: number;
+        maxLength?: number;
+    };
+    type ShortestPathOptions = {
+        direction?: ArangoDB.EdgeDirection;
+        edgeCollectionRestriction?: string[] | string;
+        startVertexCollectionRestriction?: string[] | string;
+        endVertexCollectionRestriction?: string[] | string;
+        weight?: string;
+        defaultWeight?: number;
+    };
+    type EccentricityOptions = ShortestPathOptions;
+    type ClosenessOptions = ShortestPathOptions;
+    type BetweennessOptions = {
+        direction?: ArangoDB.EdgeDirection;
+        weight?: string;
+        defaultWeight?: number;
+    };
+    type RadiusOptions = BetweennessOptions;
+    type DiameterOptions = BetweennessOptions;
+    interface Graph {
+        _extendEdgeDefinitions(edgeDefinition: EdgeDefinition): void;
+        _editEdgeDefinitions(edgeDefinition: EdgeDefinition): void;
+        _deleteEdgeDefinition(
+            edgeCollectionName: string,
+            dropCollection?: boolean
+        ): void;
+        _addVertexCollection(
+            orphanCollectionName: string,
+            createCollection?: boolean
+        ): void;
+        _orphanCollections(): string[];
+        _removeVertexCollection(
+            orphanCollectionName: string,
+            dropCollection?: boolean
+        ): void;
+        _getConnectingEdges<T = PlainObject>(
+            vertexExample1: Example,
+            vertexExample2: Example,
+            options: ConnectingEdgesOptions
+        ): ArangoDB.Edge<T>;
+        _fromVertex<T = PlainObject>(edgeId: string): ArangoDB.Document<T>;
+        _toVertex<T = PlainObject>(edgeId: string): ArangoDB.Document<T>;
+        _neighbors(
+            vertexExample: Example,
+            options?: NeighborsOptions
+        ): string[];
+        _commonNeighbors(
+            vertex1Example: Example,
+            vertex2Example: Example,
+            vertex1Options?: NeighborsOptions,
+            vertex2Options?: NeighborsOptions
+        ): CommonNeighbors[];
+        _countCommonNeighbors(
+            vertex1Example: Example,
+            vertex2Example: Example,
+            vertex1Options?: NeighborsOptions,
+            vertex2Options?: NeighborsOptions
+        ): CountCommonNeighbors[];
+        _commonProperties(
+            vertexExample1: Example,
+            vertex2Example: Example,
+            options?: CommonPropertiesOptions
+        ): CommonProperties[];
+        _countCommonProperties(
+            vertex1Example: Example,
+            vertex2Example: Example,
+            options?: CommonPropertiesOptions
+        ): CountCommonProperties[];
+        _paths<A, B, E, V>(options?: PathsOptions): Path<A, B, E, V>[];
+        _shortestPath<T>(
+            startVertexExample: Example,
+            endVertexExample: Example,
+            options?: ShortestPathOptions
+        ): ShortestPath<T>[];
+        _distanceTo(
+            startVertexExample: Example,
+            endVertexExample: Example,
+            options?: ShortestPathOptions
+        ): Distance[];
+        _absoluteEccentricity(
+            vertexExample: Example,
+            options?: EccentricityOptions
+        ): Eccentricity;
+        _eccentricity(
+            vertexExample: Example,
+            options?: EccentricityOptions
+        ): Eccentricity;
+        _absoluteCloseness(
+            vertexExample: Example,
+            options?: ClosenessOptions
+        ): Closeness;
+        _closeness(
+            vertexExample: Example,
+            options?: ClosenessOptions
+        ): Closeness;
+        _absoluteBetweenness(
+            vertexExample: Example,
+            options?: BetweennessOptions
+        ): Betweenness;
+        _betweenness(
+            vertexExample: Example,
+            options?: BetweennessOptions
+        ): Betweenness;
+        _radius(vertexExample: Example, options?: RadiusOptions): number;
+        _diameter(vertexExample: Example, options?: DiameterOptions): number;
+
+        [key: string]: ArangoDB.Collection | undefined;
+    }
+    export function _create(
+        name: string,
+        edgeDefinitions?: EdgeDefinition[],
+        orphanCollections?: string[]
+    ): Graph;
+    export function _list(): string[];
+    export function _graph(name: string): Graph;
+    export function _drop(name: string, dropCollections?: boolean): boolean;
+    export function _relation(
+        name: string,
+        fromVertexCollections: string[] | string,
+        toVertexCollections: string[] | string
+    ): EdgeDefinition;
+    export function _edgeDefinitions(
+        ...relations: EdgeDefinition[]
+    ): EdgeDefinition[];
+    export function _extendEdgeDefinitions(
+        edgeDefinitions: EdgeDefinition[],
+        ...relations: EdgeDefinition[]
+    ): EdgeDefinition[];
+}
+
+declare var module: Foxx.Module;
+
+declare var console: NodeJS.Console & {
+    errorLines: (...args: any[]) => void;
+    warnLines: (...args: any[]) => void;
+    infoLines: (...args: any[]) => void;
+    debugLines: (...args: any[]) => void;
+    errorStack: (err: Error, msg?: string) => void;
+    warnStack: (err: Error, msg?: string) => void;
+    infoStack: (err: Error, msg?: string) => void;
+    debugStack: (err: Error, msg?: string) => void;
+};
