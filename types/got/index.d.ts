@@ -119,7 +119,7 @@ declare namespace got {
         decompress?: boolean;
         useElectronNet?: boolean;
         cache?: Map<string, any>;
-        agent?: http.Agent | https.Agent | boolean | AgentOptions;
+        agent?: http.Agent | boolean | AgentOptions;
         throwHttpErrors?: boolean;
     }
 
