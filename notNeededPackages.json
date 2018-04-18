@@ -1153,6 +1153,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-native-collapsible",
+            "typingsPackageName": "react-native-collapsible",
+            "sourceRepoURL": "https://github.com/oblador/react-native-collapsible",
+            "asOfVersion": "0.11.0"
+        },
+        {
             "libraryName": "react-native-elements",
             "typingsPackageName": "react-native-elements",
             "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",

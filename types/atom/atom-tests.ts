@@ -3310,7 +3310,7 @@ const pathWatcherPromise = Atom.watchPath("/var/test", {}, (events) => {
     for (const event of events) {
         str = event.path;
         str = event.action;
-        if (event.oldPath) str = event.oldPath;
+        if (event.action === "renamed") str = event.oldPath;
     }
 });
 

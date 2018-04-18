@@ -1857,7 +1857,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the navigating cell.
 	 */
-	customStyle?: CSSProperties;
+	customStyle?(cell: any, row: any): CSSProperties;
 	/**
 	 * Set to false to disable click to navigate, usually user wants to click to select row instead of navigation.
 	 */
@@ -1865,7 +1865,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the both of navigating and editing cell.
 	 */
-	customStyleOnEditCell?: CSSProperties;
+	customStyleOnEditCell?(cell: any, row: any): CSSProperties;
 	/**
 	 * When set to true, pressing ENTER will begin to edit the cell if cellEdit is also enabled.
 	 */

@@ -14,7 +14,6 @@
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -240,6 +239,29 @@ declare namespace React {
         element: ReactElement<P>,
         props?: Partial<P> & Attributes,
         ...children: ReactNode[]): ReactElement<P>;
+
+    // Context via RenderProps
+    interface ProviderProps<T> {
+        value: T;
+        children?: ReactNode;
+    }
+
+    interface ConsumerProps<T> {
+        children: (value: T) => ReactNode;
+        unstable_observedBits?: number;
+    }
+
+    type Provider<T> = ComponentType<ProviderProps<T>>;
+    type Consumer<T> = ComponentType<ConsumerProps<T>>;
+    interface Context<T> {
+        Provider: Provider<T>;
+        Consumer: Consumer<T>;
+    }
+    function createContext<T>(
+        defaultValue: T,
+        calculateChangedBits?: (prev: T, next: T) => number
+    ): Context<T>;
+    function createContext<T>(): Context<T | undefined>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
@@ -899,9 +921,14 @@ declare namespace React {
     }
 
     export interface CSSProperties extends CSS.Properties<string | number> {
-        // The string index signature fallback is needed at least until csstype
-        // provides SVG CSS properties: https://github.com/frenic/csstype/issues/4
-        [propertyName: string]: any;
+        /**
+         * The index signature was removed to enable closed typing for style
+         * using CSSType. You're able to use type assertion or module augmentation
+         * to add properties or an index signature of your own.
+         *
+         * For examples and more information, visit:
+         * https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
+         */
     }
 
     interface HTMLAttributes<T> extends DOMAttributes<T> {
