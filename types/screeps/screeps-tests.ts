@@ -541,6 +541,11 @@ interface CreepMemory {
     tombstone.creep.my;
 
     tombstone.store.energy;
+
+    tombstone.id;
+
+    const creep = Game.creeps['dave'];
+    creep.withdraw(tombstone, RESOURCE_ENERGY);
 }
 
 {
