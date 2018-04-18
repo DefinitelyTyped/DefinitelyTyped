@@ -1,4 +1,4 @@
-import * as pumpify from 'pumpify';
+import pumpify from 'pumpify';
 import { Duplex, Transform, PassThrough } from 'stream';
 
 class Pumpy extends pumpify {
