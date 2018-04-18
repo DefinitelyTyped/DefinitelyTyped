@@ -1156,7 +1156,7 @@ declare namespace Foxx {
     }
 }
 
-declare module "@arangodb/index" {
+declare module "@arangodb" {
     function aql(strings: string[], ...args: any[]): ArangoDB.Query;
     function time(): number;
     const db: ArangoDB.Database;
