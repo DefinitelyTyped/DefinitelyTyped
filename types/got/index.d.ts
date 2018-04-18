@@ -74,6 +74,12 @@ declare const got: got.GotFn &
         CancelError: typeof CancelError;
     };
 
+interface InternalRequestOptions extends http.RequestOptions {
+    // Redeclare options with `any` type for allow specify types incompatible with http.RequestOptions.
+    timeout?: any;
+    agent?: any;
+}
+
 declare namespace got {
     interface GotFn {
         (url: GotUrl): GotPromise<string>;
@@ -104,13 +110,7 @@ declare namespace got {
         json?: boolean;
     }
 
-    interface RequestOptions extends http.RequestOptions {
-        // Redeclare options with `any` type for allow specify types incompatible with http.RequestOptions.
-        timeout?: any;
-        agent?: any;
-    }
-
-    interface GotOptions<E extends string | null> extends RequestOptions {
+    interface GotOptions<E extends string | null> extends InternalRequestOptions {
         encoding?: E;
         query?: string | object;
         timeout?: number | TimeoutOptions;
