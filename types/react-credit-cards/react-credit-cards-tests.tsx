@@ -15,7 +15,7 @@ const defaultProps: ReactCreditCardProps = {
     preview: true
 };
 
-class CardTest extends React.Component<{}, {}> {
+class CardTest extends React.Component {
     render() {
         return (<Card {...defaultProps} />);
     }

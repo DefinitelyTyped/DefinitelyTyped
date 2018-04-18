@@ -2,13 +2,13 @@
 // Project: https://github.com/amarofashion/react-credit-cards
 // Definitions by: Vytautas Strimaitis <https://github.com/vstrimaitis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7.2
+// TypeScript Version: 2.7
 
 import * as React from "react";
 
 export interface CallbackArgument {
     isValid: boolean;
-    type: { issuer: string; maxLength: number; }
+    type: { issuer: string; maxLength: number; };
 }
 
 export interface ReactCreditCardProps {
@@ -25,8 +25,7 @@ export interface ReactCreditCardProps {
     preview?: boolean;
 }
 
-declare class ReactCreditCard extends React.Component<ReactCreditCardProps, {}> {
-
+declare class ReactCreditCard extends React.Component<ReactCreditCardProps, never> {
 }
 
 export default ReactCreditCard;
