@@ -1215,6 +1215,8 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#close */
     close(): Promise<CursorResult>;
     close(callback: MongoCallback<CursorResult>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#collation */
+    collation(value: Object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#comment */
     comment(value: string): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#count */
