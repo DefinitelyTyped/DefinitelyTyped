@@ -17,12 +17,12 @@ import { EditorView } from 'prosemirror-view';
  * be put into a menu structure.
  */
 export interface MenuElement<S extends Schema = Schema> {
-	/**
-	 * Render the element for display in the menu. Must return a DOM
-	 * element and a function that can be used to update the element to
-	 * a new state. The `update` function will return false if the
-	 * update hid the entire element.
-	 */
+  /**
+   * Render the element for display in the menu. Must return a DOM
+   * element and a function that can be used to update the element to
+   * a new state. The `update` function will return false if the
+   * update hid the entire element.
+   */
   render(pm: EditorView<S>): { dom: Node; update(p: EditorState<S>): boolean };
 }
 /**
@@ -30,82 +30,82 @@ export interface MenuElement<S extends Schema = Schema> {
  */
 export class MenuItem<S extends Schema = Schema> {
   constructor(spec: MenuItemSpec<S>);
-	/**
-	 * The spec used to create the menu item.
-	 */
+  /**
+   * The spec used to create the menu item.
+   */
   spec: MenuItemSpec<S>;
-	/**
-	 * Renders the icon according to its [display
-	 * spec](#menu.MenuItemSpec.display), and adds an event handler which
-	 * executes the command when the representation is clicked.
-	 */
+  /**
+   * Renders the icon according to its [display
+   * spec](#menu.MenuItemSpec.display), and adds an event handler which
+   * executes the command when the representation is clicked.
+   */
   render(view: EditorView<S>): { dom: Node; update(p: EditorState<S>): boolean };
 }
 /**
  * The configuration object passed to the `MenuItem` constructor.
  */
 export interface MenuItemSpec<S extends Schema = Schema> {
-	/**
-	 * The function to execute when the menu item is activated.
-	 */
+  /**
+   * The function to execute when the menu item is activated.
+   */
   run(p1: EditorState<S>, p2: (p: Transaction<S>) => void, p3: EditorView<S>, p4: Event): void;
-	/**
-	 * Optional function that is used to determine whether the item is
-	 * appropriate at the moment. Deselected items will be hidden.
-	 */
+  /**
+   * Optional function that is used to determine whether the item is
+   * appropriate at the moment. Deselected items will be hidden.
+   */
   select?: ((p: EditorState<S>) => boolean) | null;
-	/**
-	 * Function that is used to determine if the item is enabled. If
-	 * given and returning false, the item will be given a disabled
-	 * styling.
-	 */
+  /**
+   * Function that is used to determine if the item is enabled. If
+   * given and returning false, the item will be given a disabled
+   * styling.
+   */
   enable?: ((p: EditorState<S>) => boolean) | null;
-	/**
-	 * A predicate function to determine whether the item is 'active' (for
-	 * example, the item for toggling the strong mark might be active then
-	 * the cursor is in strong text).
-	 */
+  /**
+   * A predicate function to determine whether the item is 'active' (for
+   * example, the item for toggling the strong mark might be active then
+   * the cursor is in strong text).
+   */
   active?: ((p: EditorState<S>) => boolean) | null;
-	/**
-	 * A function that renders the item. You must provide either this,
-	 * [`icon`](#menu.MenuItemSpec.icon), or [`label`](#MenuItemSpec.label).
-	 */
+  /**
+   * A function that renders the item. You must provide either this,
+   * [`icon`](#menu.MenuItemSpec.icon), or [`label`](#MenuItemSpec.label).
+   */
   render?: ((p: EditorView<S>) => Node) | null;
-	/**
-	 * Describes an icon to show for this item. The object may specify
-	 * an SVG icon, in which case its `path` property should be an [SVG
-	 * path
-	 * spec](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d),
-	 * and `width` and `height` should provide the viewbox in which that
-	 * path exists. Alternatively, it may have a `text` property
-	 * specifying a string of text that makes up the icon, with an
-	 * optional `css` property giving additional CSS styling for the
-	 * text. _Or_ it may contain `dom` property containing a DOM node.
-	 */
+  /**
+   * Describes an icon to show for this item. The object may specify
+   * an SVG icon, in which case its `path` property should be an [SVG
+   * path
+   * spec](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d),
+   * and `width` and `height` should provide the viewbox in which that
+   * path exists. Alternatively, it may have a `text` property
+   * specifying a string of text that makes up the icon, with an
+   * optional `css` property giving additional CSS styling for the
+   * text. _Or_ it may contain `dom` property containing a DOM node.
+   */
   icon?: { [key: string]: any } | null;
-	/**
-	 * Makes the item show up as a text label. Mostly useful for items
-	 * wrapped in a [drop-down](#menu.Dropdown) or similar menu. The object
-	 * should have a `label` property providing the text to display.
-	 */
+  /**
+   * Makes the item show up as a text label. Mostly useful for items
+   * wrapped in a [drop-down](#menu.Dropdown) or similar menu. The object
+   * should have a `label` property providing the text to display.
+   */
   label?: string | null;
-	/**
-	 * Defines DOM title (mouseover) text for the item.
-	 */
+  /**
+   * Defines DOM title (mouseover) text for the item.
+   */
   title?: string | ((p: EditorState<S>) => string) | null;
-	/**
-	 * Optionally adds a CSS class to the item's DOM representation.
-	 */
+  /**
+   * Optionally adds a CSS class to the item's DOM representation.
+   */
   class: string;
-	/**
-	 * Optionally adds a string of inline CSS to the item's DOM
-	 * representation.
-	 */
+  /**
+   * Optionally adds a string of inline CSS to the item's DOM
+   * representation.
+   */
   css: string;
-	/**
-	 * Defines which event on the command's DOM representation should
-	 * trigger the execution of the command. Defaults to mousedown.
-	 */
+  /**
+   * Defines which event on the command's DOM representation should
+   * trigger the execution of the command. Defaults to mousedown.
+   */
   execEvent: string;
 }
 /**
@@ -113,28 +113,28 @@ export interface MenuItemSpec<S extends Schema = Schema> {
  * triangle to the right of it.
  */
 export class Dropdown<S extends Schema = Schema> {
-	/**
-	 * Create a dropdown wrapping the elements. Options may include
-	 * the following properties:
-	 *
-	 * **`label`**`: string`
-	 * : The label to show on the drop-down control.
-	 *
-	 * **`title`**`: string`
-	 * : Sets the
-	 * [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
-	 * attribute given to the menu control.
-	 *
-	 * **`class`**`: string`
-	 * : When given, adds an extra CSS class to the menu control.
-	 *
-	 * **`css`**`: string`
-	 * : When given, adds an extra set of CSS styles to the menu control.
-	 */
+  /**
+   * Create a dropdown wrapping the elements. Options may include
+   * the following properties:
+   *
+   * **`label`**`: string`
+   * : The label to show on the drop-down control.
+   *
+   * **`title`**`: string`
+   * : Sets the
+   * [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
+   * attribute given to the menu control.
+   *
+   * **`class`**`: string`
+   * : When given, adds an extra CSS class to the menu control.
+   *
+   * **`css`**`: string`
+   * : When given, adds an extra set of CSS styles to the menu control.
+   */
   constructor(content: Array<MenuElement<S>>, options?: { [key: string]: any });
-	/**
-	 * Render the dropdown menu and sub-items.
-	 */
+  /**
+   * Render the dropdown menu and sub-items.
+   */
   render(view: EditorView<S>): { dom: Node; update(p: EditorState<S>): void };
 }
 /**
@@ -142,17 +142,17 @@ export class Dropdown<S extends Schema = Schema> {
  * hidden and expand to the right when hovered over or tapped.
  */
 export class DropdownSubmenu<S extends Schema = Schema> {
-	/**
-	 * Creates a submenu for the given group of menu elements. The
-	 * following options are recognized:
-	 *
-	 * **`label`**`: string`
-	 * : The label to show on the submenu.
-	 */
+  /**
+   * Creates a submenu for the given group of menu elements. The
+   * following options are recognized:
+   *
+   * **`label`**`: string`
+   * : The label to show on the submenu.
+   */
   constructor(content: Array<MenuElement<S>>, options?: { [key: string]: any });
-	/**
-	 * Renders the submenu.
-	 */
+  /**
+   * Renders the submenu.
+   */
   render(view: EditorView<S>): { dom: Node; update(p: EditorState<S>): boolean };
 }
 /**
