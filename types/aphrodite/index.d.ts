@@ -4,13 +4,36 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import * as React from "react";
+import * as CSS from "csstype";
+
+type BaseCSSProperties = CSS.Properties<number | string>;
+
+type FontFamily =
+    | BaseCSSProperties['fontFamily']
+    | CSS.FontFace;
+
+// Replace with Exclude once on 2.8+
+type Diff<T extends string, U extends string> = (
+    & { [P in T]: P }
+    & { [P in U]: never }
+    & { [x: string]: never }
+)[T];
+type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+
+type CSSProperties = Omit<BaseCSSProperties, 'fontFamily'> & {
+    fontFamily?: FontFamily | FontFamily[];
+};
+
+// For pseudo selectors and media queries
+interface OpenCSSProperties  extends CSSProperties {
+    [k: string]: CSSProperties[keyof CSSProperties] | CSSProperties;
+}
 
 /**
  * Aphrodite style declaration
  */
 export interface StyleDeclaration {
-    [key: string]: React.CSSProperties;
+    [key: string]: OpenCSSProperties;
 }
 
 interface StyleSheetStatic {

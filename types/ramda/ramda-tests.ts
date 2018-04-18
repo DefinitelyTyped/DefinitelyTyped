@@ -665,6 +665,36 @@ interface Obj {
 };
 
 () => {
+    interface MyObject {
+        id: string;
+        quantity: number;
+    }
+
+    const reduceWithCombinedQuantities = (items: MyObject[]) =>
+        items.reduce<MyObject>(
+            (acc, item) => ({...item, quantity: acc.quantity + item.quantity}),
+            {id: '', quantity: 0},
+        );
+
+    const combineMyObjects = R.pipe(
+        R.groupBy<MyObject>(s => s.id),
+        R.values,
+        R.map(reduceWithCombinedQuantities),
+    );
+
+    const combined = combineMyObjects([
+        {id: 'foo', quantity: 4},
+        {id: 'bar', quantity: 3},
+        {id: 'foo', quantity: 2},
+    ]);
+
+    return {
+        id: combined[0].id,
+        quantity: combined[0].quantity
+    };
+};
+
+() => {
     R.groupWith(R.equals)([0, 1, 1, 2, 3, 5, 8, 13, 21]);
 
     R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
@@ -694,7 +724,9 @@ interface Obj {
     const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
     const a1 = R.indexBy(R.prop("id"), list);
     const a2 = R.indexBy(R.prop("id"))(list);
-    const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
+    const a3 = R.indexBy<{ id: string }>(R.prop("id"))(list);
+    const a4 = R.indexBy(R.prop<"id", string>("id"))(list);
+    const a5 = R.indexBy<{ id: string }>(R.prop<"id", string>("id"))(list);
 
     const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
         R.map((x: Book) => x.title),
@@ -1131,7 +1163,8 @@ type Pair = KeyValuePair<string, number>;
 
 () => {
     const x          = R.prop("x");
-    const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a: boolean  = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a1: boolean = R.tryCatch(R.prop<"x", true>("x"), R.F)({x: true}); // => true
     const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
     const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      // => true
 };
@@ -1597,13 +1630,14 @@ class Rectangle {
 };
 
 () => {
-    const a = R.toPairs<string, number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
+    const a = R.toPairs<number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
+    const b = R.toPairs({1: 'a'}); // => [['1', 'something']]
 };
 
 () => {
     const f    = new F();
     const a1 = R.toPairsIn(f); // => [['x','X'], ['y','Y']]
-    const a2 = R.toPairsIn<string, string>(f); // => [['x','X'], ['y','Y']]
+    const a2 = R.toPairsIn<string>(f); // => [['x','X'], ['y','Y']]
 };
 
 () => {
@@ -1723,7 +1757,7 @@ class Rectangle {
 
     const format = R.converge(
         R.call, [
-            R.pipe<{}, number, (s: string) => string>(R.prop("indent"), indentN),
+            R.pipe(R.prop<"indent", number>("indent"), indentN),
             R.prop("value")
         ]
     );

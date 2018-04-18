@@ -47,10 +47,12 @@ const personFactory = Factory.define<Person>('Person').attr('firstName', 'John')
 // Building does not require the first (attributes) and second (options) arguments
 personFactory.build();
 personFactory.buildList(3);
+personFactory.attributes();
 
 // Building with attributes does not require the second (options) argument
 personFactory.build({ firstName: "John" });
 personFactory.buildList(3, { firstName: "John" });
+personFactory.attributes({ firstName: "John" });
 
 // It will automatically type up to five dependencies
 personFactory.attr('fullName', ['firstName'], firstName => firstName);

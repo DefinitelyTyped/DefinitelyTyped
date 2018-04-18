@@ -11,6 +11,7 @@
 //                 Ian Johnson <https://github.com/ninjaferret>
 //                 Anton Novik <https://github.com/tehbi4>
 //                 David Schkalee <https://github.com/misantronic>
+//                 Arthur Udalov <https://github.com/darkartur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -18,11 +19,14 @@ import * as React from 'react';
 
 export default class ReactSelectClass<TValue = OptionValues> extends React.Component<ReactSelectProps<TValue>> {
     focus(): void;
+    setValue(value: Option<TValue>): void;
 }
 // Other components
 export class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>> { }
 export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>> { }
-export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>> { }
+export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncCreatableSelectProps<TValue>> { }
+
+export type OptionComponentType<TValue = OptionValues> = React.ComponentType<OptionComponentProps<TValue>>;
 
 export type HandlerRendererResult = JSX.Element | null | false;
 
@@ -128,6 +132,77 @@ export interface MenuRendererProps<TValue = OptionValues> {
      * Array of currently selected options.
      */
     valueArray: Options<TValue>;
+
+    /**
+     * Callback to remove selection from option; receives the option as a parameter.
+     */
+    removeValue: SelectValueHandler<TValue>;
+
+    /**
+     * function which returns a custom way to render the options in the menu
+     */
+    optionRenderer: OptionRendererHandler<TValue>;
+}
+
+export interface OptionComponentProps<TValue = OptionValues> {
+    /**
+     * Classname(s) to apply to the option component.
+     */
+    className?: string;
+
+    /**
+     * Currently focused option.
+     */
+    focusOption?: Option<TValue>;
+
+    inputValue?: string;
+    instancePrefix?: string;
+
+    /**
+     * True if this option is disabled.
+     */
+    isDisabled?: boolean;
+
+    /**
+     * True if this option is focused.
+     */
+    isFocused?: boolean;
+
+    /**
+     * True if this option is selected.
+     */
+    isSelected?: boolean;
+
+    /**
+     * Callback to be invoked when this option is focused.
+     */
+    onFocus?: (option: Option<TValue>, event: any) => void;
+
+    /**
+     * Callback to be invoked when this option is selected.
+     */
+    onSelect?: (option: Option<TValue>, event: any) => void;
+
+    /**
+     * Option to be rendered by this component.
+     */
+    option: Option<TValue>;
+
+    /**
+     * Index of the option being rendered in the list
+     */
+    optionIndex?: number;
+
+    /**
+     * Callback to invoke when removing an option from a multi-selection. (Not necessarily the one
+     * being rendered)
+     */
+    removeValue?: (value: TValue | TValue[]) => void;
+
+    /**
+     * Callback to invoke to select an option. (Not necessarily the one being rendered)
+     */
+    selectValue?: (value: TValue | TValue[]) => void;
 }
 
 export interface ArrowRendererProps {
@@ -135,6 +210,11 @@ export interface ArrowRendererProps {
      * Arrow mouse down event handler.
      */
     onMouseDown: React.MouseEventHandler<any>;
+
+    /**
+     * whether the Select is open or not.
+     */
+    isOpen: boolean;
 }
 
 export interface ReactSelectProps<TValue = OptionValues> extends React.Props<ReactSelectClass<TValue>> {
@@ -388,7 +468,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      * option component to render in dropdown
      */
-    optionComponent?: React.ComponentType<TValue>;
+    optionComponent?: OptionComponentType<TValue>;
     /**
      * function which returns a custom way to render the options in the menu
      */
@@ -531,21 +611,6 @@ export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelec
     cache?: { [key: string]: any } | boolean;
 
     /**
-     *  whether to strip diacritics when filtering (shared with Select)
-     */
-    ignoreAccents?: boolean;
-
-    /**
-     *  whether to perform case-insensitive filtering (shared with Select)
-     */
-    ignoreCase?: boolean;
-
-    /**
-     *  overrides the isLoading state when set to true
-     */
-    isLoading?: boolean;
-
-    /**
      *  function to call to load options asynchronously
      */
     loadOptions: LoadOptionsHandler<TValue>;
@@ -553,29 +618,7 @@ export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelec
     /**
      *  replaces the placeholder while options are loading
      */
-    loadingPlaceholder?: string;
-
-    /**
-     *  the minimum number of characters that trigger loadOptions
-     */
-    minimumInput?: number;
-
-    /**
-     *  placeholder displayed when there are no matching search results (shared with Select)
-     */
-    noResultsText?: string | JSX.Element;
-    /**
-     *  field placeholder; displayed when there's no value (shared with Select)
-     */
-    placeholder?: string;
-
-    /**
-     *  label to prompt for search input
-     */
-    searchPromptText?: string;
-
-    /**
-     *  message to display while options are loading
-     */
-    searchingText?: string;
+    loadingPlaceholder?: string | JSX.Element;
 }
+
+export type ReactAsyncCreatableSelectProps<TValue = OptionValues> = ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>;

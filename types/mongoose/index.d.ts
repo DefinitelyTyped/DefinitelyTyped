@@ -1,12 +1,12 @@
-// Type definitions for Mongoose 5.0.1
+// Type definitions for Mongoose 5.0.12
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>
-//                 horiuchi <https://github.com/horiuchi>
+// Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 Alorel <https://github.com/Alorel>
 //                 jendrikw <https://github.com/jendrikw>
 //                 Ethan Resnick <https://github.com/ethanresnick>
+//                 vologa <https://github.com/vologab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -618,8 +618,74 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): this;
-    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): this;
+    pre<T extends Document = Document>(
+      method: "init" | "validate" | "save" | "remove",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Query<any> = Query<any>>(
+      method:
+        | "count"
+        | "find"
+        | "findOne"
+        | "findOneAndRemove"
+        | "findOneAndUpdate"
+        | "update",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Aggregate<any> = Aggregate<any>>(
+      method: "aggregate",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Model<Document> = Model<Document>>(
+      method: "insertMany",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
+      method: string,
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+
+    pre<T extends Document = Document>(
+      method: "init" | "validate" | "save" | "remove",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Query<any> = Query<any>>(
+      method:
+        | "count"
+        | "find"
+        | "findOne"
+        | "findOneAndRemove"
+        | "findOneAndUpdate"
+        | "update",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Aggregate<any> = Aggregate<any>>(
+      method: "aggregate",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Model<Document> = Model<Document>>(
+      method: "insertMany",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
+      method: string,
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
 
     /**
      * Adds a method call to the queue.
@@ -679,12 +745,12 @@ declare module "mongoose" {
   }
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
-  interface HookSyncCallback {
-    (next: HookNextFunction): any;
+  interface HookSyncCallback<T> {
+    (this: T, next: HookNextFunction): Promise<any> | void;
   }
 
-  interface HookAsyncCallback {
-    (next: HookNextFunction, done: HookDoneFunction): any;
+  interface HookAsyncCallback<T> {
+    (this: T, next: HookNextFunction, done: HookDoneFunction): Promise<any> | void;
   }
 
   interface HookErrorCallback {
@@ -1543,9 +1609,12 @@ declare module "mongoose" {
     findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(update: any,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
-    findOneAndUpdate(query: any | Query<any>, update: any,
+    findOneAndUpdate(query: any, update: any,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
-    findOneAndUpdate(query: any | Query<any>, update: any, options: QueryFindOneAndUpdateOptions,
+    findOneAndUpdate(query: any, update: any,
+      options: { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: DocType, res: any) => void): DocumentQuery<DocType, DocType>;
+    findOneAndUpdate(query: any, update: any, options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
@@ -2521,6 +2590,9 @@ declare module "mongoose" {
     findByIdAndUpdate(id: any | number | string, update: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findByIdAndUpdate(id: any | number | string, update: any,
+      options: { upsert: true, new: true } & ModelFindByIdAndUpdateOptions,
+      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+    findByIdAndUpdate(id: any | number | string, update: any,
       options: ModelFindByIdAndUpdateOptions,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
@@ -2566,6 +2638,9 @@ declare module "mongoose" {
     findOneAndUpdate(conditions: any, update: any,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: any, update: any,
+      options: { upsert: true, new: true } & ModelFindOneAndUpdateOptions,
+      callback?: (err: any, doc: T, res: any) => void): DocumentQuery<T, T>;
+    findOneAndUpdate(conditions: any, update: any,
       options: ModelFindOneAndUpdateOptions,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
 
@@ -2599,10 +2674,18 @@ declare module "mongoose" {
      * because it only sends one operation to the server, rather than one for each
      * document.
      * This function does not trigger save middleware.
+     * @param docs Documents to insert.
+     * @param options Optional settings.
+     * @param options.ordered  if true, will fail fast on the first error encountered. 
+     *        If false, will insert all the documents it can and report errors later.
+     * @param options.rawResult if false, the returned promise resolves to the documents that passed mongoose document validation. 
+     *        If `false`, will return the [raw result from the MongoDB driver](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#~insertWriteOpCallback)
+     *        with a `mongoose` property that contains `validationErrors` if this is an unordered `insertMany`.
      */
     insertMany(docs: any[], callback?: (error: any, docs: T[]) => void): Promise<T[]>;
+    insertMany(docs: any[], options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, docs: T[]) => void): Promise<T[]>;
     insertMany(doc: any, callback?: (error: any, doc: T) => void): Promise<T>;
-    insertMany(...docsWithCallback: any[]): Promise<T>;
+    insertMany(doc: any, options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, doc: T) => void): Promise<T>;
 
     /**
      * Executes a mapReduce command.
@@ -2626,9 +2709,9 @@ declare module "mongoose" {
       callback?: (err: any, res: T) => void): Promise<T>;
 
     /** Removes documents from the collection. */
-    remove(conditions: any, callback?: (err: any) => void): Query<void>;
-    deleteOne(conditions: any, callback?: (err: any) => void): Query<void>;
-    deleteMany(conditions: any, callback?: (err: any) => void): Query<void>;
+    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
+    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
+    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
 
     /**
      * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).

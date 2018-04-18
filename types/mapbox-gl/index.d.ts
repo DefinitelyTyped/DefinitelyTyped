@@ -399,7 +399,7 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-        constructor();
+		constructor(options?: {showCompass?: boolean, showZoom?: boolean});
     }
 
     export class PositionOptions {
@@ -610,7 +610,7 @@ declare namespace mapboxgl {
 
     interface RasterSource extends Source {
         type: 'raster';
-        url: string;
+        url?: string;
         tiles?: string[];
         minzoom?: number;
         maxzoom?: number;

@@ -5,6 +5,7 @@
 //                 Risto Keravuori <https://github.com/merrywhether>
 //                 Chris Sinclair <https://github.com/chrissinclair>
 //                 Matt Tennison <https://github.com/matttennison>
+//                 Quentin Bouygues <https://github.com/quentinbouygues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -120,6 +121,12 @@ declare namespace fetchMock {
          * as specified above
          */
         matcher?: MockMatcher;
+        /**
+         * This option allows for existing routes in a mock to be overwritten.
+         * It’s also possible to define multiple routes with ‘the same’ matcher.
+         * Default behaviour is to error
+         */
+        overwriteRoutes?: boolean;
         /**
          * as specified above
          */

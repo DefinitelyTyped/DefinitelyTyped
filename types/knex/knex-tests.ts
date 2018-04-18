@@ -246,6 +246,7 @@ knex('users').whereBetween('votes', [1, 100]);
 knex('users').whereNotBetween('votes', [1, 100]);
 
 knex('users').whereRaw('id = ?', [1]);
+knex('users').whereRaw('id = :id', { id: 1 });
 
 // Join methods
 knex('users')
@@ -763,6 +764,10 @@ knex.schema.createTable('users', function (table) {
   table.timestamps(true, true);
 });
 
+knex.schema.alterTable('users', function (table) {
+  table.string('role').nullable();
+});
+
 knex.schema.renameTable('users', 'old_users');
 
 knex.schema.dropTable('users');
@@ -1024,6 +1029,9 @@ knex('users')
     let self: Knex.QueryBuilder = this;
     self = builder;
   }).unionAll(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).modify(function(builder) {
     let self: Knex.QueryBuilder = this;
     self = builder;
   });

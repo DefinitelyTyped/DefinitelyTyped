@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.0
+// Type definitions for puppeteer 1.2
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -410,6 +410,8 @@ export interface ScriptTagOptions {
   path?: string;
   /** Raw JavaScript content to be injected into frame. */
   content?: string;
+  /** Script type. Use 'module' in order to load a Javascript ES6 module. */
+  type?: string;
 }
 
 export interface PageFnOptions {
@@ -459,6 +461,11 @@ export interface ElementHandle extends JSHandle {
    * @since 0.9.0
    */
   click(options?: ClickOptions): Promise<void>;
+  /**
+   * @returns Resolves to the content frame for element handles referencing iframe nodes, or null otherwise.
+   * @since 1.2.0
+   */
+  contentFrame(): Promise<Frame | null>;
   /**
    * Calls focus on the element.
    */
@@ -637,6 +644,18 @@ export interface Request {
   /** Contains the request's post body, if any. */
   postData(): string | undefined;
 
+  /**
+   * A `redirectChain` is a chain of requests initiated to fetch a resource.
+   *
+   * - If there are no redirects and the request was successful, the chain will be empty.
+   * - If a server responds with at least a single redirect, then the chain will contain all the requests that were redirected.
+   *
+   * `redirectChain` is shared between all the requests of the same chain.
+   *
+   * @since 1.2.0
+   */
+  redirectChain(): Request[];
+
   /** Contains the request's resource type as it was perceived by the rendering engine.  */
   resourceType(): ResourceType;
 
@@ -673,6 +692,10 @@ export interface RespondOptions {
 export interface Response {
   /** Promise which resolves to a buffer with response body. */
   buffer(): Promise<Buffer>;
+  /** True if the response was served from either the browser's disk cache or memory cache. */
+  fromCache(): boolean;
+  /** True if the response was served by a service worker. */
+  fromServiceWorker(): boolean;
   /** An object with HTTP headers associated with the response. All header names are lower-case. */
   headers(): Headers;
   /**
@@ -1017,6 +1040,12 @@ export interface Page extends EventEmitter, FrameBase {
    * all values are considered, otherwise only the first one is taken into account.
    */
   select(selector: string, ...values: string[]): Promise<string[]>;
+
+  /**
+   * Determines whether cache is enabled on the page.
+   * @param enabled Whether or not to enable cache on the page.
+   */
+  setCacheEnabled(enabled: boolean): Promise<void>;
 
   /**
    * Sets the cookies on the page.

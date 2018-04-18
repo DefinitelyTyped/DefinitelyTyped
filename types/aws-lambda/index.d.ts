@@ -1,4 +1,4 @@
-// Type definitions for AWS Lambda
+// Type definitions for AWS Lambda 8.10
 // Project: http://docs.aws.amazon.com/lambda
 // Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>
 //                 Michael Skarum <https://github.com/skarum>
@@ -16,6 +16,8 @@
 //                 Danilo Raisi <https://github.com/daniloraisi>
 //                 Simon Buchan <https://github.com/simonbuchan>
 //                 David Hayden <https://github.com/Haydabase>
+//                 Chris Redekop <https://github.com/repl-chris>
+//                 Aneil Mallavarapu <https://github.com/aneilbaboo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -90,7 +92,7 @@ export interface AttributeValue {
 // Context
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.html
 export interface StreamRecord {
-    ApproximateCreationTime?: number;
+    ApproximateCreationDateTime?: number;
     Keys?: { [key: string]: AttributeValue };
     NewImage?: { [key: string]: AttributeValue };
     OldImage?: { [key: string]: AttributeValue };
@@ -437,27 +439,51 @@ export interface CustomAuthorizerResult {
     principalId: string;
     policyDocument: PolicyDocument;
     context?: AuthResponseContext;
+    usageIdentifierKey?: string;
 }
 export type AuthResponse = CustomAuthorizerResult;
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-output.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Condition
  */
 export interface PolicyDocument {
     Version: string;
-    Statement: [Statement];
+    Id?: string;
+    Statement: Statement[];
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Condition.
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html
+ */
+export interface ConditionBlock {
+    [condition: string]: Condition | Condition[];
+}
+
+export interface Condition {
+    [key: string]: string | string[];
 }
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html
  */
-export interface Statement {
-    Action: string | string[];
+export type Statement = BaseStatement & StatementAction & StatementResource;
+
+export interface BaseStatement {
     Effect: string;
-    Resource: string | string[];
+    Sid?: string;
+    Condition?: ConditionBlock;
+    Principal?: string | string[];
+    NotPrincipal?: string | string[];
 }
+
+export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
+export type StatementResource = { Resource: string | string[] } | { NotResource: string | string[] };
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
@@ -529,6 +555,31 @@ export interface CloudFrontRequestEvent {
 
 export type CloudFrontResponseResult = undefined | null | CloudFrontResultResponse;
 
+// Kinesis Streams
+// https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-streams
+export interface KinesisStreamRecordPayload {
+    approximateArrivalTimestamp: number;
+    data: string;
+    kinesisSchemaVersion: string;
+    partitionKey: string;
+    sequenceNumber: string;
+}
+
+export interface KinesisStreamRecord {
+    awsRegion: string;
+    eventID: string;
+    eventName: string;
+    eventSource: string;
+    eventSourceARN: string;
+    eventVersion: string;
+    invokeIdentityArn: string;
+    kinesis: KinesisStreamRecordPayload;
+}
+
+export interface KinesisStreamEvent {
+    Records: KinesisStreamRecord[];
+}
+
 /**
  * AWS Lambda handler function.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
@@ -536,8 +587,13 @@ export type CloudFrontResponseResult = undefined | null | CloudFrontResultRespon
  * @param event – event data.
  * @param context – runtime information of the Lambda function that is executing.
  * @param callback – optional callback to return information to the caller, otherwise return value is null.
+ * @return In the node8.10 runtime, a promise for the lambda result.
  */
-export type Handler<TEvent = any, TResult = any> = (event: TEvent, context: Context, callback: Callback<TResult>) => void;
+export type Handler<TEvent = any, TResult = any> = (
+    event: TEvent,
+    context: Context,
+    callback: Callback<TResult>,
+) => void | Promise<TResult>;
 
 /**
  * Optional callback parameter.
@@ -595,7 +651,9 @@ export type CloudFrontRequestCallback = Callback<CloudFrontRequestResult>;
 export type CloudFrontResponseHandler = Handler<CloudFrontResponseEvent, CloudFrontResponseResult>;
 export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
 
-// TODO: Kinesis (should be very close to DynamoDB stream?)
+export type KinesisStreamHandler = Handler<KinesisStreamEvent, void>;
+
+// TODO: Kinesis Firehose
 
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;

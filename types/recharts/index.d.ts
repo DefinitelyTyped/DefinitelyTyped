@@ -5,6 +5,7 @@
 //                 Roy Xue <https://github.com/royxue>
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Rich Baird <https://github.com/richbai90>
+//                 Dan Torberg <https://github.com/caspeco-dan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -189,6 +190,7 @@ export interface BarData {
 export interface BarProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     className?: string;
+    fill?: string;
     layout?: LayoutType;
     xAxisId?: string | number;
     yAxisId?: string | number;
@@ -399,7 +401,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     left?: number;
     width?: number;
     height?: number;
-    dataKey: string | number; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
+    dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     label?: boolean | object | React.ReactElement<any> | LabelProps['content'];
     points?: Point[];
 }
@@ -719,6 +721,8 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     shape?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | React.ReactElement<any> | ContentRenderer<any>;
     points?: ScatterPoint[];
     hide?: boolean;
+    data?: object[];
+    name?: string | number;
 }
 
 export class Scatter extends React.Component<ScatterProps> { }
@@ -778,7 +782,7 @@ export interface TooltipPayload {
     unit?: string;
     color?: string;
     fill?: string;
-    dataKey?: string;
+    dataKey?: DataKey;
     formatter?: TooltipFormatter;
 }
 

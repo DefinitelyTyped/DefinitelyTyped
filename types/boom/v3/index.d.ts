@@ -48,6 +48,7 @@ declare namespace Boom {
     export function expectationFailed(message?: string, data?: any): BoomError;
     export function badData(message?: string, data?: any): BoomError;
     export function locked(message?: string, data?: any): BoomError;
+    export function failedDependency(message?: string, data?: any): BoomError;
     export function preconditionRequired(message?: string, data?: any): BoomError;
     export function tooManyRequests(message?: string, data?: any): BoomError;
     export function illegal(message?: string, data?: any): BoomError;

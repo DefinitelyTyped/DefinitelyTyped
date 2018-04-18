@@ -40,7 +40,8 @@ $routeProvider
         }
     })
     .otherwise({ redirectTo: '/' })
-    .otherwise({ redirectTo: ($routeParams?: ng.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any) => "" });
+    .otherwise({ redirectTo: ($routeParams?: ng.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any) => "" })
+    .otherwise("/");
 
 
 var current: ng.route.ICurrentRoute;

@@ -1,8 +1,7 @@
-import Hapi = require('hapi');
-import hapiAuthJwt2 = require('hapi-auth-jwt2');
+import { Server } from 'hapi';
+import * as hapiAuthJwt2 from 'hapi-auth-jwt2';
 
-const server = new Hapi.Server();
-server.connection({port: 8000});
+const server = new Server({port: 8000});
 
 interface User {
   id: number;
@@ -20,19 +19,28 @@ const users: Users = {
   }
 };
 
-function validate(decoded: User, request: Hapi.Request, callback: hapiAuthJwt2.ValidateCallback) {
-  callback(null, !!users[decoded.id]);
-}
-
-server.register(hapiAuthJwt2, err => {
-  const options: hapiAuthJwt2.Options = {
-    key: 'NeverShareYourSecret',
-    validateFunc: validate,
-    verifyOptions: {
-      algorithms: ['HS256']
+server.register({
+    plugin: hapiAuthJwt2,
+    options: {
+        async verify() {
+            return {
+                isValid: true,
+            };
+        }
     }
-  };
-  server.auth.strategy('jwt', 'jwt', options);
+})
+.then(() => {
+    const opts: hapiAuthJwt2.Options = {
+        key: 'NeverShareYourSecret',
+        async validate(decoded: { id: number }, request) {
+            return {
+                isValid: !!users[decoded.id],
+            };
+        },
+        verifyOptions: {
+            algorithms: ['HS256'],
+            issuer: 'test',
+        }
+    };
+    server.auth.strategy('jwt', 'jwt', opts);
 });
-
-server.start();

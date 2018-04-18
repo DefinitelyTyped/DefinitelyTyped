@@ -22,6 +22,10 @@ class TestAffix extends React.Component {
   }
 }
 
+interface OverlayTriggerProps extends Overlay.OverlayProps {
+  overlay: any;
+}
+
 class TestOverlay extends React.Component<{}, {open: boolean}> {
   target: HTMLElement | null = null;
   state = {open: false};

@@ -72,6 +72,7 @@ export class Field<P = GenericFieldHTMLAttributes | BaseFieldProps> extends Comp
 export interface WrappedFieldProps {
     input: WrappedFieldInputProps;
     meta: WrappedFieldMetaProps;
+    label?: string;
 }
 
 export interface WrappedFieldInputProps extends CommonFieldInputProps {

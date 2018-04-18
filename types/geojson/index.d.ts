@@ -139,12 +139,12 @@ export type GeoJsonProperties = { [name: string]: any; } | null;
  * A feature object which contains a geometry and associated properties.
  * https://tools.ietf.org/html/rfc7946#section-3.2
  */
-export interface Feature<G extends GeometryObject, P = GeoJsonProperties> extends GeoJsonObject {
+export interface Feature<G extends GeometryObject | null, P = GeoJsonProperties> extends GeoJsonObject {
     type: "Feature";
     /**
      * The feature's geometry
      */
-    geometry: G | null;
+    geometry: G;
     /**
      * A value that uniquely identifies this feature in a
      * https://tools.ietf.org/html/rfc7946#section-3.2.
@@ -153,14 +153,14 @@ export interface Feature<G extends GeometryObject, P = GeoJsonProperties> extend
     /**
      * Properties associated with this feature.
      */
-    properties: P | null;
+    properties: P;
 }
 
 /**
  * A collection of feature objects.
  *  https://tools.ietf.org/html/rfc7946#section-3.3
  */
-export interface FeatureCollection<G extends GeometryObject, P = GeoJsonProperties> extends GeoJsonObject {
+export interface FeatureCollection<G extends GeometryObject | null, P = GeoJsonProperties> extends GeoJsonObject {
     type: "FeatureCollection";
     features: Array<Feature<G, P>>;
 }

@@ -17,14 +17,17 @@ import {
     AppState,
     AppStateIOS,
     BackAndroid,
+    BackHandler,
     Button,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
+    ImageStyle,
     InteractionManager,
     ListView,
     ListViewDataSource,
     StyleSheet,
+    StyleProp,
     Systrace,
     Text,
     TextStyle,
@@ -44,6 +47,8 @@ import {
     TabBarIOS,
     NativeModules,
     MaskedViewIOS,
+    TextInput,
+    InputAccessoryView,
 } from "react-native";
 
 declare module "react-native" {
@@ -72,6 +77,8 @@ function testDimensions() {
     Dimensions.addEventListener('change', dimensionsListener);
     Dimensions.removeEventListener('change', dimensionsListener);
 }
+
+BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
 
 BackAndroid.addEventListener("hardwareBackPress", () => {});
 
@@ -121,6 +128,20 @@ const stylesAlt = StyleSheet.create({
 });
 
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
+
+const viewStyle: StyleProp<ViewStyle> = {
+  backgroundColor: "#F5FCFF",
+}
+const textStyle: StyleProp<TextStyle> = {
+  fontSize: 20,
+}
+const imageStyle: StyleProp<ImageStyle> = {
+  resizeMode: 'contain',
+}
+
+const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
+const textProperty = StyleSheet.flatten(textStyle).fontSize;
+const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 
 class CustomView extends React.Component {
     render() {
@@ -363,6 +384,17 @@ class MaskedViewTest extends React.Component {
                 <View />
             </MaskedViewIOS>
         );
+    }
+}
+
+class InputAccessoryViewTest extends React.Component {
+    render() {
+        const uniqueID = "foobar";
+        return (
+            <InputAccessoryView nativeID={uniqueID}>
+                <TextInput inputAccessoryViewID={uniqueID} />
+            </InputAccessoryView>
+        )
     }
 }
 
