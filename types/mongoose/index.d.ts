@@ -326,6 +326,26 @@ declare module "mongoose" {
     /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
     bufferMaxEntries?: number;
 
+    /** additional SSL configuration options */
+    /** Array of valid certificates either as Buffers or Strings */
+    sslCA?: ReadonlyArray<Buffer | string>;
+    /** Array of revocation certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher) */
+    sslCRL?: ReadonlyArray<Buffer | string>;
+    /** SSL certificate */
+    sslCert?: Buffer | string;
+    /** SSL private key */
+    sslKey?: Buffer | string;
+    /** SSL Certificate pass phrase */
+    sslPass?: Buffer | string;
+    /** Default: true; Server identity checking during SSL */
+    checkServerIdentity?: boolean | Function;
+    /** String containing the server name requested via TLS SNI. */
+    servername?: string;
+
+    /** Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info. */
+    ciphers?: string;
+    ecdhCurve?: string;
+
     // TODO
     safe?: any;
     fsync?: any;
