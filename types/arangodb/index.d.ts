@@ -335,10 +335,9 @@ declare namespace ArangoDB {
 
     // Collection
 
-    export const enum CollectionType {
-        Document = 2,
-        Edge = 3
-    }
+    type DocumentCollectionType = 2;
+    type EdgeCollectionType = 3;
+    type CollectionType = DocumentCollectionType | EdgeCollectionType;
 
     interface CollectionChecksum {
         checksum: string;
@@ -1152,16 +1151,16 @@ declare namespace Foxx {
         use(routerOrMiddleware: Router | Middleware, name?: string): Endpoint;
     }
 
-    class Module extends NodeJS.Module {
+    interface Module extends NodeJS.Module {
         context: Context;
     }
 }
 
 declare module "@arangodb/index" {
-    export function aql(strings: string[], ...args: any[]): ArangoDB.Query;
-    export function time(): number;
-    export const db: ArangoDB.Database;
-    export const errors: {
+    function aql(strings: string[], ...args: any[]): ArangoDB.Query;
+    function time(): number;
+    const db: ArangoDB.Database;
+    const errors: {
         [Name in ArangoDB.ErrorName]: { code: number; message: string }
     };
 }
@@ -1360,7 +1359,7 @@ declare module "@arangodb/foxx/oauth2" {
 }
 
 declare module "@arangodb/foxx" {
-    export function createRouter(): Foxx.Router;
+    function createRouter(): Foxx.Router;
 }
 
 declare module "@arangodb/request" {
@@ -1410,41 +1409,37 @@ declare module "@arangodb/request" {
 }
 
 declare module "@arangodb/crypto" {
-    export function createNonce(): string;
-    export function checkAndMarkNonce(nonce: string): void;
-    export function rand(): number;
-    export function genRandomAlphaNumbers(length: number): string;
-    export function genRandomNumbers(length: number): string;
-    export function genRandomSalt(length: number): string;
-    export function jwtEncode(
+    function createNonce(): string;
+    function checkAndMarkNonce(nonce: string): void;
+    function rand(): number;
+    function genRandomAlphaNumbers(length: number): string;
+    function genRandomNumbers(length: number): string;
+    function genRandomSalt(length: number): string;
+    function jwtEncode(
         key: string,
         message: string,
         algorithm: ArangoDB.JwtAlgorithm
     ): string;
-    export function jwtEncode(
-        key: null,
-        message: string,
-        algorithm: "none"
-    ): string;
-    export function jwtDecode(
+    function jwtEncode(key: null, message: string, algorithm: "none"): string;
+    function jwtDecode(
         key: string | null,
         token: string,
         noVerify?: boolean
     ): string | null;
-    export function md5(message: string): string;
-    export function sha1(message: string): string;
-    export function sha224(message: string): string;
-    export function sha256(message: string): string;
-    export function sha384(message: string): string;
-    export function sha512(message: string): string;
-    export function constantEquals(a: string, b: string): boolean;
-    export function pbkdf2(
+    function md5(message: string): string;
+    function sha1(message: string): string;
+    function sha224(message: string): string;
+    function sha256(message: string): string;
+    function sha384(message: string): string;
+    function sha512(message: string): string;
+    function constantEquals(a: string, b: string): boolean;
+    function pbkdf2(
         salt: string,
         password: string,
         iterations: number,
         keyLength: number
     ): string;
-    export function hmac(
+    function hmac(
         key: string,
         message: string,
         algorithm: ArangoDB.HashAlgorithm
@@ -1639,23 +1634,21 @@ declare module "@arangodb/general-graph" {
 
         readonly [key: string]: any;
     }
-    export function _create(
+    function _create(
         name: string,
         edgeDefinitions?: EdgeDefinition[],
         orphanCollections?: string[]
     ): Graph;
-    export function _list(): string[];
-    export function _graph(name: string): Graph;
-    export function _drop(name: string, dropCollections?: boolean): boolean;
-    export function _relation(
+    function _list(): string[];
+    function _graph(name: string): Graph;
+    function _drop(name: string, dropCollections?: boolean): boolean;
+    function _relation(
         name: string,
         fromVertexCollections: string[] | string,
         toVertexCollections: string[] | string
     ): EdgeDefinition;
-    export function _edgeDefinitions(
-        ...relations: EdgeDefinition[]
-    ): EdgeDefinition[];
-    export function _extendEdgeDefinitions(
+    function _edgeDefinitions(...relations: EdgeDefinition[]): EdgeDefinition[];
+    function _extendEdgeDefinitions(
         edgeDefinitions: EdgeDefinition[],
         ...relations: EdgeDefinition[]
     ): EdgeDefinition[];
