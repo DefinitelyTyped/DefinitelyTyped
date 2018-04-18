@@ -1,8 +1,10 @@
+import { db } from "@arangodb";
+
 interface User {
     username: string;
     password?: string;
 }
-const coll = module.context.collection("users")!;
+const coll = db._collection("users");
 coll.save({ username: "user" });
 const doc = coll.any();
 console.log(doc.username);

@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="node" />
+
 interface StringMap {
     [key: string]: string | undefined;
 }
@@ -1696,15 +1698,20 @@ declare module "@arangodb/general-graph" {
     ): EdgeDefinition[];
 }
 
-declare var module: Foxx.Module;
+declare namespace NodeJS {
+    interface Module {
+        context: Foxx.Context;
+    }
+    interface Console {
+        errorLines: (...args: any[]) => void;
+        warnLines: (...args: any[]) => void;
+        infoLines: (...args: any[]) => void;
+        debugLines: (...args: any[]) => void;
+        errorStack: (err: Error, msg?: string) => void;
+        warnStack: (err: Error, msg?: string) => void;
+        infoStack: (err: Error, msg?: string) => void;
+        debugStack: (err: Error, msg?: string) => void;
+    }
+}
 
-declare var console: NodeJS.Console & {
-    errorLines: (...args: any[]) => void;
-    warnLines: (...args: any[]) => void;
-    infoLines: (...args: any[]) => void;
-    debugLines: (...args: any[]) => void;
-    errorStack: (err: Error, msg?: string) => void;
-    warnStack: (err: Error, msg?: string) => void;
-    infoStack: (err: Error, msg?: string) => void;
-    debugStack: (err: Error, msg?: string) => void;
-};
+// TODO figure out how to override `console` and `module`
