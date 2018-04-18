@@ -827,7 +827,7 @@ declare namespace ArangoDB {
         _engine(): EngineType;
         _engineStats(): PlainObject;
         _executeTransaction(transaction: Transaction): void;
-        [name: string]: Collection | undefined;
+        readonly [key: string]: any;
     }
 }
 
@@ -924,7 +924,7 @@ declare namespace Foxx {
         body: any;
         context: Context;
         database: string;
-        headers: { [key: string]: string | undefined };
+        headers: StringMap;
         hostname: string;
         method: ArangoDB.HttpMethod;
         originalUrl: string;
@@ -1631,7 +1631,7 @@ declare module "@arangodb/general-graph" {
         _radius(vertexExample: Example, options?: RadiusOptions): number;
         _diameter(vertexExample: Example, options?: DiameterOptions): number;
 
-        [key: string]: ArangoDB.Collection | undefined;
+        readonly [key: string]: any;
     }
     export function _create(
         name: string,
