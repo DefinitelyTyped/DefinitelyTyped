@@ -23,6 +23,7 @@ let options: mongodb.MongoClientOptions = {
     sslValidate: false,
     checkServerIdentity: function () { },
     sslCA: ['str'],
+    sslCRL: ['str'],
     sslCert: new Buffer(999),
     sslKey: new Buffer(999),
     sslPass: new Buffer(999),
