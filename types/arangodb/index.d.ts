@@ -9,6 +9,9 @@ interface PlainObject {
 interface StringMap {
     [key: string]: string | undefined;
 }
+interface CollectionMap {
+    [key: string]: ArangoDB.Collection | undefined;
+}
 
 declare namespace ArangoDB {
     type JwtAlgorithm = "HS512" | "HS384" | "HS256";
@@ -826,7 +829,6 @@ declare namespace ArangoDB {
         _engine(): EngineType;
         _engineStats(): PlainObject;
         _executeTransaction(transaction: Transaction): void;
-        readonly [key: string]: any;
     }
 }
 
@@ -1159,7 +1161,7 @@ declare namespace Foxx {
 declare module "@arangodb" {
     function aql(strings: string[], ...args: any[]): ArangoDB.Query;
     function time(): number;
-    const db: ArangoDB.Database;
+    const db: ArangoDB.Database & CollectionMap;
     const errors: {
         [Name in ArangoDB.ErrorName]: { code: number; message: string }
     };
@@ -1631,16 +1633,14 @@ declare module "@arangodb/general-graph" {
         ): Betweenness;
         _radius(vertexExample: Example, options?: RadiusOptions): number;
         _diameter(vertexExample: Example, options?: DiameterOptions): number;
-
-        readonly [key: string]: any;
     }
     function _create(
         name: string,
         edgeDefinitions?: EdgeDefinition[],
         orphanCollections?: string[]
-    ): Graph;
+    ): Graph & CollectionMap;
     function _list(): string[];
-    function _graph(name: string): Graph;
+    function _graph(name: string): Graph & CollectionMap;
     function _drop(name: string, dropCollections?: boolean): boolean;
     function _relation(
         name: string,
