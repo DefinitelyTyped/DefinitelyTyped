@@ -1210,7 +1210,7 @@ declare namespace Foxx {
     }
 
     interface Module extends NodeModule {
-        context: Foxx.Context;
+        context: Context;
     }
 }
 
