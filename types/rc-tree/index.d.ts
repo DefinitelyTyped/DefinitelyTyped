@@ -18,7 +18,7 @@ export interface InternalTreeNodeProps extends TreeNodeProps {
     dragOverGapBottom: boolean;
 }
 
-export class InternalTreeNode extends Component<InternalTreeNodeProps> { }
+export interface InternalTreeNode extends Component<InternalTreeNodeProps> { }
 
 export interface TreeNodeProps {
     /**
