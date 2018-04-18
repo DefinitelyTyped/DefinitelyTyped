@@ -3,8 +3,12 @@
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type PlainObject = { [key: string]: any };
-type StringMap = { [key: string]: string | undefined };
+interface PlainObject {
+    [key: string]: any;
+}
+interface StringMap {
+    [key: string]: string | undefined;
+}
 
 declare namespace ArangoDB {
     declare type JwtAlgorithm = "HS512" | "HS384" | "HS256";
@@ -467,12 +471,13 @@ declare namespace ArangoDB {
         _oldRev: string;
     }
 
-    type Document<T> = T & DocumentMetadata & { _from?: string; _to?: string };
-    type DocumentData<T> = T & Partial<DocumentMetadata>;
-    type Edge<T> = Document<T> & { _from: string; _to: string };
+    type Document<T = PlainObject> = T &
+        DocumentMetadata & { _from?: string; _to?: string };
+    type DocumentData<T = PlainObject> = T & Partial<DocumentMetadata>;
+    type Edge<T = PlainObject> = Document<T> & { _from: string; _to: string };
 
-    type InsertResult<T> = DocumentMetadata | Document<T>;
-    type UpdateResult<T> = UpdateMetadata & {
+    type InsertResult<T = PlainObject> = DocumentMetadata | Document<T>;
+    type UpdateResult<T = PlainObject> = UpdateMetadata & {
         old?: Document<T>;
         new?: Document<T>;
     };
@@ -618,9 +623,9 @@ declare namespace ArangoDB {
         ): number;
         save(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         save(
-            array: DocumentData<T>[],
+            array: Array<DocumentData<T>>,
             options?: InsertOptions
-        ): InsertResult<T>[];
+        ): Array<InsertResult<T>>;
         save(
             from: string,
             to: string,
@@ -633,10 +638,10 @@ declare namespace ArangoDB {
             options?: UpdateOptions
         ): UpdateResult<T>;
         update(
-            selectors: (string | DocumentLike)[],
-            data: Partial<Document<T>>[],
+            selectors: Array<string | DocumentLike>,
+            data: Array<Partial<Document<T>>>,
             options?: UpdateOptions
-        ): UpdateResult<T>[];
+        ): Array<UpdateResult<T>>;
         updateByExample(
             example: Partial<Document<T>>,
             newValue: Partial<Document<T>>,
@@ -778,7 +783,7 @@ declare namespace ArangoDB {
 
         // Collection
         _collection(name: string): Collection;
-        _collections(): Collection[];
+        _collections(): Array<Collection>;
         _create(name: string, properties?: CollectionProperties): Collection;
         _createDocumentCollection(
             name: string,
@@ -805,10 +810,10 @@ declare namespace ArangoDB {
         _document<T = PlainObject>(name: string): Document<T>;
         _exists(name: string): boolean;
         _remove(name: string): DocumentMetadata;
-        _replace(name: string, data: Object): DocumentMetadata;
-        _replace(doc: DocumentLike, data: Object): DocumentMetadata;
-        _update(name: string, data: Object): DocumentMetadata;
-        _update(doc: DocumentLike, data: Object): DocumentMetadata;
+        _replace(name: string, data: PlainObject): DocumentMetadata;
+        _replace(doc: DocumentLike, data: PlainObject): DocumentMetadata;
+        _update(name: string, data: PlainObject): DocumentMetadata;
+        _update(doc: DocumentLike, data: PlainObject): DocumentMetadata;
 
         // TODO Views
         // _view(name: string): ??? | null;
@@ -869,6 +874,16 @@ declare namespace Foxx {
         before: (req: Request, res: Response) => void | false;
     }
 
+    interface TypeDefinition {
+        // TODO
+        [key: string]: any;
+    }
+
+    interface Ranges {
+        // TODO
+        [key: string]: any;
+    }
+
     declare interface Context {
         argv: any[];
         basePath: string;
@@ -881,9 +896,9 @@ declare namespace Foxx {
         manifest: PlainObject;
         mount: string;
         collection<T = PlainObject>(
-            string: name
+            name: string
         ): ArangoDB.Collection<T> | null;
-        collectionName(string: name): string;
+        collectionName(name: string): string;
         createDocumentationRouter(
             opts?: Partial<DocumentationRouterOptions>
         ): Router;
@@ -1447,51 +1462,56 @@ declare module "@arangodb/general-graph" {
     };
     type CountCommonNeighbors = {
         [key: string]:
-            | {
+            | Array<{
                   [key: string]: number | undefined;
-              }[]
+              }>
             | undefined;
     };
     type CommonProperties = {
         [key: string]:
-            | {
+            | Array<{
                   _id: string;
                   [key: string]: any;
-              }[]
+              }>
             | undefined;
     };
     type CountCommonProperties = {
         [key: string]: number | undefined;
     };
-    type Path<A = PlainObject, B = PlainObject, E = PlainObject, V = never> = {
+    interface Path<
+        A = PlainObject,
+        B = PlainObject,
+        E = PlainObject,
+        V = never
+    > {
         source: ArangoDB.Document<A>;
         destination: ArangoDB.Document<B>;
-        edges: ArangoDB.Edge<E>[];
-        vertice: ArangoDB.Document<A | B | V>[];
-    };
-    type ShortestPath<T = PlainObject> = {
+        edges: Array<ArangoDB.Edge<E>>;
+        vertice: Array<ArangoDB.Document<A | B | V>>;
+    }
+    interface ShortestPath<T = PlainObject> {
         vertices: string[];
-        edges: ArangoDB.Edge<T>[];
+        edges: Array<ArangoDB.Edge<T>>;
         distance: number;
-    };
-    type Distance = {
+    }
+    interface Distance {
         startVertex: string;
         vertex: string;
         distance: number;
-    };
-    type Eccentricity = {
+    }
+    interface Eccentricity {
         [key: string]: number | undefined;
-    };
+    }
     type Closeness = Eccentricity;
     type Betweenness = Eccentricity;
-    type Example = (PlainObject | string)[] | PlainObject | string | null;
-    type ConnectingEdgesOptions = {
+    type Example = Array<PlainObject | string> | PlainObject | string | null;
+    interface ConnectingEdgesOptions {
         edgeExamples?: Example;
         edgeCollectionRestriction?: string[] | string;
         vertex1CollectionRestriction?: string[] | string;
         vertex2CollectionRestriction?: string[] | string;
-    };
-    type NeighborsOptions = {
+    }
+    interface NeighborsOptions {
         direction?: ArangoDB.EdgeDirection;
         edgeExamples?: Example;
         neighborExamples?: Example;
@@ -1499,33 +1519,33 @@ declare module "@arangodb/general-graph" {
         vertexCollectionRestriction?: string[] | string;
         minDepth?: number;
         maxDepth?: number;
-    };
-    type CommonPropertiesOptions = {
+    }
+    interface CommonPropertiesOptions {
         vertex1CollectionRestriction?: string[] | string;
         vertex2CollectionRestriction?: string[] | string;
         ignoredProperties?: string[] | string;
-    };
-    type PathsOptions = {
+    }
+    interface PathsOptions {
         direction?: ArangoDB.EdgeDirection;
         followCycles?: boolean;
         minLength?: number;
         maxLength?: number;
-    };
-    type ShortestPathOptions = {
+    }
+    interface ShortestPathOptions {
         direction?: ArangoDB.EdgeDirection;
         edgeCollectionRestriction?: string[] | string;
         startVertexCollectionRestriction?: string[] | string;
         endVertexCollectionRestriction?: string[] | string;
         weight?: string;
         defaultWeight?: number;
-    };
+    }
     type EccentricityOptions = ShortestPathOptions;
     type ClosenessOptions = ShortestPathOptions;
-    type BetweennessOptions = {
+    interface BetweennessOptions {
         direction?: ArangoDB.EdgeDirection;
         weight?: string;
         defaultWeight?: number;
-    };
+    }
     type RadiusOptions = BetweennessOptions;
     type DiameterOptions = BetweennessOptions;
     interface Graph {
@@ -1544,11 +1564,11 @@ declare module "@arangodb/general-graph" {
             orphanCollectionName: string,
             dropCollection?: boolean
         ): void;
-        _getConnectingEdges<T = PlainObject>(
+        _getConnectingEdges(
             vertexExample1: Example,
             vertexExample2: Example,
             options: ConnectingEdgesOptions
-        ): ArangoDB.Edge<T>;
+        ): ArangoDB.Edge;
         _fromVertex<T = PlainObject>(edgeId: string): ArangoDB.Document<T>;
         _toVertex<T = PlainObject>(edgeId: string): ArangoDB.Document<T>;
         _neighbors(
@@ -1577,7 +1597,7 @@ declare module "@arangodb/general-graph" {
             vertex2Example: Example,
             options?: CommonPropertiesOptions
         ): CountCommonProperties[];
-        _paths<A, B, E, V>(options?: PathsOptions): Path<A, B, E, V>[];
+        _paths(options?: PathsOptions): Path[];
         _shortestPath<T>(
             startVertexExample: Example,
             endVertexExample: Example,
