@@ -65,6 +65,25 @@ mongoose.Types.ObjectId;
 mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
 
+const sslConnections: {[key: string]: mongoose.Connection} = {
+  basic: mongoose.createConnection(connectUri, {ssl: true}),
+  customCA: mongoose.createConnection(
+    connectUri,
+    {
+      ssl: true,
+      sslCA: [new Buffer('ca string')],
+      sslCRL: [new Buffer('crl buffer')],
+      sslCert: 'ssl cert',
+      sslKey: new Buffer('ssl private key'),
+      sslPass: 'ssl password',
+      servername: 'localhost',
+      checkServerIdentity: true,
+      ciphers: 'ciphers',
+      ecdhCurve: 'ecdhCurve',
+    }
+  ),
+};
+
 /*
  * section collection.js
  * http://mongoosejs.com/docs/api.html#collection-js
