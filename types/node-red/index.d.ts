@@ -116,6 +116,11 @@ export interface NodeProperties {
      * a fallback name, if they leave it blank.
      */
     name: string;
+    /**
+     * Properties can be dynamically added to nodes once their constructor
+     * is called.
+     */
+    [property: string]: any;
 }
 
 /** Unique node identifier. */
