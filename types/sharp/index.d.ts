@@ -1,6 +1,7 @@
 // Type definitions for sharp 0.17
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
+//                 Wooseop Kim <https://github.com/wooseopkim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -359,9 +360,16 @@ declare namespace sharp {
         toBuffer(callback: (err: Error, buffer: Buffer, info: OutputInfo) => void): SharpInstance;
         /**
          * Write output to a Buffer. JPEG, PNG, WebP, and RAW output are supported. By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * @param options resolve options
          * @returns A promise that fulfills with the resulting Buffer
          */
-        toBuffer(): Promise<Buffer>;
+        toBuffer(options?: { resolveWithObject: false }): Promise<Buffer>;
+        /**
+         * Write output to a Buffer. JPEG, PNG, WebP, and RAW output are supported. By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * @param options resolve options
+         * @returns A promise that fulfills with an object containing the Buffer data and an info object containing the output image format, size (bytes), width, height and channels
+         */
+        toBuffer(options: { resolveWithObject: true }): Promise<{ data: Buffer, info: OutputInfo }>;
         /**
          * Use these JPEG options for output image.
          * @param options Output options.
@@ -382,14 +390,14 @@ declare namespace sharp {
          * @throws {Error} Invalid options
          * @returns A sharp instance that can be used to chain operations
          */
-        webp(options?: OutputOptions): SharpInstance;
+        webp(options?: WebpOptions): SharpInstance;
         /**
          * Use these TIFF options for output image.
          * @param options Output options.
          * @throws {Error} Invalid options
          * @returns A sharp instance that can be used to chain operations
          */
-        tiff(options?: OutputOptions): SharpInstance;
+        tiff(options?: TiffOptions): SharpInstance;
         /**
          * Force output to be raw, uncompressed uint8 pixel data.
          * @returns A sharp instance that can be used to chain operations
@@ -496,6 +504,28 @@ declare namespace sharp {
         optimiseScans?: boolean;
         /** Alternative spelling of optimiseScans (optional, default false) */
         optimizeScans?: boolean;
+    }
+
+    interface WebpOptions extends OutputOptions {
+        /** Quality of alpha layer, number from 0-100 (optional, default 100) */
+        alphaQuality?: number;
+        /** Use lossless compression mode (optional, default false) */
+        lossless?: boolean;
+        /** Use near_lossless compression mode (optional, default false) */
+        nearLossless?: boolean;
+    }
+
+    interface TiffOptions extends OutputOptions {
+        /** Compression options: lzw, deflate, jpeg (optional, default 'jpeg') */
+        compression?: string;
+        /** Compression predictor options: none, horizontal, float (optional, default  'horizontal') */
+        predictor?: string;
+        /** Horizontal resolution in pixels/mm (optional, default 1.0) */
+        xres?: number;
+        /** Vertical resolution in pixels/mm (optional, default 1.0) */
+        yres?: number;
+        /** Squash 8-bit images down to 1 bit (optional, default false) */
+        squash?: boolean;
     }
 
     interface PngOptions {

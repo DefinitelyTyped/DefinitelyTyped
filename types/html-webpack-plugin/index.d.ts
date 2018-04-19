@@ -4,7 +4,7 @@
 //                 Benjamin Lim <https://github.com/bumbleblym>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Plugin } from 'webpack';
 import { Options as HtmlMinifierOptions } from 'html-minifier';

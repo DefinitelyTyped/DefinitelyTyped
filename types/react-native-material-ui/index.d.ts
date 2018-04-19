@@ -426,6 +426,7 @@ export interface Searchable {
     onSearchClosed?(): void;
     onSearchPressed?(): void;
     onSubmitEditing?(): void;
+    onSearchCloseRequested?(): void;
 }
 
 export interface ToolBarRightElement {

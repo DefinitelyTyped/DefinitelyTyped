@@ -1,9 +1,12 @@
-/// <reference types="mocha" />
-
 import { Buffer } from 'buffer';
 import assert = require('assert');
 import * as async from 'async';
 import PQ = require('libpq');
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 declare const _: { times<T>(n: number, f: () => T): T[] };
 

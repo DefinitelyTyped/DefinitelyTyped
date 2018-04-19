@@ -20,12 +20,14 @@ let options: mongodb.MongoClientOptions = {
     reconnectInterval: 123456,
 
     ssl: true,
-    sslValidate: {},
+    sslValidate: false,
     checkServerIdentity: function () { },
     sslCA: ['str'],
+    sslCRL: ['str'],
     sslCert: new Buffer(999),
     sslKey: new Buffer(999),
-    sslPass: new Buffer(999)
+    sslPass: new Buffer(999),
+    promoteBuffers: false
 }
 MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
     if (err) throw err;
@@ -97,5 +99,22 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
         let payment: { total: number };
         type payment = typeof payment;
         let cursor: mongodb.AggregationCursor<payment> = collection.aggregate<payment>([{}])
+    }
+
+    // test for new typings
+    {
+        type TestCollection = {
+            stringField: string;
+            numberField: number;
+        };
+        let testCollection = db.collection<TestCollection>('testCollection');
+
+        testCollection.find({
+            numberField: {
+                $and: [{ $gt: 0, $lt: 100 }]
+            }
+        });
+
+        const res: mongodb.Cursor<TestCollection> = testCollection.find({ _id: 123 });
     }
 })

@@ -64,7 +64,8 @@ import { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName, JSONSchema6, JSONSch
     oneOf: [{}],
     not: {},
     extends: 'foo',
-    bar: 4
+    bar: 4,
+    format: 'date-time'
   }
 }
 
@@ -134,6 +135,7 @@ import { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName, JSONSchema6, JSONSch
     const: 'foo',
     contains: {},
     examples: [{}],
-    propertyNames: {}
+    propertyNames: {},
+    format: 'date-time'
   }
 }

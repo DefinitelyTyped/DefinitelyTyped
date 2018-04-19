@@ -1428,6 +1428,11 @@ export class Canvas {
 	 */
 	getActiveObject(): Object;
 	/**
+	 * Returns an array with the current selected objects
+	 * @return {Object[]} array of active objects
+	 */
+	getActiveObjects(): Object[];
+	/**
 	 * Returns pointer coordinates relative to canvas.
 	 * @return object with "x" and "y" number values
 	 */
@@ -1703,6 +1708,47 @@ export class Group {
 	 * @param [callback] Callback to invoke when an group instance is created
 	 */
 	static fromObject(object: any, callback: (group: Group) => any): void;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// ActiveSelection
+//////////////////////////////////////////////////////////////////////////////
+export interface ActiveSelection extends Object, ICollection<Group> {}
+export class ActiveSelection {
+	/**
+	 * Constructor
+	 * @param objects ActiveSelection objects
+	 * @param [options] Options object
+	 */
+	constructor(items?: Object[], options?: IObjectOptions);
+
+	/**
+     * Change te activeSelection to a normal group,
+     * High level function that automatically adds it to canvas as
+     * active object. no events fired.
+     */
+	toGroup(): Group;
+
+	/**
+	 * Removes objects from a collection, then renders canvas (if `renderOnAddRemove` is not `false`)
+	 * @param object Zero or more fabric instances
+	 * @return thisArg
+	 * @chainable
+	 */
+	remove(...object: Object[]): Group;
+
+	/**
+	 * Returns string represenation of a group
+	 */
+	toString(): string;
+
+	/**
+	 * Returns {@link fabric.ActiveSelection} instance from an object representation
+	 * @memberOf fabric.ActiveSelection
+	 * @param object Object to create a group from
+	 * @param [callback] Callback to invoke when an ActiveSelection instance is created
+	 */
+	static fromObject(object: Group, callback: (activeSelection: ActiveSelection) => void): void;
 }
 
 interface IImageOptions extends IObjectOptions {

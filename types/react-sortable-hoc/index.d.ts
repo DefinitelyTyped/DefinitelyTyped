@@ -18,6 +18,12 @@ export interface SortStart {
 
 export type SortEvent = React.MouseEvent<any> | React.TouchEvent<any>;
 
+export type SortEventWithTag = SortEvent & {
+  target: {
+    tagName: string
+  }
+};
+
 export type SortStartHandler = (sort: SortStart, event: SortEvent) => void;
 
 export type SortMoveHandler = (event: SortEvent) => void;
@@ -45,7 +51,7 @@ export interface SortableContainerProps {
     pressDelay?: number;
     pressThreshold?: number;
     distance?: number;
-    shouldCancelStart?: (event: SortEvent) => boolean;
+    shouldCancelStart?: (event: SortEvent | SortEventWithTag) => boolean;
     onSortStart?: SortStartHandler;
     onSortMove?: SortMoveHandler;
     onSortEnd?: SortEndHandler;

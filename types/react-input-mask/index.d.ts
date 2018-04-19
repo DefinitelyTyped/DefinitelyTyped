@@ -1,4 +1,4 @@
-// Type definitions for react-input-mask 0.7
+// Type definitions for react-input-mask 1.2
 // Project: https://github.com/sanniassin/react-input-mask
 // Definitions by: Alexandre Paré <https://github.com/apare>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,6 +36,10 @@ declare namespace reactInputMask {
          * Show mask even in empty input without focus.
          */
         alwaysShowMask?: boolean;
+        /**
+         * Use inputRef instead of ref if you need input node to manage focus, selection, etc.
+         */
+        inputRef?: React.Ref<HTMLInputElement>;
     }
     class ReactInputMask extends React.Component<ReactInputMaskProps> {
     }

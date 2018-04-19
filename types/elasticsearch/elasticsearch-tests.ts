@@ -266,6 +266,30 @@ client.search({
   }
 });
 
+client.updateByQuery({
+  index: 'myIndex',
+  type: 'mytype',
+}, (error, response) => {
+  const {
+    took,
+    timed_out,
+    updated,
+    deleted,
+    batches,
+    version_conflicts,
+    noops,
+    retries,
+    throttled_millis,
+    throttled_until_millis,
+    total,
+    failures
+  } = response;
+
+  const { bulk, search } = retries;
+
+  // ...
+});
+
 client.indices.updateAliases({
   body: {
     actions: [

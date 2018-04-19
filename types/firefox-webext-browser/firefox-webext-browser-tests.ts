@@ -8,3 +8,7 @@ browser.manifest; // $ExpectError
 browser._manifest; // $ExpectType typeof _manifest
 browser._manifest.WebExtensionLangpackManifest; // $ExpectError
 browser._manifest.NativeManifest; // $ExpectError
+
+// browser.runtime
+const port = browser.runtime.connect();
+port.postMessage(); // $ExpectError

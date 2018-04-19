@@ -5,6 +5,7 @@
 //                 Jan Aagaard <https://github.com/janaagaard75>
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
+//                 Umidbek Karimov <https://github.com/umidbekkarimov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -99,20 +100,16 @@ export namespace Amplitude {
 
 // #region AppLoading
 /** The following props are recommended, but optional for the sake of backwards compatibility (they were introduced in SDK21). If you do not provide any props, you are responsible for coordinating loading assets, handling errors, and updating state to unmount the `AppLoading` component. */
-export type AppLoadingProps = {
+export interface AppLoadingProps {
     /** A `function` that returns a `Promise`. The `Promise` should resolve when the app is done loading data and assets. */
-    startAsync: () => Promise<void>;
+    startAsync?: () => Promise<void>;
 
     /** Required if you provide `startAsync`. Called when `startAsync` resolves or rejects. This should be used to set state and unmount the `AppLoading` component. */
-    onFinish: () => void;
+    onFinish?: () => void;
 
     /** If `startAsync` throws an error, it is caught and passed into the function provided to `onError`. */
     onError?: (error: Error) => void;
-} | {
-    startAsync: null;
-    onFinish: null;
-    onError?: null;
-};
+}
 
 /**
  * A React component that tells Expo to keep the app loading screen open if it is the first and only component rendered in your app. When it is removed, the loading screen will disappear and your app will be visible.
@@ -1421,6 +1418,10 @@ export namespace ImagePicker {
         uri: string;
         width: number;
         height: number;
+        type: 'video' | 'image';
+        base64?: string;
+        exif?: object;
+        duration?: number;
     }
 
     type ImageResult = { cancelled: true } | ({ cancelled: false } & ImageInfo);
@@ -1437,6 +1438,8 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
         mediaTypes?: keyof _MediaTypeOptions;
     }
 
@@ -1698,7 +1701,7 @@ export namespace Pedometer {
  */
 export namespace Permissions {
     type PermissionType = 'remoteNotifications' | 'location' |
-        'camera' | 'contacts' | 'audioRecording';
+        'camera' | 'contacts' | 'audioRecording' | 'calendar';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1730,6 +1733,7 @@ export namespace Permissions {
     const NOTIFICATIONS: RemoteNotificationPermission;
     const CONTACTS: 'contacts';
     const SYSTEM_BRIGHTNESS: 'systemBrightness';
+    const CALENDAR: 'calendar';
 }
 
 /**
@@ -1869,6 +1873,7 @@ export namespace SQLite {
 export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
+    fillRule?: 'nonzero' | 'evenodd';
     stroke?: string;
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
@@ -1879,6 +1884,7 @@ export interface SvgCommonProps {
     x?: number | string;
     y?: number | string;
     rotate?: number | string;
+    rotation?: number | string;
     scale?: number | string;
     origin?: number | string;
     originX?: number | string;

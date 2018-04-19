@@ -61,6 +61,7 @@ fetchMock.patch("http://test.com", 200);
 fetchMock.patchOnce("http://test.com", 200);
 
 fetchMock.get("http://test.com", 200, {method: "GET"});
+fetchMock.get("http://test.com", 200, {method: "GET", overwriteRoutes: true});
 fetchMock.post("http://test.com", 200, {method: "POST"});
 fetchMock.put("http://test.com", 200, {method: "PUT"});
 fetchMock.delete("http://test.com", 200, {method: "DELETE"});

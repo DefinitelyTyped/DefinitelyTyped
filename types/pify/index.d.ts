@@ -9,8 +9,8 @@ interface PromiseModule {
 
 interface PifyOptions {
     multiArgs?: boolean,
-    include?: [string | RegExp],
-    exclude?: [string | RegExp],
+    include?: Array<string | RegExp>,
+    exclude?: Array<string | RegExp>,
     excludeMain?: boolean,
     errorFirst?: boolean,
     promiseModule?: PromiseModule

@@ -54,4 +54,20 @@ namespace AdoneRootTests {
     obj = adone.package;
     { const a: typeof adone.assertion.assert = adone.assert; }
     { const a: typeof adone.assertion.expect = adone.expect; }
+
+    namespace lodashTests {
+        adone.lodash.get({}, "a");
+        adone.lodash.defaults({}, {});
+        adone.lodash.zip([]);
+    }
+
+    namespace benchmarkTests {
+        const b = new adone.benchmark.Benchmark.Suite();
+        b.add(() => {}).add("", () => {}).run();
+    }
+
+    namespace asyncTests {
+        adone.async.all([], () => {});
+        adone.async.forEach([], () => {});
+    }
 }

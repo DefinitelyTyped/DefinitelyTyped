@@ -2296,10 +2296,10 @@ declare namespace browser.runtime {
     /** An object which allows two way communication with other pages. */
     interface Port {
         name: string;
-        disconnect: () => void;
+        disconnect(): void;
         onDisconnect: events.Event;
         onMessage: events.Event;
-        postMessage: () => void;
+        postMessage(message: object): void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender;
     }

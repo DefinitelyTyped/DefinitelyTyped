@@ -805,11 +805,7 @@ declare namespace algoliasearch {
      * @param err() error callback
      * https://www.algolia.com/doc/api-reference/api-methods/search-for-facet-values/
      */
-    searchForFacetValues({
-      facetName,
-      facetQuery,
-      ...qp,
-    }: {
+    searchForFacetValues(options: {
       facetName: string;
       facetQuery: string;
     } & AlgoliaQueryParameters): Promise<any>;
@@ -820,12 +816,7 @@ declare namespace algoliasearch {
      * @param err() error callback
      * https://www.algolia.com/doc/api-reference/api-methods/search-for-facet-values/
      */
-    searchForFacetValues(
-      {
-        facetName,
-        facetQuery,
-        ...qp,
-      }: {
+    searchForFacetValues(options: {
         facetName: string;
         facetQuery: string;
       } & AlgoliaQueryParameters,

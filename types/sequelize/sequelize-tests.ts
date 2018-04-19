@@ -10,10 +10,14 @@ import Bluebird = require('bluebird');
 interface AnyAttributes { [name: string]: boolean | number | string | object; };
 interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
+interface UserModel extends Sequelize.Model<AnyInstance, AnyAttributes> {
+    findUser?(arbitraryThing: any): Promise<AnyInstance>;
+}
+
 var s         = new Sequelize( '' );
 var sequelize = s;
 var DataTypes = Sequelize;
-var User      = s.define<AnyInstance, AnyAttributes>( 'user', {} );
+var User: UserModel = s.define<AnyInstance, AnyAttributes>( 'user', {} );
 var user      = User.build();
 var Task      = s.define<AnyInstance, AnyAttributes>( 'task', {} );
 var Group     = s.define<AnyInstance, AnyAttributes>( 'group', {} );
@@ -893,6 +897,7 @@ User.addScope('lowAccessWithParam', function(id: number) {
 } );
 
 User.scope( 'lowAccess' ).count();
+User.scope( 'lowAccess' ).findUser( 'foo' );
 User.scope( { where : { parent_id : 2 } } );
 User.scope( [ 'lowAccess', { method: ['lowAccessWithParam', 2] }, { where : { parent_id : 2 } } ] )
 
@@ -915,6 +920,8 @@ User.findAll( { where : { intVal : { '!..' : [8, 10] } } } );
 User.findAll( { where : { theDate : { between : ['2013-01-02', '2013-01-11'] } } } );
 User.findAll( { where : { theDate : { between : ['2013-01-02', '2013-01-11'] }, intVal : 10 } } );
 User.findAll( { where : { theDate : { between : ['2012-12-10', '2013-01-02'] } } } );
+User.findAll( { where : { theDate : { between : [1, 3] } } } );
+User.findAll( { where : { theDate : { between : [new Date(0), new Date(1000)] } } } );
 User.findAll( { where : { theDate : { nbetween : ['2013-01-04', '2013-01-20'] } } } );
 User.findAll( { order : [s.col( 'name' )] } );
 User.findAll( { order : [['theDate', 'DESC']] } );
@@ -948,8 +955,19 @@ User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TES
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
 User.findAll( { rejectOnEmpty: true });
 
+User.findAll( { where: { $and:[ { username: "user" }, { theDate: new Date() } ] } } );
+User.findAll( { where: { $or:[ { username: "user" }, { theDate: new Date() } ] } } );
+User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
+User.findAll( { where: { $or:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
+User.findAll( { where: { emails: { $overlap: ["me@mail.com", "you@mail.com"] } } } );
 
 User.findById( 'a string' );
+User.findById( 42 );
+User.findById( Buffer.from('a buffer') );
+
+User.findByPrimary( 'a string' );
+User.findByPrimary( 42 );
+User.findByPrimary( Buffer.from('a buffer') );
 
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
@@ -1036,7 +1054,9 @@ findOrRetVal = User.findOrCreate( { where : { id : undefined }, defaults : { nam
 findOrRetVal = User.findOrCreate( { where : { email : 'unique.email.@d.com', companyId : Math.floor( Math.random() * 5 ) } } );
 findOrRetVal = User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
 
-User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
+let upsertPromiseNoOptions: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
+let upsertPromiseReturning: Bluebird<[AnyInstance, boolean]> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: true } );
+let upsertPromiseNotReturning: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: false } );
 
 User.bulkCreate( [{ aNumber : 10 }, { aNumber : 12 }] ).then( ( i ) => i[0].isNewRecord );
 User.bulkCreate( [{ username : 'bar' }, { username : 'bar' }, { username : 'bar' }] );

@@ -1822,7 +1822,7 @@ export interface NightwatchAPI {
      * @param frameId: Identifier for the frame to change focus to.
      * @param callback: Optional callback function to be called when the command finishes.
      */
-    frame(frameId?: string, callback?: () => void): this;
+    frame(frameId: string | undefined | null, callback?: () => void): this;
 
     /**
      * Change focus to the parent context. If the current context is the top level browsing context, the context remains unchanged.

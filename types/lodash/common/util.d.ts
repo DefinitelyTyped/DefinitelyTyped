@@ -584,8 +584,16 @@ declare module "../index" {
          * // => [{ 'user': 'fred', 'age': 40 }]
          */
         iteratee<TFunction extends (...args: any[]) => any>(
-            func: TFunction | string | object
+            func: TFunction
         ): TFunction;
+
+        /**
+         * @see _.iteratee
+         */
+        // tslint:disable-next-line:unified-signatures Tests fail in TS2.3 if the overloads are joined
+        iteratee(
+            func: string | object
+        ): (...args: any[]) => any;
 
         /**
          * @see _.iteratee
@@ -1199,14 +1207,14 @@ declare module "../index" {
          * @param context The context object.
          * @return Returns a new lodash function.
          */
-        runInContext(context?: object): typeof _;
+        runInContext(context?: object): LoDashStatic;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.runInContext
          */
-        runInContext(): typeof _;
+        runInContext(): LoDashStatic;
     }
 
     // stubArray

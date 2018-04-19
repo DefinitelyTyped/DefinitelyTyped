@@ -1,5 +1,5 @@
 import * as React from 'react';
-import css from 'styled-jsx/css';
+import * as css from 'styled-jsx/css';
 import flushToReact, { flushToHTML } from 'styled-jsx/server';
 
 const styled = (

@@ -62,8 +62,8 @@ export interface IConfig {
 }
 
 export interface IServerConfig extends IConfig {
-    /** The http server instance to attach to */
-    httpServer: http.Server;
+    /** The http or https server instance(s) to attach to */
+    httpServer: http.Server | https.Server | (http.Server | https.Server)[];
 
     /**
      * The maximum allowed received frame size in bytes.

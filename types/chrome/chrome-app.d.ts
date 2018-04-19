@@ -1189,7 +1189,7 @@ declare namespace chrome.system.display {
      * @param {string} id The display's unique identifier.
      * @param {(success) => void} callback Optional callback to inform the caller that the touch calibration has ended. The argument of the callback informs if the calibration was a success or not.
      */
-    export function showNativeTouchCalibration(id: string, callback: (success) => void): void;
+    export function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
 
     /**
      * @description Starts custom touch calibration for a display. This should be called when using a custom UX for collecting calibration data. If another touch calibration is already in progress this will throw an error.
