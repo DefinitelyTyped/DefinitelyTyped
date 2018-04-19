@@ -760,6 +760,11 @@ declare namespace ArangoDB {
         ast: QueryAstNode[];
     }
 
+    // Views
+
+    type View = object; // TODO
+    type ViewProperties = object; // TODO
+
     // Global
 
     interface TransactionCollections {
@@ -839,11 +844,15 @@ declare namespace ArangoDB {
             data: object
         ): DocumentMetadata;
 
-        // TODO Views
-        // _view(name: string): ??? | null;
-        // _views(): ???[];
-        // _createView(name: string, type: ViewType, properties: ???): ???;
-        // _dropView(name: string): void;
+        // Views
+        _view(name: string): View | null;
+        _views(): View[];
+        _createView(
+            name: string,
+            type: ViewType,
+            properties: ViewProperties
+        ): View;
+        _dropView(name: string): void;
 
         // Global
         _engine(): EngineType;
