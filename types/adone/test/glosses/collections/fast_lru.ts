@@ -6,8 +6,8 @@ namespace adoneTests.collection.FastLRU {
     } = adone;
 
     new FastLRU();
-    new FastLRU(100);
-    new FastLRU<string, number>(100, { dispose: (key: string, value: number) => null });
+    new FastLRU({ maxSize: 100 });
+    new FastLRU<string, number>({ maxSize: 100, dispose: (key: string, value: number) => null });
     { const a: number = new FastLRU().size; }
     { const a: number | undefined = new FastLRU<string, number>().get("key"); }
     new FastLRU<string, number>().set("key", 123);
