@@ -1222,9 +1222,9 @@ declare module "@arangodb/foxx/router" {
 }
 
 declare module "@arangodb/foxx/graphql" {
-    type GraphQLSchema = object;
+    import { GraphQLSchema, formatError } from "graphql";
     type GraphQLModule = object;
-    type GraphQLFormatErrorFunction = (error: any) => any;
+    type GraphQLFormatErrorFunction = typeof formatError;
     interface GraphQLOptions {
         schema: GraphQLSchema;
         context?: any;
