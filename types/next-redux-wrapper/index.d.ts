@@ -1,4 +1,4 @@
-// Type definitions for next-redux-wrapper 1.3.5
+// Type definitions for next-redux-wrapper 1.4
 // Project: https://github.com/kirill-konshin/next-redux-wrapper
 // Definitions by: Steve <https://github.com/stevegeek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
