@@ -12,7 +12,6 @@ export type ITagsInputConfigurationProvider = angular.ngTagsInput.TagsInputConfi
 
 declare module 'angular' {
     namespace ngTagsInput {
-
         interface TagsInputParams {
             ngModel?: string;
             useStrings?: boolean;
