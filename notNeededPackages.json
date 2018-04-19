@@ -1177,6 +1177,12 @@
             "asOfVersion": "5.3.3"
         },
         {
+            "libraryName": "react-native-linear-gradient",
+            "typingsPackageName": "react-native-linear-gradient",
+            "sourceRepoURL": "https://github.com/react-native-community/react-native-linear-gradient",
+            "asOfVersion": "2.4.0"
+        },
+        {
             "libraryName": "react-native-modal",
             "typingsPackageName": "react-native-modal",
             "sourceRepoURL": "https://github.com/react-native-community/react-native-modal",
