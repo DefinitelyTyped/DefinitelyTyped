@@ -1,4 +1,4 @@
-// Type definitions for mocha 5.0
+// Type definitions for mocha 5.2
 // Project: http://mochajs.org/
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
