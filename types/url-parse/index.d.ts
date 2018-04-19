@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import URLSearchParams = require("url-search-params");
+import URLSearchParams from "url-search-params";
 
 type UrlQueryParamsParser = (url: string) => string;
 
@@ -49,4 +49,4 @@ interface ExtendedParseFunctionType extends ParseFunctionNodeType, ParseFunction
 
 declare const parse: ExtendedParseFunctionType;
 
-export = parse;
+export default parse;
