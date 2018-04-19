@@ -25,20 +25,20 @@ export = nextReduxWrapper;
 
 declare function nextReduxWrapper<TInitialState = any, TStateProps = any, TDispatchProps = any, TOwnProps = any, TMergedProps = any>(
     options: nextReduxWrapper.Options<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>
-): (Component: Component<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent;
+): (Component: Component<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent<TOwnProps & TMergedProps>;
 declare function nextReduxWrapper<TInitialState = any, TStateProps = any, TDispatchProps = any, TOwnProps = any, TMergedProps = any>(
     createStore: nextReduxWrapper.NextStoreCreator<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps, any>,
     mapDispatchToProps?: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     options?: ConnectOptions
-): (Component: Component<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent;
+): (Component: Component<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent<TOwnProps & TMergedProps>;
 
 declare namespace nextReduxWrapper {
     interface NextPageComponentMethods {
         getInitialProps(props: any): Promise<any>;
     }
-    type NextReduxWrappedComponent = React.Component & NextPageComponentMethods;
+    type NextReduxWrappedComponent<P> = Component<P> & NextPageComponentMethods;
 
     type NextStoreCreator<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> = (
         initialState: TInitialState,
