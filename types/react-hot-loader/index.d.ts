@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import "node";
 
 export type ReactComponent<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
 export type ExtractProps<TComponent> = TComponent extends ReactComponent<infer TProps> ? TProps : {};
