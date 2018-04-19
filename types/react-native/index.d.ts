@@ -536,6 +536,7 @@ type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baselin
 /**
  * Flex Prop Types
  * @see https://facebook.github.io/react-native/docs/flexbox.html#proptypes
+ * @see https://facebook.github.io/react-native/docs/layout-props.html
  * @see LayoutPropTypes.js
  */
 export interface FlexStyle {
@@ -597,6 +598,14 @@ export interface FlexStyle {
      */
     direction?: "inherit" | "ltr" | "rtl";
 }
+
+
+/**
+ * Layout Prop Types
+ * @see https://facebook.github.io/react-native/docs/layout-props.html
+ * @see LayoutPropTypes.js
+ */
+export interface LayoutProperties extends FlexStyle {}
 
 /**
  * @see ShadowPropTypesIOS.js
@@ -1752,7 +1761,7 @@ type AccessibilityTraits =
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
 export interface ViewProperties
-    extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable, AccessibilityProperties {
+    extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable, AccessibilityProperties, LayoutProperties {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -3344,7 +3353,7 @@ interface ImagePropertiesAndroid {
  * @see https://facebook.github.io/react-native/docs/image.html
  */
 export type ImagePropertiesSourceOptions = ImageURISource | ImageURISource[] | ImageRequireSource;
-export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid, AccessibilityProperties {
+export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid, AccessibilityProperties, LayoutProperties {
     /**
      * onLayout function
      *
