@@ -1,4 +1,4 @@
-// Type definitions for react-native-drawer 2.3
+// Type definitions for react-native-drawer 2.5
 // Project: https://github.com/root-two/react-native-drawer
 // Definitions by: jnbt <https://github.com/jnbt>
                    suniahk <https://github.com/suniahk>
