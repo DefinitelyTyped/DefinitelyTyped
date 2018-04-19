@@ -285,7 +285,7 @@ export interface NavigationStackViewConfig {
     isModal: boolean,
   ) => TransitionConfig;
   onTransitionStart?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
-  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
+  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => void;
 }
 
 export interface NavigationStackScreenOptions {
@@ -799,7 +799,7 @@ export interface TransitionerProps {
   ) => NavigationTransitionSpec;
   navigation: NavigationScreenProp<NavigationState>;
   onTransitionStart?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
-  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
+  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => void;
   render: (
     transitionProps: NavigationTransitionProps,
     prevTransitionProps?: NavigationTransitionProps
