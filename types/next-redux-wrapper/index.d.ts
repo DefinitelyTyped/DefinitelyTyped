@@ -25,14 +25,14 @@ export = nextReduxWrapper;
 
 declare function nextReduxWrapper<TInitialState = any, TStateProps = any, TDispatchProps = any, TOwnProps = any, TMergedProps = any>(
     options: nextReduxWrapper.Options<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>
-): (Component: Component<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent<TOwnProps & TMergedProps>;
+): (Component: Component<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent<TOwnProps>;
 declare function nextReduxWrapper<TInitialState = any, TStateProps = any, TDispatchProps = any, TOwnProps = any, TMergedProps = any>(
     createStore: nextReduxWrapper.NextStoreCreator<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps, any>,
     mapDispatchToProps?: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     options?: ConnectOptions
-): (Component: Component<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent<TOwnProps & TMergedProps>;
+): (Component: Component<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent<TOwnProps>;
 
 declare namespace nextReduxWrapper {
     interface NextPageComponentMethods {
