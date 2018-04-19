@@ -1720,7 +1720,7 @@ export class ActiveSelection {
 	 * @param objects ActiveSelection objects
 	 * @param [options] Options object
 	 */
-	constructor(items?: any[], options?: IObjectOptions);
+	constructor(items?: Object[], options?: IObjectOptions);
 
 	/**
      * Change te activeSelection to a normal group,
@@ -1748,7 +1748,7 @@ export class ActiveSelection {
 	 * @param object Object to create a group from
 	 * @param [callback] Callback to invoke when an ActiveSelection instance is created
 	 */
-	static fromObject(object: any, callback: (activeSelection: ActiveSelection) => any): void;
+	static fromObject(object: Group, callback: (activeSelection: ActiveSelection) => void): void;
 }
 
 interface IImageOptions extends IObjectOptions {
