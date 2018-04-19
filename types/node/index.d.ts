@@ -20,6 +20,7 @@
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 Huw <https://github.com/hoo29>
 //                 Nicolas Even <https://github.com/n-e>
+//                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
@@ -2087,6 +2088,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
         windowsVerbatimArguments?: boolean;
+        windowsHide?: boolean;
     }
 
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;

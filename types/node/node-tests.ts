@@ -2059,7 +2059,8 @@ namespace string_decoder_tests {
 namespace child_process_tests {
     {
         childProcess.exec("echo test");
-        childProcess.exec("echo test", {windowsHide: true});
+        childProcess.exec("echo test", { windowsHide: true });
+        childProcess.spawn("echo", ["test"], { windowsHide: true });
         childProcess.spawnSync("echo test");
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
     }
