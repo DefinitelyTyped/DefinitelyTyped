@@ -144,7 +144,7 @@ export interface DrawerProperties {
     acceptPan?: boolean;
     /**
      * Allow Pan when drawer is 'open'
-    **/
+     */
     acceptPanOnDrawer?: boolean;
     /**
      * Same as acceptTap, except only for close
