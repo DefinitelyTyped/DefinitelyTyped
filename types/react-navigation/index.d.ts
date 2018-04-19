@@ -15,6 +15,7 @@
 //                 Steven Miller <https://github.com/YourGamesBeOver>
 //                 Armando Assuncao <https://github.com/ArmandoAssuncao>
 //                 Ciaran Liedeman <https://github.com/cliedeman>
+//                 Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -283,8 +284,8 @@ export interface NavigationStackViewConfig {
     prevTransitionProps: NavigationTransitionProps,
     isModal: boolean,
   ) => TransitionConfig;
-  onTransitionStart?: () => void;
-  onTransitionEnd?: () => void;
+  onTransitionStart?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
+  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => void;
 }
 
 export interface NavigationStackScreenOptions {
@@ -797,8 +798,8 @@ export interface TransitionerProps {
     prevTransitionProps?: NavigationTransitionProps
   ) => NavigationTransitionSpec;
   navigation: NavigationScreenProp<NavigationState>;
-  onTransitionEnd?: () => void;
-  onTransitionStart?: () => void;
+  onTransitionStart?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
+  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => void;
   render: (
     transitionProps: NavigationTransitionProps,
     prevTransitionProps?: NavigationTransitionProps
