@@ -1,21 +1,19 @@
-// Type definitions for ng-tags-input
+// Type definitions for ng-tags-input for 3.2
 // Project: https://github.com/mbenford/ngTagsInput
 // Definitions by: George Pap <https://github.com/GiorgosPap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="angular" />
-
 import * as angular from 'angular';
 
-export type ITagsInputParams = angular.ngTagsInput.ITagsInputParams;
-export type IAutocompleteParams = angular.ngTagsInput.IAutocompleteParams;
-export type ITagsInputConfigurationProvider = angular.ngTagsInput.ITagsInputConfigurationProvider;
+export type ITagsInputParams = angular.ngTagsInput.TagsInputParams;
+export type IAutocompleteParams = angular.ngTagsInput.AutocompleteParams;
+export type ITagsInputConfigurationProvider = angular.ngTagsInput.TagsInputConfigurationProvider;
 
 declare module 'angular' {
-    export namespace ngTagsInput {
+    namespace ngTagsInput {
 
-        interface ITagsInputParams {
+        interface TagsInputParams {
             ngModel?: string;
             useStrings?: boolean;
             template?: string | boolean;
@@ -52,7 +50,7 @@ declare module 'angular' {
             onTagClicked?: any;
         }
 
-        interface IAutocompleteParams {
+        interface AutocompleteParams {
             source?: any;
             template?: string | boolean;
             displayProperty?: string | boolean;
@@ -67,31 +65,17 @@ declare module 'angular' {
             matchClass?: any;
         }
 
-        interface ITagsInputConfigurationProvider extends angular.IServiceProvider {
+        interface TagsInputConfigurationProvider extends IServiceProvider {
             /**
              * Sets the default configuration option for a directive.
-             *
-             * @param {string} directive Name of the directive to be configured. Must be either 'tagsInput' or 'autoComplete'.
-             * @param {object} defaults Object containing options and their values.
-             * 
-             * @returns {object} The service itself for chaining purposes.
              */
             setDefaults(directive: string, defaults: ITagsInputParams | IAutocompleteParams): any;
             /**
              * Sets active interpolation for a set of options.
-             *
-             * @param {string} directive Name of the directive to be configured. Must be either 'tagsInput' or 'autoComplete'.
-             * @param {object} options Object containing which options should have interpolation turned on at all times.
-             *
-             * @returns {object} The service itself for chaining purposes.
              */
             setActiveInterpolation(directive: string, options: ITagsInputParams | IAutocompleteParams): any;
             /**
-             *Sets the threshold used by the tagsInput directive to re-size the inner input field element based on its contents.
-             *
-             * @param {number} threshold Threshold value, in pixels.
-             *
-             * @returns {object} The service itself for chaining purposes.
+             * Sets the threshold used by the tagsInput directive to re-size the inner input field element based on its contents.
              */
             setTextAutosizeThreshold(threshold: number): any;
         }
