@@ -1550,19 +1550,19 @@ export class KeepAwake extends Component {
     static deactivate(): void;
 }
 
-// #region LinearGradient
-/**
- * LinearGradient
- */
-export interface LinearGradientProps extends ViewProperties {
-    colors: string[];
-    start?: [number, number];
-    end?: [number, number];
-    locations?: number[];
-}
+// // #region LinearGradient
+// /**
+//  * LinearGradient
+//  */
+// export interface LinearGradientProps extends ViewProperties {
+//     colors: string[];
+//     start?: [number, number];
+//     end?: [number, number];
+//     locations?: number[];
+// }
 
-export class LinearGradient extends Component<LinearGradientProps> { }
-// #endregion
+// export class LinearGradient extends Component<LinearGradientProps> { }
+// // #endregion
 
 /**
  * Location
