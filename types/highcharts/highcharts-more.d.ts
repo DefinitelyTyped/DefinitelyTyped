@@ -7,9 +7,7 @@
 import * as Highcharts from "highcharts";
 
 declare namespace HighChartsMore {
-    interface Static {
-        (H: Highcharts.Static): Highcharts.Static;
-    }
+    type Static = (H: Highcharts.Static) => Highcharts.Static;
 }
 
 declare const HighchartsMore: HighChartsMore.Static;
