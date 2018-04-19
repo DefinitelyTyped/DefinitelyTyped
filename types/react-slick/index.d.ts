@@ -83,7 +83,7 @@ export interface Settings {
 declare class Slider extends React.Component<Settings, never> {
   slickNext(): void;
   slickPrev(): void;
-  slickGoTo(slideNumber: number, dontAnimate: boolean=false): void;
+  slickGoTo(slideNumber: number, dontAnimate?: boolean): void;
 }
 
 export default Slider;
