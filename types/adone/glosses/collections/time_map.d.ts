@@ -2,7 +2,7 @@ declare namespace adone.collection {
     /**
      * Represents a Map that keeps keys only for a specified interval of time
      */
-    class TimedoutMap<K = any, V = any> extends Map<K, V> {
+    class TimeMap<K = any, V = any> extends Map<K, V> {
         /**
          * @param timeout maximum age of the keys, 1000 by default
          * @param callback callback that is called with each key when the timeout is passed

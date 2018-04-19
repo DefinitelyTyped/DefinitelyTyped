@@ -65,4 +65,9 @@ namespace AdoneRootTests {
         const b = new adone.benchmark.Benchmark.Suite();
         b.add(() => {}).add("", () => {}).run();
     }
+
+    namespace asyncTests {
+        adone.async.all([], () => {});
+        adone.async.forEach([], () => {});
+    }
 }
