@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.52
+// Type definitions for react-native 0.55
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -7,6 +7,8 @@
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
 //                 Alex Dunne <https://github.com/alexdunne>
+//                 Manuel Alabor <https://github.com/swissmanu>
+//                 Michele Bombardi <https://github.com/bm-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -339,6 +341,9 @@ export function createElement<P>(
 
 export type Runnable = (appParameters: any) => void;
 
+type Task = (taskData: any) => Promise<void>;
+type TaskProvider = () => Task;
+
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
@@ -466,6 +471,8 @@ export namespace AppRegistry {
     function unmountApplicationComponentAtRootTag(rootTag: number): void;
 
     function runApplication(appKey: string, appParameters: any): void;
+
+    function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 }
 
 export interface LayoutAnimationTypes {
@@ -537,11 +544,15 @@ export interface FlexStyle {
     alignSelf?: "auto" | FlexAlignType;
     aspectRatio?: number;
     borderBottomWidth?: number;
+    borderEndWidth?: number | string;
     borderLeftWidth?: number;
     borderRightWidth?: number;
+    borderStartWidth?: number | string;
     borderTopWidth?: number;
     borderWidth?: number;
     bottom?: number | string;
+    display?: "none" | "flex";
+    end?: number | string;
     flex?: number;
     flexBasis?: number | string;
     flexDirection?: "row" | "column" | "row-reverse" | "column-reverse";
@@ -553,9 +564,11 @@ export interface FlexStyle {
     left?: number | string;
     margin?: number | string;
     marginBottom?: number | string;
+    marginEnd?: number | string;
     marginHorizontal?: number | string;
     marginLeft?: number | string;
     marginRight?: number | string;
+    marginStart?: number | string;
     marginTop?: number | string;
     marginVertical?: number | string;
     maxHeight?: number | string;
@@ -565,13 +578,16 @@ export interface FlexStyle {
     overflow?: "visible" | "hidden" | "scroll";
     padding?: number | string;
     paddingBottom?: number | string;
+    paddingEnd?: number | string;
     paddingHorizontal?: number | string;
     paddingLeft?: number | string;
     paddingRight?: number | string;
+    paddingStart?: number | string;
     paddingTop?: number | string;
     paddingVertical?: number | string;
     position?: "absolute" | "relative";
     right?: number | string;
+    start?: number | string;
     top?: number | string;
     width?: number | string;
     zIndex?: number;
@@ -1086,6 +1102,11 @@ export interface TextInputProperties
     blurOnSubmit?: boolean;
 
     /**
+     * If true, caret is hidden. The default value is false.
+     */
+    caretHidden?: boolean
+
+    /**
      * Provides an initial value that will change when the user starts typing.
      * Useful for simple use-cases where you don't want to deal with listening to events
      * and updating the value prop to keep the controlled state in sync.
@@ -1219,6 +1240,13 @@ export interface TextInputProperties
      * Used to locate this view in end-to-end tests
      */
     testID?: string;
+
+    /**
+     * Used to connect to an InputAccessoryView. Not part of react-natives documentation, but present in examples and
+     * code.
+     * See https://facebook.github.io/react-native/docs/inputaccessoryview.html for more information.
+     */
+    inputAccessoryViewID?: string;
 
     /**
      * The value to show for the text input. TextInput is a controlled component,
@@ -2250,6 +2278,27 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
 export interface SafeAreaViewStatic extends NativeMethodsMixin, React.ClassicComponentClass<ViewProperties> {}
+
+
+/**
+ * A component which enables customization of the keyboard input accessory view on iOS. The input accessory view is
+ * displayed above the keyboard whenever a TextInput has focus. This component can be used to create custom toolbars.
+ *
+ * To use this component wrap your custom toolbar with the InputAccessoryView component, and set a nativeID. Then, pass
+ * that nativeID as the inputAccessoryViewID of whatever TextInput you desire.
+ */
+export interface InputAccessoryViewStatic extends React.ClassicComponentClass<InputAccessoryViewProperties> {}
+
+export interface InputAccessoryViewProperties {
+    backgroundColor?: string;
+
+    /**
+     * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
+     */
+    nativeID?: string;
+
+    style?: StyleProp<ViewStyle>;
+}
 
 /**
  * Use `SegmentedControlIOS` to render a UISegmentedControl iOS.
@@ -3696,7 +3745,15 @@ export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
 
-export interface SectionListProperties<ItemT> extends VirtualizedListProperties<ItemT> {
+export interface SectionListScrollParams {
+    animated?: boolean;
+    itemIndex: number;
+    sectionIndex: number;
+    viewOffset?: number;
+    viewPosition?: number;
+}
+
+export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -3715,7 +3772,7 @@ export interface SectionListProperties<ItemT> extends VirtualizedListProperties<
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
 
     /**
      * Rendered in between each section.
@@ -3770,7 +3827,7 @@ export interface SectionListProperties<ItemT> extends VirtualizedListProperties<
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem: ListRenderItem<ItemT>;
+    renderItem?: ListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
@@ -3804,6 +3861,13 @@ export interface SectionListProperties<ItemT> extends VirtualizedListProperties<
      * Only enabled by default on iOS because that is the platform standard there.
      */
     stickySectionHeadersEnabled?: boolean;
+
+    /**
+     * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
+     * positioned in the viewable area such that viewPosition 0 places it at the top
+     * (and may be covered by a sticky header), 1 at the bottom, and 0.5 centered in the middle.
+     */
+    scrollToLocation?(params: SectionListScrollParams): void;
 }
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {}
@@ -3898,6 +3962,8 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
     inverted?: boolean;
 
     keyExtractor?: (item: ItemT, index: number) => string;
+
+    listKey?: string;
 
     /**
      * The maximum number of items to render in each incremental render batch. The more rendered at
@@ -4805,9 +4871,9 @@ export namespace StyleSheet {
      * the alternative use.
      */
     export function flatten<T>(style?: RegisteredStyle<T>): T;
-    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
     export function flatten(style?: StyleProp<TextStyle>): TextStyle;
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
+    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -7296,13 +7362,36 @@ export interface PushNotificationIOSStatic {
      *
      * The type MUST be 'notification'
      */
-    addEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    addEventListener(type: "notification" | "localNotification", handler: (notification: PushNotification) => void): void;
+
+    /**
+     * Fired when the user registers for remote notifications.
+     *
+     * The handler will be invoked with a hex string representing the deviceToken.
+     *
+     * The type MUST be 'register'
+     */
+    addEventListener(type: "register", handler: (deviceToken: string) => void): void;
+
+    /**
+     * Fired when the user fails to register for remote notifications.
+     * Typically occurs when APNS is having issues, or the device is a simulator.
+     *
+     * The handler will be invoked with {message: string, code: number, details: any}.
+     *
+     * The type MUST be 'registrationError'
+     */
+    addEventListener(type: "registrationError", handler: (error: { message: string, code: number, details: any }) => void): void;
 
     /**
      * Removes the event listener. Do this in `componentWillUnmount` to prevent
      * memory leaks
      */
-    removeEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void;
+    removeEventListener(type: PushNotificationEventName,
+        handler: ((notification: PushNotification) => void)
+            | ((deviceToken: string) => void)
+            | ((error: { message: string, code: number, details: any }) => void)
+    ): void;
 
     /**
      * Requests all notification permissions from iOS, prompting the user's
@@ -8370,6 +8459,9 @@ export type ImageBackground = ImageBackgroundStatic;
 export var ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
 
+export var InputAccessoryView: InputAccessoryViewStatic;
+export type InputAccessoryView = InputAccessoryViewStatic;
+
 export var FlatList: FlatListStatic<any>;
 export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
@@ -8749,7 +8841,7 @@ declare global {
      *
      * @see https://github.com/facebook/react-native/issues/934
      */
-    var originalXMLHttpRequest: Object;
+    var originalXMLHttpRequest: any;
 
     var __BUNDLE_START_TIME__: number;
     var ErrorUtils: ErrorUtils;

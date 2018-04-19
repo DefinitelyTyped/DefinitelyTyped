@@ -399,7 +399,7 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-        constructor();
+		constructor(options?: {showCompass?: boolean, showZoom?: boolean});
     }
 
     export class PositionOptions {

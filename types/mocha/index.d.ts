@@ -1,12 +1,15 @@
-// Type definitions for mocha 5.0
+// Type definitions for mocha 5.1
 // Project: http://mochajs.org/
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
 //                 jt000 <https://github.com/jt000>
 //                 Vadim Macagon <https://github.com/enlight>
 //                 Andrew Bradley <https://github.com/cspotcode>
+//                 Dmitrii Sorin <https://github.com/1999>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
+
+/// <reference types="node" />
 
 interface MochaSetupOptions {
     // milliseconds to wait before considering a test slow
@@ -74,6 +77,8 @@ interface ReporterConstructor {
 
 declare class Mocha {
     currentTest: Mocha.ITestDefinition;
+    suite: Mocha.ISuite;
+
     constructor(options?: {
         grep?: RegExp;
         ui?: string;
@@ -119,6 +124,7 @@ declare class Mocha {
     noHighlighting(value: boolean): Mocha;
     /** Runs tests and invokes `onComplete()` when finished. */
     run(onComplete?: (failures: number) => void): Mocha.IRunner;
+    loadFiles(cb?: () => any): void;
 }
 
 // merge the Mocha class declaration with a module
@@ -168,6 +174,7 @@ declare namespace Mocha {
     interface ISuite {
         parent: ISuite;
         title: string;
+        suites: ISuite[];
 
         fullTitle(): string;
     }
@@ -197,7 +204,7 @@ declare namespace Mocha {
     }
 
     /** Partial interface for Mocha's `Runner` class. */
-    interface IRunner {
+    interface IRunner extends NodeJS.EventEmitter {
         stats?: IStats;
         started: boolean;
         suite: ISuite;

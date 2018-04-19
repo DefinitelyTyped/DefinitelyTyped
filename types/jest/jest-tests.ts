@@ -367,6 +367,11 @@ describe('missing tests', () => {
         expect(mock.getMockName()).toBe('Carrot');
     });
 
+    it('tests mock name functionality', () => {
+        const mock = spyOn(console, 'warn');
+        expect(mock).toHaveBeenCalled();
+    });
+
     it('creates snapshoter', () => {
        jest.disableAutomock().mock('./render', () => jest.fn((): string => "{Link to: \"facebook\"}"), { virtual: true });
        const render: () => string = require('./render');

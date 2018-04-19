@@ -75,6 +75,9 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
 };
 <StatelessComponentWithoutProps />;
 
+// React.createContext
+const ContextWithRenderProps = React.createContext('defaultValue');
+
 // Fragments
 <div>
     <React.Fragment>

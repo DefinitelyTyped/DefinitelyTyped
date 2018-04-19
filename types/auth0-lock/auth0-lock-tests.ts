@@ -124,7 +124,9 @@ const otherOptions : Auth0LockConstructorOptions = {
   configurationBaseUrl: "https://cdn.auth0.com",
   languageBaseUrl: "http://www.example.com",
   hashCleanup: false,
-  leeway: 30
+  leeway: 30,
+  _enableImpersonation: true,
+  _enableIdPInitiatedLogin: false
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);

@@ -5647,19 +5647,28 @@ export interface FileSavedEvent {
     path: string;
 }
 
-export type FilesystemChangeEvent = Array<{
+export interface FilesystemChangeBasic<
+  Action extends "created"|"modified"|"deleted"|"renamed"
+  = "created"|"modified"|"deleted"
+> {
     /** A string describing the filesystem action that occurred. */
-    action: "created"|"modified"|"deleted"|"renamed";
+    action: Action;
 
     /** The absolute path to the filesystem entry that was acted upon. */
     path: string;
+}
 
+export interface FilesystemChangeRename extends FilesystemChangeBasic<"renamed"> {
     /**
      *  For rename events, a string containing the filesystem entry's former
      *  absolute path.
      */
-    oldPath?: string;
-}>;
+    oldPath: string;
+}
+
+export type FilesystemChange = FilesystemChangeBasic|FilesystemChangeRename;
+
+export type FilesystemChangeEvent = FilesystemChange[];
 
 export interface FullKeybindingMatchEvent {
   /** The string of keystrokes that matched the binding. */

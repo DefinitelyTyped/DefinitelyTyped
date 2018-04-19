@@ -211,6 +211,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "catalog",
+            "typingsPackageName": "catalog",
+            "sourceRepoURL": "https://github.com/interactivethings/catalog",
+            "asOfVersion": "3.5.0"
+        },
+        {
             "libraryName": "chalk",
             "typingsPackageName": "chalk",
             "sourceRepoURL": "https://github.com/chalk/chalk",
@@ -1145,6 +1151,12 @@
             "typingsPackageName": "react-ga",
             "sourceRepoURL": "https://github.com/react-ga/react-ga",
             "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "react-native-collapsible",
+            "typingsPackageName": "react-native-collapsible",
+            "sourceRepoURL": "https://github.com/oblador/react-native-collapsible",
+            "asOfVersion": "0.11.0"
         },
         {
             "libraryName": "react-native-elements",
