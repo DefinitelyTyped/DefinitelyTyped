@@ -6167,7 +6167,7 @@ export interface ConfirmationOptions {
     normalizeAccessKeys?: boolean;
 }
 
-export interface ContextMenuOptions {
+export interface ContextMenuItemOptions {
     /** The menu item's label. */
     label?: string;
 
@@ -6186,12 +6186,6 @@ export interface ContextMenuOptions {
     /** An array of additional items. */
     submenu?: ReadonlyArray<ContextMenuOptions>;
 
-    /**
-     *  If you want to create a separator, provide an item with type: 'separator'
-     *  and no other keys.
-     */
-    type?: "separator";
-
     /** Whether the menu item should appear in the menu. Defaults to true. */
     visible?: boolean;
 
@@ -6206,7 +6200,27 @@ export interface ContextMenuOptions {
      *  given context menu deployment.
      */
     shouldDisplay?(event: Event): void;
+
+    /** Place this menu item before the menu items representing the given commands. */
+    before?: ReadonlyArray<string>;
+
+    /** Place this menu item after the menu items representing the given commands. */
+    after?: ReadonlyArray<string>;
+
+    /**
+     * Place this menu item's group before the containing group of the menu items
+     * representing the given commands.
+     */
+    beforeGroupContaining?: ReadonlyArray<string>;
+
+    /**
+     * Place this menu item's group after the containing group of the menu items
+     * representing the given commands.
+     */
+    afterGroupContaining?: ReadonlyArray<string>;
 }
+
+export type ContextMenuOptions = ContextMenuItemOptions | { type: "separator" };
 
 export interface CopyMarkerOptions {
     /** Whether or not the marker should be tailed. */
