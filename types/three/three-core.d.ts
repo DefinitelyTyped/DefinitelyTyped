@@ -6582,6 +6582,14 @@ export class AudioListener extends Object3D {
  * class Curve&lt;T extends Vector&gt;
  */
 export class Curve<T extends Vector> {
+	
+    /**
+     * This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via .getLengths. 
+     * To ensure precision when using methods like .getSpacedPoints, it is recommended to increase .arcLengthDivisions if the curve is very large. 
+     * Default is 200.
+     */
+    arcLengthDivisions:number;
+	
     /**
      * Returns a vector for point t of the curve where t is between 0 and 1
      * getPoint(t: number): T;
