@@ -1,6 +1,7 @@
 // Type definitions for ArcGIS API for JavaScript 3.24
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
+//                 Bjorn Svensson <https://github.com/bsvensson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "esri" {
@@ -5195,7 +5196,7 @@ declare module "esri/dijit/Popup" {
   import Graphic = require("esri/graphic");
   import LineSymbol = require("esri/symbols/LineSymbol");
   import Point = require("esri/geometry/Point");
-  import MarkerSymbol = require("esri/symbols/MarkerSymbol");
+  import SimpleMarkerSymbol = require("esri/symbols/SimpleMarkerSymbol");
 
   /** The Popup class is an implementation of InfoWindow that inherits from InfoWindowBase to provide additional capabilities. */
   class Popup extends InfoWindowBase {
@@ -5230,7 +5231,7 @@ declare module "esri/dijit/Popup" {
     /** Specify the margin (in pixels) to leave at the top of the popup window when it is maximized. */
     marginTop: number;
     /** Define the marker symbol used to highlight point features. */
-    markerSymbol: MarkerSymbol;
+    markerSymbol: SimpleMarkerSymbol;
     /** Specify the x-offset (in pixels) used when positioning the popup. */
     offsetX: number;
     /** Specify the y-offset (in pixels) used when positioning the popup. */
