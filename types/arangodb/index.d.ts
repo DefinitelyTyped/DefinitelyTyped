@@ -762,7 +762,10 @@ declare namespace ArangoDB {
 
     // Views
 
-    type View = object; // TODO
+    interface View {
+        // TODO
+        [key: string]: any;
+    }
     type ViewProperties = object; // TODO
 
     // Global
@@ -856,7 +859,7 @@ declare namespace ArangoDB {
 
         // Global
         _engine(): EngineType;
-        _engineStats(): object;
+        _engineStats(): { [key: string]: any };
         _executeTransaction(transaction: Transaction): void;
     }
 }
@@ -928,16 +931,70 @@ declare namespace Foxx {
         end: number;
     }> & { type: string };
 
+    type ConfigurationType =
+        | "integer"
+        | "boolean"
+        | "string"
+        | "number"
+        | "json"
+        | "password"
+        | "int"
+        | "bool";
+    interface ConfigurationDefinition {
+        default?: any;
+        type?: ConfigurationType;
+        description?: string;
+        required: boolean;
+    }
+    interface DependencyDefinition {
+        name: string;
+        version: string;
+        description?: string;
+        required: boolean;
+        multiple: boolean;
+    }
+    interface AssetDefinition {
+        path: string;
+        gzip?: boolean;
+        type?: string;
+    }
+
+    interface Manifest {
+        name?: string;
+        version?: string;
+        keywords?: string;
+        license?: string;
+        repository?: { type: string; url: string };
+        author: string;
+        contributors?: any[];
+        description: string;
+        thumbnail?: string;
+        engines?: StringMap;
+        defaultDocument?: string;
+        lib: string;
+        main?: string;
+        configuration?: {
+            [key: string]: ConfigurationDefinition;
+        };
+        dependencies?: {
+            [key: string]: DependencyDefinition;
+        };
+        provides?: StringMap;
+        files?: { [key: string]: AssetDefinition };
+        scripts?: StringMap;
+        tests?: string[];
+    }
+
     interface Context {
         argv: any[];
         basePath: string;
         baseUrl: string;
         collectionPrefix: string;
-        configuration: object;
-        dependencies: object;
+        configuration: { [key: string]: any };
+        dependencies: { [key: string]: any };
         isDevelopment: boolean;
         isProduction: boolean;
-        manifest: object;
+        manifest: Manifest;
         mount: string;
         collection(name: string): ArangoDB.Collection | null;
         collectionName(name: string): string;
@@ -971,10 +1028,10 @@ declare namespace Foxx {
         method: ArangoDB.HttpMethod;
         originalUrl: string;
         path: string;
-        pathParams: object;
+        pathParams: { [key: string]: any };
         port: number;
         protocol: string;
-        queryParams: object;
+        queryParams: { [key: string]: any };
         rawBody: Buffer;
         remoteAddress: string;
         remoteAddresses: string[];
@@ -1012,7 +1069,7 @@ declare namespace Foxx {
     interface Response {
         body: Buffer | string;
         context: Context;
-        headers: object;
+        headers: { [key: string]: any };
         statusCode: number;
         attachment(filename?: string): this;
         cookie(
