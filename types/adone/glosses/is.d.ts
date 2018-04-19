@@ -490,12 +490,17 @@ declare namespace adone {
         /**
          * Checks whether the given string is an IPv4 address
          */
-        export function ip4(str: string): boolean;
+        export function ip4(str: string, options?: adone.regex.I.IP.Options): boolean;
 
         /**
          * Checks whether the given string is an IPv6 address
          */
-        export function ip6(str: string): boolean;
+        export function ip6(str: string, options?: adone.regex.I.IP.Options): boolean;
+
+        /**
+         * Checks whether the given string is IPv4 or IPv6 address
+         */
+        export function ip(str: string, options?: adone.regex.I.IP.Options): boolean;
 
         /**
          * Checks whether the given object is an array buffer
@@ -629,21 +634,6 @@ declare namespace adone {
         }): obj is string;
 
         /**
-         * Checks whether the given object is a valid IPv4 address
-         */
-        export function ip(obj: any, version: 4): boolean;
-
-        /**
-         * Checks whether the given object is a valid IPv6 address
-         */
-        export function ip(obj: any, version: 6): boolean;
-
-        /**
-         * Checks whether the given object in a valid IPv4 or IPv6 address
-         */
-        export function ip(obj: any): boolean;
-
-        /**
          * Checks whether the given object is a valid UUIDv1 identifier
          */
         export function uuid(obj: any, version: 1): obj is string;
@@ -680,5 +670,10 @@ declare namespace adone {
         export const openbsd: boolean;
 
         export const aix: boolean;
+
+        /**
+         * Checks whether the given object is adone.multi.address.Multiaddr
+         */
+        export function multiAddress(obj: any): boolean; // TODO: obj is adone.multi.address.Multiaddr
     }
 }
