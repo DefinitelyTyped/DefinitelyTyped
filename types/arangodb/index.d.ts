@@ -487,7 +487,7 @@ declare namespace ArangoDB {
     type InsertResult<T extends object = any> = DocumentMetadata | Document<T>;
     type UpdateResult<T extends object = any> = UpdateMetadata & {
         old?: Document<T>;
-        ["new"]?: Document<T>;
+        new?: Document<T>;
     };
     interface RemoveResult<T extends object = any> extends DocumentMetadata {
         old?: Document<T>;
@@ -871,7 +871,7 @@ declare namespace Foxx {
         data: any;
     }
     interface SessionStorage {
-        ["new"]?: () => Session;
+        new?: () => Session;
         fromClient: (sid: string) => Session | null;
         forClient: (session: Session) => string | null;
     }
