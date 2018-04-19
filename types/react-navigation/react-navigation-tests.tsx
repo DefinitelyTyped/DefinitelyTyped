@@ -329,8 +329,16 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
                 configureTransition={this._configureTransition}
                 navigation={this.props.navigation}
                 render={this._render}
-                onTransitionStart={() => { }}
-                onTransitionEnd={() => { }}
+                onTransitionStart={(curr, prev) => {
+                    if (prev) {
+                        prev.position.setValue(curr.navigation.state.index);
+                    }
+                }}
+                onTransitionEnd={(curr, prev) => {
+                    if (prev) {
+                        prev.position.setValue(curr.navigation.state.index);
+                    }
+                }}
             />
         );
     }
