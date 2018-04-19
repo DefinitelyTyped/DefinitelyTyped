@@ -1076,17 +1076,17 @@ export class KeepAwake extends Component {
     static deactivate(): void;
 }
 
-/**
- * LinearGradient
- */
-export interface LinearGradientProps {
-    colors: string[];
-    start: [number, number];
-    end: [number, number];
-    locations: number[];
-}
+// /**
+//  * LinearGradient
+//  */
+// export interface LinearGradientProps {
+//     colors: string[];
+//     start: [number, number];
+//     end: [number, number];
+//     locations: number[];
+// }
 
-export class LinearGradient extends Component<LinearGradientProps> { }
+// export class LinearGradient extends Component<LinearGradientProps> { }
 
 /**
  * Location

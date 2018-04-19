@@ -24,7 +24,7 @@ import {
     Svg,
     IntentLauncherAndroid,
     KeepAwake,
-    LinearGradient,
+    // LinearGradient,
     Permissions,
     registerRootComponent,
     ScreenOrientation,
@@ -535,17 +535,17 @@ IntentLauncherAndroid.ACTION_ZEN_MODE_SETTINGS === 'android.settings.ZEN_MODE_SE
 KeepAwake.activate();
 KeepAwake.deactivate();
 
-() => (
-    <LinearGradient
-        colors={['#fff']}
-        start={[1, 1]} />
-);
+// () => (
+//     <LinearGradient
+//         colors={['#fff']}
+//         start={[1, 1]} />
+// );
 
-() => (
-    <LinearGradient
-        colors={['#fff']}
-        style={{ flex: 1 }} />
-);
+// () => (
+//     <LinearGradient
+//         colors={['#fff']}
+//         style={{ flex: 1 }} />
+// );
 
 Permissions.CAMERA === 'camera';
 Permissions.CAMERA_ROLL === 'cameraRoll';
