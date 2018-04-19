@@ -1,6 +1,7 @@
 // Type definitions for ArcGIS API for JavaScript 4.7
 // Project: http://js.arcgis.com
 // Definitions by: Esri <https://github.com/Esri>
+//                 Bjorn Svensson <https://github.com/bsvensson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -51059,12 +51060,6 @@ declare namespace __esri {
   }
 
   interface SketchViewModel extends Accessor, Evented {
-    /**
-     * A reference to the [Draw](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-2d-draw-Draw.html) class.
-     * 
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html#draw)
-     */
-    readonly draw: Draw;
     /**
      * Graphic representing the temporary geometry that is being drawn on the view.
      * 
