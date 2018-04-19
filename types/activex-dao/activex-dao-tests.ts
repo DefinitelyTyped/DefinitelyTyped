@@ -12,15 +12,14 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
 const dbOpenSnapshot = DAO.RecordsetTypeEnum.dbOpenSnapshot;
 
 let engine = new ActiveXObject('DAO.DBEngine');
-// let dbsNorthwind = engine.OpenDatabase('c:\\path\\to\\northwind.mdb');
-let dbsNorthwind = engine.OpenDatabase('C:\\Users\\win8\\Documents\\northwind.accdb');
+let dbsNorthwind = engine.OpenDatabase('c:\\path\\to\\northwind.mdb');
 
 // https://msdn.microsoft.com/VBA/Access-VBA/articles/add-a-record-to-a-dao-recordset
 {
     // adding a record to a recordset
-    let rstShippers = dbsNorthwind.OpenRecordset('Shippers');
+    const rstShippers = dbsNorthwind.OpenRecordset('Shippers');
     rstShippers.AddNew();
-    rstShippers.Fields.Item('CompanyName').Value = 'Global Parcel Service';
+    rstShippers('CompanyName').Value = 'Global Parcel Service';
     // Set remaining fields
     rstShippers.Update();
     rstShippers.Close();
@@ -39,7 +38,7 @@ let dbsNorthwind = engine.OpenDatabase('C:\\Users\\win8\\Documents\\northwind.ac
         WHERE OrderDate > QuarterStart
     `;
     qdf = dbsNorthwind.CreateQueryDef('Second quarter (parameters)', sql);
-    WScript.Echo(`Field names: ${collectionToArray(qdf.Fields).join(', ')}`);
+    WScript.Echo(`Field names: ${collectionToArray(qdf.Fields).map(fld => fld.Name).join(', ')}`);
 }
 
 // https://msdn.microsoft.com/VBA/Access-VBA/articles/count-the-number-of-records-in-a-dao-recordset
@@ -58,12 +57,12 @@ const findRecordCount = (dbs: DAO.Database, sql: string) => {
 // https://msdn.microsoft.com/VBA/Access-VBA/articles/delete-a-record-from-a-dao-recordset
 {
     // delete records from a Recordset
-    let rstShippers = dbsNorthwind.OpenRecordset('SELECT * FROM Shippers ORDER BY CompanyName, ShipperID', DAO.RecordsetTypeEnum.dbOpenDynaset);
+    const rstShippers = dbsNorthwind.OpenRecordset('SELECT * FROM Shippers ORDER BY CompanyName, ShipperID', DAO.RecordsetTypeEnum.dbOpenDynaset);
     if (!rstShippers.EOF) {
-        let name = rstShippers.Fields.Item('CompanyName').Value;
+        let name = rstShippers('CompanyName').Value;
         rstShippers.MoveNext();
         while (!rstShippers.EOF) {
-            const recordName: string = rstShippers.Fields.Item('CompanyName').Value;
+            const recordName: string = rstShippers('CompanyName').Value;
             if (recordName === name) {
                 rstShippers.Delete();
             } else {
@@ -78,10 +77,10 @@ const findRecordCount = (dbs: DAO.Database, sql: string) => {
 // https://msdn.microsoft.com/VBA/Access-VBA/articles/extract-data-from-a-record-in-a-dao-recordset
 {
     // copy entire records to an array
-    let rstEmployees = dbsNorthwind.OpenRecordset('SELECT FirstName, LastName, Title FROM Employees', dbOpenSnapshot);
-    let records = new VBArray<string>(rstEmployees.GetRows(3));
-    let recordCount = records.ubound(2) + 1;
-    let columnCount = records.ubound(1) + 1;
+    const rstEmployees = dbsNorthwind.OpenRecordset('SELECT FirstName, LastName, Title FROM Employees', dbOpenSnapshot);
+    const records = new VBArray<string>(rstEmployees.GetRows(3));
+    const recordCount = records.ubound(2) + 1;
+    const columnCount = records.ubound(1) + 1;
     for (let row = 0; row < recordCount; row += 1) {
         for (let column = 0; column < columnCount; column += 1) {
             WScript.Echo(records.getItem(column, row));
@@ -99,7 +98,7 @@ const findRecordCount = (dbs: DAO.Database, sql: string) => {
 
     if (!rstOrders.EOF && !rstOrderDetails.EOF) {
         while (!rstOrders.EOF) {
-            const orderID = rstOrders.Fields.Item('OrderID').Value;
+            const orderID = rstOrders('OrderID').Value;
             rstOrderDetails.FindFirst(`OrderID=${orderID}`);
             if (rstOrderDetails.NoMatch) {
                 orders.push(orderID);
@@ -112,7 +111,7 @@ const findRecordCount = (dbs: DAO.Database, sql: string) => {
     rstOrderDetails.Close();
 
     WScript.Echo(orders.join('\n'));
-};
+}
 
 // https://msdn.microsoft.com/VBA/Access-VBA/articles/find-a-record-in-a-table-type-dao-recordset
 /** Find a record in a table-type DAO Recordset */
@@ -122,7 +121,7 @@ const getHireDate = (employeeID: number) => {
     rstEmployees.Index = 'PrimaryKey';
     rstEmployees.Seek('=', employeeID);
     if (!rstEmployees.NoMatch) {
-        hireDate = new Date(rstEmployees.Fields.Item('HireDate').Value as VarDate);
+        hireDate = new Date(rstEmployees('HireDate').Value as VarDate);
     }
     return hireDate;
 };
@@ -133,12 +132,12 @@ const getHireDate = (employeeID: number) => {
     const rs = dbsNorthwind.OpenRecordset('Tasks');
     rs.MoveFirst();
     while (!rs.EOF) {
-        WScript.Echo(rs.Fields.Item('TaskName').Value);
-        const childRs = rs.Fields.Item('AssignedTo').Value as DAO.Recordset;
+        WScript.Echo(rs('TaskName').Value);
+        const childRs = rs('AssignedTo').Value as DAO.Recordset;
         if (childRs.EOF) { continue; }
         childRs.MoveFirst();
         while (!childRs.EOF) {
-            WScript.Echo('\t' + childRs.Fields.Item('Value').Value);
+            WScript.Echo('\t' + childRs('Value').Value);
         }
     }
 }
@@ -148,9 +147,9 @@ const getHireDate = (employeeID: number) => {
     // modifying an existing record in a DAO Recordset
     const rstEmployees = dbsNorthwind.OpenRecordset('Employees');
     while (!rstEmployees.EOF) {
-        if (rstEmployees.Fields.Item('Title').Value === 'Sales Representative') {
+        if (rstEmployees('Title').Value === 'Sales Representative') {
             rstEmployees.Edit();
-            rstEmployees.Fields.Item('Title').Value = 'Account Executive';
+            rstEmployees('Title').Value = 'Account Executive';
             rstEmployees.Update();
         }
         rstEmployees.MoveNext();
@@ -161,13 +160,13 @@ const getHireDate = (employeeID: number) => {
 // https://msdn.microsoft.com/VBA/Access-VBA/articles/use-transactions-in-a-dao-recordset
 /** using transactions in a DAO Recordset */
 const changeTitleWithTransaction = (commitTransaction: boolean) => {
-    const currentWorkspace = engine.Workspaces.Item(0);
+    const currentWorkspace = engine.Workspaces(0);
     const rstEmployees = dbsNorthwind.OpenRecordset('Employees');
     currentWorkspace.BeginTrans();
     while (!rstEmployees.EOF) {
-        if (rstEmployees.Fields.Item('Title').Value === 'Sales Representative') {
+        if (rstEmployees('Title').Value === 'Sales Representative') {
             rstEmployees.Edit();
-            rstEmployees.Fields.Item('Title').Value = 'Account Executive';
+            rstEmployees('Title').Value = 'Account Executive';
             rstEmployees.Update();
         }
         rstEmployees.MoveNext();
