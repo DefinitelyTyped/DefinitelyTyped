@@ -2695,7 +2695,7 @@ export interface PickerIOSItemProperties {
 /**
  * @see PickerIOS.ios.js
  */
-export interface PickerIOSItemStatic extends React.ComponentClass<PickerIOSItemProperties> {}
+export class PickerIOSItem extends React.Component<PickerIOSItemProperties> {}
 
 /**
  * @see Picker.js
@@ -2800,8 +2800,10 @@ export interface PickerIOSProperties extends ViewProperties {
  * @see https://facebook.github.io/react-native/docs/pickerios.html
  * @see PickerIOS.ios.js
  */
-export interface PickerIOSStatic extends NativeMethodsMixin, React.ClassicComponentClass<PickerIOSProperties> {
-    Item: PickerIOSItemStatic;
+declare class PickerIOSComponent extends React.Component<PickerIOSProperties> {}
+declare const PickerIOSBase: Constructor<NativeMethodsMixin> & typeof PickerIOSComponent;
+export class PickerIOS extends PickerIOSBase {
+    static Item: typeof PickerIOSItem;
 }
 
 /**
@@ -8438,9 +8440,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const PickerIOS: PickerIOSStatic;
-export type PickerIOS = PickerIOSStatic;
 
 export const ProgressBarAndroid: ProgressBarAndroidStatic;
 export type ProgressBarAndroid = ProgressBarAndroidStatic;
