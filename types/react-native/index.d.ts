@@ -2848,9 +2848,9 @@ export interface ProgressBarAndroidProperties extends ViewProperties {
  * React component that wraps the Android-only `ProgressBar`. This component is used to indicate
  * that the app is loading or there is some activity in the app.
  */
-export interface ProgressBarAndroidStatic
-    extends NativeMethodsMixin,
-        React.ClassicComponentClass<ProgressBarAndroidProperties> {}
+declare class ProgressBarAndroidComponent extends React.Component<ProgressBarAndroidProperties> {}
+declare const ProgressBarAndroidBase: Constructor<NativeMethodsMixin> & typeof ProgressBarAndroidComponent;
+export class ProgressBarAndroid extends ProgressBarAndroidBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/progressviewios.html
@@ -8440,9 +8440,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const ProgressBarAndroid: ProgressBarAndroidStatic;
-export type ProgressBarAndroid = ProgressBarAndroidStatic;
 
 export const ProgressViewIOS: ProgressViewIOSStatic;
 export type ProgressViewIOS = ProgressViewIOSStatic;
