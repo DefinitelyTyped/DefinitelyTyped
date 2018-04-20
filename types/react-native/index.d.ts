@@ -4746,9 +4746,9 @@ export interface TouchableNativeFeedbackProperties extends TouchableWithoutFeedb
  *
  * @see https://facebook.github.io/react-native/docs/touchablenativefeedback.html#content
  */
-export interface TouchableNativeFeedbackStatic
-    extends TouchableMixin,
-        React.ClassicComponentClass<TouchableNativeFeedbackProperties> {
+declare class TouchableNativeFeedbackComponent extends React.Component<TouchableNativeFeedbackProperties> {}
+declare const TouchableNativeFeedbackBase: Constructor<TouchableMixin> & typeof TouchableNativeFeedbackComponent;
+export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
     /**
      * Creates an object that represents android theme's default background for
      * selectable elements (?android:attr/selectableItemBackground).
@@ -8457,9 +8457,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const TouchableNativeFeedback: TouchableNativeFeedbackStatic;
-export type TouchableNativeFeedback = TouchableNativeFeedbackStatic;
 
 export const TouchableOpacity: TouchableOpacityStatic;
 export type TouchableOpacity = TouchableOpacityStatic;
