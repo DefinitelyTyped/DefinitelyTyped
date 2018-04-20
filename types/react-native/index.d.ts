@@ -4411,14 +4411,14 @@ export class MapView extends MapViewBase {
     };
 }
 
-interface MaskedViewProps extends ViewProps {
+interface MaskedViewIOSProps extends ViewProps {
     maskElement: React.ReactElement<any>;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/maskedviewios.html
  */
-declare class MaskedViewComponent extends React.Component<MaskedViewProps> {}
+declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
 declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedViewComponent;
 export class MaskedViewIOS extends MaskedViewBase {}
 
@@ -8847,7 +8847,7 @@ export type ListViewProperties = ListViewProps;
 /** @deprecated */
 export type MapViewProperties = MapViewProps;
 /** @deprecated */
-export type MaskedViewProperties = MaskedViewProps;
+export type MaskedViewIOSProperties = MaskedViewIOSProps;
 /** @deprecated */
 export type ModalProperties = ModalProps;
 /** @deprecated */
