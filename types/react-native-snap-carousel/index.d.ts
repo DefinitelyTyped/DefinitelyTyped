@@ -13,7 +13,7 @@ import {
     NativeSyntheticEvent,
     NativeScrollEvent,
     StyleProp,
-    ScrollViewProperties,
+    ScrollViewProps,
     ScrollViewStyle,
     ViewStyle,
     ImageProperties,
@@ -30,7 +30,7 @@ export interface AdditionalParallaxProps {
     vertical?: boolean;
 }
 
-export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
+export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
     // Required
 
     /**
@@ -278,7 +278,7 @@ export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>
     triggerRenderingHack(offset: number): void;
 }
 
-export type CarouselProperties<T> = ScrollViewProperties & CarouselProps<T> & React.Props<CarouselStatic<T>>;
+export type CarouselProperties<T> = ScrollViewProps & CarouselProps<T> & React.Props<CarouselStatic<T>>;
 
 export interface ParallaxImageProps extends ImageProperties, AdditionalParallaxProps {
     /**

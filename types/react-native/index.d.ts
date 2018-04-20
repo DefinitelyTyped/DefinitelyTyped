@@ -2235,7 +2235,7 @@ export interface NativeSegmentedControlIOSChangeEvent {
     target: number;
 }
 
-export interface SegmentedControlIOSProperties extends ViewProps {
+export interface SegmentedControlIOSProps extends ViewProps {
     /**
      * If false the user won't be able to interact with the control. Default value is true.
      */
@@ -2325,7 +2325,7 @@ export interface InputAccessoryViewProperties {
  * />
  * ````
  */
-declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProperties> {}
+declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> {}
 declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixin> & typeof SegmentedControlIOSComponent;
 export class SegmentedControlIOS extends SegmentedControlIOSBase {}
 
@@ -2970,7 +2970,7 @@ export class RefreshControl extends RefreshControlBase {
     SIZE: Object; // Undocumented
 }
 
-export interface RecyclerViewBackedScrollViewProperties extends ScrollViewProperties {}
+export interface RecyclerViewBackedScrollViewProperties extends ScrollViewProps {}
 
 /**
  * Wrapper around android native recycler view.
@@ -3759,7 +3759,7 @@ export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
 
-export interface SectionListProperties<ItemT> extends ScrollViewProperties {
+export interface SectionListProperties<ItemT> extends ScrollViewProps {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -3853,7 +3853,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
      */
-    renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>;
+    renderScrollComponent?: (props: ScrollViewProps) => React.ReactElement<ScrollViewProps>;
 
     /**
      * Note: may have bugs (missing content) in some circumstances - use at your own risk.
@@ -3874,7 +3874,7 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
 /**
  * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
  */
-export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
+export interface VirtualizedListProperties<ItemT> extends ScrollViewProps {
     /**
      * Rendered when the list is empty. Can be a React Component Class, a render function, or
      * a rendered element.
@@ -4023,7 +4023,7 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
      */
-    renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>;
+    renderScrollComponent?: (props: ScrollViewProps) => React.ReactElement<ScrollViewProps>;
 
     /**
      * Amount of time between low-pri item render batches, e.g. for rendering items quite a ways off
@@ -4046,7 +4046,7 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
 /**
  * @see https://facebook.github.io/react-native/docs/listview.html#props
  */
-export interface ListViewProperties extends ScrollViewProperties {
+export interface ListViewProperties extends ScrollViewProps {
     /**
      * An instance of [ListView.DataSource](docs/listviewdatasource.html) to use
      */
@@ -4144,7 +4144,7 @@ export interface ListViewProperties extends ScrollViewProperties {
      * A function that returns the scrollable component in which the list rows are rendered.
      * Defaults to returning a ScrollView with the given props.
      */
-    renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>;
+    renderScrollComponent?: (props: ScrollViewProps) => React.ReactElement<ScrollViewProps>;
 
     /**
      * (sectionData, sectionID) => renderable
@@ -5715,7 +5715,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
     scrollResponderKeyboardDidHide(e: ScrollResponderEvent): void;
 }
 
-export interface ScrollViewPropertiesIOS {
+export interface ScrollViewPropsIOS {
     /**
      * When true the scroll view bounces horizontally when it reaches the end
      * even if the content is smaller than the scroll view itself. The default
@@ -5877,7 +5877,7 @@ export interface ScrollViewPropertiesIOS {
     zoomScale?: number;
 }
 
-export interface ScrollViewPropertiesAndroid {
+export interface ScrollViewPropsAndroid {
     /**
      * Sometimes a scrollview takes up more space than its content fills.
      * When this is the case, this prop will fill the rest of the
@@ -5907,10 +5907,10 @@ export interface ScrollViewPropertiesAndroid {
     overScrollMode?: "auto" | "always" | "never";
 }
 
-export interface ScrollViewProperties
+export interface ScrollViewProps
     extends ViewProps,
-        ScrollViewPropertiesIOS,
-        ScrollViewPropertiesAndroid,
+        ScrollViewPropsIOS,
+        ScrollViewPropsAndroid,
         Touchable {
     /**
      * These styles will be applied to the scroll view content container which
@@ -6028,8 +6028,6 @@ export interface ScrollViewProperties
      */
     refreshControl?: React.ReactElement<RefreshControlProperties>;
 }
-
-export interface ScrollViewProps extends ScrollViewProperties {}
 
 declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
 declare const ScrollViewBase: Constructor<ScrollResponderMixin> & typeof ScrollViewComponent;
@@ -8773,3 +8771,11 @@ export type WebViewProperties = WebViewProps;
 export type WebViewPropertiesIOS = WebViewPropsIOS;
 /** @deprecated */
 export type WebViewPropertiesAndroid = WebViewPropsAndroid;
+/** @deprecated */
+export type SegmentedControlIOSProperties = SegmentedControlIOSProps;
+/** @deprecated */
+export type ScrollViewProperties = ScrollViewProps;
+/** @deprecated */
+export type ScrollViewPropertiesIOS = ScrollViewPropsIOS;
+/** @deprecated */
+export type ScrollViewPropertiesAndroid = ScrollViewPropsAndroid;
