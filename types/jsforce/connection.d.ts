@@ -10,7 +10,7 @@ import { Metadata } from './api/metadata';
 import { Bulk } from './bulk';
 import { OAuth2, Streaming } from '.';
 
-export type callback<T> = (err: Error, result: T) => void;
+export type Callback<T> = (err: Error, result: T) => void;
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
 // the oauth options can either be in the `oauth2` proeprty OR spread across the main connection

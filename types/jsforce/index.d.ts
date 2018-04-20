@@ -10,7 +10,7 @@
 export { Date } from './date-enum';
 export { Record } from './record';
 export { RecordResult } from './record-result';
-export { Connection, ConnectionOptions, RequestInfo, Tooling, callback } from './connection';
+export { Connection, ConnectionOptions, RequestInfo, Tooling, Callback } from './connection';
 export { SObject } from './salesforce-object';
 export { SalesforceId } from './salesforce-id';
 export * from './oauth2';
