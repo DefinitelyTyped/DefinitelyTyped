@@ -6647,7 +6647,7 @@ export interface ButtonProperties {
     testID?: string;
 }
 
-export interface ButtonStatic extends React.ComponentClass<ButtonProperties> {}
+export class Button extends React.Component<ButtonProperties> {}
 
 export type CameraRollGroupType = "Album" | "All" | "Event" | "Faces" | "Library" | "PhotoStream" | "SavedPhotos";
 export type CameraRollAssetType = "All" | "Videos" | "Photos";
@@ -8495,9 +8495,6 @@ export type BackAndroid = BackAndroidStatic;
 
 export const BackHandler: BackHandlerStatic;
 export type BackHandler = BackHandlerStatic;
-
-export const Button: ButtonStatic;
-export type Button = ButtonStatic;
 
 export const CameraRoll: CameraRollStatic;
 export type CameraRoll = CameraRollStatic;
