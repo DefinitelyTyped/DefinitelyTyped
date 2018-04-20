@@ -1,4 +1,4 @@
-import * as errors from 'node-common-errors';
+import * as errors from 'common-errors';
 
 errors.log(new Error()); // $ExpectType Error
 errors.log(new Error(), ''); // $ExpectType Error
