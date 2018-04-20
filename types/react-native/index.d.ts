@@ -1917,9 +1917,9 @@ export class ViewPagerAndroid extends ViewPagerAndroidBase {
  * It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard.
  * It can automatically adjust either its position or bottom padding based on the position of the keyboard.
  */
-export interface KeyboardAvoidingViewStatic
-    extends TimerMixin,
-        React.ClassicComponentClass<KeyboardAvoidingViewProps> {}
+declare class KeyboardAvoidingViewComponent extends React.Component<KeyboardAvoidingViewProps> {}
+declare const KeyboardAvoidingViewBase: Constructor<TimerMixin> & typeof KeyboardAvoidingViewComponent;
+export class KeyboardAvoidingView extends KeyboardAvoidingViewBase {}
 
 export interface KeyboardAvoidingViewProps extends ViewProperties {
     behavior?: "height" | "position" | "padding";
@@ -8524,9 +8524,6 @@ export const IntentAndroid: IntentAndroidStatic;
 export type IntentAndroid = IntentAndroidStatic;
 
 export const Keyboard: KeyboardStatic;
-
-export const KeyboardAvoidingView: KeyboardAvoidingViewStatic;
-export type KeyboardAvoidingView = KeyboardAvoidingViewStatic;
 
 export const Linking: LinkingStatic;
 export type Linking = LinkingStatic;
