@@ -5181,7 +5181,7 @@ export interface TabBarItemProperties extends ViewProperties {
     title?: string;
 }
 
-export interface TabBarItemStatic extends React.ComponentClass<TabBarItemProperties> {}
+export class TabBarItem extends React.Component<TabBarItemProperties> {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
@@ -5224,8 +5224,8 @@ export interface TabBarIOSProperties extends ViewProperties {
     unselectedItemTintColor?: string;
 }
 
-export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
-    Item: TabBarItemStatic;
+export class TabBarIOS extends React.Component<TabBarIOSProperties> {
+    static Item: typeof TabBarItem;
 }
 
 export interface PixelRatioStatic {
@@ -8457,9 +8457,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const TabBarIOS: TabBarIOSStatic;
-export type TabBarIOS = TabBarIOSStatic;
 
 export const ToolbarAndroid: ToolbarAndroidStatic;
 export type ToolbarAndroid = ToolbarAndroidStatic;
