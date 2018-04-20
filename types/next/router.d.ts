@@ -9,7 +9,7 @@ export interface EventChangeOptions {
 }
 
 export type RouterCallback = () => void;
-export interface SingletonRouter {
+export interface RouterProps {
     readyCallbacks: RouterCallback[];
     ready(cb: RouterCallback): void;
 
@@ -53,8 +53,12 @@ export interface SingletonRouter {
     onRouteChangeError?(error: any, url: string): void;
 }
 
+export interface SingletonRouter {
+    router: RouterProps;
+}
+
 export function withRouter<T extends {}>(
-    Component: React.ComponentType<T & { router: SingletonRouter }>,
+    Component: React.ComponentType<T & SingletonRouter>,
 ): React.ComponentType<T>;
 
 export const Singleton: SingletonRouter;
