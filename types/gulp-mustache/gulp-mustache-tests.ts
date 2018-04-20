@@ -21,17 +21,16 @@ mustache({
   name: "Willy",
   wrapped: () => {
     return (text: string, render: (arg: string) => string) => {
-      return "<b>" + render(text) + "</b>"
-    }
+      return `<b>${render(text)}</b>`;
+    };
   }
 });
 mustache({
-  "person?": { "name": "Jon" }
+  "person?": { name: "Jon" }
 });
 mustache({
-  "repo": []
+  repo: []
 });
-
 
 mustache({ // $ExpectType Transform
     msg: "Hello Gulp!",
