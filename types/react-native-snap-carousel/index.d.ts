@@ -17,11 +17,11 @@ import {
     ScrollViewStyle,
     ViewStyle,
     ImageProperties,
-    FlatListProperties
+    FlatListProps
 } from 'react-native';
 
 export interface AdditionalParallaxProps {
-    carouselRef?: React.Component<FlatListProperties<any>>;
+    carouselRef?: React.Component<FlatListProps<any>>;
     itemHeight?: number;
     itemWidth?: number;
     scrollPosition?: Animated.Value;
@@ -330,7 +330,7 @@ export interface PaginationProps {
      * Reference to the Carousel component to which pagination is linked.
      * Needed only when setting tappableDots to true
      */
-    carouselRef?: React.Component<FlatListProperties<any>>;
+    carouselRef?: React.Component<FlatListProps<any>>;
     /**
      * Style for dots' container that will be merged with the default one
      */

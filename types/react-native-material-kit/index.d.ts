@@ -10,7 +10,7 @@ import {
     ViewStyle,
     TextStyle,
     TextInputProps,
-    TouchableWithoutFeedbackProperties,
+    TouchableWithoutFeedbackProps,
     ViewProps,
 } from 'react-native';
 
@@ -251,7 +251,7 @@ export interface MKColorStatic {
 }
 
 export interface MKButtonProperties extends
-    TouchableWithoutFeedbackProperties, MKRippleProperties {
+    TouchableWithoutFeedbackProps, MKRippleProperties {
         fab?: boolean;
         enabled?: boolean;
 }
@@ -269,7 +269,7 @@ export interface MKTextFieldProperties extends TextInputProps, FloatingLabelProp
     onTextChange?(val: string): void;
 }
 
-export interface MKSwitchProperties extends TouchableWithoutFeedbackProperties {
+export interface MKSwitchProperties extends TouchableWithoutFeedbackProps {
     checked?: boolean;
     onColor?: string;
     offColor?: string;
@@ -284,7 +284,7 @@ export interface MKSwitchProperties extends TouchableWithoutFeedbackProperties {
     onCheckedChange?(checked: boolean): void;
 }
 
-export interface MKIconToggleProperties extends MKRippleProperties, TouchableWithoutFeedbackProperties {
+export interface MKIconToggleProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {
     checked?: boolean;
     onCheckedChange?(checked: boolean): void;
 }
@@ -346,7 +346,7 @@ export interface MKSpinnerProperties extends ViewProps {
     spinnerAniDuration?: number;
 }
 
-export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWithoutFeedbackProperties {
+export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {
     borderOnColor?: string;
     borderOffColor?: string;
     fillColor?: string;
@@ -356,7 +356,7 @@ export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWi
     onCheckedChange?(opts: { checked: boolean }): void;
 }
 
-export interface MKCheckboxProperties extends MKRippleProperties, TickProperties, TouchableWithoutFeedbackProperties {
+export interface MKCheckboxProperties extends MKRippleProperties, TickProperties, TouchableWithoutFeedbackProps {
     borderOnColor?: string;
     borderOffColor?: string;
     fillColor?: string;

@@ -36,10 +36,10 @@ import {
     ViewStyle,
     ViewPagerAndroid,
     FlatList,
-    FlatListProperties,
+    FlatListProps,
     ScaledSize,
     SectionList,
-    SectionListProperties,
+    SectionListProps,
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
@@ -235,7 +235,7 @@ InteractionManager.runAfterInteractions(() => {
     // ...
 }).then(() => "done");
 
-export class FlatListTest extends React.Component<FlatListProperties<number>, {}> {
+export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     _renderItem = (rowData: any) => {
         return (
             <View>
@@ -257,7 +257,7 @@ export class FlatListTest extends React.Component<FlatListProperties<number>, {}
     }
 }
 
-export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
+export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
     render() {
         const sections = [
             {
