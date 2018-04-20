@@ -4686,11 +4686,9 @@ export interface TouchableOpacityProperties extends TouchableWithoutFeedbackProp
  *
  * @see https://facebook.github.io/react-native/docs/touchableopacity.html
  */
-export interface TouchableOpacityStatic
-    extends TimerMixin,
-        TouchableMixin,
-        NativeMethodsMixin,
-        React.ClassicComponentClass<TouchableOpacityProperties> {
+declare class TouchableOpacityComponent extends React.Component<TouchableOpacityProperties> {}
+declare const TouchableOpacityBase: Constructor<TimerMixin> & Constructor<TouchableMixin> & Constructor<NativeMethodsMixin> & typeof TouchableOpacityComponent;
+export class TouchableOpacity extends TouchableOpacityBase {
     /**
      * Animate the touchable to a new opacity.
      */
@@ -8457,9 +8455,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const TouchableOpacity: TouchableOpacityStatic;
-export type TouchableOpacity = TouchableOpacityStatic;
 
 export const TouchableWithoutFeedback: TouchableWithoutFeedbackStatic;
 export type TouchableWithoutFeedback = TouchableWithoutFeedbackStatic;
