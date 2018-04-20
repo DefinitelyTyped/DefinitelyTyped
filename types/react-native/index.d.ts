@@ -889,7 +889,9 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
 /**
  * A React component for displaying text which supports nesting, styling, and touch handling.
  */
-export interface TextStatic extends NativeMethodsMixin, React.ClassicComponentClass<TextProperties> {}
+declare class TextComponent extends React.Component<TextProperties> {}
+declare const TextBase: Constructor<NativeMethodsMixin> & typeof TextComponent;
+export class Text extends TextBase {}
 
 type DataDetectorTypes = "phoneNumber" | "link" | "address" | "calendarEvent" | "none" | "all";
 
@@ -8519,9 +8521,6 @@ export type SwitchIOS = SwitchIOSStatic;
 
 export const TabBarIOS: TabBarIOSStatic;
 export type TabBarIOS = TabBarIOSStatic;
-
-export const Text: TextStatic;
-export type Text = TextStatic;
 
 export const ToolbarAndroid: ToolbarAndroidStatic;
 export type ToolbarAndroid = ToolbarAndroidStatic;
