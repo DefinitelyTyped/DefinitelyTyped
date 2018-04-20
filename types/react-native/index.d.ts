@@ -2956,9 +2956,9 @@ export interface RefreshControlProperties extends RefreshControlPropertiesIOS, R
  * __Note:__ `refreshing` is a controlled prop, this is why it needs to be set to true
  * in the `onRefresh` function otherwise the refresh indicator will stop immediately.
  */
-export interface RefreshControlStatic
-    extends NativeMethodsMixin,
-        React.ClassicComponentClass<RefreshControlProperties> {
+declare class RefreshControlComponent extends React.Component<RefreshControlProperties> {}
+declare const RefreshControlBase: Constructor<NativeMethodsMixin> & typeof RefreshControlComponent;
+export class RefreshControl extends RefreshControlBase {
     SIZE: Object; // Undocumented
 }
 
@@ -8440,9 +8440,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const RefreshControl: RefreshControlStatic;
-export type RefreshControl = RefreshControlStatic;
 
 export const RecyclerViewBackedScrollView: RecyclerViewBackedScrollViewStatic;
 export type RecyclerViewBackedScrollView = RecyclerViewBackedScrollViewStatic;
