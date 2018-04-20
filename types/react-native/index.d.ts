@@ -7495,7 +7495,7 @@ export interface StatusBarProperties extends StatusBarPropertiesIOS, StatusBarPr
     hidden?: boolean;
 }
 
-export interface StatusBarStatic extends React.ComponentClass<StatusBarProperties> {
+export class StatusBar extends React.Component<StatusBarProperties> {
     /**
      * The current height of the status bar on the device.
      * @platform android
@@ -8445,9 +8445,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const StatusBar: StatusBarStatic;
-export type StatusBar = StatusBarStatic;
 
 export const ScrollView: ScrollViewStatic;
 export type ScrollView = ScrollViewStatic;
