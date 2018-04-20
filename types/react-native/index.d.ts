@@ -2284,7 +2284,7 @@ export interface SafeAreaViewStatic extends NativeMethodsMixin, React.ClassicCom
  * To use this component wrap your custom toolbar with the InputAccessoryView component, and set a nativeID. Then, pass
  * that nativeID as the inputAccessoryViewID of whatever TextInput you desire.
  */
-export interface InputAccessoryViewStatic extends React.ClassicComponentClass<InputAccessoryViewProperties> {}
+export class InputAccessoryView extends React.Component<InputAccessoryViewProperties> {}
 
 export interface InputAccessoryViewProperties {
     backgroundColor?: string;
@@ -8428,9 +8428,6 @@ export type ART = ARTStatic;
 
 export const ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
-
-export const InputAccessoryView: InputAccessoryViewStatic;
-export type InputAccessoryView = InputAccessoryViewStatic;
 
 export const FlatList: FlatListStatic<any>;
 export type FlatList<ItemT> = FlatListStatic<ItemT>;
