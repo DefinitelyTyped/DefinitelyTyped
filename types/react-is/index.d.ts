@@ -6,10 +6,10 @@
 
 export as namespace ReactIs;
 
-import { ComponentClass, ReactElement, SFC } from 'react';
+import { ComponentClass, ReactElement, ReactType, SFC } from 'react';
 
 export function typeOf(value: any): symbol | undefined;
-export function isValidElementType(value: any): value is string | ComponentClass<any> | SFC<any>;
+export function isValidElementType(value: any): value is ReactType;
 
 export function isContextConsumer(value: any): value is ReactElement<any>;
 export function isContextProvider(value: any): value is ReactElement<any>;
