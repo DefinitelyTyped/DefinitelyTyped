@@ -290,4 +290,4 @@ const oauth2 = new sf.OAuth2({
     clientSecret: '<your Salesforce OAuth2 client secret is here>',
     redirectUri: '<callback URI is here>'
 });
-oauth2.getAuthorizationUrl({ scope: 'api id web' })
+oauth2.getAuthorizationUrl({ scope: 'api id web' });
