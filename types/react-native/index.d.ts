@@ -3459,7 +3459,9 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
     testID?: string;
 }
 
-export interface ImageStatic extends NativeMethodsMixin, React.ComponentClass<ImageProperties> {
+declare class ImageComponent extends React.Component<ImageProperties> {}
+declare const ImageBase: Constructor<NativeMethodsMixin> & typeof ImageComponent;
+export class Image extends ImageBase {
     resizeMode: ImageResizeMode;
     getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     prefetch(url: string): any;
@@ -8421,9 +8423,6 @@ export interface KeyboardStatic extends NativeEventEmitter {
 // - [ ] ART
 export const ART: ARTStatic;
 export type ART = ARTStatic;
-
-export const Image: ImageStatic;
-export type Image = ImageStatic;
 
 export const ImageBackground: ImageBackgroundStatic;
 export type ImageBackground = ImageBackgroundStatic;
