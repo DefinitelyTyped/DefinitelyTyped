@@ -2512,7 +2512,7 @@ export interface ActivityIndicatorIOSProperties extends ViewProperties {
 /**
  * @Deprecated since version 0.28.0
  */
-export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {}
+export class ActivityIndicatorIOS extends React.Component<ActivityIndicatorIOSProperties> {}
 
 export interface DatePickerIOSProperties extends ViewProperties {
     /**
@@ -8419,9 +8419,6 @@ export interface KeyboardStatic extends NativeEventEmitter {
 // - [ ] ART
 export const ART: ARTStatic;
 export type ART = ARTStatic;
-
-export const ActivityIndicatorIOS: ActivityIndicatorIOSStatic;
-export type ActivityIndicatorIOS = ActivityIndicatorIOSStatic;
 
 export const DatePickerIOS: DatePickerIOSStatic;
 export type DatePickerIOS = DatePickerIOSStatic;
