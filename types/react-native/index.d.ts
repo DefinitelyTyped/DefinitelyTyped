@@ -1434,7 +1434,9 @@ export interface ToolbarAndroidProperties extends ViewProperties {
  *
  * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
  */
-export interface ToolbarAndroidStatic extends NativeMethodsMixin, React.ComponentClass<ToolbarAndroidProperties> {}
+declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProperties> {}
+declare const ToolbarAndroidBase: Constructor<NativeMethodsMixin> & typeof ToolbarAndroidComponent;
+export class ToolbarAndroid extends ToolbarAndroidBase {}
 
 /**
  * Gesture recognition on mobile devices is much more complicated than web.
@@ -8457,9 +8459,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const ToolbarAndroid: ToolbarAndroidStatic;
-export type ToolbarAndroid = ToolbarAndroidStatic;
 
 export const TouchableHighlight: TouchableHighlightStatic;
 export type TouchableHighlight = TouchableHighlightStatic;
