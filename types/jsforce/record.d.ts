@@ -5,6 +5,7 @@ import { Stream } from 'stream';
 
 export class RecordReference<T> {
     constructor(conn: Connection, type: string, id: SalesforceId);
+
     blob(fieldName: string): Stream;
     del(options?: Object, callback?: (err: Error, result: RecordResult) => void): Promise<RecordResult>;
     delete(options?: Object, callback?: (err: Error, result: RecordResult) => void): Promise<RecordResult>;

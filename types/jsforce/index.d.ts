@@ -31,3 +31,6 @@ export { Metadata, SaveResult, MetadataInfo, AsyncResult, RetrieveResultLocator,
 export * from './batch';
 export * from './bulk';
 export * from './job';
+export * from './channel';
+export * from './streaming';
+export * from './topic';
