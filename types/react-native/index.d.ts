@@ -6184,7 +6184,7 @@ export interface SwipeableListViewProps {
  * - It can bounce the 1st row of the list so users know it's swipeable
  * - More to come
  */
-export interface SwipeableListViewStatic extends React.ComponentClass<SwipeableListViewProps> {
+export class SwipeableListView extends React.Component<SwipeableListViewProps> {
     getNewDataSource(): SwipeableListViewDataSource;
 }
 
@@ -8455,9 +8455,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const SwipeableListView: SwipeableListViewStatic;
-export type SwipeableListView = SwipeableListViewStatic;
 
 export const Switch: SwitchStatic;
 export type Switch = SwitchStatic;
