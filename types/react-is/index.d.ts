@@ -6,7 +6,7 @@
 
 export as namespace ReactIs;
 
-import { ComponentClass, ReactElement, ReactType, SFC } from 'react';
+import { ReactElement, ReactType } from 'react';
 
 export function typeOf(value: any): symbol | undefined;
 export function isValidElementType(value: any): value is ReactType;
