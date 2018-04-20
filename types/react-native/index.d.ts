@@ -1818,7 +1818,9 @@ export interface ViewProperties
  * View maps directly to the native view equivalent on whatever platform React is running on,
  * whether that is a UIView, <div>, android.view, etc.
  */
-export interface ViewStatic extends NativeMethodsMixin, React.ClassicComponentClass<ViewProperties> {
+declare class ViewComponent extends React.Component<ViewProperties> {}
+declare const ViewBase: Constructor<NativeMethodsMixin> & typeof ViewComponent;
+export class View extends ViewBase {
     /**
      * Is 3D Touch / Force Touch available (i.e. will touch events include `force`)
      * @platform ios
@@ -8454,9 +8456,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const View: ViewStatic;
-export type View = ViewStatic;
 
 export const ViewPagerAndroid: ViewPagerAndroidStatic;
 export type ViewPagerAndroid = ViewPagerAndroidStatic;
