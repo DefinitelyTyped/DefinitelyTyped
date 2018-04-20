@@ -12,14 +12,6 @@ const defaultOptions = {}
 klawSync('/some/dir', defaultOptions).forEach(outputMessage)
 
 const options = {
-    ignore: ['.exe'],
-    nodir: true,
-    nofile: false,
-}
-
-klawSync('/some/dir', options).forEach(outputMessage)
-
-const optionsV2 = {
     nodir: true,
     nofile: false,
     noRecurseOnFailedFilter: false,
@@ -28,4 +20,4 @@ const optionsV2 = {
     },
 }
 
-klawSync('/some/dir', optionsV2).forEach(outputMessage)
+klawSync('/some/dir', options).forEach(outputMessage)
