@@ -3351,10 +3351,12 @@ interface ImagePropsAndroid {
     fadeDuration?: number;
 }
 
+// See https://facebook.github.io/react-native/docs/image.html#source
+export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequireSource;
+
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export type ImagePropertiesSourceOptions = ImageURISource | ImageURISource[] | ImageRequireSource;
 export interface ImageProps extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps {
     /**
      * onLayout function
@@ -3443,14 +3445,15 @@ export interface ImageProps extends ImagePropsIOS, ImagePropsAndroid, Accessibil
     resizeMethod?: "auto" | "resize" | "scale";
 
     /**
-     * `uri` is a string representing the resource identifier for the image, which
-     * could be an http address, a local file path, or a static image
-     * resource (which should be wrapped in the `require('./path/to/image.png')` function).
-     * This prop can also contain several remote `uri`, specified together with
-     * their width and height. The native side will then choose the best `uri` to display
-     * based on the measured size of the image container.
+     * The image source (either a remote URL or a local file resource).
+     *
+     * This prop can also contain several remote URLs, specified together with their width and height and potentially with scale/other URI arguments.
+     * The native side will then choose the best uri to display based on the measured size of the image container.
+     * A cache property can be added to control how networked request interacts with the local cache.
+     *
+     * The currently supported formats are png, jpg, jpeg, bmp, gif, webp (Android only), psd (iOS only).
      */
-    source: ImagePropertiesSourceOptions;
+    source: ImageSourcePropType;
 
     /**
      * similarly to `source`, this property represents the resource used to render

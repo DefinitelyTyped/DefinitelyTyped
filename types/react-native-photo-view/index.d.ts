@@ -5,11 +5,11 @@
 // TypeScript Version: 2.6
 
 import * as React from 'react';
-import { ImagePropertiesSourceOptions, ViewProps } from 'react-native';
+import { ImageSourcePropType, ViewProps } from 'react-native';
 
 export interface ReactNativePhotoViewProps {
-    source?: ImagePropertiesSourceOptions;
-    loadingIndicatorSource?: ImagePropertiesSourceOptions;
+    source?: ImageSourcePropType;
+    loadingIndicatorSource?: ImageSourcePropType;
     fadeDuration?: number;
     minimumZoomScale?: number;
     maximumZoomScale?: number;
