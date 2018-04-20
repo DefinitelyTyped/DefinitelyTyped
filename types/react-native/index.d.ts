@@ -2319,9 +2319,9 @@ export interface InputAccessoryViewProperties {
  * />
  * ````
  */
-export interface SegmentedControlIOSStatic
-    extends NativeMethodsMixin,
-        React.ClassicComponentClass<SegmentedControlIOSProperties> {}
+declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProperties> {}
+declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixin> & typeof SegmentedControlIOSComponent;
+export class SegmentedControlIOS extends SegmentedControlIOSBase {}
 
 export interface NavigatorIOSProperties {
     /**
@@ -8442,9 +8442,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const SegmentedControlIOS: SegmentedControlIOSStatic;
-export type SegmentedControlIOS = SegmentedControlIOSStatic;
 
 export const Slider: SliderStatic;
 export type Slider = SliderStatic;
