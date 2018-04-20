@@ -15,6 +15,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": false,
         "jsx": "preserve"
     },
     "files": [
