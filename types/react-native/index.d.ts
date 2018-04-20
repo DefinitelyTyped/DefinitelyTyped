@@ -4195,7 +4195,9 @@ interface TimerMixin {
     cancelAnimationFrame: typeof cancelAnimationFrame;
 }
 
-export interface ListViewStatic extends ScrollResponderMixin, TimerMixin, React.ComponentClass<ListViewProperties> {
+declare class ListViewComponent extends React.Component<ListViewProperties> {}
+declare const ListViewBase: Constructor<ScrollResponderMixin> & Constructor<TimerMixin> & typeof ListViewComponent;
+export class ListView extends ListViewBase {
     DataSource: ListViewDataSource;
 
     /**
@@ -8434,9 +8436,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const ListView: ListViewStatic;
-export type ListView = ListViewStatic;
 
 export const MapView: MapViewStatic;
 export type MapView = MapViewStatic;
