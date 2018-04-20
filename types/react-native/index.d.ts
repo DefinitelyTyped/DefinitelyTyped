@@ -4466,7 +4466,7 @@ export interface ModalProperties {
     presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
 }
 
-export interface ModalStatic extends React.ComponentClass<ModalProperties> {}
+export class Modal extends React.Component<ModalProperties> {}
 
 /**
  * @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\Components\Touchable\Touchable.js
@@ -8440,9 +8440,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const Modal: ModalStatic;
-export type Modal = ModalStatic;
 
 export const NavigatorIOS: NavigatorIOSStatic;
 export type NavigatorIOS = NavigatorIOSStatic;
