@@ -303,7 +303,7 @@ batch.on("queue", (batchInfo) => { // fired when batch request is queued in serv
 job.batch("batchId");
 batch.poll(1000, 20000);
 batch.on("response", (rets) => {
-    for (var i = 0; i < rets.length; i++) {
+    for (let i = 0; i < rets.length; i++) {
         if (rets[i].success) {
             console.log("#" + (i + 1) + " loaded successfully, id = " + rets[i].id);
         } else {
