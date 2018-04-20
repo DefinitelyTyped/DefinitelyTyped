@@ -5,7 +5,6 @@ export as namespace fabric;
 
 export const isLikelyNode: boolean;
 export const isTouchSupported: boolean;
-export let filterBackend: FilterBackend;
 
 /////////////////////////////////////////////////////////////
 // farbic Functions
@@ -4493,9 +4492,9 @@ export interface FilterBackend {
 	dispose(): void;
 
 	clearWebGLCaches(): void;
-	
-}
 
+}
+export const filterBackend: FilterBackend;
 export interface Canvas2dFilterBackend extends FilterBackend { }
 export class Canvas2dFilterBackend {
 	constructor();
