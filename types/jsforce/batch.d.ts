@@ -1,0 +1,26 @@
+import { Stream } from 'stream';
+
+import { RecordResult } from './record-result';
+import { Record } from './record';
+
+export interface BatchInfo {
+    id: string;
+    jobId: string;
+    state: string;
+    stateMessage: string;
+}
+
+export interface BatchResultInfo {
+    id: string;
+    batchId: string;
+    jobId: string;
+}
+
+export class Batch {
+    check(callback?: (batchInfo: BatchInfo) => void): Promise<BatchInfo>;
+    execute(input?: Record<any>[] | Stream | string, callback?: (result: RecordResult[] | BatchResultInfo[]) => void): Batch;
+    poll(interval: number, timeout: number): void;
+    retrieve(callback?: (batchInfo: BatchInfo) => void): Promise<RecordResult[] | BatchResultInfo[]>;
+    then(): Promise<any>;
+    thenAll(callback: (data: any) => void): void;
+}

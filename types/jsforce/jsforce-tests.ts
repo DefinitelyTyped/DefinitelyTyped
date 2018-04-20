@@ -125,7 +125,7 @@ async function testMetadata(conn: sf.Connection): Promise<void> {
         m.metadataObjects.filter((value: sf.MetadataObject) => value.directoryName === 'pages');
     console.log(`ApexPage?: ${pages[0].xmlName === 'ApexPage'}`);
 
-    const types: sf.ListMetadataQuery[] = [{type: 'CustomObject', folder: null}];
+    const types: sf.ListMetadataQuery[] = [{ type: 'CustomObject', folder: null }];
     md.list(types, '39.0', (err, properties: sf.FileProperties[]) => {
         if (err) {
             console.error('err', err);
@@ -147,7 +147,7 @@ async function testMetadata(conn: sf.Connection): Promise<void> {
         console.log('type: ' + meta.type);
     });
 
-    const fullNames: string[] = [ 'Account', 'Contact' ];
+    const fullNames: string[] = ['Account', 'Contact'];
     const info: sf.MetadataInfo | sf.MetadataInfo[] = await md.read('CustomObject', fullNames);
     console.log((info as sf.MetadataInfo[])[0].fullName);
     console.log((info as sf.MetadataInfo[])[1].fullName);
@@ -196,7 +196,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
                 text: 'This is new post'
             }]
         },
-        feedElementType : 'FeedItem',
+        feedElementType: 'FeedItem',
         subjectId: 'me'
     }, (err: Error, result: any) => {
         if (err) {
@@ -255,7 +255,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
                 text: 'This is new comment on the post'
             }]
         },
-        feedElementType : 'FeedItem',
+        feedElementType: 'FeedItem',
         subjectId: 'me'
     }) as Promise<sf.RequestResult>);
 
@@ -264,7 +264,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
     const itemsLikeResource: sf.Resource<sf.RequestResult> = chatter.resource(itemLikesUrl);
 
     const itemsLikeCreateResult: sf.RequestResult = await (itemsLikeResource.create('') as Promise<sf.RequestResult>);
-    console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any ['likedItem']}`);
+    console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any['likedItem']}`);
 }
 
 (async () => {
@@ -277,3 +277,12 @@ async function testChatter(conn: sf.Connection): Promise<void> {
     await testChatter(salesforceConnection);
     await testMetadata(salesforceConnection);
 })();
+
+const oauth2 = new sf.OAuth2({
+    // you can change loginUrl to connect to sandbox or prerelease env.
+    // loginUrl : 'https://test.salesforce.com',
+    clientId: '<your Salesforce OAuth2 client ID is here>',
+    clientSecret: '<your Salesforce OAuth2 client secret is here>',
+    redirectUri: '<callback URI is here>'
+});
+oauth2.getAuthorizationUrl({ scope: 'api id web' })

@@ -14,8 +14,13 @@ export interface OAuth2Options {
     privateKey?: string; // Used for sfdx auth files for legacy support reasons
 }
 
+export interface TokenResponse {
+    access_token: string;
+    refresh_token: string;
+}
+
 export class OAuth2 {
-    constructor (options? : OAuth2Options);
+    constructor(options?: OAuth2Options);
 
     protected _postParams(options: any, callback: () => any): void
 
@@ -27,9 +32,12 @@ export class OAuth2 {
     clientSecret: string;
     redirectUri: string;
 
-    getAuthorizationUrl(params: any): string;
-    refreshToken(code: string, callback?: () => any): Promise<any>;
-    requestToken(code: string, callback?: () => any): Promise<any>;
-    authenticate(username: string, password: string, callback?: () => any): Promise<any>;
-    revokeToken(accessToken: string, callback?: () => any): Promise<any>;
+    getAuthorizationUrl(params: {
+        scope?: string,
+        state?: string
+    }): string;
+    refreshToken(code: string, callback?: () => any): Promise<TokenResponse>;
+    requestToken(code: string, callback?: () => any): Promise<TokenResponse>;
+    authenticate(username: string, password: string, callback?: () => any): Promise<TokenResponse>;
+    revokeToken(accessToken: string, callback?: () => any): Promise<undefined>;
 }

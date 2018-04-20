@@ -18,7 +18,7 @@ export { RecordResult } from './record-result';
 export { Connection, ConnectionOptions, RequestInfo, Tooling, callback } from './connection';
 export { SObject } from './salesforce-object';
 export { SalesforceId } from './salesforce-id';
-export { OAuth2, OAuth2Options } from './oauth2';
+export * from './oauth2';
 export { Query, QueryResult } from './query';
 export { Promise } from './promise';
 export { Report, Dashboard, Analytics, ReportInstance, DashboardInfo, ReportInfo, ExplainInfo, ReportInstanceAttrs,
@@ -28,3 +28,6 @@ export { Chatter, Request, RequestResult, BatchRequestResults, BatchRequestParam
 export { Metadata, SaveResult, MetadataInfo, AsyncResult, RetrieveResultLocator, RetrieveRequest, FileProperties,
     ListMetadataQuery, DescribeMetadataResult, DeployOptions, AsyncResultLocator, RetrieveResult, MetadataObject,
     DeployResult, DeployResultLocator, UpdateMetadataInfo, UpsertResult } from './api/metadata';
+export * from './batch';
+export * from './bulk';
+export * from './job';
