@@ -9,14 +9,14 @@ export as namespace ReactIs;
 import { ComponentClass, ReactElement, SFC } from 'react';
 
 export function typeOf(value: any): symbol | undefined;
-export function isValidElementType<P = {}>(value: any): value is string | ComponentClass<P> | SFC<P>;
+export function isValidElementType(value: any): value is string | ComponentClass<any> | SFC<any>;
 
-export function isContextConsumer<P = {}>(value: any): value is ReactElement<P>;
-export function isContextProvider<P = {}>(value: any): value is ReactElement<P>;
-export function isElement<P = {}>(value: any): value is ReactElement<P>;
-export function isFragment<P = {}>(value: any): value is ReactElement<P>;
-export function isPortal<P = {}>(value: any): value is ReactElement<P>;
-export function isStrictMode<P = {}>(value: any): value is ReactElement<P>;
+export function isContextConsumer(value: any): value is ReactElement<any>;
+export function isContextProvider(value: any): value is ReactElement<any>;
+export function isElement(value: any): value is ReactElement<any>;
+export function isFragment(value: any): value is ReactElement<any>;
+export function isPortal(value: any): value is ReactElement<any>;
+export function isStrictMode(value: any): value is ReactElement<any>;
 
 export const ContextProvider: symbol;
 export const ContextConsumer: symbol;
