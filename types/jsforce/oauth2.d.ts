@@ -36,8 +36,8 @@ export class OAuth2 {
         scope?: string,
         state?: string
     }): string;
-    refreshToken(code: string, callback?: () => any): Promise<TokenResponse>;
-    requestToken(code: string, callback?: () => any): Promise<TokenResponse>;
-    authenticate(username: string, password: string, callback?: () => any): Promise<TokenResponse>;
-    revokeToken(accessToken: string, callback?: () => any): Promise<undefined>;
+    refreshToken(code: string, callback?: (tokenResponse: TokenResponse) => void): Promise<TokenResponse>;
+    requestToken(code: string, callback?: (tokenResponse: TokenResponse) => void): Promise<TokenResponse>;
+    authenticate(username: string, password: string, callback?: (tokenResponse: TokenResponse) => void): Promise<TokenResponse>;
+    revokeToken(accessToken: string, callback?: () => void): Promise<undefined>;
 }
