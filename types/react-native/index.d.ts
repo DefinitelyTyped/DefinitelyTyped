@@ -2470,9 +2470,9 @@ export interface ActivityIndicatorProperties extends ViewProperties {
     style?: StyleProp<ViewStyle>;
 }
 
-export interface ActivityIndicatorStatic
-    extends NativeMethodsMixin,
-        React.ClassicComponentClass<ActivityIndicatorProperties> {}
+declare class ActivityIndicatorComponent extends React.Component<ActivityIndicatorProperties> {}
+declare const ActivityIndicatorBase: Constructor<NativeMethodsMixin> & typeof ActivityIndicatorComponent;
+export class ActivityIndicator extends ActivityIndicatorBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
@@ -8419,9 +8419,6 @@ export interface KeyboardStatic extends NativeEventEmitter {
 // - [ ] ART
 export const ART: ARTStatic;
 export type ART = ARTStatic;
-
-export const ActivityIndicator: ActivityIndicatorStatic;
-export type ActivityIndicator = ActivityIndicatorStatic;
 
 export const ActivityIndicatorIOS: ActivityIndicatorIOSStatic;
 export type ActivityIndicatorIOS = ActivityIndicatorIOSStatic;
