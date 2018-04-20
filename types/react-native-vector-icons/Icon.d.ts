@@ -6,7 +6,7 @@ import {
   TouchableHighlightProperties,
   TouchableNativeFeedbackProperties,
   TabBarItemProperties,
-  ToolbarAndroidProperties
+  ToolbarAndroidProps
 } from 'react-native';
 
 export interface IconProps extends TextProps {
@@ -74,7 +74,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
 
 export type ImageSource = any;
 
-export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
+export interface ToolbarAndroidProps extends ToolbarAndroidProps {
   /**
    * Name of the navigation logo icon
    * (similar to ToolbarAndroid logo)

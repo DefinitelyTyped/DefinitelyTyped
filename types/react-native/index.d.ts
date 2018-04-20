@@ -1321,7 +1321,7 @@ export type ToolbarAndroidAction = {
     showWithText?: boolean;
 };
 
-export interface ToolbarAndroidProperties extends ViewProps {
+export interface ToolbarAndroidProps extends ViewProps {
     /**
      * Sets possible actions on the toolbar as part of the action menu. These are displayed as icons
      * or text on the right side of the widget. If they don't fit they are placed in an 'overflow'
@@ -1434,7 +1434,7 @@ export interface ToolbarAndroidProperties extends ViewProps {
  *
  * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
  */
-declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProperties> {}
+declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> {}
 declare const ToolbarAndroidBase: Constructor<NativeMethodsMixin> & typeof ToolbarAndroidComponent;
 export class ToolbarAndroid extends ToolbarAndroidBase {}
 
@@ -1841,7 +1841,7 @@ export interface ViewPagerAndroidOnPageSelectedEventData {
     position: number;
 }
 
-export interface ViewPagerAndroidProperties extends ViewProps {
+export interface ViewPagerAndroidProps extends ViewProps {
     /**
      * Index of initial page that should be selected. Use `setPage` method to
      * update the page, and `onPageSelected` to monitor page changes
@@ -1897,7 +1897,7 @@ export interface ViewPagerAndroidProperties extends ViewProps {
     pageMargin?: number;
 }
 
-declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProperties> {}
+declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProps> {}
 declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixin> & typeof ViewPagerAndroidComponent;
 export class ViewPagerAndroid extends ViewPagerAndroidBase {
     /**
@@ -1959,7 +1959,7 @@ export interface WebViewMessageEventData {
     data: string;
 }
 
-export interface WebViewPropertiesAndroid {
+export interface WebViewPropsAndroid {
     /**
      * Used for android only, JS is enabled by default for WebView on iOS
      */
@@ -1997,7 +1997,7 @@ export interface WebViewIOSLoadRequestEvent {
     url: string;
 }
 
-export interface WebViewPropertiesIOS {
+export interface WebViewPropsIOS {
     /**
      * Determines whether HTML5 videos play inline or use the native
      * full-screen controller. default value false
@@ -2098,7 +2098,7 @@ export interface WebViewHtmlSource {
 /**
  * @see https://facebook.github.io/react-native/docs/webview.html#props
  */
-export interface WebViewProperties extends ViewProps, WebViewPropertiesAndroid, WebViewPropertiesIOS {
+export interface WebViewProps extends ViewProps, WebViewPropsAndroid, WebViewPropsIOS {
     /**
      * Controls whether to adjust the content inset for web views that are
      * placed behind a navigation bar, tab bar, or toolbar. The default value
@@ -2188,7 +2188,7 @@ export interface WebViewProperties extends ViewProps, WebViewPropertiesAndroid, 
     scalesPageToFit?: boolean;
 }
 
-export class WebView extends React.Component<WebViewProperties> {
+export class WebView extends React.Component<WebViewProps> {
     /**
      * Go back one page in the webview's history.
      */
@@ -8763,3 +8763,13 @@ export type ViewProperties = ViewProps;
 export type ViewPropertiesIOS = ViewPropsIOS;
 /** @deprecated */
 export type ViewPropertiesAndroid = ViewPropsAndroid;
+/** @deprecated */
+export type ToolbarAndroidProperties = ToolbarAndroidProps;
+/** @deprecated */
+export type ViewPagerAndroidProperties = ViewPagerAndroidProps;
+/** @deprecated */
+export type WebViewProperties = WebViewProps;
+/** @deprecated */
+export type WebViewPropertiesIOS = WebViewPropsIOS;
+/** @deprecated */
+export type WebViewPropertiesAndroid = WebViewPropsAndroid;
