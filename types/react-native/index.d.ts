@@ -4663,11 +4663,9 @@ export interface TouchableHighlightProperties extends TouchableWithoutFeedbackPr
  *
  * @see https://facebook.github.io/react-native/docs/touchablehighlight.html
  */
-export interface TouchableHighlightStatic
-    extends NativeMethodsMixin,
-        TimerMixin,
-        TouchableMixin,
-        React.ClassicComponentClass<TouchableHighlightProperties> {}
+declare class TouchableHighlightComponent extends React.Component<TouchableHighlightProperties> {}
+declare const TouchableHighlightBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & Constructor<TouchableMixin> & typeof TouchableHighlightComponent;
+export class TouchableHighlight extends TouchableHighlightBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/touchableopacity.html#props
@@ -8459,9 +8457,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const TouchableHighlight: TouchableHighlightStatic;
-export type TouchableHighlight = TouchableHighlightStatic;
 
 export const TouchableNativeFeedback: TouchableNativeFeedbackStatic;
 export type TouchableNativeFeedback = TouchableNativeFeedbackStatic;
