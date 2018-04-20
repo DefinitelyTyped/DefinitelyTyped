@@ -2667,9 +2667,9 @@ interface DrawerPosition {
     Right: number;
 }
 
-export interface DrawerLayoutAndroidStatic
-    extends NativeMethodsMixin,
-        React.ClassicComponentClass<DrawerLayoutAndroidProperties> {
+declare class DrawerLayoutAndroidComponent extends React.Component<DrawerLayoutAndroidProperties> {}
+declare const DrawerLayoutAndroidBase: Constructor<NativeMethodsMixin> & typeof DrawerLayoutAndroidComponent;
+export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
     /**
      * drawer's positions.
      */
@@ -8421,9 +8421,6 @@ export interface KeyboardStatic extends NativeEventEmitter {
 // - [ ] ART
 export const ART: ARTStatic;
 export type ART = ARTStatic;
-
-export const DrawerLayoutAndroid: DrawerLayoutAndroidStatic;
-export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic;
 
 export const Image: ImageStatic;
 export type Image = ImageStatic;
