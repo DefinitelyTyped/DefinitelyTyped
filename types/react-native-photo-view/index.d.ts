@@ -5,7 +5,7 @@
 // TypeScript Version: 2.6
 
 import * as React from 'react';
-import { ImagePropertiesSourceOptions, ViewProperties } from 'react-native';
+import { ImagePropertiesSourceOptions, ViewProps } from 'react-native';
 
 export interface ReactNativePhotoViewProps {
     source?: ImagePropertiesSourceOptions;
@@ -27,4 +27,4 @@ export interface ReactNativePhotoViewProps {
     onScale?: (scale: number, target?: React.ReactElement<any>) => void;
 }
 
-export default class ReactNativePhotoView extends React.Component<ReactNativePhotoViewProps & ViewProperties> {}
+export default class ReactNativePhotoView extends React.Component<ReactNativePhotoViewProps & ViewProps> {}

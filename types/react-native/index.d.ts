@@ -938,7 +938,7 @@ export interface DocumentSelectionState extends EventEmitter {
  * IOS Specific properties for TextInput
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
-export interface TextInputIOSProperties {
+export interface TextInputIOSProps {
     /**
      * enum('never', 'while-editing', 'unless-editing', 'always')
      * When the clear button should appear on the right side of the text view
@@ -1001,7 +1001,7 @@ export interface TextInputIOSProperties {
  * Android Specific properties for TextInput
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
-export interface TextInputAndroidProperties {
+export interface TextInputAndroidProps {
     /**
      * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
      *   the OS may choose to have the user edit the text inside of a full screen text input mode.
@@ -1065,8 +1065,8 @@ export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | Return
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
-export interface TextInputProperties
-    extends ViewProperties, TextInputIOSProperties, TextInputAndroidProperties, AccessibilityProps {
+export interface TextInputProps
+    extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
     /**
      * Can tell TextInput to automatically capitalize certain characters.
      *      characters: all characters,
@@ -1283,7 +1283,7 @@ interface TextInputState {
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#methods
  */
-declare class TextInputComponent extends React.Component<TextInputProperties> {}
+declare class TextInputComponent extends React.Component<TextInputProps> {}
 declare const TextInputBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & typeof TextInputComponent;
 export class TextInput extends TextInputBase {
     State: TextInputState;
@@ -1321,7 +1321,7 @@ export type ToolbarAndroidAction = {
     showWithText?: boolean;
 };
 
-export interface ToolbarAndroidProperties extends ViewProperties {
+export interface ToolbarAndroidProperties extends ViewProps {
     /**
      * Sets possible actions on the toolbar as part of the action menu. These are displayed as icons
      * or text on the right side of the widget. If they don't fit they are placed in an 'overflow'
@@ -1585,7 +1585,7 @@ export interface ViewStyle extends FlexStyle, TransformsStyle {
     testID?: string;
 }
 
-export interface ViewPropertiesIOS {
+export interface ViewPropsIOS {
     /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
      * @platform ios
@@ -1618,7 +1618,7 @@ export interface ViewPropertiesIOS {
     shouldRasterizeIOS?: boolean;
 }
 
-export interface ViewPropertiesAndroid {
+export interface ViewPropsAndroid {
     /**
      * Views that are only used to layout their children or otherwise don't draw anything
      * may be automatically removed from the native hierarchy as an optimization.
@@ -1750,8 +1750,8 @@ type AccessibilityTraits =
 /**
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
-export interface ViewProperties
-    extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable, AccessibilityProps {
+export interface ViewProps
+    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -1818,7 +1818,7 @@ export interface ViewProperties
  * View maps directly to the native view equivalent on whatever platform React is running on,
  * whether that is a UIView, <div>, android.view, etc.
  */
-declare class ViewComponent extends React.Component<ViewProperties> {}
+declare class ViewComponent extends React.Component<ViewProps> {}
 declare const ViewBase: Constructor<NativeMethodsMixin> & typeof ViewComponent;
 export class View extends ViewBase {
     /**
@@ -1841,7 +1841,7 @@ export interface ViewPagerAndroidOnPageSelectedEventData {
     position: number;
 }
 
-export interface ViewPagerAndroidProperties extends ViewProperties {
+export interface ViewPagerAndroidProperties extends ViewProps {
     /**
      * Index of initial page that should be selected. Use `setPage` method to
      * update the page, and `onPageSelected` to monitor page changes
@@ -1921,7 +1921,7 @@ declare class KeyboardAvoidingViewComponent extends React.Component<KeyboardAvoi
 declare const KeyboardAvoidingViewBase: Constructor<TimerMixin> & typeof KeyboardAvoidingViewComponent;
 export class KeyboardAvoidingView extends KeyboardAvoidingViewBase {}
 
-export interface KeyboardAvoidingViewProps extends ViewProperties {
+export interface KeyboardAvoidingViewProps extends ViewProps {
     behavior?: "height" | "position" | "padding";
 
     /**
@@ -2098,7 +2098,7 @@ export interface WebViewHtmlSource {
 /**
  * @see https://facebook.github.io/react-native/docs/webview.html#props
  */
-export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndroid, WebViewPropertiesIOS {
+export interface WebViewProperties extends ViewProps, WebViewPropertiesAndroid, WebViewPropertiesIOS {
     /**
      * Controls whether to adjust the content inset for web views that are
      * placed behind a navigation bar, tab bar, or toolbar. The default value
@@ -2156,12 +2156,12 @@ export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndr
     /**
      * Function that returns a view to show if there's an error.
      */
-    renderError?: () => React.ReactElement<ViewProperties>;
+    renderError?: () => React.ReactElement<ViewProps>;
 
     /**
      * Function that returns a loading indicator.
      */
-    renderLoading?: () => React.ReactElement<ViewProperties>;
+    renderLoading?: () => React.ReactElement<ViewProps>;
 
     /**
      * Boolean value that forces the `WebView` to show the loading view
@@ -2235,7 +2235,7 @@ export interface NativeSegmentedControlIOSChangeEvent {
     target: number;
 }
 
-export interface SegmentedControlIOSProperties extends ViewProperties {
+export interface SegmentedControlIOSProperties extends ViewProps {
     /**
      * If false the user won't be able to interact with the control. Default value is true.
      */
@@ -2280,7 +2280,7 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
  * Moreover, and most importantly, Safe Area's paddings feflect physical limitation of the screen,
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
-declare class SafeAreaViewComponent extends React.Component<ViewProperties> {}
+declare class SafeAreaViewComponent extends React.Component<ViewProps> {}
 declare const SafeAreaViewBase: Constructor<NativeMethodsMixin> & typeof SafeAreaViewComponent;
 export class SafeAreaView extends SafeAreaViewBase {}
 
@@ -2449,7 +2449,7 @@ export class NavigatorIOS extends React.Component<NavigatorIOSProperties> {
 /**
  * @see https://facebook.github.io/react-native/docs/activityindicator.html#props
  */
-export interface ActivityIndicatorProperties extends ViewProperties {
+export interface ActivityIndicatorProperties extends ViewProps {
     /**
      * Whether to show the indicator (true, the default) or hide it (false).
      */
@@ -2483,7 +2483,7 @@ export class ActivityIndicator extends ActivityIndicatorBase {}
 /**
  * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
  */
-export interface ActivityIndicatorIOSProperties extends ViewProperties {
+export interface ActivityIndicatorIOSProperties extends ViewProps {
     /**
      * Whether to show the indicator (true, the default) or hide it (false).
      */
@@ -2520,7 +2520,7 @@ export interface ActivityIndicatorIOSProperties extends ViewProperties {
  */
 export class ActivityIndicatorIOS extends React.Component<ActivityIndicatorIOSProperties> {}
 
-export interface DatePickerIOSProperties extends ViewProperties {
+export interface DatePickerIOSProperties extends ViewProps {
     /**
      * The currently selected date.
      */
@@ -2579,7 +2579,7 @@ export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent>
 /**
  * @see DrawerLayoutAndroid.android.js
  */
-export interface DrawerLayoutAndroidProperties extends ViewProperties {
+export interface DrawerLayoutAndroidProperties extends ViewProps {
     /**
      * Specifies the background color of the drawer. The default value
      * is white. If you want to set the opacity of the drawer, use rgba.
@@ -2717,7 +2717,7 @@ export interface PickerItemProperties {
 
 export class PickerItem extends React.Component<PickerItemProperties> {}
 
-export interface PickerPropertiesIOS extends ViewProperties {
+export interface PickerPropertiesIOS extends ViewProps {
     /**
      * Style to apply to each of the item labels.
      * @platform ios
@@ -2725,7 +2725,7 @@ export interface PickerPropertiesIOS extends ViewProperties {
     itemStyle?: StyleProp<ViewStyle>;
 }
 
-export interface PickerPropertiesAndroid extends ViewProperties {
+export interface PickerPropertiesAndroid extends ViewProps {
     /**
      * If set to false, the picker will be disabled, i.e. the user will not be able to make a
      * selection.
@@ -2798,7 +2798,7 @@ export class Picker extends React.Component<PickerProperties> {
  * @see https://facebook.github.io/react-native/docs/pickerios.html
  * @see PickerIOS.ios.js
  */
-export interface PickerIOSProperties extends ViewProperties {
+export interface PickerIOSProperties extends ViewProps {
     itemStyle?: StyleProp<TextStyle>;
     onValueChange?: (value: string | number) => void;
     selectedValue?: string | number;
@@ -2818,7 +2818,7 @@ export class PickerIOS extends PickerIOSBase {
  * @see https://facebook.github.io/react-native/docs/progressbarandroid.html
  * @see ProgressBarAndroid.android.js
  */
-export interface ProgressBarAndroidProperties extends ViewProperties {
+export interface ProgressBarAndroidProperties extends ViewProps {
     /**
      * Style of the ProgressBar. One of:
          Horizontal
@@ -2864,7 +2864,7 @@ export class ProgressBarAndroid extends ProgressBarAndroidBase {}
  * @see https://facebook.github.io/react-native/docs/progressviewios.html
  * @see ProgressViewIOS.ios.js
  */
-export interface ProgressViewIOSProperties extends ViewProperties {
+export interface ProgressViewIOSProperties extends ViewProps {
     /**
      * The progress bar style.
      */
@@ -2899,7 +2899,7 @@ declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSPr
 declare const ProgressViewIOSBase: Constructor<NativeMethodsMixin> & typeof ProgressViewIOSComponent;
 export class ProgressViewIOS extends ProgressViewIOSBase {}
 
-export interface RefreshControlPropertiesIOS extends ViewProperties {
+export interface RefreshControlPropertiesIOS extends ViewProps {
     /**
      * The color of the refresh indicator.
      */
@@ -2916,7 +2916,7 @@ export interface RefreshControlPropertiesIOS extends ViewProperties {
     titleColor?: string;
 }
 
-export interface RefreshControlPropertiesAndroid extends ViewProperties {
+export interface RefreshControlPropertiesAndroid extends ViewProps {
     /**
      * The colors (at least one) that will be used to draw the refresh indicator.
      */
@@ -3011,14 +3011,14 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
     getScrollResponder(): JSX.Element;
 }
 
-export interface SliderPropertiesAndroid extends ViewProperties {
+export interface SliderPropertiesAndroid extends ViewProps {
     /**
      * Color of the foreground switch grip.
      */
     thumbTintColor?: string;
 }
 
-export interface SliderPropertiesIOS extends ViewProperties {
+export interface SliderPropertiesIOS extends ViewProps {
     /**
      * Assigns a maximum track image. Only static images are supported.
      * The leftmost pixel of the image will be stretched to fill the track.
@@ -3119,7 +3119,7 @@ export type SliderIOS = Slider;
 /**
  * https://facebook.github.io/react-native/docs/switchios.html#props
  */
-export interface SwitchIOSProperties extends ViewProperties {
+export interface SwitchIOSProperties extends ViewProps {
     /**
      * If true the user won't be able to toggle the switch. Default value is false.
      */
@@ -4272,7 +4272,7 @@ export interface MapViewOverlay {
     id?: string;
 }
 
-export interface MapViewProperties extends ViewProperties {
+export interface MapViewProperties extends ViewProps {
     /**
      * If false points of interest won't be displayed on the map.
      * Default value is true.
@@ -4407,7 +4407,7 @@ export class MapView extends MapViewBase {
     };
 }
 
-interface MaskedViewProperties extends ViewProperties {
+interface MaskedViewProperties extends ViewProps {
     maskElement: React.ReactElement<any>;
 }
 
@@ -5112,7 +5112,7 @@ export interface ListViewDataSource {
 /**
  * @see https://facebook.github.io/react-native/docs/tabbarios-item.html#props
  */
-export interface TabBarItemProperties extends ViewProperties {
+export interface TabBarItemProperties extends ViewProps {
     /**
      * Little red bubble that sits at the top right of the icon.
      */
@@ -5187,7 +5187,7 @@ export class TabBarItem extends React.Component<TabBarItemProperties> {}
 /**
  * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
  */
-export interface TabBarIOSProperties extends ViewProperties {
+export interface TabBarIOSProperties extends ViewProps {
     /**
      * Background color of the tab bar
      */
@@ -5908,7 +5908,7 @@ export interface ScrollViewPropertiesAndroid {
 }
 
 export interface ScrollViewProperties
-    extends ViewProperties,
+    extends ViewProps,
         ScrollViewPropertiesIOS,
         ScrollViewPropertiesAndroid,
         Touchable {
@@ -6104,7 +6104,7 @@ export interface NativeScrollEvent {
     zoomScale: number;
 }
 
-export interface SnapshotViewIOSProperties extends ViewProperties {
+export interface SnapshotViewIOSProperties extends ViewProps {
     // A callback when the Snapshot view is ready to be compared
     onSnapshotReady(): any;
 
@@ -7723,7 +7723,7 @@ export interface UIManagerStatic {
     setLayoutAnimationEnabledExperimental(value: boolean): void;
 }
 
-export interface SwitchPropertiesIOS extends ViewProperties {
+export interface SwitchPropertiesIOS extends ViewProps {
     /**
      * Background color when the switch is turned on.
      */
@@ -8751,3 +8751,15 @@ export type AccessibilityProperties = AccessibilityProps;
 export type AccessibilityPropertiesIOS = AccessibilityPropsIOS;
 /** @deprecated */
 export type AccessibilityPropertiesAndroid = AccessibilityPropsAndroid;
+/** @deprecated */
+export type TextInputProperties = TextInputProps;
+/** @deprecated */
+export type TextInputIOSProperties = TextInputIOSProps;
+/** @deprecated */
+export type TextInputAndroidProperties = TextInputAndroidProps;
+/** @deprecated */
+export type ViewProperties = ViewProps;
+/** @deprecated */
+export type ViewPropertiesIOS = ViewPropsIOS;
+/** @deprecated */
+export type ViewPropertiesAndroid = ViewPropsAndroid;

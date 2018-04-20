@@ -5,9 +5,9 @@
 // TypeScript Version: 2.6
 
 import * as React from 'react';
-import { ViewProperties } from 'react-native';
+import { ViewProps } from 'react-native';
 
-export interface ModalProps extends ViewProperties {
+export interface ModalProps extends ViewProps {
   /**
    * Checks if the modal is open
    *

@@ -5,9 +5,9 @@
 // TypeScript Version: 2.6
 
 import * as React from 'react';
-import { ViewProperties } from 'react-native';
+import { ViewProps } from 'react-native';
 
-interface LinearGradientProps extends ViewProperties {
+interface LinearGradientProps extends ViewProps {
     children?: React.ReactNode;
 
     /**

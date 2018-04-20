@@ -31,7 +31,7 @@ import * as React from 'react';
 import {
   Animated,
   TextStyle,
-  ViewProperties,
+  ViewProps,
   ViewStyle,
   StyleProp,
 } from 'react-native';
@@ -916,7 +916,7 @@ export function withNavigationFocus<T = {}>(
  * SafeAreaView Component
  */
 export type SafeAreaViewForceInsetValue = 'always' | 'never';
-export interface SafeAreaViewProps extends ViewProperties {
+export interface SafeAreaViewProps extends ViewProps {
   forceInset?: {
     top?: SafeAreaViewForceInsetValue;
     bottom?: SafeAreaViewForceInsetValue;
