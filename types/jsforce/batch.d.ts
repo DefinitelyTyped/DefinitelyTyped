@@ -1,4 +1,4 @@
-import { Stream } from 'stream';
+import { Stream, Writable } from 'stream';
 
 import { RecordResult } from './record-result';
 import { Record } from './record';
@@ -16,7 +16,7 @@ export interface BatchResultInfo {
     jobId: string;
 }
 
-export class Batch {
+export class Batch extends Writable {
     check(callback?: (batchInfo: BatchInfo) => void): Promise<BatchInfo>;
     execute(input?: Record<any>[] | Stream | string, callback?: (result: RecordResult[] | BatchResultInfo[]) => void): Batch;
     poll(interval: number, timeout: number): void;

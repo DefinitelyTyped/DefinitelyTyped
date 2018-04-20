@@ -291,3 +291,29 @@ const oauth2 = new sf.OAuth2({
     redirectUri: '<callback URI is here>'
 });
 oauth2.getAuthorizationUrl({ scope: 'api id web' });
+
+const job = salesforceConnection.bulk.createJob("Account", "insert");
+const batch = job.createBatch();
+batch.execute(undefined);
+batch.on("queue", (batchInfo) => { // fired when batch request is queued in server.
+    console.log('batchInfo:', batchInfo);
+    const batchId = batchInfo.id;
+    const jobId = batchInfo.jobId;
+});
+job.batch("batchId");
+batch.poll(1000, 20000);
+batch.on("response", (rets) => {
+    for (var i = 0; i < rets.length; i++) {
+        if (rets[i].success) {
+            console.log("#" + (i + 1) + " loaded successfully, id = " + rets[i].id);
+        } else {
+            console.log("#" + (i + 1) + " error occurred, message = " + rets[i].errors.join(', '));
+        }
+    }
+});
+
+salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((message) => {
+    console.log('Event Type : ' + message.event.type);
+    console.log('Event Created : ' + message.event.createdDate);
+    console.log('Object Id : ' + message.sobject.Id);
+});

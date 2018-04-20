@@ -22,8 +22,6 @@ export interface TokenResponse {
 export class OAuth2 {
     constructor(options?: OAuth2Options);
 
-    protected _postParams(options: any, callback: () => any): void
-
     loginUrl: string;
     authzServiceUrl: string;
     tokenServiceUrl: string;

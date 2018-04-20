@@ -8,6 +8,7 @@ import { Topic } from './topic';
 export interface StreamingMessage {
     event: {
         type: object
+        createdDate: any;
     };
     sobject: Record<any>
 }
