@@ -3154,7 +3154,7 @@ export interface SwitchIOSProperties extends ViewProperties {
  *
  * @see https://facebook.github.io/react-native/docs/switchios.html
  */
-export interface SwitchIOSStatic extends React.ComponentClass<SwitchIOSProperties> {}
+export class SwitchIOS extends React.Component<SwitchIOSProperties> {}
 
 export type ImageResizeMode = "contain" | "cover" | "stretch" | "center" | "repeat";
 
@@ -8457,9 +8457,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const SwitchIOS: SwitchIOSStatic;
-export type SwitchIOS = SwitchIOSStatic;
 
 export const TabBarIOS: TabBarIOSStatic;
 export type TabBarIOS = TabBarIOSStatic;
