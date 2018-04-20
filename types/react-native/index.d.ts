@@ -4386,7 +4386,9 @@ export interface MapViewProperties extends ViewProperties {
 /**
  * @see https://facebook.github.io/react-native/docs/mapview.html#content
  */
-export interface MapViewStatic extends NativeMethodsMixin, React.ComponentClass<MapViewProperties> {
+declare class MapViewComponent extends React.Component<MapViewProperties> {}
+declare const MapViewBase: Constructor<NativeMethodsMixin> & typeof MapViewComponent;
+export class MapView extends MapViewBase {
     PinColors: {
         RED: string;
         GREEN: string;
@@ -8436,9 +8438,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const MapView: MapViewStatic;
-export type MapView = MapViewStatic;
 
 export const MaskedViewIOS: MaskedViewStatic;
 export type MaskedViewIOS = MaskedViewStatic;
