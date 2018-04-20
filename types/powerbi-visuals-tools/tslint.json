@@ -4,7 +4,6 @@
         "no-relative-import-in-test": false,
         "interface-name": false,
         "no-mergeable-namespace": false,
-        "no-empty-interface": false,
         "no-const-enum": false
     }
 }

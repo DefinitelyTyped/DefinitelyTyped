@@ -41,7 +41,7 @@ const selectionBuilder: ISelectionIdBuilder = {
                 return selector;
             },
             getSelectorsByColumn: () => {
-                const selector: powerbi.data.Selector = {
+                const selector: powerbi.data.SelectorsByColumn = {
                 };
                 return selector;
             },
@@ -74,7 +74,7 @@ const dataView: DataView = {
             {
                 identity: [
                     {
-                        expr: "string",
+                        expr: {},
                         key: "string",
                         kind: powerbi.DataRepetitionKind.ScopeIdentity
                     }

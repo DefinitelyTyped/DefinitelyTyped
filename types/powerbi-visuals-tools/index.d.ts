@@ -295,11 +295,6 @@ declare namespace powerbi {
 }
 
 declare namespace powerbi {
-    interface QueryTransformTypeDescriptor {
-    }
-}
-
-declare namespace powerbi {
     /** Represents views of a data set. */
     interface DataView {
         metadata: DataViewMetadata;
@@ -318,7 +313,7 @@ declare namespace powerbi {
         objects?: DataViewObjects;
 
         /** When defined, describes whether the DataView contains just a segment of the complete data set. */
-        segment?: DataViewSegmentMetadata;
+        segment?: {};
 
         /** Describes the data reduction applied to this data set when limits are exceeded. */
         dataReduction?: DataViewReductionMetadata;
@@ -377,10 +372,7 @@ declare namespace powerbi {
          */
         identityExprs?: data.ISQExpr[];
 
-        parameter?: DataViewParameterColumnMetadata;
-    }
-
-    interface DataViewSegmentMetadata {
+        parameter?: {};
     }
 
     interface DataViewReductionMetadata {
@@ -458,11 +450,6 @@ declare namespace powerbi {
         values: PrimitiveValue[];
         highlights?: PrimitiveValue[];
         identity?: DataViewScopeIdentity;
-    }
-
-    // NOTE: The following is needed for backwards compatibility and should be deprecated.  Callers should use
-    // DataViewMetadataColumn.aggregates instead.
-    interface DataViewValueColumn extends DataViewColumnAggregates {
     }
 
     interface DataViewCategoryColumn extends DataViewCategoricalColumn {
@@ -645,10 +632,6 @@ declare namespace powerbi {
         normalizedFiveStateKpiRange?: boolean;
     }
 
-    /** Indicates the column is a what-if parameter */
-    interface DataViewParameterColumnMetadata {
-    }
-
     interface DataViewScriptResultData {
         payloadBase64: string;
     }
@@ -753,17 +736,27 @@ declare namespace powerbi.data {
         DataViewRoleWildcard |
         DataViewScopeTotal;
 
-	interface SelectorsByColumn { }
+	interface SelectorsByColumn {
+        key?: string;
+    }
 }
 
 declare namespace powerbi.data {
     // intentionally blank interfaces since this is not part of the public API
 
-    interface ISemanticFilter { }
+    interface ISemanticFilter {
+        whereItems?: {};
+    }
 
-    interface ISQExpr { }
+    interface ISQExpr {
+        left?: ISQExpr;
+        right?: ISQExpr;
+        args?: ISQExpr;
+    }
 
-    interface ISQConstantExpr extends ISQExpr { }
+    interface ISQConstantExpr extends ISQExpr {
+        kind?: number;
+    }
 }
 
 declare namespace powerbi {
@@ -860,9 +853,6 @@ declare namespace powerbi {
     interface FillRule extends FillRuleGeneric<string, number, string> {
     }
 
-    interface FillRuleTypeDescriptor {
-    }
-
     interface FillRuleGeneric<TColor, TValue, TStrategy> {
         linearGradient2?: LinearGradient2Generic<TColor, TValue, TStrategy>;
         linearGradient3?: LinearGradient3Generic<TColor, TValue, TStrategy>;
@@ -911,8 +901,6 @@ declare namespace powerbi {
         name: T;
         content: T;
     }
-
-    interface GeoJsonTypeDescriptor { }
 }
 
 declare namespace powerbi {
@@ -923,8 +911,6 @@ declare namespace powerbi {
         url: T;
         scaling?: T;
     }
-
-    interface ImageTypeDescriptor { }
 }
 
 declare namespace powerbi {
@@ -935,9 +921,6 @@ declare namespace powerbi {
     interface Paragraph {
         horizontalTextAlignment?: string;
         textRuns: TextRun[];
-    }
-
-    interface ParagraphsTypeDescriptor {
     }
 
     interface TextRunStyle {
@@ -974,14 +957,14 @@ declare namespace powerbi {
     /** Describes a structural type in the client type system. Leaf properties should use ValueType. */
     interface StructuralTypeDescriptor {
         fill?: FillTypeDescriptor;
-        fillRule?: FillRuleTypeDescriptor;
+        fillRule?: {};
         filter?: FilterTypeDescriptor;
         expression?: DefaultValueTypeDescriptor;
-        image?: ImageTypeDescriptor;
-        paragraphs?: ParagraphsTypeDescriptor;
-        geoJson?: GeoJsonTypeDescriptor;
-        queryTransform?: QueryTransformTypeDescriptor;
-        dataBars?: DataBarsTypeDescriptor;
+        image?: {};
+        paragraphs?: {};
+        geoJson?: {};
+        queryTransform?: {};
+        dataBars?: {};
     }
 }
 
@@ -1073,9 +1056,6 @@ declare namespace powerbi {
         axisColor: Fill;
         reverseDirection: boolean;
         hideText: boolean;
-    }
-
-    interface DataBarsTypeDescriptor {
     }
 }
 
@@ -1198,11 +1178,18 @@ declare namespace powerbi.extensibility {
     // These are the base interfaces. These should remain empty
     // All visual versions should extend these for type compatability
 
-    interface IVisual { }
+    interface IVisual {
+        /** Notifies the visual that it is being destroyed, and to do any cleanup necessary (such as unsubscribing event handlers). */
+        destroy?(): void;
+    }
 
-    interface IVisualHost { }
+    interface IVisualHost {
+        instanceId: string;
+    }
 
-    interface VisualUpdateOptions { }
+    interface VisualUpdateOptions {
+        type: VisualUpdateType;
+    }
 
     interface VisualConstructorOptions {
         /** The loaded module, if any, defined by the IVisualPlugin.module. */
@@ -1222,23 +1209,21 @@ declare namespace powerbi {
 
 declare namespace powerbi.extensibility {
     interface ISelectionManager {
-        select(selectionId: ISelectionId | ISelectionId[], multiSelect?: boolean): IPromise<ISelectionId[]>;
+        select(selectionId: visuals.ISelectionId | visuals.ISelectionId[], multiSelect?: boolean): IPromise<visuals.ISelectionId[]>;
         hasSelection(): boolean;
         clear(): IPromise<{}>;
-        getSelectionIds(): ISelectionId[];
+        getSelectionIds(): visuals.ISelectionId[];
         applySelectionFilter(): void;
-        registerOnSelectCallback(callback: (ids: ISelectionId[]) => void): void;
+        registerOnSelectCallback(callback: (ids: visuals.ISelectionId[]) => void): void;
     }
 }
 
 declare namespace powerbi.extensibility {
-    interface ISelectionId { }
-
     interface ISelectionIdBuilder {
         withCategory(categoryColumn: DataViewCategoryColumn, index: number): this;
         withSeries(seriesColumn: DataViewValueColumns, valueColumn: DataViewValueColumn | DataViewValueColumnGroup): this;
         withMeasure(measureId: string): this;
-        createSelectionId(): ISelectionId;
+        createSelectionId(): visuals.ISelectionId;
     }
 }
 
@@ -1261,7 +1246,7 @@ declare namespace powerbi.extensibility {
         coordinates: number[];
         isTouchEvent: boolean;
         dataItems?: VisualTooltipDataItem[];
-        identities: ISelectionId[];
+        identities: visuals.ISelectionId[];
     }
 
     interface TooltipShowOptions extends TooltipMoveOptions {
@@ -1305,7 +1290,9 @@ declare namespace powerbi.extensibility {
 }
 
 declare namespace powerbi {
-    interface IFilter { }
+    interface IFilter {
+        conditions?: any;
+    }
 }
 
 /**
@@ -1323,9 +1310,6 @@ declare namespace powerbi.extensibility.visual {
         // tslint:disable-next-line
         update<T>(options: VisualUpdateOptions, viewModel?: T): void;
 
-        /** Notifies the visual that it is being destroyed, and to do any cleanup necessary (such as unsubscribing event handlers). */
-        destroy?(): void;
-
         /** Gets the set of objects that the visual is currently displaying. */
         enumerateObjectInstances?(options: EnumerateVisualObjectInstancesOptions): VisualObjectInstanceEnumeration;
     }
@@ -1342,7 +1326,6 @@ declare namespace powerbi.extensibility.visual {
         locale: string;
         allowInteractions: boolean;
         launchUrl: (url: string) => void;
-        instanceId: string;
         refreshHostData: () => void;
         createLocalizationManager: () => ILocalizationManager;
     }
@@ -1350,7 +1333,6 @@ declare namespace powerbi.extensibility.visual {
     interface VisualUpdateOptions extends extensibility.VisualUpdateOptions {
         viewport: IViewport;
         dataViews: DataView[];
-        type: VisualUpdateType;
         viewMode?: ViewMode;
         editMode?: EditMode;
     }
