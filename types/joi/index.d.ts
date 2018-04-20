@@ -11,6 +11,7 @@
 //                 Dan Kraus <https://github.com/dankraus>
 //                 Anjun Wang <https://github.com/wanganjun>
 //                 Rafael Kallis <https://github.com/rafaelkallis>
+//                 Conan Lai <https://github.com/aconanlai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
