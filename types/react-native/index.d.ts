@@ -7772,7 +7772,9 @@ export interface SwitchProperties extends SwitchPropertiesIOS {
  * If the `value` prop is not updated, the component will continue to render
  * the supplied `value` prop instead of the expected result of any user actions.
  */
-export interface SwitchStatic extends NativeMethodsMixin, React.ClassicComponentClass<SwitchProperties> {}
+declare class SwitchComponent extends React.Component<SwitchProperties> {}
+declare const SwitchBase: Constructor<NativeMethodsMixin> & typeof SwitchComponent;
+export class Switch extends SwitchBase {}
 
 /**
  * NOTE: `VibrationIOS` is being deprecated. Use `Vibration` instead.
@@ -8455,9 +8457,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const Switch: SwitchStatic;
-export type Switch = SwitchStatic;
 
 export const SwitchIOS: SwitchIOSStatic;
 export type SwitchIOS = SwitchIOSStatic;
