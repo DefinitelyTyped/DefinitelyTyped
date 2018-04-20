@@ -305,9 +305,9 @@ batch.poll(1000, 20000);
 batch.on("response", (rets) => {
     for (let i = 0; i < rets.length; i++) {
         if (rets[i].success) {
-            console.log("#" + (i + 1) + " loaded successfully, id = " + rets[i].id);
+            console.log(`# ${(i + 1)} loaded successfully, id = ${rets[i].id}`);
         } else {
-            console.log("#" + (i + 1) + " error occurred, message = " + rets[i].errors.join(', '));
+            console.log(`# ${(i + 1)} error occurred, message = ${rets[i].errors.join(', ')}`);
         }
     }
 });
