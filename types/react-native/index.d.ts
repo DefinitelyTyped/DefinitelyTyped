@@ -2707,7 +2707,7 @@ export interface PickerItemProperties {
     value?: any;
 }
 
-export interface PickerItem extends React.ComponentClass<PickerItemProperties> {}
+export class PickerItem extends React.Component<PickerItemProperties> {}
 
 export interface PickerPropertiesIOS extends ViewProperties {
     /**
@@ -2773,7 +2773,7 @@ export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesA
  * @see https://facebook.github.io/react-native/docs/picker.html
  * @see Picker.js
  */
-export interface PickerStatic extends React.ComponentClass<PickerProperties> {
+export class Picker extends React.Component<PickerProperties> {
     /**
      * On Android, display the options in a dialog.
      */
@@ -2783,7 +2783,7 @@ export interface PickerStatic extends React.ComponentClass<PickerProperties> {
      */
     MODE_DROPDOWN: string;
 
-    Item: PickerItem;
+    static Item: typeof PickerItem;
 }
 
 /**
@@ -8438,9 +8438,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const Picker: PickerStatic;
-export type Picker = PickerStatic;
 
 export const PickerIOS: PickerIOSStatic;
 export type PickerIOS = PickerIOSStatic;
