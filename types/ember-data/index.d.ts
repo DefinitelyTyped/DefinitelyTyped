@@ -43,7 +43,7 @@ declare module 'ember-data' {
         isRelationship: true;
     }
 
-    namespace DS {
+    export namespace DS {
         /**
          * Convert an hash of errors into an array with errors in JSON-API format.
          */
