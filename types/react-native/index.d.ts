@@ -3105,7 +3105,10 @@ export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesA
 /**
  * A component used to select a single value from a range of values.
  */
-export interface SliderStatic extends NativeMethodsMixin, React.ClassicComponentClass<SliderProperties> {}
+declare class SliderComponent extends React.Component<SliderProperties> {}
+declare const SliderBase: Constructor<NativeMethodsMixin> & typeof SliderComponent;
+export class Slider extends TextBase {}
+export type SliderIOS = Slider;
 
 /**
  * https://facebook.github.io/react-native/docs/switchios.html#props
@@ -8442,12 +8445,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const Slider: SliderStatic;
-export type Slider = SliderStatic;
-
-export const SliderIOS: SliderStatic;
-export type SliderIOS = SliderStatic;
 
 export const StatusBar: StatusBarStatic;
 export type StatusBar = StatusBarStatic;
