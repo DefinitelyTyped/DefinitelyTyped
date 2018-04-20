@@ -1,4 +1,4 @@
-import SVGO = require("svgo");
+import * as SVGO from "svgo";
 
 // Various constructor options.
 let svgo = new SVGO();
