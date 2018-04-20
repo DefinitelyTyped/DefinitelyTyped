@@ -3698,7 +3698,7 @@ export interface FlatListProperties<ItemT> extends VirtualizedListProperties<Ite
     removeClippedSubviews?: boolean;
 }
 
-export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProperties<ItemT>> {
+export class FlatList<ItemT> extends React.Component<FlatListProperties<ItemT>> {
     /**
      * Exports some data, e.g. for perf investigations or analytics.
      */
@@ -8446,9 +8446,6 @@ export type ART = ARTStatic;
 
 export const ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
-
-export const FlatList: FlatListStatic<any>;
-export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
