@@ -1,3 +1,8 @@
+import * as fs from 'fs';
+import * as stream from 'stream';
+import * as express from 'express';
+import * as glob from 'glob';
+
 import * as sf from 'jsforce';
 
 export interface DummyRecord {
