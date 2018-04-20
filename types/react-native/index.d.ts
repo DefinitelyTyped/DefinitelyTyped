@@ -6030,7 +6030,9 @@ export interface ScrollViewProperties
 
 export interface ScrollViewProps extends ScrollViewProperties {}
 
-interface ScrollViewStatic extends ScrollResponderMixin, React.ComponentClass<ScrollViewProps> {
+declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
+declare const ScrollViewBase: Constructor<ScrollResponderMixin> & typeof ScrollViewComponent;
+export class ScrollView extends ScrollViewBase {
     /**
      * Scrolls to a given x, y offset, either immediately or with a smooth animation.
      * Syntax:
@@ -8445,9 +8447,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const ScrollView: ScrollViewStatic;
-export type ScrollView = ScrollViewStatic;
 
 export const SectionList: SectionListStatic<any>;
 export type SectionList<ItemT> = SectionListStatic<ItemT>;
