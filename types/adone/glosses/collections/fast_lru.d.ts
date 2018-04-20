@@ -4,13 +4,18 @@ declare namespace adone.collection {
      */
     class FastLRU<K = any, V = any> {
         /**
-         * @param size Cache size, unlimited by default
+         * @param size
          */
-        constructor(size?: number, options?: {
+        constructor(options?: {
+            /**
+             * Cache size, unlimited by default
+             */
+            maxSize?: number;
+
             /**
              * Function that is called when a value is deleted
              */
-            dispose?(key: K, value: V): void
+            dispose?(key: K, value: V): void;
         });
 
         /**

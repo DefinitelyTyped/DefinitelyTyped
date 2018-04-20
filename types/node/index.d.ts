@@ -20,8 +20,10 @@
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 Huw <https://github.com/hoo29>
 //                 Nicolas Even <https://github.com/n-e>
+//                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
+//                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -219,10 +221,6 @@ declare var Buffer: {
     new(buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
-     * Allocates a new Buffer using an {array} of octets.
-     */
-    from(array: any[]): Buffer;
-    /**
      * When passed a reference to the .buffer property of a TypedArray instance,
      * the newly created Buffer will share the same allocated memory as the TypedArray.
      * The optional {byteOffset} and {length} arguments specify a memory range
@@ -232,9 +230,10 @@ declare var Buffer: {
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
-     * Copies the passed {buffer} data onto a new Buffer instance.
+     * Creates a new Buffer using the passed {data}
+     * @param data data to create a new Buffer
      */
-    from(buffer: Buffer): Buffer;
+    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -2089,6 +2088,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
         windowsVerbatimArguments?: boolean;
+        windowsHide?: boolean;
     }
 
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;

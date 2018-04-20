@@ -21,6 +21,9 @@ import 'plupload';
         document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
     });
 
+    if (!uploader.features.chunks || !uploader.features.multipart) {
+        window.alert('Your browser does not support a feature required for uploads.  Try installing Flash or Silverlight.');
+    }
 }
 
 {

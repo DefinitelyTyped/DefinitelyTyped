@@ -14,6 +14,11 @@ declare enum EnumDWT_ConvertMode {
     CM_RENDERALL = 1
 }
 
+declare enum EnumDWT_ConverMode {
+    CM_DEFAULT = 0,
+    CM_RENDERALL = 1
+}
+
 /**
  * @class
  */
@@ -43,10 +48,10 @@ interface PDF {
     /**
      *  Set the image convert mode for PDF Rasterizer in Dynamic Web TWAIN.
      * @method Dynamsoft.WebTwain#SetConvertMode
-     * @param {EnumDWT_ConvertMode} convertMode Specifies the image convert mode.
+     * @param {EnumDWT_ConvertMode | EnumDWT_ConverMode} convertMode Specifies the image convert mode.
      * @return {boolean}
      */
-    SetConvertMode(convertMode: EnumDWT_ConvertMode): boolean;
+    SetConvertMode(convertMode: EnumDWT_ConvertMode | EnumDWT_ConverMode): boolean;
 
     /**
      *  Set the output resolution for the PDF Rasterizer in Dynamic Web TWAIN.

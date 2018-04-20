@@ -560,7 +560,7 @@ declare namespace jest {
 // Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 // This file can't reference jasmine.d.ts since the globals aren't compatible.
 
-declare function spyOn(object: any, method: string): jasmine.Spy;
+declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
 /**
  * If you call the function pending anywhere in the spec body,
  * no matter the expectations, the spec will be marked pending.

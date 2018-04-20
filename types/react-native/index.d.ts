@@ -544,11 +544,15 @@ export interface FlexStyle {
     alignSelf?: "auto" | FlexAlignType;
     aspectRatio?: number;
     borderBottomWidth?: number;
+    borderEndWidth?: number | string;
     borderLeftWidth?: number;
     borderRightWidth?: number;
+    borderStartWidth?: number | string;
     borderTopWidth?: number;
     borderWidth?: number;
     bottom?: number | string;
+    display?: "none" | "flex";
+    end?: number | string;
     flex?: number;
     flexBasis?: number | string;
     flexDirection?: "row" | "column" | "row-reverse" | "column-reverse";
@@ -560,9 +564,11 @@ export interface FlexStyle {
     left?: number | string;
     margin?: number | string;
     marginBottom?: number | string;
+    marginEnd?: number | string;
     marginHorizontal?: number | string;
     marginLeft?: number | string;
     marginRight?: number | string;
+    marginStart?: number | string;
     marginTop?: number | string;
     marginVertical?: number | string;
     maxHeight?: number | string;
@@ -572,13 +578,16 @@ export interface FlexStyle {
     overflow?: "visible" | "hidden" | "scroll";
     padding?: number | string;
     paddingBottom?: number | string;
+    paddingEnd?: number | string;
     paddingHorizontal?: number | string;
     paddingLeft?: number | string;
     paddingRight?: number | string;
+    paddingStart?: number | string;
     paddingTop?: number | string;
     paddingVertical?: number | string;
     position?: "absolute" | "relative";
     right?: number | string;
+    start?: number | string;
     top?: number | string;
     width?: number | string;
     zIndex?: number;
@@ -3736,6 +3745,14 @@ export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
 
+export interface SectionListScrollParams {
+    animated?: boolean;
+    itemIndex: number;
+    sectionIndex: number;
+    viewOffset?: number;
+    viewPosition?: number;
+}
+
 export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
@@ -3844,6 +3861,13 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Only enabled by default on iOS because that is the platform standard there.
      */
     stickySectionHeadersEnabled?: boolean;
+
+    /**
+     * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
+     * positioned in the viewable area such that viewPosition 0 places it at the top
+     * (and may be covered by a sticky header), 1 at the bottom, and 0.5 centered in the middle.
+     */
+    scrollToLocation?(params: SectionListScrollParams): void;
 }
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {}
@@ -3938,6 +3962,8 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
     inverted?: boolean;
 
     keyExtractor?: (item: ItemT, index: number) => string;
+
+    listKey?: string;
 
     /**
      * The maximum number of items to render in each incremental render batch. The more rendered at
