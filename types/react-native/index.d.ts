@@ -8411,22 +8411,22 @@ export interface ARTSurfaceProps {
     height: number;
 }
 
-export interface ClippingRectangleStatic extends React.ComponentClass<ARTClippingRectangleProps> {}
+export class ClippingRectangle extends React.Component<ARTClippingRectangleProps> {}
 
-export interface GroupStatic extends React.ComponentClass<ARTGroupProps> {}
+export class Group extends React.Component<ARTGroupProps> {}
 
-export interface ShapeStatic extends React.ComponentClass<ARTShapeProps> {}
+export class Shape extends React.Component<ARTShapeProps> {}
 
-export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {}
+export class Surface extends React.Component<ARTSurfaceProps> {}
 
-export interface ARTTextStatic extends React.ComponentClass<ARTTextProps> {}
+export class ARTText extends React.Component<ARTTextProps> {}
 
 export interface ARTStatic {
-    ClippingRectangle: ClippingRectangleStatic;
-    Group: GroupStatic;
-    Shape: ShapeStatic;
-    Surface: SurfaceStatic;
-    Text: ARTTextStatic;
+    ClippingRectangle: typeof ClippingRectangle;
+    Group: typeof Group;
+    Shape: typeof Shape;
+    Surface: typeof Surface;
+    Text: typeof ARTText;
 }
 
 export interface KeyboardStatic extends NativeEventEmitter {
