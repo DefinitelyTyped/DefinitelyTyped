@@ -1431,7 +1431,7 @@ declare namespace DataTables {
          * Tab index control for keyboard navigation. Since: 1.10
          */
         tabIndex?: number;
-        
+
         /**
          * Enable or disable datatables responsive. Since: 1.10
          */
