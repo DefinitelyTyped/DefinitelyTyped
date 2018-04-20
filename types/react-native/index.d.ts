@@ -2188,7 +2188,7 @@ export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndr
     scalesPageToFit?: boolean;
 }
 
-export interface WebViewStatic extends React.ClassicComponentClass<WebViewProperties> {
+export class WebView extends React.Component<WebViewProperties> {
     /**
      * Go back one page in the webview's history.
      */
@@ -8458,9 +8458,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const WebView: WebViewStatic;
-export type WebView = WebViewStatic;
 
 //////////// APIS //////////////
 export const ActionSheetIOS: ActionSheetIOSStatic;
