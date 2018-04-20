@@ -412,3 +412,24 @@ const dataSourceAssetCallback2: DataSourceAssetCallback = {};
 const deviceEventEmitterStatic: DeviceEventEmitterStatic = null;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
+
+
+class TextInputRefTest extends React.Component<{}, {username: string}> {
+    username: TextInput | null = null;
+
+    handleUsernameChange(text: string) {
+    }
+
+    render() {
+        return (
+            <View>
+                <Text onPress={() => this.username.focus()}>Username</Text>
+                <TextInput
+                    ref={input => this.username = input}
+                    value={this.state.username}
+                    onChangeText={this.handleUsernameChange.bind(this)}
+                />
+            </View>
+        );
+    }
+}

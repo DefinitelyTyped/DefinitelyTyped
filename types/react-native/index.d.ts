@@ -28,6 +28,8 @@
 
 import * as React from 'react';
 
+type Constructor<T> = new(...args: any[]) => T;
+
 export type MeasureOnSuccessCallback = (
     x: number,
     y: number,
@@ -1279,7 +1281,9 @@ interface TextInputState {
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#methods
  */
-export interface TextInputStatic extends NativeMethodsMixin, TimerMixin, React.ComponentClass<TextInputProperties> {
+declare class TextInputComponent extends React.Component<TextInputProperties> {}
+declare const TextInputBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & typeof TextInputComponent;
+export class TextInput extends TextInputBase {
     State: TextInputState;
 
     /**
@@ -8518,9 +8522,6 @@ export type TabBarIOS = TabBarIOSStatic;
 
 export const Text: TextStatic;
 export type Text = TextStatic;
-
-export const TextInput: TextInputStatic;
-export type TextInput = TextInputStatic;
 
 export const ToolbarAndroid: ToolbarAndroidStatic;
 export type ToolbarAndroid = ToolbarAndroidStatic;
