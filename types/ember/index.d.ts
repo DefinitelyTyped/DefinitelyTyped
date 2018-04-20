@@ -3461,7 +3461,7 @@ declare module '@ember/component/helper' {
      * });
      * ```
      */
-    export function helper(helperFn: (params: any[], hash?: any) => string): any;
+    export function helper(helperFn: (params: any[], hash?: any) => any): any;
 }
 
 declare module '@ember/component/text-area' {
