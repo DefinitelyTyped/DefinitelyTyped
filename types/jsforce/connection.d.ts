@@ -14,7 +14,7 @@ export type Callback<T> = (err: Error, result: T) => void;
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
 // the oauth options can either be in the `oauth2` proeprty OR spread across the main connection
-export interface OAuth2Options {
+export interface PartialOAuth2Options {
     clientId?: string;
     clientSecret?: string;
     loginUrl?: string;
@@ -27,14 +27,14 @@ export interface RequestInfo {
     headers?: object;
 }
 
-export interface ConnectionOptions extends OAuth2Options {
+export interface ConnectionOptions extends PartialOAuth2Options {
     accessToken?: string;
     callOptions?: Object;
     instanceUrl?: string;
     loginUrl?: string;
     logLevel?: string;
     maxRequest?: number;
-    oauth2?: Partial<OAuth2Options>;
+    oauth2?: Partial<PartialOAuth2Options>;
     proxyUrl?: string;
     redirectUri?: string;
     refreshToken?: string;

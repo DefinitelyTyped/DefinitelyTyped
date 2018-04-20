@@ -7,7 +7,7 @@ import { Record, RecordReference } from './record';
 import { RecordResult } from './record-result';
 import { Connection } from './connection';
 import { SalesforceId } from './salesforce-id';
-import { BatchResultInfo } from './batch';
+import { Batch, BatchResultInfo } from './batch';
 
 export class SObject<T> {
     record(id: SalesforceId): RecordReference<T>;
@@ -60,9 +60,6 @@ export class SObject<T> {
 
 export interface ApprovalLayoutInfo {
     approvalLayouts: Object[];
-}
-
-export class Batch extends stream.Writable {
 }
 
 export interface CompactLayoutInfo {

@@ -1,4 +1,5 @@
 import { Callback } from '../connection';
+import { ExplainInfo } from '../query';
 
 export class Dashboard {
     describe(callback?: Callback<object>): Promise<any>;
@@ -51,9 +52,6 @@ export class Report {
 }
 
 export interface ReportInstanceAttrs {
-}
-
-export interface ExplainInfo {
 }
 
 export interface ReportMetadata {

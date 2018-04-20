@@ -7,22 +7,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { Date } from './date-enum';
-export { Record } from './record';
-export { RecordResult } from './record-result';
-export { Connection, ConnectionOptions, RequestInfo, Tooling, Callback } from './connection';
-export { SObject } from './salesforce-object';
-export { SalesforceId } from './salesforce-id';
+export * from './date-enum';
+export * from './record';
+export * from './record-result';
+export * from './connection';
+export * from './salesforce-object';
+export * from './salesforce-id';
 export * from './oauth2';
-export { Query, QueryResult } from './query';
-export { Promise } from './promise';
-export { Report, Dashboard, Analytics, ReportInstance, DashboardInfo, ReportInfo, ExplainInfo, ReportInstanceAttrs,
-    ReportMetadata, ReportResult } from './api/analytics';
-export { Chatter, Request, RequestResult, BatchRequestResults, BatchRequestParams,
-    Resource, BatchRequestResult, RequestParams } from './api/chatter';
-export { Metadata, SaveResult, MetadataInfo, AsyncResult, RetrieveResultLocator, RetrieveRequest, FileProperties,
-    ListMetadataQuery, DescribeMetadataResult, DeployOptions, AsyncResultLocator, RetrieveResult, MetadataObject,
-    DeployResult, DeployResultLocator, UpdateMetadataInfo, UpsertResult } from './api/metadata';
+export * from './query';
+export * from './promise';
+export * from './api/analytics';
+export * from './api/chatter';
+export * from './api/metadata';
 export * from './batch';
 export * from './bulk';
 export * from './job';
