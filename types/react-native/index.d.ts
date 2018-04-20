@@ -1897,7 +1897,9 @@ export interface ViewPagerAndroidProperties extends ViewProperties {
     pageMargin?: number;
 }
 
-export interface ViewPagerAndroidStatic extends NativeMethodsMixin, React.ComponentClass<ViewPagerAndroidProperties> {
+declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProperties> {}
+declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixin> & typeof ViewPagerAndroidComponent;
+export class ViewPagerAndroid extends ViewPagerAndroidBase {
     /**
      * A helper function to scroll to a specific page in the ViewPager.
      * The transition between pages will be animated.
@@ -8456,9 +8458,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const ViewPagerAndroid: ViewPagerAndroidStatic;
-export type ViewPagerAndroid = ViewPagerAndroidStatic;
 
 export const WebView: WebViewStatic;
 export type WebView = WebViewStatic;
