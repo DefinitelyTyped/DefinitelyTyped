@@ -2887,9 +2887,9 @@ export interface ProgressViewIOSProperties extends ViewProperties {
      */
     trackImage?: ImageURISource | ImageURISource[];
 }
-export interface ProgressViewIOSStatic
-    extends NativeMethodsMixin,
-        React.ClassicComponentClass<ProgressViewIOSProperties> {}
+declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSProperties> {}
+declare const ProgressViewIOSBase: Constructor<NativeMethodsMixin> & typeof ProgressViewIOSComponent;
+export class ProgressViewIOS extends ProgressViewIOSBase {}
 
 export interface RefreshControlPropertiesIOS extends ViewProperties {
     /**
@@ -8440,9 +8440,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const ProgressViewIOS: ProgressViewIOSStatic;
-export type ProgressViewIOS = ProgressViewIOSStatic;
 
 export const RefreshControl: RefreshControlStatic;
 export type RefreshControl = RefreshControlStatic;
