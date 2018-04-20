@@ -16,8 +16,8 @@ export namespace ReactStripeElements {
 	import ElementsOptions = stripe.elements.ElementsOptions;
 	import TokenOptions = stripe.TokenOptions;
 	import TokenResponse = stripe.TokenResponse;
-    import SourceResponse = stripe.SourceResponse;
-    import SourceOptions = stripe.SourceOptions;
+	import SourceResponse = stripe.SourceResponse;
+	import SourceOptions = stripe.SourceOptions;
 
 	/**
 	 * There's a bug in @types/stripe which defines the property as
@@ -30,7 +30,7 @@ export namespace ReactStripeElements {
     type StripeProviderProps = { apiKey: string; stripe?: never; } | { apiKey?: never; stripe: StripeProps | null; };
 
 	interface StripeProps {
-        createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
+		createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
 
 		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
 	}
