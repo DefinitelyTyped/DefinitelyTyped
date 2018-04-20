@@ -2978,9 +2978,9 @@ export interface RecyclerViewBackedScrollViewProperties extends ScrollViewProper
  * use it pass this component as `renderScrollComponent` to the list view. For
  * now only horizontal scrolling is supported.
  */
-export interface RecyclerViewBackedScrollViewStatic
-    extends ScrollResponderMixin,
-        React.ClassicComponentClass<RecyclerViewBackedScrollViewProperties> {
+declare class RecyclerViewBackedScrollViewComponent extends React.Component<RecyclerViewBackedScrollViewProperties> {}
+declare const RecyclerViewBackedScrollViewBase: Constructor<ScrollResponderMixin> & typeof RecyclerViewBackedScrollViewComponent;
+export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBase {
     /**
      * A helper function to scroll to a specific point  in the scrollview.
      * This is currently used to help focus on child textviews, but can also
@@ -8440,9 +8440,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const RecyclerViewBackedScrollView: RecyclerViewBackedScrollViewStatic;
-export type RecyclerViewBackedScrollView = RecyclerViewBackedScrollViewStatic;
 
 export const SafeAreaView: SafeAreaViewStatic;
 export type SafeAreaView = SafeAreaViewStatic;
