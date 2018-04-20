@@ -1,8 +1,5 @@
 import { Callback } from '../connection';
 
-interface ReportInfo {
-}
-
 export class Dashboard {
     describe(callback?: Callback<object>): Promise<any>;
 
