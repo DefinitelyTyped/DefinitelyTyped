@@ -413,7 +413,8 @@ export interface NativeTouchEvent {
 
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
-export interface PointProperties {
+// See https://facebook.github.io/react-native/docs/scrollview.html#contentoffset
+export interface PointPropType {
     x: number;
     y: number;
 }
@@ -5771,7 +5772,7 @@ export interface ScrollViewPropsIOS {
      * Used to manually set the starting scroll offset.
      * The default value is {x: 0, y: 0}
      */
-    contentOffset?: PointProperties; // zeros
+    contentOffset?: PointPropType; // zeros
 
     /**
      * This property specifies how the safe area insets are used to modify the content area of the scroll view.
