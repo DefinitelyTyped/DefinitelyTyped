@@ -4403,7 +4403,9 @@ interface MaskedViewProperties extends ViewProperties {
 /**
  * @see https://facebook.github.io/react-native/docs/maskedviewios.html
  */
-export interface MaskedViewStatic extends NativeMethodsMixin, React.ComponentClass<MaskedViewProperties> {}
+declare class MaskedViewComponent extends React.Component<MaskedViewProperties> {}
+declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedViewComponent;
+export class MaskedViewIOS extends MaskedViewBase {}
 
 export interface ModalProperties {
     // Only `animated` is documented. The JS code says `animated` is
@@ -8438,9 +8440,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const MaskedViewIOS: MaskedViewStatic;
-export type MaskedViewIOS = MaskedViewStatic;
 
 export const Modal: ModalStatic;
 export type Modal = ModalStatic;
