@@ -1,4 +1,4 @@
-// Type definitions for klaw-sync 3.0
+// Type definitions for klaw-sync 2.0
 // Project: https://github.com/manidlou/node-klaw-sync
 // Definitions by: Brendan Forster <https://github.com/shiftkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,13 +15,6 @@ declare namespace klawSync {
     type Filter = (item: Item) => boolean
 
     interface Options {
-        /**
-         * @description any paths or `micromatch` patterns to ignore.
-         *              For more information on micromatch patterns: https://github.com/jonschlinkert/micromatch#features
-         * @deprecated v2.0.0
-         */
-        ignore?: string | string[]
-
         /**
          * @description True to only return files (ignore directories).
          *              Defaults to false if not specified.
