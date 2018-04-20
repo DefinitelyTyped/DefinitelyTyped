@@ -75,9 +75,18 @@ export interface NodeRendererProps {
     canDrag: boolean;
     scaffoldBlockPxWidth: number;
     toggleChildrenVisibility?(data: NodeData): void;
-    buttons?: any[];
+    buttons?: JSX.Element[];
     className?: string;
     style?: { [index: string]: any };
+    title?: (data: NodeData) => JSX.Element | JSX.Element;
+    subtitle?: (data: NodeData) => JSX.Element | JSX.Element;
+    icons?: JSX.Element[];
+    lowerSiblingCounts: number[];
+    swapDepth?: number;
+    swapFrom?: number;
+    swapLength?: number;
+    listIndex: number;
+    treeId: string;
 
     connectDragPreview: ConnectDragPreview;
     connectDragSource: ConnectDragSource;
@@ -103,7 +112,9 @@ export interface PlaceholderRendererProps {
 
 type NumberArrayOrStringArray = string[] | number[];
 
-export interface TreeRenderer {
+export type TreeRenderer = React.ComponentClass<TreeRendererProps>;
+
+export interface TreeRendererProps {
     treeIndex: number;
     treeId: string;
     swapFrom?: number;
@@ -113,7 +124,7 @@ export interface TreeRenderer {
     lowerSiblingCounts: number[];
 
     listIndex: number;
-    children: TreeItem[];
+    children: JSX.Element[];
 
     // Drop target
     connectDropTarget: ConnectDropTarget;
@@ -126,6 +137,7 @@ export interface TreeRenderer {
     node: TreeItem;
     path: NumberArrayOrStringArray;
 }
+
 export interface ThemeProps {
     style?: { [index: string]: any };
     innerStyle?: { [index: string]: any };
@@ -137,6 +149,7 @@ export interface ThemeProps {
     nodeContentRenderer?: NodeRenderer;
     placeholderRenderer?: PlaceholderRenderer;
 }
+
 export interface ReactSortableTreeProps {
     treeData: TreeItem[];
     onChange(treeData: TreeItem[]): void;
