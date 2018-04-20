@@ -2564,7 +2564,9 @@ export interface DatePickerIOSProperties extends ViewProperties {
     timeZoneOffsetInMinutes?: number;
 }
 
-export interface DatePickerIOSStatic extends NativeMethodsMixin, React.ComponentClass<DatePickerIOSProperties> {}
+declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProperties> {}
+declare const DatePickerIOSBase: Constructor<NativeMethodsMixin> & typeof DatePickerIOSComponent;
+export class DatePickerIOS extends TextInputBase {}
 
 export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
@@ -8419,9 +8421,6 @@ export interface KeyboardStatic extends NativeEventEmitter {
 // - [ ] ART
 export const ART: ARTStatic;
 export type ART = ARTStatic;
-
-export const DatePickerIOS: DatePickerIOSStatic;
-export type DatePickerIOS = DatePickerIOSStatic;
 
 export const DrawerLayoutAndroid: DrawerLayoutAndroidStatic;
 export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic;
