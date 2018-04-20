@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-common-errors-tests.ts"
+        "zopflipng-bin-tests.ts"
     ]
 }
