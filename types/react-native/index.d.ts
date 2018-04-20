@@ -2391,7 +2391,7 @@ export interface NavigatorIOSProperties {
  *
  * @see https://facebook.github.io/react-native/docs/navigatorios.html#navigator
  */
-export interface NavigationIOS {
+export class NavigatorIOS extends React.Component<NavigatorIOSProperties> {
     /**
      * Navigate forward to a new route
      */
@@ -2437,8 +2437,6 @@ export interface NavigationIOS {
      */
     popToTop(): void;
 }
-
-export interface NavigatorIOSStatic extends NavigationIOS, React.ComponentClass<NavigatorIOSProperties> {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/activityindicator.html#props
@@ -8440,9 +8438,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const NavigatorIOS: NavigatorIOSStatic;
-export type NavigatorIOS = NavigatorIOSStatic;
 
 export const Picker: PickerStatic;
 export type Picker = PickerStatic;
