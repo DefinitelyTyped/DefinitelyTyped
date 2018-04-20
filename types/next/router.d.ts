@@ -10,9 +10,6 @@ export interface EventChangeOptions {
 
 export type RouterCallback = () => void;
 export interface RouterProps {
-    readyCallbacks: RouterCallback[];
-    ready(cb: RouterCallback): void;
-
     // router properties
     readonly components: {
         [key: string]: { Component: React.ComponentType<any>; err: any };
@@ -55,6 +52,8 @@ export interface RouterProps {
 
 export interface SingletonRouter {
     router: RouterProps;
+    readyCallbacks: RouterCallback[];
+    ready(cb: RouterCallback): void;
 }
 
 export function withRouter<T extends {}>(

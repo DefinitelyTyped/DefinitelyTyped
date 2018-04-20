@@ -2,10 +2,10 @@ import Router, * as r from "next/router";
 import * as React from "react";
 import * as qs from "querystring";
 
-Router.router.readyCallbacks.push(() => {
+Router.readyCallbacks.push(() => {
     console.log("I'll get called when the router initializes.");
 });
-Router.router.ready(() => {
+Router.ready(() => {
     console.log(
         "I'll get called immediately if the router initializes, or when it eventually does.",
     );
