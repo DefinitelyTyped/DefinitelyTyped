@@ -6111,7 +6111,9 @@ export interface SnapshotViewIOSProperties extends ViewProperties {
     testIdentifier: string;
 }
 
-export interface SnapshotViewIOSStatic extends NativeMethodsMixin, React.ComponentClass<SnapshotViewIOSProperties> {}
+declare class SnapshotViewIOSComponent extends React.Component<SnapshotViewIOSProperties> {}
+declare const SnapshotViewIOSBase: Constructor<NativeMethodsMixin> & typeof SnapshotViewIOSComponent;
+export class SnapshotViewIOS extends SnapshotViewIOSBase {}
 
 // Deduced from
 // https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
@@ -8450,9 +8452,6 @@ export type LayoutAnimation = LayoutAnimationStatic;
 
 export const SectionList: SectionListStatic<any>;
 export type SectionList<ItemT> = SectionListStatic<ItemT>;
-
-export const SnapshotViewIOS: SnapshotViewIOSStatic;
-export type SnapshotViewIOS = SnapshotViewIOSStatic;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
