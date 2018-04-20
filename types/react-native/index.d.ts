@@ -2274,7 +2274,9 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
  * Moreover, and most importantly, Safe Area's paddings feflect physical limitation of the screen,
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
-export interface SafeAreaViewStatic extends NativeMethodsMixin, React.ClassicComponentClass<ViewProperties> {}
+declare class SafeAreaViewComponent extends React.Component<ViewProperties> {}
+declare const SafeAreaViewBase: Constructor<NativeMethodsMixin> & typeof SafeAreaViewComponent;
+export class SafeAreaView extends SafeAreaViewBase {}
 
 
 /**
@@ -8440,9 +8442,6 @@ export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
 export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
-
-export const SafeAreaView: SafeAreaViewStatic;
-export type SafeAreaView = SafeAreaViewStatic;
 
 export const SegmentedControlIOS: SegmentedControlIOSStatic;
 export type SegmentedControlIOS = SegmentedControlIOSStatic;
