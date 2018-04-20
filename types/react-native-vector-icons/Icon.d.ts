@@ -5,7 +5,7 @@ import {
   TextProps,
   TouchableHighlightProps,
   TouchableNativeFeedbackProps,
-  TabBarItemProps,
+  TabBarIOSItemProps,
   ToolbarAndroidProps
 } from 'react-native';
 
@@ -111,7 +111,7 @@ export interface ToolbarAndroidProps extends ToolbarAndroidProps {
   iconColor: string;
 }
 
-export interface TabBarItemIOSProps extends TabBarItemProps {
+export interface TabBarItemIOSProps extends TabBarIOSItemProps {
   /**
    * Name of the default icon (similar to TabBarIOS.Item icon)
    *
@@ -164,7 +164,7 @@ export class Icon extends React.Component<IconProps, any> {
 
 export namespace Icon {
   class ToolbarAndroid extends React.Component<ToolbarAndroidProps, any> {}
-  class TabBarItem extends React.Component<TabBarItemProps, any> {}
+  class TabBarItem extends React.Component<TabBarItemIOSProps, any> {}
   class TabBarItemIOS extends React.Component<TabBarItemIOSProps, any> {}
   class Button extends React.Component<IconButtonProps, any> {}
 }

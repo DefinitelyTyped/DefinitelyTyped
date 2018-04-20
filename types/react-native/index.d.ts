@@ -5114,7 +5114,7 @@ export interface ListViewDataSource {
 /**
  * @see https://facebook.github.io/react-native/docs/tabbarios-item.html#props
  */
-export interface TabBarItemProps extends ViewProps {
+export interface TabBarIOSItemProps extends ViewProps {
     /**
      * Little red bubble that sits at the top right of the icon.
      */
@@ -5184,7 +5184,7 @@ export interface TabBarItemProps extends ViewProps {
     title?: string;
 }
 
-export class TabBarItem extends React.Component<TabBarItemProps> {}
+export class TabBarIOSItem extends React.Component<TabBarIOSItemProps> {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
@@ -5228,7 +5228,7 @@ export interface TabBarIOSProps extends ViewProps {
 }
 
 export class TabBarIOS extends React.Component<TabBarIOSProps> {
-    static Item: typeof TabBarItem;
+    static Item: typeof TabBarIOSItem;
 }
 
 export interface PixelRatioStatic {
@@ -8859,7 +8859,7 @@ export type TouchableOpacityProperties = TouchableOpacityProps;
 /** @deprecated */
 export type TouchableNativeFeedbackProperties = TouchableNativeFeedbackProps;
 /** @deprecated */
-export type TabBarItemProperties = TabBarItemProps;
+export type TabBarIOSItemProperties = TabBarIOSItemProps;
 /** @deprecated */
 export type TabBarIOSProperties = TabBarIOSProps;
 /** @deprecated */
