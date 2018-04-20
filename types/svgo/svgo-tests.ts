@@ -1,4 +1,4 @@
-import * as SVGO from "svgo";
+import SVGO from "svgo";
 
 // Various constructor options.
 let svgo = new SVGO();

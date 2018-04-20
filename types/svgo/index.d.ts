@@ -2,7 +2,6 @@
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
-//                 Lukas Tetzlaff <https://github.com/ltetzlaff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -325,7 +324,5 @@ declare class SVGO {
     constructor(options?: Options);
     optimize(svgString: string, info?: SvgInfo): Promise<OptimizedSvg>;
 }
-
-declare namespace SVGO {}
 
 export = SVGO;
