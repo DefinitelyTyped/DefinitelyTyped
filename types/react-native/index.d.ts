@@ -4614,10 +4614,9 @@ export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackP
  *
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html
  */
-export interface TouchableWithoutFeedbackStatic
-    extends TimerMixin,
-        TouchableMixin,
-        React.ClassicComponentClass<TouchableWithoutFeedbackProps> {}
+declare class TouchableWithoutFeedbackComponent extends React.Component<TouchableWithoutFeedbackProps> {}
+declare const TouchableWithoutFeedbackBase: Constructor<TimerMixin> & Constructor<TouchableMixin> & typeof TouchableWithoutFeedbackComponent;
+export class TouchableWithoutFeedback extends TouchableWithoutFeedbackBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/touchablehighlight.html#props
@@ -8455,9 +8454,6 @@ export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const TouchableWithoutFeedback: TouchableWithoutFeedbackStatic;
-export type TouchableWithoutFeedback = TouchableWithoutFeedbackStatic;
 
 export const View: ViewStatic;
 export type View = ViewStatic;
