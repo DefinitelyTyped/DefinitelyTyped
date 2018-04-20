@@ -2,14 +2,14 @@ import * as React from 'react';
 import {
   TextStyle,
   ViewStyle,
-  TextProperties,
+  TextProps,
   TouchableHighlightProperties,
   TouchableNativeFeedbackProperties,
   TabBarItemProperties,
   ToolbarAndroidProperties
 } from 'react-native';
 
-export interface IconProps extends TextProperties {
+export interface IconProps extends TextProps {
   /**
    * Size of the icon, can also be passed as fontSize in the style object.
    *
@@ -58,7 +58,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
   iconStyle?: ViewStyle;
 
   /**
-   * Style prop inherited from TextProperties and TouchableWithoutFeedbackProperties
+   * Style prop inherited from TextProps and TouchableWithoutFeedbackProperties
    * Only exist here so we can have ViewStyle or TextStyle
    *
    */

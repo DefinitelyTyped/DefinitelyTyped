@@ -31,7 +31,7 @@ import {
     Systrace,
     Text,
     TextStyle,
-    TextProperties,
+    TextProps,
     View,
     ViewStyle,
     ViewPagerAndroid,
@@ -293,7 +293,7 @@ export class SectionListTest extends React.Component<SectionListProperties<strin
     }
 }
 
-export class CapsLockComponent extends React.Component<TextProperties> {
+export class CapsLockComponent extends React.Component<TextProps> {
     render() {
         const content = (this.props.children || "") as string;
         return <Text {...this.props}>{content.toUpperCase()}</Text>;

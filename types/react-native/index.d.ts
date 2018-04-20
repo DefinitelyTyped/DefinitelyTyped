@@ -735,7 +735,7 @@ export interface LayoutRectangle {
     height: number;
 }
 
-// @see TextProperties.onLayout
+// @see TextProps.onLayout
 export interface LayoutChangeEvent {
     nativeEvent: {
         layout: LayoutRectangle;
@@ -778,7 +778,7 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     testID?: string;
 }
 
-export interface TextPropertiesIOS {
+export interface TextPropsIOS {
     /**
      * Specifies whether fonts should scale to respect Text Size accessibility setting on iOS. The
      * default is `true`.
@@ -802,7 +802,7 @@ export interface TextPropertiesIOS {
     suppressHighlighting?: boolean;
 }
 
-export interface TextPropertiesAndroid {
+export interface TextPropsAndroid {
     /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
@@ -821,7 +821,7 @@ export interface TextPropertiesAndroid {
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
-export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid, AccessibilityProperties {
+export interface TextProps extends TextPropsIOS, TextPropsAndroid, AccessibilityProps {
     /**
      * This can be one of the following values:
      *
@@ -889,7 +889,7 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
 /**
  * A React component for displaying text which supports nesting, styling, and touch handling.
  */
-declare class TextComponent extends React.Component<TextProperties> {}
+declare class TextComponent extends React.Component<TextProps> {}
 declare const TextBase: Constructor<NativeMethodsMixin> & typeof TextComponent;
 export class Text extends TextBase {}
 
@@ -1066,7 +1066,7 @@ export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | Return
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
 export interface TextInputProperties
-    extends ViewProperties, TextInputIOSProperties, TextInputAndroidProperties, AccessibilityProperties {
+    extends ViewProperties, TextInputIOSProperties, TextInputAndroidProperties, AccessibilityProps {
     /**
      * Can tell TextInput to automatically capitalize certain characters.
      *      characters: all characters,
@@ -1661,7 +1661,7 @@ export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | Registere
 /**
  * @see https://facebook.github.io/react-native/docs/accessibility.html#accessibility-properties
  */
-export interface AccessibilityProperties extends AccessibilityPropertiesAndroid, AccessibilityPropertiesIOS {
+export interface AccessibilityProps extends AccessibilityPropsAndroid, AccessibilityPropsIOS {
     /**
      * When true, indicates that the view is an accessibility element.
      * By default, all the touchable elements are accessible.
@@ -1675,7 +1675,7 @@ export interface AccessibilityProperties extends AccessibilityPropertiesAndroid,
     accessibilityLabel?: string;
 }
 
-export interface AccessibilityPropertiesAndroid {
+export interface AccessibilityPropsAndroid {
     /**
      * In some cases, we also want to alert the end user of the type of selected component (i.e., that it is a “button”).
      * If we were using native buttons, this would work automatically. Since we are using javascript, we need to
@@ -1707,7 +1707,7 @@ export interface AccessibilityPropertiesAndroid {
     importantForAccessibility?: "auto" | "yes" | "no" | "no-hide-descendants";
 }
 
-export interface AccessibilityPropertiesIOS {
+export interface AccessibilityPropsIOS {
     /**
      * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
      * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
@@ -1751,7 +1751,7 @@ type AccessibilityTraits =
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
 export interface ViewProperties
-    extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable, AccessibilityProperties {
+    extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable, AccessibilityProps {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -3354,7 +3354,7 @@ interface ImagePropertiesAndroid {
  * @see https://facebook.github.io/react-native/docs/image.html
  */
 export type ImagePropertiesSourceOptions = ImageURISource | ImageURISource[] | ImageRequireSource;
-export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid, AccessibilityProperties {
+export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid, AccessibilityProps {
     /**
      * onLayout function
      *
@@ -4540,7 +4540,7 @@ interface TouchableMixin {
 /**
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
  */
-export interface TouchableWithoutFeedbackProperties extends AccessibilityProperties {
+export interface TouchableWithoutFeedbackProperties extends AccessibilityProps {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -8733,3 +8733,21 @@ declare global {
      */
     const __DEV__: boolean;
 }
+
+/*
+ * Previously, props interfaces where named *Properties
+ * They have been changed to *Props to better match React Native documentation
+ * The following lines ensure compatibility with *Properties and should be removed in the future
+ */
+/** @deprecated */
+export type TextProperties = TextProps;
+/** @deprecated */
+export type TextPropertiesIOS = TextPropsIOS;
+/** @deprecated */
+export type TextPropertiesAndroid = TextPropsAndroid;
+/** @deprecated */
+export type AccessibilityProperties = AccessibilityProps;
+/** @deprecated */
+export type AccessibilityPropertiesIOS = AccessibilityPropsIOS;
+/** @deprecated */
+export type AccessibilityPropertiesAndroid = AccessibilityPropsAndroid;
