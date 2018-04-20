@@ -1,7 +1,6 @@
 // Type definitions for cors 2.8
 // Project: https://github.com/troygoode/node-cors/
-// Definitions by: Mihhail Lapushkin <https://github.com/mihhail-lapushkin>
-//                 Alan Plum <https://github.com/pluma>
+// Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
