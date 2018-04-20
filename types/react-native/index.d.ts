@@ -3474,7 +3474,9 @@ export interface ImageBackgroundProperties extends ImageProperties {
     imageStyle?: StyleProp<ImageStyle>;
 }
 
-export interface ImageBackgroundStatic extends NativeMethodsMixin, React.ComponentClass<ImageBackgroundProperties> {
+declare class ImageBackgroundComponent extends React.Component<ImageBackgroundProperties> {}
+declare const ImageBackgroundBase: Constructor<NativeMethodsMixin> & typeof ImageBackgroundComponent;
+export class ImageBackground extends ImageBackgroundBase {
     resizeMode: ImageResizeMode;
     getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     prefetch(url: string): any;
@@ -8423,9 +8425,6 @@ export interface KeyboardStatic extends NativeEventEmitter {
 // - [ ] ART
 export const ART: ARTStatic;
 export type ART = ARTStatic;
-
-export const ImageBackground: ImageBackgroundStatic;
-export type ImageBackground = ImageBackgroundStatic;
 
 export const ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
