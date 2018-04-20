@@ -10,7 +10,7 @@ export interface StreamingMessage {
         type: object
         createdDate: any;
     };
-    sobject: Record<any>
+    sobject: Record
 }
 
 export class Streaming extends EventEmitter {

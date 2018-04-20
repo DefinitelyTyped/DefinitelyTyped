@@ -26,6 +26,6 @@ export class Bulk {
 
     createJob(type: string, operation: string, options?: BulkOptions): Job;
     job(id: string): Job;
-    load(type: string, operation: BulkLoadOperation, options?: BulkOptions, input?: Record<any>[] | Stream | string, callback?: (result: RecordResult[] | BatchResultInfo[]) => void): Batch;
+    load(type: string, operation: BulkLoadOperation, options?: BulkOptions, input?: Record[] | Stream | string, callback?: (result: RecordResult[] | BatchResultInfo[]) => void): Batch;
     query(soql: string): any;
 }
