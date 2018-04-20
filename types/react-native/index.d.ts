@@ -8745,27 +8745,11 @@ declare global {
 /** @deprecated */
 export type TextProperties = TextProps;
 /** @deprecated */
-export type TextPropertiesIOS = TextPropsIOS;
-/** @deprecated */
-export type TextPropertiesAndroid = TextPropsAndroid;
-/** @deprecated */
 export type AccessibilityProperties = AccessibilityProps;
-/** @deprecated */
-export type AccessibilityPropertiesIOS = AccessibilityPropsIOS;
-/** @deprecated */
-export type AccessibilityPropertiesAndroid = AccessibilityPropsAndroid;
 /** @deprecated */
 export type TextInputProperties = TextInputProps;
 /** @deprecated */
-export type TextInputIOSProperties = TextInputIOSProps;
-/** @deprecated */
-export type TextInputAndroidProperties = TextInputAndroidProps;
-/** @deprecated */
 export type ViewProperties = ViewProps;
-/** @deprecated */
-export type ViewPropertiesIOS = ViewPropsIOS;
-/** @deprecated */
-export type ViewPropertiesAndroid = ViewPropsAndroid;
 /** @deprecated */
 export type ToolbarAndroidProperties = ToolbarAndroidProps;
 /** @deprecated */
@@ -8773,17 +8757,9 @@ export type ViewPagerAndroidProperties = ViewPagerAndroidProps;
 /** @deprecated */
 export type WebViewProperties = WebViewProps;
 /** @deprecated */
-export type WebViewPropertiesIOS = WebViewPropsIOS;
-/** @deprecated */
-export type WebViewPropertiesAndroid = WebViewPropsAndroid;
-/** @deprecated */
 export type SegmentedControlIOSProperties = SegmentedControlIOSProps;
 /** @deprecated */
 export type ScrollViewProperties = ScrollViewProps;
-/** @deprecated */
-export type ScrollViewPropertiesIOS = ScrollViewPropsIOS;
-/** @deprecated */
-export type ScrollViewPropertiesAndroid = ScrollViewPropsAndroid;
 /** @deprecated */
 export type InputAccessoryViewProperties = InputAccessoryViewProps;
 /** @deprecated */
@@ -8791,21 +8767,13 @@ export type NavigatorIOSProperties = NavigatorIOSProps;
 /** @deprecated */
 export type ActivityIndicatorProperties = ActivityIndicatorProps;
 /** @deprecated */
-export type ActivityIndicatorIOSProperties = ActivityIndicatorIOSProps;
-/** @deprecated */
 export type DatePickerIOSProperties = DatePickerIOSProps;
 /** @deprecated */
 export type DrawerLayoutAndroidProperties = DrawerLayoutAndroidProps;
 /** @deprecated */
 export type PickerItemProperties = PickerItemProps;
 /** @deprecated */
-export type PickerIOSItemProperties = PickerIOSItemProps;
-/** @deprecated */
 export type PickerProperties = PickerProps;
-/** @deprecated */
-export type PickerPropertiesIOS = PickerPropsIOS;
-/** @deprecated */
-export type PickerPropertiesAndroid = PickerPropsAndroid;
 /** @deprecated */
 export type PickerIOSProperties = PickerIOSProps;
 /** @deprecated */
@@ -8815,25 +8783,9 @@ export type ProgressViewIOSProperties = ProgressViewIOSProps;
 /** @deprecated */
 export type RefreshControlProperties = RefreshControlProps;
 /** @deprecated */
-export type RefreshControlPropertiesIOS = RefreshControlPropsIOS;
-/** @deprecated */
-export type RefreshControlPropertiesAndroid = RefreshControlPropsAndroid;
-/** @deprecated */
-export type RecyclerViewBackedScrollViewProperties = RecyclerViewBackedScrollViewProps;
-/** @deprecated */
 export type SliderProperties = SliderProps;
 /** @deprecated */
-export type SliderPropertiesIOS = SliderPropsIOS;
-/** @deprecated */
-export type SliderPropertiesAndroid = SliderPropsAndroid;
-/** @deprecated */
-export type SwitchIOSProperties = SwitchIOSProps;
-/** @deprecated */
 export type ImageProperties = ImageProps;
-/** @deprecated */
-export type ImagePropertiesIOS = ImagePropsIOS;
-/** @deprecated */
-export type ImagePropertiesAndroid = ImagePropsAndroid;
 /** @deprecated */
 export type ImageBackgroundProperties = ImageBackgroundProps;
 /** @deprecated */
@@ -8844,8 +8796,6 @@ export type VirtualizedListProperties<ItemT> = VirtualizedListProps<ItemT>;
 export type SectionListProperties<ItemT> = SectionListProps<ItemT>;
 /** @deprecated */
 export type ListViewProperties = ListViewProps;
-/** @deprecated */
-export type MapViewProperties = MapViewProps;
 /** @deprecated */
 export type MaskedViewIOSProperties = MaskedViewIOSProps;
 /** @deprecated */
@@ -8869,10 +8819,4 @@ export type ButtonProperties = ButtonProps;
 /** @deprecated */
 export type StatusBarProperties = StatusBarProps;
 /** @deprecated */
-export type StatusBarPropertiesIOS = StatusBarPropsIOS;
-/** @deprecated */
-export type StatusBarPropertiesAndroid = StatusBarPropsAndroid;
-/** @deprecated */
 export type SwitchProperties = SwitchProps;
-/** @deprecated */
-export type SwitchPropertiesIOS = SwitchPropsIOS;
