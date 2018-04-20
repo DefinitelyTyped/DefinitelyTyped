@@ -4494,7 +4494,7 @@ export interface FilterBackend {
 	clearWebGLCaches(): void;
 
 }
-export const filterBackend: FilterBackend;
+export let filterBackend: FilterBackend;
 export interface Canvas2dFilterBackend extends FilterBackend { }
 export class Canvas2dFilterBackend {
 	constructor();
