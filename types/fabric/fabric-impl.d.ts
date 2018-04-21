@@ -4482,12 +4482,15 @@ interface IUtil extends IUtilAnimation, IUtilArc, IObservable<IUtil>, IUtilDomEv
 	string: IUtilString;
 }
 
+export interface Resources {
+	[key: string]: HTMLCanvasElement
+}
 export interface FilterBackend {
-	resources: Object;
+	resources: Resources;
 
-	applyFilters(filters: IBaseFilter[], sourceElement: HTMLImageElement | HTMLCanvasElement, sourceWidth: number, sourceHeight: number, targetCanvas: HTMLCanvasElement): any;
+	applyFilters(filters: IBaseFilter[], sourceElement: HTMLImageElement | HTMLCanvasElement, sourceWidth: number, sourceHeight: number, targetCanvas: HTMLCanvasElement,cacheKey?: string): any;
 
-	evictCachesForKey(cacheKey: any): void;
+	evictCachesForKey(cacheKey: string): void;
 
 	dispose(): void;
 
@@ -4500,6 +4503,11 @@ export class Canvas2dFilterBackend {
 	constructor();
 }
 
+export interface GPUInfo{
+	renderer:string;
+	vendor:string;
+}
+
 export interface WebglFilterBackendOptions {
 	tileSize: number;
 }
@@ -4510,17 +4518,17 @@ export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOpt
 
 	createWebGLCanvas(width: number, height: number): void;
 
-	applyFiltersDebug(filters: IBaseFilter[], sourceElement: HTMLImageElement | HTMLCanvasElement, sourceWidth: number, sourceHeight: number, targetCanvas: HTMLCanvasElement, cacheKey: any): any;
+	applyFiltersDebug(filters: IBaseFilter[], sourceElement: HTMLImageElement | HTMLCanvasElement, sourceWidth: number, sourceHeight: number, targetCanvas: HTMLCanvasElement, cacheKey?: string): any;
 
 	glErrorToString(context: any, errorCode: any): string;
 
-	createTexture(gl: WebGLRenderingContext, width: number, height: number, textureImageSource: HTMLImageElement | HTMLCanvasElement): WebGLTexture;
+	createTexture(gl: WebGLRenderingContext, width: number, height: number, textureImageSource?: HTMLImageElement | HTMLCanvasElement): WebGLTexture;
 
-	getCachedTexture(uniqueId: any, textureImageSource: HTMLImageElement | HTMLCanvasElement): WebGLTexture;
+	getCachedTexture(uniqueId: string, textureImageSource: HTMLImageElement | HTMLCanvasElement): WebGLTexture;
 
 	copyGLTo2D(gl: WebGLRenderingContext, pipelineState: any): void;
 
-	captureGPUInfo(): any;
+	captureGPUInfo(): GPUInfo;
 
 }
 
