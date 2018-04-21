@@ -2,6 +2,7 @@
 // Project: https://fritz-c.github.io/react-sortable-tree
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
 //                 Jovica Zoric <https://github.com/jzoric>
+//                 Kevin Perrine <https://github.com/kevinsperrine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
