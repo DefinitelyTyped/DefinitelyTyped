@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "gl-shader-test.ts"
+        "gl-shader-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
