@@ -1,7 +1,7 @@
 import { createDispatcher, Store } from 'dispatchr';
 import createStore = require('fluxible/addons/createStore');
 import BaseStore = require('fluxible/addons/BaseStore');
-import { Fluxible } from './index';
+import { Fluxible } from 'fluxible';
 
 const TestStore = createStore({
     storeName: 'TestStore',
