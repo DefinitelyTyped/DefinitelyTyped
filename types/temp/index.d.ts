@@ -8,41 +8,41 @@
 import * as fs from "fs";
 
 declare namespace temp {
-  export interface OpenFile {
+  interface OpenFile {
     path: string;
     fd: number;
   }
 
-  export interface Stats {
+  interface Stats {
     files: number;
     dirs: number;
   }
 
-  export interface AffixOptions {
+  interface AffixOptions {
     prefix?: string;
     suffix?: string;
     dir?: string;
   }
 
-  export let dir: string;
+  let dir: string;
 
-  export function track(value?: boolean): typeof temp;
+  function track(value?: boolean): typeof temp;
 
-  export function mkdir(affixes?: string | AffixOptions, callback?: (err: any, dirPath: string) => void): void;
+  function mkdir(affixes?: string | AffixOptions, callback?: (err: any, dirPath: string) => void): void;
 
-  export function mkdirSync(affixes?: string | AffixOptions): string;
+  function mkdirSync(affixes?: string | AffixOptions): string;
 
-  export function open(affixes?: string | AffixOptions, callback?: (err: any, result: OpenFile) => void): void;
+  function open(affixes?: string | AffixOptions, callback?: (err: any, result: OpenFile) => void): void;
 
-  export function openSync(affixes?: string | AffixOptions): OpenFile;
+  function openSync(affixes?: string | AffixOptions): OpenFile;
 
-  export function path(affixes?: string | AffixOptions, defaultPrefix?: string): string;
+  function path(affixes?: string | AffixOptions, defaultPrefix?: string): string;
 
-  export function cleanup(callback?: (result: boolean | Stats) => void): void;
+  function cleanup(callback?: (result: boolean | Stats) => void): void;
 
-  export function cleanupSync(): boolean | Stats;
+  function cleanupSync(): boolean | Stats;
 
-  export function createWriteStream(affixes?: string | AffixOptions): fs.WriteStream;
+  function createWriteStream(affixes?: string | AffixOptions): fs.WriteStream;
 }
 
 export = temp;
