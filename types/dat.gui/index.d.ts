@@ -118,11 +118,11 @@ export class GUIController {
     remove(): GUIController;
 }
 
-declare var _defaultExport: {
+declare var index: {
     gui: {
         GUI: typeof GUI
     },
     GUI: typeof GUI
 };
 
-export default _defaultExport;
+export default index;
