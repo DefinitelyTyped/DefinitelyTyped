@@ -126,7 +126,7 @@ export interface Trigger {
     type: "select2:select";
     params: {
         data: IdTextPair;
-    }
+    };
 }
 
 // --------------------------------------------------------------------------
@@ -194,7 +194,7 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
 // jQuery And Select2 Plugin
 // --------------------------------------------------------------------------
 
-interface Select2Plugin<TElement extends Node = HTMLElement>  {
+export interface Select2Plugin<TElement extends Node = HTMLElement>  {
     defaults: {
         set: (key: string, value: any) => void;
         reset: () => void;
