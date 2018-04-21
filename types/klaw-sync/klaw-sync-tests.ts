@@ -15,7 +15,7 @@ const options = {
     nodir: true,
     nofile: false,
     noRecurseOnFailedFilter: false,
-    filter(item: any) {
+    filter(item: klawSync.Item) {
         return item.path.indexOf('node_modules') < 0
     },
 }
