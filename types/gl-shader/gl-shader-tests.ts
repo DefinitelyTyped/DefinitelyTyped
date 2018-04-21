@@ -10,6 +10,16 @@ shader = createShader(gl, "", "", [{name: "foo", type: "bool"}]);
 shader = createShader(gl, "", "", [{name: "foo", type: "bool"}, {name: "bar", type: "float"}]);
 shader = createShader(gl, "", "", [{name: "foo", type: "bool"}], [{name: "bar", type: "float"}]);
 
+shader = createShader(gl, {vertex: "", fragment: ""});
+shader = createShader(gl, {vertex: "", fragment: "", uniforms: [{name: "foo", type: "bool"}]});
+shader = createShader(gl, {vertex: "", fragment: "", uniforms: [{name: "foo", type: "bool"}]});
+shader = createShader(gl, {
+    vertex: "",
+    fragment: "",
+    uniforms: [{name: "foo", type: "bool"}],
+    attributes: [{name: "bar", type: "float"}]
+});
+
 shader.bind();
 shader.dispose();
 shader.update("", "");

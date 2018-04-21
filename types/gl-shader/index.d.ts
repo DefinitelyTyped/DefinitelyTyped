@@ -39,4 +39,13 @@ declare function createShader(
     uniforms?: Parameter[],
     attributes?: Parameter[]): Shader;
 
+declare function createShader(
+    gl: WebGLRenderingContext,
+    options: {
+        vertex: string,
+        fragment: string,
+        uniforms?: Parameter[],
+        attributes?: Parameter[],
+    }): Shader;
+
 export = createShader;
