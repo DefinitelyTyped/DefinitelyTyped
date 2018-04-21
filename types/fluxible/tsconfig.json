@@ -19,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
+        "addons/createStore.d.ts",
+        "addons/BaseStore.d.ts",
         "fluxible-tests.ts"
     ]
 }
