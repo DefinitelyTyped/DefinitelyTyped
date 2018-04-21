@@ -1100,17 +1100,17 @@ declare namespace Foxx {
         set(name: string, value: string): this;
         set(headers: { [name: string]: string }): this;
         status(status: number | string): this;
-        throw(status: number | string, reason: string, error: Error): void;
+        throw(status: number | string, reason: string, error: Error): never;
         throw(
             status: number | string,
             reason: string,
             options?: { cause?: Error; extra?: any }
-        ): void;
-        throw(status: number | string, error: Error): void;
+        ): never;
+        throw(status: number | string, error: Error): never;
         throw(
             status: number | string,
             options?: { cause?: Error; extra?: any }
-        ): void;
+        ): never;
         type(type?: string): string;
         vary(names: string[]): this;
         vary(...names: string[]): this;
@@ -1481,7 +1481,7 @@ declare module "@arangodb/request" {
         status: number;
         statusCode: number;
         message: string;
-        throw(message?: string): void;
+        throw(message?: string): void | never;
     }
     interface RequestOptions {
         qs?: object;
