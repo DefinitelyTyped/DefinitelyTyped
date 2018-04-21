@@ -5,6 +5,7 @@
 //                 Eli Young <https://github.com/elyscape>
 //                 Suntharesan Mohan <https://github.com/vanthiyathevan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace convict {
     // Taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
