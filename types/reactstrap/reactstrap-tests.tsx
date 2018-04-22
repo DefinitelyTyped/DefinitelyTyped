@@ -1141,6 +1141,20 @@ class Example45 extends React.Component {
             Check me out
           </Label>
         </FormGroup>
+        <FormGroup tag="fieldset">
+          <FormGroup check inline>
+            <Label check>
+              <Input type="checkbox" />{' '}
+              Check me out
+            </Label>
+          </FormGroup>
+          <FormGroup check inline>
+            <Label check>
+              <Input type="checkbox" />{' '}
+              Check me out as well
+            </Label>
+          </FormGroup>
+        </FormGroup>
         <Button>Submit</Button>
       </Form>
     );
