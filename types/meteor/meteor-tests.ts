@@ -352,6 +352,47 @@ let cursor: Mongo.Cursor<Object>;
 // After five seconds, stop keeping the count.
 setTimeout(function () { handle.stop(); }, 5000);
 
+// Additional testing for Mongo.Collection<T>
+enum InlineObjectType {
+    Invalid,
+    Link,
+    Image,
+    Video,
+    Person
+}
+interface CommentsDAO {
+    text: string;
+    authorId: string;
+    inlineLinks: { objectType: InlineObjectType, objectId: string, objectUrl: string }[],
+    tags: string[],
+    viewNumber: number,
+    private: boolean
+}
+
+var Comments = new Mongo.Collection<CommentsDAO>("comments");
+
+Comments.find({ text: { $regex: /test/ } });
+Comments.find({ viewNumber: { $gt: 100 } });
+Comments.find({ viewNumber: { $not: { $lt: 100, $gt: 1000 } } });
+Comments.find({ tags: { $in: [ "tag-1", "tag-2", "tag-3" ] } });
+Comments.find({ $or: [ { text: "hello" }, { text: "world" } ] });
+Comments.find({ $or: [ 
+    { text: "hello" }, 
+    { text: "world", viewNumber: { $gt: 0 } } 
+], authorId: "test-author-id" });
+Comments.find({ $and: [ 
+    { $or: [{ authorId: "author-id-1" }, { authorId: "author-id-2" }] }, 
+    { $or: [{ tags: "tag-1" }, { tags: "tag-2" }] }
+]});
+
+Comments.find({ inlineLinks: { $exists: true, $type: "array" } });
+Comments.find({ inlineLinks: { $elemMatch: { 
+    objectType: InlineObjectType.Image, 
+    objectUrl: { $regex: "https://(www\.?)youtube\.com" } 
+} } });
+Comments.find({ tags: "tag-1" });
+Comments.find({ tags: { $all: ["tag-1", "tag2"] } });
+
 /**
  * From Sessions, Session.set section
  */
