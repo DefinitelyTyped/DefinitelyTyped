@@ -7,7 +7,8 @@
 
 
 /**
- * @param rounds  The cost of processing the data. Default 10.
+ * @param rounds    The cost of processing the data. Default 10.
+ * @param minor     The minor version of bcrypt to use. Either 'a' or 'b'. Default 'b'.
  */
 export declare function genSaltSync(rounds?: number, minor?: string): string;
 
