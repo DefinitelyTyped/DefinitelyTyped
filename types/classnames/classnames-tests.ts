@@ -1,8 +1,10 @@
 import classNames = require('classnames');
 import * as classNames2 from 'classnames';
+import classNames3 from 'classnames/esmodule';
 import * as cn from 'classnames/bind';
 
 classNames2('foo', 'bar'); // => 'foo bar'
+classNames3('foo', 'bar'); // => 'foo bar'
 
 classNames('foo', 'bar'); // => 'foo bar'
 classNames('foo', { bar: true }); // => 'foo bar'
