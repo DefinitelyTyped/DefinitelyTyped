@@ -1,5 +1,5 @@
 import styles from './main.sass';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 
 class App {
     private readonly theme: string;

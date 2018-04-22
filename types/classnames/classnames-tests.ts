@@ -1,8 +1,5 @@
-import classNames = require('classnames');
-import * as classNames2 from 'classnames';
+import classNames from 'classnames';
 import * as cn from 'classnames/bind';
-
-classNames2('foo', 'bar'); // => 'foo bar'
 
 classNames('foo', 'bar'); // => 'foo bar'
 classNames('foo', { bar: true }); // => 'foo bar'
