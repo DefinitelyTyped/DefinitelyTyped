@@ -1,4 +1,4 @@
-import tokenProvider, { tokenCache } from 'axios-token-interceptor';
+import tokenProvider from 'axios-token-interceptor';
 
 tokenProvider(); // $ExpectError
 
@@ -13,6 +13,6 @@ const getToken = Promise.resolve('qwerty');
 const validCacheOptions = {
     maxAge: 3600,
 };
-const cache = tokenCache(getToken, validCacheOptions); // $Expect TokenCache
+const cache = tokenProvider.tokenCache(getToken, validCacheOptions); // $Expect TokenCache
 
 cache.reset(); // $ExpectType void

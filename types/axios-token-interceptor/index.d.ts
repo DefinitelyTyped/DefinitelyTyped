@@ -5,13 +5,15 @@
 
 import { AxiosRequestConfig } from 'axios';
 
-/*~ If this module has methods, declare them as functions like so.
- */
+// Module
+export function AxiosTokenProvider(Options: InterceptorOptions): TokenProvider;
+export namespace AxiosTokenProvider {
+	function tokenCache(getToken: Promise<string>, options: TokenCacheOptions): TokenCache;
+}
+export default AxiosTokenProvider;
 
-export default function tokenProvider(Options: InterceptorOptions): TokenProvider;
-export function tokenCache(getToken: Promise<string>, options: TokenCacheOptions): TokenCache;
+// Interfaces
 
-/*~ You can declare types that are available via importing the module */
 export interface InterceptorOptions {
     token?: string;
     getToken?: () => string | Promise<string>;
