@@ -12,13 +12,13 @@ declare global {
 		type UuidVersion = 'v1' | 'v2' | 'v3' | 'v4' | 'v5' | '';
 
 		interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
-			uuid(uuid?: UuidVersion, msg?: string): void;
-			guid(guid?: any, msg?: string): void;
+			uuid(uuid?: UuidVersion): void;
+			guid(guid?: any): void;
 		}
 
 		interface Assert {
-			uuid(uuid: string, version?: UuidVersion, msg?: string): void;
-			guid(guid: string, version?: any, msg?: string): void;
+			uuid(uuid: string, version?: UuidVersion): void;
+			guid(guid: string, version?: any): void;
 		}
 	}
 }
