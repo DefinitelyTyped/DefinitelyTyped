@@ -34,18 +34,37 @@ type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: n
 type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 
 export interface DispatchProp<S> {
-  dispatch?: Dispatch<S>;
+    dispatch: Dispatch<S>;
 }
 
 interface AdvancedComponentDecorator<TProps, TOwnProps> {
     (component: Component<TProps>): ComponentClass<TOwnProps>;
 }
 
+/**
+ * a property P will be present if :
+ * - it is present in both DecorationTargetProps and InjectedProps
+ * - DecorationTargetProps[P] extends InjectedProps[P]
+ * ie: decorated component can accept more types than decorator is injecting
+ * 
+ * For decoration, inject props or ownProps are all optionnaly
+ * required by the decorated (right hand side) component.
+ * But any property required by the decorated component must extend the injected property
+ */
+type Shared<
+    InjectedProps,
+    DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
+    > = {
+        [P in (keyof InjectedProps & keyof DecorationTargetProps)]?: InjectedProps[P];
+        // remove comment and replace previous line when 2.8 conditional types are green on DefinitelyTyped
+        //[P in (keyof InjectedProps & keyof DecorationTargetProps)]: DecorationTargetProps[P] extends InjectedProps[P] ? InjectedProps[P] : never;
+    };
+
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
-    <P extends TInjectedProps>(
+    <P extends Shared<TInjectedProps, P>>(
         component: Component<P>
     ): ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps> & {WrappedComponent: Component<P>}
 }
