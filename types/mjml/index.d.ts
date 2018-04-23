@@ -1,5 +1,5 @@
 // Type definitions for mjml 4.0
-// Project: https://mjml.io
+// Project: https://github.com/mjmlio/mjml
 // Definitions by: aahoughton <https://github.com/aahoughton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
