@@ -1,26 +1,26 @@
 declare module Mongo {
 
-    type BsonType = 1  | "double" |
-                    2  | "string" |
-                    3  | "object" |
-                    4  | "array" |
-                    5  | "binData" |
-                    6  | "undefined" |
-                    7  | "objectId" |
-                    8  | "bool" |
-                    9  | "date" |
-                    10 | "null" |
-                    11 | "regex" |
-                    12 | "dbPointer" |
-                    13 | "javascript" |
-                    14 | "symbol" |
-                    15 | "javascriptWithScope" |
-                    16 | "int" |
-                    17 | "timestamp" |
-                    18 | "long" |
-                    19 | "decimal" |
-                    -1 | "minKey" |
-                    127 | "maxKey" | "number"
+    type BsonType = 1 | "double" |
+        2 | "string" |
+        3 | "object" |
+        4 | "array" |
+        5 | "binData" |
+        6 | "undefined" |
+        7 | "objectId" |
+        8 | "bool" |
+        9 | "date" |
+        10 | "null" |
+        11 | "regex" |
+        12 | "dbPointer" |
+        13 | "javascript" |
+        14 | "symbol" |
+        15 | "javascriptWithScope" |
+        16 | "int" |
+        17 | "timestamp" |
+        18 | "long" |
+        19 | "decimal" |
+        -1 | "minKey" |
+        127 | "maxKey" | "number"
 
     type FieldExpression<T> = {
         $eq?: T,
@@ -60,10 +60,10 @@ declare module Mongo {
     type Query<T> = {
         [P in keyof T]?: Flatten<T[P]> | RegExp | FieldExpression<Flatten<T[P]>>
     } & {
-        $or?: Query<T>[],
-        $and?: Query<T>[],
-        $nor?: Query<T>[]
-    } & Dictionary<any>
+            $or?: Query<T>[],
+            $and?: Query<T>[],
+            $nor?: Query<T>[]
+        } & Dictionary<any>
 
     type QueryWithModifiers<T> = {
         $query: Query<T>,
@@ -87,15 +87,15 @@ declare module Mongo {
     type OnlyArrays<T> = T extends any[] ? T : never;
     type OnlyElementsOfArrays<T> = T extends any[] ? Partial<T[0]> : never
     type ElementsOf<T> = {
-    [P in keyof T]?: OnlyElementsOfArrays<T[P]>
+        [P in keyof T]?: OnlyElementsOfArrays<T[P]>
     }
     type PushModifier<T> = {
-    [P in keyof T]?: 
-        OnlyElementsOfArrays<T[P]> | 
-        { $each?: T[P], $position?: number, $slice: number, $sort: 1 | -1 | Dictionary<number> }
+        [P in keyof T]?:
+        OnlyElementsOfArrays<T[P]> |
+        { $each?: T[P], $position?: number, $slice?: number, $sort?: 1 | -1 | Dictionary<number> }
     }
     type ArraysOrEach<T> = {
-    [P in keyof T]?: OnlyArrays<T[P]> | { $each: T[P] }
+        [P in keyof T]?: OnlyArrays<T[P]> | { $each: T[P] }
     }
     type CurrentDateModifier = { $type: "timestamp" | "date" } | true
     type Modifier<T> = T | {
@@ -114,7 +114,7 @@ declare module Mongo {
         $pullAll?: Partial<T> & Dictionary<any>,
         $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>,
     }
-    
+
 
     interface SortSpecifier { }
     interface FieldSpecifier {
@@ -213,7 +213,7 @@ declare module Mongo {
 
     var ObjectID: ObjectIDStatic;
     interface ObjectIDStatic {
-        new (hexString?: string): ObjectID;
+        new(hexString?: string): ObjectID;
     }
     interface ObjectID {
         toHexString(): string;
@@ -225,27 +225,27 @@ declare module Mongo {
 
 declare module "meteor/mongo" {
     module Mongo {
-        type BsonType = 1  | "double" |
-                        2  | "string" |
-                        3  | "object" |
-                        4  | "array" |
-                        5  | "binData" |
-                        6  | "undefined" |
-                        7  | "objectId" |
-                        8  | "bool" |
-                        9  | "date" |
-                        10 | "null" |
-                        11 | "regex" |
-                        12 | "dbPointer" |
-                        13 | "javascript" |
-                        14 | "symbol" |
-                        15 | "javascriptWithScope" |
-                        16 | "int" |
-                        17 | "timestamp" |
-                        18 | "long" |
-                        19 | "decimal" |
-                        -1 | "minKey" |
-                        127 | "maxKey" | "number"
+        type BsonType = 1 | "double" |
+            2 | "string" |
+            3 | "object" |
+            4 | "array" |
+            5 | "binData" |
+            6 | "undefined" |
+            7 | "objectId" |
+            8 | "bool" |
+            9 | "date" |
+            10 | "null" |
+            11 | "regex" |
+            12 | "dbPointer" |
+            13 | "javascript" |
+            14 | "symbol" |
+            15 | "javascriptWithScope" |
+            16 | "int" |
+            17 | "timestamp" |
+            18 | "long" |
+            19 | "decimal" |
+            -1 | "minKey" |
+            127 | "maxKey" | "number"
 
         type FieldExpression<T> = {
             $eq?: T,
@@ -285,10 +285,10 @@ declare module "meteor/mongo" {
         type Query<T> = {
             [P in keyof T]?: Flatten<T[P]> | RegExp | FieldExpression<Flatten<T[P]>>
         } & {
-            $or?: Query<T>[],
-            $and?: Query<T>[],
-            $nor?: Query<T>[]
-        } & Dictionary<any>
+                $or?: Query<T>[],
+                $and?: Query<T>[],
+                $nor?: Query<T>[]
+            } & Dictionary<any>
 
         type QueryWithModifiers<T> = {
             $query: Query<T>,
@@ -312,15 +312,15 @@ declare module "meteor/mongo" {
         type OnlyArrays<T> = T extends any[] ? T : never;
         type OnlyElementsOfArrays<T> = T extends any[] ? Partial<T[0]> : never
         type ElementsOf<T> = {
-        [P in keyof T]?: OnlyElementsOfArrays<T[P]>
+            [P in keyof T]?: OnlyElementsOfArrays<T[P]>
         }
         type PushModifier<T> = {
-        [P in keyof T]?: 
-            OnlyElementsOfArrays<T[P]> | 
-            { $each?: T[P], $position?: number, $slice: number, $sort: 1 | -1 | Dictionary<number> }
+            [P in keyof T]?:
+            OnlyElementsOfArrays<T[P]> |
+            { $each?: T[P], $position?: number, $slice?: number, $sort?: 1 | -1 | Dictionary<number> }
         }
         type ArraysOrEach<T> = {
-        [P in keyof T]?: OnlyArrays<T[P]> | { $each: T[P] }
+            [P in keyof T]?: OnlyArrays<T[P]> | { $each: T[P] }
         }
         type CurrentDateModifier = { $type: "timestamp" | "date" } | true
         type Modifier<T> = T | {
@@ -437,12 +437,12 @@ declare module "meteor/mongo" {
 
         var ObjectID: ObjectIDStatic;
         interface ObjectIDStatic {
-            new (hexString?: string): ObjectID;
+            new(hexString?: string): ObjectID;
         }
         interface ObjectID {
             toHexString(): string;
             equals(otherID: ObjectID): boolean;
-         }
+        }
 
         function setConnectionOptions(options: any): void;
     }

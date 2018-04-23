@@ -390,8 +390,21 @@ Comments.find({ inlineLinks: { $elemMatch: {
     objectType: InlineObjectType.Image, 
     objectUrl: { $regex: "https://(www\.?)youtube\.com" } 
 } } });
+Comments.find({ "inlineLinks.objectType": InlineObjectType.Person });
 Comments.find({ tags: "tag-1" });
 Comments.find({ tags: { $all: ["tag-1", "tag2"] } });
+
+Comments.update({ viewNumber: { $exists: false } }, { $set: { viewNumber: 0 } });
+Comments.update({ authorId: "author-id-1" }, { $push: { tags: "test-tag-1" } });
+Comments.update({ authorId: "author-id-1" }, { $push: { tags: { $each: [ "test-tag-2", "test-tag-3" ] } } });
+
+Comments.update({ authorId: "author-id-1" }, { $push: { inlineLinks: {
+    objectId: "test-object-id",
+    objectType: InlineObjectType.Link,
+    objectUrl: "https://test.url/"
+} } });
+Comments.update({ viewNumber: { $exists: false } }, { $set: { viewNumber: 0 } });
+Comments.update({ private: true }, { $unset: { tags: true } });
 
 /**
  * From Sessions, Session.set section
