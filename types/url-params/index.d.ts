@@ -9,19 +9,3 @@ export function createUrlObject(oldUrl: string): any;
 export function remove(oldUrl: string, param: string, value: any): string;
 
 export function set(oldUrl: string, param: string, value: any): string;
-
-export namespace add {
-  const prototype: {};
-}
-
-export namespace createUrlObject {
-  const prototype: {};
-}
-
-export namespace remove {
-  const prototype: {};
-}
-
-export namespace set {
-  const prototype: {};
-}
