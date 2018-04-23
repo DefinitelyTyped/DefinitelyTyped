@@ -24,5 +24,4 @@ declare global {
 }
 
 declare function chaiUuid(chai: any, utils: any): void;
-declare namespace chaiUuid {}
 export = chaiUuid;
