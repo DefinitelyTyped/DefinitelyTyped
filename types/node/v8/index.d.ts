@@ -5585,7 +5585,6 @@ declare module "util" {
         fatal?: boolean;
         ignoreBOM?: boolean;
     }
-
     interface TextDecoder {
         readonly encoding: string;
         readonly fatal: boolean;
@@ -5607,17 +5606,14 @@ declare module "util" {
             options?: TextDecodeOptions
         ): string;
     }
-
     export var TextDecoder: {
         prototype: TextDecoder;
-        new (label?: string, options?: TextDecoderOptions): TextDecoder;
+        new (encoding?: string, options?: TextDecoderOptions): TextDecoder;
     };
-
     interface TextEncoder {
         readonly encoding: string;
         encode(input?: string): Uint8Array;
     }
-
     export var TextEncoder: {
         prototype: TextEncoder;
         new (): TextEncoder;
