@@ -349,8 +349,7 @@ connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICou
 
 
 class App extends Component<any, any> {
-    render(): JSX.Element {
-        // ...
+    render() {
         return null;
     }
 }
@@ -748,7 +747,7 @@ namespace Issue15463 {
     interface ISpinnerProps{
         showGlobalSpinner: boolean;
     }
-    class SpinnerClass extends React.Component<ISpinnerProps & DispatchProp<any>, undefined> {
+    class SpinnerClass extends React.Component<ISpinnerProps & DispatchProp<any>> {
         render() {
             return (<div />);
         }
@@ -815,7 +814,7 @@ namespace TestControlledComponentWithoutDispatchProp {
 }
 
 namespace TestDispatchToPropsAsObject {
-    const onClick: ActionCreator<{}> = null;
+    const onClick: ActionCreator<{}> = () => ({});
     const mapStateToProps = (state: any) => {
         return {
             title: state.app.title as string,
