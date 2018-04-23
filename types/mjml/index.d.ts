@@ -3,22 +3,27 @@
 // Definitions by: aahoughton <https://github.com/aahoughton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "mjml" {
-    interface ParsingOpts {
-        fonts?: { [key: string]: string; };
-        keepComments?: boolean;
-        beautify?: boolean;
-        minify?: boolean;
-        validationLevel?: 'strict' | 'soft' | 'skip';
-        filePath?: boolean;
-    }
-
-    interface ParseResults {
-        html: string,
-        errors: string[]
-    }
-
-    function mjml2html(inp: string, opts?: ParsingOpts): ParseResults;
-
-    export = mjml2html;
+interface MJMLParsingOpts {
+    fonts?: { [key: string]: string; };
+    keepComments?: boolean;
+    beautify?: boolean;
+    minify?: boolean;
+    validationLevel?: 'strict' | 'soft' | 'skip';
+    filePath?: boolean;
 }
+
+interface MJMLParseError {
+    line: int;
+    message: string;
+    tagName: string;
+    formattedMessage: string;
+}
+
+interface MJMLParseResults {
+    html: string;
+    errors: MJMLParseError[];
+}
+
+declare function mjml2html(inp: string, opts?: MJMLParsingOpts): MJMLParseResults;
+
+export = mjml2html;
