@@ -1,9 +1,10 @@
-/// <reference types="redis" />
-
 // Type definitions for apicache 1.2
 // Project: https://github.com/kwhitley/apicache
 // Definitions by: Daniel Sogl <https://github.com/danielsogl/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="redis" />
+
 import { RedisClient } from 'redis';
 
 export const id: number;
@@ -14,9 +15,7 @@ export const id: number;
  */
 export function clear(target: string | any[]): any;
 
-/**
- *  used to create a new ApiCache instance with the same options as the current one
- */
+/** used to create a new ApiCache instance with the same options as the current one */
 export function clone(): any;
 
 export function getDuration(duration: string): any;
