@@ -5599,7 +5599,7 @@ declare module "util" {
             | DataView
             | ArrayBuffer
             | null,
-          options?: { stream: boolean }
+          options?: { stream?: boolean }
         ): string;
     }
 
