@@ -13,7 +13,7 @@ interface MJMLParsingOpts {
 }
 
 interface MJMLParseError {
-    line: int;
+    line: number;
     message: string;
     tagName: string;
     formattedMessage: string;
