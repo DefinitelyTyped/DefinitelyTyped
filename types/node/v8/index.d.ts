@@ -5577,11 +5577,7 @@ declare module "util" {
         const custom: symbol;
     }
 
-    export interface TextDecodeOptions {
-        fatal?: boolean;
-        ignoreBOM?: boolean;
-    }
-    export interface TextDecoderOptions {
+    interface TextDecoderOptions {
         fatal?: boolean;
         ignoreBOM?: boolean;
     }
@@ -5603,7 +5599,7 @@ declare module "util" {
             | DataView
             | ArrayBuffer
             | null,
-            options?: TextDecodeOptions
+            options?: TextDecoderOptions
         ): string;
     }
     export var TextDecoder: {
