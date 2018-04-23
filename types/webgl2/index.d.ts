@@ -402,10 +402,6 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     compressedTexImage3D(target: number, level: number, internalformat: number, width: number,
         height: number, depth: number, border: number, imageSize: number, offset: number): void;
     compressedTexImage3D(target: number, level: number, internalformat: number, width: number,
-        height: number, depth: number, border: number, srcData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array |
-        Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | null, srcOffset?: number, srcLengthOverride?: number): void;
-    // For compatibility with WebGL 1 context in older Typescript versions.
-    compressedTexImage3D(target: number, level: number, internalformat: number, width: number,
         height: number, depth: number, border: number, srcData: ArrayBufferView,
         srcOffset?: number, srcLengthOverride?: number): void;
 
@@ -414,7 +410,7 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     compressedTexSubImage2D(target: number, level: number, xoffset: number, yoffset: number,
         width: number, height: number, format: number,
         srcData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array |
-        Uint8ClampedArray | Float32Array | Float64Array | DataView | null | null, srcOffset?: number, srcLengthOverride?: number): void;
+        Uint8ClampedArray | Float32Array | Float64Array | DataView | null, srcOffset?: number, srcLengthOverride?: number): void;
     // For compatibility with WebGL 1 context in older Typescript versions.
     compressedTexSubImage2D(target: number, level: number, xoffset: number, yoffset: number,
         width: number, height: number, format: number,
@@ -425,12 +421,6 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     compressedTexSubImage3D(target: number, level: number, xoffset: number, yoffset: number,
         zoffset: number, width: number, height: number, depth: number,
         format: number, imageSize: number, offset: number): void;
-    compressedTexSubImage3D(target: number, level: number, xoffset: number, yoffset: number,
-        zoffset: number, width: number, height: number, depth: number,
-        format: number, srcData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | null,
-        srcOffset?: number,
-        srcLengthOverride?: number): void;
-    // For compatibility with WebGL 1 context in older Typescript versions.
     compressedTexSubImage3D(target: number, level: number, xoffset: number, yoffset: number,
         zoffset: number, width: number, height: number, depth: number,
         format: number, srcData: ArrayBufferView,
@@ -448,7 +438,7 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
 
     uniform1fv(location: WebGLUniformLocation | null, data: Float32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
-    uniform2fv(location: WebGLUniformLocation, data: Float32Array | ArrayLike<number>, srcOffset?: number,
+    uniform2fv(location: WebGLUniformLocation | null, data: Float32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
     uniform3fv(location: WebGLUniformLocation | null, data: Float32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
@@ -512,12 +502,14 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     readPixels(x: number, y: number, width: number, height: number, format: number, type: number,
         dstData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray |
         Float32Array | Float64Array | DataView | null): void;
+    // For compatibility with WebGL 1 context in older Typescript versions.
+    readPixels(x: number, y: number, width: number, height: number, format: number, type: number,
+        dstData: ArrayBufferView | null): void;
     // WebGL2:
     readPixels(x: number, y: number, width: number, height: number, format: number, type: number,
         offset: number): void;
     readPixels(x: number, y: number, width: number, height: number, format: number, type: number,
-        dstData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray |
-        Float32Array | Float64Array | DataView | null, dstOffset: number): void;
+        dstData: ArrayBufferView, dstOffset: number): void;
 
     /* Multiple Render Targets */
     drawBuffers(buffers: number[]): void;
