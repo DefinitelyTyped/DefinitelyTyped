@@ -38,27 +38,27 @@ passport.framework(newFramework);
 interface TestUser {
     id: number;
 }
-passport.serializeUser<TestUser, number>((user: TestUser, done: (err: any, id?: number) => void) => {
+passport.serializeUser((user: TestUser, done: (err: any, id?: number) => void) => {
     done(null, user.id);
 });
-passport.serializeUser<TestUser, number>((user: TestUser, done: (err: any, id?: number) => void) => {
+passport.serializeUser((user: TestUser, done: (err: any, id?: number) => void) => {
     if (user.id > 0) {
         done(null, user.id);
     } else {
         done(new Error('user ID is invalid'));
     }
 });
-passport.serializeUser<TestUser, number>((req: express.Request, user: TestUser, done: (err: any, id?: number) => void) => {
+passport.serializeUser((req: express.Request, user: TestUser, done: (err: any, id?: number) => void) => {
     if (user.id > 0) {
         done(null, user.id);
     } else {
         done(new Error('user ID is invalid'));
     }
 });
-passport.deserializeUser<TestUser, number>((id: number, done: (err: any, user?: TestUser) => void) => {
+passport.deserializeUser((id: number, done: (err: any, user?: TestUser) => void) => {
     done(null, { id });
 });
-passport.deserializeUser<TestUser, number>((id: number, done: (err: any, user?: TestUser) => void) => {
+passport.deserializeUser((id: number, done: (err: any, user?: TestUser) => void) => {
     const fetchUser = (id: number): Promise<TestUser> => {
         return Promise.reject(new Error(`user not found: ${id}`));
     };
@@ -67,7 +67,7 @@ passport.deserializeUser<TestUser, number>((id: number, done: (err: any, user?: 
         .then((user) => done(null, user))
         .catch(done);
 });
-passport.deserializeUser<TestUser, number>((req: express.Request, id: number, done: (err: any, user?: TestUser) => void) => {
+passport.deserializeUser((req: express.Request, id: number, done: (err: any, user?: TestUser) => void) => {
     const fetchUser = (id: number): Promise<TestUser> => {
         return Promise.reject(new Error(`user not found: ${id}`));
     };
