@@ -1,6 +1,9 @@
 import { db } from "@arangodb";
 import { md5 } from "@arangodb/crypto";
 import { createRouter } from "@arangodb/foxx";
+import sessionsMiddleware = require("@arangodb/foxx/sessions");
+import jwtStorage = require("@arangodb/foxx/sessions/storages/jwt");
+import cookieTransport = require("@arangodb/foxx/sessions/transports/cookie");
 
 console.warnStack(new Error(), "something went wrong");
 
@@ -37,6 +40,19 @@ router.get("/", (req, res) => {
 });
 
 router.use((req, res, next) => {
-    if (req.is("json")) res.throw("i'm a teapot");
+    if (req.is("json")) res.throw("too many requests");
     next();
 });
+
+router.use(
+    sessionsMiddleware({
+        storage: jwtStorage({ algorithm: "none" }),
+        transport: "header"
+    })
+);
+router.use(
+    sessionsMiddleware({
+        storage: jwtStorage({ algorithm: "HS512", secret: "tacocat" }),
+        transport: cookieTransport({ secret: "banana", algorithm: "sha256" })
+    })
+);
