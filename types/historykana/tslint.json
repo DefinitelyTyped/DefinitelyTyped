@@ -1,0 +1,14 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "prettier": true,
+        "interface-name": false,
+        "ordered-imports": false,
+        "object-literal-sort-keys": false,
+        "no-consecutive-blank-lines": false,
+        "arrow-parens": false,
+        "arrow-return-shorthand": true,
+        "no-empty": false,
+        "no-namespace": [true, "allow-declarations"]
+    }
+}
