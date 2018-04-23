@@ -3,6 +3,7 @@
 // Type definitions for apicache
 // Project: https://github.com/kwhitley/apicache
 // Definitions by: Daniel Sogl <https://github.com/danielsogl/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { RedisClient } from 'redis';
 
 export const id: number;
