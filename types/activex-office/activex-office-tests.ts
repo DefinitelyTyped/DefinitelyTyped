@@ -17,3 +17,5 @@ while (!enumerator2.atEnd()) {
     const item = enumerator2.item();
     WScript.Echo(`COM Addin: ${item.Description} -- ${item.ProgId}`);
 }
+
+// TODO can Office.LanguageSettings be iterated over?
