@@ -1,4 +1,4 @@
-import { db } from "@arangodb";
+import { db, aql } from "@arangodb";
 import { md5 } from "@arangodb/crypto";
 import { createRouter } from "@arangodb/foxx";
 import sessionsMiddleware = require("@arangodb/foxx/sessions");
@@ -20,6 +20,11 @@ const users = coll as ArangoDB.Collection<User>;
 const admin = users.firstExample({ username: "admin" })!;
 users.update(admin, { password: md5("hunter2") });
 console.logLines("user", admin._key, admin.username);
+
+const query = aql`
+    FOR u IN ${users}
+    RETURN u
+`;
 
 db._createDocumentCollection("bananas").ensureIndex({
     type: "hash",
