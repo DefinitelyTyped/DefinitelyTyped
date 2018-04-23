@@ -1372,10 +1372,10 @@ declare module "@arangodb/foxx/graphql" {
 }
 
 declare module "@arangodb/foxx/sessions" {
-    type SessionsMiddleware = Foxx.Middleware & {
+    interface SessionsMiddleware extends Foxx.Middleware {
         storage: Foxx.SessionStorage;
         transport: Foxx.SessionTransport[];
-    };
+    }
     interface SessionsOptions {
         storage: Foxx.SessionStorage | string | ArangoDB.Collection;
         transport:
