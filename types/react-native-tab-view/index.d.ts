@@ -203,6 +203,20 @@ export class TabViewPagerAndroid<T extends Route = Route> extends PureComponent<
   void
 > {}
 
+export type TabViewPagerExperimentalProps<
+  T extends RouteBase = RouteBase
+> = SceneRendererProps<T> & {
+  GestureHandler: any,
+  animationEnabled?: boolean
+  swipeEnabled?: boolean
+  children?: ReactNode
+}
+
+export class TabViewPagerExperimental<T extends Route = Route> extends PureComponent<
+  TabViewPagerExperimentalProps<T>,
+  any
+> {}
+                  
 export type IndicatorProps<
   T extends RouteBase = RouteBase
 > = SceneRendererProps<T> & {
