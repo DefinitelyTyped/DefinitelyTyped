@@ -1,9 +1,7 @@
 // Type definitions for apicache 1.2
 // Project: https://github.com/kwhitley/apicache
-// Definitions by: Daniel Sogl <https://github.com/danielsogl/>
+// Definitions by: Daniel Sogl <https://github.com/danielsogl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="redis" />
 
 import { RedisClient } from 'redis';
 
@@ -11,7 +9,6 @@ export const id: number;
 
 /**
  * clears cache target (key or group), or entire cache if no value passed, returns new index.
- * @param {string | any[]} target Target to clear
  */
 export function clear(target: string | any[]): any;
 
@@ -30,10 +27,6 @@ export function getIndex(): any;
  * "[length] [unit]", as in "10 minutes" or "1 day". A second param is a middleware toggle function,
  * accepting request and response params, and must return truthy to enable cache for the request.
  * Third param is the options that will override global ones and affect this middleware only.
- *
- * @param {string} [duration]
- * @param {any} [toggleMiddleware]
- * @param {Options} [localOptions]
  */
 export function middleware(
   duration?: string,
@@ -43,14 +36,12 @@ export function middleware(
 
 /**
  * used to create a new ApiCache instance (by default, simply requiring this library shares a common instance)
- * @param {Options} config Options
  */
 export function newInstance(config: Options): any;
 
 /**
  * getter/setter for global options. If used as a setter, this function is
  * chainable, allowing you to do things such as... say... return the middleware.
- * @param {Options} options Options
  */
 export function options(options: Options): any;
 
