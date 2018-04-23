@@ -1,7 +1,7 @@
 // Type definitions for gl-shader
 // Project: https://github.com/stackgl/gl-shader
 // Definitions by: Mathias Paumgarten <https://github.com/MathiasPaumgarten>
-// Definitions: https://github.com/MathiasPaumgarten/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Attribute {
     type: string;
