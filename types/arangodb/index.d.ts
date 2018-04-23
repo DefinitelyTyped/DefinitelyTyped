@@ -1411,9 +1411,11 @@ declare module "@arangodb/foxx/sessions/storages/jwt" {
         verify?: boolean;
         maxExp?: number;
     }
-    type JwtStorageOptions = SafeJwtStorageOptions | UnsafeJwtStorageOptions;
     function jwtStorage(
-        options: JwtStorageOptions | SafeJwtStorageOptions["secret"]
+        options:
+            | SafeJwtStorageOptions
+            | UnsafeJwtStorageOptions
+            | SafeJwtStorageOptions["secret"]
     ): Foxx.SessionStorage;
     export = jwtStorage;
 }
