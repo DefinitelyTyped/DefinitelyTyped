@@ -6,13 +6,6 @@
 
 /// <reference types="node" />
 
-interface StringMap {
-    [key: string]: string | undefined;
-}
-interface CollectionMap {
-    [key: string]: ArangoDB.Collection | undefined;
-}
-
 declare namespace ArangoDB {
     type JwtAlgorithm = "HS512" | "HS384" | "HS256";
     type HashAlgorithm =
@@ -501,7 +494,7 @@ declare namespace ArangoDB {
         deduplicate?: boolean;
     }
 
-    interface IndexResult<T extends object = any> {
+    interface Index<T extends object = any> {
         id: string;
         type: IndexType;
         fields: Array<keyof T>;
@@ -515,17 +508,17 @@ declare namespace ArangoDB {
 
     // Document
 
-    interface DocumentLike1 {
+    interface ObjectWithId {
         [key: string]: any;
         _id: string;
     }
 
-    interface DocumentLike2 {
+    interface ObjectWithKey {
         [key: string]: any;
         _key: string;
     }
 
-    type DocumentLike = DocumentLike1 | DocumentLike2;
+    type DocumentLike = ObjectWithId | ObjectWithKey;
 
     interface DocumentMetadata {
         _key: string;
@@ -626,9 +619,9 @@ declare namespace ArangoDB {
 
         // Indexes
         dropIndex(index: string | IndexLike): boolean;
-        ensureIndex(description: IndexDescription<T>): IndexResult<T>;
-        getIndexes(): Array<IndexResult<T>>;
-        index(index: string | IndexLike): IndexResult<T> | null;
+        ensureIndex(description: IndexDescription<T>): Index<T>;
+        getIndexes(): Array<Index<T>>;
+        index(index: string | IndexLike): Index<T> | null;
 
         // Document
         all(): Cursor<Document<T>>;
@@ -652,22 +645,13 @@ declare namespace ArangoDB {
             options?: InsertOptions
         ): InsertResult<T>;
         edges(
-            vertex:
-                | string
-                | DocumentLike1
-                | ReadonlyArray<string | DocumentLike1>
+            vertex: string | ObjectWithId | ReadonlyArray<string | ObjectWithId>
         ): Array<Edge<T>>;
         inEdges(
-            vertex:
-                | string
-                | DocumentLike1
-                | ReadonlyArray<string | DocumentLike1>
+            vertex: string | ObjectWithId | ReadonlyArray<string | ObjectWithId>
         ): Array<Edge<T>>;
         outEdges(
-            vertex:
-                | string
-                | DocumentLike1
-                | ReadonlyArray<string | DocumentLike1>
+            vertex: string | ObjectWithId | ReadonlyArray<string | ObjectWithId>
         ): Array<Edge<T>>;
         iterate(iterator: DocumentIterator<T>, options?: IterateOptions): void;
         remove(
@@ -865,7 +849,7 @@ declare namespace ArangoDB {
         _useDatabase(name: string): Database;
 
         // Indexes
-        _index(index: string | IndexLike): IndexResult | null;
+        _index(index: string | IndexLike): Index | null;
         _dropIndex(index: string | IndexLike): boolean;
 
         // Properties
@@ -902,14 +886,14 @@ declare namespace ArangoDB {
 
         // Document
         _document(name: string): Document;
-        _exists(selector: string | DocumentLike1): DocumentMetadata;
-        _remove(selector: string | DocumentLike1): DocumentMetadata;
+        _exists(selector: string | ObjectWithId): DocumentMetadata;
+        _remove(selector: string | ObjectWithId): DocumentMetadata;
         _replace(
-            selector: string | DocumentLike1,
+            selector: string | ObjectWithId,
             data: object
         ): DocumentMetadata;
         _update(
-            selector: string | DocumentLike1,
+            selector: string | ObjectWithId,
             data: object
         ): DocumentMetadata;
 
@@ -989,7 +973,12 @@ declare namespace Foxx {
             req: Request,
             type: MediaType
         ) => any;
-        forClient?: (body: any) => { data: string; headers: StringMap };
+        forClient?: (
+            body: any
+        ) => {
+            data: string;
+            headers: { [key: string]: string | undefined };
+        };
     }
 
     type Ranges = Array<{
@@ -1035,19 +1024,15 @@ declare namespace Foxx {
         contributors?: any[];
         description: string;
         thumbnail?: string;
-        engines?: StringMap;
+        engines?: { [key: string]: string | undefined };
         defaultDocument?: string;
         lib: string;
         main?: string;
-        configuration?: {
-            [key: string]: ConfigurationDefinition;
-        };
-        dependencies?: {
-            [key: string]: DependencyDefinition;
-        };
-        provides?: StringMap;
+        configuration?: { [key: string]: ConfigurationDefinition };
+        dependencies?: { [key: string]: DependencyDefinition };
+        provides?: { [key: string]: string | undefined };
         files?: { [key: string]: AssetDefinition };
-        scripts?: StringMap;
+        scripts?: { [key: string]: string | undefined };
         tests?: string[];
     }
 
@@ -1089,7 +1074,7 @@ declare namespace Foxx {
         body: any;
         context: Context;
         database: string;
-        headers: StringMap;
+        headers: { [key: string]: string | undefined };
         hostname: string;
         method: ArangoDB.HttpMethod;
         originalUrl: string;
@@ -1126,7 +1111,10 @@ declare namespace Foxx {
         is(types: string[]): string;
         is(...types: string[]): string;
         json(): any;
-        makeAbsolute(path: string, query?: string | StringMap): string;
+        makeAbsolute(
+            path: string,
+            query?: string | { [key: string]: string | undefined }
+        ): string;
         param(name: string): any;
         range(size?: number): Ranges | number;
         reverse(name: string, params?: object): string;
@@ -1340,7 +1328,9 @@ declare namespace Foxx {
 declare module "@arangodb" {
     function aql(strings: string[], ...args: any[]): ArangoDB.Query;
     function time(): number;
-    const db: ArangoDB.Database & CollectionMap;
+    const db: ArangoDB.Database & {
+        [key: string]: ArangoDB.Collection | undefined;
+    };
     const errors: {
         [Name in ArangoDB.ErrorName]: { code: number; message: string }
     };
@@ -1486,22 +1476,28 @@ declare module "@arangodb/foxx/oauth1" {
         signatureMethod?: "HMAC-SHA1" | "PLAINTEXT";
     }
     interface OAuth1Client {
-        fetchRequestToken(oauth_callback: string, qs?: StringMap): any;
-        getAuthUrl(oauth_token: string, qs?: StringMap): string;
+        fetchRequestToken(
+            oauth_callback: string,
+            qs?: { [key: string]: string | undefined }
+        ): any;
+        getAuthUrl(
+            oauth_token: string,
+            qs?: { [key: string]: string | undefined }
+        ): string;
         exchangeRequestToken(
             oauth_token: string,
             oauth_verifier: string,
-            qs?: StringMap
+            qs?: { [key: string]: string | undefined }
         ): any;
         fetchActiveUser(
             oauth_token: string,
             oauth_token_secret: string,
-            qs?: StringMap
+            qs?: { [key: string]: string | undefined }
         ): any;
         createSignedRequest(
             method: ArangoDB.HttpMethod,
             url: string,
-            parameters: string | StringMap | null,
+            parameters: string | { [key: string]: string | undefined } | null,
             oauth_token: string,
             oauth_token_secret: string
         ): {
@@ -1548,7 +1544,7 @@ declare module "@arangodb/request" {
         rawBody: Buffer;
         body: string | Buffer;
         json?: any;
-        headers: StringMap;
+        headers: { [key: string]: string | undefined };
         status: number;
         statusCode: number;
         message: string;
@@ -1557,7 +1553,7 @@ declare module "@arangodb/request" {
     interface RequestOptions {
         qs?: object;
         useQuerystring?: boolean;
-        headers?: StringMap;
+        headers?: { [key: string]: string | undefined };
         body?: any;
         json?: boolean;
         form?: any;
@@ -1639,18 +1635,11 @@ declare module "@arangodb/general-graph" {
         neighbors: string[];
     }
     interface CountCommonNeighbors {
-        [key: string]:
-            | Array<{
-                  [key: string]: number | undefined;
-              }>
-            | undefined;
+        [key: string]: Array<{ [key: string]: number | undefined }> | undefined;
     }
     interface CommonProperties {
         [key: string]:
-            | Array<{
-                  _id: string;
-                  [key: string]: any;
-              }>
+            | Array<{ _id: string } & { [key: string]: any }>
             | undefined;
     }
     interface CountCommonProperties {
@@ -1817,9 +1806,15 @@ declare module "@arangodb/general-graph" {
         name: string,
         edgeDefinitions?: EdgeDefinition[],
         orphanCollections?: string[]
-    ): Graph & CollectionMap;
+    ): Graph & {
+        [key: string]: ArangoDB.Collection | undefined;
+    };
     function _list(): string[];
-    function _graph(name: string): Graph & CollectionMap;
+    function _graph(
+        name: string
+    ): Graph & {
+        [key: string]: ArangoDB.Collection | undefined;
+    };
     function _drop(name: string, dropCollections?: boolean): boolean;
     function _relation(
         name: string,
