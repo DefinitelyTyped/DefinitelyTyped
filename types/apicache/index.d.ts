@@ -47,38 +47,6 @@ export function options(options: Options): any;
 
 export function resetIndex(): void;
 
-export namespace clear {
-  const prototype: {};
-}
-
-export namespace clone {
-  const prototype: {};
-}
-
-export namespace getDuration {
-  const prototype: {};
-}
-
-export namespace getIndex {
-  const prototype: {};
-}
-
-export namespace middleware {
-  const prototype: {};
-}
-
-export namespace newInstance {
-  const prototype: {};
-}
-
-export namespace options {
-  const prototype: {};
-}
-
-export namespace resetIndex {
-  const prototype: {};
-}
-
 export interface Options {
   /** if true, enables console output */
   debug?: boolean;
