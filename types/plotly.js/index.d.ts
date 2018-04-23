@@ -359,6 +359,7 @@ export interface ScatterData {
 	x: Datum[] | Datum[][];
 	y: Datum[] | Datum[][];
 	z: Datum[] | Datum[][] | Datum[][][];
+	xy: Float32Array;
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];
