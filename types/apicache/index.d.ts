@@ -1,9 +1,9 @@
+/// <reference types="redis" />
+
 // Type definitions for apicache
 // Project: https://github.com/kwhitley/apicache
 // Definitions by: Daniel Sogl <https://github.com/danielsogl/>
 import { RedisClient } from 'redis';
-
-/// <reference types="redis" />
 
 export const id: number;
 
