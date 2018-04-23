@@ -21,6 +21,7 @@
 //                 Nicolas Even <https://github.com/n-e>
 //                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
+//                 Lishude <https://github.com/islishude>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -5575,6 +5576,52 @@ declare module "util" {
     export namespace promisify {
         const custom: symbol;
     }
+
+    export interface TextDecodeOptions {
+        fatal?: boolean;
+        ignoreBOM?: boolean;
+    }
+    export interface TextDecoderOptions {
+        fatal?: boolean;
+        ignoreBOM?: boolean;
+    }
+
+    interface TextDecoder {
+        readonly encoding: string;
+        readonly fatal: boolean;
+        readonly ignoreBOM: boolean;
+        decode(
+            input?:
+            | Int8Array
+            | Int16Array
+            | Int32Array
+            | Uint8Array
+            | Uint16Array
+            | Uint32Array
+            | Uint8ClampedArray
+            | Float32Array
+            | Float64Array
+            | DataView
+            | ArrayBuffer
+            | null,
+            options?: TextDecodeOptions
+        ): string;
+    }
+
+    export var TextDecoder: {
+        prototype: TextDecoder;
+        new (label?: string, options?: TextDecoderOptions): TextDecoder;
+    };
+
+    interface TextEncoder {
+        readonly encoding: string;
+        encode(input?: string): Uint8Array;
+    }
+
+    export var TextEncoder: {
+        prototype: TextEncoder;
+        new (): TextEncoder;
+    };
 }
 
 declare module "assert" {
