@@ -1,4 +1,4 @@
-// Type definitions for chai-uuid 1.0.6
+// Type definitions for chai-uuid 1.0
 // Project: https://github.com/rfrench/chai-uuid
 // Definitions by: Harm van der Werf <https://github.com/harm-less>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,18 +13,16 @@ declare global {
 
 		interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
 			uuid(uuid?: UuidVersion, msg?: string): void;
-			guid(guid: any, msg?: string): void;
+			guid(guid?: any, msg?: string): void;
 		}
 
 		interface Assert {
-			uuid(uuid?: UuidVersion, msg?: string): void;
-			guid(guid: any, msg?: string): void;
+			uuid(uuid: string, version?: UuidVersion, msg?: string): void;
+			guid(guid: string, version?: any, msg?: string): void;
 		}
 	}
 }
 
 declare function chaiUuid(chai: any, utils: any): void;
-declare namespace chaiUuid {
-
-}
+declare namespace chaiUuid {}
 export = chaiUuid;
