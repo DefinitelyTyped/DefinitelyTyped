@@ -3461,14 +3461,13 @@ declare namespace Office {
         xlVAlignTop = -4160,
     }
 
-    class Adjustments {
-        private 'Office.Adjustments_typekey': Adjustments;
-        private constructor();
+    interface Adjustments {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number): number;
         readonly Parent: any;
+        (Index: number): number;
     }
 
     class AnswerWizard {
@@ -3482,9 +3481,7 @@ declare namespace Office {
         ResetFileList(): void;
     }
 
-    class AnswerWizardFiles {
-        private 'Office.AnswerWizardFiles_typekey': AnswerWizardFiles;
-        private constructor();
+    interface AnswerWizardFiles {
         Add(FileName: string): void;
         readonly Application: any;
         readonly Count: number;
@@ -3492,6 +3489,7 @@ declare namespace Office {
         Delete(FileName: string): void;
         Item(Index: number): string;
         readonly Parent: any;
+        (Index: number): string;
     }
 
     class Assistant {
@@ -3647,8 +3645,8 @@ declare namespace Office {
         AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
-         * @param number [Width=-1]
-         * @param number [Height=-1]
+         * @param Width [Width=-1]
+         * @param Height [Height=-1]
          */
         AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
         AddPolyline(SafeArrayOfPoints: SafeArray<number>): Shape;
@@ -4336,14 +4334,14 @@ declare namespace Office {
         private constructor();
 
         /**
-         * @param Office.MsoRelativeNodePosition [Pos=2]
-         * @param Office.MsoDiagramNodeType [NodeType=1]
+         * @param Pos [Pos=2]
+         * @param NodeType [NodeType=1]
          */
         AddNode(Pos?: MsoRelativeNodePosition, NodeType?: MsoDiagramNodeType): DiagramNode;
         readonly Application: any;
         readonly Children: DiagramNodeChildren;
 
-        /** @param Office.MsoRelativeNodePosition [Pos=2] */
+        /** @param Pos [Pos=2] */
         CloneNode(CopyChildren: boolean, TargetNode: DiagramNode, Pos?: MsoRelativeNodePosition): DiagramNode;
         readonly Creator: number;
         Delete(): void;
@@ -4357,19 +4355,16 @@ declare namespace Office {
         readonly Root: DiagramNode;
         readonly Shape: Shape;
 
-        /** @param boolean [SwapChildren=true] */
+        /** @param SwapChildren [SwapChildren=true] */
         SwapNode(TargetNode: DiagramNode, SwapChildren?: boolean): void;
         readonly TextShape: Shape;
         TransferChildren(ReceivingNode: DiagramNode): void;
     }
 
-    class DiagramNodeChildren {
-        private 'Office.DiagramNodeChildren_typekey': DiagramNodeChildren;
-        private constructor();
-
+    interface DiagramNodeChildren {
         /**
-         * @param any [Index=-1]
-         * @param Office.MsoDiagramNodeType [NodeType=1]
+         * @param Index [Index=-1]
+         * @param NodeType [NodeType=1]
          */
         AddNode(Index?: any, NodeType?: MsoDiagramNodeType): DiagramNode;
         readonly Application: any;
@@ -4380,17 +4375,17 @@ declare namespace Office {
         readonly LastChild: DiagramNode;
         readonly Parent: any;
         SelectAll(): void;
+        (Index: any): DiagramNode;
     }
 
-    class DiagramNodes {
-        private 'Office.DiagramNodes_typekey': DiagramNodes;
-        private constructor();
+    interface DiagramNodes {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: any): DiagramNode;
         readonly Parent: any;
         SelectAll(): void;
+        (Index: any): DiagramNode;
     }
 
     class DocumentInspector {
@@ -4405,25 +4400,23 @@ declare namespace Office {
         readonly Parent: any;
     }
 
-    class DocumentInspectors {
-        private 'Office.DocumentInspectors_typekey': DocumentInspectors;
-        private constructor();
+    interface DocumentInspectors {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number): DocumentInspector;
         readonly Parent: any;
+        (Index: number): DocumentInspector;
     }
 
-    class DocumentProperties<TApplication = any> {
-        private 'Office.DocumentProperties_typekey': DocumentProperties<TApplication>;
-        private constructor();
+    interface DocumentProperties<TApplication = any> {
         Add(Name: string, LinkToContent: boolean, Type?: MsoDocProperties, Value?: any, LinkSource?: string): DocumentProperty;
         Application: TApplication;
         Count: number;
         Creator: number;
         Item(index: string | number): DocumentProperty<TApplication>;
         Parent: any;
+        (index: string | number): DocumentProperty<TApplication>;
     }
 
     class DocumentProperty<TApplication = any> {
@@ -4455,15 +4448,14 @@ declare namespace Office {
         Restore(): any;
     }
 
-    class DocumentLibraryVersions {
-        private 'Office.DocumentLibraryVersions_typekey': DocumentLibraryVersions;
-        private constructor();
+    interface DocumentLibraryVersions {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         readonly IsVersioningEnabled: boolean;
         Item(lIndex: number): DocumentLibraryVersion;
         readonly Parent: any;
+        (lIndex: number): DocumentLibraryVersion;
     }
 
     class EffectParameter {
@@ -4541,9 +4533,9 @@ declare namespace Office {
         readonly Creator: number;
 
         /**
-         * @param Office.MsoSortBy [SortBy=1]
-         * @param Office.MsoSortOrder [SortOrder=1]
-         * @param boolean [AlwaysAccurate=true]
+         * @param SortBy [SortBy=1]
+         * @param SortOrder [SortOrder=1]
+         * @param AlwaysAccurate [AlwaysAccurate=true]
          */
         Execute(SortBy?: MsoSortBy, SortOrder?: MsoSortOrder, AlwaysAccurate?: boolean): number;
         FileName: string;
@@ -4563,15 +4555,14 @@ declare namespace Office {
         TextOrProperty: string;
     }
 
-    class FileTypes {
-        private 'Office.FileTypes_typekey': FileTypes;
-        private constructor();
+    interface FileTypes {
         Add(FileType: MsoFileType): void;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number): MsoFileType;
         Remove(Index: number): void;
+        (Index: number): MsoFileType;
     }
 
     class FillFormat {
@@ -4656,13 +4647,12 @@ declare namespace Office {
         WordArtformat: MsoPresetTextEffect;
     }
 
-    class FoundFiles {
-        private 'Office.FoundFiles_typekey': FoundFiles;
-        private constructor();
+    interface FoundFiles {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number): string;
+        (Index: number): string;
     }
 
     class FreeformBuilder {
@@ -4670,10 +4660,10 @@ declare namespace Office {
         private constructor();
 
         /**
-         * @param number [X2=0]
-         * @param number [Y2=0]
-         * @param number [X3=0]
-         * @param number [Y3=0]
+         * @param X2 [X2=0]
+         * @param Y2 [Y2=0]
+         * @param X3 [X3=0]
+         * @param Y3 [Y3=0]
          */
         AddNodes(SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
         readonly Application: any;
@@ -4702,29 +4692,28 @@ declare namespace Office {
         Transparency: number;
     }
 
-    class GradientStops {
-        private 'Office.GradientStops_typekey': GradientStops;
-        private constructor();
+    interface GradientStops {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
 
-        /** @param number [Index=-1] */
+        /** @param Index [Index=-1] */
         Delete(Index?: number): void;
 
         /**
-         * @param number [Transparency=0]
-         * @param number [Index=-1]
+         * @param Transparency [Transparency=0]
+         * @param Index [Index=-1]
          */
         Insert(RGB: number, Position: number, Transparency?: number, Index?: number): void;
 
         /**
-         * @param number [Transparency=0]
-         * @param number [Index=-1]
-         * @param number [Brightness=0]
+         * @param Transparency [Transparency=0]
+         * @param Index [Index=-1]
+         * @param Brightness [Brightness=0]
          */
         Insert2(RGB: number, Position: number, Transparency?: number, Index?: number, Brightness?: number): void;
         Item(Index: number): GradientStop;
+        (Index: number): GradientStop;
     }
 
     interface GroupShapes {
@@ -4744,14 +4733,14 @@ declare namespace Office {
         readonly Creator: number;
         readonly HTMLProjectItems: HTMLProjectItems;
 
-        /** @param Office.MsoHTMLProjectOpen [OpenKind=0] */
+        /** @param OpenKind [OpenKind=0] */
         Open(OpenKind?: MsoHTMLProjectOpen): void;
         readonly Parent: any;
 
-        /** @param boolean [Refresh=true] */
+        /** @param Refresh [Refresh=true] */
         RefreshDocument(Refresh?: boolean): void;
 
-        /** @param boolean [Refresh=true] */
+        /** @param Refresh [Refresh=true] */
         RefreshProject(Refresh?: boolean): void;
         readonly State: MsoHTMLProjectState;
     }
@@ -4765,7 +4754,7 @@ declare namespace Office {
         LoadFromFile(FileName: string): void;
         readonly Name: string;
 
-        /** @param Office.MsoHTMLProjectOpen [OpenKind=0] */
+        /** @param OpenKind [OpenKind=0] */
         Open(OpenKind?: MsoHTMLProjectOpen): void;
         readonly Parent: any;
         SaveCopyAs(FileName: string): void;
@@ -4790,7 +4779,7 @@ declare namespace Office {
 
         /**
          * SearchHelp Method
-         * @param string [Scope='']
+         * @param Scope [Scope='']
          */
         SearchHelp(Query: string, Scope?: string): void;
 
@@ -4799,13 +4788,14 @@ declare namespace Office {
 
         /**
          * ShowHelp Method
-         * @param string [HelpId='']
-         * @param string [Scope='']
+         * @param HelpId [HelpId='']
+         * @param Scope [Scope='']
          */
         ShowHelp(HelpId?: string, Scope?: string): void;
     }
 
     /** For Macintosh only */
+    // tslint:disable-next-line:interface-name
     class IFind {
         private 'Office.IFind_typekey': IFind;
         private constructor();
@@ -4839,11 +4829,11 @@ declare namespace Office {
     }
 
     /** For Macintosh only */
-    class IFoundFiles {
-        private 'Office.IFoundFiles_typekey': IFoundFiles;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IFoundFiles {
         readonly Count: number;
         Item(Index: number): string;
+        (Index: number): string;
     }
 
     class IMsoBorder {
@@ -4877,52 +4867,52 @@ declare namespace Office {
         private 'Office.IMsoChart_typekey': IMsoChart;
         private constructor();
 
-        /** @param Office.XlDataLabelsType [Type=2] */
+        /** @param Type [Type=2] */
         _ApplyDataLabels(Type?: XlDataLabelsType, IMsoLegendKey?: any, AutoText?: any, HasLeaderLines?: any): void;
         readonly Application: any;
         ApplyChartTemplate(bstrFileName: string): void;
         ApplyCustomType(ChartType: XlChartType, TypeName?: any): void;
 
-        /** @param Office.XlDataLabelsType [Type=2] */
-        ApplyDataLabels(
-            Type?: XlDataLabelsType, IMsoLegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any,
-            ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
+        /** @param Type [Type=2] */
+        ApplyDataLabels(Type?: XlDataLabelsType, IMsoLegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any, ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
         ApplyLayout(Layout: number, varChartType?: any): void;
         readonly Area3DGroup: IMsoChartGroup;
         AreaGroups(Index?: any): any;
         AutoFormat(rGallery: number, varFormat?: any): void;
         AutoScaling: boolean;
 
-        /** @param Office.XlAxisGroup [AxisGroup=1] */
+        /** @param AxisGroup [AxisGroup=1] */
         Axes(Type: any, AxisGroup?: XlAxisGroup): any;
         readonly BackWall: IMsoWalls;
         readonly Bar3DGroup: IMsoChartGroup;
         BarGroups(Index?: any): any;
         BarShape: XlBarShape;
+        CategoryLabelLevel: XlCategoryLabelLevel;
         readonly ChartArea: IMsoChartArea;
+        ChartColor: any;
         readonly ChartData: IMsoChartData;
         ChartGroups(pvarIndex?: any, varIgallery?: any): any;
         ChartStyle: any;
         readonly ChartTitle: IMsoChartTitle;
         ChartType: XlChartType;
-        ChartWizard(
-            varSource?: any, varGallery?: any, varFormat?: any, varPlotBy?: any, varCategoryLabels?: any, varSeriesLabels?: any, varHasLegend?: any, varTitle?: any,
-            varCategoryTitle?: any, varValueTitle?: any, varExtraTitle?: any): void;
+        ChartWizard(varSource?: any, varGallery?: any, varFormat?: any, varPlotBy?: any, varCategoryLabels?: any, varSeriesLabels?: any, varHasLegend?: any, varTitle?: any, varCategoryTitle?: any, varValueTitle?: any, varExtraTitle?: any): void;
+        ClearToMatchColorStyle(): void;
         ClearToMatchStyle(): void;
         readonly Column3DGroup: IMsoChartGroup;
         ColumnGroups(Index?: any): any;
         Copy(): any;
 
         /**
-         * @param number [Appearance=1]
-         * @param number [Format=-4147]
-         * @param number [Size=2]
+         * @param Appearance [Appearance=1]
+         * @param Format [Format=-4147]
+         * @param Size [Size=2]
          */
         CopyPicture(Appearance?: number, Format?: number, Size?: number): void;
         readonly Corners: IMsoCorners;
         readonly Creator: number;
         readonly DataTable: IMsoDataTable;
         Delete(): any;
+        DeleteHiddenContent(): void;
         DepthPercent: number;
         DisplayBlanksAs: XlDisplayBlanksAs;
         DoughnutGroups(Index?: any): any;
@@ -4930,10 +4920,12 @@ declare namespace Office {
         Export(bstr: string, varFilterName?: any, varInteractive?: any): boolean;
         readonly Floor: IMsoFloor;
         readonly Format: IMsoChartFormat;
+        FullSeriesCollection(Index?: any): any;
         GapDepth: number;
         GetChartElement(x: number, y: number, ElementID: number, Arg1: number, Arg2: number): void;
         HasAxis(axisType?: any, AxisGroup?: any): any;
         HasDataTable: boolean;
+        readonly HasHiddenContent: boolean;
         HasLegend: boolean;
         HasPivotFields: boolean;
         HasTitle: boolean;
@@ -4957,6 +4949,7 @@ declare namespace Office {
         SaveChartTemplate(bstrFileName: string): void;
         Select(Replace?: any): any;
         SeriesCollection(Index?: any): any;
+        SeriesNameLevel: XlSeriesNameLevel;
         SetDefaultChart(varName: any): void;
         SetElement(RHS: MsoChartElementType): void;
         SetSourceData(Source: string, PlotBy?: any): void;
@@ -4964,6 +4957,7 @@ declare namespace Office {
         ShowAllFieldButtons: boolean;
         ShowAxisFieldButtons: boolean;
         ShowDataLabelsOverMaximum: boolean;
+        ShowExpandCollapseEntireFieldButtons: boolean;
         ShowLegendFieldButtons: boolean;
         ShowReportFilterFieldButtons: boolean;
         ShowValueFieldButtons: boolean;
@@ -4972,7 +4966,7 @@ declare namespace Office {
         readonly SurfaceGroup: IMsoChartGroup;
         Type: number;
 
-        /** @param boolean [fBackWall=true] */
+        /** @param fBackWall [fBackWall=true] */
         Walls(fBackWall?: boolean): IMsoWalls;
         XYGroups(Index?: any): any;
     }
@@ -5007,6 +5001,7 @@ declare namespace Office {
         private 'Office.IMsoChartData_typekey': IMsoChartData;
         private constructor();
         Activate(): void;
+        ActivateChartDataWindow(): void;
         BreakLink(): void;
         readonly IsLinked: boolean;
         readonly Workbook: any;
@@ -5015,7 +5010,9 @@ declare namespace Office {
     class IMsoChartFormat {
         private 'Office.IMsoChartFormat_typekey': IMsoChartFormat;
         private constructor();
+        readonly Adjustments: Adjustments;
         readonly Application: any;
+        AutoShapeType: MsoAutoShapeType;
         readonly Creator: number;
         readonly Fill: FillFormat;
         readonly Glow: GlowFormat;
@@ -5033,12 +5030,21 @@ declare namespace Office {
         private constructor();
         readonly Application: any;
         AxisGroup: number;
+        BinsCountValue: number;
+        BinsOverflowEnabled: boolean;
+        BinsOverflowValue: number;
+        BinsType: XlBinsType;
+        BinsUnderflowEnabled: boolean;
+        BinsUnderflowValue: number;
+        BinWidthValue: number;
         BubbleScale: number;
+        CategoryCollection(Index?: any): any;
         readonly Creator: number;
         DoughnutHoleSize: number;
         readonly DownBars: IMsoDownBars;
         readonly DropLines: IMsoDropLines;
         FirstSliceAngle: number;
+        FullCategoryCollection(Index?: any): any;
         GapWidth: number;
         Has3DShading: boolean;
         HasDropLines: boolean;
@@ -5377,12 +5383,14 @@ declare namespace Office {
     class MsoDebugOptions {
         private 'Office.MsoDebugOptions_typekey': MsoDebugOptions;
         private constructor();
+        AddIgnoredAssertTag(bstrTagToIgnore: string): void;
         readonly Application: any;
         readonly Creator: number;
         FeatureReports: number;
         OutputToDebugger: boolean;
         OutputToFile: boolean;
         OutputToMessageBox: boolean;
+        RemoveIgnoredAssertTag(bstrTagToIgnore: string): void;
         readonly UnitTestManager: any;
     }
 
@@ -5472,8 +5480,8 @@ declare namespace Office {
         Resolve(TokenText: string, duplicateDlgMode: number): PickerResults;
 
         /**
-         * @param boolean [IsMultiSelect=true]
-         * @param Office.PickerResults [ExistingResults=0]
+         * @param IsMultiSelect [IsMultiSelect=true]
+         * @param ExistingResults [ExistingResults=0]
          */
         Show(IsMultiSelect?: boolean, ExistingResults?: PickerResults): PickerResults;
         Title: string;
@@ -5489,24 +5497,22 @@ declare namespace Office {
         readonly Type: MsoPickerField;
     }
 
-    class PickerFields {
-        private 'Office.PickerFields_typekey': PickerFields;
-        private constructor();
+    interface PickerFields {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number): PickerField;
+        (Index: number): PickerField;
     }
 
-    class PickerProperties {
-        private 'Office.PickerProperties_typekey': PickerProperties;
-        private constructor();
+    interface PickerProperties {
         Add(Id: string, Value: string, Type: MsoPickerField): PickerProperty;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number): PickerProperty;
         Remove(Id: string): void;
+        (Index: number): PickerProperty;
     }
 
     class PickerProperty {
@@ -5534,16 +5540,14 @@ declare namespace Office {
         Type: string;
     }
 
-    class PickerResults {
-        private 'Office.PickerResults_typekey': PickerResults;
-        private constructor();
-
-        /** @param string [SIPId=''] */
+    interface PickerResults {
+        /** @param SIPId [SIPId=''] */
         Add(Id: string, DisplayName: string, Type: string, SIPId?: string, ItemData?: any, SubItems?: any): PickerResult;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number): PickerResult;
+        (Index: number): PickerResult;
     }
 
     class PictureEffect {
@@ -5563,10 +5567,10 @@ declare namespace Office {
         readonly Count: number;
         readonly Creator: number;
 
-        /** @param number [Index=-1] */
+        /** @param Index [Index=-1] */
         Delete(Index?: number): void;
 
-        /** @param number [Position=-1] */
+        /** @param Position [Position=-1] */
         Insert(EffectType: MsoPictureEffectType, Position?: number): PictureEffect;
         Item(Index: number): PictureEffect;
         (Index: number): PictureEffect;
@@ -5617,7 +5621,7 @@ declare namespace Office {
     }
 
     interface PropertyTests {
-        /** @param Office.MsoConnector [Connector=1] */
+        /** @param Connector [Connector=1] */
         Add(Name: string, Condition: MsoCondition, Value: any, SecondValue: any, Connector?: MsoConnector): void;
         readonly Application: any;
         readonly Count: number;
@@ -5704,11 +5708,11 @@ declare namespace Office {
 
     interface Scripts {
         /**
-         * @param Office.MsoScriptLocation [Location=2]
-         * @param Office.MsoScriptLanguage [Language=2]
-         * @param string [Id='']
-         * @param string [Extended='']
-         * @param string [ScriptText='']
+         * @param Location [Location=2]
+         * @param Language [Language=2]
+         * @param Id [Id='']
+         * @param Extended [Extended='']
+         * @param ScriptText [ScriptText='']
          */
         Add(Anchor?: any, Location?: MsoScriptLocation, Language?: MsoScriptLanguage, Id?: string, Extended?: string, ScriptText?: string): Script;
         readonly Application: any;
@@ -5839,10 +5843,10 @@ declare namespace Office {
         Rotation: number;
         readonly RTF: string;
 
-        /** @param Office.MsoScaleFrom [fScale=0] */
+        /** @param fScale [fScale=0] */
         ScaleHeight(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
 
-        /** @param Office.MsoScaleFrom [fScale=0] */
+        /** @param fScale [fScale=0] */
         ScaleWidth(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
         readonly Script: Script;
         Select(Replace?: any): void;
@@ -5878,19 +5882,17 @@ declare namespace Office {
         readonly SegmentType: MsoSegmentType;
     }
 
-    class ShapeNodes {
-        private 'Office.ShapeNodes_typekey': ShapeNodes;
-        private constructor();
+    interface ShapeNodes {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Delete(Index: number): void;
 
         /**
-         * @param number [X2=0]
-         * @param number [Y2=0]
-         * @param number [X3=0]
-         * @param number [Y3=0]
+         * @param X2 [X2=0]
+         * @param Y2 [Y2=0]
+         * @param X3 [X3=0]
+         * @param Y3 [Y3=0]
          */
         Insert(Index: number, SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
         Item(Index: any): ShapeNode;
@@ -5898,11 +5900,10 @@ declare namespace Office {
         SetEditingType(Index: number, EditingType: MsoEditingType): void;
         SetPosition(Index: number, X1: number, Y1: number): void;
         SetSegmentType(Index: number, SegmentType: MsoSegmentType): void;
+        (Index: any): ShapeNode;
     }
 
-    class ShapeRange {
-        private 'Office.ShapeRange_typekey': ShapeRange;
-        private constructor();
+    interface ShapeRange {
         readonly Adjustments: Adjustments;
         Align(AlignCmd: MsoAlignCmd, RelativeTo: MsoTriState): void;
         AlternativeText: string;
@@ -5949,6 +5950,9 @@ declare namespace Office {
         Left: number;
         readonly Line: LineFormat;
         LockAspectRatio: MsoTriState;
+
+        /** @param PrimaryShape [PrimaryShape=0] */
+        MergeShapes(MergeCmd: MsoMergeCmd, PrimaryShape?: Shape): void;
         Name: string;
         readonly Nodes: ShapeNodes;
         readonly Parent: any;
@@ -5961,10 +5965,10 @@ declare namespace Office {
         Rotation: number;
         readonly RTF: string;
 
-        /** @param Office.MsoScaleFrom [fScale=0] */
+        /** @param fScale [fScale=0] */
         ScaleHeight(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
 
-        /** @param Office.MsoScaleFrom [fScale=0] */
+        /** @param fScale [fScale=0] */
         ScaleWidth(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
         readonly Script: Script;
         Select(Replace?: any): void;
@@ -5986,6 +5990,7 @@ declare namespace Office {
         Width: number;
         ZOrder(ZOrderCmd: MsoZOrderCmd): void;
         readonly ZOrderPosition: number;
+        (Index: any): Shape;
     }
 
     interface Shapes {
@@ -5993,13 +5998,24 @@ declare namespace Office {
         AddCanvas(Left: number, Top: number, Width: number, Height: number): Shape;
 
         /**
-         * @param Office.XlChartType [Type=-1]
-         * @param number [Left=-1]
-         * @param number [Top=-1]
-         * @param number [Width=-1]
-         * @param number [Height=-1]
+         * @param Type [Type=-1]
+         * @param Left [Left=-1]
+         * @param Top [Top=-1]
+         * @param Width [Width=-1]
+         * @param Height [Height=-1]
          */
         AddChart(Type?: XlChartType, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+
+        /**
+         * @param Style [Style=-1]
+         * @param Type [Type=-1]
+         * @param Left [Left=-1]
+         * @param Top [Top=-1]
+         * @param Width [Width=-1]
+         * @param Height [Height=-1]
+         * @param NewLayout [NewLayout=true]
+         */
+        AddChart2(Style?: number, Type?: XlChartType, Left?: number, Top?: number, Width?: number, Height?: number, NewLayout?: boolean): Shape;
         AddConnector(Type: MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
         AddCurve(SafeArrayOfPoints: any): Shape;
         AddDiagram(Type: MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
@@ -6007,18 +6023,18 @@ declare namespace Office {
         AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
-         * @param number [Width=-1]
-         * @param number [Height=-1]
+         * @param Width [Width=-1]
+         * @param Height [Height=-1]
          */
         AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
         AddPolyline(SafeArrayOfPoints: any): Shape;
         AddShape(Type: MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
 
         /**
-         * @param number [Left=-1]
-         * @param number [Top=-1]
-         * @param number [Width=-1]
-         * @param number [Height=-1]
+         * @param Left [Left=-1]
+         * @param Top [Top=-1]
+         * @param Width [Width=-1]
+         * @param Height [Height=-1]
          */
         AddSmartArt(Layout: SmartArtLayout, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
         AddTable(NumRows: number, NumColumns: number, Left: number, Top: number, Width: number, Height: number): Shape;
@@ -6227,7 +6243,7 @@ declare namespace Office {
         readonly IsCertificateExpired: boolean;
         readonly IsCertificateRevoked: boolean;
         readonly IsCertificateUntrusted: boolean;
-        readonly IsValidz: boolean;
+        readonly IsValid: boolean;
         readonly ReadOnly: boolean;
         SelectCertificateDetailByThumbprint(bstrThumbprint: string): void;
         SelectSignatureCertificate(ParentWindow: any): void;
@@ -6238,9 +6254,7 @@ declare namespace Office {
         SignatureText: string;
     }
 
-    class SignatureSet {
-        private 'Office.SignatureSet_typekey': SignatureSet;
-        private constructor();
+    interface SignatureSet {
         Add(): Signature;
         AddNonVisibleSignature(varSigProv?: any): Signature;
         AddSignatureLine(varSigProv?: any): Signature;
@@ -6253,6 +6267,7 @@ declare namespace Office {
         readonly Parent: any;
         readonly ShowSignaturesPane: boolean;
         Subset: MsoSignatureSubset;
+        (iSig: number): Signature;
     }
 
     class SignatureSetup {
@@ -6320,14 +6335,13 @@ declare namespace Office {
         readonly Parent: any;
     }
 
-    class SmartArtLayouts {
-        private 'Office.SmartArtLayouts_typekey': SmartArtLayouts;
-        private constructor();
+    interface SmartArtLayouts {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number | string): SmartArtLayout;
         readonly Parent: any;
+        (Index: number | string): SmartArtLayout;
     }
 
     class SmartArtNode {
@@ -6335,8 +6349,8 @@ declare namespace Office {
         private constructor();
 
         /**
-         * @param Office.MsoSmartArtNodePosition [Position=1]
-         * @param Office.MsoSmartArtNodeType [Type=1]
+         * @param Position [Position=1]
+         * @param Type [Type=1]
          */
         AddNode(Position?: MsoSmartArtNodePosition, Type?: MsoSmartArtNodeType): SmartArtNode;
         readonly Application: any;
@@ -6359,15 +6373,14 @@ declare namespace Office {
         readonly Type: MsoSmartArtNodeType;
     }
 
-    class SmartArtNodes {
-        private 'Office.SmartArtNodes_typekey': SmartArtNodes;
-        private constructor();
+    interface SmartArtNodes {
         Add(): SmartArtNode;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number | string): SmartArtNode;
         readonly Parent: any;
+        (Index: number | string): SmartArtNode;
     }
 
     class SmartArtQuickStyle {
@@ -6382,14 +6395,13 @@ declare namespace Office {
         readonly Parent: any;
     }
 
-    class SmartArtQuickStyles {
-        private 'Office.SmartArtQuickStyles_typekey': SmartArtQuickStyles;
-        private constructor();
+    interface SmartArtQuickStyles {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number | string): SmartArtQuickStyle;
         readonly Parent: any;
+        (Index: number | string): SmartArtQuickStyle;
     }
 
     class SmartDocument {
@@ -6398,7 +6410,7 @@ declare namespace Office {
         readonly Application: any;
         readonly Creator: number;
 
-        /** @param boolean [ConsiderAllSchemas=false] */
+        /** @param ConsiderAllSchemas [ConsiderAllSchemas=false] */
         PickSolution(ConsiderAllSchemas?: boolean): void;
         RefreshPane(): void;
         SolutionID: string;
@@ -6442,9 +6454,7 @@ declare namespace Office {
         Type: MsoTabStopType;
     }
 
-    class TabStops2 {
-        private 'Office.TabStops2_typekey': TabStops2;
-        private constructor();
+    interface TabStops2 {
         Add(Type: MsoTabStopType, Position: number): TabStop2;
         readonly Application: any;
         readonly Count: number;
@@ -6452,6 +6462,7 @@ declare namespace Office {
         DefaultSpacing: number;
         Item(Index: number): TabStop2;
         readonly Parent: any;
+        (Index: number): TabStop2;
     }
 
     class TextColumn2 {
@@ -6537,8 +6548,8 @@ declare namespace Office {
         ChangeCase(Type: MsoTextChangeCase): void;
 
         /**
-         * @param number [Start=-1]
-         * @param number [Length=-1]
+         * @param Start [Start=-1]
+         * @param Length [Length=-1]
          */
         Characters(Start?: number, Length?: number): TextRange2;
         Copy(): void;
@@ -6548,42 +6559,48 @@ declare namespace Office {
         Delete(): void;
 
         /**
-         * @param number [After=0]
-         * @param Office.MsoTriState [MatchCase=0]
-         * @param Office.MsoTriState [WholeWords=0]
+         * @param After [After=0]
+         * @param MatchCase [MatchCase=0]
+         * @param WholeWords [WholeWords=0]
          */
         Find(FindWhat: string, After?: number, MatchCase?: MsoTriState, WholeWords?: MsoTriState): TextRange2;
         readonly Font: Font2;
 
-        /** @param string [NewText=''] */
+        /** @param NewText [NewText=''] */
         InsertAfter(NewText?: string): TextRange2;
 
-        /** @param string [NewText=''] */
+        /** @param NewText [NewText=''] */
         InsertBefore(NewText?: string): TextRange2;
 
-        /** @param Office.MsoTriState [Unicode=0] */
+        /**
+         * @param Formula [Formula='']
+         * @param Position [Position=-1]
+         */
+        InsertChartField(ChartFieldType: MsoChartFieldType, Formula?: string, Position?: number): TextRange2;
+
+        /** @param Unicode [Unicode=0] */
         InsertSymbol(FontName: string, CharNumber: number, Unicode?: MsoTriState): TextRange2;
         Item(Index: number): TextRange2;
         LanguageID: MsoLanguageID;
         readonly Length: number;
 
         /**
-         * @param number [Start=-1]
-         * @param number [Length=-1]
+         * @param Start [Start=-1]
+         * @param Length [Length=-1]
          */
         Lines(Start?: number, Length?: number): TextRange2;
         LtrRun(): void;
 
         /**
-         * @param number [Start=-1]
-         * @param number [Length=-1]
+         * @param Start [Start=-1]
+         * @param Length [Length=-1]
          */
         MathZones(Start?: number, Length?: number): TextRange2;
         readonly ParagraphFormat: ParagraphFormat2;
 
         /**
-         * @param number [Start=-1]
-         * @param number [Length=-1]
+         * @param Start [Start=-1]
+         * @param Length [Length=-1]
          */
         Paragraphs(Start?: number, Length?: number): TextRange2;
         readonly Parent: any;
@@ -6592,24 +6609,24 @@ declare namespace Office {
         RemovePeriods(): void;
 
         /**
-         * @param number [After=0]
-         * @param Office.MsoTriState [MatchCase=0]
-         * @param Office.MsoTriState [WholeWords=0]
+         * @param After [After=0]
+         * @param MatchCase [MatchCase=0]
+         * @param WholeWords [WholeWords=0]
          */
         Replace(FindWhat: string, ReplaceWhat: string, After?: number, MatchCase?: MsoTriState, WholeWords?: MsoTriState): TextRange2;
         RotatedBounds(X1: number, Y1: number, X2: number, Y2: number, X3: number, Y3: number, x4: number, y4: number): void;
         RtlRun(): void;
 
         /**
-         * @param number [Start=-1]
-         * @param number [Length=-1]
+         * @param Start [Start=-1]
+         * @param Length [Length=-1]
          */
         Runs(Start?: number, Length?: number): TextRange2;
         Select(): void;
 
         /**
-         * @param number [Start=-1]
-         * @param number [Length=-1]
+         * @param Start [Start=-1]
+         * @param Length [Length=-1]
          */
         Sentences(Start?: number, Length?: number): TextRange2;
         readonly Start: number;
@@ -6617,8 +6634,8 @@ declare namespace Office {
         TrimText(): TextRange2;
 
         /**
-         * @param number [Start=-1]
-         * @param number [Length=-1]
+         * @param Start [Start=-1]
+         * @param Length [Length=-1]
          */
         Words(Start?: number, Length?: number): TextRange2;
     }
@@ -6633,9 +6650,7 @@ declare namespace Office {
         readonly ThemeColorSchemeIndex: MsoThemeColorSchemeIndex;
     }
 
-    class ThemeColorScheme {
-        private 'Office.ThemeColorScheme_typekey': ThemeColorScheme;
-        private constructor();
+    interface ThemeColorScheme {
         readonly Application: any;
         Colors(Index: MsoThemeColorSchemeIndex): ThemeColor;
         readonly Count: number;
@@ -6644,6 +6659,7 @@ declare namespace Office {
         Load(FileName: string): void;
         readonly Parent: any;
         Save(FileName: string): void;
+        (Index: MsoThemeColorSchemeIndex): ThemeColor;
     }
 
     class ThemeEffectScheme {
@@ -6664,14 +6680,13 @@ declare namespace Office {
         readonly Parent: any;
     }
 
-    class ThemeFonts {
-        private 'Office.ThemeFonts_typekey': ThemeFonts;
-        private constructor();
+    interface ThemeFonts {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: MsoFontLanguageIndex): ThemeFont;
         readonly Parent: any;
+        (Index: MsoFontLanguageIndex): ThemeFont;
     }
 
     class ThemeFontScheme {
@@ -6753,13 +6768,12 @@ declare namespace Office {
         ProportionalFontSize: number;
     }
 
-    class WebPageFonts {
-        private 'Office.WebPageFonts_typekey': WebPageFonts;
-        private constructor();
+    interface WebPageFonts {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: MsoCharacterSet): WebPageFont;
+        (Index: MsoCharacterSet): WebPageFont;
     }
 
     class WorkflowTask {
@@ -6779,13 +6793,12 @@ declare namespace Office {
         readonly WorkflowID: string;
     }
 
-    class WorkflowTasks {
-        private 'Office.WorkflowTasks_typekey': WorkflowTasks;
-        private constructor();
+    interface WorkflowTasks {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number): WorkflowTask;
+        (Index: number): WorkflowTask;
     }
 
     class WorkflowTemplate {
@@ -6801,13 +6814,12 @@ declare namespace Office {
         Show(): number;
     }
 
-    class WorkflowTemplates {
-        private 'Office.WorkflowTemplates_typekey': WorkflowTemplates;
-        private constructor();
+    interface WorkflowTemplates {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: number): WorkflowTemplate;
+        (Index: number): WorkflowTemplate;
     }
 
     namespace EventHelperTypes {
