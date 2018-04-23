@@ -4006,7 +4006,7 @@ declare namespace sequelize {
          * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
          * whether the row was inserted or not.
          */
-        upsert(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning?: false | undefined }): Promise<boolean>;
         upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
