@@ -30,6 +30,70 @@ declare namespace ArangoDB {
         | "PATCH"
         | "DELETE"
         | "OPTIONS";
+    type HttpStatus =
+        | "continue"
+        | "switching protocols"
+        | "processing"
+        | "ok"
+        | "created"
+        | "accepted"
+        | "non-authoritative information"
+        | "no content"
+        | "reset content"
+        | "partial content"
+        | "multi-status"
+        | "already reported"
+        | "im used"
+        | "multiple choices"
+        | "moved permanently"
+        | "found"
+        | "see other"
+        | "not modified"
+        | "use proxy"
+        | "(unused)"
+        | "temporary redirect"
+        | "permanent redirect"
+        | "bad request"
+        | "unauthorized"
+        | "payment required"
+        | "forbidden"
+        | "not found"
+        | "method not allowed"
+        | "not acceptable"
+        | "proxy authentication required"
+        | "request timeout"
+        | "conflict"
+        | "gone"
+        | "length required"
+        | "precondition failed"
+        | "payload too large"
+        | "uri too long"
+        | "unsupported media type"
+        | "range not satisfiable"
+        | "expectation failed"
+        | "i'm a teapot"
+        | "misdirected request"
+        | "unprocessable entity"
+        | "locked"
+        | "failed dependency"
+        | "unordered collection"
+        | "upgrade required"
+        | "precondition required"
+        | "too many requests"
+        | "request header fields too large"
+        | "unavailable for legal reasons"
+        | "internal server error"
+        | "not implemented"
+        | "bad gateway"
+        | "service unavailable"
+        | "gateway timeout"
+        | "http version not supported"
+        | "variant also negotiates"
+        | "insufficient storage"
+        | "loop detected"
+        | "bandwidth limit exceeded"
+        | "not extended"
+        | "network authentication required";
     type EdgeDirection = "any" | "inbound" | "outbound";
     type EngineType = "mmfiles" | "rocksdb";
     type IndexType = "hash" | "skiplist" | "fulltext" | "geo1" | "geo2";
@@ -1090,25 +1154,29 @@ declare namespace Foxx {
         download(path: string, filename?: string): this;
         getHeader(name: string): string | undefined;
         json(data: any): this;
-        redirect(status: number | string, path: string): this;
+        redirect(status: number | ArangoDB.HttpStatus, path: string): this;
         redirect(path: string): this;
         removeHeader(name: string): this;
         send(data: any, type?: string): this;
         sendFile(path: string, options?: { lastModified: boolean }): this;
-        sendStatus(status: number | string): this;
+        sendStatus(status: number | ArangoDB.HttpStatus): this;
         setHeader(name: string, value: string): this;
         set(name: string, value: string): this;
         set(headers: { [name: string]: string }): this;
-        status(status: number | string): this;
-        throw(status: number | string, reason: string, error: Error): never;
+        status(status: number | ArangoDB.HttpStatus): this;
         throw(
-            status: number | string,
+            status: number | ArangoDB.HttpStatus,
+            reason: string,
+            error: Error
+        ): never;
+        throw(
+            status: number | ArangoDB.HttpStatus,
             reason: string,
             options?: { cause?: Error; extra?: any }
         ): never;
-        throw(status: number | string, error: Error): never;
+        throw(status: number | ArangoDB.HttpStatus, error: Error): never;
         throw(
-            status: number | string,
+            status: number | ArangoDB.HttpStatus,
             options?: { cause?: Error; extra?: any }
         ): never;
         type(type?: string): string;
@@ -1135,21 +1203,24 @@ declare namespace Foxx {
         ): this;
         body(description: string): this;
         response(
-            status: number | string,
+            status: number | ArangoDB.HttpStatus,
             schema: Schema | Model | [Model],
             mimes?: string[],
             description?: string
         ): this;
         response(
-            status: number | string,
+            status: number | ArangoDB.HttpStatus,
             mimes: string[],
             description?: string
         ): this;
-        response(status: number | string, description: string): this;
+        response(
+            status: number | ArangoDB.HttpStatus,
+            description: string
+        ): this;
         summary(summary: string): this;
         description(description: string): this;
         deprecated(deprecated: boolean): this;
-        error(status: number | string, description: string): this;
+        error(status: number | ArangoDB.HttpStatus, description: string): this;
         tag(...tags: string[]): this;
     }
 
