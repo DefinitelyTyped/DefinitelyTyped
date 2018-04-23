@@ -1842,6 +1842,7 @@ interface NodeModule {
 }
 
 interface Console {
+    logLines(...args: any[]): void;
     errorLines(...args: any[]): void;
     warnLines(...args: any[]): void;
     infoLines(...args: any[]): void;
