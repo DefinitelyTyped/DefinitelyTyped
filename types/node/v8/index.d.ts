@@ -5577,16 +5577,16 @@ declare module "util" {
         const custom: symbol;
     }
 
-    interface TextDecoderOptions {
-        fatal?: boolean;
-        ignoreBOM?: boolean;
-    }
-    interface TextDecoder {
+    export class TextDecoder {
         readonly encoding: string;
         readonly fatal: boolean;
         readonly ignoreBOM: boolean;
+        constructor(
+          encoding?: string,
+          options?: { fatal?: boolean; ignoreBOM?: boolean }
+        );
         decode(
-            input?:
+          input?:
             | Int8Array
             | Int16Array
             | Int32Array
@@ -5599,21 +5599,15 @@ declare module "util" {
             | DataView
             | ArrayBuffer
             | null,
-            options?: TextDecoderOptions
+          options?: { stream: boolean }
         ): string;
     }
-    export var TextDecoder: {
-        prototype: TextDecoder;
-        new (encoding?: string, options?: TextDecoderOptions): TextDecoder;
-    };
-    interface TextEncoder {
+
+    export class TextEncoder {
         readonly encoding: string;
+        constructor();
         encode(input?: string): Uint8Array;
     }
-    export var TextEncoder: {
-        prototype: TextEncoder;
-        new (): TextEncoder;
-    };
 }
 
 declare module "assert" {
