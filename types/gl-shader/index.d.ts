@@ -1,38 +1,51 @@
-// Type definitions for gl-shader
+// Type definitions for gl-shader 4.2
 // Project: https://github.com/stackgl/gl-shader
 // Definitions by: Mathias Paumgarten <https://github.com/MathiasPaumgarten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-interface Attribute {
+interface Parameter {
     type: string;
     name: string;
 }
 
+interface Attribute {
+    location: number[] | number;
+    pointer(type?: number, normalized?: boolean, stride?: number, offset?: number): number;
+}
+
 declare class Shader {
-    gl: WebGLRenderingContext;
-    program: WebGLProgram;
-    vertShader: WebGLShader;
-    fragShader: WebGLShader;
+    readonly gl: WebGLRenderingContext;
+    readonly program: WebGLProgram;
+    readonly vertShader: WebGLShader;
+    readonly fragShader: WebGLShader;
+    readonly attributes: {[key: string]: Attribute & any[]};
 
-    readonly uniforms: { [key: string]: any }
-    readonly attributes: { [key: string]: any }
+    uniforms: {[key: string]: any};
 
-    constructor( gl: WebGLRenderingContext );
+    constructor(gl: WebGLRenderingContext);
 
     bind(): void;
     dispose(): void;
-    update( vertex: string, fragment: string ): void;
-    update( vertex: string, fragment: string, uniforms: Attribute[] ): void;
-    update( vertex: string, fragment: string, uniforms: Attribute[], attributes: Attribute[] ): void;
+
+    update(vertex: string, fragment: string, uniforms?: Parameter[], attributes?: Parameter[]): void;
+    update(obj: {vertex: string, fragment: string, uniforms: Parameter[], attributes: Parameter[]}): void;
 }
 
 declare function createShader(
     gl: WebGLRenderingContext,
     vertex: string,
     fragment: string,
-    uniforms?: Attribute[],
-    attributes?: Attribute[] ): Shader;
+    uniforms?: Parameter[],
+    attributes?: Parameter[]): Shader;
 
-declare module "gl-shader" {
-    export = createShader;
-}
+declare function createShader(
+    gl: WebGLRenderingContext,
+    options: {
+        vertex: string,
+        fragment: string,
+        uniforms?: Parameter[],
+        attributes?: Parameter[],
+    }): Shader;
+
+export = createShader;
