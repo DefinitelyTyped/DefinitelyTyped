@@ -12,7 +12,8 @@ import SortableTree,
         FullTree,
         OnVisibilityToggleData,
         PreviousAndNextLocation,
-        PlaceholderRendererProps
+        PlaceholderRendererProps,
+        ThemeProps
     } from "react-sortable-tree";
 import { ListProps, ListRowRenderer } from "react-virtualized";
 
@@ -37,6 +38,8 @@ class Test extends React.Component {
             width: 100, height: 44, rowCount: 3, rowHeight: 44, rowRenderer: "test" as any as ListRowRenderer
         };
         const nodeRenderer: NodeRenderer = "test" as any as NodeRenderer;
+        const theme: ThemeProps = { nodeContentRenderer: nodeRenderer } as any as ThemeProps;
+
         return (
             <div>
                 <SortableTree
@@ -64,6 +67,7 @@ class Test extends React.Component {
                     nodeContentRenderer={nodeRenderer}
                     dndType="testNodeType"
                     placeholderRenderer={PlaceholderRenderer}
+                    theme={theme}
                 />
                 <SortableTreeWithoutDndContext
                     treeData={[{title: "Title", subtitle: "Subtitle", children: []}]}
