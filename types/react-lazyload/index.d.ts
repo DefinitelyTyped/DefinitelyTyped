@@ -11,6 +11,7 @@ export interface LazyLoadProps {
     height?: number | string;
     offset?: number | number[];
     overflow?: boolean;
+    resize?: boolean;
     scroll?: boolean;
     children?: JSX.Element;
     throttle?: number | boolean;
