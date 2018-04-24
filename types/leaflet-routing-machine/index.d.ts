@@ -4,27 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-//
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
     namespace Routing {
-
         class Control extends Itinerary {
             constructor(options?: RoutingControlOptions);
-
             getWaypoints(): Waypoint[];
-
             setWaypoints(waypoints: Waypoint[] | L.LatLng[]): this;
-
             spliceWaypoints(index: number, waypointsToRemove: number, ...wayPoints: Waypoint[]): Waypoint[];
-
             getPlan(): Plan;
-
             getRouter(): IRouter;
-
             route(): void;
-
             on(type: string, fn: (event: any) => void, context?: any): this;
         }
 
@@ -47,11 +38,8 @@ declare module 'leaflet' {
 
         class Itinerary extends L.Control {
             constructor(options: ItineraryOptions);
-
             setAlternatives(routes: IRoute[]): any;
-
             show(): void;
-
             hide(): void;
         }
 
@@ -75,20 +63,15 @@ declare module 'leaflet' {
 
         class Plan extends L.Layer {
             constructor(waypoints: Waypoint[] | L.LatLng[], options?: PlanOptions);
-
             isReady(): boolean;
-
             getWaypoints(): Waypoint[];
-
             setWaypoints(waypoints: Waypoint[] | L.LatLng[]): any;
-
             spliceWaypoints(index: number, waypointsToRemove: number, ...wayPoints: Waypoint[]): Waypoint[];
-
             createGeocoders(): any;
         }
 
         interface PlanOptions {
-            geocoder?: any;//IGeocoder
+            geocoder?: any; //IGeocoder
             addWaypoints?: boolean;
             draggableWaypoints?: boolean;
             dragStyles?: L.PathOptions[];
@@ -106,7 +89,6 @@ declare module 'leaflet' {
 
         class Line extends L.LayerGroup {
             constructor(route: IRoute, options?: LineOptions);
-
             getBounds(): L.LatLngBounds;
         }
 
@@ -119,8 +101,7 @@ declare module 'leaflet' {
         class OSRMv1 implements IRouter {
             constructor(options?: OSRMOptions);
 
-            route(waypoints: Waypoint[], callback: Function, context?: {}, options?: RoutingOptions): void ;
-
+            route(waypoints: Waypoint[], callback: (args?: any) => void, context?: {}, options?: RoutingOptions): void ;
             buildRouteUrl(waypoints: Waypoint[], options: RoutingOptions): string;
         }
 
@@ -134,11 +115,8 @@ declare module 'leaflet' {
 
         class Formatter {
             constructor(options?: FormatterOptions);
-
             formatDistance(d: number, precision?: number): string;
-
             formatTime(t: number): string;
-
             formatInstruction(instruction: IInstruction): string;
         }
 
@@ -151,17 +129,13 @@ declare module 'leaflet' {
 
         class ItineraryBuilder {
             constructor();
-
             createContainer(className: string): HTMLElement;
-
             createStepsContainer(container: HTMLElement): void;
-
             createStep(text: string, distance: string, steps: HTMLElement): void;
         }
 
         class Localization {
             constructor(lang: string);
-
             localize(text: string): string;
         }
 
@@ -255,36 +229,34 @@ declare module 'leaflet' {
             message: string;
         }
 
-        export function control(options?: RoutingControlOptions): Control;
+        function control(options?: RoutingControlOptions): Control;
 
-        export function itinerary(options?: ItineraryOptions): Itinerary;
+        function itinerary(options?: ItineraryOptions): Itinerary;
 
-        export function line(route: IRoute, options?: LineOptions): Line;
+        function line(route: IRoute, options?: LineOptions): Line;
 
-        export function plan(waypoints: Waypoint[] | L.LatLng[], options?: PlanOptions): Plan;
+        function plan(waypoints: Waypoint[] | L.LatLng[], options?: PlanOptions): Plan;
 
-        export function osrmv1(options?: OSRMOptions): OSRMv1;
+        function osrmv1(options?: OSRMOptions): OSRMv1;
 
-        export function formatter(options?: FormatterOptions): Formatter;
+        function formatter(options?: FormatterOptions): Formatter;
 
-        export function waypoint(latLng: L.LatLng, name?: string, options?: WaypointOptions): Waypoint;
+        function waypoint(latLng: L.LatLng, name?: string, options?: WaypointOptions): Waypoint;
     }
 
     namespace routing {
-        export function control(options?: Routing.RoutingControlOptions): Routing.Control;
+        function control(options?: Routing.RoutingControlOptions): Routing.Control;
 
-        export function itinerary(options?: Routing.ItineraryOptions): Routing.Itinerary;
+        function itinerary(options?: Routing.ItineraryOptions): Routing.Itinerary;
 
-        export function line(route: Routing.IRoute, options?: Routing.LineOptions): Routing.Line;
+        function line(route: Routing.IRoute, options?: Routing.LineOptions): Routing.Line;
 
-        export function plan(waypoints: Routing.Waypoint[] | L.LatLng[], options?: Routing.PlanOptions): Routing.Plan;
+        function plan(waypoints: Routing.Waypoint[] | L.LatLng[], options?: Routing.PlanOptions): Routing.Plan;
 
-        export function osrmv1(options?: Routing.OSRMOptions): Routing.OSRMv1;
+        function osrmv1(options?: Routing.OSRMOptions): Routing.OSRMv1;
 
-        export function formatter(options?: Routing.FormatterOptions): Routing.Formatter;
+        function formatter(options?: Routing.FormatterOptions): Routing.Formatter;
 
-        export function waypoint(latLng: L.LatLng, name?: string, options?: Routing.WaypointOptions): Routing.Waypoint;
+        function waypoint(latLng: L.LatLng, name?: string, options?: Routing.WaypointOptions): Routing.Waypoint;
     }
 }
-
-
