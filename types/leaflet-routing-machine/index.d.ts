@@ -1,0 +1,289 @@
+// Type definitions for leaflet-routing-machine 3.2
+// Project: https://github.com/perliedman/leaflet-routing-machine#readme
+// Definitions by: Chanaka Rathnayaka <https://github.com/chanakadrathnayaka>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+//
+import * as L from 'leaflet';
+
+declare module 'leaflet' {
+    namespace Routing {
+
+        class Control extends Itinerary {
+            constructor(options?: RoutingControlOptions);
+
+            getWaypoints(): Waypoint[];
+
+            setWaypoints(waypoints: Waypoint[] | L.LatLng[]): this;
+
+            spliceWaypoints(index: number, waypointsToRemove: number, ...wayPoints: Waypoint[]): Waypoint[];
+
+            getPlan(): Plan;
+
+            getRouter(): IRouter;
+
+            route(): void;
+
+            on(type: string, fn: (event: any) => void, context?: any): this;
+        }
+
+        interface RoutingControlOptions extends ItineraryOptions {
+            waypoints?: Waypoint[] | L.LatLng[];
+            router?: IRouter;
+            plan?: Plan;
+            geocoder?: any; //IGeocorder is from other library;
+            fitSelectedRoutes?: 'smart' | boolean;
+            lineOptions?: LineOptions;
+            routeLine?: (route: IRoute, options: LineOptions) => Line;
+            autoRoute?: boolean;
+            routeWhileDragging?: boolean;
+            routeDragInterval?: number;
+            waypointMode?: string;
+            useZoomParameter?: boolean;
+            showAlternatives?: boolean;
+            altLineOptions?: LineOptions;
+        }
+
+        class Itinerary extends L.Control {
+            constructor(options: ItineraryOptions);
+
+            setAlternatives(routes: IRoute[]): any;
+
+            show(): void;
+
+            hide(): void;
+        }
+
+        interface ItineraryOptions {
+            pointMarkerStyle?: L.PathOptions;
+            summaryTemplate?: string;
+            distanceTemplate?: string;
+            timeTemplate?: string;
+            containerClassName?: string;
+            alternativeClassName?: string;
+            minimizedClassName?: string;
+            itineraryClassName?: string;
+            show?: boolean,
+            formatter?: Formatter;
+            itineraryFormatter?: ItineraryBuilder;
+            collapsible?: boolean,
+            collapseBtn?: (itinerary: Itinerary) => void;
+            collapseBtnClass?: string;
+            totalDistanceRoundingSensitivity?: number,
+        }
+
+        class Plan extends L.Layer {
+            constructor(waypoints: Waypoint[] | L.LatLng[], options?: PlanOptions);
+
+            isReady(): boolean;
+
+            getWaypoints(): Waypoint[];
+
+            setWaypoints(waypoints: Waypoint[] | L.LatLng[]): any;
+
+            spliceWaypoints(index: number, waypointsToRemove: number, ...wayPoints: Waypoint[]): Waypoint[];
+
+            createGeocoders(): any;
+        }
+
+        interface PlanOptions {
+            geocoder?: any;//IGeocoder
+            addWaypoints?: boolean;
+            draggableWaypoints?: boolean;
+            dragStyles?: L.PathOptions[];
+            maxGeocoderTolerance?: number;
+            geocoderPlaceholder?: (waypointIndex: number, numberWaypoints: number) => string;
+            geocodersClassName?: string;
+            geocoderClass?: (waypointIndex: number, numberWaypoints: number) => void;
+            waypointNameFallback?: (latLng: L.LatLng) => string;
+            createGeocoder?: (waypointIndex: number, numberWaypoints: number, plan: Plan) => {};
+            addButtonClassName?: string;
+            createMarker?: (waypointIndex: number, waypoint: Waypoint, numberWaypoints: number) => L.Marker;
+            routeWhileDragging?: boolean;
+            reverseWaypoints?: boolean;
+        }
+
+        class Line extends L.LayerGroup {
+            constructor(route: IRoute, options?: LineOptions);
+
+            getBounds(): L.LatLngBounds;
+        }
+
+        interface LineOptions {
+            styles?: L.PathOptions[];
+            missingRouteStyles?: L.PathOptions[];
+            addWaypoints?: boolean;
+        }
+
+        class OSRMv1 implements IRouter {
+            constructor(options?: OSRMOptions);
+
+            route(waypoints: Waypoint[], callback: Function, context?: {}, options?: RoutingOptions): void ;
+
+            buildRouteUrl(waypoints: Waypoint[], options: RoutingOptions): string;
+        }
+
+        interface OSRMOptions {
+            serviceUrl?: string;
+            timeout?: number;
+            profile?: string;
+            polylinePrecision?: number;
+            useHints?: boolean;
+        }
+
+        class Formatter {
+            constructor(options?: FormatterOptions);
+
+            formatDistance(d: number, precision?: number): string;
+
+            formatTime(t: number): string;
+
+            formatInstruction(instruction: IInstruction): string;
+        }
+
+        interface FormatterOptions {
+            language?: string;
+            units?: string;
+            roundingSensitivity?: number;
+            unitNames?: {};
+        }
+
+        class ItineraryBuilder {
+            constructor();
+
+            createContainer(className: string): HTMLElement;
+
+            createStepsContainer(container: HTMLElement): void;
+
+            createStep(text: string, distance: string, steps: HTMLElement): void;
+        }
+
+        class Localization {
+            constructor(lang: string);
+
+            localize(text: string): string;
+        }
+
+        class Waypoint {
+            constructor(latLng: L.LatLng, name?: string, options?: WaypointOptions);
+        }
+
+        interface WaypointOptions {
+            allowUTurn?: boolean;
+        }
+
+        // Event Objects
+
+        interface RoutingEvent {
+            waypoints: Waypoint[];
+        }
+
+        interface RoutingResultEvent {
+            waypoints: Waypoint[];
+            routes: IRoute[];
+        }
+
+        interface RoutingErrorEvent {
+            error: IError;
+        }
+
+        interface RouteSelectedEvent {
+            route: IRoute;
+        }
+
+        interface WaypointsSplicedEvent {
+            index: number;
+            nRemoved: number;
+            added: Waypoint[];
+        }
+
+        interface LineTouchedEvent {
+            afterIndex: number;
+            latlng: number;
+        }
+
+        interface GeocodingEvent {
+            waypointIndex: number;
+            waypoint: Waypoint;
+        }
+
+        // Interfaces
+        interface RoutingOptions {
+            z: number;
+            allowUTurns: boolean;
+            geometryOnly: boolean;
+            fileFormat: string;
+        }
+
+        interface IRouter {
+            route(waypoints: Waypoint[], callback: (error?: IError, routes?: IRoute[]) => any, context?: {}, options?: RoutingOptions): void;
+        }
+
+        interface IRoute {
+            name?: string;
+            summary?: IRouteSummary;
+            coordinates?: L.LatLng[];
+            waypoints?: L.LatLng[];
+            instructions?: IInstruction[];
+        }
+
+        interface IRouteSummary {
+            totalTime: number;
+            totalDistance: number;
+        }
+
+        interface IInstruction {
+            distance: number;
+            time: number;
+            text?: number;
+            type?: 'Straight' | 'SlightRight' | 'Right' | 'SharpRight' | 'TurnAround' | 'SharpLeft' | 'Left' | 'SlightLeft' | 'WaypointReached' |
+                'Roundabout' | 'StartAt' | 'DestinationReached' | 'EnterAgainstAllowedDirection' | 'LeaveAgainstAllowedDirection';
+            road?: string;
+            direction?: string;
+            exit?: number;
+        }
+
+        interface IGeocoderElement {
+            container: HTMLElement;
+            input: HTMLElement;
+            closeButton: HTMLElement;
+        }
+
+        interface IError {
+            status: string | number;
+            message: string;
+        }
+
+        export function control(options?: RoutingControlOptions): Control;
+
+        export function itinerary(options?: ItineraryOptions): Itinerary;
+
+        export function line(route: IRoute, options?: LineOptions): Line;
+
+        export function plan(waypoints: Waypoint[] | L.LatLng[], options?: PlanOptions): Plan;
+
+        export function osrmv1(options?: OSRMOptions): OSRMv1;
+
+        export function formatter(options?: FormatterOptions): Formatter;
+
+        export function waypoint(latLng: L.LatLng, name?: string, options?: WaypointOptions): Waypoint;
+    }
+
+    namespace routing {
+        export function control(options?: Routing.RoutingControlOptions): Routing.Control;
+
+        export function itinerary(options?: Routing.ItineraryOptions): Routing.Itinerary;
+
+        export function line(route: Routing.IRoute, options?: Routing.LineOptions): Routing.Line;
+
+        export function plan(waypoints: Routing.Waypoint[] | L.LatLng[], options?: Routing.PlanOptions): Routing.Plan;
+
+        export function osrmv1(options?: Routing.OSRMOptions): Routing.OSRMv1;
+
+        export function formatter(options?: Routing.FormatterOptions): Routing.Formatter;
+
+        export function waypoint(latLng: L.LatLng, name?: string, options?: Routing.WaypointOptions): Routing.Waypoint;
+    }
+}
+
+
