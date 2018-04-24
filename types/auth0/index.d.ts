@@ -345,6 +345,14 @@ export interface Identity {
   user_id: string;
   provider: string;
   isSocial: boolean;
+  profileData?: {
+    email?: string;
+    email_verified?: boolean;   
+    name?: string;
+    phone_number?: string;
+    phone_verified?: boolean;
+    request_language?: string;
+  }
 }
 
 export interface AuthenticationClientOptions {
