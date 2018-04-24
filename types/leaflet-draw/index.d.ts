@@ -10,7 +10,6 @@
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
-
 	interface ToolbarAction {
 		title: string;
 		text: string;
@@ -25,12 +24,12 @@ declare module 'leaflet' {
 	}
 
 	interface ToolbarOptions {
-		polyline?: PolylineOptions;
-		polygon?: PolygonOptions;
-		rectangle?: RectangleOptions;
-		circle?: CircleOptions;
-		marker?: MarkerOptions;
-		circlemarker?: CircleOptions;
+		polyline?: DrawOptions.PolylineOptions;
+		polygon?: DrawOptions.PolygonOptions;
+		rectangle?: DrawOptions.RectangleOptions;
+		circle?: DrawOptions.CircleOptions;
+		marker?: DrawOptions.MarkerOptions;
+		circlemarker?: DrawOptions.CircleOptions;
 	}
 
 	interface PrecisionOptions {
@@ -199,7 +198,7 @@ declare module 'leaflet' {
 			 *
 			 * Default value: See code
 			 */
-			drawError?: DrawOptions.DrawErrorOptions;
+			drawError?: DrawErrorOptions;
 
 			icon?: Icon | DivIcon;
 
@@ -290,7 +289,7 @@ declare module 'leaflet' {
 			 *
 			 * Default value: {}
 			 */
-			precision?: PrecisionOptions
+			precision?: PrecisionOptions;
 		}
 
 		interface RectangleOptions extends SimpleShapeOptions {
@@ -306,7 +305,7 @@ declare module 'leaflet' {
 			 *
 			 * Default value: true
 			 */
-			metric?: boolean
+			metric?: boolean;
 		}
 
 		interface CircleOptions extends SimpleShapeOptions {
@@ -329,7 +328,7 @@ declare module 'leaflet' {
 			 *
 			 * Default value: true
 			 */
-			metric?: boolean
+			metric?: boolean;
 
 			/**
 			 * When not metric, use feet instead of yards for display
@@ -510,7 +509,7 @@ declare module 'leaflet' {
 
 		class Polyline extends Feature {
 			constructor(
-				map: L.Map,
+				map: Map,
 				options?: DrawOptions.PolylineOptions
 			)
 
@@ -704,7 +703,7 @@ declare module 'leaflet' {
 
 	namespace EditToolbar {
 		class Edit extends Toolbar {
-			constructor(map: Map, options?: DrawOptions.ToolbarOptions);
+			constructor(map: Map, options?: ToolbarOptions);
 
 			revertLayers(): void;
 
@@ -712,7 +711,7 @@ declare module 'leaflet' {
 		}
 
 		class Delete extends Toolbar {
-			constructor(map: Map, options?: DrawOptions.ToolbarOptions);
+			constructor(map: Map, options?: ToolbarOptions);
 
 			revertLayers(): void;
 
@@ -726,7 +725,7 @@ declare module 'leaflet' {
 		interface EditPolyVerticesEditOptions {
 			icon?: Icon | DivIcon;
 			touchIcon?: Icon | DivIcon;
-			drawError?: DrawErrorOptions;
+			drawError?: DrawOptions.DrawErrorOptions;
 		}
 
 		interface EditSimpleShapeOptions {
