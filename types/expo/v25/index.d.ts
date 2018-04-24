@@ -1,4 +1,4 @@
-// Type definitions for expo 26.0
+// Type definitions for expo 25.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -18,8 +18,7 @@ import {
     NativeEventEmitter,
     ViewProperties,
     ViewStyle,
-    Permission,
-    StyleProp
+    Permission
 } from 'react-native';
 
 export type Axis = number;
@@ -84,12 +83,13 @@ export interface AdMobBannerProperties extends ViewProperties {
 }
 
 export class AdMobBanner extends Component<AdMobBannerProperties> { }
+
 export interface AdMobAppEvent {
     name: string;
     info: string;
 }
 export interface PublisherBannerProperties extends AdMobBannerProperties {
-    onAdMobDispatchAppEvent?(event: AdMobAppEvent): void;
+    admobDispatchAppEvent?(event: AdMobAppEvent): void;
 }
 export class PublisherBanner extends Component<PublisherBannerProperties> { }
 
@@ -102,12 +102,19 @@ export type AdMobInterstitialEvent =
 export namespace AdMobInterstitial {
     function setAdUnitID(id: string): void;
     function setTestDeviceID(id: string): void;
-    function requestAdAsync(): Promise<void>;
-    function showAdAsync(): Promise<void>;
-    function dismissAdAsync(): Promise<void>;
-    function getIsReadyAsync(): Promise<boolean>;
-    function addEventListener(event: AdMobInterstitialEvent, handler: () => void): EventSubscription;
-    function removeEventListener(event: AdMobInterstitialEvent, handler: () => void): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function isReady(callback: (isReady: boolean) => void): void;
+    function addEventListener(event: 'interstitialDidLoad', handler: () => void): void;
+    function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: 'interstitialDidOpen', handler: () => void): void;
+    function addEventListener(event: 'interstitialDidClose', handler: () => void): void;
+    function addEventListener(event: 'interstitialWillLeaveApplication', handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidLoad', handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: 'interstitialDidOpen', handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidClose', handler: () => void): void;
+    function removeEventListener(event: 'interstitialWillLeaveApplication', handler: () => void): void;
     function removeAllListeners(): void;
 }
 
@@ -116,18 +123,25 @@ export type AdMobRewardedEvent =
     | 'rewardedVideoDidLoad'
     | 'rewardedVideoDidFailToLoad'
     | 'rewardedVideoDidOpen'
-    | 'rewardedVideoDidStart'
     | 'rewardedVideoDidClose'
     | 'rewardedVideoWillLeaveApplication';
 export namespace AdMobRewarded {
     function setAdUnitID(id: string): void;
     function setTestDeviceID(id: string): void;
-    function requestAdAsync(): Promise<void>;
-    function showAdAsync(): Promise<void>;
-    function dismissAdAsync(): Promise<void>;
-    function getIsReadyAsync(): Promise<boolean>;
-    function addEventListener(event: AdMobRewardedEvent, handler: () => void): EventSubscription;
-    function removeEventListener(event: AdMobRewardedEvent, handler: () => void): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(event: 'rewardedVideoDidLoad', handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: 'rewardedVideoDidOpen', handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoDidClose', handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoWillLeaveApplication', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidLoad', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidOpen', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidClose', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoWillLeaveApplication', handler: () => void): void;
     function removeAllListeners(): void;
 }
 
@@ -1626,12 +1640,11 @@ export class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-export interface LinearGradientProps {
+export interface LinearGradientProps extends ViewProperties {
     colors: string[];
     start?: [number, number];
     end?: [number, number];
     locations?: number[];
-    style?: StyleProp<ViewStyle>;
 }
 
 export class LinearGradient extends Component<LinearGradientProps> { }
@@ -1695,7 +1708,7 @@ export namespace Location {
     function getHeadingAsync(): Promise<HeadingStatus>;
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
     function geocodeAsync(address: string): Promise<Coords>;
-    function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
+    function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData>;
     function setApiKey(key: string): void;
 }
 
@@ -1947,7 +1960,6 @@ export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
     fillRule?: 'nonzero' | 'evenodd';
-    opacity?: number | string;
     stroke?: string;
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
@@ -2058,7 +2070,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
+export class Svg extends Component<{ width: number, height: number }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;

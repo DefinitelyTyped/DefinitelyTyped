@@ -60,6 +60,92 @@ export namespace Accelerometer {
 }
 
 /**
+ * Admob
+ */
+export type AdMobBannerSize =
+    | 'banner'
+    | 'largeBanner'
+    | 'mediumRectangle'
+    | 'fullBanner'
+    | 'leaderboard'
+    | 'smartBannerPortrait'
+    | 'smartBannerLandscape';
+export interface AdMobBannerProperties extends ViewProperties {
+    bannerSize?: AdMobBannerSize;
+    adUnitID?: string;
+    testDeviceID?: string;
+    didFailToReceiveAdWithError?(errorDescription: string): void;
+    adViewDidReceiveAd?(): void;
+    adViewWillPresentScreen?(): void;
+    adViewWillDismissScreen?(): void;
+    adViewDidDismissScreen?(): void;
+    adViewWillLeaveApplication?(): void;
+}
+
+export class AdMobBanner extends Component<AdMobBannerProperties> { }
+
+export interface AdMobAppEvent {
+    name: string;
+    info: string;
+}
+export interface PublisherBannerProperties extends AdMobBannerProperties {
+    admobDispatchAppEvent?(event: AdMobAppEvent): void;
+}
+export class PublisherBanner extends Component<PublisherBannerProperties> { }
+
+export type AdMobInterstitialEvent =
+    | 'interstitialDidLoad'
+    | 'interstitialDidFailToLoad'
+    | 'interstitialDidOpen'
+    | 'interstitialDidClose'
+    | 'interstitialWillLeaveApplication';
+export namespace AdMobInterstitial {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function isReady(callback: (isReady: boolean) => void): void;
+    function addEventListener(event: 'interstitialDidLoad', handler: () => void): void;
+    function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: 'interstitialDidOpen', handler: () => void): void;
+    function addEventListener(event: 'interstitialDidClose', handler: () => void): void;
+    function addEventListener(event: 'interstitialWillLeaveApplication', handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidLoad', handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: 'interstitialDidOpen', handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidClose', handler: () => void): void;
+    function removeEventListener(event: 'interstitialWillLeaveApplication', handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+export type AdMobRewardedEvent =
+    | 'rewardedVideoDidRewardUser'
+    | 'rewardedVideoDidLoad'
+    | 'rewardedVideoDidFailToLoad'
+    | 'rewardedVideoDidOpen'
+    | 'rewardedVideoDidClose'
+    | 'rewardedVideoWillLeaveApplication';
+export namespace AdMobRewarded {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(event: 'rewardedVideoDidLoad', handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: 'rewardedVideoDidOpen', handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoDidClose', handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoWillLeaveApplication', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidLoad', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidOpen', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidClose', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoWillLeaveApplication', handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+/**
  * Provides access to Amplitude mobile analytics which basically lets you log various events to the Cloud. This module wraps Amplitude’s iOS and Android SDKs.
  *
  * Note: Session tracking may not work correctly when running Experiences in the main Expo app. It will work correctly if you create a standalone app.
@@ -269,14 +355,14 @@ export namespace Audio {
         canRecord: false,
         isDoneRecording: false
     } | {
-        canRecord: true,
-        isRecording: boolean,
-        durationMillis: number
-    } | {
-        canRecord: false,
-        isDoneRecording: true,
-        durationMillis: number
-    };
+            canRecord: true,
+            isRecording: boolean,
+            durationMillis: number
+        } | {
+            canRecord: false,
+            isDoneRecording: true,
+            durationMillis: number
+        };
 
     const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions;
     const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions;
@@ -420,17 +506,17 @@ export namespace AuthSession {
     type StartAsyncResponse = {
         type: 'cancel';
     } | {
-        type: 'dismissed';
-    } | {
-        type: 'success';
-        params: HashMap;
-        event: HashMap;
-    } | {
-        type: 'error';
-        params: HashMap;
-        errorCode: string;
-        event: HashMap;
-    };
+            type: 'dismissed';
+        } | {
+            type: 'success';
+            params: HashMap;
+            event: HashMap;
+        } | {
+            type: 'error';
+            params: HashMap;
+            errorCode: string;
+            event: HashMap;
+        };
 
     function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<StartAsyncResponse>;
     function dismiss(): void;
@@ -448,25 +534,25 @@ export type PlaybackStatus = {
     /** Populated exactly once when an error forces the object to unload. */
     error?: string;
 } | {
-    isLoaded: true;
-    androidImplementation?: string;
-    uri: string;
-    progressUpdateIntervalMillis: number;
-    durationMillis?: number;
-    positionMillis: number;
-    playableDurationMillis?: number;
-    shouldPlay: boolean;
-    isPlaying: boolean;
-    isBuffering: boolean;
-    rate: number;
-    shouldCorrectPitch: boolean;
-    volume: number;
-    isMuted: boolean;
-    isLooping: boolean;
+        isLoaded: true;
+        androidImplementation?: string;
+        uri: string;
+        progressUpdateIntervalMillis: number;
+        durationMillis?: number;
+        positionMillis: number;
+        playableDurationMillis?: number;
+        shouldPlay: boolean;
+        isPlaying: boolean;
+        isBuffering: boolean;
+        rate: number;
+        shouldCorrectPitch: boolean;
+        volume: number;
+        isMuted: boolean;
+        isLooping: boolean;
 
-    /** True exactly once when the track plays to finish. */
-    didJustFinish: boolean;
-};
+        /** True exactly once when the track plays to finish. */
+        didJustFinish: boolean;
+    };
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
@@ -1022,8 +1108,8 @@ export namespace DocumentPicker {
         name: string;
         size: number;
     } | {
-        type: 'cancel';
-    };
+            type: 'cancel';
+        };
 
     function getDocumentAsync(options?: Options): Promise<Response>;
 }
@@ -1192,9 +1278,9 @@ export namespace FileSystem {
         modificationTime: number;
         md5?: Md5;
     } | {
-        exists: false;
-        isDirectory: false;
-    };
+            exists: false;
+            isDirectory: false;
+        };
 
     interface DownloadResult {
         uri: string;
@@ -1263,11 +1349,11 @@ export namespace Fingerprint {
     type FingerprintAuthenticationResult = {
         success: true
     } | {
-        success: false,
+            success: false,
 
-        /** Error code in the case where authentication fails. */
-        error: string
-    };
+            /** Error code in the case where authentication fails. */
+            error: string
+        };
 
     /** Determine whether the Fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
@@ -1327,20 +1413,20 @@ export namespace Google {
     type LogInResult = {
         type: 'cancel';
     } | {
-        type: 'success';
-        accessToken: string;
-        idToken?: string;
-        refreshToken?: string;
-        serverAuthCode?: string;
-        user: {
-            id: string;
-            name: string;
-            givenName: string;
-            familyName: string;
-            photoUrl?: string;
-            email?: string;
-        }
-    };
+            type: 'success';
+            accessToken: string;
+            idToken?: string;
+            refreshToken?: string;
+            serverAuthCode?: string;
+            user: {
+                id: string;
+                name: string;
+                givenName: string;
+                familyName: string;
+                photoUrl?: string;
+                email?: string;
+            }
+        };
 
     function logInAsync(config: LogInConfig): Promise<LogInResult>;
 }

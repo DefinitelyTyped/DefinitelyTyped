@@ -43,6 +43,92 @@ export namespace Accelerometer {
 }
 
 /**
+ * Admob
+ */
+export type AdMobBannerSize =
+    | 'banner'
+    | 'largeBanner'
+    | 'mediumRectangle'
+    | 'fullBanner'
+    | 'leaderboard'
+    | 'smartBannerPortrait'
+    | 'smartBannerLandscape';
+export interface AdMobBannerProperties extends ViewProperties {
+    bannerSize?: AdMobBannerSize;
+    adUnitID?: string;
+    testDeviceID?: string;
+    didFailToReceiveAdWithError?(errorDescription: string): void;
+    adViewDidReceiveAd?(): void;
+    adViewWillPresentScreen?(): void;
+    adViewWillDismissScreen?(): void;
+    adViewDidDismissScreen?(): void;
+    adViewWillLeaveApplication?(): void;
+}
+
+export class AdMobBanner extends Component<AdMobBannerProperties> { }
+
+export interface AdMobAppEvent {
+    name: string;
+    info: string;
+}
+export interface PublisherBannerProperties extends AdMobBannerProperties {
+    admobDispatchAppEvent?(event: AdMobAppEvent): void;
+}
+export class PublisherBanner extends Component<PublisherBannerProperties> { }
+
+export type AdMobInterstitialEvent =
+    | 'interstitialDidLoad'
+    | 'interstitialDidFailToLoad'
+    | 'interstitialDidOpen'
+    | 'interstitialDidClose'
+    | 'interstitialWillLeaveApplication';
+export namespace AdMobInterstitial {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function isReady(callback: (isReady: boolean) => void): void;
+    function addEventListener(event: 'interstitialDidLoad', handler: () => void): void;
+    function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: 'interstitialDidOpen', handler: () => void): void;
+    function addEventListener(event: 'interstitialDidClose', handler: () => void): void;
+    function addEventListener(event: 'interstitialWillLeaveApplication', handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidLoad', handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: 'interstitialDidOpen', handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidClose', handler: () => void): void;
+    function removeEventListener(event: 'interstitialWillLeaveApplication', handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+export type AdMobRewardedEvent =
+    | 'rewardedVideoDidRewardUser'
+    | 'rewardedVideoDidLoad'
+    | 'rewardedVideoDidFailToLoad'
+    | 'rewardedVideoDidOpen'
+    | 'rewardedVideoDidClose'
+    | 'rewardedVideoWillLeaveApplication';
+export namespace AdMobRewarded {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(event: 'rewardedVideoDidLoad', handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: 'rewardedVideoDidOpen', handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoDidClose', handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoWillLeaveApplication', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidLoad', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidOpen', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidClose', handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoWillLeaveApplication', handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+/**
  * Amplitude
  */
 export namespace Amplitude {
@@ -92,17 +178,17 @@ export namespace AuthSession {
     function startAsync(options: { authUrl: string; returnUrl: string; }): Promise<{
         type: 'cancel';
     } | {
-        type: 'dismissed';
-    } | {
-        type: 'success';
-        params: HashMap;
-        event: HashMap;
-    } | {
-        type: 'error';
-        params: HashMap;
-        errorCode: string;
-        event: HashMap;
-    }>;
+            type: 'dismissed';
+        } | {
+            type: 'success';
+            params: HashMap;
+            event: HashMap;
+        } | {
+            type: 'error';
+            params: HashMap;
+            errorCode: string;
+            event: HashMap;
+        }>;
     function dismiss(): void;
     function getRedirectUrl(): string;
 }
@@ -115,23 +201,23 @@ export type PlaybackStatus = {
     androidImplementation?: string;
     error?: string;
 } | {
-    isLoaded: true;
-    androidImplementation?: string;
-    uri: string;
-    progressUpdateIntervalMillis: number;
-    durationMillis?: number;
-    positionMillis: number;
-    playableDurationMillis?: number;
-    shouldPlay: boolean;
-    isPlaying: boolean;
-    isBuffering: boolean;
-    rate: number;
-    shouldCorrectPitch: boolean;
-    volume: number;
-    isMuted: boolean;
-    isLooping: boolean;
-    didJustFinish: boolean;
-};
+        isLoaded: true;
+        androidImplementation?: string;
+        uri: string;
+        progressUpdateIntervalMillis: number;
+        durationMillis?: number;
+        positionMillis: number;
+        playableDurationMillis?: number;
+        shouldPlay: boolean;
+        isPlaying: boolean;
+        isBuffering: boolean;
+        rate: number;
+        shouldCorrectPitch: boolean;
+        volume: number;
+        isMuted: boolean;
+        isLooping: boolean;
+        didJustFinish: boolean;
+    };
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
@@ -181,14 +267,14 @@ export namespace Audio {
         canRecord: false,
         isDoneRecording: false
     } | {
-        canRecord: true,
-        isRecording: boolean,
-        durationMillis: number
-    } | {
-        canRecord: false,
-        isDoneRecording: true,
-        durationMillis: number
-    };
+            canRecord: true,
+            isRecording: boolean,
+            durationMillis: number
+        } | {
+            canRecord: false,
+            isDoneRecording: true,
+            durationMillis: number
+        };
 
     interface AudioMode {
         playsInSilentModeIOS: boolean;
@@ -702,8 +788,8 @@ export namespace DocumentPicker {
         name: string;
         size: number;
     } | {
-        type: 'cancel';
-    };
+            type: 'cancel';
+        };
 
     function getDocumentAsync(options?: Options): Promise<Response>;
 }
@@ -803,9 +889,9 @@ export namespace FileSystem {
         modificationTime: number;
         md5?: Md5;
     } | {
-        exists: false;
-        isDirectory: false;
-    };
+            exists: false;
+            isDirectory: false;
+        };
 
     interface DownloadResult {
         uri: string;
@@ -919,20 +1005,20 @@ export namespace Google {
     type LogInResult = {
         type: 'cancel';
     } | {
-        type: 'success';
-        accessToken: string;
-        idToken?: string;
-        refreshToken?: string;
-        serverAuthCode?: string;
-        user: {
-            id: string;
-            name: string;
-            givenName: string;
-            familyName: string;
-            photoUrl?: string;
-            email?: string;
-        }
-    };
+            type: 'success';
+            accessToken: string;
+            idToken?: string;
+            refreshToken?: string;
+            serverAuthCode?: string;
+            user: {
+                id: string;
+                name: string;
+                givenName: string;
+                familyName: string;
+                photoUrl?: string;
+                email?: string;
+            }
+        };
 
     function logInAsync(config: LogInConfig): Promise<LogInResult>;
 }
