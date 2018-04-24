@@ -68,7 +68,7 @@ GTask.create({ revision: 1, name: 'test' }).then( (gtask) => gtask.upRevision() 
 //  https://github.com/sequelize/sequelize/tree/v3.4.1/test/integration/associations
 //
 
-User.hasOne( Task );
+User.hasOne( Task ).associationType;
 User.hasOne( Task, { foreignKey : 'primaryGroupId', as : 'primaryUsers' } );
 User.hasOne( Task, { foreignKey : 'userCoolIdTag' } );
 User.hasOne( Task, { foreignKey : 'userId', keyType : Sequelize.STRING, constraints : false } );
@@ -80,7 +80,7 @@ User.hasOne( Task, { onDelete : 'cascade', hooks : true } );
 User.hasOne( Task, { foreignKey : { allowNull : false } } );
 User.hasOne( Task, { foreignKeyConstraint : true } );
 
-User.belongsTo( Task );
+User.belongsTo( Task ).associationType;
 User.belongsTo( Task, { foreignKey : 'primaryGroupId', as : 'primaryUsers' } );
 Task.belongsTo( User, { foreignKey : 'user_id' } );
 Task.belongsTo( User, { foreignKey : 'user_name', targetKey : 'username' } );
@@ -96,7 +96,7 @@ User.belongsTo( User, {
     foreignKeyConstraint : true
 } );
 
-User.hasMany( User );
+User.hasMany( User ).associationType;
 User.hasMany( User, { foreignKey : 'primaryGroupId', as : 'primaryUsers' } );
 User.hasMany( Task, { foreignKey : 'userId' } );
 User.hasMany( Task, { foreignKey : 'userId', as : 'activeTasks', scope : { active : true } } );
@@ -115,7 +115,7 @@ User.hasMany( User, {
     foreignKeyConstraint : true
 } );
 
-User.belongsToMany( Task, { through : 'UserTasks' } );
+User.belongsToMany( Task, { through : 'UserTasks' } ).associationType;
 User.belongsToMany( User, { through : Task } );
 User.belongsToMany( Group, { as : 'groups', through : Task, foreignKey : 'id_user' } );
 User.belongsToMany( Task, { as : 'activeTasks', through : Task, scope : { active : true } } );

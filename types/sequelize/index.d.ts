@@ -13,6 +13,7 @@
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
 //                 Nick Schultz <https://github.com/nrschultz>
+//                 Lukas Elmer <https://github.com/lukaselmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1519,7 +1520,7 @@ declare namespace sequelize {
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
          */
-        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): void;
+        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): any;
 
         /**
          * Creates an association between this (the source) and the provided target. The foreign key is added on the
@@ -1530,7 +1531,7 @@ declare namespace sequelize {
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
          */
-        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): void;
+        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): any;
 
         /**
          * Create an association that is either 1:m or n:m.
@@ -1584,7 +1585,7 @@ declare namespace sequelize {
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
          */
-        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): void;
+        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): any;
 
         /**
          * Create an N:M association with a join table
@@ -1634,7 +1635,7 @@ declare namespace sequelize {
          * @param options Options for the association
          *
          */
-        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): void;
+        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): any;
 
     }
 
