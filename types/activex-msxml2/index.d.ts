@@ -424,7 +424,7 @@ declare namespace MSXML2 {
         createEntityReference(name: string): IXMLDOMEntityReference;
 
         /** create a node of the specified node type and name */
-        createNode(type: any, name: string, namespaceURI: string): IXMLDOMNode;
+        createNode(type: DOMNodeType.NODE_ATTRIBUTE | DOMNodeType.NODE_CDATA_SECTION | DOMNodeType.NODE_COMMENT | DOMNodeType.NODE_DOCUMENT_FRAGMENT | DOMNodeType.NODE_TEXT | DOMNodeType.NODE_ELEMENT | DOMNodeType.NODE_ENTITY_REFERENCE | DOMNodeType.NODE_PROCESSING_INSTRUCTION, name: string, namespaceURI: string): IXMLDOMNode;
 
         /** create a processing instruction node */
         createProcessingInstruction(target: string, data: string): IXMLDOMProcessingInstruction;
@@ -433,7 +433,7 @@ declare namespace MSXML2 {
         createTextNode(data: string): IXMLDOMText;
 
         /** the data type of the node */
-        dataType: any;
+        dataType: string | null;
 
         /** pointer to the definition of the node in the DTD or schema */
         readonly definition: IXMLDOMNode;
@@ -497,7 +497,7 @@ declare namespace MSXML2 {
         readonly nodeTypeString: string;
 
         /** value stored in the node */
-        nodeValue: any;
+        nodeValue: string | null;
 
         /** register an ondataavailable event handler */
         readonly ondataavailable: any;
