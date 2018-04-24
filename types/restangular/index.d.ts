@@ -69,8 +69,8 @@ declare namespace restangular {
     setSelfLinkAbsoluteUrl(value: boolean): IProvider;
     setParentless(value: any): IProvider;
     setPlainByDefault(isPlain: boolean): IProvider;
-    extendModel(route: string, extender: (model: IElement) => any): void;
-    extendCollection(route: string, extender: (collection: ICollection) => any): void;
+    extendModel(route: string, extender: (model: IElement) => any): IProvider;
+    extendCollection(route: string, extender: (collection: ICollection) => any): IProvider;
   }
 
   interface ICustom {
