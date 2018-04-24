@@ -11,7 +11,7 @@ declare module 'leaflet' {
         class Control extends Itinerary {
             constructor(options?: RoutingControlOptions);
             getWaypoints(): Waypoint[];
-            setWaypoints(waypoints: Waypoint[] | L.LatLng[]): this;
+            setWaypoints(waypoints: Waypoint[] | LatLng[]): this;
             spliceWaypoints(index: number, waypointsToRemove: number, ...wayPoints: Waypoint[]): Waypoint[];
             getPlan(): Plan;
             getRouter(): IRouter;
@@ -20,10 +20,10 @@ declare module 'leaflet' {
         }
 
         interface RoutingControlOptions extends ItineraryOptions {
-            waypoints?: Waypoint[] | L.LatLng[];
+            waypoints?: Waypoint[] | LatLng[];
             router?: IRouter;
             plan?: Plan;
-            geocoder?: any; //IGeocorder is from other library;
+            geocoder?: any; // IGeocorder is from other library;
             fitSelectedRoutes?: 'smart' | boolean;
             lineOptions?: LineOptions;
             routeLine?: (route: IRoute, options: LineOptions) => Line;
@@ -44,7 +44,7 @@ declare module 'leaflet' {
         }
 
         interface ItineraryOptions {
-            pointMarkerStyle?: L.PathOptions;
+            pointMarkerStyle?: PathOptions;
             summaryTemplate?: string;
             distanceTemplate?: string;
             timeTemplate?: string;
@@ -52,49 +52,49 @@ declare module 'leaflet' {
             alternativeClassName?: string;
             minimizedClassName?: string;
             itineraryClassName?: string;
-            show?: boolean,
+            show?: boolean;
             formatter?: Formatter;
             itineraryFormatter?: ItineraryBuilder;
-            collapsible?: boolean,
+            collapsible?: boolean;
             collapseBtn?: (itinerary: Itinerary) => void;
             collapseBtnClass?: string;
-            totalDistanceRoundingSensitivity?: number,
+            totalDistanceRoundingSensitivity?: number;
         }
 
-        class Plan extends L.Layer {
-            constructor(waypoints: Waypoint[] | L.LatLng[], options?: PlanOptions);
+        class Plan extends Layer {
+            constructor(waypoints: Waypoint[] | LatLng[], options?: PlanOptions);
             isReady(): boolean;
             getWaypoints(): Waypoint[];
-            setWaypoints(waypoints: Waypoint[] | L.LatLng[]): any;
+            setWaypoints(waypoints: Waypoint[] | LatLng[]): any;
             spliceWaypoints(index: number, waypointsToRemove: number, ...wayPoints: Waypoint[]): Waypoint[];
             createGeocoders(): any;
         }
 
         interface PlanOptions {
-            geocoder?: any; //IGeocoder
+            geocoder?: any; // IGeocoder
             addWaypoints?: boolean;
             draggableWaypoints?: boolean;
-            dragStyles?: L.PathOptions[];
+            dragStyles?: PathOptions[];
             maxGeocoderTolerance?: number;
             geocoderPlaceholder?: (waypointIndex: number, numberWaypoints: number) => string;
             geocodersClassName?: string;
             geocoderClass?: (waypointIndex: number, numberWaypoints: number) => void;
-            waypointNameFallback?: (latLng: L.LatLng) => string;
+            waypointNameFallback?: (latLng: LatLng) => string;
             createGeocoder?: (waypointIndex: number, numberWaypoints: number, plan: Plan) => {};
             addButtonClassName?: string;
-            createMarker?: (waypointIndex: number, waypoint: Waypoint, numberWaypoints: number) => L.Marker;
+            createMarker?: (waypointIndex: number, waypoint: Waypoint, numberWaypoints: number) => Marker;
             routeWhileDragging?: boolean;
             reverseWaypoints?: boolean;
         }
 
-        class Line extends L.LayerGroup {
+        class Line extends LayerGroup {
             constructor(route: IRoute, options?: LineOptions);
-            getBounds(): L.LatLngBounds;
+            getBounds(): LatLngBounds;
         }
 
         interface LineOptions {
-            styles?: L.PathOptions[];
-            missingRouteStyles?: L.PathOptions[];
+            styles?: PathOptions[];
+            missingRouteStyles?: PathOptions[];
             addWaypoints?: boolean;
         }
 
@@ -140,7 +140,7 @@ declare module 'leaflet' {
         }
 
         class Waypoint {
-            constructor(latLng: L.LatLng, name?: string, options?: WaypointOptions);
+            constructor(latLng: LatLng, name?: string, options?: WaypointOptions);
         }
 
         interface WaypointOptions {
@@ -197,7 +197,7 @@ declare module 'leaflet' {
         interface IRoute {
             name?: string;
             summary?: IRouteSummary;
-            coordinates?: L.LatLng[];
+            coordinates?: LatLng[];
             waypoints?: L.LatLng[];
             instructions?: IInstruction[];
         }

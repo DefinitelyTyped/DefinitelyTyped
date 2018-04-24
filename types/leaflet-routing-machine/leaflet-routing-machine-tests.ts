@@ -13,4 +13,3 @@ L.Routing.control({
         L.latLng(57.6792, 11.949)
     ]
 }).addTo(map);
-
