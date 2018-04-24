@@ -139,8 +139,10 @@ declare module 'leaflet' {
             localize(text: string): string;
         }
 
-        class Waypoint {
-            constructor(latLng: LatLng, name?: string, options?: WaypointOptions);
+        interface Waypoint {
+            latLng: LatLng;
+            name?: string;
+            options?: WaypointOptions;
         }
 
         interface WaypointOptions {
@@ -198,7 +200,7 @@ declare module 'leaflet' {
             name?: string;
             summary?: IRouteSummary;
             coordinates?: LatLng[];
-            waypoints?: L.LatLng[];
+            waypoints?: LatLng[];
             instructions?: IInstruction[];
         }
 
@@ -235,13 +237,13 @@ declare module 'leaflet' {
 
         function line(route: IRoute, options?: LineOptions): Line;
 
-        function plan(waypoints: Waypoint[] | L.LatLng[], options?: PlanOptions): Plan;
+        function plan(waypoints: Waypoint[] | LatLng[], options?: PlanOptions): Plan;
 
         function osrmv1(options?: OSRMOptions): OSRMv1;
 
         function formatter(options?: FormatterOptions): Formatter;
 
-        function waypoint(latLng: L.LatLng, name?: string, options?: WaypointOptions): Waypoint;
+        function waypoint(latLng: LatLng, name?: string, options?: WaypointOptions): Waypoint;
     }
 
     namespace routing {
@@ -251,12 +253,12 @@ declare module 'leaflet' {
 
         function line(route: Routing.IRoute, options?: Routing.LineOptions): Routing.Line;
 
-        function plan(waypoints: Routing.Waypoint[] | L.LatLng[], options?: Routing.PlanOptions): Routing.Plan;
+        function plan(waypoints: Routing.Waypoint[] | LatLng[], options?: Routing.PlanOptions): Routing.Plan;
 
         function osrmv1(options?: Routing.OSRMOptions): Routing.OSRMv1;
 
         function formatter(options?: Routing.FormatterOptions): Routing.Formatter;
 
-        function waypoint(latLng: L.LatLng, name?: string, options?: Routing.WaypointOptions): Routing.Waypoint;
+        function waypoint(latLng: LatLng, name?: string, options?: Routing.WaypointOptions): Routing.Waypoint;
     }
 }
