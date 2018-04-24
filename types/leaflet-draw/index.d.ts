@@ -10,17 +10,16 @@
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
-
 	interface ToolbarAction {
 		title: string;
 		text: string;
 		callback: () => void;
-		context: object
+		context: object;
 	}
 
 	interface ToolbarModeHandler {
 		enabled: boolean;
-		handler: Handler,
+		handler: Handler;
 		title: string;
 	}
 
@@ -370,7 +369,7 @@ declare module 'leaflet' {
 			drawError?: {
 				color?: string;
 				timeout?: number;
-			}
+			};
 		}
 
 		interface EditSimpleShapeOptions {
@@ -649,7 +648,6 @@ declare module 'leaflet' {
 	}
 
 	namespace Edit {
-
 		class Circle extends CircleMarker {
 		}
 
