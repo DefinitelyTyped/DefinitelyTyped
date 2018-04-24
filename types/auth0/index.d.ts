@@ -462,7 +462,7 @@ export interface UnlinkAccountsResponse {
   profileData?: UnlinkAccountsResponseProfile
 }
 
-export interface LinkAccountsData {
+export interface LinkAccountsParams {
   user_id: string;
   connection_id?: string;
   provider?: string;
@@ -664,8 +664,8 @@ export class ManagementClient {
   unlinkUsers(params: UnlinkAccountsParams): Promise<UnlinkAccountsResponse>;
   unlinkUsers(params: UnlinkAccountsParams, cb: (err: Error, data: UnlinkAccountsResponse) => void): void;
 
-  linkUsers(userId: string, data: LinkAccountsData): Promise<any>;
-  linkUsers(userId: string, data: LinkAccountsData, cb: (err: Error, data: any) => void): void;
+  linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
+  linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
 
 
   // Tokens
