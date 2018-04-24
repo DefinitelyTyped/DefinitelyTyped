@@ -90,7 +90,7 @@ declare namespace AFrame {
 		tick(): void;
 	}
 
-	interface Component<T extends { [key: string]: any } = any, S extends System | undefined = System | undefined> {
+	interface Component<T extends { [key: string]: any } = any, S extends System = System> {
 		attrName?: string;
 		data: T;
 		dependencies?: string[];
@@ -99,7 +99,7 @@ declare namespace AFrame {
 		multiple?: boolean;
 		name: string;
 		schema: Schema<T>;
-		system: S;
+		system: S | undefined;
 
 		init(this: this, data?: T): void;
 		pause(this: this): void;
