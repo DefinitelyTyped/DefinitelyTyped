@@ -1,9 +1,12 @@
 // Type definitions for D3JS d3-color module 1.0
 // Project: https://github.com/d3/d3-color/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.1
+// Last module patch version validated against: 1.0.3
 
 // ---------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -32,9 +35,9 @@ export interface Color {
 }
 
 export interface ColorFactory extends Function {
-    (cssColorSpecifier: string): RGBColor | HSLColor;
+    (cssColorSpecifier: string): RGBColor | HSLColor | null;
     (color: ColorSpaceObject | ColorCommonInstance): RGBColor | HSLColor;
-    //    prototype: Color;
+    readonly prototype: Color;
 }
 
 export interface RGBColor extends Color {
@@ -44,16 +47,14 @@ export interface RGBColor extends Color {
     opacity: number;
     brighter(k?: number): this;
     darker(k?: number): this;
-    displayable(): boolean;
-    rgb(): RGBColor;
-    toString(): string;
+    rgb(): this;
 }
 
 export interface RGBColorFactory extends Function {
     (r: number, g: number, b: number, opacity?: number): RGBColor;
     (cssColorSpecifier: string): RGBColor;
     (color: ColorSpaceObject | ColorCommonInstance): RGBColor;
-    //    prototype: RGBColor;
+    readonly prototype: RGBColor;
 }
 
 export interface HSLColor extends Color {
@@ -63,7 +64,6 @@ export interface HSLColor extends Color {
     opacity: number;
     brighter(k?: number): this;
     darker(k?: number): this;
-    displayable(): boolean;
     rgb(): RGBColor;
 }
 
@@ -71,7 +71,7 @@ export interface HSLColorFactory extends Function {
     (h: number, s: number, l: number, opacity?: number): HSLColor;
     (cssColorSpecifier: string): HSLColor;
     (color: ColorSpaceObject | ColorCommonInstance): HSLColor;
-    //    prototype: HSLColor;
+    readonly prototype: HSLColor;
 }
 
 export interface LabColor extends Color {
@@ -88,7 +88,7 @@ export interface LabColorFactory extends Function {
     (l: number, a: number, b: number, opacity?: number): LabColor;
     (cssColorSpecifier: string): LabColor;
     (color: ColorSpaceObject | ColorCommonInstance): LabColor;
-    //    prototype: LabColor;
+    readonly prototype: LabColor;
 }
 
 export interface HCLColor extends Color {
@@ -105,7 +105,7 @@ export interface HCLColorFactory extends Function {
     (h: number, l: number, c: number, opacity?: number): HCLColor;
     (cssColorSpecifier: string): HCLColor;
     (color: ColorSpaceObject | ColorCommonInstance): HCLColor;
-    //    prototype: HCLColor;
+    readonly prototype: HCLColor;
 }
 
 export interface CubehelixColor extends Color {
@@ -122,7 +122,7 @@ export interface CubehelixColorFactory extends Function {
     (h: number, s: number, l: number, opacity?: number): CubehelixColor;
     (cssColorSpecifier: string): CubehelixColor;
     (color: ColorSpaceObject | ColorCommonInstance): CubehelixColor;
-    //    prototype: CubehelixColor;
+    readonly prototype: CubehelixColor;
 }
 
 // --------------------------------------------------------------------------
