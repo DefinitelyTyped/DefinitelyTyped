@@ -98,15 +98,15 @@ declare namespace AFrame {
 		id: string;
 		multiple?: boolean;
 		name: string;
-		schema: Schema<this['data']>;
+		schema: Schema<T>;
 		system: S;
 
-		init(this: this, data?: this['data']): void;
+		init(this: this, data?: T): void;
 		pause(this: this): void;
 		play(this: this): void;
 		remove(this: this): void;
 		tick?(this: this, time: number, timeDelta: number): void;
-		update(this: this, oldData: this['data']): void;
+		update(this: this, oldData: T): void;
 		updateSchema?(this: this): void;
 
 		extendSchema(this: this, update: Schema): void;
@@ -215,7 +215,7 @@ declare namespace AFrame {
 
 		init(this: this, data: { [P in keyof this['schema']]: any }): void;
 		// Would like the above to be:
-		//  init?(this: T, data?: { [P in keyof T['schema']]: T['schema'][P]['default'] } ): void;
+		//  init?(this: this, data?: { [P in keyof T['schema']]: T['schema'][P]['default'] } ): void;
 		//  I think this is prevented by the following issue: https://github.com/Microsoft/TypeScript/issues/21760.
 	}
 

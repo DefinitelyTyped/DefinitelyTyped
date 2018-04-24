@@ -60,7 +60,9 @@ const Component = AFRAME.registerComponent<TestComponent>('test-component', {
 		string: { type: 'string' },
 		num: 0
 	},
-	init() {},
+	init() {
+		this.data.num = 0;
+	},
 	update() {},
 	tick() {},
 	remove() {},
@@ -90,7 +92,7 @@ const testSystem: AFrame.SystemDefinition<TestSystem> = {
 		counter: 0
 	},
 
-	init(this: TestSystem) {
+	init() {
 		this.data.counter = 1;
 	}
 };
