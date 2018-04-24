@@ -347,7 +347,7 @@ type TaskProvider = () => Task;
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-interface NativeSyntheticEvent<T> {
+export interface NativeSyntheticEvent<T> {
     bubbles: boolean;
     cancelable: boolean;
     currentTarget: NodeHandle;
