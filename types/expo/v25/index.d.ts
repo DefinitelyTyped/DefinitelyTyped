@@ -93,55 +93,42 @@ export interface PublisherBannerProperties extends AdMobBannerProperties {
 }
 export class PublisherBanner extends Component<PublisherBannerProperties> { }
 
-export type AdMobInterstitialEvent =
+export type AdMobInterstitialEmptyEvent =
     | 'interstitialDidLoad'
-    | 'interstitialDidFailToLoad'
     | 'interstitialDidOpen'
     | 'interstitialDidClose'
     | 'interstitialWillLeaveApplication';
+export type AdMobInterstitialEvent = AdMobInterstitialEmptyEvent | 'interstitialVideoDidFailToLoad';
 export namespace AdMobInterstitial {
     function setAdUnitID(id: string): void;
     function setTestDeviceID(id: string): void;
     function requestAd(callback?: () => void): void;
     function showAd(callback?: (error: string) => void): void;
     function isReady(callback: (isReady: boolean) => void): void;
-    function addEventListener(event: 'interstitialDidLoad', handler: () => void): void;
     function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
-    function addEventListener(event: 'interstitialDidOpen', handler: () => void): void;
-    function addEventListener(event: 'interstitialDidClose', handler: () => void): void;
-    function addEventListener(event: 'interstitialWillLeaveApplication', handler: () => void): void;
-    function removeEventListener(event: 'interstitialDidLoad', handler: () => void): void;
+    function addEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
     function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
-    function removeEventListener(event: 'interstitialDidOpen', handler: () => void): void;
-    function removeEventListener(event: 'interstitialDidClose', handler: () => void): void;
-    function removeEventListener(event: 'interstitialWillLeaveApplication', handler: () => void): void;
+    function removeEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
     function removeAllListeners(): void;
 }
 
-export type AdMobRewardedEvent =
-    | 'rewardedVideoDidRewardUser'
+export type AdMobRewardedEmptyEvent =
     | 'rewardedVideoDidLoad'
-    | 'rewardedVideoDidFailToLoad'
     | 'rewardedVideoDidOpen'
     | 'rewardedVideoDidClose'
     | 'rewardedVideoWillLeaveApplication';
+export type AdMobRewardedEvent = AdMobRewardedEmptyEvent | 'rewardedVideoDidRewardUser' | 'rewardedVideoDidFailToLoad';
 export namespace AdMobRewarded {
     function setAdUnitID(id: string): void;
     function setTestDeviceID(id: string): void;
     function requestAd(callback?: () => void): void;
     function showAd(callback?: (error: string) => void): void;
     function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
-    function addEventListener(event: 'rewardedVideoDidLoad', handler: () => void): void;
     function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
-    function addEventListener(event: 'rewardedVideoDidOpen', handler: () => void): void;
-    function addEventListener(event: 'rewardedVideoDidClose', handler: () => void): void;
-    function addEventListener(event: 'rewardedVideoWillLeaveApplication', handler: () => void): void;
+    function addEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
     function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
-    function removeEventListener(event: 'rewardedVideoDidLoad', handler: () => void): void;
     function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
-    function removeEventListener(event: 'rewardedVideoDidOpen', handler: () => void): void;
-    function removeEventListener(event: 'rewardedVideoDidClose', handler: () => void): void;
-    function removeEventListener(event: 'rewardedVideoWillLeaveApplication', handler: () => void): void;
+    function removeEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
     function removeAllListeners(): void;
 }
 

@@ -93,12 +93,12 @@ export interface PublisherBannerProperties extends AdMobBannerProperties {
 }
 export class PublisherBanner extends Component<PublisherBannerProperties> { }
 
-export type AdMobInterstitialEvent =
+export type AdMobInterstitialEmptyEvent =
     | 'interstitialDidLoad'
-    | 'interstitialDidFailToLoad'
     | 'interstitialDidOpen'
     | 'interstitialDidClose'
     | 'interstitialWillLeaveApplication';
+export type AdMobInterstitialEvent = AdMobInterstitialEmptyEvent | 'interstitialDidFailToLoad';
 export namespace AdMobInterstitial {
     function setAdUnitID(id: string): void;
     function setTestDeviceID(id: string): void;
@@ -106,19 +106,20 @@ export namespace AdMobInterstitial {
     function showAdAsync(): Promise<void>;
     function dismissAdAsync(): Promise<void>;
     function getIsReadyAsync(): Promise<boolean>;
-    function addEventListener(event: AdMobInterstitialEvent, handler: () => void): EventSubscription;
-    function removeEventListener(event: AdMobInterstitialEvent, handler: () => void): void;
+    function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
     function removeAllListeners(): void;
 }
 
-export type AdMobRewardedEvent =
-    | 'rewardedVideoDidRewardUser'
+export type AdMobRewardedEmptyEvent =
     | 'rewardedVideoDidLoad'
-    | 'rewardedVideoDidFailToLoad'
     | 'rewardedVideoDidOpen'
     | 'rewardedVideoDidStart'
     | 'rewardedVideoDidClose'
     | 'rewardedVideoWillLeaveApplication';
+export type AdMobRewardedEvent = AdMobRewardedEmptyEvent | 'rewardedVideoDidRewardUser' | 'rewardedVideoDidFailToLoad';
 export namespace AdMobRewarded {
     function setAdUnitID(id: string): void;
     function setTestDeviceID(id: string): void;
@@ -126,8 +127,12 @@ export namespace AdMobRewarded {
     function showAdAsync(): Promise<void>;
     function dismissAdAsync(): Promise<void>;
     function getIsReadyAsync(): Promise<boolean>;
-    function addEventListener(event: AdMobRewardedEvent, handler: () => void): EventSubscription;
-    function removeEventListener(event: AdMobRewardedEvent, handler: () => void): void;
+    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
     function removeAllListeners(): void;
 }
 
