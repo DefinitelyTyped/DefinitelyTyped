@@ -10,6 +10,7 @@
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
+
 	interface ToolbarAction {
 		title: string;
 		text: string;
@@ -23,8 +24,28 @@ declare module 'leaflet' {
 		title: string;
 	}
 
+	interface ToolbarOptions {
+		polyline?: PolylineOptions;
+		polygon?: PolygonOptions;
+		rectangle?: RectangleOptions;
+		circle?: CircleOptions;
+		marker?: MarkerOptions;
+		circlemarker?: CircleOptions;
+	}
+
+	interface PrecisionOptions {
+		km?: number;
+		ha?: number;
+		m?: number;
+		mi?: number;
+		ac?: number;
+		yd?: number;
+		ft?: number;
+		nm?: number;
+	}
+
 	class Toolbar extends Class {
-		constructor(options?: DrawOptions.ToolbarOptions);
+		constructor(options?: ToolbarOptions);
 
 		addToolbar(map: Map): HTMLElement | void;
 
@@ -149,6 +170,15 @@ declare module 'leaflet' {
 	}
 
 	namespace DrawOptions {
+		interface SimpleShapeOptions {
+			/**
+			 * Determines if the draw tool remains enabled after drawing a shape.
+			 *
+			 * Default value: false
+			 */
+			repeatMode?: boolean;
+		}
+
 		interface PolylineOptions {
 			/**
 			 * Determines if line segments can cross.
@@ -158,11 +188,22 @@ declare module 'leaflet' {
 			allowIntersection?: boolean;
 
 			/**
+			 * Determines if the draw tool remains enabled after drawing a shape.
+			 *
+			 * Default value: false
+			 */
+			repeatMode?: boolean;
+
+			/**
 			 * Configuration options for the error that displays if an intersection is detected.
 			 *
 			 * Default value: See code
 			 */
-			drawError?: any;
+			drawError?: DrawOptions.DrawErrorOptions;
+
+			icon?: Icon | DivIcon;
+
+			touchIcon?: Icon | DivIcon;
 
 			/**
 			 * Distance in pixels between each guide dash.
@@ -170,6 +211,13 @@ declare module 'leaflet' {
 			 * Default value: 20
 			 */
 			guidelineDistance?: number;
+
+			/**
+			 * The maximum length of the guide line
+			 *
+			 * Default value: 4000
+			 */
+			maxGuideLineLength?: number;
 
 			/**
 			 * The options used when drawing the polyline/polygon on the map.
@@ -186,6 +234,27 @@ declare module 'leaflet' {
 			metric?: boolean;
 
 			/**
+			 * When not metric, to use feet instead of yards for display.
+			 *
+			 * Default value: true
+			 */
+			feet?: boolean;
+
+			/**
+			 * When not metric, not feet use nautic mile for display
+			 *
+			 * Default value: false
+			 */
+			nautic?: boolean;
+
+			/**
+			 * Whether to display distance in the tooltip
+			 *
+			 * Default value: true
+			 */
+			showLength?: boolean;
+
+			/**
 			 * This should be a high number to ensure that you can draw over all other layers on the map.
 			 *
 			 * Default value: 2000
@@ -193,11 +262,18 @@ declare module 'leaflet' {
 			zIndexOffset?: number;
 
 			/**
-			 * Determines if the draw tool remains enabled after drawing a shape.
+			 * To change distance calculation
 			 *
-			 * Default value: false
+			 * Default value: 1
 			 */
-			repeatMode?: boolean;
+			factor?: number;
+
+			/**
+			 * Once this number of points are placed, finish shape
+			 *
+			 * Default value: 0
+			 */
+			maxPoints?: number;
 		}
 
 		interface PolygonOptions extends PolylineOptions {
@@ -208,9 +284,16 @@ declare module 'leaflet' {
 			 * Default value: false
 			 */
 			showArea?: boolean;
+
+			/**
+			 * Defines the precision for each type of unit (e.g. {km: 2, ft: 0}
+			 *
+			 * Default value: {}
+			 */
+			precision?: PrecisionOptions
 		}
 
-		interface RectangleOptions {
+		interface RectangleOptions extends SimpleShapeOptions {
 			/**
 			 * The options used when drawing the rectangle on the map.
 			 *
@@ -219,14 +302,14 @@ declare module 'leaflet' {
 			shapeOptions?: PathOptions;
 
 			/**
-			 * Determines if the draw tool remains enabled after drawing a shape.
+			 * Whether to use the metric measurement system or imperial
 			 *
-			 * Default value: false
+			 * Default value: true
 			 */
-			repeatMode?: boolean;
+			metric?: boolean
 		}
 
-		interface CircleOptions {
+		interface CircleOptions extends SimpleShapeOptions {
 			/**
 			 * The options used when drawing the circle on the map.
 			 *
@@ -235,11 +318,32 @@ declare module 'leaflet' {
 			shapeOptions?: PathOptions;
 
 			/**
-			 * Determines if the draw tool remains enabled after drawing a shape.
+			 * Whether to show the radius in the tooltip
+			 *
+			 * Default value: true
+			 */
+			showRadius?: boolean;
+
+			/**
+			 * Whether to use the metric measurement system or imperial
+			 *
+			 * Default value: true
+			 */
+			metric?: boolean
+
+			/**
+			 * When not metric, use feet instead of yards for display
+			 *
+			 * Default value: true
+			 */
+			feet?: boolean;
+
+			/**
+			 * When not metric, not feet use nautic mile for display
 			 *
 			 * Default value: false
 			 */
-			repeatMode?: boolean;
+			nautic?: boolean;
 		}
 
 		interface CircleMarkerOptions {
@@ -343,40 +447,9 @@ declare module 'leaflet' {
 		interface DeleteHandlerOptions {
 		}
 
-		interface ToolbarOptions {
-			polyline?: PolylineOptions;
-			polygon?: PolygonOptions;
-			rectangle?: RectangleOptions;
-			circle?: CircleOptions;
-			marker?: MarkerOptions;
-			circlemarker?: CircleOptions;
-		}
-
-		interface PrecisionOptions {
-			km?: number;
-			ha?: number;
-			m?: number;
-			mi?: number;
-			ac?: number;
-			yd?: number;
-			ft?: number;
-			nm?: number;
-		}
-
-		interface EditPolyVerticesEditOptions {
-			icon?: DivIcon;
-			touchIcon?: DivIcon;
-			drawError?: {
-				color?: string;
-				timeout?: number;
-			};
-		}
-
-		interface EditSimpleShapeOptions {
-			moveIcon?: DivIcon;
-			resizeIcon?: DivIcon;
-			touchMoveIcon?: DivIcon;
-			touchResizeIcon?: DivIcon;
+		interface DrawErrorOptions {
+			color?: string;
+			timeout?: number;
 		}
 	}
 
@@ -437,7 +510,7 @@ declare module 'leaflet' {
 
 		class Polyline extends Feature {
 			constructor(
-				map: Map,
+				map: L.Map,
 				options?: DrawOptions.PolylineOptions
 			)
 
@@ -554,6 +627,8 @@ declare module 'leaflet' {
 			 * List of all layers just being edited from the map.
 			 */
 			layers: LayerGroup;
+
+			poly: Polyline | Polygon;
 		}
 
 		interface EditStop extends Event {
@@ -647,6 +722,21 @@ declare module 'leaflet' {
 		}
 	}
 
+	namespace EditOptions {
+		interface EditPolyVerticesEditOptions {
+			icon?: Icon | DivIcon;
+			touchIcon?: Icon | DivIcon;
+			drawError?: DrawErrorOptions;
+		}
+
+		interface EditSimpleShapeOptions {
+			moveIcon?: Icon | DivIcon;
+			resizeIcon?: Icon | DivIcon;
+			touchMoveIcon?: Icon | DivIcon;
+			touchResizeIcon?: Icon | DivIcon;
+		}
+	}
+
 	namespace Edit {
 		class Circle extends CircleMarker {
 		}
@@ -665,7 +755,7 @@ declare module 'leaflet' {
 		}
 
 		class PolyVerticesEdit extends Handler {
-			constructor(poly: Poly, latlngs: LatLngExpression[], options?: DrawOptions.EditPolyVerticesEditOptions);
+			constructor(poly: Poly, latlngs: LatLngExpression[], options?: EditOptions.EditPolyVerticesEditOptions);
 
 			updateMarkers(): void;
 		}
@@ -674,7 +764,7 @@ declare module 'leaflet' {
 		}
 
 		class SimpleShape extends Handler {
-			constructor(shape: SimpleShape, options?: DrawOptions.EditSimpleShapeOptions);
+			constructor(shape: SimpleShape, options?: EditOptions.EditSimpleShapeOptions);
 
 			updateMarkers(): void;
 		}
