@@ -676,13 +676,13 @@ declare module 'leaflet' {
 		/**
 		 * Returns a readable area string in yards or metric
 		 */
-		function readableArea(area: number, isMetric?: boolean, precision?: DrawOptions.PrecisionOptions): string;
+		function readableArea(area: number, isMetric?: boolean, precision?: PrecisionOptions): string;
 
 		/**
 		 * Converts metric distance to distance string.
 		 * The value will be rounded as defined by the precision option object.
 		 */
-		function readableDistance(distance: number, isMetric?: boolean, isFeet?: boolean, isNauticalMile?: boolean, precision?: DrawOptions.PrecisionOptions): string;
+		function readableDistance(distance: number, isMetric?: boolean, isFeet?: boolean, isNauticalMile?: boolean, precision?: PrecisionOptions): string;
 
 		/**
 		 * Returns true if the Leaflet version is 0.7.x, false otherwise.
