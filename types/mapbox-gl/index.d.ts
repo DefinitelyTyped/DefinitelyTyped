@@ -873,6 +873,7 @@ declare namespace mapboxgl {
         speed?: number;
         screenSpeed?: number;
         easing?: Function;
+        maxDuration?: number;
     }
 
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
