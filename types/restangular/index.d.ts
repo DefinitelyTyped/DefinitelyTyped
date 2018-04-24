@@ -128,7 +128,7 @@ declare namespace restangular {
     getRestangularUrl(): string;
     getRequestedUrl(): string;
     route?: string;
-    id?: string;
+    id?: number | string;
     reqParams?: any;
   }
 
