@@ -2780,6 +2780,7 @@ interface ActiveXObject {
 
 interface ActiveXObjectNameMap {
     'Msxml2.DOMDocument': MSXML2.DOMDocument60;
+    'Msxml2.DOMDocument.6.0': MSXML2.DOMDocument60;
     'Msxml2.FreeThreadedDOMDocument': MSXML2.FreeThreadedDOMDocument60;
     'Msxml2.MXHTMLWriter': MSXML2.MXHTMLWriter60;
     'Msxml2.MXNamespaceManager': MSXML2.MXNamespaceManager60;
