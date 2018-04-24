@@ -111,7 +111,7 @@ export interface ConfigOptions {
     keepAlive?: boolean;
     maxSockets?: number;
     suggestCompression?: boolean;
-    connectionClass?: string;
+    connectionClass?: any;
     sniffedNodesProtocol?: string;
     ssl?: object;
     selector?: any;
