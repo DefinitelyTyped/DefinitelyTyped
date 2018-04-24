@@ -1243,11 +1243,11 @@ new Sequelize( 'wat', 'trololo', 'wow', { port : 99999 } );
 new Sequelize( 'localhost', 'wtf', 'lol', { port : 99999 } );
 new Sequelize( 'sequelize', null, null, {
     replication : {
-        read : {
+        read : [{
             host : 'localhost',
             username : 'omg',
             password : 'lol'
-        }
+        }]
     }
 } );
 new Sequelize( {
