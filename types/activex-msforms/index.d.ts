@@ -1341,7 +1341,7 @@ declare namespace MSForms {
             readonly X: number;
             readonly Y: number;
         }
-        
+
         interface Error_Parameter {
             readonly CancelDisplay: ReturnBoolean;
             readonly Description: ReturnString;
