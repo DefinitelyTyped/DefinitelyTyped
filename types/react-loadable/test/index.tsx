@@ -6,6 +6,7 @@ class LoadingComponent extends React.Component<Loadable.LoadingComponentProps> {
     return (
       <div>
         {this.props.error}
+        {this.props.error && this.props.error.message}
         {this.props.isLoading}
         {this.props.pastDelay}
         {this.props.timedOut}
