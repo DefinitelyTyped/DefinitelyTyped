@@ -5,6 +5,7 @@
 //                 Ian Ker-Seymer <https://github.com/ianks>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Ian Mobley <https://github.com/iMobs>
+//                 Wu Haotian <https://github.com/whtsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -15,7 +16,7 @@ declare namespace LoadableExport {
         isLoading: boolean;
         pastDelay: boolean;
         timedOut: boolean;
-        error: any;
+        error: Error | false;
     }
 
     type Options<Props, Exports extends object> = OptionsWithoutRender<Props> | OptionsWithRender<Props, Exports>;
