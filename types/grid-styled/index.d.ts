@@ -1,14 +1,12 @@
-// Type definitions for grid-styled 3.2
+// Type definitions for grid-styled 4.1
 // Project: https://github.com/jxnblk/grid-styled
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 //                 Victor Orlov <https://github.com/vittorio>
+//                 Louis Hache <https://github.com/lhache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-export type Diff<T extends string, U extends string> = ({ [P in T]: P } &
-    { [P in U]: never } & { [x: string]: never })[T];
-
-export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 import { ComponentClass } from "react";
 import { StyledComponentClass } from "styled-components";
@@ -42,6 +40,7 @@ export interface BoxProps
     flex?: ResponsiveProp;
     order?: ResponsiveProp;
     is?: string | ComponentClass<any>;
+    alignSelf?: ResponsiveProp;
 }
 
 export interface FlexProps extends BoxProps {

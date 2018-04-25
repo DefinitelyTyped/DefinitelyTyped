@@ -33,3 +33,9 @@ function typedHelp(/*params, hash*/) {
 }
 
 export default helper(typedHelp);
+
+function arrayNumHelp(/*params, hash*/) {
+  return [1, 2, 3];
+}
+
+helper(arrayNumHelp);

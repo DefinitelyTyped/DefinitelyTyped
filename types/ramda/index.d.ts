@@ -17,12 +17,16 @@
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Jack Leigh <https://github.com/leighman>
 //                 Keagan McClelland <https://github.com/CaptJakk>
+//                 Tomas Szabo <https://github.com/deftomat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
 declare let R: R.Static;
 
 declare namespace R {
+    type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
+    type Omit<T, K extends string> = Pick<T, Diff<keyof T, K>>;
+
     type Ord = number | string | boolean;
 
     type Path = ReadonlyArray<(number | string)>;
@@ -1025,6 +1029,13 @@ declare namespace R {
         memoize<T = any>(fn: (...a: any[]) => T): (...a: any[]) => T;
 
         /**
+         * A customisable version of R.memoize. memoizeWith takes an additional function that will be applied to a given
+         * argument set and used to create the cache key under which the results of the function to be memoized will be stored.
+         * Care must be taken when implementing key generation to avoid clashes that may overwrite previous entries erroneously.
+         */
+        memoizeWith<T extends (...args: any[]) => any>(keyFn: (...v: any[]) => string, fn: T): T;
+
+        /**
          * Create a new object with the own properties of a
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
@@ -1174,8 +1185,8 @@ declare namespace R {
         /**
          * Returns a partial copy of an object omitting the keys specified.
          */
-        omit<T>(names: ReadonlyArray<string>, obj: T): T;
-        omit(names: ReadonlyArray<string>): <T>(obj: T) => T;
+        omit<T, K extends string>(names: ReadonlyArray<K>, obj: T): Omit<T, K>;
+        omit<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Omit<T, K>;
 
         /**
          * Accepts a function fn and returns a function that guards invocation of fn such that fn can only ever be
@@ -1285,8 +1296,8 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, K extends keyof T>(names: ReadonlyArray<K | string>, obj: T): Pick<T, K>;
-        pick(names: ReadonlyArray<string>): <T, U>(obj: T) => U;
+        pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
+        pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.

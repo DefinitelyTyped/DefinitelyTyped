@@ -66,6 +66,14 @@ client.query(query)
   .catch(e => {
     console.error(e.stack);
   });
+client.query(query, ['brianc'])
+  .then(res => {
+    console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
+  })
+  .catch(e => {
+    console.error(e.stack);
+  });
 
 const queryArrMode: QueryArrayConfig = {
   name: 'get-name-array',
@@ -154,6 +162,9 @@ pool.query('SELECT $1::text as name', ['brianc'], (err, result) => {
 });
 
 pool.query('SELECT $1::text as name', ['brianc'])
+  .then((res) => console.log(res.rows[0].name))
+  .catch(err => console.error('Error executing query', err.stack));
+pool.query({ text: 'SELECT $1::text as name' }, ['brianc'])
   .then((res) => console.log(res.rows[0].name))
   .catch(err => console.error('Error executing query', err.stack));
 
