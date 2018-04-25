@@ -12,7 +12,7 @@
 //                 Valentin Descamps <https://github.com/val1984>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 // Known Issue:
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
@@ -58,9 +58,7 @@ type Shared<
     InjectedProps,
     DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
     > = {
-        [P in (keyof InjectedProps & keyof DecorationTargetProps)]?: InjectedProps[P];
-        // remove comment and replace previous line when 2.8 conditional types are green on DefinitelyTyped
-        //[P in (keyof InjectedProps & keyof DecorationTargetProps)]: DecorationTargetProps[P] extends InjectedProps[P] ? InjectedProps[P] : never;
+        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: DecorationTargetProps[P] extends InjectedProps[P] ? InjectedProps[P] : never;
     };
 
 // Injects props and removes them from the prop requirements.
@@ -69,7 +67,7 @@ type Shared<
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
     <P extends Shared<TInjectedProps, P>>(
         component: Component<P>
-    ): ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps> & {WrappedComponent: Component<P>}
+    ): ComponentClass<Omit<P, keyof Shared<TInjectedProps, P>> & TNeedsProps> & {WrappedComponent: Component<P>}
 }
 
 // Injects props and removes them from the prop requirements.
