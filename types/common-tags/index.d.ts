@@ -2,14 +2,15 @@
 // Project: https://github.com/declandewet/common-tags
 // Definitions by: Viktor Zozuliak <https://github.com/zuzusik>
 //                 Paul Wang <https://github.com/tzupengwang>
+//                 coolreader18 <https://github.com/coolreader18>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'common-tags' {
-    type TemplateTag = (literals: TemplateStringsArray, ...placeholders: any[]) => string;
+    type TemplateTag = (literals: TemplateStringsArray, ...placeholders: any[]) => any;
 
     type TemplateTransformer = {
-        onSubstitution?: (substitution: string, resultSoFar: string) => string;
-        onEndResult?: (endResult : string) => string;
+        onSubstitution?: (substitution?: any, resultSoFar?: string) => string;
+        onEndResult?: (endResult?: string) => any;
     }
 
     /* Built-in Tags */
