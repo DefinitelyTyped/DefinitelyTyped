@@ -127,7 +127,7 @@ function makeUDPSocketStream(host: string, port: number) {
 interface fs {
     open(path: string | Buffer, flags: string | number): Promise<number>;
     read(fd: number, buffer: Buffer, offset: number, length: number, position: number): Promise<number>;
-    write(fd: number, buffer: Buffer, offset: number, length: number): Promise<number>;
+    write(fd: number, buffer: Buffer | string, offset: number, length: number): Promise<number>;
     close(fd: number): Promise<void>;
 }
 let fs: fs;
@@ -251,7 +251,7 @@ function makeWritableWebSocketStream(url: string, protocols: string | string[]) 
 function makeWritableFileStream(filename: string) {
     let fd: number;
 
-    return new WritableStream({
+    return new WritableStream<string>({
         start() {
             return fs.open(filename, "w").then(result => {
                 fd = result;
@@ -290,7 +290,7 @@ function streamifyWebSocket(url: string, protocol: string) {
 
     return {
         readable: new ReadableStream(new WebSocketSource(ws)),
-        writable: new WritableStream(new WebSocketSink(ws))
+        writable: new WritableStream<string>(new WebSocketSink(ws))
     };
 }
 
