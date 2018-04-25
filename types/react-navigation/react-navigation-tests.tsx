@@ -33,10 +33,12 @@ import {
     addNavigationHelpers,
     HeaderBackButton,
     Header,
+    NavigationContainer,
     NavigationParams,
     NavigationPopAction,
     NavigationPopToTopAction,
     NavigationScreenComponent,
+    NavigationContainerComponent,
 } from 'react-navigation';
 
 // Constants
@@ -422,3 +424,23 @@ const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
     key: "foo",
     immediate: true
 });
+
+class Page1 extends React.Component { }
+
+const RootNavigator: NavigationContainer = SwitchNavigator({
+    default: { getScreen: () => Page1 },
+});
+
+class Page2 extends React.Component {
+    navigatorRef: NavigationContainerComponent | null;
+
+    componentDidMount() {
+        if (this.navigatorRef) {
+            this.navigatorRef.dispatch(NavigationActions.navigate({ routeName: 'default' }));
+        }
+    }
+
+    render() {
+        return <RootNavigator ref={(instance: NavigationContainerComponent | null): void => { this.navigatorRef = instance; }} />;
+    }
+}
