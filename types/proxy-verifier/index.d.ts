@@ -6,94 +6,88 @@
 
 import { CoreOptions as RequestOptions } from "request";
 
-declare class ProxyVerifier {
-    static testAll(proxy: ProxyVerifier.Proxy, options: RequestOptions, cb: (error: any, result: ProxyVerifier.AllResults) => void): void;
-    static testAll(proxy: ProxyVerifier.Proxy, cb: (error: any, result: ProxyVerifier.AllResults) => void): void;
+export function testAll(proxy: Proxy, options: RequestOptions, cb: (error: any, result: AllResults) => void): void;
+export function testAll(proxy: Proxy, cb: (error: any, result: AllResults) => void): void;
 
-    static testProtocol(proxy: ProxyVerifier.Proxy, options: RequestOptions, cb: (error: any, result: ProxyVerifier.Result) => void): void;
-    static testProtocol(proxy: ProxyVerifier.Proxy, cb: (error: any, result: ProxyVerifier.Result) => void): void;
+export function testProtocol(proxy: Proxy, options: RequestOptions, cb: (error: any, result: Result) => void): void;
+export function testProtocol(proxy: Proxy, cb: (error: any, result: Result) => void): void;
 
-    static testProtocols(proxy: ProxyVerifier.Proxy, options: RequestOptions, cb: (error: any, result: ProxyVerifier.ProtocolResult) => void): void;
-    static testProtocols(proxy: ProxyVerifier.Proxy, cb: (error: any, result: ProxyVerifier.ProtocolResult) => void): void;
+export function testProtocols(proxy: Proxy, options: RequestOptions, cb: (error: any, result: ProtocolResult) => void): void;
+export function testProtocols(proxy: Proxy, cb: (error: any, result: ProtocolResult) => void): void;
 
-    static testAnonymityLevel(proxy: ProxyVerifier.Proxy, options: RequestOptions, cb: (error: any, result: string) => void): void;
-    static testAnonymityLevel(proxy: ProxyVerifier.Proxy, cb: (error: any, result: string) => void): void;
+export function testAnonymityLevel(proxy: Proxy, options: RequestOptions, cb: (error: any, result: string) => void): void;
+export function testAnonymityLevel(proxy: Proxy, cb: (error: any, result: string) => void): void;
 
-    static testTunnel(proxy: ProxyVerifier.Proxy, options: RequestOptions, cb: (error: any, result: ProxyVerifier.Result) => void): void;
-    static testTunnel(proxy: ProxyVerifier.Proxy, cb: (error: any, result: ProxyVerifier.Result) => void): void;
+export function testTunnel(proxy: Proxy, options: RequestOptions, cb: (error: any, result: Result) => void): void;
+export function testTunnel(proxy: Proxy, cb: (error: any, result: Result) => void): void;
 
-    static test(proxy: ProxyVerifier.Proxy, options: ProxyVerifier.TestOptions, cb: (error: any, result: ProxyVerifier.CustomTestResult) => void): void;
-    static test(proxy: ProxyVerifier.Proxy, cb: (error: any, result: ProxyVerifier.CustomTestResult) => void): void;
+export function test(proxy: Proxy, options: TestOptions, cb: (error: any, result: CustomTestResult) => void): void;
+export function test(proxy: Proxy, cb: (error: any, result: CustomTestResult) => void): void;
+
+export interface Proxy {
+	ipAddress: string;
+	port: number;
+	/**
+	 * Proxy-Authorization header
+	 */
+	auth?: string;
+	protocol?: Protocol;
+	protocols?: Protocol[];
 }
 
-export = ProxyVerifier;
+export type Protocol = "http" | "https" | "socks5" | "socks4";
 
-declare namespace ProxyVerifier {
-    interface Proxy {
-        ipAddress: string;
-        port: number;
-        /**
-         * Proxy-Authorization header
-         */
-        auth?: string;
-        protocol?: Protocol;
-        protocols?: Protocol[];
-    }
+export type AnonymityLevel = "transparent" | "anonymous" | "elite";
 
-    type Protocol = "http" | "https" | "socks5" | "socks4";
+export interface AllResults {
+	anonymityLevel?: AnonymityLevel;
+	protocols?: ProtocolResult;
+	tunnel?: Result;
+}
 
-    type AnonymityLevel = "transparent" | "anonymous" | "elite";
+export type Result = WorkingResult | NotWorkingResult;
 
-    interface AllResults {
-        anonymityLevel?: AnonymityLevel;
-        protocols?: ProtocolResult;
-        tunnel?: Result;
-    }
+export interface WorkingResult {
+	ok: true;
+}
 
-    type Result = WorkingResult | NotWorkingResult;
+export interface NotWorkingResult {
+	ok: false;
+	error: {
+		message: string;
+		code: string;
+	};
+}
 
-    interface WorkingResult {
-        ok: true;
-    }
+export interface ProtocolResult {
+	[key: string]: Result;
+}
 
-    interface NotWorkingResult {
-        ok: false;
-        error: {
-            message: string;
-            code: string;
-        };
-    }
+export interface TestOptions {
+	testUrl: string;
+	testFn(data: string, status: number, headers: Headers): void;
+}
 
-    interface ProtocolResult {
-        [key: string]: Result;
-    }
+export interface Headers {
+	[key: string]: string;
+}
 
-    interface TestOptions {
-        testUrl: string;
-        testFn(data: string, status: number, headers: Headers): void;
-    }
+export interface CustomTestBaseResult {
+	data: string;
+	status: number;
+	headers: Headers;
+}
 
-    interface Headers {
-        [key: string]: string;
-    }
+export type CustomTestResult = CustomTestWorkingResult | CustomTestNotWorkingResult;
 
-    interface CustomTestBaseResult {
-        data: string;
-        status: number;
-        headers: Headers;
-    }
+export interface CustomTestWorkingResult extends CustomTestBaseResult {
+	ok: true;
+}
 
-    type CustomTestResult = CustomTestWorkingResult | CustomTestNotWorkingResult;
-
-    interface CustomTestWorkingResult extends CustomTestBaseResult {
-        ok: true;
-    }
-
-    interface CustomTestNotWorkingResult extends CustomTestBaseResult {
-        ok: false;
-        error: {
-            message: string;
-            code: string;
-        };
-    }
+export interface CustomTestNotWorkingResult extends CustomTestBaseResult {
+	ok: false;
+	error: {
+		message: string;
+		code: string;
+	};
 }
