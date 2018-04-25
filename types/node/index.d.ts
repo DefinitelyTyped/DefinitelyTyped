@@ -1813,6 +1813,7 @@ declare module "https" {
     import * as tls from "tls";
     import * as events from "events";
     import * as http from "http";
+    import * as net from "net";
     import { URL } from "url";
 
     export type ServerOptions = tls.SecureContextOptions & tls.TlsOptions;
@@ -1832,7 +1833,59 @@ declare module "https" {
         options: AgentOptions;
     }
 
+    type ServerSimpleEventMap = http.ServerSimpleEventMap;
+    type ServerEventMap = http.ServerEventMap;
+
     export class Server extends tls.Server {
+        addListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        addListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        emit(event: "checkContinue", request: http.IncomingMessage, response: http.ServerResponse): boolean;
+        emit(event: "checkExpectation", request: http.IncomingMessage, response: http.ServerResponse): boolean;
+        emit(event: "clientError", error: Error, socket: net.Socket): boolean;
+        emit(event: "connect", request: http.IncomingMessage, socket: net.Socket, head: Buffer): boolean;
+        emit(event: "request", request: http.IncomingMessage, response: http.ServerResponse): boolean;
+        emit(event: "upgrade", request: http.IncomingMessage, socket: net.Socket, head: Buffer): boolean;
+        emit<K extends keyof ServerSimpleEventMap>(event: K, arg: ServerSimpleEventMap[K]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        listenerCount<K extends keyof ServerSimpleEventMap>(event: K): number;
+        listenerCount<K extends keyof ServerEventMap>(event: K): number;
+        listenerCount(event: string | symbol): number;
+
+        listeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        listeners<K extends keyof ServerEventMap>(event: K): Array<ServerEventMap[K]>;
+        listeners(event: string | symbol): Function[];
+
+        on<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        on<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        once<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependOnceListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeAllListeners<K extends keyof ServerSimpleEventMap>(event: K): this;
+        removeAllListeners<K extends keyof ServerEventMap>(event: K): this;
+        removeAllListeners(event?: string | symbol): this;
+
+        removeListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        removeListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        rawListeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        rawListeners<K extends keyof ServerEventMap>(event: K): Array<ServerEventMap[K]>;
+        rawListeners(event: string | symbol): Function[];
+
         setTimeout(callback: () => void): this;
         setTimeout(msecs?: number, callback?: () => void): this;
         timeout: number;
@@ -2829,7 +2882,7 @@ declare module "net" {
         listen(options: ListenOptions, listeningListener?: Function): this;
         listen(handle: any, backlog?: number, listeningListener?: Function): this;
         listen(handle: any, listeningListener?: Function): this;
-        close(callback?: Function): this;
+        close(callback?: () => {}): this;
         address(): { port: number; family: string; address: string; };
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;
