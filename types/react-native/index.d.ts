@@ -8819,6 +8819,8 @@ export type RefreshControlProperties = RefreshControlProps;
 /** @deprecated */
 export type SliderProperties = SliderProps;
 /** @deprecated */
+export type ImagePropertiesSourceOptions = ImagePropsSourceOptions;
+/** @deprecated */
 export type ImageProperties = ImageProps;
 /** @deprecated */
 export type ImageBackgroundProperties = ImageBackgroundProps;
