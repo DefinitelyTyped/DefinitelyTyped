@@ -24,9 +24,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/// <reference types="react" />
-
 /// <reference path="globals.d.ts" />
+
+import * as React from 'react';
 
 export type MeasureOnSuccessCallback = (
     x: number,
@@ -190,7 +190,7 @@ interface EventEmitter extends EventEmitterListener {
      * @throws {Error} When called not during an eventing cycle
      *
      * @example
-     *   var subscription = emitter.addListenerMap({
+     *   const subscription = emitter.addListenerMap({
      *     someEvent: function(data, event) {
      *       console.log(data);
      *       emitter.removeCurrentListener();
@@ -4844,7 +4844,7 @@ export namespace StyleSheet {
      *
      * Example:
      * ```
-     * var styles = StyleSheet.create({
+     * const styles = StyleSheet.create({
      *   listItem: {
      *     flex: 1,
      *     fontSize: 16,
@@ -4892,7 +4892,7 @@ export namespace StyleSheet {
      * constant size, because on different platforms and screen densities its
      * value may be calculated differently.
      */
-    export var hairlineWidth: number;
+    export const hairlineWidth: number;
 
     interface AbsoluteFillStyle {
         position: "absolute";
@@ -4914,14 +4914,14 @@ export namespace StyleSheet {
      *     },
      *   });
      */
-    export var absoluteFillObject: AbsoluteFillStyle;
+    export const absoluteFillObject: AbsoluteFillStyle;
 
     /**
      * A very common pattern is to create overlays with position absolute and zero positioning,
      * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
      * styles.
      */
-    export var absoluteFill: RegisteredStyle<AbsoluteFillStyle>;
+    export const absoluteFill: RegisteredStyle<AbsoluteFillStyle>;
 }
 
 export interface RelayProfiler {
@@ -5331,7 +5331,7 @@ export interface ScaledSize {
  * than caching the value (for example, using inline styles rather than
  * setting a value in a `StyleSheet`).
  *
- * Example: `var {height, width} = Dimensions.get('window');`
+ * Example: `const {height, width} = Dimensions.get('window');`
  *
  * @param dim Name of dimension as defined when calling `set`.
  * @returns Value for the dimension.
@@ -5348,7 +5348,7 @@ export interface Dimensions {
      * function on every render, rather than caching the value (for
      * example, using inline styles rather than setting a value in a
      * StyleSheet).
-     * Example: var {height, width} = Dimensions.get('window');
+     * Example: const {height, width} = Dimensions.get('window');
      @param dim Name of dimension as defined when calling set.
      @returns Value for the dimension.
      */
@@ -5921,7 +5921,7 @@ export interface ScrollViewProperties
      *     </ScrollView>
      *   );
      *   ...
-     *   var styles = StyleSheet.create({
+     *   const styles = StyleSheet.create({
      *     contentContainer: {
      *       paddingVertical: 20
      *     }
@@ -8015,7 +8015,7 @@ export namespace Animated {
      * Animates a value along a timed easing curve.  The `Easing` module has tons
      * of pre-defined curves, or you can use your own function.
      */
-    export var timing: (value: AnimatedValue | AnimatedValueXY, config: TimingAnimationConfig) => CompositeAnimation;
+    export const timing: (value: AnimatedValue | AnimatedValueXY, config: TimingAnimationConfig) => CompositeAnimation;
 
     interface TimingAnimationConfig extends AnimationConfig {
         toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY;
@@ -8166,10 +8166,10 @@ export namespace Animated {
      * Animated variants of the basic native views. Accepts Animated.Value for
      * props and style.
      */
-    export var View: any;
-    export var Image: any;
-    export var Text: any;
-    export var ScrollView: any;
+    export const View: any;
+    export const Image: any;
+    export const Text: any;
+    export const ScrollView: any;
 }
 
 // tslint:disable-next-line:interface-name
@@ -8435,278 +8435,278 @@ export interface KeyboardStatic extends NativeEventEmitter {
 
 // TODO: The following components need to be added
 // - [ ] ART
-export var ART: ARTStatic;
+export const ART: ARTStatic;
 export type ART = ARTStatic;
 
-export var ActivityIndicator: ActivityIndicatorStatic;
+export const ActivityIndicator: ActivityIndicatorStatic;
 export type ActivityIndicator = ActivityIndicatorStatic;
 
-export var ActivityIndicatorIOS: ActivityIndicatorIOSStatic;
+export const ActivityIndicatorIOS: ActivityIndicatorIOSStatic;
 export type ActivityIndicatorIOS = ActivityIndicatorIOSStatic;
 
-export var DatePickerIOS: DatePickerIOSStatic;
+export const DatePickerIOS: DatePickerIOSStatic;
 export type DatePickerIOS = DatePickerIOSStatic;
 
-export var DrawerLayoutAndroid: DrawerLayoutAndroidStatic;
+export const DrawerLayoutAndroid: DrawerLayoutAndroidStatic;
 export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic;
 
-export var Image: ImageStatic;
+export const Image: ImageStatic;
 export type Image = ImageStatic;
 
-export var ImageBackground: ImageBackgroundStatic;
+export const ImageBackground: ImageBackgroundStatic;
 export type ImageBackground = ImageBackgroundStatic;
 
-export var ImagePickerIOS: ImagePickerIOSStatic;
+export const ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
 
-export var InputAccessoryView: InputAccessoryViewStatic;
+export const InputAccessoryView: InputAccessoryViewStatic;
 export type InputAccessoryView = InputAccessoryViewStatic;
 
-export var FlatList: FlatListStatic<any>;
+export const FlatList: FlatListStatic<any>;
 export type FlatList<ItemT> = FlatListStatic<ItemT>;
 
-export var LayoutAnimation: LayoutAnimationStatic;
+export const LayoutAnimation: LayoutAnimationStatic;
 export type LayoutAnimation = LayoutAnimationStatic;
 
-export var ListView: ListViewStatic;
+export const ListView: ListViewStatic;
 export type ListView = ListViewStatic;
 
-export var MapView: MapViewStatic;
+export const MapView: MapViewStatic;
 export type MapView = MapViewStatic;
 
-export var MaskedViewIOS: MaskedViewStatic;
+export const MaskedViewIOS: MaskedViewStatic;
 export type MaskedViewIOS = MaskedViewStatic;
 
-export var Modal: ModalStatic;
+export const Modal: ModalStatic;
 export type Modal = ModalStatic;
 
-export var NavigatorIOS: NavigatorIOSStatic;
+export const NavigatorIOS: NavigatorIOSStatic;
 export type NavigatorIOS = NavigatorIOSStatic;
 
-export var Picker: PickerStatic;
+export const Picker: PickerStatic;
 export type Picker = PickerStatic;
 
-export var PickerIOS: PickerIOSStatic;
+export const PickerIOS: PickerIOSStatic;
 export type PickerIOS = PickerIOSStatic;
 
-export var ProgressBarAndroid: ProgressBarAndroidStatic;
+export const ProgressBarAndroid: ProgressBarAndroidStatic;
 export type ProgressBarAndroid = ProgressBarAndroidStatic;
 
-export var ProgressViewIOS: ProgressViewIOSStatic;
+export const ProgressViewIOS: ProgressViewIOSStatic;
 export type ProgressViewIOS = ProgressViewIOSStatic;
 
-export var RefreshControl: RefreshControlStatic;
+export const RefreshControl: RefreshControlStatic;
 export type RefreshControl = RefreshControlStatic;
 
-export var RecyclerViewBackedScrollView: RecyclerViewBackedScrollViewStatic;
+export const RecyclerViewBackedScrollView: RecyclerViewBackedScrollViewStatic;
 export type RecyclerViewBackedScrollView = RecyclerViewBackedScrollViewStatic;
 
-export var SafeAreaView: SafeAreaViewStatic;
+export const SafeAreaView: SafeAreaViewStatic;
 export type SafeAreaView = SafeAreaViewStatic;
 
-export var SegmentedControlIOS: SegmentedControlIOSStatic;
+export const SegmentedControlIOS: SegmentedControlIOSStatic;
 export type SegmentedControlIOS = SegmentedControlIOSStatic;
 
-export var Slider: SliderStatic;
+export const Slider: SliderStatic;
 export type Slider = SliderStatic;
 
-export var SliderIOS: SliderStatic;
+export const SliderIOS: SliderStatic;
 export type SliderIOS = SliderStatic;
 
-export var StatusBar: StatusBarStatic;
+export const StatusBar: StatusBarStatic;
 export type StatusBar = StatusBarStatic;
 
-export var ScrollView: ScrollViewStatic;
+export const ScrollView: ScrollViewStatic;
 export type ScrollView = ScrollViewStatic;
 
-export var SectionList: SectionListStatic<any>;
+export const SectionList: SectionListStatic<any>;
 export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
-export var SnapshotViewIOS: SnapshotViewIOSStatic;
+export const SnapshotViewIOS: SnapshotViewIOSStatic;
 export type SnapshotViewIOS = SnapshotViewIOSStatic;
 
-export var Systrace: SystraceStatic;
+export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
 
-export var SwipeableListView: SwipeableListViewStatic;
+export const SwipeableListView: SwipeableListViewStatic;
 export type SwipeableListView = SwipeableListViewStatic;
 
-export var Switch: SwitchStatic;
+export const Switch: SwitchStatic;
 export type Switch = SwitchStatic;
 
-export var SwitchIOS: SwitchIOSStatic;
+export const SwitchIOS: SwitchIOSStatic;
 export type SwitchIOS = SwitchIOSStatic;
 
-export var TabBarIOS: TabBarIOSStatic;
+export const TabBarIOS: TabBarIOSStatic;
 export type TabBarIOS = TabBarIOSStatic;
 
-export var Text: TextStatic;
+export const Text: TextStatic;
 export type Text = TextStatic;
 
-export var TextInput: TextInputStatic;
+export const TextInput: TextInputStatic;
 export type TextInput = TextInputStatic;
 
-export var ToolbarAndroid: ToolbarAndroidStatic;
+export const ToolbarAndroid: ToolbarAndroidStatic;
 export type ToolbarAndroid = ToolbarAndroidStatic;
 
-export var TouchableHighlight: TouchableHighlightStatic;
+export const TouchableHighlight: TouchableHighlightStatic;
 export type TouchableHighlight = TouchableHighlightStatic;
 
-export var TouchableNativeFeedback: TouchableNativeFeedbackStatic;
+export const TouchableNativeFeedback: TouchableNativeFeedbackStatic;
 export type TouchableNativeFeedback = TouchableNativeFeedbackStatic;
 
-export var TouchableOpacity: TouchableOpacityStatic;
+export const TouchableOpacity: TouchableOpacityStatic;
 export type TouchableOpacity = TouchableOpacityStatic;
 
-export var TouchableWithoutFeedback: TouchableWithoutFeedbackStatic;
+export const TouchableWithoutFeedback: TouchableWithoutFeedbackStatic;
 export type TouchableWithoutFeedback = TouchableWithoutFeedbackStatic;
 
-export var View: ViewStatic;
+export const View: ViewStatic;
 export type View = ViewStatic;
 
-export var ViewPagerAndroid: ViewPagerAndroidStatic;
+export const ViewPagerAndroid: ViewPagerAndroidStatic;
 export type ViewPagerAndroid = ViewPagerAndroidStatic;
 
-export var WebView: WebViewStatic;
+export const WebView: WebViewStatic;
 export type WebView = WebViewStatic;
 
 //////////// APIS //////////////
-export var ActionSheetIOS: ActionSheetIOSStatic;
+export const ActionSheetIOS: ActionSheetIOSStatic;
 export type ActionSheetIOS = ActionSheetIOSStatic;
 
-export var Share: ShareStatic;
+export const Share: ShareStatic;
 export type Share = ShareStatic;
 
-export var AdSupportIOS: AdSupportIOSStatic;
+export const AdSupportIOS: AdSupportIOSStatic;
 export type AdSupportIOS = AdSupportIOSStatic;
 
-export var AccessibilityInfo: AccessibilityInfoStatic;
+export const AccessibilityInfo: AccessibilityInfoStatic;
 export type AccessibilityInfo = AccessibilityInfoStatic;
 
-export var Alert: AlertStatic;
+export const Alert: AlertStatic;
 export type Alert = AlertStatic;
 
-export var AlertAndroid: AlertAndroidStatic;
+export const AlertAndroid: AlertAndroidStatic;
 export type AlertAndroid = AlertAndroidStatic;
 
-export var AlertIOS: AlertIOSStatic;
+export const AlertIOS: AlertIOSStatic;
 export type AlertIOS = AlertIOSStatic;
 
-export var AppState: AppStateStatic;
+export const AppState: AppStateStatic;
 export type AppState = AppStateStatic;
 
-export var AppStateIOS: AppStateStatic;
+export const AppStateIOS: AppStateStatic;
 export type AppStateIOS = AppStateStatic;
 
-export var AsyncStorage: AsyncStorageStatic;
+export const AsyncStorage: AsyncStorageStatic;
 export type AsyncStorage = AsyncStorageStatic;
 
-export var BackAndroid: BackAndroidStatic;
+export const BackAndroid: BackAndroidStatic;
 export type BackAndroid = BackAndroidStatic;
 
-export var BackHandler: BackHandlerStatic;
+export const BackHandler: BackHandlerStatic;
 export type BackHandler = BackHandlerStatic;
 
-export var Button: ButtonStatic;
+export const Button: ButtonStatic;
 export type Button = ButtonStatic;
 
-export var CameraRoll: CameraRollStatic;
+export const CameraRoll: CameraRollStatic;
 export type CameraRoll = CameraRollStatic;
 
-export var Clipboard: ClipboardStatic;
+export const Clipboard: ClipboardStatic;
 export type Clipboard = ClipboardStatic;
 
-export var DatePickerAndroid: DatePickerAndroidStatic;
+export const DatePickerAndroid: DatePickerAndroidStatic;
 export type DatePickerAndroid = DatePickerAndroidStatic;
 
-export var Geolocation: GeolocationStatic;
+export const Geolocation: GeolocationStatic;
 export type Geolocation = GeolocationStatic;
 
 /** http://facebook.github.io/react-native/blog/2016/08/19/right-to-left-support-for-react-native-apps.html */
-export var I18nManager: I18nManagerStatic;
+export const I18nManager: I18nManagerStatic;
 export type I18nManager = I18nManagerStatic;
 
-export var ImageEditor: ImageEditorStatic;
+export const ImageEditor: ImageEditorStatic;
 export type ImageEditor = ImageEditorStatic;
 
-export var ImageStore: ImageStoreStatic;
+export const ImageStore: ImageStoreStatic;
 export type ImageStore = ImageStoreStatic;
 
-export var InteractionManager: InteractionManagerStatic;
+export const InteractionManager: InteractionManagerStatic;
 
-export var IntentAndroid: IntentAndroidStatic;
+export const IntentAndroid: IntentAndroidStatic;
 export type IntentAndroid = IntentAndroidStatic;
 
-export var Keyboard: KeyboardStatic;
+export const Keyboard: KeyboardStatic;
 
-export var KeyboardAvoidingView: KeyboardAvoidingViewStatic;
+export const KeyboardAvoidingView: KeyboardAvoidingViewStatic;
 export type KeyboardAvoidingView = KeyboardAvoidingViewStatic;
 
-export var Linking: LinkingStatic;
+export const Linking: LinkingStatic;
 export type Linking = LinkingStatic;
 
-export var LinkingIOS: LinkingIOSStatic;
+export const LinkingIOS: LinkingIOSStatic;
 export type LinkingIOS = LinkingIOSStatic;
 
-export var NativeMethodsMixin: NativeMethodsMixinStatic;
+export const NativeMethodsMixin: NativeMethodsMixinStatic;
 export type NativeMethodsMixin = NativeMethodsMixinStatic;
 
-export var NativeComponent: NativeMethodsMixinStatic;
+export const NativeComponent: NativeMethodsMixinStatic;
 export type NativeComponent = NativeMethodsMixinStatic;
 
-export var NetInfo: NetInfoStatic;
+export const NetInfo: NetInfoStatic;
 export type NetInfo = NetInfoStatic;
 
-export var PanResponder: PanResponderStatic;
+export const PanResponder: PanResponderStatic;
 export type PanResponder = PanResponderStatic;
 
-export var PermissionsAndroid: PermissionsAndroidStatic;
+export const PermissionsAndroid: PermissionsAndroidStatic;
 export type PermissionsAndroid = PermissionsAndroidStatic;
 
-export var PushNotificationIOS: PushNotificationIOSStatic;
+export const PushNotificationIOS: PushNotificationIOSStatic;
 export type PushNotificationIOS = PushNotificationIOSStatic;
 
-export var Settings: SettingsStatic;
+export const Settings: SettingsStatic;
 export type Settings = SettingsStatic;
 
-export var StatusBarIOS: StatusBarIOSStatic;
+export const StatusBarIOS: StatusBarIOSStatic;
 export type StatusBarIOS = StatusBarIOSStatic;
 
-export var TimePickerAndroid: TimePickerAndroidStatic;
+export const TimePickerAndroid: TimePickerAndroidStatic;
 export type TimePickerAndroid = TimePickerAndroidStatic;
 
-export var ToastAndroid: ToastAndroidStatic;
+export const ToastAndroid: ToastAndroidStatic;
 export type ToastAndroid = ToastAndroidStatic;
 
-export var UIManager: UIManagerStatic;
+export const UIManager: UIManagerStatic;
 export type UIManager = UIManagerStatic;
 
-export var VibrationIOS: VibrationIOSStatic;
+export const VibrationIOS: VibrationIOSStatic;
 export type VibrationIOS = VibrationIOSStatic;
 
-export var Vibration: VibrationStatic;
+export const Vibration: VibrationStatic;
 export type Vibration = VibrationStatic;
 
-export var Dimensions: Dimensions;
-export var ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
+export const Dimensions: Dimensions;
+export const ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 
 export type Easing = EasingStatic;
-export var Easing: EasingStatic;
+export const Easing: EasingStatic;
 
 //////////// Plugins //////////////
 
-export var DeviceEventEmitter: DeviceEventEmitterStatic;
+export const DeviceEventEmitter: DeviceEventEmitterStatic;
 /**
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
 export interface NativeEventEmitter extends EventEmitter {}
-export var NativeEventEmitter: NativeEventEmitter;
+export const NativeEventEmitter: NativeEventEmitter;
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
  * adding all event listeners directly to RCTNativeAppEventEmitter.
  */
-export var NativeAppEventEmitter: RCTNativeAppEventEmitter;
+export const NativeAppEventEmitter: RCTNativeAppEventEmitter;
 
 /**
  * Interface for NativeModules which allows to augment NativeModules with type informations.
@@ -8723,10 +8723,10 @@ interface NativeModulesStatic {
  * Use:
  * <code>const MyModule = NativeModules.ModuleName</code>
  */
-export var NativeModules: NativeModulesStatic;
-export var Platform: PlatformStatic;
-export var PlatformIOS: PlatformIOSStatic;
-export var PixelRatio: PixelRatioStatic;
+export const NativeModules: NativeModulesStatic;
+export const Platform: PlatformStatic;
+export const PlatformIOS: PlatformIOSStatic;
+export const PixelRatio: PixelRatioStatic;
 
 export interface ComponentInterface<P> {
     name?: string;
@@ -8789,17 +8789,17 @@ export namespace addons {
         markTestCompleted: () => void;
     }
 
-    export var TestModule: TestModuleStatic;
+    export const TestModule: TestModuleStatic;
     export type TestModule = TestModuleStatic;
 }
 
 //
 // Prop Types
 //
-export var ColorPropType: React.Requireable<any>;
-export var EdgeInsetsPropType: React.Requireable<any>;
-export var PointPropType: React.Requireable<any>;
-export var ViewPropTypes: React.Requireable<any>;
+export const ColorPropType: React.Requireable<any>;
+export const EdgeInsetsPropType: React.Requireable<any>;
+export const PointPropType: React.Requireable<any>;
+export const ViewPropTypes: React.Requireable<any>;
 
 declare global {
     function require(name: string): any;
@@ -8820,7 +8820,7 @@ declare global {
         ignoredYellowBox: string[];
     }
 
-    var console: Console;
+    const console: Console;
 
     /**
      * Navigator object for accessing location API
@@ -8831,7 +8831,7 @@ declare global {
         readonly geolocation: Geolocation;
     }
 
-    var navigator: Navigator;
+    const navigator: Navigator;
 
     /**
      * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests
@@ -8841,15 +8841,15 @@ declare global {
      *
      * @see https://github.com/facebook/react-native/issues/934
      */
-    var originalXMLHttpRequest: any;
+    const originalXMLHttpRequest: any;
 
-    var __BUNDLE_START_TIME__: number;
-    var ErrorUtils: ErrorUtils;
+    const __BUNDLE_START_TIME__: number;
+    const ErrorUtils: ErrorUtils;
 
     /**
      * This variable is set to true when react-native is running in Dev mode
      * Typical usage:
      * <code> if (__DEV__) console.log('Running in dev mode')</code>
      */
-    var __DEV__: boolean;
+    const __DEV__: boolean;
 }
