@@ -7,70 +7,64 @@
 import { CoreOptions as RequestOptions } from "request";
 import { EventEmitter } from "events";
 
-declare class ProxyLists {
-    static getProxies(options?: Partial<ProxyLists.Options>): ProxyLists.GetProxiesEventEmitter;
+export function getProxies(options?: Partial<Options>): GetProxiesEventEmitter;
 
-    static getProxiesFromSource(name: string, options?: ProxyLists.Options): ProxyLists.GetProxiesEventEmitter;
+export function getProxiesFromSource(name: string, options?: Options): GetProxiesEventEmitter;
 
-    static addSource(name: string, source: ProxyLists.AddSource): void;
+export function addSource(name: string, source: AddSource): void;
 
-    static listSources(options?: ProxyLists.ListSourcesOptions): ProxyLists.Source[];
+export function listSources(options?: ListSourcesOptions): Source[];
+
+export class GetProxiesEventEmitter extends EventEmitter {
+	on(event: "data", listener: (proxies: Proxy[]) => void): this;
+	on(event: "error", listener: (error: any) => void): this;
+	on(event: "end", listener: () => void): this;
 }
 
-export = ProxyLists;
+export interface Options {
+	filterMode?: "strict" | "loose";
+	countries?: string[];
+	countriesBlackList?: string[];
+	protocols?: Protocol[];
+	anonymityLevels?: AnonymityLevel[];
+	sourcesWhiteList?: string[];
+	sourcesBlackList?: string[];
+	series?: boolean;
+	ipTypes?: IPType[];
+	defaultRequestOptions?: RequestOptions;
+}
 
-declare namespace ProxyLists {
-    class GetProxiesEventEmitter extends EventEmitter {
-        on(event: "data", listener: (proxies: Proxy[]) => void): this;
-        on(event: "error", listener: (error: any) => void): this;
-        on(event: "end", listener: () => void): this;
-    }
+export type Protocol = "http" | "https" | "socks5" | "socks4";
 
-    interface Options {
-        filterMode?: "strict" | "loose";
-        countries?: string[];
-        countriesBlackList?: string[];
-        protocols?: Protocol[];
-        anonymityLevels?: AnonymityLevel[];
-        sourcesWhiteList?: string[];
-        sourcesBlackList?: string[];
-        series?: boolean;
-        ipTypes?: IPType[];
-        defaultRequestOptions?: RequestOptions;
-    }
+export type AnonymityLevel = "transparent" | "anonymous" | "elite";
 
-    type Protocol = "http" | "https" | "socks5" | "socks4";
+export type IPType = "ipv4" | "ipv6";
 
-    type AnonymityLevel = "transparent" | "anonymous" | "elite";
+export interface Proxy {
+	ipAddress: string;
+	port: number;
+	country: string;
+	anonymityLevel?: AnonymityLevel;
+	protocols?: Protocol[];
+	source: string;
+	tunnel?: boolean;
+}
 
-    type IPType = "ipv4" | "ipv6";
+export interface InternalOptions extends Options {
+	sample?: boolean;
+}
 
-    interface Proxy {
-        ipAddress: string;
-        port: number;
-        country: string;
-        anonymityLevel?: AnonymityLevel;
-        protocols?: Protocol[];
-        source: string;
-        tunnel?: boolean;
-    }
+export interface AddSource {
+	homeUrl: string;
+	getProxies(options: InternalOptions): GetProxiesEventEmitter;
+}
 
-    interface InternalOptions extends Options {
-        sample?: boolean;
-    }
+export interface ListSourcesOptions {
+	sourcesWhiteList?: string[];
+	sourcesBlackList?: string[];
+}
 
-    interface AddSource {
-        homeUrl: string;
-        getProxies(options: InternalOptions): GetProxiesEventEmitter;
-    }
-
-    interface ListSourcesOptions {
-        sourcesWhiteList?: string[];
-        sourcesBlackList?: string[];
-    }
-
-    interface Source {
-        name: string;
-        homeUrl: string;
-    }
+export interface Source {
+	name: string;
+	homeUrl: string;
 }
