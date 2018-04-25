@@ -192,10 +192,12 @@ declare module 'leaflet' {
             fileFormat: string;
         }
 
+        // tslint:disable-next-line interface-name
         interface IRouter {
             route(waypoints: Waypoint[], callback: (error?: IError, routes?: IRoute[]) => any, context?: {}, options?: RoutingOptions): void;
         }
 
+        // tslint:disable-next-line interface-name
         interface IRoute {
             name?: string;
             summary?: IRouteSummary;
@@ -204,11 +206,13 @@ declare module 'leaflet' {
             instructions?: IInstruction[];
         }
 
+        // tslint:disable-next-line interface-name
         interface IRouteSummary {
             totalTime: number;
             totalDistance: number;
         }
 
+        // tslint:disable-next-line interface-name
         interface IInstruction {
             distance: number;
             time: number;
@@ -220,12 +224,14 @@ declare module 'leaflet' {
             exit?: number;
         }
 
+        // tslint:disable-next-line interface-name
         interface IGeocoderElement {
             container: HTMLElement;
             input: HTMLElement;
             closeButton: HTMLElement;
         }
 
+        // tslint:disable-next-line interface-name
         interface IError {
             status: string | number;
             message: string;
