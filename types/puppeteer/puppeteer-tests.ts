@@ -282,6 +282,24 @@ puppeteer.launch().then(async browser => {
   browser.close();
 })();
 
+// Test 0.13 features
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const handler = (r: puppeteer.Request) => {
+    const failure = r.failure();
+
+    if (failure == null) {
+      console.error("Request completed successfully");
+      return;
+    }
+
+    console.log("Request failed", failure.errorText.toUpperCase());
+  };
+  page.on('requestfinished', handler);
+  page.on('requestfailed', handler);
+})();
+
 // Test 1.0 features
 (async () => {
   const browser = await puppeteer.launch({

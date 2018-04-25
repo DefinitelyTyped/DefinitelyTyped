@@ -7,6 +7,7 @@
 //                 FaithForHumans <https://github.com/FaithForHumans>
 //                 Kurt Preston <https://github.com/KurtPreston>
 //                 Tim Chen <https://github.com/timc13>
+//                 Pat Gaffney <https://github.com/patrickrgaffney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 

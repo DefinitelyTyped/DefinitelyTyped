@@ -6,30 +6,33 @@
 
 import * as React from 'react';
 
-export type PopoverPlace =
-    | 'above'
-    | 'right'
-    | 'below'
-    | 'left'
-    | 'row'
-    | 'column'
-    | 'start'
-    | 'end';
+export = Popover;
 
-export interface PopoverProps {
-    body: React.ReactNode;
-    isOpen?: boolean;
-    preferPlace?: PopoverPlace;
-    place?: PopoverPlace;
-    onOuterAction?: (event: Event) => void;
-    refreshIntervalMs?: number;
-    enterExitTransitionDurationMs?: number;
-    tipSize?: number;
-    className?: string;
-    style?: React.CSSProperties;
-    target?: React.ReactElement<any>;
-    appendTarget?: Element;
+declare class Popover extends React.Component<Popover.PopoverProps> {}
+
+declare namespace Popover {
+    type PopoverPlace =
+        | 'above'
+        | 'right'
+        | 'below'
+        | 'left'
+        | 'row'
+        | 'column'
+        | 'start'
+        | 'end';
+
+    interface PopoverProps {
+        body: React.ReactNode;
+        isOpen?: boolean;
+        preferPlace?: PopoverPlace;
+        place?: PopoverPlace;
+        onOuterAction?: (event: Event) => void;
+        refreshIntervalMs?: number;
+        enterExitTransitionDurationMs?: number;
+        tipSize?: number;
+        className?: string;
+        style?: React.CSSProperties;
+        target?: React.ReactElement<any>;
+        appendTarget?: Element;
+    }
 }
-
-declare class Popover extends React.Component<PopoverProps> {}
-export default Popover;
