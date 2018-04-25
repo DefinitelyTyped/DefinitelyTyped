@@ -6719,8 +6719,8 @@ declare module "http2" {
     interface Http2ServerEventMap {
         "checkContinue": (request: Http2ServerRequest, response: Http2ServerResponse) => void;
         "request": (request: Http2ServerRequest, response: Http2ServerResponse) => void;
-        "session": () => void;
-        "sessionError": () => void;
+        "session": (session: Http2Session) => void;
+        "sessionError": (err: Error) => void;
         "stream": (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void;
         "streamError": (err: Error) => void;
         "timeout": () => void;
@@ -6733,7 +6733,7 @@ declare module "http2" {
 
         emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
         emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
-        emit(event: "session", err: Error): boolean;
+        emit(event: "session", session: Http2Session): boolean;
         emit(event: "sessionError", err: Error): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "streamError", err: Error): boolean;
@@ -6781,8 +6781,8 @@ declare module "http2" {
     interface Http2SecureServerEventMap {
         "checkContinue": (request: Http2ServerRequest, response: Http2ServerResponse) => void;
         "request": (request: Http2ServerRequest, response: Http2ServerResponse) => void;
-        "session": () => void;
-        "sessionError": () => void;
+        "session": (session: Http2Session) => void;
+        "sessionError": (err: Error) => void;
         "stream": (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void;
         "timeout": () => void;
         "unknownProtocol": (socket: tls.TLSSocket) => void;
@@ -6794,6 +6794,20 @@ declare module "http2" {
     }
 
     export interface Http2SecureServer extends tls.Server {
+        // addListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        addListener<K extends keyof Http2ServerEventMap>(event: K, listener: Http2ServerEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
+        emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
+        emit(event: "session", session: Http2Session): boolean;
+        emit(event: "sessionError", err: Error): boolean;
+        emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
+        emit(event: "timeout"): boolean;
+        emit(event: "unknownProtocol", socket: tls.TLSSocket): boolean;
+        emit<K extends keyof ServerSimpleEventMap>(event: K, arg: ServerSimpleEventMap[K]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
         // listenerCount<K extends keyof ServerSimpleEventMap>(event: K): number;
         listenerCount<K extends keyof Http2SecureServerEventMap>(event: K): number;
         listenerCount(event: string | symbol): number;
