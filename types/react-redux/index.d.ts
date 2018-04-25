@@ -8,6 +8,7 @@
 //                 Nicholas Boll <https://github.com/nicholasboll>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
 //                 Prashant Deva <https://github.com/pdeva>
+//                 Stefan Knoch <https://github.com/ch1ll0ut1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
