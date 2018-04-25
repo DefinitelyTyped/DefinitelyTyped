@@ -1399,35 +1399,33 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
 // _.sortedUniqBy
 {
     const list: _.List<AbcObject> | null | undefined = anything;
-    const stringIterator = (value: string, index: number, collection: string) => "";
-    const listIterator = (value: AbcObject, index: number, collection: _.List<AbcObject>) => 0;
-    const stringIterator2 = (value: string) => "";
-    const listIterator2 = (value: AbcObject) => 0;
+    const stringIterator = (value: string) => "";
+    const valueIterator = (value: AbcObject) => 0;
 
     _.uniqBy("abc", stringIterator); // $ExpectType string[]
-    _.uniqBy(list, listIterator); // $ExpectType AbcObject[]
+    _.uniqBy(list, valueIterator); // $ExpectType AbcObject[]
     _.uniqBy(list, "a"); // $ExpectType AbcObject[]
-    _(list).uniqBy(listIterator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(list).uniqBy(valueIterator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).uniqBy("a"); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-    _.chain(list).uniqBy(listIterator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(list).uniqBy(valueIterator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).uniqBy("a"); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
 
-    fp.uniqBy(stringIterator2, "abc"); // $ExpectType string[]
-    fp.uniqBy(listIterator2, list); // $ExpectType AbcObject[]
-    fp.uniqBy(listIterator2)(list); // $ExpectType AbcObject[]
+    fp.uniqBy(stringIterator, "abc"); // $ExpectType string[]
+    fp.uniqBy(valueIterator, list); // $ExpectType AbcObject[]
+    fp.uniqBy(valueIterator)(list); // $ExpectType AbcObject[]
     fp.uniqBy("a", list); // $ExpectType AbcObject[]
 
     _.sortedUniqBy("abc", stringIterator); // $ExpectType string[]
-    _.sortedUniqBy(list, listIterator); // $ExpectType AbcObject[]
+    _.sortedUniqBy(list, valueIterator); // $ExpectType AbcObject[]
     _.sortedUniqBy(list, "a"); // $ExpectType AbcObject[]
-    _(list).sortedUniqBy(listIterator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(list).sortedUniqBy(valueIterator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).sortedUniqBy("a"); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-    _.chain(list).sortedUniqBy(listIterator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(list).sortedUniqBy(valueIterator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).sortedUniqBy("a"); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
 
-    fp.sortedUniqBy(stringIterator2, "abc"); // $ExpectType string[]
-    fp.sortedUniqBy(listIterator2, list); // $ExpectType AbcObject[]
-    fp.sortedUniqBy(listIterator2)(list); // $ExpectType AbcObject[]
+    fp.sortedUniqBy(stringIterator, "abc"); // $ExpectType string[]
+    fp.sortedUniqBy(valueIterator, list); // $ExpectType AbcObject[]
+    fp.sortedUniqBy(valueIterator)(list); // $ExpectType AbcObject[]
     fp.sortedUniqBy("a", list); // $ExpectType AbcObject[]
 }
 
@@ -1725,26 +1723,24 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     const dictionary: _.Dictionary<AbcObject> | null | undefined = anything;
     const numericDictionary: _.NumericDictionary<AbcObject> | null | undefined = anything;
 
-    const stringIterator = (value: string, index: number, collection: string) => 1;
-    const listIterator = (value: AbcObject, index: number, collection: _.List<AbcObject>) => 1;
-    const dictionaryIterator = (value: AbcObject, key: string, collection: _.Dictionary<AbcObject>) => 1;
-    const numericDictionaryIterator = (value: AbcObject, key: string, collection: _.NumericDictionary<AbcObject>) => 1;
+    const stringIterator = (value: string) => 1;
+    const valueIterator = (value: AbcObject) => 1;
 
     _.countBy(""); // $ExpectType Dictionary<number>
     _.countBy("", stringIterator); // $ExpectType Dictionary<number>
 
     _.countBy(list); // $ExpectType Dictionary<number>
-    _.countBy(list, listIterator); // $ExpectType Dictionary<number>
+    _.countBy(list, valueIterator); // $ExpectType Dictionary<number>
     _.countBy(list, ""); // $ExpectType Dictionary<number>
     _.countBy(list, { a: 42 }); // $ExpectType Dictionary<number>
 
     _.countBy(dictionary); // $ExpectType Dictionary<number>
-    _.countBy(dictionary, dictionaryIterator); // $ExpectType Dictionary<number>
+    _.countBy(dictionary, valueIterator); // $ExpectType Dictionary<number>
     _.countBy(dictionary, ""); // $ExpectType Dictionary<number>
     _.countBy(dictionary, { a: 42 }); // $ExpectType Dictionary<number>
 
     _.countBy(numericDictionary); // $ExpectType Dictionary<number>
-    _.countBy(numericDictionary, numericDictionaryIterator); // $ExpectType Dictionary<number>
+    _.countBy(numericDictionary, valueIterator); // $ExpectType Dictionary<number>
     _.countBy(numericDictionary, ""); // $ExpectType Dictionary<number>
     _.countBy(numericDictionary, { a: 42 }); // $ExpectType Dictionary<number>
 
@@ -1752,17 +1748,17 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _("").countBy(stringIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
 
     _(list).countBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
-    _(list).countBy(listIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
+    _(list).countBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
     _(list).countBy(""); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
     _(list).countBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
 
     _(dictionary).countBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
-    _(dictionary).countBy(dictionaryIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
+    _(dictionary).countBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
     _(dictionary).countBy(""); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
     _(dictionary).countBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
 
     _(numericDictionary).countBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
-    _(numericDictionary).countBy(numericDictionaryIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
+    _(numericDictionary).countBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
     _(numericDictionary).countBy(""); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
     _(numericDictionary).countBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
 
@@ -1770,30 +1766,28 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _.chain("").countBy(stringIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
 
     _.chain(list).countBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
-    _.chain(list).countBy(listIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
+    _.chain(list).countBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
     _.chain(list).countBy(""); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
     _.chain(list).countBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
 
     _.chain(dictionary).countBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
-    _.chain(dictionary).countBy(dictionaryIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
+    _.chain(dictionary).countBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
     _.chain(dictionary).countBy(""); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
     _.chain(dictionary).countBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
 
     _.chain(numericDictionary).countBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
-    _.chain(numericDictionary).countBy(numericDictionaryIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
+    _.chain(numericDictionary).countBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
     _.chain(numericDictionary).countBy(""); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
     _.chain(numericDictionary).countBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
 
-    const stringIterator2 = (value: string) => 1;
-    const listIterator2 = (value: AbcObject) => 1;
-    fp.countBy(stringIterator2, ""); // $ExpectType Dictionary<number>
-    fp.countBy(stringIterator2)(""); // $ExpectType Dictionary<number>
-    fp.countBy(listIterator2, list); // $ExpectType Dictionary<number>
+    fp.countBy(stringIterator, ""); // $ExpectType Dictionary<number>
+    fp.countBy(stringIterator)(""); // $ExpectType Dictionary<number>
+    fp.countBy(valueIterator, list); // $ExpectType Dictionary<number>
     fp.countBy("", list); // $ExpectType Dictionary<number>
     fp.countBy({ a: 42 }, list); // $ExpectType Dictionary<number>
-    fp.countBy(listIterator2, dictionary); // $ExpectType Dictionary<number>
+    fp.countBy(valueIterator, dictionary); // $ExpectType Dictionary<number>
     fp.countBy({ a: 42 }, dictionary); // $ExpectType Dictionary<number>
-    fp.countBy(listIterator2, numericDictionary); // $ExpectType Dictionary<number>
+    fp.countBy(valueIterator, numericDictionary); // $ExpectType Dictionary<number>
     fp.countBy({ a: 42 }, numericDictionary); // $ExpectType Dictionary<number>
 }
 
@@ -2656,41 +2650,39 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     const list: _.List<AbcObject> | null | undefined = [] as any;
     const dictionary: _.Dictionary<AbcObject> | null | undefined = anything;
 
-    const stringIterator = (char: string, index: number, string: string) => 0;
-    const listIterator = (value: AbcObject, index: number, collection: _.List<AbcObject>) => 0;
-    const dictionaryIterator = (value: AbcObject, key: string, collection: _.Dictionary<AbcObject>) => 0;
+    const stringIterator = (char: string) => 0;
     const valueIterator = (value: AbcObject) => 0;
 
     _.groupBy(""); // $ExpectType Dictionary<string[]>
     _.groupBy("", stringIterator); // $ExpectType Dictionary<string[]>
     _.groupBy(list); // $ExpectType Dictionary<AbcObject[]>
-    _.groupBy(list, listIterator); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(list, valueIterator); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(list, "a"); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(list, { a: 42 }); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(dictionary); // $ExpectType Dictionary<AbcObject[]>
-    _.groupBy(dictionary, dictionaryIterator); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(dictionary, valueIterator); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(dictionary, ""); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(dictionary, { a: 42 }); // $ExpectType Dictionary<AbcObject[]>
 
     _("").groupBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<string[]>>
-    _("").groupBy((char: string, index: number, string: ArrayLike<string>) => 0); // $ExpectType LoDashImplicitWrapper<Dictionary<string[]>>
+    _("").groupBy(stringIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<string[]>>
     _(list).groupBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
-    _(list).groupBy(listIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
+    _(list).groupBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
     _(list).groupBy(""); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
     _(list).groupBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
     _(dictionary).groupBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
-    _(dictionary).groupBy(dictionaryIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
+    _(dictionary).groupBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
     _(dictionary).groupBy(""); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
     _(dictionary).groupBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject[]>>
 
     _.chain("").groupBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<string[]>>
-    _.chain("").groupBy((char: string, index: number, string: ArrayLike<string>) => 0); // $ExpectType LoDashExplicitWrapper<Dictionary<string[]>>
+    _.chain("").groupBy(stringIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<string[]>>
     _.chain(list).groupBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
-    _.chain(list).groupBy(listIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
+    _.chain(list).groupBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
     _.chain(list).groupBy(""); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
     _.chain(list).groupBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
-    _.chain(dictionary).groupBy(dictionaryIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
+    _.chain(dictionary).groupBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy(""); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject[]>>
 
@@ -2741,57 +2733,54 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     const dictionary: _.Dictionary<AbcObject> | null | undefined = anything;
     const numericDictionary: _.NumericDictionary<AbcObject> | null | undefined = anything;
 
-    const stringIterator = (value: string, index: number, collection: string) => "a";
-    const listIterator = (value: AbcObject, index: number, collection: _.List<AbcObject>) => 1;
-    const dictionaryIterator = (value: AbcObject, key: string, collection: _.Dictionary<AbcObject>) => Symbol.name;
-    const numericDictionaryIterator = (value: AbcObject, key: string, collection: _.NumericDictionary<AbcObject>) => "a";
+    const stringIterator = (value: string) => "a";
     const valueIterator = (value: AbcObject) => 1;
 
     _.keyBy("abcd"); // $ExpectType Dictionary<string>
     _.keyBy("abcd", stringIterator); // $ExpectType Dictionary<string>
     _.keyBy(list); // $ExpectType Dictionary<AbcObject>
-    _.keyBy(list, listIterator); // $ExpectType Dictionary<AbcObject>
+    _.keyBy(list, valueIterator); // $ExpectType Dictionary<AbcObject>
     _.keyBy(list, "a"); // $ExpectType Dictionary<AbcObject>
     _.keyBy(list, { a: 42 }); // $ExpectType Dictionary<AbcObject>
     _.keyBy(dictionary); // $ExpectType Dictionary<AbcObject>
-    _.keyBy(dictionary, dictionaryIterator); // $ExpectType Dictionary<AbcObject>
+    _.keyBy(dictionary, valueIterator); // $ExpectType Dictionary<AbcObject>
     _.keyBy(dictionary, "a"); // $ExpectType Dictionary<AbcObject>
     _.keyBy(dictionary, { a: 42 }); // $ExpectType Dictionary<AbcObject>
     // These fail in TS 2.4
     // _.keyBy(numericDictionary); // Dictionary<AbcObject>
-    // _.keyBy(numericDictionary, numericDictionaryIterator); // Dictionary<AbcObject>
+    // _.keyBy(numericDictionary, valueIterator); // Dictionary<AbcObject>
     // _.keyBy(numericDictionary, "a"); // Dictionary<AbcObject>
     // _.keyBy(numericDictionary, { a: 42 }); // Dictionary<AbcObject>
 
     _("abcd").keyBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<string>>
     _("abcd").keyBy(stringIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<string>>
     _(list).keyBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
-    _(list).keyBy(listIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+    _(list).keyBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(list).keyBy("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(list).keyBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(dictionary).keyBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
-    _(dictionary).keyBy(dictionaryIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+    _(dictionary).keyBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(dictionary).keyBy("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(dictionary).keyBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     // These fail in TS 2.4
     // _(numericDictionary).keyBy(); // LoDashImplicitWrapper<Dictionary<AbcObject>>
-    // _(numericDictionary).keyBy(numericDictionaryIterator); // LoDashImplicitWrapper<Dictionary<AbcObject>>
+    // _(numericDictionary).keyBy(valueIterator); // LoDashImplicitWrapper<Dictionary<AbcObject>>
     // _(numericDictionary).keyBy("a"); // LoDashImplicitWrapper<Dictionary<AbcObject>>
     // _(numericDictionary).keyBy({ a: 42 }); // LoDashImplicitWrapper<Dictionary<AbcObject>>
 
     _.chain("abcd").keyBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<string>>
     _.chain("abcd").keyBy(stringIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<string>>
     _.chain(list).keyBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
-    _.chain(list).keyBy(listIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
+    _.chain(list).keyBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(list).keyBy("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(list).keyBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(dictionary).keyBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
-    _.chain(dictionary).keyBy(dictionaryIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
+    _.chain(dictionary).keyBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(dictionary).keyBy("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(dictionary).keyBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     // These fail in TS 2.4
     // _.chain(numericDictionary).keyBy(); // LoDashExplicitWrapper<Dictionary<AbcObject>>
-    // _.chain(numericDictionary).keyBy(numericDictionaryIterator); // LoDashExplicitWrapper<Dictionary<AbcObject>>
+    // _.chain(numericDictionary).keyBy(valueIterator); // LoDashExplicitWrapper<Dictionary<AbcObject>>
     // _.chain(numericDictionary).keyBy("a"); // LoDashExplicitWrapper<Dictionary<AbcObject>>
     // _.chain(numericDictionary).keyBy({ a: 42 }); // LoDashExplicitWrapper<Dictionary<AbcObject>>
 
@@ -3085,27 +3074,34 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     }
     const initial: ABC = { a: 1, b: 2, c: 3 };
 
-    _.reduce([1, 2, 3], (sum: number, num: number) => sum + num); // $ExpectType number | undefined
+    // $ExpectType number | undefined
+    _.reduce([1, 2, 3], (sum, curr, key, coll) => {
+        sum; // $ExpectType number
+        curr; // $ExpectType number
+        key; // $ExpectType number
+        coll; // $ExpectType number[]
+        return sum + curr;
+    });
     _.reduce(null, (sum: number, num: number) => sum + num); // $ExpectType number | undefined
     _.reduce({ a: 1, b: 2, c: 3 }, (r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _([1, 2, 3]).reduce((sum: number, num: number) => sum + num); // $ExpectType number | undefined
+    _([1, 2, 3]).reduce((sum, num) => sum + num); // $ExpectType number | undefined
     _({ a: 1, b: 2, c: 3 }).reduce((r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _.chain([1, 2, 3]).reduce((sum: number, num: number) => sum + num); // $ExpectType LoDashExplicitWrapper<number | undefined>
+    _.chain([1, 2, 3]).reduce((sum, num) => sum + num); // $ExpectType LoDashExplicitWrapper<number | undefined>
     _.chain({ a: 1, b: 2, c: 3 }).reduce((r: ABC, num: number, key: string) => r, initial); // $ExpectType LoDashExplicitWrapper<ABC>
 
     fp.reduce((s: string, num: number) => s + num, "", [1, 2, 3]); // $ExpectType string
     fp.reduce((s: string, num: number) => s + num)("")([1, 2, 3]); // $ExpectType string
 
-    _.reduceRight([1, 2, 3], (sum: number, num: number) => sum + num); // $ExpectType number | undefined
+    _.reduceRight([1, 2, 3], (sum, num) => sum + num); // $ExpectType number | undefined
     _.reduceRight(null, (sum: number, num: number) => sum + num); // $ExpectType number | undefined
     _.reduceRight({ a: 1, b: 2, c: 3 }, (r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _([1, 2, 3]).reduceRight((sum: number, num: number) => sum + num); // $ExpectType number | undefined
+    _([1, 2, 3]).reduceRight((sum, num) => sum + num); // $ExpectType number | undefined
     _({ a: 1, b: 2, c: 3 }).reduceRight((r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _.chain([1, 2, 3]).reduceRight((sum: number, num: number) => sum + num); // $ExpectType LoDashExplicitWrapper<number | undefined>
+    _.chain([1, 2, 3]).reduceRight((sum, num) => sum + num); // $ExpectType LoDashExplicitWrapper<number | undefined>
     _.chain({ a: 1, b: 2, c: 3 }).reduceRight((r: ABC, num: number, key: string) => r, initial); // $ExpectType LoDashExplicitWrapper<ABC>
 
     fp.reduceRight((num: number, s: string) => s + num, "", [1, 2, 3]); // $ExpectType string
@@ -4886,29 +4882,28 @@ fp.now(); // $ExpectType number
 {
     const list: ArrayLike<AbcObject> = anything;
 
-    const listIterator = (value: AbcObject, index: number, collection: ArrayLike<AbcObject>) => 0;
     const valueIterator = (value: AbcObject) => 0;
 
-    _.maxBy(list, listIterator); // $ExpectType AbcObject | undefined
+    _.maxBy(list, valueIterator); // $ExpectType AbcObject | undefined
     _.maxBy(list, "a"); // $ExpectType AbcObject | undefined
     _.maxBy(list, { a: 42 }); // $ExpectType AbcObject | undefined
-    _(list).maxBy(listIterator); // $ExpectType AbcObject | undefined
+    _(list).maxBy(valueIterator); // $ExpectType AbcObject | undefined
     _(list).maxBy("a"); // $ExpectType AbcObject | undefined
     _(list).maxBy({ a: 42 }); // $ExpectType AbcObject | undefined
-    _.chain(list).maxBy(listIterator); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
+    _.chain(list).maxBy(valueIterator); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
     _.chain(list).maxBy("a"); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
     _.chain(list).maxBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
     fp.maxBy(valueIterator)(list); // $ExpectType AbcObject | undefined
     fp.maxBy("a", list); // $ExpectType AbcObject | undefined
     fp.maxBy({ a: 42 }, list); // $ExpectType AbcObject | undefined
 
-    _.minBy(list, listIterator); // $ExpectType AbcObject | undefined
+    _.minBy(list, valueIterator); // $ExpectType AbcObject | undefined
     _.minBy(list, "a"); // $ExpectType AbcObject | undefined
     _.minBy(list, { a: 42 }); // $ExpectType AbcObject | undefined
-    _(list).minBy(listIterator); // $ExpectType AbcObject | undefined
+    _(list).minBy(valueIterator); // $ExpectType AbcObject | undefined
     _(list).minBy("a"); // $ExpectType AbcObject | undefined
     _(list).minBy({ a: 42 }); // $ExpectType AbcObject | undefined
-    _.chain(list).minBy(listIterator); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
+    _.chain(list).minBy(valueIterator); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
     _.chain(list).minBy("a"); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
     _.chain(list).minBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
     fp.minBy(valueIterator)(list); // $ExpectType AbcObject | undefined
@@ -7139,10 +7134,10 @@ fp.now(); // $ExpectType number
 
 // _.stubFalse
 {
-    _.stubFalse(); // $ExpectType boolean
-    _(anything).stubFalse(); // $ExpectType boolean
-    _.chain(anything).stubFalse(); // $ExpectType LoDashExplicitWrapper<boolean>
-    fp.stubFalse(); // $ExpectType boolean
+    _.stubFalse(); // $ExpectType false
+    _(anything).stubFalse(); // $ExpectType false
+    _.chain(anything).stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
+    fp.stubFalse(); // $ExpectType false
 }
 
 // _.stubObject
@@ -7163,10 +7158,10 @@ fp.now(); // $ExpectType number
 
 // _.stubTrue
 {
-    _.stubTrue(); // $ExpectType boolean
-    _(anything).stubTrue(); // $ExpectType boolean
-    _.chain(anything).stubTrue(); // $ExpectType LoDashExplicitWrapper<boolean>
-    fp.stubTrue(); // $ExpectType boolean
+    _.stubTrue(); // $ExpectType true
+    _(anything).stubTrue(); // $ExpectType true
+    _.chain(anything).stubTrue(); // $ExpectType LoDashExplicitWrapper<true>
+    fp.stubTrue(); // $ExpectType true
 }
 
 // _.times

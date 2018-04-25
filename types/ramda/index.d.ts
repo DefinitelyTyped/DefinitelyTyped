@@ -17,6 +17,7 @@
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Jack Leigh <https://github.com/leighman>
 //                 Keagan McClelland <https://github.com/CaptJakk>
+//                 Tomas Szabo <https://github.com/deftomat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -1026,6 +1027,13 @@ declare namespace R {
          * additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
         memoize<T = any>(fn: (...a: any[]) => T): (...a: any[]) => T;
+
+        /**
+         * A customisable version of R.memoize. memoizeWith takes an additional function that will be applied to a given
+         * argument set and used to create the cache key under which the results of the function to be memoized will be stored.
+         * Care must be taken when implementing key generation to avoid clashes that may overwrite previous entries erroneously.
+         */
+        memoizeWith<T extends (...args: any[]) => any>(keyFn: (...v: any[]) => string, fn: T): T;
 
         /**
          * Create a new object with the own properties of a

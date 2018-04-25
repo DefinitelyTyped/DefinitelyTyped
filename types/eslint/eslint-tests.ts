@@ -456,6 +456,7 @@ cli = new CLIEngine({ globals: ['foo'] });
 cli = new CLIEngine({ ignore: true });
 cli = new CLIEngine({ ignorePath: 'foo' });
 cli = new CLIEngine({ ignorePattern: 'foo' });
+cli = new CLIEngine({ ignorePattern: ['foo', 'bar'] });
 cli = new CLIEngine({ useEslintrc: false });
 cli = new CLIEngine({ parserOptions: {} });
 cli = new CLIEngine({ plugins: ['foo'] });

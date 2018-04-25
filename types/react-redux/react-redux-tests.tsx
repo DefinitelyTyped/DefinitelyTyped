@@ -1,7 +1,7 @@
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, Dispatch, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject } from 'redux';
+import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject } from 'redux';
 import { Connect, connect, createProvider, Provider, DispatchProp, MapStateToProps, Options } from 'react-redux';
 import objectAssign = require('object-assign');
 
@@ -14,7 +14,7 @@ import objectAssign = require('object-assign');
 // output of `connect` to make sure the signature is what is expected
 
 namespace Empty {
-    interface OwnProps { foo: string, dispatch: Dispatch<any> }
+    interface OwnProps { foo: string, dispatch: Dispatch }
 
     class TestComponent extends Component<OwnProps> {}
 
@@ -42,7 +42,7 @@ namespace MapState {
 
 namespace MapStateWithDispatchProp {
     interface OwnProps { foo: string }
-    interface StateProps { bar: number, dispatch: Dispatch<any> }
+    interface StateProps { bar: number, dispatch: Dispatch }
 
     class TestComponent extends Component<OwnProps & StateProps> {}
 
@@ -250,7 +250,7 @@ namespace MapStateAndOptions {
     interface State { state: string; }
     interface OwnProps { foo: string }
     interface StateProps { bar: number }
-    interface DispatchProps { dispatch: Dispatch<any> }
+    interface DispatchProps { dispatch: Dispatch }
 
     class TestComponent extends Component<OwnProps & StateProps & DispatchProps> {}
 
@@ -295,7 +295,7 @@ function mapStateToProps(state: CounterState) {
 }
 
 // Which action creators does it want to receive by props?
-function mapDispatchToProps(dispatch: Dispatch<CounterState>) {
+function mapDispatchToProps(dispatch: Dispatch) {
     return {
         onIncrement: () => dispatch(increment())
     };
@@ -327,7 +327,7 @@ connect<ICounterStateProps, ICounterDispatchProps, {}, CounterState>(
 // with higher order functions using parameters
 connect<ICounterStateProps, ICounterDispatchProps, {}, CounterState>(
     (initialState: CounterState, ownProps) => mapStateToProps,
-    (dispatch: Dispatch<CounterState>, ownProps) => mapDispatchToProps
+    (dispatch: Dispatch, ownProps) => mapDispatchToProps
 )(Counter);
 // only first argument
 connect<ICounterStateProps, {}, {}, CounterState>(
@@ -414,7 +414,7 @@ ReactDOM.render(
 
 // Inject just dispatch and don't listen to store
 
-const AppWrap = (props: DispatchProp<any> & { children?: React.ReactNode }) => <div />
+const AppWrap = (props: DispatchProp & { children?: React.ReactNode }) => <div />
 const WrappedApp = connect()(AppWrap);
 
 <WrappedApp />
@@ -445,7 +445,7 @@ connect(mapStateToProps2, actionCreators)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps2(dispatch: Dispatch<TodoState>) {
+function mapDispatchToProps2(dispatch: Dispatch) {
     return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
@@ -457,7 +457,7 @@ connect(mapStateToProps2, mapDispatchToProps2)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps3(dispatch: Dispatch<TodoState>) {
+function mapDispatchToProps3(dispatch: Dispatch) {
     return bindActionCreators({ addTodo }, dispatch);
 }
 
@@ -469,7 +469,7 @@ connect(mapStateToProps2, mapDispatchToProps3)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps4(dispatch: Dispatch<TodoState>) {
+function mapDispatchToProps4(dispatch: Dispatch) {
     return {
         todoActions: bindActionCreators(todoActionCreators, dispatch),
         counterActions: bindActionCreators(counterActionCreators, dispatch)
@@ -484,7 +484,7 @@ connect(mapStateToProps2, mapDispatchToProps4)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps5(dispatch: Dispatch<TodoState>) {
+function mapDispatchToProps5(dispatch: Dispatch) {
     return {
         actions: bindActionCreators(objectAssign({}, todoActionCreators, counterActionCreators), dispatch)
     };
@@ -498,7 +498,7 @@ connect(mapStateToProps2, mapDispatchToProps5)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps6(dispatch: Dispatch<TodoState>) {
+function mapDispatchToProps6(dispatch: Dispatch) {
     return bindActionCreators(objectAssign({}, todoActionCreators, counterActionCreators), dispatch);
 }
 
@@ -540,7 +540,7 @@ interface TestState {
     isLoaded: boolean;
     state1: number;
 }
-class TestComponent extends Component<TestProp & DispatchProp<any>, TestState> { }
+class TestComponent extends Component<TestProp & DispatchProp, TestState> { }
 const WrappedTestComponent = connect()(TestComponent);
 
 // return value of the connect()(TestComponent) is assignable to a ComponentClass<TestProp>
@@ -556,7 +556,7 @@ class NonComponent {}
 
 // stateless functions
 interface HelloMessageProps {
-    dispatch: Dispatch<any>
+    dispatch: Dispatch
     name: string;
  }
 const HelloMessage: React.StatelessComponent<HelloMessageProps> = (props) => {
@@ -582,7 +582,7 @@ namespace TestStatelessFunctionWithMapArguments {
         };
     };
 
-    const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: GreetingProps) => {
+    const mapDispatchToProps = (dispatch: Dispatch, ownProps: GreetingProps) => {
         return {
             onClick: () => {
                 dispatch({ type: 'GREETING', name: ownProps.name });
@@ -606,7 +606,7 @@ namespace TestTOwnPropsInference {
         state: string;
     }
 
-    class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp<any>> {
+    class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp> {
         render() {
             return <div/>;
         }
@@ -644,7 +644,7 @@ namespace TestTOwnPropsInference {
         state: string
     }
 
-    class AllPropsComponent extends React.Component<AllProps & DispatchProp<any>> {
+    class AllPropsComponent extends React.Component<AllProps & DispatchProp> {
         render() {
             return <div/>;
         }
@@ -688,7 +688,7 @@ namespace TestMergedPropsInference {
         return { state: 'string' };
     }
 
-    function mapDispatchToProps(dispatch: Dispatch<any>): DispatchProps {
+    function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
         return { dispatch: 'string' };
     }
 
@@ -726,7 +726,7 @@ namespace Issue16652 {
         comments: ({ id: string } | undefined)[];
     }
 
-    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp<any>> {}
+    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp> {}
 
     const mapStateToProps = (state: any, ownProps: PassedProps): GeneratedStateProps => {
         return {
@@ -745,7 +745,8 @@ namespace Issue15463 {
     interface ISpinnerProps{
         showGlobalSpinner: boolean;
     }
-    class SpinnerClass extends React.Component<ISpinnerProps & DispatchProp<any>> {
+
+    class SpinnerClass extends React.Component<ISpinnerProps & DispatchProp> {
         render() {
             return (<div />);
         }
@@ -763,7 +764,7 @@ namespace RemoveInjectedAndPassOnRest {
         showGlobalSpinner: boolean;
         foo: string;
     }
-    class SpinnerClass extends React.Component<TProps & DispatchProp<any>, {}> {
+    class SpinnerClass extends React.Component<TProps & DispatchProp, {}> {
         render() {
             return (<div />);
         }
@@ -874,8 +875,8 @@ namespace TestCreateProvider {
     };
 
     interface State { a: number };
-    const store = createStore<State>(() => ({ a: 1 }));
-    const myStore = createStore<State>(() => ({ a: 2 }));
+    const store = createStore<State, AnyAction, {}, {}>(() => ({ a: 1 }));
+    const myStore = createStore<State, AnyAction, {}, {}>(() => ({ a: 2 }));
 
     interface AProps { a: number };
     const A = (props: AProps) => (<h1>A is {props.a}</h1>);

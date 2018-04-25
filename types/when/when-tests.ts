@@ -14,9 +14,24 @@ class ForeignPromise<T> {
 	then(onFulfilled?: (value: T) => T, onRejected?: (reason: any) => T): ForeignPromise<T> {
 		return new ForeignPromise(onFulfilled ? onFulfilled(this.value) : this.value);
 	}
-};
+}
+
+interface IData {
+	timestamp: number;
+}
+
+class Data implements IData {
+	timestamp: number;
+	date: Date;
+
+	constructor({ timestamp }: IData) {
+		this.timestamp = timestamp;
+		this.date = new Date(timestamp);
+	}
+}
 
 var promise: when.Promise<number>;
+var promise2: when.Promise<Data>;
 var foreign = new ForeignPromise<number>(1);
 var error = new Error("boom!");
 var example: () => void;
@@ -221,6 +236,17 @@ promise = when(1).then((val: number) => when(val + val));
 promise = when(1).then(undefined, (err: any) => 2);
 promise = when(1).then((val: number) => val + val, (err: any) => 2);
 promise = when(1).then((val: number) => when(val + val), (err: any) => 2);
+
+promise = when('1').then((val: string) => parseInt(val));
+
+// Tests for when TResult is a subtype of T
+const subData: IData = { timestamp: Date.now() };
+const errorData: Data = new Data({ timestamp: -1 });
+
+promise2 = when(subData).then((val: IData) => new Data(val));
+promise2 = when(subData).then((val: IData) => when(new Data(val)));
+promise2 = when(subData).then((val: IData) => new Data(val), (err: any) => errorData);
+promise2 = when(subData).then((val: IData) => when(new Data(val)), (err: any) => errorData);
 
 /* promise.spread(onFulfilledArray) */
 
