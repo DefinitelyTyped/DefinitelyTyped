@@ -481,11 +481,7 @@ export interface BaseStatement {
     Condition?: ConditionBlock;
 }
 
-export interface PrincipalBlock {
-    [key: string]: string | string[];
-}
-
-export type PrincipalValue = PrincipalBlock | string | string[];
+export type PrincipalValue = { [key: string]: string | string[]; } | string | string[];
 export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
 export type StatementResource = { Resource: string | string[] } | { NotResource: string | string[] };
 export type StatementPrincipal = { Principal: PrincipalValue } | { NotPrincipal: PrincipalValue };
