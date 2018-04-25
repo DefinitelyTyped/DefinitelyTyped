@@ -628,6 +628,11 @@ export interface Request {
   continue(overrides?: Overrides): Promise<void>;
 
   /**
+   * @returns An object if the request failed, null otherwise.
+   */
+  failure(): { errorText: string; } | null;
+
+  /**
    * @returns The `Frame` object that initiated the request, or `null` if navigating to error pages
    */
   frame(): Promise<Frame | null>;

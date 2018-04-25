@@ -1022,7 +1022,7 @@ export interface Options<TRow extends object = any> {
 	 * The function allows you to make further modifications to the cell value prior to it being saved. You need to
 	 * return the final cell value to use.
 	 */
-	onCellEdit?<K extends keyof TRow>(row: TRow, fieldName: K, value: TRow[K]): TRow[K];
+	onCellEdit?<K extends string & keyof TRow>(row: TRow, fieldName: K, value: TRow[K]): TRow[K];
 	/**
 	 * Custom message to show when the InsertModal save fails validation.
 	 * Default message is 'Form validate errors, please checking!'

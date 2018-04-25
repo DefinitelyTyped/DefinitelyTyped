@@ -31,6 +31,7 @@ export interface APIGatewayEventRequestContext {
         accessKey: string | null;
         accountId: string | null;
         apiKey: string | null;
+        apiKeyId: string | null;
         caller: string | null;
         cognitoAuthenticationProvider: string | null;
         cognitoAuthenticationType: string | null;

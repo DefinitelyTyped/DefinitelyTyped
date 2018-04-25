@@ -30,8 +30,14 @@ import {
     ScreenOrientation,
     SQLite,
     Calendar,
-    MailComposer
+    MailComposer,
+    Location
 } from 'expo';
+
+const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
+    latitude: 0,
+    longitude: 0
+});
 
 Accelerometer.addListener((obj) => {
     obj.x;
