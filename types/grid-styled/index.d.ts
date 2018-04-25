@@ -1,7 +1,8 @@
-// Type definitions for grid-styled 3.2
+// Type definitions for grid-styled 4.1
 // Project: https://github.com/jxnblk/grid-styled
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 //                 Victor Orlov <https://github.com/vittorio>
+//                 Louis Hache <https://github.com/lhache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -39,6 +40,7 @@ export interface BoxProps
     flex?: ResponsiveProp;
     order?: ResponsiveProp;
     is?: string | ComponentClass<any>;
+    alignSelf?: ResponsiveProp;
 }
 
 export interface FlexProps extends BoxProps {
