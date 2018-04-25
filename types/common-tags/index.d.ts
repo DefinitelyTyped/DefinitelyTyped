@@ -9,7 +9,8 @@ declare module 'common-tags' {
     type TemplateTag = (literals: TemplateStringsArray, ...placeholders: any[]) => any;
 
     type TemplateTransformer = {
-        onSubstitution?: (substitution?: any, resultSoFar?: string) => string;
+        onString?: (str: string) => string;
+        onSubstitution?: (substitution: any, resultSoFar: string) => string;
         onEndResult?: (endResult?: string) => any;
     }
 

@@ -143,6 +143,10 @@ new commonTags.TemplateTag({
     onEndResult: endResult => `${endResult}!`
 });
 
+new commonTags.TemplateTag({
+    onEndResult: () => ({})
+})
+
 /* Tests Built-in Transformers */
 
 new commonTags.TemplateTag(commonTags.trimResultTransformer());
