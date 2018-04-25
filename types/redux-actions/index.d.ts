@@ -1,9 +1,11 @@
-// Type definitions for redux-actions 2.2
+// Type definitions for redux-actions 2.3
 // Project: https://github.com/acdlite/redux-actions
 // Definitions by: Jack Hsu <https://github.com/jaysoo>,
 //                 Alex Gorbatchev <https://github.com/alexgorbatchev>,
 //                 Alec Hill <https://github.com/alechill>
+//                 Alexey Pelykh <https://github.com/alexey-pelykh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace ReduxActions;
 
@@ -62,9 +64,10 @@ export type ActionFunction3<T1, T2, T3, R> = (t1: T1, t2: T2, t3: T3) => R;
 export type ActionFunction4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4) => R;
 export type ActionFunctionAny<R> = (...args: any[]) => R;
 
+// https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/createAction.js#L6
 export function createAction(
     actionType: string
-): ActionFunction0<Action<void>>;
+): ActionFunctionAny<Action<any>>;
 
 export function createAction<Payload>(
     actionType: string,
@@ -94,6 +97,12 @@ export function createAction<Payload, Arg1, Arg2, Arg3, Arg4>(
 export function createAction<Payload>(
     actionType: string
 ): ActionFunction1<Payload, Action<Payload>>;
+
+export function createAction<Meta>(
+    actionType: string,
+    payloadCreator: null | undefined,
+    metaCreator: ActionFunctionAny<Meta>
+): ActionFunctionAny<ActionMeta<any, Meta>>;
 
 export function createAction<Payload, Meta>(
     actionType: string,
@@ -152,7 +161,14 @@ export function handleActions<State, Payload, Meta>(
     initialState: State
 ): ReducerMeta<State, Payload, Meta>;
 
-export function combineActions(...actionTypes: Array<ActionFunctions<any> | string>): string;
+// https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/combineActions.js#L27
+export interface CombinedAction {
+    // NOTE: Done on purpose to avoid empty interface declaration
+    toString(): string;
+}
+
+// https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/combineActions.js#L21
+export function combineActions(...actionTypes: Array<ActionFunctions<any> | string | symbol>): CombinedAction;
 
 export interface ActionMap<Payload, Meta> {
     [actionType: string]:
@@ -167,4 +183,11 @@ export function createActions<Payload>(
     ...identityActions: string[]
 ): {
     [actionName: string]: ActionFunctionAny<Action<Payload>>
+};
+
+export function createActions(
+    actionMapOrIdentityAction: ActionMap<any, any> | string,
+    ...identityActions: string[]
+): {
+    [actionName: string]: ActionFunctionAny<Action<any>>
 };
