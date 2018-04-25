@@ -24,7 +24,9 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Simon Chan <https://github.com/yume-chan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /** inspector module types */
 /// <reference path="./inspector.d.ts" />
@@ -411,20 +413,19 @@ declare namespace NodeJS {
 
     export class EventEmitter {
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        emit(event: string | symbol, ...args: any[]): boolean;
+        eventNames(): Array<string | symbol>;
+        getMaxListeners(): number;
+        listenerCount(event: string | symbol): number;
+        listeners(event: string | symbol): Function[];
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeAllListeners(event?: string | symbol): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string | symbol): Function[];
-        rawListeners(event: string | symbol): Function[];
-        emit(event: string | symbol, ...args: any[]): boolean;
-        listenerCount(type: string | symbol): number;
-        // Added in Node 6...
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        eventNames(): Array<string | symbol>;
+        removeAllListeners(event?: string | symbol): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        setMaxListeners(n: number): this;
+        rawListeners(event: string | symbol): Function[];
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -914,23 +915,26 @@ declare module "events" {
 
     namespace internal {
         export class EventEmitter extends internal {
-            static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
+            /**
+             * @deprecated Use emitter.listenerCount() instead
+             */
+            static listenerCount(emitter: EventEmitter, event: string | symbol): number;
             static defaultMaxListeners: number;
 
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            emit(event: string | symbol, ...args: any[]): boolean;
+            eventNames(): Array<string | symbol>;
+            getMaxListeners(): number;
+            listenerCount(event: string | symbol): number;
+            listeners(event: string | symbol): Function[];
             on(event: string | symbol, listener: (...args: any[]) => void): this;
             once(event: string | symbol, listener: (...args: any[]) => void): this;
             prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
             prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
             removeAllListeners(event?: string | symbol): this;
+            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
             setMaxListeners(n: number): this;
-            getMaxListeners(): number;
-            listeners(event: string | symbol): Function[];
             rawListeners(event: string | symbol): Function[];
-            emit(event: string | symbol, ...args: any[]): boolean;
-            eventNames(): Array<string | symbol>;
-            listenerCount(type: string | symbol): number;
         }
     }
 
@@ -994,28 +998,92 @@ declare module "http" {
         [header: string]: number | string | string[] | undefined;
     }
 
-    export interface ClientRequestArgs {
+    export interface RequestOptions {
         protocol?: string;
         host?: string;
         hostname?: string;
         family?: number;
         port?: number | string;
-        defaultPort?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
         path?: string;
         headers?: OutgoingHttpHeaders;
         auth?: string;
-        agent?: Agent | boolean;
-        _defaultAgent?: Agent;
-        timeout?: number;
+        agent?: Agent | false;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
-        createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
+        createConnection?: (options: RequestOptions, oncreate: (err: Error, stream: stream.Duplex) => void) => stream.Duplex;
+        timeout?: number;
+        setHost?: boolean;
+    }
+
+    /**
+     * @deprecated use `RequestOptions` instead
+     */
+    export interface ClientRequestArgs extends RequestOptions { }
+
+    type ServerSimpleEventMap = net.ServerSimpleEventMap;
+
+    interface ServerEventMap {
+        "checkContinue": (request: IncomingMessage, response: ServerResponse) => void;
+        "checkExpectation": (request: IncomingMessage, response: ServerResponse) => void;
+        "clientError": (error: Error, socket: net.Socket) => void;
+        "connect": (request: IncomingMessage, socket: net.Socket, head: Buffer) => void;
+        "request": (request: IncomingMessage, response: ServerResponse) => void;
+        "upgrade": (request: IncomingMessage, socket: net.Socket, head: Buffer) => void;
     }
 
     export class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
+
+        addListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        addListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        emit(event: "checkContinue", request: IncomingMessage, response: ServerResponse): boolean;
+        emit(event: "checkExpectation", request: IncomingMessage, response: ServerResponse): boolean;
+        emit(event: "clientError", error: Error, socket: net.Socket): boolean;
+        emit(event: "connect", request: IncomingMessage, socket: net.Socket, head: Buffer): boolean;
+        emit(event: "request", request: IncomingMessage, response: ServerResponse): boolean;
+        emit(event: "upgrade", request: IncomingMessage, socket: net.Socket, head: Buffer): boolean;
+        emit<K extends keyof ServerSimpleEventMap>(event: K, arg: ServerSimpleEventMap[K]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        listenerCount<K extends keyof ServerSimpleEventMap>(event: K): number;
+        listenerCount<K extends keyof ServerEventMap>(event: K): number;
+        listenerCount(event: string | symbol): number;
+
+        listeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        listeners<K extends keyof ServerEventMap>(event: K): Array<ServerEventMap[K]>;
+        listeners(event: string | symbol): Function[];
+
+        on<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        on<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        once<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependOnceListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeAllListeners<K extends keyof ServerSimpleEventMap>(event: K): this;
+        removeAllListeners<K extends keyof ServerEventMap>(event: K): this;
+        removeAllListeners(event?: string | symbol): this;
+
+        removeListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        removeListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        rawListeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        rawListeners<K extends keyof ServerEventMap>(event: K): Array<ServerEventMap[K]>;
+        rawListeners(event: string | symbol): Function[];
 
         setTimeout(msecs?: number, callback?: () => void): this;
         setTimeout(callback: () => void): this;
@@ -1023,6 +1091,7 @@ declare module "http" {
         timeout: number;
         keepAliveTimeout: number;
     }
+
     /**
      * @deprecated Use IncomingMessage
      */
@@ -1077,7 +1146,7 @@ declare module "http" {
         socket: net.Socket;
         aborted: number;
 
-        constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
+        private constructor();
 
         abort(): void;
         onSocket(socket: net.Socket): void;
@@ -1169,9 +1238,6 @@ declare module "http" {
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
 
-    // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
-    // create interface RequestOptions would make the naming more clear to developers
-    export interface RequestOptions extends ClientRequestArgs { }
     export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
@@ -1756,7 +1822,7 @@ declare module "https" {
         servername?: string; // SNI TLS Extension
     };
 
-    export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
+    export interface AgentOptions extends http.AgentOptions, tls.BaseConnectOptions {
         rejectUnauthorized?: boolean;
         maxCachedSessions?: number;
     }
@@ -2576,14 +2642,19 @@ declare module "net" {
 
     type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
 
-    export interface SocketConstructorOpts {
+    export interface SocketConstructOptions {
         fd?: number;
         allowHalfOpen?: boolean;
         readable?: boolean;
         writable?: boolean;
     }
 
-    export interface TcpSocketConnectOpts {
+    /**
+     * @deprecated renamed to `SocketConstructOptions`
+     */
+    export interface SocketConstructorOpts extends SocketConstructOptions { }
+
+    export interface TcpSocketConnectOptions {
         port: number;
         host?: string;
         localAddress?: string;
@@ -2593,14 +2664,24 @@ declare module "net" {
         lookup?: LookupFunction;
     }
 
-    export interface IpcSocketConnectOpts {
+    /**
+     * @deprecated renamed to `TcpSocketConnectOptions`
+     */
+    export interface TcpSocketConnectOpts extends TcpSocketConnectOptions { }
+
+    export interface IpcSocketConnectOptions {
         path: string;
     }
 
-    export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+    export type SocketConnectOptions = TcpSocketConnectOptions | IpcSocketConnectOptions;
+
+    /**
+     * @deprecated renamed to `SocketConnectOptions`
+     */
+    export type SocketConnectOpts = SocketConnectOptions;
 
     export class Socket extends stream.Duplex {
-        constructor(options?: SocketConstructorOpts);
+        constructor(options?: SocketConstructOptions);
 
         // Extended base methods
         write(buffer: Buffer): boolean;
@@ -2610,10 +2691,10 @@ declare module "net" {
         write(str: string, encoding?: string, fd?: string): boolean;
         write(data: any, encoding?: string, callback?: Function): void;
 
-        connect(options: SocketConnectOpts, connectionListener?: Function): this;
-        connect(port: number, host: string, connectionListener?: Function): this;
-        connect(port: number, connectionListener?: Function): this;
-        connect(path: string, connectionListener?: Function): this;
+        connect(options: SocketConnectOptions, connectionListener?: () => void): this;
+        connect(port: number, host: string, connectionListener?: () => void): this;
+        connect(port: number, connectionListener?: () => void): this;
+        connect(path: string, connectionListener?: () => void): this;
 
         bufferSize: number;
         setEncoding(encoding?: string): this;
@@ -2724,6 +2805,16 @@ declare module "net" {
         exclusive?: boolean;
     }
 
+    interface ServerSimpleEventMap {
+        "connection": Socket;
+        "error": Error;
+    }
+
+    interface ServerEventMap {
+        "close": () => void;
+        "listening": () => void;
+    }
+
     // https://github.com/nodejs/node/blob/master/lib/net.js
     export class Server extends events.EventEmitter {
         constructor(connectionListener?: (socket: Socket) => void);
@@ -2747,68 +2838,90 @@ declare module "net" {
         connections: number;
         listening: boolean;
 
-        /**
-         * events.EventEmitter
-         *   1. close
-         *   2. connection
-         *   3. error
-         *   4. listening
-         */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connection", listener: (socket: Socket) => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
+        addListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        addListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
-        emit(event: "connection", socket: Socket): boolean;
-        emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
+        emit<K extends keyof ServerSimpleEventMap>(event: K, arg: ServerSimpleEventMap[K]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connection", listener: (socket: Socket) => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
+        listenerCount<K extends keyof ServerSimpleEventMap>(event: K): number;
+        listenerCount<K extends keyof ServerEventMap>(event: K): number;
+        listenerCount(event: string | symbol): number;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connection", listener: (socket: Socket) => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
+        listeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        listeners<K extends keyof ServerEventMap>(event: K): Array<ServerEventMap[K]>;
+        listeners(event: string | symbol): Function[];
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
+        on<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        on<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
+        once<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        once<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependOnceListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeAllListeners<K extends keyof ServerSimpleEventMap>(event: K): this;
+        removeAllListeners<K extends keyof ServerEventMap>(event: K): this;
+        removeAllListeners(event?: string | symbol): this;
+
+        removeListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        removeListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        rawListeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        rawListeners<K extends keyof ServerEventMap>(event: K): Array<ServerEventMap[K]>;
+        rawListeners(event: string | symbol): Function[];
     }
 
-    export interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
+    export interface TcpNetConnectOptions extends TcpSocketConnectOptions, SocketConstructOptions {
         timeout?: number;
     }
 
-    export interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
+    /**
+     * @deprecated renamed to TcpNetConnectOptions
+     */
+    export interface TcpNetConnectOpts extends TcpNetConnectOptions { }
+
+    export interface IpcNetConnectOptions extends IpcSocketConnectOptions, SocketConstructOptions {
         timeout?: number;
     }
 
-    export type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
+    /**
+     * @deprecated renamed to IpcNetConnectOptions
+     */
+    export interface IpcNetConnectOpts extends IpcNetConnectOptions { }
+
+    export type NetConnectOptions = TcpNetConnectOptions | IpcNetConnectOptions;
+
+    /**
+     * @deprecated renamed to NetConnectOptions
+     */
+    export type NetConnectOpts = NetConnectOptions;
 
     export function createServer(connectionListener?: (socket: Socket) => void): Server;
     export function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
-    export function connect(options: NetConnectOpts, connectionListener?: Function): Socket;
-    export function connect(port: number, host?: string, connectionListener?: Function): Socket;
-    export function connect(path: string, connectionListener?: Function): Socket;
-    export function createConnection(options: NetConnectOpts, connectionListener?: Function): Socket;
-    export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
-    export function createConnection(path: string, connectionListener?: Function): Socket;
+
+    export function connect(options: NetConnectOptions, connectionListener?: () => void): Socket;
+    export function connect(port: number, connectionListener?: () => void): Socket;
+    export function connect(port: number, host: string, connectionListener?: () => void): Socket;
+    export function connect(path: string, connectionListener?: () => void): Socket;
+
+    export function createConnection(options: NetConnectOptions, connectionListener?: () => void): Socket;
+    export function createConnection(port: number, connectionListener?: () => void): Socket;
+    export function createConnection(port: number, host: string, connectionListener?: () => void): Socket;
+    export function createConnection(path: string, connectionListener?: () => void): Socket;
+
     export function isIP(input: string): number;
     export function isIPv4(input: string): boolean;
     export function isIPv6(input: string): boolean;
@@ -4804,70 +4917,72 @@ declare module "tls" {
         version: string;
     }
 
+    export interface TLSSocketConstructOptions extends SecureContextOptions {
+        /**
+         * If true the TLS socket will be instantiated in server-mode.
+         * Defaults to false.
+         */
+        isServer?: boolean;
+        /**
+         * An optional net.Server instance.
+         */
+        server?: net.Server;
+        /**
+         * If true the server will request a certificate from clients that
+         * connect and attempt to verify that certificate. Defaults to
+         * false.
+         */
+        requestCert?: boolean;
+        /**
+         * If true the server will reject any connection which is not
+         * authorized with the list of supplied CAs. This option only has an
+         * effect if requestCert is true. Defaults to false.
+         */
+        rejectUnauthorized?: boolean;
+        /**
+         * An array of strings or a Buffer naming possible NPN protocols.
+         * (Protocols should be ordered by their priority.)
+         */
+        NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        /**
+         * An array of strings or a Buffer naming possible ALPN protocols.
+         * (Protocols should be ordered by their priority.) When the server
+         * receives both NPN and ALPN extensions from the client, ALPN takes
+         * precedence over NPN and the server does not send an NPN extension
+         * to the client.
+         */
+        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        /**
+         * SNICallback(servername, cb) <Function> A function that will be
+         * called if the client supports SNI TLS extension. Two arguments
+         * will be passed when called: servername and cb. SNICallback should
+         * invoke cb(null, ctx), where ctx is a SecureContext instance.
+         * (tls.createSecureContext(...) can be used to get a proper
+         * SecureContext.) If SNICallback wasn't provided the default callback
+         * with high-level API will be used (see below).
+         */
+        SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
+        /**
+         * An optional Buffer instance containing a TLS session.
+         */
+        session?: Buffer;
+        /**
+         * If true, specifies that the OCSP status request extension will be
+         * added to the client hello and an 'OCSPResponse' event will be
+         * emitted on the socket before establishing a secure communication
+         */
+        requestOCSP?: boolean;
+        /**
+         * An optional TLS context object from tls.createSecureContext()
+         */
+        secureContext?: SecureContext;
+    }
+
     export class TLSSocket extends net.Socket {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
-        constructor(socket: net.Socket, options?: {
-            /**
-             * An optional TLS context object from tls.createSecureContext()
-             */
-            secureContext?: SecureContext,
-            /**
-             * If true the TLS socket will be instantiated in server-mode.
-             * Defaults to false.
-             */
-            isServer?: boolean,
-            /**
-             * An optional net.Server instance.
-             */
-            server?: net.Server,
-            /**
-             * If true the server will request a certificate from clients that
-             * connect and attempt to verify that certificate. Defaults to
-             * false.
-             */
-            requestCert?: boolean,
-            /**
-             * If true the server will reject any connection which is not
-             * authorized with the list of supplied CAs. This option only has an
-             * effect if requestCert is true. Defaults to false.
-             */
-            rejectUnauthorized?: boolean,
-            /**
-             * An array of strings or a Buffer naming possible NPN protocols.
-             * (Protocols should be ordered by their priority.)
-             */
-            NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
-            /**
-             * An array of strings or a Buffer naming possible ALPN protocols.
-             * (Protocols should be ordered by their priority.) When the server
-             * receives both NPN and ALPN extensions from the client, ALPN takes
-             * precedence over NPN and the server does not send an NPN extension
-             * to the client.
-             */
-            ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
-            /**
-             * SNICallback(servername, cb) <Function> A function that will be
-             * called if the client supports SNI TLS extension. Two arguments
-             * will be passed when called: servername and cb. SNICallback should
-             * invoke cb(null, ctx), where ctx is a SecureContext instance.
-             * (tls.createSecureContext(...) can be used to get a proper
-             * SecureContext.) If SNICallback wasn't provided the default callback
-             * with high-level API will be used (see below).
-             */
-            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void,
-            /**
-             * An optional Buffer instance containing a TLS session.
-             */
-            session?: Buffer,
-            /**
-             * If true, specifies that the OCSP status request extension will be
-             * added to the client hello and an 'OCSPResponse' event will be
-             * emitted on the socket before establishing a secure communication
-             */
-            requestOCSP?: boolean
-        });
+        constructor(socket: net.Socket, options?: TLSSocketConstructOptions);
 
         /**
          * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
@@ -4984,10 +5099,7 @@ declare module "tls" {
         ticketKeys?: Buffer;
     }
 
-    export interface ConnectionOptions extends SecureContextOptions {
-        host?: string;
-        port?: number;
-        path?: string; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
+    export interface BaseConnectOptions extends SecureContextOptions {
         socket?: net.Socket; // Establish secure connection on a given socket rather than creating a new socket
         rejectUnauthorized?: boolean; // Defaults to true
         NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
@@ -4996,9 +5108,25 @@ declare module "tls" {
         servername?: string; // SNI TLS Extension
         session?: Buffer;
         minDHSize?: number;
-        secureContext?: SecureContext; // If not provided, the entire ConnectionOptions object will be passed to tls.createSecureContext()
+        secureContext?: SecureContext; // If not provided, the entire ConnectOptions object will be passed to tls.createSecureContext()
+    }
+
+    export interface TcpConnectOptions extends BaseConnectOptions {
+        host?: string;
+        port: number;
         lookup?: net.LookupFunction;
     }
+
+    export interface IpcConnectOptions extends BaseConnectOptions {
+        path: string;
+    }
+
+    export type ConnectOptions = TcpConnectOptions | IpcConnectOptions;
+
+    /**
+     * @deprecated use `TcpConnectOptions` or `IpcConnectOptions` instead
+     */
+    export interface ConnectionOptions extends TcpConnectOptions, IpcConnectOptions { }
 
     export class Server extends net.Server {
         addContext(hostName: string, credentials: {
@@ -5110,9 +5238,15 @@ declare module "tls" {
      */
     export function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
     export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
-    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
-    export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
-    export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
+
+    export function connect(options: ConnectOptions, callback?: () => void): TLSSocket;
+    export function connect(path: string, callback?: () => void): TLSSocket;
+    export function connect(path: string, options: BaseConnectOptions, callback?: () => void): TLSSocket;
+    export function connect(port: number, callback?: () => void): TLSSocket;
+    export function connect(port: number, host: string, callback?: () => void): TLSSocket;
+    export function connect(port: number, options: BaseConnectOptions, callback?: () => void): TLSSocket;
+    export function connect(port: number, host: string, options: BaseConnectOptions, callback?: () => void): TLSSocket;
+
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     export function createSecureContext(details: SecureContextOptions): SecureContext;
     export function getCiphers(): string[];
@@ -6081,20 +6215,20 @@ declare module "async_hooks" {
     export function createHook(options: HookCallbacks): AsyncHook;
 
     export interface AsyncResourceOptions {
-      /**
-       * The ID of the execution context that created this async event.
-       * Default: `executionAsyncId()`
-       */
-      triggerAsyncId?: number;
+        /**
+         * The ID of the execution context that created this async event.
+         * Default: `executionAsyncId()`
+         */
+        triggerAsyncId?: number;
 
-      /**
-       * Disables automatic `emitDestroy` when the object is garbage collected.
-       * This usually does not need to be set (even if `emitDestroy` is called
-       * manually), unless the resource's `asyncId` is retrieved and the
-       * sensitive API's `emitDestroy` is called with it.
-       * Default: `false`
-       */
-      requireManualDestroy?: boolean;
+        /**
+         * Disables automatic `emitDestroy` when the object is garbage collected.
+         * This usually does not need to be set (even if `emitDestroy` is called
+         * manually), unless the resource's `asyncId` is retrieved and the
+         * sensitive API's `emitDestroy` is called with it.
+         * Default: `false`
+         */
+        requireManualDestroy?: boolean;
     }
 
     /**
@@ -6111,7 +6245,7 @@ declare module "async_hooks" {
          *   this async event (default: `executionAsyncId()`), or an
          *   AsyncResourceOptions object (since 9.3)
          */
-        constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
+        constructor(type: string, triggerAsyncId?: number | AsyncResourceOptions);
 
         /**
          * Call AsyncHooks before callbacks.
@@ -6158,6 +6292,7 @@ declare module "async_hooks" {
 declare module "http2" {
     import * as events from "events";
     import * as fs from "fs";
+    import * as http from "http";
     import * as net from "net";
     import * as stream from "stream";
     import * as tls from "tls";
@@ -6530,7 +6665,9 @@ declare module "http2" {
 
     export interface SessionOptions {
         maxDeflateDynamicTableSize?: number;
-        maxReservedRemoteStreams?: number;
+        maxSessionMemory?: number;
+        maxHeaderListPairs?: number;
+        maxOutstandingPings?: number;
         maxSendHeaderBlockLength?: number;
         paddingStrategy?: number;
         peerMaxConcurrentStreams?: number;
@@ -6538,112 +6675,160 @@ declare module "http2" {
         settings?: Settings;
     }
 
+    /**
+     * @deprecated use `BaseConnectOptions` instead
+     */
     export type ClientSessionOptions = SessionOptions;
+    /**
+     * @deprecated no actual meaming
+     */
     export type ServerSessionOptions = SessionOptions;
 
-    export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
-    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
+    export interface BaseConnectOptions extends SessionOptions {
+        maxReservedRemoteStreams?: number;
+        createConnection?: (url: url.URL, options: this) => stream.Duplex;
+    }
 
-    export interface ServerOptions extends ServerSessionOptions {
+    export interface SecureConnectOptions extends BaseConnectOptions, tls.BaseConnectOptions { }
+
+    /**
+     * @deprecated use `SecureConnectOptions` instead
+     */
+    export interface SecureClientSessionOptions extends SecureConnectOptions { }
+
+    /**
+     * @deprecated no acutal meaning
+     */
+    export interface SecureServerSessionOptions extends SecureServerOptions { }
+
+    export type ConnectOptions = BaseConnectOptions | SecureConnectOptions;
+
+    export interface ServerOptions extends SessionOptions {
+        Http1IncomingMessage?: http.IncomingMessage;
+        Http1ServerResponse?: http.ServerResponse;
+        Http2ServerRequest?: Http2ServerRequest;
+        Http2ServerResponse?: Http2ServerResponse;
+    }
+
+    export interface SecureServerOptions extends SessionOptions, tls.TlsOptions {
         allowHTTP1?: boolean;
     }
 
-    export interface SecureServerOptions extends SecureServerSessionOptions {
-        allowHTTP1?: boolean;
+    type ServerSimpleEventMap = net.ServerSimpleEventMap;
+
+    interface Http2ServerEventMap {
+        "checkContinue": (request: Http2ServerRequest, response: Http2ServerResponse) => void;
+        "request": (request: Http2ServerRequest, response: Http2ServerResponse) => void;
+        "session": () => void;
+        "sessionError": () => void;
+        "stream": (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void;
+        "streamError": (err: Error) => void;
+        "timeout": () => void;
     }
 
     export interface Http2Server extends net.Server {
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        addListener(event: "sessionError", listener: (err: Error) => void): this;
-        addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        addListener(event: "timeout", listener: () => void): this;
+        addListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        addListener<K extends keyof Http2ServerEventMap>(event: K, listener: Http2ServerEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
         emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
+        emit(event: "session", err: Error): boolean;
         emit(event: "sessionError", err: Error): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
+        emit(event: "streamError", err: Error): boolean;
         emit(event: "timeout"): boolean;
+        emit<K extends keyof ServerSimpleEventMap>(event: K, arg: ServerSimpleEventMap[K]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        on(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        on(event: "sessionError", listener: (err: Error) => void): this;
-        on(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        on(event: "timeout", listener: () => void): this;
+        listenerCount<K extends keyof ServerSimpleEventMap>(event: K): number;
+        listenerCount<K extends keyof Http2ServerEventMap>(event: K): number;
+        listenerCount(event: string | symbol): number;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        once(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        once(event: "sessionError", listener: (err: Error) => void): this;
-        once(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        once(event: "timeout", listener: () => void): this;
+        listeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        listeners<K extends keyof Http2ServerEventMap>(event: K): Array<Http2ServerEventMap[K]>;
+        listeners(event: string | symbol): Function[];
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependListener(event: "sessionError", listener: (err: Error) => void): this;
-        prependListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        prependListener(event: "timeout", listener: () => void): this;
+        on<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        on<K extends keyof Http2ServerEventMap>(event: K, listener: Http2ServerEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependOnceListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
-        prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        prependOnceListener(event: "timeout", listener: () => void): this;
+        once<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        once<K extends keyof Http2ServerEventMap>(event: K, listener: Http2ServerEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependListener<K extends keyof Http2ServerEventMap>(event: K, listener: Http2ServerEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependOnceListener<K extends keyof Http2ServerEventMap>(event: K, listener: Http2ServerEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeAllListeners<K extends keyof ServerSimpleEventMap>(event: K): this;
+        removeAllListeners<K extends keyof Http2ServerEventMap>(event: K): this;
+        removeAllListeners(event?: string | symbol): this;
+
+        removeListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        removeListener<K extends keyof Http2ServerEventMap>(event: K, listener: Http2ServerEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        rawListeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        rawListeners<K extends keyof Http2ServerEventMap>(event: K): Array<Http2ServerEventMap[K]>;
+        rawListeners(event: string | symbol): Function[];
+    }
+
+    interface Http2SecureServerEventMap {
+        "checkContinue": (request: Http2ServerRequest, response: Http2ServerResponse) => void;
+        "request": (request: Http2ServerRequest, response: Http2ServerResponse) => void;
+        "session": () => void;
+        "sessionError": () => void;
+        "stream": (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void;
+        "timeout": () => void;
+        "unknownProtocol": (socket: tls.TLSSocket) => void;
+
+        // it's undocumented but it does be a part of the compatibility API.
+        // when the request is over HTTP/1.1, the `response` is a `tls.TLSSocket` and `head` is a `Buffer`
+        // when the request is over HTTP2, the `response` is a `Http2ServerResponse` and `head` is `undefined`
+        "connect": (request: Http2ServerRequest, response: tls.TLSSocket | Http2ServerResponse, head?: Buffer) => void;
     }
 
     export interface Http2SecureServer extends tls.Server {
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        addListener(event: "sessionError", listener: (err: Error) => void): this;
-        addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        addListener(event: "timeout", listener: () => void): this;
-        addListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+        // listenerCount<K extends keyof ServerSimpleEventMap>(event: K): number;
+        listenerCount<K extends keyof Http2SecureServerEventMap>(event: K): number;
+        listenerCount(event: string | symbol): number;
 
-        emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
-        emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
-        emit(event: "sessionError", err: Error): boolean;
-        emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
-        emit(event: "timeout"): boolean;
-        emit(event: "unknownProtocol", socket: tls.TLSSocket): boolean;
+        // listeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        listeners<K extends keyof Http2SecureServerEventMap>(event: K): Array<Http2SecureServerEventMap[K]>;
+        listeners(event: string | symbol): Function[];
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        on(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        on(event: "sessionError", listener: (err: Error) => void): this;
-        on(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        on(event: "timeout", listener: () => void): this;
-        on(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+        // on<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        on<K extends keyof Http2SecureServerEventMap>(event: K, listener: Http2SecureServerEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        once(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        once(event: "sessionError", listener: (err: Error) => void): this;
-        once(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        once(event: "timeout", listener: () => void): this;
-        once(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+        // once<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        once<K extends keyof Http2SecureServerEventMap>(event: K, listener: Http2SecureServerEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependListener(event: "sessionError", listener: (err: Error) => void): this;
-        prependListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        prependListener(event: "timeout", listener: () => void): this;
-        prependListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+        // prependListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependListener<K extends keyof Http2SecureServerEventMap>(event: K, listener: Http2SecureServerEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependOnceListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
-        prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        prependOnceListener(event: "timeout", listener: () => void): this;
-        prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+        // prependOnceListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        prependOnceListener<K extends keyof Http2SecureServerEventMap>(event: K, listener: Http2SecureServerEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        // removeAllListeners<K extends keyof ServerSimpleEventMap>(event: K): this;
+        removeAllListeners<K extends keyof Http2SecureServerEventMap>(event: K): this;
+        removeAllListeners(event?: string | symbol): this;
+
+        // removeListener<K extends keyof ServerSimpleEventMap>(event: K, listener: (arg: ServerSimpleEventMap[K]) => void): this;
+        removeListener<K extends keyof Http2SecureServerEventMap>(event: K, listener: Http2SecureServerEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        // rawListeners<K extends keyof ServerSimpleEventMap>(event: K): Array<(arg: ServerSimpleEventMap[K]) => void>;
+        rawListeners<K extends keyof Http2SecureServerEventMap>(event: K): Array<Http2SecureServerEventMap[K]>;
+        rawListeners(event: string | symbol): Function[];
     }
 
     export interface Http2ServerRequest extends stream.Readable {
@@ -6677,7 +6862,11 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export interface Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends events.EventEmitter implements NodeJS.WritableStream {
+        private constructor();
+
+        writable: boolean;
+
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;
         end(callback?: () => void): void;
@@ -6971,7 +7160,8 @@ declare module "http2" {
     export function createSecureServer(options: SecureServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
 
     export function connect(authority: string | url.URL, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
-    export function connect(authority: string | url.URL, options?: ClientSessionOptions | SecureClientSessionOptions, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
+    export function connect(authority: string | url.URL, options?: BaseConnectOptions, listener?: (session: ClientHttp2Session, socket: net.Socket) => void): ClientHttp2Session;
+    export function connect(authority: string | url.URL, options?: SecureConnectOptions, listener?: (session: ClientHttp2Session, socket: tls.TLSSocket) => void): ClientHttp2Session;
 }
 
 declare module "perf_hooks" {
