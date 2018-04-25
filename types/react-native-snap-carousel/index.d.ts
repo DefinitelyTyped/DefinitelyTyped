@@ -16,7 +16,7 @@ import {
     ScrollViewProps,
     ScrollViewStyle,
     ViewStyle,
-    ImageProperties,
+    ImageProps,
     FlatListProps
 } from 'react-native';
 
@@ -280,7 +280,7 @@ export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>
 
 export type CarouselProperties<T> = ScrollViewProps & CarouselProps<T> & React.Props<CarouselStatic<T>>;
 
-export interface ParallaxImageProps extends ImageProperties, AdditionalParallaxProps {
+export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps {
     /**
      * Optional style for image's container
      */
