@@ -279,6 +279,20 @@ statement = {
 };
 
 statement = {
+    Action: str,
+    Principal: str,
+    Effect: str
+};
+
+statement = {
+    Action: str,
+    NotPrincipal: {
+        Service: str
+    },
+    Effect: str
+};
+
+statement = {
     Effect: str,
     NotAction: str,
     NotResource: str

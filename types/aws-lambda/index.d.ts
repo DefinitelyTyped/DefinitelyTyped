@@ -473,19 +473,22 @@ export interface Condition {
  * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
  * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html
  */
-export type Statement = BaseStatement & StatementAction & StatementResource;
+export type Statement = BaseStatement & StatementAction & (StatementResource | StatementPrincipal);
 
 export interface BaseStatement {
     Effect: string;
     Sid?: string;
     Condition?: ConditionBlock;
-    Principal?: string | string[];
-    NotPrincipal?: string | string[];
 }
 
+export interface PrincipalBlock {
+    [key: string]: string | string[];
+}
+
+export type PrincipalValue = PrincipalBlock | string | string[];
 export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
 export type StatementResource = { Resource: string | string[] } | { NotResource: string | string[] };
-
+export type StatementPrincipal = { Principal: PrincipalValue } | { NotPrincipal: PrincipalValue };
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
