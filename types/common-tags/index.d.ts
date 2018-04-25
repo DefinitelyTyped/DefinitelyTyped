@@ -1,4 +1,4 @@
-// Type definitions for common-tags v1.4.0
+// Type definitions for common-tags v1.7.2
 // Project: https://github.com/declandewet/common-tags
 // Definitions by: Viktor Zozuliak <https://github.com/zuzusik>
 //                 Paul Wang <https://github.com/tzupengwang>
