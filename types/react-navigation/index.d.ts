@@ -600,9 +600,17 @@ export interface NavigationContainerProps {
   style?: StyleProp<ViewStyle>;
 }
 
+export interface NavigationContainerComponent extends React.Component<
+  NavigationContainerProps & NavigationNavigatorProps<any>
+  > {
+  dispatch: NavigationDispatch;
+}
+
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps & NavigationNavigatorProps<any>
-> {
+  > {
+  new(props: NavigationContainerProps & NavigationNavigatorProps<any>, context?: any): NavigationContainerComponent;
+
   router: NavigationRouter<any, any>;
   screenProps: { [key: string]: any };
   navigationOptions: any;
