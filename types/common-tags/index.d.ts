@@ -55,13 +55,15 @@ declare module 'common-tags' {
     };
 
     /* Built-in Transformers */
-    export var trimResultTransformer: (side?: 'left'|'right') => TemplateTransformer;
+    export var trimResultTransformer: (side?: 'start'|'left'|'end'|'right') => TemplateTransformer;
 
     export var stripIndentTransformer: (type?: 'initial'|'all') => TemplateTransformer;
 
     export var replaceResultTransformer: (replaceWhat: string|RegExp, replaceWith: string) => TemplateTransformer;
 
     export var replaceSubstitutionTransformer: (replaceWhat: string|RegExp, replaceWith: string) => TemplateTransformer;
+
+    export var replaceStringTransformer: (replaceWhat: string|RegExp, replaceWith: string) => TemplateTransformer;
 
     export var inlineArrayTransformer: (opts?: {separator?: string, conjunction?: string}) => TemplateTransformer;
 
