@@ -2815,12 +2815,12 @@ declare namespace sequelize {
         /**
          * Get the value of the underlying data value
          */
-        getDataValue(key: string): any;
+        getDataValue(key: keyof TAttributes): any;
 
         /**
          * Update the underlying data value
          */
-        setDataValue(key: string, value: any): void;
+        setDataValue(key: keyof TAttributes, value: any): void;
 
         /**
          * If no key is given, returns all values of the instance, also invoking virtual getters.
@@ -2830,7 +2830,7 @@ declare namespace sequelize {
          *
          * @param options.plain If set to true, included instances will be returned as plain objects
          */
-        get(key: string, options?: { plain?: boolean, clone?: boolean }): any;
+        get(key: keyof TAttributes, options?: { plain?: boolean, clone?: boolean }): any;
         get(options?: { plain?: boolean, clone?: boolean }): TAttributes;
 
         /**
@@ -2857,9 +2857,9 @@ declare namespace sequelize {
          * @param options.raw If set to true, field and virtual setters will be ignored
          * @param options.reset Clear all previously set data values
          */
-        set(key: string, value: any, options?: InstanceSetOptions): this;
+        set(key: keyof TAttributes, value: any, options?: InstanceSetOptions): this;
         set(keys: Object, options?: InstanceSetOptions): this;
-        setAttributes(key: string, value: any, options?: InstanceSetOptions): this;
+        setAttributes(key: keyof TAttributes, value: any, options?: InstanceSetOptions): this;
         setAttributes(keys: Object, options?: InstanceSetOptions): this;
 
         /**
@@ -2870,13 +2870,13 @@ declare namespace sequelize {
          *
          * If changed is called without an argument and no keys have changed, it will return `false`.
          */
-        changed(key: string): boolean;
+        changed(key: keyof TAttributes): boolean;
         changed(): boolean | string[];
 
         /**
          * Returns the previous value for key from `_previousDataValues`.
          */
-        previous(key: string): any;
+        previous(key: keyof TAttributes): any;
 
         /**
          * Validate this instance, and if the validation passes, persist it to the database.
@@ -2908,9 +2908,9 @@ declare namespace sequelize {
         /**
          * This is the same as calling `set` and then calling `save`.
          */
-        update(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
+        update(key: keyof TAttributes, value: any, options?: InstanceUpdateOptions): Promise<this>;
         update(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
-        updateAttributes(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
+        updateAttributes(key: keyof TAttributes, value: any, options?: InstanceUpdateOptions): Promise<this>;
         updateAttributes(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
 
         /**
@@ -2944,7 +2944,7 @@ declare namespace sequelize {
          *               If an array is provided, the same is true for each column.
          *               If and object is provided, each column is incremented by the value given.
          */
-        increment(fields: string | string[] | Object,
+        increment(fields: Partial<TAttributes> | Array<keyof TAttributes> | keyof TAttributes,
             options?: InstanceIncrementDecrementOptions): Promise<this>;
 
         /**
@@ -2967,7 +2967,7 @@ declare namespace sequelize {
          *               If an array is provided, the same is true for each column.
          *               If and object is provided, each column is decremented by the value given
          */
-        decrement(fields: string | string[] | Object,
+        decrement(fields: Partial<TAttributes> | Array<keyof TAttributes> | keyof TAttributes,
             options?: InstanceIncrementDecrementOptions): Promise<this>;
 
         /**
@@ -4046,7 +4046,7 @@ declare namespace sequelize {
          * elements. The first element is always the number of affected rows, while the second element is the actual
          * affected rows (only supported in postgres with `options.returning` true.)
          */
-        update(values: TAttributes, options?: UpdateOptions): Promise<[number, TInstance[]]>;
+        update(values: Partial<TAttributes>, options?: UpdateOptions): Promise<[number, TInstance[]]>;
 
         /**
          * Run a describe query on the table. The result will be return to the listener as a hash of attributes and
