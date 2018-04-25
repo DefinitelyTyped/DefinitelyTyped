@@ -1876,6 +1876,7 @@ export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
     fillRule?: 'nonzero' | 'evenodd';
+    opacity?: number | string;
     stroke?: string;
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
@@ -1986,7 +1987,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number }> {
+export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;
