@@ -281,7 +281,7 @@ const setColumnVisibility = (visible: boolean) => {
 
         const combobox = sheet.OLEObjects('ComboBox1').Object as MSForms.ComboBox;
         combobox.Clear();
-        ActiveXObject.set(combobox, 'List', [null, null], data);
+        ActiveXObject.set(combobox, 'List', [], data);
         combobox.ListIndex = -1;
     })();
 
