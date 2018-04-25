@@ -165,17 +165,17 @@ export namespace AuthSession {
     function startAsync(options: { authUrl: string; returnUrl: string; }): Promise<{
         type: 'cancel';
     } | {
-            type: 'dismissed';
-        } | {
-            type: 'success';
-            params: HashMap;
-            event: HashMap;
-        } | {
-            type: 'error';
-            params: HashMap;
-            errorCode: string;
-            event: HashMap;
-        }>;
+        type: 'dismissed';
+    } | {
+        type: 'success';
+        params: HashMap;
+        event: HashMap;
+    } | {
+        type: 'error';
+        params: HashMap;
+        errorCode: string;
+        event: HashMap;
+    }>;
     function dismiss(): void;
     function getRedirectUrl(): string;
 }
@@ -188,23 +188,23 @@ export type PlaybackStatus = {
     androidImplementation?: string;
     error?: string;
 } | {
-        isLoaded: true;
-        androidImplementation?: string;
-        uri: string;
-        progressUpdateIntervalMillis: number;
-        durationMillis?: number;
-        positionMillis: number;
-        playableDurationMillis?: number;
-        shouldPlay: boolean;
-        isPlaying: boolean;
-        isBuffering: boolean;
-        rate: number;
-        shouldCorrectPitch: boolean;
-        volume: number;
-        isMuted: boolean;
-        isLooping: boolean;
-        didJustFinish: boolean;
-    };
+    isLoaded: true;
+    androidImplementation?: string;
+    uri: string;
+    progressUpdateIntervalMillis: number;
+    durationMillis?: number;
+    positionMillis: number;
+    playableDurationMillis?: number;
+    shouldPlay: boolean;
+    isPlaying: boolean;
+    isBuffering: boolean;
+    rate: number;
+    shouldCorrectPitch: boolean;
+    volume: number;
+    isMuted: boolean;
+    isLooping: boolean;
+    didJustFinish: boolean;
+};
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
@@ -254,14 +254,14 @@ export namespace Audio {
         canRecord: false,
         isDoneRecording: false
     } | {
-            canRecord: true,
-            isRecording: boolean,
-            durationMillis: number
-        } | {
-            canRecord: false,
-            isDoneRecording: true,
-            durationMillis: number
-        };
+        canRecord: true,
+        isRecording: boolean,
+        durationMillis: number
+    } | {
+        canRecord: false,
+        isDoneRecording: true,
+        durationMillis: number
+    };
 
     interface AudioMode {
         playsInSilentModeIOS: boolean;
@@ -775,8 +775,8 @@ export namespace DocumentPicker {
         name: string;
         size: number;
     } | {
-            type: 'cancel';
-        };
+        type: 'cancel';
+    };
 
     function getDocumentAsync(options?: Options): Promise<Response>;
 }
@@ -876,9 +876,9 @@ export namespace FileSystem {
         modificationTime: number;
         md5?: Md5;
     } | {
-            exists: false;
-            isDirectory: false;
-        };
+        exists: false;
+        isDirectory: false;
+    };
 
     interface DownloadResult {
         uri: string;
@@ -992,20 +992,20 @@ export namespace Google {
     type LogInResult = {
         type: 'cancel';
     } | {
-            type: 'success';
-            accessToken: string;
-            idToken?: string;
-            refreshToken?: string;
-            serverAuthCode?: string;
-            user: {
-                id: string;
-                name: string;
-                givenName: string;
-                familyName: string;
-                photoUrl?: string;
-                email?: string;
-            }
-        };
+        type: 'success';
+        accessToken: string;
+        idToken?: string;
+        refreshToken?: string;
+        serverAuthCode?: string;
+        user: {
+            id: string;
+            name: string;
+            givenName: string;
+            familyName: string;
+            photoUrl?: string;
+            email?: string;
+        }
+    };
 
     function logInAsync(config: LogInConfig): Promise<LogInResult>;
 }

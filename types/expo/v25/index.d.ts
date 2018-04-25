@@ -342,14 +342,14 @@ export namespace Audio {
         canRecord: false,
         isDoneRecording: false
     } | {
-            canRecord: true,
-            isRecording: boolean,
-            durationMillis: number
-        } | {
-            canRecord: false,
-            isDoneRecording: true,
-            durationMillis: number
-        };
+        canRecord: true,
+        isRecording: boolean,
+        durationMillis: number
+    } | {
+        canRecord: false,
+        isDoneRecording: true,
+        durationMillis: number
+    };
 
     const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions;
     const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions;
@@ -493,17 +493,17 @@ export namespace AuthSession {
     type StartAsyncResponse = {
         type: 'cancel';
     } | {
-            type: 'dismissed';
-        } | {
-            type: 'success';
-            params: HashMap;
-            event: HashMap;
-        } | {
-            type: 'error';
-            params: HashMap;
-            errorCode: string;
-            event: HashMap;
-        };
+        type: 'dismissed';
+    } | {
+        type: 'success';
+        params: HashMap;
+        event: HashMap;
+    } | {
+        type: 'error';
+        params: HashMap;
+        errorCode: string;
+        event: HashMap;
+    };
 
     function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<StartAsyncResponse>;
     function dismiss(): void;
@@ -521,25 +521,25 @@ export type PlaybackStatus = {
     /** Populated exactly once when an error forces the object to unload. */
     error?: string;
 } | {
-        isLoaded: true;
-        androidImplementation?: string;
-        uri: string;
-        progressUpdateIntervalMillis: number;
-        durationMillis?: number;
-        positionMillis: number;
-        playableDurationMillis?: number;
-        shouldPlay: boolean;
-        isPlaying: boolean;
-        isBuffering: boolean;
-        rate: number;
-        shouldCorrectPitch: boolean;
-        volume: number;
-        isMuted: boolean;
-        isLooping: boolean;
+    isLoaded: true;
+    androidImplementation?: string;
+    uri: string;
+    progressUpdateIntervalMillis: number;
+    durationMillis?: number;
+    positionMillis: number;
+    playableDurationMillis?: number;
+    shouldPlay: boolean;
+    isPlaying: boolean;
+    isBuffering: boolean;
+    rate: number;
+    shouldCorrectPitch: boolean;
+    volume: number;
+    isMuted: boolean;
+    isLooping: boolean;
 
-        /** True exactly once when the track plays to finish. */
-        didJustFinish: boolean;
-    };
+    /** True exactly once when the track plays to finish. */
+    didJustFinish: boolean;
+};
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
@@ -1103,8 +1103,8 @@ export namespace DocumentPicker {
         name: string;
         size: number;
     } | {
-            type: 'cancel';
-        };
+        type: 'cancel';
+    };
 
     function getDocumentAsync(options?: Options): Promise<Response>;
 }
@@ -1278,9 +1278,9 @@ export namespace FileSystem {
         modificationTime: number;
         md5?: Md5;
     } | {
-            exists: false;
-            isDirectory: false;
-        };
+        exists: false;
+        isDirectory: false;
+    };
 
     interface DownloadResult {
         uri: string;
@@ -1349,11 +1349,11 @@ export namespace Fingerprint {
     type FingerprintAuthenticationResult = {
         success: true
     } | {
-            success: false,
+        success: false,
 
-            /** Error code in the case where authentication fails. */
-            error: string
-        };
+        /** Error code in the case where authentication fails. */
+        error: string
+    };
 
     /** Determine whether the Fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
@@ -1413,20 +1413,20 @@ export namespace Google {
     type LogInResult = {
         type: 'cancel';
     } | {
-            type: 'success';
-            accessToken: string;
-            idToken?: string;
-            refreshToken?: string;
-            serverAuthCode?: string;
-            user: {
-                id: string;
-                name: string;
-                givenName: string;
-                familyName: string;
-                photoUrl?: string;
-                email?: string;
-            }
-        };
+        type: 'success';
+        accessToken: string;
+        idToken?: string;
+        refreshToken?: string;
+        serverAuthCode?: string;
+        user: {
+            id: string;
+            name: string;
+            givenName: string;
+            familyName: string;
+            photoUrl?: string;
+            email?: string;
+        }
+    };
 
     function logInAsync(config: LogInConfig): Promise<LogInResult>;
 }
