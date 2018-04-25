@@ -30,6 +30,11 @@ export interface PipeOptions {
     preventCancel?: boolean;
 }
 
+export interface WritableReadablePair<T extends WritableStream<any>, U extends ReadableStream<any>> {
+  writable: T;
+  readable: U;
+}
+
 declare class ReadableStream<R = ArrayBufferView> {
     constructor(underlyingSource?: ReadableStreamSource<R>, strategy?: QueuingStrategy<R>);
     constructor(underlyingSource?: ReadableByteStreamSource<R>, strategy?: QueuingStrategy<R>);
@@ -39,7 +44,7 @@ declare class ReadableStream<R = ArrayBufferView> {
     cancel(reason: string): Promise<void>;
     getReader(): ReadableStreamDefaultReader<R>;
     getReader({ mode }: { mode: "byob" }): ReadableStreamBYOBReader<R>;
-    pipeThrough<T extends ReadableStream<any>>({ writable, readable }: { writable: WritableStream<R>, readable: T }, options?: PipeOptions): T;
+    pipeThrough<T extends ReadableStream<any>>({ writable, readable }: WritableReadablePair<WritableStream<R>, T>, options?: PipeOptions): T;
     pipeTo(dest: WritableStream, options?: PipeOptions): Promise<void>;
     tee(): [ReadableStream<R>, ReadableStream<R>];
 }
@@ -139,4 +144,25 @@ declare class CountQueuingStrategy {
     constructor({ highWaterMark }: { highWaterMark: number });
 
     size(): 1;
+}
+
+declare interface TransformStreamTransformer<R, W> {
+  start?(controller: TransformStreamDefaultController<W>): void | Promise<void>;
+  transform?(chunk: R, controller: TransformStreamDefaultController<W>): void | Promise<void>;
+  flush?(controller: TransformStreamDefaultController<W>): void | Promise<void>;
+}
+
+declare class TransformStream<R, W> implements WritableReadablePair<WritableStream<W>, ReadableStream<R>> {
+  constructor(transformer?: TransformStreamTransformer<R, W>, writableStrategy?: QueuingStrategy<W>, readableStrategy?: QueuingStrategy<R>);
+
+  readonly readable: ReadableStream<R>;
+  readonly writable: WritableStream<W>;
+}
+
+declare class TransformStreamDefaultController<W> {
+  enqueue(chunk: W): void;
+  error(reason: any): void;
+  terminate(): void;
+
+  readonly desiredSize: number;
 }
