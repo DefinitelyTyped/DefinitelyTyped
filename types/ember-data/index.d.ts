@@ -101,6 +101,7 @@ declare module 'ember-data' {
 
         interface AttrOptions<T = any> {
             defaultValue?: T | (() => T);
+            allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
         }
 
         /**
