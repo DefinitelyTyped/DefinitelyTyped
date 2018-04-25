@@ -175,6 +175,7 @@ declare module 'luxon' {
             weekday: number;
             weekdayLong: string;
             weekdayShort: string;
+            weeksInWeekYear: number;
             year: number;
             zoneName: string;
             diff(
