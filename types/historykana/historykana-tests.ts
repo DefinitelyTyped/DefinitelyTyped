@@ -19,5 +19,5 @@ const inputHistory = [
     "山田太郎"
 ];
 
-const result = historykana(inputHistory, null);
+const result = historykana(inputHistory);
 // => やまだたろう
