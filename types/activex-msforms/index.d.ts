@@ -377,7 +377,8 @@ declare namespace MSForms {
         BoundColumn: number;
         readonly CanPaste: boolean;
         Clear(): void;
-        Column(pvargColumn?: number, pvargIndex?: number): any;
+        Column(pvargColumn: number, pvargIndex?: number): any;
+        Column(): SafeArray;
         ColumnCount: number;
         ColumnHeads: boolean;
         ColumnWidths: string;
@@ -404,7 +405,8 @@ declare namespace MSForms {
         HideSelection: boolean;
         IMEMode: fmIMEMode;
         readonly LineCount: number;
-        List(pvargIndex?: number, pvargColumn?: number): SafeArray;
+        List(pvargIndex: number, pvargColumn?: number): any;
+        List(): SafeArray;
         readonly ListCount: number;
         ListCursor: any;
         ListIndex: number;
@@ -774,7 +776,8 @@ declare namespace MSForms {
         BorderStyle: fmBorderStyle;
         BoundColumn: any;
         Clear(): void;
-        Column(pvargColumn?: any, pvargIndex?: any): any;
+        Column(pvargColumn: number, pvargIndex?: number): any;
+        Column(): SafeArray;
         ColumnCount: number;
         ColumnHeads: boolean;
         ColumnWidths: string;
@@ -791,7 +794,8 @@ declare namespace MSForms {
         ForeColor: number;
         IMEMode: fmIMEMode;
         IntegralHeight: boolean;
-        List(pvargIndex?: any, pvargColumn?: any): any;
+        List(pvargIndex: number, pvargColumn?: number): any;
+        List(): SafeArray;
         readonly ListCount: number;
         ListCursor: any;
         ListIndex: any;
@@ -1557,7 +1561,8 @@ interface ActiveXObject {
     on(obj: MSForms.TextBox, event: 'Change' | 'DropButtonClick', handler: (this: MSForms.TextBox, parameter: {}) => void): void;
     on(obj: MSForms.ToggleButton, event: 'Change' | 'Click', handler: (this: MSForms.ToggleButton, parameter: {}) => void): void;
     on(obj: MSForms.UserForm, event: 'Click' | 'Layout', handler: (this: MSForms.UserForm, parameter: {}) => void): void;
-    set(obj: MSForms.ComboBox | MSForms.ListBox, propertyName: 'Column' | 'List', parameterTypes: [any, any], newValue: any): void;
+    set(obj: MSForms.ComboBox | MSForms.ListBox, propertyName: 'Column' | 'List', parameterTypes: [number, number] | [number], newValue: any): void;
+    set(obj: MSForms.ComboBox | MSForms.ListBox, propertyName: 'Column' | 'List', parameterTypes: number[], newValue: SafeArray): void;
     set(obj: MSForms.ListBox, propertyName: 'Selected', parameterTypes: [any], newValue: boolean): void;
     new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
