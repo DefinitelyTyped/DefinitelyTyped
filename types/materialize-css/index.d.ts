@@ -308,7 +308,6 @@ declare global {
         }
 
         class Dropdown extends Component<DropdownOptions> {
-
 			/**
 			 * ID of the dropdown element
 			 */
@@ -337,17 +336,17 @@ declare global {
 			/**
 			 * Open dropdown
 			 */
-            open();
+            open(): void;
 
 			/**
 			 * Close dropdown
 			 */
-            close();
+            close(): void;
 
 			/**
 			 * While dropdown is open, you can recalculate its dimensions if its contents have changed
 			 */
-            recalculateDimensions();
+            recalculateDimensions(): void;
         }
 
         class FloatingActionButton extends Component<FloatingActionButtonOptions> implements Openable {
@@ -403,7 +402,7 @@ declare global {
              * Pass options object to select dropdown initialization
              * @default {}
              */
-            dropdownOptions: DropdownOptions;
+            dropdownOptions: Partial<DropdownOptions>;
         }
 
         class FormSelect extends Component<FormSelectOptions> {
@@ -430,7 +429,7 @@ declare global {
             /**
              * Instance of the dropdown plugin for this select
              */
-            dropdown: M.Sidenav;
+            dropdown: Dropdown;
 
             /**
              * Get selected values in an array
@@ -941,8 +940,14 @@ declare global {
         datepicker(method: keyof Pick<M.DatePicker, "gotoDate">, date: Date): JQuery;
         datepicker(options?: Partial<M.DatePickerOptions>): JQuery;
 
+        dropdown(method: keyof Pick<M.Dropdown, "recalculateDimensions" | "open" | "close" | "destroy">): JQuery;
+        dropdown(options?: Partial<M.DropdownOptions>): JQuery;
+
         floatingActionButton(method: keyof Pick<M.FloatingActionButton, "open" | "close" | "destroy">): JQuery;
         floatingActionButton(options?: Partial<M.FloatingActionButtonOptions>): JQuery;
+
+        formSelect(method: keyof Pick<M.FormSelect, "getSelectedValues" | "destroy">): JQuery;
+        formSelect(options?: Partial<M.FormSelectOptions>): JQuery;
 
         sidenav(method: keyof Pick<M.Sidenav, "open" | "close" | "destroy">): JQuery;
         sidenav(options?: Partial<M.SidenavOptions>): JQuery;
