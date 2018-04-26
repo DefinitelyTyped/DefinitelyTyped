@@ -71,8 +71,10 @@ const Test: React.StatelessComponent = () => {
                     appearActive: "fade-active-appear",
                     enter: "fade-enter",
                     enterActive: "fade-active-enter",
+                    enterDone: "fade-done-enter",
                     exit: "fade-exit",
-                    exitActive: "fade-active-exit"
+                    exitActive: "fade-active-exit",
+                    exitDone: "fade-done-exit",
                 } }
             >
                 <div>{ "test" }</div>
