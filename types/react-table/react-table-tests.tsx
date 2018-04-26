@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 // Import React Table
-import ReactTable, { Column } from "react-table";
+import ReactTable, { Column, FinalState, Instance } from "react-table";
 import "react-table/react-table.css";
 
 const columns: Column[] = [
@@ -156,9 +156,9 @@ const Component = (props: {}) => {
         }}
       >
         {(
-          state: ReactTable.FinalState,
+          state: FinalState,
           makeTable: () => React.ReactChild,
-          instance: ReactTable.ReactTableInstance
+          instance: Instance
         ) => {
           return (
             <div

@@ -182,7 +182,7 @@ export interface TableProps extends
     children: (
         state: FinalState,
         makeTable: () => any,
-        instance: ReactTableInstance
+        instance: Instance
     ) => React.ReactNode;
 }
 
@@ -655,20 +655,28 @@ export interface RowInfo {
 }
 
 export interface FinalState extends TableProps {
+    frozen: boolean;
     startRow: number;
     endRow: number;
     pageRows: number;
     padRows: number;
     hasColumnFooter: boolean;
+    hasHeaderGroups: boolean;
     canPrevious: boolean;
     canNext: boolean;
     rowMinWidth: number;
+
+    allVisibleColumns: Column[];
+    allDecoratedColumns: Column[];
+    resolvedData: any[];
+    headerGroups: any[];
+    sortedData: any[];
 }
 
 export const ReactTableDefaults: TableProps;
 export default class ReactTable extends React.Component<Partial<TableProps>> { }
 
-export interface ReactTableInstance extends ReactTable {
+export interface Instance extends ReactTable {
     context: any;
     props: Partial<TableProps>;
     refs: any;
