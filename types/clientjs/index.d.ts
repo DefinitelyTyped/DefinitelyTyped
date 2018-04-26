@@ -1,4 +1,4 @@
-// Type definitions for clientjs 0.1.5
+// Type definitions for clientjs 0.1
 // Project: https://clientjs.org
 // Definitions by: icopp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,10 +14,11 @@ declare class ClientJS {
     /** @return A 32-bit integer representing the browser's fingerprint. */
     getFingerprint(): number;
     /**
-     * @prop Any number of datapoints that can be represented as strings.
+     * @param datapoints Any number of datapoints that are (or can be coerced to
+     *                   be) strings.
      * @return A 32-bit integer representing the cumulative fingerprint.
-     **/
-    getCustomFingerprint(...datapoints: (string | number)[]): number;
+     */
+    getCustomFingerprint(...datapoints: Array<string | number>): number;
 
     // User agent methods
 
@@ -25,7 +26,7 @@ declare class ClientJS {
     getUserAgent(): string;
     /** @return A lowercase string containing the user agent. */
     getUserAgentLowerCase(): string;
-;
+
     // Browser methods
 
     /** @return A string containing the browser name */
@@ -88,7 +89,7 @@ declare class ClientJS {
     // Mobile methods
 
     /** Check if the browser is on a mobile device. */
-    isMobile(): string;
+    isMobile(): boolean;
     /** Check if the browser is on a major mobile device. */
     isMobileMajor(): boolean;
     /** Check if the browser is on an Android mobile device. */
