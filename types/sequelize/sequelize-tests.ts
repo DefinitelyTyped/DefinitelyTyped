@@ -955,6 +955,11 @@ User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TES
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
 User.findAll( { rejectOnEmpty: true });
 
+User.findAll( { include : [{ association: User.hasOne( Task, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: User.hasMany( Task, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: Task.belongsTo( User, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: User.belongsToMany( User, { through : Task } ) }] } );
+
 User.findAll( { where: { $and:[ { username: "user" }, { theDate: new Date() } ] } } );
 User.findAll( { where: { $or:[ { username: "user" }, { theDate: new Date() } ] } } );
 User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );

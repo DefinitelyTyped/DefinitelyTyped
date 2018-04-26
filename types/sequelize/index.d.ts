@@ -1518,8 +1518,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): void;
+        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): IncludeAssociation;
 
         /**
          * Creates an association between this (the source) and the provided target. The foreign key is added on the
@@ -1529,8 +1530,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): void;
+        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): IncludeAssociation;
 
         /**
          * Create an association that is either 1:m or n:m.
@@ -1583,8 +1585,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): void;
+        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): IncludeAssociation;
 
         /**
          * Create an N:M association with a join table
@@ -1632,9 +1635,10 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          *
          */
-        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): void;
+        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): IncludeAssociation;
 
     }
 
