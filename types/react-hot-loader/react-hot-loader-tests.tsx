@@ -10,7 +10,7 @@ it("Using AppContainer", () => {
     }
 
     class ErrorReporterComponent extends React.Component<ErrorReporterProps> {
-        public render() {
+        render() {
             return <p>{this.props.error.message}</p>;
         }
     }
@@ -19,7 +19,7 @@ it("Using AppContainer", () => {
     const ErrorReporter = ({ error }: ErrorReporterProps) => <ErrorReporterComponent error={error} />;
 
     class AppContainerTest extends React.Component {
-        public render() {
+        render() {
             return (
                 <div>
                     <AppContainer errorReporter={ErrorReporterComponent}>
@@ -37,7 +37,7 @@ it("Using hot", () => {
     }
 
     class Foo extends React.Component<Props> {
-        public render(): JSX.Element {
+        render(): JSX.Element {
             return <div>Foo</div>;
         }
     }

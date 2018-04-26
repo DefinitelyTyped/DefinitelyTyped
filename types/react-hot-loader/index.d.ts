@@ -12,7 +12,7 @@ import "node";
 export type ReactComponent<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
 export type ExtractProps<TComponent> = TComponent extends ReactComponent<infer TProps> ? TProps : {};
 
-interface ErrorReporterProps {
+export interface ErrorReporterProps {
     error: any;
 }
 
