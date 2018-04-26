@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/**
- * Get Kana string from input history array.
- * @param histories Input History Array
- * @param options kanaRegexp : Hiragana detection regular expression rule.
- */
-export default function historykana(
-    histories: string[],
-    options?: object
-): string;
+declare module "historykana" {
+    /**
+     * Get Kana string from input history array.
+     * @param histories Input History Array
+     * @param options kanaRegexp : Hiragana detection regular expression rule.
+     */
+    function historykana(histories: string[], options?: object): string;
+    export = historykana;
+}
