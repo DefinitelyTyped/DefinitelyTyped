@@ -164,6 +164,14 @@ function StepSampleWithoutDefineSupportCode() {
         useForSnippets: false
     });
 
+    defineParameterType({
+        regexp: /(one) (two)/,
+        transformer: (x, y) => x + y,
+        name: 'param',
+        preferForRegexpMatch: false,
+        useForSnippets: false
+    });
+
     Given('a {param} step', param => {
         assert.equal(param, 'PARTICULAR');
     });
