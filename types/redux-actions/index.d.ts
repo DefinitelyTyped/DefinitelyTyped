@@ -24,6 +24,12 @@ export interface ActionMeta<Payload, Meta> extends Action<Payload> {
     meta: Meta;
 }
 
+// https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/combineActions.js#L27
+export interface CombinedActionType {
+    // NOTE: Done on purpose to avoid empty interface declaration
+    toString(): string;
+}
+
 export type ReducerMapValue<State, Payload> = Reducer<State, Payload> | ReducerNextThrow<State, Payload> | ReducerMap<State, Payload>;
 
 export interface ReducerMap<State, Payload> {
@@ -44,13 +50,17 @@ export interface ReducerNextThrowMeta<State, Payload, Meta> {
     throw?(state: State, action: ActionMeta<Payload, Meta>): State;
 }
 
-export type ActionFunctions<Payload> =
-    ActionFunction0<Action<Payload>> |
-    ActionFunction1<any, Action<Payload>> |
-    ActionFunction2<any, any, Action<Payload>> |
-    ActionFunction3<any, any, any, Action<Payload>> |
-    ActionFunction4<any, any, any, any, Action<Payload>> |
-    ActionFunctionAny<Action<Payload>>;
+export type BaseActionFunctions<TAction> =
+    ActionFunction0<TAction> |
+    ActionFunction1<any, TAction> |
+    ActionFunction2<any, any, TAction> |
+    ActionFunction3<any, any, any, TAction> |
+    ActionFunction4<any, any, any, any, TAction> |
+    ActionFunctionAny<TAction>;
+
+export type ActionFunctions<Payload> = BaseActionFunctions<Action<Payload>>;
+
+export type ActionWithMetaFunctions<Payload, Meta> = BaseActionFunctions<ActionMeta<Payload, Meta>>;
 
 export type Reducer<State, Payload> = (state: State, action: Action<Payload>) => State;
 
@@ -135,13 +145,13 @@ export function createAction<Payload, Meta, Arg1, Arg2, Arg3, Arg4>(
 ): ActionFunction4<Arg1, Arg2, Arg3, Arg4, ActionMeta<Payload, Meta>>;
 
 export function handleAction<State, Payload>(
-    actionType: string | ActionFunctions<Payload>,
+    actionType: string | ActionFunctions<Payload> | CombinedActionType,
     reducer: Reducer<State, Payload> | ReducerNextThrow<State, Payload>,
     initialState: State
 ): Reducer<State, Payload>;
 
 export function handleAction<State, Payload, Meta>(
-    actionType: { toString(): string },
+    actionType: string | ActionWithMetaFunctions<Payload, Meta> | CombinedActionType,
     reducer: ReducerMeta<State, Payload, Meta> | ReducerNextThrowMeta<State, Payload, Meta>,
     initialState: State
 ): Reducer<State, Payload>;
@@ -161,14 +171,8 @@ export function handleActions<State, Payload, Meta>(
     initialState: State
 ): ReducerMeta<State, Payload, Meta>;
 
-// https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/combineActions.js#L27
-export interface CombinedAction {
-    // NOTE: Done on purpose to avoid empty interface declaration
-    toString(): string;
-}
-
 // https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/combineActions.js#L21
-export function combineActions(...actionTypes: Array<ActionFunctions<any> | string | symbol>): CombinedAction;
+export function combineActions(...actionTypes: Array<ActionFunctions<any> | string | symbol>): CombinedActionType;
 
 export interface ActionMap<Payload, Meta> {
     [actionType: string]:
