@@ -18,6 +18,7 @@
 //                 Jack Leigh <https://github.com/leighman>
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
+//                 Yulong Ruan <https://github.com/ruanyl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -1909,6 +1910,7 @@ declare namespace R {
          * Returns a function of arity n from a (manually) curried function.
          */
         uncurryN<T>(len: number, fn: (a: any) => any): (...a: any[]) => T;
+        uncurryN<T>(len: number): (fn: (a: any) => any) => (...a: any[]) => T;
 
         /**
          * Builds a list from a seed value. Accepts an iterator function, which returns either false
