@@ -5,7 +5,7 @@
 // TypeScript Version: 2.6
 
 import * as React from "react";
-import { ReactSelectProps, ReactAsyncSelectProps, LoadOptionsHandler, OptionValues } from "react-select";
+import { ReactSelectProps, ReactAsyncSelectProps, LoadOptionsHandler, OptionValues, Option } from "react-select";
 import { ListProps } from "react-virtualized";
 
 export interface VirtualizedOptionRenderOptions<T> {
@@ -24,7 +24,7 @@ export interface VirtualizedOptionRenderOptions<T> {
 
 export interface AdditionalVirtualizedSelectProps<TValue> {
     maxHeight?: number;
-    optionHeight?: number;
+    optionHeight?: number | (({ option }: { option: Option<TValue> }) => number);
     optionRenderer?(options: VirtualizedOptionRenderOptions<TValue>): JSX.Element;
     selectComponent?: React.ComponentClass<any> | React.StatelessComponent<any>;
 }

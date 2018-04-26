@@ -26,4 +26,11 @@ class ExampleSelectAsync extends VirtualizedSelect<Example> {
 	  selectComponent={Select}
 	  loadOptions={(input: string) => Promise.resolve([{name: 'Hi'}])}
 	/>
+	<VirtualizedSelect
+	  maxHeight={0}
+	  optionHeight={() => 23}
+	  optionRenderer={() => <div/>}
+	  selectComponent={Select}
+	  options={[]}
+	/>
 </div>;
