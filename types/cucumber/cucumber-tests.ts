@@ -11,6 +11,7 @@ const Status = cucumber.Status;
 declare module "cucumber" {
     interface World {
         visit(url: string, callback: CallbackStepDefinition): void;
+        toInt(value: string): number;
     }
 }
 
@@ -21,6 +22,7 @@ function StepSampleWithoutDefineSupportCode() {
         this.visit = (url: string, callback: Callback) => {
             callback(null, 'pending');
         };
+        this.toInt = parseInt;
     });
 
     Before((scenarioResult: HookScenarioResult, callback: Callback) => {
@@ -167,6 +169,16 @@ function StepSampleWithoutDefineSupportCode() {
     defineParameterType({
         regexp: /(one) (two)/,
         transformer: (x, y) => x + y,
+        name: 'param',
+        preferForRegexpMatch: false,
+        useForSnippets: false
+    });
+
+    defineParameterType({
+        regexp: /123/,
+        transformer(val) {
+            return this.toInt(val);
+        },
         name: 'param',
         preferForRegexpMatch: false,
         useForSnippets: false
