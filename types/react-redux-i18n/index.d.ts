@@ -21,7 +21,7 @@ declare module 'react-redux-i18n' {
 
   type TranslationObjects = { [lang: string]: SubTranslationObject };
 
-  type DispatchCallback<S> = {
+  type DispatchCallback<S extends redux.Action<any>> = {
     (dispatch?: redux.Dispatch<S>, getState?: () => S): any;
   }
 
