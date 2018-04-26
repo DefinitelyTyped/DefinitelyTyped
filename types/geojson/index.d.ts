@@ -66,7 +66,7 @@ export interface GeoJsonObject {
 /**
  * Union of GeoJSON objects.
  */
-export type Object = Geometry | Feature | FeatureCollection;
+export type GeoJSON = Geometry | Feature | FeatureCollection;
 
 /**
  * A geometry object.
