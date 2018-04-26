@@ -86,70 +86,63 @@ export type Geometry = Point | MultiPoint | LineString | Polygon | MultiPolygon 
  * Point geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.2
  */
-export interface Point {
+export interface Point extends GeometryObject {
     type: "Point";
     coordinates: Position;
-    bbox?: BBox;
 }
 
 /**
  * MultiPoint geometry object.
  *  https://tools.ietf.org/html/rfc7946#section-3.1.3
  */
-export interface MultiPoint {
+export interface MultiPoint extends GeometryObject {
     type: "MultiPoint";
     coordinates: Position[];
-    bbox?: BBox;
 }
 
 /**
  * LineString geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.4
  */
-export interface LineString {
+export interface LineString extends GeometryObject {
     type: "LineString";
     coordinates: Position[];
-    bbox?: BBox;
 }
 
 /**
  * MultiLineString geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.5
  */
-export interface MultiLineString {
+export interface MultiLineString extends GeometryObject {
     type: "MultiLineString";
     coordinates: Position[][];
-    bbox?: BBox;
 }
 
 /**
  * Polygon geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.6
  */
-export interface Polygon {
+export interface Polygon extends GeometryObject {
     type: "Polygon";
     coordinates: Position[][];
-    bbox?: BBox;
 }
 
 /**
  * MultiPolygon geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.7
  */
-export interface MultiPolygon {
+export interface MultiPolygon extends GeometryObject {
     type: "MultiPolygon";
     coordinates: Position[][][];
-    bbox?: BBox;
 }
 
 /**
  * Geometry Collection
  * https://tools.ietf.org/html/rfc7946#section-3.1.8
  */
-export interface GeometryCollection {
+export interface GeometryCollection extends GeometryObject {
     type: "GeometryCollection";
     geometries: Geometry[];
-    bbox?: BBox;
 }
 
 export type GeoJsonProperties = { [name: string]: any; } | null;
@@ -158,7 +151,7 @@ export type GeoJsonProperties = { [name: string]: any; } | null;
  * A feature object which contains a geometry and associated properties.
  * https://tools.ietf.org/html/rfc7946#section-3.2
  */
-export interface Feature<G extends GeometryObject | null = Geometry, P = GeoJsonProperties> {
+export interface Feature<G extends GeometryObject | null = Geometry, P = GeoJsonProperties> extends GeoJsonObject {
     type: "Feature";
     /**
      * The feature's geometry
@@ -173,18 +166,13 @@ export interface Feature<G extends GeometryObject | null = Geometry, P = GeoJson
      * Properties associated with this feature.
      */
     properties: P;
-    /**
-     * Bounding Box
-     */
-    bbox?: BBox;
 }
 
 /**
  * A collection of feature objects.
  *  https://tools.ietf.org/html/rfc7946#section-3.3
  */
-export interface FeatureCollection<G extends GeometryObject | null = Geometry, P = GeoJsonProperties> {
+export interface FeatureCollection<G extends GeometryObject | null = Geometry, P = GeoJsonProperties> extends GeoJsonObject {
     type: "FeatureCollection";
     features: Array<Feature<G, P>>;
-    bbox?: BBox;
 }
