@@ -3376,7 +3376,6 @@ export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequi
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export type ImagePropsSourceOptions = ImageURISource | ImageURISource[] | ImageRequireSource;
 export interface ImageProps extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, LayoutProps {
     /**
      * onLayout function
