@@ -1,9 +1,12 @@
 // Type definitions for D3JS d3-array module 1.2
 // Project: https://github.com/d3/d3-array
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Tom Wanzek <https://github.com/tomwanzek>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.2.1
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -312,8 +315,8 @@ export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
 // --------------------------------------------------------------------------------------
 
 export interface Bin<Datum, Value extends number | Date> extends Array<Datum> {
-    x0: Value;
-    x1: Value;
+    x0: Value | undefined;
+    x1: Value | undefined;
 }
 
 /**
@@ -328,11 +331,14 @@ export type ThresholdArrayGenerator<Value extends number | Date> = (values: Arra
 
 export interface HistogramGenerator<Datum, Value extends number | Date> {
     (data: ArrayLike<Datum>): Array<Bin<Datum, Value>>;
+
     value(): (d: Datum, i: number, data: ArrayLike<Datum>) => Value;
     value(valueAccessor: (d: Datum, i: number, data: ArrayLike<Datum>) => Value): this;
-    domain(): (values: ArrayLike<Value>) => [Value, Value];
+
+    domain(): (values: ArrayLike<Value>) => [Value, Value] | [undefined, undefined];
     domain(domain: [Value, Value]): this;
-    domain(domainAccessor: (values: ArrayLike<Value>) => [Value, Value]): this;
+    domain(domainAccessor: (values: ArrayLike<Value>) => [Value, Value] | [undefined, undefined]): this;
+
     thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<Value>;
     /**
      * Divide the domain uniformly into approximately count bins. IMPORTANT: This threshold

@@ -40,7 +40,7 @@ class MixedObject {
 }
 
 let num: number;
-let date: Date;
+let undef: undefined;
 
 let numOrUndefined: number | undefined;
 let strOrUndefined: string | undefined;
@@ -76,7 +76,7 @@ const readonlyStringyNumbersArray = stringyNumbersArray as ReadonlyArray<string>
 const readonlyNumericArray = numericArray as ReadonlyArray<NumCoercible>;
 const readonlyDateArray = dateArray as ReadonlyArray<Date>;
 const readonlyMixedObjectArray = mixedObjectArray as ReadonlyArray<MixedObject>;
-const readonlyMixedObjectOrUndefinedArray = mixedObjectOrUndefinedArray as ReadonlyArray<MixedObject>;
+const readonlyMixedObjectOrUndefinedArray = mixedObjectOrUndefinedArray as ReadonlyArray<MixedObject | undefined>;
 
 function accessorMixedObjectToNum(datum: MixedObject, index: number, array: MixedObject[]): number {
     return datum.num;
@@ -158,7 +158,7 @@ numericOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNumeric)
 dateOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToDate);
 numOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNumOrUndefined);
 strOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
-numOrUndefined = d3Array.max(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.min(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 
 // extent() --------------------------------------------------------------------
 
@@ -480,8 +480,10 @@ let mergedArray: MixedObject[];
 
 mergedArray = d3Array.merge(testArrays); // inferred type
 mergedArray = d3Array.merge<MixedObject>(testArrays); // explicit type
-// mergedArray = d3Array.merge<MixedObject>([[10, 40, 30], [15, 30]]); // fails, type mismatch
-// mergedArray = d3Array.merge([testArray1, [15, 30]]); // fails, type mismatch
+// $ExpectError
+mergedArray = d3Array.merge<MixedObject>([[10, 40, 30], [15, 30]]); // fails, type mismatch
+// $ExpectError
+mergedArray = d3Array.merge([testArray1, [15, 30]]); // fails, type mismatch
 
 mergedArray = d3Array.merge(readonlyTestArrays); // inferred type
 mergedArray = d3Array.merge<MixedObject>(readonlyTestArrays); // explicit type
@@ -569,7 +571,8 @@ numbersArray = d3Array.range(1, 10, 0.5);
 mergedArray = d3Array.shuffle(mergedArray);
 mergedArray = d3Array.shuffle(mergedArray, 1);
 mergedArray = d3Array.shuffle(mergedArray, 1, 3);
-// mergedArray = d3Array.shuffle(readonlyMergedArray); // fails, shuffle mutates input array in-place
+// $ExpectError
+mergedArray = d3Array.shuffle(readonlyMergedArray); // fails, shuffle mutates input array in-place
 
 // Test each TypedArray explicitly. Can't use ArrayLike in this case because shuffle is mutable and ArrayLike would include ReadonlyArray
 const resultInt8: Int8Array = d3Array.shuffle(new Int8Array(numbersArray));
@@ -608,96 +611,103 @@ testArrays = d3Array.zip(readonlyTestArray1, readonlyTestArray2);
 // Test Histogram
 // -----------------------------------------------------------------------------
 
-const tScale = scaleTime();
+const timeScale = scaleTime();
 
 // Create histogram generator ==================================================
 
-let defaultHistogram: d3Array.HistogramGenerator<number, number>;
-defaultHistogram = d3Array.histogram();
+let histoNumber_Number: d3Array.HistogramGenerator<number, number>;
+histoNumber_Number = d3Array.histogram();
 
-let testHistogram: d3Array.HistogramGenerator<MixedObject, Date>;
-testHistogram = d3Array.histogram<MixedObject, Date>();
+let histoMixedObject_Date: d3Array.HistogramGenerator<MixedObject, Date>;
+histoMixedObject_Date = d3Array.histogram<MixedObject, Date>();
 
 // Configure histogram generator ===============================================
 
 // value(...) ------------------------------------------------------------------
 
-testHistogram = testHistogram.value((d, i, data) => {
-    const datum: MixedObject = d; // d is of type MixedObject
-    const index: number = i; // i is number
-    const array: ArrayLike<MixedObject> = data; // data is of type MixedObject[]
+histoMixedObject_Date = histoMixedObject_Date.value((d, i, data) => {
+    const datum: MixedObject = d;
+    const index: number = i;
+    const array: ArrayLike<MixedObject> = data;
     return datum.date;
 });
 
 let valueAccessorFn: (d: MixedObject, i: number, data: MixedObject[]) => Date;
-valueAccessorFn = testHistogram.value();
+valueAccessorFn = histoMixedObject_Date.value();
 
 // domain(...) -----------------------------------------------------------------
 
 // test with array
-testHistogram = testHistogram.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
+histoMixedObject_Date = histoMixedObject_Date.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 
 // usage with scale domain:
-const domain = tScale.domain();
+const domain = timeScale.domain();
 
-testHistogram = testHistogram.domain([domain[0], domain[domain.length]]);
-
-// testHistogram = testHistogram.domain(tScale.domain()); // fails, as scale domain is an array with possibly more than the two elements expected by histogram
+histoMixedObject_Date = histoMixedObject_Date.domain([domain[0], domain[domain.length]]);
+// $ExpectError
+histoMixedObject_Date = histoMixedObject_Date.domain(timeScale.domain()); // fails, as scale domain is an array with possibly more than the two elements expected by histogram
 
 // use with accessor function
-testHistogram = testHistogram.domain(values => [values[0], values[values.length]]);
+histoMixedObject_Date = histoMixedObject_Date.domain(values => [values[0], values[values.length]]);
+
+histoNumber_Number = histoNumber_Number.domain(d3Array.extent);
 
 // get current domain accessor function
-let domainAccessorFn: (values: Date[]) => [Date, Date];
-domainAccessorFn = testHistogram.domain();
+let domainAccessorFn: (values: number[]) => [number, number] | [undefined, undefined];
+domainAccessorFn = histoNumber_Number.domain();
+
+let dateDomainAccessorFn: (values: Date[]) => [Date, Date] | [undefined, undefined];
+dateDomainAccessorFn = histoMixedObject_Date.domain();
 
 // thresholds(...) -------------------------------------------------------------
 
 // with count constant
-defaultHistogram = defaultHistogram.thresholds(3);
+histoNumber_Number = histoNumber_Number.thresholds(3);
 
 // with threshold count generator
-defaultHistogram = defaultHistogram.thresholds(d3Array.thresholdScott);
+histoNumber_Number = histoNumber_Number.thresholds(d3Array.thresholdScott);
 
 // with thresholds value array
 
-testHistogram = testHistogram.thresholds([new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
+histoMixedObject_Date = histoMixedObject_Date.thresholds([new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
 
 // with thresholds value array accessors
-testHistogram = testHistogram.thresholds((values: Date[], min: Date, max: Date) => {
+histoMixedObject_Date = histoMixedObject_Date.thresholds((values: Date[], min: Date, max: Date) => {
     let thresholds: Date[];
     thresholds = [values[0], values[2], values[4]];
     return thresholds;
 });
 
-testHistogram = testHistogram.thresholds(tScale.ticks(timeYear));
+histoMixedObject_Date = histoMixedObject_Date.thresholds(timeScale.ticks(timeYear));
 
 // Use histogram generator =====================================================
 
 numbersArray = [-1, 0, 1, 1, 3, 20, 234];
 
 let defaultBins: Array<d3Array.Bin<number, number>>;
-defaultBins = defaultHistogram(numbersArray);
+defaultBins = histoNumber_Number(numbersArray);
 
 let defaultBin: d3Array.Bin<number, number>;
 defaultBin = defaultBins[0];
 
 num = defaultBin.length; // defaultBin is array
 num = defaultBin[0]; // with element type number
-num = defaultBin.x0; // bin lower bound is number
-num = defaultBin.x1; // bin upper bound is number
+numOrUndefined = defaultBin.x0;
+numOrUndefined = defaultBin.x1;
 
 let testBins: Array<d3Array.Bin<MixedObject, Date>>;
-testBins = testHistogram(mixedObjectArray);
-testBins = testHistogram(readonlyMixedObjectArray);
+testBins = histoMixedObject_Date(mixedObjectArray);
+testBins = histoMixedObject_Date(readonlyMixedObjectArray);
 
 let testBin: d3Array.Bin<MixedObject, Date>;
 testBin = testBins[0];
 
 num = testBin.length; // defaultBin is array
 const mixedObject: MixedObject = testBin[0]; // with element type MixedObject
-date = testBin.x0; // bin lower bound is Date
-date = testBin.x1; // bin upper bound is Date
+dateOrUndefined = testBin.x0;
+dateOrUndefined = testBin.x1;
+
+undef = d3Array.histogram()([])[0].x0 as undefined;
 
 // Histogram Tresholds =========================================================
 
