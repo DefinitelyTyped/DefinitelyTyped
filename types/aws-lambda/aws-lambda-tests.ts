@@ -260,6 +260,46 @@ statement = {
     Resource: str
 };
 
+// $ExpectError
+statement = {
+    Effect: str,
+    Action: str,
+    Principal: 123
+};
+
+// Bad Resource
+// $ExpectError
+statement = {
+    Effect: str,
+    Action: str,
+    Resource: 123
+};
+
+// Bad Resource with valid Principal
+// $ExpectError
+statement = {
+    Effect: str,
+    Action: str,
+    Principal: { Service: str},
+    Resource: 123
+};
+
+// Bad principal with valid Resource
+// $ExpectError
+statement = {
+    Effect: str,
+    Action: str,
+    Principal: 123,
+    Resource: str
+};
+
+// No Effect
+// $ExpectError
+statement = {
+    Action: str,
+    Principal: str
+};
+
 statement = {
     Sid: str,
     Action: [str, str],
@@ -276,6 +316,20 @@ statement = {
     },
     Principal: [str, str],
     NotPrincipal: [str, str]
+};
+
+statement = {
+    Action: str,
+    Principal: str,
+    Effect: str
+};
+
+statement = {
+    Action: str,
+    NotPrincipal: {
+        Service: str
+    },
+    Effect: str
 };
 
 statement = {
