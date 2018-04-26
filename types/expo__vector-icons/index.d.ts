@@ -5,7 +5,7 @@
 // TypeScript Version: 2.6
 
 import * as React from 'react';
-import { TextProperties } from 'react-native';
+import { TextProps } from 'react-native';
 
 export { createIconSet, createIconSetFromFontello, createIconSetFromIcoMoon } from 'react-native-vector-icons';
 export { default as Entypo } from 'react-native-vector-icons/Entypo';

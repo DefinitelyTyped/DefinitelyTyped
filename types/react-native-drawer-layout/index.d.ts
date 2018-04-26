@@ -5,7 +5,7 @@
 // TypeScript Version: 2.6
 
 import * as React from 'react';
-import { ViewProperties } from 'react-native';
+import { ViewProps } from 'react-native';
 
 export type DrawerLayoutOpenEventHandler = () => void;
 
@@ -21,7 +21,7 @@ export type DrawerLayoutSlideEventHandler = (event: DrawerLayoutSlideEvent) => v
 
 export type DrawerLayoutStateChangeEventHandler = (state: string) => void;
 
-export interface DrawerLayoutProperties extends ViewProperties {
+export interface DrawerLayoutProperties extends ViewProps {
   /**
    * Child content.
    */
