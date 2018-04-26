@@ -43,6 +43,79 @@ export namespace Accelerometer {
 }
 
 /**
+ * Admob
+ */
+export type AdMobBannerSize =
+    | 'banner'
+    | 'largeBanner'
+    | 'mediumRectangle'
+    | 'fullBanner'
+    | 'leaderboard'
+    | 'smartBannerPortrait'
+    | 'smartBannerLandscape';
+export interface AdMobBannerProperties extends ViewProperties {
+    bannerSize?: AdMobBannerSize;
+    adUnitID?: string;
+    testDeviceID?: string;
+    didFailToReceiveAdWithError?(errorDescription: string): void;
+    adViewDidReceiveAd?(): void;
+    adViewWillPresentScreen?(): void;
+    adViewWillDismissScreen?(): void;
+    adViewDidDismissScreen?(): void;
+    adViewWillLeaveApplication?(): void;
+}
+
+export class AdMobBanner extends Component<AdMobBannerProperties> { }
+
+export interface AdMobAppEvent {
+    name: string;
+    info: string;
+}
+export interface PublisherBannerProperties extends AdMobBannerProperties {
+    admobDispatchAppEvent?(event: AdMobAppEvent): void;
+}
+export class PublisherBanner extends Component<PublisherBannerProperties> { }
+
+export type AdMobInterstitialEmptyEvent =
+    | 'interstitialDidLoad'
+    | 'interstitialDidOpen'
+    | 'interstitialDidClose'
+    | 'interstitialWillLeaveApplication';
+export type AdMobInterstitialEvent = AdMobInterstitialEmptyEvent | 'interstitialVideoDidFailToLoad';
+export namespace AdMobInterstitial {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function isReady(callback: (isReady: boolean) => void): void;
+    function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+export type AdMobRewardedEmptyEvent =
+    | 'rewardedVideoDidLoad'
+    | 'rewardedVideoDidOpen'
+    | 'rewardedVideoDidClose'
+    | 'rewardedVideoWillLeaveApplication';
+export type AdMobRewardedEvent = AdMobRewardedEmptyEvent | 'rewardedVideoDidRewardUser' | 'rewardedVideoDidFailToLoad';
+export namespace AdMobRewarded {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+/**
  * Amplitude
  */
 export namespace Amplitude {
