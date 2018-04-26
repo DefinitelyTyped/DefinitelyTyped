@@ -177,6 +177,13 @@ export interface TableProps extends
 
     /** Server-side callbacks */
     onFetchData: (state: any, instance: any) => void;
+    
+    /** Control callback for functional rendering */
+    children: (
+        state: FinalState,
+        makeTable: () => any,
+        instance: ReactTableInstance
+    ) => React.ReactNode;
 }
 
 export interface ControlledStateOverrideProps {
@@ -660,3 +667,26 @@ export interface FinalState extends TableProps {
 
 export const ReactTableDefaults: TableProps;
 export default class ReactTable extends React.Component<Partial<TableProps>> { }
+
+export interface ReactTableInstance extends ReactTable {
+    context: any;
+    props: Partial<TableProps>;
+    refs: any;
+    state: FinalState;
+    filterColumn(...props: any[]): any;
+    filterData(...props: any[]): any;
+    fireFetchData(...props: any[]): any;
+    getDataModel(...props: any[]): any;
+    getMinRows(...props: any[]): any;
+    getPropOrState(...props: any[]): any;
+    getResolvedState(...props: any[]): any;
+    getSortedData(...props: any[]): any;
+    getStateOrProp(...props: any[]): any;
+    onPageChange: PageChangeFunction;
+    onPageSizeChange: PageSizeChangeFunction;
+    resizeColumnEnd(...props: any[]): any;
+    resizeColumnMoving(...props: any[]): any;
+    resizeColumnStart(...props: any[]): any;
+    sortColumn(...props: any[]): any;
+    sortData(...props: any[]): any;
+}
