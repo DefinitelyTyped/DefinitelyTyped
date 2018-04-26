@@ -482,9 +482,17 @@ export interface BaseStatement {
 }
 
 export type PrincipalValue = { [key: string]: string | string[]; } | string | string[];
+export interface MaybeStatementPrincipal {
+    Principal?: PrincipalValue;
+    NotPrincipal?: PrincipalValue;
+}
+export interface MaybeStatementResource {
+    Resource?: string | string[];
+    NotResource?: string | string[];
+}
 export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
-export type StatementResource = { Resource: string | string[] } | { NotResource: string | string[] };
-export type StatementPrincipal = { Principal: PrincipalValue } | { NotPrincipal: PrincipalValue };
+export type StatementResource = MaybeStatementPrincipal & ({ Resource: string | string[] } | { NotResource: string | string[] });
+export type StatementPrincipal = MaybeStatementResource & ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
