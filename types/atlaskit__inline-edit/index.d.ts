@@ -1,4 +1,4 @@
-// Type definitions for @atlaskit/inline-edit
+// Type definitions for @atlaskit/inline-edit 5.0
 // Project: https://bitbucket.org/atlassian/atlaskit-mk-2/
 // Definitions by: Lee Standen <https://github.com/lstanden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@ import { ReactElement, Component } from 'react';
 export default class InlineEdit extends Component<StatefulProps> {}
 export class InlineEditStateless extends Component<StatelessProps> {}
 
-interface BaseProps {
+export interface BaseProps {
     /** Label above the input. */
     label?: string;
     /** Component to be shown when reading only */
@@ -19,8 +19,7 @@ interface BaseProps {
     isFitContainerWidthReadView?: boolean;
     /** Greys out text and shows spinner. Does not disable input. */
     isWaiting?: boolean;
-    /** Sets yellow border with warning symbol at end of input. Removes confirm
-     and cancel buttons. */
+    /** Sets yellow border with warning symbol at end of input. Removes confirm and cancel buttons. */
     isInvalid?: boolean;
     /** Determine whether the label is shown. */
     isLabelHidden?: boolean;
@@ -28,8 +27,7 @@ interface BaseProps {
     areActionButtonsHidden?: boolean;
     /** Sets whether the confirm function is called when the input loses focus. */
     isConfirmOnBlurDisabled?: boolean;
-    /** Handler called when checkmark is clicked. Also by default
-     called when the input loses focus. */
+    /** Handler called when checkmark is clicked. Also by default called when the input loses focus. */
     onConfirm: () => void;
     /** Handler called when the cross is clicked on. */
     onCancel: () => void;
@@ -43,11 +41,11 @@ interface BaseProps {
     invalidMessage?: ReactElement<any>;
 }
 
-interface StatelessProps extends BaseProps {
+export interface StatelessProps extends BaseProps {
     /** Whether the component shows the readView or the editView. */
     isEditing: boolean;
     /** Handler called when the wrapper or the label are clicked. */
     onEditRequested: () => void;
 }
 
-type StatefulProps = BaseProps;
+export type StatefulProps = BaseProps;
