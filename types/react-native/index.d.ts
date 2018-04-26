@@ -26,6 +26,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /// <reference path="globals.d.ts" />
+/// <reference path="legacy-properties.d.ts" />
 
 import * as React from 'react';
 
@@ -8770,91 +8771,3 @@ declare global {
      */
     const __DEV__: boolean;
 }
-
-/*
- * Previously, props interfaces where named *Properties
- * They have been changed to *Props to better match React Native documentation
- * The following lines ensure compatibility with *Properties and should be removed in the future
- */
-/** @deprecated */
-export type TextProperties = TextProps;
-/** @deprecated */
-export type AccessibilityProperties = AccessibilityProps;
-/** @deprecated */
-export type TextInputProperties = TextInputProps;
-/** @deprecated */
-export type ViewProperties = ViewProps;
-/** @deprecated */
-export type ToolbarAndroidProperties = ToolbarAndroidProps;
-/** @deprecated */
-export type ViewPagerAndroidProperties = ViewPagerAndroidProps;
-/** @deprecated */
-export type WebViewProperties = WebViewProps;
-/** @deprecated */
-export type SegmentedControlIOSProperties = SegmentedControlIOSProps;
-/** @deprecated */
-export type ScrollViewProperties = ScrollViewProps;
-/** @deprecated */
-export type InputAccessoryViewProperties = InputAccessoryViewProps;
-/** @deprecated */
-export type NavigatorIOSProperties = NavigatorIOSProps;
-/** @deprecated */
-export type ActivityIndicatorProperties = ActivityIndicatorProps;
-/** @deprecated */
-export type DatePickerIOSProperties = DatePickerIOSProps;
-/** @deprecated */
-export type DrawerLayoutAndroidProperties = DrawerLayoutAndroidProps;
-/** @deprecated */
-export type PickerItemProperties = PickerItemProps;
-/** @deprecated */
-export type PickerProperties = PickerProps;
-/** @deprecated */
-export type PickerIOSProperties = PickerIOSProps;
-/** @deprecated */
-export type ProgressBarAndroidProperties = ProgressBarAndroidProps;
-/** @deprecated */
-export type ProgressViewIOSProperties = ProgressViewIOSProps;
-/** @deprecated */
-export type RefreshControlProperties = RefreshControlProps;
-/** @deprecated */
-export type SliderProperties = SliderProps;
-/** @deprecated */
-export type ImagePropertiesSourceOptions = ImagePropsSourceOptions;
-/** @deprecated */
-export type ImageProperties = ImageProps;
-/** @deprecated */
-export type ImageBackgroundProperties = ImageBackgroundProps;
-/** @deprecated */
-export type FlatListProperties<ItemT> = FlatListProps<ItemT>;
-/** @deprecated */
-export type VirtualizedListProperties<ItemT> = VirtualizedListProps<ItemT>;
-/** @deprecated */
-export type SectionListProperties<ItemT> = SectionListProps<ItemT>;
-/** @deprecated */
-export type ListViewProperties = ListViewProps;
-/** @deprecated */
-export type MaskedViewIOSProperties = MaskedViewIOSProps;
-/** @deprecated */
-export type ModalProperties = ModalProps;
-/** @deprecated */
-export type TouchableWithoutFeedbackProperties = TouchableWithoutFeedbackProps;
-/** @deprecated */
-export type TouchableHighlightProperties = TouchableHighlightProps;
-/** @deprecated */
-export type TouchableOpacityProperties = TouchableOpacityProps;
-/** @deprecated */
-export type TouchableNativeFeedbackProperties = TouchableNativeFeedbackProps;
-/** @deprecated */
-export type TabBarIOSItemProperties = TabBarIOSItemProps;
-/** @deprecated */
-export type TabBarIOSProperties = TabBarIOSProps;
-/** @deprecated */
-export type SnapshotViewIOSProperties = SnapshotViewIOSProps;
-/** @deprecated */
-export type ButtonProperties = ButtonProps;
-/** @deprecated */
-export type StatusBarProperties = StatusBarProps;
-/** @deprecated */
-export type SwitchProperties = SwitchProps;
-/** @deprecated */
-export type LayoutProperties = LayoutProps;
