@@ -81,7 +81,7 @@ export interface HookScenarioResult {
 
 export interface SourceLocation {
     line: number;
-    url: string;
+    uri: string;
 }
 
 export interface ScenarioResult {

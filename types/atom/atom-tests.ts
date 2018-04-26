@@ -88,6 +88,10 @@ function testAtomEnvironment() {
                 { label: "Undo", command: "core:undo" },
                 { label: "Redo", command: "core:redo" },
             ],
+            after: ["test"],
+            before: ["test"],
+            afterGroupContaining: ["test"],
+            beforeGroupContaining: ["test"]
         }],
     });
 

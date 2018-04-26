@@ -83,6 +83,7 @@ str = apiGwEvtReqCtx.httpMethod;
 strOrNull = apiGwEvtReqCtx.identity.accessKey;
 strOrNull = apiGwEvtReqCtx.identity.accountId;
 strOrNull = apiGwEvtReqCtx.identity.apiKey;
+strOrNull = apiGwEvtReqCtx.identity.apiKeyId;
 strOrNull = apiGwEvtReqCtx.identity.caller;
 strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
 strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationType;

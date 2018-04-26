@@ -141,3 +141,12 @@ management.createPasswordChangeTicket({
 }, (err: Error, data) => {
   console.log(data.ticket);
 });
+
+// Link users
+management.linkUsers('primaryId', { user_id: 'secondaryId' })
+  .then((result: any) => console.log(result));
+
+// Link users with callback
+management.linkUsers('primaryId', { user_id: 'secondaryId' },
+  (err: Error, result: any) => {});
+

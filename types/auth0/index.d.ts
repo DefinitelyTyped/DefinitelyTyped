@@ -664,8 +664,8 @@ export class ManagementClient {
   unlinkUsers(params: UnlinkAccountsParams): Promise<UnlinkAccountsResponse>;
   unlinkUsers(params: UnlinkAccountsParams, cb: (err: Error, data: UnlinkAccountsResponse) => void): void;
 
-  linkUsers(params: ObjectWithId, data: LinkAccountsData): Promise<any>;
-  linkUsers(params: ObjectWithId, data: LinkAccountsData, cb: (err: Error, data: any) => void): void;
+  linkUsers(userId: string, data: LinkAccountsData): Promise<any>;
+  linkUsers(userId: string, data: LinkAccountsData, cb: (err: Error, data: any) => void): void;
 
 
   // Tokens

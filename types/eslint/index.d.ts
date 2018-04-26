@@ -2,6 +2,7 @@
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
+//                 Saad Quadri <https://github.com/saadq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -491,7 +492,7 @@ export namespace CLIEngine {
         globals?: string[];
         ignore?: boolean;
         ignorePath?: string;
-        ignorePattern?: string;
+        ignorePattern?: string | string[];
         useEslintrc?: boolean;
         parser?: string;
         parserOptions?: Linter.ParserOptions;
