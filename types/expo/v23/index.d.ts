@@ -8,7 +8,7 @@ import { EventSubscription } from 'fbemitter';
 import { Component, Ref } from 'react';
 import {
     ViewStyle,
-    ViewProperties,
+    ViewProps,
     ColorPropType,
     ImageURISource,
     NativeEventEmitter,
@@ -341,7 +341,7 @@ export class AppLoading extends Component<AppLoadingProperties> { }
 /**
  * BarCodeScanner
  */
-export interface BarCodeScannerProps extends ViewProperties {
+export interface BarCodeScannerProps extends ViewProps {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
@@ -353,7 +353,7 @@ export class BarCodeScanner extends Component<BarCodeScannerProps> { }
 /**
  * BlurView
  */
-export interface BlurViewProps extends ViewProperties {
+export interface BlurViewProps extends ViewProps {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
@@ -396,7 +396,7 @@ export class CameraObject {
     stopRecording(): void;
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
-export interface CameraProperties extends ViewProperties {
+export interface CameraProperties extends ViewProps {
     flashMode?: string | number;
     type?: string | number;
     ratio?: string;
@@ -896,7 +896,7 @@ export namespace Font {
 /**
  * GLView
  */
-export interface GLViewProps extends ViewProperties {
+export interface GLViewProps extends ViewProps {
     onContextCreate(): void;
     msaaSamples: number;
 }

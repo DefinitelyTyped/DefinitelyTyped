@@ -16,7 +16,7 @@ import {
     ImageRequireSource,
     ImageURISource,
     NativeEventEmitter,
-    ViewProperties,
+    ViewProps,
     ViewStyle,
     Permission,
     StyleProp
@@ -624,7 +624,7 @@ export class PlaybackObject {
 /**
  * BarCodeScanner
  */
-export interface BarCodeScannerProps extends ViewProperties {
+export interface BarCodeScannerProps extends ViewProps {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
@@ -645,7 +645,7 @@ export class BarCodeScanner extends Component<BarCodeScannerProps> {
 /**
  * BlurView
  */
-export interface BlurViewProps extends ViewProperties {
+export interface BlurViewProps extends ViewProps {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
@@ -691,7 +691,7 @@ export class CameraObject {
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
 
-export interface CameraProps extends ViewProperties {
+export interface CameraProps extends ViewProps {
     zoom?: FloatFromZeroToOne;
     ratio?: string;
     focusDepth?: FloatFromZeroToOne;
@@ -1316,7 +1316,7 @@ export namespace Font {
 /**
  * GLView
  */
-export interface GLViewProps extends ViewProperties {
+export interface GLViewProps extends ViewProps {
     onContextCreate(): void;
     msaaSamples: number;
 }
