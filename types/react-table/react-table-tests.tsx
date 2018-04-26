@@ -154,7 +154,32 @@ const Component = (props: {}) => {
             console.log(newSorted);
           }
         }}
-      />
+      >
+        {(
+          state: ReactTable.FinalState,
+          makeTable: () => React.ReactChild,
+          instance: ReactTable.ReactTableInstance
+        ) => {
+          return (
+            <div
+              style={{
+                background: "#ffcf00",
+                borderRadius: "5px",
+                overflow: "hidden",
+                padding: "5px"
+              }}
+            >
+              <pre>
+                <code>
+                  state.allVisibleColumns ==={" "}
+                  {JSON.stringify(state.allVisibleColumns, null, 4)}
+                </code>
+              </pre>
+              {makeTable()}
+            </div>
+          );
+        }}
+      </ReactTable>
       <br />
     </div>
   );
