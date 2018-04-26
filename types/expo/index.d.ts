@@ -1,4 +1,4 @@
-// Type definitions for expo 25.0
+// Type definitions for expo 26.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -58,6 +58,82 @@ export namespace Accelerometer {
      * @param intervalMs Desired interval in milliseconds between accelerometer updates.
      */
     function setUpdateInterval(intervalMs: number): void;
+}
+
+/**
+ * Admob
+ */
+export type AdMobBannerSize =
+    | 'banner'
+    | 'largeBanner'
+    | 'mediumRectangle'
+    | 'fullBanner'
+    | 'leaderboard'
+    | 'smartBannerPortrait'
+    | 'smartBannerLandscape';
+export interface AdMobBannerProperties extends ViewProperties {
+    bannerSize?: AdMobBannerSize;
+    adUnitID?: string;
+    testDeviceID?: string;
+    didFailToReceiveAdWithError?(errorDescription: string): void;
+    adViewDidReceiveAd?(): void;
+    adViewWillPresentScreen?(): void;
+    adViewWillDismissScreen?(): void;
+    adViewDidDismissScreen?(): void;
+    adViewWillLeaveApplication?(): void;
+}
+
+export class AdMobBanner extends Component<AdMobBannerProperties> { }
+export interface AdMobAppEvent {
+    name: string;
+    info: string;
+}
+export interface PublisherBannerProperties extends AdMobBannerProperties {
+    onAdMobDispatchAppEvent?(event: AdMobAppEvent): void;
+}
+export class PublisherBanner extends Component<PublisherBannerProperties> { }
+
+export type AdMobInterstitialEmptyEvent =
+    | 'interstitialDidLoad'
+    | 'interstitialDidOpen'
+    | 'interstitialDidClose'
+    | 'interstitialWillLeaveApplication';
+export type AdMobInterstitialEvent = AdMobInterstitialEmptyEvent | 'interstitialDidFailToLoad';
+export namespace AdMobInterstitial {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAdAsync(): Promise<void>;
+    function showAdAsync(): Promise<void>;
+    function dismissAdAsync(): Promise<void>;
+    function getIsReadyAsync(): Promise<boolean>;
+    function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+export type AdMobRewardedEmptyEvent =
+    | 'rewardedVideoDidLoad'
+    | 'rewardedVideoDidOpen'
+    | 'rewardedVideoDidStart'
+    | 'rewardedVideoDidClose'
+    | 'rewardedVideoWillLeaveApplication';
+export type AdMobRewardedEvent = AdMobRewardedEmptyEvent | 'rewardedVideoDidRewardUser' | 'rewardedVideoDidFailToLoad';
+export namespace AdMobRewarded {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAdAsync(): Promise<void>;
+    function showAdAsync(): Promise<void>;
+    function dismissAdAsync(): Promise<void>;
+    function getIsReadyAsync(): Promise<boolean>;
+    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
 }
 
 /**

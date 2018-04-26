@@ -1,10 +1,11 @@
-// Type definitions for expo 24.0
+// Type definitions for expo 25.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Jan Aagaard <https://github.com/janaagaard75>
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
+//                 Umidbek Karimov <https://github.com/umidbekkarimov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -15,7 +16,7 @@ import {
     ImageRequireSource,
     ImageURISource,
     NativeEventEmitter,
-    ViewProps,
+    ViewProperties,
     ViewStyle,
     Permission,
     StyleProp
@@ -696,7 +697,7 @@ export class PlaybackObject {
 /**
  * BarCodeScanner
  */
-export interface BarCodeScannerProps extends ViewProps {
+export interface BarCodeScannerProps extends ViewProperties {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
@@ -717,7 +718,7 @@ export class BarCodeScanner extends Component<BarCodeScannerProps> {
 /**
  * BlurView
  */
-export interface BlurViewProps extends ViewProps {
+export interface BlurViewProps extends ViewProperties {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
@@ -763,18 +764,22 @@ export class CameraObject {
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
 
-export interface CameraProps extends ViewProps {
-    flashMode?: string | number;
-    type?: string | number;
-    ratio?: string;
-    autoFocus?: string | number | boolean;
-    focusDepth?: FloatFromZeroToOne;
+export interface CameraProps extends ViewProperties {
     zoom?: FloatFromZeroToOne;
-    whiteBalance?: string | number;
-    barCodeTypes?: string[];
+    ratio?: string;
+    focusDepth?: FloatFromZeroToOne;
+    type?: string | number;
     onCameraReady?: () => void;
-    onMountError?: () => void;
     onBarCodeRead?: BarCodeReadCallback;
+    faceDetectionMode?: number;
+    flashMode?: string | number;
+    barCodeTypes?: Array<string | number>;
+    whiteBalance?: string | number;
+    faceDetectionLandmarks?: number;
+    autoFocus?: string | number | boolean;
+    faceDetectionClassifications?: number;
+    onMountError?: () => void;
+    onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
     ref?: Ref<CameraObject>;
 }
 
@@ -825,10 +830,14 @@ export namespace Constants {
     const isDevice: boolean;
 
     interface Platform {
-        ios: {
+        ios?: {
             platform: string;
             model: string;
             userInterfaceIdiom: string;
+            buildNumber: string;
+        };
+        android?: {
+            versionCode: string;
         };
     }
     const platform: Platform;
@@ -1187,36 +1196,42 @@ export namespace FacebookAds {
 /**
  * FaceDetector
  */
+export interface Point {
+    x: Axis;
+    y: Axis;
+}
+
+export interface FaceFeature {
+    bounds: {
+        size: {
+            width: number;
+            height: number;
+        },
+        origin: Point;
+    };
+    smilingProbability?: number;
+    leftEarPosition?: Point;
+    rightEarPosition?: Point;
+    leftEyePosition?: Point;
+    leftEyeOpenProbability?: number;
+    rightEyePosition?: Point;
+    rightEyeOpenProbability?: number;
+    leftCheekPosition?: Point;
+    rightCheekPosition?: Point;
+    leftMouthPosition?: Point;
+    mouthPosition?: Point;
+    rightMouthPosition?: Point;
+    bottomMouthPosition?: Point;
+    noseBasePosition?: Point;
+    yawAngle?: number;
+    rollAngle?: number;
+}
+
+export interface TrackedFaceFeature extends FaceFeature {
+    faceID?: number;
+}
+
 export namespace FaceDetector {
-    interface Point {
-        x: Axis;
-        y: Axis;
-    }
-    interface FaceFeature {
-        bounds: {
-            size: {
-                width: number;
-                height: number;
-            },
-            origin: Point;
-        };
-        smilingProbability?: number;
-        leftEarPosition?: Point;
-        rightEarPosition?: Point;
-        leftEyePosition?: Point;
-        leftEyeOpenProbability?: number;
-        rightEyePosition?: Point;
-        rightEyeOpenProbability?: number;
-        leftCheekPosition?: Point;
-        rightCheekPosition?: Point;
-        leftMouthPosition?: Point;
-        mouthPosition?: Point;
-        rightMouthPosition?: Point;
-        bottomMouthPosition?: Point;
-        noseBasePosition?: Point;
-        yawAngle?: number;
-        rollAngle?: number;
-    }
     interface DetectFaceResult {
         faces: FaceFeature[];
         image: {
@@ -1252,7 +1267,6 @@ export namespace FaceDetector {
 
     function detectFaces(uri: string, options?: DetectionOptions): Promise<DetectFaceResult>;
 }
-
 /**
  * FileSystem
  */
@@ -1375,7 +1389,7 @@ export namespace Font {
 /**
  * GLView
  */
-export interface GLViewProps extends ViewProps {
+export interface GLViewProps extends ViewProperties {
     onContextCreate(): void;
     msaaSamples: number;
 }
@@ -1478,6 +1492,10 @@ export namespace ImagePicker {
         uri: string;
         width: number;
         height: number;
+        type: 'video' | 'image';
+        base64?: string;
+        exif?: object;
+        duration?: number;
     }
 
     type ImageResult = { cancelled: true } | ({ cancelled: false } & ImageInfo);
@@ -1494,6 +1512,8 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
         mediaTypes?: keyof _MediaTypeOptions;
     }
 
@@ -1756,7 +1776,7 @@ export namespace Pedometer {
  */
 export namespace Permissions {
     type PermissionType = 'remoteNotifications' | 'location' |
-        'camera' | 'contacts' | 'audioRecording';
+        'camera' | 'contacts' | 'audioRecording' | 'calendar';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1788,6 +1808,7 @@ export namespace Permissions {
     const NOTIFICATIONS: RemoteNotificationPermission;
     const CONTACTS: 'contacts';
     const SYSTEM_BRIGHTNESS: 'systemBrightness';
+    const CALENDAR: 'calendar';
 }
 
 /**
@@ -1864,6 +1885,12 @@ export namespace Speech {
     function speak(text: string, options?: SpeechOptions): void;
     function stop(): void;
     function isSpeakingAsync(): Promise<boolean>;
+
+    /** Available on iOS only */
+    function pause(): void;
+
+    /** Available on iOS only */
+    function resume(): void;
 }
 
 /**
@@ -1921,6 +1948,7 @@ export namespace SQLite {
 export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
+    fillRule?: 'nonzero' | 'evenodd';
     stroke?: string;
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
@@ -1931,6 +1959,7 @@ export interface SvgCommonProps {
     x?: number | string;
     y?: number | string;
     rotate?: number | string;
+    rotation?: number | string;
     scale?: number | string;
     origin?: number | string;
     originX?: number | string;
@@ -2170,3 +2199,561 @@ export namespace WebBrowser {
     function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
     function dismissBrowser(): Promise<{ type: 'dismissed' }>;
 }
+
+// #region Calendar
+/**
+ * Calendar
+ *
+ * Provides an API for interacting with the device’s system calendars, events, reminders, and associated records.
+ */
+export namespace Calendar {
+    interface Calendar {
+        /** Internal ID that represents this calendar on the device */
+        id?: string;
+
+        /** Visible name of the calendar */
+        title?: string;
+
+        sourceId?: string; // iOS
+
+        /** Object representing the source to be used for the calendar */
+        source?: Source;
+
+        /** Type of calendar this object represents */
+        type?: CalendarType; // iOS
+
+        /** Color used to display this calendar’s events */
+        color?: string;
+
+        /** Whether the calendar is used in the Calendar or Reminders OS app */
+        entityType?: EntityTypes; // iOS
+
+        /** Boolean value that determines whether this calendar can be modified */
+        allowsModifications?: boolean;
+
+        /** Availability types that this calendar supports */
+        allowedAvailabilities?: Availability[];
+
+        /** Boolean value indicating whether this is the device’s primary calendar */
+        isPrimary?: boolean; // Android
+
+        /** Internal system name of the calendar */
+        name?: string; // Android
+
+        /** Name for the account that owns this calendar */
+        ownerAccount?: string; // Android
+
+        /** Time zone for the calendar	 */
+        timeZone?: string; // Android
+
+        /** Alarm methods that this calendar supports */
+        allowedReminders?: AlarmMethod[]; // Android
+
+        /** Attendee types that this calendar supports */
+        allowedAttendeeTypes?: AttendeeType[]; // Android
+
+        /** Indicates whether the OS displays events on this calendar */
+        isVisible?: boolean; // Android
+
+        /** Indicates whether this calendar is synced and its events stored on the device */
+        isSynced?: boolean; // Android
+
+        /** Level of access that the user has for the calendar */
+        accessLevel?: CalendarAccessLevel; // Android
+    }
+
+    interface Source {
+        /** Internal ID that represents this source on the device */
+        id?: string; // iOS only ??
+
+        /** Type of account that owns this calendar */
+        type?: string;
+
+        /** Name for the account that owns this calendar */
+        name?: string;
+
+        /** Whether this source is the local phone account */
+        isLocalAccount?: boolean; // Android
+    }
+
+    interface Event {
+        /** Internal ID that represents this event on the device */
+        id?: string;
+
+        /** ID of the calendar that contains this event */
+        calendarId?: string;
+
+        /** Visible name of the event */
+        title?: string;
+
+        /** Location field of the event	 */
+        location?: string;
+
+        /** Date when the event record was created */
+        creationDate?: string; // iOS
+
+        /** Date when the event record was last modified */
+        lastModifiedDate?: string; // iOS
+
+        /** Time zone the event is scheduled in */
+        timeZone?: string;
+
+        /** Time zone for the event end time */
+        endTimeZone?: string; // Android
+
+        /** URL for the event */
+        url?: string; // iOS
+
+        /** Description or notes saved with the event */
+        notes?: string;
+
+        /** Array of Alarm objects which control automated reminders to the user */
+        alarms?: Alarm[];
+
+        /** Object representing rules for recurring or repeating events. Null for one-time events. */
+        recurrenceRule?: RecurrenceRule;
+
+        /** Date object or string representing the time when the event starts */
+        startDate?: string;
+
+        /** Date object or string representing the time when the event ends */
+        endDate?: string;
+
+        /** For recurring events, the start date for the first (original) instance of the event */
+        originalStartDate?: string; // iOS
+
+        /** Boolean value indicating whether or not the event is a detached (modified) instance of a recurring event */
+        isDetached?: boolean; // iOS
+
+        /** Whether the event is displayed as an all-day event on the calendar */
+        allDay?: boolean;
+
+        /** The availability setting for the event */
+        availability?: Availability; // Availability
+
+        /** Status of the event */
+        status?: EventStatus; // Status
+
+        /** Organizer of the event, as an Attendee object */
+        organizer?: string; // Organizer - iOS
+
+        /** Email address of the organizer of the event */
+        organizerEmail?: string; // Android
+
+        /** User’s access level for the event */
+        accessLevel?: EventAccessLevel; // Android,
+
+        /** Whether invited guests can modify the details of the event */
+        guestsCanModify?: boolean; // Android,
+
+        /** Whether invited guests can invite other guests */
+        guestsCanInviteOthers?: boolean; // Android
+
+        /** Whether invited guests can see other guests */
+        guestsCanSeeGuests?: boolean; // Android
+
+        /** For detached (modified) instances of recurring events, the ID of the original recurring event */
+        originalId?: string; // Android
+
+        /** For instances of recurring events, volatile ID representing this instance; not guaranteed to always refer to the same instance */
+        instanceId?: string; // Android
+    }
+
+    interface Attendee {
+        /** Internal ID that represents this attendee on the device */
+        id?: string; // Android
+
+        /** Indicates whether or not this attendee is the current OS user */
+        isCurrentUser?: boolean; // iOS
+
+        /** Displayed name of the attendee */
+        name?: string;
+
+        /** Role of the attendee at the event */
+        role?: AttendeeRole;
+
+        /** Status of the attendee in relation to the event */
+        status?: AttendeeStatus;
+
+        /** Type of the attendee */
+        type?: AttendeeType;
+
+        /** URL for the attendee */
+        url?: string; // iOS
+
+        /** Email address of the attendee */
+        email?: string; // Android
+    }
+
+    interface Reminder {
+        /** Internal ID that represents this reminder on the device */
+        id?: string;
+
+        /** ID of the calendar that contains this reminder */
+        calendarId?: string;
+
+        /** Visible name of the reminder */
+        title?: string;
+
+        /** Location field of the reminder */
+        location?: string;
+
+        /** Date when the reminder record was created */
+        creationDate?: string;
+
+        /** Date when the reminder record was last modified */
+        lastModifiedDate?: string;
+
+        /** Time zone the reminder is scheduled in */
+        timeZone?: string;
+
+        /** URL for the reminder */
+        url?: string;
+
+        /** Description or notes saved with the reminder */
+        notes?: string;
+
+        /** Array of Alarm objects which control automated alarms to the user about the task */
+        alarms?: Alarm[];
+
+        /** Object representing rules for recurring or repeated reminders. Null for one-time tasks. */
+        recurrenceRule?: RecurrenceRule;
+
+        /** Date object or string representing the start date of the reminder task */
+        startDate?: string;
+
+        /** Date object or string representing the time when the reminder task is due */
+        dueDate?: string;
+
+        /** Indicates whether or not the task has been completed */
+        completed?: boolean;
+
+        /** Date object or string representing the date of completion, if completed is true */
+        completionDate?: string;
+    }
+
+    interface Alarm {
+        /** Date object or string representing an absolute time the alarm should occur; overrides relativeOffset and structuredLocation if specified alongside either */
+        absoluteDate?: string; // iOS
+
+        /** Number of minutes from the startDate of the calendar item that the alarm should occur; use negative values to have the alarm occur before the startDate */
+        relativeOffset?: string;
+        structuredLocation?: {
+            // iOS
+            title?: string;
+            proximity?: string; // Proximity
+            radius?: number;
+            coords?: {
+                latitude?: number;
+                longitude?: number;
+            };
+        };
+
+        /** Method of alerting the user that this alarm should use; on iOS this is always a notification */
+        method?: AlarmMethod; // Method, Android
+    }
+
+    interface RecurrenceRule {
+        /** How often the calendar item should recur */
+        frequency: Frequency; // Frequency
+
+        /** Interval at which the calendar item should recur. For example, an interval: 2 with frequency: DAILY would yield an event that recurs every other day. Defaults to 1 . */
+        interval?: number;
+
+        /** Date on which the calendar item should stop recurring; overrides occurrence if both are specified */
+        endDate?: string;
+
+        /** Number of times the calendar item should recur before stopping */
+        occurrence?: number;
+    }
+
+    enum EntityTypes {
+        EVENT = 'event',
+        REMINDER = 'reminder',
+    }
+
+    enum CalendarType {
+        LOCAL = 'local',
+        CALDAV = 'caldav',
+        EXCHANGE = 'exchange',
+        SUBSCRIBED = 'subscribed',
+        BIRTHDAYS = 'birthdays'
+    }
+
+    enum Availability {
+        NOT_SUPPORTED = 'notSupported', // iOS
+        BUSY = 'busy',
+        FREE = 'free',
+        TENTATIVE = 'tentative',
+        UNAVAILABLE = 'unavailable' // iOS
+    }
+
+    enum AlarmMethod {
+        ALARM = 'alarm',
+        ALERT = 'alert',
+        EMAIL = 'email',
+        SMS = 'sms',
+        DEFAULT = 'default',
+    }
+
+    enum AttendeeType {
+        UNKNOWN = 'unknown', // iOS
+        PERSON = 'person', // iOS
+        ROOM = 'room', // iOS
+        GROUP = 'group', // iOS
+        RESOURCE = 'resource',
+        OPTIONAL = 'optional', // Android
+        REQUIRED = 'required', // Android
+        NONE = 'none' // Android
+    }
+
+    enum CalendarAccessLevel {
+        CONTRIBUTOR = 'contributor',
+        EDITOR = 'editor',
+        FREEBUSY = 'freebusy',
+        OVERRIDE = 'override',
+        OWNER = 'owner',
+        READ = 'read',
+        RESPOND = 'respond',
+        ROOT = 'root',
+        NONE = 'none'
+    }
+
+    enum EventAccessLevel {
+        CONFIDENTIAL = 'confidential',
+        PRIVATE = 'private',
+        PUBLIC = 'public',
+        DEFAULT = 'default'
+    }
+
+    enum EventStatus {
+        NONE = 'none',
+        CONFIRMED = 'confirmed',
+        TENTATIVE = 'tentative',
+        CANCELED = 'canceled'
+    }
+
+    enum AttendeeRole {
+        UNKNOWN = 'unknown', // iOS
+        REQUIRED = 'required', // iOS
+        OPTIONAL = 'optional', // iOS
+        CHAIR = 'chair', // iOS
+        NON_PARTICIPANT = 'nonParticipant', // iOS
+        ATTENDEE = 'attendee', // Android
+        ORGANIZER = 'organizer', // Android
+        PERFORMER = 'performer', // Android
+        SPEAKER = 'speaker', // Android
+        NONE = 'none' // Android
+    }
+
+    enum AttendeeStatus {
+        UNKNOWN = 'unknown', // iOS
+        PENDING = 'pending', // iOS
+        ACCEPTED = 'accepted',
+        DECLINED = 'declined',
+        TENTATIVE = 'tentative',
+        DELEGATED = 'delegated', // iOS
+        COMPLETED = 'completed', // iOS
+        IN_PROCESS = 'inProcess', // iOS
+        INVITED = 'invited', // Android
+        NONE = 'none' // Android
+    }
+
+    enum Frequency {
+        DAILY = 'daily',
+        WEEKLY = 'weekly',
+        MONTHLY = 'monthly',
+        YEARLY = 'yearly'
+    }
+
+    enum ReminderStatus {
+        COMPLETED = 'completed',
+        INCOMPLETE = 'incomplete'
+    }
+
+    interface RecurringEventOptions {
+        futureEvents?: boolean;
+        instanceStartDate?: string;
+    }
+
+    /** Gets an array of calendar objects with details about the different calendars stored on the device. */
+    function getCalendarsAsync(
+        /** (iOS only) Not required, but if defined, filters the returned calendars to a specific entity type.  */
+        entityType?: EntityTypes
+    ): Promise<Calendar[]>;
+
+    /** Creates a new calendar on the device, allowing events to be added later and displayed. */
+    function createCalendarAsync(details: Calendar): Promise<string>;
+
+    /** Updates the provided details of an existing calendar stored on the device. To remove a property, explicitly set it to null in details */
+    function updateCalendarAsync(id: string, details?: Calendar | null): Promise<string>;
+
+    /** Deletes an existing calendar and all associated events/reminders/attendees from the device. Use with caution. */
+    function deleteCalendarAsync(id: string): Promise<void>;
+
+    /** Returns all events in a given set of calendars over a specified time period. */
+    function getEventsAsync(
+        /** Array of IDs of calendars to search for events in. Required. */
+        calendarIds: string[],
+
+        /** Beginning of time period to search for events in. Required. */
+        startDate: Date,
+
+        /** End of time period to search for events in. Required. */
+        endDate: Date
+    ): Promise<Event[]>;
+
+    /** Returns a specific event selected by ID. If a specific instance of a recurring event is desired, the start date of this instance must also be provided, as instances of recurring events do not have their own unique and stable IDs on either iOS or Android. */
+    function getEventAsync(
+        /** ID of the event to return. Required. */
+        id: string,
+
+        /** A map of options for recurring events */
+        recurringEventOptions?: RecurringEventOptions
+    ): Promise<Event>;
+
+    /** Creates a new event on the specified calendar. */
+    function createEventAsync(
+        /** ID of the calendar to create this event in. Required. */
+        calendarId: string,
+        details?: Event
+    ): Promise<string>;
+
+    /** Updates the provided details of an existing calendar stored on the device. To remove a property, explicitly set it to null in details */
+    function updateEventAsync(
+        /** ID of the event to be updated. Required. */
+        id: string,
+
+        /** A map of properties to be updated  */
+        details?: Event | null,
+
+        /** A map of options for recurring events */
+        recurrentEventOptions?: RecurringEventOptions
+    ): Promise<string>;
+
+    /** Deletes an existing event from the device. Use with caution. */
+    function deleteEventAsync(
+        /** ID of the event to be deleted. Required. */
+        id: string,
+
+        /** A map of options for recurring events */
+        recurringEventOptions?: RecurringEventOptions
+    ): Promise<void>;
+
+    /** Gets all attendees for a given event (or instance of a recurring event). */
+    function getAttendeesForEventAsync(
+        /** ID of the event to return attendees for. Required. */
+        eventId: string,
+
+        /** A map of options for recurring events */
+        recurrentEventOptions?: RecurringEventOptions
+    ): Promise<Attendee[]>;
+
+    /** Available on Android only. Creates a new attendee record and adds it to the specified event. Note that if eventId specifies a recurring event, this will add the attendee to every instance of the event. */
+    function createAttendeeAsync(
+        /**  ID of the event to add this attendee to. Required. */
+        eventId: string,
+
+        /** A map of details for the attendee to be created  */
+        details?: Attendee
+    ): Promise<string>;
+
+    /** Available on Android only. Updates an existing attendee record. To remove a property, explicitly set it to null in details. */
+    function updateAttendeeAsync(
+        /** ID of the attendee record to be updated. Required. */
+        id: string,
+
+        /** A map of properties to be updated  */
+        details?: Attendee | null
+    ): Promise<string>;
+
+    /** Available on Android only. Deletes an existing attendee record from the device. Use with caution. */
+    function deleteAttendeeAsync(id: string): Promise<void>;
+
+    /** Available on iOS only. Returns a list of reminders matching the provided criteria. */
+    function getRemindersAsync(
+        /**  Array of IDs of calendars to search for reminders in. Required. */
+        calendarIds: string[],
+
+        status?: ReminderStatus,
+
+        /** Beginning of time period to search for reminders in. Required if status is defined. */
+        startDate?: Date,
+
+        /** End of time period to search for reminders in. Required if status is defined. */
+        endDate?: Date
+    ): Promise<Reminder[]>;
+
+    /** Available on iOS only. Returns a specific reminder selected by ID. */
+    function getReminderAsync(id: string): Promise<Reminder>;
+
+    /** Available on iOS only. Creates a new reminder on the specified calendar. */
+    function createReminderAsync(
+        /** ID of the calendar to create this reminder in. Required. */
+        calendarId: string,
+
+        /** A map of details for the reminder to be created */
+        details?: Reminder
+    ): Promise<string>;
+
+    /** Available on iOS only. Updates the provided details of an existing reminder stored on the device. To remove a property, explicitly set it to null in details. */
+    function updateReminderAsync(
+        /** ID of the reminder to be updated. Required. */
+        id: string,
+
+        /** A map of properties to be updated */
+        details?: Reminder | null
+    ): Promise<string>;
+
+    /** Available on iOS only. Deletes an existing reminder from the device. Use with caution. */
+    function deleteReminderAsync(id: string): Promise<void>;
+
+    /** Available on iOS only. */
+    function getSourcesAsync(): Promise<Source[]>;
+
+    /** Available on iOS only. Returns a specific source selected by ID. */
+    function getSourceAsync(id: string): Promise<Source>;
+
+    /** Available on Android only. Sends an intent to open the specified event in the OS Calendar app. */
+    function openEventInCalendar(
+        /** ID of the event to open. Required. */
+        id: string
+    ): void;
+}
+// #endregion
+
+// #region Calendar
+/**
+ * An API to compose mails using OS specific UI.
+ */
+export namespace MailComposer {
+    interface ComposeOptions {
+        /** An array of e-mail addressess of the recipients. */
+        recipients?: string[];
+
+        /** An array of e-mail addressess of the CC recipients. */
+        ccRecipients?: string[];
+
+        /** An array of e-mail addressess of the BCC recipients. */
+        bccRecipients?: string[];
+
+        /** Subject of the mail. */
+        subject?: string;
+
+        /** Body of the mail. */
+        body?: string;
+
+        /** Whether the body contains HTML tags so it could be formatted properly. Not working perfectly on Android. */
+        isHtml?: boolean;
+
+        /** An array of app’s internal file uris to attach. */
+        attachments?: string[];
+    }
+
+    /** Resolves to a promise with object containing status field that could be either sent, saved or cancelled. Android does not provide such info so it always resolves to sent. */
+    function composeAsync(
+        /** A map defining the data to fill the mail */
+        options: ComposeOptions
+    ): Promise<{ status: 'sent' | 'saved' | 'cancelled' }>;
+}
+// #endregion
