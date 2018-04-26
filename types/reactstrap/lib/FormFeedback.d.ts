@@ -5,6 +5,7 @@ export interface FormFeedbackProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   valid?: boolean;
+  [others: string]: any;
 }
 
 declare const FormFeedback: React.StatelessComponent<FormFeedbackProps>;

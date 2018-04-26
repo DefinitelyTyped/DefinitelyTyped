@@ -5,6 +5,7 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
   fluid?: boolean;
   className?: string;
   cssModule?: CSSModule;
+  [others: string]: any;
 }
 
 declare const Container: React.StatelessComponent<ContainerProps>;

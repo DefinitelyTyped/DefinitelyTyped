@@ -5,6 +5,7 @@ export interface ListGroupProps extends React.HTMLAttributes<HTMLElement> {
   flush?: boolean;
   className?: string;
   cssModule?: CSSModule;
+  [others: string]: any;
 }
 
 declare const ListGroup: React.StatelessComponent<ListGroupProps>;

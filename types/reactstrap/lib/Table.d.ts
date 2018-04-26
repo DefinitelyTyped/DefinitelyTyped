@@ -12,6 +12,7 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
   responsive?: boolean;
   tag?: React.ReactType;
   responsiveTag?: React.ReactType;
+  [others: string]: any;
 }
 
 declare const Table: React.StatelessComponent<TableProps>;

@@ -6,6 +6,7 @@ export interface FormTextProps extends React.HTMLAttributes<HTMLElement> {
   color?: string;
   className?: string;
   cssModule?: CSSModule;
+  [others: string]: any;
 }
 
 declare const FormText: React.StatelessComponent<FormTextProps>;

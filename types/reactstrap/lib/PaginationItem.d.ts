@@ -6,6 +6,7 @@ export interface PaginationItemProps extends React.HTMLAttributes<HTMLElement> {
   active?: boolean;
   disabled?: boolean;
   tag?: React.ReactType;
+  [others: string]: any;
 }
 
 declare const PaginationItem: React.StatelessComponent<PaginationItemProps>;

@@ -6,6 +6,7 @@ export interface ModalHeaderProps extends React.HTMLAttributes<HTMLElement> {
   cssModule?: CSSModule;
   wrapTag?: React.ReactType;
   toggle?: () => void;
+  [others: string]: any;
 }
 
 declare const ModalHeader: React.StatelessComponent<ModalHeaderProps>;

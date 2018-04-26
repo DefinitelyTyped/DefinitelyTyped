@@ -4,6 +4,7 @@ export interface ListGroupItemHeadingProps extends React.HTMLAttributes<HTMLElem
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
+  [others: string]: any;
 }
 
 declare const ListGroupItemHeading: React.StatelessComponent<ListGroupItemHeadingProps>;

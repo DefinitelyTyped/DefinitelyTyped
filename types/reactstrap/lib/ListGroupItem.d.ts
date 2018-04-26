@@ -11,6 +11,7 @@ export interface ListGroupItemProps extends React.HTMLAttributes<HTMLElement> {
   href?: string;
 
   onClick?: React.MouseEventHandler<any>;
+  [others: string]: any;
 }
 
 declare const ListGroupItem: React.StatelessComponent<ListGroupItemProps>;

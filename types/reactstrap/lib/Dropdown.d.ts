@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export type Direction = 
+export type Direction =
   | "up"
   | "down"
   | "left"
@@ -25,6 +25,7 @@ export interface Props extends UncontrolledProps {
   size?: string;
   tag?: React.ReactType;
   addonType?: boolean | 'prepend' | 'append';
+  [others: string]: any;
 }
 export interface DropdownProps extends Props {
   /* intentionally blank */
