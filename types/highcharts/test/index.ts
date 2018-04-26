@@ -2789,3 +2789,30 @@ function test_TitleUpdate() {
         }
     });
 }
+
+function test_AddAndFireEvent() {
+    const chart = $('#container').highcharts();
+    const type = 'drilldown';
+    const evt = Highcharts.addEvent(chart, type, it => {});
+    Highcharts.fireEvent(chart, type);
+}
+
+function test_WordCloud() {
+    const allDefaults: Highcharts.WordCloudChartSeriesOptions = {};
+
+    // partial wordcloud demo
+    const series: Highcharts.WordCloudChartSeriesOptions = {
+        type: 'wordcloud',
+        data: [],
+        name: 'Occurrences',
+        rotation: {
+            to: 0
+        },
+        tooltip: {
+            headerFormat: null,
+            pointFormatter() {
+                return `<strong>${this.name}</strong>: Occurrence ${this.weight}`;
+            }
+        }
+    };
+}

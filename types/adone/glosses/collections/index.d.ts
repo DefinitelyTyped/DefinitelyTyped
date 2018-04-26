@@ -16,7 +16,7 @@
 /// <reference path="./refcounted_cache.d.ts" />
 /// <reference path="./set.d.ts" />
 /// <reference path="./stack.d.ts" />
-/// <reference path="./timedout_map.d.ts" />
+/// <reference path="./time_map.d.ts" />
 
 declare namespace adone {
     /**

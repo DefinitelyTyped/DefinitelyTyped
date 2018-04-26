@@ -119,6 +119,7 @@ loadNamespaces({components: [App], i18n}).then(() => {
 <Trans count={5}>
     <App/>
 </Trans>;
+<Trans i18nKey="hello" tOptions={{hello: "world", count: 42}}/>;
 
 type Key = "view" | "nav";
 

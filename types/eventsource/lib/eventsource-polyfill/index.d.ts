@@ -10,6 +10,7 @@ declare class EventSource {
   onopen: EventListener;
   onmessage: EventListener;
   onerror: EventListener;
+  addEventListener(type: string, listener: EventListener): void;
   close(): void;
 }
 

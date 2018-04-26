@@ -70,6 +70,7 @@ export interface Screen {
     title?: string;
     navigatorStyle?: NavigatorStyle;
     navigatorButtons?: NavigatorButtons;
+    overrideBackPress?: boolean;
 }
 
 export interface ModalScreen extends Screen {
@@ -187,7 +188,7 @@ export interface NavigatorStyle {
     navBarSubtitleFontFamily?: string;
     navBarSubtitleFontSize?: number;
     screenBackgroundColor?: string;
-    orientation?: 'auto ' | 'landscape' | 'portrait';
+    orientation?: 'auto' | 'landscape' | 'portrait';
     disabledButtonColor?: string;
     // iOS only
     statusBarTextColorSchemeSingleScreen?: string;

@@ -1,17 +1,14 @@
 import * as React from "react";
+import * as ReactDOM from 'react-dom';
+
+// Import React Owl Carousel
 import OwlCarousel from "react-owl-carousel";
 
 export class ReactOwlCarouselTest extends React.Component {
-    callback() {
-        alert('Callback: ' + JSON.stringify(arguments));
-    }
     render() {
         return (
             <div>
-                <OwlCarousel
-                    className="owl-theme"
-                    loop={false} margin={10} nav={false}
-                >
+                <OwlCarousel className={"owl-theme"} loop={false} margin={10} nav={false} dots={false}>
                     <div className="item"><h4>1</h4></div>
                     <div className="item"><h4>2</h4></div>
                     <div className="item"><h4>3</h4></div>
@@ -29,3 +26,5 @@ export class ReactOwlCarouselTest extends React.Component {
         );
     }
 }
+
+ReactDOM.render(<ReactOwlCarouselTest/>, document.getElementById("root"));

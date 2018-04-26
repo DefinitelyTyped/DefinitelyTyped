@@ -26,10 +26,10 @@ interface Context {
 }
 
 interface Options {
-    region: string;
-    account: string;
-    functionName: string;
-    functionVersion: string;
-    memoryLimitInMB: string;
+    region?: string;
+    account?: string;
+    functionName?: string;
+    functionVersion?: string;
+    memoryLimitInMB?: string;
     alias?: string;
 }

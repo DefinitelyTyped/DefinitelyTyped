@@ -13,3 +13,15 @@ const LifetimeHooks = Ember.Object.extend({
         this._super();
     }
 });
+
+class MyObject30 extends Ember.Object {
+    constructor() {
+        super();
+    }
+}
+
+class MyObject31 extends Ember.Object {
+    constructor(properties: object) {
+        super(properties);
+    }
+}

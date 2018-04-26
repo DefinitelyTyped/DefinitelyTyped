@@ -99,7 +99,7 @@ export class Pool extends events.EventEmitter {
     readonly waitingCount: number;
 
     connect(): Promise<PoolClient>;
-    connect(callback: (err: Error, client: PoolClient, done: () => void) => void): void;
+    connect(callback: (err: Error, client: PoolClient, done: (release?: any) => void) => void): void;
 
     end(): Promise<void>;
     end(callback: () => void): void;
@@ -107,7 +107,7 @@ export class Pool extends events.EventEmitter {
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
     query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryText: string, values?: any[]): Promise<QueryResult>;
+    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
     query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
@@ -125,7 +125,7 @@ export class ClientBase extends events.EventEmitter {
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
     query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryText: string, values?: any[]): Promise<QueryResult>;
+    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
     query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;

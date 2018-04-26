@@ -319,7 +319,7 @@ declare namespace PIXI {
         buttonMode: boolean;
         cursor: string;
         trackedPointers(): { [key: number]: interaction.InteractionTrackingData; };
-        // depricated
+        // Deprecated
         defaultCursor: string;
         // end interactive target
 
@@ -775,12 +775,12 @@ declare namespace PIXI {
         legacy?: boolean;
 
         /**
-         * Depricated
+         * Deprecated
          */
         context?: WebGLRenderingContext;
 
         /**
-         * Depricated
+         * Deprecated
          */
         autoResize?: boolean;
 
@@ -1116,6 +1116,8 @@ declare namespace PIXI {
     }
     class FilterManager extends WebGLManager {
         constructor(renderer: WebGLRenderer);
+        protected _screenWidth: number;
+        protected _screenHeight: number;
         gl: WebGLRenderingContext;
         quad: Quad;
         stack: FilterManagerStackItem[];
@@ -1123,6 +1125,7 @@ declare namespace PIXI {
         shaderCache: any;
         filterData: any;
 
+        onPrerender(): void;
         pushFilter(target: RenderTarget, filters: Array<Filter<any>>): void;
         popFilter(): void;
         applyFilter(shader: glCore.GLShader | Filter<any>, inputTarget: RenderTarget, outputTarget: RenderTarget, clear?: boolean): void;
@@ -1185,7 +1188,7 @@ declare namespace PIXI {
         // name is set by pixi if uniforms were automatically extracted from shader code, but not used anywhere
         name?: string;
     }
-    type UniformDataMap<U> = {[K in keyof U]: UniformData<U[K]>};
+    type UniformDataMap<U> = { [K in keyof U]: UniformData<U[K]> };
     class Filter<U extends Object> {
         constructor(vertexSrc?: string, fragmentSrc?: string, uniforms?: UniformDataMap<U>);
 
@@ -2041,7 +2044,7 @@ declare namespace PIXI {
             cursor: string;
             trackedPointers(): { [key: number]: InteractionTrackingData; };
 
-            // depricated
+            // Deprecated
             defaultCursor: string;
         }
         interface InteractionTrackingData {
@@ -2159,7 +2162,7 @@ declare namespace PIXI {
             protected normalizeToPointerData(event: TouchEvent | MouseEvent | PointerEvent): PointerEvent[];
             destroy(): void;
 
-            // depricated
+            // Deprecated
             defaultCursorStyle: string;
             currentCursorStyle: string;
         }
@@ -2554,7 +2557,8 @@ declare namespace PIXI {
             protected _maxSize: number;
             protected _batchSize: number;
             protected _glBuffers: { [n: number]: WebGLBuffer; };
-            protected _bufferToUpdate: number;
+            protected _bufferUpdateIDs: number[];
+            protected _updateID: number;
             interactiveChildren: boolean;
             blendMode: number;
             autoSize: boolean;
@@ -2581,6 +2585,8 @@ declare namespace PIXI {
             dynamicBuffer: any;
             dynamicData: any;
             dynamicDataUint32: any;
+
+            protected _updateID: number;
 
             destroy(): void;
         }
@@ -2867,6 +2873,8 @@ declare namespace PIXI {
         function sign(n: number): number;
         function removeItems<T>(arr: T[], startIdx: number, removeCount: number): void;
         function correctBlendMode(blendMode: number, premultiplied: boolean): number;
+        function clearTextureCache(): void;
+        function destroyTextureCache(): void;
         function premultiplyTint(tint: number, alpha: number): number;
         function premultiplyRgba(rgb: Float32Array | number[], alpha: number, out?: Float32Array, premultiply?: boolean): Float32Array;
         function premultiplyTintToRgba(tint: number, alpha: number, out?: Float32Array, premultiply?: boolean): Float32Array;

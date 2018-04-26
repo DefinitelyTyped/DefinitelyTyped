@@ -51,6 +51,7 @@ mongoose.model('Actor', new mongoose.Schema({
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
+mongoose.models.Actor.findOne({}).exec();
 new (new mongoose.Mongoose(9, 8, 7)).Mongoose(1, 2, 3).connect('');
 mongoose.plugin(cb, {}).connect('');
 mongoose.set('test', 'value');
@@ -64,6 +65,25 @@ mongoose.SchemaTypes.Decimal128;
 mongoose.Types.ObjectId;
 mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
+
+const sslConnections: {[key: string]: mongoose.Connection} = {
+  basic: mongoose.createConnection(connectUri, {ssl: true}),
+  customCA: mongoose.createConnection(
+    connectUri,
+    {
+      ssl: true,
+      sslCA: [new Buffer('ca string')],
+      sslCRL: [new Buffer('crl buffer')],
+      sslCert: 'ssl cert',
+      sslKey: new Buffer('ssl private key'),
+      sslPass: 'ssl password',
+      servername: 'localhost',
+      checkServerIdentity: true,
+      ciphers: 'ciphers',
+      ecdhCurve: 'ecdhCurve',
+    }
+  ),
+};
 
 /*
  * section collection.js
@@ -112,6 +132,7 @@ conn1.openSet('mongodb://localhost/test', 'db', {
 conn1.close().catch(function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+conn1.models.myModel.findOne().exec();
 interface IStatics {
   staticMethod1: (a: number) => string;
 }

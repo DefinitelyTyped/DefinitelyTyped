@@ -18,7 +18,8 @@ import {
     NativeEventEmitter,
     ViewProperties,
     ViewStyle,
-    Permission
+    Permission,
+    StyleProp
 } from 'react-native';
 
 export type Axis = number;
@@ -1554,11 +1555,12 @@ export class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-export interface LinearGradientProps extends ViewProperties {
+export interface LinearGradientProps {
     colors: string[];
     start?: [number, number];
     end?: [number, number];
     locations?: number[];
+    style?: StyleProp<ViewStyle>;
 }
 
 export class LinearGradient extends Component<LinearGradientProps> { }
@@ -1622,7 +1624,7 @@ export namespace Location {
     function getHeadingAsync(): Promise<HeadingStatus>;
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
     function geocodeAsync(address: string): Promise<Coords>;
-    function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData>;
+    function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
     function setApiKey(key: string): void;
 }
 
@@ -1873,6 +1875,8 @@ export namespace SQLite {
 export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
+    fillRule?: 'nonzero' | 'evenodd';
+    opacity?: number | string;
     stroke?: string;
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
@@ -1883,6 +1887,7 @@ export interface SvgCommonProps {
     x?: number | string;
     y?: number | string;
     rotate?: number | string;
+    rotation?: number | string;
     scale?: number | string;
     origin?: number | string;
     originX?: number | string;
@@ -1982,7 +1987,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number }> {
+export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;

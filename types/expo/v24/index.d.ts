@@ -17,7 +17,8 @@ import {
     NativeEventEmitter,
     ViewProperties,
     ViewStyle,
-    Permission
+    Permission,
+    StyleProp
 } from 'react-native';
 
 export type Axis = number;
@@ -1534,11 +1535,12 @@ export class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-export interface LinearGradientProps extends ViewProperties {
+export interface LinearGradientProps {
     colors: string[];
     start?: [number, number];
     end?: [number, number];
     locations?: number[];
+    style?: StyleProp<ViewStyle>;
 }
 
 export class LinearGradient extends Component<LinearGradientProps> { }
