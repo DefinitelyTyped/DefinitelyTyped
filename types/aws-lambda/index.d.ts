@@ -509,7 +509,7 @@ export interface CloudFrontHeaders {
     [name: string]: Array<{
         key: string;
         value: string;
-    }>;
+    }> | undefined;
 }
 
 export interface CloudFrontResponse {
