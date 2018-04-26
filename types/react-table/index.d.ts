@@ -177,7 +177,7 @@ export interface TableProps extends
 
     /** Server-side callbacks */
     onFetchData: (state: any, instance: any) => void;
-    
+
     /** Control callback for functional rendering */
     children: (
         state: FinalState,
