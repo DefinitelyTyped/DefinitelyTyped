@@ -8,6 +8,7 @@
 //                 Nicholas Boll <https://github.com/nicholasboll>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
 //                 Prashant Deva <https://github.com/pdeva>
+//                 Stefan Knoch <https://github.com/ch1ll0ut1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -19,20 +20,17 @@
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
 
 import * as React from 'react';
-import * as Redux from 'redux';
+import { Action, AnyAction, Store, Dispatch } from 'redux';
 
 type ComponentClass<P> = React.ComponentClass<P>;
 type StatelessComponent<P> = React.StatelessComponent<P>;
 type Component<P> = React.ComponentType<P>;
 type ReactNode = React.ReactNode;
-type Store<S> = Redux.Store<S>;
-type Dispatch<A extends Redux.Action = Redux.AnyAction> = Redux.Dispatch<A>;
-type ActionCreator<A> = Redux.ActionCreator<A>;
 
 // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
 type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
-export interface DispatchProp<A extends Redux.Action = Redux.AnyAction> {
+export interface DispatchProp<A extends Action<any> = AnyAction> {
   dispatch?: Dispatch<A>;
 }
 
@@ -221,7 +219,7 @@ interface Options<State = {}, TStateProps = {}, TOwnProps = {}, TMergedProps = {
  * @param connectOptions If specified, further customizes the behavior of the connector. Additionally, any extra
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
-export declare function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
+export declare function connectAdvanced<S extends Action<any>, TProps, TOwnProps, TFactoryOptions = {}>(
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions
 ): AdvancedComponentDecorator<TProps, TOwnProps>;
@@ -234,7 +232,7 @@ export declare function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = 
  * call, the component will not be re-rendered. It's the responsibility of <code>selector</code> to return that
  * previous object when appropriate.
  */
-export interface SelectorFactory<S, TProps, TOwnProps, TFactoryOptions> {
+export interface SelectorFactory<S extends Action<any>, TProps, TOwnProps, TFactoryOptions> {
     (dispatch: Dispatch, factoryOptions: TFactoryOptions): Selector<S, TProps, TOwnProps>
 }
 
