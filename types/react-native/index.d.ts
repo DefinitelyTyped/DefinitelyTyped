@@ -7538,7 +7538,7 @@ export interface StatusBarProps extends StatusBarPropsIOS, StatusBarPropsAndroid
     hidden?: boolean;
 }
 
-export class StatusBar extends React.Component<StatusBarProps> {
+export interface StatusBarStatic extends React.Component<StatusBarProps> {
     /**
      * The current height of the status bar on the device.
      * @platform android
@@ -8586,7 +8586,10 @@ export type PushNotificationIOS = PushNotificationIOSStatic;
 
 export const Settings: SettingsStatic;
 export type Settings = SettingsStatic;
-
+                                       
+export const StatusBar: StatusBarStatic;
+export type StatusBar = StatusBarStatic;
+                                       
 export const StatusBarIOS: StatusBarIOSStatic;
 export type StatusBarIOS = StatusBarIOSStatic;
 
