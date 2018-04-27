@@ -1846,7 +1846,7 @@ export class View extends ViewBase {
      * Is 3D Touch / Force Touch available (i.e. will touch events include `force`)
      * @platform ios
      */
-    forceTouchAvailable: boolean;
+    static forceTouchAvailable: boolean;
 }
 
 /**
@@ -2806,11 +2806,12 @@ export class Picker extends React.Component<PickerProps> {
     /**
      * On Android, display the options in a dialog.
      */
-    MODE_DIALOG: string;
+    static MODE_DIALOG: string;
+
     /**
      * On Android, display the options in a dropdown (this is the default).
      */
-    MODE_DROPDOWN: string;
+    static MODE_DROPDOWN: string;
 
     static Item: typeof PickerItem;
 }
@@ -2988,7 +2989,7 @@ export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshCont
 declare class RefreshControlComponent extends React.Component<RefreshControlProps> {}
 declare const RefreshControlBase: Constructor<NativeMethodsMixin> & typeof RefreshControlComponent;
 export class RefreshControl extends RefreshControlBase {
-    SIZE: Object; // Undocumented
+    static SIZE: Object; // Undocumented
 }
 
 export interface RecyclerViewBackedScrollViewProps extends ScrollViewProps {}
@@ -4248,7 +4249,7 @@ interface TimerMixin {
 declare class ListViewComponent extends React.Component<ListViewProps> {}
 declare const ListViewBase: Constructor<ScrollResponderMixin> & Constructor<TimerMixin> & typeof ListViewComponent;
 export class ListView extends ListViewBase {
-    DataSource: ListViewDataSource;
+    static DataSource: ListViewDataSource;
 
     /**
      * Exports some data, e.g. for perf investigations or analytics.
@@ -4439,7 +4440,7 @@ export interface MapViewProps extends ViewProps {
 declare class MapViewComponent extends React.Component<MapViewProps> {}
 declare const MapViewBase: Constructor<NativeMethodsMixin> & typeof MapViewComponent;
 export class MapView extends MapViewBase {
-    PinColors: {
+    static PinColors: {
         RED: string;
         GREEN: string;
         PURPLE: string;
@@ -4791,14 +4792,14 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * Creates an object that represents android theme's default background for
      * selectable elements (?android:attr/selectableItemBackground).
      */
-    SelectableBackground(): ThemeAttributeBackgroundPropType;
+    static SelectableBackground(): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represent android theme's default background for borderless
      * selectable elements (?android:attr/selectableItemBackgroundBorderless).
      * Available on android API level 21+.
      */
-    SelectableBackgroundBorderless(): ThemeAttributeBackgroundPropType;
+    static SelectableBackgroundBorderless(): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represents ripple drawable with specified color (as a
@@ -4810,7 +4811,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
      */
-    Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
 }
 
 export interface Route {
@@ -6221,7 +6222,7 @@ export interface SwipeableListViewProps {
  * - More to come
  */
 export class SwipeableListView extends React.Component<SwipeableListViewProps> {
-    getNewDataSource(): SwipeableListViewDataSource;
+    static getNewDataSource(): SwipeableListViewDataSource;
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -450,3 +450,5 @@ class StatusBarTest extends React.Component {
         );
     }
 }
+
+const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
