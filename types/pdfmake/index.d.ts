@@ -50,8 +50,8 @@ declare module 'pdfmake/build/pdfmake' {
 
     interface TDocumentDefinitions {
         info?: TDocumentInformation;
-        header?: TDocumentHeaderFooterFunction | any;
-        footer?: TDocumentHeaderFooterFunction | any;
+        header?: any;
+        footer?: any;
         content: any;
         styles?: any;
         pageSize?: pageSizeType;
