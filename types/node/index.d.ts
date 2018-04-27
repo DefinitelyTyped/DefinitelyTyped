@@ -61,7 +61,7 @@ interface Console {
      */
     dir(obj: any, options?: NodeJS.InspectOptions): void;
     /**
-     * The `console.dirxml()` function is an alias for {@link console.log()}.
+     * This method calls {@link console.log()} passing it the arguments received. Please note that this method does not produce any XML formatting
      */
     dirxml(...data: any[]): void;
     /**
