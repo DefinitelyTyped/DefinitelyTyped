@@ -1846,7 +1846,7 @@ export class View extends ViewBase {
      * Is 3D Touch / Force Touch available (i.e. will touch events include `force`)
      * @platform ios
      */
-    forceTouchAvailable: boolean;
+    static forceTouchAvailable: boolean;
 }
 
 /**
@@ -2593,7 +2593,7 @@ export interface DatePickerIOSProps extends ViewProps {
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
 declare const DatePickerIOSBase: Constructor<NativeMethodsMixin> & typeof DatePickerIOSComponent;
-export class DatePickerIOS extends TextInputBase {}
+export class DatePickerIOS extends DatePickerIOSBase {}
 
 export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
@@ -2806,11 +2806,12 @@ export class Picker extends React.Component<PickerProps> {
     /**
      * On Android, display the options in a dialog.
      */
-    MODE_DIALOG: string;
+    static MODE_DIALOG: string;
+
     /**
      * On Android, display the options in a dropdown (this is the default).
      */
-    MODE_DROPDOWN: string;
+    static MODE_DROPDOWN: string;
 
     static Item: typeof PickerItem;
 }
@@ -2988,7 +2989,7 @@ export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshCont
 declare class RefreshControlComponent extends React.Component<RefreshControlProps> {}
 declare const RefreshControlBase: Constructor<NativeMethodsMixin> & typeof RefreshControlComponent;
 export class RefreshControl extends RefreshControlBase {
-    SIZE: Object; // Undocumented
+    static SIZE: Object; // Undocumented
 }
 
 export interface RecyclerViewBackedScrollViewProps extends ScrollViewProps {}
@@ -3134,7 +3135,7 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
  */
 declare class SliderComponent extends React.Component<SliderProps> {}
 declare const SliderBase: Constructor<NativeMethodsMixin> & typeof SliderComponent;
-export class Slider extends TextBase {}
+export class Slider extends SliderBase {}
 export type SliderIOS = Slider;
 
 /**
@@ -4248,7 +4249,7 @@ interface TimerMixin {
 declare class ListViewComponent extends React.Component<ListViewProps> {}
 declare const ListViewBase: Constructor<ScrollResponderMixin> & Constructor<TimerMixin> & typeof ListViewComponent;
 export class ListView extends ListViewBase {
-    DataSource: ListViewDataSource;
+    static DataSource: ListViewDataSource;
 
     /**
      * Exports some data, e.g. for perf investigations or analytics.
@@ -4439,7 +4440,7 @@ export interface MapViewProps extends ViewProps {
 declare class MapViewComponent extends React.Component<MapViewProps> {}
 declare const MapViewBase: Constructor<NativeMethodsMixin> & typeof MapViewComponent;
 export class MapView extends MapViewBase {
-    PinColors: {
+    static PinColors: {
         RED: string;
         GREEN: string;
         PURPLE: string;
@@ -4791,14 +4792,14 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * Creates an object that represents android theme's default background for
      * selectable elements (?android:attr/selectableItemBackground).
      */
-    SelectableBackground(): ThemeAttributeBackgroundPropType;
+    static SelectableBackground(): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represent android theme's default background for borderless
      * selectable elements (?android:attr/selectableItemBackgroundBorderless).
      * Available on android API level 21+.
      */
-    SelectableBackgroundBorderless(): ThemeAttributeBackgroundPropType;
+    static SelectableBackgroundBorderless(): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represents ripple drawable with specified color (as a
@@ -4810,7 +4811,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
      */
-    Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
 }
 
 export interface Route {
@@ -6221,7 +6222,7 @@ export interface SwipeableListViewProps {
  * - More to come
  */
 export class SwipeableListView extends React.Component<SwipeableListViewProps> {
-    getNewDataSource(): SwipeableListViewDataSource;
+    static getNewDataSource(): SwipeableListViewDataSource;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -7543,7 +7544,7 @@ export class StatusBar extends React.Component<StatusBarProps> {
      * The current height of the status bar on the device.
      * @platform android
      */
-    currentHeight?: number;
+    static currentHeight?: number;
 
     /**
      * Show or hide the status bar
@@ -7551,33 +7552,33 @@ export class StatusBar extends React.Component<StatusBarProps> {
      * @param animation Optional animation when
      *    changing the status bar hidden property.
      */
-    setHidden: (hidden: boolean, animation?: StatusBarAnimation) => void;
+    static setHidden: (hidden: boolean, animation?: StatusBarAnimation) => void;
 
     /**
      * Set the status bar style
      * @param style Status bar style to set
      * @param animated Animate the style change.
      */
-    setBarStyle: (style: StatusBarStyle, animated?: boolean) => void;
+    static setBarStyle: (style: StatusBarStyle, animated?: boolean) => void;
 
     /**
      * Control the visibility of the network activity indicator
      * @param visible Show the indicator.
      */
-    setNetworkActivityIndicatorVisible: (visible: boolean) => void;
+    static setNetworkActivityIndicatorVisible: (visible: boolean) => void;
 
     /**
      * Set the background color for the status bar
      * @param color Background color.
      * @param animated Animate the style change.
      */
-    setBackgroundColor: (color: string, animated?: boolean) => void;
+    static setBackgroundColor: (color: string, animated?: boolean) => void;
 
     /**
      * Control the translucency of the status bar
      * @param translucent Set as translucent.
      */
-    setTranslucent: (translucent: boolean) => void;
+    static setTranslucent: (translucent: boolean) => void;
 }
 
 /**
