@@ -3806,8 +3806,8 @@ export class Server extends Podium {
 /**
  *  User-extensible type for application specific state.
  */
- /* tslint:disable-next-line:no-empty-interface */
 export interface ApplicationState {
+    [key: string]: any,
 }
 
 export type PeekListener = (chunk: string, encoding: string) => void;
