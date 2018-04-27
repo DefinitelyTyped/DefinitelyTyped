@@ -2593,7 +2593,7 @@ export interface DatePickerIOSProps extends ViewProps {
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
 declare const DatePickerIOSBase: Constructor<NativeMethodsMixin> & typeof DatePickerIOSComponent;
-export class DatePickerIOS extends TextInputBase {}
+export class DatePickerIOS extends DatePickerIOSBase {}
 
 export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
