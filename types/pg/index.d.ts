@@ -117,7 +117,7 @@ export class Pool extends events.EventEmitter {
 }
 
 export class ClientBase extends events.EventEmitter {
-    constructor(config: string | ClientConfig);
+    constructor(config?: string | ClientConfig);
 
     connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;
@@ -147,7 +147,7 @@ export class ClientBase extends events.EventEmitter {
 }
 
 export class Client extends ClientBase {
-    constructor(config: string | ClientConfig);
+    constructor(config?: string | ClientConfig);
 
     end(): Promise<void>;
     end(callback: (err: Error) => void): void;
