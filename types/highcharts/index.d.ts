@@ -6630,6 +6630,19 @@ declare namespace Highcharts {
          */
         arc(centerX: number, centerY: number, outerRadius: number, innerRadius: number, start: number, end: number): ElementObject;
         /**
+         * Create a button with preset states.
+         * @param {string} text The text or HTML to draw.
+         * @param {number} x The x position of the button's left side.
+         * @param {number} y The y position of the button's top side.
+         * @param {Function} callback The function to execute on button click or touch.
+         * @param normalState SVG attributes for the normal state.
+         * @param hoverState SVG attributes for the hover state.
+         * @param pressedState SVG attributes for the pressed state.
+         * @param disabledState SVG attributes for the disabled state.
+         * @param shape The shape type.
+         */
+        button(text: string, x: number, y: number, callback: Function, normalState?: any, hoverState?: any, pressedState?: any, disabledState?: any, shape?: any);
+        /**
          * Draw circle on the renderer canvas.
          * @param  centerX The x position of the circle's center in the SVG element.
          * @param  centerY The y position of the circle's center in the SVG element.
