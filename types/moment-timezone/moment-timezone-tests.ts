@@ -83,3 +83,5 @@ moment.tz.guess(true);
 const zoneAbbr: string = moment.tz('America/Los_Angeles').zoneAbbr();
 
 const zoneName: string = moment.tz('America/Los_Angeles').zoneName();
+
+const zoneType: string | undefined = moment.tz('2013-11-18 11:55').tz();
