@@ -3134,7 +3134,7 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
  */
 declare class SliderComponent extends React.Component<SliderProps> {}
 declare const SliderBase: Constructor<NativeMethodsMixin> & typeof SliderComponent;
-export class Slider extends TextBase {}
+export class Slider extends SliderBase {}
 export type SliderIOS = Slider;
 
 /**
