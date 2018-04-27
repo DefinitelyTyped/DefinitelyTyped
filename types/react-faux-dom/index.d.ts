@@ -3,6 +3,7 @@
 // Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri>
 //                 Cleve Littlefield <https://github.com/cleverguy25>
 //                 Michał Kostrzyński <https://github.com/deviousm>
+//                 Hanai <https://github.com/hanai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -34,4 +35,6 @@ export interface ReactFauxDomProps {
     isAnimatingFauxDOM(): boolean;
 }
 
-export function withFauxDOM<P>(WrappedComponent: any): React.ClassicComponentClass<P & ReactFauxDomProps>;
+type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+
+export function withFauxDOM<P extends { [key: string]: any }>(WrappedComponent: React.ComponentClass<P>): React.ComponentClass<Omit<P, keyof ReactFauxDomProps>>;
