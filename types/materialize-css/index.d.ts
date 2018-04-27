@@ -1,6 +1,6 @@
 // Type definitions for materialize-css 1.0
 // Project: http://materializecss.com/
-// Definitions by:  胡玮文 <https://github.com/huww98>
+// Definitions by:  胡玮文 <https://github.com/huww98>, Maxim Balaganskiy <https://github.com/MaximBalaganskiy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -286,25 +286,25 @@ declare global {
 			 * Function called when dropdown starts entering
 			 * @default null
 			 */
-            onOpenStart: () => void;
+            onOpenStart: (this: Dropdown, el: Element) => void;
 
 			/**
 			 * Function called when dropdown finishes entering
 			 * @default null
 			 */
-            onOpenEnd: () => void;
+            onOpenEnd: (this: Dropdown, el: Element) => void;
 
 			/**
 			 * Function called when dropdown starts exiting
 			 * @default null
 			 */
-            onCloseStart: () => void;
+            onCloseStart: (this: Dropdown, el: Element) => void;
 
 			/**
 			 * Function called when dropdown finishes exiting
 			 * @default null
 			 */
-            onCloseEnd: () => void;
+            onCloseEnd: (this: Dropdown, el: Element) => void;
         }
 
         class Dropdown extends Component<DropdownOptions> {
@@ -434,7 +434,7 @@ declare global {
             /**
              * Get selected values in an array
              */
-            getSelectedValues(): any[];
+            getSelectedValues(): string[];
         }
 
         class Sidenav extends Component<SidenavOptions> implements Openable {
