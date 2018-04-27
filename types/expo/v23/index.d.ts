@@ -53,7 +53,7 @@ export type AdMobBannerSize =
     | 'leaderboard'
     | 'smartBannerPortrait'
     | 'smartBannerLandscape';
-export interface AdMobBannerProperties extends ViewProperties {
+export interface AdMobBannerProperties extends ViewProps {
     bannerSize?: AdMobBannerSize;
     adUnitID?: string;
     testDeviceID?: string;
