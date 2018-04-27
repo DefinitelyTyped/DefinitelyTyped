@@ -395,11 +395,13 @@ function testLifecycle() {
         bar: string;
     }
     interface State {}
+
+    interface Snapshot {}
     interface Instance {
         instanceValue: number
     }
     const component: React.StatelessComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
-    lifecycle<Props, State, Instance>({
+    lifecycle<Props, State, Instance, Snapshot>({
         instanceValue: 1,
         componentDidMount() {
             this.instanceValue = 2

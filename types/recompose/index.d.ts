@@ -1,10 +1,11 @@
-// Type definitions for Recompose 0.26
+// Type definitions for Recompose 0.27
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
+//                 Christopher N. KATOYI-KABA <https://github.com/christopher2k>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -232,7 +233,7 @@ declare module 'recompose' {
         contextTypes: ValidationMap<TContext>
     ) : InferableComponentEnhancer<TContext>;
 
-    interface _ReactLifeCycleFunctionsThisArguments<TProps, TState> {
+    interface _ReactLifeCycleFunctionsThisArguments<TProps, TState, TSnapshot> {
         props: TProps,
         state: TState,
         setState<TKeyOfState extends keyof TState>(f: (prevState: TState, props: TProps) => Pick<TState, TKeyOfState>, callback?: () => any): void;
@@ -244,22 +245,24 @@ declare module 'recompose' {
             [key: string]: React.ReactInstance
         };
     }
-    type ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance = {}> =
-        _ReactLifeCycleFunctionsThisArguments<TProps, TState> & TInstance
+    type ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance = {}, TSnapshot = {}> =
+        _ReactLifeCycleFunctionsThisArguments<TProps, TState, TSnapshot> & TInstance
 
     // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
-    interface ReactLifeCycleFunctions<TProps, TState, TInstance = {}> {
-        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
-        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
-        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void;
-        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean;
-        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void;
-        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void;
-        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+    interface ReactLifeCycleFunctions<TProps, TState, TInstance = {}, TSnapshot = {}> {
+        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance, TSnapshot>) => void;
+        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance, TSnapshot>) => void;
+        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance, TSnapshot>, nextProps: TProps) => void;
+        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance, TSnapshot>, nextProps: TProps, nextState: TState) => boolean;
+        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance, TSnapshot>, nextProps: TProps, nextState: TState) => void;
+        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance, TSnapshot>, prevProps: TProps, prevState: TState, TSnapshot?: TSnapshot) => void;
+        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance, TSnapshot>) => void;
+        getDerivedStateFromProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance, TSnapshot>, nextProps: TProps, prevState: TState) => Partial<TState> | null;
+        getSnapshotBeforeUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance, TSnapshot>, prevProps: TProps, prevState: TState) => TSnapshot | void;
     }
 
-    export function lifecycle<TProps, TState, TInstance = {}>(
-        spec: ReactLifeCycleFunctions<TProps, TState, TInstance> & TInstance
+    export function lifecycle<TProps, TState, TInstance = {}, TSnapshot = {}>(
+        spec: ReactLifeCycleFunctions<TProps, TState, TInstance, TSnapshot> & TInstance
     ): InferableComponentEnhancer<{}>;
 
     // toClass: https://github.com/acdlite/recompose/blob/master/docs/API.md#toClass
