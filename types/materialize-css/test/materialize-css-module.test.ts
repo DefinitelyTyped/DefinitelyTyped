@@ -257,7 +257,7 @@ const formSelect = new materialize.FormSelect(elem, {
         alignment: "left"
     }
 });
-// $ExpectType any[]
+// $ExpectType string[]
 formSelect.getSelectedValues();
 // $ExpectType void
 formSelect.destroy();
