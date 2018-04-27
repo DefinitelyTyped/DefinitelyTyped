@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/ndarray": "~1.0.6"
-    }
-}

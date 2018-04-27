@@ -52,9 +52,6 @@ texture2d(gl, rawType<HTMLVideoElement>(), gl.RGBA,  gl.UNSIGNED_BYTE);
 
 texture2d(gl, ndarray([1, 2, 3]));
 
-// $ExpectError
-texture2d(gl, ndarray([1, 2, 3]), gl.RGB);
-
 const texture = texture2d(gl, canvas);
 
 texture.bind();
