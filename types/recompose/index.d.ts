@@ -1,4 +1,4 @@
-// Type definitions for Recompose 0.26
+// Type definitions for Recompose 0.27
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
