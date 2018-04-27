@@ -2,7 +2,7 @@
 // Project: https://github.com/faceyspacey/redux-first-router-restore-scroll#readme
 // Definitions by: icopp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import { History, Location } from 'history';
 import { LocationState } from 'redux-first-router';
