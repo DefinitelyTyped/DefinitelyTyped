@@ -49,6 +49,7 @@ import {
     MaskedViewIOS,
     TextInput,
     InputAccessoryView,
+    StatusBar
 } from "react-native";
 
 declare module "react-native" {
@@ -430,6 +431,22 @@ class TextInputRefTest extends React.Component<{}, {username: string}> {
                     onChangeText={this.handleUsernameChange.bind(this)}
                 />
             </View>
+        );
+    }
+}
+
+class StatusBarTest extends React.Component {
+    render() {
+        StatusBar.setBarStyle("dark-content", true);
+
+        console.log('height:', StatusBar.currentHeight);
+
+        return (
+            <StatusBar
+                backgroundColor="blue"
+                barStyle="light-content"
+                translucent
+            />
         );
     }
 }
