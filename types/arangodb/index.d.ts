@@ -488,7 +488,7 @@ declare namespace ArangoDB {
 
     interface IndexDescription<T> {
         type: IndexType;
-        fields: ReadonlyArray<keyof T>;
+        fields: ReadonlyArray<keyof T | string>;
         sparse?: boolean;
         unique?: boolean;
         deduplicate?: boolean;
@@ -497,7 +497,7 @@ declare namespace ArangoDB {
     interface Index<T extends object = any> {
         id: string;
         type: IndexType;
-        fields: Array<keyof T>;
+        fields: Array<keyof T | string>;
         sparse: boolean;
         unique: boolean;
         deduplicate: boolean;

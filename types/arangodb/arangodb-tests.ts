@@ -26,10 +26,21 @@ const query = aql`
     RETURN u
 `;
 
-db._createDocumentCollection("bananas").ensureIndex({
+interface Banana {
+    color: string;
+    shape: {
+        type: string;
+        coords: string[];
+    };
+}
+
+const bananas = db._createDocumentCollection("bananas") as ArangoDB.Collection<
+    Banana
+>;
+bananas.ensureIndex({
     type: "hash",
     unique: true,
-    fields: ["color", "shape"]
+    fields: ["color", "shape.type"]
 });
 
 const router = createRouter();
