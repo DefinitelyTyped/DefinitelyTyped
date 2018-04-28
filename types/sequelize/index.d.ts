@@ -2820,7 +2820,10 @@ declare namespace sequelize {
         /**
          * Update the underlying data value
          */
-        setDataValue(key: keyof TAttributes, value: any): void;
+        setDataValue<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K]
+        ): void;
 
         /**
          * If no key is given, returns all values of the instance, also invoking virtual getters.
@@ -2857,9 +2860,17 @@ declare namespace sequelize {
          * @param options.raw If set to true, field and virtual setters will be ignored
          * @param options.reset Clear all previously set data values
          */
-        set(key: keyof TAttributes, value: any, options?: InstanceSetOptions): this;
+        set<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceSetOptions
+        ): this;
         set(keys: Object, options?: InstanceSetOptions): this;
-        setAttributes(key: keyof TAttributes, value: any, options?: InstanceSetOptions): this;
+        setAttributes<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceSetOptions
+        ): this;
         setAttributes(keys: Object, options?: InstanceSetOptions): this;
 
         /**
@@ -2908,9 +2919,17 @@ declare namespace sequelize {
         /**
          * This is the same as calling `set` and then calling `save`.
          */
-        update(key: keyof TAttributes, value: any, options?: InstanceUpdateOptions): Promise<this>;
+        update<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceUpdateOptions
+        ): Promise<this>;
         update(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
-        updateAttributes(key: keyof TAttributes, value: any, options?: InstanceUpdateOptions): Promise<this>;
+        updateAttributes<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceUpdateOptions
+        ): Promise<this>;
         updateAttributes(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
 
         /**
