@@ -9,6 +9,7 @@
 //                 Enrico Picci <https://github.com/EnricoPicci>
 //                 Alexander Christie <https://github.com/AJCStriker>
 //                 Julien Chaumond <https://github.com/julien-c>
+//                 Dan Aprahamian <https://github.com/daprahamian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -110,6 +111,8 @@ export interface SSLOptions {
     ecdhCurve?: string;
     // Default:5; Number of connections for each server instance
     poolSize?: number;
+    // If present, the connection pool will be initialized with minSize connections, and will never dip below minSize connections
+    minSize?: number;
     // Use ssl connection (needs to have a mongod server with ssl support)
     ssl?: boolean;
     // Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
