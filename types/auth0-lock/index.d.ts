@@ -169,11 +169,11 @@ interface AuthResult {
     expiresIn: number;
     idToken: string;
     idTokenPayload: {
-      aud: string;
-      exp: number;
-      iat: number;
-      iss: string;
-      sub: string;
+        aud: string;
+        exp: number;
+        iat: number;
+        iss: string;
+        sub: string;
     };
     refreshToken?: string;
     scope?: string;
