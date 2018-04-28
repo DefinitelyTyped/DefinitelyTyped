@@ -1692,6 +1692,16 @@ declare namespace uiGrid {
              */
             exporterMenuCsv?: boolean;
             /**
+             * Add excel export menu items to the ui-grid grid menu, if it's present. Defaults to true.
+             * @default true
+             */
+            exporterMenuExcel?: boolean;
+            /**
+             * An option to determine the starting point for the menu items created by the exporter
+             * @default 200
+             */
+            exporterMenuItemOrder?: number;
+            /**
              * The text to show on the exporter menu button link
              * Defaults to 'Export'
              * @default 'Export'
