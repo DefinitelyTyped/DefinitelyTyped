@@ -35,7 +35,7 @@ declare namespace TelegramBot {
 
     interface WebHookOptions {
         host?: string;
-        post?: number;
+        port?: number;
         key: string;
         cert: string;
         pfx: string;
