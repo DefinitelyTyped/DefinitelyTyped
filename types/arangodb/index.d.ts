@@ -91,6 +91,7 @@ declare namespace ArangoDB {
     type EngineType = "mmfiles" | "rocksdb";
     type IndexType = "hash" | "skiplist" | "fulltext" | "geo1" | "geo2";
     type ViewType = "arangosearch";
+    type KeyGeneratorType = "traditional" | "autoincrement";
     type ErrorName =
         | "ERROR_NO_ERROR"
         | "ERROR_FAILED"
@@ -463,12 +464,29 @@ declare namespace ArangoDB {
         replicationFactor?: number;
     }
 
+    interface CreateCollectionOptions {
+        waitForSync?: boolean;
+        journalSize?: number;
+        isVolatile?: boolean;
+        isSystem?: boolean;
+        keyOptions?: {
+            type?: KeyGeneratorType;
+            allowUserKeys?: boolean;
+            increment?: number;
+            offset?: number;
+        };
+        numberOfShards?: number;
+        shardKeys?: string[];
+        replicationFactor?: number;
+    }
+
     interface CollectionProperties {
         waitForSync: boolean;
         journalSize: number;
+        isSystem: boolean;
         isVolatile: boolean;
         keyOptions?: {
-            type: string;
+            type: KeyGeneratorType;
             allowUserKeys: boolean;
             increment?: number;
             offset?: number;
@@ -862,14 +880,14 @@ declare namespace ArangoDB {
         // Collection
         _collection(name: string): Collection;
         _collections(): Collection[];
-        _create(name: string, properties?: CollectionProperties): Collection;
+        _create(name: string, properties?: CreateCollectionOptions): Collection;
         _createDocumentCollection(
             name: string,
-            properties?: CollectionProperties
+            properties?: CreateCollectionOptions
         ): Collection;
         _createEdgeCollection(
             name: string,
-            properties?: CollectionProperties
+            properties?: CreateCollectionOptions
         ): Collection;
         _drop(name: string): void;
         _truncate(name: string): void;

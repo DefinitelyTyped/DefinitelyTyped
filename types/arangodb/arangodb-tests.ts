@@ -34,9 +34,9 @@ interface Banana {
     };
 }
 
-const bananas = db._createDocumentCollection("bananas") as ArangoDB.Collection<
-    Banana
->;
+const bananas = db._createDocumentCollection("bananas", {
+    waitForSync: false
+}) as ArangoDB.Collection<Banana>;
 bananas.ensureIndex({
     type: "hash",
     unique: true,
