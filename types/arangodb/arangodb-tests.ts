@@ -35,7 +35,12 @@ interface Banana {
 }
 
 const bananas = db._createDocumentCollection("bananas", {
-    waitForSync: false
+    waitForSync: false,
+    keyOptions: {
+        type: "autoincrement",
+        increment: 11,
+        offset: 23
+    }
 }) as ArangoDB.Collection<Banana>;
 bananas.ensureIndex({
     type: "hash",
