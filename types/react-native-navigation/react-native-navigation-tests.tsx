@@ -1,8 +1,21 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { Navigation, NavigationComponentProps, NavigatorStyle, NavigatorButtons } from 'react-native-navigation';
+import { Navigation, NavigationComponentProps, NavigatorStyle, NavigatorButtons, NavigatorEvent } from 'react-native-navigation';
 
-class Screen1 extends React.Component<NavigationComponentProps & { height: number }> {
+type Props = NavigationComponentProps & { height: number };
+
+class Screen1 extends React.Component<Props> {
+    constructor(props: Props) {
+        super(props);
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    }
+
+    onNavigatorEvent = (event: NavigatorEvent) => {
+        if (event.id === 'willAppear') {
+            console.log('will appear');
+        }
+    }
+
     static navigatorButtons: NavigatorButtons = {
         leftButtons: [{
             id: 'sideMenu'
