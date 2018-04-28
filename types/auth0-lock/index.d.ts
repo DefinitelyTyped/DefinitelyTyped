@@ -165,17 +165,21 @@ interface Auth0LockShowOptions {
 
 interface AuthResult {
     accessToken: string;
+    appState?: any;
+    expiresIn: number;
     idToken: string;
     idTokenPayload: {
-        aud: string;
-        exp: number;
-        iat: number;
-        iss: string;
-        sub: string;
+      aud: string;
+      exp: number;
+      iat: number;
+      iss: string;
+      sub: string;
     };
     refreshToken?: string;
+    scope?: string;
     state: string;
-}
+    tokenType: string;
+  }
 
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
