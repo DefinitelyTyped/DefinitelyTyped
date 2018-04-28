@@ -601,7 +601,20 @@ export type Handler<TEvent = any, TResult = any> = (
     event: TEvent,
     context: Context,
     callback: Callback<TResult>,
-) => void | Promise<TResult>;
+) => void;
+
+/**
+ * AWS Lambda async handler function.
+ * https://aws.amazon.com/blogs/compute/node-js-8-10-runtime-now-available-in-aws-lambda/
+ *
+ * @param event – event data.
+ * @param context – runtime information of the Lambda function that is executing.
+ * @return In the node8.10 runtime, a promise for the lambda result.
+ */
+export type AsyncHandler<TEvent = any, TResult = any> = (
+    event: TEvent,
+    context?: Context,
+) => Promise<TResult>;
 
 /**
  * Optional callback parameter.
