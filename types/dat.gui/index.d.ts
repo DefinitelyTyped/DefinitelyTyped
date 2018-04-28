@@ -117,12 +117,3 @@ export class GUIController {
     listen(): GUIController;
     remove(): GUIController;
 }
-
-declare var index: {
-    gui: {
-        GUI: typeof GUI
-    },
-    GUI: typeof GUI
-};
-
-export default index;
