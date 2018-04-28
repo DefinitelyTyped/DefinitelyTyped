@@ -1,9 +1,6 @@
 // Type definitions for materialize-css 1.0
 // Project: http://materializecss.com/
-// Definitions by:  
-//          胡玮文 <https://github.com/huww98>
-//          Maxim Balaganskiy <https://github.com/MaximBalaganskiy>
-//          David Moniz <https://github.com/MonizDave>
+// Definitions by:  胡玮文 <https://github.com/huww98>, Maxim Balaganskiy <https://github.com/MaximBalaganskiy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -78,9 +75,9 @@ declare global {
              * Sort function that defines the order of the list of autocomplete options.
              */
             sortFunction: (a: string, b: string, inputText: string) => number;
-      }
-            
-      class Collapsible extends Component<CollapsibleOptions> implements Openable {
+        }
+
+        class Collapsible extends Component<CollapsibleOptions> implements Openable {
             /**
              * Get Instance
              */
@@ -1001,9 +998,9 @@ declare global {
         autocomplete(method: keyof Pick<M.Autocomplete, "destroy">): JQuery;
         autocomplete(method: keyof Pick<M.Autocomplete, "selectOption">, el: Element): JQuery;
         autocomplete(method: keyof Pick<M.Autocomplete, "updateData">, data: M.AutocompleteData): JQuery;
-            autocomplete(options?: Partial<M.AutocompleteOptions>): JQuery;
-            
-            collapsible(method: keyof Pick<M.Collapsible, "open" | "close" | "destroy">): JQuery;
+        autocomplete(options?: Partial<M.AutocompleteOptions>): JQuery;
+
+        collapsible(method: keyof Pick<M.Collapsible, "open" | "close" | "destroy">): JQuery;
         collapsible(options?: Partial<M.CollapsibleOptions>): JQuery;
 
         datepicker(method: keyof Pick<M.DatePicker, "open" | "close" | "destroy">): JQuery;
