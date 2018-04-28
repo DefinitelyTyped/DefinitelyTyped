@@ -59,3 +59,10 @@ $(".whatever").dropdown("open");
 $(".whatever").dropdown("close");
 $(".whatever").dropdown("destroy");
 $(".whatever").dropdown("recalculateDimensions");
+
+$(".whatever").collapsible();
+$(".whatever").collapsible({ accordion: true });
+$(".whatever").collapsible("open");
+$(".whatever").collapsible("close");
+$(".whatever").collapsible("destroy");
+$(".whatever").collapsible("recalculateDimensions");

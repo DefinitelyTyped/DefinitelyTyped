@@ -275,3 +275,23 @@ formSelect.input;
 formSelect.isMultiple;
 // $ExpectType Element
 formSelect.wrapper;
+
+// Collapsible
+// $ExpectType Collapsible
+new materialize.Collapsible(elem);
+// $ExpectType Collapsible
+const collapsible = new materialize.Collapsible(elem, {
+    accordion: true
+});
+// $ExpectType void
+collapsible.open();
+// $ExpectType void
+collapsible.close();
+// $ExpectType void
+collapsible.destroy();
+// $ExpectType Element
+collapsible.el;
+// $ExpectType boolean
+collapsible.isOpen;
+// $ExpectType CollapsibleOptions
+collapsible.options;
