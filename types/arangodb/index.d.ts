@@ -538,6 +538,8 @@ declare namespace ArangoDB {
 
     type DocumentLike = ObjectWithId | ObjectWithKey;
 
+    type Patch<T> = { [K in keyof T]?: T[K] | Patch<T[K]> };
+
     interface DocumentMetadata {
         _key: string;
         _id: string;
@@ -590,6 +592,7 @@ declare namespace ArangoDB {
         keepNull?: boolean;
         waitForSync?: boolean;
         limit?: number;
+        mergeObjects?: boolean;
     }
 
     interface RemoveOptions {
@@ -724,24 +727,24 @@ declare namespace ArangoDB {
         ): InsertResult<T>;
         update(
             selector: string | DocumentLike,
-            data: Partial<Document<T>>,
+            data: Patch<Document<T>>,
             options?: UpdateOptions
         ): UpdateResult<T>;
         update(
             selectors: ReadonlyArray<string | DocumentLike>,
-            data: ReadonlyArray<Partial<Document<T>>>,
+            data: ReadonlyArray<Patch<Document<T>>>,
             options?: UpdateOptions
         ): Array<UpdateResult<T>>;
         updateByExample(
             example: Partial<Document<T>>,
-            newValue: Partial<Document<T>>,
+            newValue: Patch<Document<T>>,
             keepNull?: boolean,
             waitForSync?: boolean,
             limit?: number
         ): number;
         updateByExample(
             example: Partial<Document<T>>,
-            newValue: Partial<Document<T>>,
+            newValue: Patch<Document<T>>,
             options?: UpdateByExampleOptions
         ): number;
     }

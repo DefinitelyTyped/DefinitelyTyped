@@ -47,6 +47,11 @@ bananas.ensureIndex({
     unique: true,
     fields: ["color", "shape.type"]
 });
+bananas.updateByExample(
+    bananas.any(),
+    { shape: { type: "round" } },
+    { mergeObjects: true }
+);
 
 const router = createRouter();
 module.context.use(router);
