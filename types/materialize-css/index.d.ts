@@ -108,13 +108,13 @@ declare global {
              * @default true
              */
             accordion: boolean;
-                  
+
             /**
              * Transition in duration in milliseconds
              * @default 300
              */
             inDuration: number;
-                  
+
             /**
              * Transition out duration in milliseconds
              * @default 300
