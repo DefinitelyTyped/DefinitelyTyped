@@ -15,7 +15,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
+        /* For TS 2.7+:
+          allowSyntheticDefaultImports does not need to be set if:
+          "esModuleInterop": true, */
         "allowSyntheticDefaultImports": true
     },
     "files": [
