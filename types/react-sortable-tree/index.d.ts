@@ -57,12 +57,22 @@ export interface ExtendedNodeData extends NodeData {
 export interface OnVisibilityToggleData extends FullTree, TreeNode {
     expanded: boolean;
 }
+
 export interface PreviousAndNextLocation {
+    prevTreeIndex: number;
+    prevPath: number[];
+    prevParent: TreeItem | null;
+    nextTreeIndex: number;
+    nextPath: number[];
+    nextParent: TreeItem | null;
+}
+
+export interface OnMovePreviousAndNextLocation {
     prevTreeIndex: number;
     prevPath: number[];
     nextTreeIndex: number;
     nextPath: number[];
-    nextParentNode: TreeItem;
+    nextParentNode: TreeItem | null;
 }
 
 export type NodeRenderer = React.ComponentClass<NodeRendererProps>;
@@ -164,7 +174,7 @@ export interface ReactSortableTreeProps {
     searchFinishCallback?(matches: NodeData[]): void;
     generateNodeProps?(data: ExtendedNodeData): { [index: string]: any };
     getNodeKey?(data: TreeNode & TreeIndex): string | number;
-    onMoveNode?(data: NodeData & FullTree): void;
+    onMoveNode?(data: NodeData & FullTree & OnMovePreviousAndNextLocation): void;
     onVisibilityToggle?(data: OnVisibilityToggleData): void;
     canDrag?: ((data: ExtendedNodeData) => boolean) | boolean;
     canDrop?(data: PreviousAndNextLocation & NodeData): boolean;
