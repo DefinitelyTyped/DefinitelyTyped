@@ -6,8 +6,8 @@
 
 declare module 'koa-response-time' {
 
-  function koa_response_time(): any;
-  namespace koa_response_time { }
+    function koa_response_time(): any;
+    namespace koa_response_time { }
 
-  export = koa_response_time;
+    export = koa_response_time;
 }
