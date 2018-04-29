@@ -7236,6 +7236,9 @@ declare namespace chrome.webNavigation {
  * @since Chrome 17.
  */
 declare namespace chrome.webRequest {
+    /** How the requested resource will be used. */
+    export type ResourceType = "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "other";
+
     export interface AuthCredentials {
         username: string;
         password: string;
@@ -7277,9 +7280,8 @@ declare namespace chrome.webRequest {
         tabId?: number;
         /**
          * A list of request types. Requests that cannot match any of the types will be filtered out.
-         * Each element one of: "main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", or "other"
          */
-        types?: string[];
+        types?: ResourceType[];
         /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
         urls: string[];
 
@@ -7330,9 +7332,8 @@ declare namespace chrome.webRequest {
         tabId: number;
         /**
          * How the requested resource will be used.
-         * One of: "main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", or "other"
          */
-        type: string;
+        type: ResourceType;
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
     }

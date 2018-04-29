@@ -240,6 +240,28 @@ declare namespace React {
         props?: Partial<P> & Attributes,
         ...children: ReactNode[]): ReactElement<P>;
 
+    // Context via RenderProps
+    interface ProviderProps<T> {
+        value: T;
+        children?: ReactNode;
+    }
+
+    interface ConsumerProps<T> {
+        children: (value: T) => ReactNode;
+        unstable_observedBits?: number;
+    }
+
+    type Provider<T> = ComponentType<ProviderProps<T>>;
+    type Consumer<T> = ComponentType<ConsumerProps<T>>;
+    interface Context<T> {
+        Provider: Provider<T>;
+        Consumer: Consumer<T>;
+    }
+    function createContext<T>(
+        defaultValue: T,
+        calculateChangedBits?: (prev: T, next: T) => number
+    ): Context<T>;
+
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
@@ -255,7 +277,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = {}, S = {}, SS = never> extends ComponentLifecycle<P, S, SS> { }
+    interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
         constructor(props: P, context?: any);
 
@@ -283,7 +305,7 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P = {}, S = {}> extends Component<P, S> { }
+    class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;

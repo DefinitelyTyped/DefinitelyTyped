@@ -15,6 +15,7 @@
 //                 Steven Miller <https://github.com/YourGamesBeOver>
 //                 Armando Assuncao <https://github.com/ArmandoAssuncao>
 //                 Ciaran Liedeman <https://github.com/cliedeman>
+//                 Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -31,7 +32,7 @@ import * as React from 'react';
 import {
   Animated,
   TextStyle,
-  ViewProperties,
+  ViewProps,
   ViewStyle,
   StyleProp,
 } from 'react-native';
@@ -158,9 +159,7 @@ export interface NavigationScreenDetails<T> {
   navigation: NavigationScreenProp<NavigationRoute>;
 }
 
-export interface NavigationScreenOptions {
-  title?: string;
-}
+export type NavigationScreenOptions = NavigationStackScreenOptions & NavigationTabScreenOptions & NavigationDrawerScreenOptions;
 
 export interface NavigationScreenConfigProps {
   navigation: NavigationScreenProp<NavigationRoute>;
@@ -285,11 +284,12 @@ export interface NavigationStackViewConfig {
     prevTransitionProps: NavigationTransitionProps,
     isModal: boolean,
   ) => TransitionConfig;
-  onTransitionStart?: () => void;
-  onTransitionEnd?: () => void;
+  onTransitionStart?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
+  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => void;
 }
 
-export type NavigationStackScreenOptions = NavigationScreenOptions & {
+export interface NavigationStackScreenOptions {
+  title?: string;
   header?: (React.ReactElement<any> | ((headerProps: HeaderProps) => React.ReactElement<any>)) | null;
   headerTransparent?: boolean;
   headerTitle?: string | React.ReactElement<any>;
@@ -305,14 +305,14 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
   headerBackground?: React.ReactNode | React.ReactType;
   gesturesEnabled?: boolean;
   gestureResponseDistance?: { vertical?: number; horizontal?: number };
-};
+}
 
 export interface NavigationStackRouterConfig {
   headerTransitionPreset?: 'fade-in-place' | 'uikit';
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationStackScreenOptions>;
+  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
 }
 
 export type NavigationStackAction =
@@ -352,7 +352,7 @@ export interface NavigationPathsConfig {
 export interface NavigationTabRouterConfig {
   initialRouteName?: string;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationTabScreenOptions>;
+  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   order?: string[]; // todo: type these as the real route names rather than 'string'
 
   // Does the back button cause the router to switch to the initial tab
@@ -364,7 +364,8 @@ export interface TabScene {
     index: number;
     tintColor?: string;
 }
-export interface NavigationTabScreenOptions extends NavigationScreenOptions {
+export interface NavigationTabScreenOptions {
+  title?: string;
   tabBarIcon?:
     React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
@@ -384,7 +385,8 @@ export interface NavigationTabScreenOptions extends NavigationScreenOptions {
   }) => void;
 }
 
-export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
+export interface NavigationDrawerScreenOptions {
+  title?: string;
   drawerIcon?:
     React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
@@ -598,9 +600,17 @@ export interface NavigationContainerProps {
   style?: StyleProp<ViewStyle>;
 }
 
+export interface NavigationContainerComponent extends React.Component<
+  NavigationContainerProps & NavigationNavigatorProps<any>
+  > {
+  dispatch: NavigationDispatch;
+}
+
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps & NavigationNavigatorProps<any>
-> {
+  > {
+  new(props: NavigationContainerProps & NavigationNavigatorProps<any>, context?: any): NavigationContainerComponent;
+
   router: NavigationRouter<any, any>;
   screenProps: { [key: string]: any };
   navigationOptions: any;
@@ -796,8 +806,8 @@ export interface TransitionerProps {
     prevTransitionProps?: NavigationTransitionProps
   ) => NavigationTransitionSpec;
   navigation: NavigationScreenProp<NavigationState>;
-  onTransitionEnd?: () => void;
-  onTransitionStart?: () => void;
+  onTransitionStart?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
+  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => void;
   render: (
     transitionProps: NavigationTransitionProps,
     prevTransitionProps?: NavigationTransitionProps
@@ -916,7 +926,7 @@ export function withNavigationFocus<T = {}>(
  * SafeAreaView Component
  */
 export type SafeAreaViewForceInsetValue = 'always' | 'never';
-export interface SafeAreaViewProps extends ViewProperties {
+export interface SafeAreaViewProps extends ViewProps {
   forceInset?: {
     top?: SafeAreaViewForceInsetValue;
     bottom?: SafeAreaViewForceInsetValue;

@@ -31,7 +31,7 @@ export interface IFrameOptions {
    * Override the default body margin style in the iFrame. A string can be any valid value for the
    * CSS margin attribute, for example '8px 3em'. A number value is converted into px.
    */
-  bodyMargin?: number;
+  bodyMargin?: number | string;
   /**
    * When set to true, only allow incoming messages from the domain listed in the src property of the iFrame tag.
    * If your iFrame navigates between different domains, ports or protocols; then you will need to

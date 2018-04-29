@@ -604,6 +604,20 @@ export type ResourceType =
   | "manifest"
   | "other";
 
+export type ErrorCode =
+  | "aborted"
+  | "accessdenied"
+  | "addressunreachable"
+  | "connectionaborted"
+  | "connectionclosed"
+  | "connectionfailed"
+  | "connectionrefused"
+  | "connectionreset"
+  | "internetdisconnected"
+  | "namenotresolved"
+  | "timedout"
+  | "failed";
+
 export interface Overrides {
   url?: string;
   method?: HttpMethod;
@@ -618,7 +632,7 @@ export interface Request {
    * To use this, request interception should be enabled with `page.setRequestInterception`.
    * @throws An exception is immediately thrown if the request interception is not enabled.
    */
-  abort(): Promise<void>;
+  abort(errorCode?: ErrorCode): Promise<void>;
 
   /**
    * Continues request with optional request overrides.
@@ -626,6 +640,11 @@ export interface Request {
    * @throws An exception is immediately thrown if the request interception is not enabled.
    */
   continue(overrides?: Overrides): Promise<void>;
+
+  /**
+   * @returns An object if the request failed, null otherwise.
+   */
+  failure(): { errorText: string; } | null;
 
   /**
    * @returns The `Frame` object that initiated the request, or `null` if navigating to error pages

@@ -1153,6 +1153,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-native-collapsible",
+            "typingsPackageName": "react-native-collapsible",
+            "sourceRepoURL": "https://github.com/oblador/react-native-collapsible",
+            "asOfVersion": "0.11.0"
+        },
+        {
             "libraryName": "react-native-elements",
             "typingsPackageName": "react-native-elements",
             "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
@@ -1169,6 +1175,12 @@
             "typingsPackageName": "react-native-google-analytics-bridge",
             "sourceRepoURL": "https://github.com/idehub/react-native-google-analytics-bridge",
             "asOfVersion": "5.3.3"
+        },
+        {
+            "libraryName": "react-native-linear-gradient",
+            "typingsPackageName": "react-native-linear-gradient",
+            "sourceRepoURL": "https://github.com/react-native-community/react-native-linear-gradient",
+            "asOfVersion": "2.4.0"
         },
         {
             "libraryName": "react-native-modal",

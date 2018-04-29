@@ -182,7 +182,7 @@ declare module "../index" {
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | object | [string, any] | PartialDeep<T>;
+    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
     type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
 
     // Note: key should be string, not keyof T, because the actual object may contain extra properties that were not specified in the type.

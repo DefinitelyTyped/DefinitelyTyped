@@ -9,6 +9,7 @@
 //                 Enrico Picci <https://github.com/EnricoPicci>
 //                 Alexander Christie <https://github.com/AJCStriker>
 //                 Julien Chaumond <https://github.com/julien-c>
+//                 Dan Aprahamian <https://github.com/daprahamian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -104,8 +105,14 @@ export interface MongoClientOptions extends
 }
 
 export interface SSLOptions {
+    // Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info.
+    ciphers?: string;
+    // Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info.
+    ecdhCurve?: string;
     // Default:5; Number of connections for each server instance
     poolSize?: number;
+    // If present, the connection pool will be initialized with minSize connections, and will never dip below minSize connections
+    minSize?: number;
     // Use ssl connection (needs to have a mongod server with ssl support)
     ssl?: boolean;
     // Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
@@ -115,7 +122,7 @@ export interface SSLOptions {
     // Array of valid certificates either as Buffers or Strings
     sslCA?: Array<Buffer | string>;
     // SSL Certificate revocation list binary buffer
-    sslCRL?: Buffer;
+    sslCRL?: Array<Buffer | string>;
     // SSL Certificate binary buffer
     sslCert?: Buffer | string;
     // SSL Key file binary buffer
@@ -1215,6 +1222,8 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#close */
     close(): Promise<CursorResult>;
     close(callback: MongoCallback<CursorResult>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#collation */
+    collation(value: Object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#comment */
     comment(value: string): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#count */

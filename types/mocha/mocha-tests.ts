@@ -10,6 +10,11 @@ import {
     xit as importedXit
 } from 'mocha';
 
+// Warning!!
+// Don't refer node.d.ts!!
+// See #22510.
+(): number => setTimeout(() => 0, 0);
+
 let boolean: boolean;
 let string: string;
 let number: number;

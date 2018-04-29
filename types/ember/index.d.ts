@@ -71,13 +71,13 @@ declare module 'ember' {
      *
      * Generally you would use `EmberClass.create()` instead of `new EmberClass()`.
      *
-     * The no-arg constructor is required by the typescript compiler.
+     * The single-arg constructor is required by the typescript compiler.
      * The multi-arg constructor is included for better ergonomics.
      *
      * Implementation is carefully chosen for the reasons described in
      * https://github.com/typed-ember/ember-typings/pull/29
      */
-    type EmberClassConstructor<T> = (new () => T) & (new (...args: any[]) => T);
+    type EmberClassConstructor<T> = (new (properties?: object) => T) & (new (...args: any[]) => T);
 
     type ComputedPropertyGetterFunction<T> = (this: any, key: string) => T;
 
@@ -325,7 +325,7 @@ declare module 'ember' {
              * `inject`) or for service lookup. Each factory is registered with
              * a full name including two parts: `type:name`.
              */
-            register(fullName: string, factory: Function, options: {}): any;
+            register(fullName: string, factory: Function, options?: { singleton?: boolean, instantiate?: boolean }): any;
             /**
              * Unregister a factory.
              */
@@ -761,6 +761,12 @@ declare module 'ember' {
         }
         const Copyable: Ember.Mixin<Copyable>;
         class CoreObject {
+            /**
+             * As of Ember 3.1, CoreObject constructor takes initial object properties as an argument.
+             * See: https://github.com/emberjs/ember.js/commit/4709935854d4c29b0d2c054614d53fa2c55309b1
+             **/
+            constructor(properties?: object);
+
             _super(...args: any[]): any;
 
             /**
@@ -1237,7 +1243,7 @@ declare module 'ember' {
              * Returns a new enumerable that contains only items containing a unique property value.
              * The default implementation returns an array regardless of the receiver type.
              */
-            uniqBy(): NativeArray<T>;
+            uniqBy(property: string): NativeArray<T>;
             /**
              * Returns `true` if the passed object can be found in the enumerable.
              */
@@ -3455,7 +3461,7 @@ declare module '@ember/component/helper' {
      * });
      * ```
      */
-    export function helper(helperFn: (params: any[], hash?: any) => string): any;
+    export function helper(helperFn: (params: any[], hash?: any) => any): any;
 }
 
 declare module '@ember/component/text-area' {
