@@ -5,7 +5,7 @@
 // TypeScript Version: 2.6
 
 import { Component, ReactNode, ReactElement, ComponentClass } from "react";
-import { StyleProp, ViewProperties, ViewStyle, TextStyle } from "react-native";
+import { StyleProp, ViewProps, ViewStyle, TextStyle } from "react-native";
 import { TabViewAnimated, TabViewPagerPan } from "react-native-tab-view";
 import { RouteProps } from "react-router-navigation-core";
 import {
@@ -128,7 +128,7 @@ export class BottomNavigation extends Component<
 
     renderSceneView: (sceneProps: TabSubViewProps) => ReactNode;
 
-    renderScene: (sceneProps: TabSubViewProps) => ReactElement<ViewProperties>;
+    renderScene: (sceneProps: TabSubViewProps) => ReactElement<ViewProps>;
 }
 
 export function Card(props: CardProps): ReactElement<CardProps>;

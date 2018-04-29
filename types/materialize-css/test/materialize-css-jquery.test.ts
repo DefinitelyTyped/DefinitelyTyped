@@ -48,3 +48,14 @@ $(".whatever").timepicker({ defaultTime: "13:14" });
 $(".whatever").timepicker("open");
 $(".whatever").timepicker("destroy");
 $(".whatever").timepicker("showView", "hours");
+
+$(".whatever").formSelect();
+$(".whatever").formSelect({ classes: "whatever" });
+$(".whatever").formSelect("destroy");
+
+$(".whatever").dropdown();
+$(".whatever").dropdown({ alignment: "left" });
+$(".whatever").dropdown("open");
+$(".whatever").dropdown("close");
+$(".whatever").dropdown("destroy");
+$(".whatever").dropdown("recalculateDimensions");

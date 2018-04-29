@@ -6,7 +6,7 @@ const app = express();
 
 // Logger with all options
 app.use(expressWinston.logger({
-  baseMeta: { foo: 'foo' },
+  baseMeta: { foo: 'foo', nested: { bar: 'baz' } },
   bodyBlacklist: ['foo'],
   bodyWhitelist: ['bar'],
   colorize: true,
@@ -47,7 +47,7 @@ app.use(expressWinston.logger({
 
 // Error Logger with all options
 app.use(expressWinston.errorLogger({
-  baseMeta: { foo: 'foo' },
+  baseMeta: { foo: 'foo', nested: { bar: 'baz' } },
   dynamicMeta: (req, res, err) => ({ foo: 'bar' }),
   level: (req, res) => 'level',
   metaField: 'metaField',

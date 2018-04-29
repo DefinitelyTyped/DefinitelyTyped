@@ -1,4 +1,4 @@
-// Type definitions for Screeps 2.2
+// Type definitions for Screeps 2.3
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -344,6 +344,7 @@ declare const DENSITY_HIGH: number;
 declare const DENSITY_ULTRA: number;
 
 declare const TERMINAL_CAPACITY: number;
+declare const TERMINAL_COOLDOWN: number;
 declare const TERMINAL_HITS: number;
 declare const TERMINAL_SEND_COST: number;
 declare const TERMINAL_MIN_SEND: number;
@@ -777,7 +778,7 @@ interface Creep extends RoomObject {
      * @param target The target object to be attacked.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
      */
-    build(target: ConstructionSite): CreepActionReturnCode | ERR_RCL_NOT_ENOUGH;
+    build(target: ConstructionSite): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;
     /**
      * Cancel the order given during the current game tick.
      * @param methodName The name of a creep's method to be cancelled.
@@ -981,7 +982,7 @@ interface Creep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {
@@ -1127,7 +1128,7 @@ interface Game {
     notify(message: string, groupInterval?: number): undefined;
 }
 
-declare let Game: Game;
+declare var Game: Game;
 interface _HasRoomPosition {
     pos: RoomPosition;
 }
@@ -3899,6 +3900,8 @@ type AnyStructure =
     StructureRoad |
     StructureWall;
 interface Tombstone extends RoomObject {
+    /** The tombstones game objects id. */
+    id: string;
     /** The tick that the creep died. */
     deathTime: number;
     store: StoreDefinition;

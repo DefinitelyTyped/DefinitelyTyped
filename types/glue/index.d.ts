@@ -24,7 +24,7 @@ export interface Plugin {
 export interface Manifest {
   server: ServerOptions;
   register?: {
-    plugins: Plugin[]
+    plugins: string[] | Plugin[]
   };
 }
 

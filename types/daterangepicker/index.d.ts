@@ -136,6 +136,10 @@ declare namespace daterangepicker {
          */
         isInvalidDate?(startDate: string | moment.Moment | Date, endDate?: string | moment.Moment | Date): boolean;
         /**
+         * A function that is passed each date in the two calendars before they are displayed, and may return a string or array of CSS class names to apply to that date's calendar cell.
+         */
+        isCustomDate?(date: string | moment.Moment | Date): string | string[] | undefined;
+        /**
          * Indicates whether the date range picker should automatically update the value of an < input > element it's attached to at initialization and when the selected dates change.
          */
         autoUpdateInput?: boolean;
