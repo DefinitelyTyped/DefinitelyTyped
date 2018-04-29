@@ -4,10 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module 'koa-response-time' {
+declare function koa_response_time(): any;
+declare namespace koa_response_time { }
 
-    function koa_response_time(): any;
-    namespace koa_response_time { }
-
-    export = koa_response_time;
-}
+export = koa_response_time;
