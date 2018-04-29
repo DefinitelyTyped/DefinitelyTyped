@@ -70,5 +70,5 @@ export const bgWhiteBright: EscapeCode.CodePair;
  */
 export const codes: Map<number, number>
 export const modifier: EscapeCode.Modifier
-export const color: EscapeCode.Color & EscapeCode.StyleType
-export const bgColor: EscapeCode.BackgroundColor & EscapeCode.StyleType
+export const color: EscapeCode.Color & EscapeCode.ColorType & { close: string }
+export const bgColor: EscapeCode.BackgroundColor & EscapeCode.ColorType & { close: string }

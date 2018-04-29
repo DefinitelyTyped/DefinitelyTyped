@@ -66,6 +66,9 @@ function checkColorFormatConverter(formatList: string[], name: string, namespace
             }
         }
     }
+    if (isUninitialized(namespace.close)) {
+        throw new Error(`key not found ~> ansiStyles.${name}.close .`);
+    }
 }
 
 function isUninitialized(val: any): boolean {

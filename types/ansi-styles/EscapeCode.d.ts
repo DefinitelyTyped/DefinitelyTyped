@@ -89,7 +89,7 @@ export namespace EscapeCode {
         apple: (r: number, g: number, b: number) => string
         gray: (grayscale: number) => string
     }
-    interface StyleType {
+    interface ColorType {
         /**
          * 16 color ansi code
          */
@@ -99,7 +99,7 @@ export namespace EscapeCode {
          */
         ansi256: EscapeCodeFromColorFormats
         /**
-         * 16 million color code
+         * truecolor(16 million color) code
          */
         ansi16m: EscapeCodeFromColorFormats
     }
