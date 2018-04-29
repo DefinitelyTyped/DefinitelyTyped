@@ -77,15 +77,30 @@ export namespace EscapeCode {
         lab: (l: number, a: number, b: number) => string
         lch: (l: number, c: number, h: number) => string
         hex: (hex: string) => string
+        /**
+         * color keyword in css to ansi code
+         */
         keyword: (keyword: keyof typeof cssKeywords) => string
         ansi256: (ansi256: string) => string
         hcg: (h: number, c: number, g: number) => string
+        /**
+         * apple RGB to ansi code
+         */
         apple: (r: number, g: number, b: number) => string
         gray: (grayscale: number) => string
     }
     interface StyleType {
+        /**
+         * 16 color ansi code
+         */
         ansi: EscapeCodeFromColorFormats
+        /**
+         * 256 color ansi code
+         */
         ansi256: EscapeCodeFromColorFormats
+        /**
+         * 16 million color code
+         */
         ansi16m: EscapeCodeFromColorFormats
     }
 }
