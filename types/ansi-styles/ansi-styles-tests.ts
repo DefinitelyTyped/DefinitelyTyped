@@ -1,53 +1,73 @@
+import ansiStyles = require('ansi-styles');
+import { EscapeCode } from './EscapeCode';
 
-import ansi = require('ansi-styles');
+let
+    modifier = [
+        'reset', 'bold', 'dim', 'italic', 'underline', 'inverse', 'hidden', 'strikethrough'
+    ],
+    color = [
+        'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'gray',
+        // Bright Color
+        'redBright', 'greenBright', 'yellowBright', 'blueBright', 'magentaBright', 'cyanBright', 'whiteBright'
+    ],
+    bgColor = [
+        'bgBlack', 'bgRed', 'bgGreen', 'bgYellow', 'bgBlue', 'bgMagenta', 'bgCyan',
+        // Bright bgColor
+        'bgBlackBright', 'bgRedBright', 'bgGreenBright', 'bgYellowBright', 'bgBlueBright', 'bgMagentaBright', 'bgCyanBright', 'bgWhiteBright'
+    ],
+    styles = [...modifier, ...color, ...bgColor],
+    codeTypes = [
+        'ansi', 'ansi256', 'ansi16m'
+    ],
+    colorFormats = [
+        'ansi', 'rgb', 'hsl', 'hsv', 'hwb', 'cmyk', 'xyz', 'lab', 'lch', 'hex', 'keyword', 'ansi256', 'hcg', 'apple', 'gray'
+    ],
+    namespaces = [
+        'modifier', 'color', 'bgColor'
+    ],
+    codesMap = 'codes';
 
 
-var styles = [
-    ansi.reset, 
+checkStyle(styles, ansiStyles as any);
+checkStyle(modifier, (ansiStyles as any)['modifier']);
+checkStyle(color, (ansiStyles as any)['color']);
+checkStyle(bgColor, (ansiStyles as any)['bgColor']);
 
-    ansi.bold, 
-    ansi.dim, 
-    ansi.italic, 
-    ansi.underline, 
-    ansi.inverse, 
-    ansi.hidden, 
-    ansi.strikethrough, 
-
-    ansi.black, 
-    ansi.red, 
-    ansi.green, 
-    ansi.yellow, 
-    ansi.blue, 
-    ansi.magenta, 
-    ansi.cyan, 
-    ansi.white, 
-    ansi.gray, 
-
-    ansi.bgBlack, 
-    ansi.bgRed, 
-    ansi.bgGreen, 
-    ansi.bgYellow, 
-    ansi.bgBlue, 
-    ansi.bgMagenta, 
-    ansi.bgCyan, 
-    ansi.bgWhite
-]
-
-for (var key in styles) {
-    check(key, styles[key])
+if (!((ansiStyles as any)[codesMap] instanceof Map)) {
+    throw new Error(`ansiStyles.${codesMap} not a Map.`);
 }
-
-function check(key:string, escapeCodes:ansi.EscapeCodePair): void {
-    if (uninitialized(escapeCodes.open)) {
-        throw new Error('key not found ~> ' + key + '.open')
-    }
-    if (uninitialized(escapeCodes.close)) {
-        throw new Error('key not found ~> ' + key + '.close')
+for (let namespace of namespaces) {
+    if (isUninitialized((ansiStyles as any)[namespace])) {
+        throw new Error('key not found ~> ansiStyles.' + namespace);
     }
 }
 
-function uninitialized(val:any): boolean {
-    return val === null || val === undefined
+checkColorFormatConverter(colorFormats, 'color', (ansiStyles as any)['color']);
+checkColorFormatConverter(colorFormats, 'bgColor', (ansiStyles as any)['bgColor']);
+
+function checkStyle(styleList: string[], namespace: any) {
+    for (let style of styleList) {
+        checkCodePair(style, namespace[style]);
+    }
+}
+function checkCodePair(styleName: string, pair: EscapeCode.CodePair): void {
+    if (isUninitialized(pair.open)) {
+        throw new Error('key not found ~> ' + styleName + '.open');
+    }
+    if (isUninitialized(pair.close)) {
+        throw new Error('key not found ~> ' + styleName + '.close');
+    }
+}
+function checkColorFormatConverter(formatList: string[], name: string, namespace: any) {
+    for (let format of formatList) {
+        for (let type of codeTypes) {
+            if (typeof namespace[type][format] != 'function') {
+                throw new Error(`ansiStyles.${name}.${type}.${format} not a function.`);
+            }
+        }
+    }
 }
 
-
+function isUninitialized(val: any): boolean {
+    return val === null || val === undefined;
+}
