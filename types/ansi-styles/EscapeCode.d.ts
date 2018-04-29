@@ -80,7 +80,7 @@ export namespace EscapeCode {
         keyword: (keyword: keyof typeof cssKeywords) => string
         ansi256: (ansi256: string) => string
         hcg: (h: number, c: number, g: number) => string
-        apple: (a: number, b: number, c: number) => string
+        apple: (r: number, g: number, b: number) => string
         gray: (grayscale: number) => string
     }
     interface StyleType {
