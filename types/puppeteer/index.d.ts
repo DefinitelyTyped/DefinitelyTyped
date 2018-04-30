@@ -94,7 +94,7 @@ export interface Touchscreen {
  */
 export interface Tracing {
   start(options: TracingStartOptions): Promise<void>;
-  stop(): Promise<void>;
+  stop(): Promise<Buffer>;
 }
 
 export interface TracingStartOptions {
