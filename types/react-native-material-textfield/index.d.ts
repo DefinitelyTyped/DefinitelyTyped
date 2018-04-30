@@ -1,4 +1,4 @@
-// Type definitions for react-native-material-textfield 0.12.0
+// Type definitions for react-native-material-textfield 0.12
 // Project: https://github.com/n4kz/react-native-material-textfield
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,51 +8,50 @@ import * as React from 'react';
 import { TextInputProps, TextStyle, ViewStyle, View } from 'react-native';
 
 export interface TextFieldProps extends TextInputProps {
+    animationDuration?: number;
 
-    animationDuration?: number,
+    fontSize?: number;
+    titleFontSize?: number;
+    labelFontSize?: number;
+    labelHeight?: number;
+    labelPadding?: number;
+    inputContainerPadding?: number;
 
-    fontSize?: number,
-    titleFontSize?: number,
-    labelFontSize?: number,
-    labelHeight?: number,
-    labelPadding?: number,
-    inputContainerPadding?: number,
+    labelTextStyle?: TextStyle;
+    titleTextStyle?: TextStyle;
+    affixTextStyle?: TextStyle;
 
-    labelTextStyle?: TextStyle,
-    titleTextStyle?: TextStyle,
-    affixTextStyle?: TextStyle,
+    tintColor?: string;
+    textColor?: string;
+    baseColor?: string;
 
-    tintColor?: string,
-    textColor?: string,
-    baseColor?: string,
+    label?: string;
+    title?: string;
 
-    label?: string,
-    title?: string,
+    characterRestriction?: number;
 
-    characterRestriction?: number,
+    error?: string;
+    errorColor?: string;
 
-    error?: string,
-    errorColor?: string,
+    lineWidth?: number;
+    activeLineWidth?: number;
 
-    lineWidth?: number,
-    activeLineWidth?: number,
+    disabled?: boolean;
 
-    disabled?: boolean,
+    disabledLineWidth?: number;
 
-    disabledLineWidth?: number,
+    renderAccessory?(): JSX.Element;
 
-    renderAccessory?(): JSX.Element,
+    clearTextOnFocus?: boolean;
 
-    clearTextOnFocus?: boolean,
+    prefix?: string;
+    suffix?: string;
 
-    prefix?: string,
-    suffix?: string,
+    containerStyle?: ViewStyle;
+    inputContainerStyle?: ViewStyle;
 
-    containerStyle?: ViewStyle,
-    inputContainerStyle?: ViewStyle,
-
-    onPress?(event: Event): void,
-    onChangeText?(text: string): void,
+    onPress?(event: Event): void;
+    onChangeText?(text: string): void;
 }
 
 /**
