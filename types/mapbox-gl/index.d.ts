@@ -33,14 +33,6 @@ declare namespace mapboxgl {
         
         removeControl(control: IControl): this;
 
-        addClass(klass: string, options?: mapboxgl.StyleOptions): this;
-
-        removeClass(klass: string, options?: mapboxgl.StyleOptions): this;
-
-        setClasses(klasses: string[], options?: mapboxgl.StyleOptions): this;
-
-        hasClass(klass: string): boolean;
-
         getClasses(): string[];
 
         resize(): this;
