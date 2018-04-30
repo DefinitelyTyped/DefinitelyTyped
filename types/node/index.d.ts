@@ -6079,6 +6079,7 @@ declare module "util" {
     /** @deprecated since v4.0.0 - use `value === undefined` instead. */
     export function isUndefined(object: any): object is undefined;
     export function deprecate<T extends Function>(fn: T, message: string): T;
+    export function isDeepStrictEqual(val1: any, val2: any): boolean;
 
     export interface CustomPromisify<TCustom extends Function> extends Function {
         __promisify__: TCustom;
