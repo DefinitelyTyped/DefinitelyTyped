@@ -1,3 +1,3 @@
-import * as cn from "./index";
+import classNames from './index';
 
-export function bind(styles: Record<string, string>): typeof cn;
+export function bind(styles: Record<string, string>): typeof classNames;

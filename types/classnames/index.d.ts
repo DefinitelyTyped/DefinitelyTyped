@@ -1,4 +1,4 @@
-// Type definitions for classnames 2.2
+// Type definitions for classnames 2.2.5
 // Project: https://github.com/JedWatson/classnames
 // Definitions by: Dave Keen <http://www.keendevelopment.ch>
 //                 Adi Dahiya <https://github.com/adidahiya>
@@ -23,5 +23,6 @@ type ClassNamesFn = (...classes: ClassValue[]) => string;
 
 declare const classNames: ClassNamesFn;
 
-export = classNames;
+// This works since https://github.com/JedWatson/classnames/commit/915186aaa510e0c6be6c2cf20788aac474790e27
+export default classNames;
 export as namespace classNames;
