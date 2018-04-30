@@ -2,7 +2,7 @@
 // Project: https://git.coolaj86.com/coolaj86/atob.js.git
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8.3
+// TypeScript Version: 2.8
 
 declare module 'atob' {
     export default function (str: string): string
