@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.7
+// Type definitions for auth0 2.9.1
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,8 +33,13 @@ export interface RetryOptions {
   maxRetries?: number;
 }
 
-export interface UserMetadata { }
-export interface AppMetadata { }
+export interface UserMetadata {
+  [propName: string]: string
+}
+
+export interface AppMetadata {
+  [propName: string]: any
+}
 
 export interface UserData {
   email?: string;
