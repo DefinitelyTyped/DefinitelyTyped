@@ -5,6 +5,12 @@ import { TextField } from 'react-native-material-textfield';
 
 const Example = () =>
     <View>
-        <TextField label="Example" />
+        <TextField
+            label="Example"
+            multiline
+            placeholder="Text when field is empty"
+            value="Initial value"
+            onChangeText={text => alert(text)}
+        />
     </View>;
 

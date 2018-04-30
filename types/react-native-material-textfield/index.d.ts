@@ -26,7 +26,7 @@ export interface TextFieldProps extends TextInputProps {
     textColor?: string,
     baseColor?: string,
 
-    label: string,
+    label?: string,
     title?: string,
 
     characterRestriction?: number,
