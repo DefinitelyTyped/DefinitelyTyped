@@ -655,9 +655,9 @@ function JQueryStatic() {
     }
 
     function isNumeric() {
-        function type_guard(obj: boolean) {
+        function type_guard(obj: boolean | number) {
             if ($.isNumeric(obj)) {
-                // $ExpectType (true & number) | (false & number)
+                // $ExpectType number
                 obj;
             } else {
                 // $ExpectType boolean
