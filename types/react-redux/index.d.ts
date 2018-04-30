@@ -31,14 +31,14 @@ type StatelessComponent<P> = React.StatelessComponent<P>;
 type Component<P> = React.ComponentType<P>;
 type ReactNode = React.ReactNode;
 type Store<S> = Redux.Store<S>;
-type Dispatch<S> = Redux.Dispatch<S>;
+type Dispatch<A extends Redux.Action = Redux.AnyAction> = Redux.Dispatch<A>;
 type ActionCreator<A> = Redux.ActionCreator<A>;
 
 // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
 type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
-export interface DispatchProp<S> {
-  dispatch?: Dispatch<S>;
+export interface DispatchProp<A extends Redux.Action = Redux.AnyAction> {
+  dispatch?: Dispatch<A>;
 }
 
 interface AdvancedComponentDecorator<TProps, TOwnProps> {
@@ -80,11 +80,11 @@ export type InferableComponentEnhancer<TInjectedProps> =
  * @param options
  */
 export interface Connect {
-    (): InferableComponentEnhancer<DispatchProp<any>>;
+    (): InferableComponentEnhancer<DispatchProp>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>
-    ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp<any> & TOwnProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp & TOwnProps, TOwnProps>;
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
@@ -125,7 +125,7 @@ export interface Connect {
         mapDispatchToProps: null | undefined,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<DispatchProp<any> & TStateProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<DispatchProp & TStateProps, TOwnProps>;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
@@ -165,14 +165,14 @@ interface MapStateToPropsFactory<TStateProps, TOwnProps, State> {
 type MapStateToPropsParam<TStateProps, TOwnProps, State> = MapStateToPropsFactory<TStateProps, TOwnProps, State> | MapStateToProps<TStateProps, TOwnProps, State> | null | undefined;
 
 interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch<any>, ownProps: TOwnProps): TDispatchProps;
+    (dispatch: Dispatch, ownProps: TOwnProps): TDispatchProps;
 }
 
 type MapDispatchToProps<TDispatchProps, TOwnProps> =
     MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | TDispatchProps;
 
 interface MapDispatchToPropsFactory<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch<any>, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
+    (dispatch: Dispatch, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
 }
 
 type MapDispatchToPropsParam<TDispatchProps, TOwnProps> = MapDispatchToPropsFactory<TDispatchProps, TOwnProps> | MapDispatchToProps<TDispatchProps, TOwnProps>;
@@ -240,7 +240,7 @@ export declare function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = 
  * previous object when appropriate.
  */
 export interface SelectorFactory<S, TProps, TOwnProps, TFactoryOptions> {
-    (dispatch: Dispatch<S>, factoryOptions: TFactoryOptions): Selector<S, TProps, TOwnProps>
+    (dispatch: Dispatch, factoryOptions: TFactoryOptions): Selector<S, TProps, TOwnProps>
 }
 
 export interface Selector<S, TProps, TOwnProps> {
