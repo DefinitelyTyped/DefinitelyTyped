@@ -62,7 +62,7 @@ declare module 'react-native-keychain' {
 
     function getGenericPassword(
         service?: string
-    ): Promise<boolean>;
+    ): Promise<string>;
 
     function resetGenericPassword(
         serviceOrOptions?: string | Options
