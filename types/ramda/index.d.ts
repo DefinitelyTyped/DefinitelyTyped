@@ -1,6 +1,8 @@
 // Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
+//                 Ika Tyang <https://github.com/ikatyang>
+//                 Tycho Grouwstra <https://github.com/tycho01>
 //                 Matt DeKrey <https://github.com/mdekrey>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
@@ -18,6 +20,8 @@
 //                 Jack Leigh <https://github.com/leighman>
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
+//                 Tycho Grouwstra <https://github.com/tycho01>
+//                 Ika Tyang <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
