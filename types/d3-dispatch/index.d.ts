@@ -11,7 +11,7 @@
 export interface Dispatch<T extends EventTarget> {
     /**
      * Like `function.apply`, invokes each registered callback for the specified type,
-     * passing the callback the specified arguments, with that as the this context.
+     * passing the callback the specified arguments, with `that` as the `this` context.
      *
      * @param type A specified event type.
      * @param that The `this` context for the callback.
@@ -22,7 +22,7 @@ export interface Dispatch<T extends EventTarget> {
 
     /**
      * Like `function.call`, invokes each registered callback for the specified type,
-     * passing the callback the specified arguments, with that as the this context.
+     * passing the callback the specified arguments, with `that` as the `this` context.
      * See dispatch.apply for more information.
      *
      * @param type A specified event type.
