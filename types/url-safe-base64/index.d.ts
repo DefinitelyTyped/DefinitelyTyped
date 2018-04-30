@@ -1,6 +1,6 @@
 // Type definitions for url-safe-base64 1.1
 // Project: https://github.com/commenthol/url-safe-base64#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: John Wright <https://github.com/johngeorgewright>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function decode(safe: string): string;
