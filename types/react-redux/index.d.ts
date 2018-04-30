@@ -1,4 +1,4 @@
-// Type definitions for react-redux 5.0.8
+// Type definitions for react-redux 6.0.0
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Thomas Hasner <https://github.com/thasner>,
@@ -17,6 +17,11 @@
 // you will see a bunch of errors from TypeScript. The current workaround is to use connect() as a function call on
 // a separate line instead of as a decorator. Discussed in this github issue:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
+
+// NOTE about the wrong react-redux version in the header comment:
+// The actual react-redux version is not 6.0.0, but we had to increase the major version
+// to update this type definitions for redux@4.x from redux@3.x.
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25321
 
 import * as React from 'react';
 import * as Redux from 'redux';
