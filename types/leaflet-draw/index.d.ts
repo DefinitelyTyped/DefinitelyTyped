@@ -10,6 +10,10 @@
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
+	interface MapOptions {
+		drawControl?: boolean;
+	}
+
 	interface ToolbarAction {
 		title: string;
 		text: string;
