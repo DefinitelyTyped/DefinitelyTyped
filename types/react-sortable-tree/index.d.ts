@@ -58,20 +58,19 @@ export interface OnVisibilityToggleData extends FullTree, TreeNode {
     expanded: boolean;
 }
 
-export interface PreviousAndNextLocation {
+interface PreviousAndNextLocation {
     prevTreeIndex: number;
     prevPath: number[];
-    prevParent: TreeItem | null;
     nextTreeIndex: number;
     nextPath: number[];
+}
+
+export interface OnDragPreviousAndNextLocation extends PreviousAndNextLocation {
+    prevParent: TreeItem | null;
     nextParent: TreeItem | null;
 }
 
-export interface OnMovePreviousAndNextLocation {
-    prevTreeIndex: number;
-    prevPath: number[];
-    nextTreeIndex: number;
-    nextPath: number[];
+export interface OnMovePreviousAndNextLocation extends PreviousAndNextLocation {
     nextParentNode: TreeItem | null;
 }
 
@@ -177,7 +176,7 @@ export interface ReactSortableTreeProps {
     onMoveNode?(data: NodeData & FullTree & OnMovePreviousAndNextLocation): void;
     onVisibilityToggle?(data: OnVisibilityToggleData): void;
     canDrag?: ((data: ExtendedNodeData) => boolean) | boolean;
-    canDrop?(data: PreviousAndNextLocation & NodeData): boolean;
+    canDrop?(data: OnDragPreviousAndNextLocation & NodeData): boolean;
     reactVirtualizedListProps?: ListProps;
     rowHeight?: ((info: Index) => number) | number;
     slideRegionSize?: number;
