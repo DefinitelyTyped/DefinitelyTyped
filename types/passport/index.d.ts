@@ -5,6 +5,7 @@
 //                 Igor Belagorudsky <https://github.com/theigor>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
+//                 John Li <https://github.com/johnzli1995>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -54,6 +55,11 @@ declare namespace passport {
         prompt?: string;
     }
 
+    type SerializeFunction<TUser, TID> = (user: TUser, done: (err: any, id?: TID) => void) => void;
+    type SerializeFunctionWithRequest<TUser, TID> = (req: express.Request, user: TUser, done: (err: any, id?: TID) => void) => void;
+    type DeserializeFunction<TUser, TID> = (id: TID, done: (err: any, user?: TUser) => void) => void;
+    type DeserializeFunctionWithRequest<TUser, TID> = (req: express.Request, id: TID, done: (err: any, user?: TUser) => void) => void;
+
     interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
         use(strategy: Strategy): this;
         use(name: string, strategy: Strategy): this;
@@ -66,8 +72,9 @@ declare namespace passport {
         authenticate(strategy: string | string[], options: AuthenticateOptions, callback?: (...args: any[]) => any): AuthenticateRet;
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthorizeRet;
         authorize(strategy: string | string[], options: any, callback?: (...args: any[]) => any): AuthorizeRet;
-        serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id?: TID) => void) => void): void;
-        deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user?: TUser) => void) => void): void;
+        serializeUser<TUser, TID>(fn: SerializeFunction<TUser, TID> | SerializeFunctionWithRequest<TUser, TID>): void;
+        deserializeUser<TUser, TID>(fn: DeserializeFunction<TUser, TID> | DeserializeFunctionWithRequest<TUser, TID>): void;
+
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 
