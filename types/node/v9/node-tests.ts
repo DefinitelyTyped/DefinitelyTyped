@@ -851,6 +851,9 @@ namespace util_tests {
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
         // $ExpectType <T extends Function>(fn: T, message: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+
+        // util.isDeepStrictEqual
+        util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
     }
 }
 
