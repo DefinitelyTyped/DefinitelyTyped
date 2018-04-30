@@ -181,7 +181,7 @@ export interface TableProps extends
     /** Control callback for functional rendering */
     children: (
         state: FinalState,
-        makeTable: () => any,
+        makeTable: () => React.ReactElement<any>,
         instance: Instance
     ) => React.ReactNode;
 }
@@ -259,6 +259,14 @@ export interface PivotingProps {
 
 export interface ExpandedRows {
     [idx: number]: boolean | ExpandedRows;
+}
+
+export interface DerivedDataObject {
+    _index: number,
+    _nestingLevel: number,
+    _subRows: any,
+    _original: any,
+    [p: string]: any
 }
 
 export interface ControlledStateCallbackProps {
@@ -668,9 +676,9 @@ export interface FinalState extends TableProps {
 
     allVisibleColumns: Column[];
     allDecoratedColumns: Column[];
-    resolvedData: any[];
+    resolvedData: DerivedDataObject[];
+    sortedData: DerivedDataObject[];
     headerGroups: any[];
-    sortedData: any[];
 }
 
 export const ReactTableDefaults: TableProps;
