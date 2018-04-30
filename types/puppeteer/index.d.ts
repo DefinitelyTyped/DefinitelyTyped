@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.2
+// Type definitions for puppeteer 1.3
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -136,7 +136,7 @@ export interface ConsoleMessage {
 }
 
 export type PageEvents =
-  | "close"  
+  | "close"
   | "console"
   | "dialog"
   | "error"
@@ -473,11 +473,11 @@ export interface ElementHandle extends JSHandle {
    * This method returns the value resolve to the bounding box of the element (relative to the main frame), or null if the element is not visible.
    */
   boundingBox(): Promise<BoundingBox | null>;
-  /** 
-   * This method returns boxes of the element, or null if the element is not visible. 
-   * Boxes are represented as an array of points; each Point is an object {x, y}. Box points are sorted clock-wise. 
+  /**
+   * This method returns boxes of the element, or null if the element is not visible.
+   * Boxes are represented as an array of points; each Point is an object {x, y}. Box points are sorted clock-wise.
    */
-  boxModel(): Promise<BoxModel | null>
+  boxModel(): Promise<BoxModel | null>;
   /**
    * This method scrolls element into view if needed, and then uses page.mouse to click in the center of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -1086,13 +1086,13 @@ export interface Page extends EventEmitter, FrameBase {
    */
   select(selector: string, ...values: string[]): Promise<string[]>;
 
-/**
+  /**
    * Toggles bypassing page's Content-Security-Policy.
-   * NOTE CSP bypassing happens at the moment of CSP initialization rather then evaluation. 
+   * NOTE CSP bypassing happens at the moment of CSP initialization rather then evaluation.
    * Usually this means that page.setBypassCSP should be called before navigating to the domain.
-   * @param enabled ets bypassing of page's Content-Security-Policy.
+   * @param enabled sets bypassing of page's Content-Security-Policy.
    */
-  setBypassCSP(enabled: boolean): Promise<void>
+  setBypassCSP(enabled: boolean): Promise<void>;
 
   /**
    * Determines whether cache is enabled on the page.
