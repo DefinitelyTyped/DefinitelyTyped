@@ -7,7 +7,7 @@
 /* =================== USAGE ===================
 
     import * as express from 'express';
-    import { swaggerJSDoc } from 'swagger-jsdoc';
+    import * as swaggerJSDoc from 'swagger-jsdoc';
     const app = express()
 
     let options = {
@@ -36,6 +36,9 @@
 
  =============================================== */
 
-declare module "swagger-jsdoc" {
-    export function swaggerJSDoc(options?: any): any;
-}
+ declare function swaggerJSDoc(options?: any): any;
+ declare namespace swaggerJSDoc {
+ 
+ }
+ 
+ export = swaggerJSDoc;
