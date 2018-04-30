@@ -5368,8 +5368,8 @@ declare module "stream" {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
-            write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
+            write?: (chunk: any, encoding: string, callback: Function) => any;
+            writev?: (chunks: Array<{ chunk: any, encoding: string }>, callback: Function) => any;
             destroy?: (error?: Error) => any;
             final?: (callback: (error?: Error) => void) => void;
         }
