@@ -262,11 +262,11 @@ export interface ExpandedRows {
 }
 
 export interface DerivedDataObject {
-    _index: number,
-    _nestingLevel: number,
-    _subRows: any,
-    _original: any,
-    [p: string]: any
+    _index: number;
+    _nestingLevel: number;
+    _subRows: any;
+    _original: any;
+    [p: string]: any;
 }
 
 export interface ControlledStateCallbackProps {
