@@ -33,7 +33,7 @@ declare namespace next {
         err?: Error
         /** a callback that executes the actual React rendering logic (synchronously) */
         renderPage(
-            cb: (enhancer: () => JSX.Element) => React.ComponentType<any>
+            cb?: (enhancer: () => JSX.Element) => React.ComponentType<any>
         ): {
             [key: string]: any
         }
