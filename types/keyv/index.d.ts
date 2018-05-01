@@ -35,6 +35,9 @@ declare class Keyv extends NodeJS.EventEmitter {
      * @param opts The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.
      */
     constructor(uri?: string, opts?: KeyvOptions);
+    /** Returns the namespace of a key **/
+    _getKeyPrefix(key: string): string;
+
     /** Returns the value. */
     get(key: string): Promise<any>;
     /**
