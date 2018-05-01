@@ -53,10 +53,10 @@ new materialize.Collapsible(elem);
 // $ExpectType Collapsible
 const collapsible = new materialize.Collapsible(elem, {
     accordion: true,
-    onOpenStart: () => {},
-    onOpenEnd: () => {},
-    onCloseStart: () => {},
-    onCloseEnd: () => {},
+    onOpenStart: () => { },
+    onOpenEnd: () => { },
+    onCloseStart: () => { },
+    onCloseEnd: () => { },
     inDuration: 300,
     outDuration: 300
 });
@@ -89,10 +89,10 @@ const dropdown = new materialize.Dropdown(elem, {
     hover: false,
     inDuration: 150,
     outDuration: 250,
-    onOpenStart: () => {},
-    onOpenEnd: () => {},
-    onCloseStart: () => {},
-    onCloseEnd: () => {}
+    onOpenStart: () => { },
+    onOpenEnd: () => { },
+    onCloseStart: () => { },
+    onCloseEnd: () => { }
 });
 // $ExpectType Dropdown
 materialize.Dropdown.getInstance(elem);
@@ -126,8 +126,8 @@ dropdown.focusedIndex;
 new materialize.TapTarget(elem);
 // $ExpectType TapTarget
 const tapTarget = new materialize.TapTarget(elem, {
-    onOpen: () => {},
-    onClose: () => {}
+    onOpen: () => { },
+    onClose: () => { }
 });
 // $ExpectType TapTarget
 materialize.TapTarget.getInstance(elem);
@@ -153,10 +153,10 @@ new materialize.Materialbox(elem);
 const materialbox = new materialize.Materialbox(elem, {
     inDuration: 275,
     outDuration: 200,
-    onOpenStart: () => {},
-    onOpenEnd: () => {},
-    onCloseStart: () => {},
-    onCloseEnd: () => {}
+    onOpenStart: () => { },
+    onOpenEnd: () => { },
+    onCloseStart: () => { },
+    onCloseEnd: () => { }
 });
 // $ExpectType Materialbox
 materialize.Materialbox.getInstance(elem);
@@ -222,10 +222,10 @@ const modal = new materialize.Modal(elem, {
     opacity: 0.5,
     inDuration: 250,
     outDuration: 250,
-    onOpenStart: () => {},
-    onOpenEnd: () => {},
-    onCloseStart: () => {},
-    onCloseEnd: () => {},
+    onOpenStart: () => { },
+    onOpenEnd: () => { },
+    onCloseStart: () => { },
+    onCloseEnd: () => { },
     preventScrolling: true,
     dismissible: true,
     startingTop: '4%',
@@ -405,7 +405,7 @@ const toast = materialize.toast({
     inDuration: 300,
     outDuration: 375,
     classes: '',
-    completeCallback: () => {},
+    completeCallback: () => { },
     activationPercent: 0.8
 });
 // $ExpectType ToastOptions
@@ -561,9 +561,9 @@ const chips = new materialize.Chips(elem, {
         }
     },
     limit: Infinity,
-    onChipAdd: () => {},
-    onChipSelect: () => {},
-    onChipDelete: () => {}
+    onChipAdd: () => { },
+    onChipSelect: () => { },
+    onChipDelete: () => { }
 });
 // $ExpectType Chips
 materialize.Chips.getInstance(elem);
@@ -639,9 +639,9 @@ const datePicker = new materialize.DatePicker(elem, {
         // $ExpectType Date
         selectedDate;
     },
-    onOpen: () => {},
-    onClose: () => {},
-    onDraw: () => {}
+    onOpen: () => { },
+    onClose: () => { },
+    onDraw: () => { }
 });
 // $ExpectType DatePicker
 materialize.DatePicker.getInstance(elem);
@@ -686,11 +686,11 @@ const timePicker = new materialize.TimePicker(elem, {
     autoClose: false,
     twelveHour: true,
     vibrate: true,
-    onOpenStart: () => {},
-    onOpenEnd: () => {},
-    onCloseStart: () => {},
-    onCloseEnd: () => {},
-    onSelect: () => {},
+    onOpenStart: () => { },
+    onOpenEnd: () => { },
+    onCloseStart: () => { },
+    onCloseEnd: () => { },
+    onSelect: () => { },
 });
 // $ExpectType TimePicker
 materialize.TimePicker.getInstance(elem);
@@ -729,10 +729,10 @@ const formSelect = new materialize.FormSelect(elem, {
         hover: false,
         inDuration: 150,
         outDuration: 250,
-        onOpenStart: () => {},
-        onOpenEnd: () => {},
-        onCloseStart: () => {},
-        onCloseEnd: () => {}
+        onOpenStart: () => { },
+        onOpenEnd: () => { },
+        onCloseStart: () => { },
+        onCloseEnd: () => { }
     }
 });
 // $ExpectType FormSelect
