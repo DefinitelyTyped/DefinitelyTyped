@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.12
+// Type definitions for Mongoose 5.0.14
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
