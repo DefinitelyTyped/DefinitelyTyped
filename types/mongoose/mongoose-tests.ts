@@ -170,7 +170,8 @@ mongooseError.stack;
 mongoose.Error.messages.hasOwnProperty('');
 mongoose.Error.Messages.hasOwnProperty('');
 
-const plural: string = mongoose.pluralize('foo');
+const pluralize = mongoose.pluralize();
+const plural: string = pluralize('foo');
 
 /*
  * section querycursor.js
