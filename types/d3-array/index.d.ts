@@ -314,7 +314,7 @@ export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
 // Histogram
 // --------------------------------------------------------------------------------------
 
-export interface Bin<Datum, Value extends number | Date> extends Array<Datum> {
+export interface Bin<Datum, Value extends number | Date | undefined> extends Array<Datum> {
     x0: Value | undefined;
     x1: Value | undefined;
 }
@@ -327,17 +327,49 @@ export type ThresholdCountGenerator = (values: ArrayLike<number>, min?: number, 
 /**
  * Type definition for threshold generator which returns an array of recommended thresholds
  */
-export type ThresholdArrayGenerator<Value extends number | Date> = (values: ArrayLike<Value>, min?: Value, max?: Value) => Value[];
+export type ThresholdArrayGenerator<Value extends number | Date | undefined> = (values: ArrayLike<Value>, min?: Value, max?: Value) => Value[];
 
-export interface HistogramGenerator<Datum, Value extends number | Date> {
+export interface HistogramCommon<Datum, Value extends number | Date | undefined> {
     (data: ArrayLike<Datum>): Array<Bin<Datum, Value>>;
+    
+    value(): (d: Datum, i: number, data: Datum[]) => Value;
+    value(valueAccessor: (d: Datum, i: number, data: Datum[]) => Value): this;
+}
 
-    value(): (d: Datum, i: number, data: ArrayLike<Datum>) => Value;
-    value(valueAccessor: (d: Datum, i: number, data: ArrayLike<Datum>) => Value): this;
+export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> extends HistogramCommon<Datum, Date> {
+    domain(): (values: ArrayLike<Value>) => [Date, Date];
+    domain(domain: [Date, Date]): this;
+    domain(domainAccessor: (values: ArrayLike<Value>) => [Date, Date]): this;
 
-    domain(): (values: ArrayLike<Value>) => [Value, Value] | [undefined, undefined];
-    domain(domain: [Value, Value]): this;
-    domain(domainAccessor: (values: ArrayLike<Value>) => [Value, Value] | [undefined, undefined]): this;
+    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<Value>;
+    /**
+     * Set the array of values to be used as thresholds in determining the bins.
+     *
+     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
+     * and the last bin.x1 is always equal to the maximum domain value.
+     *
+     * @param thresholds Array of threshold values used for binning. The elements must
+     * be of the same type as the materialized values of the histogram.
+     */
+    thresholds(thresholds: ArrayLike<Value>): this;
+    /**
+     * Set a threshold accessor function, which returns the array of values to be used as
+     * thresholds in determining the bins.
+     *
+     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
+     * and the last bin.x1 is always equal to the maximum domain value.
+     *
+     * @param thresholds A function which accepts as arguments the array of materialized values, and
+     * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as
+     * thresholds in determining the bins.
+     */
+    thresholds(thresholds: ThresholdArrayGenerator<Value>): this;
+}
+
+export interface HistogramGeneratorNumber<Datum, Value extends number | undefined> extends HistogramCommon<Datum, Value> {
+    domain(): (values: ArrayLike<Value>) => [number, number] | [undefined, undefined];
+    domain(domain: [number, number]): this;
+    domain(domainAccessor: (values: ArrayLike<Value>) => [number, number] | [undefined, undefined]): this;
 
     thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<Value>;
     /**
@@ -387,8 +419,9 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
     thresholds(thresholds: ThresholdArrayGenerator<Value>): this;
 }
 
-export function histogram(): HistogramGenerator<number, number>;
-export function histogram<Datum, Value extends number | Date>(): HistogramGenerator<Datum, Value>;
+export function histogram(): HistogramGeneratorNumber<number, number>;
+export function histogram<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
+export function histogram<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
 
 // --------------------------------------------------------------------------------------
 // Histogram Thresholds

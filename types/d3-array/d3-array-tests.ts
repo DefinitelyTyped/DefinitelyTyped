@@ -615,11 +615,33 @@ const timeScale = scaleTime();
 
 // Create histogram generator ==================================================
 
-let histoNumber_Number: d3Array.HistogramGenerator<number, number>;
+// number - number
+let histoNumber_Number: d3Array.HistogramGeneratorNumber<number, number>;
 histoNumber_Number = d3Array.histogram();
+histoNumber_Number = d3Array.histogram<number, number>();
 
-let histoMixedObject_Date: d3Array.HistogramGenerator<MixedObject, Date>;
+// MixedObject - number | undefined
+let histoMixed_NumberOrUndefined: d3Array.HistogramGeneratorNumber<MixedObject, number | undefined>;
+histoMixed_NumberOrUndefined = d3Array.histogram<MixedObject, number | undefined>();
+
+// MixedObject | undefined - number | undefined
+let histoMixedOrUndefined_NumberOrUndefined: d3Array.HistogramGeneratorNumber<MixedObject | undefined, number | undefined>;
+histoMixedOrUndefined_NumberOrUndefined = d3Array.histogram<MixedObject | undefined, number | undefined>();
+
+// MixedObject | undefined - number
+let histoMixedOrUndefined_Number: d3Array.HistogramGeneratorNumber<MixedObject | undefined, number>;
+histoMixedOrUndefined_Number = d3Array.histogram<MixedObject | undefined, number>();
+
+// MixedObject - Date
+let histoMixedObject_Date: d3Array.HistogramGeneratorDate<MixedObject, Date>;
 histoMixedObject_Date = d3Array.histogram<MixedObject, Date>();
+
+// MixedObject - Date | undefined
+let histoMixedObject_DateOrUndefined: d3Array.HistogramGeneratorDate<MixedObject, Date | undefined>;
+histoMixedObject_DateOrUndefined = d3Array.histogram<MixedObject, Date | undefined>();
+
+let defaultHistogram: d3Array.HistogramGeneratorNumber<number, number>;
+defaultHistogram = d3Array.histogram();
 
 // Configure histogram generator ===============================================
 
@@ -656,7 +678,7 @@ histoNumber_Number = histoNumber_Number.domain(d3Array.extent);
 let domainAccessorFn: (values: number[]) => [number, number] | [undefined, undefined];
 domainAccessorFn = histoNumber_Number.domain();
 
-let dateDomainAccessorFn: (values: Date[]) => [Date, Date] | [undefined, undefined];
+let dateDomainAccessorFn: (values: Date[]) => [Date, Date];
 dateDomainAccessorFn = histoMixedObject_Date.domain();
 
 // thresholds(...) -------------------------------------------------------------
