@@ -251,7 +251,7 @@ namespace fs_tests {
 
         let enc = 'buffer';
         fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
-        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', {}); // $ExpectType string[] | Buffer[]
     }
 
     {
@@ -631,7 +631,7 @@ namespace url_tests {
 
         function getBoolean(): boolean { return false; }
         const urlUrl = url.parse('http://example.com/?hello=world', getBoolean());
-        if (typeof(urlUrl.query) === 'string') {
+        if (typeof (urlUrl.query) === 'string') {
             queryStr = urlUrl.query;
         } else if (urlUrl.query) {
             helloQuery = urlUrl.query['hello'];
@@ -846,7 +846,7 @@ namespace util_tests {
         var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
-        const foo = () => {};
+        const foo = () => { };
         // $ExpectType () => void
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
         // $ExpectType <T extends Function>(fn: T, message: string) => T
@@ -1132,11 +1132,24 @@ namespace tls_tests {
         });
         var blah = ctx.context;
 
-        var connOpts: tls.ConnectionOptions = {
+        var connectOptions: tls.TcpConnectOptions = {
             host: "127.0.0.1",
             port: 55
         };
-        var tlsSocket = tls.connect(connOpts);
+        var tlsSocket = tls.connect(connectOptions);
+
+        tlsSocket = tls.connect("/not/a/socket/path");
+        tlsSocket = tls.connect("/not/a/socket/path", () => { });
+        tlsSocket = tls.connect("/not/a/socket/path", connectOptions);
+        tlsSocket = tls.connect("/not/a/socket/path", connectOptions, () => { });
+
+        tlsSocket = tls.connect(443);
+        tlsSocket = tls.connect(443, () => { });
+        tlsSocket = tls.connect(443, "www.example.com");
+        tlsSocket = tls.connect(443, connectOptions);
+        tlsSocket = tls.connect(443, connectOptions, () => { });
+        tlsSocket = tls.connect(443, "www.example.com", connectOptions);
+        tlsSocket = tls.connect(443, "www.example.com", connectOptions, () => { });
 
         const ciphers: string[] = tls.getCiphers();
         const curve: string = tls.DEFAULT_ECDH_CURVE;
@@ -1337,12 +1350,16 @@ namespace http_tests {
     {
         var server: http.Server = new http.Server();
 
+        server.on("connection", (socket) => { });
+
+        server.on("connect", (request, response, head) => { });
+
         // test public props
         const maxHeadersCount: number = server.maxHeadersCount;
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+        server.setTimeout().setTimeout(1000).setTimeout(() => { }).setTimeout(100, () => { });
     }
 
     // http IncomingMessage
@@ -1397,9 +1414,7 @@ namespace http_tests {
 
     // http ClientRequest
     {
-        var req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
-        var req: http.ClientRequest = new http.ClientRequest(new url.URL("https://www.google.com"));
-        var req: http.ClientRequest = new http.ClientRequest({ path: 'http://0.0.0.0' });
+        var req: http.ClientRequest = http.request("http://www.example.com");
 
         // header
         req.setHeader('Content-Type', 'text/plain');
@@ -1476,7 +1491,7 @@ namespace http_tests {
     {
         const headers: http.IncomingHttpHeaders = {
             'content-type': 'application/json',
-            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+            'set-cookie': ['type=ninja', 'language=javascript']
         };
     }
 }
@@ -1516,7 +1531,7 @@ namespace https_tests {
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+        server.setTimeout().setTimeout(1000).setTimeout(() => { }).setTimeout(100, () => { });
     }
 }
 
@@ -2065,13 +2080,13 @@ namespace child_process_tests {
         childProcess.exec("echo test", { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true });
         childProcess.spawnSync("echo test");
-        childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
+        childProcess.spawnSync("echo test", { windowsVerbatimArguments: false });
     }
 
     {
-        childProcess.execFile("npm", () => {});
-        childProcess.execFile("npm", { windowsHide: true }, () => {});
-        childProcess.execFile("npm", ["-v"], () => {});
+        childProcess.execFile("npm", () => { });
+        childProcess.execFile("npm", { windowsHide: true }, () => { });
+        childProcess.execFile("npm", ["-v"], () => { });
         childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
@@ -2305,7 +2320,7 @@ namespace child_process_tests {
         process.stdin.on('readable', () => {
             const chunk = process.stdin.read();
             if (chunk !== null) {
-              process.stdout.write(`data: ${chunk}`);
+                process.stdout.write(`data: ${chunk}`);
             }
         });
 
@@ -2705,7 +2720,7 @@ namespace console_tests {
 
 namespace net_tests {
     {
-        const connectOpts: net.NetConnectOpts = {
+        const connectOpts: net.NetConnectOptions = {
             allowHalfOpen: true,
             family: 4,
             host: "localhost",
@@ -2737,7 +2752,7 @@ namespace net_tests {
     }
 
     {
-        const constructorOpts: net.SocketConstructorOpts = {
+        const constructorOpts: net.SocketConstructOptions = {
             fd: 1,
             allowHalfOpen: false,
             readable: false,
@@ -2763,10 +2778,10 @@ namespace net_tests {
         let str: string;
         let num: number;
 
-        let ipcConnectOpts: net.IpcSocketConnectOpts = {
+        let ipcConnectOpts: net.IpcSocketConnectOptions = {
             path: "/"
         };
-        let tcpConnectOpts: net.TcpSocketConnectOpts = {
+        let tcpConnectOpts: net.TcpSocketConnectOptions = {
             family: 4,
             hints: 0,
             host: "localhost",
@@ -2778,13 +2793,13 @@ namespace net_tests {
             port: 80
         };
         _socket = _socket.connect(ipcConnectOpts);
-        _socket = _socket.connect(ipcConnectOpts, (): void => {});
+        _socket = _socket.connect(ipcConnectOpts, (): void => { });
         _socket = _socket.connect(tcpConnectOpts);
-        _socket = _socket.connect(tcpConnectOpts, (): void => {});
+        _socket = _socket.connect(tcpConnectOpts, (): void => { });
         _socket = _socket.connect(80, "localhost");
-        _socket = _socket.connect(80, "localhost", (): void => {});
+        _socket = _socket.connect(80, "localhost", (): void => { });
         _socket = _socket.connect(80);
-        _socket = _socket.connect(80, (): void => {});
+        _socket = _socket.connect(80, (): void => { });
 
         /// addListener
 
@@ -2962,6 +2977,8 @@ namespace net_tests {
         bool = _server.emit("connection", _socket);
         bool = _server.emit("error", error);
         bool = _server.emit("listening");
+
+        _server.on("error", (err) => { });
 
         /// once
         _server = _server.once("close", () => { });
@@ -3295,7 +3312,7 @@ namespace v8_tests {
 namespace perf_hooks_tests {
     perf_hooks.performance.mark('start');
     (
-        () => {}
+        () => { }
     )();
     perf_hooks.performance.mark('end');
 
@@ -3324,11 +3341,11 @@ namespace perf_hooks_tests {
 ////////////////////////////////////////////////////
 namespace async_hooks_tests {
     const hooks: async_hooks.HookCallbacks = {
-        init() {},
-        before() {},
-        after() {},
-        destroy() {},
-        promiseResolve() {},
+        init() { },
+        before() { },
+        after() { },
+        destroy() { },
+        promiseResolve() { },
     };
 
     const asyncHook = async_hooks.createHook(hooks);
@@ -3351,7 +3368,7 @@ namespace async_hooks_tests {
             const tId: number = this.triggerAsyncId();
         }
         run() {
-            this.runInAsyncScope(() => {});
+            this.runInAsyncScope(() => { });
             this.runInAsyncScope(Array.prototype.find, [], () => true);
         }
         destroy() {
@@ -3365,8 +3382,8 @@ namespace async_hooks_tests {
     new async_hooks.AsyncResource('', {});
     new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
     new async_hooks.AsyncResource('', {
-      triggerAsyncId: 0,
-      requireManualDestroy: true
+        triggerAsyncId: 0,
+        requireManualDestroy: true
     });
 }
 
@@ -3415,15 +3432,15 @@ namespace http2_tests {
         let http2Session: http2.Http2Session;
         let ee: events.EventEmitter = http2Session;
 
-        http2Session.on('close', () => {});
-        http2Session.on('connect', (session: http2.Http2Session, socket: net.Socket) => {});
-        http2Session.on('error', (err: Error) => {});
-        http2Session.on('frameError', (frameType: number, errorCode: number, streamID: number) => {});
-        http2Session.on('goaway', (errorCode: number, lastStreamID: number, opaqueData: Buffer) => {});
-        http2Session.on('localSettings', (settings: http2.Settings) => {});
-        http2Session.on('remoteSettings', (settings: http2.Settings) => {});
-        http2Session.on('stream', (stream: http2.Http2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
-        http2Session.on('timeout', () => {});
+        http2Session.on('close', () => { });
+        http2Session.on('connect', (session: http2.Http2Session, socket: net.Socket) => { });
+        http2Session.on('error', (err: Error) => { });
+        http2Session.on('frameError', (frameType: number, errorCode: number, streamID: number) => { });
+        http2Session.on('goaway', (errorCode: number, lastStreamID: number, opaqueData: Buffer) => { });
+        http2Session.on('localSettings', (settings: http2.Settings) => { });
+        http2Session.on('remoteSettings', (settings: http2.Settings) => { });
+        http2Session.on('stream', (stream: http2.Http2Stream, headers: http2.IncomingHttpHeaders, flags: number) => { });
+        http2Session.on('timeout', () => { });
 
         http2Session.destroy();
 
@@ -3445,7 +3462,7 @@ namespace http2_tests {
             exclusive: true,
             parent: 0,
             weight: 0,
-            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => { }
         };
         (http2Session as http2.ClientHttp2Session).request();
         (http2Session as http2.ClientHttp2Session).request(headers);
@@ -3455,8 +3472,8 @@ namespace http2_tests {
         http2Session.rstStream(stream);
         http2Session.rstStream(stream, 0);
 
-        http2Session.setTimeout(100, () => {});
-        http2Session.close(() => {});
+        http2Session.setTimeout(100, () => { });
+        http2Session.close(() => { });
 
         let socket: net.Socket | tls.TLSSocket = http2Session.socket;
         let state: http2.SessionState = http2Session.state;
@@ -3487,12 +3504,12 @@ namespace http2_tests {
         let http2Stream: http2.Http2Stream;
         let duplex: stream.Duplex = http2Stream;
 
-        http2Stream.on('aborted', () => {});
-        http2Stream.on('error', (err: Error) => {});
-        http2Stream.on('frameError', (frameType: number, errorCode: number, streamID: number) => {});
-        http2Stream.on('streamClosed', (code: number) => {});
-        http2Stream.on('timeout', () => {});
-        http2Stream.on('trailers', (trailers: http2.IncomingHttpHeaders, flags: number) => {});
+        http2Stream.on('aborted', () => { });
+        http2Stream.on('error', (err: Error) => { });
+        http2Stream.on('frameError', (frameType: number, errorCode: number, streamID: number) => { });
+        http2Stream.on('streamClosed', (code: number) => { });
+        http2Stream.on('timeout', () => { });
+        http2Stream.on('trailers', (trailers: http2.IncomingHttpHeaders, flags: number) => { });
 
         let aborted: boolean = http2Stream.aborted;
         let closed: boolean = http2Stream.closed;
@@ -3508,7 +3525,7 @@ namespace http2_tests {
 
         let sesh: http2.Http2Session = http2Stream.session;
 
-        http2Stream.setTimeout(100, () => {});
+        http2Stream.setTimeout(100, () => { });
 
         let state: http2.StreamState = http2Stream.state;
         state = {
@@ -3522,9 +3539,9 @@ namespace http2_tests {
 
         // ClientHttp2Stream
         let clientHttp2Stream: http2.ClientHttp2Stream;
-        clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
-        clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
-        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders, flags: number) => {});
+        clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => { });
+        clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => { });
+        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders, flags: number) => { });
 
         // ServerHttp2Stream
         let serverHttp2Stream: http2.ServerHttp2Stream;
@@ -3533,37 +3550,37 @@ namespace http2_tests {
         serverHttp2Stream.additionalHeaders(headers);
         let headerSent: boolean = serverHttp2Stream.headersSent;
         let pushAllowed: boolean = serverHttp2Stream.pushAllowed;
-        serverHttp2Stream.pushStream(headers, (err: Error | null, pushStream: http2.ServerHttp2Stream, headers: http2.OutgoingHttpHeaders) => {});
+        serverHttp2Stream.pushStream(headers, (err: Error | null, pushStream: http2.ServerHttp2Stream, headers: http2.OutgoingHttpHeaders) => { });
 
         let options: http2.ServerStreamResponseOptions = {
             endStream: true,
-            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => { }
         };
         serverHttp2Stream.respond();
         serverHttp2Stream.respond(headers);
         serverHttp2Stream.respond(headers, options);
 
         let options2: http2.ServerStreamFileResponseOptions = {
-            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
-            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => { },
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => { },
             offset: 0,
             length: 0
         };
         serverHttp2Stream.respondWithFD(0);
         serverHttp2Stream.respondWithFD(0, headers);
         serverHttp2Stream.respondWithFD(0, headers, options2);
-        serverHttp2Stream.respondWithFD(0, headers, {statCheck: () => false});
+        serverHttp2Stream.respondWithFD(0, headers, { statCheck: () => false });
         let options3: http2.ServerStreamFileResponseOptionsWithError = {
-            onError: (err: NodeJS.ErrnoException) => {},
-            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
-            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
+            onError: (err: NodeJS.ErrnoException) => { },
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => { },
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => { },
             offset: 0,
             length: 0
         };
         serverHttp2Stream.respondWithFile('');
         serverHttp2Stream.respondWithFile('', headers);
         serverHttp2Stream.respondWithFile('', headers, options3);
-        serverHttp2Stream.respondWithFile('', headers, {statCheck: () => false});
+        serverHttp2Stream.respondWithFile('', headers, { statCheck: () => false });
     }
 
     // Http2Server / Http2SecureServer
@@ -3573,14 +3590,14 @@ namespace http2_tests {
         let s1: net.Server = http2Server;
         let s2: tls.Server = http2SecureServer;
         [http2Server, http2SecureServer].forEach((server) => {
-            server.on('sessionError', (err: Error) => {});
-            server.on('checkContinue', (stream: http2.ServerHttp2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
-            server.on('stream', (stream: http2.ServerHttp2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
-            server.on('request', (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {});
-            server.on('timeout', () => {});
+            server.on('sessionError', (err: Error) => { });
+            server.on('checkContinue', (stream: http2.ServerHttp2Stream, headers: http2.IncomingHttpHeaders, flags: number) => { });
+            server.on('stream', (stream: http2.ServerHttp2Stream, headers: http2.IncomingHttpHeaders, flags: number) => { });
+            server.on('request', (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => { });
+            server.on('timeout', () => { });
         });
 
-        http2SecureServer.on('unknownProtocol', (socket: tls.TLSSocket) => {});
+        http2SecureServer.on('unknownProtocol', (socket: tls.TLSSocket) => { });
     }
 
     // Public API (except constants)
@@ -3588,16 +3605,14 @@ namespace http2_tests {
         let settings: http2.Settings;
         let serverOptions: http2.ServerOptions = {
             maxDeflateDynamicTableSize: 0,
-            maxReservedRemoteStreams: 0,
             maxSendHeaderBlockLength: 0,
             paddingStrategy: 0,
             peerMaxConcurrentStreams: 0,
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-            settings,
-            allowHTTP1: true
+            settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
-        let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
+        let secureServerOptions: http2.SecureServerOptions = Object.assign({ allowHttp1: true }, serverOptions);
         secureServerOptions.ca = '';
         let onRequestHandler = (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {
             // Http2ServerRequest
@@ -3613,8 +3628,8 @@ namespace http2_tests {
             let stream: http2.ServerHttp2Stream = request.stream;
             let url: string = request.url;
 
-            request.setTimeout(0, () => {});
-            request.on('aborted', (hadError: boolean, code: number) => {});
+            request.setTimeout(0, () => { });
+            request.on('aborted', (hadError: boolean, code: number) => { });
 
             // Http2ServerResponse
 
@@ -3638,8 +3653,8 @@ namespace http2_tests {
             response.setHeader('some-list', ['', '']);
             let headersSent: boolean = response.headersSent;
 
-            response.setTimeout(0, () => {});
-            response.createPushResponse(outgoingHeaders, (err: Error | null, res: http2.Http2ServerResponse) => {});
+            response.setTimeout(0, () => { });
+            response.createPushResponse(outgoingHeaders, (err: Error | null, res: http2.Http2ServerResponse) => { });
 
             response.writeContinue();
             response.writeHead(200);
@@ -3647,29 +3662,29 @@ namespace http2_tests {
             response.writeHead(200, 'OK', outgoingHeaders);
             response.writeHead(200, 'OK');
             response.write('');
-            response.write('', (err: Error) => {});
+            response.write('', (err: Error) => { });
             response.write('', 'utf8');
-            response.write('', 'utf8', (err: Error) => {});
+            response.write('', 'utf8', (err: Error) => { });
             response.write(Buffer.from([]));
-            response.write(Buffer.from([]), (err: Error) => {});
+            response.write(Buffer.from([]), (err: Error) => { });
             response.write(Buffer.from([]), 'utf8');
-            response.write(Buffer.from([]), 'utf8', (err: Error) => {});
+            response.write(Buffer.from([]), 'utf8', (err: Error) => { });
             response.end();
-            response.end(() => {});
+            response.end(() => { });
             response.end('');
-            response.end('', () => {});
+            response.end('', () => { });
             response.end('', 'utf8');
-            response.end('', 'utf8', () => {});
+            response.end('', 'utf8', () => { });
             response.end(Buffer.from([]));
-            response.end(Buffer.from([]), () => {});
+            response.end(Buffer.from([]), () => { });
             response.end(Buffer.from([]), 'utf8');
-            response.end(Buffer.from([]), 'utf8', () => {});
+            response.end(Buffer.from([]), 'utf8', () => { });
 
-            request.on('aborted', (hadError: boolean, code: number) => {});
-            request.on('close', () => {});
-            request.on('drain', () => {});
-            request.on('error', (error: Error) => {});
-            request.on('finish', () => {});
+            request.on('aborted', (hadError: boolean, code: number) => { });
+            request.on('close', () => { });
+            request.on('drain', () => { });
+            request.on('error', (error: Error) => { });
+            request.on('finish', () => { });
         };
 
         let http2Server: http2.Http2Server;
@@ -3685,7 +3700,7 @@ namespace http2_tests {
         http2SecureServer = http2.createSecureServer(onRequestHandler);
         http2SecureServer = http2.createSecureServer(secureServerOptions, onRequestHandler);
 
-        let clientSessionOptions: http2.ClientSessionOptions = {
+        let clientSessionOptions: http2.BaseConnectOptions = {
             maxDeflateDynamicTableSize: 0,
             maxReservedRemoteStreams: 0,
             maxSendHeaderBlockLength: 0,
@@ -3697,7 +3712,7 @@ namespace http2_tests {
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
         let secureClientSessionOptions: http2.SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
         secureClientSessionOptions.ca = '';
-        let onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
+        let onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => { };
 
         let serverHttp2Session: http2.ServerHttp2Session;
 
@@ -3716,7 +3731,7 @@ namespace http2_tests {
         clientHttp2Session = http2.connect('', clientSessionOptions, onConnectHandler);
         clientHttp2Session = http2.connect('', secureClientSessionOptions);
         clientHttp2Session = http2.connect('', secureClientSessionOptions, onConnectHandler);
-        clientHttp2Session.on('altsvc', (alt: string, origin: string, number: number) => {});
+        clientHttp2Session.on('altsvc', (alt: string, origin: string, number: number) => { });
 
         settings = http2.getDefaultSettings();
         settings = http2.getPackedSettings(settings);
@@ -3958,14 +3973,14 @@ namespace inspector_tests {
         session.disconnect();
 
         // Unknown post method
-        session.post('A.b', { key: 'value' }, (err, params) => {});
+        session.post('A.b', { key: 'value' }, (err, params) => { });
         // TODO: parameters are implicitly 'any' and need type annotation
-        session.post('A.b', (err: Error | null, params?: {}) => {});
+        session.post('A.b', (err: Error | null, params?: {}) => { });
         session.post('A.b');
         // Known post method
         const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
         session.post('Runtime.evaluate', parameter,
-            (err: Error, params: inspector.Runtime.EvaluateReturnType) => {});
+            (err: Error, params: inspector.Runtime.EvaluateReturnType) => { });
         session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
             const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails;
             const resultClassName: string = params.result.className;
@@ -3981,7 +3996,7 @@ namespace inspector_tests {
             const method: string = message.method;
             const pauseReason: string = message.params.reason;
         });
-        session.on('Debugger.resumed', () => {});
+        session.on('Debugger.resumed', () => { });
     }
 }
 
