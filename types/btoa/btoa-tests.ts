@@ -1,3 +1,3 @@
-import btoa from 'btoa'
+import btoa from 'btoa';
 
-btoa('foo')
+btoa('foo');

@@ -1,3 +1,3 @@
-import atob from 'atob'
+import atob from 'atob';
 
-atob('foo')
+atob('foo');
