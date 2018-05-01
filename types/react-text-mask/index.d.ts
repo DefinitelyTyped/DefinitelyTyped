@@ -4,35 +4,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import * as React from "react";
+import * as React from 'react';
 
-export type maskArray = Array<string | RegExp>;
+declare module 'react-text-mask' {
 
-export interface MaskedInputBaseProps {
-  mask?: maskArray | ((value: string) => maskArray);
+  export interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    mask?: maskArray | ((value: string) => maskArray);
 
-  guide?: boolean;
+    guide?: boolean;
 
-  placeholderChar?: string;
+    placeholderChar?: string;
 
-  keepCharPositions?: boolean;
+    keepCharPositions?: boolean;
 
-  pipe?: (conformedValue: string, config: any) => false | string | { value: string, indexesOfPipedChars: number[] };
+    pipe?: (conformedValue: string, config: any) => false | string | { value: string, indexesOfPipedChars: number[] };
 
-  showMask?: boolean;
+    showMask?: boolean;
+
+    render: (ref: HTMLInputElement, props: any) => JSX.Element;
+
+  }
 }
-
-export interface MaskedInputProps extends MaskedInputBaseProps, React.InputHTMLAttributes<HTMLInputElement> {
-  render?: (ref: HTMLInputElement, props: MaskedInputBaseProps) => JSX.Element;
-}
-
-export interface conformToMaskResult {
-  conformedValue: string;
-  meta: {
-    someCharsRejected: boolean
-  };
-}
-
-export default class MaskedInput extends React.Component<MaskedInputProps, any> {}
-
-export function conformToMask(text: string, mask: maskArray, config: any): conformToMaskResult;
