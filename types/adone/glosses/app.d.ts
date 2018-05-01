@@ -1,5 +1,5 @@
 declare namespace adone {
-    namespace application {
+    namespace app {
         namespace I {
             type ArgumentType = ((x: string, index: number) => any) | RegExp;
 
@@ -12,7 +12,7 @@ declare namespace adone {
                     | "append"
                     | "count"
                     | "set";
-                nargs?: number | "+" | "*" | "?"
+                nargs?: number | "+" | "*" | "?";
                 type?: ArgumentType | ArgumentType[];
                 verify?: (args: any, opts: any) => boolean; // TODO
                 required?: boolean;
@@ -49,7 +49,7 @@ declare namespace adone {
                 name?: string;
                 description?: string;
                 subsystems?: SubsystemInfo[];
-                commandsGroups?: Group[]
+                commandsGroups?: Group[];
             }
 
             interface SubsystemInfo {
@@ -71,24 +71,24 @@ declare namespace adone {
 
         namespace I {
             interface LoadSubsystemOptions {
-                name?: string,
-                description?: string,
-                group?: string,
-                transpile?: boolean
+                name?: string;
+                description?: string;
+                group?: string;
+                transpile?: boolean;
             }
 
             interface CommonAddSubsystemInfo {
-                name?: string,
-                useFilename?: boolean
-                description?: string,
-                group?: string,
-                configureArgs?: any[]
-                transpile?: boolean,
-                bind?: boolean | string
+                name?: string;
+                useFilename?: boolean;
+                description?: string;
+                group?: string;
+                configureArgs?: any[];
+                transpile?: boolean;
+                bind?: boolean | string;
             }
 
             interface AddSubsystemInfo extends CommonAddSubsystemInfo {
-                subsystem: Subsystem | string,
+                subsystem: Subsystem | string;
             }
 
             interface SysInfo {
@@ -109,7 +109,7 @@ declare namespace adone {
             }
 
             interface AddSubsystemsFromOptions extends CommonAddSubsystemInfo {
-                filter?: string[] | ((file: string) => boolean | Promise<boolean>)
+                filter?: string[] | ((file: string) => boolean | Promise<boolean>);
             }
         }
 
@@ -211,25 +211,22 @@ declare namespace adone {
             _rejectionHandled(p: Promise<any>): void;
 
             _signalExit(sigName: string): void;
-
         }
 
         namespace I {
             interface Command {
-                // ?
+                names: string[];
+                // TODO
             }
 
             interface Argument {
-                // ?
+                names: string[];
+                // TODO
             }
 
-            interface PositionalArgument extends Argument {
-                // ?
-            }
+            type PositionalArgument = Argument; // TODO
 
-            interface OptionalArgument extends Argument {
-                // ?
-            }
+            type OptionalArgument = Argument; // TODO
 
             interface DefineCommandFromSubsystemOptions {
                 name?: string;
