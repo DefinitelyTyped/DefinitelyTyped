@@ -3,9 +3,7 @@
 // Definitions by: AryloYeung <https://github.com/Arylo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-
 /// <reference types="node" />
-
 interface KeyvOptions {
     /** Namespace for the current instance. */
     namespace?: string;
@@ -45,7 +43,7 @@ declare class Keyv extends NodeJS.EventEmitter {
      *
      * By default keys are persistent. You can set an expiry TTL in milliseconds.
      */
-    set(key: string, value: any, ttl?: number): Promise<boolean>;
+    set(key: string, value: any, ttl?: number): (Promise<boolean> | undefined);
     /**
      * Deletes an entry.
      *
