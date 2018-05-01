@@ -83,7 +83,6 @@ $(".foo").chips("addChip", {
     tag: '',
     image: ''
 });
-<<<<<<< HEAD
 $(".foo").chips("deleteChip", 2);
 $(".foo").chips("selectChip", 2);
 // datepicker
@@ -107,42 +106,3 @@ $(".foo").formSelect("destroy");
 // charactercounter
 $(".foo").characterCounter();
 $(".foo").characterCounter("destroy");
-=======
-$(".whatever").autocomplete("updateData", { Microsoft: null });
-
-$(".whatever").tooltip();
-$(".whatever").tooltip({ html: "<img/>" });
-$(".whatever").tooltip("open");
-$(".whatever").tooltip("destroy");
-
-$(".whatever").floatingActionButton();
-$(".whatever").floatingActionButton({ direction: "left" });
-$(".whatever").floatingActionButton("open");
-$(".whatever").floatingActionButton("destroy");
-
-// Toast can not be invoked using jQuery.
-
-$(".whatever").datepicker();
-$(".whatever").datepicker({ defaultDate: new Date() });
-$(".whatever").datepicker("open");
-$(".whatever").datepicker("destroy");
-$(".whatever").datepicker("setDate", new Date());
-$(".whatever").datepicker("gotoDate", new Date());
-
-$(".whatever").timepicker();
-$(".whatever").timepicker({ defaultTime: "13:14" });
-$(".whatever").timepicker("open");
-$(".whatever").timepicker("destroy");
-$(".whatever").timepicker("showView", "hours");
-
-$(".whatever").formSelect();
-$(".whatever").formSelect({ classes: "whatever" });
-$(".whatever").formSelect("destroy");
-
-$(".whatever").dropdown();
-$(".whatever").dropdown({ alignment: "left" });
-$(".whatever").dropdown("open");
-$(".whatever").dropdown("close");
-$(".whatever").dropdown("destroy");
-$(".whatever").dropdown("recalculateDimensions");
->>>>>>> d010c2aeab88ecc300eac377ef653fbf721ab188
