@@ -1,6 +1,8 @@
 // Type definitions for materialize-css 1.0
 // Project: http://materializecss.com/
-// Definitions by:  胡玮文 <https://github.com/huww98>, Maxim Balaganskiy <https://github.com/MaximBalaganskiy>
+// Definitions by:	胡玮文 <https://github.com/huww98>
+//					Maxim Balaganskiy <https://github.com/MaximBalaganskiy>
+//					David Moniz <https://github.com/MonizDave>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -122,7 +124,7 @@ declare global {
             outDuration: number;
 
             /**
-             * Callback function called before collapsible is opene
+             * Callback function called before collapsible is opened
              */
             onOpenStart: (this: Collapsible, elem: Element) => void;
 
