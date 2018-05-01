@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-import { EscapeCode } from './EscapeCode';
+import { EscapeCode } from './escape-code';
 
 
 export const reset: EscapeCode.CodePair;

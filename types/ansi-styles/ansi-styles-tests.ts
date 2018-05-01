@@ -1,8 +1,7 @@
-import { EscapeCode } from './EscapeCode';
+import { EscapeCode } from './escape-code';
 import AnsiStyles = require('ansi-styles');
 
-let
-    ansiStyles = AnsiStyles as any,
+let ansiStyles = AnsiStyles as any,
     nsNames = ['modifier', 'color', 'bgColor'],
     namespaces = {
         modifier: ['reset', 'bold', 'dim', 'italic', 'underline', 'inverse', 'hidden', 'strikethrough'],
@@ -19,28 +18,31 @@ let
 
 
 checkStyle(ansiStyles, styles);
-nsNames.map(ns => checkStyle(ansiStyles[ns], namespaces[ns]));
+nsNames.forEach(ns => checkStyle(ansiStyles[ns], namespaces[ns]));
 
 checkIsMap(ansiStyles[codesMap], `ansiStyles.${codesMap} not a Map.`);
-nsNames.map(ns => checkExist(ansiStyles[ns], `ansiStyles.${ns} is not exist.`));
+nsNames.forEach(ns => checkExist(ansiStyles[ns], `ansiStyles.${ns} is not exist.`));
 
-['color', 'bgColor'].map(ns => checkConverter(ns, ansiStyles[ns], colorFormats));
+['color', 'bgColor'].forEach(ns => checkConverter(ns, ansiStyles[ns], colorFormats));
 
 
 function checkStyle(namespace: any, styles: string[]) {
-    styles.map(s => checkCodePair(s, namespace[s]));
+    styles.forEach(s => checkCodePair(s, namespace[s]));
 }
 function checkCodePair(styleName: string, pair: any): void {
-    codePair.map(p => checkExist(pair[p], `${styleName}.${p} is not exist.`));
+    codePair.forEach(p => checkIsString(pair[p], `${styleName}.${p} is not a string.`));
 }
 
 function checkConverter(nsName: string, namespace: any, formats: string[]) {
-    formats.map(f => codeTypes.map(t => checkIsFunction(namespace[t][f], `ansiStyles.${nsName}.${t}.${f} is not a function.`)));
-    checkExist(namespace.close, `${namespace}.close is not exist.`);
+    formats.forEach(f => codeTypes.forEach(t => checkIsFunction(namespace[t][f], `ansiStyles.${nsName}.${t}.${f} is not a function.`)));
+    checkIsString(namespace.close, `${namespace}.close is not a string.`);
 }
 
 function checkExist(val: any, failMsg: string): void {
     if (val == null) throw new Error(failMsg);
+}
+function checkIsString(val: any, failMsg: string): void {
+    if(typeof val != 'string') throw new Error(failMsg);
 }
 function checkIsFunction(fn: any, failMsg: string): void {
     if (typeof fn != 'function') throw new Error(failMsg);

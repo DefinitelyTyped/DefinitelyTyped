@@ -66,8 +66,8 @@ export namespace EscapeCode {
         bgWhiteBright: CodePair;
     }
 
-    interface EscapeCodeFromColorFormats {
-        ansi: (ansi: string) => string
+    interface Conversions {
+        ansi: (ansi: number) => string
         rgb: (r: number, g: number, b: number) => string
         hsl: (h: number, s: number, l: number) => string
         hsv: (h: number, s: number, v: number) => string
@@ -81,7 +81,7 @@ export namespace EscapeCode {
          * color keyword in css to ansi code
          */
         keyword: (keyword: keyof typeof cssKeywords) => string
-        ansi256: (ansi256: string) => string
+        ansi256: (ansi256: number) => string
         hcg: (h: number, c: number, g: number) => string
         /**
          * apple RGB to ansi code
@@ -93,14 +93,14 @@ export namespace EscapeCode {
         /**
          * 16 color ansi code
          */
-        ansi: EscapeCodeFromColorFormats
+        ansi: Conversions
         /**
          * 256 color ansi code
          */
-        ansi256: EscapeCodeFromColorFormats
+        ansi256: Conversions
         /**
-         * truecolor(16 million color) code
+         * truecolor(16 million color) ansi code
          */
-        ansi16m: EscapeCodeFromColorFormats
+        ansi16m: Conversions
     }
 }
