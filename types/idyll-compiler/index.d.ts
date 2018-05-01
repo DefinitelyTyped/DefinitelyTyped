@@ -7,7 +7,7 @@
 export type PropType = "variable" | "value" | "expression";
 export type PropData = string | number | boolean;
 export type PropKey = string;
-export type PropValue = [PropType, PropData]; // [valueType, value ]
+export type PropValue = [PropType, PropData];
 export type Property = [PropKey, PropValue];
 type __RecursiveNode<T> = [string, Property[], T[]];
 export interface TreeNode extends __RecursiveNode<Node> {}
