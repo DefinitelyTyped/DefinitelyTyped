@@ -11,5 +11,5 @@ async () => {
   } catch (error) {
     throw error;
   }
-  await Keychain.resetGenericPassword()
-}
+  await Keychain.resetGenericPassword();
+};

@@ -1,6 +1,30 @@
-declare module 'react-native-keychain' {
+// Type definitions for react-native-keychain 3.0
+// Project: https://github.com/oblador/react-native-keychain
+// Definitions by: David Evans Farinha <https://github.com/DavidFarinha>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-    type SecAccessible =
+export interface UserCredentials {
+    username: string;
+    password: string;
+}
+
+export interface SharedWebCredentials {
+    server: string;
+    username: string;
+    password: string;
+}
+
+export interface Options {
+    accessControl?: SecAccessControl;
+    accessGroup?: string;
+    accessible?: SecAccessible;
+    authenticationPrompt?: string;
+    authenticationType?: LAPolicy;
+    service?: string;
+}
+
+export type SecAccessible =
     'AccessibleWhenUnlocked'
     | 'AccessibleAfterFirstUnlock'
     | 'AccessibleAlways'
@@ -8,8 +32,8 @@ declare module 'react-native-keychain' {
     | 'AccessibleWhenUnlockedThisDeviceOnly'
     | 'AccessibleAfterFirstUnlockThisDeviceOnly'
     | 'AccessibleAlwaysThisDeviceOnly';
-    
-    type SecAccessControl =
+
+export type SecAccessControl =
     'UserPresence'
     | 'BiometryAny'
     | 'BiometryCurrentSet'
@@ -17,65 +41,44 @@ declare module 'react-native-keychain' {
     | 'ApplicationPassword'
     | 'BiometryAnyOrDevicePasscode'
     | 'BiometryCurrentSetOrDevicePasscode';
-  
-    type LAPolicy = 'Authentication' | 'AuthenticationWithBiometrics';
 
-    export interface Options {
-        accessControl?: SecAccessControl,
-        accessGroup?: string,
-        accessible?: SecAccessible,
-        authenticationPrompt?: string,
-        authenticationType?: LAPolicy,
-        service?: string,
-    }
+export type LAPolicy = 'Authentication' | 'AuthenticationWithBiometrics';
 
-    export interface UserCredentials {
-        username: string;
-        password: string;
-    }
+export function setInternetCredentials(
+    server: string,
+    username: string,
+    password: string
+): Promise<boolean>;
 
-    export interface SharedWebCredentials {
-        server: string;
-        username: string;
-        password: string;
-    }
+export function getInternetCredentials(
+    server: string
+): Promise<UserCredentials>;
 
-    function setInternetCredentials(
-        server: string,
-        username: string,
-        password: string
-    ): Promise<boolean>;
+export function resetInternetCredentials(
+    server: string
+): Promise<boolean>;
 
-    function getInternetCredentials(
-        server: string
-    ): Promise<UserCredentials>;
+export function setGenericPassword(
+    username: string,
+    password: string,
+    service?: string
+): Promise<boolean>;
 
-    function resetInternetCredentials(
-        server: string
-    ): Promise<boolean>;
+export function getGenericPassword(
+    service?: string
+): Promise<string>;
 
-    function setGenericPassword(
-        username: string,
-        password: string,
-        service?: string
-    ): Promise<boolean>;
+export function resetGenericPassword(
+    serviceOrOptions?: string | Options
+): Promise<string>;
 
-    function getGenericPassword(
-        service?: string
-    ): Promise<string>;
+export function requestSharedWebCredentials(
+): Promise<SharedWebCredentials>;
 
-    function resetGenericPassword(
-        serviceOrOptions?: string | Options
-    ): Promise<string>;
-
-    function requestSharedWebCredentials(
-    ): Promise<SharedWebCredentials>;
-
-    function setSharedWebCredentials(
-        server: string,
-        username: string,
-        password: string
-    ): Promise<boolean>;
-}
+export function setSharedWebCredentials(
+    server: string,
+    username: string,
+    password: string
+): Promise<boolean>;
 
 // Definitions by: David Evans Farinha <https://github.com/DavidFarinha>
