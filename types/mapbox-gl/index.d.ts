@@ -413,6 +413,7 @@ declare namespace mapboxgl {
      */
     export class GeolocateControl extends Control {
         constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean });
+        trigger(): boolean;
     }
 
     /**
