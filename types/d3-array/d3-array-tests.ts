@@ -41,11 +41,13 @@ class MixedObject {
 
 let num: number;
 let undef: undefined;
+let mixedObject: MixedObject;
 
 let numOrUndefined: number | undefined;
 let strOrUndefined: string | undefined;
 let numericOrUndefined: NumCoercible | undefined;
 let dateOrUndefined: Date | undefined;
+let mixedObjectOrUndefined: MixedObject | undefined;
 let numOrUndefinedExtent: [number, number] | [undefined, undefined];
 let strOrUndefinedExtent: [string, string] | [undefined, undefined];
 let numericOrUndefinedExtent: [NumCoercible, NumCoercible] | [undefined, undefined];
@@ -647,89 +649,221 @@ defaultHistogram = d3Array.histogram();
 
 // value(...) ------------------------------------------------------------------
 
-histoMixedObject_Date = histoMixedObject_Date.value((d, i, data) => {
-    const datum: MixedObject = d;
-    const index: number = i;
-    const array: ArrayLike<MixedObject> = data;
-    return datum.date;
-});
-
 let valueAccessorFn: (d: MixedObject, i: number, data: MixedObject[]) => Date;
 valueAccessorFn = histoMixedObject_Date.value();
 
+type valueAccessor<D, V> = (d: D, i: number, data: D[]) => V;
+
+// number - number
+const valueFnNumber_Number: valueAccessor<number, number> = histoNumber_Number.value();
+histoNumber_Number = histoNumber_Number.value((d: number, i: number, data: number[]) => {
+    return d - num;
+});
+
+// MixedObject - number | undefined
+const valueFnMixedObject_NumberOrUndefined: valueAccessor<MixedObject, number | undefined> = histoMixed_NumberOrUndefined.value();
+histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.value((d: MixedObject, i: number, data: MixedObject[]) => {
+    return d.str === "NA" ? undefined : d.num;
+});
+
+// MixedObject | undefined - number | undefined
+const valueFnMixedOrUndefined_NumberOrUndefined: valueAccessor<MixedObject | undefined, number | undefined> = histoMixedOrUndefined_NumberOrUndefined.value();
+histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.value((d: MixedObject | undefined, i: number, data: Array<MixedObject | undefined>) => {
+    return d ? d.num : undefined;
+});
+
+// MixedObject | undefined - number
+const valueFnMixedOrUndefined_Number: valueAccessor<MixedObject | undefined, number> = histoMixedOrUndefined_Number.value();
+histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.value((d: MixedObject | undefined, i: number, data: Array<MixedObject | undefined>) => {
+    return d ? d.num : 0;
+});
+
+// MixedObject - Date
+const valueFnMixedObject_Date: valueAccessor<MixedObject, Date> = histoMixedObject_Date.value();
+histoMixedObject_Date = histoMixedObject_Date.value((d: MixedObject, i: number, data: MixedObject[]) => {
+    return d.date;
+});
+
+// MixedObject - Date | undefined
+const valueFnMixedObject_DateOrUndefined: valueAccessor<MixedObject, Date | undefined> = histoMixedObject_DateOrUndefined.value();
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.value((d: MixedObject, i: number, data: MixedObject[]) => {
+    return d.date;
+});
+
 // domain(...) -----------------------------------------------------------------
 
-// test with array
-histoMixedObject_Date = histoMixedObject_Date.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
-
-// usage with scale domain:
 const domain = timeScale.domain();
+let domainFnNumber: (array: number[]) => [number, number] | [undefined, undefined];
+let domainFnNumberOrUndef: (array: Array<number | undefined>) => [number, number] | [undefined, undefined];
+let domainFnDate: (values: Date[]) => [Date, Date];
 
+// number - number
+domainFnNumber = histoNumber_Number.domain();
+histoNumber_Number = histoNumber_Number.domain([0, 100]);
+histoNumber_Number = histoNumber_Number.domain(d3Array.extent);
+
+// MixedObject - number | undefined
+domainFnNumber = histoNumber_Number.domain();
+histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.domain([0, 100]);
+histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.domain(d3Array.extent);
+
+// MixedObject | undefined - number | undefined
+domainFnNumberOrUndef = histoMixedOrUndefined_NumberOrUndefined.domain();
+histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.domain([0, 100]);
+histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.domain(d3Array.extent);
+
+// MixedObject | undefined - number
+domainFnNumber = histoMixedOrUndefined_Number.domain();
+histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.domain([0, 100]);
+histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.domain(d3Array.extent);
+
+// MixedObject - Date
+domainFnDate = histoMixedObject_Date.domain();
+histoMixedObject_Date = histoMixedObject_Date.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 histoMixedObject_Date = histoMixedObject_Date.domain([domain[0], domain[domain.length]]);
+histoMixedObject_Date = histoMixedObject_Date.domain((values) => [values[0], values[values.length]]);
 // $ExpectError
 histoMixedObject_Date = histoMixedObject_Date.domain(timeScale.domain()); // fails, as scale domain is an array with possibly more than the two elements expected by histogram
 
-// use with accessor function
-histoMixedObject_Date = histoMixedObject_Date.domain(values => [values[0], values[values.length]]);
-
-histoNumber_Number = histoNumber_Number.domain(d3Array.extent);
-
-// get current domain accessor function
-let domainAccessorFn: (values: number[]) => [number, number] | [undefined, undefined];
-domainAccessorFn = histoNumber_Number.domain();
-
-let dateDomainAccessorFn: (values: Date[]) => [Date, Date];
-dateDomainAccessorFn = histoMixedObject_Date.domain();
+// MixedObject - Date | undefined
+domainFnDate = histoMixedObject_Date.domain();
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([domain[0], domain[domain.length]]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) =>  [values[0]!, values[values.length]!]);
 
 // thresholds(...) -------------------------------------------------------------
 
-// with count constant
+type thresholdsWithUndefinedCont = d3Array.ThresholdCountGenerator<number | undefined>;
+type thresholdsWithUndefinedArray = d3Array.ThresholdArrayGenerator<number | undefined>;
+
+let thresholds: d3Array.ThresholdCountGenerator<number> | d3Array.ThresholdArrayGenerator<number>;
+let thresholdsWithUndefined: thresholdsWithUndefinedCont | thresholdsWithUndefinedArray;
+const thresholdsArray: d3Array.ThresholdArrayGenerator<number> = (x) => [5, 10, 20];
+let thresholdsDate: d3Array.ThresholdArrayGenerator<Date>;
+let thresholdsDateOrUndefined: d3Array.ThresholdArrayGenerator<Date | undefined>;
+
+// number - number
+thresholds = histoNumber_Number.thresholds();
 histoNumber_Number = histoNumber_Number.thresholds(3);
-
-// with threshold count generator
+histoNumber_Number = histoNumber_Number.thresholds([5, 10, 20]);
 histoNumber_Number = histoNumber_Number.thresholds(d3Array.thresholdScott);
+histoNumber_Number = histoNumber_Number.thresholds(thresholdsArray);
 
-// with thresholds value array
+// MixedObject - number | undefined
+thresholdsWithUndefined = histoMixed_NumberOrUndefined.thresholds();
+histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.thresholds(3);
+histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.thresholds([5, 10, 20]);
+histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.thresholds(d3Array.thresholdScott);
 
+// MixedObject | undefined - number | undefined
+thresholdsWithUndefined = histoMixedOrUndefined_NumberOrUndefined.thresholds();
+histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.thresholds(3);
+histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.thresholds([5, 10, 20]);
+histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.thresholds(d3Array.thresholdScott);
+
+// MixedObject | undefined - number
+thresholdsWithUndefined = histoMixedOrUndefined_Number.thresholds();
+histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.thresholds(5);
+histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.thresholds([5, 10, 20]);
+histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.thresholds(d3Array.thresholdSturges);
+
+// MixedObject - Date
+thresholdsDate = histoMixedObject_Date.thresholds();
 histoMixedObject_Date = histoMixedObject_Date.thresholds([new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
-
-// with thresholds value array accessors
+histoMixedObject_Date = histoMixedObject_Date.thresholds(timeScale.ticks(timeYear));
 histoMixedObject_Date = histoMixedObject_Date.thresholds((values: Date[], min: Date, max: Date) => {
-    let thresholds: Date[];
-    thresholds = [values[0], values[2], values[4]];
+    const thresholds: Date[] = [values[0], values[2], values[4]];
+    return thresholds;
+});
+// $ExpectError
+histoMixedObject_Date = histoMixedObject_Date.thresholds(d3Array.thresholdScott);
+
+// MixedObject - Date | undefined
+thresholdsDateOrUndefined = histoMixedObject_DateOrUndefined.thresholds();
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds([new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds(timeScale.ticks(timeYear));
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds((values: Date[], min: Date, max: Date) => {
+    const thresholds: Date[] = [values[0], values[2], values[4]];
     return thresholds;
 });
 
-histoMixedObject_Date = histoMixedObject_Date.thresholds(timeScale.ticks(timeYear));
-
 // Use histogram generator =====================================================
 
-numbersArray = [-1, 0, 1, 1, 3, 20, 234];
-
-let defaultBins: Array<d3Array.Bin<number, number>>;
-defaultBins = histoNumber_Number(numbersArray);
-
-let defaultBin: d3Array.Bin<number, number>;
-defaultBin = defaultBins[0];
-
-num = defaultBin.length; // defaultBin is array
-num = defaultBin[0]; // with element type number
-numOrUndefined = defaultBin.x0;
-numOrUndefined = defaultBin.x1;
-
-let testBins: Array<d3Array.Bin<MixedObject, Date>>;
-testBins = histoMixedObject_Date(mixedObjectArray);
-testBins = histoMixedObject_Date(readonlyMixedObjectArray);
-
-let testBin: d3Array.Bin<MixedObject, Date>;
-testBin = testBins[0];
-
-num = testBin.length; // defaultBin is array
-const mixedObject: MixedObject = testBin[0]; // with element type MixedObject
-dateOrUndefined = testBin.x0;
-dateOrUndefined = testBin.x1;
-
 undef = d3Array.histogram()([])[0].x0 as undefined;
+undef = d3Array.histogram<number | undefined, number | undefined>()([undefined])[0].x0 as undefined;
+
+// number - number
+let binsNumber_Number: Array<d3Array.Bin<number, number>>;
+binsNumber_Number = histoNumber_Number([-1, 0, 1, 1, 3, 20, 234]);
+
+let binNumber_Number: d3Array.Bin<number, number>;
+binNumber_Number = binsNumber_Number[0];
+
+num = binNumber_Number.length;
+num = binNumber_Number[0];
+numOrUndefined = binNumber_Number.x0;
+numOrUndefined = binNumber_Number.x1;
+
+// MixedObject - number | undefined
+let binsNumberMixed_NumberOrUndefined: Array<d3Array.Bin<MixedObject, number | undefined>>;
+binsNumberMixed_NumberOrUndefined = histoMixed_NumberOrUndefined(mixedObjectArray);
+
+let binNumberMixed_NumberOrUndefined: d3Array.Bin<MixedObject, number | undefined>;
+binNumberMixed_NumberOrUndefined = binsNumberMixed_NumberOrUndefined[0];
+
+num = binNumberMixed_NumberOrUndefined.length;
+mixedObject = binNumberMixed_NumberOrUndefined[0];
+numOrUndefined = binNumberMixed_NumberOrUndefined.x0;
+numOrUndefined = binNumberMixed_NumberOrUndefined.x1;
+
+// MixedObject | undefined - number | undefined
+let binsNumberMixedOrUndefined_NumberOrUndefined: Array<d3Array.Bin<MixedObject | undefined, number | undefined>>;
+binsNumberMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined(mixedObjectArray);
+
+let binNumberMixedOrUndefined_NumberOrUndefined: d3Array.Bin<MixedObject | undefined, number | undefined>;
+binNumberMixedOrUndefined_NumberOrUndefined = binsNumberMixedOrUndefined_NumberOrUndefined[0];
+
+num = binNumberMixedOrUndefined_NumberOrUndefined.length;
+mixedObjectOrUndefined = binNumberMixedOrUndefined_NumberOrUndefined[0];
+numOrUndefined = binNumberMixedOrUndefined_NumberOrUndefined.x0;
+numOrUndefined = binNumberMixedOrUndefined_NumberOrUndefined.x1;
+
+// MixedObject | undefined - number
+let binsNumberMixedOrUndefined_Number: Array<d3Array.Bin<MixedObject | undefined, number>>;
+binsNumberMixedOrUndefined_Number = histoMixedOrUndefined_Number(mixedObjectArray);
+
+let binNumberMixedOrUndefined_Number: d3Array.Bin<MixedObject | undefined, number>;
+binNumberMixedOrUndefined_Number = binsNumberMixedOrUndefined_Number[0];
+
+num = binNumberMixedOrUndefined_Number.length;
+mixedObjectOrUndefined = binNumberMixedOrUndefined_Number[0];
+numOrUndefined = binNumberMixedOrUndefined_Number.x0;
+numOrUndefined = binNumberMixedOrUndefined_Number.x1;
+
+// MixedObject - Date
+let binsMixedObject_Date: Array<d3Array.Bin<MixedObject, Date>>;
+binsMixedObject_Date = histoMixedObject_Date(mixedObjectArray);
+binsMixedObject_Date = histoMixedObject_Date(readonlyMixedObjectArray);
+
+let binMixedObject_Date: d3Array.Bin<MixedObject, Date>;
+binMixedObject_Date = binsMixedObject_Date[0];
+
+num = binMixedObject_Date.length;
+mixedObject = binMixedObject_Date[0];
+dateOrUndefined = binMixedObject_Date.x0;
+dateOrUndefined = binMixedObject_Date.x1;
+
+// MixedObject - Date | undefined
+let binsMixedObject_DateOrUndefined: Array<d3Array.Bin<MixedObject, Date | undefined>>;
+binsMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined(mixedObjectArray);
+
+let binMixedObject_DateOrUndefined: d3Array.Bin<MixedObject, Date | undefined>;
+binMixedObject_DateOrUndefined = binsMixedObject_DateOrUndefined[0];
+
+num = binMixedObject_DateOrUndefined.length;
+mixedObject = binMixedObject_DateOrUndefined[0];
+dateOrUndefined = binMixedObject_DateOrUndefined.x0;
+dateOrUndefined = binMixedObject_DateOrUndefined.x1;
 
 // Histogram Tresholds =========================================================
 

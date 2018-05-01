@@ -45,7 +45,7 @@ const thresholdArrayGen: ThresholdArrayGenerator<number> = (values: ArrayLike<nu
     return thresholds;
 };
 
-let thresholdGenerator: ThresholdArrayGenerator<number> | ThresholdCountGenerator;
+let thresholdGenerator: ThresholdArrayGenerator<number> | ThresholdCountGenerator<number>;
 let pathStringMaybe: string | null;
 let num: number;
 
