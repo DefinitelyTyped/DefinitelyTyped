@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.7
+// Type definitions for auth0 2.9.1
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -345,6 +345,14 @@ export interface Identity {
   user_id: string;
   provider: string;
   isSocial: boolean;
+  profileData?: {
+    email?: string;
+    email_verified?: boolean;   
+    name?: string;
+    phone_number?: string;
+    phone_verified?: boolean;
+    request_language?: string;
+  }
 }
 
 export interface AuthenticationClientOptions {
@@ -462,7 +470,7 @@ export interface UnlinkAccountsResponse {
   profileData?: UnlinkAccountsResponseProfile
 }
 
-export interface LinkAccountsData {
+export interface LinkAccountsParams {
   user_id: string;
   connection_id?: string;
   provider?: string;
@@ -664,8 +672,8 @@ export class ManagementClient {
   unlinkUsers(params: UnlinkAccountsParams): Promise<UnlinkAccountsResponse>;
   unlinkUsers(params: UnlinkAccountsParams, cb: (err: Error, data: UnlinkAccountsResponse) => void): void;
 
-  linkUsers(params: ObjectWithId, data: LinkAccountsData): Promise<any>;
-  linkUsers(params: ObjectWithId, data: LinkAccountsData, cb: (err: Error, data: any) => void): void;
+  linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
+  linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
 
 
   // Tokens

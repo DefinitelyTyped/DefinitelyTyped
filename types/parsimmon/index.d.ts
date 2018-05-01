@@ -61,6 +61,10 @@ declare namespace Parsimmon {
 		value: T;
 	}
 
+	interface Node<Name extends string, T> extends Mark<T> {
+		name: Name;
+	}
+
 	type Result<T> = Success<T> | Failure;
 
 	interface Success<T> {
@@ -126,7 +130,7 @@ declare namespace Parsimmon {
 		 * returns wrapper(this) from the parser. Useful for custom functions used
 		 * to wrap your parsers, while keeping with Parsimmon chaining style.
 		 */
-		thru<U>(call: (wrapper: Parser<U>) => Parser<T>): Parser<T>;
+		thru<U>(call: (wrapper: Parser<T>) => Parser<U>): Parser<U>;
 		/**
 		 * expects anotherParser before and after parser, yielding the result of parser
 		 */
@@ -181,9 +185,15 @@ declare namespace Parsimmon {
 		 */
 		atLeast(n: number): Parser<T[]>;
 		/**
-		 * returns a new parser whose failure message is the passed description.
+		 * Yields an object with `start`, `value`, and `end` keys, where `value` is the original
+		 * value yielded by the parser, and `start` and `end` indicate the `Index` objects representing
+		 * the range of the parse result.
 		 */
 		mark(): Parser<Mark<T>>;
+		/**
+		 * Like `mark()`, but yields an object with an additional `name` key to use as an AST.
+		 */
+		node<Name extends string>(name: Name): Parser<Node<Name, T>>;
 		/**
 		 * Returns a new parser whose failure message is description.
 		 * For example, string('x').desc('the letter x') will indicate that 'the letter x' was expected.

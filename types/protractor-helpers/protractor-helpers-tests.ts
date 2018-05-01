@@ -1,3 +1,5 @@
+/// <reference types="jasmine" />
+
 import helpers = require('protractor-helpers');
 import * as webdriver from "selenium-webdriver";
 

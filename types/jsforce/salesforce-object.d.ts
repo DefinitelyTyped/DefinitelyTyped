@@ -7,6 +7,7 @@ import { Record, RecordReference } from './record';
 import { RecordResult } from './record-result';
 import { Connection } from './connection';
 import { SalesforceId } from './salesforce-id';
+import { Batch, BatchResultInfo } from './batch';
 
 export class SObject<T> {
     record(id: SalesforceId): RecordReference<T>;
@@ -61,9 +62,6 @@ export interface ApprovalLayoutInfo {
     approvalLayouts: Object[];
 }
 
-export class Batch extends stream.Writable {
-}
-
 export interface CompactLayoutInfo {
     compactLayouts: Object[];
     defaultCompactLayoutId: string;
@@ -86,19 +84,6 @@ export interface LayoutInfo {
 
 export class ListView {
     constructor(connection: Connection, type: string, id: SalesforceId)
-}
-
-export interface BatchInfo {
-    id: string;
-    jobId: string;
-    state: string;
-    stateMessage: string;
-}
-
-export interface BatchResultInfo {
-    id: string;
-    batchId: string;
-    jobId: string;
 }
 
 export class ListViewsInfo { }

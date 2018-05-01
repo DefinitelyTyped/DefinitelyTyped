@@ -101,6 +101,29 @@ declare namespace AceAjax {
         transformAction(state: any, action: any, editor: any, session: any, param: any): any;
     }
 
+    export interface OptionProvider {
+
+        /**
+         * Sets a Configuration Option
+        **/
+        setOption(optionName: string, optionValue: any): void;
+
+        /**
+         * Sets Configuration Options
+        **/
+        setOptions(keyValueTuples: any): void;
+
+        /**
+         * Get a Configuration Option
+        **/
+        getOption(name: string):any;
+
+        /**
+         * Get Configuration Options
+        **/
+        getOptions():any;
+    }
+
     ////////////////
     /// Ace
     ////////////////
@@ -495,7 +518,7 @@ declare namespace AceAjax {
      * Stores all the data about [[Editor `Editor`]] state providing easy way to change editors state.
      * `EditSession` can be attached to only one [[Document `Document`]]. Same `Document` can be attached to several `EditSession`s.
     **/
-    export interface IEditSession {
+    export interface IEditSession extends OptionProvider {
 
         selection: Selection;
 
@@ -1074,7 +1097,7 @@ declare namespace AceAjax {
      * The `Editor` manages the [[EditSession]] (which manages [[Document]]s), as well as the [[VirtualRenderer]], which draws everything to the screen.
      * Event sessions dealing with the mouse and keyboard are bubbled up from `Document` to the `Editor`, which decides what to do with them.
     **/
-    export interface Editor {
+    export interface Editor extends OptionProvider {
 
         on(ev: string, callback: (e: any) => any): void;
 
@@ -1112,26 +1135,6 @@ declare namespace AceAjax {
         onChangeMode(e?: any): void;
 
         execCommand(command:string, args?: any): void;
-
-        /**
-         * Sets a Configuration Option
-         **/
-        setOption(optionName: any, optionValue: any): void;
-
-        /**
-         * Sets Configuration Options
-         **/
-        setOptions(keyValueTuples: any): void;
-
-        /**
-         * Get a Configuration Option
-         **/
-        getOption(name: any):any;
-
-        /**
-         * Get Configuration Options
-         **/
-        getOptions():any;
 
         /**
          * Get rid of console warning by setting this to Infinity
@@ -2692,7 +2695,7 @@ declare namespace AceAjax {
     /**
      * The class that is responsible for drawing everything you see on the screen!
     **/
-    export interface VirtualRenderer {
+    export interface VirtualRenderer extends OptionProvider {
 
         scroller: any;
 

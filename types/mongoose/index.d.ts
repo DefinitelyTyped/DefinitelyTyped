@@ -271,6 +271,8 @@ declare module "mongoose" {
   }
 
   interface ConnectionOptionsBase {
+    /** database Name for Mongodb Atlas Connection */
+    dbName?: string;
     /** passed to the connection db instance */
     db?: any;
     /** passed to the connection server instance(s) */

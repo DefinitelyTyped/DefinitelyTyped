@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,11 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react-native"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-native-linear-gradient-tests.tsx"
+        "html-tag-names-tests.ts"
     ]
 }
