@@ -21,9 +21,11 @@
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
 //                 Tycho Grouwstra <https://github.com/tycho01>
-//                 Ika Tyang <https://github.com/ikatyang>
+//                 Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
+
+// Note: feel free to cross-post Ramda typing challenges at https://github.com/types/npm-ramda/
 
 declare let R: R.Static;
 
