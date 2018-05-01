@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.2
+// Type definitions for puppeteer 1.3
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -94,7 +94,7 @@ export interface Touchscreen {
  */
 export interface Tracing {
   start(options: TracingStartOptions): Promise<void>;
-  stop(): Promise<void>;
+  stop(): Promise<Buffer>;
 }
 
 export interface TracingStartOptions {
@@ -136,6 +136,7 @@ export interface ConsoleMessage {
 }
 
 export type PageEvents =
+  | "close"
   | "console"
   | "dialog"
   | "error"
@@ -430,6 +431,24 @@ export interface BoundingBox {
   height: number;
 }
 
+export interface BoxModel {
+  /** Content box, represented as an array of {x, y} points. */
+  content: Box[];
+  /** Padding box, represented as an array of {x, y} points. */
+  padding: Box[];
+  /** Border box, represented as an array of {x, y} points. */
+  border: Box[];
+  /** Margin box, represented as an array of {x, y} points. */
+  margin: Box[];
+  width: number;
+  height: number;
+}
+
+export interface Box {
+  x: number;
+  y: number;
+}
+
 /**
  * Represents an in-page DOM element. ElementHandles can be created with the page.$ method.
  */
@@ -454,6 +473,11 @@ export interface ElementHandle extends JSHandle {
    * This method returns the value resolve to the bounding box of the element (relative to the main frame), or null if the element is not visible.
    */
   boundingBox(): Promise<BoundingBox | null>;
+  /**
+   * This method returns boxes of the element, or null if the element is not visible.
+   * Boxes are represented as an array of points; each Point is an object {x, y}. Box points are sorted clock-wise.
+   */
+  boxModel(): Promise<BoxModel | null>;
   /**
    * This method scrolls element into view if needed, and then uses page.mouse to click in the center of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -842,6 +866,8 @@ export interface Frame extends FrameBase {
 }
 
 export interface PageEventObj {
+  /** Emitted when the page closes. */
+  close: undefined;
   /**
    * Emitted when JavaScript within the page calls one of console API methods, e.g. console.log or console.dir.
    * Also emitted if the page throws an error or a warning.
@@ -1059,6 +1085,14 @@ export interface Page extends EventEmitter, FrameBase {
    * all values are considered, otherwise only the first one is taken into account.
    */
   select(selector: string, ...values: string[]): Promise<string[]>;
+
+  /**
+   * Toggles bypassing page's Content-Security-Policy.
+   * NOTE CSP bypassing happens at the moment of CSP initialization rather then evaluation.
+   * Usually this means that page.setBypassCSP should be called before navigating to the domain.
+   * @param enabled sets bypassing of page's Content-Security-Policy.
+   */
+  setBypassCSP(enabled: boolean): Promise<void>;
 
   /**
    * Determines whether cache is enabled on the page.
@@ -1297,6 +1331,8 @@ export interface LaunchOptions {
   env?: any;
   /** Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false. */
   devtools?: boolean;
+  /** Connects to the browser over a pipe instead of a WebSocket. Defaults to false. */
+  pipe?: boolean;
 }
 
 export interface ConnectOptions {
