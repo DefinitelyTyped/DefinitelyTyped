@@ -1,15 +1,17 @@
-// Type definitions for common-tags v1.4.0
+// Type definitions for common-tags v1.7.2
 // Project: https://github.com/declandewet/common-tags
 // Definitions by: Viktor Zozuliak <https://github.com/zuzusik>
 //                 Paul Wang <https://github.com/tzupengwang>
+//                 coolreader18 <https://github.com/coolreader18>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'common-tags' {
-    type TemplateTag = (literals: TemplateStringsArray, ...placeholders: any[]) => string;
+    type TemplateTag = (literals: TemplateStringsArray, ...placeholders: any[]) => any;
 
     type TemplateTransformer = {
-        onSubstitution?: (substitution: string, resultSoFar: string) => string;
-        onEndResult?: (endResult : string) => string;
+        onString?: (str: string) => string;
+        onSubstitution?: (substitution: any, resultSoFar: string) => string;
+        onEndResult?: (endResult?: string) => any;
     }
 
     /* Built-in Tags */
@@ -53,13 +55,15 @@ declare module 'common-tags' {
     };
 
     /* Built-in Transformers */
-    export var trimResultTransformer: (side?: 'left'|'right') => TemplateTransformer;
+    export var trimResultTransformer: (side?: 'start'|'left'|'end'|'right') => TemplateTransformer;
 
     export var stripIndentTransformer: (type?: 'initial'|'all') => TemplateTransformer;
 
     export var replaceResultTransformer: (replaceWhat: string|RegExp, replaceWith: string) => TemplateTransformer;
 
     export var replaceSubstitutionTransformer: (replaceWhat: string|RegExp, replaceWith: string) => TemplateTransformer;
+
+    export var replaceStringTransformer: (replaceWhat: string|RegExp, replaceWith: string) => TemplateTransformer;
 
     export var inlineArrayTransformer: (opts?: {separator?: string, conjunction?: string}) => TemplateTransformer;
 

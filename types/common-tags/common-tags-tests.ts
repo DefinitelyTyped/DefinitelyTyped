@@ -143,6 +143,10 @@ new commonTags.TemplateTag({
     onEndResult: endResult => `${endResult}!`
 });
 
+new commonTags.TemplateTag({
+    onEndResult: () => ({})
+})
+
 /* Tests Built-in Transformers */
 
 new commonTags.TemplateTag(commonTags.trimResultTransformer());
@@ -158,6 +162,9 @@ new commonTags.TemplateTag(commonTags.replaceSubstitutionTransformer(/baz/g, 'ba
 
 new commonTags.TemplateTag(commonTags.replaceSubstitutionTransformer('foo', 'bar'));
 new commonTags.TemplateTag(commonTags.replaceSubstitutionTransformer(/baz/g, 'bar'));
+
+new commonTags.TemplateTag(commonTags.replaceStringTransformer('foo', 'bar'));
+new commonTags.TemplateTag(commonTags.replaceStringTransformer(/baz/g, 'bar'));
 
 new commonTags.TemplateTag(commonTags.inlineArrayTransformer());
 new commonTags.TemplateTag(commonTags.inlineArrayTransformer({}));
