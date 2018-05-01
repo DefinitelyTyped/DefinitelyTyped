@@ -111,6 +111,10 @@ export interface LightBox {
     adjustSoftInput?: 'nothing' | 'pan' | 'resize' | 'unspecified';
 }
 
+export interface NavigatorEvent {
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview';
+}
+
 export class Navigator {
     push(params: PushedScreen): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
@@ -133,8 +137,8 @@ export class Navigator {
     setTabButton(params?: { tabIndex?: number; icon?: any; selectedIcon?: any; label?: string; }): void;
     switchToTab(params?: { tabIndex?: number }): void;
     toggleNavBar(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
-    setOnNavigatorEvent(callback: (event: { id: string }) => void): void;
-    addOnNavigatorEvent(callback: (event: { id: string }) => void): () => void;
+    setOnNavigatorEvent(callback: (event: NavigatorEvent) => void): void;
+    addOnNavigatorEvent(callback: (event: NavigatorEvent) => void): () => void;
     screenIsCurrentlyVisible(): Promise<boolean>;
     setStyle(params: NavigatorStyle): void;
 }
