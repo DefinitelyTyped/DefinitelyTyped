@@ -1,6 +1,6 @@
 // Type definitions for materialize-css 1.0
 // Project: http://materializecss.com/
-// Definitions by:  胡玮文 <https://github.com/huww98>
+// Definitions by:  胡玮文 <https://github.com/huww98>, Maxim Balaganskiy <https://github.com/MaximBalaganskiy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -227,6 +227,128 @@ declare global {
             onDraw: (this: DatePicker) => void;
         }
 
+        interface DropdownOptions {
+			/**
+			 * Defines the edge the menu is aligned to
+			 * @default 'left'
+			 */
+            alignment: string;
+
+			/**
+			 * If true, automatically focus dropdown el for keyboard
+			 * @default true
+			 */
+            autoTrigger: boolean;
+
+			/**
+			 * If true, constrainWidth to the size of the dropdown activator
+			 * @default true
+			 */
+            constrainWidth: boolean;
+
+			/**
+			 * Provide an element that will be the bounding container of the dropdown
+			 * @default null
+			 */
+            container: Element;
+
+			/**
+			 * If false, the dropdown will show below the trigger
+			 * @default true
+			 */
+            coverTrigger: boolean;	// If false, the dropdown will show below the trigger.
+
+			/**
+			 * If true, close dropdown on item click
+			 * @default true
+			 */
+            closeOnClick: boolean;
+
+			/**
+			 * If true, the dropdown will open on hover
+			 * @default false
+			 */
+            hover: boolean;
+
+			/**
+			 * The duration of the transition enter in milliseconds
+			 * @default 150
+			 */
+            inDuration: number;
+
+			/**
+			 * The duration of the transition out in milliseconds
+			 * @default 250
+			 */
+            outDuration: number;
+
+			/**
+			 * Function called when dropdown starts entering
+			 * @default null
+			 */
+            onOpenStart: (this: Dropdown, el: Element) => void;
+
+			/**
+			 * Function called when dropdown finishes entering
+			 * @default null
+			 */
+            onOpenEnd: (this: Dropdown, el: Element) => void;
+
+			/**
+			 * Function called when dropdown starts exiting
+			 * @default null
+			 */
+            onCloseStart: (this: Dropdown, el: Element) => void;
+
+			/**
+			 * Function called when dropdown finishes exiting
+			 * @default null
+			 */
+            onCloseEnd: (this: Dropdown, el: Element) => void;
+        }
+
+        class Dropdown extends Component<DropdownOptions> {
+			/**
+			 * ID of the dropdown element
+			 */
+            id: string;
+
+			/**
+			 * The DOM element of the dropdown
+			 */
+            dropdownEl: Element;
+
+			/**
+			 * If the dropdown is open
+			 */
+            isOpen: boolean;
+
+			/**
+			 * If the dropdown content is scrollable
+			 */
+            isScrollable: boolean;
+
+			/**
+			 * The index of the item focused
+			 */
+            focusedIndex: number;
+
+			/**
+			 * Open dropdown
+			 */
+            open(): void;
+
+			/**
+			 * Close dropdown
+			 */
+            close(): void;
+
+			/**
+			 * While dropdown is open, you can recalculate its dimensions if its contents have changed
+			 */
+            recalculateDimensions(): void;
+        }
+
         class FloatingActionButton extends Component<FloatingActionButtonOptions> implements Openable {
             /**
              * Get Instance
@@ -267,6 +389,52 @@ declare global {
              * @default false
              */
             toolbarEnabled: boolean;
+        }
+
+        interface FormSelectOptions {
+            /**
+             * Classes to be added to the select wrapper element
+             * @default ''
+             */
+            classes: string;
+
+            /**
+             * Pass options object to select dropdown initialization
+             * @default {}
+             */
+            dropdownOptions: Partial<DropdownOptions>;
+        }
+
+        class FormSelect extends Component<FormSelectOptions> {
+            /**
+             * If this is a multiple select
+             */
+            isMultiple: boolean;
+
+            /**
+             * The select wrapper element
+             */
+            wrapper: Element;
+
+            /**
+             * Dropdown UL element
+             */
+            dropdownOptions: HTMLUListElement;
+
+            /**
+             * Text input that shows current selected option
+             */
+            input: HTMLInputElement;
+
+            /**
+             * Instance of the dropdown plugin for this select
+             */
+            dropdown: Dropdown;
+
+            /**
+             * Get selected values in an array
+             */
+            getSelectedValues(): string[];
         }
 
         class Sidenav extends Component<SidenavOptions> implements Openable {
@@ -772,8 +940,14 @@ declare global {
         datepicker(method: keyof Pick<M.DatePicker, "gotoDate">, date: Date): JQuery;
         datepicker(options?: Partial<M.DatePickerOptions>): JQuery;
 
+        dropdown(method: keyof Pick<M.Dropdown, "recalculateDimensions" | "open" | "close" | "destroy">): JQuery;
+        dropdown(options?: Partial<M.DropdownOptions>): JQuery;
+
         floatingActionButton(method: keyof Pick<M.FloatingActionButton, "open" | "close" | "destroy">): JQuery;
         floatingActionButton(options?: Partial<M.FloatingActionButtonOptions>): JQuery;
+
+        formSelect(method: keyof Pick<M.FormSelect, "getSelectedValues" | "destroy">): JQuery;
+        formSelect(options?: Partial<M.FormSelectOptions>): JQuery;
 
         sidenav(method: keyof Pick<M.Sidenav, "open" | "close" | "destroy">): JQuery;
         sidenav(options?: Partial<M.SidenavOptions>): JQuery;

@@ -10,6 +10,7 @@
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
+//                 Christophe Hurpeau <https://github.com/christophehurpeau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -126,9 +127,9 @@ declare namespace webpack {
     }
 
     interface Output {
-        /** The output directory as absolute path (required). */
+        /** The output directory as absolute path */
         path?: string;
-        /** The filename of the entry chunk as relative path inside the output.path directory. */
+        /** (Required) The filename of the entry chunk as relative path inside the output.path directory. */
         filename?: string;
         /** The filename of non-entry chunks as relative path inside the output.path directory. */
         chunkFilename?: string;
@@ -182,6 +183,14 @@ declare namespace webpack {
         sourcePrefix?: string;
         /** This option enables cross-origin loading of chunks. */
         crossOriginLoading?: string | boolean;
+        /** The encoding to use when generating the hash, defaults to 'hex' */
+        hashDigest?: 'hex' | 'latin1' | 'base64';
+        /** The prefix length of the hash digest to use, defaults to 20. */
+        hashDigestLength?: number;
+        /** Algorithm used for generation the hash (see node.js crypto package) */
+        hashFunction?: string | ((algorithm: string, options?: any) => any);
+        /** An optional salt to update the hash via Node.JS' hash.update. */
+        hashSalt?: string;
     }
 
     interface BaseModule {
@@ -310,6 +319,14 @@ declare namespace webpack {
          * Defaults to `true`
          */
         symlinks?: boolean;
+
+        /**
+         * If unsafe cache is enabled, includes request.context in the cache key.
+         * This option is taken into account by the enhanced-resolve module.
+         * Since webpack 3.1.0 context in resolve caching is ignored when resolve or resolveLoader plugins are provided.
+         * This addresses a performance regression.
+         */
+        cacheWithContext?: boolean;
     }
 
     interface ResolveLoader extends Resolve {

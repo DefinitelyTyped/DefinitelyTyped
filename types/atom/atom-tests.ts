@@ -43,7 +43,7 @@ declare let marker: Atom.Marker;
 declare let markers: Atom.Marker[];
 declare let markerLayer: Atom.MarkerLayer;
 declare let notification: Atom.Notification;
-declare let notifications: Atom.Notification[];
+declare let notifications: ReadonlyArray<Atom.Notification>;
 declare let pack: Atom.Package;
 declare let packs: Atom.Package[];
 declare let pane: Atom.Pane;
@@ -56,10 +56,12 @@ declare let posArr: Atom.Point[];
 declare let project: Atom.Project;
 declare let range: Atom.Range;
 declare let ranges: Atom.Range[];
+declare let readonlyStrs: ReadonlyArray<string>;
 declare let registry: Atom.GrammarRegistry;
 declare let repository: Atom.GitRepository;
 declare let repositories: Atom.GitRepository[];
 declare let scopeDescriptor: Atom.ScopeDescriptor;
+declare let scopes: ReadonlyArray<string>;
 declare let selection: Atom.Selection;
 declare let selections: Atom.Selection[];
 declare let styleManager: Atom.StyleManager;
@@ -86,6 +88,10 @@ function testAtomEnvironment() {
                 { label: "Undo", command: "core:undo" },
                 { label: "Redo", command: "core:redo" },
             ],
+            after: ["test"],
+            before: ["test"],
+            afterGroupContaining: ["test"],
+            beforeGroupContaining: ["test"]
         }],
     });
 
@@ -188,6 +194,10 @@ function testAtomEnvironment() {
     // Messaging the User
     atom.beep();
 
+    atom.confirm({ defaultId: 42 }, (response, checked) => {
+        num = response;
+        bool = checked;
+    });
     atom.confirm({ message: "Test" });
     atom.confirm({ message: "Test", buttons: [ "a", "b" ], detailedMessage: "Test" });
     num = atom.confirm({ message: "Test", detailedMessage: "Test", buttons: {
@@ -270,13 +280,19 @@ function testCommandRegistry() {
         "test-function2": (event) => {},
     });
     atom.commands.add("test", "test:function", {
-        didDispatch: (event) => event.stopImmediatePropagation(),
+        didDispatch: (event) => {
+            event.stopImmediatePropagation();
+        },
         description: "A Command Test",
         displayName: "Command: Test",
     });
     atom.commands.add("atom-text-editor", {
-        "test-function": (event) => event.currentTarget.getModel(),
-        "test-function2": (event) => event.currentTarget.getComponent(),
+        "test-function": (event) => {
+            event.currentTarget.getModel();
+        },
+        "test-function2": (event) => {
+            event.currentTarget.getComponent();
+        }
     });
     atom.commands.add("atom-workspace", {
         "test-command": {
@@ -345,7 +361,7 @@ function testConfig() {
 
     const allConfigValues = atom.config.getAll("test");
     for (const { scopeDescriptor, value } of allConfigValues) {
-        scopeDescriptor.scopes;
+        scopes = scopeDescriptor.getScopesArray();
     }
     atom.config.getAll("test", { scope: scopeDescriptor });
     atom.config.getAll("test", { excludeSources: ["test"] });
@@ -853,6 +869,7 @@ function testDock() {
     subscription = dock.onDidDestroyPaneItem(event => {
         event.index && event.item && event.pane;
     });
+    subscription = dock.onDidChangeHovered(hovered => bool = hovered);
 
     // Pane Items
     objs = dock.getPaneItems();
@@ -1375,6 +1392,7 @@ function testNotification() {
 function testNotificationManager() {
     // Events
     atom.notifications.onDidAddNotification(notification => notification.dismiss());
+    atom.notifications.onDidClearNotifications(() => undefined);
 
     // Adding Notifications
     atom.notifications.addSuccess("Test");
@@ -1409,6 +1427,9 @@ function testNotificationManager() {
 
     // Getting Notifications
     notifications = atom.notifications.getNotifications();
+
+    // Managing Notifications
+    atom.notifications.clear();
 }
 
 // Package ====================================================================
@@ -1833,7 +1854,7 @@ function testRange() {
 }
 
 // ScopeDescriptor ============================================================
-strs = scopeDescriptor.getScopesArray();
+readonlyStrs = scopeDescriptor.getScopesArray();
 
 // Selection ==================================================================
 function testSelection() {
@@ -2219,6 +2240,7 @@ function testTextBuffer() {
     num = buffer.createCheckpoint();
     bool = buffer.revertToCheckpoint(42);
     bool = buffer.groupChangesSinceCheckpoint(42);
+    bool = buffer.groupLastChanges();
     buffer.getChangesSinceCheckpoint(42);
 
     // Search And Replace
@@ -2306,6 +2328,7 @@ function testTextBuffer() {
     num = buffer.getLastRow();
     pos = buffer.getFirstPosition();
     pos = buffer.getEndPosition();
+    num = buffer.getLength();
     num = buffer.getMaxCharacterIndex();
     range = buffer.rangeForRow(42, true);
     num = buffer.characterIndexForPosition(pos);
@@ -2700,6 +2723,8 @@ function testTextEditor() {
     editor.moveToNextSubwordBoundary();
     editor.moveToBeginningOfNextParagraph();
     editor.moveToBeginningOfPreviousParagraph();
+    editor.selectLargerSyntaxNode();
+    editor.selectSmallerSyntaxNode();
     cursor = editor.getLastCursor();
 
     str = editor.getWordUnderCursor();
@@ -3289,7 +3314,7 @@ const pathWatcherPromise = Atom.watchPath("/var/test", {}, (events) => {
     for (const event of events) {
         str = event.path;
         str = event.action;
-        if (event.oldPath) str = event.oldPath;
+        if (event.action === "renamed") str = event.oldPath;
     }
 });
 

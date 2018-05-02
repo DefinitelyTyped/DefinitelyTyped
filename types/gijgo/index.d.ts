@@ -1,10 +1,14 @@
-// Type definitions for Gijgo v1.8.2
+// Type definitions for Gijgo v1.9.6
 // Project: http://gijgo.com
 // Definitions by: Atanas Atanasov <https://github.com/atatanasov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module Gijgo {
+declare module 'gijgo' {
+    export = Types;
+}
+
+declare module Types {
 
     //Grid
     interface GridPager {
@@ -84,6 +88,7 @@ declare module Gijgo {
         //Configuration options
         autoGenerateColumns?: boolean;
         autoLoad?: boolean;
+        bodyRowHeight?: string;
         columnReorder?: boolean;
         columns?: Array<GridColumn>;
         dataSource?: any;
@@ -93,6 +98,7 @@ declare module Gijgo {
         fontSize?: string;
         grouping?: GridGrouping;
         headerFilter?: GridHeaderFilter;
+        headerRowHeight?: string;
         icons?: GridIcons;
         iconsLibrary?: string;
         inlineEditing?: GridInlineEditing;
@@ -151,10 +157,10 @@ declare module Gijgo {
         count(): number;
         destroy(keepTableTag?: boolean, keepWrapperTag?: boolean): void;
         downloadCSV(filename?: string, includeAllRecords?: boolean): Grid<Entity, Params>;
-        edit(id: string): Grid<Entity, Params>; 
-        expandAll(): Grid<Entity, Params>; 
+        edit(id: string): Grid<Entity, Params>;
+        expandAll(): Grid<Entity, Params>;
         //get(position: number): Entity; //TODO: rename to getByPosition to avoid conflicts with jquery.get
-        getAll(): Array<Entity>;
+        getAll(includeAllRecords?: boolean): Array<Entity>;
         getById(id: string): Entity;
         getChanges(): Array<Entity>;
         getCSV(includeAllRecords?: boolean): string;
@@ -252,18 +258,23 @@ declare module Gijgo {
         keyboardNavigation?: boolean;
         locale?: string;
         icons?: DatePickerIcons;
+        size?: string;
+        modal?: boolean;
+        header?: boolean;
+        footer?: boolean;
 
         //Events
         change?: (e: any) => any;
         open?: (e: any) => any;
         close?: (e: any) => any;
+        select?: (e: any, type: string) => any;
     }
 
     interface DatePicker extends JQuery {
         close(): DatePicker;
         destroy(): void;
         open(): DatePicker;
-        value(value: string):  string | DatePicker;
+        value(value?: string):  string | DatePicker;
     }
 
     // DropDown
@@ -281,6 +292,7 @@ declare module Gijgo {
         uiLibrary?: string;
         iconsLibrary?: string;
         icons?: DropDownIcons;
+        placeholder?: string;
 
         //Events
         change?: (e: any) => any;
@@ -306,7 +318,7 @@ declare module Gijgo {
     }
 
     interface Editor extends JQuery {
-        content(html: string):  string | Editor;
+        content(html?: string):  string | Editor;
         destroy(): void;
     }
 
@@ -321,18 +333,59 @@ declare module Gijgo {
         value?: string;
         mode?: string;
         locale?: string;
+        size?: string;
 
         //Events
         change?: (e: any) => any;
         open?: (e: any) => any;
         close?: (e: any) => any;
+        select?: (e: any, type: string) => any;
     }
 
     interface TimePicker extends JQuery {
         close(): TimePicker;
         destroy(): void;
         open(): TimePicker;
-        value(value: string):  string | TimePicker;
+        value(value?: string):  string | TimePicker;
+    }
+
+    // DateTimePicker
+    interface DateTimePickerSettings {
+        datepicker?: Types.DatePickerSettings;
+        footer?: boolean;
+        format?: string;
+        locale?: string;
+        modal?: boolean;
+        size?: string;
+        uiLibrary?: string;
+        value?: string;
+        width?: number;
+
+        //Events
+        change?: (e: any) => any;
+    }
+
+    interface DateTimePicker extends JQuery {
+        destroy(): void;
+        value(value?: string):  string | DateTimePicker;
+    }
+
+    // Slider
+    interface SliderSettings {
+        min?: number;
+        max?: number;
+        uiLibrary?: string;
+        value?: string;
+        width?: number;
+
+        //Events
+        change?: (e: any) => any;
+        slide?: (e: any, value: number) => any;
+    }
+
+    interface Slider extends JQuery {
+        destroy(): void;
+        value(value?: string):  string | Slider;
     }
 
     // Tree
@@ -368,7 +421,7 @@ declare module Gijgo {
         checkedField?: string;
         cascadeCheck?: boolean;
         dragAndDrop?: boolean;
-        paramNames: TreeParamNames;
+        paramNames?: TreeParamNames;
         lazyLoading?: boolean;
 
 
@@ -393,6 +446,7 @@ declare module Gijgo {
         render(response: any): any;
         addNode(data: any, parentNode: any, position: number): Tree;
         removeNode(node: any): Tree;
+        updateNode(id: string, record: any) : Tree;
         destroy(): void;
         expand(node: any, cascade: boolean): Tree;
         collapse(node: any, cascade: boolean) : Tree;
@@ -408,9 +462,9 @@ declare module Gijgo {
         selectAll() : Tree;
         unselectAll() : Tree;
         getSelections() : Array<string>;
-        getChildren(node: any, cascade: boolean) : Array<any>;
-        enable(node: any, cascade: boolean) : Tree;
-        disable(node: any, cascade: boolean) : Tree;
+        getChildren(node: any, cascade?: boolean) : Array<any>;
+        enable(node: any, cascade?: boolean) : Tree;
+        disable(node: any, cascade?: boolean) : Tree;
         enableAll() : Tree;
         disableAll() : Tree;
 
@@ -424,21 +478,25 @@ declare module Gijgo {
 
 
 interface JQuery {
-    grid(settings: Gijgo.GridSettings<any>): Gijgo.Grid<any, any>;
-    grid<Entity>(settings: Gijgo.GridSettings<Entity>): Gijgo.Grid<Entity, any>;
-    grid<Entity, Params>(settings: Gijgo.GridSettings<Entity>): Gijgo.Grid<Entity, Params>;
+    grid(settings: Types.GridSettings<any>): Types.Grid<any, any>;
+    grid<Entity>(settings: Types.GridSettings<Entity>): Types.Grid<Entity, any>;
+    grid<Entity, Params>(settings: Types.GridSettings<Entity>): Types.Grid<Entity, Params>;
 
-    dialog(settings: Gijgo.DialogSettings): Gijgo.Dialog;
+    dialog(settings: Types.DialogSettings): Types.Dialog;
 
-    checkbox(settings: Gijgo.CheckboxSettings): Gijgo.Checkbox;
+    checkbox(settings: Types.CheckboxSettings): Types.Checkbox;
 
-    datepicker(settings: Gijgo.DatePickerSettings): Gijgo.DatePicker;
+    datepicker(settings: Types.DatePickerSettings): Types.DatePicker;
 
-    dropdown(settings: Gijgo.DropDownSettings): Gijgo.DropDown;
+    dropdown(settings: Types.DropDownSettings): Types.DropDown;
 
-    editor(settings: Gijgo.EditorSettings): Gijgo.Editor;
+    editor(settings: Types.EditorSettings): Types.Editor;
 
-    timepicker(settings: Gijgo.TimePickerSettings): Gijgo.TimePicker;
+    timepicker(settings: Types.TimePickerSettings): Types.TimePicker;
 
-    tree(settings: Gijgo.TreeSettings): Gijgo.Tree;
+    datetimepicker(settings: Types.DateTimePickerSettings): Types.DateTimePicker;
+
+    slider(settings: Types.SliderSettings): Types.Slider;
+
+    tree(settings: Types.TreeSettings): Types.Tree;
 }

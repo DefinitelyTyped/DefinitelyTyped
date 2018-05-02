@@ -2,6 +2,7 @@
 // Project: https://github.com/sanctuary-js/sanctuary#readme
 // Definitions by: David Chambers <https://github.com/davidchambers>
 //                 Juan J. Jimenez-Anca <https://github.com/cortopy>
+//                 Ken Aguilar <https://github.com/piq9117>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var S: Sanctuary.Environment;
@@ -73,12 +74,12 @@ interface Contravariant<A> {}
 
 interface ListToMaybeList {
   (xs: string): Maybe<string>;
-  <A>(xs: A[]): Maybe<A[]>;
+  <A>(xs: ReadonlyArray<A>): Maybe<A[]>;
 }
 
 interface MatchObj {
   match: string;
-  groups: Array<Maybe<string>>;
+  groups: ReadonlyArray<Maybe<string>>;
 }
 
 declare namespace Sanctuary {
@@ -108,13 +109,13 @@ declare namespace Sanctuary {
     max<A>(x: Ord<A>): (y: Ord<A>) => A;
     id<A>(p: TypeRep): Fn<A, A> | Category<any>;
     concat<A>(x: Semigroup<A>): (y: Semigroup<A>) => Semigroup<A>;
-    concat<A>(x: A[]): (y: A[]) => A[];
+    concat<A>(x: ReadonlyArray<A>): (y: ReadonlyArray<A>) => A[];
     concat<A>(x: StrMap<A>): (y: StrMap<A>) => StrMap<A>;
     concat(x: string): (y: string) => string;
     empty(p: TypeRep): Monoid<any>;
     map<A, B>(p: Fn<A, B>): {
       <C>(q: Fn<C, A>): Fn<C, B>;
-        (q: A[]): B[];
+        (q: ReadonlyArray<A>): B[];
         (q: StrMap<A>): StrMap<B>;
         (q: Functor<A>): Functor<B>;
     };
@@ -125,7 +126,7 @@ declare namespace Sanctuary {
     };
     alt<A>(x: Alt<A>): (y: Alt<A>) => Alt<A>;
     zero(p: TypeRep): Plus<any>;
-    reduce<A, B>(p: Fn2<B, A, B>): (q: B) => (r: A[] | StrMap<A> | Maybe<A> | Either<any, A> | Foldable<A>) => B;
+    reduce<A, B>(p: Fn2<B, A, B>): (q: B) => (r: ReadonlyArray<A> | StrMap<A> | Maybe<A> | Either<any, A> | Foldable<A>) => B;
     traverse(typeRep: TypeRep): <A, B>(f: Fn<A, Applicative<B>>) => (traversable: Traversable<A>) => Applicative<Traversable<B>>;
     sequence(typeRep: TypeRep): <A>(traversable: Traversable<Applicative<A>>) => Applicative<Traversable<A>>;
     ap<A, B>(p: Apply<Fn<A, B>>): (q: Apply<A>) => Apply<B>;
@@ -144,7 +145,7 @@ declare namespace Sanctuary {
     chain<A, B, X>(f: Fn2<A, X, B>): (chain_: Fn<X, A>) => Fn<X, B>;
     chain<A, B>(f: Fn <A,  Chain<B>>): (chain_: Chain<A>) => Chain<B>;
     join<A, B>(chain_: Fn2<B, B, A>): Fn<B, A>;
-    join<A>(chain_: A[][]): A[];
+    join<A>(chain_: ReadonlyArray<ReadonlyArray<A>>): A[];
     join<A>(chain_: Maybe<Maybe<A>>): Maybe<A>;
     join<A>(chain_: Chain<Chain<A>>): Chain<A>;
     chainRec(typeRep: TypeRep): {
@@ -158,11 +159,11 @@ declare namespace Sanctuary {
         (contravariant: Contravariant<A>): Contravariant<B>;
     };
     filter <A>(pred: Predicate<A>): {
-      (m: A[]): A[];
+      (m: ReadonlyArray<A>): A[];
       (m: Foldable<A>): Foldable<A>;
     };
     filterM<A>(pred: Predicate<A>): {
-      (m: A[]): A[];
+      (m: ReadonlyArray<A>): A[];
       (m: Foldable<A>): Foldable<A>;
     };
     takeWhile<A>(pred: Predicate<A>): (foldable: Foldable<A>) => Foldable<A>;
@@ -185,7 +186,7 @@ declare namespace Sanctuary {
     pipe<A, B, C, D>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>]): (x: A) => D;
     pipe<A, B, C, D, E>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>, Fn<D, E>]): (x: A) => E;
     pipe<A, B, C, D, E, F>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>, Fn<D, E>, Fn<E, F>]): (x: A) => F;
-    pipe(fs: Array<Fn<any, any>>): (x: any) => any;
+    pipe(fs: ReadonlyArray<Fn<any, any>>): (x: any) => any;
     on<A, B, C>(p: Fn2<B, B, C>): (q: Fn<A, B>) => (r: A) => Fn<A, C>;
     //  TODO: Maybe
     isNothing(p: Maybe<any>): boolean;
@@ -196,7 +197,7 @@ declare namespace Sanctuary {
     toMaybe<A>(p: A | null | undefined): Maybe<A>;
     maybe<B>(p: B): <A>(q: Fn<A, B>) => (r: Maybe<A>) => B;
     maybe_<B>(p: Thunk<B>): <A>(q: Fn<A, B>) => (r: Maybe<A>) => B;
-    justs<A>(p: Array<Maybe<A>>): A[];
+    justs<A>(p: ReadonlyArray<Maybe<A>>): A[];
     mapMaybe<A>(p: Fn<A, Maybe<any>>): (q: A[]) => A[];
     encase<A, B>(p: Fn<A, B>): Fn<A, Maybe<B>>;
     encase2<A, B, C>(p: Fn2<A, B, C>): Fn2<A, B, Maybe<C>>;
@@ -208,8 +209,8 @@ declare namespace Sanctuary {
     fromEither<B>(p: B): (q: Either<any, B>) => B;
     toEither<A>(p: A): <B>(q: B | null | undefined) => Either<A, B>;
     either<A, C>(p: Fn<A, C>): <B>(q: Fn<B, C>) => (r: Either<A, B>) => C;
-    lefts<A>(p: Array<Either<A, any>>): A[];
-    rights<B>(p: Array<Either<any, B>>): B[];
+    lefts<A>(p: ReadonlyArray<Either<A, any>>): A[];
+    rights<B>(p: ReadonlyArray<Either<any, B>>): B[];
     tagBy<A>(p: Predicate<A>): (q: A) => Either<A, A>;
     encaseEither<L>(p: Fn<Error, L>): <A, R>(q: Fn<A, R>) => Fn<A, Either<L, R>>;
     encaseEither2<L>(p: Fn<Error, L>): <A, B, R>(q: Fn2<A, B, R>) => Fn2<A, B, Either<L, R>>;
@@ -223,22 +224,22 @@ declare namespace Sanctuary {
     ifElse<A, B>(p: Predicate<A>): (q: Fn<A, B>) => (r: Fn<A, B>) => Fn<A, B>;
     when<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     unless<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
-    allPass<A>(p: Array<Predicate<A>>): Predicate<A>;
-    anyPass<A>(p: Array<Predicate<A>>): Predicate<A>;
+    allPass<A>(p: ReadonlyArray<Predicate<A>>): Predicate<A>;
+    anyPass<A>(p: ReadonlyArray<Predicate<A>>): Predicate<A>;
     //  List
     slice(p: Integer): (q: Integer) => ListToMaybeList;
     at(p: Integer): {
       (q: string): Maybe<string>;
-      <A>(q: A[]): Maybe<A>;
+      <A>(q: ReadonlyArray<A>): Maybe<A>;
     };
     head(xs: string): Maybe<string>;
-    head<A>(xs: A[]): Maybe<A>;
+    head<A>(xs: ReadonlyArray<A>): Maybe<A>;
     last(xs: string): Maybe<string>;
-    last<A>(xs: A[]): Maybe<A>;
+    last<A>(xs: ReadonlyArray<A>): Maybe<A>;
     tail(xs: string): Maybe<string>;
-    tail<A>(xs: A[]): Maybe<A[]>;
+    tail<A>(xs: ReadonlyArray<A>): Maybe<A[]>;
     init(xs: string): Maybe<string>;
-    init<A>(xs: A[]): Maybe<A[]>;
+    init<A>(xs: ReadonlyArray<A>): Maybe<A[]>;
     take(n: Integer): ListToMaybeList;
     takeLast(n: Integer): ListToMaybeList;
     drop(n: Integer): ListToMaybeList;
@@ -246,33 +247,33 @@ declare namespace Sanctuary {
     //  Array
     //  TODO: Fantasyland overloads, non-curried versions
     append<A>(x: A): {
-      (xs: A[]): A[];
+      (xs: ReadonlyArray<A>): A[];
       (xs: Applicative<A>): Applicative<A>;
     };
     prepend<A>(x: A): {
-      (xs: A[]): A[];
+      (xs: ReadonlyArray<A>): A[];
       (xs: Applicative<A>): Applicative<A>;
     };
-    joinWith(p: string): (q: string[]) => string;
-    elem<A>(p: A): (q: Foldable<A> | StrMap<A> | A[]) => boolean;
-    find<A>(p: Predicate<A>): (q: A[] | StrMap<A> | Foldable<A>) => Maybe<A>;
+    joinWith(p: string): (q: ReadonlyArray<string>) => string;
+    elem<A>(p: A): (q: Foldable<A> | StrMap<A> | ReadonlyArray<A>) => boolean;
+    find<A>(p: Predicate<A>): (q: ReadonlyArray<A> | StrMap<A> | Foldable<A>) => Maybe<A>;
     pluck(key: string): (xs: Functor<any>) => Functor<any>;
     unfoldr<A, B>(f: Fn<B, Maybe<Pair<A, B>>>): (x: B) => A[];
     range(from: Integer): (to: Integer) => Integer[];
-    groupBy<A>(f: Fn2<A, A, boolean>): (xs: A[]) => A[][];
-    reverse<A>(foldable: A[]): A[];
+    groupBy<A>(f: Fn2<A, A, boolean>): (xs: ReadonlyArray<A>) => A[][];
+    reverse<A>(foldable: ReadonlyArray<A>): A[];
     reverse<A>(foldable: Foldable<A>): Foldable<A>;
-    sort<A>(foldable: A[]): A[];
+    sort<A>(foldable: ReadonlyArray<A>): A[];
     sort<A>(foldable: Foldable<A>): Foldable<A>;
     sortBy<A>(f: Fn<A, Ord<any>>): {
-      (foldable: A[]): A[];
+      (foldable: ReadonlyArray<A>): A[];
       (foldable: Foldable<A>): Foldable<A>;
     };
     //  Object
     prop(p: string): (q: any) => any;
-    props(p: string[]): (q: any) => any;
+    props(p: ReadonlyArray<string>): (q: any) => any;
     get(p: Predicate<any>): (q: string) => (r: any) => Maybe<any>;
-    gets(p: Predicate<any>): (q: string[]) => (r: any) => Maybe<any>;
+    gets(p: Predicate<any>): (q: ReadonlyArray<string>) => (r: any) => Maybe<any>;
     //  StrMap
     keys(p: StrMap<any>): string[];
     values<A>(p: StrMap<A>): A[];
@@ -280,13 +281,13 @@ declare namespace Sanctuary {
     //  Number
     negate(n: ValidNumber): ValidNumber;
     add(p: FiniteNumber): (q: FiniteNumber) => FiniteNumber;
-    sum(p: Foldable<FiniteNumber> | FiniteNumber[]): FiniteNumber;
+    sum(p: Foldable<FiniteNumber> | ReadonlyArray<FiniteNumber>): FiniteNumber;
     sub(p: FiniteNumber): (q: FiniteNumber) => FiniteNumber;
     mult(x: FiniteNumber): (q: FiniteNumber) => FiniteNumber;
-    product(p: Foldable<FiniteNumber> | FiniteNumber[]): FiniteNumber;
+    product(p: Foldable<FiniteNumber> | ReadonlyArray<FiniteNumber>): FiniteNumber;
     div(p: NonZeroFiniteNumber): (q: FiniteNumber) => FiniteNumber;
     pow(p: FiniteNumber): (q: FiniteNumber) => FiniteNumber;
-    mean(p: Foldable<FiniteNumber> | FiniteNumber[]): Maybe<FiniteNumber>;
+    mean(p: Foldable<FiniteNumber> | ReadonlyArray<FiniteNumber>): Maybe<FiniteNumber>;
     //  Integer
     even(n: Integer): boolean;
     odd(n: Integer): boolean;
@@ -308,15 +309,15 @@ declare namespace Sanctuary {
     stripPrefix(prefix: string): (q: string) => Maybe<string>;
     stripSuffix(suffix: string): (q: string) => Maybe<string>;
     words(s: string): string[];
-    unwords(xs: string[]): string;
+    unwords(xs: ReadonlyArray<string>): string;
     lines(s: string): string[];
-    unlines(xs: string[]): string;
+    unlines(xs: ReadonlyArray<string>): string;
     splitOn(separator: string): (q: string) => string[];
     splitOnRegex(pattern: RegExp): (q: string) => string[];
   }
 
   interface Environment extends Static {
-    env: any[];
-    create(opts: {checkTypes: boolean, env: any[]}): Static;
+    env: ReadonlyArray<any>;
+    create(opts: {checkTypes: boolean, env: ReadonlyArray<any>}): Static;
   }
 }

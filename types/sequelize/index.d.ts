@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.8
+// Type definitions for Sequelize 4.27.10
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -12,6 +12,7 @@
 //                 Nikola Vidic <https://github.com/nidzov>
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
+//                 Nick Schultz <https://github.com/nrschultz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1199,7 +1200,7 @@ declare namespace sequelize {
          *  Attribute name for the relation
          */
         name?: string;
-
+        unique?: boolean | string;
     }
 
     /**
@@ -1517,8 +1518,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): void;
+        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): IncludeAssociation;
 
         /**
          * Creates an association between this (the source) and the provided target. The foreign key is added on the
@@ -1528,8 +1530,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): void;
+        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): IncludeAssociation;
 
         /**
          * Create an association that is either 1:m or n:m.
@@ -1582,8 +1585,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): void;
+        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): IncludeAssociation;
 
         /**
          * Create an N:M association with a join table
@@ -1631,9 +1635,10 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          *
          */
-        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): void;
+        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): IncludeAssociation;
 
     }
 
@@ -3793,7 +3798,7 @@ declare namespace sequelize {
          * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
          *     model will clear the previous scope.
          */
-        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
 
         /**
          * Search for multiple instances.
@@ -3864,8 +3869,8 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
-        findByPrimary<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -4005,10 +4010,10 @@ declare namespace sequelize {
          * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
          * whether the row was inserted or not.
          */
-        upsert(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning?: false | undefined }): Promise<boolean>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
 
         /**
          * Create and insert multiple instances in bulk.
@@ -4045,7 +4050,7 @@ declare namespace sequelize {
          * elements. The first element is always the number of affected rows, while the second element is the actual
          * affected rows (only supported in postgres with `options.returning` true.)
          */
-        update(values: TAttributes, options: UpdateOptions): Promise<[number, TInstance[]]>;
+        update(values: TAttributes, options?: UpdateOptions): Promise<[number, TInstance[]]>;
 
         /**
          * Run a describe query on the table. The result will be return to the listener as a hash of attributes and
@@ -5319,7 +5324,7 @@ declare namespace sequelize {
             username?: string;
             password?: string;
             database?: string;
-        };
+        }[];
 
         write?: {
             host?: string;

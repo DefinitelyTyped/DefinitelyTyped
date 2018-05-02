@@ -24,7 +24,7 @@ export type SubComponentFunction = (rowInfo: RowInfo) => React.ReactNode;
 export type PageChangeFunction = (page: number) => void;
 export type PageSizeChangeFunction = (newPageSize: number, newPage: number) => void;
 export type SortedChangeFunction = (newSorted: SortingRule[], column: any, additive: boolean) => void;
-export type FilteredChangeFunction = (newFiltering: Filter, column: any, value: any) => void;
+export type FilteredChangeFunction = (newFiltering: Filter[], column: any, value: any) => void;
 export type ExpandedChangeFunction = (column: any, event: any, isTouch: boolean) => void;
 export type ResizedChangeFunction = (newResized: Resize[], event: any) => void;
 export type SortFunction = (a: any, b: any, desc: any) => -1 | 0 | 1;
@@ -612,9 +612,6 @@ export interface RowRenderProps extends Partial<RowInfo> {
 export interface RowInfo {
     /** Materialized row of data */
     row: any;
-
-    /** Original row from your data */
-    original: any;
 
     /** The post-accessed values from the original row */
     rowValues: any;

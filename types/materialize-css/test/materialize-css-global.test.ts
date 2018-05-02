@@ -28,3 +28,9 @@ const datePicker = new M.DatePicker(elem);
 
 // $ExpectType TimePicker
 const timePicker = new M.TimePicker(elem);
+
+// $ExpectType Dropdown
+const dropdown = new M.Dropdown(elem);
+
+// $ExpectType FormSelect
+const formSelect = new M.FormSelect(elem);

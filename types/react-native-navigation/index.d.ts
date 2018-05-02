@@ -70,6 +70,7 @@ export interface Screen {
     title?: string;
     navigatorStyle?: NavigatorStyle;
     navigatorButtons?: NavigatorButtons;
+    overrideBackPress?: boolean;
 }
 
 export interface ModalScreen extends Screen {
@@ -110,6 +111,10 @@ export interface LightBox {
     adjustSoftInput?: 'nothing' | 'pan' | 'resize' | 'unspecified';
 }
 
+export interface NavigatorEvent {
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview';
+}
+
 export class Navigator {
     push(params: PushedScreen): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
@@ -128,12 +133,12 @@ export class Navigator {
     toggleDrawer(params: { side: 'left' | 'right'; animated?: boolean; to?: 'open' | 'closed' }): void;
     setDrawerEnabled(params: { side: 'left' | 'right'; enabled: boolean }): void;
     toggleTabs(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
-    setTabBadge(params?: { tabIndex?: number; badge?: number; badgeColor?: string; }): void;
+    setTabBadge(params?: { tabIndex?: number; badge: number | null; badgeColor?: string; }): void;
     setTabButton(params?: { tabIndex?: number; icon?: any; selectedIcon?: any; label?: string; }): void;
     switchToTab(params?: { tabIndex?: number }): void;
     toggleNavBar(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
-    setOnNavigatorEvent(callback: (event: { id: string }) => void): void;
-    addOnNavigatorEvent(callback: (event: { id: string }) => void): () => void;
+    setOnNavigatorEvent(callback: (event: NavigatorEvent) => void): void;
+    addOnNavigatorEvent(callback: (event: NavigatorEvent) => void): () => void;
     screenIsCurrentlyVisible(): Promise<boolean>;
     setStyle(params: NavigatorStyle): void;
 }
@@ -187,7 +192,7 @@ export interface NavigatorStyle {
     navBarSubtitleFontFamily?: string;
     navBarSubtitleFontSize?: number;
     screenBackgroundColor?: string;
-    orientation?: 'auto ' | 'landscape' | 'portrait';
+    orientation?: 'auto' | 'landscape' | 'portrait';
     disabledButtonColor?: string;
     // iOS only
     statusBarTextColorSchemeSingleScreen?: string;
@@ -241,6 +246,8 @@ export type SystemItemIOS = 'done' | 'cancel' | 'edit' | 'save' | 'add' |
     'bookmarks' | 'search' | 'refresh' | 'stop' | 'camera' | 'trash' | 'play' |
     'pause' | 'rewind' | 'fastForward' | 'undo' | 'redo';
 
+export type ShowAsActionAndroid = 'ifRoom' | 'always' | 'withText' | 'never';
+
 export interface NavigatorButton {
     id: string | IdAndroid;
     title?: string;
@@ -254,6 +261,7 @@ export interface NavigatorButton {
     buttonFontSize?: number;
     buttonFontWeight?: string | number;
     systemItem?: SystemItemIOS;
+    showAsAction?: ShowAsActionAndroid;
 }
 
 export interface FABAndroid {

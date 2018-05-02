@@ -24,6 +24,8 @@ import {
     NavigationTransitionProps,
     StackNavigator,
     StackNavigatorConfig,
+    SwitchNavigator,
+    SwitchNavigatorConfig,
     TabBarTop,
     TabNavigator,
     TabNavigatorConfig,
@@ -31,7 +33,12 @@ import {
     addNavigationHelpers,
     HeaderBackButton,
     Header,
+    NavigationContainer,
     NavigationParams,
+    NavigationPopAction,
+    NavigationPopToTopAction,
+    NavigationScreenComponent,
+    NavigationContainerComponent,
 } from 'react-navigation';
 
 // Constants
@@ -44,20 +51,26 @@ const viewStyle: ViewStyle = {
 
 const ROUTE_NAME_START_SCREEN = "StartScreen";
 
+interface StartScreenNavigationParams {
+    id: number;
+    s: string;
+}
+
 /**
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
-class StartScreen extends React.Component<NavigationScreenProps> {
+class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
     render() {
         // Implicit type checks.
-        const navigationStateParams = this.props.navigation.state.params;
+        const navigationStateParams: StartScreenNavigationParams | undefined = this.props.navigation.state.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
         const s = this.props.navigation.state.params && this.props.navigation.state.params.s;
 
         return (
             <View>
                 <TouchableOpacity onPress={this.navigateToNextScreen} />
+                <TouchableOpacity onPress={this.navigateDifferentlyToNextScreen} />
             </View>
         );
     }
@@ -68,16 +81,28 @@ class StartScreen extends React.Component<NavigationScreenProps> {
         };
         this.props.navigation.navigate(ROUTE_NAME_NEXT_SCREEN, params);
     }
+    private readonly navigateDifferentlyToNextScreen = (): void => {
+        const params = {
+            id: this.props.navigation.state.params && this.props.navigation.state.params.id,
+            name: this.props.navigation.state.params && this.props.navigation.state.params.s,
+        };
+        this.props.navigation.navigate({routeName: ROUTE_NAME_NEXT_SCREEN, params});
+    }
 }
 
 const ROUTE_NAME_NEXT_SCREEN = "NextScreen";
 
-class NextScreen extends React.Component<NavigationScreenProps> {
+interface NextScreenNavigationParams {
+    id: number;
+    name: string;
+}
+
+class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
     render() {
         // Implicit type checks.
-        const navigationStateParams = this.props.navigation.state.params;
+        const navigationStateParams: NextScreenNavigationParams | undefined = this.props.navigation.state.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
-        const name = this.props.navigation.state.params && this.props.navigation.state.params.name;
+        const name = this.props.navigation.getParam('name', 'Peter');
 
         return (
             <View />
@@ -88,7 +113,7 @@ class NextScreen extends React.Component<NavigationScreenProps> {
 const navigationOptions = {
     headerBackTitle: null,
 };
-const initialRouteParams: NavigationParams = {
+const initialRouteParams: StartScreenNavigationParams = {
     id: 1,
     s: "Start",
 };
@@ -109,6 +134,23 @@ export const AppNavigator = StackNavigator(
         initialRouteParams,
         navigationOptions,
     },
+);
+
+interface StatelessScreenParams {
+    testID: string;
+}
+
+const StatelessScreen: NavigationScreenComponent<StatelessScreenParams> = (props) =>
+    <View testID={props.navigation.getParam('testID', 'fallback')}/>;
+
+StatelessScreen.navigationOptions = { title: 'Stateless' };
+
+const SimpleStackNavigator = StackNavigator(
+    {
+        simple: {
+            screen: StatelessScreen,
+        },
+    }
 );
 
 /**
@@ -153,7 +195,10 @@ const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
     navigationOptions: {
         tabBarOnPress: ({scene, jumpToIndex}) => {
             jumpToIndex(scene.index);
-        }
+        },
+        headerStyle: {
+            backgroundColor: 'red',
+        },
     },
 };
 
@@ -220,6 +265,30 @@ function renderAdvancedStackNavigator(): JSX.Element {
 }
 
 /**
+ * Switch navigator.
+ */
+
+const switchNavigatorConfig: SwitchNavigatorConfig = {
+    initialRouteName: 'screen',
+    resetOnBlur: false,
+    backBehavior: 'none'
+};
+
+const BasicSwitchNavigator = SwitchNavigator(
+    routeConfigMap,
+    switchNavigatorConfig,
+);
+
+function renderBasicSwitchNavigator(): JSX.Element {
+    return (
+        <BasicSwitchNavigator
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
+/**
  * Drawer navigator.
  */
 
@@ -250,7 +319,7 @@ function renderBasicDrawerNavigator(): JSX.Element {
 }
 
 interface CustomTransitionerProps {
-    navigation: NavigationScreenProp<any>;
+    navigation: NavigationScreenProp<any, any>;
 }
 /**
  * @desc Custom transitioner component. Follows react-navigation/src/views/CardStackTransitioner.js.
@@ -262,8 +331,16 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
                 configureTransition={this._configureTransition}
                 navigation={this.props.navigation}
                 render={this._render}
-                onTransitionStart={() => { }}
-                onTransitionEnd={() => { }}
+                onTransitionStart={(curr, prev) => {
+                    if (prev) {
+                        prev.position.setValue(curr.navigation.state.index);
+                    }
+                }}
+                onTransitionEnd={(curr, prev) => {
+                    if (prev) {
+                        prev.position.setValue(curr.navigation.state.index);
+                    }
+                }}
             />
         );
     }
@@ -337,3 +414,33 @@ const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
         foo: "bar"
     }
 });
+
+const popAction: NavigationPopAction = NavigationActions.pop({
+    n: 1,
+    immediate: true
+});
+
+const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
+    key: "foo",
+    immediate: true
+});
+
+class Page1 extends React.Component { }
+
+const RootNavigator: NavigationContainer = SwitchNavigator({
+    default: { getScreen: () => Page1 },
+});
+
+class Page2 extends React.Component {
+    navigatorRef: NavigationContainerComponent | null;
+
+    componentDidMount() {
+        if (this.navigatorRef) {
+            this.navigatorRef.dispatch(NavigationActions.navigate({ routeName: 'default' }));
+        }
+    }
+
+    render() {
+        return <RootNavigator ref={(instance: NavigationContainerComponent | null): void => { this.navigatorRef = instance; }} />;
+    }
+}

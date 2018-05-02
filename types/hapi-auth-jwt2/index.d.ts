@@ -39,6 +39,12 @@ declare namespace hapiAuthJwt2 {
         };
     }
 
+    interface ValidationResult {
+        isValid: boolean;
+        credentials?: any;
+        response?: ResponseObject;
+    }
+
     /**
      * Options passed to `hapi.auth.strategy` when this plugin is used
      */
@@ -54,11 +60,7 @@ declare namespace hapiAuthJwt2 {
          * @param decoded the *decoded* and *verified* JWT received from the client in *request.headers.authorization*
          * @param request the original *request* received from the client
          */
-        validate(decoded: {}, request: Request, tk: ResponseToolkit): Promise<{
-            isValid: boolean;
-            credentials?: any;
-            response?: ResponseObject
-        }>;
+        validate(decoded: {}, request: Request, tk: ResponseToolkit): ValidationResult | Promise<ValidationResult>;
 
         /**
          * Settings to define how tokens are verified by the jsonwebtoken library

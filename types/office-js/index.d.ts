@@ -8,6 +8,11 @@ office-js
 Copyright (c) Microsoft Corporation
 */
 
+
+////////////////////////////////////////////////////////////////
+//////////////////// Begin Office namespace ////////////////////
+////////////////////////////////////////////////////////////////
+
 declare namespace Office {
     export var context: Context;
     /**
@@ -178,15 +183,15 @@ declare namespace Office {
         messageParent(messageObject: any): void;
         /**
          * Closes the UI container where the JavaScript is executing.
-         * 
+         *
          * Supported hosts: Outlook - Minimum requirement set: Mailbox 1.5
-         * 
+         *
          * The behavior of this method is specified by the following:
-         * 
+         *
          * Called from a UI-less command button: No effect. Any dialog opened by displayDialogAsync will remain open.
-         * 
+         *
          * Called from a taskpane: The taskpane will close. Any dialog opened by displayDialogAsync will also close. If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
-         * 
+         *
          * Called from a module extension: No effect.
          */
         closeContainer(): void;
@@ -1548,6 +1553,12 @@ declare namespace Office {
 }
 
 
+////////////////////////////////////////////////////////////////
+///////////////////// End Office namespace /////////////////////
+////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////
@@ -1664,18 +1675,6 @@ declare namespace Office {
             v1_0,
             v2_0,
             Beta
-        }
-    }
-    export module cast {
-        export module item {
-            function toAppointmentCompose(item: Office.Item): Office.AppointmentCompose;
-            function toAppointmentRead(item: Office.Item): Office.AppointmentRead;
-            function toAppointment(item: Office.Item): Office.Appointment;
-            function toMessageCompose(item: Office.Item): Office.MessageCompose;
-            function toMessageRead(item: Office.Item): Office.MessageRead;
-            function toMessage(item: Office.Item): Office.Message;
-            function toItemCompose(item: Office.Item): Office.ItemCompose;
-            function toItemRead(item: Office.Item): Office.ItemRead;
         }
     }
     export interface AsyncContextOptions {
@@ -2103,6 +2102,19 @@ declare namespace Office {
          * Returns string values that match the named regular expression defined in the manifest XML file
          */
         getRegExMatchesByName(name: string): Array<string>;
+        /**
+        * Gets the entities found in the selected item that are currently selected
+        *
+        * [Api set: Mailbox 1.6]
+        */
+        getSelectedEntities(): Entities;
+        /**
+         * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file and
+         * are selected in the current item
+         *
+         * [Api set: Mailbox 1.6]
+         */
+        getSelectedRegExMatches(): any;
     }
     export interface LocalClientTime {
         month: number;
@@ -2609,12 +2621,12 @@ declare namespace OfficeExtension {
     }
 
     export interface EmbeddedOptions {
-		sessionKey?: string,
-		container?: HTMLElement,
-		id?: string;
-		timeoutInMilliseconds?: number;
-		height?: string;
-		width?: string;
+        sessionKey?: string,
+        container?: HTMLElement,
+        id?: string;
+        timeoutInMilliseconds?: number;
+        height?: string;
+        width?: string;
     }
 
     class EmbeddedSession {
@@ -2898,6 +2910,18 @@ declare namespace OfficeExtension {
 }
 
 
+////////////////////////////////////////////////////////////////
+///////////////// End OfficeExtension runtime //////////////////
+////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////
+////////////////////// Begin OfficeCore ////////////////////////
+////////////////////////////////////////////////////////////////
+
 
 declare namespace OfficeCore {
     /**
@@ -2972,7 +2996,7 @@ declare namespace OfficeCore {
 
 
 ////////////////////////////////////////////////////////////////
-///////////////// End OfficeExtension runtime //////////////////
+/////////////////////// End OfficeCore /////////////////////////
 ////////////////////////////////////////////////////////////////
 
 
@@ -22325,6 +22349,10 @@ declare namespace OneNote {
 
 ////////////////////////////////////////////////////////////////
 /////////////////////// End OneNote APIs ///////////////////////
+////////////////////////////////////////////////////////////////
+
+
+
 ////////////////////////////////////////////////////////////////
 
 

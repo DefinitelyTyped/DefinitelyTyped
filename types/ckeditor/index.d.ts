@@ -24,8 +24,8 @@ declare namespace CKEDITOR {
     var DIALOG_RESIZE_HEIGHT: number;
     var DIALOG_RESIZE_NONE: number;
     var DIALOG_RESIZE_WIDTH: number;
-	var DIALOG_STATE_IDLE: number;
-	var DIALOG_STATE_BUSY: number;
+    var DIALOG_STATE_IDLE: number;
+    var DIALOG_STATE_BUSY: number;
     var ELEMENT_MODE_APPENDTO: number;
     var ELEMENT_MODE_INLINE: number;
     var ELEMENT_MODE_NONE: number;
@@ -44,10 +44,10 @@ declare namespace CKEDITOR {
     var NODE_DOCUMENT_FRAGMENT: number;
     var NODE_ELEMENT: number;
     var NODE_TEXT: number;
-	var POSITION_BEFORE_START: number;
-	var POSITION_BEFORE_END: number;
-	var POSITION_AFTER_START: number;
-	var POSITION_AFTER_END: number;
+    var POSITION_BEFORE_START: number;
+    var POSITION_BEFORE_END: number;
+    var POSITION_AFTER_START: number;
+    var POSITION_AFTER_END: number;
     var SELECTION_ELEMENT: number;
     var SELECTION_NONE: number;
     var SELECTION_TEXT: number;
@@ -55,9 +55,9 @@ declare namespace CKEDITOR {
     var SHRINK_ELEMENT: number;
     var SHRINK_TEXT: number;
     var START: number;
-	var STYLE_BLOCK: string;
-	var STYLE_INLINE: string;
-	var STYLE_OBJECT: string;
+    var STYLE_BLOCK: string;
+    var STYLE_INLINE: string;
+    var STYLE_OBJECT: string;
     var TRISTATE_DISABLED: number;
     var TRISTATE_OFF: number;
     var TRISTATE_ON: number;
@@ -80,7 +80,6 @@ declare namespace CKEDITOR {
     var version: string;
     var config: config;
 
-
     // Methods
     function add(editor: editor): void;
     function addCss(css: string): void;
@@ -100,6 +99,17 @@ declare namespace CKEDITOR {
     function replace(element: string | HTMLTextAreaElement, config?: config): editor;
     function replaceAll(className?: string): void;
     function replaceAll(assertionFunction: (textarea: HTMLTextAreaElement, config: config) => boolean): void;
+
+    // Event interface
+    function capture(): void;
+    function define(name: string, meta: Object): void;
+    function fire(eventName: string, data?: Object, editor?: editor): any;
+    function fireOnce(eventName: string, data?: Object, editor?: editor): any;
+    function hasListeners(eventName: string): boolean;
+    function on(eventName: string, listenerFunction: (eventInfo: eventInfo) => void, scopeObj?: Object, listenerData?: Object, priority?: number): void;
+    function once(eventName: string, listenerFunction: (eventInfo: eventInfo) => void, scopeObj?: Object, listenerData?: Object, priority?: number): void;
+    function removeAllListeners(): void;
+    function removeListener(eventName: string, listenerFunction: (eventInfo: eventInfo) => void): void;
 
     type listenerRegistration = {
         removeListener: () => void;
@@ -288,7 +298,7 @@ declare namespace CKEDITOR {
 
         class elementPath {
             constructor(startNode: element, root: element);
-			constructor(startNode: element);
+            constructor(startNode: element);
             block: element;
             blockLimit: element;
             root: element;
@@ -321,11 +331,11 @@ declare namespace CKEDITOR {
             deleteContents(mergeThen?: boolean): void;
             extractContents(mergeThen?: boolean): documentFragment;
             createBookmark(serializable?: boolean): bookmark;
-            createBookmark2(normalized: boolean): Object;
+            createBookmark2(normalized?: boolean): Object;
             createIterator(): iterator;
             moveToBookmark(bookmark: Object): void;
             getBoundaryNodes(): { startNode: node; endNode: node; };
-            getCommonAncestor(includeSelf: boolean, ignoreTextNode: boolean): element;
+            getCommonAncestor(includeSelf?: boolean, ignoreTextNode?: boolean): element;
             optimize(): void;
             optimizeBookmark(): void;
             trim(ignoreStart?: boolean, ignoreEnd?: boolean): void;
@@ -337,12 +347,14 @@ declare namespace CKEDITOR {
             selectNodeContents(node: node): void;
             setStart(startNode: node, startOffset: number): void;
             setEnd(endNode: node, endOffset: number): void;
+            setEndAfter(node: node): void;
+            setEndBefore(node: node): void;
             setStartAfter(node: node): void;
             setStartBefore(node: node): void;
             setStartAt(node: node, position: number): void;
             setEndAt(node: node, position: number): void;
             fixBlock(isStart: boolean, blockTag: Object): Object;
-			select(): selection;
+            select(): selection;
             splitBlock(blockTag: Object): Object;
             splitElement(toSplit: element): element;
             removeEmptyBlocksAtEnd(atEnd: boolean): void;
@@ -380,8 +392,8 @@ declare namespace CKEDITOR {
             constructor(target: document);
             constructor(target: element);
             constructor(target: selection);
-            createBookmarks(serializable: Object): any[];
-            createBookmarks2(normalized?: Object): any[];
+            createBookmarks(serializable: Object): bookmark[];
+            createBookmarks2(normalized: Object): Object[];
             fake(element: element): void;
             getCommonAncestor(): element;
             getNative(): Object;
@@ -406,8 +418,8 @@ declare namespace CKEDITOR {
             constructor(ranges: range[]);
             constructor(range: range);
             createIterator(): rangeListIterator;
-            createBokmark(serializable: boolean): Object[];
-            createBookmark2(normalized: boolean): Object[];
+            createBokmarks(serializable?: boolean): bookmark[];
+            createBookmarks2(normalized?: boolean): Object[];
             moveToBookmark(bookmarks: Object[]): void;
         }
 
@@ -431,7 +443,7 @@ declare namespace CKEDITOR {
             insertAfter(node: node): node;
             insertBefore(node: node): node;
             insertBeforeMe(node: node): node;
-            getAddress(normalized: boolean): Object[];
+            getAddress(normalized?: boolean): Object[];
             getDocument(): document;
             getIndex(normalized?: boolean): number;
             getNextSourceNode(startFromSibling: Object, nodeType: Object, guard: Object): void;
@@ -444,7 +456,7 @@ declare namespace CKEDITOR {
             getPosition(otherNode: Object): void;
             getAscendant(reference: string, includeSelf?: boolean): node;
             hasAscendant(name: Object, includeSelf: any): boolean;
-            move(preserveChildren?: boolean): node;
+            remove(preserveChildren?: boolean): node;
             replace(nodeToReplace: node): void;
             trim(): void;
             ltrim(): void;
@@ -464,7 +476,7 @@ declare namespace CKEDITOR {
             constructor(domEvent: Event);
             getKey(): number;
             getKeystroke(): number;
-            preventDefault(stopPropagation: boolean): void;
+            preventDefault(stopPropagation?: boolean): void;
             stopPropagation(): void;
             getTarget(): node;
             getPhase(): number;
@@ -836,7 +848,7 @@ declare namespace CKEDITOR {
         templates_files?: Object;
         templates_replaceContent?: boolean;
         title?: string | boolean;
-		toolbar?: string | (string | string[] | { name: string, items?: string[], groups?: string[] })[] | null;
+        toolbar?: string | (string | string[] | { name: string, items?: string[], groups?: string[] })[] | null;
         toolbarCanCollapse?: boolean;
         toolbarGroupCycling?: boolean;
         toolbarGroups?: (toolbarGroups | string)[];
@@ -869,19 +881,20 @@ declare namespace CKEDITOR {
     }
 
     module skin {
-		var icons: { [name: string]: { path: string } };
-		function addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
-	}
+        var icons: { [name: string]: { path: string } };
+        function addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
+    }
 
     class style {
-		constructor(something: { element: string, attributes: { [att: string]: string } });
-		applyToRange(range: Range, editor: editor): void;
-	}
+        constructor(something: { element: string, attributes: { [att: string]: string } });
+        applyToRange(range: Range, editor: editor): void;
+    }
 
-    interface editable extends dom.element {
-		hasFocus: boolean;
-		attachListener(obj: event | editable, eventName: string, listenerFunction: (ei: eventInfo) => void,
-			scopeobj?: {}, listenerData?: any, priority?: number): listenerRegistration;
+    class editable extends dom.element {
+        constructor(editor: editor, element: HTMLElement | dom.element);
+        hasFocus: boolean;
+        attachListener(obj: event | editable, eventName: string, listenerFunction: (ei: eventInfo) => void,
+            scopeobj?: {}, listenerData?: any, priority?: number): listenerRegistration;
     }
 
 
@@ -978,7 +991,7 @@ declare namespace CKEDITOR {
                 destroy(widget: CKEDITOR.plugins.widget, offline?: boolean): void;
                 destroyAll(offline?: boolean): void;
                 finalizeCreation(container: any): void;
-				focused: widget;
+                focused: widget;
                 fire(eventName: string, data: Object, editor: editor): any; // should be boolean | Object
                 getByElement(element: any, checkWrapperOnly: boolean): CKEDITOR.plugins.widget;
                 hasListeners(eventName: string): boolean;
@@ -1077,19 +1090,19 @@ declare namespace CKEDITOR {
 
         function add(name: string, definition: IPluginDefinition): void;
         function add(name: string): void;
-        function addExternal(name: string, path: string, fileName: string): void;
+        function addExternal(name: string, path: string, fileName?: string): void;
         function get(name: string): any;
         function getFilePath(name: string): string;
         function getPath(name: string): string;
         function load(name: string, callback: Function, scope?: Object): void;
         function setLang(pluginName: string, languageCode: string, languageEntries: any): void;
-
+        var registered: {[key: string]: IPluginDefinition};
     }
 
     interface IMenuItemDefinition {
         label:string,
         command:string,
-		icon: string
+        icon: string
         group:string,
         order:number
     }
@@ -1142,7 +1155,7 @@ declare namespace CKEDITOR {
         createFakeParserElement(realElement: Object, className: Object, realElementType: Object, isResizable: Object): void;
         createRange(): dom.range;
         destroy(noUpdate?: boolean): void;
-		editable(): editable | null;
+        editable(): editable | null;
         editable(elementOrEditable: dom.element): void;
         editable(elementOrEditable: editable): void;
         elementPath(startNode?: dom.node): dom.elementPath;
@@ -1155,6 +1168,9 @@ declare namespace CKEDITOR {
         getData(noEvents?: Object): string;
         getMenuItem(name: string): Object;
         getResizable(forContents: boolean): dom.element;
+        getSelectedHtml(toString?: false): dom.documentFragment;
+        getSelectedHtml(toString: true): string;
+        getSelectedHtml(toString?: boolean): CKEDITOR.dom.documentFragment | string;
         getSelection(forceRealSelection?: boolean): dom.selection;
         getSnapshot(): string;
         getStylesSet(callback: Function): void;
@@ -1300,14 +1316,14 @@ declare namespace CKEDITOR {
         stop(): void;
     }
 
-	module filter {
-		interface allowedContentRules {
+    module filter {
+        interface allowedContentRules {
 
-		}
-	}
+        }
+    }
 
     class filter {
-		allow(newRules: CKEDITOR.filter.allowedContentRules, featureName?: string, overrideCustom?: boolean): boolean;
+        allow(newRules: CKEDITOR.filter.allowedContentRules, featureName?: string, overrideCustom?: boolean): boolean;
 
     }
 
@@ -1370,9 +1386,27 @@ declare namespace CKEDITOR {
     }
 
 
-    class dtd {
-
+    interface dtdDefinition {
+        [outerTagName: string]: {[innerTagName: string]: 1};
+        $block:          {[tagName: string]: 1};
+        $blockLimit:     {[tagName: string]: 1};
+        $cdata:          {[tagName: string]: 1};
+        $editable:       {[tagName: string]: 1};
+        $empty:          {[tagName: string]: 1};
+        $inline:         {[tagName: string]: 1};
+        $intermediate:   {[tagName: string]: 1};
+        $list:           {[tagName: string]: 1};
+        $listItem:       {[tagName: string]: 1};
+        $nonBodyContent: {[tagName: string]: 1};
+        $nonEditable:    {[tagName: string]: 1};
+        $object:         {[tagName: string]: 1};
+        $removeEmpty:    {[tagName: string]: 1};
+        $tabIndex:       {[tagName: string]: 1};
+        $tableContent:   {[tagName: string]: 1};
+        $transparent:    {[tagName: string]: 1};
     }
+
+    var dtd: dtdDefinition;
 
 
     class ui extends event {
@@ -1717,6 +1751,7 @@ declare namespace CKEDITOR {
             onLoad?: Function;
             onOk?: Function;
             onShow?: Function;
+            onHide?: Function;
             resizable?: number;
             title?: string;
             width?: number;
@@ -1819,10 +1854,12 @@ declare namespace CKEDITOR {
             children: any[];
             type: number;
             add(node: node): number;
-			add(node: node, index: number): void;
+            add(node: node, index: number): void;
+            addClass(className: string): void;
             clone(): element;
             filter(filter: filter): boolean;
             filterChildren(filter: filter): void;
+            forEach(callback: (node: node, type?: number) => void|false, type?: number, skipRoot?: boolean): void;
             writeHtml(writer: basicWriter, filter: filter): void;
             writeChildrenHtml(writer: basicWriter, filter: filter): void;
             replaceWithChildren(): void;
@@ -1853,6 +1890,7 @@ declare namespace CKEDITOR {
             add(node: node, index?: number): void;
             filter(filter: filter): void;
             filterChildren(filter: filter, filterRoot?: boolean): void;
+            forEach(callback: (node: node, type?: number) => void|false, type?: number, skipRoot?: boolean): void;
             writeHtml(writer: basicWriter, filter?: filter): void;
             writeChildrenHtml(writer: basicWriter, filter?: filter, filterRoot?: boolean): void;
             forEach(callback: (node: node, type?: number) => boolean, type?: number, skipRoot?: boolean): void;
@@ -1890,8 +1928,13 @@ declare namespace CKEDITOR {
 
     namespace tools {
         var callFunction: Function;
+        function clone(source: Object): Object;
+        function copy(source: Object): Object;
         function enableHtml5Elements(doc: Object, withAppend?: Boolean): void;
+        function isArray<T>(object: any|null|undefined): object is T[];
+        function override<T extends Function>(originalFunction: T, functionBuilder: (originalFunction: T) => T): T;
         function parseCssText(styleText: string, normalize?: Boolean, nativeNormalize?: Boolean): { [key: string]: string }
+        function prototypedCopy(source: Object): Object;
         function writeCssText(style: { [key: string]: string }, sort?: Boolean): string;
     }
 

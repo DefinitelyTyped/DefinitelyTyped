@@ -15,7 +15,7 @@ export const version: string;
 
 export interface HttpRequestOptions {
     url?: string;
-    method?: "POST" | "GET" | "OPTIONS" | "HEAD" | "DELETE" | "PATCH";
+    method?: "POST" | "GET" | "OPTIONS" | "HEAD" | "DELETE" | "PATCH" | "PUT";
     body?: string | Buffer | NodeJS.ReadableStream | object | null;
     headers?: { [name: string]: string };
     json?: object | any[] | null;
@@ -58,6 +58,8 @@ export interface Z {
             new (message?: string): RefreshAuthError;
         };
     };
+    stashFile: (promise: Promise<HttpResponse>, knownLength?: number | string, filename?: string, contentType?: string) => Promise<string>;
+    dehydrate: <T>(callback: (z: Z, bundle: Bundle<T>) => any, inputData: T) => string;
 }
 
 export interface AuthData {

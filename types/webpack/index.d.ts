@@ -11,6 +11,7 @@
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
+//                 Christophe Hurpeau <https://github.com/christophehurpeau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -134,7 +135,7 @@ declare namespace webpack {
     }
 
     interface Output {
-        /** The output directory as absolute path (required). */
+        /** The output directory as absolute path. */
         path?: string;
         /** The filename of the entry chunk as relative path inside the output.path directory. */
         filename?: string;
@@ -190,8 +191,14 @@ declare namespace webpack {
         sourcePrefix?: string;
         /** This option enables cross-origin loading of chunks. */
         crossOriginLoading?: string | boolean;
+        /** The encoding to use when generating the hash, defaults to 'hex' */
+        hashDigest?: 'hex' | 'latin1' | 'base64';
+        /** The prefix length of the hash digest to use, defaults to 20. */
+        hashDigestLength?: number;
         /** Algorithm used for generation the hash (see node.js crypto package) */
         hashFunction?: string | ((algorithm: string, options?: any) => any);
+        /** An optional salt to update the hash via Node.JS' hash.update. */
+        hashSalt?: string;
         /** An expression which is used to address the global object/scope in runtime code. */
         globalObject?: string;
     }
@@ -314,6 +321,14 @@ declare namespace webpack {
          * Defaults to `true`
          */
         symlinks?: boolean;
+
+        /**
+         * If unsafe cache is enabled, includes request.context in the cache key.
+         * This option is taken into account by the enhanced-resolve module.
+         * Since webpack 3.1.0 context in resolve caching is ignored when resolve or resolveLoader plugins are provided.
+         * This addresses a performance regression.
+         */
+        cacheWithContext?: boolean;
     }
 
     interface ResolveLoader extends Resolve {
@@ -415,6 +430,8 @@ declare namespace webpack {
         include?: Condition | Condition[];
         /** A Condition matched with the resource. */
         resource?: Condition | Condition[];
+        /** A Condition matched with the resource query. */
+        resourceQuery?: Condition | Condition[];
         /** A condition matched with the issuer */
         issuer?: Condition | Condition[];
         /**
@@ -545,7 +562,7 @@ declare namespace webpack {
             /** Give chunks created a name (chunks with equal name are merged) */
             name?: boolean | string | ((...args: any[]) => any);
             /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
-            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | CacheGroupsOptions;
+            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions };
         }
         interface RuntimeChunkOptions {
             /** The name or name factory for the runtime chunks. */

@@ -216,3 +216,62 @@ timePicker.options;
 timePicker.el;
 // $ExpectType boolean
 timePicker.isOpen;
+
+// Dropdown
+// $ExpectType Dropdown
+new materialize.Dropdown(elem);
+// $ExpectType Dropdown
+const dropdown = new materialize.Dropdown(elem, {
+    alignment: "left"
+});
+// $ExpectType void
+dropdown.open();
+// $ExpectType void
+dropdown.close();
+// $ExpectType void
+dropdown.destroy();
+// $ExpectType void
+dropdown.recalculateDimensions();
+// $ExpectType Element
+dropdown.dropdownEl;
+// $ExpectType Element
+dropdown.el;
+// $ExpectType number
+dropdown.focusedIndex;
+// $ExpectType string
+dropdown.id;
+// $ExpectType boolean
+dropdown.isOpen;
+// $ExpectType boolean
+dropdown.isScrollable;
+// $ExpectType DropdownOptions
+dropdown.options;
+
+// FormSelect
+// $ExpectType FormSelect
+new materialize.FormSelect(elem);
+// $ExpectType FormSelect
+const formSelect = new materialize.FormSelect(elem, {
+    classes: "whatever",
+    dropdownOptions: {
+        alignment: "left"
+    }
+});
+// $ExpectType string[]
+formSelect.getSelectedValues();
+// $ExpectType void
+formSelect.destroy();
+// $ExpectType FormSelectOptions
+formSelect.options;
+// $ExpectType Element
+formSelect.el;
+// $ExpectType Dropdown
+formSelect.dropdown;
+// $ExpectType HTMLUListElement
+formSelect.dropdownOptions;
+// $ExpectType HTMLInputElement
+formSelect.input;
+// $ExpectType boolean
+formSelect.isMultiple;
+// $ExpectType Element
+formSelect.wrapper;

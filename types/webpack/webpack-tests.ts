@@ -100,7 +100,9 @@ configuration = {
         path: path.join(__dirname, "assets", "[hash]"),
         publicPath: "assets/[hash]/",
         filename: "output.[hash].bundle.js",
-        chunkFilename: "[id].[hash].bundle.js"
+        chunkFilename: "[id].[hash].bundle.js",
+        hashFunction: 'sha256',
+        hashDigestLength: 64,
     }
 };
 
@@ -141,6 +143,15 @@ rule = {
         path.resolve(__dirname, "node_modules")
     ],
     loader: "babel-loader"
+};
+
+rule = {
+    test: /\.css$/,
+    resourceQuery: /module/,
+    loader: 'css-loader',
+    options: {
+        modules: true
+    }
 };
 
 declare const require: any;
@@ -260,7 +271,7 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     mangle: {
-        except: ['$super', '$', 'exports', 'require']
+        reserved: ['$super', '$', 'exports', 'require']
     }
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
@@ -578,6 +589,22 @@ configuration = {
         minimize: true,
         portableRecords: true
     }
+};
+
+configuration = {
+    mode: "production",
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    chunks: "initial",
+                    test: "node_modules",
+                    name: "vendor",
+                    enforce: true
+                }
+            }
+        }
+    },
 };
 
 plugin = new webpack.SplitChunksPlugin({ chunks: "async", minChunks: 2 });

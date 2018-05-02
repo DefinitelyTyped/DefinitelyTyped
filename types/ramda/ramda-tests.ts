@@ -310,6 +310,36 @@ R.times(i, 5);
 })();
 
 (() => {
+    interface Vector {
+      x: number;
+      y: number;
+    }
+
+    let numberOfCalls = 0;
+
+    function vectorSum(a: Vector, b: Vector): Vector {
+        numberOfCalls += 1;
+        return {
+            x: a.x + b.x,
+            y: a.y + b.y
+        };
+    }
+
+    const memoVectorSum = R.memoizeWith(JSON.stringify, vectorSum);
+
+    memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
+    numberOfCalls; // => 1
+    memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
+    numberOfCalls; // => 1
+    memoVectorSum({ x: 1, y: 2 }, { x: 2, y: 3 }); // => { x: 3, y: 5 }
+    numberOfCalls; // => 2
+
+    // Note that argument order matters
+    memoVectorSum({ x: 2, y: 3 }, { x: 1, y: 2 }); // => { x: 3, y: 5 }
+    numberOfCalls; // => 3
+})();
+
+(() => {
     const addOneOnce = R.once((x: number) => x + 1);
     addOneOnce(10); // => 11
     addOneOnce(addOneOnce(50)); // => 11
@@ -724,7 +754,9 @@ interface Obj {
     const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
     const a1 = R.indexBy(R.prop("id"), list);
     const a2 = R.indexBy(R.prop("id"))(list);
-    const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
+    const a3 = R.indexBy<{ id: string }>(R.prop("id"))(list);
+    const a4 = R.indexBy(R.prop<"id", string>("id"))(list);
+    const a5 = R.indexBy<{ id: string }>(R.prop<"id", string>("id"))(list);
 
     const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
         R.map((x: Book) => x.title),
@@ -1161,7 +1193,8 @@ type Pair = KeyValuePair<string, number>;
 
 () => {
     const x          = R.prop("x");
-    const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a: boolean  = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a1: boolean = R.tryCatch(R.prop<"x", true>("x"), R.F)({x: true}); // => true
     const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
     const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      // => true
 };
@@ -1754,7 +1787,7 @@ class Rectangle {
 
     const format = R.converge(
         R.call, [
-            R.pipe<{}, number, (s: string) => string>(R.prop("indent"), indentN),
+            R.pipe(R.prop<"indent", number>("indent"), indentN),
             R.prop("value")
         ]
     );
