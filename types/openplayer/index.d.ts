@@ -1,7 +1,8 @@
-// Type definitions for OpenPlayer v1.0.0
+// Type definitions for OpenPlayer 1.0
 // Project: https://github.com/rafa8626/openplayer
 // Definitions by: Rafael Miranda <https://github.com/rafa8626/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace OpenPlayer {
     interface PlayerComponent {
@@ -13,13 +14,13 @@ declare namespace OpenPlayer {
         [key: string]: (e: any) => void;
     }
 
-    export interface Source {
+    interface Source {
         src: string;
         type: string;
         drm?: object;
     }
-    
-    export interface Track {
+
+    interface Track {
         srclang: string;
         src: string;
         kind: string;
@@ -44,7 +45,7 @@ declare namespace OpenPlayer {
         paused(): boolean;
         ended(): boolean;
     }
-    
+
     class Ads {
         constructor(media: Media, adsUrl: string);
         load(): void;
@@ -81,13 +82,8 @@ declare namespace OpenPlayer {
          */
         static init(): void;
         /**
-        * Create an instance of Player.
-        *
-        * @param {(HTMLMediaElement|string)} element  A video/audio tag or its identifier.
-        * @param {?string} adsUrl  A URL to play Ads via Google IMA SDK.
-        * @param {?boolean} fill  Determine if video should be scaled and scrop to fit container.
-        * @returns {Player}
-        */
+         * Create an instance of Player.
+         */
         constructor(element: HTMLMediaElement | string, adsUrl?: string, fill?: boolean);
         /**
          * Create all the markup and events needed for the player.
@@ -124,65 +120,49 @@ declare namespace OpenPlayer {
          *
          * This element is mostly useful to attach other player component's markup in a place
          * different than the controls bar.
-         * @returns {HTMLElement}
          */
         getContainer(): HTMLElement;
         /**
          * Retrieve an instance of the controls object used in the player instance.
          *
          * This element is mostly useful to attach other player component's markup in the controls bar.
-         * @returns {Controls}
          */
         getControls(): Controls;
         /**
          * Retrieve the original video/audio tag.
          *
          * This element is useful to attach different events in other player's components.
-         * @returns {HTMLMediaElement}
          */
         getElement(): HTMLMediaElement;
         /**
          * Retrieve the events attached to the player.
          *
          * This list does not include individual events associated with other player's components.
-         * @returns {EventsList}
          */
         getEvents(): EventsList;
         /**
          * Retrieve the current media object (could be Ads or any other media type).
-         *
-         * @returns {(Ads|Media)}
          */
         activeElement(): Ads | Media;
         /**
          * Check if current media is an instance of a native media type.
-         *
-         * @returns {boolean}
          */
         isMedia(): boolean;
         /**
          * Check if current media is an instance of an Ad.
-         *
-         * @returns {boolean}
          */
         isAd(): boolean;
         /**
          * Retrieve an instance of the `Media` object.
-         *
-         * @returns {Media}
          */
         getMedia(): Media;
         /**
          * Retrieve an instance of the `Ads` object.
-         *
-         * @returns {Ads}
          */
         getAd(): Ads;
         /**
          * Append a new `<track>` tag to the video/audio tag and dispatch event
          * so it gets registered/loaded in the player, via `controlschanged` event.
-         *
-         * @param {Track} args
          */
         addCaptions(args: Track): void;
         // Setters/getters
