@@ -186,3 +186,23 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
 }
+
+{
+    let ed25519 = forge.pki.ed25519;
+
+    let keypair = ed25519.generateKeyPair();
+
+    let signature = ed25519.sign({
+        message: 'test',
+        encoding: 'utf8',
+        privateKey: keypair.privateKey
+    });
+
+    let verified = ed25519.verify({
+        message: 'test',
+        encoding: 'utf8',
+        signature: signature,
+        publicKey: keypair.publicKey
+    });
+
+}

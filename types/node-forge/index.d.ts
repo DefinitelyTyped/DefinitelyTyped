@@ -13,6 +13,7 @@ declare module "node-forge" {
     type Base64 = string;
     type Utf8 = string;
     type OID = string;
+    type NativeBuffer = any;
 
     namespace pem {
 
@@ -68,6 +69,39 @@ declare module "node-forge" {
 
             function generateKeyPair(bits?: number, e?: number, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
             function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
+        }
+
+        namespace ed25519 {
+
+            enum Constants {
+                HASH_BYTE_LENGTH = 64,
+                PRIVATE_KEY_BYTE_LENGTH = 64,
+                PUBLIC_KEY_BYTE_LENGTH = 32,
+                SEED_BYTE_LENGTH = 32,
+                SIGN_BYTE_LENGTH = 64
+            }
+
+            interface options {
+                seed?: any
+            }
+
+            interface signOptions {
+                message: any,
+                encoding: string,
+                privateKey: Key
+            }
+
+            interface verifyOptions {
+                    message: any,
+                    encoding?: string,
+                    signature: any,
+                    publicKey: Key
+            }
+
+            function generateKeyPair(options?: options): KeyPair;
+            function publicKeyFromPrivateKey(keyPair: KeyPair): KeyPair["publicKey"];
+            function sign(options: signOptions): NativeBuffer;
+            function verify(options: verifyOptions):boolean;
         }
 
         interface CertificateFieldOptions {
