@@ -69,7 +69,7 @@ declare module 'angular' {
             versionInfo(): string;
             loaderCache(): any;
             isReady(): boolean;
-            onReady(): angular.IPromise<void>;
+            onReady(fn?: () => void): angular.IPromise<void>;
             resolveClientLocale(): string;
             getAvailableLanguageKeys(): string[];
         }
