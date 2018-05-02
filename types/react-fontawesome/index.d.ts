@@ -11,7 +11,7 @@ import * as React from 'react';
 
 export = FontAwesome;
 
-interface Intermediate extends React.HTMLProps<HTMLElement> {
+interface Intermediate extends React.HTMLAttributes<HTMLElement> {
     size?: any;
 }
 
