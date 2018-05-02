@@ -15,6 +15,7 @@ declare global {
             options?: daterangepicker.Options,
             callback?: daterangepicker.DataRangePickerCallback
         ) => JQuery) & { defaultOptions?: daterangepicker.Options };
+        data(key: 'daterangepicker'): daterangepicker | undefined;
     }
 }
 

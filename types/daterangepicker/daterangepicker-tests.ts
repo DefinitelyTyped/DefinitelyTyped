@@ -3,18 +3,22 @@ import daterangepicker = require('daterangepicker');
 
 function tests_simple() {
     $('#daterange').daterangepicker();
-    $('input[name="daterange"]').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        locale: {
-            format: 'MM/DD/YYYY h:mm A'
-        },
-        maxSpan: { days: 10 },
-        applyButtonClasses: 'my-apply-class',
-        cancelButtonClasses: 'my-cancel-class',
-        showDropdowns: true,
-        maxYear: 3000
-    });
+    $('input[name="daterange"]')
+        .daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY h:mm A'
+            },
+            maxSpan: { days: 10 },
+            applyButtonClasses: 'my-apply-class',
+            cancelButtonClasses: 'my-cancel-class',
+            showDropdowns: true,
+            maxYear: 3000,
+            minYear: 2000
+        })
+        .data('daterangepicker')
+        .remove();
 
     $('#reportrange').daterangepicker({
         ranges: {
