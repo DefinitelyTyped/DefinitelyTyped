@@ -2,16 +2,14 @@ import * as algoliasearch from 'algoliasearch';
 import {
   ClientOptions,
   SynonymOption,
-  AlgoliaApiKeyOptions,
+  ApiKeyOptions,
   SearchSynonymOptions,
-  AlgoliaResponse,
-  AlgoliaSecuredApiOptions,
-  AlgoliaIndexSettings,
-  AlgoliaQueryParameters,
-  AlgoliaIndex,
+  SecuredApiOptions,
+  Index,
 } from 'algoliasearch';
+import { Response, IndexSettings, QueryParameters } from './common';
 
-let _algoliaResponse: AlgoliaResponse = {
+let _algoliaResponse: Response = {
   hits: [{}, {}],
   page: 0,
   nbHits: 12,
@@ -33,7 +31,7 @@ let _synonymOption: SynonymOption = {
   replaceExistingSynonyms: false,
 };
 
-let _algoliaApiKeyOptions: AlgoliaApiKeyOptions = {
+let _algoliaApiKeyOptions: ApiKeyOptions = {
   validity: 0,
   maxQueriesPerIPPerHour: 0,
   indexes: [''],
@@ -48,14 +46,14 @@ let _searchSynonymOptions: SearchSynonymOptions = {
   hitsPerPage: 0,
 };
 
-let _algoliaSecuredApiOptions: AlgoliaSecuredApiOptions = {
+let _algoliaSecuredApiOptions: SecuredApiOptions = {
   filters: '',
   validUntil: 0,
   restrictIndices: '',
   userToken: '',
 };
 
-let _algoliaIndexSettings: AlgoliaIndexSettings = {
+let _algoliaIndexSettings: IndexSettings = {
   attributesToIndex: [''],
   attributesForFaceting: [''],
   unretrievableAttributes: [''],
@@ -63,7 +61,7 @@ let _algoliaIndexSettings: AlgoliaIndexSettings = {
   ranking: [''],
   customRanking: [''],
   replicas: [''],
-  maxValuesPerFacet: '',
+  maxValuesPerFacet: 100,
   attributesToHighlight: [''],
   attributesToSnippet: [''],
   highlightPreTag: '',
@@ -96,13 +94,13 @@ let _algoliaIndexSettings: AlgoliaIndexSettings = {
   placeholders: '',
 };
 
-let _algoliaQueryParameters: AlgoliaQueryParameters = {
+let _algoliaQueryParameters: QueryParameters = {
   query: '',
   filters: '',
   attributesToRetrieve: [''],
   restrictSearchableAttributes: [''],
   facets: '',
-  maxValuesPerFacet: '',
+  maxValuesPerFacet: 2,
   attributesToHighlight: [''],
   attributesToSnippet: [''],
   highlightPreTag: '',
@@ -147,7 +145,7 @@ let _algoliaQueryParameters: AlgoliaQueryParameters = {
   minProximity: 0,
 };
 
-let index: AlgoliaIndex = algoliasearch('', '').initIndex('');
+let index: Index = algoliasearch('', '').initIndex('');
 
 let search = index.search({ query: '' });
 index.search({ query: '' }, (err, res) => {});
