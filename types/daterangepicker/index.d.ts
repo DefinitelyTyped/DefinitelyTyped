@@ -1,4 +1,4 @@
-// Type definitions for Date Range Picker v3.0.1
+// Type definitions for Date Range Picker 3.0
 // Project: http://www.daterangepicker.com/
 // Definitions by: SirMartin <https://github.com/SirMartin>
 //                 Steven Masala <https://github.com/smasala>
@@ -18,7 +18,21 @@ declare global {
     }
 }
 
-declare const daterangepicker: daterangepicker.DateRangePicker;
+declare class daterangepicker {
+    constructor(
+        element: HTMLElement,
+        options?: daterangepicker.Options,
+        callback?: daterangepicker.DataRangePickerCallback
+    );
+
+    startDate: moment.Moment;
+    endDate: moment.Moment;
+    container: JQuery;
+
+    setStartDate(date: daterangepicker.DateOrString): void;
+    setEndDate(date: daterangepicker.DateOrString): void;
+    remove(): void;
+}
 
 declare namespace daterangepicker {
     type DataRangePickerCallback = (
@@ -28,22 +42,6 @@ declare namespace daterangepicker {
     ) => void;
 
     type DateOrString = string | moment.Moment | Date;
-
-    interface DateRangePicker {
-        new (
-            element: HTMLElement,
-            options?: daterangepicker.Options,
-            callback?: DataRangePickerCallback
-        ): DateRangePicker;
-
-        startDate: moment.Moment;
-        endDate: moment.Moment;
-        container: JQuery;
-
-        setStartDate(date: DateOrString): void;
-        setEndDate(date: DateOrString): void;
-        remove(): void;
-    }
 
     interface DatepickerEventObject extends JQueryEventObject {
         date: Date;
@@ -116,7 +114,9 @@ declare namespace daterangepicker {
          */
         showCustomRangeLabel?: boolean;
         /**
-         * Normally, if you use the `ranges` option to specify pre-defined date ranges, calendars for choosing a custom date range are not shown until the user clicks "Custom Range". When this option is set to true, the calendars for choosing a custom date range are always shown instead.
+         * Normally, if you use the `ranges` option to specify pre-defined date ranges, calendars
+         * for choosing a custom date range are not shown until the user clicks "Custom Range".
+         * When this option is set to true, the calendars for choosing a custom date range are always shown instead.
          */
         alwaysShowCalendars?: boolean;
         /**
@@ -152,7 +152,10 @@ declare namespace daterangepicker {
          */
         autoApply?: boolean;
         /**
-         * When enabled, the two calendars displayed will always be for two sequential months (i.e.January and February), and both will be advanced when clicking the left or right arrows above the calendars.When disabled, the two calendars can be individually advanced and display any month/ year.
+         * When enabled, the two calendars displayed will always be for two sequential months (i.e.
+         * January and February), and both will be advanced when clicking the left or right arrows
+         * above the calendars.When disabled, the two calendars can be individually advanced and
+         * display any month/ year.
          */
         linkedCalendars?: boolean;
         /**
