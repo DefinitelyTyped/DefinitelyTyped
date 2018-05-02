@@ -51,3 +51,8 @@ declare namespace M {
         onCloseEnd: (this: Materialbox, el: Element) => void;
     }
 }
+
+interface JQuery {
+    materialbox(method: keyof Pick<M.Materialbox, "destroy" | "open" | "close">): JQuery;
+    materialbox(options?: Partial<M.MaterialboxOptions>): JQuery;
+}

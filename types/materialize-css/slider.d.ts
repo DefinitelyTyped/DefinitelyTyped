@@ -64,3 +64,8 @@ declare namespace M {
         interval: number;
     }
 }
+
+interface JQuery {
+    slider(method: keyof Pick<M.Slider, "pause" | "start" | "next" | "prev" | "destroy">): JQuery;
+    slider(options?: Partial<M.SliderOptions>): JQuery;
+}

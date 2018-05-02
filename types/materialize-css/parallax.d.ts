@@ -12,3 +12,7 @@ declare namespace M {
         responsiveThreshold: number;
     }
 }
+
+interface JQuery {
+    parallax(options?: Partial<M.ParallaxOptions>): JQuery;
+}

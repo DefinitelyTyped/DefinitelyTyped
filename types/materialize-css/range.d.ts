@@ -4,3 +4,7 @@ declare namespace M {
     class Range extends Component<undefined> {
     }
 }
+
+interface JQuery {
+    range(): JQuery;
+}

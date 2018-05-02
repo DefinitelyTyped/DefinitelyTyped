@@ -27,3 +27,8 @@ declare namespace M {
         onClose: (this: TapTarget, origin: Element) => void;
     }
 }
+
+interface JQuery {
+    tapTarget(method: keyof Pick<M.TapTarget, "open" | "close" | "destroy">): JQuery;
+    tapTarget(options?: Partial<M.TapTargetOptions>): JQuery;
+}

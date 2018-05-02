@@ -30,3 +30,7 @@ declare namespace M {
         getActiveElement: (id: string) => string;
     }
 }
+
+interface JQuery {
+    scrollSpy(options?: Partial<M.ScrollSpyOptions>): JQuery;
+}

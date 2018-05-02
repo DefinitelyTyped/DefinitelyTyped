@@ -34,3 +34,7 @@ declare namespace M {
         onPositionChange: (this: Pushpin, position: "pinned" | "pin-top" | "pin-bottom") => void;
     }
 }
+
+interface JQuery {
+    pushpin(options?: Partial<M.PushpinOptions>): JQuery;
+}

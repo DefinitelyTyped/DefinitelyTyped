@@ -22,7 +22,7 @@ declare namespace M {
          * Add chip to input
          * @param data Chip data object
          */
-        addChip(chip: any): void;
+        addChip(chip: ChipData): void;
 
         /**
          * Delete nth chip
@@ -102,7 +102,7 @@ declare namespace M {
 
 interface JQuery {
     chips(method: keyof Pick<M.Chips, "destroy">): JQuery;
-    chips(method: keyof Pick<M.Chips, "addChip">, chip: any): JQuery;
+    chips(method: keyof Pick<M.Chips, "addChip">, chip: M.ChipData): JQuery;
     chips(method: keyof Pick<M.Chips, "deleteChip">, n?: number): JQuery;
     chips(method: keyof Pick<M.Chips, "selectChip">, n: number): JQuery;
     chips(options?: Partial<M.ChipsOptions>): JQuery;
