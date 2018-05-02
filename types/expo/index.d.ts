@@ -1778,7 +1778,7 @@ export namespace Pedometer {
  * Permissions
  */
 export namespace Permissions {
-    type PermissionType = 'audioRecording' | 'calendar' | 
+    type PermissionType = 'audioRecording' | 'calendar' |
     'cameraRoll' | 'camera' | 'contacts' | 'location' | 'reminders' |
     'remoteNotifications' | 'systemBrightness' | 'userFacingNotifications';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
