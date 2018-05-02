@@ -885,6 +885,8 @@ export interface XAxisProps extends EventAttributes {
     tickLine?: boolean | object;
     minTickGap?: number;
     tickSize?: number;
+    // The margin between tick line and the label
+    tickMargin?: number;
     interval?: AxisInterval;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/XAxis
@@ -934,6 +936,8 @@ export interface YAxisProps extends EventAttributes {
     tickLine?: boolean | object;
     minTickGap?: number;
     tickSize?: number;
+    // The margin between tick line and the label
+    tickMargin?: number;
     interval?: AxisInterval;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
