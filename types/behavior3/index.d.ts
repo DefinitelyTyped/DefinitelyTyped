@@ -1,4 +1,4 @@
-// Type definitions for behavior3 0.2.2
+// Type definitions for behavior3 0.2
 // Project: https://github.com/behavior3/behavior3js
 // Definitions by: carry.wu <https://github.com/carrrywu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

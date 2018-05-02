@@ -1,6 +1,13 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "object-literal-key-quotes": false
+        "no-padding": false,
+        "no-internal-module": false,
+        "typedef-whitespace": false,
+        "strict-export-declare-modifiers": false,
+        "jsdoc-format": false,
+        "no-redundant-jsdoc-2": false,
+        "object-literal-key-quotes": false,
+        "no-trailing-whitespace": false
     }
 }
