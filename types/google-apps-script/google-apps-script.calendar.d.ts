@@ -24,6 +24,7 @@ declare namespace GoogleAppsScript {
       deleteCalendar(): void;
       getColor(): string;
       getDescription(): string;
+      getEventById(iCalId: string): CalendarEvent;
       getEventSeriesById(iCalId: string): CalendarEventSeries;
       getEvents(startTime: Date, endTime: Date): CalendarEvent[];
       getEvents(startTime: Date, endTime: Date, options: Object): CalendarEvent[];
