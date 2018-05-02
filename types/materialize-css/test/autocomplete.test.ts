@@ -14,6 +14,7 @@ const autocomplete = new materialize.Autocomplete(elem, {
         Google: "https://placehold.it/250x250"
     },
     minLength: 3,
+    limit: 3,
     onAutocomplete(text) {
         // $ExpectType Autocomplete
         this;
