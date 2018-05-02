@@ -5989,14 +5989,16 @@ declare module "stream" {
             uncork(): void;
         }
 
+        type TransformCallback = (err?: Error, data?: any) => void;
+
         export interface TransformOptions extends DuplexOptions {
-            transform?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            flush?: (callback: Function) => any;
+            transform?: (chunk: any, encoding: string, callback: TransformCallback) => any;
+            flush?: (callback: TransformCallback) => any;
         }
 
         export class Transform extends Duplex {
             constructor(opts?: TransformOptions);
-            _transform(chunk: any, encoding: string, callback: Function): void;
+            _transform(chunk: any, encoding: string, callback: TransformCallback): void;
             destroy(error?: Error): void;
         }
 
