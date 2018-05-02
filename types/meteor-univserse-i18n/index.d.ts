@@ -1,4 +1,4 @@
-// Type definitions for meteor/universe:i18n 1.14
+// Type definitions for https://github.com/vazco/meteor-universe-i18n 1.14
 // Project: meteor-universe-i18n
 // Definitions by: Mathias Scherer <https://github.com/mathewmeconry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,7 @@
 /// <reference types="react" />
 /// <reference types="node" />
 
+// tslint:disable-next-line no-single-declare-module
 declare module "meteor/universe:i18n" {
     import { OutgoingHttpHeaders } from "http";
 
@@ -20,6 +21,7 @@ declare module "meteor/universe:i18n" {
 
         // translation setter / getter functions
         function addTranslation(locale: string, namespace: string, translation: string): void;
+        // tslint:disable-next-line unified-signatures
         function addTranslation(locale: string, namespace: string, key: string, translation: string): void;
         function addTranslations(locale: string, translationsMap: {}): void;
         function addTranslations(locale: string, namespace: string, translationsMap: {}): void;
