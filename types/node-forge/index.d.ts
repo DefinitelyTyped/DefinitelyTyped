@@ -43,7 +43,9 @@ declare module "node-forge" {
             privateKey: Key;
         }
 
+		function pemToDer(pem: PEM): util.ByteStringBuffer;
         function privateKeyToPem(key: Key, maxline?: number): PEM;
+		function privateKeyInfoToPem(key: Key, maxline?: number): PEM;
         function publicKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyFromPem(pem: PEM): Key;
         function privateKeyFromPem(pem: PEM): Key;
