@@ -97,6 +97,7 @@ export interface DataGroup {
   subgroupOrder?: string | (() => void);
   title?: string;
   nestedGroups?: number[];
+  subgroupStack?: any;
 }
 
 export interface DataGroupOptions {
