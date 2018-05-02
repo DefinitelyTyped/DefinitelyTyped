@@ -1787,7 +1787,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
-    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
         cwd?: string;

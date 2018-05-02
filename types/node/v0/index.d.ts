@@ -881,7 +881,7 @@ declare module "child_process" {
         unref(): void;
     }
 
-    export function spawn(command: string, args?: string[], options?: {
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: {
         cwd?: string;
         stdio?: any;
         custom?: any;
