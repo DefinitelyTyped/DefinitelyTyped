@@ -8,7 +8,7 @@ import { ServerConfig } from 'next';
 
 declare function withTypescript(
     /** @default {} */
-    nextConfig: ServerConfig
+    nextConfig?: ServerConfig
 ): ServerConfig;
 
 export = withTypescript;
