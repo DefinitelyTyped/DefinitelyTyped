@@ -1,6 +1,7 @@
 // Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
+//                 linlex <https://github.com/linlex/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -925,7 +926,7 @@ declare namespace GoogleAppsScript {
       setActiveSelection(range: Range): Range;
       setActiveSelection(a1Notation: string): Range;
       setColumnWidth(columnPosition: Integer, width: Integer): Sheet;
-      setConditionalFormatRules(rules: ConditionalFormatRule[]): void;
+      setConditionalFormatRules(rules: ReadonlyArray<ConditionalFormatRule>): void;
       setCurrentCell(cell: Range): void;
       setFrozenColumns(columns: Integer): void;
       setFrozenRows(rows: Integer): void;
@@ -1253,7 +1254,7 @@ declare namespace GoogleAppsScript {
       /**
        * Sets one or more ranges to which this conditional format rule is applied.
        */
-      setRanges(ranges: Range[]): ConditionalFormatRuleBuilder;
+      setRanges(ranges: ReadonlyArray<Range>): ConditionalFormatRuleBuilder;
 
       /**
        * Sets text strikethrough for the conditional format rule's format.
@@ -1378,7 +1379,7 @@ declare namespace GoogleAppsScript {
       /**
        * Sets the conditional format rule to criteria defined by BooleanCriteria values, typically taken from the criteria and arguments of an existing rule.
        */
-      withCriteria(criteria: BooleanCriteria, args: Object[]): ConditionalFormatRuleBuilder;
+      withCriteria(criteria: BooleanCriteria, args: ReadonlyArray<number|string|Date>): ConditionalFormatRuleBuilder;
     }
 
     /**
