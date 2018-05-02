@@ -1,6 +1,6 @@
 // Type definitions for OpenPlayer 1.0
 // Project: https://github.com/rafa8626/openplayer
-// Definitions by: Rafael Miranda <https://github.com/rafa8626/>
+// Definitions by: Rafael Miranda <https://github.com/rafa8626>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -76,7 +76,7 @@ declare namespace OpenPlayer {
      * This class generates controls to play native media (such as MP4, MP3, HLS, M(PEG-DASH),
      * and have a unified look-and-feel on all modern browsers (including IE11)
      */
-    export class Player {
+    class Player {
         /**
          * Convert all the video/audio tags with `om-player` class in a OpenMedia player instance.
          */
