@@ -57,13 +57,11 @@ new materialize.Modal(elem);
 // $ExpectType Modal
 const modal = new materialize.Modal(elem, {
     inDuration: 300,
-    ready(el, trigger) {
+    onOpenStart(el) {
         // $ExpectType Modal
         this;
         // $ExpectType Element
         el;
-        // $ExpectType Element
-        trigger;
     }
 });
 // $ExpectType void
@@ -172,13 +170,13 @@ toast.dismiss();
 materialize.Toast.dismissAll();
 
 // DatePicker
-// $ExpectType DatePicker
-new materialize.DatePicker(elem);
-// $ExpectType DatePicker
-const datePicker = new materialize.DatePicker(elem, {
+// $ExpectType Datepicker
+new materialize.Datepicker(elem);
+// $ExpectType Datepicker
+const datePicker = new materialize.Datepicker(elem, {
     defaultDate: new Date(),
     onSelect(date) {
-        // $ExpectType DatePicker
+        // $ExpectType Datepicker
         this;
         // $ExpectType Date
         date;
@@ -190,18 +188,18 @@ datePicker.open();
 datePicker.setDate(new Date());
 // $ExpectType void
 datePicker.destroy();
-// $ExpectType DatePickerOptions
+// $ExpectType DatepickerOptions
 datePicker.options;
 // $ExpectType Element
 datePicker.el;
 // $ExpectType boolean
 datePicker.isOpen;
 
-// TimePicker
-// $ExpectType TimePicker
-new materialize.TimePicker(elem);
-// $ExpectType TimePicker
-const timePicker = new materialize.TimePicker(elem, {
+// Timepicker
+// $ExpectType Timepicker
+new materialize.Timepicker(elem);
+// $ExpectType Timepicker
+const timePicker = new materialize.Timepicker(elem, {
     defaultTime: "13:14"
 });
 // $ExpectType void
@@ -210,7 +208,7 @@ timePicker.open();
 timePicker.showView("hours");
 // $ExpectType void
 timePicker.destroy();
-// $ExpectType TimePickerOptions
+// $ExpectType TimepickerOptions
 timePicker.options;
 // $ExpectType Element
 timePicker.el;
