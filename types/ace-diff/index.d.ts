@@ -8,12 +8,12 @@ export as namespace AceDiff;
 export = AceDiff;
 
 declare class AceDiff {
-    constructor(opts: AceDiff.AceDiffOpts);
+    constructor(opts: AceDiff.AceDiffConstructorOpts);
     getEditors(): {
         left: any;
         right: any;
     };
-    setOptions(): void;
+    setOptions(options: AceDiff.AceDiffOpts): void;
     getNumDiffs(): number;
     diff(): void;
     destroy(): void;
@@ -27,16 +27,21 @@ declare namespace AceDiff {
         copyLinkEnabled?: boolean;
     }
 
-    interface AceDiffOpts {
+    interface AceDiffConstructorOpts extends AceDiffOpts {
         element: string | HTMLElement;
+        left: AceDiffLROpts;
+        right: AceDiffLROpts;
+    }
+
+    interface AceDiffOpts {
         mode?: string;
         theme?: string;
         diffGranularity?: 'specific' | 'broad';
         showDiffs?: boolean;
         showConnectors?: boolean;
         maxDiffs?: number;
-        left: AceDiffLROpts;
-        right: AceDiffLROpts;
+        left?: AceDiffLROpts;
+        right?: AceDiffLROpts;
         classes?: {
             diff: string;
             connector: string;
