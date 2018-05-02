@@ -15,13 +15,28 @@ import * as fetch from "isomorphic-unfetch";
 declare namespace next {
     // <<https://github.com/zeit/next.js/issues/1651>>
     interface NextContext {
-        pathname?: string;                      // path section of URL
-        query?: any;                            // meant to be an object - // query string section of URL parsed as an object
-        asPath?: string;                        // String of the actual path (including the query) shows in the browser
-        req?: http.IncomingMessage;             // HTTP request object (server only)
-        res?: http.ServerResponse;              // HTTP response object (server only)
-        jsonPageRes?: fetch.IsomorphicResponse; // Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response
-        err?: Error;                            // Error object if any error is encountered during the rendering
+        /** path section of URL */
+        pathname: string
+        /** query string section of URL parsed as an object */
+        query: {
+            [key: string]: any
+        }
+        /** String of the actual path (including the query) shows in the browser */
+        asPath: string
+        /** HTTP request object (server only) */
+        req?: http.IncomingMessage
+        /** HTTP response object (server only) */
+        res?: http.ServerResponse
+        /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */
+        jsonPageRes?: fetch.IsomorphicResponse
+        /** Error object if any error is encountered during the rendering */
+        err?: Error
+        /** a callback that executes the actual React rendering logic (synchronously) */
+        renderPage(
+            cb?: (enhancer: () => JSX.Element) => React.ComponentType<any>
+        ): {
+            [key: string]: any
+        }
     }
 
     type UrlLike = url.UrlObject | url.Url;

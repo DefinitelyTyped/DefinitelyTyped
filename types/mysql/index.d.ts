@@ -3,6 +3,7 @@
 // Definitions by:  William Johnston <https://github.com/wjohnsto>
 // 	                Kacper Polak <https://github.com/kacepe>
 // 	                Krittanan Pingclasai <https://github.com/kpping>
+// 	                James Munro <https://github.com/jdmunro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -239,6 +240,11 @@ export interface QueryOptions {
      * The SQL for the query
      */
     sql: string;
+
+    /**
+     * Values for template query
+     */
+    values?: any;
 
     /**
      * Every operation takes an optional inactivity timeout option. This allows you to specify appropriate timeouts for

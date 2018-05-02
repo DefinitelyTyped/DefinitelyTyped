@@ -7,6 +7,9 @@
 //                 Gaurav Lahoti <https://github.com/dante-101>
 //                 Mariano Cortesi <https://github.com/mcortesi>
 //                 Enrico Picci <https://github.com/EnricoPicci>
+//                 Alexander Christie <https://github.com/AJCStriker>
+//                 Julien Chaumond <https://github.com/julien-c>
+//                 Dan Aprahamian <https://github.com/daprahamian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -27,7 +30,7 @@ export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, T
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html
 export class MongoClient extends EventEmitter {
-    constructor();
+    constructor(uri: string, options?: MongoClientOptions);
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#.connect */
     static connect(uri: string, callback: MongoCallback<MongoClient>): void;
     static connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
@@ -43,7 +46,7 @@ export class MongoClient extends EventEmitter {
     close(force?: boolean): Promise<void>;
     close(force: boolean, callback: MongoCallback<void>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#db */
-    db(name: string, options?: MongoClientCommonOption): Db
+    db(dbName?: string, options?: MongoClientCommonOption): Db
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#isConnected */
     isConnected(name: string, options?: MongoClientCommonOption): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#logout */
@@ -93,23 +96,33 @@ export interface MongoClientOptions extends
     logger?: Object;
     // Default: false;
     validateOptions?: Object;
-    // The name of the application that created this MongoClient instance. 
+    // The name of the application that created this MongoClient instance.
     appname?: string;
+    auth?: {
+        user: string;
+        password: string;
+    }
 }
 
 export interface SSLOptions {
+    // Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info.
+    ciphers?: string;
+    // Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info.
+    ecdhCurve?: string;
     // Default:5; Number of connections for each server instance
     poolSize?: number;
+    // If present, the connection pool will be initialized with minSize connections, and will never dip below minSize connections
+    minSize?: number;
     // Use ssl connection (needs to have a mongod server with ssl support)
     ssl?: boolean;
     // Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
-    sslValidate?: Object;
+    sslValidate?: boolean;
     // Default: true; Server identity checking during SSL
     checkServerIdentity?: boolean | Function;
     // Array of valid certificates either as Buffers or Strings
     sslCA?: Array<Buffer | string>;
     // SSL Certificate revocation list binary buffer
-    sslCRL?: Buffer;
+    sslCRL?: Array<Buffer | string>;
     // SSL Certificate binary buffer
     sslCert?: Buffer | string;
     // SSL Key file binary buffer
@@ -160,8 +173,8 @@ export interface DbCreateOptions extends CommonOptions {
     raw?: boolean;
     // Default: true; Promotes Long values to number if they fit inside the 53 bits resolution.
     promoteLongs?: boolean;
-    // Default: -1 (unlimited); Amount of operations the driver buffers up untill discard any new ones
-    promoteBuffers?: number;
+    // Default: false; Promotes Binary BSON values to native Node Buffers
+    promoteBuffers?: boolean;
     // the prefered read preference. use 'ReadPreference' class.
     readPreference?: ReadPreference | string;
     // Default: true; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
@@ -464,8 +477,8 @@ export interface Collection<TSchema = Default> {
     // Get current index hint for collection.
     hint: any;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#aggregate */
-    aggregate<T = TSchema>(pipeline: Object[], callback: MongoCallback<T[]>): AggregationCursor<T>;
-    aggregate<T = TSchema>(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<T[]>): AggregationCursor<T>;
+    aggregate<T = TSchema>(pipeline: Object[], callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
+    aggregate<T = TSchema>(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>;
@@ -507,9 +520,9 @@ export interface Collection<TSchema = Default> {
     dropIndexes(callback?: MongoCallback<any>): void;
     dropIndexes(options: {session?: ClientSession, maxTimeMS?: number}, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#find */
-    find<T = TSchema>(query?: FilterQuery<T>): Cursor<T>;
+    find<T = TSchema>(query?: FilterQuery<TSchema>): Cursor<T>;
     /** @deprecated */
-    find<T = TSchema>(query: FilterQuery<T>, options?: FindOneOptions): Cursor<T>;
+    find<T = TSchema>(query: FilterQuery<TSchema>, options?: FindOneOptions): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#findOne */
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T | null>): void;
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions): Promise<T | null>;
@@ -636,7 +649,7 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
 }
 
-type FilterQuery<T> = {
+export type FilterQuery<T> = {
     [P in keyof T]?: T[P] | {
         $eq?: T[P];
         $gt?: T[P];
@@ -1209,6 +1222,8 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#close */
     close(): Promise<CursorResult>;
     close(callback: MongoCallback<CursorResult>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#collation */
+    collation(value: Object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#comment */
     comment(value: string): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#count */
@@ -1495,7 +1510,7 @@ export interface ChangeStreamOptions {
 }
 
 type GridFSBucketWriteStreamId = string | number | Object | ObjectID;
-               
+
 export interface LoggerOptions {
     loggerLevel?: string // Custom logger function
     logger?: log // Override default global log level.

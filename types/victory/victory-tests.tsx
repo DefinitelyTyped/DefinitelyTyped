@@ -30,7 +30,7 @@ let test = <VictoryAnimation
     onEnd={() => {}}
 >
     {(style: AnimationStyle) =>
-        <span style={{color: style["color"]}}>Hello!</span>
+        <span style={{color: style["color"] as string}}>Hello!</span>
     }
 </VictoryAnimation>
 
@@ -158,7 +158,7 @@ test = (
           grid: {strokeWidth: 2},
           ticks: {stroke: "red"},
           tickLabels: {fontSize: 12},
-          axisLabel: {fontsize: 16}
+          axisLabel: {fontSize: 16}
         }}
         label="Planets"
         tickValues={[
@@ -243,8 +243,7 @@ test = (
         padding={75}
         style={{
             data: {
-              fill: (data: any) => data.y > 2 ?
-                "red" : "blue"
+              fill: "red",
             }
         }}
         data={[
@@ -374,8 +373,7 @@ test = (
             style={{
               data: {
                 width: 15,
-                fill: (data: any) => data.y > 3 ?
-                  "gold" : "orange"
+                fill: "gold",
               }
             }}
             data={[

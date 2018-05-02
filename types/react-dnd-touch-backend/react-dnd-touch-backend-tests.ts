@@ -11,3 +11,7 @@ const dndComponentKeyboardEvents = ReactDnd.DragDropContext(TouchBackend({enable
 const dndComponentOldDelay = ReactDnd.DragDropContext(TouchBackend({delay: 300}));
 const dndComponentAllCurrentEvents = ReactDnd.DragDropContext(TouchBackend(
     {enableKeyboardEvents: true, enableMouseEvents: true, delayMouseStart: 100, delayTouchStart: 200}));
+const dndComponentWithScrollAngleRanges = ReactDnd.DragDropContext(TouchBackend(
+    { scrollAngleRanges: [{ start: 0, end: 0 }, { start: 0 }, { end: 0 }] }));
+const dndComponentWithTouchSlop = ReactDnd.DragDropContext(TouchBackend({ touchSlop: 0 }));
+const dndComponentWithIgnoreContextMenu = ReactDnd.DragDropContext(TouchBackend({ ignoreContextMenu: true }));

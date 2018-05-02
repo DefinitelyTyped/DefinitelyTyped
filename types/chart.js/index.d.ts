@@ -9,6 +9,7 @@
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
 //                 Sergey Rubanov <https://github.com/chicoxyzzy>
+//                 Simon Archer <https://github.com/archy-bold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -126,6 +127,10 @@ declare namespace Chart {
         pointStyle?: PointStyle;
     }
 
+    interface ChartLegendLabelItem extends ChartLegendItem {
+        datasetIndex: number;
+    }
+
     interface ChartTooltipItem {
         xLabel?: string;
         yLabel?: string;
@@ -184,6 +189,7 @@ declare namespace Chart {
         aspectRatio?: number;
         maintainAspectRatio?: boolean;
         events?: string[];
+        onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
         onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
         title?: ChartTitleOptions;
         legend?: ChartLegendOptions;
@@ -198,6 +204,7 @@ declare namespace Chart {
         cutoutPercentage?: number;
         circumference?: number;
         rotation?: number;
+        devicePixelRatio?: number;
         // Plugins can require any options
         plugins?: { [plugin: string]: any };
     }
@@ -218,15 +225,15 @@ declare namespace Chart {
         fontColor?: ChartColor;
         fontStyle?: string;
         padding?: number;
-        text?: string;
+        text?: string | string[];
     }
 
     interface ChartLegendOptions {
         display?: boolean;
         position?: PositionType;
         fullWidth?: boolean;
-        onClick?(event: MouseEvent, legendItem: ChartLegendItem): void;
-        onHover?(event: MouseEvent, legendItem: ChartLegendItem): void;
+        onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
+        onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
@@ -239,7 +246,7 @@ declare namespace Chart {
         fontFamily?: string;
         padding?: number;
         generateLabels?(chart: any): any;
-        filter?(item: ChartLegendItem, data: ChartData): any;
+        filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
         usePointStyle?: boolean;
     }
 
@@ -291,7 +298,7 @@ declare namespace Chart {
         mode?: string;
         animationDuration?: number;
         intersect?: boolean;
-        onHover?(active: any): void;
+        onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 
     interface ChartAnimationObject {
@@ -395,6 +402,10 @@ declare namespace Chart {
     interface TickOptions {
         autoSkip?: boolean;
         autoSkipPadding?: number;
+        backdropColor?: ChartColor;
+        backdropPaddingX?: number;
+        backdropPaddingY?: number;
+        beginAtZero?: boolean;
         callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
         fontColor?: ChartColor;
@@ -402,14 +413,17 @@ declare namespace Chart {
         fontSize?: number;
         fontStyle?: string;
         labelOffset?: number;
+        max?: any;
         maxRotation?: number;
+        maxTicksLimit?: number;
+        min?: any;
         minRotation?: number;
         mirror?: boolean;
         padding?: number;
         reverse?: boolean;
-        min?: any;
-        max?: any;
+        showLabelBackdrop?: boolean;
     }
+
     interface AngleLineOptions {
         display?: boolean;
         color?: ChartColor;
@@ -424,26 +438,15 @@ declare namespace Chart {
         fontStyle?: string;
     }
 
-    interface TickOptions {
-        backdropColor?: ChartColor;
-        backdropPaddingX?: number;
-        backdropPaddingY?: number;
-        maxTicksLimit?: number;
-        showLabelBackdrop?: boolean;
-    }
     interface LinearTickOptions extends TickOptions {
-        beginAtZero?: boolean;
-        min?: number;
-        max?: number;
         maxTicksLimit?: number;
         stepSize?: number;
         suggestedMin?: number;
         suggestedMax?: number;
     }
 
+    // tslint:disable-next-line no-empty-interface
     interface LogarithmicTickOptions extends TickOptions {
-        min?: number;
-        max?: number;
     }
 
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];

@@ -1,13 +1,12 @@
 // Type definitions for react-native-video 2.0
 // Project: https://github.com/react-native-community/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
-//                 abrahambotros <https://github.com/abrahambotros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
 import * as React from 'react';
 import {
-    ViewProperties
+    ViewProps
 } from 'react-native';
 
 export interface OnLoadData {
@@ -33,7 +32,7 @@ export interface LoadError {
   };
 }
 
-export interface VideoProperties extends ViewProperties {
+export interface VideoProperties extends ViewProps {
     /* Native only */
     src?: any;
     seek?: number;

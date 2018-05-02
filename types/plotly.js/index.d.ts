@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.28
+// Type definitions for plotly.js 1.36
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 // 				Martin Duparc <https://github.com/martinduparc>
@@ -6,6 +6,7 @@
 // 				taoqf <https://github.com/taoqf>
 // 				Dadstart <https://github.com/Dadstart>
 // 				Jared Szechy <https://github.com/szechyjs>
+// 				Drew Diamantoukos <https://github.com/MercifulCode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -25,9 +26,14 @@ export interface Point {
 }
 
 export interface PlotScatterDataPoint {
-	pointNumber: number;
-	curveNumber: number;
-	data: ScatterData;
+  curveNumber: number;
+  data: ScatterData;
+  pointIndex: number;
+  pointNumber: number;
+  x: number;
+  xaxis: LayoutAxis;
+  y: number;
+  yaxis: LayoutAxis;
 }
 
 export interface PlotMouseEvent {
@@ -106,6 +112,7 @@ export function extendTraces(root: Root, update: Data | Data[], indices: number 
 export function prependTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
+export function react(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
 
 // Layout
 export interface Layout {
@@ -113,7 +120,7 @@ export interface Layout {
 	titlefont: Partial<Font>;
 	autosize: boolean;
 	showlegend: boolean;
-	paper_bgcolor: Color;
+    paper_bgcolor: Color;
     plot_bgcolor: Color;
     separators: string;
     hidesources: boolean;
@@ -132,7 +139,7 @@ export interface Layout {
 	width: number;
 	hovermode: 'closest' | 'x' | 'y' | false;
 	hoverlabel: Partial<Label>;
-	calendar: Calendar;
+    calendar: Calendar;
     'xaxis.range': [Datum, Datum];
 	'xaxis.range[0]': Datum;
 	'xaxis.range[1]': Datum;
@@ -143,17 +150,17 @@ export interface Layout {
 	'xaxis.type': AxisType;
 	'xaxis.autorange': boolean;
 	'yaxis.autorange': boolean;
-	ternary: {}; // TODO
+    ternary: {}; // TODO
     geo: {}; // TODO
     mapbox: {}; // TODO
-	radialaxis: {}; // TODO
+    radialaxis: {}; // TODO
     angularaxis: {}; // TODO
     direction: 'clockwise' | 'counterclockwise';
     dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
     orientation: number;
-    annotations: {}; // TODO
-	shapes: Array<Partial<Shape>>;
-    images: {}; // TODO
+    annotations: Array<Partial<Annotations>>;
+    shapes: Array<Partial<Shape>>;
+    images: Array<Partial<Image>>;
     updatemenus: {}; // TODO
     sliders: {}; // TODO
     legend: Partial<Legend>;
@@ -291,34 +298,48 @@ export type ModeBarDefaultButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' |
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
+export interface Icon {
+	width: number;
+	path: string;
+	ascent: number;
+	descent: number;
+}
+
 export interface ModeBarButton {
 	/** name / id of the buttons (for tracking) */
-	name: string;
+    name: string;
+
 	/**
 	 * text that appears while hovering over the button,
 	 * enter null, false or '' for no hover text
 	 */
-	title: string;
+    title: string;
+
 	/**
 	 * svg icon object associated with the button
 	 * can be linked to Plotly.Icons to use the default plotly icons
 	 */
-	icon: string;
+    icon: string | Icon;
+
 	/** icon positioning */
-	gravity?: string;
+    gravity?: string;
+
 	/**
 	 * click handler associated with the button, a function of
 	 * 'gd' (the main graph object) and
 	 * 'ev' (the event object)
 	 */
-	click: ButtonClickEvent;
+    click: ButtonClickEvent;
+
 	/**
 	 * attribute associated with button,
 	 * use this with 'val' to keep track of the state
 	 */
-	attr?: string;
+    attr?: string;
+
 	/** initial 'attr' value, can be a function of gd */
-	val?: any;
+    val?: any;
+
 	/** is the button a toggle button? */
 	toggle?: boolean;
 }
@@ -334,10 +355,11 @@ export type Color = string | Array<string | undefined | null> | Array<Array<stri
 
 // Bar Scatter
 export interface ScatterData {
-	type: 'bar' | 'scatter' | 'scattergl' | 'scatter3d';
+	type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d';
 	x: Datum[] | Datum[][];
 	y: Datum[] | Datum[][];
 	z: Datum[] | Datum[][] | Datum[][][];
+	xy: Float32Array;
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];
@@ -355,6 +377,7 @@ export interface ScatterData {
 	'marker.size': number | number[];
 	'marker.maxdisplayed': number;
 	'marker.sizeref': number;
+	'marker.sizemax': number;
 	'marker.sizemin': number;
 	'marker.sizemode': 'diameter' | 'area';
 	'marker.showscale': boolean;
@@ -378,17 +401,18 @@ export interface ScatterMarker {
 	cmax: boolean;
 	cmin: boolean;
 	autocolorscale: boolean;
-    reversescale: boolean;
+	reversescale: boolean;
 	opacity: number | number[];
 	size: number | number[];
 	maxdisplayed: number;
 	sizeref: number;
+	sizemax: number;
 	sizemin: number;
 	sizemode: 'diameter' | 'area';
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
 	colorbar: {}; // TODO
-    gradient: {}; // TODO
+	gradient: {}; // TODO
 }
 
 export interface ScatterMarkerLine {
@@ -417,89 +441,116 @@ export interface Font {
 	color: string;
 }
 
+export interface Edits {
+	annotationPosition: boolean;
+	annotationTail: boolean;
+	annotationText: boolean;
+	axisTitleText: boolean;
+	colorbarPosition: boolean;
+	colorbarTitleText: boolean;
+	legendPosition: boolean;
+	legendText: boolean;
+	shapePosition: boolean;
+	titleText: boolean;
+}
+
 export interface Config {
-	// no interactivity, for export or image generation
+	/** no interactivity, for export or image generation */
 	staticPlot: boolean;
 
-	// we can edit titles, move annotations, etc
+	/** we can edit titles, move annotations, etc */
 	editable: boolean;
+	edits: Partial<Edits>;
 
-	// DO autosize once regardless of layout.autosize
-	// (use default width or height values otherwise)
+	/** DO autosize once regardless of layout.autosize (use default width or height values otherwise) */
 	autosizable: boolean;
 
-	// set the length of the undo/redo queue
+	/** set the length of the undo/redo queue */
 	queueLength: number;
 
-	// if we DO autosize, do we fill the container or the screen?
+	/** if we DO autosize, do we fill the container or the screen? */
 	fillFrame: boolean;
 
-	// if we DO autosize, set the frame margins in percents of plot size
+	/** if we DO autosize, set the frame margins in percents of plot size */
 	frameMargins: number;
 
-	// mousewheel or two-finger scroll zooms the plot
+	/** mousewheel or two-finger scroll zooms the plot */
 	scrollZoom: boolean;
 
-	// double click interaction (false, 'reset', 'autosize' or 'reset+autosize')
+	/** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
 	doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
 
-	// new users see some hints about interactivity
+	/** new users see some hints about interactivity */
 	showTips: boolean;
 
-	// link to open this plot in plotly
+	/** enable axis pan/zoom drag handles */
+	showAxisDragHandles: boolean;
+
+	/** enable direct range entry at the pan/zoom drag points (drag handles must be enabled above) */
+	showAxisRangeEntryBoxes: boolean;
+
+	/** link to open this plot in plotly */
 	showLink: boolean;
 
-	// if we show a link, does it contain data or just link to a plotly file?
+	/** if we show a link, does it contain data or just link to a plotly file? */
 	sendData: boolean;
 
-	// text appearing in the sendData link
+	/** text appearing in the sendData link */
 	linkText: string;
 
-	// false or function adding source(s) to linkText <text>
+	/** false or function adding source(s) to linkText <text> */
 	showSources: boolean;
 
-	// display the mode bar (true, false, or 'hover')
+	/** display the mode bar (true, false, or 'hover') */
 	displayModeBar: 'hover' | boolean;
 
-	// remove mode bar button by name
-	// (see ./components/modebar/buttons.js for the list of names)
+	/** remove mode bar button by name (see ./components/modebar/buttons.js for the list of names) */
 	modeBarButtonsToRemove: ModeBarDefaultButtons[];
 
-	// add mode bar button using config objects
-	// (see ./components/modebar/buttons.js for list of arguments)
+	/** add mode bar button using config objects (see ./components/modebar/buttons.js for list of arguments) */
 	modeBarButtonsToAdd: ModeBarDefaultButtons[] | ModeBarButton[];
 
-	// fully custom mode bar buttons as nested array,
-	// where the outer arrays represents button groups, and
-	// the inner arrays have buttons config objects or names of default buttons
-	// (see ./components/modebar/buttons.js for more info)
-	modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][];
+	/**
+	 * fully custom mode bar buttons as nested array, where the outer
+	 * arrays represents button groups, and the inner arrays have
+	 * buttons config objects or names of default buttons
+	 * (see ./components/modebar/buttons.js for more info)
+	 */
+	modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][] | false;
 
-	// add the plotly logo on the end of the mode bar
+	/** add the plotly logo on the end of the mode bar */
 	displaylogo: boolean;
 
-	// increase the pixel ratio for Gl plot images
+	/** increase the pixel ratio for Gl plot images */
 	plotGlPixelRatio: number;
 
-	// function to add the background color to a different container
-	// or 'opaque' to ensure there's white behind it
-	setBackground: string | 'opaque';
+	/**
+	 * function to add the background color to a different container
+	 * or 'opaque' to ensure there's white behind it
+	 */
+	setBackground: string | 'opaque' | 'transparent';
 
-	// URL to topojson files used in geo charts
+	/** URL to topojson files used in geo charts */
 	topojsonURL: string;
 
-	// Mapbox access token (required to plot mapbox trace types)
-	// If using an Mapbox Atlas server, set this option to '',
-	// so that plotly.js won't attempt to authenticate to the public Mapbox server.
+	/**
+	 * Mapbox access token (required to plot mapbox trace types)
+	 * If using an Mapbox Atlas server, set this option to '',
+	 * so that plotly.js won't attempt to authenticate to the public Mapbox server.
+	 */
 	mapboxAccessToken: string;
 
-	// Turn all console logging on or off (errors will be thrown)
-	// This should ONLY be set via Plotly.setPlotConfig
-	logging: boolean;
+	/**
+	 * Turn all console logging on or off (errors will be thrown)
+	 * This should ONLY be set via Plotly.setPlotConfig
+	 */
+	logging: boolean | 0 | 1 | 2;
 
-	// Set global transform to be applied to all traces with no
-	// specification needed
+	/** Set global transform to be applied to all traces with no specification needed */
 	globalTransforms: any[];
+
+	/** Which localization should we use? Should be a string like 'en' or 'en-US' */
+	locale: string;
 }
 
 // Components
@@ -543,32 +594,277 @@ export interface Label {
 	font: Partial<Font>;
 }
 
-export interface Annotations extends Point, Label {
-	visible: boolean;
-	ax: number;
-	ay: number;
-	xanchor: 'auto' | 'left' | 'center' | 'right';
-	xshift: number;
-	yanchor: 'auto' | 'top' | 'middle' | 'bottom';
-	yshift: number;
-	text: string;
-	textangle: string;
-	width: number;
-	height: number;
-	opacity: number;
-	align: 'left' | 'center' | 'right';
-	valign: 'top' | 'middle' | 'bottom';
-	borderpad: number;
-	borderwidth: number;
-	showarrow: boolean;
-	arrowcolor: string;
-	arrowhead: number;
-	arrowsize: number;
-	arrowwidth: number;
-	standoff: number;
-	hovertext: string;
-	hoverlabel: Partial<Label>;
+export interface Annotations extends Label {
+  /** Determines whether or not this annotation is visible. */
+  visible: boolean;
+
+  /**
+   * Sets the text associated with this annotation.
+   * Plotly uses a subset of HTML tags to do things like
+   * newline (<br>), bold (<b></b>), italics (<i></i>),
+   * hyperlinks (<a href='...'></a>). Tags <em>, <sup>, <sub>
+   * <span> are also supported.
+   */
+  text: string;
+
+  /** Sets the angle at which the `text` is drawn with respect to the horizontal. */
+  textangle: string;
+
+  /**
+   * Sets an explicit width for the text box. null (default) lets the
+   * text set the box width. Wider text will be clipped.
+   * There is no automatic wrapping; use <br> to start a new line.
+   */
+  width: number;
+
+  /**
+   * Sets an explicit height for the text box. null (default) lets the
+   * text set the box height. Taller text will be clipped.
+   */
+  height: number;
+
+  /** Sets the opacity of the annotation (text + arrow). */
+  opacity: number;
+
+  /**
+   * Sets the horizontal alignment of the `text` within the box.
+   * Has an effect only if `text` spans more two or more lines
+   * (i.e. `text` contains one or more <br> HTML tags) or if an
+   * explicit width is set to override the text width.
+   */
+  align: 'left' | 'center' | 'right';
+
+  /**
+   * Sets the vertical alignment of the `text` within the box.
+   * Has an effect only if an explicit height is set to override the text height.
+   */
+  valign: 'top' | 'middle' | 'bottom';
+
+  /** Sets the padding (in px) between the `text` and the enclosing border. */
+  borderpad: number;
+
+  /** Sets the width (in px) of the border enclosing the annotation `text`. */
+  borderwidth: number;
+
+  /**
+   * Determines whether or not the annotation is drawn with an arrow.
+   * If *true*, `text` is placed near the arrow's tail.
+   * If *false*, `text` lines up with the `x` and `y` provided.
+   */
+  showarrow: boolean;
+
+  /** Sets the color of the annotation arrow. */
+  arrowcolor: string;
+
+  /** Sets the end annotation arrow head style. */
+  arrowhead: number;
+
+  /** Sets the start annotation arrow head style. */
+  startarrowhead: number;
+
+  /** Sets the annotation arrow head position. */
+  arrowside: 'end' | 'start';
+
+  /**
+   * Sets the size of the end annotation arrow head, relative to `arrowwidth`.
+   * A value of 1 (default) gives a head about 3x as wide as the line.
+   */
+  arrowsize: number;
+
+  /**
+   * Sets the size of the start annotation arrow head, relative to `arrowwidth`.
+   * A value of 1 (default) gives a head about 3x as wide as the line.
+   */
+  startarrowsize: number;
+
+  /** Sets the width (in px) of annotation arrow line. */
+  arrowwidth: number;
+
+  /**
+   * Sets a distance, in pixels, to move the end arrowhead away from the
+   * position it is pointing at, for example to point at the edge of
+   * a marker independent of zoom. Note that this shortens the arrow
+   * from the `ax` / `ay` vector, in contrast to `xshift` / `yshift`
+   * which moves everything by this amount.
+   */
+  standoff: number;
+
+  /**
+   * Sets a distance, in pixels, to move the start arrowhead away from the
+   * position it is pointing at, for example to point at the edge of
+   * a marker independent of zoom. Note that this shortens the arrow
+   * from the `ax` / `ay` vector, in contrast to `xshift` / `yshift`
+   * which moves everything by this amount.
+   */
+  startstandoff: number;
+
+  /**
+   * Sets the x component of the arrow tail about the arrow head.
+   * If `axref` is `pixel`, a positive (negative)
+   * component corresponds to an arrow pointing
+   * from right to left (left to right).
+   * If `axref` is an axis, this is an absolute value on that axis,
+   * like `x`, NOT a relative value.
+   */
+  ax: number;
+
+  /**
+   * Sets the y component of the arrow tail about the arrow head.
+   * If `ayref` is `pixel`, a positive (negative)
+   * component corresponds to an arrow pointing
+   * from bottom to top (top to bottom).
+   * If `ayref` is an axis, this is an absolute value on that axis,
+   * like `y`, NOT a relative value.
+   */
+  ay: number;
+
+  /**
+   * Indicates in what terms the tail of the annotation (ax,ay)
+   * is specified. If `pixel`, `ax` is a relative offset in pixels
+   * from `x`. If set to an x axis id (e.g. *x* or *x2*), `ax` is
+   * specified in the same terms as that axis. This is useful
+   * for trendline annotations which should continue to indicate
+   * the correct trend when zoomed.
+   */
+  axref: 'pixel';
+
+  /**
+   * Indicates in what terms the tail of the annotation (ax,ay)
+   * is specified. If `pixel`, `ay` is a relative offset in pixels
+   * from `y`. If set to a y axis id (e.g. *y* or *y2*), `ay` is
+   * specified in the same terms as that axis. This is useful
+   * for trendline annotations which should continue to indicate
+   * the correct trend when zoomed.
+   */
+  ayref: 'pixel';
+
+  /**
+   * Sets the annotation's x coordinate axis.
+   * If set to an x axis id (e.g. *x* or *x2*), the `x` position refers to an x coordinate
+   * If set to *paper*, the `x` position refers to the distance from
+   * the left side of the plotting area in normalized coordinates
+   * where 0 (1) corresponds to the left (right) side.
+   */
+  xref: 'paper' | 'x';
+
+  /**
+   * Sets the annotation's x position.
+   * If the axis `type` is *log*, then you must take the log of your desired range.
+   * If the axis `type` is *date*, it should be date strings, like date data,
+   * though Date objects and unix milliseconds will be accepted and converted to strings.
+   * If the axis `type` is *category*, it should be numbers, using the scale where each
+   * category is assigned a serial number from zero in the order it appears.
+   */
+  x: number | string;
+
+  /**
+   * Sets the text box's horizontal position anchor
+   * This anchor binds the `x` position to the *left*, *center* or *right* of the annotation.
+   * For example, if `x` is set to 1, `xref` to *paper* and `xanchor` to *right* then the
+   * right-most portion of the annotation lines up with the right-most edge of the plotting area.
+   * If *auto*, the anchor is equivalent to *center* for data-referenced annotations or if there
+   * is an arrow, whereas for paper-referenced with no arrow, the anchor picked corresponds to the closest side.
+   */
+  xanchor: 'auto' | 'left' | 'center' | 'right';
+
+  /**
+   * Shifts the position of the whole annotation and arrow to the
+   * right (positive) or left (negative) by this many pixels.
+   */
+  xshift: number;
+
+  /**
+   * Sets the annotation's y coordinate axis.
+   * If set to an y axis id (e.g. *y* or *y2*), the `y` position refers to an y coordinate
+   * If set to *paper*, the `y` position refers to the distance from
+   * the bottom of the plotting area in normalized coordinates
+   * where 0 (1) corresponds to the bottom (top).
+   */
+  yref: 'paper' | 'y';
+
+  /**
+   * Sets the annotation's y position.
+   * If the axis `type` is *log*, then you must take the log of your desired range.
+   * If the axis `type` is *date*, it should be date strings, like date data,
+   * though Date objects and unix milliseconds will be accepted and converted to strings.
+   * If the axis `type` is *category*, it should be numbers, using the scale where each
+   * category is assigned a serial number from zero in the order it appears.
+   */
+  y: number | string;
+
+  /**
+   * Sets the text box's vertical position anchor
+   * This anchor binds the `y` position to the *top*, *middle* or *bottom* of the annotation.
+   * For example, if `y` is set to 1, `yref` to *paper* and `yanchor` to *top* then the
+   * top-most portion of the annotation lines up with the top-most edge of the plotting area.
+   * If *auto*, the anchor is equivalent to *middle* for data-referenced annotations or if
+   * there is an arrow, whereas for paper-referenced with no arrow, the anchor picked
+   * corresponds to the closest side.
+   */
+  yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+
+  /**
+   * Shifts the position of the whole annotation and arrow up
+   * (positive) or down (negative) by this many pixels.
+   */
+  yshift: number;
+
+  /**
+   * Makes this annotation respond to clicks on the plot.
+   * If you click a data point that exactly matches the `x` and `y` values of this annotation,
+   * and it is hidden (visible: false), it will appear. In *onoff* mode, you must click the same
+   * point again to make it disappear, so if you click multiple points, you can show multiple
+   * annotations. In *onout* mode, a click anywhere else in the plot (on another data point or not)
+   * will hide this annotation. If you need to show/hide this annotation in response to different
+   * `x` or `y` values, you can set `xclick` and/or `yclick`. This is useful for example to label
+   * the side of a bar. To label markers though, `standoff` is preferred over `xclick` and `yclick`.
+   */
+  clicktoshow: false | 'onoff' | 'onout';
+
+  /**
+   * Toggle this annotation when clicking a data point whose `x` value
+   * is `xclick` rather than the annotation's `x` value.
+   */
+  xclick: any;
+
+  /**
+   * Toggle this annotation when clicking a data point whose `y` value
+   * is `yclick` rather than the annotation's `y` value.
+   */
+  yclick: any;
+
+  /**
+   * Sets text to appear when hovering over this annotation.
+   * If omitted or blank, no hover label will appear.
+   */
+  hovertext: string;
+
+  hoverlabel: Partial<Label>;
+
+  /**
+   * Determines whether the annotation text box captures mouse move and click events,
+   * or allows those events to pass through to data points in the plot that may be
+   * behind the annotation. By default `captureevents` is *false* unless `hovertext`
+   * is provided. If you use the event `plotly_clickannotation` without `hovertext`
+   * you must explicitly enable `captureevents`.
+   */
 	captureevents: boolean;
+}
+
+export interface Image {
+  visible: boolean;
+  source: string;
+  layer: 'above' | 'below';
+  sizex: number;
+  sizey: number;
+  sizing: 'fill' | 'contain' | 'stretch';
+  opacity: number;
+  x: number | string;
+  y: number | string;
+  xanchor: 'left' | 'center' | 'right';
+  yanchor: 'top' | 'middle' | 'bottom';
+  xref: 'paper' | 'x';
+  yref: 'paper' | 'y';
 }
 
 export interface Scene {

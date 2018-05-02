@@ -3029,7 +3029,7 @@ declare namespace Stripe {
              * A list of up to 5 alphanumeric attributes that each SKU can provide values for (e.g. ["color", "size"]).
              * Applicable to both service and good types.
              */
-            attribute?: Array<string>;
+            attributes?: Array<string>;
 
             /**
              * A short one-line description of the product, meant to be displayable to the customer. May only be set if type=good.
@@ -4470,6 +4470,12 @@ declare namespace Stripe {
              * with month or year intervals, the day of the month for subsequent invoices.
              */
             billing_cycle_anchor?: number;
+
+            /**
+             * Boolean (default true). Use with a billing_cycle_anchor timestamp to determine whether the customer will be invoiced a prorated amount until
+             * the anchor date. If false, the anchor period will be free (similar to a trial).
+             */
+            prorate?: boolean;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -4556,6 +4562,11 @@ declare namespace Stripe {
              * String, unchanged (default) or now. This allows you to reset the billing cycle of a subscription.
              */
             billing_cycle_anchor?: "unchanged" | "now";
+
+            /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            cancel_at_period_end?: boolean;
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {

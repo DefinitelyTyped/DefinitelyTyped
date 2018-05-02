@@ -3,6 +3,7 @@
 // Definitions by: Marc Bornträger <https://github.com/BorntraegerMarc>
 //                 Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -120,7 +121,7 @@ export interface PluginBase<T> {
      * * server - the server object with a plugin-specific server.realm.
      * * options - any options passed to the plugin during registration via server.register().
      */
-    register: (server: Server, options: T) => Promise<void>;
+    register: (server: Server, options: T) => void | Promise<void>;
 
     /** (optional) if true, allows the plugin to be registered multiple times with the same server. Defaults to false. */
     multiple?: boolean;
@@ -1008,7 +1009,7 @@ export interface ResponseToolkit {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hstatename-value-options)
      */
-    state(name: string, value: string, options?: ServerStateCookieOptions): void;
+    state(name: string, value: string | object, options?: ServerStateCookieOptions): void;
 
     /**
      * Used by the [authentication] method to indicate authentication failed and pass back the credentials received where:
@@ -1143,7 +1144,7 @@ export interface RouteOptionsAccess {
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscache)
  */
 export type RouteOptionsCache = {
-    privacy?: 'default' | 'public' | 'privacy';
+    privacy?: 'default' | 'public' | 'private';
     statuses?: number[];
     otherwise?: string;
 } & (
@@ -1706,7 +1707,7 @@ export interface RouteOptions {
      * * credentials - if true, allows user credentials to be sent ('Access-Control-Allow-Credentials'). Defaults to false.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscors)
      */
-    cors?: false | RouteOptionsCors;
+    cors?: boolean | RouteOptionsCors;
 
     /**
      * Default value: none.
@@ -1724,12 +1725,7 @@ export interface RouteOptions {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#request-lifecycle)
      */
     ext?: {
-        onPreAuth?: Lifecycle.Method;
-        onCredentials?: Lifecycle.Method;
-        onPostAuth?: Lifecycle.Method;
-        onPreHandler?: Lifecycle.Method;
-        onPostHandler?: Lifecycle.Method;
-        onPreResponse?: Lifecycle.Method;
+        [key in RouteRequestExtType]?: RouteExtObject | RouteExtObject[];
     };
 
     /**
@@ -2229,8 +2225,8 @@ export interface RequestEvent {
     error: object;
 }
 
-export type LogEventHandler = (event: LogEvent, tags: object) => void;
-export type RequestEventHandler = (request: Request, event: RequestEvent, tags: object) => void;
+export type LogEventHandler = (event: LogEvent, tags: { [key: string]: true }) => void;
+export type RequestEventHandler = (request: Request, event: RequestEvent, tags: { [key: string]: true }) => void;
 export type ResponseEventHandler = (request: Request) => void;
 export type RouteEventHandler = (route: ServerRoute) => void;
 export type StartEventHandler = () => void;
@@ -2354,14 +2350,16 @@ export interface ServerEvents extends Podium {
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#request-lifecycle)
  */
 export type ServerExtType = 'onPreStart' | 'onPostStart' | 'onPreStop' | 'onPostStop';
-export type ServerRequestExtType =
-    'onRequest'
-    | 'onPreAuth'
+export type RouteRequestExtType = 'onPreAuth'
     | 'onCredentials'
     | 'onPostAuth'
     | 'onPreHandler'
     | 'onPostHandler'
     | 'onPreResponse';
+
+export type ServerRequestExtType =
+    RouteRequestExtType
+    | 'onRequest';
 
 /**
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevents)
@@ -2401,14 +2399,11 @@ export interface ServerExtEventsObject {
      * * request extension points: a lifecycle method.
      */
     method: ServerExtPointFunction | ServerExtPointFunction[];
-    /**
-     * options - (optional) an object with the following:
-     * * before - a string or array of strings of plugin names this method must execute before (on the same event). Otherwise, extension methods are executed in the order added.
-     * * after - a string or array of strings of plugin names this method must execute after (on the same event). Otherwise, extension methods are executed in the order added.
-     * * bind - a context object passed back to the provided method (via this) when called. Ignored if the method is an arrow function.
-     * * sandbox - if set to 'plugin' when adding a request extension points the extension is only added to routes defined by the current plugin. Not allowed when configuring route-level extensions,
-     * or when adding server extensions. Defaults to 'server' which applies to any route added to the server the extension is added to.
-     */
+    options?: ServerExtOptions;
+}
+
+export interface RouteExtObject {
+    method: Lifecycle.Method;
     options?: ServerExtOptions;
 }
 
@@ -2477,15 +2472,15 @@ export interface ServerExtOptions {
     /**
      * a string or array of strings of plugin names this method must execute before (on the same event). Otherwise, extension methods are executed in the order added.
      */
-    before: string | string[];
+    before?: string | string[];
     /**
      * a string or array of strings of plugin names this method must execute after (on the same event). Otherwise, extension methods are executed in the order added.
      */
-    after: string | string[];
+    after?: string | string[];
     /**
      * a context object passed back to the provided method (via this) when called. Ignored if the method is an arrow function.
      */
-    bind: object;
+    bind?: object;
     /**
      * if set to 'plugin' when adding a request extension points the extension is only added to routes defined by the current plugin. Not allowed when configuring route-level extensions, or when
      * adding server extensions. Defaults to 'server' which applies to any route added to the server the extension is added to.
@@ -3257,7 +3252,7 @@ export class Server extends Podium {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app?: ApplicationState;
+    app: ApplicationState;
 
     /**
      * Server Auth: properties and methods

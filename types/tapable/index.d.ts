@@ -9,6 +9,9 @@ export declare abstract class Tapable {
         [propName: string]: Tapable.Handler[]
     }
 
+    /** @deprecated Private internals. Do not use directly */
+    _pluginCompat: Hook;
+
     /**
      * @deprecated Tapable.plugin is deprecated. Use new API on `.hooks` instead
      * Register plugin(s)
@@ -273,9 +276,12 @@ export class HookInterceptor {
     tap: (tap: Tap) => void;
     register: (tap: Tap) => Tap | undefined;
     context: boolean;
+    name: string;
 }
 
+/** A HookMap is a helper class for a Map with Hooks */
 export class HookMap<T1 = any, T2 = any, T3 = any> {
+    constructor(fn: () => Hook);
     get: (key: any) => Hook<T1, T2, T3> | undefined;
     for: (key: any) => Hook<T1, T2, T3>;
     tap: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any) => void;
@@ -286,4 +292,17 @@ export class HookMap<T1 = any, T2 = any, T3 = any> {
 
 export class HookMapInterceptor<T1 = any, T2 = any, T3 = any> {
     factory: (key: any, hook: Hook<T1, T2, T3>) => Hook<T1, T2, T3>;
+}
+
+/**
+ *  A helper Hook-like class to redirect taps to multiple other hooks
+ *
+ * ```
+ * const { MultiHook } = require("tapable");
+ *
+ * this.hooks.allHooks = new MultiHook([this.hooks.hookA, this.hooks.hookB]);
+ * ```
+ */
+export class MultiHook {
+    constructor(hooks: Hook[])
 }

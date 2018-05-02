@@ -1,6 +1,8 @@
 // Type definitions for json-schema 4.0 and 6.0
 // Project: https://www.npmjs.com/package/json-schema
-// Definitions by: Boris Cherny <https://github.com/bcherny>, Cyrille Tuzi <https://github.com/cyrilletuzi>
+// Definitions by: Boris Cherny <https://github.com/bcherny>
+//                 Cyrille Tuzi <https://github.com/cyrilletuzi>
+//                 Lucian Buzzo <https://github.com/lucianbuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -197,6 +199,8 @@ export interface JSONSchema4 {
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-04#section-5.6
    */
   [k: string]: any
+
+  format?: string
 }
 
 /* JSON Schema 6 */
@@ -470,4 +474,9 @@ export interface JSONSchema6 {
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-7.4
    */
   examples?: JSONSchema6Type[]
+
+  /**
+   * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-8
+   */
+  format?: string
 }

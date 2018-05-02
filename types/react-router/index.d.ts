@@ -15,6 +15,7 @@
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Egor Shulga <https://github.com/egorshulga>
 //                 Youen Toupin <https://github.com/neuoy>
+//                 Rahul Raina <https://github.com/rraina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -76,7 +77,7 @@ export interface RouteProps {
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
 
 export interface RouterProps {
-  history: any;
+  history: H.History;
 }
 export class Router extends React.Component<RouterProps, any> { }
 
@@ -101,8 +102,7 @@ export interface match<P> {
 }
 
 // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-export type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
-export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
 

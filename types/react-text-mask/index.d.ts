@@ -1,4 +1,4 @@
-// Type definitions for react-text-mask 16.0
+// Type definitions for react-text-mask 5.1
 // Project: https://github.com/text-mask/text-mask
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,7 @@ import * as React from "react";
 export type maskArray = Array<string | RegExp>;
 
 export interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    mask?: maskArray | ((input: HTMLInputElement) => maskArray);
+    mask?: maskArray | ((value: string) => maskArray);
 
     guide?: boolean;
 
@@ -19,9 +19,7 @@ export interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputEle
 
     pipe?: (conformedValue: string, config: any) => false | string | { value: string, indexesOfPipedChars: number[] };
 
-    onReject?: (infos: { conformedValue: string, maskRejection: boolean, pipeRejection: boolean }) => void;
-
-    onAccept?: () => void;
+    showMask?: boolean;
 }
 
 export interface conformToMaskResult {

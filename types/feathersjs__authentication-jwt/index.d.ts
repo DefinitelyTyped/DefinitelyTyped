@@ -6,8 +6,10 @@
 
 import { Application } from '@feathersjs/feathers';
 import { Request } from 'express';
+import * as self from '@feathersjs/authentication-jwt';
 
-export default function feathersAuthenticationJwt(options?: FeathersAuthenticationJWTOptions): () => void;
+declare const feathersAuthenticationJwt: ((options?: FeathersAuthenticationJWTOptions) => () => void) & typeof self;
+export default feathersAuthenticationJwt;
 
 export interface FeathersAuthenticationJWTOptions {
     /**
