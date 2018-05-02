@@ -6,8 +6,10 @@ import {
   SearchSynonymOptions,
   SecuredApiOptions,
   Index,
+  Response,
+  IndexSettings,
+  QueryParameters,
 } from 'algoliasearch';
-import { Response, IndexSettings, QueryParameters } from './common';
 
 let _algoliaResponse: Response = {
   hits: [{}, {}],
