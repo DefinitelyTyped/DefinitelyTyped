@@ -1,3 +1,3 @@
-import memoryFsJoin = require('memory-fs/lib/join');
+import * as memoryFsJoin from 'memory-fs/lib/join';
 
 memoryFsJoin('hello', 'world');

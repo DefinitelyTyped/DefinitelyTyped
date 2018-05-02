@@ -1,3 +1,3 @@
-import normalize = require('memory-fs/lib/normalize');
+import * as normalize from 'memory-fs/lib/normalize';
 
 normalize('hello world');
