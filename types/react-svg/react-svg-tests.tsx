@@ -4,12 +4,12 @@ import ReactSVG = require("react-svg");
 
 const complete = <ReactSVG
     path={"atomic.svg"}
-    callback={svg => {}}
-    className="class-name"
+    onInjected={svg => {}}
+    className="wrapper-class-name"
+    svgClassName="svg-class-name"
     onClick={() => {}}
-    wrapperClassName="wrapper-class-name"
     evalScripts="once"
-    style={{}}
+    svgStyle={{}}
   />;
 
 const minimal = <ReactSVG path={"test.svg"}/>;
