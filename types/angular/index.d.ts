@@ -197,6 +197,12 @@ declare namespace angular {
          */
         component(name: string, options: IComponentOptions): IModule;
         /**
+         * Use this method to register a component.
+         *
+         * @param object Object map of components where the keys are the names and the values are the component definition objects
+         */
+        component(object: {[componentName: string]: IComponentOptions}): IModule;
+        /**
          * Use this method to register work which needs to be performed on module loading.
          *
          * @param configFn Execute this function on module load. Useful for service configuration.
@@ -1273,6 +1279,7 @@ declare namespace angular {
         directive<TScope extends IScope = IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): ICompileProvider;
 
         component(name: string, options: IComponentOptions): ICompileProvider;
+        component(object: {[componentName: string]: IComponentOptions}): ICompileProvider;
 
         aHrefSanitizationWhitelist(): RegExp;
         aHrefSanitizationWhitelist(regexp: RegExp): ICompileProvider;
