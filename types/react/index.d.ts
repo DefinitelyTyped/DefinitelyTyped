@@ -2232,8 +2232,7 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
-        interface Element extends React.ReactElement<any> { }
+        type Element = React.ReactNode;
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
