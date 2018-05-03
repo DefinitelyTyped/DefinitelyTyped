@@ -804,6 +804,15 @@ export interface FrameBase {
   /** Adds a `<link rel="stylesheet">` tag into the page with the desired url or a `<style type="text/css">` tag with the content. */
   addStyleTag(options: StyleTagOptions): Promise<void>;
 
+  /**
+   * This method fetches an element with selector, scrolls it into view if needed, and
+   * then uses `page.mouse` to click in the center of the element. If there's no element
+   * matching selector, the method throws an error.
+   * @param selector A selector to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.
+   * @param options Specifies the click options.
+   */
+  click(selector: string, options?: ClickOptions): Promise<void>;
+
   /** Gets the full HTML contents of the page, including the doctype. */
   content(): Promise<string>;
 
@@ -820,13 +829,53 @@ export interface FrameBase {
   ): Promise<any>;
 
   /**
+   * Evaluates a function in the page context.
+   * If the function, passed to the page.evaluateHandle, returns a Promise, then page.evaluateHandle
+   * would wait for the promise to resolve and return its value.
+   * @param fn The function to be evaluated in the page context.
+   * @param args The arguments to pass to the `fn`.
+   * @returns A promise which resolves to return value of `fn`.
+   */
+  evaluateHandle(
+    fn: EvaluateFn,
+    ...args: any[]
+  ): Promise<JSHandle>;
+
+  /** This method fetches an element with selector and focuses it. */
+  focus(selector: string): Promise<void>;
+
+  /**
+   * This method fetches an element with `selector`, scrolls it into view if needed,
+   * and then uses page.mouse to hover over the center of the element. If there's no
+   * element matching `selector`, the method throws an error.
+   * @param selector A selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered.
+   */
+  hover(selector: string): Promise<void>;
+
+  /**
    * Sets the page content.
    * @param html HTML markup to assign to the page.
    */
   setContent(html: string): Promise<void>;
 
+  /**
+   * This method fetches an element with `selector`, scrolls it into view if needed,
+   * and then uses page.touchscreen to tap in the center of the element.
+   * @param selector A `selector` to search for element to tap. If there are multiple elements
+   * satisfying the selector, the first will be tapped.
+   */
+  tap(selector: string): Promise<void>;
+
   /** Returns page's title. */
   title(): Promise<string>;
+
+  /**
+   * Sends a `keydown`, `keypress/input`, and `keyup` event for each character in the text.
+   * @param selector A selector of an element to type into. If there are multiple elements satisfying the selector, the first will be used.
+   * @param text: A text to type into a focused element.
+   * @param options: The typing parameters.
+   */
+  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
 
   /** Returns frame's url. */
   url(): string;
