@@ -88,6 +88,10 @@ export interface PointItem extends DataItem {
   y: number;
 }
 
+export interface SubGroupStackOptions{
+    [name:string]: boolean;
+}
+
 export interface DataGroup {
   className?: string;
   content: string;
@@ -97,7 +101,7 @@ export interface DataGroup {
   subgroupOrder?: string | (() => void);
   title?: string;
   nestedGroups?: number[];
-  subgroupStack?: object | boolean;
+  subgroupStack?: SubGroupStackOptions | boolean;
 }
 
 export interface DataGroupOptions {
