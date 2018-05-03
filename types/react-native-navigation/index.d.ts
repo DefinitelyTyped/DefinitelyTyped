@@ -56,6 +56,7 @@ export interface TabScreen {
     title?: string;
     navigatorStyle?: NavigatorStyle;
     navigatorButtons?: NavigatorButtons;
+    titleImage?: any;
 }
 
 export interface SingleScreenApp {
@@ -294,7 +295,7 @@ export interface Drawer {
         leftDrawerWidth?: number;
         rightDrawerWidth?: number;
         shouldStretchDrawer?: boolean;
-    }
+    };
     type?: string;
     animationType?: string;
     disableOpenGesture?: boolean;
