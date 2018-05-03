@@ -7,7 +7,6 @@ const optionDefinitions: commandLineArgs.OptionDefinition[] = [
         type: String,
         defaultValue: '1',
         multiple: true,
-        lazyMultiple: true,
         defaultOption: true,
         group: 'one'
     }
@@ -15,9 +14,7 @@ const optionDefinitions: commandLineArgs.OptionDefinition[] = [
 
 const options = commandLineArgs(optionDefinitions, {
     argv: [ '--one', '1' ],
-    partial: true,
-    stopAtFirstUnknown: true,
-    camelCase: true
+    partial: true
 });
 
 const unknown = options._unknown;
