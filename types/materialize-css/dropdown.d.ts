@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Dropdowns
          */
-        static init(els: NodeListOf<Element>, options?: Partial<DropdownOptions>): Dropdown[];
+        static init(els: MElements, options?: Partial<DropdownOptions>): Dropdown[];
 
         /**
          * ID of the dropdown element

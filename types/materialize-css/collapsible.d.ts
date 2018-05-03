@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Collapsibles
          */
-        static init(els: NodeListOf<Element>, options?: Partial<CollapsibleOptions>): Collapsible[];
+        static init(els: MElements, options?: Partial<CollapsibleOptions>): Collapsible[];
 
         /**
          * Open collapsible section

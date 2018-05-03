@@ -24,6 +24,7 @@
         "test/character-counter.test.ts",
         "test/chips.test.ts",
         "test/collapsible.test.ts",
+        "test/common.test.ts",
         "test/datepicker.test.ts",
         "test/dropdown.test.ts",
         "test/fab.test.ts",

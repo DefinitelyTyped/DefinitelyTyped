@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init CharacterCounters
          */
-        static init(els: NodeListOf<Element>, options?: Partial<undefined>): CharacterCounter[];
+        static init(els: MElements, options?: Partial<undefined>): CharacterCounter[];
     }
 }
 

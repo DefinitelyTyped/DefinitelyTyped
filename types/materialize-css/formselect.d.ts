@@ -16,7 +16,7 @@ declare namespace M {
         /**
          * Init FormSelects
          */
-        static init(els: NodeListOf<Element>, options?: Partial<FormSelectOptions>): FormSelect[];
+        static init(els: MElements, options?: Partial<FormSelectOptions>): FormSelect[];
 
         /**
          * If this is a multiple select

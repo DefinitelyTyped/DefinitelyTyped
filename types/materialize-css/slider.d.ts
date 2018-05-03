@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Sliders
          */
-        static init(els: NodeListOf<Element>, options?: Partial<SliderOptions>): Slider[];
+        static init(els: MElements, options?: Partial<SliderOptions>): Slider[];
 
         /**
          * ID of the dropdown element

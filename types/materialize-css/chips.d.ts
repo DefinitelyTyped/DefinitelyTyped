@@ -16,7 +16,7 @@ declare namespace M {
         /**
          * Init Chipses
          */
-        static init(els: NodeListOf<Element>, options?: Partial<ChipsOptions>): Chips[];
+        static init(els: MElements, options?: Partial<ChipsOptions>): Chips[];
 
         /**
          * Array of the current chips data

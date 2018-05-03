@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Modals
          */
-        static init(els: NodeListOf<Element>, options?: Partial<ModalOptions>): Modal[];
+        static init(els: MElements, options?: Partial<ModalOptions>): Modal[];
 
         /**
          * Open modal

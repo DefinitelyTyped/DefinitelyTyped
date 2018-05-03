@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Tooltips
          */
-        static init(els: NodeListOf<Element>, options?: Partial<TooltipOptions>): Tooltip[];
+        static init(els: MElements, options?: Partial<TooltipOptions>): Tooltip[];
 
         /**
          * Show tooltip.

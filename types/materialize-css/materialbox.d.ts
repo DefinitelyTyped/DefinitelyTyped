@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Materialboxes
          */
-        static init(els: NodeListOf<Element>, options?: Partial<MaterialboxOptions>): Materialbox[];
+        static init(els: MElements, options?: Partial<MaterialboxOptions>): Materialbox[];
 
         /**
          * Open materialbox

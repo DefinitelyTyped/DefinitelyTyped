@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Timepickers
          */
-        static init(els: NodeListOf<Element>, options?: Partial<TimepickerOptions>): Timepicker[];
+        static init(els: MElements, options?: Partial<TimepickerOptions>): Timepicker[];
 
         /**
          * If the picker is open.
