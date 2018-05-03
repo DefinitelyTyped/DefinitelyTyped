@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Pushpins
          */
-        static init(els: NodeListOf<Element>, options?: Partial<PushpinOptions>): Pushpin[];
+        static init(els: MElements, options?: Partial<PushpinOptions>): Pushpin[];
 
         /**
          * Original offsetTop of element

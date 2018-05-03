@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init ScrollSpies
          */
-        static init(els: NodeListOf<Element>, options?: Partial<ScrollSpyOptions>): ScrollSpy[];
+        static init(els: MElements, options?: Partial<ScrollSpyOptions>): ScrollSpy[];
     }
 
     interface ScrollSpyOptions {

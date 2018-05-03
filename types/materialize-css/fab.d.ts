@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init FloatingActionButtons
          */
-        static init(els: NodeListOf<Element>, options?: Partial<FloatingActionButtonOptions>): FloatingActionButton[];
+        static init(els: MElements, options?: Partial<FloatingActionButtonOptions>): FloatingActionButton[];
 
         /**
          * Open FAB

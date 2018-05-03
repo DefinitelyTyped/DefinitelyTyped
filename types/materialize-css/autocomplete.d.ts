@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init autocompletes
          */
-        static init(els: NodeListOf<Element>, options?: Partial<AutocompleteOptions>): Autocomplete[];
+        static init(els: MElements, options?: Partial<AutocompleteOptions>): Autocomplete[];
 
         /**
          * Select a specific autocomplete options.

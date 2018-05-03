@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Ranges
          */
-        static init(els: NodeListOf<Element>, options?: Partial<undefined>): Range[];
+        static init(els: MElements, options?: Partial<undefined>): Range[];
     }
 }
 

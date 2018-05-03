@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Datepickers
          */
-        static init(els: NodeListOf<Element>, options?: Partial<DatepickerOptions>): Datepicker[];
+        static init(els: MElements, options?: Partial<DatepickerOptions>): Datepicker[];
 
         /**
          * If the picker is open.

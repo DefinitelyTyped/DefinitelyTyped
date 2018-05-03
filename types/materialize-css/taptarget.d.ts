@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init TapTargets
          */
-        static init(els: NodeListOf<Element>, options?: Partial<TapTargetOptions>): TapTarget[];
+        static init(els: MElements, options?: Partial<TapTargetOptions>): TapTarget[];
 
         /**
          * Open Tap Target

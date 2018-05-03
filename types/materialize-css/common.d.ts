@@ -1,3 +1,8 @@
+/// <reference types="jquery"/>
+/// <reference types="cash"/>
+
+type MElements = NodeListOf<Element> | JQuery | Cash;
+
 declare namespace M {
     abstract class Component<TOptions> extends ComponentBase<TOptions> {
         /**

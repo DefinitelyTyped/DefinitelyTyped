@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Parallaxs
          */
-        static init(els: NodeListOf<Element>, options?: Partial<ParallaxOptions>): Parallax[];
+        static init(els: MElements, options?: Partial<ParallaxOptions>): Parallax[];
     }
 
     interface ParallaxOptions {

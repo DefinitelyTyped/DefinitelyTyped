@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init carousels
          */
-        static init(els: NodeListOf<Element>, options?: Partial<CarouselOptions>): Carousel[];
+        static init(els: MElements, options?: Partial<CarouselOptions>): Carousel[];
 
         /**
          * If the carousel is being clicked or tapped

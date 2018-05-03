@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Tabses
          */
-        static init(els: NodeListOf<Element>, options?: Partial<TabsOptions>): Tabs[];
+        static init(els: MElements, options?: Partial<TabsOptions>): Tabs[];
 
         /**
          * Show tab content that corresponds to the tab with the id

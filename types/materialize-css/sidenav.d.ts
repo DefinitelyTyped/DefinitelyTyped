@@ -15,7 +15,7 @@ declare namespace M {
         /**
          * Init Sidenavs
          */
-        static init(els: NodeListOf<Element>, options?: Partial<SidenavOptions>): Sidenav[];
+        static init(els: MElements, options?: Partial<SidenavOptions>): Sidenav[];
 
         /**
          * Opens Sidenav
