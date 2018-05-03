@@ -89,7 +89,7 @@ export interface PointItem extends DataItem {
 }
 
 export interface SubGroupStackOptions {
-  [name:string]: boolean;
+  [name: string]: boolean;
 }
 
 export interface DataGroup {
