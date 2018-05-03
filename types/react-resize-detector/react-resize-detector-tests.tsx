@@ -20,7 +20,10 @@ class App extends React.PureComponent {
                 handleWidth
                 handleHeight
                 skipOnMount
-                resizableElementId="someElement" />
+                resizableElementId="someElement"
+                refreshMode="debounce"
+                refreshRate={500}
+            />
         </div>;
     }
 
