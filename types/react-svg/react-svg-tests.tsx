@@ -6,7 +6,7 @@ const complete = <ReactSVG
     path={"atomic.svg"}
     callback={svg => {}}
     className="class-name"
-    onClick={()=>()}
+    onClick={() => {}}
     wrapperClassName="wrapper-class-name"
     evalScripts="once"
     style={{}}

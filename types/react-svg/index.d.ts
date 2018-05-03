@@ -1,12 +1,13 @@
-// Type definitions for react-svg 2.2
+// Type definitions for react-svg 3.0
 // Project: https://github.com/atomic-app/react-svg
 // Definitions by: Chen Junda <https://github.com/viccrubs>
+//                 Chris Garber <https://github.com/chrisgarber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
 import * as React from "react";
 
-declare class ReactSVG extends React.Component<ReactSVG.ReactSVGProps> {}
+declare class ReactSVG extends React.Component<ReactSVG.ReactSVGProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>> {}
 
 export = ReactSVG;
 
