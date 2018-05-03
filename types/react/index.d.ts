@@ -323,7 +323,7 @@ declare namespace React {
 
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, context?: any): ReactNode;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -331,7 +331,7 @@ declare namespace React {
     }
 
     interface RefForwardingComponent<T, P = {}> {
-        (props: P & { children?: ReactNode }, ref?: Ref<T>): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, ref?: Ref<T>): ReactNode;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -2231,8 +2231,7 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
-        interface Element extends React.ReactElement<any> { }
+        type Element = React.ReactNode;
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }

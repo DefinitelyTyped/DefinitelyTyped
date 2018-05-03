@@ -154,8 +154,11 @@ const StatelessComponent3: React.SFC<SCProps> =
     // allows null return
     props => props.foo ? DOM.div(null, props.foo, props.children) : null;
 
-// allows null as props
-const StatelessComponent4: React.SFC = props => null;
+// allows any ReactNode as return type
+const StatelessComponent4: React.SFC = () => [1, "foo", null, false, true];
+
+// allows children as return
+const StatelessComponent5: React.SFC = ({children}) => children;
 
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
