@@ -18,24 +18,20 @@ declare namespace ReactSVG {
      */
     path: string;
     /**
-     * Function to call after the SVG is injected. Receives the newly injected SVG DOM element as a parameter. Defaults to null.
-     */
-    callback?: (dom: SVGSVGElement) => void;
-    /**
-     * Class name to be added to the SVG. Defaults to ''.
-     */
-    className?: string;
-    /**
-     * Class name to be added to the wrapping div. Defaults to ''.
-     */
-    wrapperClassName?: string;
-    /**
      * Run any script blocks found in the SVG (always, once, or never). Defaults to never.
      */
     evalScripts?: 'always' | 'once' | 'never';
     /**
+     * Function to call after the SVG is injected. Receives the newly injected SVG DOM element as a parameter. Defaults to null.
+     */
+    onInjected?: (dom: SVGSVGElement) => void;
+    /**
+     * Class name to be added to the SVG. Defaults to ''.
+     */
+    svgClassName?: string;
+    /**
      * Inline styles to be added to the SVG. Defaults to {}.
      */
-    style?: any;
+    svgStyle?: any;
   }
 }
