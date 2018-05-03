@@ -2,6 +2,20 @@
 
 declare namespace M {
     class ScrollSpy extends Component<ScrollSpyOptions> {
+        /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): ScrollSpy;
+
+        /**
+         * Init ScrollSpy
+         */
+        static init(els: Element, options?: Partial<ScrollSpyOptions>): ScrollSpy;
+
+        /**
+         * Init ScrollSpies
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<ScrollSpyOptions>): ScrollSpy[];
     }
 
     interface ScrollSpyOptions {

@@ -8,6 +8,16 @@ declare namespace M {
         static getInstance(elem: Element): Datepicker;
 
         /**
+         * Init Datepicker
+         */
+        static init(els: Element, options?: Partial<DatepickerOptions>): Datepicker;
+
+        /**
+         * Init Datepickers
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<DatepickerOptions>): Datepicker[];
+
+        /**
          * If the picker is open.
          */
         isOpen: boolean;

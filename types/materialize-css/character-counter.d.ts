@@ -6,6 +6,16 @@ declare namespace M {
          * Get Instance
          */
         static getInstance(elem: Element): CharacterCounter;
+
+        /**
+         * Init CharacterCounter
+         */
+        static init(els: Element, options?: Partial<undefined>): CharacterCounter;
+
+        /**
+         * Init CharacterCounters
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<undefined>): CharacterCounter[];
     }
 }
 

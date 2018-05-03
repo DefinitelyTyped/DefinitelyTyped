@@ -3,6 +3,21 @@
 declare namespace M {
     class Carousel extends Component<CarouselOptions> {
         /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): Carousel;
+
+        /**
+         * Init carousel
+         */
+        static init(els: Element, options?: Partial<CarouselOptions>): Carousel;
+
+        /**
+         * Init carousels
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<CarouselOptions>): Carousel[];
+
+        /**
          * If the carousel is being clicked or tapped
          */
         pressed: boolean;

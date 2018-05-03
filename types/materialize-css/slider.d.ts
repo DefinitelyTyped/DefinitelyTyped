@@ -3,6 +3,21 @@
 declare namespace M {
     class Slider extends Component<SliderOptions> {
         /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): Slider;
+
+        /**
+         * Init Slider
+         */
+        static init(els: Element, options?: Partial<SliderOptions>): Slider;
+
+        /**
+         * Init Sliders
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<SliderOptions>): Slider[];
+
+        /**
          * ID of the dropdown element
          */
         el: Element;

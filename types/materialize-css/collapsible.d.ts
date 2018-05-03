@@ -3,6 +3,21 @@
 declare namespace M {
     class Collapsible extends Component<CollapsibleOptions> {
         /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): Collapsible;
+
+        /**
+         * Init Collapsible
+         */
+        static init(els: Element, options?: Partial<CollapsibleOptions>): Collapsible;
+
+        /**
+         * Init Collapsibles
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<CollapsibleOptions>): Collapsible[];
+
+        /**
          * Open collapsible section
          * @param n Nth section to open
          */

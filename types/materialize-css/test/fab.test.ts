@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType FloatingActionButton
 const _fab = new M.FloatingActionButton(elem);
+// $ExpectType FloatingActionButton
+const el = M.FloatingActionButton.init(elem);
+// $ExpectType FloatingActionButton[]
+const els = M.FloatingActionButton.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType FloatingActionButton
 new materialize.FloatingActionButton(elem);

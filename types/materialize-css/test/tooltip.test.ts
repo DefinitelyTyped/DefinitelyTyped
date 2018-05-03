@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Tooltip
 const _tooltip = new M.Tooltip(elem);
+// $ExpectType Tooltip
+const el = M.Tooltip.init(elem);
+// $ExpectType Tooltip[]
+const els = M.Tooltip.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Tooltip
 new materialize.Tooltip(elem);

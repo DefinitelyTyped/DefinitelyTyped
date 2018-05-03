@@ -8,6 +8,16 @@ declare namespace M {
         static getInstance(elem: Element): FloatingActionButton;
 
         /**
+         * Init FloatingActionButton
+         */
+        static init(els: Element, options?: Partial<FloatingActionButtonOptions>): FloatingActionButton;
+
+        /**
+         * Init FloatingActionButtons
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<FloatingActionButtonOptions>): FloatingActionButton[];
+
+        /**
          * Open FAB
          */
         open(): void;

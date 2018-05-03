@@ -3,6 +3,21 @@
 declare namespace M {
     class Materialbox extends Component<MaterialboxOptions> {
         /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): Materialbox;
+
+        /**
+         * Init Materialbox
+         */
+        static init(els: Element, options?: Partial<MaterialboxOptions>): Materialbox;
+
+        /**
+         * Init Materialboxes
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<MaterialboxOptions>): Materialbox[];
+
+        /**
          * Open materialbox
          */
         open(): void;

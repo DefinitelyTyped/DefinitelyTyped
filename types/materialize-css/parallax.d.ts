@@ -2,6 +2,20 @@
 
 declare namespace M {
     class Parallax extends Component<ParallaxOptions> {
+        /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): Parallax;
+
+        /**
+         * Init Parallax
+         */
+        static init(els: Element, options?: Partial<ParallaxOptions>): Parallax;
+
+        /**
+         * Init Parallaxs
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<ParallaxOptions>): Parallax[];
     }
 
     interface ParallaxOptions {

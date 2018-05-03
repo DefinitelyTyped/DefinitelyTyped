@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Collapsible
 const _collapsible = new M.Collapsible(elem);
+// $ExpectType Collapsible
+const el = M.Collapsible.init(elem);
+// $ExpectType Collapsible[]
+const els = M.Collapsible.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Collapsible
 const collapsible = new materialize.Collapsible(elem, {

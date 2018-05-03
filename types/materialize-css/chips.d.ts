@@ -4,6 +4,21 @@
 declare namespace M {
     class Chips extends Component<ChipsOptions> {
         /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): Chips;
+
+        /**
+         * Init Chips
+         */
+        static init(els: Element, options?: Partial<ChipsOptions>): Chips;
+
+        /**
+         * Init Chipses
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<ChipsOptions>): Chips[];
+
+        /**
          * Array of the current chips data
          */
         chipsData: ChipData[];

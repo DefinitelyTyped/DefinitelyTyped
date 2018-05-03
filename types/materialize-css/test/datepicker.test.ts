@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Datepicker
 const _datePicker = new M.Datepicker(elem);
+// $ExpectType Datepicker
+const el = M.Datepicker.init(elem);
+// $ExpectType Datepicker[]
+const els = M.Datepicker.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Datepicker
 new materialize.Datepicker(elem);

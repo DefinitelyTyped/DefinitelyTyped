@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Sidenav
 const _sidenav = new M.Sidenav(elem);
+// $ExpectType Sidenav
+const el = M.Sidenav.init(elem);
+// $ExpectType Sidenav[]
+const els = M.Sidenav.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Sidenav
 new materialize.Sidenav(elem);

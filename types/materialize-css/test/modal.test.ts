@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Modal
 const _modal = new M.Modal(elem);
+// $ExpectType Modal
+const el = M.Modal.init(elem);
+// $ExpectType Modal[]
+const els = M.Modal.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Modal
 new materialize.Modal(elem);

@@ -8,6 +8,16 @@ declare namespace M {
         static getInstance(elem: Element): Tooltip;
 
         /**
+         * Init Tooltip
+         */
+        static init(els: Element, options?: Partial<TooltipOptions>): Tooltip;
+
+        /**
+         * Init Tooltips
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<TooltipOptions>): Tooltip[];
+
+        /**
          * Show tooltip.
          */
         open(): void;

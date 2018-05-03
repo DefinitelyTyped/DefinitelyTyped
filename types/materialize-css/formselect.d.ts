@@ -4,6 +4,21 @@
 declare namespace M {
     class FormSelect extends Component<FormSelectOptions> {
         /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): FormSelect;
+
+        /**
+         * Init FormSelect
+         */
+        static init(els: Element, options?: Partial<FormSelectOptions>): FormSelect;
+
+        /**
+         * Init FormSelects
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<FormSelectOptions>): FormSelect[];
+
+        /**
          * If this is a multiple select
          */
         isMultiple: boolean;

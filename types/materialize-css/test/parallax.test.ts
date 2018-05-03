@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Parallax
 const _parallax = new M.Parallax(elem);
+// $ExpectType Parallax
+const el = M.Parallax.init(elem);
+// $ExpectType Parallax[]
+const els = M.Parallax.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Parallax
 const parallax = new materialize.Parallax(elem, { responsiveThreshold: 1 });

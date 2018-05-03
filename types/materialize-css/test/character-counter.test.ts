@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType CharacterCounter
 const _characterCounter = new M.CharacterCounter(elem);
+// $ExpectType CharacterCounter
+const el = M.CharacterCounter.init(elem);
+// $ExpectType CharacterCounter[]
+const els = M.CharacterCounter.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType CharacterCounter
 const characterCounter = new materialize.CharacterCounter(elem);

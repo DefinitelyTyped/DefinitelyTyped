@@ -8,6 +8,16 @@ declare namespace M {
         static getInstance(elem: Element): Sidenav;
 
         /**
+         * Init Sidenav
+         */
+        static init(els: Element, options?: Partial<SidenavOptions>): Sidenav;
+
+        /**
+         * Init Sidenavs
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<SidenavOptions>): Sidenav[];
+
+        /**
          * Opens Sidenav
          */
         open(): void;

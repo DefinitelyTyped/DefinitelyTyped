@@ -3,6 +3,21 @@
 declare namespace M {
     class Pushpin extends Component<PushpinOptions> {
         /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): Pushpin;
+
+        /**
+         * Init Pushpin
+         */
+        static init(els: Element, options?: Partial<PushpinOptions>): Pushpin;
+
+        /**
+         * Init Pushpins
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<PushpinOptions>): Pushpin[];
+
+        /**
          * Original offsetTop of element
          */
         originalOffset: number;

@@ -3,6 +3,21 @@
 declare namespace M {
     class Dropdown extends Component<DropdownOptions> {
         /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): Dropdown;
+
+        /**
+         * Init Dropdown
+         */
+        static init(els: Element, options?: Partial<DropdownOptions>): Dropdown;
+
+        /**
+         * Init Dropdowns
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<DropdownOptions>): Dropdown[];
+
+        /**
          * ID of the dropdown element
          */
         id: string;

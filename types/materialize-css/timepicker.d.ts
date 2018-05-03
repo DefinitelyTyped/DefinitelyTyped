@@ -8,6 +8,16 @@ declare namespace M {
         static getInstance(elem: Element): Timepicker;
 
         /**
+         * Init Timepicker
+         */
+        static init(els: Element, options?: Partial<TimepickerOptions>): Timepicker;
+
+        /**
+         * Init Timepickers
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<TimepickerOptions>): Timepicker[];
+
+        /**
          * If the picker is open.
          */
         isOpen: boolean;

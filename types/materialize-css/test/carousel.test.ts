@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Carousel
 const _carousel = new M.Carousel(elem);
+// $ExpectType Carousel
+const el = M.Carousel.init(elem);
+// $ExpectType Carousel[]
+const els = M.Carousel.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Carousel
 const carousel = new materialize.Carousel(elem, {

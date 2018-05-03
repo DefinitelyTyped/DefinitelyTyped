@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType ScrollSpy
 const _scrollspy = new M.ScrollSpy(elem);
+// $ExpectType ScrollSpy
+const el = M.ScrollSpy.init(elem);
+// $ExpectType ScrollSpy[]
+const els = M.ScrollSpy.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType ScrollSpy
 const scrollspy = new materialize.ScrollSpy(elem, {

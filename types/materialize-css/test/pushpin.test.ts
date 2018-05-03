@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Pushpin
 const _pushpin = new M.Pushpin(elem);
+// $ExpectType Pushpin
+const el = M.Pushpin.init(elem);
+// $ExpectType Pushpin[]
+const els = M.Pushpin.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Pushpin
 const pushpin = new materialize.Pushpin(elem, {

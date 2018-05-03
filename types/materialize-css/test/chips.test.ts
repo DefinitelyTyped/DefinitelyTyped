@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Chips
 const _chips = new M.Chips(elem);
+// $ExpectType Chips
+const el = M.Chips.init(elem);
+// $ExpectType Chips[]
+const els = M.Chips.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Chips
 const chips = new materialize.Chips(elem, {

@@ -3,6 +3,21 @@
 declare namespace M {
     class TapTarget extends Component<TapTargetOptions> {
         /**
+         * Get Instance
+         */
+        static getInstance(elem: Element): TapTarget;
+
+        /**
+         * Init TapTarget
+         */
+        static init(els: Element, options?: Partial<TapTargetOptions>): TapTarget;
+
+        /**
+         * Init TapTargets
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<TapTargetOptions>): TapTarget[];
+
+        /**
          * Open Tap Target
          */
         open(): void;

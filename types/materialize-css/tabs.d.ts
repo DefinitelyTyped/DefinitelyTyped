@@ -8,6 +8,16 @@ declare namespace M {
         static getInstance(elem: Element): Tabs;
 
         /**
+         * Init Tabs
+         */
+        static init(els: Element, options?: Partial<TabsOptions>): Tabs;
+
+        /**
+         * Init Tabses
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<TabsOptions>): Tabs[];
+
+        /**
          * Show tab content that corresponds to the tab with the id
          * @param tabId The id of the tab that you want to switch to
          */

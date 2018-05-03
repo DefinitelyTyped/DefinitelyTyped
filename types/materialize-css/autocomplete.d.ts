@@ -8,6 +8,16 @@ declare namespace M {
         static getInstance(elem: Element): Autocomplete;
 
         /**
+         * Init autocomplete
+         */
+        static init(els: Element, options?: Partial<AutocompleteOptions>): Autocomplete;
+
+        /**
+         * Init autocompletes
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<AutocompleteOptions>): Autocomplete[];
+
+        /**
          * Select a specific autocomplete options.
          * @param el Element of the autocomplete option.
          */

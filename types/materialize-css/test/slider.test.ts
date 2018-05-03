@@ -4,6 +4,10 @@ const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Slider
 const _slider = new M.Slider(elem);
+// $ExpectType Slider
+const el = M.Slider.init(elem);
+// $ExpectType Slider[]
+const els = M.Slider.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Slider
 const slider = new materialize.Slider(elem, {

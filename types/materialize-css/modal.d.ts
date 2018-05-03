@@ -8,6 +8,16 @@ declare namespace M {
         static getInstance(elem: Element): Modal;
 
         /**
+         * Init Modal
+         */
+        static init(els: Element, options?: Partial<ModalOptions>): Modal;
+
+        /**
+         * Init Modals
+         */
+        static init(els: NodeListOf<Element>, options?: Partial<ModalOptions>): Modal[];
+
+        /**
          * Open modal
          */
         open(): void;
