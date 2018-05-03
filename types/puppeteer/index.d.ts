@@ -991,15 +991,6 @@ export interface Page extends EventEmitter, FrameBase {
   /** Brings page to front (activates tab). */
   bringToFront(): Promise<void>;
 
-  /**
-   * This method fetches an element with selector, scrolls it into view if needed, and
-   * then uses `page.mouse` to click in the center of the element. If there's no element
-   * matching selector, the method throws an error.
-   * @param selector A selector to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.
-   * @param options Specifies the click options.
-   */
-  click(selector: string, options?: ClickOptions): Promise<void>;
-
   /** Closes the current page. */
   close(): Promise<void>;
 
@@ -1056,9 +1047,6 @@ export interface Page extends EventEmitter, FrameBase {
    */
   exposeFunction(name: string, puppeteerFunction: (...args: any[]) => any): Promise<void>;
 
-  /** This method fetches an element with selector and focuses it. */
-  focus(selector: string): Promise<void>;
-
   /** An array of all frames attached to the page. */
   frames(): Frame[];
 
@@ -1080,14 +1068,6 @@ export interface Page extends EventEmitter, FrameBase {
    * @param options The navigation parameters.
    */
   goto(url: string, options?: Partial<NavigationOptions>): Promise<Response | null>;
-
-  /**
-   * This method fetches an element with `selector`, scrolls it into view if needed,
-   * and then uses page.mouse to hover over the center of the element. If there's no
-   * element matching `selector`, the method throws an error.
-   * @param selector A selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered.
-   */
-  hover(selector: string): Promise<void>;
 
   /** Returns the virtual keyboard. */
   keyboard: Keyboard;
@@ -1200,14 +1180,6 @@ export interface Page extends EventEmitter, FrameBase {
    */
   setViewport(viewport: Viewport): Promise<void>;
 
-  /**
-   * This method fetches an element with `selector`, scrolls it into view if needed,
-   * and then uses page.touchscreen to tap in the center of the element.
-   * @param selector A `selector` to search for element to tap. If there are multiple elements
-   * satisfying the selector, the first will be tapped.
-   */
-  tap(selector: string): Promise<void>;
-
   /** @returns The target this page was created from */
   target(): Target;
 
@@ -1219,14 +1191,6 @@ export interface Page extends EventEmitter, FrameBase {
 
   /** Returns the tracing object. */
   tracing: Tracing;
-
-  /**
-   * Sends a `keydown`, `keypress/input`, and `keyup` event for each character in the text.
-   * @param selector A selector of an element to type into. If there are multiple elements satisfying the selector, the first will be used.
-   * @param text: A text to type into a focused element.
-   * @param options: The typing parameters.
-   */
-  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
 
   /**
    * The page's URL. This is a shortcut for `page.mainFrame().url()`
