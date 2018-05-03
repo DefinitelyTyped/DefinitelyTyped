@@ -1,4 +1,3 @@
-/// <reference types="cash"/>
 import * as M from "materialize-css";
 import * as jQuery from "jquery";
 
