@@ -766,6 +766,10 @@ declare namespace ArangoDB {
         options?: QueryOptions;
     }
 
+    interface AqlLiteral {
+        toAQL: () => string;
+    }
+
     interface Cursor<T = any> {
         toArray(): T[];
         hasNext(): boolean;
@@ -1348,6 +1352,13 @@ declare namespace Foxx {
 
 declare module "@arangodb" {
     function aql(strings: TemplateStringsArray, ...args: any[]): ArangoDB.Query;
+    namespace aql {
+        function literal(value: any): ArangoDB.AqlLiteral;
+    }
+    function query(
+        strings: TemplateStringsArray,
+        ...args: any[]
+    ): ArangoDB.Cursor;
     function time(): number;
     const db: ArangoDB.Database & {
         [key: string]: ArangoDB.Collection | undefined;

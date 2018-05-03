@@ -1,4 +1,4 @@
-import { db, aql } from "@arangodb";
+import { db, aql, query } from "@arangodb";
 import { md5 } from "@arangodb/crypto";
 import { createRouter } from "@arangodb/foxx";
 import sessionsMiddleware = require("@arangodb/foxx/sessions");
@@ -21,10 +21,10 @@ const admin = users.firstExample({ username: "admin" })!;
 users.update(admin, { password: md5("hunter2") });
 console.logLines("user", admin._key, admin.username);
 
-const query = aql`
+db._query(aql`
     FOR u IN ${users}
     RETURN u
-`;
+`);
 
 interface Banana {
     color: string;
@@ -81,4 +81,14 @@ router.use(
         storage: jwtStorage({ algorithm: "HS512", secret: "tacocat" }),
         transport: cookieTransport({ secret: "banana", algorithm: "sha256" })
     })
+);
+
+console.log(
+    query`
+        FOR u IN users
+        ${aql.literal(
+            Math.random() < 0.5 ? "FILTER u.admin" : "FILTER !u.admin"
+        )}
+        RETURN u
+    `.toArray()
 );
