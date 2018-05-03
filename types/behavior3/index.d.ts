@@ -8,95 +8,90 @@
  * ===========
  *
  * * * *
- * 
- * **Behavior3JS** is a Behavior Tree library written in JavaScript. It 
- * provides structures and algorithms that assist you in the task of creating 
- * intelligent agents for your game or application. Check it out some features 
+ *
+ * **Behavior3JS** is a Behavior Tree library written in JavaScript. It
+ * provides structures and algorithms that assist you in the task of creating
+ * intelligent agents for your game or application. Check it out some features
  * of Behavior3JS:
- * 
- * - Based on the work of (Marzinotto et al., 2014), in which they propose a 
+ *
+ * - Based on the work of (Marzinotto et al., 2014), in which they propose a
  *   **formal**, **consistent** and **general** definition of Behavior Trees;
- * - **Optimized to control multiple agents**: you can use a single behavior 
+ * - **Optimized to control multiple agents**: you can use a single behavior
  *   tree instance to handle hundreds of agents;
- * - It was **designed to load and save trees in a JSON format**, in order to 
+ * - It was **designed to load and save trees in a JSON format**, in order to
  *   use, edit and test it in multiple environments, tools and languages;
  * - A **cool visual editor** which you can access online;
- * - Several **composite, decorator and action nodes** available within the 
- *   library. You still can define your own nodes, including composites and 
+ * - Several **composite, decorator and action nodes** available within the
+ *   library. You still can define your own nodes, including composites and
  *   decorators;
- * - **Completely free**, the core module and the visual editor are all 
- *   published under the MIT License, which means that you can use them for 
+ * - **Completely free**, the core module and the visual editor are all
+ *   published under the MIT License, which means that you can use them for
  *   your open source and commercial projects;
  * - **Lightweight**!
- * 
+ *
  * Visit http://behavior3.com to know more!
  *
- * 
+ *
  * ## Core Classes and Functions
- * 
+ *
  * This library include the following core structures...
  *
- * 
+ *
  * **Public:**
- * 
+ *
  * - **BehaviorTree**: the structure that represents a Behavior Tree;
- * - **Blackboard**: represents a "memory" in an agent and is required to to 
+ * - **Blackboard**: represents a "memory" in an agent and is required to to
  *   run a `BehaviorTree`;
  * - **Composite**: base class for all composite nodes;
  * - **Decorator**: base class for all decorator nodes;
  * - **Action**: base class for all action nodes;
  * - **Condition**: base class for all condition nodes;
  *
- * 
+ *
  * **Internal:**
- * 
- * - **Tick**: used as container and tracking object through the tree during 
+ *
+ * - **Tick**: used as container and tracking object through the tree during
  *   the tick signal;
  * - **BaseNode**: the base class that provide all common node features;
- * 
+ *
  * *Some classes are used internally on Behavior3JS, but you may need to access
  * its functionalities eventually, specially the `Tick` object.*
  *
- * 
+ *
  * **Nodes:**
  *
  * - **Composite Nodes**: Sequence, Priority, MemSequence, MemPriority.
- * - **Decorators**: Inverter, Limiter, MaxTime, Repeater, 
+ * - **Decorators**: Inverter, Limiter, MaxTime, Repeater,
  *   RepeaterUntilFailure, RepeaterUntilSuccess.
  * - **Actions**: Succeeder, Failer, Error, Runner, Wait.
- * 
+ *
  * ## The list of all constants in B3.
  *
- * NAME                | VALUE      
+ * NAME                | VALUE
  * ------------------- | ----------------------
  * VERSION             | depends on the version
  *                     |
  * **Node State**      |
- * SUCCESS             | 1          
- * FAILURE             | 2          
- * RUNNING             | 3          
- * ERROR               | 4          
+ * SUCCESS             | 1
+ * FAILURE             | 2
+ * RUNNING             | 3
+ * ERROR               | 4
  *                     |
  * **Node categories** |
  * COMPOSITE           | 'composite'
  * DECORATOR           | 'decorator'
- * ACTION              | 'action'   
+ * ACTION              | 'action'
  * CONDITION           | 'condition'
- * 
- * 
- * @module b3
- * @main b3
-**/
-declare module b3 {
-
+ *
+ */
+declare namespace b3 {
     /**
-    * This function is used to create unique IDs for trees and nodes.
-    *
-    * (consult http://www.ietf.org/rfc/rfc4122.txt).
-    *
-    * @return {String} A unique ID.
-    **/
-    export function createUUID(): string;
+     * This function is used to create unique IDs for trees and nodes.
+     *
+     * (consult http://www.ietf.org/rfc/rfc4122.txt).
+     *
+     */
+    function createUUID(): string;
 
     /**
      * The BaseNode class is used as super class to all nodes in BehaviorJS. It
@@ -116,15 +111,11 @@ declare module b3 {
      * their documentation to know more. These callbacks are called inside the
      * `_execute` method, which is called in the tree traversal.
      *
-     * @module b3
-     * @class BaseNode
-     **/
-    export class BaseNode {
+     */
+    class BaseNode {
         /**
          * Initialization method.
-         * @method initialize
-         * @constructor
-         **/
+         */
         constructor({category, name, title, description, properties}?: {category?: string, name?: string, title?: string, description?: string, properties?: any});
 
         /**
@@ -134,61 +125,38 @@ declare module b3 {
          * way, this method only close a node if the node  returned a status
          * different of `RUNNING`.
          *
-         * @method _execute
-         * @param {Tick} tick A tick instance.
-         * @return {Constant} The tick state.
-         * @protected
-         **/
+         */
         _execute(tick: Tick): number;
 
         /**
          * Wrapper for enter method.
-         * @method _enter
-         * @param {Tick} tick A tick instance.
-         * @protected
-         **/
+         */
         _enter(tick: Tick): void;
 
         /**
          * Wrapper for open method.
-         * @method _open
-         * @param {Tick} tick A tick instance.
-         * @protected
-         **/
+         */
         _open(tick: Tick): void;
 
         /**
          * Wrapper for tick method.
-         * @method _tick
-         * @param {Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         * @protected
-         **/
+         */
         _tick(tick: Tick): number;
 
         /**
          * Wrapper for close method.
-         * @method _close
-         * @param {Tick} tick A tick instance.
-         * @protected
-         **/
+         */
         _close(tick: Tick): void;
 
         /**
          * Wrapper for exit method.
-         * @method _exit
-         * @param {Tick} tick A tick instance.
-         * @protected
-         **/
+         */
         _exit(tick: Tick): void;
 
         /**
          * Enter method, override this to use. It is called every time a node is
          * asked to execute, before the tick itself.
-         *
-         * @method enter
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         enter(tick: Tick): void;
 
         /**
@@ -197,9 +165,7 @@ declare module b3 {
          *
          * Note: a node will be closed if it returned `RUNNING` in the tick.
          *
-         * @method open
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         open(tick: Tick): void;
 
         /**
@@ -207,9 +173,7 @@ declare module b3 {
          * execution of node (perform a task, call children, etc.). It is called
          * every time a node is asked to execute.
          *
-         * @method tick
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         tick(tick: Tick): void;
 
         /**
@@ -217,18 +181,14 @@ declare module b3 {
          * callback, and only if the tick return a state different from
          * `RUNNING`.
          *
-         * @method close
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         close(tick: Tick): void;
-      
+
         /**
          * Exit method, override this to use. Called every time in the end of the
          * execution.
          *
-         * @method exit
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         exit(tick: Tick): void;
     }
 
@@ -246,18 +206,10 @@ declare module b3 {
      *       }
      *     };
      *
-     * @module b3
-     * @class Action
-     * @extends BaseNode
-     **/
-    export class Action extends BaseNode {  
+     */
+    class Action extends BaseNode {
         /**
          * Creates an instance of Action.
-         * @param {Object} options 
-         * @param {String} options.name Node name. Default to `Action`.
-         * @param {String} options.title
-         * @param {Object} options.properties 
-         * @memberof Action
          */
         constructor({name, title, properties}?: {name?: string, title?: string, properties?: any});
     }
@@ -319,46 +271,38 @@ declare module b3 {
      *       }
      *     })
      *
-     *
-     * @module b3
-     * @class BehaviorTree
-     **/
-    export class BehaviorTree {
+     */
+    class BehaviorTree {
         /**
          * Initialization method.
-         * @method initialize
-         * @constructor
-         **/
+         */
         constructor();
-        
+
         /**
-        * This method loads a Behavior Tree from a data structure, populating this
-        * object with the provided data. Notice that, the data structure must
-        * follow the format specified by Behavior3JS. Consult the guide to know
-        * more about this format.
-        *
-        * You probably want to use custom nodes in your BTs, thus, you need to
-        * provide the `names` object, in which this method can find the nodes by
-        * `names[NODE_NAME]`. This variable can be a namespace or a dictionary,
-        * as long as this method can find the node by its name, for example:
-        *
-        *     //json
-        *     ...
-        *     'node1': {
-        *       'name': MyCustomNode,
-        *       'title': ...
-        *     }
-        *     ...
-        *
-        *     //code
-        *     var bt = new b3.BehaviorTree();
-        *     bt.load(data, {'MyCustomNode':MyCustomNode})
-        *
-        *
-        * @method load
-        * @param {Object} data The data structure representing a Behavior Tree.
-        * @param {Object} [names] A namespace or dict containing custom nodes.
-        **/
+         * This method loads a Behavior Tree from a data structure, populating this
+         * object with the provided data. Notice that, the data structure must
+         * follow the format specified by Behavior3JS. Consult the guide to know
+         * more about this format.
+         *
+         * You probably want to use custom nodes in your BTs, thus, you need to
+         * provide the `names` object, in which this method can find the nodes by
+         * `names[NODE_NAME]`. This variable can be a namespace or a dictionary,
+         * as long as this method can find the node by its name, for example:
+         *
+         *     //json
+         *     ...
+         *     'node1': {
+         *       'name': MyCustomNode,
+         *       'title': ...
+         *     }
+         *     ...
+         *
+         *     //code
+         *     var bt = new b3.BehaviorTree();
+         *     bt.load(data, {'MyCustomNode':MyCustomNode})
+         *
+         *
+         */
         load(data: any, names?: any): void;
 
         /**
@@ -367,9 +311,7 @@ declare module b3 {
          * Note: This method does not record the current node parameters. Thus,
          * it may not be compatible with load for now.
          *
-         * @method dump
-         * @return {Object} A data object representing this tree.
-         **/
+         */
         dump(): any;
 
         /**
@@ -389,11 +331,7 @@ declare module b3 {
          * nodes weren't called after the current tick, this method will close them
          * automatically.
          *
-         * @method tick
-         * @param {Object} target A target object.
-         * @param {Blackboard} blackboard An instance of blackboard object.
-         * @return {Constant} The tick signal state.
-         **/
+         */
         tick(target: any, blackboard: Blackboard): string;
     }
 
@@ -432,38 +370,25 @@ declare module b3 {
      * (it is accessed via `_treeMemory[id].nodeMemory`). Avoid to use these
      * variables manually, use `get` and `set` instead.
      *
-     * @module b3
-     * @class Blackboard
-     **/
-    export class Blackboard {
+     */
+    class Blackboard {
         /**
          * Initialization method.
-         * @method initialize
-         * @constructor
-         **/
+         */
         constructor();
 
         /**
          * Internal method to retrieve the tree context memory. If the memory does
          * not exist, this method creates it.
          *
-         * @method _getTreeMemory
-         * @param {String} treeScope The id of the tree in scope.
-         * @return {Object} The tree memory.
-         * @protected
-         **/
+         */
         _getTreeMemory(treeScope: string): any;
 
         /**
          * Internal method to retrieve the node context memory, given the tree
          * memory. If the memory does not exist, this method creates is.
          *
-         * @method _getNodeMemory
-         * @param {String} treeMemory the tree memory.
-         * @param {String} nodeScope The id of the node in scope.
-         * @return {Object} The node memory.
-         * @protected
-         **/
+         */
         _getNodeMemory(treeMemory: string, nodeScope: string): any;
 
         /**
@@ -474,12 +399,7 @@ declare module b3 {
          * Notice that, if only nodeScope is provided, this method will still
          * return the global memory.
          *
-         * @method _getMemory
-         * @param {String} treeScope The id of the tree scope.
-         * @param {String} nodeScope The id of the node scope.
-         * @return {Object} A memory object.
-         * @protected
-         **/
+         */
         _getMemory(treeScope: string, nodeScope: string): any;
 
         /**
@@ -491,13 +411,7 @@ declare module b3 {
          * provided (but treeScope not), this method will still save the value into
          * the global memory.
          *
-         * @method set
-         * @param {String} key The key to be stored.
-         * @param {String} value The value to be stored.
-         * @param {String} treeScope The tree id if accessing the tree or node
-         *                           memory.
-         * @param {String} nodeScope The node id if accessing the node memory.
-         **/
+         */
         set(key: string, value: string, treeScope: string, nodeScope: string): void;
 
         /**
@@ -509,13 +423,7 @@ declare module b3 {
          * treeScope not), this method will still try to retrieve from the global
          * memory.
          *
-         * @method get
-         * @param {String} key The key to be retrieved.
-         * @param {String} treeScope The tree id if accessing the tree or node
-         *                           memory.
-         * @param {String} nodeScope The node id if accessing the node memory.
-         * @return {Object} The value stored or undefined.
-         **/
+         */
         get(key: string, treeScope: string, nodeScope: string): any;
     }
 
@@ -554,19 +462,10 @@ declare module b3 {
      *       }
      *     };
      *
-     * @module b3
-     * @class Composite
-     * @extends BaseNode
-     **/
-    export class Composite extends BaseNode {
+     */
+    class Composite extends BaseNode {
         /**
          * Creates an instance of Composite.
-         * @param {Object} options 
-         * @param {BaseNode[]} options.children 
-         * @param {String} options.name Node name. Default to `Composite`.
-         * @param {String} options.title 
-         * @param {Object} options.properties 
-         * @memberof Composite
          */
         constructor({children, name, title, properties}?: {children?: BaseNode[], name?: string, title?: string, properties?: any});
     }
@@ -575,19 +474,12 @@ declare module b3 {
      * Condition is the base class for all condition nodes. Thus, if you want to
      * create new custom condition nodes, you need to inherit from this class.
      *
-     * @class Condition
-     * @extends BaseNode
-     **/
-    export class Condition extends BaseNode {
+     */
+    class Condition extends BaseNode {
         /**
          * Creates an instance of Condition.
-         * @param {Object} options 
-         * @param {String} options.name Node name. Default to `Condition`.
-         * @param {String} options.title
-         * @param {Object} options.properties
-         * @memberof Condition
          */
-        constructor({name, title, properties}?: {name?: string, title?: string, properties?: any});        
+        constructor({name, title, properties}?: {name?: string, title?: string, properties?: any});
     }
 
     /**
@@ -602,7 +494,7 @@ declare module b3 {
      *
      *     // Inherit from Decorator, using the util function Class.
      *     class Inverter extends b3.Decorator {
-     *       
+     *
      *       constructor(){
      *         super({name: 'Invereter'});
      *       }
@@ -625,19 +517,10 @@ declare module b3 {
      *       }
      *     });
      *
-     * @module b3
-     * @class Decorator
-     * @extends BaseNode
-     **/
-    export class Decorator extends BaseNode {
+     */
+    class Decorator extends BaseNode {
         /**
          * Creates an instance of Decorator.
-         * @param {Object} options 
-         * @param {BaseNode} options.child 
-         * @param {String} options.name Node name. Default to `Decorator`.
-         * @param {String} options.title 
-         * @param {Object} options.properties 
-         * @memberof Decorator
          */
         constructor({child, name, title, properties}?: {child?: BaseNode, name?: string, title?: string, properties?: any});
     }
@@ -656,179 +539,121 @@ declare module b3 {
      * This class also makes a bridge between nodes and the debug, passing the
      * node state to the debug if the last is provided.
      *
-     * @module b3
-     * @class Tick
-     **/
-    export class Tick {
+     */
+     class Tick {
         /**
          * Initialization method.
-         * @method initialize
-         * @constructor
-         **/
+         */
         constructor();
 
         /**
          * Called when entering a node (called by BaseNode).
-         * @method _enterNode
-         * @param {Object} node The node that called this method.
-         * @protected
-         **/
+         */
         _enterNode(node: any): void;
 
         /**
          * Callback when opening a node (called by BaseNode).
-         * @method _openNode
-         * @param {Object} node The node that called this method.
-         * @protected
-         **/
+         */
         _openNode(node: any): void;
 
         /**
          * Callback when ticking a node (called by BaseNode).
-         * @method _tickNode
-         * @param {Object} node The node that called this method.
-         * @protected
-         **/
+         */
         _tickNode(node: any): void;
 
         /**
          * Callback when closing a node (called by BaseNode).
-         * @method _closeNode
-         * @param {Object} node The node that called this method.
-         * @protected
-         **/
+         */
         _closeNode(node: any): void;
 
         /**
          * Callback when exiting a node (called by BaseNode).
-         * @method _exitNode
-         * @param {Object} node The node that called this method.
-         * @protected
-         **/
+         */
         _exitNode(node: any): void;
     }
 
     /**
      * This action node returns `ERROR` always.
      *
-     * @module b3
-     * @class Error
-     * @extends Action
-     **/
-    export class Error extends Action {
+     */
+    class Error extends Action {
         /**
          * Creates an instance of Error.
-         * @memberof Error
          */
         constructor();
 
         /**
          * Tick method.
-         * @method tick
-         * @param {b3.Tick} tick A tick instance.
-         * @return {Constant} Always return `ERROR`.
-         **/
+         */
         tick(tick: Tick): number;
     }
 
     /**
      * This action node returns `FAILURE` always.
      *
-     * @module b3
-     * @class Failer
-     * @extends Action
-     **/
-    export class Failer extends Action {
+     */
+    class Failer extends Action {
         /**
          * Creates an instance of Failer.
-         * @memberof Failer
          */
         constructor();
 
         /**
          * Tick method.
-         * @method tick
-         * @param {b3.Tick} tick A tick instance.
-         * @return {Constant} Always return `FAILURE`.
-         **/
+         */
         tick(tick: Tick): number;
     }
 
     /**
      * This action node returns RUNNING always.
      *
-     * @module b3
-     * @class Runner
-     * @extends Action
-     **/
-    export class Runner extends Action {
+     */
+    class Runner extends Action {
         /**
          * Creates an instance of Runner.
-         * @memberof Runner
          */
         constructor();
 
         /**
          * Tick method.
-         * @method tick
-         * @param {b3.Tick} tick A tick instance.
-         * @return {Constant} Always return `RUNNING`.
-         **/
+         */
         tick(tick: Tick): number;
     }
 
     /**
      * This action node returns `SUCCESS` always.
      *
-     * @module b3
-     * @class Succeeder
-     * @extends Action
-     **/
-    export class Succeeder extends Action {
+     */
+    class Succeeder extends Action {
         /**
          * Creates an instance of Succeeder.
-         * @memberof Succeeder
          */
         constructor();
-     
+
         /**
          * Tick method.
-         * @method tick
-         * @param {b3.Tick} tick A tick instance.
-         * @return {Constant} Always return `SUCCESS`.
-         **/
+         */
         tick(tick: Tick): number;
     }
 
     /**
      * Wait a few seconds.
      *
-     * @module b3
-     * @class Wait
-     * @extends Action
-     **/
-    export class Wait extends Action {
+     */
+    class Wait extends Action {
         /**
          * Creates an instance of Wait.
-         * @param {Object} settings Object with parameters
-         * @param {Number} settings.milliseconds Maximum time, in milliseconds, a child can execute.
-         * @memberof Wait
          */
         constructor({milliseconds}?: {milliseconds?: number});
 
         /**
          * Open method.
-         * @method open
-         * @param {b3.Tick} tick A tick instance.
-         **/
+         */
         open(tick: Tick): void;
 
         /**
          * Tick method.
-         * @method tick
-         * @param {b3.Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
+         */
         tick(tick: Tick): number;
     }
 
@@ -838,33 +663,22 @@ declare module b3 {
      * MemPriority calls the child recorded directly, without calling previous
      * children again.
      *
-     * @module b3
-     * @class MemPriority
-     * @extends Composite
-     **/
-    export class MemPriority extends Composite {
+     */
+    class MemPriority extends Composite {
         /**
          * Creates an instance of MemPriority.
-         * @param {Object} params 
-         * @param {BaseNode} params.children 
-         * @memberof MemPriority
          */
         constructor({children}?: {children?: BaseNode[]});
 
         /**
          * Open method.
-         * @method open
-         * @param {b3.Tick} tick A tick instance.
-         **/
+         */
         open(tick: Tick): void;
 
         /**
          * Tick method.
-         * @method tick
-         * @param {b3.Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
-        tick(tick: Tick): number;        
+         */
+        tick(tick: Tick): number;
     }
 
     /**
@@ -873,33 +687,22 @@ declare module b3 {
      * MemPriority call the child recorded directly, without calling previous
      * children again.
      *
-     * @module b3
-     * @class MemSequence
-     * @extends Composite
-     **/
-    export class MemSequence extends Composite {
+     */
+    class MemSequence extends Composite {
         /**
          * Creates an instance of MemSequence.
-         * @param {Object} params 
-         * @param {BaseNode} params.children 
-         * @memberof MemSequence
          */
         constructor({children}?: {children?: BaseNode[]});
 
         /**
          * Open method.
-         * @method open
-         * @param {b3.Tick} tick A tick instance.
-         **/
+         */
         open(tick: Tick): void;
 
         /**
          * Tick method.
-         * @method tick
-         * @param {b3.Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
-        tick(tick: Tick): number;          
+         */
+        tick(tick: Tick): number;
     }
 
     /**
@@ -907,26 +710,17 @@ declare module b3 {
      * `SUCCESS`, `RUNNING` or `ERROR`. If all children return the failure state,
      * the priority also returns `FAILURE`.
      *
-     * @module b3
-     * @class Priority
-     * @extends Composite
-     **/
-    export class Priority extends Composite {
+     */
+    class Priority extends Composite {
         /**
          * Creates an instance of Priority.
-         * @param {Object} params 
-         * @param {BaseNode} params.children 
-         * @memberof Priority
          */
         constructor({children}?: {children?: BaseNode[]});
 
         /**
          * Tick method.
-         * @method tick
-         * @param {b3.Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
-        tick(tick: Tick): number;  
+         */
+        tick(tick: Tick): number;
     }
 
     /**
@@ -934,25 +728,16 @@ declare module b3 {
      * returns `FAILURE`, `RUNNING` or `ERROR`. If all children return the
      * success state, the sequence also returns `SUCCESS`.
      *
-     * @module b3
-     * @class Sequence
-     * @extends Composite
-     **/
-    export class Sequence extends Composite {
+     */
+    class Sequence extends Composite {
         /**
          * Creates an instance of Sequence.
-         * @param {Object} params 
-         * @param {BaseNode} params.children 
-         * @memberof Sequence
          */
         constructor({children}?: {children?: BaseNode[]});
 
         /**
          * Tick method.
-         * @method tick
-         * @param {b3.Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
+         */
         tick(tick: Tick): number;
     }
 
@@ -960,25 +745,16 @@ declare module b3 {
      * The Inverter decorator inverts the result of the child, returning `SUCCESS`
      * for `FAILURE` and `FAILURE` for `SUCCESS`.
      *
-     * @module b3
-     * @class Inverter
-     * @extends Decorator
-     **/
-    export class Inverter extends Decorator {
+     */
+    class Inverter extends Decorator {
         /**
          * Creates an instance of Inverter.
-         * @param {Object} params
-         * @param {BaseNode} params.child The child node.
-         * @memberof Inverter
          */
         constructor({child}?: {child?: BaseNode});
 
         /**
          * Tick method.
-         * @method tick
-         * @param {Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
+         */
         tick(tick: Tick): number;
     }
 
@@ -987,39 +763,27 @@ declare module b3 {
      * certain number of times, the Limiter decorator returns `FAILURE` without
      * executing the child.
      *
-     * @module b3
-     * @class Limiter
-     * @extends Decorator
-     **/
-    export class Limiter extends Decorator {
+     */
+    class Limiter extends Decorator {
         /**
          * Creates an instance of Limiter.
-         * 
+         *
          * Settings parameters:
-         * 
+         *
          * - **maxLoop** (*Integer*) Maximum number of repetitions.
          * - **child** (*BaseNode*) The child node.
-         * 
-         * @param {Object} params
-         * @param {Number} params.maxLoop Maximum number of repetitions.
-         * @param {BaseNode} params.child The child node.
-         * @memberof Limiter
+         *
          */
         constructor({child, maxLoop}?: {child?: BaseNode, maxLoop?: number});
 
         /**
          * Open method.
-         * @method open
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         open(tick: Tick): void;
 
         /**
          * Tick method.
-         * @method tick
-         * @param {Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
+         */
         tick(tick: Tick): number;
     }
 
@@ -1029,37 +793,25 @@ declare module b3 {
      * must be non-preemptive), it only interrupts the node after a `RUNNING`
      * status.
      *
-     * @module b3
-     * @class MaxTime
-     * @extends Decorator
-     **/
-    export class MaxTime extends Decorator {
+     */
+    class MaxTime extends Decorator {
         /**
          * Creates an instance of MaxTime.
-         * 
+         *
          * - **maxTime** (*Integer*) Maximum time a child can execute.
          * - **child** (*BaseNode*) The child node.
-      
-         * @param {Object} params Object with parameters.
-         * @param {Number} params.maxTime Maximum time a child can execute.
-         * @param {BaseNode} params.child The child node.
-         * @memberof MaxTime
+         *
          */
         constructor({maxTime, child}?: {maxTime?: number, child?: BaseNode});
 
         /**
          * Open method.
-         * @method open
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         open(tick: Tick): void;
 
         /**
          * Tick method.
-         * @method tick
-         * @param {Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
+         */
         tick(tick: Tick): number;
     }
 
@@ -1068,38 +820,26 @@ declare module b3 {
      * node child returns `FAILURE`, `RUNNING` or `ERROR`. Optionally, a maximum
      * number of repetitions can be defined.
      *
-     * @module b3
-     * @class RepeatUntilFailure
-     * @extends Decorator
-     **/
-    export class RepeatUntilFailure extends Decorator {
+     */
+    class RepeatUntilFailure extends Decorator {
         /**
          * Creates an instance of RepeatUntilFailure.
          *
          * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 (infinite).
          * - **child** (*BaseNode*) The child node.
          *
-         * @param {Object} params Object with parameters.
-         * @param {Number} params.maxLoop Maximum number of repetitions. Default to -1 (infinite).
-         * @param {BaseNode} params.child The child node.
-         * @memberof RepeatUntilFailure
-         **/
+         */
         constructor({maxLoop, child}?: {maxLoop?: number, child?: BaseNode});
 
         /**
          * Open method.
-         * @method open
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         open(tick: Tick): void;
 
         /**
          * Tick method.
-         * @method tick
-         * @param {Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
-        tick(tick: Tick): number;        
+         */
+        tick(tick: Tick): number;
     }
 
     /**
@@ -1107,38 +847,26 @@ declare module b3 {
      * node child returns `SUCCESS`, `RUNNING` or `ERROR`. Optionally, a maximum
      * number of repetitions can be defined.
      *
-     * @module b3
-     * @class RepeatUntilSuccess
-     * @extends Decorator
-     **/
-    export class RepeatUntilSuccess extends Decorator {
+     */
+    class RepeatUntilSuccess extends Decorator {
         /**
          * Creates an instance of RepeatUntilSuccess.
          *
          * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 (infinite).
          * - **child** (*BaseNode*) The child node.
          *
-         * @param {Object} params Object with parameters.
-         * @param {Number} params.maxLoop Maximum number of repetitions. Default to -1 (infinite).
-         * @param {BaseNode} params.child The child node.
-         * @memberof RepeatUntilSuccess
-         **/
+         */
         constructor({maxLoop, child}?: {maxLoop?: number, child?: BaseNode});
 
         /**
          * Open method.
-         * @method open
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         open(tick: Tick): void;
 
         /**
          * Tick method.
-         * @method tick
-         * @param {Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
-        tick(tick: Tick): number;        
+         */
+        tick(tick: Tick): number;
     }
 
     /**
@@ -1146,47 +874,35 @@ declare module b3 {
      * return `RUNNING` or `ERROR`. Optionally, a maximum number of repetitions
      * can be defined.
      *
-     * @module b3
-     * @class Repeater
-     * @extends Decorator
-     **/
-    export class Repeater extends Decorator {
+     */
+    class Repeater extends Decorator {
         /**
          * Creates an instance of MaxTime.
          *
          * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 (infinite).
          * - **child** (*BaseNode*) The child node.
          *
-         * @param {Object} params Object with parameters.
-         * @param {Number} params.maxLoop Maximum number of repetitions. Default to -1 (infinite).
-         * @param {BaseNode} params.child The child node.
-         * @memberof Repeater
-         **/
+         */
         constructor({maxLoop, child}?: {maxLoop?: number, child?: BaseNode});
 
         /**
          * Open method.
-         * @method open
-         * @param {Tick} tick A tick instance.
-         **/
+         */
         open(tick: Tick): void;
 
         /**
          * Tick method.
-         * @method tick
-         * @param {Tick} tick A tick instance.
-         * @return {Constant} A state constant.
-         **/
-        tick(tick: Tick): number;        
+         */
+        tick(tick: Tick): number;
     }
 
-    export const VERSION : string;
-    export const SUCCESS : number;
-    export const FAILURE : number;
-    export const RUNNING : number;
-    export const ERROR : number;
-    export const COMPOSITE : string;
-    export const DECORATOR : string;
-    export const ACTION : string;
-    export const CONDITION : string;
+    const VERSION: string;
+    const SUCCESS: number;
+    const FAILURE: number;
+    const RUNNING: number;
+    const ERROR: number;
+    const COMPOSITE: string;
+    const DECORATOR: string;
+    const ACTION: string;
+    const CONDITION: string;
 }
