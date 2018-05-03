@@ -5,6 +5,4 @@
 // TypeScript Version: 2.3
 
 declare function koa_response_time(): any;
-declare namespace koa_response_time { }
-
 export = koa_response_time;
