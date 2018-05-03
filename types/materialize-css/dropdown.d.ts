@@ -87,7 +87,7 @@ declare namespace M {
          * If false, the dropdown will show below the trigger
          * @default true
          */
-        coverTrigger: boolean;	// If false, the dropdown will show below the trigger.
+        coverTrigger: boolean;
 
         /**
          * If true, close dropdown on item click
