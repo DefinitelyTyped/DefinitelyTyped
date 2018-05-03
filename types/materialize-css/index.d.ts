@@ -30,5 +30,6 @@
 /// <reference path="./timepicker.d.ts" />
 /// <reference path="./toast.d.ts" />
 /// <reference path="./tooltip.d.ts" />
+/// <reference path="./waves.d.ts" />
 
 export = M;
