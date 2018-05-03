@@ -8,7 +8,7 @@ namespace applicationTests {
         Subsystem,
         runCli,
         Application
-    } = adone.application;
+    } = adone.app;
 
     namespace DApplicationTests {
         {
