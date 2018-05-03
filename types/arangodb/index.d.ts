@@ -955,8 +955,26 @@ declare namespace Foxx {
         set?: (res: Response, sid: string) => void;
         clear?: (res: Response) => void;
     }
+    interface CollectionSessionStorage extends SessionStorage {
+        new: () => Session;
+        save: (session: Session) => Session;
+        clear: (session: Session) => boolean;
+        prune: () => string[];
+    }
+    interface SessionsMiddleware extends DelegateMiddleware {
+        storage: SessionStorage;
+        transport: SessionTransport[];
+    }
 
-    type Middleware = (req: Request, res: Response, next: NextFunction) => void;
+    type SimpleMiddleware = (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => void;
+    interface DelegateMiddleware {
+        register: (endpoint: Endpoint) => SimpleMiddleware;
+    }
+    type Middleware = SimpleMiddleware | DelegateMiddleware;
     type Handler = ((req: Request, res: Response) => void);
     type NextFunction = () => void;
 
@@ -1239,97 +1257,97 @@ declare namespace Foxx {
 
     function route(handler: Handler, name?: string): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
-        middleware7: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
+        middleware7: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
-        middleware7: Middleware,
-        middleware8: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
+        middleware7: SimpleMiddleware,
+        middleware8: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
-        middleware7: Middleware,
-        middleware8: Middleware,
-        middleware9: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
+        middleware7: SimpleMiddleware,
+        middleware8: SimpleMiddleware,
+        middleware9: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
@@ -1394,10 +1412,6 @@ declare module "@arangodb/foxx/graphql" {
 }
 
 declare module "@arangodb/foxx/sessions" {
-    interface SessionsMiddleware extends Foxx.Middleware {
-        storage: Foxx.SessionStorage;
-        transport: Foxx.SessionTransport[];
-    }
     interface SessionsOptions {
         storage: Foxx.SessionStorage | string | ArangoDB.Collection;
         transport:
@@ -1407,7 +1421,9 @@ declare module "@arangodb/foxx/sessions" {
             | "header";
         autoCreate?: boolean;
     }
-    function sessionsMiddleware(options: SessionsOptions): Foxx.Middleware;
+    function sessionsMiddleware(
+        options: SessionsOptions
+    ): Foxx.SessionsMiddleware;
     export = sessionsMiddleware;
 }
 
@@ -1418,14 +1434,11 @@ declare module "@arangodb/foxx/sessions/storages/collection" {
         pruneExpired?: boolean;
         autoUpdate?: boolean;
     }
-    interface CollectionStorage extends Foxx.SessionStorage {
-        prune: () => string[];
-    }
     function collectionStorage(
         options:
             | CollectionStorageOptions
             | CollectionStorageOptions["collection"]
-    ): CollectionStorage;
+    ): Foxx.CollectionSessionStorage;
     export = collectionStorage;
 }
 
