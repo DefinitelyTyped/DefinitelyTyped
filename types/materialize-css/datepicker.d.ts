@@ -73,8 +73,8 @@ declare namespace M {
          * Automatically close picker when date is selected
          * @default false
          */
-
         autoClose: boolean;
+
         /**
          * The date output format for the input field value.
          * @default 'mmm dd, yyyy'

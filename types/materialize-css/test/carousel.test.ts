@@ -20,7 +20,7 @@ const carousel = new materialize.Carousel(elem, {
     onCycleTo(current, dragged) {
         // $ExpectType Element
         current;
-        // $ExpectType Element
+        // $ExpectType boolean
         dragged;
     },
     padding: 1,

@@ -104,7 +104,7 @@ declare namespace M {
          * Callback for when a new slide is cycled to
          * @default null
          */
-        onCycleTo: (this: Carousel, current: Element, dragged: Element) => void;
+        onCycleTo: (this: Carousel, current: Element, dragged: boolean) => void;
     }
 }
 

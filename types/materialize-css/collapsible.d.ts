@@ -39,13 +39,13 @@ declare namespace M {
 
         /**
          * Transition in duration in milliseconds.
-         * @default 250
+         * @default 300
          */
         inDuration: number;
 
         /**
          * Transition out duration in milliseconds.
-         * @default 250
+         * @default 300
          */
         outDuration: number;
 
