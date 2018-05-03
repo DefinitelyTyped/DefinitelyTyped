@@ -50,7 +50,6 @@ res1_1.descendants(() => undefined);
 res1_1.descendants(() => true);
 const res1_2: model.Node = res1_1.maybeChild(0)!;
 const res1_3: model.Node = res1_1.nodeAt(0)!;
-const res1_4: object = res1_1.toJSON()!;
 
 const cm1 = new model.ContentMatch();
 const cm2: model.ContentMatch = cm1.matchType({} as any)!;
