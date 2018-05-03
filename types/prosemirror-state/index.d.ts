@@ -74,7 +74,7 @@ export interface PluginSpec<S extends Schema = any> {
     transactions: Transaction[],
     oldState: EditorState<S>,
     newState: EditorState<S>
-  ) => Transaction | null | undefined)
+  ) => Transaction | null | undefined | void)
   | null;
 }
 /**
