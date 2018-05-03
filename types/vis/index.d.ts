@@ -88,8 +88,8 @@ export interface PointItem extends DataItem {
   y: number;
 }
 
-export interface SubGroupStackOptions{
-    [name:string]: boolean;
+export interface SubGroupStackOptions {
+  [name:string]: boolean;
 }
 
 export interface DataGroup {
