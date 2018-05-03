@@ -3,4 +3,18 @@ import * as materialize from "materialize-css";
 const elem = document.querySelector('.whatever')!;
 
 // $ExpectType Parallax
-const parallax = new M.Parallax(elem);
+const _parallax = new M.Parallax(elem);
+
+// $ExpectType Parallax
+const parallax = new materialize.Parallax(elem, { responsiveThreshold: 1 });
+
+// $ExpectType void
+parallax.destroy();
+// $ExpectType Element
+parallax.el;
+// $ExpectType ParallaxOptions
+parallax.options;
+
+$(".whatever").parallax();
+$(".whatever").parallax({ responsiveThreshold: 2 });
+$(".whatever").parallax("destroy");

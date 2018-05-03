@@ -33,4 +33,5 @@ declare namespace M {
 
 interface JQuery {
     scrollSpy(options?: Partial<M.ScrollSpyOptions>): JQuery;
+    scrollSpy(method: keyof Pick<M.ScrollSpy, "destroy">): JQuery;
 }

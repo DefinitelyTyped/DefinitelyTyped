@@ -37,4 +37,5 @@ declare namespace M {
 
 interface JQuery {
     pushpin(options?: Partial<M.PushpinOptions>): JQuery;
+    pushpin(method: keyof Pick<M.Pushpin, "destroy">): JQuery;
 }

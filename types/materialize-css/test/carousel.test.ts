@@ -25,29 +25,22 @@ const carousel = new materialize.Carousel(elem, {
 
 // $ExpectType number
 carousel.center;
-
 // $ExpectType number
 carousel.dragged;
-
 // $ExpectType Element
 carousel.el;
-
 // $ExpectType CarouselOptions
 carousel.options;
-
 // $ExpectType boolean
 carousel.pressed;
-
 // $ExpectType void
 carousel.destroy();
-
 // $ExpectType void
 carousel.next(1);
-
 // $ExpectType void
 carousel.prev(1);
-
 // $ExpectType void
 carousel.set(2);
 
+$(".whatever").carousel();
 $(".whatever").carousel();
