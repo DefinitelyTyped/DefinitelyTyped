@@ -4,7 +4,7 @@
 //                 NateScarlet <https://github.com/NateScarlet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class Notify {
+declare class Notify {
     constructor(title: string, options?: INotifyOption);
 
     /**
@@ -109,3 +109,4 @@ interface INotifyOption {
      */
     requireInteraction?: boolean;
 }
+export = Notify
