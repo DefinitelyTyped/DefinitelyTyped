@@ -432,10 +432,13 @@ function bufferTests() {
         // String
         const buf3: Buffer = Buffer.from('this is a tést');
         // ArrayBuffer
-        const arr: Uint16Array = new Uint16Array(2);
-        arr[0] = 5000;
-        arr[1] = 4000;
-        const buf4: Buffer = Buffer.from(arr.buffer);
+        const arrUint16: Uint16Array = new Uint16Array(2);
+        arrUint16[0] = 5000;
+        arrUint16[1] = 4000;
+        const buf4: Buffer = Buffer.from(arrUint16.buffer);
+        const arrUint8: Uint8Array = new Uint8Array(2);
+        const buf5: Buffer = Buffer.from(arrUint8);
+        const buf6: Buffer = Buffer.from(buf1);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])

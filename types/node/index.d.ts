@@ -377,6 +377,10 @@ declare var Buffer: {
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
+     * Copies the passed buffer data onto a new Buffer instance.
+     */
+    from(buffer: Uint8Array): Buffer;
+    /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
