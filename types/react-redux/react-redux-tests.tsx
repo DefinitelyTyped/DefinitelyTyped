@@ -706,7 +706,7 @@ namespace TestMergedPropsInference {
     const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
         undefined,
         mapDispatchToProps,
-        (stateProps: undefined, dispatchProps: DispatchProps) => ({
+        (stateProps: {}, dispatchProps: DispatchProps) => ({
             merged: "merged",
         }),
     )(MergedPropsComponent);
@@ -714,7 +714,7 @@ namespace TestMergedPropsInference {
     const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
-        () => ({
+        (stateProps: {}, dispatchProps: DispatchProp) => ({
             merged: "merged",
         }),
     )(MergedPropsComponent);

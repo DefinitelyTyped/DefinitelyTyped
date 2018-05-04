@@ -8,6 +8,7 @@
 //                 Nicholas Boll <https://github.com/nicholasboll>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
 //                 Prashant Deva <https://github.com/pdeva>
+//                 Kazatsuyu Shirayama <https://github.com/kazatsuyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -94,19 +95,19 @@ export interface Connect {
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: null | undefined,
-        mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<TStateProps, DispatchProp, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-        mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<{}, TDispatchProps, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <no_state = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: null | undefined,
-        mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<{}, DispatchProp, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
