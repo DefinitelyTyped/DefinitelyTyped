@@ -7,7 +7,7 @@
 import { EventEmitter } from "events";
 import { Options as CompilerOptions } from "idyll-compiler";
 
-export interface Options {
+interface Options {
     /**
      * Monitor input files and rebuild on changes
      */
@@ -103,8 +103,7 @@ type PredefinedFile =
 
 type ComponentFiles = "COMPONENT_DIRS" | "DEFAULT_COMPONENT_DIRS";
 
-export type Paths = Record<PredefinedFile, string> &
-    Record<ComponentFiles, string[]>;
+type Paths = Record<PredefinedFile, string> & Record<ComponentFiles, string[]>;
 
 declare class IdyllInstance extends EventEmitter {
     /**
@@ -128,4 +127,4 @@ declare class IdyllInstance extends EventEmitter {
 
 declare function idyll(options: Options, callback?: () => void): IdyllInstance;
 
-export default idyll;
+export = idyll;

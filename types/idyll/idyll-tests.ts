@@ -1,4 +1,4 @@
-import idyll from "idyll";
+import idyll = require("idyll");
 
 // $ExpectType IdyllInstance
 idyll({
