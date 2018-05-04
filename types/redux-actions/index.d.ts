@@ -26,7 +26,7 @@ export interface ActionMeta<Payload, Meta> extends Action<Payload> {
 
 // https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/combineActions.js#L27
 export interface CombinedActionType {
-    // NOTE: Done on purpose to avoid empty interface declaration
+    _dummy: undefined;
     toString(): string;
 }
 
