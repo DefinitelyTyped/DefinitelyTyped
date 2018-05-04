@@ -631,7 +631,7 @@ export interface SwitchNavigatorConfig {
   initialRouteName: string;
   resetOnBlur?: boolean;
   paths?: NavigationPathsConfig;
-  backBehavior?: 'none' | 'intialRoute';
+  backBehavior?: 'none' | 'initialRoute';
 }
 
 // Return createNavigationContainer
