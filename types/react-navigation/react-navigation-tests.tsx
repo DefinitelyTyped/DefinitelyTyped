@@ -288,6 +288,26 @@ function renderBasicSwitchNavigator(): JSX.Element {
     );
 }
 
+const switchNavigatorConfigWithInitialRoute: SwitchNavigatorConfig = {
+    initialRouteName: 'screen',
+    resetOnBlur: false,
+    backBehavior: 'initialRoute'
+};
+
+const SwitchNavigatorWithInitialRoute = SwitchNavigator(
+    routeConfigMap,
+    switchNavigatorConfigWithInitialRoute,
+);
+
+function renderSwitchNavigatorWithInitialRoute(): JSX.Element {
+    return (
+        <SwitchNavigatorWithInitialRoute
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
 /**
  * Drawer navigator.
  */
