@@ -27,7 +27,6 @@ export interface ActionMeta<Payload, Meta> extends Action<Payload> {
 // https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/combineActions.js#L27
 export interface CombinedActionType {
     _dummy: undefined;
-    toString(): string;
 }
 
 export type ReducerMapValue<State, Payload> = Reducer<State, Payload> | ReducerNextThrow<State, Payload> | ReducerMap<State, Payload>;
