@@ -5788,24 +5788,24 @@ fp.now(); // $ExpectType number
     const dictionary: _.Dictionary<AbcObject> = anything;
     const numericDictionary: _.NumericDictionary<AbcObject> = anything;
 
-    _.omit(obj, "a"); // $ExpectType Partial<AbcObject>
+    _.omit(obj, "a"); // ExpectType Pick<AbcObject, "b" | "c">   // NOTE: ExpectType disabled because it fails in TS2.4
     _.omit(obj, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
     _.omit(dictionary, "a"); // $ExpectType Dictionary<AbcObject>
     _.omit(numericDictionary, "a");  // $ExpectType NumericDictionary<AbcObject>
 
-    _(obj).omit("a"); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
+    _(obj).omit<AbcObject, "a">("a"); // ExpectType LoDashImplicitWrapper<Pick<AbcObject, "b" | "c">>   // NOTE: ExpectType disabled because it fails in TS2.4
     _(obj).omit(["b", 1], 0, "a"); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(dictionary).omit("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(numericDictionary).omit("a"); // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
 
-    _.chain(obj).omit("a"); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
+    _.chain(obj).omit<AbcObject, "a">("a"); // ExpectType LoDashExplicitWrapper<Pick<AbcObject, "b" | "c">>   // NOTE: ExpectType disabled because it fails in TS2.4
     _.chain(obj).omit(["b", 1], 0, "a"); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(dictionary).omit("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(numericDictionary).omit("a"); // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject>>
 
-    fp.omit("a", obj); // $ExpectType Partial<AbcObject>
-    fp.omit("a")(obj); // $ExpectType Partial<AbcObject>
-    fp.omit(["a", "b"])(obj); // $ExpectType Partial<AbcObject>
+    fp.omit("a", obj); // ExpectType Pick<AbcObject, "b" | "c">   // NOTE: ExpectType disabled because it fails in TS2.4
+    fp.omit<AbcObject, "a">("a")(obj); // ExpectType Pick<AbcObject, "b" | "c">   // NOTE: ExpectType disabled because it fails in TS2.3
+    fp.omit<AbcObject, "a" | "b">(["a", "b"])(obj); // ExpectType Pick<AbcObject, "c">   // NOTE: ExpectType disabled because it fails in TS2.3
 }
 
 // _.omitBy
@@ -5825,7 +5825,7 @@ fp.now(); // $ExpectType number
     const obj1: AbcObject | null | undefined = anything;
     const obj2: AbcObject = anything;
     const readonlyArray: string[] = ["a", "b"]; // TODO: Should be ReadonlyArray, but see comment on type Many<T>
-    const literalsArray = ["a" as "a", "b" as "b"];
+    const literalsArray: Array<"a" | "b"> = ["a", "b"];
     const roLiteralsArray: Array<"a" | "b"> = literalsArray; // TODO: Should be ReadonlyArray, but see comment on type Many<T>
 
     _.pick(obj1, "a"); // $ExpectType PartialDeep<AbcObject>
@@ -5857,7 +5857,7 @@ fp.now(); // $ExpectType number
 
     fp.pick<AbcObject, "a">("a", obj2); // $ExpectType Pick<AbcObject, "a">
     fp.pick<AbcObject, "a">("a")(obj2); // $ExpectType Pick<AbcObject, "a">
-    fp.pick<AbcObject, "a" | "b">(["a" as "a", "b" as "b"])(obj2); // $ExpectType Pick<AbcObject, "a" | "b">
+    fp.pick<AbcObject, "a" | "b">(literalsArray)(obj2); // $ExpectType Pick<AbcObject, "a" | "b">
 }
 
 // _.pickBy
@@ -6060,9 +6060,10 @@ fp.now(); // $ExpectType number
     _(object).unset(["a", "b"]); // $ExpectType LoDashImplicitWrapper<boolean>
     _.chain(object).unset("a.b"); // $ExpectType LoDashExplicitWrapper<boolean>
     _.chain(object).unset(["a", "b"]); // $ExpectType LoDashExplicitWrapper<boolean>
-    fp.unset("a.b", object); // $ExpectType boolean
-    fp.unset("a.b")(object); // $ExpectType boolean
-    fp.unset(["a", "b"])(object); // $ExpectType boolean
+
+    fp.unset("a.b", object); // $ExpectType { a: { b: string; c: boolean; }; }
+    fp.unset("a.b")(object); // $ExpectType { a: { b: string; c: boolean; }; }
+    fp.unset(["a", "b"])(object); // $ExpectType { a: { b: string; c: boolean; }; }
 }
 
 // _.update
@@ -7251,11 +7252,10 @@ _.templateSettings; // $ExpectType TemplateSettings
     // with arity 3 function
     _.partialRight(func3, 42,     _, true);
 
-    fp.partial([], func0); // $ExpectType (...args: any[]) => any
-    fp.partial([])(func0); // $ExpectType (...args: any[]) => any
-    fp.partial([42])(func1); // $ExpectType (...args: any[]) => any
-    fp.partial([fp.partial.placeholder, "foo"])(func2);
-    fp.partialRight([])(func0); // $ExpectType (...args: any[]) => any
-    fp.partialRight([42])(func1); // $ExpectType (...args: any[]) => any
-    fp.partialRight([fp.partialRight.placeholder, "foo"])(func2);
+    fp.partial(func1, [42]); // $ExpectType Function0<number>
+    fp.partial(func1)([42]); // $ExpectType Function0<number>
+    fp.partial(func2)([fp.partial.placeholder, "foo"]); // $ExpectType Function1<number, number>
+    fp.partialRight(func1, [42]); // $ExpectType Function0<number>
+    fp.partialRight(func1)([42]); // $ExpectType Function0<number>
+    fp.partialRight(func2)([42, fp.partialRight.placeholder]); // $ExpectType Function1<string, number>
 }
