@@ -217,6 +217,9 @@ declare module "../index" {
     type PropertyName = string | number | symbol;
     type PropertyPath = Many<PropertyName>;
 
+    type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
+    type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+
     /** Common interface between Arrays and jQuery objects */
     type List<T> = ArrayLike<T>;
 
