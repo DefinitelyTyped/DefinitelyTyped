@@ -1,5 +1,6 @@
 import { Reducer, Selector, FlushThunks, Thunk } from 'redux-testkit';
-import { Action, Dispatch } from 'redux';
+import { Action, Dispatch, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 interface SimpleState {
 	currentState: string;
@@ -42,6 +43,14 @@ const getNumbers = (state: SimpleState = simpleState, type: string): number[] =>
 	});
 };
 
+const reducer = (state = { count: 0 }, action: Action): any => {
+	if (action.type === 'count') {
+		state.count++;
+	}
+
+	return state;
+};
+
 const thunkAction1: Action = {
 	type: TO_FINISH_STATE
 };
@@ -50,7 +59,7 @@ const thunkAction2: Action = {
 	type: TO_INITIAL_STATE
 };
 
-const thunk = () => {
+const thunkAction = () => {
 	return (dispatch: Dispatch<Action>): void => {
 		dispatch(thunkAction1);
 		dispatch(thunkAction2);
@@ -64,5 +73,12 @@ Reducer(simpleAction).expect({ type: TO_INITIAL_STATE }).toReturnState(simpleSta
 Selector(getNumbers).expect(simpleState, EVEN_NUMBERS).toReturn([2, 4, 6, 8]);
 Selector(getNumbers).execute(simpleState, ODD_NUMBERS);
 
-Thunk(thunk).execute();
-Thunk(thunk).withState(simpleState).execute();
+Thunk(thunkAction).execute();
+Thunk(thunkAction).withState(simpleState).execute();
+
+const flushThunks = FlushThunks.createMiddleware();
+
+const store = createStore(reducer, applyMiddleware(flushThunks, thunk));
+
+flushThunks.flush();
+flushThunks.reset();
