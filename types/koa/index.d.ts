@@ -498,6 +498,7 @@ declare class Application extends EventEmitter {
      * Old-style middleware will be converted.
      */
     use(middleware: Application.Middleware): this;
+    use(middleware: Application.Middleware, next: Function): this;
 
     /**
      * Return a request handler callback
