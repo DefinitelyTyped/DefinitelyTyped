@@ -1,4 +1,4 @@
-import mapPromiseLimit = require('map-promise-limit');
+import mapPromiseLimit = require('promise-map-limit');
 
 const promisedStrings = mapPromiseLimit(['foo', 'bar'], 2, s => s);
 promisedStrings; // $ExpectType Promise<string[]>

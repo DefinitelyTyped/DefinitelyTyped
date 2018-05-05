@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "map-promise-limit-tests.ts"
+        "promise-map-limit-tests.ts"
     ]
 }
