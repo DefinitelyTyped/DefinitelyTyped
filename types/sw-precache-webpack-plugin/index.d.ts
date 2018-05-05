@@ -7,13 +7,27 @@
 import { Options as SwPrecacheOptions } from 'sw-precache';
 import { Plugin } from 'webpack';
 
+// workaround to override parent types
+interface _Options extends SwPrecacheOptions {
+    importScripts?: any;
+}
+
 declare namespace SWPrecacheWebpackPlugin {
-    interface Options extends SwPrecacheOptions {
+    interface Options extends _Options {
         filename?: string;
         filepath?: string;
         staticFileGlobsIgnorePatterns?: RegExp[];
         mergeStaticsConfig?: boolean;
         minify?: boolean;
+
+        // override sw-precache options
+        importScripts?: Array<
+            | string
+            | {
+                  chunkName?: string;
+                  filename?: string;
+              }
+        >;
     }
 }
 

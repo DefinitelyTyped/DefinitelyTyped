@@ -21,4 +21,16 @@ config = {
     ]
 };
 
+config = {
+    plugins: [
+        new SwPrecacheWebpackPlugin({
+            importScripts: [
+                {
+                    chunkName: ''
+                }
+            ]
+        })
+    ]
+};
+
 export default config;
