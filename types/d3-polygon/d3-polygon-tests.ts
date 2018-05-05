@@ -17,8 +17,7 @@ let containsFlag: boolean;
 let point: [number, number] = [15, 15];
 const polygon: Array<[number, number]> = [[10, 10], [20, 20], [10, 30]];
 const pointArray: Array<[number, number]> = [[10, 10], [20, 20], [10, 30], [15, 15]];
-let hull: Array<[number, number]>;
-let hullOrNoting: Array<[number, number]> | null;
+let hullOrNothing: Array<[number, number]> | null;
 
 // -----------------------------------------------------------------------------
 // Tests
@@ -28,9 +27,7 @@ num = d3Polygon.polygonArea(polygon);
 
 point = d3Polygon.polygonCentroid(polygon);
 
-hull = d3Polygon.polygonHull(pointArray)!;
-
-hullOrNoting = d3Polygon.polygonHull([]);
+hullOrNothing = d3Polygon.polygonHull(pointArray);
 
 containsFlag = d3Polygon.polygonContains(polygon, point);
 
