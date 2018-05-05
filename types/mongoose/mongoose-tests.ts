@@ -1420,6 +1420,7 @@ var MongoModel = mongoose.model('MongoModel', new mongoose.Schema({
     required: true
   }
 }), 'myCollection', true);
+MongoModel.init().then(cb);
 MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
   docs[0].save();
   docs[0].__v;

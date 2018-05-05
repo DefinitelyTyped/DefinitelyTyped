@@ -338,7 +338,7 @@ export interface IconToggleProps {
 export class IconToggle extends Component<IconToggleProps, any> {}
 
 export interface ListItemCenterElement {
-    primaryText: string;
+    primaryText: string | JSX.Element;
     secondaryText?: string;
     tertiaryText?: string;
 }

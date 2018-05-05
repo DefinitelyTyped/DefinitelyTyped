@@ -600,6 +600,8 @@ Permissions.CONTACTS === 'contacts';
 Permissions.NOTIFICATIONS === 'remoteNotifications';
 Permissions.REMOTE_NOTIFICATIONS === 'remoteNotifications';
 Permissions.SYSTEM_BRIGHTNESS === 'systemBrightness';
+Permissions.USER_FACING_NOTIFICATIONS === 'userFacingNotifications';
+Permissions.REMINDERS === 'reminders';
 async () => {
     const result = await Permissions.askAsync(Permissions.CAMERA);
 
