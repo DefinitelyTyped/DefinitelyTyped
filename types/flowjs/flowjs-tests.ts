@@ -4,7 +4,7 @@
 var flowObject: flowjs.IFlow;
 var bool: boolean = flowObject.support;
 bool = flowObject.supportDirectory;
-var obj: Object = flowObject.opts;
+var flowOpts: flowjs.IFlowOptions = flowObject.opts;
 var flowFileArray: flowjs.IFlowFile[] = flowObject.files;
 
 flowObject.assignBrowse(<HTMLElement[]> [], false, false, {});

@@ -259,6 +259,12 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
 }
 
 export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
+    myList: SectionList<any>
+
+    scrollMe = () => {
+        this.myList.scrollToLocation({itemIndex: 0, sectionIndex: 1});
+    }
+
     render() {
         const sections = [
             {
@@ -277,19 +283,24 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
         ];
 
         return (
-            <SectionList
-                sections={sections}
-                renderSectionHeader={({ section }) => (
-                    <View>
-                        <Text>{section.title}</Text>
-                    </View>
-                )}
-                renderItem={(info: { item: string }) => (
-                    <View>
-                        <Text>{info.item}</Text>
-                    </View>
-                )}
-            />
+            <React.Fragment>
+                <Button title="Press" onPress={this.scrollMe} />
+
+                <SectionList
+                    ref={(ref: any) => this.myList = ref}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => (
+                        <View>
+                            <Text>{section.title}</Text>
+                        </View>
+                    )}
+                    renderItem={(info: { item: string }) => (
+                        <View>
+                            <Text>{info.item}</Text>
+                        </View>
+                    )}
+                />
+            </React.Fragment>
         );
     }
 }

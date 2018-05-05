@@ -1778,8 +1778,9 @@ export namespace Pedometer {
  * Permissions
  */
 export namespace Permissions {
-    type PermissionType = 'remoteNotifications' | 'location' |
-        'camera' | 'contacts' | 'audioRecording' | 'calendar';
+    type PermissionType = 'audioRecording' | 'calendar' |
+    'cameraRoll' | 'camera' | 'contacts' | 'location' | 'reminders' |
+    'remoteNotifications' | 'systemBrightness' | 'userFacingNotifications';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1803,15 +1804,17 @@ export namespace Permissions {
 
     type RemoteNotificationPermission = 'remoteNotifications';
 
-    const CAMERA: 'camera';
-    const CAMERA_ROLL: 'cameraRoll';
     const AUDIO_RECORDING: 'audioRecording';
-    const LOCATION: 'location';
-    const REMOTE_NOTIFICATIONS: RemoteNotificationPermission;
-    const NOTIFICATIONS: RemoteNotificationPermission;
-    const CONTACTS: 'contacts';
-    const SYSTEM_BRIGHTNESS: 'systemBrightness';
     const CALENDAR: 'calendar';
+    const CAMERA_ROLL: 'cameraRoll';
+    const CAMERA: 'camera';
+    const CONTACTS: 'contacts';
+    const LOCATION: 'location';
+    const NOTIFICATIONS: RemoteNotificationPermission;
+    const REMINDERS = 'reminders';
+    const REMOTE_NOTIFICATIONS: RemoteNotificationPermission;
+    const SYSTEM_BRIGHTNESS: 'systemBrightness';
+    const USER_FACING_NOTIFICATIONS = 'userFacingNotifications';
 }
 
 /**
