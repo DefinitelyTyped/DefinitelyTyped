@@ -5396,7 +5396,7 @@ fp.now(); // $ExpectType number
 
     _.chain("abc").get(1); // $ExpectType LoDashExplicitWrapper<string>
     _.chain("abc").get(["0"], "_");
-    _.chain([42]).get(0, -1); // $ExpectType LoDashExplicitWrapper<number | undefined>
+    _.chain([42]).get(0, -1); // ExpectType LoDashExplicitWrapper<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a"]); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType LoDashExplicitWrapper<any>
@@ -6939,13 +6939,13 @@ fp.now(); // $ExpectType number
 {
     const object: AbcObject = anything;
 
-    _.methodOf(object); // $ExpectType (path: Many<PropertyName>) => any
-    _.methodOf(object, anything, anything, anything); // $ExpectType (path: Many<PropertyName>) => any
-    _(object).methodOf(); // $ExpectType LoDashImplicitWrapper<(path: Many<PropertyName>) => any>
-    _(object).methodOf(anything, anything, anything); // $ExpectType LoDashImplicitWrapper<(path: Many<PropertyName>) => any>
-    _.chain(object).methodOf(); // $ExpectType LoDashExplicitWrapper<(path: Many<PropertyName>) => any>
-    _.chain(object).methodOf(anything, anything, anything); // $ExpectType LoDashExplicitWrapper<(path: Many<PropertyName>) => any>
-    fp.methodOf(object); // $ExpectType (path: Many<PropertyName>) => any
+    _.methodOf(object) as (path: _.Many<_.PropertyName>) => any;
+    _.methodOf(object, anything, anything, anything) as (path: _.Many<_.PropertyName>) => any;
+    _(object).methodOf() as _.LoDashImplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
+    _(object).methodOf(anything, anything, anything) as _.LoDashImplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
+    _.chain(object).methodOf() as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
+    _.chain(object).methodOf(anything, anything, anything) as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
+    fp.methodOf(object) as (path: _.Many<_.PropertyName>) => any;
 }
 
 // _.mixin
@@ -7077,9 +7077,9 @@ fp.now(); // $ExpectType number
 
 // _.propertyOf
 {
-    _.propertyOf({}); // $ExpectType (path: Many<PropertyName>) => any
-    _({}).propertyOf(); // $ExpectType LoDashImplicitWrapper<(path: Many<PropertyName>) => any>
-    _.chain({}).propertyOf(); // $ExpectType LoDashExplicitWrapper<(path: Many<PropertyName>) => any>
+    _.propertyOf({}) as (path: _.Many<_.PropertyName>) => any;
+    _({}).propertyOf() as _.LoDashImplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
+    _.chain({}).propertyOf() as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
 
     fp.propertyOf(Symbol.iterator)([]); // $ExpectType any
     fp.propertyOf([Symbol.iterator], []); // $ExpectType any
