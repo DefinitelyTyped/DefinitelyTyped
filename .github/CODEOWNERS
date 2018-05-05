@@ -2388,6 +2388,7 @@
 /types/maker.js/                                @danmarshall
 /types/mandrill-api/                            @pocesar
 /types/map-obj/                                 @BendingBender
+/types/map-promise-limit/                       @kohlmannj
 /types/mapbox/                                  @anahkiasen
 /types/mapbox-gl/                               @dobrud @patrickr
 /types/mapbox__shelf-pack/                      @Perlmint
