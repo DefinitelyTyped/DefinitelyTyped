@@ -123,7 +123,7 @@ declare namespace m {
         crop(width: number, height: number, x?: number, y?: number, percent?: boolean): State;
         cycle(amount: number): State;
         deconstruct(): State;
-        define(): State;
+        define(value: string): State;
         delay(milliseconds: number): State;
         density(width: number, height: number): State;
         despeckle(): State;
