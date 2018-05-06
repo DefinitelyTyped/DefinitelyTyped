@@ -2,6 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "no-unnecessary-generics": false,
-        "use-default-type-parameter": true
+        "use-default-type-parameter": false
     }
 }
