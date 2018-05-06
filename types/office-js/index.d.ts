@@ -20,6 +20,13 @@ declare namespace Office {
      * @param reason Indicates how the app was initialized
      */
     export function initialize(reason: InitializationReason): void;
+	/**
+    * Ensures that the Office JavaScript APIs are ready to be called by the add-in. If the framework hasn't initialized yet, the callback or promise will wait until the Office host is ready to accept API calls.
+    * Note that though this API is intended to be used inside an Office add-in, it can also be used outside the add-in.  In that case, once Office.js determines that it is running outside of an Office host application, it will call the callback and resolve the promise with "null" for both the host and platform.
+    * @param callback - An optional callback method, that will receive the host and platform info. Alternatively, rather than use a callback, an add-in may simply wait for the Promise returned by the function to resolve.
+    * @returns A Promise that contains the host and platform info, once initialization is completed.
+    */
+    export function onReady(callback?: (info: { host: HostType, platform: PlatformType} ) => any): Promise<{ host: HostType, platform: PlatformType }>;
     /**
      * Indicates if the large namespace for objects will be used or not.
      * @param useShortNamespace  Indicates if 'true' that the short namespace will be used
@@ -183,15 +190,15 @@ declare namespace Office {
         messageParent(messageObject: any): void;
         /**
          * Closes the UI container where the JavaScript is executing.
-         * 
+         *
          * Supported hosts: Outlook - Minimum requirement set: Mailbox 1.5
-         * 
+         *
          * The behavior of this method is specified by the following:
-         * 
+         *
          * Called from a UI-less command button: No effect. Any dialog opened by displayDialogAsync will remain open.
-         * 
+         *
          * Called from a taskpane: The taskpane will close. Any dialog opened by displayDialogAsync will also close. If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
-         * 
+         *
          * Called from a module extension: No effect.
          */
         closeContainer(): void;
@@ -2102,6 +2109,19 @@ declare namespace Office {
          * Returns string values that match the named regular expression defined in the manifest XML file
          */
         getRegExMatchesByName(name: string): Array<string>;
+        /**
+        * Gets the entities found in the selected item that are currently selected
+        *
+        * [Api set: Mailbox 1.6]
+        */
+        getSelectedEntities(): Entities;
+        /**
+         * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file and
+         * are selected in the current item
+         *
+         * [Api set: Mailbox 1.6]
+         */
+        getSelectedRegExMatches(): any;
     }
     export interface LocalClientTime {
         month: number;
@@ -2608,12 +2628,12 @@ declare namespace OfficeExtension {
     }
 
     export interface EmbeddedOptions {
-		sessionKey?: string,
-		container?: HTMLElement,
-		id?: string;
-		timeoutInMilliseconds?: number;
-		height?: string;
-		width?: string;
+        sessionKey?: string,
+        container?: HTMLElement,
+        id?: string;
+        timeoutInMilliseconds?: number;
+        height?: string;
+        width?: string;
     }
 
     class EmbeddedSession {

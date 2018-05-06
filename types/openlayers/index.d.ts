@@ -8,6 +8,7 @@
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Yair Tawil <https://github.com/yairtawil>
 //                 Pierre Marchand <https://github.com/pierremarc>
+//                 Hauke Stieler <https://github.com/hauke96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -11952,7 +11953,7 @@ export namespace olx {
         interface VectorTileOptions {
             renderBuffer?: number;
             renderMode?: (ol.layer.VectorTileRenderType | string);
-            renderOrder: (feature1: ol.Feature, feature2: ol.Feature) => number;
+            renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
             map?: ol.Map;
             extent?: ol.Extent;
             minResolution?: number;
@@ -12087,6 +12088,7 @@ export namespace olx {
         interface ImageArcGISRestOptions {
             attributions?: ol.Attribution[];
             crossOrigin?: (string);
+            hidpi?: boolean;
             logo?: (string | LogoOptions);
             imageLoadFunction?: ol.ImageLoadFunctionType;
             params?: { [k: string]: any };

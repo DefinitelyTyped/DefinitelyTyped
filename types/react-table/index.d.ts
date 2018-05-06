@@ -24,7 +24,7 @@ export type SubComponentFunction = (rowInfo: RowInfo) => React.ReactNode;
 export type PageChangeFunction = (page: number) => void;
 export type PageSizeChangeFunction = (newPageSize: number, newPage: number) => void;
 export type SortedChangeFunction = (newSorted: SortingRule[], column: any, additive: boolean) => void;
-export type FilteredChangeFunction = (newFiltering: Filter, column: any, value: any) => void;
+export type FilteredChangeFunction = (newFiltering: Filter[], column: any, value: any) => void;
 export type ExpandedChangeFunction = (column: any, event: any, isTouch: boolean) => void;
 export type ResizedChangeFunction = (newResized: Resize[], event: any) => void;
 export type SortFunction = (a: any, b: any, desc: any) => -1 | 0 | 1;
@@ -642,6 +642,9 @@ export interface RowInfo {
 
     /** An array of any expandable sub-rows contained in this row */
     subRows: any[];
+
+    /** Original object passed to row */
+    original: any;
 }
 
 export interface FinalState extends TableProps {

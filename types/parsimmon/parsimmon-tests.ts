@@ -192,6 +192,28 @@ strPar = P.test((a: string) => false);
 
 strPar = P.takeWhile((a: string) => true);
 
+// Slightly modified from the documentation example for 'parser.thru(wrapper)'.
+function makeNode<Name extends string>(name: Name) {
+	return <T>(parser: P.Parser<T>): P.Parser<P.Node<Name, T>> => {
+		return P.seqMap(
+			P.index,
+			parser,
+			P.index,
+			(start, value, end) => {
+				return {
+					name,
+					start,
+					value,
+					end,
+				};
+			},
+		);
+	};
+}
+
+let node: P.Parser<P.Node<'identifier', string>> = P.letters.node('identifier');
+node = P.letters.thru(makeNode('identifier'));
+
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 let language: Language;

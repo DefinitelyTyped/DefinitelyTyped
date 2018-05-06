@@ -124,7 +124,9 @@ const otherOptions : Auth0LockConstructorOptions = {
   configurationBaseUrl: "https://cdn.auth0.com",
   languageBaseUrl: "http://www.example.com",
   hashCleanup: false,
-  leeway: 30
+  leeway: 30,
+  _enableImpersonation: true,
+  _enableIdPInitiatedLogin: false
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);
@@ -256,6 +258,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
 
 const authResult : AuthResult = {
     accessToken: 'fake_access_token',
+    expiresIn: 7200,
     idToken: 'fake_id_token',
     idTokenPayload: {
       aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
@@ -265,5 +268,6 @@ const authResult : AuthResult = {
       sub: "auth0|aksjfkladsf"
     },
     refreshToken: undefined,
-    state: "923jf092j3.FFSDJFDSKLDF"
+    state: "923jf092j3.FFSDJFDSKLDF",
+    tokenType: 'Bearer'
 };

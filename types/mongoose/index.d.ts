@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.1
+// Type definitions for Mongoose 5.0.12
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -72,6 +72,8 @@ declare module "mongoose" {
   export var STATES: any;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
+  /** Models registred on the default mongoose connection. */
+  export var models: { [index: string]: Model<any> };
   /** The node-mongodb-native driver Mongoose uses. */
   export var mongo: typeof mongodb;
   /** The Mongoose version */
@@ -254,6 +256,9 @@ declare module "mongoose" {
     /** A hash of the collections associated with this connection */
     collections: { [index: string]: Collection };
 
+    /** A hash of models registered with this connection */
+    models: { [index: string]: Model<any> };
+
     /**
      * Connection ready state
      * 0 = disconnected
@@ -266,6 +271,8 @@ declare module "mongoose" {
   }
 
   interface ConnectionOptionsBase {
+    /** database Name for Mongodb Atlas Connection */
+    dbName?: string;
     /** passed to the connection db instance */
     db?: any;
     /** passed to the connection server instance(s) */
@@ -325,6 +332,26 @@ declare module "mongoose" {
     domainsEnabled?: boolean;
     /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
     bufferMaxEntries?: number;
+
+    /** additional SSL configuration options */
+    /** Array of valid certificates either as Buffers or Strings */
+    sslCA?: ReadonlyArray<Buffer | string>;
+    /** Array of revocation certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher) */
+    sslCRL?: ReadonlyArray<Buffer | string>;
+    /** SSL certificate */
+    sslCert?: Buffer | string;
+    /** SSL private key */
+    sslKey?: Buffer | string;
+    /** SSL Certificate pass phrase */
+    sslPass?: Buffer | string;
+    /** Default: true; Server identity checking during SSL */
+    checkServerIdentity?: boolean | Function;
+    /** String containing the server name requested via TLS SNI. */
+    servername?: string;
+
+    /** Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info. */
+    ciphers?: string;
+    ecdhCurve?: string;
 
     // TODO
     safe?: any;
@@ -618,8 +645,74 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): this;
-    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): this;
+    pre<T extends Document = Document>(
+      method: "init" | "validate" | "save" | "remove",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Query<any> = Query<any>>(
+      method:
+        | "count"
+        | "find"
+        | "findOne"
+        | "findOneAndRemove"
+        | "findOneAndUpdate"
+        | "update",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Aggregate<any> = Aggregate<any>>(
+      method: "aggregate",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Model<Document> = Model<Document>>(
+      method: "insertMany",
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
+      method: string,
+      fn: HookSyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+
+    pre<T extends Document = Document>(
+      method: "init" | "validate" | "save" | "remove",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Query<any> = Query<any>>(
+      method:
+        | "count"
+        | "find"
+        | "findOne"
+        | "findOneAndRemove"
+        | "findOneAndUpdate"
+        | "update",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Aggregate<any> = Aggregate<any>>(
+      method: "aggregate",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Model<Document> = Model<Document>>(
+      method: "insertMany",
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
+    pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
+      method: string,
+      parallel: boolean,
+      fn: HookAsyncCallback<T>,
+      errorCb?: HookErrorCallback
+    ): this;
 
     /**
      * Adds a method call to the queue.
@@ -679,12 +772,12 @@ declare module "mongoose" {
   }
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
-  interface HookSyncCallback {
-    (next: HookNextFunction): any;
+  interface HookSyncCallback<T> {
+    (this: T, next: HookNextFunction): Promise<any> | void;
   }
 
-  interface HookAsyncCallback {
-    (next: HookNextFunction, done: HookDoneFunction): any;
+  interface HookAsyncCallback<T> {
+    (this: T, next: HookNextFunction, done: HookDoneFunction): Promise<any> | void;
   }
 
   interface HookErrorCallback {
@@ -2608,10 +2701,28 @@ declare module "mongoose" {
      * because it only sends one operation to the server, rather than one for each
      * document.
      * This function does not trigger save middleware.
+     * @param docs Documents to insert.
+     * @param options Optional settings.
+     * @param options.ordered  if true, will fail fast on the first error encountered. 
+     *        If false, will insert all the documents it can and report errors later.
+     * @param options.rawResult if false, the returned promise resolves to the documents that passed mongoose document validation. 
+     *        If `false`, will return the [raw result from the MongoDB driver](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#~insertWriteOpCallback)
+     *        with a `mongoose` property that contains `validationErrors` if this is an unordered `insertMany`.
      */
     insertMany(docs: any[], callback?: (error: any, docs: T[]) => void): Promise<T[]>;
+    insertMany(docs: any[], options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, docs: T[]) => void): Promise<T[]>;
     insertMany(doc: any, callback?: (error: any, doc: T) => void): Promise<T>;
-    insertMany(...docsWithCallback: any[]): Promise<T>;
+    insertMany(doc: any, options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, doc: T) => void): Promise<T>;
+
+    /**
+     * Performs any async initialization of this model against MongoDB.
+     * This function is called automatically, so you don't need to call it.
+     * This function is also idempotent, so you may call it to get back a promise
+     * that will resolve when your indexes are finished building as an alternative
+     * to `MyModel.on('index')`
+     * @param callback optional
+     */
+    init(callback?: (err: any) => void): Promise<T>;
 
     /**
      * Executes a mapReduce command.

@@ -1,10 +1,8 @@
 // Type definitions for Angular Translate (pascalprecht.translate module) 2.15
 // Project: https://github.com/PascalPrecht/angular-translate
-// Definitions by: Michel Salib <https://github.com/michelsalib>
+// Definitions by: Michel Salib <https://github.com/michelsalib>, Gabriel Gil <https://github.com/GabrielGil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
-/// <reference types="angular" />
 
 declare var _: string;
 export = _;
@@ -69,7 +67,7 @@ declare module 'angular' {
             versionInfo(): string;
             loaderCache(): any;
             isReady(): boolean;
-            onReady(): angular.IPromise<void>;
+            onReady(fn?: () => void): angular.IPromise<void>;
             resolveClientLocale(): string;
             getAvailableLanguageKeys(): string[];
         }

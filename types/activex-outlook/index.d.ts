@@ -2,7 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/vba/vba-outlook
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="activex-stdole" />
 /// <reference types="activex-office" />

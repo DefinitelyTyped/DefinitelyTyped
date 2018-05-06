@@ -50,6 +50,7 @@ export interface ReduxLoggerOptions {
     duration?: boolean;
     timestamp?: boolean;
     colors?: ColorsObject | false;
+    titleFormatter?(formattedAction: any, formattedTime: string, took: number): string;
     logger?: any;
     logErrors?: boolean;
     collapsed?: boolean | LoggerPredicate;

@@ -1015,8 +1015,8 @@ export class DirectGeometry extends EventDispatcher {
     uvs2: Vector2[];
     groups: {start: number, materialIndex: number}[];
     morphTargets: MorphTarget[];
-    skinWeights: number[];
-    skinIndices: number[];
+    skinWeights: Vector4[];
+    skinIndices: Vector4[];
     boundingBox: Box3;
     boundingSphere: Sphere;
     verticesNeedUpdate: boolean;
@@ -1270,12 +1270,12 @@ export class Geometry extends EventDispatcher {
     /**
      * Array of skinning weights, matching number and order of vertices.
      */
-    skinWeights: number[];
+    skinWeights: Vector4[];
 
     /**
      * Array of skinning indices, matching number and order of vertices.
      */
-    skinIndices: number[];
+    skinIndices: Vector4[];
 
     /**
      *
@@ -1833,19 +1833,66 @@ export interface RaycasterParameters {
 }
 
 export class Raycaster {
+    /**
+     * This creates a new raycaster object.
+     * @param origin The origin vector where the ray casts from.
+     * @param direction The direction vector that gives direction to the ray. Should be normalized.
+     * @param near All results returned are further away than near. Near can't be negative. Default value is 0.
+     * @param far All results returned are closer then far. Far can't be lower then near . Default value is Infinity. 
+     */
     constructor(origin?: Vector3, direction?: Vector3, near?: number, far?: number);
 
+    /** The Ray used for the raycasting. */
     ray: Ray;
+    
+    /**
+     * The near factor of the raycaster. This value indicates which objects can be discarded based on the 
+     * distance. This value shouldn't be negative and should be smaller than the far property. 
+     */
     near: number;
+    
+    /**
+     * The far factor of the raycaster. This value indicates which objects can be discarded based on the 
+     * distance. This value shouldn't be negative and should be larger than the near property. 
+     */
     far: number;
+    
     params: RaycasterParameters;
-    precision: number;
+
+    /**
+     * The precision factor of the raycaster when intersecting Line objects. 
+     */
     linePrecision: number;
 
+    /**
+     * Updates the ray with a new origin and direction. 
+     * @param origin The origin vector where the ray casts from.
+     * @param direction The normalized direction vector that gives direction to the ray. 
+     */
     set(origin: Vector3, direction: Vector3): void;
+
+    /**
+     * Updates the ray with a new origin and direction. 
+     * @param coords 2D coordinates of the mouse, in normalized device coordinates (NDC)---X and Y components should be between -1 and 1.
+     * @param camera camera from which the ray should originate 
+     */
     setFromCamera(coords: { x: number; y: number; }, camera: Camera ): void;
-    intersectObject(object: Object3D, recursive?: boolean): Intersection[];
-    intersectObjects(objects: Object3D[], recursive?: boolean): Intersection[];
+
+    /**
+     * Checks all intersection between the ray and the object with or without the descendants. Intersections are returned sorted by distance, closest first.
+     * @param object The object to check for intersection with the ray.
+     * @param recursive If true, it also checks all descendants. Otherwise it only checks intersecton with the object. Default is false.
+     * @param optionalTarget (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;). 
+     */
+    intersectObject(object: Object3D, recursive?: boolean, optionalTarget?: Intersection[]): Intersection[];
+
+    /**
+     * Checks all intersection between the ray and the objects with or without the descendants. Intersections are returned sorted by distance, closest first. Intersections are of the same form as those returned by .intersectObject. 
+     * @param objects The objects to check for intersection with the ray.
+     * @param recursive If true, it also checks all descendants of the objects. Otherwise it only checks intersecton with the objects. Default is false.
+     * @param optionalTarget (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;). 
+     */
+    intersectObjects(objects: Object3D[], recursive?: boolean, optionalTarget?: Intersection[]): Intersection[];
 }
 
 export class Layers {
@@ -2251,7 +2298,7 @@ export class MaterialLoader {
     manager: LoadingManager;
     textures: { [key: string]: Texture };
 
-    load(url: string, onLoad: (material: Material) => void): void;
+    load(url: string, onLoad: (material: Material) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: Error | ErrorEvent) => void): void;
     setTextures(textures: { [key: string]: Texture }): void;
     getTexture(name: string): Texture;
     parse(json: any): Material;
@@ -2303,12 +2350,12 @@ export class CubeTextureLoader {
     constructor(manager?: LoadingManager);
 
     manager: LoadingManager;
-    corssOrigin: string;
-    path: string;
+    crossOrigin: string;
+    path?: string;
 
     load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): CubeTexture;
-    setCrossOrigin(crossOrigin: string): CubeTextureLoader;
-    setPath(path: string): CubeTextureLoader;
+    setCrossOrigin(crossOrigin: string): this;
+    setPath(path: string): this;
 }
 
 export class DataTextureLoader {
@@ -5020,9 +5067,7 @@ export class QuaternionLinearInterpolant extends Interpolant {
 // Objects //////////////////////////////////////////////////////////////////////////////////
 
 export class Bone extends Object3D {
-    constructor(skin: SkinnedMesh);
-
-    skin: SkinnedMesh;
+    constructor();
 }
 
 export class Group extends Object3D {
@@ -5082,6 +5127,7 @@ export class Line extends Object3D {
     geometry: Geometry|BufferGeometry;
     material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
 
+    computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: any): void;
 }
 
@@ -5110,6 +5156,7 @@ export class Mesh extends Object3D {
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
+	isMesh: boolean;
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
@@ -6582,17 +6629,25 @@ export class AudioListener extends Object3D {
  * class Curve&lt;T extends Vector&gt;
  */
 export class Curve<T extends Vector> {
+	
+    /**
+     * This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via .getLengths. 
+     * To ensure precision when using methods like .getSpacedPoints, it is recommended to increase .arcLengthDivisions if the curve is very large. 
+     * Default is 200.
+     */
+    arcLengthDivisions:number;
+	
     /**
      * Returns a vector for point t of the curve where t is between 0 and 1
      * getPoint(t: number): T;
      */
-    getPoint(t: number): T;
+    getPoint(t: number, optionalTarget?: T): T;
 
     /**
      * Returns a vector for point at relative position in curve according to arc length
      * getPointAt(u: number): T;
      */
-    getPointAt(u: number): T;
+    getPointAt(u: number, optionalTarget?: T): T;
 
     /**
      * Get sequence of points using getPoint( t )
@@ -7041,10 +7096,10 @@ export class OctahedronGeometry extends PolyhedronGeometry {
 }
 
 export class ParametricGeometry extends Geometry {
-    constructor(func: (u: number, v: number) => Vector3, slices: number, stacks: number);
+    constructor(func: (u: number, v: number, dest:Vector3) => void, slices: number, stacks: number);
 
     parameters: {
-        func: (u: number, v: number) => Vector3;
+        func: (u: number, v: number, dest:Vector3) => void;
         slices: number;
         stacks: number;
     };
@@ -7440,6 +7495,15 @@ export class VertexNormalsHelper extends LineSegments {
     size: number;
 
     update(object?: Object3D): void;
+}
+
+export class PlaneHelper extends LineSegments {
+    constructor(plane: Plane, size?: number, hex?: number);
+
+    plane: Plane;
+    size: number;
+
+    updateMatrixWorld(force: boolean): void;
 }
 
 /**
