@@ -529,7 +529,7 @@ declare namespace webpack {
             [k: string]: any;
         }
         | string;
-    type CommonArrayOfStringOrStringArrayValues = (string | string[])[];
+    type CommonArrayOfStringOrStringArrayValues = Array<(string | string[])>;
     type CommonArrayOfStringValues = string[];
     type RuleSetRules = RuleSetRule[];
 
