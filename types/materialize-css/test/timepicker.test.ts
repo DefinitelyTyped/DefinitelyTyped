@@ -13,7 +13,37 @@ const els = M.Timepicker.init(document.querySelectorAll('.whatever'));
 new materialize.Timepicker(elem);
 // $ExpectType Timepicker
 const timePicker = new materialize.Timepicker(elem, {
-    defaultTime: "13:14"
+    duration: 1,
+    container: "selector",
+    showClearBtn: true,
+    defaultTime: "13:14",
+    fromNow: 1,
+    i18n: { done: "Ok, Mate" },
+    autoClose: true,
+    twelveHour: true,
+    vibrate: true,
+    onOpenStart(el) {
+        // $ExpectType Element
+        el;
+    },
+    onOpenEnd(el) {
+        // $ExpectType Element
+        el;
+    },
+    onCloseStart(el) {
+        // $ExpectType Element
+        el;
+    },
+    onCloseEnd(el) {
+        // $ExpectType Element
+        el;
+    },
+    onSelect(hour, minute) {
+        // $ExpectType number
+        hour;
+        // $ExpectType number
+        minute;
+    }
 });
 // $ExpectType void
 timePicker.open();

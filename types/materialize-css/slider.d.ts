@@ -55,8 +55,8 @@ declare namespace M {
 
     interface SliderOptions {
         /**
-         * Callback function called when Tap Target is opened
-         * @default Set to false to hide slide indicators
+         * Set to false to hide slide indicators
+         * @default true
          */
         indicators: boolean;
 

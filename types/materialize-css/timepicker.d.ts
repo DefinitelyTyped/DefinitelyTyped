@@ -96,6 +96,36 @@ declare namespace M {
          * @default true
          */
         vibrate: boolean;
+
+        /**
+         * Callback function called before modal is opened
+         * @default null
+         */
+        onOpenStart: (this: Modal, el: Element) => void;
+
+        /**
+         * Callback function called after modal is opened
+         * @default null
+         */
+        onOpenEnd: (this: Modal, el: Element) => void;
+
+        /**
+         * Callback function called before modal is closed
+         * @default null
+         */
+        onCloseStart: (this: Modal, el: Element) => void;
+
+        /**
+         * Callback function called after modal is closed
+         * @default null
+         */
+        onCloseEnd: (this: Modal, el: Element) => void;
+
+        /**
+         * Callback function when a time is selected
+         * @default null
+         */
+        onSelect: (this: Modal, hour: number, minute: number) => void;
     }
 }
 

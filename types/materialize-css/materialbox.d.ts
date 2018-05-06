@@ -18,6 +18,31 @@ declare namespace M {
         static init(els: MElements, options?: Partial<MaterialboxOptions>): Materialbox[];
 
         /**
+         * If the materialbox overlay is showing
+         */
+        overlayActive: boolean;
+
+        /**
+         * If the materialbox is no longer being animated
+         */
+        doneAnimating: boolean;
+
+        /**
+         * Caption if specified
+         */
+        caption: string;
+
+        /**
+         * Original width of image
+         */
+        originalWidth: number;
+
+        /**
+         * Original height of image
+         */
+        originalHeight: number;
+
+        /**
          * Open materialbox
          */
         open(): void;

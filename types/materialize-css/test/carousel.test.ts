@@ -47,4 +47,7 @@ carousel.prev(1);
 carousel.set(2);
 
 $(".whatever").carousel();
-$(".whatever").carousel();
+$(".whatever").carousel("destroy");
+$(".whatever").carousel("next", 1);
+$(".whatever").carousel("prev", 1);
+$(".whatever").carousel("set", 1);

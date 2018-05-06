@@ -18,6 +18,11 @@ declare namespace M {
         static init(els: MElements, options?: Partial<TapTargetOptions>): TapTarget[];
 
         /**
+         * If the tap target is open
+         */
+        isOpen: boolean;
+
+        /**
          * Open Tap Target
          */
         open(): void;
