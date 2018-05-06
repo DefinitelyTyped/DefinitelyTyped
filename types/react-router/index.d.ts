@@ -58,7 +58,7 @@ export interface RedirectProps {
 }
 export class Redirect extends React.Component<RedirectProps, any> { }
 
-export interface RouteComponentProps<P> {
+export interface RouteComponentProps<P = {}> {
   match: match<P>;
   location: H.Location;
   history: H.History;
