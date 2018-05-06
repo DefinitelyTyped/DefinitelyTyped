@@ -23,6 +23,7 @@
         "test/animated.tsx",
         "test/init-example.tsx",
         "test/ART.tsx",
-        "test/legacy-properties.tsx"
+        "test/legacy-properties.tsx",
+        "test/shadow-offset.tsx"
     ]
 }

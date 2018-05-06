@@ -10,6 +10,7 @@
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Mouad Debbar <https://github.com/mdebbar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -613,6 +614,15 @@ export interface FlexStyle {
 export interface LayoutProps extends FlexStyle {}
 
 /**
+ * We should be able to specify a shadow offset with only one
+ * dimension or with both dimensions.
+ */
+export type ShadowOffset =
+  | { height: number }
+  | { width: number }
+  | { height: number, width: number };
+
+/**
  * @see ShadowPropTypesIOS.js
  */
 export interface ShadowPropTypesIOSStatic {
@@ -626,7 +636,7 @@ export interface ShadowPropTypesIOSStatic {
      * Sets the drop shadow offset
      * @platform ios
      */
-    shadowOffset: { width: number; height: number };
+    shadowOffset: ShadowOffset;
 
     /**
      * Sets the drop shadow opacity (multiplied by the color's alpha component)
@@ -794,7 +804,7 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
     textDecorationColor?: string;
     textShadowColor?: string;
-    textShadowOffset?: { width: number; height: number };
+    textShadowOffset?: ShadowOffset;
     textShadowRadius?: number;
     testID?: string;
 }
@@ -1599,7 +1609,7 @@ export interface ViewStyle extends FlexStyle, TransformsStyle {
     opacity?: number;
     overflow?: "visible" | "hidden";
     shadowColor?: string;
-    shadowOffset?: { width: number; height: number };
+    shadowOffset?: ShadowOffset;
     shadowOpacity?: number;
     shadowRadius?: number;
     elevation?: number;
@@ -3222,7 +3232,7 @@ export interface ImageResizeModeStatic {
 
 export interface ShadowStyleIOS {
     shadowColor?: string;
-    shadowOffset?: { width: number; height: number };
+    shadowOffset?: ShadowOffset;
     shadowOpacity?: number;
     shadowRadius?: number;
 }
@@ -5484,7 +5494,7 @@ export interface ScrollViewStyle extends FlexStyle, TransformsStyle {
     opacity?: number;
     overflow?: "visible" | "hidden";
     shadowColor?: string;
-    shadowOffset?: { width: number; height: number };
+    shadowOffset?: ShadowOffset;
     shadowOpacity?: number;
     shadowRadius?: number;
     elevation?: number;
