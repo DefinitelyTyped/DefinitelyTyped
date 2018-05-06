@@ -368,11 +368,7 @@ declare namespace webpack {
         system?: boolean;
     }
 
-    type RuleSetCondition =
-        | {
-            [k: string]: any;
-        }
-        | string
+    type RuleSetCondition = string
         | {
             [k: string]: any;
         }
