@@ -76,6 +76,10 @@ cString = cLab.hex();
 console.log('Channels = (l : %d, a: %d, b: %d)', cLab.l, cLab.a, cLab.b);
 console.log('Opacity = %d', cLab.opacity);
 
+// Signature tests for Gray
+cLab = d3Color.gray(120);
+cLab = d3Color.gray(120, 0.5);
+
 // Signature tests for HCL
 
 let cHcl: d3Color.HCLColor;
@@ -125,6 +129,8 @@ if (color instanceof d3Color.rgb) {
 } else if (color instanceof d3Color.hsl) {
     cHSL = color;
 } else if (color instanceof d3Color.lab) {
+    cLab = color;
+} else if (color instanceof d3Color.gray) {
     cLab = color;
 } else if (color instanceof d3Color.hcl) {
     cHcl = color;
