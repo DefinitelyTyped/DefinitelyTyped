@@ -26,11 +26,11 @@ declare namespace mapboxgl {
         constructor(options?: MapboxOptions);
 
         addControl(control: Control, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
-        
+
         addControl(control: IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
 
         removeControl(control: Control): this;
-        
+
         removeControl(control: IControl): this;
 
         getClasses(): string[];
@@ -1096,6 +1096,7 @@ declare namespace mapboxgl {
         'circle-color'?: string | StyleFunction | Expression;
         'circle-blur'?: number | StyleFunction | Expression;
         'circle-opacity'?: number | StyleFunction | Expression;
+        'circle-opacity-transition'?: Transition;
         'circle-translate'?: number[] | Expression;
         'circle-translate-anchor'?: 'map' | 'viewport';
         'circle-pitch-scale'?: 'map' | 'viewport';
