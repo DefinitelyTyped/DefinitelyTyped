@@ -399,7 +399,7 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-        constructor();
+		constructor(options?: {showCompass?: boolean, showZoom?: boolean});
     }
 
     export class PositionOptions {
@@ -873,6 +873,7 @@ declare namespace mapboxgl {
         speed?: number;
         screenSpeed?: number;
         easing?: Function;
+        maxDuration?: number;
     }
 
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {

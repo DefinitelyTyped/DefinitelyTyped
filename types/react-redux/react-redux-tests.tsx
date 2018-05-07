@@ -899,3 +899,25 @@ namespace TestCreateProvider {
     // <h1>A is 2</h1>
     ReactDOM.render(<Combined />, document.body);
 }
+
+namespace TestTypeInference {
+    interface State { a: number };
+
+    const OnlyState = connect(
+        (state: {a: number}, props: {b: number}) => ({a: state.a, c: state.a + props.b})
+    )(props => <span>{props.a} + {props.b} = {props.c}</span>)
+    interface State { a: number };
+    ReactDOM.render(<OnlyState b={1} />, document.body);
+
+    const OnlyDispatch = connect(
+        undefined,
+        (dispatch, props: {b: number}) => ({action: () => dispatch({type: 'action', b: props.b})})
+    )(props => <span onClick={props.action}>{props.b}</span>)
+    ReactDOM.render(<OnlyDispatch b={1} />, document.body);
+
+    const StateAndDispatch = connect(
+        (state: {a: number}, props: {b: number}) => ({a: state.a, c: state.a + props.b}),
+        (dispatch, props: {b: number}) => ({action: () => dispatch({type: 'action', b: props.b})})
+    )(props => <span>{props.a} + {props.b} = {props.c}</span>)
+    ReactDOM.render(<StateAndDispatch b={1} />, document.body);
+}
