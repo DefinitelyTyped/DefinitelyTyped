@@ -19,5 +19,9 @@
     "files": [
         "index.d.ts",
         "ion-rangeslider-tests.ts"
+    ],
+    "exclude": [
+        "util",
+        ".gitignore"
     ]
 }
