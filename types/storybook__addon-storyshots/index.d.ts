@@ -36,9 +36,10 @@ export interface ImageSnapshotOptions {
 export function imageSnapshot(options?: {
     storybookUrl?: string;
     getMatchOptions?: (options: ImageSnapshotOptions) => { failureThreshold: number, failureThresholdType: 'percent' };
-    getScreenshotOptions?: () => ScreenshotOptions;
+    getScreenshotOptions?: (options: ImageSnapshotOptions) => ScreenshotOptions;
     beforeScreenshot?: (page: Page, options: ImageSnapshotOptions) => Promise<void>;
-    getGotoOptions?: () => NavigationOptions;
+    getGotoOptions?: (options: ImageSnapshotOptions) => NavigationOptions;
+    chromeExecutablePath?: string;
 }): Test;
 
 export function multiSnapshotWithOptions(options: SnapshotOptions): Test;
