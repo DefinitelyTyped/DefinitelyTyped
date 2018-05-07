@@ -2,7 +2,7 @@
 // Project: https://github.com/nak2k/node-redux-shortcuts
 // Definitions by: Tim Stirrat <https://github.com/tstirrat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { ActionCreator, Action, Dispatch } from "redux";
 import Mousetrap = require('mousetrap');
