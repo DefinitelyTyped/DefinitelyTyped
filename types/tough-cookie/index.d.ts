@@ -1,4 +1,4 @@
-// Type definitions for tough-cookie 2.3.4
+// Type definitions for tough-cookie 2.3
 // Project: https://github.com/salesforce/tough-cookie
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 LiJinyao <https://github.com/LiJinyao>
