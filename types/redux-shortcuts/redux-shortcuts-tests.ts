@@ -36,6 +36,6 @@ mousetrap.unbind("ctrl+s", "keydown");
 mousetrap.trigger("ctrl+s", "keydown");
 mousetrap.reset();
 
-// Moustrap (static)
+// Mousetrap (static)
 Mousetrap.bindGlobal("ctrl+s", e => e.preventDefault(), "keyup");
 Mousetrap.addKeycodes({ 27: "escape" });
