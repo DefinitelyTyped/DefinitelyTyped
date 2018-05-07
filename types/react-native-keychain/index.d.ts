@@ -44,10 +44,15 @@ export type SecAccessControl =
 
 export type LAPolicy = 'Authentication' | 'AuthenticationWithBiometrics';
 
+export function canImplyAuthentication(options?: Options): Promise<boolean>;
+
+export function getSupportedBiometryType(): Promise<string | null>;
+
 export function setInternetCredentials(
     server: string,
     username: string,
-    password: string
+    password: string,
+    options?: Options
 ): Promise<boolean>;
 
 export function getInternetCredentials(
@@ -70,7 +75,7 @@ export function getGenericPassword(
 
 export function resetGenericPassword(
     serviceOrOptions?: string | Options
-): Promise<string>;
+): Promise<boolean>;
 
 export function requestSharedWebCredentials(
 ): Promise<SharedWebCredentials>;

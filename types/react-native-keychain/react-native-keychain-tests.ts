@@ -4,12 +4,27 @@ async () => {
   const username = 'username';
   const password = 'password';
 
-  await Keychain.setGenericPassword(username, password);
+  const service: string | undefined = "test.service";
+  const server = "test.server";
 
-  try {
-    const credentials = await Keychain.getGenericPassword();
-  } catch (error) {
-    throw error;
-  }
-  await Keychain.resetGenericPassword();
+  const serviceOrOptions: string | Keychain.Options | undefined = {};
+
+  const keychainServicePassword: string = await Keychain.getGenericPassword(service);
+  const keychainPassword: string = await Keychain.getGenericPassword();
+
+  const keychainServerPassword: Keychain.UserCredentials = await Keychain.getInternetCredentials(server);
+
+  const keychainSharedWebPassword: Keychain.SharedWebCredentials = await Keychain.requestSharedWebCredentials();
+
+  const keychainResetGenericPassword: boolean = await Keychain.resetGenericPassword(serviceOrOptions);
+
+  const keychainSetGenericPassword: boolean = await Keychain.setGenericPassword(username, password, service);
+
+  const keychainSetServerPassword: boolean = await Keychain.setInternetCredentials(server, username, password, serviceOrOptions);
+
+  const keychainSetSharedWebPassword: boolean = await Keychain.setSharedWebCredentials(server, username, password);
+
+  const canImplyAuthentication: boolean = await Keychain.canImplyAuthentication(serviceOrOptions);
+
+  const supportedBiometryType: string | null = await Keychain.getSupportedBiometryType();
 };
