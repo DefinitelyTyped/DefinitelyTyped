@@ -7,7 +7,7 @@ let controllerId = "upload";
 class UploadController {
 	static $inject = ["Upload"];
 
-	constructor(private Upload: angular.angularFileUpload.IUploadService) {
+	constructor(private readonly Upload: angular.angularFileUpload.IUploadService) {
 		this.Upload.setDefaults({
 			ngfAccept: "image/*",
 			ngfAllowDir: true,
@@ -44,9 +44,9 @@ class UploadController {
 			}).progress((evt: angular.angularFileUpload.IFileProgressEvent) => {
 				let percent = parseInt((100.0 * evt.loaded / evt.total).toString(), 10);
 				console.log("upload progress: " + percent + "% for " + evt.config.data.media[0]);
-			}).catch((response: ng.IHttpPromiseCallbackArg<any>) => {
+			}).catch((response: ng.IHttpResponse<any>) => {
 				console.error(response.data, response.status, response.statusText, response.headers);
-			}).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+			}).then((response: ng.IHttpResponse<any>) => {
 				// file is uploaded successfully
 				console.log("Success!", response.data, response.status, response.headers, response.config);
 			});

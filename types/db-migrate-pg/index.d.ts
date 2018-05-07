@@ -1,7 +1,8 @@
 // Type definitions for db-migrate-pg
 // Project: https://github.com/db-migrate/pg
-// Definitions by: nickiannone <http://github.com/nickiannone>
+// Definitions by: nickiannone <https://github.com/nickiannone>
 // Definitions: https://github.com/nickiannone/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as pg from "pg";
 import * as DbMigrateBase from "db-migrate-base";

@@ -27,6 +27,9 @@ $(document).ready(() => {
             placeholder: "__/__/____"
         }
     });
+    $('.placeholder2').mask("00/00/0000", {
+        placeholder: "__/__/____"
+    });
     $('.fallback').mask("00r00r0000", {
         translation: {
             r: {

@@ -1,4 +1,4 @@
-// Type definitions for fetch.io 3.1
+// Type definitions for fetch.io 4.1
 // Project: https://github.com/haoxins/fetch.io
 // Definitions by: newraina <https://github.com/newraina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -64,6 +64,11 @@ export class Request {
   put: (url: TUrl) => this;
 
   /**
+   * HTTP patch method
+   */
+  patch: (url: TUrl) => this;
+
+  /**
    * Set Options
    */
   config(key: string, value: any): this;
@@ -93,9 +98,11 @@ export class Request {
   send(data: {[key: string]: any}): this;
 
   /**
-   * ppend formData
+   * append formData
    */
-  append(key: string, value: string): this;
+  append(key: string, value: any): this;
+
+  append(object: {[key: string]: any}): this;
 
   /**
    * Get Response directly

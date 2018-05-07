@@ -1,5 +1,5 @@
-import * as xmlpoke from 'xmlpoke';
-import * as assert from 'assert';
+import xmlpoke = require('xmlpoke');
+import assert = require('assert');
 
 let result: string;
 

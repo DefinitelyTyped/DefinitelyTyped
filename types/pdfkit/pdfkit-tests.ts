@@ -44,6 +44,8 @@ doc.moveTo(0,20)
   .lineTo(100,160)
   .quadraticCurveTo(130,200,150,120)
   .lineTo(400,90)
+  .strokeColor([255, 0, 0], 1)
+  .strokeColor([255, 0, 0])
   .stroke();
 
 //SVG Paths
@@ -79,6 +81,9 @@ var grad = doc.linearGradient(50, 0, 150, 100)
 
 doc.rect(50, 0, 100, 100)
 .fill(grad);
+
+doc.rect(150, 0, 25, 25)
+.fill();
 
 doc.circle(100, 50, 50).dash(5, {
   space: 10

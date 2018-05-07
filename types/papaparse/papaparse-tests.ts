@@ -1,6 +1,14 @@
 
 
 import Papa = require("papaparse");
+import {
+	ParseConfig,
+	UnparseConfig,
+	UnparseObject,
+	ParseError,
+	ParseMeta,
+	ParseResult
+} from "papaparse";
 
 /**
  * Parsing
@@ -13,7 +21,7 @@ Papa.parse("3,3,3", {
 	delimiter: ';',
 	comments: false,
 
-	step: function(results, p) {
+	step: function (results, p) {
 		p.abort();
 		results.data.length;
 	}
@@ -22,7 +30,7 @@ Papa.parse("3,3,3", {
 var file = new File(null, null, null);
 
 Papa.parse(file, {
-	complete: function(a, b) {
+	complete: function (a, b) {
 		a.meta.fields;
 		b.name;
 	}
@@ -31,13 +39,19 @@ Papa.parse(file, {
 /**
  * Unparsing
  */
-Papa.unparse([{a: 1, b: 1, c: 1}]);
+Papa.unparse([{ a: 1, b: 1, c: 1 }]);
 Papa.unparse([[1, 2, 3], [4, 5, 6]]);
 Papa.unparse({
 	fields: ["3"],
 	data: []
 });
 
+Papa.unparse([{ a: 1, b: 1, c: 1 }], { quotes: false });
+Papa.unparse([[1, 2, 3], [4, 5, 6]], { delimiter: "," });
+Papa.unparse({
+	fields: ["3"],
+	data: []
+}, { newline: "\n" });
 
 
 /**

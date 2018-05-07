@@ -7,6 +7,12 @@ function BasicTest() {
     // Returns signature image as data URL
     signaturePad.toDataURL();
 
+    // Returns signature image as data URL using the given media type
+    signaturePad.toDataURL('image/jpeg');
+
+    // Returns an array of point groups that define the signature
+    signaturePad.toData();
+
     // Draws signature image from data URL
     signaturePad.fromDataURL("data:image/png;base64,iVBORw0K...");
 

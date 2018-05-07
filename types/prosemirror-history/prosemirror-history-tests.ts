@@ -1,5 +1,5 @@
 import * as history from 'prosemirror-history';
-import {EditorState} from 'prosemirror-state';
+import { EditorState } from 'prosemirror-state';
 
-let state = new EditorState();
+const state = new EditorState();
 history.undo(state);

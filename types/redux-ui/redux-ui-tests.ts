@@ -15,7 +15,7 @@ interface UIShape {
   mergeProps: () => ({}),
   options: {}
 })
-class Root extends React.Component<ReduxUIProps<UIShape>, {}> {
+class Root extends React.Component<ReduxUIProps<UIShape>> {
   componentWillMount() {
     console.info(
       this.props.ui.s,

@@ -7,9 +7,9 @@
         ],
         "experimentalDecorators": true,
         "noImplicitAny": true,
-        "noImplicitReturns": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
@@ -21,6 +21,20 @@
     },
     "files": [
         "index.d.ts",
-        "redux-form-tests.tsx"
+        "redux-form-tests.tsx",
+        "immutable/index.d.ts",
+        "lib/actions.d.ts",
+        "lib/actionTypes.d.ts",
+        "lib/Field.d.ts",
+        "lib/Fields.d.ts",
+        "lib/FieldArray.d.ts",
+        "lib/Form.d.ts",
+        "lib/FormSection.d.ts",
+        "lib/formValues.d.ts",
+        "lib/formValueSelector.d.ts",
+        "lib/reducer.d.ts",
+        "lib/reduxForm.d.ts",
+        "lib/selectors.d.ts",
+        "lib/SubmissionError.d.ts"
     ]
 }

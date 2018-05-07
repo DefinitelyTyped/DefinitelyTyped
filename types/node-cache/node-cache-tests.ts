@@ -1,5 +1,3 @@
-
-
 import NodeCache = require('node-cache');
 
 import Options = NodeCache.Options;
@@ -23,7 +21,7 @@ interface TypeSample {
 	let cache: NodeCache;
 	let key: string;
 	let cb: Callback<TypeSample>;
-	let result: TypeSample;
+	let result: TypeSample | undefined;
 	result = cache.get<TypeSample>(key);
 	result = cache.get<TypeSample>(key, cb);
 }
@@ -31,8 +29,8 @@ interface TypeSample {
 {
 	let cache: NodeCache;
 	let keys: string[];
-	let cb: Callback<{[key: string]: TypeSample}>;
-	let result: {[key: string]: TypeSample};
+	let cb: Callback<{ [key: string]: TypeSample }>;
+	let result: { [key: string]: TypeSample };
 	result = cache.mget<TypeSample>(keys);
 	result = cache.mget<TypeSample>(keys, cb);
 }
@@ -41,7 +39,7 @@ interface TypeSample {
 	let cache: NodeCache;
 	let key: string;
 	let value: TypeSample;
-	let ttl: number|string;
+	let ttl: number | string;
 	let cb: Callback<boolean>;
 	let result: boolean;
 	result = cache.set<TypeSample>(key, value);
@@ -52,7 +50,7 @@ interface TypeSample {
 
 {
 	let cache: NodeCache;
-	let keys: string|string[];
+	let keys: string | string[];
 	let cb: Callback<number>;
 	let result: number;
 	result = cache.del(keys);
@@ -85,6 +83,7 @@ interface TypeSample {
 	result = cache.getStats();
 }
 
+/* tslint-:disable void-return no-void-expression
 {
 	let cache: NodeCache;
 	let result: void;
@@ -96,3 +95,4 @@ interface TypeSample {
 	let result: void;
 	result = cache.close();
 }
+ tslint-:enable void-return */

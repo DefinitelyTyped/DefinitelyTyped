@@ -1,6 +1,8 @@
-import * as moment from 'moment-jalaali';
+import moment = require('moment-jalaali');
 
 moment.loadPersian();
+
+moment.loadPersian({ usePersianDigits: true });
 
 moment.jIsLeapYear(1391);
 

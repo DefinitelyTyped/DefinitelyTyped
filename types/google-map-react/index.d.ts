@@ -1,15 +1,12 @@
-// Type definitions for google-map-react 0.22
+// Type definitions for google-map-react 0.23
 // Project: https://github.com/istarkov/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
-export interface BootstrapURLKeys {
-  key: string;
-  language?: string;
-}
+export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
 
 export interface Options {
   styles?: any[];
@@ -18,6 +15,7 @@ export interface Options {
   mapTypeControl?: boolean;
   minZoomOverride?: boolean;
   minZoom?: number;
+  maxZoom?: number;
   gestureHandling?: string;
 }
 
@@ -49,10 +47,10 @@ export interface Maps {
 }
 
 export interface Bounds {
-  nw: number;
-  ne: number;
-  sw: number;
-  se: number;
+  nw: Coords;
+  ne: Coords;
+  sw: Coords;
+  se: Coords;
 }
 
 export interface Point {
@@ -65,6 +63,11 @@ export interface Coords {
   lng: number;
 }
 
+export interface Size {
+  width: number;
+  height: number;
+}
+
 export interface ClickEventValue extends Point, Coords {
   event: any;
 }
@@ -74,6 +77,7 @@ export interface ChangeEventValue {
   zoom: number;
   bounds: Bounds;
   marginBounds: Bounds;
+  size: Size;
 }
 
 export interface Props {
@@ -86,6 +90,7 @@ export interface Props {
   options?: Options | ((maps: Maps) => Options);
   margin?: any[];
   debounced?: boolean;
+  draggable?: boolean;
   layerTypes?: string[];
   onClick?(value: ClickEventValue): any;
   onChange?(value: ChangeEventValue): any;
@@ -102,7 +107,7 @@ export interface Props {
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 
-export default class GoogleMapReact extends React.Component<Props, void> {}
+export default class GoogleMapReact extends React.Component<Props> {}
 
 export interface ChildComponentProps extends Coords {
   $hover?: boolean;

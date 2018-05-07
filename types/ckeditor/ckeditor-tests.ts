@@ -37,6 +37,13 @@ function test_CKEDITOR() {
     CKEDITOR.replaceAll((textarea, config) => false);
 }
 
+function test_CKEDITOR_events() {
+    CKEDITOR.on('instanceCreated', function(event) {
+        // $ExpectType editor
+        event.editor;
+    });
+}
+
 function test_config() {
     var config1: CKEDITOR.config = {
         toolbar: 'basic',
@@ -52,6 +59,23 @@ function test_config() {
             [ 'list', 'indent', 'blocks', 'align', 'bidi' ],
         ],
     };
+    var config3: CKEDITOR.config = {
+        toolbarGroups: [
+            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+            { name: 'links', groups: [ 'links' ] },
+            { name: 'insert', groups: [ 'insert' ] },
+            { name: 'tools', groups: [ 'tools' ] },
+            { name: 'document', groups: [ 'mode' ] },
+            { name: 'about', groups: [ 'about' ] },
+            '/',
+            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'paragraph' ] },
+            '/',
+            { name: 'styles', groups: [ 'styles' ] },
+            { name: 'colors', groups: [ 'colors' ] },
+        ],
+    }
 }
 
 function test_dom_comment() {
@@ -194,7 +218,7 @@ function test_dom_event() {
         domEvent.getTarget().addClass('clicked');
     });
     element.on('click', ev=> {
-        var domEvent = ev.data;
+        var domEvent = ev.data as CKEDITOR.dom.event;
         domEvent.preventDefault();
     });
 }
@@ -306,7 +330,11 @@ function test_adding_dialog_by_definition() {
             title: 'Abbreviation Properties',
             minWidth: 400,
             minHeight: 200,
-
+            onLoad: () => {},
+            onOk: () => {},
+            onCancel: () => {},
+            onShow: () => {},
+            onHide: () => {},
             contents: [
                 {
                     id: 'tab-basic',
@@ -323,12 +351,14 @@ function test_adding_dialog_by_definition() {
     });
 }
 
-function test_adding_plugin() {
+function test_plugins() {
     CKEDITOR.plugins.add( 'abbr', {
         init: function( editor: CKEDITOR.editor ) {
             // empty logic
         }
     });
+
+    console.log(CKEDITOR.plugins.registered['abbr']);
 }
 
 function test_adding_widget() {
@@ -406,4 +436,165 @@ function test_sharedSpace() {
 
 function test_specifying_editor_path() {
     window.CKEDITOR_BASEPATH = '/ckeditor/';
+}
+
+function test_editor_instance_event() {
+    var textarea = document.createElement('textarea');
+    var instance = CKEDITOR.replace(textarea, {
+        on: {
+            activeEnterModeChange: function() {},
+            activeFilterChange: function() {},
+            afterCommandExec: function() {},
+            afterInsertHtml: function() {},
+            afterPaste: function() {},
+            afterPasteFromWord: function() {},
+            afterSetData: function() {},
+            afterUndoImage: function() {},
+            ariaEditorHelpLabel: function() {},
+            ariaWidget: function() {},
+            autogrow: function() {},
+            beforeCommandExec: function() {},
+            beforeDestroy: function() {},
+            beforeModeUnload: function() {},
+            beforeSetMode: function() {},
+            beforeUndoImage: function() {},
+            blur: function() {},
+            change: function() {},
+            configLoaded: function() {},
+            contentDirChanged: function() {},
+            contentDom: function() {},
+            contentDomInvalidated: function() {},
+            contentDomUnload: function() {},
+            customConfigLoaded: function() {},
+            dataFiltered: function() {},
+            dataReady: function() {},
+            destroy: function() {},
+            dialogHide: function() {},
+            dialogShow: function() {},
+            dirChanged: function() {},
+            doubleclick: function() {},
+            dragend: function() {},
+            dragstart: function() {},
+            drop: function() {},
+            elementsPathUpdate: function() {},
+            fileUploadRequest: function() {},
+            fileUploadResponse: function() {},
+            floatingSpaceLayout: function() {},
+            focus: function() {},
+            getData: function() {},
+            getSnapshot: function() {},
+            insertElement: function() {},
+            insertHtml: function() {},
+            insertText: function() {},
+            instanceReady: function() {},
+            key: function() {},
+            langLoaded: function() {},
+            loadSnapshot: function() {},
+            loaded: function() {},
+            lockSnapshot: function() {},
+            maximize: function() {},
+            menuShow: function() {},
+            mode: function() {},
+            notificationHide: function() {},
+            notificationShow: function() {},
+            notificationUpdate: function() {},
+            paste: function() {},
+            pasteFromWord: function() {},
+            pluginsLoaded: function() {},
+            readOnly: function() {},
+            removeFormatCleanup: function() {},
+            required: function() {},
+            resize: function() {},
+            save: function() {},
+            saveSnapshot: function() {},
+            selectionChange: function() {},
+            setData: function() {},
+            stylesSet: function() {},
+            template: function() {},
+            toDataFormat: function() {},
+            toHtml: function() {},
+            unlockSnapshot: function() {},
+            updateSnapshot: function() {},
+            widgetDefinition: function() {}
+        }
+    });
+}
+
+function test_dtd() {
+    var brConsideredEmptyTag = CKEDITOR.dtd.$empty['br'];
+    var spanCanContainText = CKEDITOR.dtd['span']['#'];
+    var divCanContainSpan = CKEDITOR.dtd['div']['span'];
+}
+
+function test_getSelectedHtml() {
+    var textarea = document.createElement('textarea');
+    var editor = CKEDITOR.replace(textarea);
+
+    // $ExpectType documentFragment
+    var sel1 = editor.getSelectedHtml();
+    console.log(sel1);
+
+    // $ExpectType documentFragment
+    var sel2 = editor.getSelectedHtml(false);
+    console.log(sel2);
+
+    // $ExpectType string
+    var sel3 = editor.getSelectedHtml(true);
+    console.log(sel3);
+
+    // $ExpectType string | documentFragment
+    var sel4 = editor.getSelectedHtml(Math.random() > 0.5);
+    console.log(sel4);
+}
+
+function test_element() {
+    var el = CKEDITOR.document.getById('myElement');
+    el.addClass('class');
+    console.log(el.hasClass('class'));
+    el.removeClass('class');
+}
+
+function test_selection() {
+    var editor = new CKEDITOR.editor();
+    var testNode = CKEDITOR.document.getById('myElement');
+
+    var selection = editor.getSelection();
+    var ranges = selection.getRanges();
+    for (var i = 0, c = ranges.length; i < c; i++) {
+        var range = ranges[i];
+        range.setStartBefore(testNode);
+        range.setStartAfter(testNode);
+        range.setEndBefore(testNode);
+        range.setEndAfter(testNode);
+    }
+}
+
+function test_tools() {
+    var obj = { key: 'value' };
+    CKEDITOR.tools.clone(obj);
+    CKEDITOR.tools.copy(obj);
+    CKEDITOR.tools.prototypedCopy(obj);
+
+    console.log(CKEDITOR.tools.isArray([1])); // true
+    console.log(CKEDITOR.tools.isArray(obj)); // false
+    console.log(CKEDITOR.tools.isArray(null)); // false
+    console.log(CKEDITOR.tools.isArray(undefined)); // false
+
+    CKEDITOR.tools.override(parseInt, function(_parseInt) {
+        return function(value: any, radix?: number) {
+            return _parseInt(value, radix);
+        };
+    });
+}
+
+function test_htmlParser() {
+    var html = '<div><span>text</span></div>';
+    var fragment = CKEDITOR.htmlParser.fragment.fromHtml(html);
+    fragment.forEach(function(node) {
+        if (node instanceof CKEDITOR.htmlParser.element) {
+            node.forEach(function(node) {
+                console.log(node);
+            });
+        }
+    }, CKEDITOR.NODE_ELEMENT, true);
 }

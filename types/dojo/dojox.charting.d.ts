@@ -1,6 +1,7 @@
 // Type definitions for Dojo v1.9
 // Project: http://dojotoolkit.org
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
+//                 Don Waldo <https://github.com/dgwaldo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -13132,326 +13133,326 @@ declare namespace dojox {
 }
 
 declare module "dojox/charting/Chart3D" {
-    var exp: dojox.charting.Chart3D
+    import exp = dojox.charting.Chart3D
     export=exp;
 }
 declare module "dojox/charting/Chart2D" {
-    var exp: dojox.charting.Chart2D
+    import exp = dojox.charting.Chart2D
     export=exp;
 }
 declare module "dojox/charting/DataSeries" {
-    var exp: dojox.charting.DataSeries
+    import exp = dojox.charting.DataSeries
     export=exp;
 }
 declare module "dojox/charting/Chart" {
-    var exp: dojox.charting.Chart
+    import exp = dojox.charting.Chart
     export=exp;
 }
 declare module "dojox/charting/DataChart" {
-    var exp: dojox.charting.DataChart
+    import exp = dojox.charting.DataChart
     export=exp;
 }
 declare module "dojox/charting/Element" {
-    var exp: dojox.charting.Element
+    import exp = dojox.charting.Element
     export=exp;
 }
 declare module "dojox/charting/Series" {
-    var exp: dojox.charting.Series
+    import exp = dojox.charting.Series
     export=exp;
 }
 declare module "dojox/charting/StoreSeries" {
-    var exp: dojox.charting.StoreSeries
+    import exp = dojox.charting.StoreSeries
     export=exp;
 }
 declare module "dojox/charting/SimpleTheme" {
-    var exp: dojox.charting.SimpleTheme
+    import exp = dojox.charting.SimpleTheme
     export=exp;
 }
 declare module "dojox/charting/SimpleTheme.defaultMarkers" {
-    var exp: dojox.charting.SimpleTheme.defaultMarkers
+    import exp = dojox.charting.SimpleTheme.defaultMarkers
     export=exp;
 }
 declare module "dojox/charting/SimpleTheme.defaultTheme" {
-    var exp: dojox.charting.SimpleTheme.defaultTheme
+    import exp = dojox.charting.SimpleTheme.defaultTheme
     export=exp;
 }
 declare module "dojox/charting/Theme" {
-    var exp: dojox.charting.Theme
+    import exp = dojox.charting.Theme
     export=exp;
 }
 declare module "dojox/charting/Theme.defaultMarkers" {
-    var exp: dojox.charting.Theme.defaultMarkers
+    import exp = dojox.charting.Theme.defaultMarkers
     export=exp;
 }
 declare module "dojox/charting/Theme.defaultTheme" {
-    var exp: dojox.charting.Theme.defaultTheme
+    import exp = dojox.charting.Theme.defaultTheme
     export=exp;
 }
 declare module "dojox/charting/action2d/Base" {
-    var exp: dojox.charting.action2d.Base
+    import exp = dojox.charting.action2d.Base
     export=exp;
 }
 declare module "dojox/charting/action2d/ChartAction" {
-    var exp: dojox.charting.action2d.ChartAction
+    import exp = dojox.charting.action2d.ChartAction
     export=exp;
 }
 declare module "dojox/charting/action2d/_IndicatorElement" {
-    var exp: dojox.charting.action2d._IndicatorElement
+    import exp = dojox.charting.action2d._IndicatorElement
     export=exp;
 }
 declare module "dojox/charting/action2d/Highlight" {
-    var exp: dojox.charting.action2d.Highlight
+    import exp = dojox.charting.action2d.Highlight
     export=exp;
 }
 declare module "dojox/charting/action2d/Magnify" {
-    var exp: dojox.charting.action2d.Magnify
+    import exp = dojox.charting.action2d.Magnify
     export=exp;
 }
 declare module "dojox/charting/action2d/MouseZoomAndPan" {
-    var exp: dojox.charting.action2d.MouseZoomAndPan
+    import exp = dojox.charting.action2d.MouseZoomAndPan
     export=exp;
 }
 declare module "dojox/charting/action2d/MouseIndicator" {
-    var exp: dojox.charting.action2d.MouseIndicator
+    import exp = dojox.charting.action2d.MouseIndicator
     export=exp;
 }
 declare module "dojox/charting/action2d/MoveSlice" {
-    var exp: dojox.charting.action2d.MoveSlice
+    import exp = dojox.charting.action2d.MoveSlice
     export=exp;
 }
 declare module "dojox/charting/action2d/PlotAction" {
-    var exp: dojox.charting.action2d.PlotAction
+    import exp = dojox.charting.action2d.PlotAction
     export=exp;
 }
 declare module "dojox/charting/action2d/Tooltip" {
-    var exp: dojox.charting.action2d.Tooltip
+    import exp = dojox.charting.action2d.Tooltip
     export=exp;
 }
 declare module "dojox/charting/action2d/Shake" {
-    var exp: dojox.charting.action2d.Shake
+    import exp = dojox.charting.action2d.Shake
     export=exp;
 }
 declare module "dojox/charting/action2d/TouchZoomAndPan" {
-    var exp: dojox.charting.action2d.TouchZoomAndPan
+    import exp = dojox.charting.action2d.TouchZoomAndPan
     export=exp;
 }
 declare module "dojox/charting/action2d/TouchIndicator" {
-    var exp: dojox.charting.action2d.TouchIndicator
+    import exp = dojox.charting.action2d.TouchIndicator
     export=exp;
 }
 declare module "dojox/charting/axis2d/common" {
-    var exp: dojox.charting.axis2d.common
+    import exp = dojox.charting.axis2d.common
     export=exp;
 }
 declare module "dojox/charting/axis2d/common.createText" {
-    var exp: dojox.charting.axis2d.common.createText
+    import exp = dojox.charting.axis2d.common.createText
     export=exp;
 }
 declare module "dojox/charting/axis2d/Base" {
-    var exp: dojox.charting.axis2d.Base
+    import exp = dojox.charting.axis2d.Base
     export=exp;
 }
 declare module "dojox/charting/axis2d/Invisible" {
-    var exp: dojox.charting.axis2d.Invisible
+    import exp = dojox.charting.axis2d.Invisible
     export=exp;
 }
 declare module "dojox/charting/axis2d/Default" {
-    var exp: dojox.charting.axis2d.Default
+    import exp = dojox.charting.axis2d.Default
     export=exp;
 }
 declare module "dojox/charting/bidi/_bidiutils" {
-    var exp: dojox.charting.bidi._bidiutils
+    import exp = dojox.charting.bidi._bidiutils
     export=exp;
 }
 declare module "dojox/charting/bidi/Chart" {
-    var exp: dojox.charting.bidi.Chart
+    import exp = dojox.charting.bidi.Chart
     export=exp;
 }
 declare module "dojox/charting/bidi/Chart3D" {
-    var exp: dojox.charting.bidi.Chart3D
+    import exp = dojox.charting.bidi.Chart3D
     export=exp;
 }
 declare module "dojox/charting/bidi/action2d/Tooltip" {
-    var exp: dojox.charting.bidi.action2d.Tooltip
+    import exp = dojox.charting.bidi.action2d.Tooltip
     export=exp;
 }
 declare module "dojox/charting/bidi/action2d/ZoomAndPan" {
-    var exp: dojox.charting.bidi.action2d.ZoomAndPan
+    import exp = dojox.charting.bidi.action2d.ZoomAndPan
     export=exp;
 }
 declare module "dojox/charting/bidi/axis2d/Default" {
-    var exp: dojox.charting.bidi.axis2d.Default
+    import exp = dojox.charting.bidi.axis2d.Default
     export=exp;
 }
 declare module "dojox/charting/bidi/widget/Chart" {
-    var exp: dojox.charting.bidi.widget.Chart
+    import exp = dojox.charting.bidi.widget.Chart
     export=exp;
 }
 declare module "dojox/charting/bidi/widget/Legend" {
-    var exp: dojox.charting.bidi.widget.Legend
+    import exp = dojox.charting.bidi.widget.Legend
     export=exp;
 }
 declare module "dojox/charting/plot2d/common" {
-    var exp: dojox.charting.plot2d.common
+    import exp = dojox.charting.plot2d.common
     export=exp;
 }
 declare module "dojox/charting/plot2d/common.defaultStats" {
-    var exp: dojox.charting.plot2d.common.defaultStats
+    import exp = dojox.charting.plot2d.common.defaultStats
     export=exp;
 }
 declare module "dojox/charting/plot2d/commonStacked" {
-    var exp: dojox.charting.plot2d.commonStacked
+    import exp = dojox.charting.plot2d.commonStacked
     export=exp;
 }
 declare module "dojox/charting/plot2d/_PlotEvents" {
-    var exp: dojox.charting.plot2d._PlotEvents
+    import exp = dojox.charting.plot2d._PlotEvents
     export=exp;
 }
 declare module "dojox/charting/plot2d/Areas" {
-    var exp: dojox.charting.plot2d.Areas
+    import exp = dojox.charting.plot2d.Areas
     export=exp;
 }
 declare module "dojox/charting/plot2d/Bars" {
-    var exp: dojox.charting.plot2d.Bars
+    import exp = dojox.charting.plot2d.Bars
     export=exp;
 }
 declare module "dojox/charting/plot2d/Base" {
-    var exp: dojox.charting.plot2d.Base
+    import exp = dojox.charting.plot2d.Base
     export=exp;
 }
 declare module "dojox/charting/plot2d/Bubble" {
-    var exp: dojox.charting.plot2d.Bubble
+    import exp = dojox.charting.plot2d.Bubble
     export=exp;
 }
 declare module "dojox/charting/plot2d/CartesianBase" {
-    var exp: dojox.charting.plot2d.CartesianBase
+    import exp = dojox.charting.plot2d.CartesianBase
     export=exp;
 }
 declare module "dojox/charting/plot2d/Candlesticks" {
-    var exp: dojox.charting.plot2d.Candlesticks
+    import exp = dojox.charting.plot2d.Candlesticks
     export=exp;
 }
 declare module "dojox/charting/plot2d/ClusteredBars" {
-    var exp: dojox.charting.plot2d.ClusteredBars
+    import exp = dojox.charting.plot2d.ClusteredBars
     export=exp;
 }
 declare module "dojox/charting/plot2d/ClusteredColumns" {
-    var exp: dojox.charting.plot2d.ClusteredColumns
+    import exp = dojox.charting.plot2d.ClusteredColumns
     export=exp;
 }
 declare module "dojox/charting/plot2d/Columns" {
-    var exp: dojox.charting.plot2d.Columns
+    import exp = dojox.charting.plot2d.Columns
     export=exp;
 }
 declare module "dojox/charting/plot2d/Grid" {
-    var exp: dojox.charting.plot2d.Grid
+    import exp = dojox.charting.plot2d.Grid
     export=exp;
 }
 declare module "dojox/charting/plot2d/Default" {
-    var exp: dojox.charting.plot2d.Default
+    import exp = dojox.charting.plot2d.Default
     export=exp;
 }
 declare module "dojox/charting/plot2d/Indicator" {
-    var exp: dojox.charting.plot2d.Indicator
+    import exp = dojox.charting.plot2d.Indicator
     export=exp;
 }
 declare module "dojox/charting/plot2d/Lines" {
-    var exp: dojox.charting.plot2d.Lines
+    import exp = dojox.charting.plot2d.Lines
     export=exp;
 }
 declare module "dojox/charting/plot2d/Markers" {
-    var exp: dojox.charting.plot2d.Markers
+    import exp = dojox.charting.plot2d.Markers
     export=exp;
 }
 declare module "dojox/charting/plot2d/Pie" {
-    var exp: dojox.charting.plot2d.Pie
+    import exp = dojox.charting.plot2d.Pie
     export=exp;
 }
 declare module "dojox/charting/plot2d/MarkersOnly" {
-    var exp: dojox.charting.plot2d.MarkersOnly
+    import exp = dojox.charting.plot2d.MarkersOnly
     export=exp;
 }
 declare module "dojox/charting/plot2d/OHLC" {
-    var exp: dojox.charting.plot2d.OHLC
+    import exp = dojox.charting.plot2d.OHLC
     export=exp;
 }
 declare module "dojox/charting/plot2d/Scatter" {
-    var exp: dojox.charting.plot2d.Scatter
+    import exp = dojox.charting.plot2d.Scatter
     export=exp;
 }
 declare module "dojox/charting/plot2d/Stacked" {
-    var exp: dojox.charting.plot2d.Stacked
+    import exp = dojox.charting.plot2d.Stacked
     export=exp;
 }
 declare module "dojox/charting/plot2d/Spider" {
-    var exp: dojox.charting.plot2d.Spider
+    import exp = dojox.charting.plot2d.Spider
     export=exp;
 }
 declare module "dojox/charting/plot2d/StackedAreas" {
-    var exp: dojox.charting.plot2d.StackedAreas
+    import exp = dojox.charting.plot2d.StackedAreas
     export=exp;
 }
 declare module "dojox/charting/plot2d/StackedBars" {
-    var exp: dojox.charting.plot2d.StackedBars
+    import exp = dojox.charting.plot2d.StackedBars
     export=exp;
 }
 declare module "dojox/charting/plot2d/StackedColumns" {
-    var exp: dojox.charting.plot2d.StackedColumns
+    import exp = dojox.charting.plot2d.StackedColumns
     export=exp;
 }
 declare module "dojox/charting/plot2d/StackedLines" {
-    var exp: dojox.charting.plot2d.StackedLines
+    import exp = dojox.charting.plot2d.StackedLines
     export=exp;
 }
 declare module "dojox/charting/plot3d/Bars" {
-    var exp: dojox.charting.plot3d.Bars
+    import exp = dojox.charting.plot3d.Bars
     export=exp;
 }
 declare module "dojox/charting/plot3d/Base" {
-    var exp: dojox.charting.plot3d.Base
+    import exp = dojox.charting.plot3d.Base
     export=exp;
 }
 declare module "dojox/charting/plot3d/Cylinders" {
-    var exp: dojox.charting.plot3d.Cylinders
+    import exp = dojox.charting.plot3d.Cylinders
     export=exp;
 }
 declare module "dojox/charting/scaler/common" {
-    var exp: dojox.charting.scaler.common
+    import exp = dojox.charting.scaler.common
     export=exp;
 }
 declare module "dojox/charting/scaler/primitive" {
-    var exp: dojox.charting.scaler.primitive
+    import exp = dojox.charting.scaler.primitive
     export=exp;
 }
 declare module "dojox/charting/scaler/linear" {
-    var exp: dojox.charting.scaler.linear
+    import exp = dojox.charting.scaler.linear
     export=exp;
 }
 declare module "dojox/charting/themes/common" {
-    var exp: dojox.charting.themes.common
+    import exp = dojox.charting.themes.common
     export=exp;
 }
 declare module "dojox/charting/themes/gradientGenerator" {
-    var exp: dojox.charting.themes.gradientGenerator
+    import exp = dojox.charting.themes.gradientGenerator
     export=exp;
 }
 declare module "dojox/charting/themes/PlotKit/base" {
-    var exp: dojox.charting.themes.PlotKit.base
+    import exp = dojox.charting.themes.PlotKit.base
     export=exp;
 }
 declare module "dojox/charting/widget/Chart2D" {
-    var exp: dojox.charting.widget.Chart2D
+    import exp = dojox.charting.widget.Chart2D
     export=exp;
 }
 declare module "dojox/charting/widget/Chart" {
-    var exp: dojox.charting.widget.Chart
+    import exp = dojox.charting.widget.Chart
     export=exp;
 }
 declare module "dojox/charting/widget/Legend" {
-    var exp: dojox.charting.widget.Legend
+    import exp = dojox.charting.widget.Legend
     export=exp;
 }
 declare module "dojox/charting/widget/SelectableLegend" {
-    var exp: dojox.charting.widget.SelectableLegend
+    import exp = dojox.charting.widget.SelectableLegend
     export=exp;
 }

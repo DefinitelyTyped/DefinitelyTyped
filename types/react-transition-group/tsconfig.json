@@ -1,12 +1,15 @@
 {
     "compilerOptions": {
+        "target": "es5",
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "jsx": "react",
         "baseUrl": "../",
         "typeRoots": [
@@ -18,7 +21,8 @@
     },
     "files": [
         "index.d.ts",
-        "CSSTransitionGroup.d.ts",
+        "CSSTransition.d.ts",
+        "Transition.d.ts",
         "TransitionGroup.d.ts",
         "react-transition-group-tests.tsx"
     ]

@@ -2,6 +2,7 @@
 // Project: http://adam.co/lab/jquery/customselect//
 // Definitions by: adamcoulombe <https://github.com/adamcoulombe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 ///<reference types="jquery" />
 

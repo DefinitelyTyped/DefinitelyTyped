@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import * as chaiDom from 'chai-dom';
+import chaiDom = require('chai-dom');
 
 chai.use(chaiDom);
 var expect = chai.expect;

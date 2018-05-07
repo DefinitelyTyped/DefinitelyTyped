@@ -1,4 +1,4 @@
-import * as Loader from 'react-loader';
+import Loader = require('react-loader');
 import * as React from 'react';
 
 const options = {
@@ -23,7 +23,7 @@ const options = {
     position: 'absolute'
 };
 
-class MyComponent extends React.Component<any, any> {
+class MyComponent extends React.Component {
 	getInitialState() {
 		return { loaded: false };
 	}

@@ -1,14 +1,8 @@
-// Type definition tests for Flickity v1.1.1
-// Project: http://flickity.metafizzy.co/
-// Definitions by: Chris McGrath <https://www.github.com/clmcgrath>
-// Definitions: https://github.com/clmcgrath/
+/// <reference types="jquery"/>
 
-///<reference types="jquery"/>
+// jQuery tests
 
-//jQuery tests
-
-var $flickity: JQuery = $("#flickity-selector").flickity(
-    {
+let $flickity = $("#flickity-selector").flickity({
         initialIndex: 0,
         accessibility: true,
         asNavFor: "#nav-bar",
@@ -35,12 +29,12 @@ var $flickity: JQuery = $("#flickity-selector").flickity(
     });
 
 $flickity.flickity("next")
-    .flickity('select', 4);
+    .flickity("select", 4);
 
-//Vanilla jQuery tests
-var flikty: Flickity = new Flickity("#flickity-gallery");
+// Vanilla jQuery tests
+let flikty: Flickity = new Flickity("#flickity-gallery");
 
-var flikty2: Flickity =
+let flikty2: Flickity =
     new Flickity("#flickity-gallery",
         {
             initialIndex: 0,
@@ -68,10 +62,10 @@ var flikty2: Flickity =
             rightToLeft: false
         });
 
-//ES6 element selector for tests
-var element = document.querySelector("#gallery");
-var nodeList = document.querySelectorAll("#gallery");
-var cellElements: Array<Element> = flikty2.getCellElements();
+// ES6 element selector for tests
+let element = document.querySelector("#gallery");
+let nodeList = document.querySelectorAll("#gallery");
+let cellElements: Element[] = flikty2.getCellElements();
 
 flikty2.select(1, true);
 flikty2.select(1);
@@ -102,33 +96,47 @@ flikty2.destroy();
 
 flikty2.reloadCells();
 
-//event handlers
+// event handlers
 flikty2.on("cellSelect", (evt, ele) => {
-    //do something
+    // do something
 });
 
 flikty2.off("cellSelect", (evt, ele, pntr, vctr) => {
-    //do something
+    // do something
 });
 
 flikty2.once("cellSelect", (evt, ele, pntr) => {
-    //do something
+    // do something
 });
 
 flikty2.listener("myCustomEvent", (evt: Event) => {
-    //do something
+    // do something
 });
 
-//static get data methods
+// static get data methods
 
-var jQdata = jQuery.fn.data('flickity')();
-jQdata = $.fn.data('flickity')();
+let jQdata = jQuery.fn.data("flickity")();
+jQdata = $.fn.data("flickity")();
 
-var jsData = Flickity.data("#gallery");
+let jsData = Flickity.data("#gallery");
 jsData = Flickity.data("#gallery");
 
-//property tests
-var selectedIndex: number = flikty2.selectedIndex;
+// property tests
+let selectedIndex: number = flikty2.selectedIndex;
 
-var selectedElement: Element = flikty2.selectedElement;
-var cells: Array<Element> = flikty2.cells;
+let selectedElement: Element = flikty2.selectedElement;
+let cells: Element[] = flikty2.cells;
+
+// arrow shape tests
+let flikty3: Flickity = new Flickity("#flickity-gallery", {
+    arrowShape: "M 0,50 L 60,00 L 50,30 L 80,30 L 80,70 L 50,70 L 60,100 Z"
+});
+
+let flikty4: Flickity = new Flickity(new HTMLElement(), {
+    arrowShape: {
+        x0: 10,
+        x1: 60, y1: 50,
+        x2: 70, y2: 40,
+        x3: 30
+    }
+});

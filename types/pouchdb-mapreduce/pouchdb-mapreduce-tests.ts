@@ -1,21 +1,21 @@
-function testConstructor() {
-    type MyModel = { numericProperty: number };
-    let model: PouchDB.Core.Document<MyModel>;
-
-    let db = new PouchDB<MyModel>('mydb');
+interface MyModel {
+    numericProperty: number;
+}
+function testConstructor(model: PouchDB.Core.Document<MyModel>) {
+    const db = new PouchDB<MyModel>('mydb');
     db.viewCleanup().catch((error) => {
     });
 }
 
 function testQuery() {
-    let pouch = new PouchDB<{}>('mydb');
+    const pouch = new PouchDB('mydb');
     // find pokemon with name === 'Pika pi!'
     pouch.query('my_index/by_name', {
         key          : 'Pika pi!',
         include_docs : true
-    }).then(function (result) {
+    }).then((result) => {
         // handle result
-    }).catch(function (err) {
+    }).catch((err) => {
         // handle errors
     });
 
@@ -25,10 +25,9 @@ function testQuery() {
         endkey       : 'P\uffff',
         limit        : 5,
         include_docs : true
-    }).then(function (result) {
+    }).then((result) => {
         // handle result
-    }).catch(function (err) {
+    }).catch((err) => {
         // handle errors
     });
-
 }

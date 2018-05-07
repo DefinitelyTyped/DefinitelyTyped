@@ -1,4 +1,4 @@
-import {Client} from 'node-xmpp-client';
+import { Client } from 'node-xmpp-client';
 
 const client = new Client({
     jid: 'user@example.com',

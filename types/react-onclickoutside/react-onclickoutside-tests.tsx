@@ -23,7 +23,7 @@ render(
     document.getElementById("main")
 );
 
-class TestComponent extends React.Component<{ disableOnClickOutside(): void; enableOnClickOutside(): void; }, {}> {
+class TestComponent extends React.Component<{ disableOnClickOutside(): void; enableOnClickOutside(): void; }> {
     handleClickOutside = () => {
         console.log('this.handleClickOutside');
     }

@@ -58,9 +58,16 @@ declare namespace PDFKit.Mixins {
         textAnnotation(x: number, y: number, w: number, h: number, text: string, option?: AnnotationOption): TDocument;
     }
 
+    // The color forms accepted by PDFKit:
+    //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
+    type ColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
+
+    // The winding / filling rule accepted by PDFKit:
+    type RuleValue = "even-odd" | "evenodd" | "non-zero" | "nonzero";
+
     interface PDFColor<TDocument> {
-        fillColor(color: string|PDFGradient, opacity?: number): TDocument;
-        strokeColor(color: string, opacity?: number): TDocument;
+        fillColor(color: ColorValue, opacity?: number): TDocument;
+        strokeColor(color: ColorValue, opacity?: number): TDocument;
         opacity(opacity: number): TDocument;
         fillOpacity(opacity: number): TDocument;
         strokeOpacity(opacity: number): TDocument;
@@ -166,10 +173,13 @@ declare namespace PDFKit.Mixins {
         circle(x: number, y: number, raduis: number): TDocument;
         polygon(...points: number[][]): TDocument;
         path(path: string): TDocument;
-        fill(color: string|PDFKit.PDFGradient, rule?: string): TDocument;
-        stroke(color?: string|PDFKit.PDFGradient): TDocument;
-        fillAndStroke(fillColor: string, strokeColor?: string, rule?: string): TDocument;
-        clip(rule?: string): TDocument;
+        fill(color?: ColorValue, rule?: RuleValue): TDocument;
+        fill(rule: RuleValue): TDocument;
+        stroke(color?: ColorValue): TDocument;
+        fillAndStroke(fillColor?: ColorValue, strokeColor?: ColorValue, rule?: RuleValue): TDocument;
+        fillAndStroke(fillColor: ColorValue, rule?: RuleValue): TDocument;
+        fillAndStroke(rule: RuleValue): TDocument;
+        clip(rule?: RuleValue): TDocument;
         transform(m11: number, m12: number, m21: number, m22: number, dx: number, dy: number): TDocument;
         translate(x: number, y: number): TDocument;
         rotate(angle: number, options?: { origin?: number[] }): TDocument;

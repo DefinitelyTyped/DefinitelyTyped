@@ -3,180 +3,180 @@ import * as graphql from 'graphql';
 ///////////////////////////
 // graphql               //
 ///////////////////////////
-namespace graphql_tests {
+function graphql_tests() {
     // TODO
 }
 
 ///////////////////////////
 // graphql/language      //
 ///////////////////////////
-namespace language_ast_tests {
-    // TODOS
+function language_ast_tests() {
+    // TODO
 }
 
-namespace language_index_tests {
-    // TODOS
+function language_index_tests() {
+    // TODO
 }
 
-namespace language_kinds_tests {
-    // TODOS
+function language_kinds_tests() {
+    // TODO
 }
 
-namespace language_lexer_tests {
-    // TODOS
+function language_lexer_tests() {
+    // TODO
 }
 
-namespace language_location_tests {
-    // TODOS
+function language_location_tests() {
+    // TODO
 }
 
-namespace language_parser_tests {
-    // TODOS
+function language_parser_tests() {
+    // TODO
 }
 
-namespace language_printer_tests {
-    // TODOS
+function language_printer_tests() {
+    // TODO
 }
 
-namespace language_source_tests {
-    // TODOS
+function language_source_tests() {
+    // TODO
 }
 
-namespace language_visitor_tests {
-    // TODOS
+function language_visitor_tests() {
+    // TODO
 }
 
 ///////////////////////////
 // graphql/type          //
 ///////////////////////////
-namespace type_definition_tests {
+function type_definition_tests() {
     // TODO
 }
 
-namespace type_directives_tests {
+function type_directives_tests() {
     // TODO
 }
 
-namespace type_introspection_tests {
+function type_introspection_tests() {
     // TODO
 }
 
-namespace type_scalars_tests {
+function type_scalars_tests() {
     // TODO
 }
 
-namespace type_schema_tests {
+function type_schema_tests() {
     // TODO
 }
 
 ///////////////////////////
 // graphql/validation    //
 ///////////////////////////
-namespace validation_specifiedRules_tests {
-
+function validation_specifiedRules_tests() {
+    // TODO
 }
 
-namespace validation_validate_tests {
-
+function validation_validate_tests() {
+    // TODO
 }
 
 ///////////////////////////
 // graphql/execution     //
 ///////////////////////////
-namespace execution_execute_tests {
+function execution_execute_tests() {
     // TODOS
 }
 
-namespace execution_values_tests {
+function execution_values_tests() {
     // TODOS
 }
 
 ///////////////////////////
 // graphql/error         //
 ///////////////////////////
-namespace error_GraphQLError {
-
+function error_GraphQLError() {
+    // TODOS
 }
 
-namespace error_formatError {
-
+function error_formatError() {
+    // TODOS
 }
 
-namespace error_locatedError {
-
+function error_locatedError() {
+    // TODOS
 }
 
-namespace error_syntaxError {
-
+function error_syntaxError() {
+    // TODOS
 }
 
 ///////////////////////////
 // graphql/utilities     //
 ///////////////////////////
-namespace utilities_TypeInfo_tests {
-    //TODOS
+function utilities_TypeInfo_tests() {
+    // TODOS
 }
 
-namespace utilities_assertValidName_tests {
-    //TODOS
+function utilities_assertValidName_tests() {
+    // TODOS
 }
 
-namespace utilities_astFromValue_tests {
-    //TODOS
+function utilities_astFromValue_tests() {
+    // TODOS
 }
 
-namespace utilities_buildASTSchema_tests {
-    //TODOS
+function utilities_buildASTSchema_tests() {
+    // TODOS
 }
 
-namespace utilities_buildClientSchema_tests {
-    //TODOS
+function utilities_buildClientSchema_tests() {
+    // TODOS
 }
 
-namespace utilities_concatAST_tests {
-    //TODOS
+function utilities_concatAST_tests() {
+    // TODOS
 }
 
-namespace utilities_extendSchema_tests {
-    //TODOS
+function utilities_extendSchema_tests() {
+    // TODOS
 }
 
-namespace utilities_getOperationAST_tests {
-    //TODOS
+function utilities_getOperationAST_tests() {
+    // TODOS
 }
 
-namespace utilities_index_tests {
-    //TODOS
+function utilities_index_tests() {
+    // TODOS
 }
 
-namespace utilities_introspectionQuery_tests {
-    //TODOS
+function utilities_introspectionQuery_tests() {
+    // TODOS
 }
 
-namespace utilities_isValidJSValue_tests {
-    //TODOS
+function utilities_isValidJSValue_tests() {
+    // TODOS
 }
 
-namespace utilities_isValidLiteralValue_tests {
-    //TODOS
+function utilities_isValidLiteralValue_tests() {
+    // TODOS
 }
 
-namespace utilities_schemaPrinter_tests {
-    //TODOS
+function utilities_schemaPrinter_tests() {
+    // TODOS
 }
 
-namespace utilities_separateOperations_tests {
-    //TODOS
+function utilities_separateOperations_tests() {
+    // TODOS
 }
 
-namespace utilities_typeComparators_tests {
-    //TODOS
+function utilities_typeComparators_tests() {
+    // TODOS
 }
 
-namespace utilities_typeFromAST_tests {
-    //TODOS
+function utilities_typeFromAST_tests() {
+    // TODOS
 }
 
-namespace utilities_valueFromAST_tests {
-    //TODOS
+function utilities_valueFromAST_tests() {
+    // TODOS
 }

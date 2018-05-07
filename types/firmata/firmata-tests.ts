@@ -1,4 +1,4 @@
-import * as Board from 'firmata';
+import Board = require('firmata');
 
 function test_basic_board() {
 	const board = new Board('');

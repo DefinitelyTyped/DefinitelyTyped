@@ -1,9 +1,9 @@
 // Type definitions for d3JS 3.5
 // Project: http://d3js.org/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Matthias Jobst <https://github.com/MatthiasJobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/* tslint:disable */
 
 // Latest patch version of module validated against: 3.5.17
 
@@ -235,28 +235,30 @@ declare namespace d3 {
              * @param name the element name to append. May be prefixed (see d3.ns.prefix).
              * @param before the selector to determine position (e.g., ":first-child")
              */
-            insert(name: string, before: string): Update<Datum>;
+            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert 
+            insert(name: string, before?: string): Update<Datum>;
 
             /**
              * Inserts a new child to each node in the selection. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
              * @param name the element name to append. May be prefixed (see d3.ns.prefix).
              * @param before a function to determine the node to use as the next sibling
              */
-            insert(name: string, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert
+            insert(name: string, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
 
             /**
              * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
              * @param name the function to compute a new child
              * @param before the selector to determine position (e.g., ":first-child")
              */
-            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: string): Update<Datum>;
+            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: string): Update<Datum>;
 
             /**
              * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
              * @param name the function to compute a new child
              * @param before a function to determine the node to use as the next sibling
              */
-            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
 
             /**
              * Removes the elements from the DOM. They are in a detached state and may be re-added (though there is currently no dedicated API for doing so).
@@ -431,7 +433,7 @@ declare namespace d3 {
     /**
      * Administrivia: JavaScript primitive types, or "things that toString() predictably".
      */
-    export type Primitive = number | string | boolean;
+    export type Primitive = number | string | boolean ;
 
     /**
      * Administrivia: anything with a valueOf(): number method is comparable, so we allow it in numeric operations
@@ -628,28 +630,28 @@ declare namespace d3 {
          * @param name the element name to append. May be prefixed (see d3.ns.prefix).
          * @param before the selector to determine position (e.g., ":first-child")
          */
-        insert(name: string, before: string): Selection<Datum>;
+        insert(name: string, before?: string): Selection<Datum>;
 
         /**
          * Inserts a new child to each node in the selection. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
          * @param name the element name to append. May be prefixed (see d3.ns.prefix).
          * @param before a function to determine the node to use as the next sibling
          */
-        insert(name: string, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+        insert(name: string, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
 
         /**
          * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
          * @param name the function to compute a new child
          * @param before the selector to determine position (e.g., ":first-child")
          */
-        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: string): Selection<Datum>;
+        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: string): Selection<Datum>;
 
         /**
          * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
          * @param name the function to compute a new child
          * @param before a function to determine the node to use as the next sibling
          */
-        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
 
         /**
          * Removes the elements from the DOM. They are in a detached state and may be re-added (though there is currently no dedicated API for doing so).
@@ -930,28 +932,28 @@ declare namespace d3 {
         export function flush(): void;
     }
 
-	 interface BaseEvent {
-		 type: string;
-		 sourceEvent?: Event;
-	 }
+    interface BaseEvent {
+        type: string;
+        sourceEvent?: Event;
+    }
 
-	 /**
-	  * Define a D3-specific ZoomEvent per https://github.com/mbostock/d3/wiki/Zoom-Behavior#event
-	  */
-	 interface ZoomEvent extends BaseEvent {
-		 scale: number;
-		 translate: [number, number];
-	 }
+    /**
+     * Define a D3-specific ZoomEvent per https://github.com/mbostock/d3/wiki/Zoom-Behavior#event
+     */
+    interface ZoomEvent extends BaseEvent {
+        scale: number;
+        translate: [number, number];
+    }
 
-	 /**
-	  * Define a D3-specific DragEvent per https://github.com/mbostock/d3/wiki/Drag-Behavior#on
-	  */
-	 interface DragEvent extends BaseEvent {
-		 x: number;
-		 y: number;
-		 dx: number;
-		 dy: number;
-	 }
+    /**
+     * Define a D3-specific DragEvent per https://github.com/mbostock/d3/wiki/Drag-Behavior#on
+     */
+    interface DragEvent extends BaseEvent {
+        x: number;
+        y: number;
+        dx: number;
+        dy: number;
+    }
 
     /**
      * The current event's value. Use this variable in a handler registered with `selection.on`.
@@ -1389,8 +1391,8 @@ declare namespace d3 {
     export function requote(string: string): string;
 
     export var rgb: {
-        new (r: number, g: number, b: number): Rgb;
-        new (color: string): Rgb;
+        new(r: number, g: number, b: number): Rgb;
+        new(color: string): Rgb;
 
         (r: number, g: number, b: number): Rgb;
         (color: string): Rgb;
@@ -1410,8 +1412,8 @@ declare namespace d3 {
     }
 
     export var hsl: {
-        new (h: number, s: number, l: number): Hsl;
-        new (color: string): Hsl;
+        new(h: number, s: number, l: number): Hsl;
+        new(color: string): Hsl;
 
         (h: number, s: number, l: number): Hsl;
         (color: string): Hsl;
@@ -1431,8 +1433,8 @@ declare namespace d3 {
     }
 
     export var hcl: {
-        new (h: number, c: number, l: number): Hcl;
-        new (color: string): Hcl;
+        new(h: number, c: number, l: number): Hcl;
+        new(color: string): Hcl;
 
         (h: number, c: number, l: number): Hcl;
         (color: string): Hcl;
@@ -1448,8 +1450,8 @@ declare namespace d3 {
     }
 
     export var lab: {
-        new (l: number, a: number, b: number): Lab;
-        new (color: string): Lab;
+        new(l: number, a: number, b: number): Lab;
+        new(color: string): Lab;
 
         (l: number, a: number, b: number): Lab;
         (color: string): Lab;
@@ -1469,7 +1471,7 @@ declare namespace d3 {
 
     export var color: {
         (): Color;
-        new (): Color;
+        new(): Color;
     };
 
     interface Color {
@@ -1683,7 +1685,7 @@ declare namespace d3 {
         export function category20<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
         export function category20b(): Ordinal<string, string>;
         export function category20b<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
-        export function category20c(): Ordinal<string,string>;
+        export function category20c(): Ordinal<string, string>;
         export function category20c<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
 
         interface Ordinal<Domain extends { toString(): string }, Range> {
@@ -1820,10 +1822,10 @@ declare namespace d3 {
         export function format(specifier: string): Format;
 
         export module format {
-            export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
+            export function multi(formats: Array<[string, (d: Date) => boolean | number]>): Format;
             export function utc(specifier: string): Format;
             namespace utc {
-                export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
+                export function multi(formats: Array<[string, (d: Date) => boolean | number]>): Format;
             }
 
             export var iso: Format;
@@ -2576,42 +2578,47 @@ declare namespace d3 {
 
             tickFormat(): (t: any) => string;
             tickFormat(format: (t: any) => string): Axis;
-            tickFormat(format:string): Axis;
+            tickFormat(format: string): Axis;
         }
 
-        export function brush(): Brush<any>;
-        export function brush<T>(): Brush<T>;
+        export function brush(): Brush<any, number, number>;
+        export function brush<T>(): Brush<T, number, number>;
+        export function brush<T,X>(): Brush<T, X, X>;
+        export function brush<T, X, Y>(): Brush<T, X, Y>;
 
         namespace brush {
-            interface Scale {
-                domain(): number[];
-                domain(domain: number[]): Scale;
+            interface Scale<S> {
+                domain(): S[];
+                domain(domain: S[]): Scale<S>;
 
-                range(): number[];
-                range(range: number[]): Scale;
+                range(): S[];
+                range(range: number[]): Scale<S>;
 
-                invert?(y: number): number;
+                invert?(y: number): S;
             }
         }
 
-        interface Brush<T> {
+        interface Brush<T, X, Y> {
             (selection: Selection<T>): void;
             (selection: Transition<T>): void;
 
             event(selection: Selection<T>): void;
             event(selection: Transition<T>): void;
 
-            x(): brush.Scale;
-            x(x: brush.Scale): Brush<T>;
+            x(): brush.Scale<X>;
+            x(x: brush.Scale<X>): Brush<T, X, Y>;
+            x<A, B extends X>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
 
-            y(): brush.Scale;
-            y(y: brush.Scale): Brush<T>;
+            y(): brush.Scale<Y>;
+            y(y: brush.Scale<Y>): Brush<T, X, Y>;
+            y<A, B extends Y>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
 
-            extent(): [number, number] | [[number, number], [number, number]];
-            extent(extent: [number, number] | [[number, number], [number, number]]): Brush<T>;
+            // https://github.com/d3/d3-3.x-api-reference/blob/master/SVG-Controls.md#brush_extent
+            extent(): [X, X] | [Y, Y] | [[X, Y], [X, Y]] | null;
+            extent(extent: [X, X] | [Y, Y] | [[X, Y], [X, Y]]): Brush<T, X, Y>;
 
             clamp(): boolean | [boolean, boolean];
-            clamp(clamp: boolean | [boolean, boolean]): Brush<T>;
+            clamp(clamp: boolean | [boolean, boolean]): Brush<T, X, Y>;
 
             clear(): void;
 
@@ -2622,10 +2629,10 @@ declare namespace d3 {
             on(type: 'brushend'): (datum: T, index: number) => void;
             on(type: string): (datum: T, index: number) => void;
 
-            on(type: 'brushstart', listener: (datum: T, index: number) => void): Brush<T>;
-            on(type: 'brush', listener: (datum: T, index: number) => void): Brush<T>;
-            on(type: 'brushend', listener: (datum: T, index: number) => void): Brush<T>;
-            on(type: string, listener: (datum: T, index: number) => void): Brush<T>;
+            on(type: 'brushstart', listener: (datum: T, index: number) => void): Brush<T, X, Y>;
+            on(type: 'brush', listener: (datum: T, index: number) => void): Brush<T, X ,Y>;
+            on(type: 'brushend', listener: (datum: T, index: number) => void): Brush<T, X, Y>;
+            on(type: string, listener: (datum: T, index: number) => void): Brush<T, X, Y>;
         }
     }
 
@@ -2761,7 +2768,7 @@ declare namespace d3 {
         timeFormat: {
             (specifier: string): time.Format;
             utc(specifier: string): time.Format;
-            multi(formats: Array<[string, (d: Date) => boolean|number]>): time.Format;
+            multi(formats: Array<[string, (d: Date) => boolean | number]>): time.Format;
         }
     }
 
@@ -2876,10 +2883,12 @@ declare namespace d3 {
         export function force<Node extends force.Node>(): Force<force.Link<Node>, Node>;
         export function force<Link extends force.Link<force.Node>, Node extends force.Node>(): Force<Link, Node>;
 
+        // https://github.com/d3/d3-3.x-api-reference/blob/master/Force-Layout.md#links
+        // Read the note at the end of the section where it talks about initial numbering
         namespace force {
             interface Link<T extends Node> {
-                source: T;
-                target: T;
+                source: T | number;
+                target: T | number;
             }
 
             interface Node {

@@ -4,7 +4,9 @@
 //                 vilicvane <https://vilic.github.io/>
 //                 David Broder-Rodgers <https://github.com/DavidBR-SW>
 //                 Michael Ledin <https://github.com/mxl>
+//                 HyunSeob Lee <https://github.com/hyunseob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as express from 'express';
 
@@ -21,7 +23,8 @@ declare namespace multer {
         dest?: string;
         /** The storage engine to use for uploaded files. */
         storage?: StorageEngine;
-        /** An object specifying the size limits of the following optional properties. This object is passed to busboy
+        /**
+         * An object specifying the size limits of the following optional properties. This object is passed to busboy
          * directly, and the details of properties can be found on https://github.com/mscdex/busboy#busboy-methods
          */
         limits?: {
@@ -41,14 +44,13 @@ declare namespace multer {
             headerPairs?: number;
             /** Keep the full path of files instead of just the base name (Default: false) */
             preservePath?: boolean;
-        
         };
         /** A function to control which files to upload and which to skip. */
-        fileFilter?(req: Express.Request, file: Express.Multer.File, callback: (error: Error, acceptFile: boolean) => void): void;
+        fileFilter?(req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, acceptFile: boolean) => void): void;
     }
 
     interface StorageEngine {
-        _handleFile(req: express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+        _handleFile(req: express.Request, file: Express.Multer.File, callback: (error?: any, info?: Partial<Express.Multer.File>) => void): void;
         _removeFile(req: express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
     }
 

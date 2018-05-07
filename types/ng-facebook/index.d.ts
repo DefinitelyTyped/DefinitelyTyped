@@ -2,6 +2,7 @@
 // Project: https://github.com/GoDisco/ngFacebook
 // Definitions by: Crevil <https://github.com/Crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 /// <reference types="fb" />
@@ -23,6 +24,14 @@ declare module 'angular' {
             setCustomInit(customInit: FBInitParams): IFacebookProvider;
             getCustomInit(): FBInitParams;
         }
+
+        type FBUIParams =
+            | ShareDialogParams
+            | PageTabDialogParams
+            | RequestsDialogParams
+            | SendDialogParams
+            | PayDialogParams
+            | FeedDialogParams;
 
         interface IFacebookService {
             config<T extends string | number | FBInitParams>(property: string): T;

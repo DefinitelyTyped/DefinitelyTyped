@@ -3,8 +3,8 @@
  * Updated by Fedor Nezhivoi
  */
 
-import * as React from "react"
-import * as reactMixin from "react-mixin"
+import * as React from "react";
+import * as reactMixin from "react-mixin";
 
 import {
     IntlProvider,
@@ -21,14 +21,14 @@ import {
     FormattedPlural,
     FormattedDate,
     FormattedTime
-} from "react-intl"
+} from "react-intl";
 
 import reactIntlEn = require("react-intl/locale-data/en");
 
 addLocaleData(reactIntlEn);
 
 interface SomeComponentProps {
-    className: string
+    className: string;
 }
 
 const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> = injectIntl<SomeComponentProps>(({
@@ -50,16 +50,19 @@ const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> 
     const formattedRelative = formatRelative(new Date().getTime(), { format: "short" });
     const formattedNumber = formatNumber(123, { format: "short" });
     const formattedPlural = formatPlural(1, { style: "ordinal" });
-    const formattedMessage = formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
-    const formattedMessagePlurals = formatMessage({ id: "hello", defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!" }, { name: "Roger", unreadCount: 123 });
-    const formattedHTMLMessage = formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
+    const formattedMessage = formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger", nullAllowed: null, undefinedAllowed: undefined });
+    const formattedMessagePlurals = formatMessage({
+        id: "hello",
+        defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!"
+    }, { name: "Roger", unreadCount: 123 });
+    const formattedHTMLMessage = formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger", nullAllowed: null, undefinedAllowed: undefined });
     return (
         <div className={className}>
         </div>
     );
 });
 
-class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlProps, void> {
+class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlProps> {
     static propTypes: React.ValidationMap<any> = {
         intl: intlShape.isRequired
     };
@@ -71,8 +74,17 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
         const formattedNumber = intl.formatNumber(123, { format: "short" });
         const formattedPlural = intl.formatPlural(1, { style: "ordinal" });
         const formattedMessage = intl.formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
-        const formattedMessagePlurals = intl.formatMessage({ id: "hello", defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!" }, { name: "Roger", unreadCount: 123 });
+        const formattedMessageNumber = intl.formatMessage({ id: "hello", defaultMessage: "Hello {num}!" }, { num: 1 });
+        const formattedMessageDate = intl.formatMessage({ id: "hello", defaultMessage: "Hello {date}!" }, { date: new Date() });
+        const formattedMessageBool = intl.formatMessage({ id: "hello", defaultMessage: "Hello {bool}!" }, { bool: true });
+        const formattedMessagePlurals = intl.formatMessage({
+            id: "hello",
+            defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!" },
+            { name: "Roger", unreadCount: 123 });
         const formattedHTMLMessage = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
+        const formattedHTMLMessageNumber = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{num}</strong>!" }, { num: 1 });
+        const formattedHTMLMessageDate = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{date}</strong>!" }, { date: new Date() });
+        const formattedHTMLMessageBool = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{bool}</strong>!" }, { bool: true });
         return <div className={this.props.className}>
             <FormattedRelative
                 value={new Date().getTime()}
@@ -106,10 +118,70 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
             <FormattedMessage
                 id="test"
                 description="Test"
+                defaultMessage="Hi {bool}!"
+                values={{ bool: false }}
+                tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi {date}!"
+                values={{ date: new Date() }}
+                tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
                 defaultMessage="Hi plurals: {valueOne, number} {valueOne, plural, one {plural} other {plurals}} {valueTen, number} {valueTen, plural, one {plural} other {plurals}} !"
                 values={{ valueOne: 1, valueTen: 10 }}
                 tagName="div" />
 
+            <FormattedMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi {blank} and {empty}!"
+                values={{ blank: null, empty: undefined }}
+                tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(text) => <div className="messageDiv">{text}</div>}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(text) => <input placeholder={text as string} />}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(...text) => <ul>{text.map(t => <li>{t}</li>)}</ul>}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="legal-statement"
+                values={{
+                    privacy_policy: (
+                        <a href="/privacy-policy">
+                            <FormattedMessage id="request_invite.privacy_policy" />
+                        </a>
+                    ),
+                    terms_of_service: (
+                        <a href="/terms-of-service">
+                            <FormattedMessage id="request_invite.terms_of_service" />
+                        </a>
+                    )
+                }}
+            >
+                {(...messages) => messages.map(message => <>{message}</>)}
+            </FormattedMessage>
+
             <FormattedHTMLMessage
                 id="test"
                 description="Test"
@@ -122,6 +194,27 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 description="Test"
                 defaultMessage="Hi, {name}!"
                 values={{ name: "bob" }}
+                tagName="div" />
+
+            <FormattedHTMLMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi numbers {count}!"
+                values={{ count: 123 }}
+                tagName="div" />
+
+            <FormattedHTMLMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi {bool}!"
+                values={{ bool: false }}
+                tagName="div" />
+
+            <FormattedHTMLMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi {date}!"
+                values={{ date: new Date() }}
                 tagName="div" />
 
             <FormattedNumber
@@ -221,23 +314,23 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                     <span className="number">{formattedNum}</span>
                 )}
             </FormattedNumber>
-        </div>
+        </div>;
     }
 }
 
 const SomeComponentWithIntl = injectIntl(SomeComponent);
 
-class TestApp extends React.Component<{}, {}> {
+class TestApp extends React.Component {
     render(): React.ReactElement<{}> {
         const definedMessages = defineMessages({
-            "sup": {
+            sup: {
                 id: "sup",
                 defaultMessage: "Hai mom"
             }
         });
 
         const messages = {
-            "hello": "Hello, {name}!"
+            hello: "Hello, {name}!"
         };
         return (
             <IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages}>
@@ -250,9 +343,9 @@ class TestApp extends React.Component<{}, {}> {
 
 const intlProvider = new IntlProvider({ locale: 'en' }, {});
 const { intl } = intlProvider.getChildContext();
-const wrappedComponent = <SomeComponentWithIntl.WrappedComponent className="test" intl={intl}/>
+const wrappedComponent = <SomeComponentWithIntl.WrappedComponent className="test" intl={intl}/>;
 
 export default {
     TestApp,
     SomeComponent: SomeComponentWithIntl
-}
+};

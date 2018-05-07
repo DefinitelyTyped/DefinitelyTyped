@@ -21,9 +21,9 @@ function test_pnotify() {
         text: 'I don\'t have a shadow. (It\'s cause I\'m a vampire or something. Or is that reflections...)',
         shadow: false
     });
-    new PNotify('Check me out! I\'m a notice.');
+    // new PNotify('Check me out! I\'m a notice.');
 
-    new PNotify(Math.round(Math.random() * 9999));
+    // new PNotify(Math.round(Math.random() * 9999));
 
     new PNotify({
         title: 'PIcon Notice',
@@ -216,7 +216,7 @@ function test_pnotify() {
         icon: "fa fa-bars",
         delay: 20000,
         history: false,
-        stack: false
+        stack: {}
     });
 
     var type = "error";

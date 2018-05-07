@@ -2,8 +2,9 @@
 // Project: https://github.com/remybach/jQuery.clientSideLogging
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="jquery"/>
+/// <reference types="jquery" />
 
 interface ClientSideLoggingClientInfoObject {
     location?: boolean;	//  The url to the page on which the error occurred.
@@ -25,6 +26,7 @@ interface ClientSideLoggingObject {
 
 interface JQueryStatic {
     info: (what?: any) => any;
+    error(what?: any): any;
     log: (what?: any) => any;
     clientSideLogging: (options: ClientSideLoggingObject) => any;
 }

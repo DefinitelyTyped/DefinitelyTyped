@@ -1,5 +1,5 @@
 function test_popup_static() {
-    $.fn.popup.settings.error.method = 'method';
+    $.fn.popup.settings.error!.method = 'method';
     $.fn.popup.settings.namespace = 'namespace';
     $.fn.popup.settings.name = 'name';
     $.fn.popup.settings.silent = false;
@@ -10,21 +10,25 @@ function test_popup_static() {
 
 function test_popup() {
     const selector = '.ui.popup';
-    $(selector).popup('show') === $();
-    $(selector).popup('hide') === $();
-    $(selector).popup('hide all') === $();
-    $(selector).popup('get popup') === $();
-    $(selector).popup('change content', '<div></div>') === $();
-    $(selector).popup('toggle') === $();
-    $(selector).popup('is visible') === true;
-    $(selector).popup('is hidden') === true;
-    $(selector).popup('exists') === true;
-    $(selector).popup('reposition') === $();
-    $(selector).popup('set position', 'position') === $();
-    $(selector).popup('destroy') === $();
-    $(selector).popup('setting', 'debug', undefined) === false;
-    $(selector).popup('setting', 'debug') === false;
-    $(selector).popup('setting', 'debug', true) === $();
+    $(selector).popup('show'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('hide'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('hide all'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('get popup'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('change content', '<div></div>'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('toggle'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('is visible'); // $ExpectType boolean
+    $(selector).popup('is hidden'); // $ExpectType boolean
+    $(selector).popup('exists'); // $ExpectType boolean
+    $(selector).popup('reposition'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('bind clickaway'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('bind touch close'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('bind close on scroll'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('set position', 'position'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).popup('setting', 'debug'); // $ExpectType boolean
+    $(selector).popup('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).popup('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -32,7 +36,8 @@ function test_popup() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).popup({
         popup: $(),
         exclusive: true,
@@ -64,34 +69,36 @@ function test_popup() {
         offset: 2,
         maxSearchDepth: 10,
         onCreate($module) {
-            this === $();
-            $module === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $module; // $ExpectType JQuery<HTMLElement>
         },
         onRemove($module) {
-            this === $();
-            $module === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $module; // $ExpectType JQuery<HTMLElement>
         },
         onShow($module) {
-            this === $();
-            $module === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $module; // $ExpectType JQuery<HTMLElement>
+
             return false;
         },
         onVisible($module) {
-            this === $();
-            $module === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $module; // $ExpectType JQuery<HTMLElement>
         },
         onHide($module) {
-            this === $();
-            $module === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $module; // $ExpectType JQuery<HTMLElement>
+
             return false;
         },
         onHidden($module) {
-            this === $();
-            $module === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $module; // $ExpectType JQuery<HTMLElement>
         },
         onUnplaceable($module) {
-            this === $();
-            $module === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $module; // $ExpectType JQuery<HTMLElement>
         },
         variation: 'variation',
         content: 'content',
@@ -112,7 +119,8 @@ function test_popup() {
             loading: 'loading',
             popup: 'popup',
             position: 'top',
-            visible: 'visible'
+            visible: 'visible',
+            popupVisible: 'popupVisible'
         },
         error: {
             invalidPosition: 'invalidPosition',
@@ -121,12 +129,16 @@ function test_popup() {
             noTransition: 'noTransition',
             notFound: 'notFound'
         }
-    }) === $();
-    $(selector).popup() === $();
+    });
+    $(selector).popup(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).popup('foo'); // $ExpectError
+    $(selector).popup({ foo: 'bar' }); // $ExpectError
 }
 
 import popup = require('semantic-ui-popup');
 
 function test_module() {
+    popup; // $ExpectType Popup
     $.fn.popup = popup;
 }

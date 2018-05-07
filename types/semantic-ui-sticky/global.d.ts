@@ -11,19 +11,41 @@ declare namespace SemanticUI {
          */
         (behavior: 'refresh'): JQuery;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof StickySettings>(behavior: 'setting', name: K, value?: undefined): StickySettings[K];
-        <K extends keyof StickySettings>(behavior: 'setting', name: K, value: StickySettings[K]): JQuery;
-        (behavior: 'setting', value: StickySettings.Param): JQuery;
-        (settings?: StickySettings.Param): JQuery;
+        <K extends keyof StickySettings>(behavior: 'setting', name: K, value?: undefined): StickySettings._Impl[K];
+        <K extends keyof StickySettings>(behavior: 'setting', name: K, value: StickySettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: StickySettings): JQuery;
+        (settings?: StickySettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/sticky.html#/settings}
      */
-    interface StickySettings extends Pick<StickySettings._Impl, keyof StickySettings._Impl> { }
+    type StickySettings = StickySettings.Param;
 
     namespace StickySettings {
-        type Param = StickySettings | object;
+        type Param = (Pick<_Impl, 'pushing'> |
+            Pick<_Impl, 'setSize'> |
+            Pick<_Impl, 'jitter'> |
+            Pick<_Impl, 'observeChanges'> |
+            Pick<_Impl, 'context'> |
+            Pick<_Impl, 'scrollContext'> |
+            Pick<_Impl, 'offset'> |
+            Pick<_Impl, 'bottomOffset'> |
+            Pick<_Impl, 'onReposition'> |
+            Pick<_Impl, 'onScroll'> |
+            Pick<_Impl, 'onStick'> |
+            Pick<_Impl, 'onUnstick'> |
+            Pick<_Impl, 'onTop'> |
+            Pick<_Impl, 'onBottom'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Sticky Settings
@@ -34,6 +56,14 @@ declare namespace SemanticUI {
              * @default false
              */
             pushing: boolean;
+            /**
+             * Sets size of fixed content to match its width before fixing to screen dynamically.
+             * This is used because fixed may display block or 100% width content differently than it appears before sticking.
+             *
+             * @default true
+             * @since 2.2.11
+             */
+            setSize: boolean;
             /**
              * Sticky container height will only be set if the difference between heights of container and context is larger than this jitter value.
              *
@@ -158,10 +188,15 @@ declare namespace SemanticUI {
     }
 
     namespace Sticky {
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
+            type Param = (Pick<_Impl, 'bound'> |
+                Pick<_Impl, 'fixed'> |
+                Pick<_Impl, 'supported'> |
+                Pick<_Impl, 'top'> |
+                Pick<_Impl, 'bottom'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -187,10 +222,15 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = ErrorSettings | object;
+            type Param = (Pick<_Impl, 'container'> |
+                Pick<_Impl, 'visible'> |
+                Pick<_Impl, 'method'> |
+                Pick<_Impl, 'invalidContext'> |
+                Pick<_Impl, 'elementSize'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

@@ -1,7 +1,7 @@
 // simple cloud
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {TagCloud, DefaultRenderer} from "react-tagcloud";
+import { TagCloud, DefaultRenderer } from "react-tagcloud";
 
 let data = [
     { value: "jQuery", count: 25 }, { value: "MongoDB", count: 18 },
@@ -78,7 +78,7 @@ let data2 = [
     { value: { name: "yahoo", link: "http://yahoo.com" }, count: 18 },
     { value: { name: "facebook", link: "http://facebook.com" }, count: 38 },
     { value: { name: "twitter", link: "http://twitter.com" }, count: 30 },
-    { value: { name: "github", link: "http://github.com" }, count: 28 },
+    { value: { name: "github", link: "https://github.com" }, count: 28 },
     { value: { name: "npmjs", link: "http://npmjs.com" }, count: 25 },
     { value: { name: "stackoverflow", link: "http://stackoverflow.com" }, count: 33 }
 ];

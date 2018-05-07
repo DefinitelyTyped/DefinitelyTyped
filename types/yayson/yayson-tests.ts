@@ -1,4 +1,4 @@
-import * as Yayson from "yayson";
+import Yayson = require("yayson");
 
 const yayson = Yayson({ adapter: 'default' }) || Yayson({ adapter: 'sequelize' }) || Yayson();
 const Adapter = yayson.Adapter;

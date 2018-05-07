@@ -6,4 +6,4 @@ export interface CheckboardProps extends ClassAttributes<Checkboard> {
     white?: string;
 }
 
-export default class Checkboard extends Component<CheckboardProps, any> {}
+export default class Checkboard extends Component<CheckboardProps> {}

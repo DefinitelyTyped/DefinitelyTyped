@@ -68,11 +68,12 @@ declare module "mongoose" {
     pass?: string;
     /** Options for authentication */
     auth?: any;
+    useMongoClient?: boolean;
   }
 
   export interface ConnectionOptions extends ConnectOpenOptionsBase {
     /** Passed to the underlying driver's Mongos instance. */
-    mongos?: MongosOptions;
+    mongos?: MongosOptions | boolean;
   }
 
   interface OpenSetConnectionOptions extends ConnectOpenOptionsBase {

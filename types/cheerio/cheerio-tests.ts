@@ -1,6 +1,4 @@
-
-
-import * as cheerio from 'cheerio';
+import cheerio = require('cheerio');
 
 /*
  * LOADING
@@ -52,6 +50,7 @@ var $multiEl = $('selector', 'selector', 'selector');
  */
 
 // attr
+$el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
 
@@ -306,3 +305,5 @@ $.parseHTML(html, null, true);
  * Not in doc
  */
 $el.toArray();
+
+cheerio.html($el);

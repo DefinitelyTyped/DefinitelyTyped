@@ -1,5 +1,5 @@
 function test_visibility_static() {
-    $.fn.visibility.settings.error.method = 'method';
+    $.fn.visibility.settings.error!.method = 'method';
     $.fn.visibility.settings.namespace = 'namespace';
     $.fn.visibility.settings.name = 'name';
     $.fn.visibility.settings.silent = false;
@@ -10,42 +10,19 @@ function test_visibility_static() {
 
 function test_visibility() {
     const selector = '.ui.visibility';
-    $(selector).visibility('disable callbacks') === $();
-    $(selector).visibility('enable callbacks') === $();
-    $(selector).visibility('is on screen') === false;
-    $(selector).visibility('is off screen') === true;
-    $(selector).visibility('get pixels passed') === 20;
-    $(selector).visibility('get element calculations') === {
-        fits: false,
-        offset: {
-            top: 955.96875,
-            left: 292
-        },
-        width: 466,
-        height: 1665.890625,
-        top: 955.96875,
-        bottom: 2621.859375,
-        topPassed: true,
-        bottomPassed: false,
-        topVisible: true,
-        bottomVisible: false,
-        pixelsPassed: 742.03125,
-        percentagePassed: 0.44542615155182,
-        onScreen: true,
-        passing: true,
-        offScreen: false
-    };
-    $(selector).visibility('get screen calculations') === {
-        bottom: 2658,
-        top: 1698
-    };
-    $(selector).visibility('get screen size') === {
-        height: 960
-    };
-    $(selector).visibility('destroy') === $();
-    $(selector).visibility('setting', 'debug', undefined) === false;
-    $(selector).visibility('setting', 'debug') === false;
-    $(selector).visibility('setting', 'debug', true) === $();
+    $(selector).visibility('disable callbacks'); // $ExpectType JQuery<HTMLElement>
+    $(selector).visibility('enable callbacks'); // $ExpectType JQuery<HTMLElement>
+    $(selector).visibility('is on screen'); // $ExpectType boolean
+    $(selector).visibility('is off screen'); // $ExpectType boolean
+    $(selector).visibility('get pixels passed'); // $ExpectType number
+    $(selector).visibility('get element calculations'); // $ExpectType ElementCalculations
+    $(selector).visibility('get screen calculations'); // $ExpectType ScreenCalculations
+    $(selector).visibility('get screen size'); // $ExpectType ScreenSize
+    $(selector).visibility('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).visibility('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).visibility('setting', 'debug'); // $ExpectType boolean
+    $(selector).visibility('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).visibility('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -53,7 +30,8 @@ function test_visibility() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).visibility({
         once: false,
         continuous: true,
@@ -71,78 +49,59 @@ function test_visibility() {
         transition: 'fade',
         duration: 5,
         onTopVisible() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onTopPassed() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onBottomVisible() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onPassing() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onBottomPassed() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onTopVisibleReverse() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onTopPassedReverse() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onBottomVisibleReverse() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onPassingReverse() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onBottomPassedReverse() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onOnScreen() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onOffScreen() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onLoad() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onAllLoaded() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onFixed() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onUnfixed() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onUpdate(calculations) {
-            this === $();
-            calculations === {
-                fits: false,
-                offset: {
-                    top: 955.96875,
-                    left: 292
-                },
-                width: 466,
-                height: 1665.890625,
-                top: 955.96875,
-                bottom: 2621.859375,
-                topPassed: true,
-                bottomPassed: false,
-                topVisible: true,
-                bottomVisible: false,
-                pixelsPassed: 742.03125,
-                percentagePassed: 0.44542615155182,
-                onScreen: true,
-                passing: true,
-                offScreen: false
-            };
+            this; // $ExpectType JQuery<HTMLElement>
+            calculations; // $ExpectType ElementCalculations
         },
         onRefresh() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         className: {
             fixed: 'fixed',
@@ -150,12 +109,16 @@ function test_visibility() {
         error: {
             method: 'method'
         }
-    }) === $();
-    $(selector).visibility() === $();
+    });
+    $(selector).visibility(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).visibility('foo'); // $ExpectError
+    $(selector).visibility({ foo: 'bar' }); // $ExpectError
 }
 
 import visibility = require('semantic-ui-visibility');
 
 function test_module() {
+    visibility; // $ExpectType Visibility
     $.fn.visibility = visibility;
 }

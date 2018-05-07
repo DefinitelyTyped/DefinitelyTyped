@@ -1,17 +1,17 @@
 import LeState = require("lestate");
-let State = LeState.createState();
+const State = LeState.createState();
 
 State.set({
     test : {}
 });
 
-let currentState = State.get();
+const currentState = State.get();
 
 State.insert({
     test : {}
 });
 
-let currentDescription = State.getDescription();
+const currentDescription = State.getDescription();
 
 State.createListener({
     id       : 0,

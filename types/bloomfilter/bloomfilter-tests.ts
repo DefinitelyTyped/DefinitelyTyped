@@ -1,7 +1,7 @@
 import { BloomFilter } from 'bloomfilter';
 function test_bloomfilter() {
-    const m: number = 10;
-    const k: number = 2;
+    const m = 10;
+    const k = 2;
 
     const bloomFilter = new BloomFilter(m, k);
     const array: Int32Array[] = bloomFilter.buckets;

@@ -243,7 +243,7 @@ declare namespace sprite {
         defs?: DefsAndSymbolSpecificModeConfig | boolean;
         symbol?: DefsAndSymbolSpecificModeConfig | boolean;
         stack?: ModeConfig | boolean;
-        [customConfigName: string]: ModeConfig;
+        [customConfigName: string]: ModeConfig | boolean;
     }
 
     interface ModeConfig {

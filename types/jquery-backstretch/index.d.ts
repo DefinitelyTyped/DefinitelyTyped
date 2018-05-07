@@ -2,6 +2,7 @@
 // Project: https://github.com/srobbin/jquery-backstretch
 // Definitions by: Dmytro Kulyk <https://github.com/dkulyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 

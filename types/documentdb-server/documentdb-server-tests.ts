@@ -1,6 +1,6 @@
 
 
-// Samples taken from http://dl.windowsazure.com/documentDB/jsserverdocs/Collection.html
+// Samples taken from http://azure.github.io/azure-documentdb-js-server/Collection.html
 function chain() {
     var name: string = "John";
     var result: IQueryResponse = __.chain()
@@ -20,10 +20,12 @@ function filter() {
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
     // Example 3: get document (person) with id = 1 and delete it.
-    var result: IQueryResponse = __.filter(function (doc: any) { return doc.id === 1; }, function (err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
-        if (err) throw err;
-        if (!__.deleteDocument(feed[0].getSelfLink())) throw new Error("deleteDocument was not accepted");
-    });
+    var result: IQueryResponse = __.filter(
+        function (doc: any) { return doc.id === 1; },
+        function (err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
+            if (err) throw err;
+            if (!__.deleteDocument(feed[0].getSelfLink())) throw new Error("deleteDocument was not accepted");
+        });
     if (!result.isAccepted) throw new Error("The call was not accepted");
 }
 function flatten() {
@@ -103,7 +105,7 @@ function value() {
 // Samples taken from https://github.com/Azure/azure-documentdb-js-server/tree/master/samples
 /**
 * This script called as stored procedure to import lots of documents in one batch.
-* The script sets response body to the number of docs imported and is called multiple times 
+* The script sets response body to the number of docs imported and is called multiple times
 * by the client until total number of docs desired by the client is imported.
 * @param  {Object[]} docs - Array of documents to import.
 */
@@ -127,7 +129,7 @@ function bulkImport(docs: Array<Object>) {
     tryCreate(docs[count], callback);
 
     // Note that there are 2 exit conditions:
-    // 1) The createDocument request was not accepted. 
+    // 1) The createDocument request was not accepted.
     //    In this case the callback will not be called, we just call setBody and we are done.
     // 2) The callback was called docs.length times.
     //    In this case all documents were created and we don't need to call tryCreate anymore. Just call setBody and we are done.
@@ -135,7 +137,7 @@ function bulkImport(docs: Array<Object>) {
         var isAccepted = collection.createDocument(collectionLink, doc, callback);
 
         // If the request was accepted, callback will be called.
-        // Otherwise report current count back to the client, 
+        // Otherwise report current count back to the client,
         // which will call the script again with remaining set of docs.
         // This condition will happen when this stored procedure has been running too long
         // and is about to get cancelled by the server. This will allow the calling client
@@ -164,7 +166,7 @@ function bulkImport(docs: Array<Object>) {
 * This is executed as stored procedure to count the number of docs in the collection.
 * To avoid script timeout on the server when there are lots of documents (100K+), the script executed in batches,
 * each batch counts docs to some number and returns continuation token.
-* The script is run multiple times, starting from empty continuation, 
+* The script is run multiple times, starting from empty continuation,
 * then using continuation returned by last invocation script until continuation returned by the script is null/empty string.
 *
 * @param {String} filterQuery - Optional filter for query (e.g. "SELECT * FROM docs WHERE docs.category = 'food'").
@@ -172,7 +174,7 @@ function bulkImport(docs: Array<Object>) {
 */
 function count(filterQuery: string, continuationToken: string) {
     var collection: ICollection = getContext().getCollection();
-    var maxResult: number = 25; // MAX number of docs to process in one batch, when reached, return to client/request continuation. 
+    var maxResult: number = 25; // MAX number of docs to process in one batch, when reached, return to client/request continuation.
     // intentionally set low to demonstrate the concept. This can be much higher. Try experimenting.
     // We've had it in to the high thousands before seeing the stored proceudre timing out.
 
@@ -186,7 +188,7 @@ function count(filterQuery: string, continuationToken: string) {
         var responseOptions: Object = { continuation: nextContinuationToken, pageSize: maxResult };
 
         // In case the server is running this script for long time/near timeout, it would return false,
-        // in this case we set the response to current continuation token, 
+        // in this case we set the response to current continuation token,
         // and the client will run this script again starting from this continuation.
         // When the client calls this script 1st time, is passes empty continuation token.
         if (result >= maxResult || !query(responseOptions)) {
@@ -210,7 +212,7 @@ function count(filterQuery: string, continuationToken: string) {
         // Increament the number of documents counted so far.
         result += docFeed.length;
 
-        // If there is continuation, call query again with it, 
+        // If there is continuation, call query again with it,
         // otherwise we are done, in which case set continuation to null.
         if (responseOptions.continuation) {
             tryQuery(responseOptions.continuation);
@@ -226,122 +228,10 @@ function count(filterQuery: string, continuationToken: string) {
     }
 }
 
-/**
-* This is run as stored procedure and does the following:
-* - create ordered result set (result) which is an array sorted by orderByFieldName parameter.
-* - call collection.queryDocuments.
-* - in the callback for each document, insert into an array (result)
-* - in the end, sort the resulting array and return it to the client
-*
-* Important notes:
-* - The resulting record set could be too large to fit into one response
-*   - To walk around that, we setBody by one element and catch the REQUEST_ENTITY_TOO_LARGE exception.
-*     When we get the exception, return resulting set to the client with continuation token
-*     to continue from item index specified by this token.
-*   - Note that when continuation is called, it will be different transaction
-*
-* @param {String} filterQuery - Optional filter for query.
-* @param {String} orderByFieldName - The name of the field to order by resulting set.
-* @param {String} continuationToken - The continuation token passed by request, continue counting from this token.
-*/
-function orderBy(filterQuery: string, orderByFieldName: string, continuationToken: number) {
-    // HTTP error codes sent to our callback funciton by DocDB server.
-    var ErrorCode: any = {
-        REQUEST_ENTITY_TOO_LARGE: 413,
-    }
-
-    var collection: ICollection = getContext().getCollection();
-    var collectionLink: string = collection.getSelfLink();
-    var result: Array<any> = new Array();
-
-    tryQuery({});
-
-    function tryQuery(options: IFeedOptions) {
-        var isAccepted: boolean = (filterQuery && filterQuery.length) ?
-            collection.queryDocuments(collectionLink, filterQuery, options, callback) :
-            collection.readDocuments(collectionLink, options, callback)
-
-        if (!isAccepted) throw new Error("Source dataset is too large to complete the operation.");
-    }
-
-    /**
-    * queryDocuments callback.
-    * @param {Error} err - Error object in case of error/exception.
-    * @param {Array} queryFeed - array containing results of the query.
-    * @param {ResponseOptions} responseOptions.
-    */
-    function callback(err: IFeedCallbackError, queryFeed: Array<any>, responseOptions: IFeedCallbackOptions) {
-        if (err) {
-            throw err;
-        }
-
-        // Iterate over document feed and store documents into the result array.
-        queryFeed.forEach(function (element: any, index: number, array: Array<any>) {
-            result[result.length] = element;
-        });
-
-        if (responseOptions.continuation) {
-            // If there is continuation, call query again providing continuation token.
-            tryQuery({ continuation: responseOptions.continuation });
-        } else {
-            // We are done with querying/got all results. Sort the results and return from the script.
-            result.sort(compare);
-
-            fillResponse();
-        }
-    }
-
-    // Compare two objects(documents) using field specified by the orderByFieldName parameter.
-    // Return 0 if equal, -1 if less, 1 if greater.
-    function compare(x: any, y: any) {
-        if (x[orderByFieldName] == y[orderByFieldName]) return 0;
-        else if (x[orderByFieldName] < y[orderByFieldName]) return -1;
-        return 1;
-    }
-
-    // This is called in the very end on an already sorted array.
-    // Sort the results and set the response body.
-    function fillResponse() {
-        // Main script is called with continuationToken which is the index of 1st item to start result batch from.
-        // Slice the result array and discard the beginning. From now on use the 'continuationResult' var.
-        var continuationResult: Array<any> = result;
-        if (continuationToken) continuationResult = result.slice(continuationToken);
-        else continuationToken = 0;
-
-        // Get/initialize the response.
-        var response: IResponse = getContext().getResponse();
-        response.setBody(null);
-
-        // Take care of response body getting too large:
-        // Set Response iterating by one element. When we fail due to MAX response size, return to the client requesting continuation.
-        var i = 0;
-        for (; i < continuationResult.length; ++i) {
-            try {
-                // Note: setBody is very expensive vs appendBody, use appendBody with simple approximation JSON.stringify(element).
-                response.appendBody(JSON.stringify(continuationResult[i]));
-            } catch (ex) {
-                if (!ex.number == ErrorCode.REQUEST_ENTITY_TOO_LARGE) throw ex;
-                break;
-            }
-        }
-        
-        // Now next batch to return to client has i elements.
-        // Slice the continuationResult if needed and discard the end.
-        var partialResult: Array<any> = continuationResult;
-        var newContinuation: string = null;
-        if (i < continuationResult.length) {
-            partialResult = continuationResult.slice(0, i);
-        }
-
-        // Finally, set response body.
-        response.setBody({ result: result, continuation: newContinuation });
-    }
-}
-
 
 /**
 * This is run as stored procedure and does the following:
-* - get 1st document in the collection, convert to JSON, prepend string specified by the prefix parameter 
+* - get 1st document in the collection, convert to JSON, prepend string specified by the prefix parameter
 *   and set response to the result of that.
 *
 * @param {String} prefix - The string to prepend to the 1st document in collection.
@@ -442,6 +332,8 @@ function bulkDeleteSproc(query: string) {
         }
     }
 }
+
+// NOTE: the sample `sum` stored procedure (https://github.com/Azure/azure-documentdb-js-server/blob/master/samples/stored-procedures/sum.js) does not currently work, because it appears to throw an invalid Error object. See https://github.com/Azure/azure-documentdb-js-server/issues/23 to track this issue.
 
 /**
  * A DocumentDB stored procedure that updates a document by id, using a similar syntax to MongoDB's update operator.<br/>
@@ -612,7 +504,7 @@ function updateSproc(id: string, update: Object) {
                 } else if (document[existingFieldName]) {
                     // If the field exists, set/overwrite the new field name and unset the existing field name.
                     document[newFieldName] = document[existingFieldName];
-                    delete document[existingFieldName];
+                    delete document[existingFieldName]; // tslint:disable-line no-dynamic-delete
                 } else {
                     // Otherwise this is a noop.
                 }
@@ -639,7 +531,7 @@ function updateSproc(id: string, update: Object) {
         if (update.$unset) {
             fields = Object.keys(update.$unset);
             for (i = 0; i < fields.length; i++) {
-                delete document[fields[i]];
+                delete document[fields[i]]; // tslint:disable-line no-dynamic-delete
             }
         }
     }
@@ -749,130 +641,6 @@ function updateSproc(id: string, update: Object) {
 }
 
 /**
- * A DocumentDB stored procedure that upserts a given document (insert new or update if present) using its id property.<br/>
- * This implementation tries to create, and if the create fails then query for the document with the specified document's id, then replace it. 
- * Use this sproc if creates are more common than replaces, otherwise use "upsertOptimizedForReplace" 
- *
- * @function
- * @param {Object} document - A document that should be upserted into this collection.
- * @returns {Object.<string>} Returns an object with the property:<br/>
- *   op - created (or) replaced.
- */
-function upsert(document: IDocumentMeta) {
-    var context: IContext = getContext();
-    var collection: ICollection = context.getCollection();
-    var collectionLink: string = collection.getSelfLink();
-    var response: IResponse = context.getResponse();
-    var errorCodes: any = { CONFLICT: 409 };
-
-    // Not checking for existence of document.id for compatibility with createDocument.
-    if (!document) throw new Error("The document is undefined or null.");
-
-    tryCreate(document, callback);
-
-    function tryCreate(doc: IDocumentMeta, callback: (err: IRequestCallbackError, obj: any, options: IRequestCallbackOptions) => void) {
-        var isAccepted: boolean = collection.createDocument(collectionLink, doc, callback);
-        if (!isAccepted) throw new Error("Unable to schedule create document");
-        response.setBody({ "op": "created" });
-    }
-
-    // To replace the document, first issue a query to find it and then call replace.
-    function tryReplace(doc: IDocumentMeta, callback: (err: IRequestCallbackError, obj: any, options: IRequestCallbackOptions) => void) {
-        retrieveDoc(doc, null, function (retrievedDocs: Array<IDocumentMeta>) {
-            var isAccepted: boolean = collection.replaceDocument(retrievedDocs[0]._self, doc, callback);
-            if (!isAccepted) throw new Error("Unable to schedule replace document");
-            response.setBody({ "op": "replaced" });
-        });
-    }
-
-    function retrieveDoc(doc: IDocumentMeta, continuation: string, callback: Function) {
-        var query: IParameterizedQuery = { query: "select * from root r where r.id = @id", parameters: [{ name: "@id", value: doc.id }] };
-        var requestOptions: IFeedOptions = { continuation: continuation };
-        var isAccepted: boolean = collection.queryDocuments(collectionLink, query, requestOptions, function (err: IFeedCallbackError, retrievedDocs: Array<any>, responseOptions: IFeedCallbackOptions) {
-            if (err) throw err;
-
-            if (retrievedDocs.length > 0) {
-                callback(retrievedDocs);
-            } else if (responseOptions.continuation) {
-                // Conservative check for continuation. Not expected to hit in practice for the "id query"
-                retrieveDoc(doc, responseOptions.continuation, callback);
-            } else {
-                throw new Error("Error in retrieving document: " + doc.id);
-            }
-        });
-        if (!isAccepted) throw new Error("Unable to query documents");
-    }
-
-    // This is called when collection.createDocument is done in order to
-    // process the result.
-    function callback(err: IRequestCallbackError, doc: any, options: IRequestCallbackOptions) {
-        if (err) {
-            // Replace the document if status code is 409 and upsert is enabled
-            if (err.number == errorCodes.CONFLICT) {
-                return tryReplace(document, callback);
-            } else {
-                throw err;
-            }
-        }
-    }
-}
-
-/**
- * A DocumentDB stored procedure that upserts a given document (insert new or update if present) using its id property.<br/>
- * This implementation queries for the document's id, and creates if absent and replaces if found.
- * Use this sproc if replaces are more common than creates, otherwise use "upsert" 
- *
- * @function
- * @param {Object} document - A document that should be upserted into this collection.
- * @returns {Object.<string>} Returns an object with the property:<br/>
- *   op - created (or) replaced.
- */
-function upsertOptimizedForReplace(document: any) {
-    var context: IContext = getContext();
-    var collection: ICollection = context.getCollection();
-    var collectionLink: string = collection.getSelfLink();
-    var response: IResponse = context.getResponse();
-
-    // Not checking for existence of document.id for compatibility with createDocument.
-    if (!document) throw new Error("The document is undefined or null.");
-
-    retrieveDoc(document, null, callback);
-
-    function retrieveDoc(doc: IDocumentMeta, continuation: string, callback: (err: IRequestCallbackError, obj: any, options: IRequestCallbackOptions) => void) {
-        var query: IParameterizedQuery = { query: "select * from root r where r.id = @id", parameters: [{ name: "@id", value: doc.id }] };
-        var requestOptions: IFeedOptions = { continuation: continuation };
-        var isAccepted: boolean = collection.queryDocuments(collectionLink, query, requestOptions, function (err: IFeedCallbackError, retrievedDocs: Array<any>, responseOptions: IFeedCallbackOptions) {
-            if (err) throw err;
-            if (retrievedDocs.length > 0) {
-                tryReplace(retrievedDocs[0], doc, callback);
-            } else if (responseOptions.continuation) {
-                // Conservative check for continuation. Not expected to hit in practice for the "id query".
-                retrieveDoc(doc, responseOptions.continuation, callback);
-            } else {
-                tryCreate(doc, callback);
-            }
-        });
-        if (!isAccepted) throw new Error("Unable to query documents");
-    }
-
-    function tryCreate(doc: any, callback: (err: IRequestCallbackError, obj: any, options: IRequestCallbackOptions) => void) {
-        var isAccepted = collection.createDocument(collectionLink, doc, callback);
-        if (!isAccepted) throw new Error("Unable to schedule create document");
-        response.setBody({ "op": "created" });
-    }
-
-    function tryReplace(docToReplace: IDocumentMeta, docContent: any, callback: (err: IRequestCallbackError, obj: any, options: IRequestCallbackOptions) => void) {
-        var isAccepted = collection.replaceDocument(docToReplace._self, docContent, callback);
-        if (!isAccepted) throw new Error("Unable to schedule replace document");
-        response.setBody({ "op": "replaced" });
-    }
-
-    function callback(err: IRequestCallbackError, obj: any, options: IRequestCallbackOptions): void {
-        if (err) throw err;
-    }
-}
-
-/**
 * This script runs as a pre-trigger when a document is inserted:
 * for each inserted document, validate/canonicalize document.weekday and create field document.createdTime.
 */
@@ -941,17 +709,17 @@ function updateMetadata() {
             // for 1st document use doc.Size, for all the rest see if it's less than last min.
             if (metaDoc.minSize == 0) metaDoc.minSize = doc.size;
             else metaDoc.minSize = Math.min(metaDoc.minSize, doc.size);
-            
+
             // Update metaDoc.maxSize.
             metaDoc.maxSize = Math.max(metaDoc.maxSize, doc.size);
 
             // Update metaDoc.totalSize.
             metaDoc.totalSize += doc.size;
-            
+
             // Update/replace the metadata document in the store.
             var isAccepted: boolean = collection.replaceDocument(metaDoc._self, metaDoc, function (err: IRequestCallbackError) {
                 if (err) throw err;
-                // Note: in case concurrent updates causes conflict with ErrorCode.RETRY_WITH, we can't read the meta again 
+                // Note: in case concurrent updates causes conflict with ErrorCode.RETRY_WITH, we can't read the meta again
                 //       and update again because due to Snapshot isolation we will read same exact version (we are in same transaction).
                 //       We have to take care of that on the client side.
             });
@@ -961,56 +729,4 @@ function updateMetadata() {
     }
 }
 
-/**
- * This script is meant to run as a pre-trigger to enforce the uniqueness of the "name" property.
- */
-
-function validateName() {
-    var collection: ICollection = getContext().getCollection();
-    var request: IRequest = getContext().getRequest();
-    var docToCreate: any = request.getBody();
-
-    // Reject documents that do not have a name property by throwing an exception.
-    if (!docToCreate.name) {
-        throw new Error('Document must include a "name" property.');
-    }
-
-    lookForDuplicates();
-
-    function lookForDuplicates(continuation?: string) {
-        var query: IParameterizedQuery = {
-            query: 'SELECT * FROM myCollection c WHERE c.name = @name',
-            parameters: [{
-                name: '@name',
-                value: docToCreate.name
-            }]
-        };
-        var requestOptions: IFeedOptions = {
-            continuation: continuation
-        };
-
-        var isAccepted: boolean = collection.queryDocuments(collection.getSelfLink(), query, requestOptions,
-            function (err: IFeedCallbackError, results: Array<any>, responseOptions: IFeedCallbackOptions) {
-                if (err) {
-                    throw new Error('Error querying for documents with duplicate names: ' + err.body);
-                }
-                if (results.length > 0) {
-                    // At least one document with name exists.
-                    throw new Error('Document with the name, ' + docToCreate.name + ', already exists: ' + JSON.stringify(results[0]));
-                } else if (responseOptions.continuation) {
-                    // Else if the query came back empty, but with a continuation token; repeat the query w/ the token.
-                    // This is highly unlikely; but is included to serve as an example for larger queries.
-                    lookForDuplicates(responseOptions.continuation);
-                } else {
-                    // Success, no duplicates found! Do nothing.
-                }
-            }
-        );
-
-        // If we hit execution bounds - throw an exception.
-        // This is highly unlikely; but is included to serve as an example for more complex operations.
-        if (!isAccepted) {
-            throw new Error('Timeout querying for document with duplicate name.');
-        }
-    }
-}
+// NOTE: the sample `uniqueConstraint` trigger (https://github.com/Azure/azure-documentdb-js-server/blob/master/samples/triggers/uniqueConstraint.js) does not currently work, because it appears to use a method that does not exist on `Request`, and also appears to throw an invalid Error object. See https://github.com/Azure/azure-documentdb-js-server/issues/22 and https://github.com/Azure/azure-documentdb-js-server/issues/23 to track these issues.

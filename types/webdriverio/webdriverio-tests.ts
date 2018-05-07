@@ -1,7 +1,10 @@
-/// <reference types="mocha" />
-
 import * as webdriverio from "webdriverio";
 import { assert } from "chai";
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 describe("webdriver.io page", () => {
     it("should have the right title - the good old callback way", () => {
@@ -26,7 +29,7 @@ describe.only("my webdriverio tests", () => {
     let client: webdriverio.Client<void>;
 
     before(async () => {
-        client = webdriverio.remote({ desiredCapabilities: { browserName: "phantomjs" } });
+        client = webdriverio.remote({ deprecationWarnings: true, desiredCapabilities: { browserName: "phantomjs" } });
         await client.init();
     });
 
@@ -99,7 +102,7 @@ webdriverio
     .init()
     .url("https://news.ycombinator.com/")
     .selectorExecute("//div", (inputs: HTMLElement[], message: string) => {
-        return inputs.length + " " + message;
+        return `${inputs.length} ${message}`;
     }, "divs on the page")
     .then((res: string) => {
         console.log(res);

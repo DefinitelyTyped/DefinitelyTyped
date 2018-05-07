@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
 import events2 = require("events");
@@ -27,7 +27,7 @@ import * as repl from "repl";
 import * as dns from "dns";
 
 // Specifically test buffer module regression.
-import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -60,6 +60,8 @@ namespace assert_tests {
         }, undefined, "What the...*crunch*");
 
         assert.equal(3, "3", "uses == comparator");
+
+        assert.fail("actual", "expected", "message");
 
         assert.fail(1, 2, undefined, '>');
 
@@ -168,20 +170,71 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
         var content: string;
         var buffer: Buffer;
+        var stringOrBuffer: string | Buffer;
+        var nullEncoding: string | null = null;
+        var stringEncoding: string | null = 'utf8';
 
         content = fs.readFileSync('testfile', 'utf8');
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
+        stringOrBuffer = fs.readFileSync('testfile', stringEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: stringEncoding });
+
         buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', null);
+        buffer = fs.readFileSync('testfile', { encoding: null });
+        stringOrBuffer = fs.readFileSync('testfile', nullEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: nullEncoding });
+
         buffer = fs.readFileSync('testfile', { flag: 'r' });
+
         fs.readFile('testfile', 'utf8', (err, data) => content = data);
         fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+        fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', null, (err, data) => buffer = data);
+        fs.readFile('testfile', { encoding: null }, (err, data) => buffer = data);
+        fs.readFile('testfile', nullEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
+    }
+
+    {
+        fs.readdir('foo', (err: any, files: string[]) => {})
+        fs.readdir('foo', 'utf8', (err: any, files: string[]) => {});
+        fs.readdir('foo', {encoding: 'utf8'}, (err: any, files: string[]) => {});
+        fs.readdir('foo', 'buffer', (err: any, files: Buffer[]) => {});
+        fs.readdir('foo', {encoding: 'buffer'}, (err: any, files: Buffer[]) => {});
+
+        let fsStringOut: string[] = fs.readdirSync('utf8');
+        fsStringOut = fs.readdirSync('foo', 'utf8');
+        fsStringOut = fs.readdirSync('foo', {encoding: 'utf8'});
+
+        let fsBufferOut: Buffer[] = fs.readdirSync('utf8', 'buffer');
+        fsBufferOut = fs.readdirSync('foo', {encoding: 'buffer'});
+
+        let enc = 'buffer';
+        fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
     }
 
     {
@@ -268,9 +321,19 @@ function bufferTests() {
         buf.swap64();
     }
 
-    // Class Method: Buffer.from(array)
+    // Class Method: Buffer.from(data)
     {
-        const buf: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Array
+        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Buffer
+        const buf2: Buffer = Buffer.from(buf1);
+        // String
+        const buf3: Buffer = Buffer.from('this is a tést');
+        // ArrayBuffer
+        const arr: Uint16Array = new Uint16Array(2);
+        arr[0] = 5000;
+        arr[1] = 4000;
+        const buf4: Buffer = Buffer.from(arr.buffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -280,21 +343,28 @@ function bufferTests() {
         arr[1] = 4000;
 
         let buf: Buffer;
-        buf = Buffer.from(arr.buffer);
         buf = Buffer.from(arr.buffer, 1);
         buf = Buffer.from(arr.buffer, 0, 1);
     }
 
-    // Class Method: Buffer.from(buffer)
-    {
-        const buf1: Buffer = Buffer.from('buffer');
-        const buf2: Buffer = Buffer.from(buf1);
-    }
-
     // Class Method: Buffer.from(str[, encoding])
     {
-        const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    }
+
+    // Class Method: Buffer.alloc(size[, fill[, encoding]])
+    {
+        const buf1: Buffer = Buffer.alloc(5);
+        const buf2: Buffer = Buffer.alloc(5, 'a');
+        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    }
+    // Class Method: Buffer.allocUnsafe(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafe(5);
+    }
+    // Class Method: Buffer.allocUnsafeSlow(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafeSlow(10);
     }
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
@@ -407,6 +477,8 @@ namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
 
+        url.format('http://www.example.com/xyz');
+
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
@@ -446,7 +518,13 @@ namespace util_tests {
           showProxy: true,
           maxArrayLength: null,
           breakLength: Infinity
-        })
+        });
+        // util.deprecate
+        const foo = () => {};
+        // $ExpectType () => void
+        util.deprecate(foo, 'foo() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
     }
 }
 
@@ -878,16 +956,39 @@ namespace http_tests {
     }
 
     {
+        http.request('http://www.example.com/xyz');
+    }
+
+    {
         // Make sure .listen() and .close() retuern a Server instance
         http.createServer().listen(0).close().address();
         net.createServer().listen(0).close().address();
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
+    }
+
+    // http request options
+    {
+        const requestOpts: http.RequestOptions = {
+            timeout: 30000
+        };
+
+        const clientArgs: http.ClientRequestArgs = {
+            timeout: 30000
+        };
+    }
+
+    // http headers
+    {
+        const headers: http.IncomingHttpHeaders = {
+            'content-type': 'application/json',
+            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        };
     }
 }
 
@@ -915,6 +1016,10 @@ namespace https_tests {
     https.request({
         agent: undefined
     });
+
+    https.request('http://www.example.com/xyz');
+
+    https.globalAgent.options.ca = [];
 }
 
 ////////////////////////////////////////////////////
@@ -1201,6 +1306,47 @@ namespace path_tests {
     });
     // returns
     //    '/home/user/dir/file.txt'
+
+
+    path.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        root: "/",
+        dir: "/home/user/dir",
+        base: "file.txt",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.win32.format({
+        root: "C:\\",
+        dir: "C:\\home\\user\\dir",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
+
+    path.win32.format({
+        dir: "C:\\home\\user\\dir",
+        base: "file.txt"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
 }
 
 ////////////////////////////////////////////////////
@@ -1762,6 +1908,26 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -1834,7 +2000,12 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket;
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
 
         let bool: boolean;
         let buffer: Buffer;
@@ -2321,3 +2492,19 @@ client.connect(8888, 'localhost');
 client.listbreakpoints((err, body, packet) => {
 
 });
+
+////////////////////////////////////////////////////
+/// zlib tests : http://nodejs.org/api/zlib.html ///
+////////////////////////////////////////////////////
+
+namespace zlib_tests {
+    {
+        const gzipped = zlib.gzipSync('test');
+        const unzipped = zlib.gunzipSync(gzipped.toString());
+    }
+
+    {
+        const deflate = zlib.deflateSync('test');
+        const inflate = zlib.inflateSync(deflate.toString());
+    }
+}

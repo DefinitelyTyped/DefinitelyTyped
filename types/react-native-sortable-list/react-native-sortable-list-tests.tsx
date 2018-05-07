@@ -12,7 +12,7 @@ import {
     TextStyle,
     ImageStyle,
 } from 'react-native';
-import SortableList, {RowProps} from 'react-native-sortable-list';
+import SortableList, {RowProps } from 'react-native-sortable-list';
 
 const window = Dimensions.get('window');
 
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 
 });
 
-class Basic extends React.Component<void, void> {
+class Basic extends React.Component {
     render() {
         return (
             <View style={styles.container}>

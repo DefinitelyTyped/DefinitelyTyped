@@ -1,14 +1,12 @@
-
 import * as React from 'react';
-import {Component, PropTypes} from 'react';
-import {createStore, combineReducers} from 'redux';
-import {reduxForm, reducer as reduxFormReducer, ReduxFormProps} from 'redux-form';
-
+import * as PropTypes from 'prop-types';
+import { createStore, combineReducers } from 'redux';
+import { reduxForm, reducer as reduxFormReducer, ReduxFormProps } from 'redux-form';
 
 namespace SimpleForm {
   export const fields = ['firstName', 'lastName', 'email', 'sex', 'favoriteColor', 'employed', 'notes'];
 
-  class SimpleForm extends Component<ReduxFormProps<SimpleForm & HTMLFormElement>, void> {
+  class SimpleForm extends React.Component<ReduxFormProps<SimpleForm & HTMLFormElement>> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -97,12 +95,11 @@ namespace SimpleForm {
   })(SimpleForm);
 }
 
-
 namespace SynchronousValidation {
   export const fields = ['username', 'email', 'age'];
 
-  const validate = (values:any) => {
-    const errors:any = {};
+  const validate = (values: any) => {
+    const errors: any = {};
     if (!values.username) {
       errors.username = 'Required';
     } else if (values.username.length > 15) {
@@ -123,7 +120,7 @@ namespace SynchronousValidation {
     return errors;
   };
 
-  class SynchronousValidationForm extends Component<ReduxFormProps<SynchronousValidationForm & HTMLFormElement>, any> {
+  class SynchronousValidationForm extends React.Component<ReduxFormProps<SynchronousValidationForm & HTMLFormElement>> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -175,11 +172,10 @@ namespace SynchronousValidation {
   })(SynchronousValidationForm);
 }
 
-
 namespace SumbitValidation {
   export const fields = ['username', 'password'];
 
-  const submit = (values:any, dispatch:any) => {
+  const submit = (values: any, dispatch: any) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (['john', 'paul', 'george', 'ringo'].indexOf(values.username) === -1) {
@@ -193,7 +189,7 @@ namespace SumbitValidation {
     });
   };
 
-  class SubmitValidationForm extends Component<ReduxFormProps<SubmitValidationForm>, any> {
+  class SubmitValidationForm extends React.Component<ReduxFormProps<SubmitValidationForm>> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -239,10 +235,9 @@ namespace SumbitValidation {
   })(SubmitValidationForm);
 }
 
-
 namespace InitializingFromState {
   const LOAD = 'redux-form-examples/account/LOAD';
-  const loadAccount = (data:any) => ({type: LOAD, data});
+  const loadAccount = (data: any) => ({type: LOAD, data});
   export const fields = ['firstName', 'lastName', 'age', 'bio'];
   const data = {  // used to populate "account" reducer when "Load" is clicked
     firstName: 'John',
@@ -252,10 +247,10 @@ namespace InitializingFromState {
   };
 
   interface Props<T> extends ReduxFormProps<T> {
-    load: Function;
+    load(data: any): void;
   }
 
-  class InitializingFromStateForm extends Component<Props<InitializingFromStateForm & HTMLFormElement>, any> {
+  class InitializingFromStateForm extends React.Component<Props<InitializingFromStateForm & HTMLFormElement>> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -310,13 +305,12 @@ namespace InitializingFromState {
       form: 'initializing',
       fields
     },
-    (state:any) => ({ // mapStateToProps
+    (state: any) => ({ // mapStateToProps
       initialValues: state.account.data // will pull state into form's initialValues
     }),
     {load: loadAccount}      // mapDispatchToProps (will bind action creator to dispatch)
   )(InitializingFromStateForm);
 }
-
 
 namespace NormalizingFormData {
   const reducer = combineReducers({

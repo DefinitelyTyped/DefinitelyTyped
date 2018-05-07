@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDataGrid from 'react-data-grid';
+import ReactDataGrid = require('react-data-grid');
 import * as ReactDataGridPlugins from 'react-data-grid-addons';
 import faker = require('faker');
 
@@ -249,6 +249,13 @@ class Example extends React.Component<any, any> {
         this.setState({rows: rows});
     }
 
+    onRowExpandToggle = ({ columnGroupName, name, shouldExpand }:ReactDataGrid.OnRowExpandToggle ) => {
+        let expandedRows = Object.assign({}, this.state.expandedRows);
+        expandedRows[columnGroupName] = Object.assign({}, expandedRows[columnGroupName]);
+        expandedRows[columnGroupName][name] = {isExpanded: shouldExpand};
+        this.setState({expandedRows: expandedRows});
+    }
+
     onRowClick(rowIdx:number, row: Object) {
         // Do nothing, just test that it accepts an event
     }
@@ -300,10 +307,12 @@ class Example extends React.Component<any, any> {
             <ReactDataGrid
                 ref='grid'
                 enableCellSelect={true}
+                enableDragAndDrop={true}
                 columns={this.getColumns()}
                 rowGetter={this.getRowAt}
                 rowsCount={this.getSize()}
                 onGridRowsUpdated={this.handleGridRowsUpdated}
+                onRowExpandToggle={this.onRowExpandToggle}
                 toolbar={<Toolbar onAddRow={this.handleAddRow}/>}
                 enableRowSelect={true}
                 rowHeight={50}

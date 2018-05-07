@@ -23,115 +23,79 @@ declare namespace later {
     }
 
     interface Recurrence {
-        /** Time in seconds from midnight.
-         */
+        /** Time in seconds from midnight. */
         t?: number[];
-        /** Seconds in minute.
-         */
+        /** Seconds in minute. */
         s?: number[];
-        /** Minutes in hour.
-         */
+        /** Minutes in hour. */
         m?: number[];
-        /** Hour in day.
-         */
+        /** Hour in day. */
         h?: number[];
-        /** Day of the month.
-         */
+        /** Day of the month. */
         D?: number[];
-        /** Day in week.
-         */
+        /** Day in week. */
         dw?: number[];
-        /** Nth day of the week in month.
-         */
+        /** Nth day of the week in month. */
         dc?: number[];
-        /** Day in year.
-         */
+        /** Day in year. */
         dy?: number[];
-        /** Week in month.
-         */
+        /** Week in month. */
         wm?: number[];
-        /** ISO week in year.
-         */
+        /** ISO week in year. */
         wy?: number[];
-        /** Month in year.
-         */
+        /** Month in year. */
         M?: number[];
-        /** Year.
-         */
+        /** Year. */
         Y?: number[];
 
-        /** After modifiers.
-         */
+        /** After modifiers. */
         t_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         s_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         m_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         h_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         D_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         dw_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         dc_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         dy_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         wm_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         wy_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         M_a?: number[];
-        /** After modifiers.
-         */
+        /** After modifiers. */
         Y_a?: number[];
 
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         t_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         s_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         m_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         h_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         D_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         dw_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         dc_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         dy_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         wm_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         wy_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         M_b?: number[];
-        /** Before modifiers.
-         */
+        /** Before modifiers. */
         Y_b?: number[];
 
         /*
@@ -151,15 +115,15 @@ declare namespace later {
         /**
          * Create schedule data by parsing a cron string
          *
-         * @param {string} [input] - A string value to parse.
-         * @param {boolean} [hasSeconds] - Whether the cron expression has second part.
+         * @param [input] - A string value to parse.
+         * @param [hasSeconds] - Whether the cron expression has second part.
          */
         cron(input?: string, hasSeconds?: boolean): ScheduleData;
 
         /**
          * Create schedule data by paring a human readable string.
          *
-         * @param {string} [input] - A string value to parse.
+         * @param [input] - A string value to parse.
          */
         text(input?: string): ScheduleData;
     }
@@ -178,9 +142,9 @@ declare namespace later {
          * Date.now() by default, end date is unspecified. Start date must be
          * smaller than end date.
          *
-         * @param {number} numberOfInst: The number of instances to return
-         * @param {Date} dateFrom: The earliest a valid instance can occur
-         * @param {Date} dateTo: The latest a valid instance can occur
+         * @param numberOfInst: The number of instances to return
+         * @param dateFrom: The earliest a valid instance can occur
+         * @param dateTo: The latest a valid instance can occur
          */
         next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
 
@@ -190,9 +154,9 @@ declare namespace later {
          * Date.now() by default, end date is unspecified. Start date must be
          * greater than end date.
          *
-         * @param {number} numberOfInst: The number of ranges to return
-         * @param {Date} dateFrom: The earliest a valid range can occur
-         * @param {Date} dateTo: The latest a valid range can occur
+         * @param numberOfInst: The number of ranges to return
+         * @param dateFrom: The earliest a valid range can occur
+         * @param dateTo: The latest a valid range can occur
          */
         nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
 
@@ -202,9 +166,9 @@ declare namespace later {
          * Date.now() by default, end date is unspecified. Start date must be
          * greater than end date.
          *
-         * @param {number} numberOfInst: The number of instances to return
-         * @param {Date} dateFrom: The earliest a valid instance can occur
-         * @param {Date} dateTo: The latest a valid instance can occur
+         * @param numberOfInst: The number of instances to return
+         * @param dateFrom: The earliest a valid instance can occur
+         * @param dateTo: The latest a valid instance can occur
          */
         prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
 
@@ -214,59 +178,46 @@ declare namespace later {
          * Date.now() by default, end date is unspecified. Start date must be
          * greater than end date.
          *
-         * @param {number} numberOfInst: The number of ranges to return
-         * @param {Date} dateFrom: The earliest a valid range can occur
-         * @param {Date} dateTo: The latest a valid range can occur
+         * @param numberOfInst: The number of ranges to return
+         * @param dateFrom: The earliest a valid range can occur
+         * @param dateTo: The latest a valid range can occur
          */
         prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
     }
 
     interface RecurrenceBuilder extends ScheduleData {
-        /** a time period
-         */
+        /** a time period */
         second(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         minute(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         hour(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         time(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         dayOfWeek(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         dayOfWeekCount(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         dayOfMonth(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         dayOfYear(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         weekOfMonth(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         weekOfYear(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         month(): RecurrenceBuilder;
-        /** a time period
-         */
+        /** a time period */
         year(): RecurrenceBuilder;
 
-        /** a time period
-         */
+        /** a time period */
         fullDate(): RecurrenceBuilder;
         /**
          * Specifies one or more specific vals of a time period information provider.
          * When used to specify a time, a string indicating the 24-hour time may be used.
          *
-         * @param {number[]} values - A list of values.
+         * @param values - A list of values.
          */
         on(...values: number[]): RecurrenceBuilder;
         /**
@@ -287,15 +238,15 @@ declare namespace later {
         /**
          * Preceed a time period.
          *
-         * @param {number} start - A number representing your start value.
-         * @param {number} end - A number representing your end value.
+         * @param start - A number representing your start value.
+         * @param end - A number representing your end value.
          */
         between(start: number, end: number): RecurrenceBuilder;
         /**
          * Preceed a time period.
          *
-         * @param {string} start - A string representing your start value.
-         * @param {string} end - A string representing your end value.
+         * @param start - A string representing your start value.
+         * @param end - A string representing your end value.
          */
         between(start: string, end: string): RecurrenceBuilder;
 
@@ -378,12 +329,12 @@ declare namespace later {
          * Builds and returns a new Date using the specified values.  Date
          * returned is either using Local time or UTC based on isLocal.
          *
-         * @param {number} [Y]: Four digit year
-         * @param {number} [M]: Month between 1 and 12, defaults to 1
-         * @param {number} [D]: Date between 1 and 31, defaults to 1
-         * @param {number} [h]: Hour between 0 and 23, defaults to 0
-         * @param {number} [m]: Minute between 0 and 59, defaults to 0
-         * @param {number} [s]: Second between 0 and 59, defaults to 0
+         * @param [Y]: Four digit year
+         * @param [M]: Month between 1 and 12, defaults to 1
+         * @param [D]: Date between 1 and 31, defaults to 1
+         * @param [h]: Hour between 0 and 23, defaults to 0
+         * @param [m]: Minute between 0 and 59, defaults to 0
+         * @param [s]: Second between 0 and 59, defaults to 0
          */
         next(Y?: number, M?: number, D?: number, h?: number, m?: number, s?: number): Date;
 
@@ -391,12 +342,12 @@ declare namespace later {
          * Builds and returns a new Date using the specified values.  Date
          * returned is either using Local time or UTC based on isLocal.
          *
-         * @param {number} [Y]: Four digit year
-         * @param {number} [M]: Month between 0 and 11, defaults to 11
-         * @param {number} [D]: Date between 1 and 31, defaults to last day of month
-         * @param {number} [h]: Hour between 0 and 23, defaults to 23
-         * @param {number} [m]: Minute between 0 and 59, defaults to 59
-         * @param {number} [s]: Second between 0 and 59, defaults to 59
+         * @param [Y]: Four digit year
+         * @param [M]: Month between 0 and 11, defaults to 11
+         * @param [D]: Date between 1 and 31, defaults to last day of month
+         * @param [h]: Hour between 0 and 23, defaults to 23
+         * @param [m]: Minute between 0 and 59, defaults to 59
+         * @param [s]: Second between 0 and 59, defaults to 59
          */
         prev(Y?: number, M?: number, D?: number, h?: number, m?: number, s?: number): Date;
 
@@ -405,10 +356,10 @@ declare namespace later {
          * next largest time period. Used primarily when a constraint has a
          * variable extent.
          *
-         * @param {Date} d: Date
-         * @param {number} val: Value
-         * @param {IModifier} constraint: A modifier
-         * @param {ITimePeriod} period: A time period
+         * @param d: Date
+         * @param val: Value
+         * @param constraint: A modifier
+         * @param period: A time period
          */
         nextRollover(d: Date, val: number, constraint: Modifier, period: TimePeriod): Date;
 
@@ -417,10 +368,10 @@ declare namespace later {
          * previous largest time period. Used primarily when a constraint has a
          * variable extent.
          *
-         * @param {Date} d: Date
-         * @param {number} val: Value
-         * @param {IModifier} constraint: A modifier
-         * @param {ITimePeriod} period: A time period
+         * @param d: Date
+         * @param val: Value
+         * @param constraint: A modifier
+         * @param period: A time period
          */
         prevRollover(d: Date, val: number, constraint: Modifier, period: TimePeriod): Date;
     }
@@ -439,15 +390,15 @@ declare namespace later {
         /**
          * The value of this time period for the date specified.
          *
-         * @param {Date} date - The given date.
+         * @param date - The given date.
          */
         val(date: Date): number;
 
         /**
          * True if the specified value is valid for the specified date, false otherwise.
          *
-         * @param {Date} date - The given date.
-         * @param {any} value - The value to test for the date.
+         * @param date - The given date.
+         * @param value - The value to test for the date.
          */
         isValid(date: Date, value: any): boolean;
 
@@ -456,7 +407,7 @@ declare namespace later {
          * If the minimum value is not 0, 0 can be specified in schedules to indicate the maximum value.
          * This makes working with non - constant extents(like days in a month) easier.
          *
-         * @param {Date} [date] - The given date.
+         * @param [date] - The given date.
          */
         extent(date?: Date): number[];
 
@@ -464,7 +415,7 @@ declare namespace later {
          * The first second in which the value is the same as the value of the specified date.
          *  For example, the start of an hour would be the hour with 0 minutes and 0 seconds.
          *
-         * @param {Date} date - The given date.
+         * @param date - The given date.
          */
         start(date: Date): Date;
 
@@ -472,7 +423,7 @@ declare namespace later {
          * The last second in which the value is the same as the value of the specified date.
          * For example, the end of an hour would be the hour with 59 minutes and 59 seconds.
          *
-         * @param {Date} date - The given date.
+         * @param date - The given date.
          */
         end(date: Date): Date;
 
@@ -480,8 +431,8 @@ declare namespace later {
          * Returns the next date where the value is the value specified.
          * Sets the value to 1 if value specified is greater than the max allowed value.
          *
-         * @param {Date} date - The given date.
-         * @param {any} value - The value to test for the date.
+         * @param date - The given date.
+         * @param value - The value to test for the date.
          */
         next(date: Date, value: any): Date;
 
@@ -489,8 +440,8 @@ declare namespace later {
          * Returns the previous date where the value is the value specified.
          * Sets the value to the max allowed value if the value specified is greater than the max allowed value.
          *
-         * @param {Date} date - The given date.
-         * @param {any} value - The value to test for the date.
+         * @param date - The given date.
+         * @param value - The value to test for the date.
          */
         prev(date: Date, value: any): Date;
     }
@@ -499,8 +450,8 @@ declare namespace later {
         /**
          * Creates a new modified constraint.
          *
-         * @param {ITimePeriod} constraint: The constraint to be modified
-         * @param {number} value: The starting value of the after constraint
+         * @param constraint: The constraint to be modified
+         * @param value: The starting value of the after constraint
          */
         (constraint: TimePeriod, value: number): TimePeriod;
     }
@@ -530,22 +481,21 @@ declare namespace later {
          */
         parse: ParseStatic;
 
-        /** Date Provider
-         */
+        /** Date Provider */
         date: DateProvider;
 
         /**
          * Set timeout on window using given recurrence next.
          *
-         * @param {function} callback - A callback called after first instance of recurrence pattern.
-         * @param {Later.IReccurence} - A recurrence instance.
+         * @param callback - A callback called after first instance of recurrence pattern.
+         * @param - A recurrence instance.
          */
         setTimeout(callback: () => void, time: ScheduleData): Timer;
         /**
          * Set interval on window using given recurrence
          *
-         * @param {function} callback - A callback called after each instance of recurrence pattern.
-         * @param {Later.IReccurence} - A recurrence instance.
+         * @param callback - A callback called after each instance of recurrence pattern.
+         * @param - A recurrence instance.
          */
         setInterval(callback: () => void, time: ScheduleData): Timer;
 

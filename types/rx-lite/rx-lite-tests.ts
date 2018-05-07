@@ -124,7 +124,7 @@ function test_publish() {
 	function createObserver(tag: string) {
 		return Rx.Observer.create(
 			x => {
-				console.log('Next: ' + tag + x);
+				console.log(`Next: ${tag}${x}`);
 			},
 			err => {
 				console.log('Error: ' + err);

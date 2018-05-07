@@ -1,13 +1,16 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface CardImgProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   top?: boolean;
   bottom?: boolean;
   className?: string;
+  cssModule?: CSSModule;
   src?: string;
   width?: string;
   height?: string;
   alt?: string;
 }
 
-declare var CardImg: React.StatelessComponent<Props>;
+declare const CardImg: React.StatelessComponent<CardImgProps>;
 export default CardImg;

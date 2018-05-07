@@ -2,6 +2,7 @@
 // Project: http://glad.github.com/glDatePicker/
 // Definitions by: Dániel Tar <https://github.com/qcz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

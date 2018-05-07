@@ -1,7 +1,9 @@
-// Type definitions for simple-oauth2 1.0
+// Type definitions for simple-oauth2 1.1
 // Project: https://github.com/lelylan/simple-oauth2
-// Definitions by: [Michael Müller] <https://github.com/mad-mike>
+// Definitions by: Michael Müller <https://github.com/mad-mike>,
+//                 Troy Lamerton <https://github.com/troy-lamerton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import Bluebird = require("bluebird");
 
@@ -43,8 +45,12 @@ export interface ModuleOptions {
 
 export type TokenType = "access_token" | "refresh_token";
 
+export interface Token {
+    [x: string]: any;
+}
+
 export interface AccessToken {
-    token: {};
+    token: Token;
 
     /** Check if the access token is expired or not */
     expired(): boolean;
@@ -55,13 +61,11 @@ export interface AccessToken {
     revoke(tokenType: TokenType, callback?: (error: any) => void): Bluebird<void>;
 }
 
-export interface Token {
-    [x: string]: any;
-}
 export type AuthorizationCode = string;
 export interface AuthorizationTokenConfig {
     code: AuthorizationCode;
     redirect_uri: string;
+    scope?: string | string[];
 }
 
 export interface PasswordTokenConfig {
@@ -69,27 +73,27 @@ export interface PasswordTokenConfig {
     username: string;
     /** A string that represents the registered password. */
     password: string;
-    /** A string that represents the application privileges */
-    scope: string;
+    /** A string or array of strings that represents the application privileges */
+    scope: string | string[];
 }
 
 export interface ClientCredentialTokenConfig {
     /** A string that represents the application privileges */
-    scope?: string;
+    scope?: string | string[];
 }
 
 export interface OAuthClient {
     authorizationCode: {
         /**
          * Redirect the user to the autorization page
-         * @return {string} the absolute authorization url
+         * @return the absolute authorization url
          */
         authorizeURL(params?: {
             /** A string that represents the registered application URI where the user is redirected after authentication */
             redirect_uri?: string,
-            /** A String that represents the application privileges */
-            scope?: string,
-            /** A String that represents an option opaque value used by the client to main the state between the request and the callback */
+            /** A string or array of strings that represents the application privileges */
+            scope?: string | string[],
+            /** A string that represents an option opaque value used by the client to main the state between the request and the callback */
             state?: string
         }): string,
 

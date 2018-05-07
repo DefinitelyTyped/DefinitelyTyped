@@ -1,6 +1,6 @@
 // Type definitions for PhantomJS bridge for NodeJS 3.2
 // Project: https://github.com/sgentle/phantomjs-node
-// Definitions by: horiuchi <https://github.com/horiuchi/>, Random <https://github.com/llRandom/>
+// Definitions by: horiuchi <https://github.com/horiuchi>, Random <https://github.com/llRandom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function create(args?: string[]): Promise<PhantomJS>;
@@ -12,6 +12,7 @@ export interface PhantomJS {
 
 export interface WebPage {
     open(url: string): Promise<string>;
+    open(url: string, settings: IOpenWebPageSettings): Promise<string>;
     close(): Promise<void>;
 
     evaluate<R>(callback: () => R): Promise<R>;
@@ -34,6 +35,7 @@ export interface WebPage {
     property<T>(key: string, value: T): Promise<void>;
 
     setting<T>(key: string): Promise<T>;
+    setting<T>(key: string, value: T): Promise<T>;
 
     addCookie(cookie: ICookie): Promise<boolean>;
     deleteCookie(cookieName: string): Promise<boolean>;
@@ -56,4 +58,11 @@ export interface IPaperSizeOptions {
     format?: string;
     orientation?: string;
     margin?: any; // string | { top?: string; left?: string; bottom?: string; right?: string;  }
+}
+
+export interface IOpenWebPageSettings {
+    operation?: string;
+    encoding?: string;
+    headers?: { [s: string]: string };
+    data?: string;
 }

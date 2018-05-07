@@ -1,4 +1,11 @@
-/// <reference types="node" />
+// TODO: Avoid requiring things that don't exist.
+declare var require: {
+    (s: string): any;
+    requireActual(s: string): any;
+    requireMock(s: string): any;
+};
+// TODO: use real jquery types?
+declare var $: any;
 
 // Tests based on the Jest website
 jest.unmock('../sum');
@@ -176,7 +183,7 @@ describe('missing tests', function () {
        class Closure<T> {
            private arg: T;
 
-           public constructor(private fn: (arg: T) => void) {
+           public constructor(private readonly fn: (arg: T) => void) {
                this.fn = fn;
            }
 

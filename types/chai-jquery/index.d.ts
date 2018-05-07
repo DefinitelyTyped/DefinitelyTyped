@@ -1,7 +1,8 @@
 // Type definitions for chai-jquery 1.1.1
 // Project: https://github.com/chaijs/chai-jquery
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
+// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="chai" />
 /// <reference types="jquery" />
@@ -9,21 +10,25 @@
 declare namespace Chai {
 
     interface Assertion {
-        attr: (name: string, value?: string) => Assertion;
-        prop: (name: string, value?: any) => Assertion;
-        css: (name: string, value?: string) => Assertion;
-        data: (name: string, value?: string) => Assertion;
+        attr(name: string, value?: string): Assertion;
+        prop(name: string, value?: any): Assertion;
+        css(name: string, value?: string): Assertion;
+        data(name: string, value?: string): Assertion;
         class(className: string): Assertion;
         id(id: string): Assertion;
         html(html: string): Assertion;
         text(text: string): Assertion;
         value(text: string): Assertion;
         descendants(selector: string): Assertion;
-        visible: Assertion;
-        hidden: Assertion;
-        selected: Assertion;
-        checked: Assertion;
-        disabled: Assertion;
+        visible(): Assertion;
+        hidden(): Assertion;
+        selected(): Assertion;
+        checked(): Assertion;
+        disabled(): Assertion;
+        (selector: string): Assertion;
+    }
+
+    interface Match {
         (selector: string): Assertion;
     }
 }

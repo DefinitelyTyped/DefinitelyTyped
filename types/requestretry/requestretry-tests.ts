@@ -73,3 +73,15 @@ request({
 }, (err, response, body) => {
 	// Body.
 });
+
+// Define options
+const options: request.RequestRetryOptions = {
+	maxAttempts: 2,
+	promiseFactory: (resolver: any) => {
+		return new Promise(resolver);
+	},
+	retryDelay: 4,
+	retryStrategy: (err: Error, response: http.IncomingMessage, body: any) => {
+		return true;
+	},
+};

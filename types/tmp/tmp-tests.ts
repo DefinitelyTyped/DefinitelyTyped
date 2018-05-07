@@ -64,4 +64,4 @@ tmpobj = tmp.dirSync({ mode: 750, prefix: 'myTmpDir_' });
 console.log("Dir: ", tmpobj.name);
 
 const tmpname  = tmp.tmpNameSync({ template: '/tmp/tmp-XXXXXX' });
-console.log("Created temporary filename: ", tmpname );
+console.log("Created temporary filename: ", tmpname);

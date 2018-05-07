@@ -1,7 +1,8 @@
 // Type definitions for typeahead.js 0.11.1
 // Project: http://twitter.github.io/typeahead.js/
-// Definitions by: Ivaylo Gochkov <https://github.com/igochkov/>, Gidon Junge <https://github.com/gjunge/>
+// Definitions by: Ivaylo Gochkov <https://github.com/igochkov>, Gidon Junge <https://github.com/gjunge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -1100,14 +1101,16 @@ declare namespace Bloodhound {
 
     interface ObjTokenizer {
         /**
-         * Split a given string on whitespace characters.
+         * Split the string content of the given object attribute(s) on
+         * whitespace characters.
          */
-        whitespace(str: string): string[];
+        whitespace(key: string | string[]): (obj: any) => string[];
 
         /**
-         * Split a given string on non-word characters.
+         * Split the string content of the given object attribute(s) on non-word
+         * characters.
          */
-        nonword(str: string): string[];
+        nonword(key: string | string[]): (obj: any) => string[];
     }
 }
 
@@ -1183,7 +1186,7 @@ declare class Bloodhound<T> {
      * @param async Async callback.
      * @returns The data that matches query.
      */
-    public search(query: string, sync: (datums: T[]) => void, async: (datums: T[]) => void): T[];
+    public search(query: string, sync: (datums: T[]) => void, async?: (datums: T[]) => void): T[];
 
     /**
      * Returns all items from the internal search index.

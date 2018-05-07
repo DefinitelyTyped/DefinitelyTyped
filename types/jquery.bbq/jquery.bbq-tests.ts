@@ -1,5 +1,7 @@
 /// <reference types="qunit/v1" />
 
+import $ = require('jquery');
+
 // ************** Tests to jquery JQueryParam interface
 var myObject = {
   a: {

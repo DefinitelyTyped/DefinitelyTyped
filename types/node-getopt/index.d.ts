@@ -122,7 +122,7 @@ declare class Getopt {
      * equals new Getopt(options)
      * @param options
      */
-    static create(options: string[]): Getopt;
+    static create(options: string[][]): Getopt;
 }
 
 export = Getopt;

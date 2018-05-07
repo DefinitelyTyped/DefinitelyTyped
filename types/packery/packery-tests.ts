@@ -1,5 +1,4 @@
 import { Packery, PackeryOptions } from 'packery';
-import * as $ from 'jquery';
 
 // TODO Add Draggabilly to bind Draggabilly Events
 var container = document.querySelector('#container');
