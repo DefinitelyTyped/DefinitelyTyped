@@ -100,6 +100,12 @@ cString = cHcl.hex();
 console.log('Channels = (h : %d, c: %d, l: %d)', cHcl.h, cHcl.c, cHcl.l);
 console.log('Opacity = %d', cHcl.opacity);
 
+cHcl = d3Color.lch(40, 50, 120);
+cHcl = d3Color.lch(40, 50, 120, 0.5);
+cHcl = d3Color.lch('steelblue');
+cHcl = d3Color.lch('rgba(20, 100, 200, 0.5)');
+cHcl = d3Color.lch(c);
+
 // Signature tests for Cubehelix
 
 let cCubehelix: d3Color.CubehelixColor;
@@ -133,6 +139,8 @@ if (color instanceof d3Color.rgb) {
 } else if (color instanceof d3Color.gray) {
     cLab = color;
 } else if (color instanceof d3Color.hcl) {
+    cHcl = color;
+} else if (color instanceof d3Color.lch) {
     cHcl = color;
 } else if (color instanceof d3Color.cubehelix) {
     cCubehelix = color;

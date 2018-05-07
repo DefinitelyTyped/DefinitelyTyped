@@ -146,6 +146,13 @@ export interface HCLColorFactory extends Function {
     readonly prototype: HCLColor;
 }
 
+export interface LCHColorFactory extends Function {
+    (l: number, c: number, h: number, opacity?: number): HCLColor;
+    (cssColorSpecifier: string): HCLColor;
+    (color: ColorSpaceObject | ColorCommonInstance): HCLColor;
+    readonly prototype: HCLColor;
+}
+
 export interface CubehelixColor extends Color {
     h: number;
     s: number;
@@ -183,5 +190,7 @@ export const lab: LabColorFactory;
 export const gray: GrayColorFactory;
 
 export const hcl: HCLColorFactory;
+
+export const lch: LCHColorFactory;
 
 export const cubehelix: CubehelixColorFactory;
