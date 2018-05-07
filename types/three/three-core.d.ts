@@ -6820,7 +6820,7 @@ export namespace CurveUtils {
 }
 
 export class CatmullRomCurve3 extends Curve<Vector3> {
-    constructor(points?: Vector3[]);
+    constructor(points?: Vector3[], closed?: boolean, curveType?: string, tension?: number);
 
     points: Vector3[];
 
