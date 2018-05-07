@@ -66,12 +66,12 @@ export function resetInternetCredentials(
 export function setGenericPassword(
     username: string,
     password: string,
-    service?: string
+    serviceOrOptions?: Options
 ): Promise<boolean>;
 
 export function getGenericPassword(
-    service?: string
-): Promise<string>;
+    serviceOrOptions?: string | Options
+): Promise<boolean | {service: string, username: string, password: string}>;
 
 export function resetGenericPassword(
     serviceOrOptions?: string | Options
