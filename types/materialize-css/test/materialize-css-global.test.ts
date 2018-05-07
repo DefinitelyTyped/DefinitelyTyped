@@ -1,36 +1,67 @@
-const elem = document.querySelector('.whatever')!;
-// $ExpectType Sidenav
-const sidenav = new M.Sidenav(elem);
+const elem = document.querySelector('.foo')!;
 
-// $ExpectType Tabs
-const tabs = new M.Tabs(elem);
+// $ExpectType void
+M.AutoInit();
+
+// $ExpectType Carousel
+const carousel = M.Carousel.init(elem, {});
+
+// $ExpectType Collapsible
+const collapsible = M.Collapsible.init(elem, {});
+
+// $ExpectType Dropdown
+const dropdown = M.Dropdown.init(elem, {});
+
+// $ExpectType TapTarget
+const tapTarget = M.TapTarget.init(elem, {});
+
+// $ExpectType Materialbox
+const materialbox = M.Materialbox.init(elem, {});
+
+// $ExpectType Slider
+const slider = M.Slider.init(elem, {});
 
 // $ExpectType Modal
-const modal = new M.Modal(elem);
+const modal = M.Modal.init(elem, {});
 
-// $ExpectType Autocomplete
-const autocomplete = new M.Autocomplete(elem);
+// $ExpectType Parallax
+const parallax = M.Parallax.init(elem, {});
 
-// $ExpectType CharacterCounter
-const characterCounter = new M.CharacterCounter(elem);
+// $ExpectType Pushpin
+const pushpin = M.Pushpin.init(elem, {});
 
-// $ExpectType Tooltip
-const tooltips = new M.Tooltip(elem);
+// $ExpectType ScrollSpy
+const scrollSpy = M.ScrollSpy.init(elem, {});
 
-// $ExpectType FloatingActionButton
-const fab = new M.FloatingActionButton(elem);
+// $ExpectType Sidenav
+const sidenav = M.Sidenav.init(elem, {});
+
+// $ExpectType Tabs
+const tabs = M.Tabs.init(elem, {});
 
 // $ExpectType Toast
 const toast = M.toast({ html: 'I am a toast!' });
 
+// $ExpectType Tooltip
+const tooltips = M.Tooltip.init(elem, {});
+
+// $ExpectType FloatingActionButton
+const fab = M.FloatingActionButton.init(elem, {});
+
+// $ExpectType Autocomplete
+const autocomplete = M.Autocomplete.init(elem, {});
+
+// $ExpectType Chips
+const chips = M.Chips.init(elem, {});
+
 // $ExpectType DatePicker
-const datePicker = new M.DatePicker(elem);
+const datePicker = M.DatePicker.init(elem, {});
 
 // $ExpectType TimePicker
-const timePicker = new M.TimePicker(elem);
-
-// $ExpectType Dropdown
-const dropdown = new M.Dropdown(elem);
+const timePicker = M.TimePicker.init(elem, {});
 
 // $ExpectType FormSelect
-const formSelect = new M.FormSelect(elem);
+const formSelect = M.FormSelect.init(elem, {});
+
+// $ExpectType CharacterCounter
+const characterCounter = M.CharacterCounter.init(elem);
