@@ -63,3 +63,13 @@ output = table(
     ],
     { align: ['l', 'r'] }
 );
+
+output = table(
+    [
+        ['true', true],
+        ['false', false],
+        ['foo', 1006],
+        ['bar', {}]
+    ],
+    { align: ['l', 'r'] }
+);

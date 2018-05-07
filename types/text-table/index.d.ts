@@ -1,4 +1,4 @@
-// Type definitions for text-table v 0.2
+// Type definitions for text-table 0.2
 // Project: https://github.com/substack/text-table
 // Definitions by: Saad Quadri <https://github.com/saadq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
  */
 declare function table(
     /** An array of arrays containing strings, numbers, or other printable values. */
-    rows: string[][],
+    rows: Array<Array<{}>>,
 
     /** A configuration object to customize table output. */
     options?: table.Options
