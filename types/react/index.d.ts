@@ -1293,7 +1293,6 @@ declare namespace React {
         rel?: string;
         target?: string;
         type?: string;
-        as?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface
