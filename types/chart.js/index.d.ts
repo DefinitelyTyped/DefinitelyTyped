@@ -10,6 +10,7 @@
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
 //                 Sergey Rubanov <https://github.com/chicoxyzzy>
 //                 Simon Archer <https://github.com/archy-bold>
+//                 Ken Elkabany <https://github.com/braincore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -168,6 +169,7 @@ declare namespace Chart {
         x?: number | string | Date;
         y?: number | string | Date;
         r?: number;
+        t?: number | string | Date;
     }
 
     interface ChartConfiguration {
@@ -422,6 +424,7 @@ declare namespace Chart {
         padding?: number;
         reverse?: boolean;
         showLabelBackdrop?: boolean;
+        source?: 'auto' | 'data' | 'labels';
     }
 
     interface AngleLineOptions {
@@ -529,6 +532,7 @@ declare namespace Chart {
     interface ChartXAxe extends CommonAxe {
         categoryPercentage?: number;
         barPercentage?: number;
+        distribution?: 'linear' | 'series';
         time?: TimeScale;
     }
 
