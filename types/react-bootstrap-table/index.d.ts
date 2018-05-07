@@ -1022,7 +1022,7 @@ export interface Options<TRow extends object = any> {
 	 * The function allows you to make further modifications to the cell value prior to it being saved. You need to
 	 * return the final cell value to use.
 	 */
-	onCellEdit?<K extends keyof TRow>(row: TRow, fieldName: K, value: TRow[K]): TRow[K];
+	onCellEdit?<K extends string & keyof TRow>(row: TRow, fieldName: K, value: TRow[K]): TRow[K];
 	/**
 	 * Custom message to show when the InsertModal save fails validation.
 	 * Default message is 'Form validate errors, please checking!'
@@ -1857,7 +1857,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the navigating cell.
 	 */
-	customStyle?: CSSProperties;
+	customStyle?(cell: any, row: any): CSSProperties;
 	/**
 	 * Set to false to disable click to navigate, usually user wants to click to select row instead of navigation.
 	 */
@@ -1865,7 +1865,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the both of navigating and editing cell.
 	 */
-	customStyleOnEditCell?: CSSProperties;
+	customStyleOnEditCell?(cell: any, row: any): CSSProperties;
 	/**
 	 * When set to true, pressing ENTER will begin to edit the cell if cellEdit is also enabled.
 	 */

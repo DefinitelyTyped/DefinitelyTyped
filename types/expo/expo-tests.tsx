@@ -3,6 +3,10 @@ import { Text } from 'react-native';
 
 import {
     Accelerometer,
+    AdMobAppEvent,
+    AdMobBanner,
+    AdMobInterstitial,
+    AdMobRewarded,
     Amplitude,
     Asset,
     AuthSession,
@@ -26,12 +30,19 @@ import {
     KeepAwake,
     LinearGradient,
     Permissions,
+    PublisherBanner,
     registerRootComponent,
     ScreenOrientation,
     SQLite,
     Calendar,
-    MailComposer
+    MailComposer,
+    Location
 } from 'expo';
+
+const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
+    latitude: 0,
+    longitude: 0
+});
 
 Accelerometer.addListener((obj) => {
     obj.x;
@@ -40,6 +51,41 @@ Accelerometer.addListener((obj) => {
 });
 Accelerometer.removeAllListeners();
 Accelerometer.setUpdateInterval(1000);
+
+() => (
+    <AdMobBanner
+        bannerSize="leaderboard"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        testDeviceID="EMULATOR"
+        didFailToReceiveAdWithError={(error: string) => console.log(error)}
+        style={{ flex: 1 }}
+    />
+);
+
+() => (
+    <PublisherBanner
+        bannerSize="leaderboard"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        testDeviceID="EMULATOR"
+        didFailToReceiveAdWithError={(error: string) => console.log(error)}
+        onAdMobDispatchAppEvent={(event: AdMobAppEvent) => console.log(event)}
+        style={{ flex: 1 }}
+    />
+);
+
+AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
+AdMobInterstitial.setTestDeviceID('EMULATOR');
+async () => {
+    await AdMobInterstitial.requestAdAsync();
+    await AdMobInterstitial.showAdAsync();
+};
+
+AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
+AdMobRewarded.setTestDeviceID('EMULATOR');
+async () => {
+    await AdMobRewarded.requestAdAsync();
+    await AdMobRewarded.showAdAsync();
+};
 
 Amplitude.initialize('key');
 Amplitude.setUserId('userId');
@@ -554,6 +600,8 @@ Permissions.CONTACTS === 'contacts';
 Permissions.NOTIFICATIONS === 'remoteNotifications';
 Permissions.REMOTE_NOTIFICATIONS === 'remoteNotifications';
 Permissions.SYSTEM_BRIGHTNESS === 'systemBrightness';
+Permissions.USER_FACING_NOTIFICATIONS === 'userFacingNotifications';
+Permissions.REMINDERS === 'reminders';
 async () => {
     const result = await Permissions.askAsync(Permissions.CAMERA);
 

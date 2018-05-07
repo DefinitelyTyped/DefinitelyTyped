@@ -252,6 +252,10 @@ request
     .get('http://example.com/search')
     .retry(2)
     .end(callback);
+request
+    .get('http://example.com/search')
+    .retry(2, callback)
+    .end(callback);
 
 (() => {
     const stream = fs.createWriteStream('path/to/my.json');

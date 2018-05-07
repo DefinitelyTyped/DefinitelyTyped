@@ -75,6 +75,9 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
 };
 <StatelessComponentWithoutProps />;
 
+// React.createContext
+const ContextWithRenderProps = React.createContext('defaultValue');
+
 // Fragments
 <div>
     <React.Fragment>
@@ -150,6 +153,26 @@ class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { b
         return this.state.bar;
     }
 }
+<ComponentWithNewLifecycles foo="bar" />;
+
+class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewState, { baz: string }> {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
+        return { bar: `${nextProps.foo}bar` };
+    }
+
+    getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
+        return { baz: `${prevProps.foo}baz` };
+    }
+
+    componentDidUpdate(prevProps: Readonly<NewProps>, prevState: Readonly<NewState>, snapshot: { baz: string }) {
+        return;
+    }
+
+    render() {
+        return this.state.bar;
+    }
+}
+<PureComponentWithNewLifecycles foo="bar" />;
 
 class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', string>> {
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a'|'b'|'c', string>> = () => {

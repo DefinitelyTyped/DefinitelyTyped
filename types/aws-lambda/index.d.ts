@@ -1,4 +1,4 @@
-// Type definitions for AWS Lambda
+// Type definitions for AWS Lambda 8.10
 // Project: http://docs.aws.amazon.com/lambda
 // Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>
 //                 Michael Skarum <https://github.com/skarum>
@@ -17,6 +17,7 @@
 //                 Simon Buchan <https://github.com/simonbuchan>
 //                 David Hayden <https://github.com/Haydabase>
 //                 Chris Redekop <https://github.com/repl-chris>
+//                 Aneil Mallavarapu <https://github.com/aneilbaboo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -30,6 +31,7 @@ export interface APIGatewayEventRequestContext {
         accessKey: string | null;
         accountId: string | null;
         apiKey: string | null;
+        apiKeyId: string | null;
         caller: string | null;
         cognitoAuthenticationProvider: string | null;
         cognitoAuthenticationType: string | null;
@@ -438,28 +440,59 @@ export interface CustomAuthorizerResult {
     principalId: string;
     policyDocument: PolicyDocument;
     context?: AuthResponseContext;
+    usageIdentifierKey?: string;
 }
 export type AuthResponse = CustomAuthorizerResult;
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-output.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Condition
  */
 export interface PolicyDocument {
     Version: string;
-    Statement: [Statement];
+    Id?: string;
+    Statement: Statement[];
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Condition.
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html
+ */
+export interface ConditionBlock {
+    [condition: string]: Condition | Condition[];
+}
+
+export interface Condition {
+    [key: string]: string | string[];
 }
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html
  */
-export interface Statement {
-    Action: string | string[];
+export type Statement = BaseStatement & StatementAction & (StatementResource | StatementPrincipal);
+
+export interface BaseStatement {
     Effect: string;
-    Resource: string | string[];
+    Sid?: string;
+    Condition?: ConditionBlock;
 }
 
+export type PrincipalValue = { [key: string]: string | string[]; } | string | string[];
+export interface MaybeStatementPrincipal {
+    Principal?: PrincipalValue;
+    NotPrincipal?: PrincipalValue;
+}
+export interface MaybeStatementResource {
+    Resource?: string | string[];
+    NotResource?: string | string[];
+}
+export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
+export type StatementResource = MaybeStatementPrincipal & ({ Resource: string | string[] } | { NotResource: string | string[] });
+export type StatementPrincipal = MaybeStatementResource & ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
@@ -562,8 +595,13 @@ export interface KinesisStreamEvent {
  * @param event – event data.
  * @param context – runtime information of the Lambda function that is executing.
  * @param callback – optional callback to return information to the caller, otherwise return value is null.
+ * @return In the node8.10 runtime, a promise for the lambda result.
  */
-export type Handler<TEvent = any, TResult = any> = (event: TEvent, context: Context, callback: Callback<TResult>) => void;
+export type Handler<TEvent = any, TResult = any> = (
+    event: TEvent,
+    context: Context,
+    callback: Callback<TResult>,
+) => void | Promise<TResult>;
 
 /**
  * Optional callback parameter.

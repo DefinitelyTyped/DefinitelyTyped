@@ -12,6 +12,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+import HttpConnector = require("./src/lib/connectors/http");
+
 export class Client {
     constructor(params: ConfigOptions);
     cat: Cat;
@@ -111,7 +113,7 @@ export interface ConfigOptions {
     keepAlive?: boolean;
     maxSockets?: number;
     suggestCompression?: boolean;
-    connectionClass?: string;
+    connectionClass?: string | typeof HttpConnector;
     sniffedNodesProtocol?: string;
     ssl?: object;
     selector?: any;

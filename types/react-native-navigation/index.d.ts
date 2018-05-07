@@ -56,6 +56,7 @@ export interface TabScreen {
     title?: string;
     navigatorStyle?: NavigatorStyle;
     navigatorButtons?: NavigatorButtons;
+    titleImage?: any;
 }
 
 export interface SingleScreenApp {
@@ -70,6 +71,7 @@ export interface Screen {
     title?: string;
     navigatorStyle?: NavigatorStyle;
     navigatorButtons?: NavigatorButtons;
+    overrideBackPress?: boolean;
 }
 
 export interface ModalScreen extends Screen {
@@ -110,6 +112,10 @@ export interface LightBox {
     adjustSoftInput?: 'nothing' | 'pan' | 'resize' | 'unspecified';
 }
 
+export interface NavigatorEvent {
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview';
+}
+
 export class Navigator {
     push(params: PushedScreen): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
@@ -132,8 +138,8 @@ export class Navigator {
     setTabButton(params?: { tabIndex?: number; icon?: any; selectedIcon?: any; label?: string; }): void;
     switchToTab(params?: { tabIndex?: number }): void;
     toggleNavBar(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
-    setOnNavigatorEvent(callback: (event: { id: string }) => void): void;
-    addOnNavigatorEvent(callback: (event: { id: string }) => void): () => void;
+    setOnNavigatorEvent(callback: (event: NavigatorEvent) => void): void;
+    addOnNavigatorEvent(callback: (event: NavigatorEvent) => void): () => void;
     screenIsCurrentlyVisible(): Promise<boolean>;
     setStyle(params: NavigatorStyle): void;
 }
@@ -187,7 +193,7 @@ export interface NavigatorStyle {
     navBarSubtitleFontFamily?: string;
     navBarSubtitleFontSize?: number;
     screenBackgroundColor?: string;
-    orientation?: 'auto ' | 'landscape' | 'portrait';
+    orientation?: 'auto' | 'landscape' | 'portrait';
     disabledButtonColor?: string;
     // iOS only
     statusBarTextColorSchemeSingleScreen?: string;
@@ -273,9 +279,24 @@ export interface FABAndroid {
 export interface Drawer {
     left?: {
         screen: string;
+        passProps?: any;
+        disableOpenGesture?: boolean;
+        fixedWidth?: number;
     };
     right?: {
         screen: string;
+        passProps?: any;
+        disableOpenGesture?: boolean;
+        fixedWidth?: number;
     };
+    style?: {
+        drawerShadow?: boolean;
+        contentOverlayColor?: string;
+        leftDrawerWidth?: number;
+        rightDrawerWidth?: number;
+        shouldStretchDrawer?: boolean;
+    };
+    type?: string;
+    animationType?: string;
     disableOpenGesture?: boolean;
 }

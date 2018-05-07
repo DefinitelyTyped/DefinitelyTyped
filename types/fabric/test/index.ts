@@ -1061,3 +1061,9 @@ function sample10() {
   canvas.add(objB);
   const objArray = canvas.getActiveObjects();
 }
+
+function sample11() {
+   const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
+   const webglFilterBackend = new fabric.WebglFilterBackend();
+   fabric.filterBackend = new fabric.Canvas2dFilterBackend();
+}

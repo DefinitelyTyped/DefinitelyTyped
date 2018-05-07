@@ -88,6 +88,10 @@ function testAtomEnvironment() {
                 { label: "Undo", command: "core:undo" },
                 { label: "Redo", command: "core:redo" },
             ],
+            after: ["test"],
+            before: ["test"],
+            afterGroupContaining: ["test"],
+            beforeGroupContaining: ["test"]
         }],
     });
 
@@ -3310,7 +3314,7 @@ const pathWatcherPromise = Atom.watchPath("/var/test", {}, (events) => {
     for (const event of events) {
         str = event.path;
         str = event.action;
-        if (event.oldPath) str = event.oldPath;
+        if (event.action === "renamed") str = event.oldPath;
     }
 });
 
