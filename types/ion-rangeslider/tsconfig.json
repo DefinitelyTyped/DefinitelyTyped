@@ -21,7 +21,7 @@
         "ion-rangeslider-tests.ts"
     ],
     "exclude": [
-        "util",
+        "util/**/*",
         ".gitignore"
     ]
 }
