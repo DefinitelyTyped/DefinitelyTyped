@@ -34,3 +34,6 @@ const dropdown = new M.Dropdown(elem);
 
 // $ExpectType FormSelect
 const formSelect = new M.FormSelect(elem);
+
+// $ExpectType Collapsible
+const collapsible = new M.Collapsible(elem);
