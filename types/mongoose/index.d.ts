@@ -2715,6 +2715,16 @@ declare module "mongoose" {
     insertMany(doc: any, options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, doc: T) => void): Promise<T>;
 
     /**
+     * Performs any async initialization of this model against MongoDB.
+     * This function is called automatically, so you don't need to call it.
+     * This function is also idempotent, so you may call it to get back a promise
+     * that will resolve when your indexes are finished building as an alternative
+     * to `MyModel.on('index')`
+     * @param callback optional
+     */
+    init(callback?: (err: any) => void): Promise<T>;
+
+    /**
      * Executes a mapReduce command.
      * @param o an object specifying map-reduce options
      * @param callbackoptional callback

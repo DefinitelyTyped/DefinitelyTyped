@@ -67,14 +67,103 @@ Navigation.registerComponent('example.Screen1', () => Screen1);
 Navigation.registerComponent('example.Screen2', () => Screen2);
 Navigation.registerComponent('example.Drawer', () => Drawer);
 
-Navigation.startSingleScreenApp({
-    screen: {
-        screen: 'example.Screen1',
-        title: 'Screen 1',
+Navigation.startTabBasedApp({
+    tabs: [
+        {
+            label: 'One',
+            screen: 'example.FirstTabScreen',
+            icon: require('../img/one.png'),
+            selectedIcon: require('../img/one_selected.png'),
+            iconInsets: {
+                top: 6,
+                left: 0,
+                bottom: -6,
+                right: 0
+            },
+            title: 'Screen One',
+            titleImage: {},
+            navigatorStyle: {},
+            navigatorButtons: {},
+        },
+        {
+            label: 'Two',
+            screen: 'example.SecondTabScreen',
+            icon: require('../img/two.png'),
+            selectedIcon: require('../img/two_selected.png'),
+            title: 'Screen Two'
+        }
+    ],
+    tabsStyle: {
+        tabBarButtonColor: '#ffff00',
+        tabBarSelectedButtonColor: '#ff9900',
+        tabBarBackgroundColor: '#551A8B',
+        initialTabIndex: 1,
+    },
+    appStyle: {
+        orientation: 'portrait',
+        bottomTabBadgeTextColor: 'red',
+        bottomTabBadgeBackgroundColor: 'green',
+        backButtonImage: {},
+        hideBackButtonTitle: true
     },
     drawer: {
         left: {
-            screen: 'example.Drawer',
-        }
-    }
+            screen: 'example.FirstSideMenu',
+            passProps: {},
+            fixedWidth: 500,
+        },
+        right: {
+            screen: 'example.SecondSideMenu',
+            passProps: {},
+            fixedWidth: 500,
+        },
+        style: {
+            drawerShadow: true,
+            contentOverlayColor: 'rgba(0,0,0,0.25)',
+            leftDrawerWidth: 50,
+            rightDrawerWidth: 50,
+            shouldStretchDrawer: true
+        },
+        type: 'MMDrawer',
+        animationType: 'door',
+
+        disableOpenGesture: false
+    },
+    passProps: {},
+    animationType: 'slide-down'
+});
+
+Navigation.startSingleScreenApp({
+    screen: {
+        screen: 'example.WelcomeScreen',
+        title: 'Welcome',
+        navigatorStyle: {},
+        navigatorButtons: {}
+    },
+    drawer: {
+        left: {
+            screen: 'example.FirstSideMenu',
+            passProps: {},
+            disableOpenGesture: false,
+            fixedWidth: 500
+        },
+        right: {
+            screen: 'example.SecondSideMenu',
+            passProps: {},
+            disableOpenGesture: false,
+            fixedWidth: 500
+        },
+        style: {
+            drawerShadow: true,
+            contentOverlayColor: 'rgba(0,0,0,0.25)',
+            leftDrawerWidth: 50,
+            rightDrawerWidth: 50
+        },
+        type: 'MMDrawer',
+        animationType: 'door',
+
+        disableOpenGesture: false
+    },
+    passProps: {},
+    animationType: 'slide-down'
 });

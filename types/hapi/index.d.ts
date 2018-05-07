@@ -544,7 +544,7 @@ export interface Request extends Podium {
      * @return void
      * [See docs](https://hapijs.com/api/17.0.1#-requestseturlurl-striptrailingslash)
      */
-    setUrl(url: string | url.URL, stripTrailingSlash?: boolean): void;
+    setUrl(url: string | url.Url, stripTrailingSlash?: boolean): void;
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
