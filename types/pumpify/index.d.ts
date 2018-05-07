@@ -21,6 +21,7 @@ declare class Pumpify extends Duplex implements duplexify.Duplexify {
 }
 
 interface PumpifyFactoryOptions {
+  autoDestroy: boolean;
   destroy: boolean;
   objectMode: boolean;
   highWaterMark: number;
