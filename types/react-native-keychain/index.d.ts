@@ -80,5 +80,3 @@ export function setSharedWebCredentials(
     username: string,
     password: string
 ): Promise<boolean>;
-
-// Definitions by: David Evans Farinha <https://github.com/DavidFarinha>
