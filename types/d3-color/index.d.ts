@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-color module 1.0
+// Type definitions for D3JS d3-color module 1.2
 // Project: https://github.com/d3/d3-color/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,7 +6,7 @@
 //                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.3
+// Last module patch version validated against: 1.2.0
 
 // ---------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -27,6 +27,11 @@ export interface ColorCommonInstance {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
+      /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    hex(): string;
 }
 
 export interface Color {
@@ -47,7 +52,15 @@ export interface RGBColor extends Color {
     opacity: number;
     brighter(k?: number): this;
     darker(k?: number): this;
+    /**
+     * Returns the RGB equivalent of this color.
+     */
     rgb(): this;
+    /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    hex(): string;
 }
 
 export interface RGBColorFactory extends Function {
@@ -65,6 +78,11 @@ export interface HSLColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
+      /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    hex(): string;
 }
 
 export interface HSLColorFactory extends Function {
@@ -82,6 +100,11 @@ export interface LabColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
+      /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    hex(): string;
 }
 
 export interface LabColorFactory extends Function {
@@ -99,6 +122,11 @@ export interface HCLColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
+      /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    hex(): string;
 }
 
 export interface HCLColorFactory extends Function {
@@ -116,6 +144,11 @@ export interface CubehelixColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
+      /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    hex(): string;
 }
 
 export interface CubehelixColorFactory extends Function {
