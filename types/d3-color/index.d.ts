@@ -28,11 +28,6 @@ export interface ColorCommonInstance {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-    /**
-   * Returns a hexadecimal string representing this color.
-   * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-   */
-    hex(): string;
 }
 
 export interface Color {
@@ -57,10 +52,10 @@ export interface RGBColor extends Color {
      * Returns the RGB equivalent of this color.
      */
     rgb(): this;
-    /**
-     * Returns a hexadecimal string representing this color.
-     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-     */
+   /**
+    * Returns a hexadecimal string representing this color.
+    * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+    */
     hex(): string;
 }
 
@@ -79,7 +74,7 @@ export interface HSLColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-    /**
+  /**
    * Returns a hexadecimal string representing this color.
    * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
    */
@@ -101,7 +96,7 @@ export interface LabColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-    /**
+   /**
     * Returns a hexadecimal string representing this color.
     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
     */
@@ -121,7 +116,6 @@ export interface LabColorFactory extends Function {
 export interface GrayColorFactory extends Function {
     (l: number, opacity?: number): LabColor;
     readonly prototype: LabColor;
-
 }
 
 export interface HCLColor extends Color {
@@ -132,10 +126,10 @@ export interface HCLColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-    /**
-   * Returns a hexadecimal string representing this color.
-   * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-   */
+   /**
+    * Returns a hexadecimal string representing this color.
+    * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+    */
     hex(): string;
 }
 
@@ -161,7 +155,7 @@ export interface CubehelixColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-    /**
+  /**
    * Returns a hexadecimal string representing this color.
    * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
    */
