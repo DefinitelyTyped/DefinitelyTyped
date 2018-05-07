@@ -4,17 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-declare var d: GraphqlDepthLimit.depthLimit;
-export = d;
+declare function depthLimit(depthLimit: number, options?: depthLimit.Options, callback?: (obj: any) => void): any;
+export = depthLimit;
 
-declare namespace GraphqlDepthLimit {
-    interface options {
+declare namespace depthLimit {
+    interface Options {
         ignore: Array<string | RegExp | ((queryDepths: any[]) => boolean)>;
     }
-
-    type depthLimit = (
-        depthLimit: number,
-        options?: options,
-        callback?: (obj: any) => void,
-    ) => any;
 }
