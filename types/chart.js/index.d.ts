@@ -510,6 +510,7 @@ declare namespace Chart {
         gridLines?: GridLineOptions;
         barThickness?: number;
         scaleLabel?: ScaleTitleOptions;
+        time?: TimeScale;
         beforeUpdate?(scale?: any): void;
         beforeSetDimension?(scale?: any): void;
         beforeDataLimits?(scale?: any): void;
@@ -529,7 +530,6 @@ declare namespace Chart {
     interface ChartXAxe extends CommonAxe {
         categoryPercentage?: number;
         barPercentage?: number;
-        time?: TimeScale;
     }
 
     // tslint:disable-next-line no-empty-interface
