@@ -55,7 +55,7 @@ declare namespace M {
          * Can take regular text or HTML strings.
          * @default null
          */
-        html: string | null;
+        html: string;
 
         /**
          * Set distance tooltip appears away from its activator excluding transitionMovement.

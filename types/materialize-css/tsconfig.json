@@ -29,6 +29,7 @@
         "test/dropdown.test.ts",
         "test/fab.test.ts",
         "test/formselect.test.ts",
+        "test/inputfields.test.ts",
         "test/materialbox.test.ts",
         "test/modal.test.ts",
         "test/parallax.test.ts",

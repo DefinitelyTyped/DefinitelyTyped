@@ -3,5 +3,5 @@
 declare namespace M {
     function updateTextFields(): void;
 
-    function textareaAutoResize(textarea: Element | MElements): void;
+    function textareaAutoResize(textarea: Element | JQuery | Cash): void;
 }
