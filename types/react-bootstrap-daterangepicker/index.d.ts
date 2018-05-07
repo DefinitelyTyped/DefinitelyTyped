@@ -19,6 +19,8 @@ declare namespace ReactBootstrapDaterangepicker {
         onApply?: EventHandler;
         onCancel?: EventHandler;
         onEvent?: EventHandler;
+        containerClass?: string;
+        containerStyles?: React.CSSProperties;
     }
 
     export class DateRangePicker extends React.Component<Props> { }
