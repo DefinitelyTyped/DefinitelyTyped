@@ -1,6 +1,8 @@
 // Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
+//                 Ika <https://github.com/ikatyang>
+//                 Tycho Grouwstra <https://github.com/tycho01>
 //                 Matt DeKrey <https://github.com/mdekrey>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
@@ -20,6 +22,8 @@
 //                 Tomas Szabo <https://github.com/deftomat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// Note: feel free to cross-post Ramda typing challenges at https://github.com/types/npm-ramda/
 
 declare let R: R.Static;
 
