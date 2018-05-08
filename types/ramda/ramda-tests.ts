@@ -305,7 +305,7 @@ R.times(i, 5);
     function stringLength(str: string): number {
       return str.length;
     }
-    const memoStringLength = R.memoize<number>(stringLength);
+    const memoStringLength = R.memoize(stringLength);
     const isLong = memoStringLength('short') > 10; // false
 })();
 
