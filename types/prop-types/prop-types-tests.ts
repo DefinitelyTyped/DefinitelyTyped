@@ -25,3 +25,5 @@ const propTypes: PropTypes.ValidationMap<Props> = {
     node: PropTypes.node.isRequired,
     element: PropTypes.element.isRequired
 };
+
+PropTypes.checkPropTypes({xs: PropTypes.array}, {xs: []}, 'location', 'componentName');
