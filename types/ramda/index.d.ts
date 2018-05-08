@@ -1021,11 +1021,13 @@ declare namespace R {
         median(list: ReadonlyArray<number>): number;
 
         /**
+         * @deprecated since v0.25.0
+         *
          * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and
          * returns the result. Subsequent calls to the memoized fn with the same argument set will not result in an
          * additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
-        memoize<T = any>(fn: (...a: any[]) => T): (...a: any[]) => T;
+        memoize<T extends (...args: any[]) => any>(fn: T): T;
 
         /**
          * A customisable version of R.memoize. memoizeWith takes an additional function that will be applied to a given
