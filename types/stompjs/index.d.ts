@@ -32,7 +32,7 @@ export class Client {
 
     send(destination: string, headers?: {}, body?: string): any;
     subscribe(destination: string, callback?: (message: Message) => any, headers?: {}): any;
-    unsubscribe(): any;
+    unsubscribe(id: string): any;
 
     begin(transaction: string): any;
     commit(transaction: string): any;
