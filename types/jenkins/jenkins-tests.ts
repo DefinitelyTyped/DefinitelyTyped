@@ -1,4 +1,4 @@
-import * as J from 'jenkins';
+import J = require('jenkins');
 
 const jenkins = J({ baseUrl: 'http://user:pass@localhost:8080', crumbIssuer: true });
 

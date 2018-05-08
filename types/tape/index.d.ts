@@ -193,13 +193,13 @@ declare namespace tape {
          * expected, if present, must be a RegExp or Function, which is used to test the exception object.
          */
         throws(fn: () => void, msg?: string): void;
-        throws(fn: () => void, exceptionExpected: RegExp | (() => void), msg?: string): void;
+        throws(fn: () => void, exceptionExpected: RegExp | Function, msg?: string): void;
 
         /**
          * Assert that the function call fn() does not throw an exception.
          */
         doesNotThrow(fn: () => void, msg?: string): void;
-        doesNotThrow(fn: () => void, exceptionExpected: RegExp | (() => void), msg?: string): void;
+        doesNotThrow(fn: () => void, exceptionExpected: RegExp | Function, msg?: string): void;
 
         /**
          * Print a message without breaking the tap output.

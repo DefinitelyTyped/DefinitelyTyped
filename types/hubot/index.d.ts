@@ -1,6 +1,7 @@
 // Type definitions for hubot 2.19
 // Project: https://github.com/github/hubot
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
+//                 Kees C. Bakker <https://github.com/KeesCBakker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Hubot {
@@ -20,26 +21,31 @@ declare namespace Hubot {
         id: string;
     }
 
-    class Response {
+    class Response<R> {
         match: RegExpMatchArray;
         message: Message;
 
-        constructor(robot: Robot, message: Message, match: RegExpMatchArray);
+        constructor(robot: R, message: Message, match: RegExpMatchArray);
         send(...strings: string[]): void;
         reply(...strings: string[]): void;
         random<T>(items: T[]): T;
     }
 
-    type ListenerCallback = (response: Response) => void;
+    type ListenerCallback<R> = (response: Response<R>) => void;
 
-    class Robot {
+    class Robot<A> {
+        alias: string;
         brain: Brain;
+        name: string;
+        readonly adapter: A;
 
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
-        hear(regex: RegExp, callback: ListenerCallback): void;
-        hear(regex: RegExp, options: any, callback: ListenerCallback): void;
-        respond(regex: RegExp, callback: ListenerCallback): void;
-        respond(regex: RegExp, options: any, callback: ListenerCallback): void;
+        hear(regex: RegExp, callback: ListenerCallback<this>): void;
+        hear(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
+        helpCommands(): string[];
+        loadFile(directory: string, fileName: string): void;
+        respond(regex: RegExp, callback: ListenerCallback<this>): void;
+        respond(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
     }
 }
 

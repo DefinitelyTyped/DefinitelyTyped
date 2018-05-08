@@ -1,11 +1,10 @@
-// Type definitions for Glob 5.0.10
+// Type definitions for Glob 5.0
 // Project: https://github.com/isaacs/node-glob
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="minimatch" />
 
 import events = require("events");
 import fs = require('fs');
@@ -15,12 +14,14 @@ declare function G(pattern: string, cb: (err: Error | null, matches: string[]) =
 declare function G(pattern: string, options: G.IOptions, cb: (err: Error | null, matches: string[]) => void): void;
 
 declare namespace G {
+    function __promisify__(pattern: string, options?: IOptions): Promise<string[]>;
+
     function sync(pattern: string, options?: IOptions): string[];
 
     function hasMagic(pattern: string, options?: IOptions): boolean;
 
-    var Glob: IGlobStatic;
-    var GlobSync: IGlobSyncStatic;
+    let Glob: IGlobStatic;
+    let GlobSync: IGlobSyncStatic;
 
     interface IOptions extends minimatch.IOptions {
         cwd?: string;
@@ -63,7 +64,7 @@ declare namespace G {
     }
 
     interface IGlobSyncStatic {
-        new (pattern: string, options?: IOptions): IGlobBase
+        new (pattern: string, options?: IOptions): IGlobBase;
         prototype: IGlobBase;
     }
 

@@ -1,4 +1,4 @@
-import * as images from "images";
+import images = require("images");
 
 // from https://github.com/zhangyuanwei/node-images/blob/master/demo/uploadServer.js
 const tmp_path = "tmp_path";

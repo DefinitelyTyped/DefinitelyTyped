@@ -3,6 +3,7 @@
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
 //                 Sean Bennett <https://github.com/SWBennett06>
+//                 Christoph Wagner <https://github.com/IgelCampus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -33,6 +34,7 @@ declare namespace videojs {
 		fluid?: boolean;
 		language?: string;
 		notSupportedMessage?: string;
+		plugins?: any;
 	}
 
 	interface Source {
@@ -69,5 +71,10 @@ declare namespace videojs {
 		removeRemoteTextTrack(track: HTMLTrackElement): void;
 		poster(val?: string): string | Player;
 		playbackRate(rate?: number): number;
+		controls(bool?: boolean): boolean;
+        muted(muted?: boolean): boolean;
+        preload(value?: boolean): string;
+        autoplay(value?: boolean): string;
+        loop(value?: boolean): string;
 	}
 }

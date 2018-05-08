@@ -10,10 +10,14 @@ import Bluebird = require('bluebird');
 interface AnyAttributes { [name: string]: boolean | number | string | object; };
 interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
+interface UserModel extends Sequelize.Model<AnyInstance, AnyAttributes> {
+    findUser?(arbitraryThing: any): Promise<AnyInstance>;
+}
+
 var s         = new Sequelize( '' );
 var sequelize = s;
 var DataTypes = Sequelize;
-var User      = s.define<AnyInstance, AnyAttributes>( 'user', {} );
+var User: UserModel = s.define<AnyInstance, AnyAttributes>( 'user', {} );
 var user      = User.build();
 var Task      = s.define<AnyInstance, AnyAttributes>( 'task', {} );
 var Group     = s.define<AnyInstance, AnyAttributes>( 'group', {} );
@@ -488,9 +492,39 @@ Sequelize.BOOLEAN;
 Sequelize.DATE;
 Sequelize.DATE(6);
 Sequelize.UUID;
+Sequelize.UUID();
 Sequelize.UUIDV1;
+Sequelize.UUIDV1();
 Sequelize.UUIDV4;
+Sequelize.UUIDV4();
 Sequelize.NOW;
+Sequelize.TINYINT;
+Sequelize.TINYINT.UNSIGNED;
+Sequelize.TINYINT.UNSIGNED.ZEROFILL;
+Sequelize.TINYINT( 11 );
+Sequelize.TINYINT( { length : 11 } );
+Sequelize.TINYINT( 11 ).UNSIGNED;
+Sequelize.TINYINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.TINYINT( 11 ).ZEROFILL;
+Sequelize.TINYINT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.SMALLINT;
+Sequelize.SMALLINT.UNSIGNED;
+Sequelize.SMALLINT.UNSIGNED.ZEROFILL;
+Sequelize.SMALLINT( 11 );
+Sequelize.SMALLINT( { length : 11 } );
+Sequelize.SMALLINT( 11 ).UNSIGNED;
+Sequelize.SMALLINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.SMALLINT( 11 ).ZEROFILL;
+Sequelize.SMALLINT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.MEDIUMINT;
+Sequelize.MEDIUMINT.UNSIGNED;
+Sequelize.MEDIUMINT.UNSIGNED.ZEROFILL;
+Sequelize.MEDIUMINT( 11 );
+Sequelize.MEDIUMINT( { length : 11 } );
+Sequelize.MEDIUMINT( 11 ).UNSIGNED;
+Sequelize.MEDIUMINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.MEDIUMINT( 11 ).ZEROFILL;
+Sequelize.MEDIUMINT( 11 ).ZEROFILL.UNSIGNED;
 Sequelize.INTEGER;
 Sequelize.INTEGER.UNSIGNED;
 Sequelize.INTEGER.UNSIGNED.ZEROFILL;
@@ -863,6 +897,7 @@ User.addScope('lowAccessWithParam', function(id: number) {
 } );
 
 User.scope( 'lowAccess' ).count();
+User.scope( 'lowAccess' ).findUser( 'foo' );
 User.scope( { where : { parent_id : 2 } } );
 User.scope( [ 'lowAccess', { method: ['lowAccessWithParam', 2] }, { where : { parent_id : 2 } } ] )
 
@@ -885,6 +920,8 @@ User.findAll( { where : { intVal : { '!..' : [8, 10] } } } );
 User.findAll( { where : { theDate : { between : ['2013-01-02', '2013-01-11'] } } } );
 User.findAll( { where : { theDate : { between : ['2013-01-02', '2013-01-11'] }, intVal : 10 } } );
 User.findAll( { where : { theDate : { between : ['2012-12-10', '2013-01-02'] } } } );
+User.findAll( { where : { theDate : { between : [1, 3] } } } );
+User.findAll( { where : { theDate : { between : [new Date(0), new Date(1000)] } } } );
 User.findAll( { where : { theDate : { nbetween : ['2013-01-04', '2013-01-20'] } } } );
 User.findAll( { order : [s.col( 'name' )] } );
 User.findAll( { order : [['theDate', 'DESC']] } );
@@ -918,8 +955,24 @@ User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TES
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
 User.findAll( { rejectOnEmpty: true });
 
+User.findAll( { include : [{ association: User.hasOne( Task, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: User.hasMany( Task, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: Task.belongsTo( User, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: User.belongsToMany( User, { through : Task } ) }] } );
+
+User.findAll( { where: { $and:[ { username: "user" }, { theDate: new Date() } ] } } );
+User.findAll( { where: { $or:[ { username: "user" }, { theDate: new Date() } ] } } );
+User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
+User.findAll( { where: { $or:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
+User.findAll( { where: { emails: { $overlap: ["me@mail.com", "you@mail.com"] } } } );
 
 User.findById( 'a string' );
+User.findById( 42 );
+User.findById( Buffer.from('a buffer') );
+
+User.findByPrimary( 'a string' );
+User.findByPrimary( 42 );
+User.findByPrimary( Buffer.from('a buffer') );
 
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
@@ -953,6 +1006,7 @@ User.count( { include : [{ model : User, required : false }] } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
 User.count( { attributes : ['data'], group : ['data'] } );
 User.count( { where : { access_level : { gt : 5 } } } );
+User.count( { col: 'title', distinct: true, where : { access_level : { gt : 5 } } } );
 
 User.findAndCountAll( { offset : 5, limit : 1, include : [User, { model : User, as : 'a' }] } );
 
@@ -1005,7 +1059,10 @@ findOrRetVal = User.findOrCreate( { where : { id : undefined }, defaults : { nam
 findOrRetVal = User.findOrCreate( { where : { email : 'unique.email.@d.com', companyId : Math.floor( Math.random() * 5 ) } } );
 findOrRetVal = User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
 
-User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
+let upsertPromiseNoOptions: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
+let upsertPromiseWithNonReturningOptions: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { logging: true } );
+let upsertPromiseReturning: Bluebird<[AnyInstance, boolean]> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: true } );
+let upsertPromiseNotReturning: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: false } );
 
 User.bulkCreate( [{ aNumber : 10 }, { aNumber : 12 }] ).then( ( i ) => i[0].isNewRecord );
 User.bulkCreate( [{ username : 'bar' }, { username : 'bar' }, { username : 'bar' }] );
@@ -1117,6 +1174,9 @@ queryInterface.createTable( 'users', { id : { type : Sequelize.INTEGER, primaryK
 queryInterface.createTable( 'level', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 queryInterface.addColumn( 'users', 'someEnum', Sequelize.ENUM( 'value1', 'value2', 'value3' ) );
 queryInterface.addColumn( 'users', 'so', { type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] } );
+queryInterface.addColumn({tableName:'users', schema:'test'}, 'enum',{ type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] });
+queryInterface.removeColumn('users','so');
+queryInterface.removeColumn({tableName:'users', schema:'test'},'enum');
 queryInterface.createTable( 'hosts', {
     id : {
         type : Sequelize.INTEGER,
@@ -1189,11 +1249,11 @@ new Sequelize( 'wat', 'trololo', 'wow', { port : 99999 } );
 new Sequelize( 'localhost', 'wtf', 'lol', { port : 99999 } );
 new Sequelize( 'sequelize', null, null, {
     replication : {
-        read : {
+        read : [{
             host : 'localhost',
             username : 'omg',
             password : 'lol'
-        }
+        }]
     }
 } );
 new Sequelize( {
@@ -1201,7 +1261,7 @@ new Sequelize( {
     username: 'user',
     password: 'pass',
     retry: {
-        match: ['failed'],
+        match: ['failed', /failed/i, Sequelize.ForeignKeyConstraintError],
         max: 3
     },
     typeValidation: true
@@ -1439,7 +1499,7 @@ s.define( 'profile', {
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,
     email : Sequelize.STRING,
-    access_level : Sequelize.INTEGER,
+    access_level : Sequelize.TINYINT,
     other_value : Sequelize.INTEGER
 }, {
     defaultScope : {

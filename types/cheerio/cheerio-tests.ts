@@ -1,6 +1,4 @@
-
-
-import * as cheerio from 'cheerio';
+import cheerio = require('cheerio');
 
 /*
  * LOADING

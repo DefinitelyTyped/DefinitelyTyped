@@ -2,7 +2,7 @@
 // Project: https://github.com/istarkov/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
@@ -47,10 +47,10 @@ export interface Maps {
 }
 
 export interface Bounds {
-  nw: number;
-  ne: number;
-  sw: number;
-  se: number;
+  nw: Coords;
+  ne: Coords;
+  sw: Coords;
+  se: Coords;
 }
 
 export interface Point {
@@ -63,6 +63,11 @@ export interface Coords {
   lng: number;
 }
 
+export interface Size {
+  width: number;
+  height: number;
+}
+
 export interface ClickEventValue extends Point, Coords {
   event: any;
 }
@@ -72,6 +77,7 @@ export interface ChangeEventValue {
   zoom: number;
   bounds: Bounds;
   marginBounds: Bounds;
+  size: Size;
 }
 
 export interface Props {
@@ -84,6 +90,7 @@ export interface Props {
   options?: Options | ((maps: Maps) => Options);
   margin?: any[];
   debounced?: boolean;
+  draggable?: boolean;
   layerTypes?: string[];
   onClick?(value: ClickEventValue): any;
   onChange?(value: ChangeEventValue): any;

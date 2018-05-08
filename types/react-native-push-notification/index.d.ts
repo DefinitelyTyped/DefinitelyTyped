@@ -1,6 +1,7 @@
 // Type definitions for react-native-push-notification 3.0
 // Project: https://github.com/zo0r/react-native-push-notification#readme
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
+//                 Tom Sawkins <https://github.com/tomSawkins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,6 +19,7 @@ export interface PushNotification {
     badge: number;
     alert: object;
     sound: string;
+    finish: (fetchResult: string) => void;
 }
 
 export class PushNotificationOptions {
@@ -62,7 +64,7 @@ export class PushNotificationObject {
 }
 
 export class PushNotificationScheduleObject extends PushNotificationObject {
-    Date: Date;
+    date: Date;
 }
 
 export interface PushNotification {
@@ -77,7 +79,7 @@ export interface PushNotification {
     cancelAllLocalNotifications(): void;
     setApplicationIconBadgeNumber(badgeCount: number): void;
     getApplicationIconBadgeNumber(callback: (badgeCount: number) => void): void;
-    popInitialNotification(): Promise<PushNotification>;
+    popInitialNotification(callback: (notification: PushNotification | null) => void): void;
     abandonPermissions(): void;
     checkPermissions(callback: (permissions: PushNotificationPermissions) => void): void;
     registerNotificationActions(actions: string[]): void;

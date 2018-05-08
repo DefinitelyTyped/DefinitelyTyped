@@ -5,6 +5,7 @@
 npm i ts-node -g
 
 ts-node ./generate-modules.ts
+ts-node ./generate-fp.ts
 
 cd ../../../
 

@@ -1,5 +1,4 @@
-
-import * as meter from 'stream-meter';
+import meter = require('stream-meter');
 
 var m:meter.StreamMeter = meter();
 process.stdin.pipe(m).pipe(process.stdout);

@@ -19,10 +19,5 @@
 /// <reference types='pouchdb-node' />
 /// <reference types='pouchdb-replication' />
 
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
-
-declare module 'pouchdb' {
-    const plugin: PouchDB.Static;
-    export = plugin;
-}
+declare const plugin: PouchDB.Static;
+export = plugin;

@@ -1,7 +1,9 @@
 // Type definitions for seneca v2.1.0
 // Project: https://www.npmjs.com/package/seneca
 // Definitions by: Peter Snider <https://github.com/psnider>
+//                 Kevyn Bruyere <https://github.com/kevynb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/seneca
+// TypeScript Version: 2.3
 
 
 declare module "seneca" {
@@ -168,11 +170,21 @@ declare module "seneca" {
             sort$?: any;
         }
 
+        interface PartialMessagePayload {
+            transport$: object | {};
+            plugin$: any;
+            fatal$: boolean;
+            tx$: string;
+        }
 
+        type MessagePayload<T> = PartialMessagePayload & T;
 
         type Pattern = string | MinimalPattern;
         type GlobalErrorHandler = (error: Error) => void;
-        type AddCallback = (msg: any, respond: (error: Error | null, msg?: any) => void) => void;
+        type AddCallback<T = any> = (
+            msg: MessagePayload<T>,
+            respond: (error: Error | null, msg?: any) => void,
+        ) => void;
         type ActCallback = (error: Error | null, result?: any) => void;
         type CloseCallback = (optional: any, done: (error: Error) => void) => void;
         type DatabaseID = string;
@@ -199,10 +211,18 @@ declare module "seneca" {
 
             ready(callback: (error: Error) => void): void;
 
-            add(pattern: Pattern, action: AddCallback): this;
-            add(pattern: Pattern, paramspec: any, action: AddCallback): this;
-            act(pattern: Pattern, respond: ActCallback): void;
-            act(pattern: Pattern, msg: any, respond: ActCallback): void;
+            add<PatternType = any, CallBackParams = any>(
+                pattern: PatternType,
+                action: AddCallback<PatternType & CallBackParams>,
+            ): this;
+            add<PatternType = any, CallbackParams = any>(
+                pattern: PatternType,
+                paramspec: any,
+                action: AddCallback<PatternType & CallbackParams>,
+            ): this;
+
+            act<PatternWithArgs = Pattern>(pattern: PatternWithArgs, respond: ActCallback): void;
+            act<PatternWithArgs = Pattern>(pattern: PatternWithArgs, msg: any, respond: ActCallback): void;
             make(entity_canon: string, properties?: any): Entity;
             make(base: string, entity_canon: string, properties?: any): Entity;
             make(zone: string, base: string, entity_canon: string, properties?: any): Entity;

@@ -4,6 +4,11 @@
         "lib": [
             "es6"
         ],
+        "paths": {
+            "mongodb": [
+                "mongodb/v2"
+            ]
+        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

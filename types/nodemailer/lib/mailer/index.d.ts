@@ -3,7 +3,7 @@
 import { EventEmitter } from 'events';
 import { Socket } from 'net';
 import { Readable } from 'stream';
-import { URL } from 'url';
+import { Url } from 'url';
 
 import { SentMessageInfo, Transport, TransportOptions } from '../..';
 import * as shared from '../shared';
@@ -34,7 +34,7 @@ declare namespace Mail {
         /** String, Buffer or a Stream contents for the attachmentent */
         content?: string | Buffer | Readable;
         /** path to a file or an URL (data uris are allowed as well) if you want to stream the file instead of including it (better for larger attachments) */
-        path?: string | URL;
+        path?: string | Url;
     }
 
     interface Attachment extends AttachmentLike {
@@ -46,7 +46,7 @@ declare namespace Mail {
         encoding?: string;
         /** optional content type for the attachment, if not set will be derived from the filename property */
         contentType?: string;
-        /** optional transfer encoding for the attachment, if not set it will be derived from the contentType property. Example values: quoted-printable, base64 */
+        /** optional transfer encoding for the attachment, if not set it will be derived from the contentType property. Example values: quoted-printable, base64. If it is unset then base64 encoding is used for the attachment. If it is set to false then previous default applies (base64 for most, 7bit for text). */
         contentTransferEncoding?: string;
         /** optional content disposition type for the attachment, defaults to ‘attachment’ */
         contentDisposition?: string;
@@ -135,6 +135,8 @@ declare namespace Mail {
         disableFileAccess?: boolean;
         /** is an object with DKIM options */
         dkim?: DKIM.Options;
+        /** method to normalize header keys for custom caseing */
+        normalizeHeaderKey?(key: string): string;
     }
 
     type PluginFunction = (mail: MailMessage, callback: (err?: Error | null) => void) => void;
@@ -175,11 +177,11 @@ declare class Mail extends EventEmitter {
     setupProxy(proxyUrl: string): void;
 
     set(key: 'oauth2_provision_cb', value: (user: string, renew: boolean, callback: (err: Error | null, accessToken?: string, expires?: number) => void) => void): Map<string, any>;
-    set(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a', value: (proxy: URL, options: TransportOptions, callback: (err: Error | null, socketOptions?: { connection: Socket }) => void) => void): Map<string, any>;
+    set(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a', value: (proxy: Url, options: TransportOptions, callback: (err: Error | null, socketOptions?: { connection: Socket }) => void) => void): Map<string, any>;
     set(key: string, value: any): Map<string, any>;
 
     get(key: 'oauth2_provision_cb'): (user: string, renew: boolean, callback: (err: Error | null, accessToken: string, expires: number) => void) => void;
-    get(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a'): (proxy: URL, options: TransportOptions, callback: (err: Error | null, socketOptions: { connection: Socket }) => void) => void;
+    get(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a'): (proxy: Url, options: TransportOptions, callback: (err: Error | null, socketOptions: { connection: Socket }) => void) => void;
     get(key: string): any;
 
     addListener(event: 'error', listener: (err: Error) => void): this;

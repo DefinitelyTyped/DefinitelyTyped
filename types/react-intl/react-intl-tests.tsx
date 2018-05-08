@@ -50,12 +50,12 @@ const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> 
     const formattedRelative = formatRelative(new Date().getTime(), { format: "short" });
     const formattedNumber = formatNumber(123, { format: "short" });
     const formattedPlural = formatPlural(1, { style: "ordinal" });
-    const formattedMessage = formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
+    const formattedMessage = formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger", nullAllowed: null, undefinedAllowed: undefined });
     const formattedMessagePlurals = formatMessage({
         id: "hello",
-        defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!" },
-        { name: "Roger", unreadCount: 123 });
-    const formattedHTMLMessage = formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
+        defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!"
+    }, { name: "Roger", unreadCount: 123 });
+    const formattedHTMLMessage = formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger", nullAllowed: null, undefinedAllowed: undefined });
     return (
         <div className={className}>
         </div>
@@ -135,6 +135,52 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 defaultMessage="Hi plurals: {valueOne, number} {valueOne, plural, one {plural} other {plurals}} {valueTen, number} {valueTen, plural, one {plural} other {plurals}} !"
                 values={{ valueOne: 1, valueTen: 10 }}
                 tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi {blank} and {empty}!"
+                values={{ blank: null, empty: undefined }}
+                tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(text) => <div className="messageDiv">{text}</div>}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(text) => <input placeholder={text as string} />}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(...text) => <ul>{text.map(t => <li>{t}</li>)}</ul>}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="legal-statement"
+                values={{
+                    privacy_policy: (
+                        <a href="/privacy-policy">
+                            <FormattedMessage id="request_invite.privacy_policy" />
+                        </a>
+                    ),
+                    terms_of_service: (
+                        <a href="/terms-of-service">
+                            <FormattedMessage id="request_invite.terms_of_service" />
+                        </a>
+                    )
+                }}
+            >
+                {(...messages) => messages.map(message => <>{message}</>)}
+            </FormattedMessage>
 
             <FormattedHTMLMessage
                 id="test"

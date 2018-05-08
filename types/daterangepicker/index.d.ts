@@ -1,7 +1,8 @@
-// Type definitions for Date Range Picker v2.1.25
+// Type definitions for Date Range Picker v2.1.30
 // Project: http://www.daterangepicker.com/
 // Definitions by: SirMartin <https://github.com/SirMartin>
 //                 Steven Masala <https://github.com/smasala>
+//                 Grant Hutchins <https://github.com/nertzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,7 +19,7 @@ declare global {
 declare const daterangepicker: daterangepicker.DateRangePicker;
 
 declare namespace daterangepicker {
-    type DataRangePickerCallback = (start?: string | Date | moment.Moment, end?: string | Date | moment.Moment, label?: string) => any;
+    type DataRangePickerCallback = (start: moment.Moment, end: moment.Moment, label: string | null) => any;
 
     interface DateRangePicker {
         new (element: HTMLElement, settings?: daterangepicker.Settings, callback?: DataRangePickerCallback): DateRangePicker;
@@ -26,7 +27,7 @@ declare namespace daterangepicker {
         startDate: moment.Moment;
         endDate: moment.Moment;
         container: JQuery;
-        
+
         setStartDate(date: Date | moment.Moment | string): void;
         setEndDate(date: Date | moment.Moment | string): void;
         remove(): void;
@@ -134,6 +135,10 @@ declare namespace daterangepicker {
          * A function that is passed each date in the two calendars before they are displayed, and may return true or false to indicate whether that date should be available for selection or not.
          */
         isInvalidDate?(startDate: string | moment.Moment | Date, endDate?: string | moment.Moment | Date): boolean;
+        /**
+         * A function that is passed each date in the two calendars before they are displayed, and may return a string or array of CSS class names to apply to that date's calendar cell.
+         */
+        isCustomDate?(date: string | moment.Moment | Date): string | string[] | undefined;
         /**
          * Indicates whether the date range picker should automatically update the value of an < input > element it's attached to at initialization and when the selected dates change.
          */

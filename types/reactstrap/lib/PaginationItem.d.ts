@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface PaginationItemProps {
+export interface PaginationItemProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   active?: boolean;

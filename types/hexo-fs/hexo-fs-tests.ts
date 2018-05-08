@@ -1,8 +1,12 @@
 import fs = require('hexo-fs');
 import { join, dirname } from 'path';
-import 'mocha';
 import chai = require('chai');
 import Promise = require('bluebird');
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 const should = chai.should();
 
@@ -198,7 +202,8 @@ it('copyFile() - callback', callback => {
             if (err) return callback(err);
 
             fs.readFile(dest, (err, content) => {
-                if (err) return callback(err);
+                if (err)
+                    return callback(err);
                 content!.should.eql(body);
 
                 Promise.all([
@@ -605,7 +610,7 @@ it('emptyDir() - callback', callback => {
                 [join(target, 'folder', 'h.txt'), false],
                 [join(target, 'folder', 'i.js'), false],
                 [join(target, 'folder', '.j'), true]
-            ] as Array<[string, boolean]>, data => {
+            ], (data: any) => {
                 return fs.exists(data[0]).then(exist => {
                     exist.should.eql(data[1]);
                 });

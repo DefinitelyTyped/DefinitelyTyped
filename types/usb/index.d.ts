@@ -1,9 +1,12 @@
 // Type definitions for node-usb 1.1
-// Project: https://github.com/nonolith/node-usb
+// Project: https://github.com/tessel/node-usb
 // Definitions by: Eric Brody <https://github.com/underscorebrody>
+//                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference types="node" />
+
+import { EventEmitter } from "events";
 
 export class Device {
   timeout: number;
@@ -12,6 +15,8 @@ export class Device {
   portNumbers: number[];
   deviceDescriptor: DeviceDescriptor;
   configDescriptor: ConfigDescriptor;
+  allConfigDescriptors: ConfigDescriptor[];
+  parent: Device;
   interfaces: Interface[];
 
   __open(): void;
@@ -33,7 +38,7 @@ export class DeviceDescriptor {
   bDeviceClass: number;
   bDeviceSubClass: number;
   bDeviceProtocol: number;
-  bMaxPacketSize: number;
+  bMaxPacketSize0: number;
   idVendor: number;
   idProduct: number;
   bcdDevice: number;
@@ -53,14 +58,18 @@ export class ConfigDescriptor {
   bmAttributes: number;
   bMaxPower: number;
   extra: Buffer;
+  interfaces: InterfaceDescriptor[][];
 }
 
 export class Interface {
+  interface: number;
+  altSetting: number;
   descriptor: InterfaceDescriptor;
   endpoints: Endpoint[];
   constructor(device: Device, id: number);
   claim(): void;
-  release(closeEndpoints?: (err?: string) => void, cb?: (err?: string) => void): void;
+  release(cb?: (err?: string) => void): void;
+  release(closeEndpoints?: boolean, cb?: (err?: string) => void): void;
   isKernelDriverActive(): boolean;
   detachKernelDriver(): number;
   attachKernelDriver(): number;
@@ -79,27 +88,28 @@ export class InterfaceDescriptor {
   bInterfaceProtocol: number;
   iInterface: number;
   extra: Buffer;
+  endpoints: EndpointDescriptor[];
 }
 
-export interface Endpoint {
+export interface Endpoint extends EventEmitter {
   direction: string;
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
 }
 
-export class InEndpoint implements Endpoint {
+export class InEndpoint extends EventEmitter implements Endpoint {
   direction: string;
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
   constructor(device: Device, descriptor: EndpointDescriptor);
   transfer(length: number, callback: (error: string, data: Buffer) => void): InEndpoint;
-  startPoll(nTransfers: number, transferSize: number): void;
-  stopPoll(cb: () => void): void;
+  startPoll(nTransfers?: number, transferSize?: number): void;
+  stopPoll(cb?: () => void): void;
 }
 
-export class OutEndpoint implements Endpoint {
+export class OutEndpoint extends EventEmitter implements Endpoint {
   direction: string;
   transferType: number;
   timeout: number;
@@ -118,6 +128,7 @@ export class EndpointDescriptor {
   bInterval: number;
   bRefresh: number;
   bSynchAddress: number;
+  extra: Buffer;
 }
 
 export function findByIds(vid: number, pid: number): Device;

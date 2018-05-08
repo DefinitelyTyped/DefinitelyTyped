@@ -2,12 +2,12 @@
 // Project: https://github.com/devfd/react-native-google-signin
 // Definitions by: Jacob Froman <https://github.com/j-fro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
-import { ViewProperties } from 'react-native';
+import { ViewProps } from 'react-native';
 
-export interface GoogleSigninButtonProps extends ViewProperties {
+export interface GoogleSigninButtonProps extends ViewProps {
     size?: GoogleSigninButton.Size;
     color?: GoogleSigninButton.Color;
     onPress?(): void;

@@ -37,8 +37,19 @@ StatelessComponent2.defaultProps = {
     defaultValue="some value"
     contentEditable
     suppressContentEditableWarning
+    suppressHydrationWarning
 >
     <b>foo</b>
+</div>;
+
+// WAI-ARIA 1.1 Attributes
+<div
+    aria-atomic={false}
+    aria-checked='true'
+    aria-colcount={7}
+    aria-label='test'
+>
+    <b>bar</b>
 </div>;
 
 interface Props {
@@ -64,6 +75,9 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
 };
 <StatelessComponentWithoutProps />;
 
+// React.createContext
+const ContextWithRenderProps = React.createContext('defaultValue');
+
 // Fragments
 <div>
     <React.Fragment>
@@ -77,3 +91,100 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
         </React.Fragment>
     </React.Fragment>
 </div>;
+
+// Strict Mode
+<div>
+    <React.StrictMode>
+        <div />
+    </React.StrictMode>
+</div>;
+
+// Below tests that setState() works properly for both regular and callback modes
+class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
+    handleSomething = () => {
+      this.setState({ foo: '' }); // $ExpectError
+      this.setState({ foo: true });
+      this.setState({ foo: true, bar: true });
+      this.setState({});
+      this.setState(null);
+      this.setState({ foo: true, foo2: true }); // $ExpectError
+      this.setState(() => ({ foo: '' })); // $ExpectError
+      this.setState(() => ({ foo: true }));
+      this.setState(() => ({ foo: true, bar: true }));
+      this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
+      this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
+      this.setState(() => ({ })); // ok!
+      this.setState({ foo: true, bar: undefined}); // $ExpectError
+      this.setState(prevState => (prevState.bar ? { bar: false } : null));
+    }
+}
+
+// Below tests that extended types for state work
+export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
+	foo() {
+		this.setState({ baseProp: 'foobar' });
+	}
+}
+
+// Below tests that & generic still works
+export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
+	foo() {
+		this.setState({ baseProp: 'foobar' });
+	}
+}
+
+interface NewProps { foo: string; }
+interface NewState { bar: string; }
+
+class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { baz: string }> {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
+        return { bar: `${nextProps.foo}bar` };
+    }
+
+    getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
+        return { baz: `${prevProps.foo}baz` };
+    }
+
+    componentDidUpdate(prevProps: Readonly<NewProps>, prevState: Readonly<NewState>, snapshot: { baz: string }) {
+        return;
+    }
+
+    render() {
+        return this.state.bar;
+    }
+}
+<ComponentWithNewLifecycles foo="bar" />;
+
+class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewState, { baz: string }> {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
+        return { bar: `${nextProps.foo}bar` };
+    }
+
+    getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
+        return { baz: `${prevProps.foo}baz` };
+    }
+
+    componentDidUpdate(prevProps: Readonly<NewProps>, prevState: Readonly<NewState>, snapshot: { baz: string }) {
+        return;
+    }
+
+    render() {
+        return this.state.bar;
+    }
+}
+<PureComponentWithNewLifecycles foo="bar" />;
+
+class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', string>> {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a'|'b'|'c', string>> = () => {
+        return { a: 'a' };
+    }
+}
+const AssignedComponentWithLargeState: React.ComponentClass = ComponentWithLargeState;
+
+const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {})({});
+componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
+    return 'number';
+};
+componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
+    return;
+};

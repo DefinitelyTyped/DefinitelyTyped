@@ -1,5 +1,3 @@
-/* tslint:disable:only-arrow-functions */
-
 function test_form_static() {
     $.fn.form.settings.error!.method = 'method';
     $.fn.form.settings.namespace = 'namespace';
@@ -14,6 +12,7 @@ function test_form() {
     const selector = '.ui.form';
     $(selector).form('submit'); // $ExpectType JQuery<HTMLElement>
     $(selector).form('is valid'); // $ExpectType boolean
+    $(selector).form('is valid', 'field'); // $ExpectType boolean
     $(selector).form('add rule', 'field', 'rule'); // $ExpectType JQuery<HTMLElement>
     $(selector).form('add rule', 'field', ['rule1', 'rule2']); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
@@ -216,7 +215,7 @@ function adding_rules_programmatically() {
     {
         // lets toggle some validation based on button
         $('.add.example .ui.positive.button')
-            .on('click', function() {
+            .on('click', () => {
                 $('.add.example .ui.form')
                 // adding longform
                     .form('add rule', 'gender', {
@@ -233,7 +232,7 @@ function adding_rules_programmatically() {
     }
     {
         $('.add.example .ui.negative.button')
-            .on('click', function() {
+            .on('click', () => {
                 $('.add.example .ui.form')
                 // removing multiple at once
                     .form('remove fields', ['gender', 'password']);

@@ -122,6 +122,8 @@ declare module 'rsvp' {
 
             finally<U>(onFinally?: U | PromiseLike<U>): RSVP.Promise<T>;
 
+            readonly [Symbol.toStringTag]: "Promise";
+
             static all<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                 values: [
                     Arg<T1>,

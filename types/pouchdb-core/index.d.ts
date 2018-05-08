@@ -64,9 +64,6 @@ interface Buffer extends Uint8Array {
     values(): IterableIterator<number>;
 }
 
-// TODO: tslint doesn't like the listener: Function signatures but they are from the
-// original node declarations so I didn't want to touch them
-/* tslint:disable:ban-types */
 interface EventEmitter {
     addListener(event: string | symbol, listener: Function): this;
     on(event: string | symbol, listener: Function): this;
@@ -82,10 +79,6 @@ interface EventEmitter {
     prependOnceListener(event: string | symbol, listener: Function): this;
     eventNames(): Array<string | symbol>;
 }
-/* tslint:eisable:ban-types */
-
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
     namespace Core {
@@ -342,9 +335,10 @@ declare namespace PouchDB {
         }
 
         interface BulkGetResponse<Content extends {}> {
-            results: {
-                docs: Array<{ ok: Content & GetMeta } | { error: Error }>;
-            };
+            results: Array<{
+                id: string,
+                docs: Array<{ ok: Content & GetMeta } | { error: Error }>
+            }>;
         }
 
         interface ChangesMeta {
@@ -520,6 +514,12 @@ declare namespace PouchDB {
              * How many old revisions we keep track (not a copy) of.
              */
             revs_limit?: number;
+            /**
+             * Size of the database (Most significant for Safari)
+             * option to set the max size in MB that Safari will grant to the local database. Valid options are: 10, 50, 100, 500 and 1000
+             * ex_ new PouchDB("dbName", {size:100});
+             */
+            size?: number;
         }
 
         interface RemoteRequesterConfiguration {
@@ -587,6 +587,9 @@ declare namespace PouchDB {
     }
 
     interface Database<Content extends {} = {}>  {
+        /** The name passed to the PouchDB constructor and unique identifier of the database. */
+        name: string;
+
         /** Fetch all documents matching the given options. */
         allDocs<Model>(options?: Core.AllDocsWithKeyOptions | Core.AllDocsWithKeysOptions | Core.AllDocsWithinRangeOptions | Core.AllDocsOptions):
             Promise<Core.AllDocsResponse<Content & Model>>;
@@ -600,7 +603,7 @@ declare namespace PouchDB {
          */
         bulkDocs<Model>(docs: Array<Core.PutDocument<Content & Model>>,
                         options: Core.BulkDocsOptions | null,
-                        callback: Core.Callback<Core.Response[]>): void;
+                        callback: Core.Callback<Array<Core.Response | Core.Error>>): void;
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
@@ -610,7 +613,7 @@ declare namespace PouchDB {
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
         bulkDocs<Model>(docs: Array<Core.PutDocument<Content & Model>>,
-                        options?: Core.BulkDocsOptions): Promise<Core.Response[]>;
+                        options?: Core.BulkDocsOptions): Promise<Array<Core.Response | Core.Error >>;
 
         /** Compact the database */
         compact(options?: Core.CompactOptions): Promise<Core.Response>;

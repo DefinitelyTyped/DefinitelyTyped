@@ -4,7 +4,9 @@
 //                 Christopher Eck <https://github.com/chrisleck>
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
+//                 Shahar Mor <https://github.com/shaharmor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
@@ -12,6 +14,8 @@
  =============================================== */
 
 /// <reference types="node" />
+
+import Promise = require('bluebird');
 
 interface RedisStatic {
     new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
@@ -44,6 +48,7 @@ declare namespace IORedis {
     }
 
     interface Redis extends NodeJS.EventEmitter, Commander {
+        Promise: typeof Promise;
         status: string;
         connect(callback?: () => void): Promise<any>;
         disconnect(): void;
@@ -591,6 +596,7 @@ declare namespace IORedis {
         hget(key: string, field: string, callback?: (err: Error, res: string) => void): Pipeline;
 
         hmset(key: string, field: string, value: any, ...args: string[]): Pipeline;
+        hmset(key: string, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         hmget(key: string, ...fields: string[]): Pipeline;
 
@@ -741,8 +747,15 @@ declare namespace IORedis {
         pfcount(...keys: string[]): Pipeline;
     }
 
+    interface NodeConfiguration {
+        host?: string;
+        port?: number;
+    }
+
+    type ClusterNode = string | number | NodeConfiguration;
+
     interface Cluster extends NodeJS.EventEmitter, Commander {
-        new(nodes: Array<{ host: string; port: number; }>, options?: ClusterOptions): Redis;
+        new(nodes: ClusterNode[], options?: ClusterOptions): Redis;
         connect(callback: () => void): Promise<any>;
         disconnect(): void;
         nodes(role: string): Redis[];

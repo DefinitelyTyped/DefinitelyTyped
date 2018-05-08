@@ -1,8 +1,8 @@
 // via: http://visionmedia.github.io/superagent/
 
-import * as request from 'superagent';
+import request = require('superagent');
 import * as fs from 'fs';
-import * as assert from 'assert';
+import assert = require('assert');
 import { Agent } from 'https';
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md

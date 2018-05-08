@@ -5,7 +5,7 @@
 //                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Blot } from 'parchment/src/blot/abstract/blot';
+import { Blot } from 'parchment/dist/src/blot/abstract/blot';
 
 /**
  * A stricter type definition would be:
@@ -84,9 +84,9 @@ export interface DeltaStatic {
     concat(other: DeltaStatic): DeltaStatic;
     diff(other: DeltaStatic, index?: number): DeltaStatic;
     eachLine(predicate: (line: DeltaStatic, attributes: StringMap, idx: number) => any, newline?: string): DeltaStatic;
-    transform(index: number): number;
+    transform(index: number, priority?: boolean): number;
     transform(other: DeltaStatic, priority: boolean): DeltaStatic;
-    transformPosition(index: number): number;
+    transformPosition(index: number, priority?: boolean): number;
 }
 
 export class Delta implements DeltaStatic {

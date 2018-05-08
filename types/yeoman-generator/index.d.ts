@@ -4,14 +4,23 @@
 //                 Jay Anslow <https://github.com/janslow>
 //                 Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { EventEmitter } from 'events';
-import { Questions, Answers } from 'inquirer';
+import * as inquirer from 'inquirer';
 
 type Callback = (err: any) => void;
 
-declare namespace Base {
+declare namespace Generator {
+    interface Question extends inquirer.Question {
+        /**
+         * whether to store the user's previous answer
+         */
+        store?: boolean;
+    }
+    type Questions = Question | Question[] | Rx.Observable<Question>;
+    type Answers = inquirer.Answers;
+
     class Storage {
         constructor(name: string, fs: MemFsEditor, configPath: string);
 
@@ -70,7 +79,7 @@ declare namespace Base {
     }
 }
 
-declare class Base extends EventEmitter {
+declare class Generator extends EventEmitter {
     constructor(args: string|string[], options: {});
 
     env: {
@@ -80,18 +89,18 @@ declare class Base extends EventEmitter {
     resolved: string;
     description: string;
     appname: string;
-    config: Base.Storage;
-    fs: Base.MemFsEditor;
+    config: Generator.Storage;
+    fs: Generator.MemFsEditor;
     options: {};
     log(message?: string, context?: any): void;
 
-    argument(name: string, config: Base.ArgumentConfig): this;
+    argument(name: string, config: Generator.ArgumentConfig): this;
     composeWith(namespace: string, options: { [name: string]: any }, settings?: { local: string, link: 'weak'|'strong' }): this;
     destinationPath(...path: string[]): string;
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
-    option(name: string, config: Base.OptionConfig): this;
-    prompt(questions: Questions): Promise<Answers>;
+    option(name: string, config: Generator.OptionConfig): this;
+    prompt(questions: Generator.Questions): Promise<Generator.Answers>;
     registerTransformStream(stream: {}|Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
@@ -140,7 +149,7 @@ declare class Base extends EventEmitter {
      *
      * @return Resolved if install successful, rejected otherwise
      */
-    installDependencies(options?: Base.InstallOptions): Promise<void>;
+    installDependencies(options?: Generator.InstallOptions): Promise<void>;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -205,4 +214,4 @@ declare class Base extends EventEmitter {
         }
     };
 }
-export = Base;
+export = Generator;

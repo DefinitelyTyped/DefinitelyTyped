@@ -4,9 +4,10 @@
 //                 Drew Noakes <https://github.com/drewnoakes>,
 //                 Thomas B Homburg <https://github.com/homburg>,
 //                 Tatu Tamminen <https://github.com/ttamminen>,
-//                 Uwe Wiemer <https://github.com/hallowatcher>
+//                 Uwe Wiemer <https://github.com/hallowatcher>,
+//                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 
@@ -97,6 +98,9 @@ declare namespace ReactModal {
 declare class ReactModal extends React.Component<ReactModal.Props> {
     /* Override base styles for all instances of this component. */
     static defaultStyles: ReactModal.Styles;
-    /* Call this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */
-    static setAppElement(appElement: HTMLElement): void;
+    /**
+     * Call this to properly hide your application from assistive screenreaders
+     * and other assistive technologies while the modal is open.
+     */
+    static setAppElement(appElement: string | HTMLElement): void;
 }

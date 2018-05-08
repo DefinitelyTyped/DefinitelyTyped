@@ -1,12 +1,12 @@
 import { ComponentClass, ComponentType } from "react";
-import { InjectedFormProps } from "redux-form";
+import { InjectedFormProps } from "../index";
 
-declare function formValues<
+export function formValues<
     Values,
     P = {}
 >(obj: Values): (component: ComponentType<P & { [K in keyof Values]: any }>) => ComponentClass<P & { [K in keyof Values]: any }>;
 
-declare function formValues<
+export function formValues<
     FormData = {},
     K extends keyof FormData = keyof FormData,
     P = {}

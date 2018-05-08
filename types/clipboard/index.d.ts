@@ -1,17 +1,20 @@
-// Type definitions for clipboard.js 1.5
+// Type definitions for clipboard.js 2.0
 // Project: https://github.com/zenorocha/clipboard.js
 // Definitions by: Andrei Kurosh <https://github.com/impworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Clipboard {
-    constructor(selector: (string | Element | NodeListOf<Element>), options?: Clipboard.Options);
+declare class ClipboardJS {
+    constructor(
+        selector: string | Element | NodeListOf<Element>,
+        options?: ClipboardJS.Options
+    );
 
     /**
      * Subscribes to events that indicate the result of a copy/cut operation.
      * @param type Event type ('success' or 'error').
      * @param handler Callback function.
      */
-    on(type: "success" | "error", handler: (e: Clipboard.Event) => void): this;
+    on(type: "success" | "error", handler: (e: ClipboardJS.Event) => void): this;
     on(type: string, handler: (...args: any[]) => void): this;
 
     /**
@@ -22,10 +25,10 @@ declare class Clipboard {
     /**
      * Checks if clipboard.js is supported
      */
-    isSupported(): boolean;
+    static isSupported(): boolean;
 }
 
-declare namespace Clipboard {
+declare namespace ClipboardJS {
     interface Options {
         /**
          * Overwrites default command ('cut' or 'copy').
@@ -56,6 +59,6 @@ declare namespace Clipboard {
     }
 }
 
-export = Clipboard;
+export = ClipboardJS;
 
-export as namespace Clipboard;
+export as namespace ClipboardJS;

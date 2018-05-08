@@ -5,12 +5,14 @@ import {
   withKnobsOptions,
   number,
   color,
+  files,
   object,
   boolean,
   text,
   select,
   date,
   array,
+  button,
   knob,
 } from '@storybook/addon-knobs';
 
@@ -58,6 +60,8 @@ stories.add('with all knobs', () => {
 
   const genericKnob: X = knob<X>('Some generic knob', { value: 'a', type: 'text' });
 
+  button('Some button', () => console.log('Button knob clicked'));
+
   const style = {
     ...customStyle,
     fontWeight: bold ? 800 as 800 : 400 as 400, // tslint:disable-line no-unnecessary-type-assertion
@@ -85,3 +89,17 @@ stories.add('dynamic knobs', () => {
     </div>
   );
 });
+
+// groups
+const groupId = 'GROUP-ID1';
+
+text('label', 'default', groupId);
+boolean('label', true, groupId);
+number('label', 1, {}, groupId);
+color('label', '#ffffff', groupId);
+object('label', {}, groupId);
+array('label', [], ',', groupId);
+select<any>('label', { option: 'Option' }, null, groupId);
+files('label', 'image/*', []);
+date('label', new Date(), groupId);
+button('label', () => undefined, groupId);

@@ -1,4 +1,4 @@
-import * as dtsm from 'gulp-dtsm';
+import dtsm = require('gulp-dtsm');
 import * as gulp from 'gulp';
 
 var stream: NodeJS.WritableStream = dtsm();

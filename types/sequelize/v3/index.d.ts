@@ -3244,6 +3244,11 @@ declare namespace sequelize {
         include?: Array<Model<any, any> | IncludeOptions>;
 
         /**
+         * Apply column on which COUNT() should be applied
+         */
+        col?: string;
+
+        /**
          * Apply COUNT(DISTINCT(col))
          */
         distinct?: boolean;
@@ -5062,7 +5067,7 @@ declare namespace sequelize {
             username?: string;
             password?: string;
             database?: string;
-        };
+        }[];
 
         write?: {
             host?: string;

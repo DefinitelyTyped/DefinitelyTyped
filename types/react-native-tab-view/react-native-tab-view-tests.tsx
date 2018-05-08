@@ -1,4 +1,4 @@
-import { PureComponent } from 'react'
+import { PureComponent, Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import {
   TabViewAnimated,
@@ -11,9 +11,14 @@ import {
 const FirstRoute = () => (
   <View style={[styles.container, { backgroundColor: '#ff4081' }]} />
 )
-const SecondRoute = () => (
-  <View style={[styles.container, { backgroundColor: '#673ab7' }]} />
-)
+
+class SecondRoute extends Component {
+  render() {
+    return (
+      <View style={[styles.container, { backgroundColor: '#673ab7' }]} />
+    );
+  }
+}
 
 class TabViewExample extends PureComponent {
   state: { index: number; routes: Array<RouteBase & { title: string }> } = {

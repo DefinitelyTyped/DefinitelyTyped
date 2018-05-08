@@ -1,4 +1,4 @@
-// Type definitions for Jest 21.1
+// Type definitions for Jest 22.2
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -9,6 +9,10 @@
 //                 Ika <https://github.com/ikatyang>
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Jamie Mason <https://github.com/JamieMason>
+//                 Douglas Duteil <https://github.com/douglasduteil>
+//                 Ahn <https://github.com/AhnpGit>
+//                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -54,7 +58,8 @@ declare namespace jest {
      */
     function autoMockOn(): typeof jest;
     /**
-     * @deprecated use resetAllMocks instead
+     * Clears the mock.calls and mock.instances properties of all mocks.
+     * Equivalent to calling .mockClear() on every mocked function.
      */
     function clearAllMocks(): typeof jest;
     /**
@@ -168,7 +173,7 @@ declare namespace jest {
     /**
      * Creates a mock function similar to jest.fn but also tracks calls to object[methodName]
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M): SpyInstance<T[M]>;
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -198,6 +203,10 @@ declare namespace jest {
 
     type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
 
+    interface FunctionLike {
+        readonly name: string;
+    }
+
     /**
      * Creates a test closure
      */
@@ -219,7 +228,8 @@ declare namespace jest {
     }
 
     interface Describe {
-        (name: string, fn: EmptyFunction): void;
+        // tslint:disable-next-line ban-types
+        (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
     }
@@ -227,8 +237,8 @@ declare namespace jest {
     interface MatcherUtils {
         readonly isNot: boolean;
         utils: {
-            readonly EXPECTED_COLOR: string;
-            readonly RECEIVED_COLOR: string;
+            readonly EXPECTED_COLOR: (text: string) => string;
+            readonly RECEIVED_COLOR: (text: string) => string;
             ensureActualIsNumber(actual: any, matcherName?: string): void;
             ensureExpectedIsNumber(actual: any, matcherName?: string): void;
             ensureNoExpected(actual: any, matcherName?: string): void;
@@ -468,7 +478,7 @@ declare namespace jest {
          * and it is set to a certain numeric value.
          */
         toHaveLength(expected: number): R;
-        toHaveProperty(propertyPath: string, value?: any): R;
+        toHaveProperty(propertyPath: string | any[], value?: any): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -524,14 +534,20 @@ declare namespace jest {
     } & T;
 
     interface MockInstance<T> {
+        getMockName(): string;
         mock: MockContext<T>;
         mockClear(): void;
         mockReset(): void;
         mockImplementation(fn: (...args: any[]) => any): Mock<T>;
         mockImplementationOnce(fn: (...args: any[]) => any): Mock<T>;
+        mockName(name: string): Mock<T>;
         mockReturnThis(): Mock<T>;
         mockReturnValue(value: any): Mock<T>;
         mockReturnValueOnce(value: any): Mock<T>;
+        mockResolvedValue(value: any): Mock<T>;
+        mockResolvedValueOnce(value: any): Mock<T>;
+        mockRejectedValue(value: any): Mock<T>;
+        mockRejectedValueOnce(value: any): Mock<T>;
     }
 
     interface MockContext<T> {
@@ -544,7 +560,7 @@ declare namespace jest {
 // Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 // This file can't reference jasmine.d.ts since the globals aren't compatible.
 
-declare function spyOn(object: any, method: string): jasmine.Spy;
+declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
 /**
  * If you call the function pending anywhere in the spec body,
  * no matter the expectations, the spec will be marked pending.
@@ -714,8 +730,8 @@ declare namespace jasmine {
     type CustomEqualityTester = (first: any, second: any) => boolean;
 
     interface CustomMatcher {
-        compare<T>(actual: T, expected: T): CustomMatcherResult;
-        compare(actual: any, expected: any): CustomMatcherResult;
+        compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+        compare(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
     interface CustomMatcherResult {
@@ -815,6 +831,10 @@ declare namespace jest {
         cacheDirectory: Path;
         clearMocks: boolean;
         coveragePathIgnorePatterns: string[];
+        cwd: Path;
+        detectLeaks: boolean;
+        displayName: Maybe<string>;
+        forceCoverageMatch: Glob[];
         globals: ConfigGlobals;
         haste: HasteConfig;
         moduleDirectories: string[];
@@ -829,11 +849,14 @@ declare namespace jest {
         resolver: Maybe<Path>;
         rootDir: Path;
         roots: Path[];
+        runner: string;
         setupFiles: Path[];
         setupTestFrameworkScriptFile: Path;
         skipNodeResolution: boolean;
         snapshotSerializers: Path[];
         testEnvironment: string;
+        testEnvironmentOptions: object;
+        testLocationInResults: boolean;
         testMatch: Glob[];
         testPathIgnorePatterns: string[];
         testRegex: string;
@@ -843,6 +866,7 @@ declare namespace jest {
         transform: Array<[string, Path]>;
         transformIgnorePatterns: Glob[];
         unmockedModulePathPatterns: Maybe<string[]>;
+        watchPathIgnorePatterns: string[];
     }
 
     // Console
@@ -1046,6 +1070,8 @@ declare namespace jest {
         path: Path;
     }
 
+    // tslint:disable-next-line:no-empty-interface
+    interface Set<T> {} // To allow non-ES6 users the Set below
     interface Reporter {
         onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
         onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;

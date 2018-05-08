@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as CopyToClipboard from "react-copy-to-clipboard";
+import CopyToClipboard = require("react-copy-to-clipboard");
 
 export class Test extends React.Component {
     render() {

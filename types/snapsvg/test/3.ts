@@ -54,7 +54,7 @@ window.onload=()=>{
 
         var f = s.filter(Snap.filter.blur(5, 10));
         var shadow = s.filter(Snap.filter.shadow(0, 2, 3));
-        var filterChild = f.node.firstChild;
+        var filterChild = f.node.firstElementChild;
 
         var r = s.rect(100,100,100,100,20,20).attr({ stroke: '#123456', 'strokeWidth': 20, fill: 'red', filter:  f });
         Snap.animate( 0, 10, function( value ) { filterChild.attributes[0].value = value + ',' + value;  }, 1000 );
@@ -193,8 +193,8 @@ window.onload=()=>{
         var myPathString = "M 60 0 L 120 0 L 180 60 L 180 120 L 120 180 L 60 180 L 0 120 L 0 60 Z";
 
         var p  = s.path( myPathString );
+        s.path([["M", 5, 10], ["l", 15, 2], ["Z"]]);
         var p2 = s.path( myPathString ).transform("t" + myTranslateX + "," + myTranslateY);
-
 
         for( var count = 0; count < 500; count++ ) {
                 x = Math.random() * 800; y = Math.random() * 400;

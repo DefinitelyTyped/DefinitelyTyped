@@ -48,7 +48,10 @@ export interface Tracker extends EventEmitter {
      *
      * @param callback A function that gets executed on 'query' event.
      */
-    on(event: 'query', callback: (query: QueryDetails, step: number) => void): this;
+    on(
+        event: "query",
+        callback: (query: QueryDetails, step: number) => void
+    ): this;
 }
 
 /**
@@ -56,6 +59,8 @@ export interface Tracker extends EventEmitter {
  * Object properties signature matches with knex toSQL() output with additional method returns(values).
  */
 export interface QueryDetails extends Knex.Sql {
+    transacting: boolean;
+
     /**
      * Function that needs to be called to mock database query result for knex.
      *

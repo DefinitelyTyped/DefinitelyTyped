@@ -17,32 +17,39 @@ import {
     AppState,
     AppStateIOS,
     BackAndroid,
+    BackHandler,
     Button,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
+    ImageStyle,
     InteractionManager,
     ListView,
     ListViewDataSource,
     StyleSheet,
+    StyleProp,
     Systrace,
     Text,
     TextStyle,
-    TextProperties,
+    TextProps,
     View,
     ViewStyle,
     ViewPagerAndroid,
     FlatList,
-    FlatListProperties,
+    FlatListProps,
+    ScaledSize,
     SectionList,
-    SectionListProperties,
+    SectionListProps,
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
     RefreshControl,
     TabBarIOS,
     NativeModules,
-    MaskedView,
+    MaskedViewIOS,
+    TextInput,
+    InputAccessoryView,
+    StatusBar
 } from "react-native";
 
 declare module "react-native" {
@@ -60,9 +67,19 @@ NativeModules.NativeUntypedModule;
 NativeModules.NativeTypedModule.someFunction();
 NativeModules.NativeTypedModule.someProperty = "";
 
+function dimensionsListener(dimensions: { window: ScaledSize, screen: ScaledSize }) {
+    console.log("window dimensions: ", dimensions.window);
+    console.log("screen dimensions: ", dimensions.screen);
+}
+
 function testDimensions() {
     const { width, height, scale, fontScale } = Dimensions.get(1 === 1 ? "window" : "screen");
+
+    Dimensions.addEventListener('change', dimensionsListener);
+    Dimensions.removeEventListener('change', dimensionsListener);
 }
+
+BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
 
 BackAndroid.addEventListener("hardwareBackPress", () => {});
 
@@ -112,6 +129,20 @@ const stylesAlt = StyleSheet.create({
 });
 
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
+
+const viewStyle: StyleProp<ViewStyle> = {
+  backgroundColor: "#F5FCFF",
+}
+const textStyle: StyleProp<TextStyle> = {
+  fontSize: 20,
+}
+const imageStyle: StyleProp<ImageStyle> = {
+  resizeMode: 'contain',
+}
+
+const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
+const textProperty = StyleSheet.flatten(textStyle).fontSize;
+const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 
 class CustomView extends React.Component {
     render() {
@@ -205,7 +236,7 @@ InteractionManager.runAfterInteractions(() => {
     // ...
 }).then(() => "done");
 
-export class FlatListTest extends React.Component<FlatListProperties<number>, {}> {
+export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     _renderItem = (rowData: any) => {
         return (
             <View>
@@ -227,7 +258,13 @@ export class FlatListTest extends React.Component<FlatListProperties<number>, {}
     }
 }
 
-export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
+export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
+    myList: SectionList<any>
+
+    scrollMe = () => {
+        this.myList.scrollToLocation({itemIndex: 0, sectionIndex: 1});
+    }
+
     render() {
         const sections = [
             {
@@ -246,24 +283,29 @@ export class SectionListTest extends React.Component<SectionListProperties<strin
         ];
 
         return (
-            <SectionList
-                sections={sections}
-                renderSectionHeader={({ section }) => (
-                    <View>
-                        <Text>{section.title}</Text>
-                    </View>
-                )}
-                renderItem={(info: { item: string }) => (
-                    <View>
-                        <Text>{info.item}</Text>
-                    </View>
-                )}
-            />
+            <React.Fragment>
+                <Button title="Press" onPress={this.scrollMe} />
+
+                <SectionList
+                    ref={(ref: any) => this.myList = ref}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => (
+                        <View>
+                            <Text>{section.title}</Text>
+                        </View>
+                    )}
+                    renderItem={(info: { item: string }) => (
+                        <View>
+                            <Text>{info.item}</Text>
+                        </View>
+                    )}
+                />
+            </React.Fragment>
         );
     }
 }
 
-export class CapsLockComponent extends React.Component<TextProperties> {
+export class CapsLockComponent extends React.Component<TextProps> {
     render() {
         const content = (this.props.children || "") as string;
         return <Text {...this.props}>{content.toUpperCase()}</Text>;
@@ -288,7 +330,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.");
                     }
 
-                    return <ScrollView {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
+                    return <ScrollView horizontal={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
                 }}
                 renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>;
@@ -350,10 +392,21 @@ class AlertTest extends React.Component {
 class MaskedViewTest extends React.Component {
     render() {
         return (
-            <MaskedView maskElement={<View />}>
+            <MaskedViewIOS maskElement={<View />}>
                 <View />
-            </MaskedView>
+            </MaskedViewIOS>
         );
+    }
+}
+
+class InputAccessoryViewTest extends React.Component {
+    render() {
+        const uniqueID = "foobar";
+        return (
+            <InputAccessoryView nativeID={uniqueID}>
+                <TextInput inputAccessoryViewID={uniqueID} />
+            </InputAccessoryView>
+        )
     }
 }
 
@@ -371,3 +424,42 @@ const dataSourceAssetCallback2: DataSourceAssetCallback = {};
 const deviceEventEmitterStatic: DeviceEventEmitterStatic = null;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
+
+
+class TextInputRefTest extends React.Component<{}, {username: string}> {
+    username: TextInput | null = null;
+
+    handleUsernameChange(text: string) {
+    }
+
+    render() {
+        return (
+            <View>
+                <Text onPress={() => this.username.focus()}>Username</Text>
+                <TextInput
+                    ref={input => this.username = input}
+                    value={this.state.username}
+                    onChangeText={this.handleUsernameChange.bind(this)}
+                />
+            </View>
+        );
+    }
+}
+
+class StatusBarTest extends React.Component {
+    render() {
+        StatusBar.setBarStyle("dark-content", true);
+
+        console.log('height:', StatusBar.currentHeight);
+
+        return (
+            <StatusBar
+                backgroundColor="blue"
+                barStyle="light-content"
+                translucent
+            />
+        );
+    }
+}
+
+const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})

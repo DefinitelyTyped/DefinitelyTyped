@@ -16,6 +16,14 @@ export interface DeserializeOptions {
     /** {Boolean, default:false}, deserialize Binary data directly into node.js Buffer object. */
     promoteBuffers?: boolean;
 }
+
+export interface CalculateObjectSizeOptions {
+    /** {Boolean, default:false}, serialize the javascript functions */
+    serializeFunctions?: boolean;
+    /** {Boolean, default:true}, ignore undefined fields. */
+    ignoreUndefined?: boolean;
+}
+
 export class BSON {
     /**
      * @param {Object} object the Javascript object to serialize.
@@ -26,6 +34,14 @@ export class BSON {
      */
     serialize(object: any, checkKeys?: boolean, asBuffer?: boolean, serializeFunctions?: boolean): Buffer;
     deserialize(buffer: Buffer, options?: DeserializeOptions, isArray?: boolean): any;
+    /**
+     * Calculate the bson size for a passed in Javascript object.
+     *
+     * @param {Object} object the Javascript object to calculate the BSON byte size for.
+     * @param {CalculateObjectSizeOptions} Options
+     * @return {Number} returns the number of bytes the BSON object will take up.
+     */
+    calculateObjectSize(object: any, options?: CalculateObjectSizeOptions): number;
 }
 
 export class Binary {
@@ -58,6 +74,9 @@ export class Code {
 }
 export class DBRef {
     constructor(namespace: string, oid: ObjectID, db?: string);
+    namespace: string;
+    oid: ObjectID;
+    db?: string;
 }
 export class Double {
     constructor(value: number);
@@ -132,6 +151,8 @@ export class ObjectID {
     constructor(id?: string | number | ObjectID);
     /** The generation time of this ObjectID instance */
     generationTime: number;
+    /** If true cache the hex string representation of ObjectID */
+    static cacheHexString?: boolean;
     /**
      * Creates an ObjectID from a hex string representation of an ObjectID.
      * @param {string} hexString create a ObjectID from a passed in 24 byte hexstring.

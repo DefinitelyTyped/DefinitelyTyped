@@ -11,11 +11,11 @@ class DrawerTest extends React.Component<{}, DrawerTestState> {
       open: false
     };
 
-    private onOpen = () => this.setState({ open: true });
+    private readonly onOpen = () => this.setState({ open: true });
 
-    private onClose = () => this.setState({ open: false });
+    private readonly onClose = () => this.setState({ open: false });
 
-    private renderNavigationView = () => (
+    private readonly renderNavigationView = () => (
       <View>
         <Text>Drawer content</Text>
       </View>
@@ -32,6 +32,16 @@ class DrawerTest extends React.Component<{}, DrawerTestState> {
             >
               <View>
                 <Text>Screen content</Text>
+                <Text>
+                    {
+                        DrawerLayout.positions.Left
+                    }
+                </Text>
+                <Text>
+                    {
+                        DrawerLayout.positions.Right
+                    }
+                </Text>
               </View>
             </DrawerLayout>
         );

@@ -1,12 +1,18 @@
-/// <reference types='tether' />
-
 import { CSSModule } from '../index';
 
-export interface UncontrolledProps {
+export type Direction = 
+  | "up"
+  | "down"
+  | "left"
+  | "right"
+
+export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
   isOpen?: boolean;
   toggle?: () => void;
   className?: string;
   cssModule?: CSSModule;
+  nav?: boolean;
+  inNavbar?: boolean;
 }
 export interface UncontrolledDropdownProps extends UncontrolledProps {
   /* intentionally blank */
@@ -14,11 +20,11 @@ export interface UncontrolledDropdownProps extends UncontrolledProps {
 
 export interface Props extends UncontrolledProps {
   disabled?: boolean;
-  dropup?: boolean;
+  direction?: Direction;
   group?: boolean;
   size?: string;
   tag?: React.ReactType;
-  tether?: boolean | Tether.ITetherOptions;
+  addonType?: boolean | 'prepend' | 'append';
 }
 export interface DropdownProps extends Props {
   /* intentionally blank */

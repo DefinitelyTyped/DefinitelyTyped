@@ -3,6 +3,8 @@
     "rules": {
         // TODOs
         "no-any-union": false,
-        "no-declare-current-package": false
+        "no-declare-current-package": false,
+        // TODO: Fixing this lint error will require a large refactor
+        "no-single-declare-module": false
     }
 }

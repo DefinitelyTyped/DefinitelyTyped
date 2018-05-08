@@ -83,6 +83,8 @@ arrayOfPoint3D = Array.from(arrayOfPoint, point => point3d, a);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d, a);
 arrayOfPoint = Array.of(point, point);
+b = Array.isArray([]);
+b = Array.isArray({});
 
 // #############################################################################################
 // ECMAScript 6: String & RegExp
@@ -416,7 +418,7 @@ log.disable();
 // Non-standard
 point = dictOfPoint[s];
 point = dictOfPoint[i];
-point = dictOfPoint[sym];
+// point = dictOfPoint[sym];
 dictOfPoint = new Dict(dictOfPoint);
 dictOfAny = new Dict(point);
 dictOfPoint = Dict(dictOfPoint);

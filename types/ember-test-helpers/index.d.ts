@@ -1,4 +1,4 @@
-// Type definitions for ember-test-helpers 0.6
+// Type definitions for ember-test-helpers 0.7
 // Project: https://github.com/emberjs/ember-test-helpers#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,6 @@
 
 declare module 'ember-test-helpers' {
     import Ember from 'ember';
-    import DS from 'ember-data';
     import { TemplateFactory } from 'htmlbars-inline-precompile';
     import RSVP from "rsvp";
 
@@ -34,19 +33,24 @@ declare module 'ember-test-helpers' {
         send(actionName: string): void;
         $: JQueryStatic;
         subject(options?: {}): any;
-        render(template?: string | string[] | TemplateFactory): void;
+        render(template?: string | string[] | TemplateFactory): Promise<void>;
         clearRender(): void;
         registry: Ember.Registry;
         container: Ember.Container;
         dispatcher: Ember.EventDispatcher;
         application: Ember.Application;
-        store: DS.Store;
         register(fullName: string, factory: any): void;
         factory(fullName: string): any;
         inject: {
             controller(name: string, options?: { as: string }): any;
             service(name: string, options?: { as: string }): any;
         };
+        owner: Ember.ApplicationInstance & {
+            factoryFor(fullName: string, options?: {}): any;
+        };
+        pauseTest(): Promise<void>;
+        resumeTest(): void;
+        element: Element;
     }
 
     class TestModule {

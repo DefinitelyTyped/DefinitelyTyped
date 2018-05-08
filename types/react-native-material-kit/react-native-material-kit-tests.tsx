@@ -27,6 +27,10 @@ const ButtonTest = () =>
         </Text>
     </MKButton>;
 
+const ButtonBuilderTest = new MKButton.Builder()
+  .withBackgroundColor(MKColor.Teal)
+  .build();
+
 //// TEXT FIELD
 
 interface MKTextFieldTestState {

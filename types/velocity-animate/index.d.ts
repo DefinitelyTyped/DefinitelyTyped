@@ -6,6 +6,12 @@
 
 /// <reference types="jquery" />
 
+declare const Velocity: jquery.velocity.VelocityStatic;
+
+declare module "velocity-animate" {
+  export = Velocity;
+}
+
 interface JQuery {
 	velocity(name: string, options: jquery.velocity.RegisteredEffectOptions): JQuery;
 	velocity(options: {properties: jquery.velocity.Properties; options: jquery.velocity.Options}): JQuery;

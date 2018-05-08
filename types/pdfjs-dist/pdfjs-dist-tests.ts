@@ -1,11 +1,10 @@
-import { PDFJSStatic, PDFDocumentProxy, PDFPromise } from 'pdfjs-dist';
+import { PDFJS, PDFDocumentProxy, PDFPromise } from 'pdfjs-dist';
 
 //
 // Fetch the PDF document from the URL using promises
 //
 var pdfDoc: PDFDocumentProxy;
 var pageNum: number;
-var PDFJS: PDFJSStatic;
 
 PDFJS.getDocument('helloworld.pdf').then(function (pdf) {
 	// Using promise to fetch the page
@@ -26,7 +25,7 @@ function renderPage(pageNum: number) {
 		var context = canvas.getContext('2d');
 		canvas.height = viewport.height;
 		canvas.width = viewport.width;
-		
+
 		//
 		// test viewport conversion methods
 		// convertToViewportRectangle and normalizeRect are used in the acroforms example:

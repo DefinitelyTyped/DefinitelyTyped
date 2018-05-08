@@ -6,9 +6,6 @@
 
 /// <reference types="pouchdb-core" />
 
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
-
 declare namespace PouchDB {
     namespace Replication {
         interface ReplicateOptions {

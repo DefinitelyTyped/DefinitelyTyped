@@ -1,5 +1,5 @@
 import * as webpack from 'webpack';
-import * as AssetsPlugin from 'assets-webpack-plugin';
+import AssetsPlugin = require('assets-webpack-plugin');
 
 const config: webpack.Configuration = {
     plugins: [

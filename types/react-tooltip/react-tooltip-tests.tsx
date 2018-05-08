@@ -1,6 +1,6 @@
 import * as React from "react";
 import { findDOMNode } from "react-dom";
-import * as ReactTooltip from "react-tooltip";
+import ReactTooltip = require("react-tooltip");
 
 export class ReactTooltipTest extends React.PureComponent {
     componentDidMount() {
@@ -91,7 +91,7 @@ export class ReactTooltipTest extends React.PureComponent {
             <p data-for="show-on-click" ref="fooShow" data-tip="tooltip" />
             <button
                 onClick={() => {
-                    ReactTooltip.show(findDOMNode(this.refs.fooShow));
+                    ReactTooltip.show(findDOMNode(this.refs.fooShow) as Element);
                 }}
             />
             <ReactTooltip id="show-on-click" />
@@ -99,7 +99,7 @@ export class ReactTooltipTest extends React.PureComponent {
             <p data-for="hide-on-click" ref="fooHide" data-tip="tooltip"/>
             <button
                 onClick={() => {
-                    ReactTooltip.hide(findDOMNode(this.refs.fooHide));
+                    ReactTooltip.hide(findDOMNode(this.refs.fooHide) as Element);
                 }}
             />
             <ReactTooltip id="hide-on-click" />

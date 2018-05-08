@@ -2,7 +2,7 @@
 // Project: https://github.com/quickleft/react-loader
 // Definitions by: Sudarsan Balaji <https://github.com/artfuldev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { Component } from 'react';
 

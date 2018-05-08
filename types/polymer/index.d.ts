@@ -53,7 +53,7 @@ declare global {
 
       // Debouncer
 
-      debounce?(jobName: string, callback: Function, wait: number): void;
+      debounce?(jobName: string, callback: Function, wait?: number): void;
 
       isDebouncerActive?(jobName: string): boolean;
 
@@ -138,6 +138,8 @@ declare global {
       shift?(path: string): any;
 
       unshift?(path: string, ...item: any[]): number;
+
+      notifySplices?(path: string, splices: ReadonlyArray<polymer.PolymerSplice>): void;
 
       // ResolveUrl
 
@@ -312,6 +314,18 @@ declare global {
       whenReady(cb: Function): void;
     }
 
+    interface PolymerSplice {
+      index: number;
+      removed: Array<{}>;
+      addedCount: number;
+      object: Array<{}>;
+      type: string;
+    }
+
+    interface ArraySplice {
+      calculateSplices<T>(current: ReadonlyArray<T>, previous: ReadonlyArray<T>): PolymerSplice[];
+    }
+
     interface ImportStatus extends RenderStatus {
       whenLoaded(cb: Function): void;
     }
@@ -328,6 +342,8 @@ declare global {
       Class(prototype: Base | { new (): Base }): CustomElementConstructor;
 
       RenderStatus: RenderStatus
+
+      ArraySplice: ArraySplice;
 
       /** @deprecated */
       ImportStatus: ImportStatus

@@ -6,7 +6,7 @@
 //                 Benny van Reeven <https://github.com/bvanreeven>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /**
  * **NOTE:** You probably will never need to use this function. Most parsing
@@ -61,6 +61,10 @@ declare namespace Parsimmon {
 		value: T;
 	}
 
+	interface Node<Name extends string, T> extends Mark<T> {
+		name: Name;
+	}
+
 	type Result<T> = Success<T> | Failure;
 
 	interface Success<T> {
@@ -75,12 +79,20 @@ declare namespace Parsimmon {
 	}
 
 	interface Rule {
-		[key: string]: (r?: Language) => Parser<any>;
+		[key: string]: (r: Language) => Parser<any>;
 	}
 
 	interface Language {
 		[key: string]: Parser<any>;
 	}
+
+	type TypedRule<TLanguageSpec> = {
+		[P in keyof TLanguageSpec]: (r: TypedLanguage<TLanguageSpec>) => Parser<TLanguageSpec[P]>;
+	};
+
+	type TypedLanguage<TLanguageSpec> = {
+		[P in keyof TLanguageSpec]: Parser<TLanguageSpec[P]>;
+	};
 
 	interface Parser<T> {
 		/**
@@ -118,7 +130,7 @@ declare namespace Parsimmon {
 		 * returns wrapper(this) from the parser. Useful for custom functions used
 		 * to wrap your parsers, while keeping with Parsimmon chaining style.
 		 */
-		thru<U>(call: (wrapper: Parser<U>) => Parser<T>): Parser<T>;
+		thru<U>(call: (wrapper: Parser<T>) => Parser<U>): Parser<U>;
 		/**
 		 * expects anotherParser before and after parser, yielding the result of parser
 		 */
@@ -173,9 +185,15 @@ declare namespace Parsimmon {
 		 */
 		atLeast(n: number): Parser<T[]>;
 		/**
-		 * returns a new parser whose failure message is the passed description.
+		 * Yields an object with `start`, `value`, and `end` keys, where `value` is the original
+		 * value yielded by the parser, and `start` and `end` indicate the `Index` objects representing
+		 * the range of the parse result.
 		 */
 		mark(): Parser<Mark<T>>;
+		/**
+		 * Like `mark()`, but yields an object with an additional `name` key to use as an AST.
+		 */
+		node<Name extends string>(name: Name): Parser<Node<Name, T>>;
 		/**
 		 * Returns a new parser whose failure message is description.
 		 * For example, string('x').desc('the letter x') will indicate that 'the letter x' was expected.
@@ -189,9 +207,51 @@ declare namespace Parsimmon {
 	function Parser<T>(fn: (input: string, i: number) => Parsimmon.Reply<T>): Parser<T>;
 
 	/**
-	 * Starting point for building a language parser in Parsimmon
+	 * Starting point for building a language parser in Parsimmon.
+	 *
+	 * For having the resulting language rules return typed parsers, e.g. `Parser<Foo>` instead of
+	 * `Parser<any>`, pass a language specification as type parameter to this function. The language
+	 * specification should be of the following form:
+	 *
+	 * ```javascript
+	 * {
+	 *   rule1: type;
+	 *   rule2: type;
+	 * }
+	 * ```
+	 *
+	 * For example:
+	 *
+	 * ```javascript
+	 * const language = Parsimmon.createLanguage<{
+	 *   expr: Expr;
+	 *   numberLiteral: number;
+	 *   stringLiteral: string;
+	 * }>({
+	 *   expr: r => (some expression that yields Parser<Expr>),
+	 *   numberLiteral: r => (some expression that yields Parser<number>),
+	 *   stringLiteral: r => (some expression that yields Parser<string>)
+	 * });
+	 * ```
+	 *
+	 * Now both `language` and the parameter `r` that is passed into every parser rule will be of the
+	 * following type:
+	 *
+	 * ```javascript
+	 * {
+	 *   expr: Parser<Expr>;
+	 *   numberLiteral: Parser<number>;
+	 *   stringLiteral: Parser<string>;
+	 * }
+	 * ```
+	 *
+	 * Another benefit is that both the `rules` parameter and the resulting `language` should match the
+	 * properties defined in the language specification type, which means that the compiler checks that
+	 * there are no missing or superfluous rules in the language definition, and that the rules you access
+	 * on the resulting language do actually exist.
 	 */
 	function createLanguage(rules: Rule): Language;
+	function createLanguage<TLanguageSpec>(rules: TypedRule<TLanguageSpec>): TypedLanguage<TLanguageSpec>;
 
 	/**
 	 * To be used inside of Parsimmon(fn). Generates an object describing how

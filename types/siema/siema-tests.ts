@@ -1,4 +1,4 @@
-import Siema = require('siema');
+import Siema from 'siema';
 
 const siema = new Siema({
     selector: '.siema',
@@ -14,11 +14,14 @@ const siema = new Siema({
     onChange: () => {},
 });
 
+const elem = new HTMLDivElement();
+
 siema.next();
 siema.prev();
 siema.goTo(siema.currentSlide);
 siema.remove(0, () => {});
-siema.insert('item', 0, () => {});
-siema.prepend('item', () => {});
-siema.append('item', () => {});
+siema.insert(elem, 0, () => {});
+siema.prepend(elem, () => {});
+siema.append(elem, () => {});
+siema.destroy();
 siema.destroy(true, () => {});

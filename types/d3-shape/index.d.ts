@@ -32,9 +32,9 @@ export interface DefaultArcObject {
      */
     endAngle: number;
     /**
-     * Pad angle of arcin radians.
+     * Optional. Pad angle of arcin radians.
      */
-    padAngle: number;
+    padAngle?: number;
 }
 
 /**
@@ -230,7 +230,7 @@ export interface Arc<This, Datum> {
      * Returns the current pad angle accessor, which defaults to a function returning the padAngle property
      * of the first argument passed into it, or false if no data are passed in or the property is not defined.
      */
-    padAngle(): (this: This, d: Datum, ...args: any[]) => number;
+    padAngle(): (this: This, d: Datum, ...args: any[]) => number | undefined;
     /**
      * Sets the pad angle to the specified number and returns this arc generator.
      *
@@ -248,7 +248,7 @@ export interface Arc<This, Datum> {
      *
      * @param angle Constant angle in radians.
      */
-    padAngle(angle: number): this;
+    padAngle(angle: number | undefined): this;
     /**
      * Sets the pad angle to the specified function and returns this arc generator.
      *
@@ -267,7 +267,7 @@ export interface Arc<This, Datum> {
      * @param angle An accessor function returning a number in radians to be used as an angle. The accessor function is invoked in the same "this" context as the generator was invoked in and
      * receives the same arguments that were passed into the arc generator.
      */
-    padAngle(angle: (this: This, d: Datum, ...args: any[]) => number): this;
+    padAngle(angle: (this: This, d: Datum, ...args: any[]) => number | undefined): this;
 
     /**
      * Returns the current pad radius accessor, which defaults to null, indicating that the pad radius should be automatically computed as sqrt(innerRadius * innerRadius + outerRadius * outerRadius).

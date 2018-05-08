@@ -1,8 +1,20 @@
 import * as elasticsearch from "elasticsearch";
+import HttpConnector = require("elasticsearch/src/lib/connectors/http");
+
+class MyHttpConnector extends HttpConnector {
+  constructor(host: any, config: any) {
+    super(host, config);
+  }
+}
 
 let client = new elasticsearch.Client({
   host: 'localhost:9200',
   log: 'trace'
+});
+
+client = new elasticsearch.Client({
+  host: 'localhost:9200',
+  connectionClass: MyHttpConnector
 });
 
 client = new elasticsearch.Client({
@@ -58,6 +70,14 @@ client.create({
   id: '123',
   index: 'index',
   type: 'type'
+}, (err, repsonse, status) => {
+});
+
+client.create({
+  id: '123',
+  index: 'index',
+  type: 'type',
+  routing: 'parent_123',
 }, (err, repsonse, status) => {
 });
 
@@ -161,6 +181,15 @@ client.index({
 }, (error, response) => {
 });
 
+client.get({
+  index: 'myindex',
+  type: 'mytype',
+  id: '1',
+  routing: '1'
+}, (error, response) => {
+    const routing = response._routing;
+});
+
 client.mget({
   body: {
     docs: [
@@ -247,6 +276,30 @@ client.search({
   } else {
     console.log('every "test" title', allTitles);
   }
+});
+
+client.updateByQuery({
+  index: 'myIndex',
+  type: 'mytype',
+}, (error, response) => {
+  const {
+    took,
+    timed_out,
+    updated,
+    deleted,
+    batches,
+    version_conflicts,
+    noops,
+    retries,
+    throttled_millis,
+    throttled_until_millis,
+    total,
+    failures
+  } = response;
+
+  const { bulk, search } = retries;
+
+  // ...
 });
 
 client.indices.updateAliases({

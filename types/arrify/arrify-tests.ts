@@ -1,4 +1,4 @@
-import arrify = require("arrify");
+import * as arrify from 'arrify';
 
 arrify(null);
 arrify<number>(null);

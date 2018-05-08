@@ -2,7 +2,8 @@
 
 import {
     ReadableStream, ReadableStreamSource, WritableStream,
-    ReadableStreamDefaultController, WritableStreamSink, WritableStreamDefaultController, ReadableByteStreamController
+    ReadableStreamDefaultController, WritableStreamSink, WritableStreamDefaultController, ReadableByteStreamController,
+    TransformStream, TransformStreamDefaultController, TransformStreamTransformer
 } from "whatwg-streams";
 
 // Examples taken from https://streams.spec.whatwg.org/#creating-examples
@@ -127,7 +128,7 @@ function makeUDPSocketStream(host: string, port: number) {
 interface fs {
     open(path: string | Buffer, flags: string | number): Promise<number>;
     read(fd: number, buffer: Buffer, offset: number, length: number, position: number): Promise<number>;
-    write(fd: number, buffer: Buffer, offset: number, length: number): Promise<number>;
+    write(fd: number, buffer: Buffer | string, offset: number, length: number): Promise<number>;
     close(fd: number): Promise<void>;
 }
 let fs: fs;
@@ -251,7 +252,7 @@ function makeWritableWebSocketStream(url: string, protocols: string | string[]) 
 function makeWritableFileStream(filename: string) {
     let fd: number;
 
-    return new WritableStream({
+    return new WritableStream<string>({
         start() {
             return fs.open(filename, "w").then(result => {
                 fd = result;
@@ -290,12 +291,12 @@ function streamifyWebSocket(url: string, protocol: string) {
 
     return {
         readable: new ReadableStream(new WebSocketSource(ws)),
-        writable: new WritableStream(new WebSocketSink(ws))
+        writable: new WritableStream<string>(new WebSocketSink(ws))
     };
 }
 
 class WebSocketSource implements ReadableStreamSource {
-    private _ws: WebSocket;
+    private readonly _ws: WebSocket;
 
     constructor(ws: WebSocket) {
         this._ws = ws;
@@ -316,7 +317,7 @@ class WebSocketSource implements ReadableStreamSource {
 }
 
 class WebSocketSink implements WritableStreamSink {
-    private _ws: WebSocket;
+    private readonly _ws: WebSocket;
 
     constructor(ws: WebSocket) {
         this._ws = ws;
@@ -353,4 +354,60 @@ class WebSocketSink implements WritableStreamSink {
     reader.read().then(({ value, done }) => {
         console.log("The web socket says: ", value);
     });
+}
+
+
+// 8.9. A transform stream that replaces template tags
+
+
+type Dictionary<T> = { [key: string]: T }
+
+declare interface FetchEvent {
+    respondWith(promise: Promise<any>): void;
+}
+
+class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
+    substitutions: Dictionary<string>;
+    partialChunk: string;
+    lastIndex: number | undefined;
+
+    constructor(substitutions: Dictionary<string>) {
+        this.substitutions = substitutions;
+        this.partialChunk = "";
+        this.lastIndex = undefined;
+    }
+
+    transform(chunk: string, controller: TransformStreamDefaultController<string>) {
+        chunk = this.partialChunk + chunk;
+        this.partialChunk = "";
+        // lastIndex is the index of the first character after the last substitution.
+        this.lastIndex = 0;
+        chunk = chunk.replace(/\{\{([a-zA-Z0-9_-]+)\}\}/g, this.replaceTag.bind(this));
+        // Regular expression for an incomplete template at the end of a string.
+        const partialAtEndRegexp = /\{(\{([a-zA-Z0-9_-]+(\})?)?)?$/g;
+        // Avoid looking at any characters that have already been substituted.
+        partialAtEndRegexp.lastIndex = this.lastIndex;
+        this.lastIndex = undefined;
+        const match = partialAtEndRegexp.exec(chunk);
+        if (match) {
+            this.partialChunk = chunk.substring(match.index);
+            chunk = chunk.substring(0, match.index);
+        }
+        controller.enqueue(chunk);
+    }
+
+    flush(controller: TransformStreamDefaultController<string>) {
+        if (this.partialChunk.length > 0) {
+            controller.enqueue(this.partialChunk);
+        }
+    }
+
+    replaceTag(match: string, p1: string, offset: number) {
+        let replacement = this.substitutions[p1];
+        if (replacement === undefined) {
+            replacement = "";
+        }
+        this.lastIndex = offset + replacement.length;
+        return replacement;
+    }
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as moment from "moment";
+import moment = require("moment");
 
 import {
         SingleDatePicker,
@@ -12,9 +12,6 @@ import {
         toISODateString,
         toLocalizedDateString,
         toMomentObject } from "react-dates";
-
-
-
 
 class SingleDatePickerMinimumTest extends React.Component {
     render() {
@@ -42,6 +39,8 @@ class SingleDatePickerFullTest extends React.Component {
                     placeholder="test"
                     required={false}
                     showClearDate={true}
+                    noBorder={true}
+                    block={false}
                     isDayBlocked={(day:any)=> false}
                     isOutsideRange={(day:any)=> false}
                     keepOpenOnDateSelect={true}
@@ -61,7 +60,12 @@ class SingleDatePickerFullTest extends React.Component {
                     numberOfMonths={2}
                     orientation="horizontal"
                     monthFormat="MM"
-                    renderDay={day => day.toString()}
+                    renderDayContents={day => day.toString()}
+                    verticalSpacing={4}
+                    keepFocusOnInput={true}
+                    verticalHeight={5}
+                    regular={true}
+                    small={true}
                     />
     }
 }
@@ -90,6 +94,8 @@ class DateRangePickerFullTest extends React.Component {
                     showDefaultInputIcon={true}
                     required={false}
                     showClearDates={true}
+                    noBorder={true}
+                    block={false}
                     startDate={moment().add(3, 'days')}
                     endDate={moment().add(5, 'days')}
                     anchorDirection="left"
@@ -114,7 +120,7 @@ class DateRangePickerFullTest extends React.Component {
                     numberOfMonths={2}
                     orientation="horizontal"
                     monthFormat="MM"
-                    renderDay={day => day.toString()}
+                    renderDayContents={day => day.toString()}
                     />
     }
 }

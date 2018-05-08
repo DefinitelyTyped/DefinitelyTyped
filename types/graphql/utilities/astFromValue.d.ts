@@ -1,17 +1,5 @@
-import {
-    ValueNode,
-    /*
-    TODO:
-    IntValueNode,
-    FloatValueNode,
-    StringValueNode,
-    BooleanValueNode,
-    EnumValueNode,
-    ListValueNode,
-    ObjectValueNode,
-    */
-} from '../language/ast';
-import { GraphQLInputType } from '../type/definition';
+import { ValueNode } from "../language/ast";
+import { GraphQLInputType } from "../type/definition";
 
 /**
  * Produces a GraphQL Value AST given a JavaScript value.
@@ -27,10 +15,7 @@ import { GraphQLInputType } from '../type/definition';
  * | String        | String / Enum Value  |
  * | Number        | Int / Float          |
  * | Mixed         | Enum Value           |
+ * | null          | NullValue            |
  *
  */
-// TODO: this should set overloads according to above the table
-export function astFromValue(
-    value: any,
-    type: GraphQLInputType
-): ValueNode; // Warning: there is a code in bottom: throw new TypeError
+export function astFromValue(value: any, type: GraphQLInputType): ValueNode | void;

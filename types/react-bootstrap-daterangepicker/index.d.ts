@@ -2,7 +2,7 @@
 // Project: https://github.com/skratchdot/react-bootstrap-daterangepicker
 // Definitions by: Ian Ker-Seymer <https://github.com/ianks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="react" />
 /// <reference types="daterangepicker" />
@@ -19,6 +19,8 @@ declare namespace ReactBootstrapDaterangepicker {
         onApply?: EventHandler;
         onCancel?: EventHandler;
         onEvent?: EventHandler;
+        containerClass?: string;
+        containerStyles?: React.CSSProperties;
     }
 
     export class DateRangePicker extends React.Component<Props> { }

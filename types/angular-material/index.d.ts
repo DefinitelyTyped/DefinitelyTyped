@@ -125,12 +125,21 @@ declare module 'angular' {
         }
 
         interface IDialogService {
+            // indexer used to call preset dialog created with $mdDialogProvider
+            // see: https://material.angularjs.org/latest/api/service/$mdDialog#custom-presets
+            // tslint:disable-next-line:ban-types
+            [presetName: string]: Function;
+
             show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog | IPromptDialog): IPromise<any>;
             confirm(): IConfirmDialog;
             alert(): IAlertDialog;
             prompt(): IPromptDialog;
             hide(response?: any): IPromise<any>;
             cancel(response?: any): void;
+        }
+
+        interface IDialogProvider {
+            addPreset(presetName: string, presetOptions: { methods?: ReadonlyArray<string>, options: () => IDialogOptions }): IDialogProvider;
         }
 
         type IIcon = (id: string) => IPromise<Element>; // id is a unique ID or URL
@@ -223,7 +232,7 @@ declare module 'angular' {
             contrastDefaultColor?: string;
             contrastDarkColors?: string | string[];
             contrastLightColors?: string | string[];
-            contrastStrongLightColors?: string|string[];
+            contrastStrongLightColors?: string | string[];
         }
 
         interface IThemeHues {
@@ -494,5 +503,7 @@ declare module 'angular' {
         interface IProgressCircularProvider {
             configure(options: IProgressCircularConfig): void;
         }
+
+        type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
     }
 }

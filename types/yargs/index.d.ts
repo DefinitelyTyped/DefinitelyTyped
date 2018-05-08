@@ -1,4 +1,4 @@
-// Type definitions for yargs 10.0
+// Type definitions for yargs 11.0
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -214,7 +214,7 @@ declare namespace yargs {
         version(optionKey: string, version: string): Argv;
         version(optionKey: string, description: string, version: string): Argv;
 
-        wrap(columns: number): Argv;
+        wrap(columns: number | null): Argv;
     }
 
     interface Arguments {
@@ -262,9 +262,17 @@ declare namespace yargs {
         nargs?: number;
         normalize?: boolean;
         number?: boolean;
+        /**
+         *  @deprecated since version 6.6.0
+         *  Use 'demandOption' instead
+         */
         require?: boolean | string;
+        /**
+         *  @deprecated since version 6.6.0
+         *  Use 'demandOption' instead
+         */
         required?: boolean | string;
-        requiresArg?: boolean | string;
+        requiresArg?: boolean;
         skipValidation?: boolean;
         string?: boolean;
         type?: "array" | "count" | PositionalOptionsType;

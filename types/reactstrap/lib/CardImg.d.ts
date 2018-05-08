@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface CardImgProps {
+export interface CardImgProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   top?: boolean;
   bottom?: boolean;

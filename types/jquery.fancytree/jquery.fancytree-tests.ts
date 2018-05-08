@@ -13,7 +13,8 @@ $("#tree").fancytree({
 						{
 							title: "Folder 2", key: "2", folder: true, children: [
 							{ title: "Node 2.1", key: "3" },
-							{ title: "Node 2.2", key: "4" }
+							{ title: "Node 2.2", key: "4" },
+							{ title: "NOde 2.3", key: "5", icon: "./icon.svg", checkbox: "radio"}
 						]
 						}
 					]
@@ -24,7 +25,7 @@ $("#tree").fancytree({
 	click: (ev: JQueryEventObject, node: Fancytree.EventData) => {
 		return true;
 	},
-	checkbox: true,
+	checkbox: "radio",//boolean or "radio"
 	expand: () => {
 		console.log("expanded");
 	},
@@ -38,8 +39,14 @@ $("#tree").fancytree({
 		if (data.node.isFolder()) {
 			return false;
 		}
+	},
+	unselectable: function (event, data) {
+		return true;
+	},
+	unselectableIgnore: false,
+	unselectableStatus: function (event, data) {
+		return false;
 	}
-
 });
 
 //$("#tree").fancytree();
@@ -91,3 +98,26 @@ alert("We have " + tree.count() + " nodes.");
 
 // Use the API
 node.setTitle("New title");
+
+// add/remove/toggle class
+activeNode.addClass("test-class");
+activeNode.removeClass("test-class");
+activeNode.toggleClass("test-class");
+activeNode.toggleClass("test-class", true);
+
+// Fancytree.findAll()
+var nodes: Fancytree.FancytreeNode[];
+nodes = tree.findAll((node) => {
+	return true;
+});
+nodes = tree.findAll("Node");
+
+node.addChildren({
+	title: "New Node",
+	key: "15",
+	type: "book",
+	iconTooltip: "Icon toolip",
+	statusNodeType: "loading",
+	unselectableIgnore: true,
+	unselectableStatus: false,
+}, 0);

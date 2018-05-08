@@ -2,6 +2,7 @@
 // Project: http://shelljs.org
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 //                 Vojtech Jasny <https://github.com/voy>
+//                 George Kalpakas <https://github.com/gkalpak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -97,7 +98,9 @@ export function mkdir(options: string, ...dir: Array<string | string[]>): void;
  * @param   path   The path.
  * @return        See option parameter.
  */
-export function test(option: string, path: string): boolean;
+export function test(option: TestOptions, path: string): boolean;
+
+export type TestOptions = "-b" | "-c" | "-d" | "-e" | "-f" | "-L" | "-p" | "-S";
 
 /**
  * Returns a string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file). Wildcard * accepted.
@@ -383,10 +386,30 @@ export function chmod(octalMode: number, file: string): void;
  * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
  * - In symbolic modes, 'a-r' and '-r' are identical. No consideration is given to the umask.
  * - There is no "quiet" option since default behavior is to run silent.
+ * @param options   Available options: -v (output a diagnostic for every file processed), -c (like -v but report only when a change is made), -R (change files and directories recursively)
+ * @param octalMode The access mode. Octal.
+ * @param file      The file to use.
+ */
+export function chmod(options: string, octalMode: number, file: string): void;
+
+/**
+ * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
+ * - In symbolic modes, 'a-r' and '-r' are identical. No consideration is given to the umask.
+ * - There is no "quiet" option since default behavior is to run silent.
  * @param mode      The access mode. Can be an octal string or a symbolic mode string.
  * @param file      The file to use.
  */
 export function chmod(mode: string, file: string): void;
+
+/**
+ * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
+ * - In symbolic modes, 'a-r' and '-r' are identical. No consideration is given to the umask.
+ * - There is no "quiet" option since default behavior is to run silent.
+ * @param options   Available options: -v (output a diagnostic for every file processed), -c (like -v but report only when a change is made), -R (change files and directories recursively)
+ * @param mode      The access mode. Can be an octal string or a symbolic mode string.
+ * @param file      The file to use.
+ */
+export function chmod(options: string, mode: string, file: string): void;
 
 // Non-Unix commands
 
@@ -416,6 +439,12 @@ export function touch(...files: string[]): void;
 export function touch(files: string[]): void;
 export function touch(options: TouchOptionsLiteral, ...files: Array<string | string[]>): void;
 export function touch(options: TouchOptionsArray, ...files: Array<string | string[]>): void;
+
+/**
+ * Sets global configuration variables
+ * @param options Available options: `+/-e`: exit upon error (`config.fatal`), `+/-v`: verbose: show all commands (`config.verbose`), `+/-f`: disable filename expansion (globbing)
+ */
+export function set(options: string): void;
 
 // Configuration
 

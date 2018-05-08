@@ -2,11 +2,13 @@
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
+//                  Yuri Pereira Constante <https://github.com/ypconstante>
+//                  Jan-Niclas Struewer <https://github.com/janniclas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
 // http://js.cytoscape.org/#notation/functions
-//
+// TypeScript Version: 2.2
 
 /**
  * cy   --> Cy.Core
@@ -176,9 +178,7 @@ declare namespace cytoscape {
          * leaving your nodes in their current positions
          * (e.g. specified in options.elements at initialisation time)
          */
-        layout?: NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
-        GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
-        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
+        layout?: LayoutOptions;
 
         ///////////////////////////////////////
         // initial viewport state:
@@ -427,7 +427,7 @@ declare namespace cytoscape {
         /**
          * Get elements in the graph matching the specified selector or filter function.
          */
-        filter(selector: Selector | ((i: number, ele: Singular) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
 
         /**
          * Allow for manipulation of elements without triggering multiple style calculations or multiple redraws.
@@ -901,7 +901,7 @@ declare namespace cytoscape {
         /** complete - A function to call when the animation is done. */
         complete?(): void;
         /** step - A function to call each time the animation steps. */
-        step(): void;
+        step?(): void;
     }
     interface AnimationOptions extends AnimateOptionsCommon {
         /** queue - A transition-timing-function easing style string that shapes the animation progress curve. */
@@ -2231,7 +2231,7 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((i: number, ele: CollectionElements) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
         /**
          * Get the nodes that match the specified selector.
          *
@@ -3145,7 +3145,7 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends PaddingNode {
+        interface Node extends Partial<Overlay>, PaddingNode {
             "label"?: string;
             /**
              * The width of the node’s body.
@@ -3320,7 +3320,7 @@ declare namespace cytoscape {
             "pie-i-background-opacity": number;
         }
 
-        interface Edge extends EdgeLine, EdgeArror { }
+        interface Edge extends EdgeLine, EdgeArror, Partial<Overlay> { }
 
         /**
          * These properties affect the styling of an edge’s line:
@@ -3963,7 +3963,7 @@ declare namespace cytoscape {
      */
     interface AbstractEventObject {
         /** a reference to the corresponding core Core */
-        cy: any;
+        cy: Core;
         /** indicates the element or core that first caused the event */
         target?: any;
         /** the event type string (e.g. "tap") */
@@ -4142,11 +4142,11 @@ declare namespace cytoscape {
     interface Layouts extends LayoutManipulation, LayoutEvents { }
 
     type LayoutOptions =
-        NullLayoutOptions | PresetLayoutOptions | GridLayoutOptions |
-        CircleLayoutOptions | ConcentricLayoutOptions | BreadthFirstLayoutOptions |
-        CoseLayoutOptions | BaseLayoutOptions;
+        NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
+        GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
+        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
 
-    type LayoutHandler = () => void;
+    type LayoutHandler = (e: LayoutEventObject) => void;
 
     interface BaseLayoutOptions {
         name: string;

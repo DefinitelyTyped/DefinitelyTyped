@@ -16,15 +16,31 @@ class Comment extends DS.Model {
     author = DS.attr('string');
 }
 
-class BlogPost extends DS.Model {
+class Series extends DS.Model {
     title = DS.attr('string');
-    tag = DS.attr('string');
-    comments = DS.hasMany<Comment>('comment', { async: true });
-    relatedPosts = DS.hasMany('post');
 }
 
-let blogPost = store.peekRecord<BlogPost>('blog-post', 1);
+class RelationalPost extends DS.Model {
+    title = DS.attr('string');
+    tag = DS.attr('string');
+    comments = DS.hasMany('comment', { async: true });
+    relatedPosts = DS.hasMany('post');
+    series = DS.belongsTo('series');
+}
+
+declare module 'ember-data' {
+    interface ModelRegistry {
+        'relational-post': RelationalPost;
+        comment: Comment;
+        series: Series;
+    }
+}
+
+let blogPost = store.peekRecord('relational-post', 1);
 blogPost!.get('comments').then((comments) => {
     // now we can work with the comments
     let author: string = comments.get('firstObject')!.get('author');
 });
+
+blogPost!.hasMany('relatedPosts');
+blogPost!.belongsTo('series');
