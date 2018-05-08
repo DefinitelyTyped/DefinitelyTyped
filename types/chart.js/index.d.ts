@@ -513,6 +513,7 @@ declare namespace Chart {
         gridLines?: GridLineOptions;
         barThickness?: number;
         scaleLabel?: ScaleTitleOptions;
+        offset?: boolean;
         beforeUpdate?(scale?: any): void;
         beforeSetDimension?(scale?: any): void;
         beforeDataLimits?(scale?: any): void;
