@@ -1,41 +1,22 @@
 import cosmiconfig = require("cosmiconfig");
 
-const asyncExplorer = cosmiconfig("yourModuleName", {
+const explorer = cosmiconfig("yourModuleName", {
+    searchPlaces: [],
+    loaders: {},
     packageProp: "yourModuleName",
-    rc: ".yourModuleNamerc",
-    js: "yourModuleName.config.js",
-    rcStrictJson: false,
-    rcExtensions: false,
     stopDir: "someDir",
     cache: true,
-    sync: false,
-    transform: ({ config, filePath }) => ({ config, filePath }),
-    format: "js"
+    transform: ({ config, filePath, isEmpty }) => ({ config, filePath, isEmpty }),
+    ignoreEmptySearchPlaces: false
 });
 
 Promise.all([
-    asyncExplorer.load(),
-    asyncExplorer.load("start/search/here"),
-    asyncExplorer.load(null, "load/this/file.json")
+    explorer.search("start/search/here"),
+    explorer.searchSync("start/search/here"),
+    explorer.load("load/this/file.json"),
+    explorer.loadSync("load/this/file.json")
 ]).then(result => result);
 
-asyncExplorer.load().then(({ config, filePath }) => ({ config, filePath }));
-
-asyncExplorer.clearFileCache();
-asyncExplorer.clearDirectoryCache();
-asyncExplorer.clearCaches();
-
-const syncExplorer = cosmiconfig("yourModuleName", {
-    packageProp: "yourModuleName",
-    rc: ".yourModuleNamerc",
-    js: "yourModuleName.config.js",
-    rcStrictJson: false,
-    rcExtensions: false,
-    stopDir: "someDir",
-    cache: true,
-    sync: true,
-    transform: ({ config, filePath }) => ({ config, filePath }),
-    format: "js"
-});
-
-const { config, filePath } = syncExplorer.load();
+explorer.clearLoadCache();
+explorer.clearSearchCache();
+explorer.clearCaches();
