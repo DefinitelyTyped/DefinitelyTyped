@@ -109,6 +109,7 @@ namespace events_tests {
         result = emitter.prependListener(event, listener);
         result = emitter.prependOnceListener(event, listener);
         result = emitter.removeListener(event, listener);
+        result = emitter.off(event, listener);
         result = emitter.removeAllListeners();
         result = emitter.removeAllListeners(event);
         result = emitter.setMaxListeners(42);

@@ -561,6 +561,7 @@ declare namespace NodeJS {
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
         removeAllListeners(event?: string | symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
@@ -1004,7 +1005,8 @@ declare module "events" {
 
     namespace internal {
         export class EventEmitter extends internal {
-            static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
+            /** @deprecated since v4.0.0 */
+            static listenerCount(emitter: EventEmitter, event: string | symbol): number;
             static defaultMaxListeners: number;
 
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1013,6 +1015,7 @@ declare module "events" {
             prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
             prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            off(event: string | symbol, listener: (...args: any[]) => void): this;
             removeAllListeners(event?: string | symbol): this;
             setMaxListeners(n: number): this;
             getMaxListeners(): number;
@@ -5732,6 +5735,8 @@ declare module "crypto" {
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
+
+    /** @deprecated since v10.0.0 use createCipheriv() */
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher extends NodeJS.ReadWriteStream {
@@ -5745,6 +5750,7 @@ declare module "crypto" {
         getAuthTag(): Buffer;
         setAAD(buffer: Buffer): this;
     }
+    /** @deprecated since v10.0.0 use createCipheriv() */
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
@@ -5830,17 +5836,16 @@ declare module "crypto" {
     export function getCurves(): string[];
     export function getHashes(): string[];
     export interface ECDH {
+        convertKey(key: string | Buffer /*| TypedArray*/ | DataView, curve: string, inputEncoding?: string, outputEncoding?: string, format?: string): Buffer | string;
         generateKeys(): Buffer;
-        generateKeys(encoding: HexBase64Latin1Encoding): string;
-        generateKeys(encoding: HexBase64Latin1Encoding, format: ECDHKeyFormat): string;
+        generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         computeSecret(other_public_key: Buffer): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         getPublicKey(): Buffer;
-        getPublicKey(encoding: HexBase64Latin1Encoding): string;
-        getPublicKey(encoding: HexBase64Latin1Encoding, format: ECDHKeyFormat): string;
+        getPublicKey(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         setPrivateKey(private_key: Buffer): void;
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
@@ -6257,11 +6262,16 @@ declare module "assert" {
         }
 
         export function fail(message: string): never;
+        /** @deprecated since v10.0.0 */
         export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
+        /** @deprecated use strictEqual() */
         export function equal(actual: any, expected: any, message?: string): void;
+        /** @deprecated use notStrictEqual() */
         export function notEqual(actual: any, expected: any, message?: string): void;
+        /** @deprecated use deepStrictEqual() */
         export function deepEqual(actual: any, expected: any, message?: string): void;
+        /** @deprecated use notDeepStrictEqual() */
         export function notDeepEqual(acutal: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
