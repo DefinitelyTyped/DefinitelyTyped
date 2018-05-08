@@ -248,6 +248,7 @@ declare namespace ReactDates {
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
+        daySize?: number,
         hideKeyboardShortcutsPanel?: boolean;
         onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
