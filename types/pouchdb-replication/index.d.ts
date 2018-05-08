@@ -47,7 +47,7 @@ declare namespace PouchDB {
             /**
              * Filter using a query/pouchdb-find selector. Note: Selectors are not supported in CouchDB 1.x.
              */
-            selector?: PouchDB.Find.Selector;
+            selector?: Find.Selector;
 
             /** Replicate changes after the given sequence number. */
             since?: any;

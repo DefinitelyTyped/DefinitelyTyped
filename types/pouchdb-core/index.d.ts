@@ -418,7 +418,7 @@ declare namespace PouchDB {
              * Filter using a query/pouchdb-find selector. Note: Selectors are not supported in CouchDB 1.x.
              * Cannot be used in combination with the filter option.
              */
-            selector?: PouchDB.Find.Selector;
+            selector?: Find.Selector;
 
             /**
              * (previously options.returnDocs): Is available for non-http databases and defaults to true.
