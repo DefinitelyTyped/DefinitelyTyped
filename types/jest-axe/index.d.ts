@@ -41,7 +41,7 @@ export type JestAxe = (html: string, options?: AxeOptions) => Promise<AxeResults
  * @param options   Options to run aXe.
  * @returns New aXe verifier function.
  */
-export const configureAxe: (options?: AxeOptions) => JestAxe;
+export function configureAxe(options?: AxeOptions): JestAxe;
 
 /**
  * Results from asserting whether aXe verification passed.
