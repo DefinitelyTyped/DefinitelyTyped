@@ -12,6 +12,7 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   barClassName?: string;
+  [others: string]: any;
 }
 
 declare const Progress: React.StatelessComponent<ProgressProps>;

@@ -11,6 +11,7 @@ export interface DropdownItemProps extends React.HTMLAttributes<HTMLElement> {
   href?: string;
   toggle?: boolean;
   active?: boolean;
+  [others: string]: any;
 }
 
 declare const DropdownItem: React.StatelessComponent<DropdownItemProps>;

@@ -14,6 +14,7 @@ export interface DropdownToggleProps extends React.HTMLAttributes<HTMLElement> {
   nav?: boolean;
   color?: string;
   size?: string;
+  [others: string]: any;
 }
 
 declare const DropdownToggle: React.StatelessComponent<DropdownToggleProps>;

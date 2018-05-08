@@ -17,6 +17,7 @@ export interface CollapseProps extends React.HTMLProps<HTMLElement> {
   onExit?: () => void;
   onExiting?: () => void;
   onExited?: () => void;
+  [others: string]: any;
 }
 
 declare const Collapse: React.StatelessComponent<CollapseProps>;

@@ -7,6 +7,7 @@
 //                 Kurt Preston <https://github.com/KurtPreston>
 //                 Tim Chen <https://github.com/timc13>
 //                 Pat Gaffney <https://github.com/patrickrgaffney>
+//                 Deepu K Sasidharan <https://github.com/deepu105>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 

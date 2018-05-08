@@ -5,6 +5,7 @@ export interface NavItemProps extends React.HTMLAttributes<HTMLElement> {
   active?: boolean;
   className?: string;
   cssModule?: CSSModule;
+  [others: string]: any;
 }
 
 declare const NavItem: React.StatelessComponent<NavItemProps>;

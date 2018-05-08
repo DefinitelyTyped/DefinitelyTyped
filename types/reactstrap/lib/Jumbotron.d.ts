@@ -5,6 +5,7 @@ export interface JumbotronProps extends React.HTMLAttributes<HTMLElement> {
   fluid?: boolean;
   className?: string;
   cssModule?: CSSModule;
+  [others: string]: any;
 }
 
 declare const Jumbotron: React.StatelessComponent<JumbotronProps>;

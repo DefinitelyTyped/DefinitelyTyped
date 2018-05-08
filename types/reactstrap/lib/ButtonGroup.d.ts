@@ -8,6 +8,7 @@ export interface ButtonGroupProps extends React.HTMLAttributes<HTMLElement> {
   role?: string;
   size?: string;
   vertical?: boolean;
+  [others: string]: any;
 }
 
 declare const ButtonGroup: React.StatelessComponent<ButtonGroupProps>;

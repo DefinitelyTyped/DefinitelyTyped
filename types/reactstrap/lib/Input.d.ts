@@ -40,6 +40,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   addon?: boolean;
   className?: string;
   cssModule?: CSSModule;
+  [others: string]: any;
 }
 
 declare class Input extends React.Component<InputProps> {}

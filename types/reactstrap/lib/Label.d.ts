@@ -20,6 +20,7 @@ export interface LabelProps extends Intermediate {
   md?: ColumnProps;
   lg?: ColumnProps;
   xl?: ColumnProps;
+  [others: string]: any;
 }
 
 declare const Label: React.StatelessComponent<LabelProps>;

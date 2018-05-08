@@ -15,6 +15,7 @@ export interface MediaProps extends React.HTMLAttributes<HTMLElement> {
   top?: boolean;
   href?: string;
   alt?: string;
+  [others: string]: any;
 }
 
 declare const Media: React.StatelessComponent<MediaProps>;

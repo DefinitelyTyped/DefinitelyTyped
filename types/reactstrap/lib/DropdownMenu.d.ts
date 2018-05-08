@@ -6,6 +6,7 @@ export interface DropdownMenuProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   flip?: boolean;
+  [others: string]: any;
 }
 
 declare const DropdownMenu: React.StatelessComponent<DropdownMenuProps>;

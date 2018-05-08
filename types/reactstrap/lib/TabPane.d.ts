@@ -5,6 +5,7 @@ export interface TabPaneProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   tabId?: number | string;
+  [others: string]: any;
 }
 
 declare const TabPane: React.StatelessComponent<TabPaneProps>;

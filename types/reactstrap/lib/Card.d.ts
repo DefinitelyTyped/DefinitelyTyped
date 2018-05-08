@@ -10,6 +10,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   style?: React.CSSProperties;
+  [others: string]: any;
 }
 
 declare const Card: React.StatelessComponent<CardProps>;

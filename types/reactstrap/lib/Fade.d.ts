@@ -1,20 +1,28 @@
-import { CSSModule } from '../index';
+import { CSSModule } from "../index";
+
+export type EndHandler = (node: HTMLElement, done: () => void) => void;
+export type EnterHandler = (node: HTMLElement, isAppearing: boolean) => void;
+export type ExitHandler = (node: HTMLElement) => void;
 
 export interface FadeProps extends React.HTMLAttributes<HTMLElement> {
-  in?: boolean;
-  baseClass?: string;
-  baseClassIn?: string;
-  tag?: React.ReactType;
-  className?: string;
-  cssModule?: CSSModule;
-  transitionAppearTimeout?: number;
-  transitionEnterTimeout?: number;
-  transitionLeaveTimeout?: number;
-  transitionAppear?: boolean;
-  transitionEnter?: boolean;
-  transitionLeave?: boolean;
-  onLeave?: () => void;
-  onEnter?: () => void;
+    baseClass?: string;
+    baseClassActive?: string;
+    tag?: React.ReactType;
+    className?: string;
+    cssModule?: CSSModule;
+    // Props from 'react-transition-group/Transition'
+    in?: boolean;
+    mountOnEnter?: boolean;
+    unmountOnExit?: boolean;
+    timeout: number | { enter?: number; exit?: number };
+    addEndListener?: EndHandler;
+    onEnter?: EnterHandler;
+    onEntering?: EnterHandler;
+    onEntered?: EnterHandler;
+    onExit?: ExitHandler;
+    onExiting?: ExitHandler;
+    onExited?: ExitHandler;
+    [others: string]: any;
 }
 
 declare const Fade: React.StatelessComponent<FadeProps>;

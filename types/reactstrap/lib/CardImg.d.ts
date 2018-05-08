@@ -10,6 +10,7 @@ export interface CardImgProps extends React.HTMLAttributes<HTMLElement> {
   width?: string;
   height?: string;
   alt?: string;
+  [others: string]: any;
 }
 
 declare const CardImg: React.StatelessComponent<CardImgProps>;

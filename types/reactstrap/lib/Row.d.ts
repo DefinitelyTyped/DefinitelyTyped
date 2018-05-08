@@ -5,6 +5,7 @@ export interface RowProps extends React.HTMLProps<HTMLElement> {
   cssModule?: CSSModule;
   tag?: React.ReactType;
   noGutters?: boolean;
+  [others: string]: any;
 }
 
 declare const Row: React.StatelessComponent<RowProps>;

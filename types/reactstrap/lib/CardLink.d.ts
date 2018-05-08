@@ -6,6 +6,7 @@ export interface CardLinkProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   href?: string;
+  [others: string]: any;
 }
 
 declare const CardLink: React.StatelessComponent<CardLinkProps>;
