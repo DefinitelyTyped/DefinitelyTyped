@@ -9,6 +9,7 @@
 //                 Enrico Picci <https://github.com/EnricoPicci>
 //                 Alexander Christie <https://github.com/AJCStriker>
 //                 Julien Chaumond <https://github.com/julien-c>
+//                 Dan Aprahamian <https://github.com/daprahamian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -29,7 +30,7 @@ export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, T
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html
 export class MongoClient extends EventEmitter {
-    constructor();
+    constructor(uri: string, options?: MongoClientOptions);
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#.connect */
     static connect(uri: string, callback: MongoCallback<MongoClient>): void;
     static connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
@@ -104,8 +105,14 @@ export interface MongoClientOptions extends
 }
 
 export interface SSLOptions {
+    // Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info.
+    ciphers?: string;
+    // Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info.
+    ecdhCurve?: string;
     // Default:5; Number of connections for each server instance
     poolSize?: number;
+    // If present, the connection pool will be initialized with minSize connections, and will never dip below minSize connections
+    minSize?: number;
     // Use ssl connection (needs to have a mongod server with ssl support)
     ssl?: boolean;
     // Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
@@ -115,7 +122,7 @@ export interface SSLOptions {
     // Array of valid certificates either as Buffers or Strings
     sslCA?: Array<Buffer | string>;
     // SSL Certificate revocation list binary buffer
-    sslCRL?: Buffer;
+    sslCRL?: Array<Buffer | string>;
     // SSL Certificate binary buffer
     sslCert?: Buffer | string;
     // SSL Key file binary buffer
@@ -231,6 +238,8 @@ export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions {
     socketOptions?: SocketOptions;
 }
 
+export type ProfilingLevel = 'off' | 'slow_only' | 'all';
+
 // Class documentation : http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html
 export class Db extends EventEmitter {
     constructor(databaseName: string, serverConfig: Server | ReplSet | Mongos, options?: DbCreateOptions);
@@ -285,13 +294,14 @@ export class Db extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#listCollections */
     listCollections(filter?: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#profilingInfo */
+    /** @deprecated Query the system.profile collection directly. */
     profilingInfo(callback: MongoCallback<any>): void;
     profilingInfo(options?: { session?: ClientSession }): Promise<void>;
     profilingInfo(options: { session?: ClientSession }, callback: MongoCallback<void>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#profilingLevel */
-    profilingLevel(callback: MongoCallback<any>): void;
-    profilingLevel(options?: { session?: ClientSession }): Promise<void>;
-    profilingLevel(options: { session?: ClientSession }, callback: MongoCallback<void>): void;
+    profilingLevel(callback: MongoCallback<ProfilingLevel>): void;
+    profilingLevel(options?: { session?: ClientSession }): Promise<ProfilingLevel>;
+    profilingLevel(options: { session?: ClientSession }, callback: MongoCallback<ProfilingLevel>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#removeUser */
     removeUser(username: string, callback: MongoCallback<any>): void;
     removeUser(username: string, options?: CommonOptions): Promise<any>;
@@ -301,9 +311,9 @@ export class Db extends EventEmitter {
     renameCollection<TSchema = Default>(fromCollection: string, toCollection: string, options?: { dropTarget?: boolean }): Promise<Collection<TSchema>>;
     renameCollection<TSchema = Default>(fromCollection: string, toCollection: string, options: { dropTarget?: boolean }, callback: MongoCallback<Collection<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#setProfilingLevel */
-    profilingLevel(level: string, callback: MongoCallback<any>): void;
-    profilingLevel(level: string, options?: { session?: ClientSession }): Promise<void>;
-    profilingLevel(level: string, options: { session?: ClientSession }, callback: MongoCallback<void>): void;
+    setProfilingLevel(level: ProfilingLevel, callback: MongoCallback<ProfilingLevel>): void;
+    setProfilingLevel(level: ProfilingLevel, options?: { session?: ClientSession }): Promise<ProfilingLevel>;
+    setProfilingLevel(level: ProfilingLevel, options: { session?: ClientSession }, callback: MongoCallback<ProfilingLevel>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#stats */
     stats(callback: MongoCallback<any>): void;
     stats(options?: { scale?: number }): Promise<any>;
@@ -1215,6 +1225,8 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#close */
     close(): Promise<CursorResult>;
     close(callback: MongoCallback<CursorResult>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#collation */
+    collation(value: Object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#comment */
     comment(value: string): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#count */
@@ -1518,7 +1530,7 @@ export interface LoggerState {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.0/api/Logger.html */
-export class Logger{
+export class Logger {
     constructor(className: string, options?: LoggerOptions)
     // Log a message at the debug level
     debug(message: string, state: LoggerState):void

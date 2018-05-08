@@ -31,15 +31,6 @@ export interface SuggestionInsertedEvent {
 }
 
 /**
- *  COMPATIBILITY STUB. WILL BE REMOVED
- */
-// tslint:disable-next-line:no-empty-interface
-export interface Suggestion<
-  T extends { text: string }|{ snippet: string }
-  > extends SuggestionBase {}
-// TODO: Remove on next minor version
-
-/**
  *  An autocompletion suggestion for the user.
  *  Primary data type for the Atom Autocomplete+ service.
  */

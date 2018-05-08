@@ -9,11 +9,12 @@ const sidebarStyle: SidebarStyles = {
 
 const sidebar1 = (
     <Sidebar
+        defaultSidebarWidth={30}
         docked={true}
         open={true}
         sidebar={sidebar}
         styles={sidebarStyle}
-        onSetOpen={() => {}}
+        onSetOpen={(open: boolean) => { }}
     >
         <h1>Content</h1>
     </Sidebar>

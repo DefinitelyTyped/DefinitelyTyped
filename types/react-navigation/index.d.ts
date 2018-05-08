@@ -15,6 +15,7 @@
 //                 Steven Miller <https://github.com/YourGamesBeOver>
 //                 Armando Assuncao <https://github.com/ArmandoAssuncao>
 //                 Ciaran Liedeman <https://github.com/cliedeman>
+//                 Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -31,7 +32,7 @@ import * as React from 'react';
 import {
   Animated,
   TextStyle,
-  ViewProperties,
+  ViewProps,
   ViewStyle,
   StyleProp,
 } from 'react-native';
@@ -283,8 +284,8 @@ export interface NavigationStackViewConfig {
     prevTransitionProps: NavigationTransitionProps,
     isModal: boolean,
   ) => TransitionConfig;
-  onTransitionStart?: () => void;
-  onTransitionEnd?: () => void;
+  onTransitionStart?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
+  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => void;
 }
 
 export interface NavigationStackScreenOptions {
@@ -599,9 +600,17 @@ export interface NavigationContainerProps {
   style?: StyleProp<ViewStyle>;
 }
 
+export interface NavigationContainerComponent extends React.Component<
+  NavigationContainerProps & NavigationNavigatorProps<any>
+  > {
+  dispatch: NavigationDispatch;
+}
+
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps & NavigationNavigatorProps<any>
-> {
+  > {
+  new(props: NavigationContainerProps & NavigationNavigatorProps<any>, context?: any): NavigationContainerComponent;
+
   router: NavigationRouter<any, any>;
   screenProps: { [key: string]: any };
   navigationOptions: any;
@@ -622,7 +631,7 @@ export interface SwitchNavigatorConfig {
   initialRouteName: string;
   resetOnBlur?: boolean;
   paths?: NavigationPathsConfig;
-  backBehavior?: 'none' | 'intialRoute';
+  backBehavior?: 'none' | 'initialRoute';
 }
 
 // Return createNavigationContainer
@@ -797,8 +806,8 @@ export interface TransitionerProps {
     prevTransitionProps?: NavigationTransitionProps
   ) => NavigationTransitionSpec;
   navigation: NavigationScreenProp<NavigationState>;
-  onTransitionEnd?: () => void;
-  onTransitionStart?: () => void;
+  onTransitionStart?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => Promise<void> | void;
+  onTransitionEnd?: (transitionProps: NavigationTransitionProps, prevTransitionProps?: NavigationTransitionProps) => void;
   render: (
     transitionProps: NavigationTransitionProps,
     prevTransitionProps?: NavigationTransitionProps
@@ -917,7 +926,7 @@ export function withNavigationFocus<T = {}>(
  * SafeAreaView Component
  */
 export type SafeAreaViewForceInsetValue = 'always' | 'never';
-export interface SafeAreaViewProps extends ViewProperties {
+export interface SafeAreaViewProps extends ViewProps {
   forceInset?: {
     top?: SafeAreaViewForceInsetValue;
     bottom?: SafeAreaViewForceInsetValue;

@@ -24,6 +24,11 @@ myScroll1.scrollTo(0, 100);
 myScroll1.scrollTo(0, 100, 200);
 myScroll1.scrollTo(0, 100, 200, true);
 
+myScroll1.zoom(1);
+myScroll1.zoom(-1);
+myScroll1.zoom(1, 100, 200);
+myScroll1.zoom(1, 200, 250, 100);
+
 myScroll1.scrollToElement('selectedElement');
 myScroll1.scrollToElement('selectedElement', 250);
 

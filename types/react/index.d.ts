@@ -261,7 +261,6 @@ declare namespace React {
         defaultValue: T,
         calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
-    function createContext<T>(): Context<T | undefined>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
@@ -278,7 +277,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = {}, S = {}, SS = never> extends ComponentLifecycle<P, S, SS> { }
+    interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
         constructor(props: P, context?: any);
 
@@ -306,7 +305,7 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P = {}, S = {}> extends Component<P, S> { }
+    class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
@@ -1294,7 +1293,6 @@ declare namespace React {
         rel?: string;
         target?: string;
         type?: string;
-        as?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface

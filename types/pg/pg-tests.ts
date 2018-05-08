@@ -179,3 +179,8 @@ pool.end().then(() => console.log('pool has ended'));
   await client.query('SELECT NOW()');
   client.release();
 })();
+
+// client constructor tests
+// client config object tested above
+let c = new Client(); // empty constructor allowed
+c = new Client('connectionString'); // connection string allowed

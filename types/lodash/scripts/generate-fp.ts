@@ -13,6 +13,7 @@ import fs from "fs";
 import _ from "lodash";
 import convert from "lodash/fp/convert";
 import path from "path";
+import { readFile, getLineBreak, tab, getLineNumber } from "./utils";
 
 interface Definition {
     name: string;
@@ -45,10 +46,8 @@ interface TypeParam {
 
 let lineBreak = "\n";
 async function main() {
+    lineBreak = await getLineBreak();
     const commonTypes: string[] = [];
-    const tsconfigPath = path.join("..", "tsconfig.json");
-    const tsconfigFile = await readFile(tsconfigPath);
-    lineBreak = _.find(["\r\n", "\n", "\r"], x => tsconfigFile.includes(x)) || "\n";
 
     // Read each function definition and fp-ify it
     const subfolders = ["common"];
@@ -106,7 +105,7 @@ async function main() {
     const fpFile = [
         "// AUTO-GENERATED: do not modify this file directly.",
         "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
-        "// npm run fp",
+        "// npm install && npm run generate",
         "",
         'import lodash = require("./index");',
         "",
@@ -130,6 +129,8 @@ async function main() {
     });
 
     // Make sure the generated files are listed in tsconfig.json, so they are included in the lint checks
+    const tsconfigPath = path.join("..", "tsconfig.json");
+    const tsconfigFile = await readFile(tsconfigPath);
     const tsconfig = tsconfigFile.split(lineBreak).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
     const newRows = interfaceGroups.map(g => `        "fp/${g.functionName}.d.ts",`)
         .concat(["__", "placeholder"].map(p => `        "fp/${p}.d.ts",`));
@@ -143,22 +144,6 @@ async function main() {
     fs.writeFile(tsconfigPath, tsconfig.join(lineBreak), (err) => {
         if (err)
             console.error(`Failed to write ${tsconfigPath}: `, err);
-    });
-}
-
-function readFile(filePath: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-        fs.readFile(filePath, "utf8", (err, data) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            try {
-                resolve(data);
-            } catch (e) {
-                reject(e);
-            }
-        });
     });
 }
 
@@ -255,7 +240,6 @@ async function parseFile(filePath: string, commonTypes: string[]): Promise<Defin
         definitons.push(...parsedDefinitions);
         lodashStaticMatch = lodashStaticRegExp.exec(definitionString);
     }
-    const __test = definitons.filter(d => !_.isEmpty(d.constants));
     return definitons;
 }
 
@@ -897,15 +881,6 @@ function getPreviousLine(s: string, index: number): string {
     if (bol === -1)
         return "";
     return s.substring(bol + 1, eol);
-}
-
-function getLineNumber(fileContents: string, index: number) {
-    return fileContents.substring(0, index).split(lineBreak).length + 1;
-}
-
-function tab(s: string, count: number) {
-    const prepend: string = " ".repeat(count * 4);
-    return (s[0] === "\n" || s[0] === "\r" ? "" : prepend) + s.replace(/(?:\r\n|\n|\r)(.)/g, `${lineBreak}${prepend}$1`);
 }
 
 function indexOfAny(source: string, values: string[], position?: number): number {

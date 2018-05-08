@@ -418,7 +418,7 @@ log.disable();
 // Non-standard
 point = dictOfPoint[s];
 point = dictOfPoint[i];
-point = dictOfPoint[sym];
+// point = dictOfPoint[sym];
 dictOfPoint = new Dict(dictOfPoint);
 dictOfAny = new Dict(point);
 dictOfPoint = Dict(dictOfPoint);

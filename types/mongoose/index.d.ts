@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.12
+// Type definitions for Mongoose 5.0.14
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -47,8 +47,12 @@ declare module "mongoose" {
   import stream = require('stream');
   import mongoose = require('mongoose');
 
-  /** Pluralises the given name */
-  export function pluralize(str: string): string;
+  /**
+   * Gets and optionally overwrites the function used to pluralize collection names
+   * @param fn function to use for pluralization of collection names
+   * @returns the current function used to pluralize collection names (defaults to the `mongoose-legacy-pluralize` module's function)
+   */
+  export function pluralize(fn?: (str: string) => string): (str: string) => string;
 
   /*
    * Some mongoose classes have the same name as the native JS classes
@@ -72,6 +76,8 @@ declare module "mongoose" {
   export var STATES: any;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
+  /** Models registred on the default mongoose connection. */
+  export var models: { [index: string]: Model<any> };
   /** The node-mongodb-native driver Mongoose uses. */
   export var mongo: typeof mongodb;
   /** The Mongoose version */
@@ -254,6 +260,9 @@ declare module "mongoose" {
     /** A hash of the collections associated with this connection */
     collections: { [index: string]: Collection };
 
+    /** A hash of models registered with this connection */
+    models: { [index: string]: Model<any> };
+
     /**
      * Connection ready state
      * 0 = disconnected
@@ -266,6 +275,8 @@ declare module "mongoose" {
   }
 
   interface ConnectionOptionsBase {
+    /** database Name for Mongodb Atlas Connection */
+    dbName?: string;
     /** passed to the connection db instance */
     db?: any;
     /** passed to the connection server instance(s) */
@@ -325,6 +336,26 @@ declare module "mongoose" {
     domainsEnabled?: boolean;
     /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
     bufferMaxEntries?: number;
+
+    /** additional SSL configuration options */
+    /** Array of valid certificates either as Buffers or Strings */
+    sslCA?: ReadonlyArray<Buffer | string>;
+    /** Array of revocation certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher) */
+    sslCRL?: ReadonlyArray<Buffer | string>;
+    /** SSL certificate */
+    sslCert?: Buffer | string;
+    /** SSL private key */
+    sslKey?: Buffer | string;
+    /** SSL Certificate pass phrase */
+    sslPass?: Buffer | string;
+    /** Default: true; Server identity checking during SSL */
+    checkServerIdentity?: boolean | Function;
+    /** String containing the server name requested via TLS SNI. */
+    servername?: string;
+
+    /** Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info. */
+    ciphers?: string;
+    ecdhCurve?: string;
 
     // TODO
     safe?: any;
@@ -2686,6 +2717,16 @@ declare module "mongoose" {
     insertMany(docs: any[], options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, docs: T[]) => void): Promise<T[]>;
     insertMany(doc: any, callback?: (error: any, doc: T) => void): Promise<T>;
     insertMany(doc: any, options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, doc: T) => void): Promise<T>;
+
+    /**
+     * Performs any async initialization of this model against MongoDB.
+     * This function is called automatically, so you don't need to call it.
+     * This function is also idempotent, so you may call it to get back a promise
+     * that will resolve when your indexes are finished building as an alternative
+     * to `MyModel.on('index')`
+     * @param callback optional
+     */
+    init(callback?: (err: any) => void): Promise<T>;
 
     /**
      * Executes a mapReduce command.

@@ -88,6 +88,11 @@ interface IsStatic {
     undefined(value: any): boolean;
 
     /**
+     * Checks if the given value type is defined.
+     */
+    defined(value: any): boolean;
+
+    /**
      * Checks if the given value types are same type.
      */
     sameType(value1: any, value2: any): boolean;
@@ -747,6 +752,16 @@ interface IsStaticApi {
      * Checks if the given value type is undefined.
      */
     undefined(value: any[]): boolean;
+
+    /**
+     * Checks if the given value type is defined.
+     */
+    defined(...value: any[]): boolean;
+
+    /**
+     * Checks if the given value type is defined.
+     */
+    defined(value: any[]): boolean;
 
     //#endregion
 
