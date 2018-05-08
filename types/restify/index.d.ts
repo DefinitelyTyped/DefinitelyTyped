@@ -955,7 +955,7 @@ export namespace plugins {
     /**
      * Runs first handler that matches to the condition
      */
-    function conditionalHandler(candidates: HandlerCandidate | HandlerCandidate[]): RequestHandler[];
+    function conditionalHandler(candidates: HandlerCandidate | HandlerCandidate[]): RequestHandler;
 
     /**
      * Conditional headers (If-*)
