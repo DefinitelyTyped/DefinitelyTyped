@@ -224,6 +224,7 @@ declare namespace ReactDates {
         renderCalendarInfo?: () => (string | JSX.Element),
         onOutsideClick?: (e: any) => void,
         keepOpenOnDateSelect?: boolean,
+        verticalBorderSpacing?: number,
 
         // navigation related props
         navPrev?: string | JSX.Element,
