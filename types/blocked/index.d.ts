@@ -11,20 +11,11 @@
  *~ workarounds for this limitation of ES6 modules.
  */
 
-/*~ This declaration specifies that the function
- *~ is the exported object from the file
- */
-export = MyFunction;
+export = Blocked;
 
-/*~ This example shows how to have multiple overloads for your function */
-declare function MyFunction(callback: (ms: number) => void, options: MyFunction.Options): MyFunction.Timer;
+declare function Blocked(callback: (ms: number) => void, options: Blocked.Options): Blocked.Timer;
 
-/*~ If you want to expose types from your module as well, you can
- *~ place them in this block. Often you will want to describe the
- *~ shape of the return type of the function; that type should
- *~ be declared in here, as this example shows.
- */
-declare namespace MyFunction {
+declare namespace Blocked {
   interface Options {
     threshold: number;  // in milliseconds
   }
