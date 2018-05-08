@@ -8,7 +8,9 @@ const newJestWithOptions: JestAxe = configureAxe({
     elementRef: false,
     iframes: false,
     rules: {},
-    runOnly: "rules",
+    runOnly: {
+        type: "rules",
+    },
     selectors: false,
 });
 
