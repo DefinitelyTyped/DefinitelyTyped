@@ -166,7 +166,7 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean,
         daySize?: number,
         isRTL?: boolean,
-        verticalSpacing?: number,        
+        verticalSpacing?: number,
         verticalHeight?: number| null,
 
         // navigation related props
@@ -242,20 +242,20 @@ declare namespace ReactDates {
         renderCalendarInfo?: () => (string | JSX.Element),
         onOutsideClick?: (e: any) => void,
         keepOpenOnDateSelect?: boolean,
-        verticalBorderSpacing?: number,
+        hideKeyboardShortcutsPanel?: boolean;
         noBorder?: boolean,
+        verticalBorderSpacing?: number,
         firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
 
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
-        daySize?: number,
-        hideKeyboardShortcutsPanel?: boolean;
         onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         transitionDuration?: number,
 
         // day presentation and interaction related props
+        daySize?: number,
         renderCalendarDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
         renderDayContents?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
         minimumNights?: number,
