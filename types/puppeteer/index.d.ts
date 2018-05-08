@@ -900,7 +900,7 @@ export interface FrameBase {
     selector: string,
     options?: { visible?: boolean; hidden?: boolean; timeout?: number }
   ): Promise<ElementHandle>;
-  
+
   waitForXPath(
     xpath: string,
     options?: { visible?: boolean; hidden?: boolean; timeout?: number }
