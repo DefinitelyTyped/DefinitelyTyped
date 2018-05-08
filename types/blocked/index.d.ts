@@ -1,6 +1,6 @@
 // Type definitions for blocked 1.2
 // Project: https://github.com/visionmedia/node-blocked#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Jonas Lochmann <https://github.com/l-jonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*~ Note that ES6 modules cannot directly export callable functions.
