@@ -1551,7 +1551,7 @@ namespace dgram_tests {
         ds.bind(4123, 'localhost', () => { });
         ds.bind(4123, () => { });
         ds.bind(() => { });
-        var ai: dgram.AddressInfo = ds.address();
+        const addr: net.AddressInfo | string = ds.address();
         ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
         });
         ds.send(new Buffer("hello"), 5000, "127.0.0.1");
@@ -1564,7 +1564,7 @@ namespace dgram_tests {
         let _boolean: boolean;
         let _err: Error;
         let _str: string;
-        let _rinfo: dgram.AddressInfo;
+        let _rinfo: net.AddressInfo;
         /**
          * events.EventEmitter
          * 1. close
@@ -1580,7 +1580,7 @@ namespace dgram_tests {
         _socket = _socket.addListener("listening", () => { });
         _socket = _socket.addListener("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _boolean = _socket.emit("close");
@@ -1595,7 +1595,7 @@ namespace dgram_tests {
         _socket = _socket.on("listening", () => { });
         _socket = _socket.on("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _socket = _socket.once("close", () => { });
@@ -1605,7 +1605,7 @@ namespace dgram_tests {
         _socket = _socket.once("listening", () => { });
         _socket = _socket.once("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _socket = _socket.prependListener("close", () => { });
@@ -1615,7 +1615,7 @@ namespace dgram_tests {
         _socket = _socket.prependListener("listening", () => { });
         _socket = _socket.prependListener("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _socket = _socket.prependOnceListener("close", () => { });
@@ -1625,7 +1625,7 @@ namespace dgram_tests {
         _socket = _socket.prependOnceListener("listening", () => { });
         _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
     }
 
@@ -2730,10 +2730,7 @@ namespace net_tests {
         server = server.close((...args: any[]) => { });
 
         // test the types of the address object fields
-        let address = server.address();
-        address.port = 1234;
-        address.family = "ipv4";
-        address.address = "127.0.0.1";
+        let address: net.AddressInfo | string = server.address();
     }
 
     {
