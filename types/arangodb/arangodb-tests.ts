@@ -1,4 +1,4 @@
-import { db, aql, query } from "@arangodb";
+import { aql, db, query } from "@arangodb";
 import { md5 } from "@arangodb/crypto";
 import { createRouter } from "@arangodb/foxx";
 import sessionsMiddleware = require("@arangodb/foxx/sessions");
@@ -52,6 +52,10 @@ bananas.updateByExample(
     { shape: { type: "round" } },
     { mergeObjects: true }
 );
+bananas.ensureIndex({
+    type: "geo",
+    fields: ["latLng"]
+});
 
 const router = createRouter();
 module.context.use(router);
