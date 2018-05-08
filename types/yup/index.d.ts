@@ -74,6 +74,7 @@ export interface StringSchema extends Schema<string> {
     min(limit: number | Ref, message?: string): StringSchema;
     max(limit: number | Ref, message?: string): StringSchema;
     matches(regex: RegExp, message?: string): StringSchema;
+    matches(regex: RegExp, options?: { message?: string; excludeEmptyString?: boolean }): StringSchema;
     email(message?: string): StringSchema;
     url(message?: string): StringSchema;
     ensure(): StringSchema;
