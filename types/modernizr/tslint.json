@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-single-declare-module": false,
+        "no-empty-interface": false,
+        "no-declare-current-package": false
+    }
+}

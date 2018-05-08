@@ -1,0 +1,9 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+      "ban-types": false,
+      "only-arrow-functions": [false],
+      "no-single-declare-module": false,
+      "no-unnecessary-qualifier": true
+  }
+}

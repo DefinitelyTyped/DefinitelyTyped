@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "raven-js": ">=3.21.0",
+        "redux": ">=3.7.2"
+    }
+}
