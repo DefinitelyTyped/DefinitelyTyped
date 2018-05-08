@@ -23,7 +23,7 @@ type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
 interface Knex extends Knex.QueryInterface {
-    (tableName?: string): Knex.QueryBuilder;
+    (tableName?: TableName): Knex.QueryBuilder;
     VERSION: string;
     __knex__: string;
 
@@ -179,7 +179,7 @@ declare namespace Knex {
     }
 
     interface Table {
-        (tableName: string): QueryBuilder;
+        (tableName: TableName): QueryBuilder;
         (callback: Function): QueryBuilder;
         (raw: Raw): QueryBuilder;
     }
