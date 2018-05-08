@@ -28,3 +28,9 @@ export function oneOfType(types: Array<Validator<any>>): Requireable<any>;
 export function arrayOf(type: Validator<any>): Requireable<any>;
 export function objectOf(type: Validator<any>): Requireable<any>;
 export function shape(type: ValidationMap<any>): Requireable<any>;
+
+export default ({
+    Validator, Requireable, ValidationMap,
+    any, array, bool, func, number, object, string, node, element, symbol,
+    instanceOf, oneOf, oneOfType, arrayOf, objectOf, shape
+});
