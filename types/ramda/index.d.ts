@@ -18,6 +18,7 @@
 //                 Jack Leigh <https://github.com/leighman>
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
+//                 Bonggyun Lee <https://github.com/deptno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1489,6 +1490,7 @@ declare namespace R {
          * Reasonable analog to SQL `select` statement.
          */
         project<T, U>(props: ReadonlyArray<string>, objs: ReadonlyArray<T>): U[];
+        project<T, U>(props: ReadonlyArray<string>): (objs: ReadonlyArray<T>) => U[];
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
