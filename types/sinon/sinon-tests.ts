@@ -73,7 +73,7 @@ function testSandbox() {
     const stubInstance = sb.createStubInstance(cls);
     stubInstance.foo.calledWith('foo');
 	const clsFoo: sinon.SinonStub = stubInstance.foo;
-	// const clsBar: number = stubInstance.bar;
+	const clsBar: number = stubInstance.bar;
 }
 
 function testFakeServer() {
