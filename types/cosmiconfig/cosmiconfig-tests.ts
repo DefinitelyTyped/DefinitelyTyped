@@ -1,20 +1,21 @@
-import cosmiconfig = require("cosmiconfig");
+import cosmiconfig, { CosmiconfigResult } from "cosmiconfig";
+import * as path from "path";
 
 const explorer = cosmiconfig("yourModuleName", {
-    searchPlaces: [],
-    loaders: {},
-    packageProp: "yourModuleName",
-    stopDir: "someDir",
-    cache: true,
-    transform: ({ config, filePath, isEmpty }) => ({ config, filePath, isEmpty }),
-    ignoreEmptySearchPlaces: false
+  searchPlaces: [],
+  loaders: {},
+  packageProp: "yourModuleName",
+  stopDir: "someDir",
+  cache: true,
+  transform: (result: CosmiconfigResult) => result,
+  ignoreEmptySearchPlaces: false,
 });
 
 Promise.all([
-    explorer.search("start/search/here"),
-    explorer.searchSync("start/search/here"),
-    explorer.load("load/this/file.json"),
-    explorer.loadSync("load/this/file.json")
+  explorer.search(path.join(__dirname)),
+  explorer.searchSync(path.join(__dirname)),
+  explorer.load(path.join(__dirname, "sample-config.json")),
+  explorer.loadSync(path.join(__dirname, "sample-config.json")),
 ]).then(result => result);
 
 explorer.clearLoadCache();

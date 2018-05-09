@@ -5,37 +5,53 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare namespace Cosmiconfig {
-  interface Result {
-    config: object;
-    filePath: string;
-    isEmpty?: boolean;
-  }
+/// <reference types="node" />
 
-  interface Explorer {
-    search(searchFrom: string): Promise<null | Result>;
-    searchSync(searchFrom: string): null | Result;
-    load(loadPath: string): Promise<Result>;
-    loadSync(loadPath: string): Result;
-    clearLoadCache(): void;
-    clearSearchCache(): void;
-    clearCaches(): void;
-  }
+// tslint:disable-next-line interface-over-type-literal
+export type Config = { [key: string]: any };
 
-  interface Options {
-    searchPlaces?: string[];
-    loaders?: object;
-    packageProp?: string;
-    stopDir?: string;
-    cache?: boolean;
-    transform?: (result: Result) => Promise<Result> | Result;
-    ignoreEmptySearchPlaces?: boolean;
-  }
+export type CosmiconfigResult = {
+  config: Config;
+  filePath: string;
+  isEmpty?: boolean;
+} | null;
+
+export interface LoaderResult {
+  config: Config | null;
+  filepath: string;
 }
 
-declare function cosmiconfig(
-  moduleName: string,
-  options: Cosmiconfig.Options
-): Cosmiconfig.Explorer;
+export type SyncLoader = (filepath: string, content: string) => Config | null;
+export type AsyncLoader = (filepath: string, content: string) => Config | null | Promise<object | null>;
 
-export = cosmiconfig;
+export interface LoaderEntry {
+  sync?: SyncLoader;
+  async?: AsyncLoader;
+}
+
+export interface Loaders {
+  [key: string]: LoaderEntry;
+}
+
+export interface Explorer {
+  search(searchFrom: string): Promise<null | CosmiconfigResult>;
+  searchSync(searchFrom: string): null | CosmiconfigResult;
+  load(loadPath: string): Promise<CosmiconfigResult>;
+  loadSync(loadPath: string): CosmiconfigResult;
+  clearLoadCache(): void;
+  clearSearchCache(): void;
+  clearCaches(): void;
+}
+
+// These are the user options with defaults applied.
+export interface ExplorerOptions {
+  stopDir?: string;
+  cache?: boolean;
+  transform?: (result: CosmiconfigResult) => Promise<CosmiconfigResult> | CosmiconfigResult;
+  packageProp?: string;
+  loaders?: Loaders;
+  searchPlaces?: string[];
+  ignoreEmptySearchPlaces?: boolean;
+}
+
+export default function cosmiconfig(moduleName: string, options: ExplorerOptions): Explorer;
