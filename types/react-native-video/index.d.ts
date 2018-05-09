@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 import {
-    ViewProperties
+    ViewProps
 } from 'react-native';
 
 export interface OnLoadData {
@@ -32,7 +32,7 @@ export interface LoadError {
   };
 }
 
-export interface VideoProperties extends ViewProperties {
+export interface VideoProperties extends ViewProps {
     /* Native only */
     src?: any;
     seek?: number;

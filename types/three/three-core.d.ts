@@ -6820,7 +6820,7 @@ export namespace CurveUtils {
 }
 
 export class CatmullRomCurve3 extends Curve<Vector3> {
-    constructor(points?: Vector3[]);
+    constructor(points?: Vector3[], closed?: boolean, curveType?: string, tension?: number);
 
     points: Vector3[];
 
@@ -7096,10 +7096,10 @@ export class OctahedronGeometry extends PolyhedronGeometry {
 }
 
 export class ParametricGeometry extends Geometry {
-    constructor(func: (u: number, v: number) => Vector3, slices: number, stacks: number);
+    constructor(func: (u: number, v: number, dest:Vector3) => void, slices: number, stacks: number);
 
     parameters: {
-        func: (u: number, v: number) => Vector3;
+        func: (u: number, v: number, dest:Vector3) => void;
         slices: number;
         stacks: number;
     };

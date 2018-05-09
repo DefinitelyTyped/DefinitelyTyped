@@ -39,7 +39,7 @@ declare namespace browserSync {
          * Specify which file events to respond to.
          * Available events: `add`, `change`, `unlink`, `addDir`, `unlinkDir`
          */
-        watchEvents?: string[];
+        watchEvents?: WatchEvents | string[];
         /**
          * Watch files automatically.
          */
@@ -72,7 +72,7 @@ declare namespace browserSync {
          * ws - Default: undefined
          * middleware - Default: undefined
          * reqHeaders - Default: undefined
-         * proxyRes - Default: undefined
+         * proxyRes - Default: undefined (http.ServerResponse if expecting single parameter)
          * proxyReq - Default: undefined
          */
         proxy?: string | ProxyOptions;
@@ -91,7 +91,7 @@ declare namespace browserSync {
          * Default: []
          * Note: Requires at least version 2.8.0.
          */
-        serveStatic?: (string | { route?: string | string[], dir?: string | string[]})[];
+        serveStatic?: StaticOptions[] | string[];
         /**
          * Options that are passed to the serve-static middleware when you use the
          * string[] syntax: eg: `serveStatic: ['./app']`.
@@ -120,7 +120,7 @@ declare namespace browserSync {
          * Can be either "info", "debug", "warn", or "silent"
          * Default: info
          */
-        logLevel?: string;
+        logLevel?: LogLevel;
         /**
          * Change the console logging prefix. Useful if you're creating your own project based on Browsersync
          * Default: BS
@@ -170,7 +170,7 @@ declare namespace browserSync {
          * Decide which URL to open automatically when Browsersync starts. Defaults to "local" if none set.
          * Can be true, local, external, ui, ui-external, tunnel or false
          */
-        open?: string | boolean;
+        open?: OpenOptions | boolean;
         /**
          * The browser(s) to open
          * Default: default
@@ -320,6 +320,12 @@ declare namespace browserSync {
         excludeFileTypes?: string[];
     }
 
+    type WatchEvents = "add" | "change" | "unlink" | "addDir" | "unlinkDir";
+
+    type LogLevel = "info" | "debug" | "warn" | "silent";
+
+    type OpenOptions = "local" | "external" | "ui" | "ui-external" | "tunnel";
+
     interface Hash<T> {
         [path: string]: T;
     }
@@ -353,16 +359,21 @@ declare namespace browserSync {
         routes?: Hash<string>;
         /** configure custom middleware */
         middleware?: (MiddlewareHandler | PerRouteMiddleware)[];
-        serveStaticOptions?: ServeStaticOptions
+        serveStaticOptions?: ServeStaticOptions;
     }
 
     interface ProxyOptions {
         target?: string;
         middleware?: MiddlewareHandler;
         ws?: boolean;
-        reqHeaders?: (config: any) => Hash<any>;
-        proxyRes?: ((res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any)[] | ((res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any);
-        proxyReq?: ((res: http.ServerRequest) => any)[] | ((res: http.ServerRequest) => any);
+        reqHeaders?: (config: object) => Hash<object>;
+        proxyRes?: ProxyResponseMiddleware | ProxyResponseMiddleware[];
+        proxyReq?: ((res: http.ServerRequest) => void)[] | ((res: http.ServerRequest) => void);
+        error?: (err: NodeJS.ErrnoException, req: http.IncomingMessage, res: http.ServerResponse) => void;
+    }
+
+    interface ProxyResponseMiddleware {
+        (proxyRes: http.ServerResponse | http.IncomingMessage, res: http.ServerResponse, req: http.IncomingMessage): void;
     }
 
     interface HttpsOptions {
@@ -370,11 +381,17 @@ declare namespace browserSync {
         cert?: string;
     }
 
+    interface StaticOptions {
+        route: string | string[],
+        dir: string | string[]
+    }
+
     interface MiddlewareHandler {
-        (req: http.IncomingMessage, res: http.ServerResponse, next: Function): any;
+        (req: http.IncomingMessage, res: http.ServerResponse, next: () => void): any;
     }
 
     interface PerRouteMiddleware {
+        id?: string;
         route: string;
         handle: MiddlewareHandler;
     }
@@ -382,18 +399,23 @@ declare namespace browserSync {
     interface GhostOptions {
         clicks?: boolean;
         scroll?: boolean;
-        forms?: boolean | {
-            submit?: boolean;
-            inputs?: boolean;
-            toggles?: boolean;
-        };
+        forms?: FormsOptions | boolean;
+    }
+
+    interface FormsOptions {
+        inputs: boolean,
+        submit: boolean,
+        toggles: boolean
     }
 
     interface SnippetOptions {
-        async?: boolean,
+        async?: boolean;
         whitelist?: string[],
         blacklist?: string[],
-        rule?: { match?: RegExp; fn?: (snippet: string, match: string) => any };
+        rule?: {
+            match?: RegExp;
+            fn?: (snippet: string, match: string) => any
+        };
     }
 
     interface SocketOptions {

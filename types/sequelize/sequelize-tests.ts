@@ -955,6 +955,11 @@ User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TES
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
 User.findAll( { rejectOnEmpty: true });
 
+User.findAll( { include : [{ association: User.hasOne( Task, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: User.hasMany( Task, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: Task.belongsTo( User, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: User.belongsToMany( User, { through : Task } ) }] } );
+
 User.findAll( { where: { $and:[ { username: "user" }, { theDate: new Date() } ] } } );
 User.findAll( { where: { $or:[ { username: "user" }, { theDate: new Date() } ] } } );
 User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
@@ -1055,6 +1060,7 @@ findOrRetVal = User.findOrCreate( { where : { email : 'unique.email.@d.com', com
 findOrRetVal = User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
 
 let upsertPromiseNoOptions: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
+let upsertPromiseWithNonReturningOptions: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { logging: true } );
 let upsertPromiseReturning: Bluebird<[AnyInstance, boolean]> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: true } );
 let upsertPromiseNotReturning: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: false } );
 
@@ -1243,11 +1249,11 @@ new Sequelize( 'wat', 'trololo', 'wow', { port : 99999 } );
 new Sequelize( 'localhost', 'wtf', 'lol', { port : 99999 } );
 new Sequelize( 'sequelize', null, null, {
     replication : {
-        read : {
+        read : [{
             host : 'localhost',
             username : 'omg',
             password : 'lol'
-        }
+        }]
     }
 } );
 new Sequelize( {

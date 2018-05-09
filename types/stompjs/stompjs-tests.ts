@@ -64,7 +64,7 @@ client.send('destination', {}, 'body');
 client.subscribe('destination', (message) => { });
 client.subscribe('destination', (message) => { }, {});
 
-client.unsubscribe();
+client.unsubscribe('id');
 
 client.begin('transaction');
 

@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-hexbin module v0.2.1
+// Type definitions for D3JS d3-hexbin module 0.2
 // Project: https://github.com/d3/d3-hexbin/
 // Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 0.2.1
 
 export interface HexbinBin<T> extends Array<T> {
     x: number;
@@ -17,7 +19,7 @@ export interface Hexbin<T> {
      * If either the x- or y-coordinate is NaN, the point is ignored and will
      * not be in any of the returned bins.
      */
-    (points: T[]): HexbinBin<T>[];
+    (points: T[]): Array<HexbinBin<T>>;
 
     /**
      * Returns the SVG path string for the hexagon centered at the origin ⟨0,0⟩.
@@ -27,7 +29,7 @@ export interface Hexbin<T> {
      * If radius is specified, a hexagon with the specified radius is returned;
      * this is useful for area-encoded bivariate hexbins.
      *
-     * @param {number} radius Radius number
+     * @param radius Radius number
      */
     hexagon(radius?: number): string;
 
@@ -78,7 +80,7 @@ export interface Hexbin<T> {
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    y(y: (d: T) => number): Hexbin<T>
+    y(y: (d: T) => number): Hexbin<T>;
 
     /**
      * If y is not specified, returns the current y-coordinate accessor,
