@@ -10,6 +10,7 @@ import {
 } from "../type/definition";
 import { GraphQLDirective } from "../type/directives";
 import { ASTNode, FieldNode } from "../language/ast";
+import Maybe from "../Maybe";
 
 /**
  * TypeInfo is a utility class which, given a GraphQL schema, can keep track
@@ -28,14 +29,15 @@ export class TypeInfo {
         initialType?: GraphQLType
     );
 
-    getType(): GraphQLOutputType | void;
-    getParentType(): GraphQLCompositeType | void;
-    getInputType(): GraphQLInputType | void;
-    getParentInputType(): GraphQLInputType | void;
-    getFieldDef(): GraphQLField<any, any> | void;
-    getDirective(): GraphQLDirective | void;
-    getArgument(): GraphQLArgument | void;
-    getEnumValue(): GraphQLEnumValue | void;
+    getType(): Maybe<GraphQLOutputType>;
+    getParentType(): Maybe<GraphQLCompositeType>;
+    getInputType(): Maybe<GraphQLInputType>;
+    getParentInputType(): Maybe<GraphQLInputType>;
+    getFieldDef(): GraphQLField<any, Maybe<any>>;
+    getDefaultValue(): Maybe<any>;
+    getDirective(): Maybe<GraphQLDirective>;
+    getArgument(): Maybe<GraphQLArgument>;
+    getEnumValue(): Maybe<GraphQLEnumValue>;
     enter(node: ASTNode): any;
     leave(node: ASTNode): any;
 }
@@ -44,4 +46,4 @@ type getFieldDef = (
     schema: GraphQLSchema,
     parentType: GraphQLType,
     fieldNode: FieldNode
-) => GraphQLField<any, any> | void;
+) => Maybe<GraphQLField<any, any>>;

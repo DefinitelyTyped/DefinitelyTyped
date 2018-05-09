@@ -2,6 +2,7 @@ import { Source } from "./language/source";
 import { GraphQLFieldResolver } from "./type/definition";
 import { GraphQLSchema } from "./type/schema";
 import { ExecutionResult } from "./execution/execute";
+import Maybe from "./Maybe";
 
 /**
  * This is the primary entry point function for fulfilling GraphQL operations
@@ -38,9 +39,9 @@ export interface GraphQLArgs {
     source: Source | string;
     rootValue?: any;
     contextValue?: any;
-    variableValues?: { [key: string]: any } | void;
-    operationName?: string | void;
-    fieldResolver?: GraphQLFieldResolver<any, any> | void;
+    variableValues?: Maybe<{ [key: string]: any }>;
+    operationName?: Maybe<string>;
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
 }
 
 export function graphql(args: GraphQLArgs): Promise<ExecutionResult>;
@@ -49,9 +50,9 @@ export function graphql(
     source: Source | string,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: { [key: string]: any } | void,
-    operationName?: string | void,
-    fieldResolver?: GraphQLFieldResolver<any, any> | void
+    variableValues?: Maybe<{ [key: string]: any }>,
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
 ): Promise<ExecutionResult>;
 
 /**
@@ -66,7 +67,7 @@ export function graphqlSync(
     source: Source | string,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: { [key: string]: any } | void,
-    operationName?: string | void,
-    fieldResolver?: GraphQLFieldResolver<any, any> | void
+    variableValues?: Maybe<{ [key: string]: any }>,
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
 ): ExecutionResult;

@@ -1,7 +1,8 @@
 import ValidationContext from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
+import Maybe from "../../Maybe";
 
-export function singleFieldOnlyMessage(name: string | void): string;
+export function singleFieldOnlyMessage(name: Maybe<string>): string;
 
 /**
  * Subscriptions must only include one field.

@@ -1,5 +1,6 @@
 import { ValueNode } from "../language/ast";
 import { GraphQLInputType } from "../type/definition";
+import Maybe from "../Maybe";
 
 /**
  * Produces a GraphQL Value AST given a JavaScript value.
@@ -18,4 +19,4 @@ import { GraphQLInputType } from "../type/definition";
  * | null          | NullValue            |
  *
  */
-export function astFromValue(value: any, type: GraphQLInputType): ValueNode | void;
+export function astFromValue(value: any, type: GraphQLInputType): Maybe<ValueNode>;

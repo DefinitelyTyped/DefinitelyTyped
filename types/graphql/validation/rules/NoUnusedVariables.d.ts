@@ -1,7 +1,8 @@
 import ValidationContext from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
+import Maybe from "../../Maybe";
 
-export function unusedVariableMessage(varName: string, opName: string | void): string;
+export function unusedVariableMessage(varName: string, opName: Maybe<string>): string;
 
 /**
  * No unused variables

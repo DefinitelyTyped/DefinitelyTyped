@@ -13,6 +13,7 @@ import { Source } from "../language/source";
 import { GraphQLSchema, GraphQLSchemaValidationOptions } from "../type/schema";
 import { ParseOptions } from "../language/parser";
 import blockStringValue from "../language/blockStringValue";
+import Maybe from "../Maybe";
 
 interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
     /**
@@ -47,7 +48,7 @@ type TypeDefinitionsMap = { [key: string]: TypeDefinitionNode };
 type TypeResolver = (typeRef: NamedTypeNode) => GraphQLNamedType;
 
 export class ASTDefinitionBuilder {
-    constructor(typeDefinitionsMap: TypeDefinitionsMap, options: BuildSchemaOptions | void, resolveType: TypeResolver);
+    constructor(typeDefinitionsMap: TypeDefinitionsMap, options: Maybe<BuildSchemaOptions>, resolveType: TypeResolver);
 
     buildTypes(nodes: ReadonlyArray<NamedTypeNode | TypeDefinitionNode>): Array<GraphQLNamedType>;
 
@@ -69,7 +70,7 @@ export class ASTDefinitionBuilder {
  */
 export function getDescription(
     node: { readonly description?: StringValueNode; readonly loc?: Location },
-    options: BuildSchemaOptions | void
+    options: Maybe<BuildSchemaOptions>
 ): string | undefined;
 
 /**
