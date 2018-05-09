@@ -1,4 +1,4 @@
-import chaiJestSnapshot from 'chai-jest-snapshot';
+import * as chaiJestSnapshot from 'chai-jest-snapshot';
 import { expect } from 'chai';
 
 chai.use(chaiJestSnapshot);
