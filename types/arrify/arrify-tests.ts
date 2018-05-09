@@ -23,12 +23,12 @@ arrify<number, string>(undefined); // returns []
 arrify<number, string>(null); // returns []
 
 {
-    let value: number | string[] = 2018;
+    const value: number | string[] = 2018;
     arrify<number, string>(value); // returns [2018]
 }
 
 {
-    let value: number[] | string | string[] = ['a', 'b'];
+    const value: number[] | string | string[] = ['a', 'b'];
     arrify<number, string>(value); // returns ['a', 'b']
 }
 /***************** arrify<T1, T2> *****************/
@@ -41,13 +41,13 @@ arrify<boolean, number, string>(undefined);
 arrify<boolean, number, string>(null);
 
 {
-    let value: boolean | number[] | string[] = true;
+    const value: boolean | number[] | string[] = true;
     // returns [true]
     arrify<boolean, number, string>(value);
 }
 
 {
-    let value: boolean[] | number | string[] = ['a', 'b'];
+    const value: boolean[] | number | string[] = ['a', 'b'];
     // returns ['a', 'b']
     arrify<boolean, number, string>(value);
 }
@@ -61,13 +61,13 @@ arrify<boolean, Date, number, string>(undefined);
 arrify<boolean, Date, number, string>(null);
 
 {
-    let value: boolean | Date | number[] | string[] = new Date(2018);
+    const value: boolean | Date | number[] | string[] = new Date(2018);
     // returns [ new Date(2018) ]
     arrify<boolean, Date, number, string>(value);
 }
 
 {
-    let value: boolean[] | Date[] | number | string = [true, false];
+    const value: boolean[] | Date[] | number | string = [true, false];
     // returns [true, false]
     arrify<boolean, Date, number, string>(value);
 }
@@ -81,13 +81,13 @@ arrify<boolean, Date, number, RegExp, string>(undefined);
 arrify<boolean, Date, number, RegExp, string>(null);
 
 {
-    let value: boolean | Date | number[] | RegExp | string[] = /test/;
+    const value: boolean | Date | number[] | RegExp | string[] = /test/;
     // returns [ /test/ ]
     arrify<boolean, Date, number, RegExp, string>(value);
 }
 
 {
-    let value: boolean[] | Date[] | number | RegExp[] | string = [/test1/, /test2/];
+    const value: boolean[] | Date[] | number | RegExp[] | string = [/test1/, /test2/];
     // returns [/test1/, /test2/]
     arrify<boolean, Date, number, RegExp, string>(value);
 }
