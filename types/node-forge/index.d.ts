@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.7.2
+// Type definitions for node-forge 0.7.5
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Kay Schecker <https://github.com/flynetworks>
@@ -43,7 +43,9 @@ declare module "node-forge" {
             privateKey: Key;
         }
 
+		function pemToDer(pem: PEM): util.ByteStringBuffer;
         function privateKeyToPem(key: Key, maxline?: number): PEM;
+		function privateKeyInfoToPem(key: Key, maxline?: number): PEM;
         function publicKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyFromPem(pem: PEM): Key;
         function privateKeyFromPem(pem: PEM): Key;
