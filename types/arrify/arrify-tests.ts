@@ -15,8 +15,6 @@ function test(val?: string | string[]) {
 }
 /***************** arrify<T> *****************/
 
-
-
 /***************** arrify<T1, T2> *****************/
 arrify<number, string>(undefined); // returns []
 
@@ -32,8 +30,6 @@ arrify<number, string>(null); // returns []
     arrify<number, string>(value); // returns ['a', 'b']
 }
 /***************** arrify<T1, T2> *****************/
-
-
 
 /***************** arrify<T1, T2, T3> *****************/
 arrify<boolean, number, string>(undefined);
@@ -53,8 +49,6 @@ arrify<boolean, number, string>(null);
 }
 /***************** arrify<T1, T2, T3> *****************/
 
-
-
 /***************** arrify<T1, T2, T3, T4> *****************/
 arrify<boolean, Date, number, string>(undefined);
 
@@ -72,8 +66,6 @@ arrify<boolean, Date, number, string>(null);
     arrify<boolean, Date, number, string>(value);
 }
 /***************** arrify<T1, T2, T3, T4> *****************/
-
-
 
 /***************** arrify<T1, T2, T3, T4, T5> *****************/
 arrify<boolean, Date, number, RegExp, string>(undefined);
