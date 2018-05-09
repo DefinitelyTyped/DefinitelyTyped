@@ -154,6 +154,15 @@ function testSandbox() {
     sandbox.createStubInstance<TestCreateStubInstance>(TestCreateStubInstance).someTestMethod('some argument');
 }
 
+class OneFunctionOneNumber {
+    memberFunction() { }
+    memberNumber: number;
+}
+
+const stubInstance = sinon.createStubInstance<OneFunctionOneNumber>(OneFunctionOneNumber);
+const memberFunction: sinon.SinonStub = stubInstance.memberFunction;
+const memberNumber: number = stubInstance.memberNumber;
+
 function testPromises() {
     let resolveStub = sinon.stub().resolves();
     resolveStub = sinon.stub().resolves(10);
