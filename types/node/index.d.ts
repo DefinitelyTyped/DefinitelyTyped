@@ -376,14 +376,10 @@ declare var Buffer: {
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
-     * Copies the passed buffer data onto a new Buffer instance.
-     */
-    from(buffer: Uint8Array): Buffer;
-    /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
+    from(data: any[] | string | Buffer | ArrayBuffer | Uint8Array /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
