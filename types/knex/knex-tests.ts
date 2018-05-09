@@ -206,6 +206,11 @@ knex('users').where('votes', '>', 100);
 knex('users').where('votes', null);
 knex('users').where('votes', 'is not', null);
 
+// Using Raw in where
+knex('users').where(knex.raw('votes + 1'), '>', 101);
+knex('users').where(knex.raw('votes + 1'), '>', knex.raw('100 + 1'));
+knex('users').where('votes', '>', knex.raw('100 + 1'));
+
 var subquery = knex('users').where('votes', '>', 100).andWhere('status', 'active').orWhere('name', 'John').select('id');
 knex('accounts').where('id', 'in', subquery);
 
