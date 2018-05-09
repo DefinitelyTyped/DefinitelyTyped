@@ -18,7 +18,7 @@
 //                 Jack Leigh <https://github.com/leighman>
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
-//                 Bonggyun Lee<https://github.com/deptno>
+//                 Bonggyun Lee <https://github.com/deptno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
