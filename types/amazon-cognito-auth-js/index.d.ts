@@ -11,7 +11,6 @@
 export as namespace AmazonCognitoIdentity;
 
 // Stubs the XDomainRequest built-in from older IE browsers, does not follow the project's interface naming convention
-// tslint:disable-next-line interface-name
 export interface XDomainRequest {
     readonly responseText: string;
     timeout: number;
@@ -25,7 +24,7 @@ export interface XDomainRequest {
     abort(): void;
 }
 
-export interface ICognitoSessionData {
+export interface CognitoSessionData {
     /**
      * The session's Id token.
      */
@@ -52,7 +51,7 @@ export interface ICognitoSessionData {
     State?: string;
 }
 
-export interface ICognitoAuthOptions {
+export interface CognitoAuthOptions {
     /**
      * Required: User pool application client id.
      */
@@ -94,12 +93,12 @@ export interface ICognitoAuthOptions {
     AdvancedSecurityDataCollectionFlag?: boolean;
 }
 
-export interface ICognitoAuthUserHandler {
+export interface CognitoAuthUserHandler {
     onSuccess: (authSession: CognitoAuthSession) => void;
     onFailure: (err: any) => void;
 }
 
-export interface ICognitoConstants {
+export interface CognitoConstants {
     DOMAIN_SCHEME: string;
     DOMAIN_PATH_SIGNIN: string;
     DOMAIN_PATH_TOKEN: string;
@@ -250,7 +249,7 @@ export class CognitoAuthSession {
      * Constructs a new CognitoUserSession object
      * @param sessionData The session's tokens, scopes, and state.
      */
-    constructor(sessionData: ICognitoSessionData);
+    constructor(sessionData: CognitoSessionData);
 
     /**
      *  @returns the session's Id token
@@ -319,18 +318,18 @@ export class CognitoAuth {
     /**
      * Called on success or error.
      */
-    userhandler: ICognitoAuthUserHandler;
+    userhandler: CognitoAuthUserHandler;
 
     /**
      * Constructs a new CognitoAuth object
      * @param options Creation options
      */
-    constructor(options: ICognitoAuthOptions);
+    constructor(options: CognitoAuthOptions);
 
     /**
      * @returns the constants
      */
-    getCognitoConstants(): ICognitoConstants;
+    getCognitoConstants(): CognitoConstants;
 
     /**
      * @returns the client id
