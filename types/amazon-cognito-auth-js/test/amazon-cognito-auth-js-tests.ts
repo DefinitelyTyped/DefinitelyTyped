@@ -21,14 +21,18 @@ const tokenScopes: lib.CognitoTokenScopes = new lib.CognitoTokenScopes(['email',
 tokenScopes.setTokenScopes(['openid']); // $ExpectType void
 tokenScopes.getScopes(); // $ExpectType string[]
 
-let authSession: lib.CognitoAuthSession = new lib.CognitoAuthSession({});
-authSession = new lib.CognitoAuthSession({
+let sessionData: lib.CognitoSessionData = {};
+let authSession: lib.CognitoAuthSession = new lib.CognitoAuthSession(sessionData);
+
+sessionData = {
     IdToken: idToken,
     RefreshToken: refreshToken,
     AccessToken: accessToken,
     TokenScopes: tokenScopes,
     State: '/myapp/home'
-});
+};
+authSession = new lib.CognitoAuthSession(sessionData);
+
 authSession.setIdToken(new lib.CognitoIdToken('fak3T0ken5==')); // $ExpectType void
 authSession.setRefreshToken(new lib.CognitoRefreshToken('refreshmeyetagain==')); // $ExpectType void
 authSession.setAccessToken(new lib.CognitoAccessToken('fak3T0ken6==')); // $ExpectType void
@@ -40,13 +44,15 @@ authSession.getAccessToken(); // $ExpectType CognitoAccessToken
 authSession.getTokenScopes(); // $ExpectType CognitoTokenScopes
 authSession.getState(); // $ExpectType string
 
-let auth: lib.CognitoAuth = new lib.CognitoAuth({
+let authOptions: lib.CognitoAuthOptions = {
     ClientId: '1a2b3c4d5e6f7g',
     AppWebDomain: 'myapp.auth.us-east-1.amazoncognito.com',
     RedirectUriSignIn: 'https://myapp.com/login',
     RedirectUriSignOut: 'https://myapp.com/logout'
-});
-auth = new lib.CognitoAuth({
+};
+let auth: lib.CognitoAuth = new lib.CognitoAuth(authOptions);
+
+authOptions = {
     ClientId: '1a2b3c4d5e6f7g',
     AppWebDomain: 'myapp.auth.us-east-1.amazoncognito.com',
     TokenScopesArray: ['email', 'openid'],
@@ -55,7 +61,8 @@ auth = new lib.CognitoAuth({
     IdentityProvider: 'Facebook',
     UserPoolId: 'us-east-1_faKE4ReAl',
     AdvancedSecurityDataCollectionFlag: true
-});
+};
+auth = new lib.CognitoAuth(authOptions);
 
 auth.getClientId(); // $ExpectType string
 auth.getAppWebDomain(); // $ExpectType string
@@ -98,7 +105,13 @@ auth.getFQDNSignOut(); // $ExpectType string
 auth.getUserContextData(); // $ExpectType string
 auth.isUserSignedIn(); // $ExpectType boolean
 
-const constants = auth.getCognitoConstants();
+const userHandler: lib.CognitoAuthUserHandler = {
+    onSuccess: (authSession: lib.CognitoAuthSession) => console.log(authSession),
+    onFailure: (error: any) => console.log(error)
+};
+auth.userhandler = userHandler;
+
+const constants: lib.CognitoConstants = auth.getCognitoConstants();
 constants.DOMAIN_SCHEME; // $ExpectType string
 constants.DOMAIN_PATH_SIGNIN; // $ExpectType string
 constants.DOMAIN_PATH_TOKEN; // $ExpectType string
