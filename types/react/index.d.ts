@@ -994,8 +994,7 @@ declare namespace React {
         /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
         'aria-atomic'?: boolean | 'false' | 'true';
         /**
-         * Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
-         * presented if they are made.
+         * Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be presented if they are made.
          */
         'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both';
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
