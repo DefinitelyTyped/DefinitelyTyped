@@ -1,5 +1,5 @@
 import * as elasticsearch from "elasticsearch";
-import HttpConnector = require("elasticsearch/src/lib/connectors/http");
+import * as HttpConnector from "elasticsearch/src/lib/connectors/http";
 
 class MyHttpConnector extends HttpConnector {
   constructor(host: any, config: any) {
