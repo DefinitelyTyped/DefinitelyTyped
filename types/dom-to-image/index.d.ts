@@ -21,6 +21,6 @@ export namespace DomToImage {
 
 export function toSvg(node: Node, options?: DomToImage.Options): Promise<string>;
 export function toPng(node: Node, options?: DomToImage.Options): Promise<string>;
-export function toJpeg(node: Node, options?: DomToImage.Options): Promise<string>;
+export function toJpeg(node: Node, options?: DomToImage.Options): Promise<Blob>;
 export function toBlob(node: Node, options?: DomToImage.Options): Promise<string>;
 export function toPixelData(node: Node, options?: DomToImage.Options): Promise<string>;
