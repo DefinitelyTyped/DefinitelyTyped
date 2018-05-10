@@ -1575,7 +1575,7 @@ declare namespace Office {
 ////////////////////////////////////////////////////////////////
 
 declare namespace Office {
-    export module MailboxEnums {
+    namespace MailboxEnums {
         export enum AttachmentType {
             /**
              * The attachment is a file
@@ -15987,7 +15987,7 @@ declare namespace Excel {
         unsupportedOperation = "UnsupportedOperation",
         invalidOperationInCellEditMode = "InvalidOperationInCellEditMode",
     }
-    module Interfaces {
+    namespace Interfaces {
         interface CollectionLoadOptions {
             $top?: number;
             $skip?: number;
@@ -31410,7 +31410,7 @@ declare namespace Word {
         itemNotFound = "ItemNotFound",
         notImplemented = "NotImplemented",
     }
-    module Interfaces {
+    namespace Interfaces {
         interface CollectionLoadOptions {
             $top?: number;
             $skip?: number;
@@ -36299,7 +36299,7 @@ declare namespace Word {
         }
     }
 }
-declare module Word {
+declare namespace Word {
     /**
      * The RequestContext object facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the request context is required to get access to the Word object model from the add-in.
      */
@@ -39417,7 +39417,7 @@ declare namespace OneNote {
     namespace ErrorCodes {
         var generalException: string;
     }
-    module Interfaces {
+    namespace Interfaces {
         interface CollectionLoadOptions {
             $top?: number;
             $skip?: number;
@@ -42146,7 +42146,7 @@ declare namespace OneNote {
         }
     }
 }
-declare module OneNote {
+declare namespace OneNote {
     class RequestContext extends OfficeExtension.ClientRequestContext {
         constructor(url?: string);
         readonly application: Application;
@@ -43375,7 +43375,7 @@ declare namespace Visio {
         var notImplemented: string;
         var unsupportedOperation: string;
     }
-    module Interfaces {
+    namespace Interfaces {
         interface CollectionLoadOptions {
             $top?: number;
             $skip?: number;
@@ -44391,7 +44391,7 @@ declare namespace Visio {
         }
     }
 }
-declare module Visio {
+declare namespace Visio {
     /**
      * The RequestContext object facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
      */

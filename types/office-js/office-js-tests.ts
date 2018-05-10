@@ -292,3 +292,27 @@ function test_OfficePromise() {
 	let p3: Promise<any> = new Office.Promise(resolve => setTimeout(resolve, 1000));
 	let p4: OfficeExtension.IPromise<any> = new OfficeExtension.Promise(resolve => setTimeout(resolve, 1000));
 }
+
+async function test_interfaces() {
+	await Excel.run(async context => {
+		let range = context.workbook.getSelectedRange();
+		range.set({
+			values: [["Hi"]],
+			format: {
+				fill: {
+					color: "red"
+				}
+			}
+		});
+
+		let rangeSettables: Excel.Interfaces.RangeUpdateData = {
+			values: [["Hi"]],
+			format: {
+				fill: {
+					color: "red"
+				}
+			}
+		};
+		range.set(rangeSettables);
+	});
+}
