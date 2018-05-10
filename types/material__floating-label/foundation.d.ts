@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2017 Google Inc. All Rights Reserved.
+ * Copyright 2016 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,35 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import MDCFoundation from 'material__base/foundation';
-import MDCTextFieldBottomLineAdapter from './adapter';
-import { cssClasses, strings } from './constants';
+import MDCFloatingLabelAdapter from './adapter';
+import { cssClasses } from './constants';
 
-export default class MDCTextFieldBottomLineFoundation extends MDCFoundation<MDCTextFieldBottomLineAdapter> {
+export default class MDCFloatingLabelFoundation extends MDCFoundation<MDCFloatingLabelAdapter> {
     static readonly cssClasses: cssClasses;
 
-    static readonly strings: strings;
-
-    static readonly defaultAdapter: MDCTextFieldBottomLineAdapter;
+    static readonly defaultAdapter: MDCFloatingLabelAdapter;
 
     /**
-     * Activates the bottom line
+     * Returns the width of the label element.
      */
-    activate(): void;
+    getWidth(): number;
 
     /**
-     * Sets the transform origin given a user's click location.
+     * Styles the label to produce the label shake for errors.
      */
-    setTransformOrigin(evt: Event): void;
+    shake(shouldShake: boolean): void;
 
     /**
-     * Deactivates the bottom line
+     * Styles the label to float or dock.
      */
-    deactivate(): void;
-
-    /**
-     * Handles a transition end event
-     */
-    handleTransitionEnd(evt: Event): void;
+    float(shouldFloat: boolean): void;
 }

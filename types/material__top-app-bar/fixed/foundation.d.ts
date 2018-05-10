@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2017 Google Inc. All Rights Reserved.
+ * Copyright 2018 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,8 @@
  * limitations under the License.
  */
 
-import { MDCStrings } from 'material__base';
+import MDCTopAppBarFoundation from '../foundation';
+import MDCTopAppBarAdapter from '../adapter';
 
-export interface strings extends MDCStrings {
-    ANIMATION_END_EVENT: 'MDCTextFieldBottomLine:animation-end';
-}
-
-export interface cssClasses extends MDCStrings {
-    BOTTOM_LINE_ACTIVE: 'mdc-text-field__bottom-line--active';
+export default class MDCFixedTopAppBarFoundation extends MDCTopAppBarFoundation {
 }

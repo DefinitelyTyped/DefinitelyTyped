@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2016 Google Inc. All Rights Reserved.
+ * Copyright 2018 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,30 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import MDCFoundation from 'material__base/foundation';
-import MDCSimpleMenuAdapter from './adapter';
-import { cssClasses, strings, numbers } from './constants';
-import { clamp, bezierProgress } from '../util';
+import { cssClasses } from './constants';
+import MDCLineRippleAdapter from './adapter';
 
-export default class MDCSimpleMenuFoundation extends MDCFoundation<MDCSimpleMenuAdapter> {
+export default class MDCLineRippleFoundation extends MDCFoundation<MDCLineRippleAdapter> {
     static readonly cssClasses: cssClasses;
 
-    static readonly strings: strings;
-
-    static readonly numbers: numbers;
-
-    static readonly defaultAdapter: MDCSimpleMenuAdapter;
+    static readonly defaultAdapter: MDCLineRippleAdapter;
 
     /**
-     * Open the menu.
+     * Activates the line ripple
      */
-    open(options?: {focusIndex?: number}): void;
+    activate(): void;
 
     /**
-     * Closes the menu.
+     * Sets the center of the ripple animation to the given X coordinate.
      */
-    close(evt?: Event): void;
+    setRippleCenter(xCoordinate: number): void;
 
-    isOpen(): boolean;
+    /**
+     * Deactivates the line ripple
+     */
+    deactivate(): void;
+
+    /**
+     * Handles a transition end event
+     */
+    handleTransitionEnd(evt: Event): void;
 }
