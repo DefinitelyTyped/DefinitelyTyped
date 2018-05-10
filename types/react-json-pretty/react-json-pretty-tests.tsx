@@ -13,13 +13,13 @@ export class Test extends React.Component {
 
         return (
             <div>
-                <JSONPretty json={json}/>
-                <JSONPretty json={JSON.stringify(json)}/>
-                <JSONPretty json={JSON.stringify(json)} themeClassName="themeName"/>
+                <JSONPretty json={ json }/>
+                <JSONPretty json={ JSON.stringify(json) }/>
+                <JSONPretty json={ JSON.stringify(json) } themeClassName="themeName"/>
                 <JSONPretty
-                    json={JSON.stringify(json)}
+                    json={ JSON.stringify(json) }
                     themeClassName="themeName"
-                    replacer={fn}/>
+                    replacer={ fn }/>
             </div>
         );
     }
