@@ -15,7 +15,7 @@ declare namespace RollingRateLimiter {
     minDifference?: number;
   }
 
-  interface RedisOptions {
+  interface WithRedisOptions extends GeneralOptions {
     redis: CompatibleRedisClient;
     namespace?: string;
   }
@@ -25,7 +25,6 @@ declare namespace RollingRateLimiter {
   }
 
   type InMemoryOptions = GeneralOptions;
-  type WithRedisOptions = GeneralOptions & RedisOptions;
 
   type AsyncLimiterWithToken = (token: string, callback: AsyncLimiterCallback) => void;
   type AsyncLimiterWithoutToken = (callback: AsyncLimiterCallback) => void;
