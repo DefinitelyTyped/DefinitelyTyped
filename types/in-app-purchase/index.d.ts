@@ -20,9 +20,9 @@ export function validate(receipt: Receipt): Promise<ValidationResponse>;
 export function validate(receipt: Receipt, callback: (err: any, res: ValidationResponse) => void): void;
 export function validate(service: Service, receipt: Receipt, callback: (err: any, res: ValidationResponse) => void): void;
 
-export function validateOnce(service: Service, secretOrPubKey: any, receipt: Receipt, callback: (err: any, res: ValidationResponse) => void): void;
 export function validateOnce(receipt: Receipt, secretOrPubKey: any): Promise<ValidationResponse>;
 export function validateOnce(receipt: Receipt, secretOrPubKey: any, callback: (err: any, res: ValidationResponse) => void): void;
+export function validateOnce(service: Service, secretOrPubKey: any, receipt: Receipt, callback: (err: any, res: ValidationResponse) => void): void;
 
 export function isValidated(response: ValidationResponse): boolean;
 export function isExpired(item: PurchasedItem): boolean;
