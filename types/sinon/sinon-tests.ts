@@ -67,13 +67,13 @@ function testSandbox() {
 
     const cls = class {
         foo() {}
-		bar: number;
+        bar: number;
     };
 
     const stubInstance = sb.createStubInstance(cls);
     stubInstance.foo.calledWith('foo');
-	const clsFoo: sinon.SinonStub = stubInstance.foo;
-	const clsBar: number = stubInstance.bar;
+    const clsFoo: sinon.SinonStub = stubInstance.foo;
+    const clsBar: number = stubInstance.bar;
 }
 
 function testFakeServer() {
