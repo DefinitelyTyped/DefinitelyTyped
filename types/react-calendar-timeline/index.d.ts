@@ -8,16 +8,16 @@
 /// <reference types="react"/>
 
 declare module "react-calendar-timeline" {
-
-  export interface TimelineGroup {
+ 
+   export interface TimelineGroup {
     id: number;
-    title: any;
+    title: React.ReactNode;
   }
 
   export interface TimelineItem {
     id: number;
     group: number;
-    title?: any;
+    title?: React.ReactNode;
     start_time: any;
     end_time: any;
     canMove?: boolean;
@@ -51,18 +51,21 @@ declare module "react-calendar-timeline" {
       rightSidebarContent?: any;
       dragSnap?: number;
       minResizeWidth?: number;
-      fixedHeader?: "fixed" | "none";
-      zIndexStart?: number;
+      stickyOffset?: number;
+      stickyHeader?: boolean;
+      headerRef?: any;
       lineHeight?: number;
       headerLabelGroupHeight?: number;
       headerLabelHeight?: number;
       itemHeightRatio?: number;
       minZoom?: number;
       maxZoom?: number;
+      clickTolerance?: number;
       canMove?: boolean;
       canChangeGroup?: boolean;
       canResize?: boolean;
       useResizeHandle?: boolean;
+      showCursorLine?: boolean;
       stackItems?: boolean;
       traditionalZoom?: boolean;
       itemTouchSendsClick?: boolean;
@@ -70,8 +73,9 @@ declare module "react-calendar-timeline" {
       onItemResize?(itemId:number, newResizeEnd: number, edge: "left" | "right"): any;
       onItemSelect?(itemId:number, e: any, time: number): any;
       onItemClick?(itemId:number, e: any, time: number): any;
-      onCanvasClick?(groupId:number, time:number, e:any): any;
       onItemDoubleClick?(itemId:number, e: any, time: number): any;
+      onCanvasClick?(groupId:number, time:number, e:any): any;
+      onCanvasDoubleClick?(groupId:number, time:number, e:any): any;
       moveResizeValidator?(action:"move" | "resize", itemId:number, time:number, resizeEdge: "left" | "right"): any;
       defaultTimeStart?: any;
       defaultTimeEnd?: any;
@@ -80,10 +84,12 @@ declare module "react-calendar-timeline" {
       onTimeChange?(visibleTimeStart: number, visibleTimeEnd: number, updateScrollCanvas: (start: number, end: number) => void): any;
       onTimeInit?(visibleTimeStart: number, visibleTimeEnd: number): any;
       onBoundsChange?(canvasTimeStart: number, canvasTimeEnd: number): any;
+      onZoom?(timelineContext: TimelineContext): any;
       children?: any;
       fullUpdate?: boolean;
-      itemRenderer?: (item: TimelineItem, context: TimelineContext) => any;
-      groupRenderer?: (group: TimelineGroup, isRightSidebar: boolean) => any;
+      itemRenderer?: (props: {item: TimelineItem, context: TimelineContext}) => React.ReactNode;
+      groupRenderer?: (props: {group: TimelineGroup, isRightSidebar: boolean}) => React.ReactNode;
+      minimumWidthForItemContentVisibility?: number;
   }
   let ReactCalendarTimeline : React.ClassicComponentClass<ReactCalendarTimelineProps>;
   export default ReactCalendarTimeline;
