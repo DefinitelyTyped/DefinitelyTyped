@@ -1,5 +1,5 @@
+import Maybe from "../tsutils/Maybe";
 import { DirectiveLocationEnum } from "../language/directiveLocation";
-import Maybe from "../Maybe";
 
 export interface IntrospectionOptions {
     // Whether to include descriptions in the introspection result.

@@ -1,8 +1,8 @@
+import Maybe from "./tsutils/Maybe";
 import { Source } from "./language/source";
 import { GraphQLFieldResolver } from "./type/definition";
 import { GraphQLSchema } from "./type/schema";
 import { ExecutionResult } from "./execution/execute";
-import Maybe from "./Maybe";
 
 /**
  * This is the primary entry point function for fulfilling GraphQL operations

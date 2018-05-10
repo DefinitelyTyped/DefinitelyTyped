@@ -1,8 +1,8 @@
+import Maybe from "../tsutils/Maybe";
 import { getLocation } from "../language";
 import { ASTNode } from "../language/ast";
 import { Source } from "../language/source";
 import { SourceLocation } from "../language/location";
-import Maybe from "../Maybe";
 
 /**
  * A GraphQLError describes an Error found during the parse, validate, or

@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLError, locatedError } from "../error";
 import { GraphQLSchema } from "../type/schema";
 import {
@@ -17,7 +18,6 @@ import {
     FragmentDefinitionNode,
 } from "../language/ast";
 import { MaybePromise } from "../jsutils/MaybePromise";
-import Maybe from "../Maybe";
 
 /**
  * Data that must be available at all points during query execution.

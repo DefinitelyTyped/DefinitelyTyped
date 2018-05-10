@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLError } from "../error";
 import {
     DocumentNode,
@@ -17,7 +18,6 @@ import {
 } from "../type/definition";
 import { GraphQLDirective } from "../type/directives";
 import { TypeInfo } from "../utilities/TypeInfo";
-import Maybe from "../Maybe";
 
 type NodeWithSelectionSet = OperationDefinitionNode | FragmentDefinitionNode;
 type VariableUsage = {

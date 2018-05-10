@@ -1,6 +1,6 @@
+import Maybe from "../tsutils/Maybe";
 import { ASTNode, ASTKindToNode } from "./ast";
 import { TypeInfo } from "../utilities/TypeInfo";
-import Maybe from "../Maybe";
 
 interface EnterLeave<T> {
     readonly enter?: T;

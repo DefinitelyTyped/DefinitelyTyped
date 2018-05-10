@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import {
     DocumentNode,
     Location,
@@ -13,7 +14,6 @@ import { Source } from "../language/source";
 import { GraphQLSchema, GraphQLSchemaValidationOptions } from "../type/schema";
 import { ParseOptions } from "../language/parser";
 import blockStringValue from "../language/blockStringValue";
-import Maybe from "../Maybe";
 
 interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
     /**

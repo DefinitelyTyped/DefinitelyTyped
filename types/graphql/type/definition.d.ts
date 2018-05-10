@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { MaybePromise } from "../jsutils/MaybePromise";
 import {
     ScalarTypeDefinitionNode,
@@ -17,7 +18,6 @@ import {
     ValueNode,
 } from "../language/ast";
 import { GraphQLSchema } from "./schema";
-import Maybe from "../Maybe";
 
 /**
  * These are all of the possible kinds of types.

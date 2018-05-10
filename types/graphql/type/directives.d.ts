@@ -1,7 +1,7 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLFieldConfigArgumentMap, GraphQLArgument } from "./definition";
 import { DirectiveDefinitionNode } from "../language/ast";
 import { DirectiveLocationEnum } from "../language/directiveLocation";
-import Maybe from "../Maybe";
 
 /**
  * Test if the given value is a GraphQL directive.

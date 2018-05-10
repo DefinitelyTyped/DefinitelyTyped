@@ -1,5 +1,5 @@
+import Maybe from "../tsutils/Maybe";
 import { DocumentNode, OperationDefinitionNode } from "../language/ast";
-import Maybe from "../Maybe";
 
 /**
  * Returns an operation AST given a document AST and optionally an operation

@@ -1,8 +1,8 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLObjectType } from "./definition";
 import { GraphQLType, GraphQLNamedType, GraphQLAbstractType } from "./definition";
 import { SchemaDefinitionNode } from "../language/ast";
 import { GraphQLDirective } from "./directives";
-import Maybe from "../Maybe";
 
 /**
  * Test if the given value is a GraphQL schema.
