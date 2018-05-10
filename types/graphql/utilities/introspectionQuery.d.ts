@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { DirectiveLocationEnum } from "../language/directiveLocation";
 
 export interface IntrospectionOptions {
@@ -16,8 +17,8 @@ export interface IntrospectionQuery {
 
 export interface IntrospectionSchema {
     readonly queryType: IntrospectionNamedTypeRef<IntrospectionObjectType>;
-    readonly mutationType: IntrospectionNamedTypeRef<IntrospectionObjectType> | void;
-    readonly subscriptionType: IntrospectionNamedTypeRef<IntrospectionObjectType> | void;
+    readonly mutationType: Maybe<IntrospectionNamedTypeRef<IntrospectionObjectType>>;
+    readonly subscriptionType: Maybe<IntrospectionNamedTypeRef<IntrospectionObjectType>>;
     readonly types: ReadonlyArray<IntrospectionType>;
     readonly directives: ReadonlyArray<IntrospectionDirective>;
 }
@@ -42,13 +43,13 @@ export type IntrospectionInputType = IntrospectionScalarType | IntrospectionEnum
 export interface IntrospectionScalarType {
     readonly kind: "SCALAR";
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
 }
 
 export interface IntrospectionObjectType {
     readonly kind: "OBJECT";
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
     readonly fields: ReadonlyArray<IntrospectionField>;
     readonly interfaces: ReadonlyArray<IntrospectionNamedTypeRef<IntrospectionInterfaceType>>;
 }
@@ -56,7 +57,7 @@ export interface IntrospectionObjectType {
 export interface IntrospectionInterfaceType {
     readonly kind: "INTERFACE";
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
     readonly fields: ReadonlyArray<IntrospectionField>;
     readonly possibleTypes: ReadonlyArray<IntrospectionNamedTypeRef<IntrospectionObjectType>>;
 }
@@ -64,21 +65,21 @@ export interface IntrospectionInterfaceType {
 export interface IntrospectionUnionType {
     readonly kind: "UNION";
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
     readonly possibleTypes: ReadonlyArray<IntrospectionNamedTypeRef<IntrospectionObjectType>>;
 }
 
 export interface IntrospectionEnumType {
     readonly kind: "ENUM";
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
     readonly enumValues: ReadonlyArray<IntrospectionEnumValue>;
 }
 
 export interface IntrospectionInputObjectType {
     readonly kind: "INPUT_OBJECT";
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
     readonly inputFields: ReadonlyArray<IntrospectionInputValue>;
 }
 
@@ -114,30 +115,30 @@ export interface IntrospectionNamedTypeRef<T extends IntrospectionType = Introsp
 
 export interface IntrospectionField {
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
     readonly args: ReadonlyArray<IntrospectionInputValue>;
     readonly type: IntrospectionOutputTypeRef;
     readonly isDeprecated: boolean;
-    readonly deprecationReason?: string | void;
+    readonly deprecationReason?: Maybe<string>;
 }
 
 export interface IntrospectionInputValue {
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
     readonly type: IntrospectionInputTypeRef;
-    readonly defaultValue?: string | void;
+    readonly defaultValue?: Maybe<string>;
 }
 
 export interface IntrospectionEnumValue {
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
     readonly isDeprecated: boolean;
-    readonly deprecationReason?: string | void;
+    readonly deprecationReason?: Maybe<string>;
 }
 
 export interface IntrospectionDirective {
     readonly name: string;
-    readonly description?: string | void;
+    readonly description?: Maybe<string>;
     readonly locations: ReadonlyArray<DirectiveLocationEnum>;
     readonly args: ReadonlyArray<IntrospectionInputValue>;
 }
