@@ -44,7 +44,11 @@ declare module "react-calendar-timeline" {
           itemTimeStartKey: string;
           itemTimeEndKey: string;
       };
+      selected?: number[];
       sidebarWidth?: number;
+      sidebarContent?: any;
+      rightSidebarWidth?: number;
+      rightSidebarContent?: any;
       dragSnap?: number;
       minResizeWidth?: number;
       fixedHeader?: "fixed" | "none";
