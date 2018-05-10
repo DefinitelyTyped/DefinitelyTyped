@@ -232,6 +232,12 @@ declare global {
       flush():void;
     }
 
+    interface ObservedNodeInfo {
+      target: Node;
+      addedNodes: Node[];
+      removedNode: Node[];
+    }
+
     interface DomApi {
 
       appendChild(node: Node): Node;
@@ -257,6 +263,10 @@ declare global {
       setAttribute(name: string, value: any):void;
 
       removeAttribute(name: string):void;
+        
+      observeNodes(callback: (info: ObservedNodeInfo) => void): {};
+
+      unobserveNodes(observer: {}): void;
 
       childNodes:Node[];
 
