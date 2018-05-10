@@ -6,21 +6,37 @@
 
 /// <reference types="node" />
 
-export namespace DomToImage {
-  interface Options {
-    filter?: (node: Node) => boolean;
-    bgcolor?: string;
-    width?: number;
-    height?: number;
-    style?: {};
-    quality?: number;
-    imagePlaceholder?: string;
-    cachebust?: boolean;
-  }
+export interface DomToImage {
+  toSvg(node: Node, options?: Options): Promise<string>;
+  toPng(node: Node, options?: Options): Promise<string>;
+  toJpeg(node: Node, options?: Options): Promise<string>;
+  toBlob(node: Node, options?: Options): Promise<Blob>;
+  toPixelData(node: Node, options?: Options): Promise<string>;
 }
 
-export function toSvg(node: Node, options?: DomToImage.Options): Promise<string>;
-export function toPng(node: Node, options?: DomToImage.Options): Promise<string>;
-export function toJpeg(node: Node, options?: DomToImage.Options): Promise<string>;
-export function toBlob(node: Node, options?: DomToImage.Options): Promise<Blob>;
-export function toPixelData(node: Node, options?: DomToImage.Options): Promise<string>;
+export interface Options {
+  filter?: (node: Node) => boolean;
+  bgcolor?: string;
+  width?: number;
+  height?: number;
+  style?: {};
+  quality?: number;
+  imagePlaceholder?: string;
+  cachebust?: boolean;
+}
+
+export const DomToImage: DomToImage;
+
+type DomToImage_ = DomToImage;
+type Options_ = Options;
+
+export default DomToImage;
+
+declare global {
+  namespace DomToImage {
+    type Options = Options_;
+    type DomToImage = DomToImage_;
+  }
+
+  const DomToImage: DomToImage.DomToImage;
+}
