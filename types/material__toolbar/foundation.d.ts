@@ -15,16 +15,16 @@
  */
 import MDCFoundation from 'material__base/foundation';
 import { cssClasses, strings, numbers } from './constants';
-import { MDCToolbarAdapter } from './adapter';
+import MDCToolbarAdapter from './adapter';
 
 export default class MDCToolbarFoundation extends MDCFoundation<MDCToolbarAdapter> {
-  static readonly cssClasses: cssClasses;
+    static readonly cssClasses: cssClasses;
 
-  static readonly strings: strings;
+    static readonly strings: strings;
 
-  static readonly numbers: numbers;
+    static readonly numbers: numbers;
 
-  static readonly defaultAdapter: MDCToolbarAdapter;
+    static readonly defaultAdapter: MDCToolbarAdapter;
 
-  updateAdjustElementStyles(): void;
+    updateAdjustElementStyles(): void;
 }

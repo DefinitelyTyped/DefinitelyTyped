@@ -16,14 +16,14 @@
 
 import { MDCFoundation } from 'material__base';
 import { cssClasses, strings } from './constants';
-import { MSDDialogAdapter } from './adapter';
+import MDCDialogAdapter from './adapter';
 
-export class MDCDialogFoundation extends MDCFoundation<MSDDialogAdapter> {
+export default class MDCDialogFoundation extends MDCFoundation<MDCDialogAdapter> {
     static readonly cssClasses: cssClasses;
 
     static readonly strings: strings;
 
-    static readonly defaultAdapter: MSDDialogAdapter;
+    static readonly defaultAdapter: MDCDialogAdapter;
 
     open(): void;
 
@@ -35,5 +35,3 @@ export class MDCDialogFoundation extends MDCFoundation<MSDDialogAdapter> {
 
     cancel(shouldNotify: boolean): void;
 }
-
-export default MDCDialogFoundation;
