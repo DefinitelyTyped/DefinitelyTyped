@@ -58,6 +58,9 @@ export interface Options {
 
     /** number of updates with which to calculate the eta; higher numbers give a more stable eta (default: 10) */
     etaBuffer?: number;
+    
+    /** disable line wrapping (default: false) - pass null to keep terminal settings; pass true to trim the output to terminal width
+    linewrap?: boolean | null;
 }
 
 export interface Preset {
