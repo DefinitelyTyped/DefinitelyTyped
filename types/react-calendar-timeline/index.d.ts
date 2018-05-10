@@ -11,13 +11,13 @@ declare module "react-calendar-timeline" {
 
   export interface TimelineGroup {
     id: number;
-    title: string | JSX.Element;
+    title: any;
   }
 
   export interface TimelineItem {
     id: number;
     group: number;
-    title?: string | JSX.Element;
+    title?: any;
     start_time: any;
     end_time: any;
     canMove?: boolean;
@@ -82,8 +82,8 @@ declare module "react-calendar-timeline" {
       onBoundsChange?(canvasTimeStart: number, canvasTimeEnd: number): any;
       children?: any;
       fullUpdate?: boolean;
-      itemRenderer?: (item: TimelineItem, context: TimelineContext) => JSX.Element;
-      groupRenderer?: (group: TimelineGroup, isRightSidebar: boolean) => JSX.Element;
+      itemRenderer?: (item: TimelineItem, context: TimelineContext) => any;
+      groupRenderer?: (group: TimelineGroup, isRightSidebar: boolean) => any;
   }
   let ReactCalendarTimeline : React.ClassicComponentClass<ReactCalendarTimelineProps>;
   export default ReactCalendarTimeline;
