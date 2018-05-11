@@ -261,7 +261,7 @@ export class Area extends React.Component<AreaProps> {
 /**
  * Undocumented
  */
-class AreaInternal extends React.Component { }
+export class AreaInternal extends React.Component { }
 
 export interface BoxProps {
     /**
