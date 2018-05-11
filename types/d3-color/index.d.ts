@@ -57,7 +57,7 @@ export interface RGBColor extends Color {
      * Returns the RGB equivalent of this color.
      */
     rgb(): this;
-   /**
+    /**
      * Returns a hexadecimal string representing this color.
      * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
      */
@@ -118,9 +118,11 @@ export interface LabColorFactory extends Function {
 /**
  * Constructs a new Lab color with the specified l value and a = b = 0.
  */
-export interface GrayColorFactory extends Function {
-    (l: number, opacity?: number): LabColor;
-}
+// export interface GrayColorFactory extends Function {
+//     (l: number, opacity?: number): LabColor;
+// }
+
+export type GrayColorFactory = (l: number, opacity?: number) => LabColor;
 
 export interface HCLColor extends Color {
     h: number;
