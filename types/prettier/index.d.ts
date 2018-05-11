@@ -9,7 +9,8 @@ export type Doc = doc.builders.Doc;
 
 // https://github.com/prettier/prettier/blob/master/src/common/fast-path.js
 export interface FastPath {
-    getName(): string | null;
+    stack: any[];
+    getName(): null | number | string;
     getValue(): any;
     getNode(count?: number): any;
     getParentNode(count?: number): any;
@@ -131,12 +132,12 @@ export interface Printer {
         options: ParserOptions,
         print: (path: FastPath) => Doc,
     ): Doc;
-    embed(
+    embed?: (
         path: FastPath,
         print: (path: FastPath) => Doc,
         textToDoc: (text: string, options: Options) => Doc,
         options: ParserOptions,
-    ): Doc | null;
+    ) => Doc | null;
     insertPragma?: (text: string) => string;
     /**
      * @returns `null` if you want to remove this node
@@ -405,7 +406,11 @@ export namespace doc {
         function printDocToDebug(doc: Doc): string;
     }
     namespace printer {
-        function printDocToString(doc: Doc, options: Options): string;
+        function printDocToString(doc: Doc, options: Options): {
+            formatted: string;
+            cursorNodeStart?: number;
+            cursorNodeText?: string;
+        };
         interface Options {
             /**
              * Specify the line length that the printer will wrap on.
