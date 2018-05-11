@@ -525,6 +525,56 @@ function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
     cb(null, authResponse);
 }
 
+/* CodePipeline events https://docs.aws.amazon.com/codepipeline/latest/userguide/actions-invoke-lambda-function.html#actions-invoke-lambda-function-json-event-example */
+const CodePipelineEvent: AWSLambda.CodePipelineEvent = {
+    "CodePipeline.job": {
+        id: "11111111-abcd-1111-abcd-111111abcdef",
+        accountId: "111111111111",
+        data: {
+            actionConfiguration: {
+                configuration: {
+                    FunctionName: "MyLambdaFunctionForAWSCodePipeline",
+                    UserParameters: "some-input-such-as-a-URL"
+                }
+            },
+            inputArtifacts: [
+                {
+                    location: {
+                        s3Location: {
+                            bucketName: "the name of the bucket configured as the pipeline artifact store in Amazon S3, for example codepipeline-us-east-2-1234567890",
+                            objectKey: "the name of the application, for example CodePipelineDemoApplication.zip"
+                        },
+                        type: "S3"
+                    },
+                    revision: null,
+                    name: "ArtifactName"
+                }
+            ],
+            outputArtifacts: [],
+            artifactCredentials: {
+                secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+                sessionToken: `MIICiTCCAfICCQD6m7oRw0uXOjANBgkqhkiG9w
+ 0BAQUFADCBiDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZ
+ WF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIw
+ EAYDVQQDEwlUZXN0Q2lsYWMxHzAdBgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5
+ jb20wHhcNMTEwNDI1MjA0NTIxWhcNMTIwNDI0MjA0NTIxWjCBiDELMAkGA1UEBh
+ MCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBb
+ WF6b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMx
+ HzAdBgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5jb20wgZ8wDQYJKoZIhvcNAQE
+ BBQADgY0AMIGJAoGBAMaK0dn+a4GmWIWJ21uUSfwfEvySWtC2XADZ4nB+BLYgVI
+ k60CpiwsZ3G93vUEIO3IyNoH/f0wYK8m9TrDHudUZg3qX4waLG5M43q7Wgc/MbQ
+ ITxOUSQv7c7ugFFDzQGBzZswY6786m86gpEIbb3OhjZnzcvQAaRHhdlQWIMm2nr
+ AgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAtCu4nUhVVxYUntneD9+h8Mg9q6q+auN
+ KyExzyLwaxlAoo7TJHidbtS4J5iNmZgXL0FkbFFBjvSfpJIlJ00zbhNYS5f6Guo
+ EDmFJl0ZxBHjJnyp378OD8uTs7fLvjx79LjSTbNYiytVbZPQUQ5Yaxu2jXnimvw
+ 3rrszlaEXAMPLE=`,
+                accessKeyId: "AKIAIOSFODNN7EXAMPLE"
+            },
+            continuationToken: "A continuation token if continuing job"
+        }
+    }
+};
+
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
 const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
   Records: [
@@ -749,6 +799,8 @@ let apiGtwProxyHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.API
 // Test old names
 let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
 apiGtwProxyHandler = proxyHandler;
+
+let codePipelineHandler: AWSLambda.CodePipelineHandler = (event: AWSLambda.CodePipelineEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
 
 let cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => {
     cb();
