@@ -1,14 +1,15 @@
-// Type definitions for Windows Script Host Object Model - IWshRuntimeLibrary 1.0
-// Project: https://msdn.microsoft.com/en-us/library/9bbdkx3k(v=vs.84).aspx
+// Type definitions for Windows Script Host 5.8
+// Project: https://msdn.microsoft.com/en-us/library/9bbdkx3k.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.3
+
+/// <reference types="activex-interop" />
 
 declare namespace IWshRuntimeLibrary {
     type WindowStyle = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
     type ShortcutWindowStyle = 1 | 3 | 7;
 
-    // tslint:disable-next-line no-const-enum
     const enum ButtonType {
         OK,
         OKCancel,
@@ -19,7 +20,6 @@ declare namespace IWshRuntimeLibrary {
         CancelTryagainContinue
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum EventType {
         AuditFailure = 5,
         AuditSuccess = 4,
@@ -29,7 +29,6 @@ declare namespace IWshRuntimeLibrary {
         Warning = 2
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum IconType {
         Stop = 16,
         QuestionMark = 32,
@@ -37,7 +36,6 @@ declare namespace IWshRuntimeLibrary {
         InformationMark = 64,
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum PopupType {
         SecondButtonDefault = 256,
         ThirdButtonDefault = 512,
@@ -46,7 +44,6 @@ declare namespace IWshRuntimeLibrary {
         RTL = 1048576,
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum PopupSelection {
         NoButton = -1,
         OK = 1,
@@ -60,14 +57,12 @@ declare namespace IWshRuntimeLibrary {
         Continue = 11,
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum WshExecStatus {
         WshFailed = 2,
         WshFinished = 1,
         WshRunning = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum WshWindowStyle {
         WshHide = 0,
         WshMaximizedFocus = 3,
@@ -77,24 +72,108 @@ declare namespace IWshRuntimeLibrary {
         WshNormalNoFocus = 4,
     }
 
-    class TextStream {
-        private 'IWshRuntimeLibrary.TextStream_typekey': TextStream;
-        private constructor();
-        readonly AtEndOfLine: boolean;
-        readonly AtEndOfStream: boolean;
-        Close(): void;
-        readonly Column: number;
-        readonly Line: number;
-        Read(Characters: number): string;
-        ReadAll(): string;
-        ReadLine(): string;
-        Skip(Characters: number): void;
-        SkipLine(): void;
-        Write(Text: string): void;
-        WriteBlankLines(Lines: number): void;
+    class TextStreamBase {
+        /**
+         * The column number of the current character position in an input stream.
+         */
+        Column: number;
 
-        /** @param string [Text=''] */
-        WriteLine(Text?: string): void;
+        /**
+         * The current line number in an input stream.
+         */
+        Line: number;
+
+        /**
+         * Closes a text stream.
+         * It is not necessary to close standard streams; they close automatically when the process ends. If
+         * you close a standard stream, be aware that any other pointers to that standard stream become invalid.
+         */
+        Close(): void;
+    }
+
+    class TextStreamWriter extends TextStreamBase {
+        private 'IWshRuntimeLibrary.TextStreamWriter_typekey': TextStreamWriter;
+        private constructor();
+
+        /**
+         * Sends a string to an output stream.
+         */
+        Write(s: string): void;
+
+        /**
+         * Sends a specified number of blank lines (newline characters) to an output stream.
+         */
+        WriteBlankLines(intLines: number): void;
+
+        /**
+         * Sends a string followed by a newline character to an output stream.
+         */
+        WriteLine(s: string): void;
+    }
+
+    class TextStreamReader extends TextStreamBase {
+        private 'IWshRuntimeLibrary.TextStreamReader_typekey': TextStreamReader;
+        private constructor();
+
+        /**
+         * Returns a specified number of characters from an input stream, starting at the current pointer position.
+         * Does not return until the ENTER key is pressed.
+         * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
+         */
+        Read(characters: number): string;
+
+        /**
+         * Returns all characters from an input stream.
+         * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
+         */
+        ReadAll(): string;
+
+        /**
+         * Returns an entire line from an input stream.
+         * Although this method extracts the newline character, it does not add it to the returned string.
+         * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
+         */
+        ReadLine(): string;
+
+        /**
+         * Skips a specified number of characters when reading from an input text stream.
+         * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
+         * @param characters Positive number of characters to skip forward. (Backward skipping is not supported.)
+         */
+        Skip(characters: number): void;
+
+        /**
+         * Skips the next line when reading from an input text stream.
+         * Can only be used on a stream in reading mode, not writing or appending mode.
+         */
+        SkipLine(): void;
+
+        /**
+         * Indicates whether the stream pointer position is at the end of a line.
+         */
+        AtEndOfLine: boolean;
+
+        /**
+         * Indicates whether the stream pointer position is at the end of a stream.
+         */
+        AtEndOfStream: boolean;
+    }
+
+    /** Provides access to the entire collection of command-line parameters, in the order in which they were originally entered. */
+    interface WshArguments {
+        Count(): number;
+        Item(index: number): string;
+        Length: number;
+        Named: WshNamed;
+
+        /**
+         * When you run the **ShowUsage** method, a help screen (referred to as the usage) appears and displays details about the script's command line options.
+         * This information comes from the runtime section of the `*.WSF` file. Everything written between the `<runtime>` and `</runtime>` tags is pieced together
+         * to produce what is called a "usage statement." The usage statement tells the user how to use the script.
+         */
+        ShowUsage(): void;
+        Unnamed: WshUnnamed;
+        (index: number): string;
     }
 
     /** Generic Collection Object */
@@ -109,7 +188,7 @@ declare namespace IWshRuntimeLibrary {
     interface WshEnvironment {
         Count(): number;
         Item(Name: string): string;
-        readonly length: number;
+        readonly Length: number;
         Remove(Name: string): void;
         (Name: string): string;
     }
@@ -121,10 +200,23 @@ declare namespace IWshRuntimeLibrary {
         readonly ExitCode: number;
         readonly ProcessID: number;
         readonly Status: WshExecStatus;
-        readonly StdErr: TextStream;
-        readonly StdIn: TextStream;
-        readonly StdOut: TextStream;
+        readonly StdErr: TextStreamWriter;
+        readonly StdIn: TextStreamReader;
+        readonly StdOut: TextStreamWriter;
         Terminate(): void;
+    }
+
+    /**
+     * Provides access to the named command-line arguments
+     *
+     * Note that enumerating over this object returns the **names** of the arguments, not the values
+     */
+    interface WshNamed {
+        Count(): number;
+        Exists(Key: string): boolean;
+        Item(name: string): string;
+        Length: number;
+        (name: string): string;
     }
 
     /** Network Object */
@@ -326,6 +418,14 @@ declare namespace IWshRuntimeLibrary {
         WorkingDirectory: string;
     }
 
+    /** Provides access to the unnamed command-line arguments */
+    interface WshUnnamed {
+        Count(): number;
+        Item(index: number): string;
+        Length: number;
+        (index: number): string;
+    }
+
     /** URLShortcut Object */
     class WshURLShortcut {
         private 'IWshRuntimeLibrary.WshURLShortcut_typekey': WshURLShortcut;
@@ -337,12 +437,150 @@ declare namespace IWshRuntimeLibrary {
     }
 }
 
-interface ActiveXObject {
-    set(obj: IWshRuntimeLibrary.WshEnvironment, propertyName: 'Item', parameterTypes: [string], newValue: string): void;
-    new <K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
+declare var WScript: {
+    /**
+     * Outputs text to either a message box (under WScript.exe) or the command console window followed by
+     * a newline (under CScript.exe).
+     */
+    Echo(s?: any): void;
+
+    /**
+     * Exposes the write-only error output stream for the current script.
+     * Can be accessed only while using CScript.exe.
+     */
+    StdErr: IWshRuntimeLibrary.TextStreamWriter;
+
+    /**
+     * Exposes the write-only output stream for the current script.
+     * Can be accessed only while using CScript.exe.
+     */
+    StdOut: IWshRuntimeLibrary.TextStreamWriter;
+    Arguments: IWshRuntimeLibrary.WshArguments;
+
+    /**
+     *  The full path of the currently running script.
+     */
+    ScriptFullName: string;
+
+    /**
+     * Forces the script to stop immediately, with an optional exit code.
+     */
+    Quit(exitCode?: number): number;
+
+    /**
+     * The Windows Script Host build version number.
+     */
+    BuildVersion: number;
+
+    /**
+     * Fully qualified path of the host executable.
+     */
+    FullName: string;
+
+    /**
+     * Gets/sets the script mode - interactive(true) or batch(false).
+     */
+    Interactive: boolean;
+
+    /**
+     * The name of the host executable (WScript.exe or CScript.exe).
+     */
+    Name: string;
+
+    /**
+     * Path of the directory containing the host executable.
+     */
+    Path: string;
+
+    /**
+     * The filename of the currently running script.
+     */
+    ScriptName: string;
+
+    /**
+     * Exposes the read-only input stream for the current script.
+     * Can be accessed only while using CScript.exe.
+     */
+    StdIn: IWshRuntimeLibrary.TextStreamReader;
+
+    /**
+     * Windows Script Host version
+     */
+    Version: string;
+
+    /**
+     * Connects a COM object's event sources to functions named with a given prefix, in the form prefix_event.
+     */
+    ConnectObject(objEventSource: any, strPrefix: string): void;
+
+    /**
+     * Creates a COM object.
+     * @param strProgiID
+     * @param strPrefix Function names in the form prefix_event will be bound to this object's COM events.
+     */
+    CreateObject<K extends keyof ActiveXObjectNameMap = any>(strProgID: K, strPrefix?: string): ActiveXObjectNameMap[K];
+
+    /**
+     * Disconnects a COM object from its event sources.
+     */
+    DisconnectObject(obj: any): void;
+
+    /**
+     * Retrieves an existing object with the specified ProgID from memory, or creates a new one from a file.
+     * @param strPathname Fully qualified path to the file containing the object persisted to disk.
+     *                       For objects in memory, pass a zero-length string.
+     * @param strProgID
+     * @param strPrefix Function names in the form prefix_event will be bound to this object's COM events.
+     */
+    GetObject<K extends keyof ActiveXObjectNameMap>(strPathname: string, strProgID: K, strPrefix?: string): ActiveXObjectNameMap[K];
+    GetObject(strPathname: string, strProgID?: string, strPrefix?: string): any;
+
+    /**
+     * Suspends script execution for a specified length of time, then continues execution.
+     * @param intTime Interval (in milliseconds) to suspend script execution.
+     */
+    Sleep(intTime: number): void;
+};
+
+/**
+ * WSH is an alias for WScript under Windows Script Host
+ */
+declare var WSH: typeof WScript;
+
+declare namespace WSHControllerLibrary {
+    class WSHController {
+        private 'WSHControllerLibrary.WSHController_typekey': WSHController;
+        private constructor();
+        CreateScript(Command: string, Server?: any): any;
+    }
+}
+
+declare namespace ScriptSigner {
+    class Signer {
+        private 'ScriptSigner.Signer_typekey': Signer;
+        private constructor();
+
+        /** @param Store [Store='my'] */
+        Sign(FileExtension: string, Text: string, Certificate: string, Store?: string): string;
+
+        /** @param Store [Store='my'] */
+        SignFile(FileName: string, Certificate: string, Store?: string): void;
+
+        /** @param ShowUI [ShowUI=false] */
+        Verify(FileExtension: string, Text: string, ShowUI?: boolean): boolean;
+
+        /** @param ShowUI [ShowUI=false] */
+        VerifyFile(FileName: string, ShowUI?: boolean): boolean;
+    }
 }
 
 interface ActiveXObjectNameMap {
+    'WSHController': WSHControllerLibrary.WSHController;
+    'Scripting.Signer': ScriptSigner.Signer;
     'WScript.Network': IWshRuntimeLibrary.WshNetwork;
     'WScript.Shell': IWshRuntimeLibrary.WshShell;
+}
+
+interface ActiveXObject {
+    set(obj: IWshRuntimeLibrary.WshEnvironment, propertyName: 'Item', parameterTypes: [string], newValue: string): void;
 }
