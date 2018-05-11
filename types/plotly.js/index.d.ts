@@ -347,6 +347,7 @@ export interface ModeBarButton {
 // Data
 
 export type Datum = string | number | Date;
+export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
 
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
@@ -356,9 +357,9 @@ export type Color = string | Array<string | undefined | null> | Array<Array<stri
 // Bar Scatter
 export interface ScatterData {
 	type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d';
-	x: Datum[] | Datum[][];
-	y: Datum[] | Datum[][];
-	z: Datum[] | Datum[][] | Datum[][][];
+	x: Datum[] | Datum[][] | TypedArray;
+	y: Datum[] | Datum[][] | TypedArray;
+	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
 	xy: Float32Array;
 	xaxis: string;
 	yaxis: string;

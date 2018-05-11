@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLSchema } from "../type/schema";
 import { DocumentNode } from "../language/ast";
 import { GraphQLFieldResolver } from "../type/definition";
@@ -28,10 +29,10 @@ export function subscribe(args: {
     document: DocumentNode;
     rootValue?: any;
     contextValue?: any;
-    variableValues?: { [key: string]: any } | void;
-    operationName?: string | void;
-    fieldResolver?: GraphQLFieldResolver<any, any> | void;
-    subscribeFieldResolver?: GraphQLFieldResolver<any, any> | void;
+    variableValues?: Maybe<{ [key: string]: any }>;
+    operationName?: Maybe<string>;
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+    subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
 }): Promise<AsyncIterator<ExecutionResult> | ExecutionResult>;
 
 export function subscribe(
@@ -39,10 +40,10 @@ export function subscribe(
     document: DocumentNode,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: { [key: string]: any } | void,
-    operationName?: string | void,
-    fieldResolver?: GraphQLFieldResolver<any, any> | void,
-    subscribeFieldResolver?: GraphQLFieldResolver<any, any> | void
+    variableValues?: Maybe<{ [key: string]: any }>,
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>,
+    subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
 ): Promise<AsyncIterator<ExecutionResult> | ExecutionResult>;
 
 /**
@@ -69,6 +70,6 @@ export function createSourceEventStream(
     rootValue?: any,
     contextValue?: any,
     variableValues?: { [key: string]: any },
-    operationName?: string | void,
-    fieldResolver?: GraphQLFieldResolver<any, any> | void
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
 ): Promise<AsyncIterable<any> | ExecutionResult>;

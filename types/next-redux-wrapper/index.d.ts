@@ -2,7 +2,7 @@
 // Project: https://github.com/kirill-konshin/next-redux-wrapper
 // Definitions by: Steve <https://github.com/stevegeek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 /*~ Note that ES6 modules cannot directly export callable functions.

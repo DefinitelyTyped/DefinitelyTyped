@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.12
+// Type definitions for Mongoose 5.0.14
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -47,8 +47,12 @@ declare module "mongoose" {
   import stream = require('stream');
   import mongoose = require('mongoose');
 
-  /** Pluralises the given name */
-  export function pluralize(str: string): string;
+  /**
+   * Gets and optionally overwrites the function used to pluralize collection names
+   * @param fn function to use for pluralization of collection names
+   * @returns the current function used to pluralize collection names (defaults to the `mongoose-legacy-pluralize` module's function)
+   */
+  export function pluralize(fn?: (str: string) => string): (str: string) => string;
 
   /*
    * Some mongoose classes have the same name as the native JS classes
@@ -2713,6 +2717,16 @@ declare module "mongoose" {
     insertMany(docs: any[], options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, docs: T[]) => void): Promise<T[]>;
     insertMany(doc: any, callback?: (error: any, doc: T) => void): Promise<T>;
     insertMany(doc: any, options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, doc: T) => void): Promise<T>;
+
+    /**
+     * Performs any async initialization of this model against MongoDB.
+     * This function is called automatically, so you don't need to call it.
+     * This function is also idempotent, so you may call it to get back a promise
+     * that will resolve when your indexes are finished building as an alternative
+     * to `MyModel.on('index')`
+     * @param callback optional
+     */
+    init(callback?: (err: any) => void): Promise<T>;
 
     /**
      * Executes a mapReduce command.

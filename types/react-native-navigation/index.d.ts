@@ -56,6 +56,7 @@ export interface TabScreen {
     title?: string;
     navigatorStyle?: NavigatorStyle;
     navigatorButtons?: NavigatorButtons;
+    titleImage?: any;
 }
 
 export interface SingleScreenApp {
@@ -63,6 +64,11 @@ export interface SingleScreenApp {
     drawer?: Drawer;
     passProps?: object;
     animationType?: 'none' | 'slide-down' | 'fade';
+    appStyle?: {
+        orientation?: 'auto' | 'landscape' | 'portrait';
+        backButtonImage?: any;
+        hideBackButtonTitle?: boolean;
+    };
 }
 
 export interface Screen {
@@ -278,9 +284,24 @@ export interface FABAndroid {
 export interface Drawer {
     left?: {
         screen: string;
+        passProps?: any;
+        disableOpenGesture?: boolean;
+        fixedWidth?: number;
     };
     right?: {
         screen: string;
+        passProps?: any;
+        disableOpenGesture?: boolean;
+        fixedWidth?: number;
     };
+    style?: {
+        drawerShadow?: boolean;
+        contentOverlayColor?: string;
+        leftDrawerWidth?: number;
+        rightDrawerWidth?: number;
+        shouldStretchDrawer?: boolean;
+    };
+    type?: string;
+    animationType?: string;
     disableOpenGesture?: boolean;
 }

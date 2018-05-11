@@ -109,9 +109,11 @@ export interface ParserOptions extends RequiredOptions {
 }
 
 export interface Plugin {
-    languages: SupportLanguage;
+    languages: SupportLanguage[];
     parsers: { [parserName: string]: Parser };
     printers: { [astFormat: string]: Printer };
+    options?: SupportOption[];
+    defaultOptions?: Partial<RequiredOptions>;
 }
 
 export interface Parser {
@@ -120,6 +122,7 @@ export interface Parser {
     hasPragma?: (text: string) => boolean;
     locStart: (node: any) => number;
     locEnd: (node: any) => number;
+    preprocess?: (text: string, options: ParserOptions) => string;
 }
 
 export interface Printer {
@@ -232,7 +235,7 @@ export function clearConfigCache(): void;
 
 export interface SupportLanguage {
     name: string;
-    since: string;
+    since?: string;
     parsers: string[];
     group?: string;
     tmScope: string;
@@ -247,7 +250,7 @@ export interface SupportLanguage {
 }
 
 export interface SupportOption {
-    since: string;
+    since?: string;
     type: 'int' | 'boolean' | 'choice' | 'path';
     array?: boolean;
     deprecated?: string;

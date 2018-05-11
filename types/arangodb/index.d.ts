@@ -89,8 +89,9 @@ declare namespace ArangoDB {
         | "network authentication required";
     type EdgeDirection = "any" | "inbound" | "outbound";
     type EngineType = "mmfiles" | "rocksdb";
-    type IndexType = "hash" | "skiplist" | "fulltext" | "geo1" | "geo2";
+    type IndexType = "hash" | "skiplist" | "fulltext" | "geo";
     type ViewType = "arangosearch";
+    type KeyGeneratorType = "traditional" | "autoincrement";
     type ErrorName =
         | "ERROR_NO_ERROR"
         | "ERROR_FAILED"
@@ -463,12 +464,29 @@ declare namespace ArangoDB {
         replicationFactor?: number;
     }
 
+    interface CreateCollectionOptions {
+        waitForSync?: boolean;
+        journalSize?: number;
+        isVolatile?: boolean;
+        isSystem?: boolean;
+        keyOptions?: {
+            type?: KeyGeneratorType;
+            allowUserKeys?: boolean;
+            increment?: number;
+            offset?: number;
+        };
+        numberOfShards?: number;
+        shardKeys?: string[];
+        replicationFactor?: number;
+    }
+
     interface CollectionProperties {
         waitForSync: boolean;
         journalSize: number;
+        isSystem: boolean;
         isVolatile: boolean;
         keyOptions?: {
-            type: string;
+            type: KeyGeneratorType;
             allowUserKeys: boolean;
             increment?: number;
             offset?: number;
@@ -488,7 +506,7 @@ declare namespace ArangoDB {
 
     interface IndexDescription<T> {
         type: IndexType;
-        fields: ReadonlyArray<keyof T>;
+        fields: ReadonlyArray<keyof T | string>;
         sparse?: boolean;
         unique?: boolean;
         deduplicate?: boolean;
@@ -497,7 +515,7 @@ declare namespace ArangoDB {
     interface Index<T extends object = any> {
         id: string;
         type: IndexType;
-        fields: Array<keyof T>;
+        fields: Array<keyof T | string>;
         sparse: boolean;
         unique: boolean;
         deduplicate: boolean;
@@ -519,6 +537,8 @@ declare namespace ArangoDB {
     }
 
     type DocumentLike = ObjectWithId | ObjectWithKey;
+
+    type Patch<T> = { [K in keyof T]?: T[K] | Patch<T[K]> };
 
     interface DocumentMetadata {
         _key: string;
@@ -572,6 +592,7 @@ declare namespace ArangoDB {
         keepNull?: boolean;
         waitForSync?: boolean;
         limit?: number;
+        mergeObjects?: boolean;
     }
 
     interface RemoveOptions {
@@ -706,24 +727,24 @@ declare namespace ArangoDB {
         ): InsertResult<T>;
         update(
             selector: string | DocumentLike,
-            data: Partial<Document<T>>,
+            data: Patch<Document<T>>,
             options?: UpdateOptions
         ): UpdateResult<T>;
         update(
             selectors: ReadonlyArray<string | DocumentLike>,
-            data: ReadonlyArray<Partial<Document<T>>>,
+            data: ReadonlyArray<Patch<Document<T>>>,
             options?: UpdateOptions
         ): Array<UpdateResult<T>>;
         updateByExample(
             example: Partial<Document<T>>,
-            newValue: Partial<Document<T>>,
+            newValue: Patch<Document<T>>,
             keepNull?: boolean,
             waitForSync?: boolean,
             limit?: number
         ): number;
         updateByExample(
             example: Partial<Document<T>>,
-            newValue: Partial<Document<T>>,
+            newValue: Patch<Document<T>>,
             options?: UpdateByExampleOptions
         ): number;
     }
@@ -743,6 +764,10 @@ declare namespace ArangoDB {
         query: string;
         bindVars?: object;
         options?: QueryOptions;
+    }
+
+    interface AqlLiteral {
+        toAQL: () => string;
     }
 
     interface Cursor<T = any> {
@@ -862,14 +887,14 @@ declare namespace ArangoDB {
         // Collection
         _collection(name: string): Collection;
         _collections(): Collection[];
-        _create(name: string, properties?: CollectionProperties): Collection;
+        _create(name: string, properties?: CreateCollectionOptions): Collection;
         _createDocumentCollection(
             name: string,
-            properties?: CollectionProperties
+            properties?: CreateCollectionOptions
         ): Collection;
         _createEdgeCollection(
             name: string,
-            properties?: CollectionProperties
+            properties?: CreateCollectionOptions
         ): Collection;
         _drop(name: string): void;
         _truncate(name: string): void;
@@ -930,8 +955,26 @@ declare namespace Foxx {
         set?: (res: Response, sid: string) => void;
         clear?: (res: Response) => void;
     }
+    interface CollectionSessionStorage extends SessionStorage {
+        new: () => Session;
+        save: (session: Session) => Session;
+        clear: (session: Session) => boolean;
+        prune: () => string[];
+    }
+    interface SessionsMiddleware extends DelegateMiddleware {
+        storage: SessionStorage;
+        transport: SessionTransport[];
+    }
 
-    type Middleware = (req: Request, res: Response, next: NextFunction) => void;
+    type SimpleMiddleware = (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => void;
+    interface DelegateMiddleware {
+        register: (endpoint: Endpoint) => SimpleMiddleware;
+    }
+    type Middleware = SimpleMiddleware | DelegateMiddleware;
     type Handler = ((req: Request, res: Response) => void);
     type NextFunction = () => void;
 
@@ -1214,97 +1257,97 @@ declare namespace Foxx {
 
     function route(handler: Handler, name?: string): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
-        middleware7: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
+        middleware7: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
-        middleware7: Middleware,
-        middleware8: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
+        middleware7: SimpleMiddleware,
+        middleware8: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
-        middleware7: Middleware,
-        middleware8: Middleware,
-        middleware9: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
+        middleware7: SimpleMiddleware,
+        middleware8: SimpleMiddleware,
+        middleware9: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
@@ -1327,6 +1370,13 @@ declare namespace Foxx {
 
 declare module "@arangodb" {
     function aql(strings: TemplateStringsArray, ...args: any[]): ArangoDB.Query;
+    namespace aql {
+        function literal(value: any): ArangoDB.AqlLiteral;
+    }
+    function query(
+        strings: TemplateStringsArray,
+        ...args: any[]
+    ): ArangoDB.Cursor;
     function time(): number;
     const db: ArangoDB.Database & {
         [key: string]: ArangoDB.Collection | undefined;
@@ -1362,10 +1412,6 @@ declare module "@arangodb/foxx/graphql" {
 }
 
 declare module "@arangodb/foxx/sessions" {
-    interface SessionsMiddleware extends Foxx.Middleware {
-        storage: Foxx.SessionStorage;
-        transport: Foxx.SessionTransport[];
-    }
     interface SessionsOptions {
         storage: Foxx.SessionStorage | string | ArangoDB.Collection;
         transport:
@@ -1375,7 +1421,9 @@ declare module "@arangodb/foxx/sessions" {
             | "header";
         autoCreate?: boolean;
     }
-    function sessionsMiddleware(options: SessionsOptions): Foxx.Middleware;
+    function sessionsMiddleware(
+        options: SessionsOptions
+    ): Foxx.SessionsMiddleware;
     export = sessionsMiddleware;
 }
 
@@ -1386,14 +1434,11 @@ declare module "@arangodb/foxx/sessions/storages/collection" {
         pruneExpired?: boolean;
         autoUpdate?: boolean;
     }
-    interface CollectionStorage extends Foxx.SessionStorage {
-        prune: () => string[];
-    }
     function collectionStorage(
         options:
             | CollectionStorageOptions
             | CollectionStorageOptions["collection"]
-    ): CollectionStorage;
+    ): Foxx.CollectionSessionStorage;
     export = collectionStorage;
 }
 

@@ -10,6 +10,7 @@ let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
 let privateKeyRsa2 = forge.pki.privateKeyInfoToPem(privateKeyPem);
 let byteBufferString = forge.pki.pemToDer(privateKeyRsa);
+let certPem = forge.pki.certificateFromPem(pemKey);
 let cert = forge.pki.createCertificate();
 
 {
