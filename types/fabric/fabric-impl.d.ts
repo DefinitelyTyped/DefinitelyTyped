@@ -2099,6 +2099,11 @@ interface IObjectOptions {
 	backgroundColor?: string;
 
 	/**
+	 * When `true`, object is cached on an additional canvas.
+	 */
+	objectCaching?: boolean;
+
+	/**
 	 * When defined, an object is rendered via stroke and this property specifies its color
 	 */
 	stroke?: string;
