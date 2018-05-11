@@ -16,22 +16,22 @@ declare module "node-forge" {
 
     namespace pem {
 
-		interface EncodeOptions {
-			maxline?: number;
-		}
+        interface EncodeOptions {
+            maxline?: number;
+        }
 
-		interface ObjectPEM {
-			type: string;
-			body: Bytes;
-			procType?: any;
-			contentDomain?: any;
-			dekInfo?: any;
-			headers?: any[];
-		}
+        interface ObjectPEM {
+            type: string;
+            body: Bytes;
+            procType?: any;
+            contentDomain?: any;
+            dekInfo?: any;
+            headers?: any[];
+        }
 
-		function encode(msg: ObjectPEM, options?: EncodeOptions): string;
-		function decode(str: string): ObjectPEM[];
-	}
+        function encode(msg: ObjectPEM, options?: EncodeOptions): string;
+        function decode(str: string): ObjectPEM[];
+    }
 
     namespace pki {
 
@@ -43,9 +43,9 @@ declare module "node-forge" {
             privateKey: Key;
         }
 
-		function pemToDer(pem: PEM): util.ByteStringBuffer;
+        function pemToDer(pem: PEM): util.ByteStringBuffer;
         function privateKeyToPem(key: Key, maxline?: number): PEM;
-		function privateKeyInfoToPem(key: Key, maxline?: number): PEM;
+        function privateKeyInfoToPem(key: Key, maxline?: number): PEM;
         function publicKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyFromPem(pem: PEM): Key;
         function privateKeyFromPem(pem: PEM): Key;
