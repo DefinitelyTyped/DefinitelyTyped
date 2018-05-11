@@ -5,9 +5,8 @@
 //                 Lukas Spieß <https://github.com/lumaxis>
 //                 Nico Jansen <https://github.com/nicojs>
 //                 James Garbutt <https://github.com/43081j>
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.3
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
@@ -567,20 +566,15 @@ declare namespace Sinon {
     }
 
     /**
-     * An instance of a stubbed object type with functions replaced by stubs.
+     * An instance of a stubbed object type with members replaced by stubs.
      *
      * @template TType Object type being stubbed.
      */
     type SinonStubbedInstance<TType> = {
         // TODO: this should really only replace functions on TType with SinonStubs, not all properties
         // Likely infeasible without mapped conditional types, per https://github.com/Microsoft/TypeScript/issues/12424
-        [P in keyof TType]: SinonStubbedMember<TType[P]>;
+        [P in keyof TType]: SinonStub;
     };
-
-    /**
-     * Replaces a type with a Sinon stub if it's a function.
-     */
-    type SinonStubbedMember<T> = T extends Function ? SinonStub : T;
 }
 
 declare const Sinon: Sinon.SinonStatic;

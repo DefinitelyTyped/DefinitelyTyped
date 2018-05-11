@@ -221,7 +221,7 @@ declare namespace Chart {
     interface ChartTitleOptions {
         display?: boolean;
         position?: PositionType;
-        fullWdith?: boolean;
+        fullWidth?: boolean;
         fontSize?: number;
         fontFamily?: string;
         fontColor?: ChartColor;
