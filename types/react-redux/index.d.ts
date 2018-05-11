@@ -1,4 +1,4 @@
-// Type definitions for react-redux 6.0.2
+// Type definitions for react-redux 6.0.3
 // Project: https://github.com/reactjs/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Thomas Hasner <https://github.com/thasner>,
@@ -30,7 +30,6 @@ import {
     Component,
     ComponentClass,
     ComponentType,
-    ReactNode,
     StatelessComponent
 } from 'react';
 
