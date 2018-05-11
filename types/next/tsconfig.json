@@ -20,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
+        "app.d.ts",
         "document.d.ts",
         "dynamic.d.ts",
         "error.d.ts",
