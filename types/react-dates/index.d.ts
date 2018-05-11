@@ -267,9 +267,6 @@ declare namespace ReactDates {
         monthFormat?: string,
         phrases?: {
             calendarLabel?: string,
-            closeDatePicker?: string,
-            clearDates?: string,
-            focusStartDate?: string,
             jumpToPrevMonth?: string,
             jumpToNextMonth?: string,
             keyboardShortcuts?: string,
@@ -289,9 +286,9 @@ declare namespace ReactDates {
             moveFocusByOneMonth?: string,
             moveFocustoStartAndEndOfWeek?: string,
             returnFocusToInput?: string,
-            keyboardNavigationInstructions?: string,
             chooseAvailableStartDate?: (date: string) => string,
             chooseAvailableEndDate?: (date: string) => string,
+            chooseAvailableDate?: (date: string) => string,
             dateIsUnavailable?: (date: string) => string,
             dateIsSelected?: (date: string) => string,
         }
