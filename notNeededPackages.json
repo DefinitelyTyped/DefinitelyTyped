@@ -661,6 +661,12 @@
             "asOfVersion": "0.4.14"
         },
         {
+            "libraryName": "ids",
+            "typingsPackageName": "ids",
+            "sourceRepoURL": "https://github.com/bpmn-io/ids",
+            "asOfVersion": "0.2.2"
+        },
+        {
             "libraryName": "immutability-helper",
             "typingsPackageName": "immutability-helper",
             "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
