@@ -406,7 +406,11 @@ export namespace doc {
         function printDocToDebug(doc: Doc): string;
     }
     namespace printer {
-        function printDocToString(doc: Doc, options: Options): string;
+        function printDocToString(doc: Doc, options: Options): {
+            formatted: string;
+            cursorNodeStart?: number;
+            cursorNodeText?: string;
+        };
         interface Options {
             /**
              * Specify the line length that the printer will wrap on.
