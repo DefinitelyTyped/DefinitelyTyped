@@ -502,6 +502,52 @@ export interface AuthResponseContext {
 }
 
 /**
+ * CodePipeline events
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/actions-invoke-lambda-function.html
+ */
+export interface S3ArtifactLocation {
+    bucketName: string;
+    objectKey: string;
+}
+export interface S3ArtifactStore {
+    type: 'S3';
+    s3Location: S3ArtifactLocation;
+}
+
+export type ArtifactLocation = S3ArtifactStore;
+
+export interface Artifact {
+    name: string;
+    revision: string | null;
+    location: ArtifactLocation;
+}
+
+export interface Credentials {
+    accessKeyId: string;
+    secretAccessKey: string;
+    sessionToken?: string;
+}
+
+export interface CodePipelineEvent {
+    "CodePipeline.job": {
+        id: string;
+        accountId: string;
+        data: {
+            actionConfiguration: {
+                configuration: {
+                    FunctionName: string;
+                    UserParameters: string;
+                }
+            };
+            inputArtifacts: Artifact[];
+            outputArtifacts: Artifact[];
+            artifactCredentials: Credentials;
+            continuationToken?: string;
+        };
+    };
+}
+
+/**
  * CloudFront events
  * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
  */
@@ -652,6 +698,8 @@ export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
 
 // TODO: IoT
+
+export type CodePipelineHandler = Handler<CodePipelineEvent, void>;
 
 export type CloudFrontRequestHandler = Handler<CloudFrontRequestEvent, CloudFrontRequestResult>;
 export type CloudFrontRequestCallback = Callback<CloudFrontRequestResult>;
