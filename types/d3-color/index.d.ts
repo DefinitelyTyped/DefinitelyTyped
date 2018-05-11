@@ -28,6 +28,11 @@ export interface ColorCommonInstance {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
+    /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
+   hex(): string;
 }
 
 export interface Color {
@@ -53,9 +58,9 @@ export interface RGBColor extends Color {
      */
     rgb(): this;
    /**
-    * Returns a hexadecimal string representing this color.
-    * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-    */
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
     hex(): string;
 }
 
@@ -74,10 +79,10 @@ export interface HSLColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-  /**
-   * Returns a hexadecimal string representing this color.
-   * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-   */
+    /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
     hex(): string;
 }
 
@@ -96,10 +101,10 @@ export interface LabColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-   /**
-    * Returns a hexadecimal string representing this color.
-    * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-    */
+    /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
     hex(): string;
 }
 
@@ -115,7 +120,6 @@ export interface LabColorFactory extends Function {
  */
 export interface GrayColorFactory extends Function {
     (l: number, opacity?: number): LabColor;
-    readonly prototype: LabColor;
 }
 
 export interface HCLColor extends Color {
@@ -126,10 +130,10 @@ export interface HCLColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-   /**
-    * Returns a hexadecimal string representing this color.
-    * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-    */
+    /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
     hex(): string;
 }
 
@@ -144,7 +148,6 @@ export interface LCHColorFactory extends Function {
     (l: number, c: number, h: number, opacity?: number): HCLColor;
     (cssColorSpecifier: string): HCLColor;
     (color: ColorSpaceObject | ColorCommonInstance): HCLColor;
-    readonly prototype: HCLColor;
 }
 
 export interface CubehelixColor extends Color {
@@ -155,10 +158,10 @@ export interface CubehelixColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-  /**
-   * Returns a hexadecimal string representing this color.
-   * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-   */
+    /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
     hex(): string;
 }
 
