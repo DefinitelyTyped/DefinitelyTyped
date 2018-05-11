@@ -159,6 +159,23 @@ declare namespace IWshRuntimeLibrary {
         AtEndOfStream: boolean;
     }
 
+    /** Provides access to the entire collection of command-line parameters, in the order in which they were originally entered. */
+    interface WshArguments {
+        Count(): number;
+        Item(index: number): string;
+        Length: number;
+        Named: WshNamed;
+
+        /**
+         * When you run the **ShowUsage** method, a help screen (referred to as the usage) appears and displays details about the script's command line options.
+         * This information comes from the runtime section of the `*.WSF` file. Everything written between the `<runtime>` and `</runtime>` tags is pieced together
+         * to produce what is called a "usage statement." The usage statement tells the user how to use the script.
+         */
+        ShowUsage(): void;
+        Unnamed: WshUnnamed;
+        (index: number): string;
+    }
+
     /** Generic Collection Object */
     interface WshCollection {
         Count(): number;
@@ -171,7 +188,7 @@ declare namespace IWshRuntimeLibrary {
     interface WshEnvironment {
         Count(): number;
         Item(Name: string): string;
-        readonly length: number;
+        readonly Length: number;
         Remove(Name: string): void;
         (Name: string): string;
     }
@@ -187,6 +204,19 @@ declare namespace IWshRuntimeLibrary {
         readonly StdIn: TextStreamReader;
         readonly StdOut: TextStreamWriter;
         Terminate(): void;
+    }
+
+    /**
+     * Provides access to the named command-line arguments
+     *
+     * Note that enumerating over this object returns the **names** of the arguments, not the values
+     */
+    interface WshNamed {
+        Count(): number;
+        Exists(Key: string): boolean;
+        Item(name: string): string;
+        Length: number;
+        (name: string): string;
     }
 
     /** Network Object */
@@ -388,6 +418,14 @@ declare namespace IWshRuntimeLibrary {
         WorkingDirectory: string;
     }
 
+    /** Provides access to the unnamed command-line arguments */
+    interface WshUnnamed {
+        Count(): number;
+        Item(index: number): string;
+        Length: number;
+        (index: number): string;
+    }
+
     /** URLShortcut Object */
     class WshURLShortcut {
         private 'IWshRuntimeLibrary.WshURLShortcut_typekey': WshURLShortcut;
@@ -417,7 +455,7 @@ declare var WScript: {
      * Can be accessed only while using CScript.exe.
      */
     StdOut: IWshRuntimeLibrary.TextStreamWriter;
-    Arguments: { length: number; Item(n: number): string; };
+    Arguments: IWshRuntimeLibrary.WshArguments;
 
     /**
      *  The full path of the currently running script.
