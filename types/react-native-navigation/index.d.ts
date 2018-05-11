@@ -64,6 +64,11 @@ export interface SingleScreenApp {
     drawer?: Drawer;
     passProps?: object;
     animationType?: 'none' | 'slide-down' | 'fade';
+    appStyle?: {
+        orientation?: 'auto' | 'landscape' | 'portrait';
+        backButtonImage?: any;
+        hideBackButtonTitle?: boolean;
+    };
 }
 
 export interface Screen {
