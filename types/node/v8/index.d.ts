@@ -472,6 +472,7 @@ declare namespace NodeJS {
         rss: number;
         heapTotal: number;
         heapUsed: number;
+        external: number;
     }
 
     export interface CpuUsage {
@@ -2091,7 +2092,7 @@ declare module "child_process" {
         windowsHide?: boolean;
     }
 
-    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
         cwd?: string;
@@ -2850,8 +2851,8 @@ declare module "dgram" {
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     export class Socket extends events.EventEmitter {
-        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | string | Uint8Array | any[], port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | string | Uint8Array, offset: number, length: number, port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(port?: number, callback?: () => void): void;
         bind(callback?: () => void): void;

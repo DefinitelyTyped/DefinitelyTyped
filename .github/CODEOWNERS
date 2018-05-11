@@ -3009,6 +3009,7 @@
 /types/proj4leaflet/                            @BendingBender
 /types/project-oxford/                          @scsouthw
 /types/promise-dag/                             @OSjoerdWie
+/types/promise-map-limit/                       @kohlmannj
 /types/promise-pg/                              @coldacid
 /types/promise-polyfill/                        @skysteve
 /types/promise-pool/                            @vilic

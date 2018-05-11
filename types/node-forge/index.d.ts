@@ -50,6 +50,7 @@ declare module "node-forge" {
         function publicKeyFromPem(pem: PEM): Key;
         function privateKeyFromPem(pem: PEM): Key;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
+        function certificateFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
 
         interface oids {
             [key: string]: string;

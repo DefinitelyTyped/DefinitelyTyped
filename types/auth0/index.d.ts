@@ -33,8 +33,13 @@ export interface RetryOptions {
   maxRetries?: number;
 }
 
-export interface UserMetadata { }
-export interface AppMetadata { }
+export interface UserMetadata {
+  [propName: string]: string
+}
+
+export interface AppMetadata {
+  [propName: string]: any
+}
 
 export interface UserData {
   email?: string;
@@ -513,9 +518,72 @@ export interface EmailVerificationTicketOptions {
   result_url: string;
 }
 
+export interface BaseClientOptions {
+  baseUrl: string;
+  clientId?: string;
+}
+
+export interface OAuthClientOptions extends BaseClientOptions {
+  clientSecret?: string;
+}
+
+export interface DatabaseClientOptions extends BaseClientOptions {
+}
+
+export interface PasswordLessClientOptions extends BaseClientOptions {
+}
+
+export interface TokenManagerOptions extends BaseClientOptions {
+  headers?: any;
+}
+export interface UsersOptions extends BaseClientOptions {
+  headers?: any;
+}
+
+export interface SignInOptions extends VerifyOptions {
+  connection?: string;
+}
+
+export interface SocialSignInOptions {
+  access_token: string;
+  connection: string;
+}
+
+export interface SignInToken {
+  access_token: string;
+  id_token?: string;
+  token_type?: string;
+  expiry: number;
+}
+
+export interface RequestSMSCodeOptions extends RequestSMSOptions {
+  client_id: string;
+}
+
+export type SendType = 'link' | 'code';
+export interface RequestEmailCodeOrLinkOptions {
+  email: string;
+  send: SendType
+}
+
+export interface ImpersonateSettingOptions {
+  impersonator_id: string;
+  protocol: string;
+  token: string;
+  clientId?: string;
+}
+
 
 
 export class AuthenticationClient {
+
+  // Members
+  database?: DatabaseAuthenticator;
+  oauth?: OAuthAuthenticator;
+  passwordless?: PasswordlessAuthenticator;
+  tokens?: TokenManager;
+  users?: UsersManager;
+
   constructor(options: AuthenticationClientOptions);
   getClientInfo(): ClientInfo;
 
@@ -754,4 +822,64 @@ export class ManagementClient {
 
   updateResourceServer(params: ObjectWithId, data: ResourceServer): Promise<ResourceServer>;
   updateResourceServer(params: ObjectWithId, data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
+}
+
+
+export class DatabaseAuthenticator {
+  constructor(options: DatabaseClientOptions, oauth: OAuthAuthenticator);
+
+  changePassword(data: ResetPasswordOptions): Promise<any>;
+  changePassword(data: ResetPasswordOptions, cb: (err: Error, message: string) => void): void;
+
+  requestChangePasswordEmail(data: ResetPasswordEmailOptions): Promise<any>;
+  requestChangePasswordEmail(data: ResetPasswordEmailOptions, cb: (err: Error, message: string) => void): void;
+
+  signIn(data: SignInOptions): Promise<SignInToken>;
+  signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  signUp(data: CreateUserData): Promise<User>;
+  signIn(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+
+}
+
+export class OAuthAuthenticator {
+  constructor(options: OAuthClientOptions);
+
+  passwordGrant(options: PasswordGrantOptions): Promise<SignInToken>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: SignInToken) => void): void;
+
+  signIn(data: SignInOptions): Promise<SignInToken>;
+  signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+
+  socialSignIn(data: SocialSignInOptions): Promise<SignInToken>;
+  socialSignIn(data: SocialSignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+}
+
+export class PasswordlessAuthenticator {
+  constructor(options: PasswordLessClientOptions, oauth: OAuthAuthenticator);
+
+  signIn(data: SignInOptions): Promise<SignInToken>;
+  signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  sendEmail(data: RequestEmailCodeOrLinkOptions): Promise<any>;
+  sendEmail(data: RequestEmailCodeOrLinkOptions, cb: (err: Error, message: string) => void): void;
+
+  sendSMS(data: RequestSMSCodeOptions): Promise<any>;
+  sendSMS(data: RequestSMSCodeOptions, cb: (err: Error, message: string) => void): void;
+}
+
+export class TokenManager {
+  constructor(options: TokenManagerOptions);
+
+}
+
+export class UsersManager {
+  constructor(options: UsersOptions);
+
+  getInfo(accessToken: string): Promise<User>;
+  getInfo(accessToken: string, cb: (err: Error, user: User) => void): void;
+
+  impersonate(userId: string, settings: ImpersonateSettingOptions): Promise<any>;
+  impersonate(userId: string, settings: ImpersonateSettingOptions, cb: (err: Error, data: any) => void): void;
 }

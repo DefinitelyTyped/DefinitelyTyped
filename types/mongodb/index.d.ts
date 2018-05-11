@@ -238,6 +238,8 @@ export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions {
     socketOptions?: SocketOptions;
 }
 
+export type ProfilingLevel = 'off' | 'slow_only' | 'all';
+
 // Class documentation : http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html
 export class Db extends EventEmitter {
     constructor(databaseName: string, serverConfig: Server | ReplSet | Mongos, options?: DbCreateOptions);
@@ -292,13 +294,14 @@ export class Db extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#listCollections */
     listCollections(filter?: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#profilingInfo */
+    /** @deprecated Query the system.profile collection directly. */
     profilingInfo(callback: MongoCallback<any>): void;
     profilingInfo(options?: { session?: ClientSession }): Promise<void>;
     profilingInfo(options: { session?: ClientSession }, callback: MongoCallback<void>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#profilingLevel */
-    profilingLevel(callback: MongoCallback<any>): void;
-    profilingLevel(options?: { session?: ClientSession }): Promise<void>;
-    profilingLevel(options: { session?: ClientSession }, callback: MongoCallback<void>): void;
+    profilingLevel(callback: MongoCallback<ProfilingLevel>): void;
+    profilingLevel(options?: { session?: ClientSession }): Promise<ProfilingLevel>;
+    profilingLevel(options: { session?: ClientSession }, callback: MongoCallback<ProfilingLevel>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#removeUser */
     removeUser(username: string, callback: MongoCallback<any>): void;
     removeUser(username: string, options?: CommonOptions): Promise<any>;
@@ -308,9 +311,9 @@ export class Db extends EventEmitter {
     renameCollection<TSchema = Default>(fromCollection: string, toCollection: string, options?: { dropTarget?: boolean }): Promise<Collection<TSchema>>;
     renameCollection<TSchema = Default>(fromCollection: string, toCollection: string, options: { dropTarget?: boolean }, callback: MongoCallback<Collection<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#setProfilingLevel */
-    profilingLevel(level: string, callback: MongoCallback<any>): void;
-    profilingLevel(level: string, options?: { session?: ClientSession }): Promise<void>;
-    profilingLevel(level: string, options: { session?: ClientSession }, callback: MongoCallback<void>): void;
+    setProfilingLevel(level: ProfilingLevel, callback: MongoCallback<ProfilingLevel>): void;
+    setProfilingLevel(level: ProfilingLevel, options?: { session?: ClientSession }): Promise<ProfilingLevel>;
+    setProfilingLevel(level: ProfilingLevel, options: { session?: ClientSession }, callback: MongoCallback<ProfilingLevel>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html#stats */
     stats(callback: MongoCallback<any>): void;
     stats(options?: { scale?: number }): Promise<any>;
@@ -1527,7 +1530,7 @@ export interface LoggerState {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.0/api/Logger.html */
-export class Logger{
+export class Logger {
     constructor(className: string, options?: LoggerOptions)
     // Log a message at the debug level
     debug(message: string, state: LoggerState):void

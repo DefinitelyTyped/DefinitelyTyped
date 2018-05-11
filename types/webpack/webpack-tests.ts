@@ -684,3 +684,17 @@ class BannerPlugin extends webpack.Plugin {
         });
     }
 }
+
+configuration = {
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                oneOf: [
+                    { resourceQuery: /global/, use: ["style-loader", "css-loader"] },
+                    { use: ["to-string-loader", "css-loader"] }
+                ]
+            }
+        ]
+    }
+};
