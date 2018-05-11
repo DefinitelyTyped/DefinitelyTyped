@@ -20,4 +20,4 @@ interface IntlAction extends Action {
 export function intlReducer(state: IntlState, action: IntlAction): IntlState
 export function updateIntl (opts: IntlState): IntlAction
 export class IntlProvider extends ReactIntlProvider {}
-export class Provider extends ReduxProvider {}
+export class Provider<A extends IntlAction> extends ReduxProvider<A> {}
