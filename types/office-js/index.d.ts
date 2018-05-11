@@ -2612,9 +2612,9 @@ declare namespace OfficeExtension {
 
     /** Contains debug information about the request context. */
     export interface RequestContextDebugInfo {
-        /** 
+        /**
          * The statements to be executed in the host.
-         *   
+         *
          * These statements may not match the code exactly as written, but will be a close approximation.
          */
         pendingStatements: string[];
@@ -2636,7 +2636,7 @@ declare namespace OfficeExtension {
         /**
         * Queues up a command to recursively load the specified properties of the object and its navigation properties.
         * You must call "context.sync()" before reading the properties.
-        * 
+        *
         * @param object The object to be loaded.
         * @param options The key-value pairing of load options for the types, such as { "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }
         * @param maxDepth The maximum recursive depth.
@@ -2678,13 +2678,13 @@ declare namespace OfficeExtension {
 declare namespace OfficeExtension {
     /** Configuration */
     export var config: {
-        /**   
+        /**
          * Determines whether to log additional error information upon failure.
-        *   
+         *
          * When this property is set to true, the error object will include a "debugInfo.fullStatements" property that lists all statements in the batch request, including all statements that precede and follow the point of failure.
-        *   
-         * Setting this property to true will negatively impact performance and will log all statements in the batch request, including any statements that may contain potentially-sensitive data. 
-         * It is recommended that you only set this property to true during debugging and that you never log the value of error.debugInfo.fullStatements to an external database or analytics service. 
+         *
+         * Setting this property to true will negatively impact performance and will log all statements in the batch request, including any statements that may contain potentially-sensitive data.
+         * It is recommended that you only set this property to true during debugging and that you never log the value of error.debugInfo.fullStatements to an external database or analytics service.
          */
         extendedErrorLogging: boolean;
     };
@@ -2700,24 +2700,24 @@ declare namespace OfficeExtension {
         /** The object type and property or method name (or similar information), if available. */
         errorLocation?: string;
 
-        /**   
-         * The statement that caused the error, if available.    
-         *   
-         * This statement will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.  
+        /**
+         * The statement that caused the error, if available.
+         *
+         * This statement will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.
          */
-        statemehitent?: string;
+        statements?: string;
 
-        /**   
+        /**
          * The statements that closely precede and follow the statement that caused the error, if available.
-         *   
-         * These statements will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.  
+         *
+         * These statements will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.
          */
         surroundingStatements?: string[];
 
-        /**   
+        /**
          * All statements in the batch request (including any potentially-sensitive information that was specified in the request), if available.
-         *   
-         * These statements may not match the code exactly as written, but will be a close approximation. 
+         *
+         * These statements may not match the code exactly as written, but will be a close approximation.
          */
         fullStatements?: string[];
     }
@@ -2799,7 +2799,7 @@ declare namespace OfficeExtension {
 }
 declare namespace OfficeExtension {
     /**
-    * Request URL and headers 
+    * Request URL and headers
     */
     interface RequestUrlAndHeaderInfo {
         /** Request URL */
@@ -5915,7 +5915,7 @@ declare namespace Excel {
     /**
      *
      * Represents a collection of all the rows that are part of the table.
-            
+
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -5936,7 +5936,7 @@ declare namespace Excel {
         /**
          *
          * Adds one or more rows to the table. The return object will be the top of the newly added row(s).
-            
+
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -5958,7 +5958,7 @@ declare namespace Excel {
         /**
          *
          * Gets a row based on its position in the collection.
-            
+
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -5980,7 +5980,7 @@ declare namespace Excel {
     /**
      *
      * Represents a row in a table.
-            
+
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -8870,7 +8870,7 @@ declare namespace Excel {
          *
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
              For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-            
+
              Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
          *
          * [Api set: ExcelApi 1.2]
@@ -22596,7 +22596,7 @@ declare namespace Excel {
         /**
          *
          * Represents a collection of all the rows that are part of the table.
-                
+
                 Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                 a TableRow object represent the physical location of the table row, but not the data.
                 That is, if the data is sorted or if new rows are added, a table row will continue
@@ -22624,7 +22624,7 @@ declare namespace Excel {
         /**
          *
          * Represents a row in a table.
-                
+
                 Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                 a TableRow object represent the physical location of the table row, but not the data.
                 That is, if the data is sorted or if new rows are added, a table row will continue
