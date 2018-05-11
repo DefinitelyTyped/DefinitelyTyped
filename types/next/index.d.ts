@@ -11,7 +11,8 @@
 
 import * as http from "http";
 import * as url from "url";
-import * as fetch from "isomorphic-unfetch";
+
+import { Response as NodeResponse } from "node-fetch";
 
 declare namespace next {
     // <<https://github.com/zeit/next.js/issues/1651>>
@@ -29,7 +30,7 @@ declare namespace next {
         /** HTTP response object (server only) */
         res?: http.ServerResponse
         /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */
-        jsonPageRes?: fetch.IsomorphicResponse
+        jsonPageRes?: NodeResponse
         /** Error object if any error is encountered during the rendering */
         err?: Error
         /** a callback that executes the actual React rendering logic (synchronously) */
