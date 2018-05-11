@@ -9,7 +9,7 @@ export type Doc = doc.builders.Doc;
 
 // https://github.com/prettier/prettier/blob/master/src/common/fast-path.js
 export interface FastPath {
-    getName(): string | null;
+    getName(): null | number | string;
     getValue(): any;
     getNode(count?: number): any;
     getParentNode(count?: number): any;
