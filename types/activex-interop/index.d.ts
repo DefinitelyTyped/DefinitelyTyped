@@ -96,9 +96,7 @@ interface VBArrayConstructor {
 
 declare var VBArray: VBArrayConstructor;
 
-/**
- * Automation date (VT_DATE)
- */
+/** Automation date (VT_DATE) */
 declare class VarDate {
     private constructor();
     private VarDate_typekey: VarDate;
