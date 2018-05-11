@@ -190,6 +190,7 @@ declare module "mongoose" {
 
     /**
      * Opens the connection to MongoDB.
+     * @deprecated open() is deprecated in mongoose >= 4.11.0
      * @param mongodb://uri or the host to which you are connecting
      * @param database database name
      * @param port database port
@@ -199,6 +200,19 @@ declare module "mongoose" {
      *   Options passed take precedence over options included in connection strings.
      */
     open(connection_string: string, database?: string, port?: number,
+      options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
+    
+     /**
+     * Opens the connection to MongoDB.
+     * @param mongodb://uri or the host to which you are connecting
+     * @param database database name
+     * @param port database port
+     * @param options Mongoose forces the db option forceServerObjectId false and cannot be overridden.
+     *   Mongoose defaults the server auto_reconnect options to true which can be overridden.
+     *   See the node-mongodb-native driver instance for options that it understands.
+     *   Options passed take precedence over options included in connection strings.
+     */
+    openUri(connection_string: string, database?: string, port?: number,
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
 
     /** Helper for dropDatabase() */
