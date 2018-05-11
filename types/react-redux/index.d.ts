@@ -8,8 +8,11 @@
 //                 Nicholas Boll <https://github.com/nicholasboll>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
 //                 Prashant Deva <https://github.com/pdeva>
+//                 Thomas Charlat <https://github.com/kallikrein>
+//                 Valentin Descamps <https://github.com/val1984>
+//                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 // Known Issue:
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
@@ -37,21 +40,39 @@ type ActionCreator<A> = Redux.ActionCreator<A>;
 // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
 type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
+
 export interface DispatchProp<A extends Redux.Action = Redux.AnyAction> {
-  dispatch?: Dispatch<A>;
+  dispatch: Dispatch<A>;
 }
 
 interface AdvancedComponentDecorator<TProps, TOwnProps> {
     (component: Component<TProps>): ComponentClass<TOwnProps>;
 }
 
+/**
+ * a property P will be present if :
+ * - it is present in both DecorationTargetProps and InjectedProps
+ * - DecorationTargetProps[P] extends InjectedProps[P]
+ * ie: decorated component can accept more types than decorator is injecting
+ * 
+ * For decoration, inject props or ownProps are all optionnaly
+ * required by the decorated (right hand side) component.
+ * But any property required by the decorated component must extend the injected property
+ */
+type Shared<
+    InjectedProps,
+    DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
+    > = {
+        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: DecorationTargetProps[P] extends InjectedProps[P] ? InjectedProps[P] : never;
+    };
+
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
-    <P extends TInjectedProps>(
+    <P extends Shared<TInjectedProps, P>>(
         component: Component<P>
-    ): ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps> & {WrappedComponent: Component<P>}
+    ): ComponentClass<Omit<P, keyof Shared<TInjectedProps, P>> & TNeedsProps> & {WrappedComponent: Component<P>}
 }
 
 // Injects props and removes them from the prop requirements.

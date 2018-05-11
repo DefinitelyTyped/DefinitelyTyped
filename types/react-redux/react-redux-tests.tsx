@@ -349,8 +349,7 @@ connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICou
 
 
 class App extends Component<any, any> {
-    render(): JSX.Element {
-        // ...
+    render() {
         return null;
     }
 }
@@ -544,14 +543,12 @@ interface TestState {
 class TestComponent extends Component<TestProp & DispatchProp, TestState> { }
 const WrappedTestComponent = connect()(TestComponent);
 
-// return value of the connect()(TestComponent) is of the type TestComponent
-let ATestComponent: React.ComponentClass<TestProp> = null;
-ATestComponent = TestComponent;
-ATestComponent = WrappedTestComponent;
-
-let anElement: ReactElement<TestProp>;
+// return value of the connect()(TestComponent) is assignable to a ComponentClass<TestProp>
+// ie: DispatchProp has been removed through decoration
+const ADecoratedTestComponent: React.ComponentClass<TestProp> = WrappedTestComponent;
 <WrappedTestComponent property1={42} />;
-<ATestComponent property1={42} />;
+
+const ATestComponent: React.ComponentClass<TestProp> = TestComponent;  // $ExpectError
 
 class NonComponent {}
 // this doesn't compile
@@ -748,7 +745,8 @@ namespace Issue15463 {
     interface ISpinnerProps{
         showGlobalSpinner: boolean;
     }
-    class SpinnerClass extends React.Component<ISpinnerProps & DispatchProp, undefined> {
+
+    class SpinnerClass extends React.Component<ISpinnerProps & DispatchProp> {
         render() {
             return (<div />);
         }
@@ -815,7 +813,7 @@ namespace TestControlledComponentWithoutDispatchProp {
 }
 
 namespace TestDispatchToPropsAsObject {
-    const onClick: ActionCreator<{}> = null;
+    const onClick: ActionCreator<{}> = () => ({});
     const mapStateToProps = (state: any) => {
         return {
             title: state.app.title as string,
@@ -900,24 +898,71 @@ namespace TestCreateProvider {
     ReactDOM.render(<Combined />, document.body);
 }
 
-namespace TestTypeInference {
-    interface State { a: number };
+namespace TestWithoutTOwnPropsDecoratedInference {
 
-    const OnlyState = connect(
-        (state: {a: number}, props: {b: number}) => ({a: state.a, c: state.a + props.b})
-    )(props => <span>{props.a} + {props.b} = {props.c}</span>)
-    interface State { a: number };
-    ReactDOM.render(<OnlyState b={1} />, document.body);
+    interface ForwardedProps {
+        forwarded: string;
+    }
 
-    const OnlyDispatch = connect(
-        undefined,
-        (dispatch, props: {b: number}) => ({action: () => dispatch({type: 'action', b: props.b})})
-    )(props => <span onClick={props.action}>{props.b}</span>)
-    ReactDOM.render(<OnlyDispatch b={1} />, document.body);
+    interface OwnProps {
+        own: string;
+    }
 
-    const StateAndDispatch = connect(
-        (state: {a: number}, props: {b: number}) => ({a: state.a, c: state.a + props.b}),
-        (dispatch, props: {b: number}) => ({action: () => dispatch({type: 'action', b: props.b})})
-    )(props => <span>{props.a} + {props.b} = {props.c}</span>)
-    ReactDOM.render(<StateAndDispatch b={1} />, document.body);
+    interface StateProps {
+        state: string;
+    }
+
+    class WithoutOwnPropsComponentClass extends React.Component<ForwardedProps & StateProps & DispatchProp<any>> {
+        render() {
+            return <div />;
+        }
+    }
+
+    const WithoutOwnPropsComponentStateless: React.StatelessComponent<ForwardedProps & StateProps & DispatchProp<any>> = () => (<div />);
+
+    function mapStateToProps4(state: any, ownProps: OwnProps): StateProps {
+        return { state: 'string' };
+    }
+
+    // these decorations should compile, it is perfectly acceptable to receive props and ignore them
+    const ConnectedWithOwnPropsClass = connect(mapStateToProps4)(WithoutOwnPropsComponentClass);
+    const ConnectedWithOwnPropsStateless = connect(mapStateToProps4)(WithoutOwnPropsComponentStateless);
+    const ConnectedWithTypeHintClass = connect<StateProps, void, OwnProps>(mapStateToProps4)(WithoutOwnPropsComponentClass);
+    const ConnectedWithTypeHintStateless = connect<StateProps, void, OwnProps>(mapStateToProps4)(WithoutOwnPropsComponentStateless);
+
+    // This should compile
+    React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
+    React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
+    
+    // This should not compile, it is missing ForwardedProps
+    React.createElement(ConnectedWithOwnPropsClass, { own: 'string' }); // $ExpectError
+    React.createElement(ConnectedWithOwnPropsStateless, { own: 'string' }); // $ExpectError
+
+    // This should compile
+    React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
+    React.createElement(ConnectedWithOwnPropsStateless, { own: 'string', forwarded: 'string' });
+
+    // This should not compile, it is missing ForwardedProps
+    React.createElement(ConnectedWithTypeHintClass, { own: 'string' });  // $ExpectError
+    React.createElement(ConnectedWithTypeHintStateless, { own: 'string' });  // $ExpectError
+
+    interface AllProps {
+        own: string
+        state: string
+    }
+
+    class AllPropsComponent extends React.Component<AllProps & DispatchProp<any>> {
+        render() {
+            return <div />;
+        }
+    }
+
+    type PickedOwnProps = Pick<AllProps, "own">
+    type PickedStateProps = Pick<AllProps, "state">
+
+    const mapStateToPropsForPicked: MapStateToProps<PickedStateProps, PickedOwnProps, {}> = (state: any): PickedStateProps => {
+        return { state: "string" }
+    }
+    const ConnectedWithPickedOwnProps = connect(mapStateToPropsForPicked)(AllPropsComponent);
+    <ConnectedWithPickedOwnProps own="blah" />
 }
