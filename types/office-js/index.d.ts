@@ -18,7 +18,7 @@ declare namespace Office {
     export var Preview: {
         startCustomFunctions(): Promise<void>;
     }
-    
+
     export var Promise: PromiseConstructor;
     export var context: Context;
     /**
@@ -32,7 +32,7 @@ declare namespace Office {
     * @param callback - An optional callback method, that will receive the host and platform info. Alternatively, rather than use a callback, an add-in may simply wait for the Promise returned by the function to resolve.
     * @returns A Promise that contains the host and platform info, once initialization is completed.
     */
-    export function onReady(callback?: (info: { host: HostType, platform: PlatformType} ) => any): Promise<{ host: HostType, platform: PlatformType }>;
+    export function onReady(callback?: (info: { host: HostType, platform: PlatformType }) => any): Promise<{ host: HostType, platform: PlatformType }>;
     /**
      * Indicates if the large namespace for objects will be used or not.
      * @param useShortNamespace  Indicates if 'true' that the short namespace will be used
@@ -2652,7 +2652,7 @@ declare namespace OfficeExtension {
         /** Debug information */
         readonly debugInfo: RequestContextDebugInfo;
     }
-    
+
     export interface EmbeddedOptions {
         sessionKey?: string,
         container?: HTMLElement,
@@ -2677,7 +2677,7 @@ declare namespace OfficeExtension {
 
 declare namespace OfficeExtension {
     /** Configuration */
-    export var config : {
+    export var config: {
         /**   
          * Determines whether to log additional error information upon failure.
         *   
@@ -2686,7 +2686,7 @@ declare namespace OfficeExtension {
          * Setting this property to true will negatively impact performance and will log all statements in the batch request, including any statements that may contain potentially-sensitive data. 
          * It is recommended that you only set this property to true during debugging and that you never log the value of error.debugInfo.fullStatements to an external database or analytics service. 
          */
-         extendedErrorLogging: boolean;
+        extendedErrorLogging: boolean;
     };
 
     export interface DebugInfo {
@@ -2704,21 +2704,21 @@ declare namespace OfficeExtension {
          * The statement that caused the error, if available.    
          *   
          * This statement will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.  
-         */   
+         */
         statemehitent?: string;
 
         /**   
          * The statements that closely precede and follow the statement that caused the error, if available.
          *   
          * These statements will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.  
-         */   
+         */
         surroundingStatements?: string[];
- 
+
         /**   
          * All statements in the batch request (including any potentially-sensitive information that was specified in the request), if available.
          *   
          * These statements may not match the code exactly as written, but will be a close approximation. 
-         */  
+         */
         fullStatements?: string[];
     }
 
@@ -2759,7 +2759,7 @@ declare namespace OfficeExtension {
 declare namespace OfficeExtension {
     /** An Promise object that represents a deferred interaction with the host Office application. The publically-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a "native" Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
     export const Promise: PromiseConstructor;
-    
+
     export type IPromise<T> = Promise<T>;
 }
 
@@ -11198,8 +11198,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    enum ChartType
-    {
+    enum ChartType {
         invalid = "Invalid",
         columnClustered = "ColumnClustered",
         columnStacked = "ColumnStacked",
