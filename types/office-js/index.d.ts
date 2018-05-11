@@ -15,6 +15,10 @@ Copyright (c) Microsoft Corporation
 ////////////////////////////////////////////////////////////////
 
 declare namespace Office {
+    export var Preview: {
+        startCustomFunctions(): Promise<void>;
+    }
+    
     export var Promise: PromiseConstructor;
     export var context: Context;
     /**
