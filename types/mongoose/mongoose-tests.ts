@@ -129,6 +129,12 @@ conn1.openSet('mongodb://localhost/test', 'db', {
   replset: null,
   mongos: true
 }, function (err) {}).then(cb).catch(cb);
+conn1.openUri('mongodb://localhost/test', 'myDb', 27017, {
+  replset: null,
+  config: {
+    autoIndex: false
+  }
+}, function (err) {}).open('');
 conn1.close().catch(function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
