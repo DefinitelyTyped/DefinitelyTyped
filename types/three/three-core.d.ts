@@ -7029,7 +7029,7 @@ export class DodecahedronGeometry extends Geometry {
 }
 
 export class EdgesGeometry extends BufferGeometry {
-    constructor(geometry: BufferGeometry, thresholdAngle: number);
+    constructor(geometry: BufferGeometry | Geometry, thresholdAngle: number);
 }
 
 export class ExtrudeGeometry extends Geometry {

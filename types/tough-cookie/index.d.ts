@@ -2,6 +2,7 @@
 // Project: https://github.com/salesforce/tough-cookie
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 LiJinyao <https://github.com/LiJinyao>
+//                 Michael Wei <https://github.com/no2chem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -151,7 +152,7 @@ export class CookieJar {
     static deserialize(serialized: CookieJar.Serialized | string, store: Store, cb: (err: Error | null, object: CookieJar) => void): void;
     static deserialize(serialized: CookieJar.Serialized | string, cb: (err: Error | null, object: CookieJar) => void): void;
 
-    static deserializeSync(serialized: CookieJar.Serialized | string): CookieJar;
+    static deserializeSync(serialized: CookieJar.Serialized | string, store?: Store): CookieJar;
 
     static fromJSON(string: string): CookieJar;
 

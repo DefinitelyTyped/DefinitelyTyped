@@ -150,4 +150,17 @@ let _algoliaQueryParameters: QueryParameters = {
 let index: Index = algoliasearch('', '').initIndex('');
 
 let search = index.search({ query: '' });
+
 index.search({ query: '' }, (err, res) => {});
+
+// partialUpdateObject
+index.partialUpdateObject({}, () => {});
+index.partialUpdateObject({}, false, () => {});
+index.partialUpdateObject({}).then(() => {});
+index.partialUpdateObject({}, false).then(() => {});
+
+// partialUpdateObjects
+index.partialUpdateObjects([{}], () => {});
+index.partialUpdateObjects([{}], false, () => {});
+index.partialUpdateObjects([{}]).then(() => {});
+index.partialUpdateObjects([{}], false).then(() => {});

@@ -1,12 +1,14 @@
+
 {
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -18,6 +20,8 @@
     },
     "files": [
         "index.d.ts",
-        "ids-tests.ts"
+        "test/dom-to-image-module-tests.ts",
+        "test/dom-to-image-global-tests.ts",
+        "test/dom-to-image-import-default-tests.ts"
     ]
 }

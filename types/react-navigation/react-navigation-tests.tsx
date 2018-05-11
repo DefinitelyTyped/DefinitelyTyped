@@ -50,6 +50,7 @@ const viewStyle: ViewStyle = {
 };
 
 const ROUTE_NAME_START_SCREEN = "StartScreen";
+const ROUTE_KEY_START_SCREEN = "StartScreen-key";
 
 interface StartScreenNavigationParams {
     id: number;
@@ -131,6 +132,7 @@ export const AppNavigator = StackNavigator(
     routeConfigMap,
     {
         initialRouteName: ROUTE_NAME_START_SCREEN,
+        initialRouteKey: ROUTE_KEY_START_SCREEN,
         initialRouteParams,
         navigationOptions,
     },

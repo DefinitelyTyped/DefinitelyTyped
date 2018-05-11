@@ -16,6 +16,7 @@
 //                 Egor Shulga <https://github.com/egorshulga>
 //                 Youen Toupin <https://github.com/neuoy>
 //                 Rahul Raina <https://github.com/rraina>
+//                 Maksim Sharipov <https://github.com/pret-a-porter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -58,11 +59,15 @@ export interface RedirectProps {
 }
 export class Redirect extends React.Component<RedirectProps, any> { }
 
-export interface RouteComponentProps<P> {
-  match: match<P>;
-  location: H.Location;
+export interface StaticContext {
+  statusCode?: number;
+}
+
+export interface RouteComponentProps<P, C extends StaticContext = StaticContext> {
   history: H.History;
-  staticContext?: any;
+  location: H.Location;
+  match: match<P>;
+  staticContext: C | undefined;
 }
 
 export interface RouteProps {
