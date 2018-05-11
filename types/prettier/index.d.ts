@@ -131,12 +131,12 @@ export interface Printer {
         options: ParserOptions,
         print: (path: FastPath) => Doc,
     ): Doc;
-    embed(
+    embed?: (
         path: FastPath,
         print: (path: FastPath) => Doc,
         textToDoc: (text: string, options: Options) => Doc,
         options: ParserOptions,
-    ): Doc | null;
+    ) => Doc | null;
     insertPragma?: (text: string) => string;
     /**
      * @returns `null` if you want to remove this node
