@@ -7,8 +7,9 @@
 
 /// <reference types="node" />
 
-// tslint:disable-next-line interface-over-type-literal
-export type Config = { [key: string]: any };
+export interface Config {
+  [key: string]: any;
+}
 
 export type CosmiconfigResult = {
   config: Config;
