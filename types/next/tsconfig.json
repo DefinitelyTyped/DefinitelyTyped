@@ -28,6 +28,7 @@
         "router.d.ts",
         "config.d.ts",
         "test/next-tests.ts",
+        "test/next-app-tests.tsx",
         "test/next-error-tests.tsx",
         "test/next-head-tests.tsx",
         "test/next-document-tests.tsx",
