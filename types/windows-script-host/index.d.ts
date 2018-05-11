@@ -442,7 +442,7 @@ declare var WScript: {
      * Outputs text to either a message box (under WScript.exe) or the command console window followed by
      * a newline (under CScript.exe).
      */
-    Echo(s: any): void;
+    Echo(s?: any): void;
 
     /**
      * Exposes the write-only error output stream for the current script.
