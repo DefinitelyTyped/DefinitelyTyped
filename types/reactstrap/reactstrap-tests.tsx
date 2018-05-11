@@ -3692,13 +3692,13 @@ const Example116 = (props: any) => {
   );
 };
 
-class Example117 extends React.Component {
+class Example117 extends React.Component<any, any> {
   render() {
     return <Input ref={e => { console.log(e); }}/>;
   }
 }
 
-class Example118 extends React.Component {
+class Example118 extends React.Component<any, any> {
   render() {
     return (
       <Form>
@@ -3782,6 +3782,43 @@ class Example118 extends React.Component {
           <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" disabled />
         </FormGroup>
       </Form>
+    );
+  }
+}
+
+class Example119 extends React.Component<any, any> {
+  render() {
+    return (
+      <Table borderless>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </Table>
     );
   }
 }
