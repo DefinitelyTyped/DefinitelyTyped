@@ -1,7 +1,7 @@
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject } from 'redux';
+import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
 import { Connect, connect, createProvider, Provider, DispatchProp, MapStateToProps, Options } from 'react-redux';
 import objectAssign = require('object-assign');
 
@@ -984,4 +984,20 @@ namespace TestWithoutTOwnPropsDecoratedInference {
     }
     const ConnectedWithPickedOwnProps = connect(mapStateToPropsForPicked)(AllPropsComponent);
     <ConnectedWithPickedOwnProps own="blah" />
+}
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25321#issuecomment-387659500
+namespace ProviderAcceptsStoreWithCustomAction {
+    const reducer: Reducer<
+        { foo: number } | undefined,
+        { type: "foo"; payload: number }
+    > = state => state;
+
+    const store = createStore(reducer);
+
+    const Whatever = () => (
+        <Provider store={store}>
+            <div>Whatever</div>
+        </Provider>
+    );
 }
