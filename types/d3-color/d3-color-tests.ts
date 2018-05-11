@@ -136,11 +136,7 @@ if (color instanceof d3Color.rgb) {
     cHSL = color;
 } else if (color instanceof d3Color.lab) {
     cLab = color;
-} else if (color instanceof d3Color.gray) {
-    cLab = color;
 } else if (color instanceof d3Color.hcl) {
-    cHcl = color;
-} else if (color instanceof d3Color.lch) {
     cHcl = color;
 } else if (color instanceof d3Color.cubehelix) {
     cCubehelix = color;
