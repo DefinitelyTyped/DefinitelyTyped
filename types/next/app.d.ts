@@ -1,9 +1,9 @@
 import * as React from "react";
-import { NextContext } from "next";
+import { NextContext } from ".";
 
 export interface AppComponentProps {
     Component: React.ComponentType<any>;
-    pageProps: any
+    pageProps: any;
 }
 
 export interface AppComponentContext {
