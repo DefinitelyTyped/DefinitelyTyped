@@ -30,7 +30,6 @@ import {
     Component,
     ComponentClass,
     ComponentType,
-    ReactNode,
     StatelessComponent
 } from 'react';
 
