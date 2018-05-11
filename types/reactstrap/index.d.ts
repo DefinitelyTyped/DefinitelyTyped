@@ -43,6 +43,7 @@ export { default as CarouselCaption,          CarouselCaptionProps            } 
 export { default as Col,                      ColProps                        } from './lib/Col';
 export { default as Collapse,                 CollapseProps                   } from './lib/Collapse';
 export { default as Container,                ContainerProps                  } from './lib/Container';
+export { default as CustomInput,              CustomInputProps                } from './lib/CustomInput';
 export { default as Dropdown,                 DropdownProps                   } from './lib/Dropdown';
 export { default as DropdownItem,             DropdownItemProps               } from './lib/DropdownItem';
 export { default as DropdownMenu,             DropdownMenuProps               } from './lib/DropdownMenu';
