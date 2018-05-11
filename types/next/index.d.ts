@@ -15,30 +15,33 @@ import * as url from "url";
 import { Response as NodeResponse } from "node-fetch";
 
 declare namespace next {
-    // <<https://github.com/zeit/next.js/issues/1651>>
+    /**
+     * Context object used in methods like `getInitialProps()`
+     * <<https://github.com/zeit/next.js/issues/1651>>
+     */
     interface NextContext {
         /** path section of URL */
-        pathname: string
+        pathname: string;
         /** query string section of URL parsed as an object */
         query: {
             [key: string]: any
-        }
+        };
         /** String of the actual path (including the query) shows in the browser */
-        asPath: string
+        asPath: string;
         /** HTTP request object (server only) */
-        req?: http.IncomingMessage
+        req?: http.IncomingMessage;
         /** HTTP response object (server only) */
-        res?: http.ServerResponse
+        res?: http.ServerResponse;
         /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */
-        jsonPageRes?: NodeResponse
+        jsonPageRes?: NodeResponse;
         /** Error object if any error is encountered during the rendering */
-        err?: Error
+        err?: Error;
         /** a callback that executes the actual React rendering logic (synchronously) */
         renderPage(
             cb?: (enhancer: () => JSX.Element) => React.ComponentType<any>
         ): {
             [key: string]: any
-        }
+        };
     }
 
     type NextSFC<P = {}> = NextStatelessComponent<P>;
