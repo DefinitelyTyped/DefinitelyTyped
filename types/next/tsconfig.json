@@ -33,6 +33,7 @@
         "test/next-document-tests.tsx",
         "test/next-link-tests.tsx",
         "test/next-dynamic-tests.tsx",
-        "test/next-router-tests.tsx"
+        "test/next-router-tests.tsx",
+        "test/next-component-tests.tsx"
     ]
 }

@@ -3,6 +3,7 @@
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
 //                 James Hegedus <https://github.com/jthegedus>
+//                 Resi Respati <https://github.com/resir014>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -37,6 +38,11 @@ declare namespace next {
         ): {
             [key: string]: any
         }
+    }
+
+    type NextSFC<P = {}> = NextStatelessComponent<P>;
+    interface NextStatelessComponent<P = {}> extends React.StatelessComponent<P> {
+        getInitialProps?: (ctx: NextContext) => Promise<any>;
     }
 
     type UrlLike = url.UrlObject | url.Url;
