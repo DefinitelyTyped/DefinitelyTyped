@@ -3822,3 +3822,22 @@ class Example119 extends React.Component<any, any> {
     );
   }
 }
+
+class Example120 extends React.Component<any, any> {
+  render() {
+    return (
+      <UncontrolledDropdown className="some-class" setActiveFromChild>
+        <DropdownToggle caret>
+          Dropdown
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem header>Header</DropdownItem>
+          <DropdownItem disabled>Action</DropdownItem>
+          <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Another Action</DropdownItem>
+        </DropdownMenu>
+      </UncontrolledDropdown>
+    );
+  }
+}
