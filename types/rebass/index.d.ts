@@ -293,6 +293,13 @@ export interface LinkBlockProps extends BaseProps<LinkBlockClass> {
 type LinkBlockClass = React.StatelessComponent<LinkBlockProps>
 export declare const LinkBlock: LinkBlockClass;
 
+export interface LinkProps extends BaseProps<HeadingLinkClass>
+	is?: string | Object | Function;
+    href?: string;
+}
+type LinkClass = React.StatelessComponent<LinkProps>
+export declare const Link: LinkClass;
+
 export interface MediaProps extends BaseProps<MediaClass> {
     img?: string;
     right?: boolean;
