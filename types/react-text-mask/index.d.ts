@@ -1,4 +1,4 @@
-// Type definitions for react-text-mask 5.4.1
+// Type definitions for react-text-mask 5.4
 // Project: https://github.com/text-mask/text-mask
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>, Deividi Cavarzan <https://github.com/cavarzan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
