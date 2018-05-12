@@ -801,12 +801,6 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
 
 export interface TextPropsIOS {
     /**
-     * Specifies whether fonts should scale to respect Text Size accessibility setting on iOS. The
-     * default is `true`.
-     */
-    allowFontScaling?: boolean;
-
-    /**
      * Specifies whether font should be scaled down automatically to fit given style constraints.
      */
     adjustsFontSizeToFit?: boolean;
@@ -843,6 +837,12 @@ export interface TextPropsAndroid {
 
 // https://facebook.github.io/react-native/docs/text.html#props
 export interface TextProps extends TextPropsIOS, TextPropsAndroid, AccessibilityProps {
+    /**
+     * Specifies whether fonts should scale to respect Text Size accessibility settings.
+     * The default is `true`.
+     */
+    allowFontScaling?: boolean;
+
     /**
      * This can be one of the following values:
      *
@@ -1090,9 +1090,7 @@ export interface TextInputProps
     extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
     /**
      * Specifies whether fonts should scale to respect Text Size accessibility settings.
-     * The default is true.
-     *
-     * https://facebook.github.io/react-native/docs/textinput.html#allowfontscaling
+     * The default is `true`.
      */
     allowFontScaling?: boolean;
 
