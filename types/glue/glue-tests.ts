@@ -7,6 +7,7 @@ const manifest: Glue.Manifest = {
   },
   register: {
     plugins: [
+      "test-plugin",
       {
         plugin: "./test",
         routes: {
