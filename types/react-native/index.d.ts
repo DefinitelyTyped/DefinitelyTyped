@@ -1089,6 +1089,14 @@ export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | Return
 export interface TextInputProps
     extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
     /**
+     * Specifies whether fonts should scale to respect Text Size accessibility settings.
+     * The default is true.
+     *
+     * https://facebook.github.io/react-native/docs/textinput.html#allowfontscaling
+     */
+    allowFontScaling?: boolean;
+
+    /**
      * Can tell TextInput to automatically capitalize certain characters.
      *      characters: all characters,
      *      words: first letter of each word
