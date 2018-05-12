@@ -604,14 +604,6 @@ export interface FlexStyle {
     direction?: "inherit" | "ltr" | "rtl";
 }
 
-
-/**
- * Layout Prop Types
- * @see https://facebook.github.io/react-native/docs/layout-props.html
- * @see https://github.com/facebook/react-native/blob/master/Libraries/StyleSheet/LayoutPropTypes.js
- */
-export interface LayoutProps extends FlexStyle {}
-
 /**
  * @see ShadowPropTypesIOS.js
  */
@@ -1577,7 +1569,10 @@ export interface GestureResponderHandlers {
     onMoveShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean;
 }
 
-// @see https://facebook.github.io/react-native/docs/view.html#style
+/**
+ * @see https://facebook.github.io/react-native/docs/view.html#style
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewStylePropTypes.js
+ */
 export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     backfaceVisibility?: "visible" | "hidden";
     backgroundColor?: string;
@@ -1684,6 +1679,7 @@ export interface ViewPropsAndroid {
     renderToHardwareTextureAndroid?: boolean;
 }
 
+
 type Falsy = undefined | null | false;
 interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
 /** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
@@ -1783,7 +1779,7 @@ type AccessibilityTraits =
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
 export interface ViewProps
-    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps, LayoutProps {
+    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps, ViewStyle {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -3390,7 +3386,7 @@ export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequi
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export interface ImageProps extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, LayoutProps {
+export interface ImageProps extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, ViewStyle {
     /**
      * onLayout function
      *
