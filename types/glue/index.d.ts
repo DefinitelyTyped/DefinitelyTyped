@@ -28,4 +28,4 @@ export interface Manifest {
   };
 }
 
-export function compose(manifest: Manifest, options?: Options): Server;
+export function compose(manifest: Manifest, options?: Options): Promise<Server>;
