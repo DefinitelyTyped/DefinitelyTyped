@@ -224,7 +224,7 @@ declare namespace CKEDITOR {
             focusPrevious(ignoreChildren?: boolean, indexToUse?: number): void;
             forEach(callback: (node: node) => void, type?: number, skipRoot?: boolean): void;
             getAttribute(name: string): string;
-            getBogus(): Object;
+            getBogus(): node|false;
             getChild(indices: number): node;
             getChild(indices: number[]): node;
             getChildCount(): number;
