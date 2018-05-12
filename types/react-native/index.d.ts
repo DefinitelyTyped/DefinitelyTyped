@@ -1599,7 +1599,6 @@ export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     borderTopWidth?: number;
     borderWidth?: number;
     opacity?: number;
-    overflow?: "visible" | "hidden";
     testID?: string;
     /**
       * Sets the elevation of a view, using Android's underlying
@@ -3386,7 +3385,7 @@ export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequi
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export interface ImageProps extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, ViewStyle {
+export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, ViewStyle {
     /**
      * onLayout function
      *
@@ -3492,15 +3491,17 @@ export interface ImageProps extends ImagePropsIOS, ImagePropsAndroid, Accessibil
     loadingIndicatorSource?: ImageURISource;
 
     /**
+     * A unique identifier for this element to be used in UI Automation testing scripts.
+     */
+    testID?: string;
+}
+
+export interface ImageProps extends ImagePropsBase {
+    /**
      *
      * Style
      */
     style?: StyleProp<ImageStyle>;
-
-    /**
-     * A unique identifier for this element to be used in UI Automation testing scripts.
-     */
-    testID?: string;
 }
 
 declare class ImageComponent extends React.Component<ImageProps> {}
@@ -3513,7 +3514,7 @@ export class Image extends ImageBase {
     queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
 }
 
-export interface ImageBackgroundProps extends ImageProps {
+export interface ImageBackgroundProps extends ImagePropsBase {
     style?: StyleProp<ViewStyle>;
     imageStyle?: StyleProp<ImageStyle>;
 }
