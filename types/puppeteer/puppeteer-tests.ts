@@ -117,9 +117,15 @@ puppeteer.launch().then(async browser => {
   await watchDog;
 
   let currentURL: string;
+
   page
     .waitForSelector("img", { visible: true })
-    .then(() => console.log("First URL with image: " + currentURL));
+    .then(() => console.log("First URL with image by selector: " + currentURL));
+
+  page
+    .waitForXPath("//img", { visible: true })
+    .then(() => console.log("First URL with image by xpath: " + currentURL));
+
   for (currentURL of [
     "https://example.com",
     "https://google.com",
@@ -280,6 +286,24 @@ puppeteer.launch().then(async browser => {
   });
 
   browser.close();
+})();
+
+// Test 0.13 features
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const handler = (r: puppeteer.Request) => {
+    const failure = r.failure();
+
+    if (failure == null) {
+      console.error("Request completed successfully");
+      return;
+    }
+
+    console.log("Request failed", failure.errorText.toUpperCase());
+  };
+  page.on('requestfinished', handler);
+  page.on('requestfailed', handler);
 })();
 
 // Test 1.0 features

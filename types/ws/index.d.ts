@@ -1,4 +1,4 @@
-// Type definitions for ws 4.0
+// Type definitions for ws 5.1
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
@@ -176,6 +176,7 @@ declare namespace WebSocket {
 
         constructor(options?: ServerOptions, callback?: () => void);
 
+        address(): net.AddressInfo | string;
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;

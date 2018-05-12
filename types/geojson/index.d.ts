@@ -3,6 +3,7 @@
 // Definitions by: Jacob Bruun <https://github.com/cobster>
 //                 Arne Schubert <https://github.com/atd-schubert>
 //                 Jeff Jacobson <https://github.com/JeffJacobson>
+//                 Ilia Choly <https://github.com/icholy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -63,12 +64,23 @@ export interface GeoJsonObject {
 }
 
 /**
+ * Union of GeoJSON objects.
+ */
+export type GeoJSON = Geometry | Feature | FeatureCollection;
+
+/**
  * A geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3
  */
 export interface GeometryObject extends GeoJsonObject {
     type: GeoJsonGeometryTypes;
 }
+
+/**
+ * Union of geometry objects.
+ * https://tools.ietf.org/html/rfc7946#section-3
+ */
+export type Geometry = Point | MultiPoint | LineString | Polygon | MultiPolygon | GeometryCollection;
 
 /**
  * Point geometry object.
@@ -130,7 +142,7 @@ export interface MultiPolygon extends GeometryObject {
  */
 export interface GeometryCollection extends GeometryObject {
     type: "GeometryCollection";
-    geometries: Array<Point | LineString | Polygon | MultiPoint | MultiLineString | MultiPolygon>;
+    geometries: Geometry[];
 }
 
 export type GeoJsonProperties = { [name: string]: any; } | null;
@@ -139,7 +151,7 @@ export type GeoJsonProperties = { [name: string]: any; } | null;
  * A feature object which contains a geometry and associated properties.
  * https://tools.ietf.org/html/rfc7946#section-3.2
  */
-export interface Feature<G extends GeometryObject | null, P = GeoJsonProperties> extends GeoJsonObject {
+export interface Feature<G extends GeometryObject | null = Geometry, P = GeoJsonProperties> extends GeoJsonObject {
     type: "Feature";
     /**
      * The feature's geometry
@@ -160,7 +172,7 @@ export interface Feature<G extends GeometryObject | null, P = GeoJsonProperties>
  * A collection of feature objects.
  *  https://tools.ietf.org/html/rfc7946#section-3.3
  */
-export interface FeatureCollection<G extends GeometryObject | null, P = GeoJsonProperties> extends GeoJsonObject {
+export interface FeatureCollection<G extends GeometryObject | null = Geometry, P = GeoJsonProperties> extends GeoJsonObject {
     type: "FeatureCollection";
     features: Array<Feature<G, P>>;
 }
