@@ -2245,12 +2245,12 @@ declare module "child_process" {
     }
     export interface SpawnSyncReturns<T> {
         pid: number;
-        output: string[];
-        stdout: T;
-        stderr: T;
-        status: number;
-        signal: string;
-        error: Error;
+        output: [T | null, T | null, T | null] | null;
+        stdout: T | null;
+        stderr: T | null;
+        status: number | null;
+        signal: string | null;
+        error: Error | null;
     }
     export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
