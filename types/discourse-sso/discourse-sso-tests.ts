@@ -1,8 +1,8 @@
-import * as discourseSSO from 'discourse-sso'
-const sso = new discourseSSO('sso secret string')
+import * as discourseSSO from 'discourse-sso';
+const sso = new discourseSSO('sso secret string');
 
 if (sso.validate('payload', 'sig')) {
-    const nonce = sso.getNonce('payload')
+    const nonce = sso.getNonce('payload');
 
     const userParams: discourseSSO.UserParams = {
         nonce,
@@ -12,5 +12,5 @@ if (sso.validate('payload', 'sig')) {
         name: 'This Guy'
     }
 
-    const loginString: string = sso.buildLoginString(userParams)
+    const loginString: string = sso.buildLoginString(userParams);
 }
