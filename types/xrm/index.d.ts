@@ -2100,7 +2100,7 @@ declare namespace Xrm {
              * * optionset
              * * string
              */
-            getAttributeType(): Attributes.AttributeType;
+            getAttributeType(): AttributeType;
 
             /**
              * Gets the attribute format.
