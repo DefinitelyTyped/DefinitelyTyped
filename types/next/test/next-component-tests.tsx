@@ -6,7 +6,7 @@ interface NextComponentProps {
 }
 
 class ClassNext extends React.Component<NextComponentProps> {
-    async getInitialProps() {
+    static async getInitialProps() {
         return { example: 'example' };
     }
 
