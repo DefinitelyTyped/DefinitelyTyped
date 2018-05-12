@@ -10,7 +10,7 @@ if (sso.validate('payload', 'sig')) {
         email: 'omg@mail.com',
         username: 'myuser',
         name: 'This Guy'
-    }
+    };
 
     const loginString: string = sso.buildLoginString(userParams);
 }

@@ -11,7 +11,7 @@ declare class DiscourseSSO {
 }
 
 declare namespace DiscourseSSO {
-    export interface UserParams {
+    interface UserParams {
         nonce: string;
         external_id: string;
         email: string;
