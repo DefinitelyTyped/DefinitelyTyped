@@ -9,6 +9,7 @@ declare function rpt(root: string, filterWith: (node: rpt.Node, kidName: string)
 declare namespace rpt {
     class Node {
         id: number;
+        name: string;
         package: any;
         children: Node[];
         parent: Node | null;
