@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLError } from "../error";
 import { GraphQLInputType, GraphQLField, GraphQLArgument } from "../type/definition";
 import { GraphQLDirective } from "../type/directives";
@@ -35,7 +36,7 @@ export function getVariableValues(
 export function getArgumentValues(
     def: GraphQLField<any, any> | GraphQLDirective,
     node: FieldNode | DirectiveNode,
-    variableValues?: { [key: string]: any } | void
+    variableValues?: Maybe<{ [key: string]: any }>
 ): { [key: string]: any };
 
 /**
@@ -54,5 +55,5 @@ export function getDirectiveValues(
     node: {
         readonly directives?: ReadonlyArray<DirectiveNode>;
     },
-    variableValues?: { [key: string]: any } | void
+    variableValues?: Maybe<{ [key: string]: any }>
 ): undefined | { [key: string]: any };

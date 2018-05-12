@@ -1,4 +1,4 @@
-// Type definitions for expo 25.0
+// Type definitions for expo 26.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -16,9 +16,10 @@ import {
     ImageRequireSource,
     ImageURISource,
     NativeEventEmitter,
-    ViewProperties,
+    ViewProps,
     ViewStyle,
-    Permission
+    Permission,
+    StyleProp
 } from 'react-native';
 
 export type Axis = number;
@@ -57,6 +58,82 @@ export namespace Accelerometer {
      * @param intervalMs Desired interval in milliseconds between accelerometer updates.
      */
     function setUpdateInterval(intervalMs: number): void;
+}
+
+/**
+ * Admob
+ */
+export type AdMobBannerSize =
+    | 'banner'
+    | 'largeBanner'
+    | 'mediumRectangle'
+    | 'fullBanner'
+    | 'leaderboard'
+    | 'smartBannerPortrait'
+    | 'smartBannerLandscape';
+export interface AdMobBannerProperties extends ViewProps {
+    bannerSize?: AdMobBannerSize;
+    adUnitID?: string;
+    testDeviceID?: string;
+    didFailToReceiveAdWithError?(errorDescription: string): void;
+    adViewDidReceiveAd?(): void;
+    adViewWillPresentScreen?(): void;
+    adViewWillDismissScreen?(): void;
+    adViewDidDismissScreen?(): void;
+    adViewWillLeaveApplication?(): void;
+}
+
+export class AdMobBanner extends Component<AdMobBannerProperties> { }
+export interface AdMobAppEvent {
+    name: string;
+    info: string;
+}
+export interface PublisherBannerProperties extends AdMobBannerProperties {
+    onAdMobDispatchAppEvent?(event: AdMobAppEvent): void;
+}
+export class PublisherBanner extends Component<PublisherBannerProperties> { }
+
+export type AdMobInterstitialEmptyEvent =
+    | 'interstitialDidLoad'
+    | 'interstitialDidOpen'
+    | 'interstitialDidClose'
+    | 'interstitialWillLeaveApplication';
+export type AdMobInterstitialEvent = AdMobInterstitialEmptyEvent | 'interstitialDidFailToLoad';
+export namespace AdMobInterstitial {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAdAsync(): Promise<void>;
+    function showAdAsync(): Promise<void>;
+    function dismissAdAsync(): Promise<void>;
+    function getIsReadyAsync(): Promise<boolean>;
+    function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+export type AdMobRewardedEmptyEvent =
+    | 'rewardedVideoDidLoad'
+    | 'rewardedVideoDidOpen'
+    | 'rewardedVideoDidStart'
+    | 'rewardedVideoDidClose'
+    | 'rewardedVideoWillLeaveApplication';
+export type AdMobRewardedEvent = AdMobRewardedEmptyEvent | 'rewardedVideoDidRewardUser' | 'rewardedVideoDidFailToLoad';
+export namespace AdMobRewarded {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAdAsync(): Promise<void>;
+    function showAdAsync(): Promise<void>;
+    function dismissAdAsync(): Promise<void>;
+    function getIsReadyAsync(): Promise<boolean>;
+    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
 }
 
 /**
@@ -623,7 +700,7 @@ export class PlaybackObject {
 /**
  * BarCodeScanner
  */
-export interface BarCodeScannerProps extends ViewProperties {
+export interface BarCodeScannerProps extends ViewProps {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
@@ -644,7 +721,7 @@ export class BarCodeScanner extends Component<BarCodeScannerProps> {
 /**
  * BlurView
  */
-export interface BlurViewProps extends ViewProperties {
+export interface BlurViewProps extends ViewProps {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
@@ -690,7 +767,7 @@ export class CameraObject {
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
 
-export interface CameraProps extends ViewProperties {
+export interface CameraProps extends ViewProps {
     zoom?: FloatFromZeroToOne;
     ratio?: string;
     focusDepth?: FloatFromZeroToOne;
@@ -1315,7 +1392,7 @@ export namespace Font {
 /**
  * GLView
  */
-export interface GLViewProps extends ViewProperties {
+export interface GLViewProps extends ViewProps {
     onContextCreate(): void;
     msaaSamples: number;
 }
@@ -1554,11 +1631,12 @@ export class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-export interface LinearGradientProps extends ViewProperties {
+export interface LinearGradientProps {
     colors: string[];
     start?: [number, number];
     end?: [number, number];
     locations?: number[];
+    style?: StyleProp<ViewStyle>;
 }
 
 export class LinearGradient extends Component<LinearGradientProps> { }
@@ -1622,7 +1700,7 @@ export namespace Location {
     function getHeadingAsync(): Promise<HeadingStatus>;
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
     function geocodeAsync(address: string): Promise<Coords>;
-    function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData>;
+    function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
     function setApiKey(key: string): void;
 }
 
@@ -1700,8 +1778,9 @@ export namespace Pedometer {
  * Permissions
  */
 export namespace Permissions {
-    type PermissionType = 'remoteNotifications' | 'location' |
-        'camera' | 'contacts' | 'audioRecording' | 'calendar';
+    type PermissionType = 'audioRecording' | 'calendar' |
+    'cameraRoll' | 'camera' | 'contacts' | 'location' | 'reminders' |
+    'remoteNotifications' | 'systemBrightness' | 'userFacingNotifications';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1725,15 +1804,17 @@ export namespace Permissions {
 
     type RemoteNotificationPermission = 'remoteNotifications';
 
-    const CAMERA: 'camera';
-    const CAMERA_ROLL: 'cameraRoll';
     const AUDIO_RECORDING: 'audioRecording';
-    const LOCATION: 'location';
-    const REMOTE_NOTIFICATIONS: RemoteNotificationPermission;
-    const NOTIFICATIONS: RemoteNotificationPermission;
-    const CONTACTS: 'contacts';
-    const SYSTEM_BRIGHTNESS: 'systemBrightness';
     const CALENDAR: 'calendar';
+    const CAMERA_ROLL: 'cameraRoll';
+    const CAMERA: 'camera';
+    const CONTACTS: 'contacts';
+    const LOCATION: 'location';
+    const NOTIFICATIONS: RemoteNotificationPermission;
+    const REMINDERS = 'reminders';
+    const REMOTE_NOTIFICATIONS: RemoteNotificationPermission;
+    const SYSTEM_BRIGHTNESS: 'systemBrightness';
+    const USER_FACING_NOTIFICATIONS = 'userFacingNotifications';
 }
 
 /**
@@ -1874,6 +1955,7 @@ export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
     fillRule?: 'nonzero' | 'evenodd';
+    opacity?: number | string;
     stroke?: string;
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
@@ -1984,7 +2066,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number }> {
+export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;
@@ -2682,3 +2764,91 @@ export namespace MailComposer {
     ): Promise<{ status: 'sent' | 'saved' | 'cancelled' }>;
 }
 // #endregion
+
+export namespace Updates {
+    namespace EventType {
+        /** A new update is available and has started downloading. */
+        type DownloadStart = 'downloadStart';
+        /** A new update is currently being downloaded and will be stored in the device's cache. */
+        type DownloadProgress = 'downloadProgress';
+        /** A new update has finished downloading and is now stored in the device's cache. */
+        type DownloadFinished = 'downloadFinished';
+        /** No updates are available, and the most up-to-date bundle of this experience is already running. */
+        type NoUpdateAvailable = 'noUpdateAvailable';
+        /** An error occurred trying to fetch the latest update. */
+        type Error = 'error';
+
+        /** A new update is available and has started downloading. */
+        const DOWNLOAD_STARTED: DownloadStart;
+        /** A new update is currently being downloaded and will be stored in the device's cache. */
+        const DOWNLOAD_PROGRESS: DownloadProgress;
+        /** A new update has finished downloading and is now stored in the device's cache. */
+        const DOWNLOAD_FINISHED: DownloadFinished;
+        /** No updates are available, and the most up-to-date bundle of this experience is already running. */
+        const NO_UPDATE_AVAILABLE: NoUpdateAvailable;
+        /** An error occurred trying to fetch the latest update. */
+        const ERROR: Error;
+    }
+
+    interface UpdateCheck {
+        /** True if an update is available, false if you're already running the most up-to-date JS bundle. */
+        isAvailable: boolean;
+        /** If `isAvailable` is true, the manifest of the available update. Undefined otherwise. */
+        manifest?: Constants.Manifest;
+    }
+
+    interface UpdateBundle {
+        /** True if the fetched bundle is new (i.e. a different version that the what's currently running). */
+        isNew: boolean;
+        /** Manifest of the fetched update. */
+        manifest: Constants.Manifest;
+    }
+
+    /** An object that is passed into each event listener when a new version is available. */
+    interface UpdateEvent {
+        /** Type of the event */
+        type: EventType.DownloadStart
+            | EventType.DownloadProgress
+            | EventType.DownloadFinished
+            | EventType.NoUpdateAvailable
+            | EventType.Error;
+        /** If `type === Expo.Updates.EventType.DOWNLOAD_FINISHED`, the manifest of the newly downloaded update. Undefined otherwise. */
+        manifest?: Constants.Manifest;
+        /** If `type === Expo.Updates.EventType.ERROR`, the error message. Undefined otherwise. */
+        message?: string;
+    }
+
+    type UpdateEventListener = (event: UpdateEvent) => any;
+
+    /**
+     * Invokes a callback when updates-related events occur,
+     * either on the initial app load or as a result of a call to `Expo.Updates.fetchUpdateAsync`.
+     */
+    function addListener(listener: UpdateEventListener): EventSubscription;
+
+    /**
+     * Check if a new published version of your project is available.
+     * Does not actually download the update.
+     * Rejects if `updates.enabled` is `false` in app.json.
+     */
+    function checkForUpdateAsync(): Promise<UpdateCheck>;
+
+    /**
+     * Downloads the most recent published version of your experience to the device's local cache.
+     * Rejects if `updates.enabled` is `false` in app.json.
+     */
+    function fetchUpdateAsync(listener?: UpdateEventListener): Promise<UpdateBundle>;
+
+    /**
+     * Immediately reloads the current experience.
+     * This will use your app.json updates configuration to fetch and load the newest available JS supported by the device's Expo environment.
+     * This is useful for triggering an update of your experience if you have published a new version.
+     */
+    function reload(): void;
+
+    /**
+     * Immediately reloads the current experience using the most recent cached version.
+     * This is useful for triggering an update of your experience if you have published and already downloaded a new version.
+     */
+    function reloadFromCache(): void;
+}

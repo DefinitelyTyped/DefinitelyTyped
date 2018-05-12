@@ -64,7 +64,12 @@ declare namespace Spotify {
         duration: number;
         paused: boolean;
         position: number;
-        repeat_mode: RepeatMode;
+        /**
+         * 0: NO_REPEAT
+         * 1: ONCE_REPEAT
+         * 2: FULL_REPEAT
+         */
+        repeat_mode: 0 | 1 | 2;
         shuffle: boolean;
         restrictions: PlaybackRestrictions;
         track_window: PlaybackTrackWindow;
@@ -80,12 +85,6 @@ declare namespace Spotify {
         name: string;
         getOAuthToken(cb: (token: string) => void): void;
         volume?: number;
-    }
-
-    enum RepeatMode {
-        NO_REPEAT = 0,
-        ONCE_REPEAT = 1,
-        FULL_REPEAT = 2,
     }
 
     type ErrorListener = (err: Error) => void;

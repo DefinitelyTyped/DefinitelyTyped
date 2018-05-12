@@ -261,7 +261,6 @@ declare namespace React {
         defaultValue: T,
         calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
-    function createContext<T>(): Context<T | undefined>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
@@ -1294,7 +1293,6 @@ declare namespace React {
         rel?: string;
         target?: string;
         type?: string;
-        as?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface

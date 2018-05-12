@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 // Import React Table
-import ReactTable, { Column } from "react-table";
+import ReactTable, { Column, FinalState, Instance } from "react-table";
 import "react-table/react-table.css";
 
 const columns: Column[] = [
@@ -154,7 +154,32 @@ const Component = (props: {}) => {
             console.log(newSorted);
           }
         }}
-      />
+      >
+        {(
+          state: FinalState,
+          makeTable: () => React.ReactChild,
+          instance: Instance
+        ) => {
+          return (
+            <div
+              style={{
+                background: "#ffcf00",
+                borderRadius: "5px",
+                overflow: "hidden",
+                padding: "5px"
+              }}
+            >
+              <pre>
+                <code>
+                  state.allVisibleColumns ==={" "}
+                  {JSON.stringify(state.allVisibleColumns, null, 4)}
+                </code>
+              </pre>
+              {makeTable()}
+            </div>
+          );
+        }}
+      </ReactTable>
       <br />
     </div>
   );
