@@ -127,7 +127,7 @@ declare module "./index" {
         first<T>(this: LoDashExplicitSyncWrapper<_.List<T> | null | undefined>): LoDashExplicitSyncWrapper<T | undefined>;
         flatten<T>(this: LoDashExplicitSyncWrapper<_.List<_.Many<T>> | null | undefined>): LoDashExplicitSyncWrapper<T[]>;
         flattenDeep<T>(this: LoDashExplicitSyncWrapper<_.ListOfRecursiveArraysOrValues<T> | null | undefined>): LoDashExplicitSyncWrapper<T[]>;
-       flattenDepth<T>(this: LoDashExplicitSyncWrapper<_.ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitSyncWrapper<T[]>;
+        flattenDepth<T>(this: LoDashExplicitSyncWrapper<_.ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitSyncWrapper<T[]>;
         fromPairs<T>(
           this: LoDashExplicitSyncWrapper<_.List<[_.PropertyName, T]> | null | undefined>
         ): LoDashExplicitSyncWrapper<_.Dictionary<T>>;
@@ -1695,7 +1695,7 @@ declare module "./index" {
         first<T>(this: LoDashExplicitAsyncWrapper<_.List<T> | null | undefined>): LoDashExplicitAsyncWrapper<T | undefined>;
         flatten<T>(this: LoDashExplicitAsyncWrapper<_.List<_.Many<T>> | null | undefined>): LoDashExplicitAsyncWrapper<T[]>;
         flattenDeep<T>(this: LoDashExplicitAsyncWrapper<_.ListOfRecursiveArraysOrValues<T> | null | undefined>): LoDashExplicitAsyncWrapper<T[]>;
-       flattenDepth<T>(this: LoDashExplicitAsyncWrapper<_.ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitAsyncWrapper<T[]>;
+        flattenDepth<T>(this: LoDashExplicitAsyncWrapper<_.ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitAsyncWrapper<T[]>;
         fromPairs<T>(
           this: LoDashExplicitAsyncWrapper<_.List<[_.PropertyName, T]> | null | undefined>
         ): LoDashExplicitAsyncWrapper<_.Dictionary<T>>;

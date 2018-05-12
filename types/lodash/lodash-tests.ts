@@ -5793,19 +5793,19 @@ fp.now(); // $ExpectType number
     _.omit(dictionary, "a"); // $ExpectType Dictionary<AbcObject>
     _.omit(numericDictionary, "a");  // $ExpectType NumericDictionary<AbcObject>
 
-    _(obj).omit<AbcObject, "a">("a"); // ExpectType LoDashImplicitWrapper<Pick<AbcObject, "b" | "c">>   // NOTE: ExpectType disabled because it fails in TS2.4
+    _(obj).omit("a"); // ExpectType LoDashImplicitWrapper<Pick<AbcObject, "b" | "c">>   // NOTE: ExpectType disabled because it fails in TS2.4
     _(obj).omit(["b", 1], 0, "a"); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(dictionary).omit("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(numericDictionary).omit("a"); // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
 
-    _.chain(obj).omit<AbcObject, "a">("a"); // ExpectType LoDashExplicitWrapper<Pick<AbcObject, "b" | "c">>   // NOTE: ExpectType disabled because it fails in TS2.4
+    _.chain(obj).omit("a"); // ExpectType LoDashExplicitWrapper<Pick<AbcObject, "b" | "c">>   // NOTE: ExpectType disabled because it fails in TS2.4
     _.chain(obj).omit(["b", 1], 0, "a"); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(dictionary).omit("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(numericDictionary).omit("a"); // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject>>
 
     fp.omit("a", obj); // ExpectType Pick<AbcObject, "b" | "c">   // NOTE: ExpectType disabled because it fails in TS2.4
-    fp.omit<AbcObject, "a">("a")(obj); // ExpectType Pick<AbcObject, "b" | "c">   // NOTE: ExpectType disabled because it fails in TS2.3
-    fp.omit<AbcObject, "a" | "b">(["a", "b"])(obj); // ExpectType Pick<AbcObject, "c">   // NOTE: ExpectType disabled because it fails in TS2.3
+    fp.omit("a")(obj); // ExpectType Pick<AbcObject, "b" | "c">   // NOTE: ExpectType disabled because it fails in TS2.3
+    fp.omit(["a", "b"])(obj); // ExpectType Pick<AbcObject, "c">   // NOTE: ExpectType disabled because it fails in TS2.3
 }
 
 // _.omitBy
