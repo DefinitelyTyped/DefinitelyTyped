@@ -21,7 +21,7 @@ export interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputEle
 
     showMask?: boolean;
     
-    render: (ref: MaskedInput, props: any) => any;
+    render?: (ref: MaskedInput, props: any) => any;
 
 }
 
