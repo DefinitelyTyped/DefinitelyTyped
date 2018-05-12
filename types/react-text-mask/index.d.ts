@@ -20,6 +20,9 @@ export interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputEle
     pipe?: (conformedValue: string, config: any) => false | string | { value: string, indexesOfPipedChars: number[] };
 
     showMask?: boolean;
+    
+    render: (ref: MaskedInput, props: any) => any;
+
 }
 
 export interface conformToMaskResult {
