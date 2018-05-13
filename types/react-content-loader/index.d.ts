@@ -5,11 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface ContentLoaderProps {
     style?: React.CSSProperties;
-    type?: "facebook" | "instagram" | "list" | "bullet-list" | "code";
+    type?: 'facebook' | 'instagram' | 'list' | 'bullet-list' | 'code';
     speed?: number;
     width?: number;
     height?: number;
@@ -17,26 +17,9 @@ export interface ContentLoaderProps {
     secondaryColor?: string;
     primaryOpacity?: number;
     secondaryOpacity?: number;
-    preserveAspectRatio?:
-        | "none"
-        | "xMinYMin meet"
-        | "xMidYMin meet"
-        | "xMaxYMin meet"
-        | "xMinYMid meet"
-        | "xMidYMid meet"
-        | "xMaxYMid meet"
-        | "xMinYMax meet"
-        | "xMidYMax meet"
-        | "xMaxYMax meet"
-        | "xMinYMin slice"
-        | "xMidYMin slice"
-        | "xMaxYMin slice"
-        | "xMinYMid slice"
-        | "xMidYMid slice"
-        | "xMaxYMid slice"
-        | "xMinYMax slice"
-        | "xMidYMax slice"
-        | "xMaxYMax slice";
+    preserveAspectRatio?: | 'none' | 'xMinYMin meet' | 'xMidYMin meet' | 'xMaxYMin meet' | 'xMinYMid meet' | 'xMidYMid meet' | 'xMaxYMid meet' |
+    'xMinYMax meet' | 'xMidYMax meet' | 'xMaxYMax meet' | 'xMinYMin slice' | 'xMidYMin slice' | 'xMaxYMin slice' | 'xMinYMid slice' |
+    'xMidYMid slice' | 'xMaxYMid slice' | 'xMinYMax slice' | 'xMidYMax slice' | 'xMaxYMax slice';
     className?: string;
 }
 export default class ContentLoader extends React.Component<
