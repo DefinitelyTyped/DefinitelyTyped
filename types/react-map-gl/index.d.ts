@@ -8,19 +8,35 @@ import * as React from "react";
 import * as MapboxGL from "mapbox-gl";
 import * as GeoJSON from "geojson";
 
+export type EasingFunction = (t: number) => number;
+
 export interface Viewport {
-    bearing: number;
-    isDragging: boolean;
-    latitude: number;
-    longitude: number;
-    pitch?: number;
-    startBearing?: number;
-    startDragLngLat?: number[];
-    startPitch?: number;
-    zoom: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  isDragging?: boolean;
+  bearing?: number;
+  pitch?: number;
+  startBearing?: number;
+  startDragLngLat?: number[];
+  startPitch?: number;
+  transitionDuration?: number;
+  transitionInterpolator?: TransitionInterpolator;
+  transitionInterruption?: number;
+  transitionEasing?: EasingFunction;
 }
 
-export interface StaticMapProps {
+export interface MapError {
+  message: string;
+}
+
+export interface MapRequest {
+  url: string;
+  headers: {};
+  credentials: string;
+}
+
+export interface StaticMapProps extends Viewport {
     /**
      *  Mapbox API access token for MapboxGL.
      *  Required when using Mapbox vector tiles/styles Mapbox WebGL context creation option.
@@ -29,7 +45,7 @@ export interface StaticMapProps {
     mapboxApiAccessToken: string;
 
     /** The Mapbox style. A string url or a MapboxGL style object (regular JS object or Immutable.Map). */
-    mapStyle?: string; // TODO can also be immutable map
+    mapStyle?: string | {}; // TODO can also be immutable map
 
     /** The width of the map. */
     width: number;
@@ -37,16 +53,6 @@ export interface StaticMapProps {
     height: number;
     /** The latitude of the center of the map. */
 
-    latitude: number;
-    /** The longitude of the center of the map. */
-    longitude: number;
-    /** The tile zoom level of the map. Bounded implicitly by default minZoom and maxZoom of MapboxGL. */
-
-    zoom: number;
-    /** Specify the bearing of the viewport */
-    bearing?: number;
-    /** Specify the pitch of the viewport */
-    pitch?: number;
     /** Altitude of the viewport camera. Default 1.5 "screen heights" */
     altitude?: number; // Note: Non-public API, see https://github.com/mapbox/mapbox-gl-js/issues/1137
 
@@ -95,7 +101,14 @@ export interface StaticMapProps {
     /**
      * A callback run when the map emits an error event.
      */
-    onError?: () => void;
+    onError?: (e: MapError) => void;
+
+    transformRequest?: () => MapRequest;
+}
+
+export interface QueryRenderedFeaturesParams {
+  layers?: string[];
+  filter?: any[];
 }
 
 export class StaticMap extends React.Component<StaticMapProps> {
@@ -108,7 +121,17 @@ export class StaticMap extends React.Component<StaticMapProps> {
      * Use Mapbox's queryRenderedFeatures API to find features at point or in a bounding box.
      * If the parameters argument is not specified, only queries the layers with the interactive property in the layer style.
      */
-    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: { layers?: string[], filter?: any[] }): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+}
+
+export interface InteractiveMapState {
+  isDragging: boolean;
+  isHovering: boolean;
+}
+
+export interface MapEvent {
+  lngLat: [number, number];
+  features: Array<{}>;
 }
 
 export interface InteractiveMapProps extends StaticMapProps {
@@ -136,6 +159,18 @@ export interface InteractiveMapProps extends StaticMapProps {
     /** Radius to detect features around a clicked point */
     clickRadius?: number;
 
+    mapControls?: {
+      events: string[];
+      handleEvent: (event: MapEvent, context: any) => void;
+    };
+
+    visibilityConstraints?: {
+      minZoom: number;
+      maxZoom: number;
+      minPitch: number;
+      maxPitch: number;
+    };
+
     /**
      * Callback that is fired when the user interacted with the map.
      * The object passed to the callback contains viewport properties such as longitude, latitude, zoom etc.
@@ -155,7 +190,7 @@ export interface InteractiveMapProps extends StaticMapProps {
      * layer style to `true`. See Mapbox's style spec
      * https://www.mapbox.com/mapbox-gl-style-spec/#layer-interactive
      */
-    onHover?: (event: any, lngLat: number[], features: any) => void;
+    onHover?: (event: MapEvent, lngLat: number[], features: any) => void;
 
     /**
      * Called when the map is clicked.
@@ -165,18 +200,28 @@ export interface InteractiveMapProps extends StaticMapProps {
      * layer style to `true`. See Mapbox's style spec
      * https://www.mapbox.com/mapbox-gl-style-spec/#layer-interactive
      */
-    onClick?: (event: any, lngLat: number[], features: any) => void;
+    onClick?: (event: MapEvent, lngLat: number[], features: any) => void;
 
     /** Accessor that returns a cursor style to show interactive state */
-    getCursor?: () => any;
+    getCursor?: (state: InteractiveMapState) => void;
+
+    onTransitionStart?: () => void;
+    onTransitionInterrupt?: () => void;
+    onTransitionEnd?: () => void;
 }
 
 export class InteractiveMap extends React.Component<InteractiveMapProps> {
-    _map: MapboxGL.Map;
-
     /** Returns the Mapbox Map Instance */
     getMap(): MapboxGL.Map;
+
+    /**
+     * Use Mapbox's queryRenderedFeatures API to find features at point or in a bounding box.
+     * If the parameters argument is not specified, only queries the layers with the interactive property in the layer style.
+     */
+    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
+
+export default InteractiveMap;
 
 /**
  *
@@ -255,3 +300,119 @@ export interface SVGOverlayProps extends BaseControlProps {
     /** Additional css styles of the svg container. */
     style?: React.CSSProperties;
 }
+
+export interface MarkerProps extends BaseControlProps {
+    className?: string;
+    longitude: number;
+    latitude: number;
+    offsetLeft?: number;
+    offsetTop?: number;
+  }
+
+  export class Marker extends BaseControl<MarkerProps> {}
+
+  export interface PopupProps extends BaseControlProps {
+    className?: string;
+    longitude: number;
+    latitude: number;
+    offsetLeft?: number;
+    offsetTop?: number;
+    tipSize?: number;
+    closeButton?: boolean;
+    closeOnClick?: boolean;
+    anchor?: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right';
+    dynamicPosition?: boolean;
+    onClose?: () => void;
+  }
+
+  export class Popup extends BaseControl<PopupProps> {}
+
+  export interface NavigationControlProps extends BaseControlProps {
+    onViewportChange: (viewport: Viewport) => void;
+    showZoom?: boolean;
+    showCompass?: boolean;
+  }
+
+  export class NavigationControl extends BaseControl<NavigationControlProps> {}
+
+  export class TransitionInterpolator {}
+
+  export class LinearInterpolator extends TransitionInterpolator {
+    constructor(transitionProps?: string[]);
+  }
+
+  export class FlyToInterpolator extends TransitionInterpolator {}
+
+  export interface Center {
+    x: number;
+    y: number;
+  }
+
+  export interface MapControlEvent {
+    type: string;
+    center: Center;
+    offsetCenter: Center;
+    target: any;
+    srcEvent: any;
+    key?: number;
+    leftButton?: boolean;
+    middleButton?: boolean;
+    rightButton?: boolean;
+    pointerType?: string;
+    delta?: number;
+  }
+
+  export interface MapState {
+    width: number;
+    height: number;
+    latitude: number;
+    longitude: number;
+    zoom: number;
+    bearing?: number;
+    pitch?: number;
+    altitude?: number;
+    maxZoom?: number;
+    minZoom?: number;
+    maxPitch?: number;
+    minPitch?: number;
+    startPanLngLat?: [number, number];
+    startZoomLngLat?: [number, number];
+    startBearing?: number;
+    startPitch?: number;
+    startZoom?: number;
+  }
+
+  export interface Options {
+    // TODO(deprecate): remove this when `onChangeViewport` gets deprecated
+    onChangeViewport?: (viewport: Viewport) => void;
+    // TODO(deprecate): remove this when `touchZoomRotate` gets deprecated
+    touchZoomRotate?: boolean;
+    onViewportChange?: (viewport: Viewport) => void;
+    onStateChange?: (state: MapState) => void;
+    eventManager?: any;
+    scrollZoom?: boolean;
+    dragPan?: boolean;
+    dragRotate?: boolean;
+    doubleClickZoom?: boolean;
+    touchZoom?: boolean;
+    touchRotate?: boolean;
+    keyboard?: boolean;
+  }
+
+  export class MapControls {
+    events: string[];
+    handleEvent: (event: MapControlEvent) => void;
+    getMapState(overrides: Partial<MapState>): MapState;
+    setOptions(options: Options): void;
+    setState(newState: MapState): void;
+    updateViewport(newMapState: MapState, extraProps: any, extraState: InteractiveMapState): void;
+  }
+
+  export function autobind(obj: any): void;
+
+  export interface Experimental {
+    MapControls: MapControls;
+    autobind: typeof autobind;
+  }
+
+  export const experimental: Experimental;

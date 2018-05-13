@@ -45,6 +45,6 @@ app.use(function (err: any, req: express.Request, res: express.Response, next: e
             res.end();
         }
     } else {
-        next(err);
+        next(new jwt.UnauthorizedError('invalid_token', new Error('error-message')));
     }
 });

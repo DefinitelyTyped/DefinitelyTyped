@@ -24,9 +24,7 @@ import * as RelayRuntimeTypes from "relay-runtime";
 
 // Taken from https://github.com/pelotom/type-zoo
 // tslint:disable-next-line:strict-export-declare-modifiers
-type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
-// tslint:disable-next-line:strict-export-declare-modifiers
-type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 export type RemoveRelayProp<P> = Omit<P & { relay: never }, "relay">;
 

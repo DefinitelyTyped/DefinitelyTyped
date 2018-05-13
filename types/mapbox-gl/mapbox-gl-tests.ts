@@ -150,7 +150,8 @@ map.flyTo({
 	screenSpeed: 1,
 	easing: function(t: any) {
 		return t;
-	}
+	},
+	maxDuration: 1
 });
 
 /**

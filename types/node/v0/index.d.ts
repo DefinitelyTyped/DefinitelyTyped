@@ -881,7 +881,7 @@ declare module "child_process" {
         unref(): void;
     }
 
-    export function spawn(command: string, args?: string[], options?: {
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: {
         cwd?: string;
         stdio?: any;
         custom?: any;
@@ -1870,7 +1870,7 @@ declare module "assert" {
                                   operator?: string; stackStartFunction?: Function});
         }
 
-        export function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
+        export function fail(actual?: any, expected?: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;

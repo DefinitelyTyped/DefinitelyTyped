@@ -43,17 +43,27 @@ export interface Lexer<TOptions> {
      * Advances the token stream to the next non-ignored token.
      */
     advance(): Token;
+
+    /**
+     * Looks ahead and returns the next non-ignored token, but does not change
+     * the Lexer's state.
+     */
+    lookahead(): Token;
 }
 
 /**
  * An exported enum describing the different kinds of tokens that the
  * lexer emits.
  */
-export const TokenKind: {
+export const TokenKind: _TokenKind;
+
+// @internal
+type _TokenKind = {
     SOF: "<SOF>";
     EOF: "<EOF>";
     BANG: "!";
     DOLLAR: "$";
+    AMP: "&";
     PAREN_L: "(";
     PAREN_R: ")";
     SPREAD: "...";
@@ -69,8 +79,14 @@ export const TokenKind: {
     INT: "Int";
     FLOAT: "Float";
     STRING: "String";
+    BLOCK_STRING: "BlockString";
     COMMENT: "Comment";
 };
+
+/**
+ * The enum type representing the token kinds values.
+ */
+export type TokenKindEnum = _TokenKind[keyof _TokenKind];
 
 /**
  * A helper function to describe a token as a string for debugging

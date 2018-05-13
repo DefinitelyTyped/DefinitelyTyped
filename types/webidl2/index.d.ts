@@ -249,7 +249,7 @@ export interface ExtendedAttributes {
     /** If the extended attribute takes arguments or if its right-hand side does they are listed here. */
     arguments: Argument[];
     /** If there is a right-hand side, this will capture its type ("identifier" or "identifier-list") and its value. */
-    rhs: ExtendedAttributeRightHandSideIdentifier | ExtendedAttributeRightHandSideIdentifierList;
+    rhs: ExtendedAttributeRightHandSideIdentifier | ExtendedAttributeRightHandSideIdentifierList | null;
 }
 
 export interface Token {

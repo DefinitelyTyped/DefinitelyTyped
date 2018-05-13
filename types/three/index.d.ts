@@ -16,6 +16,7 @@
 //                 Roelof Jooste <https://github.com/PsychoSTS>,
 //                 Daniel Hritzkiv <https://github.com/dhritzkiv>,
 //                 Apurva Ojas <https://github.com/apurvaojas>,
+//                 Tiger Oakes <https://github.com/NotWoods>,
 //                 Seth Kingsley <https://github.com/sethk>
 // Definitions: https://github.com//DefinitelyTyped
 

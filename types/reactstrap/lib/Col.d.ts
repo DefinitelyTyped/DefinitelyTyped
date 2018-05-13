@@ -7,6 +7,7 @@ export type ColumnProps
     push?: string | number
     pull?: string | number
     offset?: string | number
+    order?: string | number
   };
 
 export interface ColProps extends React.HTMLProps<HTMLDivElement> {

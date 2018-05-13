@@ -1,7 +1,13 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLObjectType } from "./definition";
 import { GraphQLType, GraphQLNamedType, GraphQLAbstractType } from "./definition";
 import { SchemaDefinitionNode } from "../language/ast";
 import { GraphQLDirective } from "./directives";
+
+/**
+ * Test if the given value is a GraphQL schema.
+ */
+export function isSchema(schema: any): schema is GraphQLSchema;
 
 /**
  * Schema Definition
@@ -30,31 +36,26 @@ import { GraphQLDirective } from "./directives";
  *
  */
 export class GraphQLSchema {
-    astNode?: SchemaDefinitionNode;
-    // private _queryType: GraphQLObjectType;
-    // private _mutationType: GraphQLObjectType;
-    // private _subscriptionType: GraphQLObjectType;
-    // private _directives: Array<GraphQLDirective>;
-    // private _typeMap: TypeMap;
-    // private _implementations: { [interfaceName: string]: Array<GraphQLObjectType> };
-    // private _possibleTypeMap: { [abstractName: string]: { [possibleName: string]: boolean } };
+    astNode: Maybe<SchemaDefinitionNode>;
 
     constructor(config: GraphQLSchemaConfig);
 
-    getQueryType(): GraphQLObjectType;
-    getMutationType(): GraphQLObjectType | null | undefined;
-    getSubscriptionType(): GraphQLObjectType | null | undefined;
-    getTypeMap(): { [typeName: string]: GraphQLNamedType };
-    getType(name: string): GraphQLNamedType;
-    getPossibleTypes(abstractType: GraphQLAbstractType): GraphQLObjectType[];
+    getQueryType(): Maybe<GraphQLObjectType>;
+    getMutationType(): Maybe<GraphQLObjectType>;
+    getSubscriptionType(): Maybe<GraphQLObjectType>;
+    getTypeMap(): TypeMap;
+    getType(name: string): Maybe<GraphQLNamedType>;
+    getPossibleTypes(abstractType: GraphQLAbstractType): ReadonlyArray<GraphQLObjectType>;
 
     isPossibleType(abstractType: GraphQLAbstractType, possibleType: GraphQLObjectType): boolean;
 
-    getDirectives(): GraphQLDirective[];
-    getDirective(name: string): GraphQLDirective;
+    getDirectives(): ReadonlyArray<GraphQLDirective>;
+    getDirective(name: string): Maybe<GraphQLDirective>;
 }
 
-export type GraphQLSchemaValidationOptions = {
+type TypeMap = { [key: string]: GraphQLNamedType };
+
+export interface GraphQLSchemaValidationOptions {
     /**
      * When building a schema from a GraphQL service's introspection result, it
      * might be safe to assume the schema is valid. Set to true to assume the
@@ -72,14 +73,14 @@ export type GraphQLSchemaValidationOptions = {
      * This option is provided to ease adoption and may be removed in a future
      * major release.
      */
-    allowedLegacyNames?: ReadonlyArray<string>;
-};
+    allowedLegacyNames?: Maybe<ReadonlyArray<string>>;
+}
 
-export interface GraphQLSchemaConfig {
-    query: GraphQLObjectType;
-    mutation?: GraphQLObjectType;
-    subscription?: GraphQLObjectType;
-    types?: GraphQLNamedType[];
-    directives?: GraphQLDirective[];
-    astNode?: SchemaDefinitionNode;
+export interface GraphQLSchemaConfig extends GraphQLSchemaValidationOptions {
+    query: Maybe<GraphQLObjectType>;
+    mutation?: Maybe<GraphQLObjectType>;
+    subscription?: Maybe<GraphQLObjectType>;
+    types?: Maybe<GraphQLNamedType[]>;
+    directives?: Maybe<GraphQLDirective[]>;
+    astNode?: Maybe<SchemaDefinitionNode>;
 }

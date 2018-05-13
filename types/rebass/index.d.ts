@@ -48,6 +48,14 @@ export interface AvatarProps extends BaseProps<AvatarClass> {
 type AvatarClass = React.StatelessComponent<AvatarProps>
 export declare const Avatar: AvatarClass;
 
+export interface ImageProps extends BaseProps<ImageClass> {
+    size?: number;
+    src?: string;
+    alt?: string;
+}
+type ImageClass = React.StatelessComponent<ImageProps>
+export declare const Image: ImageClass;
+
 export interface BadgeProps extends BaseProps<BadgeClass> {
     theme?: "primary" | "secondary" | "default" | "info" | "success" | "warning" | "error";
     rounded?: boolean | "top" | "right" | "bottom" | "left";
