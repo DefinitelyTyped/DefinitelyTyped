@@ -1,63 +1,58 @@
-// Type definitions for cosmiconfig 4.0
+// Type definitions for cosmiconfig 5.0
 // Project: https://github.com/davidtheclark/cosmiconfig
 // Definitions by: ozum <https://github.com/ozum>
+//                 szeck87 <https://github.com/szeck87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-interface Result {
-    config: object;
-    filePath: string;
+/// <reference types="node" />
+
+export interface Config {
+  [key: string]: any;
 }
 
-interface Options {
-    packageProp?: string | false;
-    rc?: string | false;
-    js?: string | false;
-    rcStrictJson?: boolean;
-    rcExtensions?: boolean;
-    stopDir?: string;
-    cache?: boolean;
-    transform?: (result: Result) => Promise<Result> | Result;
-    configPath?: string;
-    format?: "json" | "yaml" | "js";
+export type CosmiconfigResult = {
+  config: Config;
+  filePath: string;
+  isEmpty?: boolean;
+} | null;
+
+export interface LoaderResult {
+  config: Config | null;
+  filepath: string;
 }
 
-// Default is false and makes load() method async
-interface AsyncOptions extends Options {
-    sync?: false;
+export type SyncLoader = (filepath: string, content: string) => Config | null;
+export type AsyncLoader = (filepath: string, content: string) => Config | null | Promise<object | null>;
+
+export interface LoaderEntry {
+  sync?: SyncLoader;
+  async?: AsyncLoader;
 }
 
-// Makes load() method sync
-interface SyncOptions extends Options {
-    sync: true;
+export interface Loaders {
+  [key: string]: LoaderEntry;
 }
 
-interface Explorer {
-    clearFileCache(): void;
-    clearDirectoryCache(): void;
-    clearCaches(): void;
+export interface Explorer {
+  search(searchFrom: string): Promise<null | CosmiconfigResult>;
+  searchSync(searchFrom: string): null | CosmiconfigResult;
+  load(loadPath: string): Promise<CosmiconfigResult>;
+  loadSync(loadPath: string): CosmiconfigResult;
+  clearLoadCache(): void;
+  clearSearchCache(): void;
+  clearCaches(): void;
 }
 
-interface AsyncExplorer extends Explorer {
-    // You should provide either searchPath or configPath for load method. To disallow both, overloaded definitions added.
-    load(searchPath?: string): Promise<Result>;
-    load(searchPath: null | undefined, configPath?: string): Promise<Result>;
+// These are the user options with defaults applied.
+export interface ExplorerOptions {
+  stopDir?: string;
+  cache?: boolean;
+  transform?: (result: CosmiconfigResult) => Promise<CosmiconfigResult> | CosmiconfigResult;
+  packageProp?: string;
+  loaders?: Loaders;
+  searchPlaces?: string[];
+  ignoreEmptySearchPlaces?: boolean;
 }
 
-interface SyncExplorer extends Explorer {
-    // You should provide either searchPath or configPath for load method. To disallow both, overloaded definitions added.
-    load(searchPath?: string): Result;
-    load(searchPath: null | undefined, configPath?: string): Result;
-}
-
-declare function cosmiconfig(
-    moduleName: string,
-    options: SyncOptions
-): SyncExplorer;
-
-declare function cosmiconfig(
-    moduleName: string,
-    options?: AsyncOptions
-): AsyncExplorer;
-
-export = cosmiconfig;
+export default function cosmiconfig(moduleName: string, options: ExplorerOptions): Explorer;

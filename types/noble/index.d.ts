@@ -42,7 +42,7 @@ export declare class Peripheral extends events.EventEmitter {
     advertisement: Advertisement;
     rssi:          number;
     services:      Service[];
-    state:         string;
+    state:         'error' | 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
 
     connect(callback?: (error: string) => void): void;
     disconnect(callback?: () => void): void;
