@@ -36,8 +36,8 @@ export interface Loaders {
 }
 
 export interface Explorer {
-  search(searchFrom: string): Promise<null | CosmiconfigResult>;
-  searchSync(searchFrom: string): null | CosmiconfigResult;
+  search(searchFrom?: string): Promise<null | CosmiconfigResult>;
+  searchSync(searchFrom?: string): null | CosmiconfigResult;
   load(loadPath: string): Promise<CosmiconfigResult>;
   loadSync(loadPath: string): CosmiconfigResult;
   clearLoadCache(): void;
