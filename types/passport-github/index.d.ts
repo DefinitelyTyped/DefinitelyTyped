@@ -26,10 +26,10 @@ export interface StrategyOption {
     userProfileURL?: string;
 }
 
-export class Strategy implements passport.Strategy {
+export class Strategy extends passport.Strategy {
     constructor(options: StrategyOption, verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
     userProfile: (accessToken: string, done?: (error: any, profile: Profile) => void) => void;
 
     name: string;
-    authenticate: (req: express.Request, options?: passport.AuthenticateOptions) => void;
+    authenticate(req: express.Request, options?: passport.AuthenticateOptions): void;
 }

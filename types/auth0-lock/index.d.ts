@@ -118,7 +118,7 @@ interface Auth0LockConstructorOptions {
     auth?: Auth0LockAuthOptions;
     autoclose?: boolean;
     autofocus?: boolean;
-    avatar?: Auth0LockAvatarOptions;
+    avatar?: Auth0LockAvatarOptions | null;
     clientBaseUrl?: string;
     closable?: boolean;
     configurationBaseUrl?: string;
@@ -144,6 +144,7 @@ interface Auth0LockConstructorOptions {
     theme?: Auth0LockThemeOptions;
     usernameStyle?: string;
     _enableImpersonation?: boolean;
+    _enableIdPInitiatedLogin?: boolean;
 }
 
 interface Auth0LockFlashMessageOptions {
@@ -164,6 +165,8 @@ interface Auth0LockShowOptions {
 
 interface AuthResult {
     accessToken: string;
+    appState?: any;
+    expiresIn: number;
     idToken: string;
     idTokenPayload: {
         aud: string;
@@ -173,8 +176,10 @@ interface AuthResult {
         sub: string;
     };
     refreshToken?: string;
+    scope?: string;
     state: string;
-}
+    tokenType: string;
+  }
 
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;

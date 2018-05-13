@@ -1,5 +1,11 @@
 import { CSSModule } from '../index';
 
+export type Direction = 
+  | "up"
+  | "down"
+  | "left"
+  | "right"
+
 export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
   isOpen?: boolean;
   toggle?: () => void;
@@ -14,7 +20,7 @@ export interface UncontrolledDropdownProps extends UncontrolledProps {
 
 export interface Props extends UncontrolledProps {
   disabled?: boolean;
-  dropup?: boolean;
+  direction?: Direction;
   group?: boolean;
   size?: string;
   tag?: React.ReactType;

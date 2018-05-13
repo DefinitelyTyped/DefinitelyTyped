@@ -33,10 +33,12 @@ import {
     addNavigationHelpers,
     HeaderBackButton,
     Header,
+    NavigationContainer,
     NavigationParams,
     NavigationPopAction,
     NavigationPopToTopAction,
     NavigationScreenComponent,
+    NavigationContainerComponent,
 } from 'react-navigation';
 
 // Constants
@@ -48,6 +50,7 @@ const viewStyle: ViewStyle = {
 };
 
 const ROUTE_NAME_START_SCREEN = "StartScreen";
+const ROUTE_KEY_START_SCREEN = "StartScreen-key";
 
 interface StartScreenNavigationParams {
     id: number;
@@ -129,6 +132,7 @@ export const AppNavigator = StackNavigator(
     routeConfigMap,
     {
         initialRouteName: ROUTE_NAME_START_SCREEN,
+        initialRouteKey: ROUTE_KEY_START_SCREEN,
         initialRouteParams,
         navigationOptions,
     },
@@ -193,7 +197,10 @@ const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
     navigationOptions: {
         tabBarOnPress: ({scene, jumpToIndex}) => {
             jumpToIndex(scene.index);
-        }
+        },
+        headerStyle: {
+            backgroundColor: 'red',
+        },
     },
 };
 
@@ -283,6 +290,26 @@ function renderBasicSwitchNavigator(): JSX.Element {
     );
 }
 
+const switchNavigatorConfigWithInitialRoute: SwitchNavigatorConfig = {
+    initialRouteName: 'screen',
+    resetOnBlur: false,
+    backBehavior: 'initialRoute'
+};
+
+const SwitchNavigatorWithInitialRoute = SwitchNavigator(
+    routeConfigMap,
+    switchNavigatorConfigWithInitialRoute,
+);
+
+function renderSwitchNavigatorWithInitialRoute(): JSX.Element {
+    return (
+        <SwitchNavigatorWithInitialRoute
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
 /**
  * Drawer navigator.
  */
@@ -326,8 +353,16 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
                 configureTransition={this._configureTransition}
                 navigation={this.props.navigation}
                 render={this._render}
-                onTransitionStart={() => { }}
-                onTransitionEnd={() => { }}
+                onTransitionStart={(curr, prev) => {
+                    if (prev) {
+                        prev.position.setValue(curr.navigation.state.index);
+                    }
+                }}
+                onTransitionEnd={(curr, prev) => {
+                    if (prev) {
+                        prev.position.setValue(curr.navigation.state.index);
+                    }
+                }}
             />
         );
     }
@@ -411,3 +446,23 @@ const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
     key: "foo",
     immediate: true
 });
+
+class Page1 extends React.Component { }
+
+const RootNavigator: NavigationContainer = SwitchNavigator({
+    default: { getScreen: () => Page1 },
+});
+
+class Page2 extends React.Component {
+    navigatorRef: NavigationContainerComponent | null;
+
+    componentDidMount() {
+        if (this.navigatorRef) {
+            this.navigatorRef.dispatch(NavigationActions.navigate({ routeName: 'default' }));
+        }
+    }
+
+    render() {
+        return <RootNavigator ref={(instance: NavigationContainerComponent | null): void => { this.navigatorRef = instance; }} />;
+    }
+}

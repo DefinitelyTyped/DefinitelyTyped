@@ -22,6 +22,7 @@
         "index.d.ts",
         "test/lib/assert.ts",
         "test/application.ts",
+        "test/application-instance.ts",
         "test/ember-tests.ts",
         "test/error.ts",
         "test/event.ts",

@@ -8,37 +8,21 @@
 
 import * as d3Color from 'd3-color';
 
-// RGB and HSL Typeguards
-
-function isRGB(color: d3Color.RGBColor | d3Color.HSLColor): color is d3Color.RGBColor {
-    return (color instanceof d3Color.rgb);
-}
-
-function isHSL(color: d3Color.RGBColor | d3Color.HSLColor): color is d3Color.HSLColor {
-    return (color instanceof d3Color.hsl);
-}
-
 // Signature tests for 'color', rgb and hsl
 
-let c: d3Color.RGBColor | d3Color.HSLColor;
+let c: d3Color.RGBColor | d3Color.HSLColor | null;
 let cRGB: d3Color.RGBColor;
 let cHSL: d3Color.HSLColor;
 let displayable: boolean;
 let cString: string;
+let nil: null;
 
-// string signature
+c = d3Color.color('oops');
 c = d3Color.color('steelblue');
-
-if (isRGB(c)) {
-    cRGB = c;
-} else {
-    cHSL = c;
-}
-
 c = d3Color.color('rgba(20, 100, 200, 0.5)');
-c = d3Color.color(cRGB);
+c = d3Color.color(d3Color.rgb(0, 0, 0));
 
-cRGB = d3Color.color('hsl(60, 100%, 20%, 0.5)').rgb();
+cRGB = d3Color.color('hsl(60, 100%, 20%, 0.5)')!.rgb();
 
 cRGB = d3Color.rgb(20, 100, 200);
 cRGB = d3Color.rgb(20, 100, 200, 0.5);
@@ -126,3 +110,27 @@ displayable = cCubehelix.displayable();
 cString = cCubehelix.toString();
 console.log('Channels = (h : %d, s: %d, l: %d)', cCubehelix.h, cCubehelix.s, cCubehelix.l);
 console.log('Opacity = %d', cCubehelix.opacity);
+
+// Prototype, instanceof and typeguard
+
+declare let color: d3Color.RGBColor | d3Color.HSLColor | d3Color.LabColor | d3Color.HCLColor | d3Color.CubehelixColor | null;
+
+if (color instanceof d3Color.rgb) {
+    cRGB = color;
+} else if (color instanceof d3Color.hsl) {
+    cHSL = color;
+} else if (color instanceof d3Color.lab) {
+    cLab = color;
+} else if (color instanceof d3Color.hcl) {
+    cHcl = color;
+} else if (color instanceof d3Color.cubehelix) {
+    cCubehelix = color;
+} else if (color === null) {
+    nil = color;
+}
+
+if (color instanceof d3Color.color) {
+    console.log(color.toString(), color.darker());
+} else {
+    nil = color;
+}

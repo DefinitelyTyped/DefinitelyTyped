@@ -53,7 +53,15 @@ declare namespace hello {
 
     type HelloJSResponseCallback = (r: any, headers: any) => void;
 
-    type HelloJSTokenResponseType = "token" | "code";
+    type HelloJSTokenResponseType =
+        "code"
+        | "code id_token"
+        | "code id_token token"
+        | "code token"
+        | "id_token"
+        | "id_token token"
+        | "none"
+        | "token";
 
     type HelloJSDisplayType = "popup" | "page" | "none";
 

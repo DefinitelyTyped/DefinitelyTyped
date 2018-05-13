@@ -187,6 +187,9 @@ export class ODBCStatement {
 
 export class ODBCResult {
     fetchMode: number;
+    fetchAllSync(): any[];
+    moreResultsSync(): any[];
+    closeSync(): void;
 } // Class ODBCResult
 
 export function getElapsedTime(): string;

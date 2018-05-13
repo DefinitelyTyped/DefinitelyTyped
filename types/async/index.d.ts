@@ -168,8 +168,8 @@ export function forever<E>(next: (next : ErrorCallback<E>) => void, errBack: Err
 export function waterfall<T, E>(tasks: Function[], callback?: AsyncResultCallback<T, E | Error>): void;
 export function compose(...fns: Function[]): Function;
 export function seq(...fns: Function[]): Function;
-export function applyEach(fns: Function[], argsAndCallback: any[]): void;           // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
-export function applyEachSeries(fns: Function[], argsAndCallback: any[]): void;     // applyEachSeries(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
+export function applyEach(fns: Function[], ...argsAndCallback: any[]): void;           // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
+export function applyEachSeries(fns: Function[], ...argsAndCallback: any[]): void;     // applyEachSeries(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
 export function queue<T, E>(worker: AsyncWorker<T, E>, concurrency?: number): AsyncQueue<T>;
 export function queue<T, R, E>(worker: AsyncResultIterator<T, R, E>, concurrency?: number): AsyncQueue<T>;
 export function priorityQueue<T, E>(worker: AsyncWorker<T, E>, concurrency: number): AsyncPriorityQueue<T>;

@@ -1299,19 +1299,24 @@ declare namespace Xrm {
         type IterativeDelegate<T> = (item: T, index?: number) => void;
 
         /**
-         * Interface for an item collection.
-         * @param T Generic type parameter.
+         * Defines collections that are index-able by string
+         * @param Generic type parameter.
          */
         interface Dictionary<T> {
             [key: string]: T;
-            [index: number]: T;
         }
+
+        /**
+         * Defines item collections that are index-able by string
+         * @param Generic type parameter.
+         */
+        type StringIndexableItemCollection<T> = Dictionary<T> & ItemCollection<T>;
 
         /**
          * Collections are structures to provide access to data that represent an array, but without the ability to modify the data in the array.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
-        type ItemCollection<T> = Dictionary<T> & {
+        interface ItemCollection<T> {
             /**
              * Applies an operation to all items in this collection.
              * @param delegate An iterative delegate function
@@ -1367,7 +1372,7 @@ declare namespace Xrm {
              * @returns The length.
              */
             getLength(): number;
-        };
+        }
     }
 
     /**
@@ -4403,7 +4408,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            Attributes: Collection.ItemCollection<AttributeMetadata>;
+            Attributes: Collection.StringIndexableItemCollection<AttributeMetadata>;
             AutoRouteToOwnerQueue: boolean;
             CanEnableSyncToExternalSearchIndex: boolean;
             CanBeInManyToMany: boolean;
@@ -4466,7 +4471,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            LocalizedLabels: Collection.ItemCollection<LocalizedLabel>;
+            LocalizedLabels: LocalizedLabel[];
             UserLocalizedLabel: LocalizedLabel;
         }
 
@@ -4486,7 +4491,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            options: Collection.ItemCollection<string>;
+            options: string[];
             logicalName: string;
             displayName: string;
             attributeType: XrmEnum.AttributeTypeCode;
@@ -4494,7 +4499,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            optionSet: Collection.ItemCollection<OptionMetadata>;
+            optionSet: OptionMetadata[];
         }
 
         /**

@@ -1,4 +1,4 @@
-// Type definitions for mocha 5.0
+// Type definitions for mocha 5.2
 // Project: http://mochajs.org/
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -74,6 +74,8 @@ interface ReporterConstructor {
 
 declare class Mocha {
     currentTest: Mocha.ITestDefinition;
+    suite: Mocha.ISuite;
+
     constructor(options?: {
         grep?: RegExp;
         ui?: string;
@@ -119,6 +121,7 @@ declare class Mocha {
     noHighlighting(value: boolean): Mocha;
     /** Runs tests and invokes `onComplete()` when finished. */
     run(onComplete?: (failures: number) => void): Mocha.IRunner;
+    loadFiles(cb?: () => any): void;
 }
 
 // merge the Mocha class declaration with a module
@@ -168,6 +171,7 @@ declare namespace Mocha {
     interface ISuite {
         parent: ISuite;
         title: string;
+        suites: ISuite[];
 
         fullTitle(): string;
     }
