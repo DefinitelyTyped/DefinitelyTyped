@@ -78,7 +78,7 @@ export type ValueFn<T extends BaseType, Datum, Result> = (this: T, datum: Datum,
 
 /**
  * TransitionLike is a helper interface to represent a quasi-Transition, without specifying the full Transition  interface in this file.
- * For example, whereever d3-zoom allows a Transition to be passed in as an argument, it internally immediately invokes its `selection()`
+ * For example, wherever d3-zoom allows a Transition to be passed in as an argument, it internally immediately invokes its `selection()`
  * method to retrieve the underlying Selection object before proceeding.
  * d3-brush uses a subset of Transition methods internally.
  * The use of this interface instead of the full imported Transition interface is [referred] to achieve
@@ -480,7 +480,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     append<ChildElement extends BaseType>(type: string): Selection<ChildElement, Datum, PElement, PDatum>;
     /**
-     * Appends a new element of the type provided by the element creator functionas the last child of each selected element,
+     * Appends a new element of the type provided by the element creator function as the last child of each selected element,
      * or before the next following sibling in the update selection if this is an enter selection.
      * The latter behavior for enter selections allows you to insert elements into the DOM in an order consistent with the new bound data;
      * however, note that selection.order may still be required if updating elements change order

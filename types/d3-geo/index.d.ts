@@ -976,7 +976,7 @@ export interface GeoConicProjection extends GeoProjection {
 export interface GeoContext {
     /**
      * Adds an arc to the path with center point (x, y) and radius r starting at startAngle and ending at endAngle.
-     * The arc is drawn in clockwise directio by default.
+     * The arc is drawn in clockwise direction by default.
      *
      * @param x x-coordinate of arc center point.
      * @param y y-coordinate of arc center point.
@@ -1046,7 +1046,7 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * IMPORTANT: If the rendering context of the geoPath generator is null,
      * then the geoPath is returned as an SVG path data string.
      *
-     * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interation (e.g., click or mouseover).
+     * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interaction (e.g., click or mouseover).
      * Canvas rendering (see path.context) is typically faster than SVG, but requires more effort to implement styling and interaction.
      *
      * The first generic type of the GeoPath generator used, must correspond to the "this" context bound to the function upon invocation.
@@ -1075,7 +1075,7 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * IMPORTANT: If the geoPath generator has been configured with a rendering context,
      * then the geoPath is rendered to this context as a sequence of path method calls and this function returns void.
      *
-     * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interation (e.g., click or mouseover).
+     * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interaction (e.g., click or mouseover).
      * Canvas rendering (see path.context) is typically faster than SVG, but requires more effort to implement styling and interaction.
      *
      * The first generic type of the GeoPath generator used, must correspond to the "this" context bound to the function upon invocation.
@@ -1502,9 +1502,14 @@ export function geoTransform<T extends GeoTransformPrototype>(methods: T): { str
 // geoIdentity() =================================================================
 
 /**
+ * @deprecated Misspelled name. Use GeoIdentityTransform.
+ */
+export type GeoIdentityTranform = GeoIdentityTransform;
+
+/**
  * Geo Identity Transform
  */
-export interface GeoIdentityTranform extends GeoStreamWrapper {
+export interface GeoIdentityTransform extends GeoStreamWrapper {
     /**
      * Returns the current viewport clip extent which defaults to null.
      */
@@ -1667,7 +1672,7 @@ export interface GeoIdentityTranform extends GeoStreamWrapper {
 /**
  * Returns the identity transform which can be used to scale, translate and clip planar geometry.
  */
-export function geoIdentity(): GeoIdentityTranform;
+export function geoIdentity(): GeoIdentityTransform;
 
 // ----------------------------------------------------------------------
 // Clipping Functions
