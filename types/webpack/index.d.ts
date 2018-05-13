@@ -648,6 +648,27 @@ declare namespace webpack {
             portableRecords?: boolean;
         }
     }
+
+    namespace debug {
+        interface ProfilingPluginOptions {
+            /** A relative path to a custom output file (json) */
+            outputPath?: string;
+        }
+        /**
+         * Generate Chrome profile file which includes timings of plugins execution. Outputs `events.json` file by
+         * default. It is possible to provide custom file path using `outputPath` option.
+         *
+         * In order to view the profile file:
+         * * Run webpack with ProfilingPlugin.
+         * * Go to Chrome, open the Profile Tab.
+         * * Drag and drop generated file (events.json by default) into the profiler.
+         *
+         * It will then display timeline stats and calls per plugin!
+         */
+        class ProfilingPlugin extends Plugin {
+            constructor(options?: ProfilingPluginOptions);
+        }
+    }
     namespace compilation {
         class Asset {
         }
