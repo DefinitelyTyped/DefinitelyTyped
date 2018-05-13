@@ -6,23 +6,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
-        "paths": {
-            "node": [
-                "node/v6"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "node-tests.ts"
+        "windows-script-host-tests.ts"
     ]
 }

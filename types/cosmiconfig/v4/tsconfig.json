@@ -1,28 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es5"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "types": [],
+        "typeRoots": ["../../"],
         "paths": {
-            "node": [
-                "node/v6"
-            ]
+          "cosmiconfig": [ "cosmiconfig/v4" ]          
         },
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "node-tests.ts"
-    ]
+    "files": ["index.d.ts", "cosmiconfig-tests.ts"]
 }
