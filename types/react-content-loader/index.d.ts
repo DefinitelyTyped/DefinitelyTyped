@@ -22,4 +22,4 @@ export interface ContentLoaderProps {
     'xMidYMid slice' | 'xMaxYMid slice' | 'xMinYMax slice' | 'xMidYMax slice' | 'xMaxYMax slice';
     className?: string;
 }
-export default class ContentLoader extends React.Component<ContentLoaderProps> {}
+export default class ContentLoader extends React.Component<ContentLoaderProps> { }
