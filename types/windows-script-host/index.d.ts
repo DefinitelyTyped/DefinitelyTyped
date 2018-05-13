@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="activex-interop" />
+/// <reference types="activex-iwshruntimelibrary" />
 
 /** Provides access to the entire collection of command-line parameters, in the order in which they were originally entered. */
 interface WshArguments {
@@ -62,7 +62,7 @@ declare var WScript: {
      * Can be accessed only while using CScript.exe.
      */
     StdOut: IWshRuntimeLibrary.TextStreamWriter;
-    Arguments: IWshRuntimeLibrary.WshArguments;
+    Arguments: WshArguments;
 
     /**
      *  The full path of the currently running script.
