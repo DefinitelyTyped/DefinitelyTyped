@@ -2417,3 +2417,7 @@ class Why {
     R.intersection([1, 2, 3], [2, 3, 3, 4]); // => [2, 3]
     R.intersection([1, 2, 3])([2, 3, 3, 4]); // => [2, 3]
 };
+
+() => {
+    R.bind(console.log, console);
+};
