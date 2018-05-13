@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
+
 declare namespace stdole {
     type IPictureDisp = StdPicture;
 
@@ -79,7 +81,6 @@ declare namespace stdole {
 
 interface ActiveXObject {
     on(obj: stdole.StdFont, event: 'FontChanged', argNames: ['PropertyName'], handler: (this: stdole.StdFont, parameter: {readonly PropertyName: string}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

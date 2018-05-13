@@ -5374,7 +5374,6 @@ interface ActiveXObject {
             this: PowerPoint.Application, parameter: {readonly Sel: PowerPoint.Selection, Cancel: boolean}) => void): void;
     on(obj: PowerPoint.Application, event: 'WindowSelectionChange', argNames: ['Sel'], handler: (this: PowerPoint.Application, parameter: {readonly Sel: PowerPoint.Selection}) => void): void;
     on(obj: PowerPoint.OLEControl, event: 'GotFocus' | 'LostFocus', handler: (this: PowerPoint.OLEControl, parameter: {}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

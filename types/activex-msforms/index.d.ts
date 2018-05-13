@@ -1564,7 +1564,6 @@ interface ActiveXObject {
     set(obj: MSForms.ComboBox | MSForms.ListBox, propertyName: 'Column' | 'List', parameterTypes: [number, number] | [number], newValue: any): void;
     set(obj: MSForms.ComboBox | MSForms.ListBox, propertyName: 'Column' | 'List', parameterTypes: number[], newValue: SafeArray): void;
     set(obj: MSForms.ListBox, propertyName: 'Selected', parameterTypes: [any], newValue: boolean): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

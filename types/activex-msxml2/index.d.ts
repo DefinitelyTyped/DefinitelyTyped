@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="activex-interop" />
+
 declare namespace MSXML2 {
     /** Schema Object Model Content Types */
     const enum _SCHEMACONTENTTYPE {
@@ -2775,7 +2777,6 @@ declare namespace MSXML2 {
 interface ActiveXObject {
     on(obj: MSXML2.DOMDocument60, event: 'ondataavailable' | 'onreadystatechange', handler: (this: MSXML2.DOMDocument60, parameter: {}) => void): void;
     on(obj: MSXML2.FreeThreadedDOMDocument60, event: 'ondataavailable' | 'onreadystatechange', handler: (this: MSXML2.FreeThreadedDOMDocument60, parameter: {}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
