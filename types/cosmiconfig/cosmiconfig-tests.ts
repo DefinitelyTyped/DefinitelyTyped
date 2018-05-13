@@ -11,6 +11,8 @@ const explorer = cosmiconfig("yourModuleName", {
   ignoreEmptySearchPlaces: false,
 });
 
+const explorer2 = cosmiconfig("yourModuleName");
+
 Promise.all([
   explorer.search(path.join(__dirname)),
   explorer.searchSync(path.join(__dirname)),
