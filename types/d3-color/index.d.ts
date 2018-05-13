@@ -38,6 +38,11 @@ export interface ColorCommonInstance {
 export interface Color {
     displayable(): boolean; // Note: While this method is used in prototyping for colors of specific colorspaces, it should not be called directly, as 'this.rgb' would not be implemented on Color
     toString(): string; // Note: While this method is used in prototyping for colors of specific colorspaces, it should not be called directly, as 'this.rgb' would not be implemented on Color
+    /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    hex(): string;
 }
 
 export interface ColorFactory extends Function {
@@ -57,11 +62,6 @@ export interface RGBColor extends Color {
      * Returns the RGB equivalent of this color.
      */
     rgb(): this;
-    /**
-     * Returns a hexadecimal string representing this color.
-     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-     */
-    hex(): string;
 }
 
 export interface RGBColorFactory extends Function {
@@ -79,11 +79,6 @@ export interface HSLColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-    /**
-     * Returns a hexadecimal string representing this color.
-     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-     */
-    hex(): string;
 }
 
 export interface HSLColorFactory extends Function {
@@ -101,11 +96,6 @@ export interface LabColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-    /**
-     * Returns a hexadecimal string representing this color.
-     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-     */
-    hex(): string;
 }
 
 export interface LabColorFactory extends Function {
@@ -118,11 +108,12 @@ export interface LabColorFactory extends Function {
 /**
  * Constructs a new Lab color with the specified l value and a = b = 0.
  */
+export type GrayColorFactory = (l: number, opacity?: number) => LabColor;
+
+// Using the interface creates an error
 // export interface GrayColorFactory extends Function {
 //     (l: number, opacity?: number): LabColor;
 // }
-
-export type GrayColorFactory = (l: number, opacity?: number) => LabColor;
 
 export interface HCLColor extends Color {
     h: number;
@@ -132,11 +123,6 @@ export interface HCLColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-    /**
-     * Returns a hexadecimal string representing this color.
-     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-     */
-    hex(): string;
 }
 
 export interface HCLColorFactory extends Function {
@@ -160,11 +146,6 @@ export interface CubehelixColor extends Color {
     brighter(k?: number): this;
     darker(k?: number): this;
     rgb(): RGBColor;
-    /**
-     * Returns a hexadecimal string representing this color.
-     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
-     */
-    hex(): string;
 }
 
 export interface CubehelixColorFactory extends Function {
