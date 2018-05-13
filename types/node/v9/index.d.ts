@@ -5660,7 +5660,7 @@ declare module "util" {
     export namespace promisify {
         const custom: symbol;
     }
-
+    // TypeScript Version: 2.1
     export class TextDecoder {
         readonly encoding: string;
         readonly fatal: boolean;
