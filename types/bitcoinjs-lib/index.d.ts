@@ -23,7 +23,7 @@ export interface In {
     hash: Buffer;
     index: number;
     sequence: number;
-    witness: string[];
+    witness: Buffer[];
 }
 
 export interface Network {
