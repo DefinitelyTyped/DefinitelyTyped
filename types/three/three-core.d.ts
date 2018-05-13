@@ -1015,8 +1015,8 @@ export class DirectGeometry extends EventDispatcher {
     uvs2: Vector2[];
     groups: {start: number, materialIndex: number}[];
     morphTargets: MorphTarget[];
-    skinWeights: number[];
-    skinIndices: number[];
+    skinWeights: Vector4[];
+    skinIndices: Vector4[];
     boundingBox: Box3;
     boundingSphere: Sphere;
     verticesNeedUpdate: boolean;
@@ -1270,12 +1270,12 @@ export class Geometry extends EventDispatcher {
     /**
      * Array of skinning weights, matching number and order of vertices.
      */
-    skinWeights: number[];
+    skinWeights: Vector4[];
 
     /**
      * Array of skinning indices, matching number and order of vertices.
      */
-    skinIndices: number[];
+    skinIndices: Vector4[];
 
     /**
      *
@@ -2151,7 +2151,7 @@ export class FileLoader {
     responseType: string;
     withCredentials: string;
 
-    load(url: string, onLoad?: (responseText: string) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
+    load(url: string, onLoad?: (response: string | ArrayBuffer) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
     setMimeType(mimeType: MimeType): FileLoader;
     setPath(path: string) : FileLoader;
     setResponseType(responseType: string) : FileLoader;
@@ -2209,7 +2209,7 @@ export class JSONLoader extends Loader {
 export class LoadingManager {
     constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: () => void);
 
-    onStart: () => void;
+    onStart: (url: string, loaded: number, total: number) => void;
 
     /**
      * Will be called when load starts.
@@ -2227,7 +2227,9 @@ export class LoadingManager {
      * Will be called when each element in the scene completes loading.
      * The default is a function with empty body.
      */
-    onError: () => void;
+    onError: (url: string) => void;
+
+    setURLModifier(callback : (url: string) => string): void;
 
     itemStart(url: string): void;
     itemEnd(url: string): void;
@@ -2348,6 +2350,11 @@ export namespace Cache {
     export function get(key: string): any;
     export function remove(key: string): void;
     export function clear(): void;
+}
+
+export class LoaderUtils {
+    static decodeText(array: Uint8Array): string;
+    static extractUrlBase(url: string): string;
 }
 
 // Materials //////////////////////////////////////////////////////////////////////////////////
@@ -2900,24 +2907,24 @@ export class MeshPhongMaterial extends Material {
     color: Color;
     specular: Color;
     shininess: number;
-    map: Texture;
+    map?: Texture;
     lightMap: Texture;
     lightMapIntensity: number;
-    aoMap: Texture;
+    aoMap?: Texture;
     aoMapIntensity: number;
     emissive: Color;
     emissiveIntensity: number;
     emissiveMap: Texture;
-    bumpMap: Texture;
+    bumpMap?: Texture;
     bumpScale: number;
-    normalMap: Texture;
+    normalMap?: Texture;
     normalScale: Vector2;
     displacementMap: Texture;
     displacementScale: number;
     displacementBias: number;
-    specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    specularMap?: Texture;
+    alphaMap?: Texture;
+    envMap?: Texture;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -5020,9 +5027,7 @@ export class QuaternionLinearInterpolant extends Interpolant {
 // Objects //////////////////////////////////////////////////////////////////////////////////
 
 export class Bone extends Object3D {
-    constructor(skin: SkinnedMesh);
-
-    skin: SkinnedMesh;
+    constructor();
 }
 
 export class Group extends Object3D {
@@ -6132,6 +6137,9 @@ export class WebGLState {
     };
 
     init(): void;
+    texImage2D(target: number, level: number, internalformat: number,
+        width: number, height: number, border: number, format: number,
+        type: number, pixels?: ArrayBufferView | null): void;
     initAttributes(): void;
     enableAttribute(attribute: string): void;
     enableAttributeAndDivisor(attribute: string, meshPerAttribute: any, extension: any): void;
@@ -6139,7 +6147,7 @@ export class WebGLState {
     enable(id: string): void;
     disable(id: string): void;
     getCompressedTextureFormats(): any[];
-    setBlending(blending: number, blendEquation: number, blendSrc: number, blendDst: number, blendEquationAlpha: number, blendSrcAlpha: number, blendDstAlpha: number): void;
+    setBlending(blending: number, blendEquation?: number, blendSrc?: number, blendDst?: number, blendEquationAlpha?: number, blendSrcAlpha?: number, blendDstAlpha?: number, premultiplyAlpha?: boolean): void;
     setColorWrite(colorWrite: number): void;
     setDepthTest(depthTest: number): void;
     setDepthWrite(depthWrite: number): void;
