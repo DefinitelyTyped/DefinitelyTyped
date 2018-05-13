@@ -1,10 +1,10 @@
-import * as React from "react";
-import ContentLoader from "react-content-loader";
+import * as React from 'react';
+import ContentLoader from 'react-content-loader';
 
 const CustomComponent = () => {
     return (
         <ContentLoader
-            style={{ borderBottom: "1px solid" }}
+            style={{ borderBottom: '1px solid' }}
             speed={1}
             height={100}
             width={100}
