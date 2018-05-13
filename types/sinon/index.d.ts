@@ -24,6 +24,7 @@ declare namespace Sinon {
         calledOn(obj: any): boolean;
         calledWith(...args: any[]): boolean;
         calledWithExactly(...args: any[]): boolean;
+        calledWithNew(): boolean;
         calledOnceWith(...args: any[]): boolean;
         calledOnceWithExactly(...args: any[]): boolean;
         calledWithMatch(...args: any[]): boolean;
@@ -52,7 +53,6 @@ declare namespace Sinon {
 
         calledBefore(call: SinonSpyCall): boolean;
         calledAfter(call: SinonSpyCall): boolean;
-        calledWithNew(): boolean;
     }
 
     interface SinonSpy extends SinonSpyCallApi {
@@ -78,7 +78,6 @@ declare namespace Sinon {
         calledAfter(anotherSpy: SinonSpy): boolean;
         calledImmediatelyBefore(anotherSpy: SinonSpy): boolean;
         calledImmediatelyAfter(anotherSpy: SinonSpy): boolean;
-        calledWithNew(): boolean;
         withArgs(...args: any[]): SinonSpy;
         alwaysCalledOn(obj: any): boolean;
         alwaysCalledWith(...args: any[]): boolean;
@@ -563,6 +562,9 @@ declare namespace Sinon {
         defaultConfig: Partial<SinonSandboxConfig>;
     }
 
+	/**
+	 * @deprecated Since 5.0, use `createSandbox` instead
+	 */
     interface LegacySandbox {
         sandbox: {
             create(config?: Partial<SinonSandboxConfig>): SinonSandbox;

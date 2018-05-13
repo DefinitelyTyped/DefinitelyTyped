@@ -375,6 +375,8 @@ function testStub() {
     let stub = sinon.stub();
     stub = sinon.stub(instance, 'foo');
 
+	const spy: sinon.SinonSpy = stub;
+
     sinon.stub(instance);
 
     stub.reset();
