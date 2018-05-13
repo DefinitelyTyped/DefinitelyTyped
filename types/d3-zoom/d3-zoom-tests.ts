@@ -84,7 +84,7 @@ interface GroupDatum {
 }
 
 // --------------------------------------------------------------------------
-// Test Define ZoomBehaviour
+// Test Define ZoomBehavior
 // --------------------------------------------------------------------------
 
 // Canvas Example -----------------------------------------------------------
@@ -235,7 +235,7 @@ const duration: number = svgZoom.duration();
 
 // interpolate() --------------------------------------------------------------
 
-// chainable setter accepts interpoateZoom, interpolate and interpolateArray
+// chainable setter accepts interpolateZoom, interpolate and interpolateArray
 svgZoom = svgZoom.interpolate(interpolateZoom);
 svgZoom = svgZoom.interpolate(interpolate);
 svgZoom = svgZoom.interpolate(interpolateArray);
@@ -269,7 +269,7 @@ if (zoomHandler) {
     svgZoom.on('zoom', zoomHandler);
 }
 // --------------------------------------------------------------------------
-// Test Attach ZoomBehaviour
+// Test Attach ZoomBehavior
 // --------------------------------------------------------------------------
 
 // Canvas Example -----------------------------------------------------------
@@ -290,14 +290,14 @@ const svgOverlay: Selection<SVGRectElement, SVGDatum, HTMLElement, any> = svg.ap
 const svgOverlayTransition = svgOverlay.transition();
 
 // --------------------------------------------------------------------------
-// Test Use ZoomBehaviour
+// Test Use ZoomBehavior
 // --------------------------------------------------------------------------
 
 // transform() -------------------------------------------------------------------------------------
 
 // use on selection
 svgZoom.transform(svgOverlay, d3Zoom.zoomIdentity);
-// svgZoom.transform(groupsSelection, d3Zoom.zoomIdentity); // fails, as groupSelection mismachtes DOM Element type and datum type
+// svgZoom.transform(groupsSelection, d3Zoom.zoomIdentity); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.transform(svgOverlay, function(datum, index, groups) {
     const that: SVGRectElement = this;
@@ -310,7 +310,7 @@ svgZoom.transform(svgOverlay, function(datum, index, groups) {
 });
 // use on transition
 svgOverlayTransition.call(svgZoom.transform, d3Zoom.zoomIdentity);
-// svgZoom.transform(groupsTransition, d3Zoom.zoomIdentity); // fails, as groupTransition mismachtes DOM Element type and datum type
+// svgZoom.transform(groupsTransition, d3Zoom.zoomIdentity); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.transform(svgOverlayTransition, d3Zoom.zoomIdentity);
 svgZoom.transform(svgOverlayTransition, function(datum, index, groups) {
@@ -327,7 +327,7 @@ svgZoom.transform(svgOverlayTransition, function(datum, index, groups) {
 
 // use on selection
 svgZoom.translateBy(svgOverlay, 20, 50);
-// svgZoom.translateBy(groupsSelection, 20, 50); // fails, as groupSelection mismachtes DOM Element type and datum type
+// svgZoom.translateBy(groupsSelection, 20, 50); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.translateBy(
     svgOverlay,
@@ -376,7 +376,7 @@ svgZoom.translateBy(
 
 // use on transition
 svgZoom.translateBy(svgOverlayTransition, 20, 50);
-// svgZoom.translateBy(groupsTransition, 20, 50); // fails, as groupTransition mismachtes DOM Element type and datum type
+// svgZoom.translateBy(groupsTransition, 20, 50); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.translateBy(
     svgOverlayTransition,
@@ -427,7 +427,7 @@ svgZoom.translateBy(
 
 // use on selection
 svgZoom.translateTo(svgOverlay, 20, 50);
-// svgZoom.translateTo(groupsSelection, 20, 50); // fails, as groupSelection mismachtes DOM Element type and datum type
+// svgZoom.translateTo(groupsSelection, 20, 50); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.translateTo(
     svgOverlay,
@@ -476,7 +476,7 @@ svgZoom.translateTo(
 
 // use on transition
 svgZoom.translateTo(svgOverlayTransition, 20, 50);
-// svgZoom.translateTo(groupsTransition, 20, 50); // fails, as groupTransition mismachtes DOM Element type and datum type
+// svgZoom.translateTo(groupsTransition, 20, 50); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.translateTo(
     svgOverlayTransition,
@@ -527,7 +527,7 @@ svgZoom.translateTo(
 
 // use on selection
 svgZoom.scaleBy(svgOverlay, 3);
-// svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismachtes DOM Element type and datum type
+// svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.scaleBy(svgOverlay, function(datum, index, groups) {
     const that: SVGRectElement = this;
@@ -540,7 +540,7 @@ svgZoom.scaleBy(svgOverlay, function(datum, index, groups) {
 });
 // use on transition
 svgZoom.scaleBy(svgOverlayTransition, 3);
-// svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismachtes DOM Element type and datum type
+// svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.scaleBy(svgOverlayTransition, function(datum, index, groups) {
     const that: SVGRectElement = this;
@@ -556,7 +556,7 @@ svgZoom.scaleBy(svgOverlayTransition, function(datum, index, groups) {
 
 // use on selection
 svgZoom.scaleTo(svgOverlay, 3);
-// svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismachtes DOM Element type and datum type
+// svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.scaleTo(svgOverlay, function(datum, index, groups) {
     const that: SVGRectElement = this;
@@ -569,7 +569,7 @@ svgZoom.scaleTo(svgOverlay, function(datum, index, groups) {
 });
 // use on transition
 svgZoom.scaleTo(svgOverlayTransition, 3);
-// svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismachtes DOM Element type and datum type
+// svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.scaleTo(svgOverlayTransition, function(datum, index, groups) {
     const that: SVGRectElement = this;
