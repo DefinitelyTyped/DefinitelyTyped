@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-export = ReactInputMask;
+export default ReactInputMask;
 export as namespace ReactInputMask;
 
 declare namespace ReactInputMask {
