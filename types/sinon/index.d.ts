@@ -562,11 +562,11 @@ declare namespace Sinon {
         defaultConfig: Partial<SinonSandboxConfig>;
     }
 
-	/**
-	 * @deprecated Since 5.0, use `createSandbox` instead
-	 */
     interface LegacySandbox {
         sandbox: {
+            /**
+             * @deprecated Since 5.0, use `sinon.createSandbox` instead
+             */
             create(config?: Partial<SinonSandboxConfig>): SinonSandbox;
         };
     }
