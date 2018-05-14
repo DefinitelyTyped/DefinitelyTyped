@@ -22,6 +22,7 @@ declare namespace ReactDates {
     type OrientationShape = 'horizontal' | 'vertical';
     type ScrollableOrientationShape = 'horizontal' | 'vertical' | 'verticalScrollable';
     type CalendarInfoPositionShape = 'top' | 'bottom' | 'before' | 'after';
+    type DayOfWeekShape = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
     interface DateRangePickerShape {
         // REQUIRED props
@@ -60,7 +61,7 @@ declare namespace ReactDates {
         withPortal?: boolean,
         withFullScreenPortal?: boolean,
         initialVisibleMonth?: () => momentPropTypes.momentObj,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek? : DayOfWeekShape,
         numberOfMonths?: number,
         keepOpenOnDateSelect?: boolean,
         reopenPickerOnClearDates?: boolean,
@@ -158,7 +159,7 @@ declare namespace ReactDates {
         withPortal?: boolean,
         withFullScreenPortal?: boolean,
         initialVisibleMonth?: () => momentPropTypes.momentObj,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek? : DayOfWeekShape,
         numberOfMonths?: number,
         keepOpenOnDateSelect?: boolean,
         reopenPickerOnClearDates?: boolean,
@@ -245,7 +246,7 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean;
         noBorder?: boolean,
         verticalBorderSpacing?: number,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek? : DayOfWeekShape,
 
         // navigation related props
         navPrev?: string | JSX.Element,
@@ -294,7 +295,7 @@ declare namespace ReactDates {
         orientation?: ScrollableOrientationShape,
         withPortal?: boolean,
         initialVisibleMonth?: Function,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek? : DayOfWeekShape,
         hideKeyboardShortcutsPanel?: boolean,
         daySize?: number,
         verticalHeight?: number,
