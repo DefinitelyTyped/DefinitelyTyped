@@ -467,8 +467,8 @@ export namespace script {
             check(script: Buffer, allowIncomplete: boolean): boolean;
             decode(buffer: Buffer): Array<Buffer | number>;
             decodeStack(stack: Buffer[], allowIncomplete: boolean): Array<Buffer | number>;
-            encode(signatures: ECSignature[], scriptPubKey: Buffer): Buffer;
-            encodeStack(signatures: ECSignature[], scriptPubKey: Buffer): ECSignature[];
+            encode(signatures: Buffer[], scriptPubKey: Buffer): Buffer;
+            encodeStack(signatures: Buffer[], scriptPubKey: Buffer): Buffer[];
         };
         output: {
             check(script: Buffer, allowIncomplete: boolean): boolean;
@@ -482,8 +482,8 @@ export namespace script {
             check(script: Buffer): boolean;
             decode(buffer: Buffer): Array<Buffer | number>;
             decodeStack(stack: Buffer[]): Array<Buffer | number>;
-            encode(signature: ECSignature): Buffer;
-            encodeStack(signature: ECSignature): ECSignature[];
+            encode(signature: Buffer): Buffer;
+            encodeStack(signature: Buffer): Buffer[];
         };
 
         output: {
@@ -496,10 +496,10 @@ export namespace script {
     const pubKeyHash: {
         input: {
             check(script: Buffer): boolean;
-            decode(buffer: Buffer): { signature: ECSignature; pubKey: Buffer };
-            decodeStack(stack: Buffer[]): { signature: ECSignature; pubKey: Buffer };
-            encode(signature: ECSignature, pubKey: Buffer): Buffer;
-            encodeStack(signature: ECSignature, pubKey: Buffer): [ECSignature, Buffer];
+            decode(buffer: Buffer): { signature: Buffer; pubKey: Buffer };
+            decodeStack(stack: Buffer[]): { signature: Buffer; pubKey: Buffer };
+            encode(signature: Buffer, pubKey: Buffer): Buffer;
+            encodeStack(signature: Buffer, pubKey: Buffer): [Buffer, Buffer];
         };
 
         output: {
@@ -515,7 +515,7 @@ export namespace script {
             decode(buffer: Buffer): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
             decodeStack(stack: Buffer[]): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
             encode(redeemScriptSig: Array<Buffer | number>, redeemScript: Buffer): Buffer;
-            encodeStack(redeemScriptStack: Buffer[], redeemScript: Buffer): Buffer;
+            encodeStack(redeemScriptStack: Buffer[], redeemScript: Buffer): Buffer[];
         };
 
         output: {
@@ -536,8 +536,8 @@ export namespace script {
     const witnessPubKeyHash: {
         input: {
             check(script: Buffer): boolean;
-            decodeStack(stack: Buffer[]): { signature: ECSignature; pubKey: Buffer };
-            encodeStack(signature: ECSignature, pubKey: Buffer): [ECSignature, Buffer];
+            decodeStack(stack: Buffer[]): { signature: Buffer; pubKey: Buffer };
+            encodeStack(signature: Buffer, pubKey: Buffer): [Buffer, Buffer];
         };
 
         output: {
@@ -551,7 +551,7 @@ export namespace script {
         input: {
             check(script: Buffer, allowIncomplete: boolean): boolean;
             decodeStack(stack: Buffer[]): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
-            encodeStack(redeemScriptStack: Buffer[], redeemScript: Buffer): Buffer;
+            encodeStack(redeemScriptStack: Buffer[], redeemScript: Buffer): Buffer[];
         };
 
         output: {
