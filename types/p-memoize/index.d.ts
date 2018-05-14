@@ -2,6 +2,8 @@
 // Project: https://github.com/sindresorhus/p-memoize#readme
 // Definitions by: forabi <https://github.com/forabi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
 interface MemOptions {
     /**
      * Milliseconds until the cache expires.
@@ -28,16 +30,27 @@ interface MemOptions {
      *
      * @default new Map()
      */
-    cache?: Map<any, any> | WeakMap<any, any>;
+    cache?: pMemoize.Cache;
 
     /** Cache rejected promises. */
     cachePromiseRejection?: boolean;
 }
 
-interface PMemoize {
-    <T extends (...args: any[]) => any>(f: T, memoizeOptions?: MemOptions): T;
-}
+type PMemoize = <T extends (...args: any[]) => any>(
+    f: T,
+    memoizeOptions?: MemOptions
+) => T;
 
 declare const pMemoize: PMemoize;
+
+declare namespace pMemoize {
+    interface Cache<K = string, V = any> {
+        get(key: K): V;
+        set(key: K, value: V): void;
+        has(key: K): boolean;
+        delete(key: K): void;
+        clear?(): void;
+    }
+}
 
 export = pMemoize;
