@@ -10,6 +10,7 @@ import {
   IndexSettings,
   QueryParameters,
 } from 'algoliasearch';
+import { Client } from './lite';
 
 let _algoliaResponse: Response = {
   hits: [{}, {}],
@@ -147,6 +148,7 @@ let _algoliaQueryParameters: QueryParameters = {
   minProximity: 0,
 };
 
+let client: Client = algoliasearch('', '');
 let index: Index = algoliasearch('', '').initIndex('');
 
 let search = index.search({ query: '' });
@@ -164,3 +166,12 @@ index.partialUpdateObjects([{}], () => {});
 index.partialUpdateObjects([{}], false, () => {});
 index.partialUpdateObjects([{}]).then(() => {});
 index.partialUpdateObjects([{}], false).then(() => {});
+
+let indexName : string = index.indexName;
+
+// complete copy
+algoliasearch('','').copyIndex('from', 'to').then(()=>{})
+algoliasearch('','').copyIndex('from', 'to', ()=> {})
+// with scope
+algoliasearch('','').copyIndex('from', 'to', ['settings']).then(()=>{})
+algoliasearch('','').copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {})
