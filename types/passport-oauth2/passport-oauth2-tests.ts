@@ -24,11 +24,11 @@ const strategy1: OAuth2Strategy = new OAuth2Strategy(strategyOptions1, verifyFun
 const strategy2: Strategy = new OAuth2Strategy(strategyOptions1, verifyFunction2);
 
 function verifyFunction3(_req: Request, _accessToken: string, _refreshToken: string, _profile: any, verifyCallback: VerifyCallback) {
-    verifyCallback(undefined, {userid: '1'});
+    verifyCallback(undefined, { userid: '1' });
 }
 
 function verifyFunction4(_req: Request, _accessToken: string, _refreshToken: string, _results: any, _profile: any, verifyCallback: VerifyCallback) {
-    verifyCallback(undefined, {userid: '1'});
+    verifyCallback(undefined, { userid: '1' });
 }
 
 const strategyOptions2: StrategyOptionsWithRequest = {
@@ -49,3 +49,9 @@ const err1 = new AuthorizationError('Description', 'invalid_request', undefined)
 const err2 = new TokenError(undefined, 'invalid_request', undefined);
 
 const err3 = new InternalOAuthError('Hello', {});
+
+class MyStrategy extends OAuth2Strategy {
+    useProtectedMethod() {
+        this._oauth2.get('http://www.example.com/profile', 'token', 'http://www.example.com/callback');
+    }
+}
