@@ -2,6 +2,7 @@
 // Project: https://github.com/mosch/react-avatar-editor
 // Definitions by: Diogo Corrêa <https://github.com/diogocorrea>
 //                 Gabriel Prates <https://github.com/gabsprates>
+//                 Sindre Seppola <https://github.com/sseppola>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -42,7 +43,7 @@ export interface AvatarEditorProps {
     onMouseUp?(): void;
     onMouseMove?(event: Event): void;
     onImageChange?(): void;
-    onPositionChange?(): void;
+    onPositionChange?(pos: { x: number, y: number }): void;
 }
 
 export default class AvatarEditor extends React.Component<AvatarEditorProps, any> {
