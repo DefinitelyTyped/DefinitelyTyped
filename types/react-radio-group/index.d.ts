@@ -6,17 +6,19 @@
 
 import * as React from 'react';
 
-export type Value = React.InputHTMLAttributes<HTMLInputElement>['value'];
+type Value = React.InputHTMLAttributes<HTMLInputElement>['value'];
 
-export type RadioProps = React.InputHTMLAttributes<HTMLInputElement>;
-
-export const Radio: React.ComponentClass<RadioProps>;
-
-export interface RadioGroupProps {
-    name?: string;
-    selectedValue?: Value;
-    onChange?: (value: Value) => void;
-    Component?: string | React.ReactElement<React.HTMLProps<HTMLElement>>;
+export namespace Radio {
+    export type RadioProps = React.InputHTMLAttributes<HTMLInputElement>;
 }
+export const Radio: React.ComponentClass<Radio.RadioProps>;
 
-export const RadioGroup: React.ComponentClass<RadioGroupProps>;
+export namespace RadioGroup {
+    export interface RadioGroupProps {
+        name?: string;
+        selectedValue?: Value;
+        onChange?: (value: Value) => void;
+        Component?: string | React.ReactElement<React.HTMLProps<HTMLElement>>;
+    }
+}
+export const RadioGroup: React.ComponentClass<RadioGroup.RadioGroupProps>;
