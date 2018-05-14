@@ -505,7 +505,38 @@ type ToolbarClass = React.StatelessComponent<ToolbarProps>
 export declare const Toolbar: ToolbarClass;
 
 export interface TooltipProps extends BaseProps<TooltipClass> {
-    title?: string;
+    text?: string;
 }
 type TooltipClass = React.StatelessComponent<TooltipProps>
 export declare const Tooltip: TooltipClass;
+
+export interface FontWeights {
+    normal?: number;
+    bold?: number;
+}
+
+export interface Fonts {
+    [0]?: string;
+    sans?: string;
+    mono?: string;
+}
+
+export interface Colors {}
+
+export interface Theme {
+    breakpoints?: string[];
+    space?: number[];
+    fontSizes?: number[];
+    fontWeights?: FontWeights;
+    fonts?: Fonts;
+    shadows?: string[];
+    radii?: number[];
+    colors?: Colors;
+}
+
+export interface ProviderProps {
+    theme: Theme;
+}
+
+type ProviderClass = React.StatelessComponent<ProviderProps>;
+export const Provider: ProviderClass;
