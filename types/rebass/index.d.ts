@@ -507,6 +507,7 @@ export declare const Toolbar: ToolbarClass;
 
 export interface TooltipProps extends BaseProps<TooltipClass> {
     text?: string;
+    title?: string;
 }
 type TooltipClass = React.StatelessComponent<TooltipProps>
 export declare const Tooltip: TooltipClass;
@@ -536,7 +537,7 @@ export interface Theme {
 }
 
 export interface ProviderProps {
-    theme: Theme;
+    theme?: Theme;
 }
 
 type ProviderClass = React.StatelessComponent<ProviderProps>;

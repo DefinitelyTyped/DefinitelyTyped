@@ -42,6 +42,7 @@ import {
   , PanelHeader
   , Pre
   , Progress
+  , Provider
   , Radio
   , Rating
   , Section
@@ -155,6 +156,12 @@ class RebassTest extends React.Component {
           </Heading>
           <Text>
             Generic box for containing things
+          </Text>
+          <Text fontSize={32}>
+            This is a large font
+          </Text>
+          <Text fontSize={[14, 18, 24]}>
+            A set of fonts!
           </Text>
         </Media>
       </Block>
@@ -618,6 +625,9 @@ class RebassTest extends React.Component {
           Tooltip
         </Heading>
       </Tooltip>
+      <Tooltip text="Whoa There!" />
+
+      <Provider />
     </div>;
   }
 }
