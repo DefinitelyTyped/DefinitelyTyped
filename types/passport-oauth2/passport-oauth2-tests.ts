@@ -51,7 +51,7 @@ const err2 = new TokenError(undefined, 'invalid_request', undefined);
 const err3 = new InternalOAuthError('Hello', {});
 
 class MyStrategy extends OAuth2Strategy {
-    useProtectedMethod() {
+    useProtectedProperty() {
         this._oauth2.get('http://www.example.com/profile', 'token', 'http://www.example.com/callback');
     }
 }
