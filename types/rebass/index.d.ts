@@ -11,6 +11,7 @@ import * as React from "react";
 export interface BaseProps<C> extends React.Props<C> {
     tagName?: string;
     className?: string;
+    fontSize?: number | number[];
     baseStyle?: Object;
     style?: Object;
     m?: number;
