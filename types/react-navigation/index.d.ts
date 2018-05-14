@@ -20,7 +20,7 @@
 // TypeScript Version: 2.6
 
 /**
- * Reference: https://github.com/react-navigation/react-navigation/tree/a37473c5e4833f48796ee6c7c9cb4a8ac49d9c06
+ * Reference: https://github.com/react-navigation/react-navigation/tree/3f3ef6485c8932f49fddc3dd2c508629110bf2b6
  *
  * NOTE: Please update the commit/link above when updating to a new Flow
  * react-navigation/flow/react-navigation.js reference, so we can conveniently just look at diffs on
@@ -313,6 +313,7 @@ export interface NavigationStackRouterConfig {
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
   navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+  initialRouteKey?: string;
 }
 
 export type NavigationStackAction =

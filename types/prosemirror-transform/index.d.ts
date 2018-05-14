@@ -509,12 +509,15 @@ export function liftTarget(range: NodeRange): number | null | undefined;
  * Try to find a valid way to wrap the content in the given range in a
  * node of the given type. May introduce extra nodes around and inside
  * the wrapper node, if necessary. Returns null if no valid wrapping
- * could be found.
+ * could be found. When `innerRange` is given, that range's content is
+ * used as the content to fit into the wrapping, instead of the
+ * content of range.
  */
 export function findWrapping<S extends Schema = any>(
   range: NodeRange<S>,
   nodeType: NodeType<S>,
-  attrs?: { [key: string]: any }
+  attrs?: { [key: string]: any },
+  innerRange?: NodeRange<S>
 ): Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null }> | null | undefined;
 /**
  * Check whether splitting at the given position is allowed.

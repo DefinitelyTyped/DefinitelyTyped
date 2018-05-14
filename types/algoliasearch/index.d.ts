@@ -286,14 +286,13 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObject(object: {}, cb: (err: Error, res: Task) => void): void;
+    partialUpdateObject(object: {}, createIfNotExists: boolean, cb: (err: Error, res: Task) => void): void;
     /**
      * Update parameters of a list of objects
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
-    partialUpdateObjects(
-      objects: {}[],
-      cb: (err: Error, res: Task) => void
-    ): void;
+    partialUpdateObjects(objects: {}[], cb: (err: Error, res: Task) => void): void;
+    partialUpdateObjects(objects: {}[], createIfNotExists: boolean, cb: (err: Error, res: Task) => void): void;
     /**
      * Delete a specific object
      * https://github.com/algolia/algoliasearch-client-js#delete-objects---deleteobjects
@@ -531,11 +530,13 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObject(object: {}): Promise<Task>;
+    partialUpdateObject(object: {}, createIfNotExists: boolean): Promise<Task>;
     /**
      * Update parameters of a list of objects
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObjects(objects: {}[]): Promise<Task>;
+    partialUpdateObjects(objects: {}[], createIfNotExists?: boolean): Promise<Task>;
     /**
      * Delete a specific object
      * https://github.com/algolia/algoliasearch-client-js#delete-objects---deleteobjects
