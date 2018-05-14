@@ -36,15 +36,13 @@ class AvatarEditorTest extends React.Component {
                 <AvatarEditor image="" position={{}} />
                 <AvatarEditor image="" rotate={1} />
                 <AvatarEditor image="" crossOrigin="" />
-                <AvatarEditor image="" disableDrop={true} />
-                <AvatarEditor image="" onDropFile={event => {}} />
-                <AvatarEditor image="" onLoadFailure={event => {}} />
-                <AvatarEditor image="" onLoadSuccess={imageState => {}} />
-                <AvatarEditor image="" onImageReady={event => {}} />
-                <AvatarEditor image="" onMouseUp={() => {}} />
-                <AvatarEditor image="" onMouseMove={event => {}} />
-                <AvatarEditor image="" onImageChange={() => {}} />
-                <AvatarEditor image="" onPositionChange={() => {}} />
+                <AvatarEditor image="" onLoadFailure={event => { }} />
+                <AvatarEditor image="" onLoadSuccess={imageState => { }} />
+                <AvatarEditor image="" onImageReady={event => { }} />
+                <AvatarEditor image="" onMouseUp={() => { }} />
+                <AvatarEditor image="" onMouseMove={event => { }} />
+                <AvatarEditor image="" onImageChange={() => { }} />
+                <AvatarEditor image="" onPositionChange={() => { }} />
                 <AvatarEditor
                     image=""
                     ref={ref => {
