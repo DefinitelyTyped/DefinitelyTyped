@@ -8,6 +8,7 @@
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
 //                 Thomas Bruun <https://github.com/bruun>
+//                 Gal Talmor <https://github.com/galtalmor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -737,12 +738,17 @@ declare namespace Stripe {
              * charge if a partial refund was issued), positive integer or zero.
              */
             amount_refunded: number;
+            
+            /**
+             * ID of the Connect application that created the charge. [Expandable]
+             */
+            application?: string | null;
 
             /**
              * The application fee (if any) for the charge. See the Connect documentation
              * for details. [Expandable]
              */
-            application_fee?: string | applicationFees.IApplicationFee;
+            application_fee?: string | applicationFees.IApplicationFee | null;
 
             /**
              * ID of the balance transaction that describes the impact of this charge on
@@ -767,25 +773,33 @@ declare namespace Stripe {
             /**
              * ID of the customer this charge is for if one exists. [Expandable]
              */
-            customer: string | customers.ICustomer;
+            customer: string | customers.ICustomer | null;
 
             description?: string;
 
             /**
+             * The account (if any) the charge was made on behalf of, with an automatic
+             * transfer. See the [Connect documentation]
+             * <https://stripe.com/docs/connect/destination-charges> for details.
+             * [Expandable]
+             */
+            destination?: string | null;
+
+            /**
              * Details about the dispute if the charge has been disputed.
              */
-            dispute?: disputes.IDispute;
+            dispute?: disputes.IDispute | null;
 
             /**
              * Error code explaining reason for charge failure if available (see the errors section for a list of
              * codes: https://stripe.com/docs/api#errors).
              */
-            failure_code: string;
+            failure_code: string | null;
 
             /**
              * Message to user further explaining reason for charge failure if available.
              */
-            failure_message: string;
+            failure_message: string | null;
 
             /**
              * Hash with information on fraud assessments for the charge.
@@ -805,16 +819,30 @@ declare namespace Stripe {
             /**
              * ID of the invoice this charge is for if one exists. [Expandable]
              */
-            invoice: string | invoices.IInvoice;
+            invoice: string | invoices.IInvoice | null;
 
             livemode: boolean;
 
             metadata: IMetadata;
 
             /**
+             * The Stripe account ID for which these funds are intended. Automatically
+             * set if you use the destination parameter. For details, see [Creating
+             * Separate Charges and Transfers]
+             * <https://stripe.com/docs/connect/charges-transfers#on-behalf-of>.
+             */
+            on_behalf_of?: string | null;
+
+            /**
              * ID of the order this charge is for if one exists. [Expandable]
              */
-            order: string | orders.IOrder;
+            order: string | orders.IOrder | null;
+
+            /**
+             * Details about whether the payment was accepted, and why. See
+             * understanding declines for details. [Expandable]
+             */
+            outcome?: any;
 
             /**
              * true if the charge succeeded, or was successfully authorized for later capture.
@@ -824,12 +852,12 @@ declare namespace Stripe {
             /**
              * This is the email address that the receipt for this charge was sent to.
              */
-            receipt_email: string;
+            receipt_email: string | null;
 
             /**
              * This is the transaction number that appears on email receipts sent for this charge.
              */
-            receipt_number: string;
+            receipt_number: string | null;
 
             /**
              * Whether or not the charge has been fully refunded. If the charge is only partially refunded,
@@ -843,9 +871,14 @@ declare namespace Stripe {
             refunds: IChargeRefunds;
 
             /**
+             * ID of the review associated with this charge if one exists. [Expandable]
+             */
+            review?: string | null;
+
+            /**
              * Shipping information for the charge.
              */
-            shipping?: IShippingInformation;
+            shipping?: IShippingInformation | null;
 
             /**
              * For most Stripe users, the source of every charge is a credit or debit card.
@@ -858,13 +891,13 @@ declare namespace Stripe {
              * from another Stripe account. See the Connect documentation for details.
              * [Expandable]
              */
-            source_transfer: string | transfers.ITransfer;
+            source_transfer: string | transfers.ITransfer | null;
 
             /**
              * Extra information about a charge. This will appear on your customer’s
              * credit card statement.
              */
-            statement_descriptor: string;
+            statement_descriptor: string | null;
 
             /**
              * The status of the payment is either "succeeded", "pending", or "failed".
@@ -875,7 +908,15 @@ declare namespace Stripe {
              * ID of the transfer to the destination account (only applicable if the
              * charge was created using the destination parameter). [Expandable]
              */
-            transfer: string | transfers.ITransfer;
+            transfer?: string | transfers.ITransfer;
+
+            /**
+             * A string that identifies this transaction as part of a group.
+             * See the [Connect documentation]
+             * <https://stripe.com/docs/connect/charges-transfers#grouping-transactions>
+             * for details.
+             */
+            transfer_group?: string | null;
         }
 
         interface IChargeCreationOptions extends IDataOptionsWithMetadata {
@@ -1056,7 +1097,7 @@ declare namespace Stripe {
             }
         }
 
-        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds { }
+        interface IChargeRefunds extends IList<refunds.IRefund> { }
     }
 
     namespace coupons {
@@ -4086,7 +4127,7 @@ declare namespace Stripe {
              * in the card object if the card belongs to an account or recipient
              * instead.
              */
-            customer?: string | customers.ICustomer;
+            customer?: string | customers.ICustomer | null;
 
             /**
              * Only applicable on accounts (not customers or recipients). This
@@ -4120,7 +4161,7 @@ declare namespace Stripe {
             /**
              * The card number
              */
-            number: string;
+            number?: string;
 
             /**
              * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
@@ -4134,20 +4175,20 @@ declare namespace Stripe {
              */
             funding: "credit" | "debit" | "prepaid" | "unknown";
             last4: string;
-            address_city: string;
+            address_city: string | null;
 
             /**
              * Billing address country, if provided when creating card
              */
-            address_country: string;
-            address_line1: string;
+            address_country: string | null;
+            address_line1: string | null;
 
             /**
              * If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.
              */
-            address_line1_check: string;
-            address_line2: string;
-            address_state: string;
+            address_line1_check: string | null;
+            address_line2: string | null;
+            address_state: string | null;
             address_zip: string;
 
             /**
@@ -4169,7 +4210,7 @@ declare namespace Stripe {
             /**
              * (For Apple Pay integrations only.) The last four digits of the device account number.
              */
-            dynamic_last4: string;
+            dynamic_last4: string | null;
 
             /**
              * Cardholder name
@@ -4188,7 +4229,7 @@ declare namespace Stripe {
              * If the card number is tokenized, this is the method that was
              * used. Can be "apple_pay" or "android_pay".
              */
-            tokenization_method: "apple_pay" | "android_pay";
+            tokenization_method: "apple_pay" | "android_pay" | null;
         }
 
         interface ICardUpdateOptions extends IDataOptionsWithMetadata {
