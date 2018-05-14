@@ -1,4 +1,4 @@
-// Type definitions for Rebass 0.2.5
+// Type definitions for Rebass 0.2.6
 // Project: https://github.com/jxnblk/rebass
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
