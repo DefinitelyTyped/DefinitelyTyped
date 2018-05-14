@@ -88,7 +88,16 @@ declare namespace algoliasearch {
      */
     deleteIndex(name: string): Promise<Task>;
     /**
-     * Copy an  index from a specific index to a new one
+     * Copy an index from a specific index to a new one
+     * https://github.com/algolia/algoliasearch-client-js#copy-index---copyindex
+     */
+    copyIndex(
+      from: string,
+      to: string,
+      cb: (err: Error, res: Task) => void
+    ): void;
+    /**
+     * Copy settings of an index from a specific index to a new one
      * https://github.com/algolia/algoliasearch-client-js#copy-index---copyindex
      */
     copyIndex(
@@ -98,13 +107,13 @@ declare namespace algoliasearch {
       cb: (err: Error, res: Task) => void
     ): void;
     /**
-     * Copy an  index from a specific index to a new one
+     * Copy settings of an index from a specific index to a new one
      * https://github.com/algolia/algoliasearch-client-js#copy-index---copyindex
      */
     copyIndex(
       from: string,
       to: string,
-      scope: ('settings' | 'synonyms' | 'rules')[]
+      scope?: ('settings' | 'synonyms' | 'rules')[]
     ): Promise<Task>;
     /**
      * Move index to a new one (and will overwrite the original one)
@@ -230,6 +239,7 @@ declare namespace algoliasearch {
    * Interface for the index algolia object
    */
   interface Index {
+    indexName: string;
     /**
      * Gets a specific object
      * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
