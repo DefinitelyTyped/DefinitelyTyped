@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | false;
+type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | boolean;
 
 interface ClassDictionary {
 	[id: string]: boolean | undefined | null;
