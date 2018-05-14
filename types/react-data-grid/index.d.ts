@@ -204,6 +204,16 @@ declare namespace AdazzleReactDataGrid {
             }
         }
         /**
+         * A custom formatter for the select all checkbox cell
+         * @default react-data-grid/src/formatters/SelectAll.js
+         */
+        selectAllRenderer?: React.ComponentClass<any> | React.StatelessComponent<any>;
+        /**
+         * A custom formatter for select row column
+         * @default AdazzleReactDataGridPlugins.Editors.CheckboxEditor
+         */
+        rowActionsCell?: React.ComponentClass<any> | React.StatelessComponent<any>;
+        /**
          * An event function called when a row is clicked.
          * Clicking the header row will trigger a call with -1 for the rowIdx.
          * @param rowIdx zero index number of row clicked
