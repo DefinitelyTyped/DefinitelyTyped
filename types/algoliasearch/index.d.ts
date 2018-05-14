@@ -340,7 +340,7 @@ declare namespace algoliasearch {
      * Wait for an indexing task to be compete
      * https://github.com/algolia/algoliasearch-client-js#wait-for-operations---waittask
      */
-    waitTask(taskID: number, cb: (err: Error, res: any) => void): void;
+    waitTask(taskID: number, cb: (err: Error, res: TaskStatus) => void): void;
     /**
      * Get an index settings
      * https://github.com/algolia/algoliasearch-client-js#get-settings---getsettings
@@ -572,7 +572,7 @@ declare namespace algoliasearch {
      * Wait for an indexing task to be compete
      * https://github.com/algolia/algoliasearch-client-js#wait-for-operations---waittask
      */
-    waitTask(taskID: number): Promise<any>;
+    waitTask(taskID: number): Promise<TaskStatus>;
     /**
      * Get an index settings
      * https://github.com/algolia/algoliasearch-client-js#get-settings---getsettings
@@ -1492,6 +1492,13 @@ declare namespace algoliasearch {
 
   interface Task {
     taskID: number;
+    createdAt: string;
+    objectID?: string; 
+  }
+
+  interface TaskStatus {
+    status: 'published' | 'notPublished',
+    pendingTask: boolean,
   }
 
   interface IndexSettings {
