@@ -3,6 +3,7 @@
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Aurélien Hervé <https://github.com/aherve>
+//                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -88,7 +89,16 @@ declare namespace algoliasearch {
      */
     deleteIndex(name: string): Promise<Task>;
     /**
-     * Copy an  index from a specific index to a new one
+     * Copy an index from a specific index to a new one
+     * https://github.com/algolia/algoliasearch-client-js#copy-index---copyindex
+     */
+    copyIndex(
+      from: string,
+      to: string,
+      cb: (err: Error, res: Task) => void
+    ): void;
+    /**
+     * Copy settings of an index from a specific index to a new one
      * https://github.com/algolia/algoliasearch-client-js#copy-index---copyindex
      */
     copyIndex(
@@ -98,13 +108,13 @@ declare namespace algoliasearch {
       cb: (err: Error, res: Task) => void
     ): void;
     /**
-     * Copy an  index from a specific index to a new one
+     * Copy settings of an index from a specific index to a new one
      * https://github.com/algolia/algoliasearch-client-js#copy-index---copyindex
      */
     copyIndex(
       from: string,
       to: string,
-      scope: ('settings' | 'synonyms' | 'rules')[]
+      scope?: ('settings' | 'synonyms' | 'rules')[]
     ): Promise<Task>;
     /**
      * Move index to a new one (and will overwrite the original one)
@@ -230,6 +240,7 @@ declare namespace algoliasearch {
    * Interface for the index algolia object
    */
   interface Index {
+    indexName: string;
     /**
      * Gets a specific object
      * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
@@ -329,7 +340,7 @@ declare namespace algoliasearch {
      * Wait for an indexing task to be compete
      * https://github.com/algolia/algoliasearch-client-js#wait-for-operations---waittask
      */
-    waitTask(taskID: number, cb: (err: Error, res: any) => void): void;
+    waitTask(taskID: number, cb: (err: Error, res: TaskStatus) => void): void;
     /**
      * Get an index settings
      * https://github.com/algolia/algoliasearch-client-js#get-settings---getsettings
@@ -561,7 +572,7 @@ declare namespace algoliasearch {
      * Wait for an indexing task to be compete
      * https://github.com/algolia/algoliasearch-client-js#wait-for-operations---waittask
      */
-    waitTask(taskID: number): Promise<any>;
+    waitTask(taskID: number): Promise<TaskStatus>;
     /**
      * Get an index settings
      * https://github.com/algolia/algoliasearch-client-js#get-settings---getsettings
@@ -1481,6 +1492,13 @@ declare namespace algoliasearch {
 
   interface Task {
     taskID: number;
+    createdAt: string;
+    objectID?: string; 
+  }
+
+  interface TaskStatus {
+    status: 'published' | 'notPublished',
+    pendingTask: boolean,
   }
 
   interface IndexSettings {
@@ -1601,7 +1619,7 @@ declare namespace algoliasearch {
      * 'strict' Hits matching with 2 typos are not retrieved if there are some matching without typos.
      * https://github.com/algolia/algoliasearch-client-js#typotolerance
      */
-    typoTolerance?: any;
+    typoTolerance?: boolean | 'min' | 'strict';
     /**
      * If set to false, disables typo tolerance on numeric tokens (numbers).
      * default: true
@@ -1634,7 +1652,7 @@ declare namespace algoliasearch {
      * 'prefixNone' No query word is interpreted as a prefix. This option is not recommended.
      * https://github.com/algolia/algoliasearch-client-js#querytype
      */
-    queryType?: any;
+    queryType?: 'prefixAll' | 'prefixLast' | 'prefixNone';
     /**
      * This option is used to select a strategy in order to avoid having an empty result page
      * default: 'none'
@@ -1700,7 +1718,10 @@ declare namespace algoliasearch {
      * 'multiWordsSynonym': multiple-words synonym
      * https://github.com/algolia/algoliasearch-client-js#alternativesasexact
      */
-    alternativesAsExact?: any;
+    alternativesAsExact?: (
+      | "ignorePlurals"
+      | "singleWordSynonym"
+      | "multiWordsSynonym")[];
     /**
      * The name of the attribute used for the Distinct feature
      * default: null
@@ -1711,7 +1732,7 @@ declare namespace algoliasearch {
      * If set to 1, enables the distinct feature, disabled by default, if the attributeForDistinct index setting is set.
      * https://github.com/algolia/algoliasearch-client-js#distinct
      */
-    distinct?: any;
+    distinct?: boolean | number;
     /**
      * All numerical attributes are automatically indexed as numerical filters
      * default ''
