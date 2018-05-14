@@ -180,3 +180,12 @@ function testVolatileServerMessages() {
     var io = socketIO.listen(80);
     io.volatile.emit('volatile', 'Lost data');
 }
+
+function testSocketUse() {
+    var io = socketIO.listen(80);
+    io.on('connection', (socket) => {
+        socket.use((packet, next) => {
+            console.log(packet);
+        });
+    });
+}
