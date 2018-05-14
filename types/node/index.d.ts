@@ -23,6 +23,7 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Lishude <https://github.com/islishude>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -6224,6 +6225,38 @@ declare module "util" {
         export function isWeakMap(object: any): object is WeakMap<any, any>;
         export function isWeakSet(object: any): object is WeakSet<any>;
         export function isWebAssemblyCompiledModule(object: any): boolean;
+    }
+
+    export class TextDecoder {
+        readonly encoding: string;
+        readonly fatal: boolean;
+        readonly ignoreBOM: boolean;
+        constructor(
+          encoding?: string,
+          options?: { fatal?: boolean; ignoreBOM?: boolean }
+        );
+        decode(
+          input?:
+            Int8Array
+            | Int16Array
+            | Int32Array
+            | Uint8Array
+            | Uint16Array
+            | Uint32Array
+            | Uint8ClampedArray
+            | Float32Array
+            | Float64Array
+            | DataView
+            | ArrayBuffer
+            | null,
+          options?: { stream?: boolean }
+        ): string;
+    }
+
+    export class TextEncoder {
+        readonly encoding: string;
+        constructor();
+        encode(input?: string): Uint8Array;
     }
 }
 
