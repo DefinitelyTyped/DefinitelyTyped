@@ -1619,7 +1619,7 @@ declare namespace algoliasearch {
      * 'strict' Hits matching with 2 typos are not retrieved if there are some matching without typos.
      * https://github.com/algolia/algoliasearch-client-js#typotolerance
      */
-    typoTolerance?: any;
+    typoTolerance?: boolean | 'min' | 'strict';
     /**
      * If set to false, disables typo tolerance on numeric tokens (numbers).
      * default: true
@@ -1652,7 +1652,7 @@ declare namespace algoliasearch {
      * 'prefixNone' No query word is interpreted as a prefix. This option is not recommended.
      * https://github.com/algolia/algoliasearch-client-js#querytype
      */
-    queryType?: any;
+    queryType?: 'prefixAll' | 'prefixLast' | 'prefixNone';
     /**
      * This option is used to select a strategy in order to avoid having an empty result page
      * default: 'none'
@@ -1718,7 +1718,10 @@ declare namespace algoliasearch {
      * 'multiWordsSynonym': multiple-words synonym
      * https://github.com/algolia/algoliasearch-client-js#alternativesasexact
      */
-    alternativesAsExact?: any;
+    alternativesAsExact?: (
+      | "ignorePlurals"
+      | "singleWordSynonym"
+      | "multiWordsSynonym")[];
     /**
      * The name of the attribute used for the Distinct feature
      * default: null
@@ -1729,7 +1732,7 @@ declare namespace algoliasearch {
      * If set to 1, enables the distinct feature, disabled by default, if the attributeForDistinct index setting is set.
      * https://github.com/algolia/algoliasearch-client-js#distinct
      */
-    distinct?: any;
+    distinct?: boolean | number;
     /**
      * All numerical attributes are automatically indexed as numerical filters
      * default ''
