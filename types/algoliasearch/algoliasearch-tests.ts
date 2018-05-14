@@ -9,8 +9,8 @@ import {
   Response,
   IndexSettings,
   QueryParameters,
+  Client
 } from 'algoliasearch';
-import { Client } from './lite';
 
 let _algoliaResponse: Response = {
   hits: [{}, {}],
@@ -149,7 +149,7 @@ let _algoliaQueryParameters: QueryParameters = {
 };
 
 let client: Client = algoliasearch('', '');
-let index: Index = algoliasearch('', '').initIndex('');
+let index: Index = client.initIndex('');
 
 let search = index.search({ query: '' });
 
@@ -170,8 +170,8 @@ index.partialUpdateObjects([{}], false).then(() => {});
 let indexName : string = index.indexName;
 
 // complete copy
-algoliasearch('','').copyIndex('from', 'to').then(()=>{})
-algoliasearch('','').copyIndex('from', 'to', ()=> {})
+client.copyIndex('from', 'to').then(()=>{})
+client.copyIndex('from', 'to', ()=> {})
 // with scope
-algoliasearch('','').copyIndex('from', 'to', ['settings']).then(()=>{})
-algoliasearch('','').copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {})
+client.copyIndex('from', 'to', ['settings']).then(()=>{})
+client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {})

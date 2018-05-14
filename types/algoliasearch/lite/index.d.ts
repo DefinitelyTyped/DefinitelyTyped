@@ -67,6 +67,7 @@ declare namespace algoliasearch {
    * Interface for the index algolia object
    */
   interface Index {
+    indexName: string;
     /**
      * Gets a specific object
      * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
