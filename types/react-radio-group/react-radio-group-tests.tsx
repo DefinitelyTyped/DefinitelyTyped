@@ -1,12 +1,8 @@
 import * as React from 'react';
-import { Radio, RadioGroup, RadioGroupProps, Value } from "react-radio-group";
+import { Radio, RadioGroup } from "react-radio-group";
 
-class ReactRadioGroup extends React.Component<RadioGroupProps> {
-    constructor(props: RadioGroupProps) {
-        super(props);
-    }
-
-    handleChange(value: Value) {
+class ReactRadioGroup extends React.Component<RadioGroup.RadioGroupProps> {
+    handleChange: RadioGroup.RadioGroupProps['onChange'] = value => {
         console.log(value);
     }
 
