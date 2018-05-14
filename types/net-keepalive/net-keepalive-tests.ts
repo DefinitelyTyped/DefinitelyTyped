@@ -9,7 +9,7 @@ const server = Net.createServer((socket) => {
 })
 
 server.listen(1337, '127.0.0.1', () => {
-    const {port, address} = server.address()
+    const {port, address} = server.address() as Net.AddressInfo
     const clientSocket = Net.createConnection({
         port, host: address
     }, () => {

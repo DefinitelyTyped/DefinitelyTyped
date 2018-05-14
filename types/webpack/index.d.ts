@@ -205,9 +205,9 @@ declare namespace webpack {
 
     interface Module {
         /** A array of applied pre loaders. */
-        preLoaders?: Rule[];
+        preLoaders?: RuleSetRule[];
         /** A array of applied post loaders. */
-        postLoaders?: Rule[];
+        postLoaders?: RuleSetRule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
         noParse?: RegExp | RegExp[] | ((content: string) => boolean);
         unknownContextRequest?: string;
@@ -223,7 +223,7 @@ declare namespace webpack {
         wrappedContextCritical?: boolean;
         strictExportPresence?: boolean;
         /** An array of rules applied for modules. */
-        rules: Rule[];
+        rules: RuleSetRule[];
     }
 
     interface Resolve {
@@ -357,143 +357,187 @@ declare namespace webpack {
         __dirname?: boolean | string;
         [nodeBuiltin: string]: boolean | string | undefined;
     }
-
-    interface BaseConditionSpec {
-        /** The Condition must match. The convention is the provide a string or array of strings here, but it's not enforced. */
-        include?: Condition;
-        /** The Condition must NOT match. The convention is the provide a string or array of strings here, but it's not enforced. */
-        exclude?: Condition;
-    }
-    interface TestConditionSpec extends BaseConditionSpec {
-        /** The Condition must match. The convention is the provide a RegExp or array of RegExps here, but it's not enforced. */
-        test: Condition;
-    }
-    interface AndConditionSpec extends BaseConditionSpec {
-        /** All Conditions must match. */
-        and: Condition[];
-    }
-    interface OrConditionSpec extends BaseConditionSpec {
-        /** Any Condition must match. */
-        or: Condition[];
-    }
-    interface NotConditionSpec extends BaseConditionSpec {
-        /** The Condition must NOT match. */
-        not: Condition;
-    }
-    type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
-
-    // tslint:disable-next-line:no-empty-interface
-    interface ConditionArray extends Array<Condition> { }
-    type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
-
-    interface OldLoader {
-        loader: string;
-        query?: { [name: string]: any };
-    }
     interface NewLoader {
         loader: string;
         options?: { [name: string]: any };
     }
-    type Loader = string | OldLoader | NewLoader;
+    type Loader = string | NewLoader;
+
     interface ParserOptions {
         [optName: string]: any;
         system?: boolean;
     }
-    /**
-     * There are direct and delegate rules. Direct Rules need a test, Delegate rules delegate to subrules bringing their own.
-     * Direct rules can optionally contain delegate keys (oneOf, rules).
-     *
-     * These types exist to enforce that a rule has the keys `((loader XOR loaders) AND test) OR oneOf OR rules`
-     */
-    interface BaseRule {
-        /**
-         * Specifies the category of the loader. No value means normal loader.
-         *
-         * There is also an additional category "inlined loader" which are loaders applied inline of the import/require.
-         *
-         * All loaders are sorted in the order post, inline, normal, pre and used in this order.
-         *
-         * All normal loaders can be omitted (overridden) by prefixing ! in the request.
-         *
-         * All normal and pre loaders can be omitted (overridden) by prefixing -! in the request.
-         *
-         * All normal, post and pre loaders can be omitted (overridden) by prefixing !! in the request.
-         *
-         * Inline loaders and ! prefixes should not be used as they are non-standard. They may be use by loader generated code.
-         */
-        enforce?: 'pre' | 'post';
-        /** A condition that must be met */
-        test?: Condition | Condition[];
-        /** A condition that must not be met */
-        exclude?: Condition | Condition[];
-        /** A condition that must be met */
-        include?: Condition | Condition[];
-        /** A Condition matched with the resource. */
-        resource?: Condition | Condition[];
-        /** A Condition matched with the resource query. */
-        resourceQuery?: Condition | Condition[];
-        /** A condition matched with the issuer */
-        issuer?: Condition | Condition[];
-        /**
-         * An object with parser options. All applied parser options are merged.
-         *
-         * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options.
-         * Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
-         */
-        parser?: ParserOptions;
-        /** An array of Rules that is also used when the Rule matches. */
-        rules?: Rule[];
-        /** An array of Rules from which only the first matching Rule is used when the Rule matches. */
-        oneOf?: Rule[];
-        /** Configures module resolving. */
-        resolve?: Resolve;
-        /** Configures the module type. */
-        type?: "javascript/auto" | "javascript/esm" | "javascript/dynamic" | "json" | "webassembly/experimental";
-        /** Flags a module as with or without side effects */
-        sideEffects?: boolean;
-    }
-    interface BaseDirectRule extends BaseRule {
-        /** A condition that must be met */
-        test: Condition | Condition[];
-    }
-    // Direct Rules
-    interface BaseSingleLoaderRule extends BaseDirectRule {
-        /** Loader name or an object with name and options */
-        loader: Loader;
-    }
-    interface OldLoaderRule extends BaseSingleLoaderRule {
-        /**
-         * Loader options
-         * @deprecated:
-         */
-        query?: { [name: string]: any };
-    }
-    interface NewLoaderRule extends BaseSingleLoaderRule {
-        options?: { [name: string]: any };
-    }
-    type LoaderRule = OldLoaderRule | NewLoaderRule;
-    interface OldUseRule extends BaseDirectRule {
-        /**
-         * A array of loaders.
-         * @deprecated  use `use` instead
-         */
-        loaders: string[];
-    }
-    interface NewUseRule extends BaseDirectRule {
-        /** A loader or array of loaders */
-        use: Loader | Loader[];
-    }
-    type UseRule = OldUseRule | NewUseRule;
 
-    // Delegate Rules
-    interface RulesRule extends BaseRule {
-        /** An array of Rules that is also used when the Rule matches. */
-        rules: Rule[];
+    type RuleSetCondition = string
+        | {
+            [k: string]: any;
+        }
+        | {
+            /**
+             * Logical AND
+             */
+            and?: RuleSetConditions;
+            /**
+             * Exclude all modules matching any of these conditions
+             */
+            exclude?: RuleSetCondition;
+            /**
+             * Exclude all modules matching not any of these conditions
+             */
+            include?: RuleSetCondition;
+            /**
+             * Logical NOT
+             */
+            not?: RuleSetConditions;
+            /**
+             * Logical OR
+             */
+            or?: RuleSetConditions;
+            /**
+             * Exclude all modules matching any of these conditions
+             */
+            test?: RuleSetCondition;
+        };
+    type RuleSetConditions = RuleSetCondition[];
+
+    interface RuleSetRule {
+        /**
+         * Enforce this rule as pre or post step
+         */
+        enforce?: "pre" | "post";
+        /**
+         * Shortcut for resource.exclude
+         */
+        exclude?: RuleSetCondition & {
+            [k: string]: any;
+        };
+        /**
+         * Shortcut for resource.include
+         */
+        include?: RuleSetCondition & {
+            [k: string]: any;
+        };
+        /**
+         * Match the issuer of the module (The module pointing to this module)
+         */
+        issuer?: RuleSetCondition & {
+            [k: string]: any;
+        };
+        /**
+         * Shortcut for use.loader
+         */
+        loader?: RuleSetLoader | RuleSetUse;
+        /**
+         * Shortcut for use.loader
+         */
+        loaders?: RuleSetUse;
+        /**
+         * Only execute the first matching rule in this array
+         */
+        oneOf?: RuleSetRules;
+        /**
+         * Shortcut for use.options
+         */
+        options?: RuleSetQuery;
+        /**
+         * Options for parsing
+         */
+        parser?: {
+            [k: string]: any;
+        };
+        /**
+         * Options for the resolver
+         */
+        resolve?: Resolve;
+        /**
+         * Flags a module as with or without side effects
+         */
+        sideEffects?: boolean;
+        /**
+         * Shortcut for use.query
+         */
+        query?: RuleSetQuery;
+        /**
+         * Module type to use for the module
+         */
+        type?: "javascript/auto" | "javascript/dynamic" | "javascript/esm" | "json" | "webassembly/experimental";
+        /**
+         * Match the resource path of the module
+         */
+        resource?: RuleSetCondition & {
+            [k: string]: any;
+        };
+        /**
+         * Match the resource query of the module
+         */
+        resourceQuery?: RuleSetCondition;
+        /**
+         * Match the child compiler name
+         */
+        compiler?: RuleSetCondition;
+        /**
+         * Match and execute these rules when this rule is matched
+         */
+        rules?: RuleSetRules;
+        /**
+         * Shortcut for resource.test
+         */
+        test?: RuleSetCondition & {
+            [k: string]: any;
+        };
+        /**
+         * Modifiers applied to the module when rule is matched
+         */
+        use?: RuleSetUse;
     }
-    interface OneOfRule extends BaseRule {
-        oneOf: Rule[];
-    }
-    type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
+    type RuleSetLoader = string;
+    type RuleSetUse =
+        | RuleSetUseItem
+        | {
+            [k: string]: any;
+        }
+        | RuleSetUseItem[];
+    type RuleSetUseItem =
+        | RuleSetLoader
+        | {
+            [k: string]: any;
+        }
+        | {
+            /**
+             * Loader name
+             */
+            loader?: RuleSetLoader;
+            /**
+             * Loader options
+             */
+            options?: RuleSetQuery;
+            /**
+             * Unique loader identifier
+             */
+            ident?: string;
+            /**
+             * Loader query
+             */
+            query?: RuleSetQuery;
+        };
+    type RuleSetQuery =
+        | {
+            [k: string]: any;
+        }
+        | string;
+    type CommonArrayOfStringOrStringArrayValues = Array<(string | string[])>;
+    type CommonArrayOfStringValues = string[];
+    type RuleSetRules = RuleSetRule[];
+
+    /**
+     * @deprecated Use RuleSetCondition instead
+     */
+    type Condition = RuleSetCondition;
+
+    /**
+     * @deprecated Use RuleSetRule instead
+     */
+    type Rule = RuleSetRule;
 
     namespace Options {
         // tslint:disable-next-line:max-line-length
