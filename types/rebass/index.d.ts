@@ -523,8 +523,6 @@ export interface Fonts {
     mono?: string;
 }
 
-export interface Colors {}
-
 export interface Theme {
     breakpoints?: string[];
     space?: number[];
@@ -533,7 +531,6 @@ export interface Theme {
     fonts?: Fonts;
     shadows?: string[];
     radii?: number[];
-    colors?: Colors;
 }
 
 export interface ProviderProps {
