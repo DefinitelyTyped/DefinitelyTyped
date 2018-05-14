@@ -264,6 +264,13 @@ export interface HeadingLinkProps extends BaseProps<HeadingLinkClass> {
 type HeadingLinkClass = React.StatelessComponent<HeadingLinkProps>
 export declare const HeadingLink: HeadingLinkClass;
 
+export interface LinkProps extends BaseProps<LinkClass> {
+    is?: string | Object | Function;
+    href?: string;
+}
+type LinkClass = React.StatelessComponent<LinkProps>
+export declare const Link: LinkClass;
+
 export interface InlineFormProps extends BaseProps<InlineFormClass> {
     label?: string;
     name?: string;
