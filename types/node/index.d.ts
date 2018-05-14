@@ -6233,7 +6233,7 @@ declare module "util" {
         );
         decode(
           input?:
-            | Int8Array
+            Int8Array
             | Int16Array
             | Int32Array
             | Uint8Array
