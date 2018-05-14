@@ -11,8 +11,12 @@ const explorer = cosmiconfig("yourModuleName", {
   ignoreEmptySearchPlaces: false,
 });
 
+const explorer2 = cosmiconfig("yourModuleName");
+
 Promise.all([
+  explorer.search(),
   explorer.search(path.join(__dirname)),
+  explorer.searchSync(),
   explorer.searchSync(path.join(__dirname)),
   explorer.load(path.join(__dirname, "sample-config.json")),
   explorer.loadSync(path.join(__dirname, "sample-config.json")),
