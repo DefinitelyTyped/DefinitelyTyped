@@ -207,6 +207,8 @@ declare namespace Server {
     headers?: {[header: string]: string};
     /** Timeout (in milliseconds) when proxy receives no response from target. Default: 120000 (2 minutes) */
     proxyTimeout?: number;
+    /** If set to true, none of the webOutgoing passes are called and it's your responsibility to appropriately return the response by listening and acting on the proxyRes event */
+    selfHandleResponse?: boolean;
   }
 }
 
