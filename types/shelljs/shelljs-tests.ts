@@ -135,6 +135,21 @@ shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1');
 shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1', '/Users/brandom/test2');
 shell.touch({ '-r': '/oome/file.txt' }, ['/Users/brandom/test1', '/Users/brandom/test2']);
 
+shell.head({'-n': 1}, 'file*.txt');
+shell.head('file1', 'file2');
+shell.head(['file1', 'file2']); // same as above
+
+shell.sort('foo.txt', 'bar.txt');
+shell.sort('-r', 'foo.txt');
+
+shell.tail({'-n': 1}, 'file*.txt');
+shell.tail('file1', 'file2');
+shell.tail(['file1', 'file2']); // same as above
+
+shell.uniq('foo.txt');
+shell.uniq('-i', 'foo.txt');
+shell.uniq('-cd', 'foo.txt', 'bar.txt');
+
 const tmp = shell.tempdir(); // "/tmp" for most *nix platforms
 
 const errorlol = shell.error();
