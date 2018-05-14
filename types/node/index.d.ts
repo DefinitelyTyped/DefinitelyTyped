@@ -6222,7 +6222,6 @@ declare module "util" {
         export function isWebAssemblyCompiledModule(object: any): boolean;
     }
 
-    // TypeScript Version: 2.1
     export class TextDecoder {
         readonly encoding: string;
         readonly fatal: boolean;
