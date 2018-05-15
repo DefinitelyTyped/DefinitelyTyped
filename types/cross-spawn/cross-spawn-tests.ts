@@ -9,7 +9,7 @@ pw.on('error', (err: Error) => {
 });
 
 function testBuffer() {
-    const res = spawn.sync('foo')
+    const res = spawn.sync('foo');
 
     if (res.error) {
         const r1: Error = res.error;
@@ -29,7 +29,7 @@ function testBuffer() {
 }
 
 function testString() {
-    const res = spawn.sync('foo', {encoding: 'utf8'})
+    const res = spawn.sync('foo', {encoding: 'utf8'});
 
     if (res.error) {
         const r1: Error = res.error;
