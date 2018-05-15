@@ -6054,21 +6054,21 @@ export class WebGLLights {
 /** 
  * An object with a series of statistical information about the graphics board memory and the rendering process. 
  */ 
-export class WebGLInfo { 
-    autoReset: boolean; 
+export class WebGLInfo {
+    autoReset: boolean;
     memory: { 
-        geometries: number; 
-        textures: number; 
-    }; 
-    programs: number | null; 
-    render: { 
-        calls: number; 
-        lines: number; 
-        points: number; 
-        triangles: number; 
-    }; 
-    reset(): void; 
-    update(): void; 
+        geometries: number;
+        textures: number;
+    };
+    programs: number | null;
+    render: {
+        calls: number;
+        frame: number;
+        lines: number;
+        points: number;
+        triangles: number;
+    };
+    reset(): void;
 }
 
 export class WebGLIndexedBufferRenderer {
