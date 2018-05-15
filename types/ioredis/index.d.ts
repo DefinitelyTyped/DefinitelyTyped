@@ -798,7 +798,11 @@ declare namespace IORedis {
          * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
          */
         retryStrategy?(times: number): number | false;
-        reconnectOnError?(error: Error): boolean;
+        /**
+         * 1/true means reconnect, 2 means reconnect and resend failed command. Returning false will ignore
+         * the error and do nothing.
+         */
+        reconnectOnError?(error: Error): boolean | 1 | 2;
         /**
          * By default, if there is no active connection to the Redis server, commands are added to a queue
          * and are executed once the connection is "ready" (when enableReadyCheck is true, "ready" means
