@@ -614,7 +614,7 @@ configuration = {
             cacheGroups: {
                 common: {
                     name: 'common',
-                    chunks(chunk: { name: string }) {
+                    chunks(chunk: webpack.compilation.Chunk) {
                         const allowedChunks = [
                             'renderer',
                             'component-window',
