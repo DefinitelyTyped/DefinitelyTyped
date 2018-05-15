@@ -218,6 +218,9 @@ export function warn(message?: any, ...optionalParams: any[]): void;
 export function error(message?: any, ...optionalParams: any[]): void;
 export function log(message?: any, ...optionalParams: any[]): void;
 
+// typed array parameters
+type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+
 // Animation ////////////////////////////////////////////////////////////////////////////////////////
 
 export class AnimationAction {
@@ -2209,7 +2212,7 @@ export class JSONLoader extends Loader {
 export class LoadingManager {
     constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: () => void);
 
-    onStart: (url: string, loaded: number, total: number) => void;
+    onStart?: (url: string, loaded: number, total: number) => void;
 
     /**
      * Will be called when load starts.
@@ -2229,7 +2232,7 @@ export class LoadingManager {
      */
     onError: (url: string) => void;
 
-    setURLModifier(callback : (url: string) => string): void;
+    setURLModifier(callback?: (url: string) => string): void;
 
     itemStart(url: string): void;
     itemEnd(url: string): void;
@@ -2353,7 +2356,7 @@ export namespace Cache {
 }
 
 export class LoaderUtils {
-    static decodeText(array: Uint8Array): string;
+    static decodeText(array: TypedArray): string;
     static extractUrlBase(url: string): string;
 }
 
@@ -2907,24 +2910,24 @@ export class MeshPhongMaterial extends Material {
     color: Color;
     specular: Color;
     shininess: number;
-    map?: Texture;
-    lightMap: Texture;
+    map: Texture | null;
+    lightMap: Texture | null;
     lightMapIntensity: number;
-    aoMap?: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture;
-    bumpMap?: Texture;
+    emissiveMap: Texture | null;
+    bumpMap: Texture | null;
     bumpScale: number;
-    normalMap?: Texture;
+    normalMap: Texture | null;
     normalScale: Vector2;
-    displacementMap: Texture;
+    displacementMap: Texture | null;
     displacementScale: number;
     displacementBias: number;
-    specularMap?: Texture;
-    alphaMap?: Texture;
-    envMap?: Texture;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -6137,9 +6140,6 @@ export class WebGLState {
     };
 
     init(): void;
-    texImage2D(target: number, level: number, internalformat: number,
-        width: number, height: number, border: number, format: number,
-        type: number, pixels?: ArrayBufferView | null): void;
     initAttributes(): void;
     enableAttribute(attribute: string): void;
     enableAttributeAndDivisor(attribute: string, meshPerAttribute: any, extension: any): void;
@@ -6164,7 +6164,9 @@ export class WebGLState {
     getScissorTest(): boolean;
     activeTexture(webglSlot: any): void;
     bindTexture(webglType: any, webglTexture: any): void;
+    // Same interface as https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/compressedTexImage2D
     compressedTexImage2D(): void;
+    // Same interface as https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
     texImage2D(): void;
     clearColor(r: number, g: number, b: number, a: number): void;
     clearDepth(depth: number): void;
@@ -6417,7 +6419,7 @@ export class CompressedTexture extends Texture {
 
 export class DataTexture extends Texture {
     constructor(
-        data: ArrayBuffer | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array,
+        data: ArrayBuffer | TypedArray,
         width: number,
         height: number,
         format?: PixelFormat,
