@@ -3702,6 +3702,14 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', function(this: I1, event) {
                 // $ExpectType I1
                 this;
