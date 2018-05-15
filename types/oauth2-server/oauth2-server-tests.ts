@@ -2,6 +2,13 @@ import express = require("express");
 import OAuth2Server = require("oauth2-server");
 
 const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
+    generateAuthorizationCode: async (client, user, scope) => {
+        return JSON.stringify({
+            client,
+            user,
+            scope,
+        });
+    },
     getClient: async (clientId: string, clientSecret: string): Promise<OAuth2Server.Client | OAuth2Server.Falsey> => {
         return undefined;
     },

@@ -239,7 +239,7 @@ declare namespace OAuth2Server {
          * Invoked to generate a new authorization code.
          *
          */
-        generateAuthorizationCode?(callback?: Callback<string>): Promise<string>;
+        generateAuthorizationCode?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
 
         /**
          * Invoked to retrieve an existing authorization code previously saved through Model#saveAuthorizationCode().
