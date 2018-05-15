@@ -63,7 +63,23 @@ const Drawer = (props: NavigationComponentProps) => {
     );
 };
 
-Navigation.registerComponent('example.Screen1', () => Screen1);
+interface TestProviderProps {
+    test: string;
+}
+
+class TestProvider extends React.Component<TestProviderProps> {
+    getChildContext() {
+        return {
+            test: this.props.test
+        };
+    }
+
+    render() {
+        return this.props.children;
+    }
+}
+
+Navigation.registerComponent('example.Screen1', () => Screen1, {}, TestProvider, {test: "test"});
 Navigation.registerComponent('example.Screen2', () => Screen2);
 Navigation.registerComponent('example.Drawer', () => Drawer);
 
