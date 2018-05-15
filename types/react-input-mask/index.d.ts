@@ -6,9 +6,6 @@
 
 import * as React from "react";
 
-export default ReactInputMask;
-export as namespace ReactInputMask;
-
 declare namespace ReactInputMask {
     interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
         /**
@@ -48,3 +45,5 @@ declare namespace ReactInputMask {
 
 declare class ReactInputMask extends React.Component<ReactInputMask.Props> {
 }
+
+export default ReactInputMask;
