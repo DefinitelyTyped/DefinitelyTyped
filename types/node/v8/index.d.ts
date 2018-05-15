@@ -2259,8 +2259,8 @@ declare module "child_process" {
         export interface WithoutError<T> extends Base {
             error: null;
             output: [T | null, T | null, T | null];
-            stdout: T;
-            stderr: T;
+            stdout: T | null;
+            stderr: T | null;
             status: number;
             signal: string | null;
         }

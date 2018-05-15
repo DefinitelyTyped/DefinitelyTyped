@@ -21,8 +21,8 @@ function testBuffer() {
     } else {
         const r1: null = res.error;
         const r2: [Buffer | null, Buffer | null, Buffer | null] = res.output;
-        const r3: Buffer = res.stdout;
-        const r4: Buffer = res.stderr;
+        const r3: Buffer | null = res.stdout;
+        const r4: Buffer | null = res.stderr;
         const r5: number = res.status;
         const r6: string | null = res.signal;
     }
@@ -41,8 +41,8 @@ function testString() {
     } else {
         const r1: null = res.error;
         const r2: [string | null, string | null, string | null] = res.output;
-        const r3: string = res.stdout;
-        const r4: string = res.stderr;
+        const r3: string | null = res.stdout;
+        const r4: string | null = res.stderr;
         const r5: number = res.status;
         const r6: string | null = res.signal;
     }
