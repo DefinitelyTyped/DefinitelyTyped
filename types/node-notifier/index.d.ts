@@ -27,8 +27,6 @@ declare module "node-notifier" {
             message?: string;
             /** Absolute path (not balloons) */
             icon?: string;
-            /** Only Notification Center or Windows Toasters */
-            sound?: boolean;
             /** Wait with callback until user action is taken on notification */
             wait?: boolean;
         }
@@ -58,6 +56,8 @@ declare module "node-notifier/notifiers/notificationcenter" {
 
     namespace NotificationCenter {
         interface Notification extends notifier.Notification {
+            /** Sound to use */
+            sound?: boolean;
             subtitle?: string;
             /** Attach image? (Absolute path) */
             contentImage?: string;
@@ -78,13 +78,9 @@ declare module "node-notifier/notifiers/notifysend" {
     }
 
     namespace NotifySend {
-        interface Notification {
-            title?: string;
-            message?: string;
-            icon?: string;
-            /** Specifies the urgency level  (low,  normal,  critical). */
+        interface Notification extends notifier.Notification {
             urgency?: string;
-            /** Specifies  the  timeout  in  milliseconds at which to expire the notification */
+            /** Specifies the timeout in milliseconds at which to expire the notification */
             time?: number;
             /** Specifies the notification category */
             category?: string;
@@ -99,9 +95,36 @@ declare module "node-notifier/notifiers/notifysend" {
 declare module "node-notifier/notifiers/toaster" {
     import notifier = require('node-notifier');
 
+    namespace WindowsToaster {
+        interface Notification extends notifier.Notification {
+            /** 
+             * Sound to use. True for default Windows sound, or specify a string as defined by 
+             * http://msdn.microsoft.com/en-us/library/windows/apps/hh761492.aspx. */
+            sound?: boolean | string;
+
+            /** ID to use for closing notification */
+            id?: number;
+
+            /** App.ID and app Name. Defaults to no value, causing SnoreToast text to be visible. */
+            appId?: string;
+
+            /** 
+             * Refer to previously created notification to close. 
+             * 
+             * NOTE: if remove is specified, no notification is shown.  That is, it will only close a notification, 
+             *       not replace it. */
+            remove?: number;
+
+            /** 
+             * (path, application, app id).  Creates a shortcut <path> in the start menu which point to the executable
+             * <application>, appID used for the notifications. */
+            install?: string;
+        }
+    }
+
     class WindowsToaster {
         constructor(option?: notifier.Option);
-        notify(notification?: notifier.Notification, callback?: notifier.NotificationCallback): WindowsToaster;
+        notify(notification?: WindowsToaster.Notification, callback?: notifier.NotificationCallback): WindowsToaster;
     }
 
     export = WindowsToaster;
@@ -150,15 +173,9 @@ declare module "node-notifier/notifiers/balloon" {
     }
 
     namespace WindowsBalloon {
-        interface Notification {
-            title?: string;
-            message?: string;
-            /** Only Notification Center or Windows Toasters */
-            sound?: boolean;
+        interface Notification extends notifier.Notification {
             /** How long to show balloons in ms */
             time?: number;
-            /** Wait with callback until user action is taken on notification */
-            wait?: boolean;
         }
     }
 

@@ -8,7 +8,6 @@ notifier.notify({
     title: 'My awesome title',
     message: 'Hello from node, Mr. User!',
     icon: path.join(__dirname, 'coulson.jpg'), // absolute path (not balloons)
-    sound: true, // Only Notification Center or Windows Toasters
     wait: true // wait with callback until user action is taken on notification
 }, function (err: any, response: any) {
     // response is response from notification
@@ -134,7 +133,6 @@ var notifier5 = new WindowsBalloon2({
 notifier5.notify({
     title: void 0,
     message: void 0,
-    sound: false, // true | false.
     time: 5000, // How long to show balloons in ms
     wait: false, // if wait for notification to end
 }, function(error: any, response: any) {
