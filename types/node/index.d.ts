@@ -2331,7 +2331,7 @@ declare module "child_process" {
     export interface SpawnSyncOptionsWithBufferEncoding extends SpawnSyncOptions {
         encoding: string; // specify `null`.
     }
-    export type SpawnSyncOptions = SpawnSyncReturns.WithError | SpawnSyncOptions.WithoutError<T>;
+    export type SpawnSyncReturns = SpawnSyncReturns.WithError | SpawnSyncReturns.WithoutError<T>;
     export namespace SpawnSyncReturns {
         export interface Base {
             pid: number;
