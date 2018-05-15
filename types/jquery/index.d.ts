@@ -4553,7 +4553,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     on(events: string,
-       handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+       handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | ((event: JQueryEventObject) => void) | false): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
