@@ -4558,12 +4558,12 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param handler A function to execute when the event is triggered. 
+     * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
     on(events: string,
-        handler: ((event: JQueryEventObject) => void)): this;       
+        handler: ((event: JQueryEventObject) => void)): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
