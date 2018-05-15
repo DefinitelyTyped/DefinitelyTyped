@@ -6835,8 +6835,16 @@ declare module "http2" {
     import * as tls from "tls";
     import * as url from "url";
 
-    import { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
-    export { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+    import { IncomingHttpHeaders as Http1IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+    export { OutgoingHttpHeaders } from "http";
+
+    export interface IncomingHttpHeaders extends Http1IncomingHttpHeaders {
+        ':path'?: string;
+        ':method'?: string;
+        ':status'?: string;
+        ':authority'?: string;
+        ':scheme'?: string;
+    }
 
     // Http2Stream
 
