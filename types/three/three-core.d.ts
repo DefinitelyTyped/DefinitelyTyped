@@ -6060,7 +6060,7 @@ export class WebGLInfo {
         geometries: number;
         textures: number;
     };
-    programs: number | null;
+    programs: WebGLProgram[] | null;
     render: {
         calls: number;
         frame: number;
@@ -6114,7 +6114,7 @@ export class WebGLProgram {
 export class WebGLPrograms {
     constructor(renderer: WebGLRenderer, capabilities: any);
 
-    programs: any[];
+    programs: WebGLProgram[];
 
     getParameters(material: ShaderMaterial, lights: any, fog: any, nClipPlanes: number, object: any): any;
     getProgramCode(material: ShaderMaterial, parameters: any): string;
