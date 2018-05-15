@@ -7,7 +7,7 @@
 import * as React from 'react';
 
 export namespace Navigation {
-    function registerComponent(screenID: string, generator: () => React.ComponentType<any>, store?: any, provider?: any): void;
+    function registerComponent(screenID: string, generator: () => React.ComponentType<any>, store?: any, provider?: any, options?: any): void;
     function startTabBasedApp(params: TabBasedApp): void;
     function startSingleScreenApp(params: SingleScreenApp): void;
     function showModal(params: ModalScreen): void;
