@@ -5153,7 +5153,7 @@ function JQuery() {
     function manipulation() {
         function after() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
+            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').after(function(index, html) {
@@ -5218,7 +5218,7 @@ function JQuery() {
 
         function append() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
+            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').append(function(index, html) {
@@ -5286,7 +5286,7 @@ function JQuery() {
 
         function before() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
+            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').before(function(index, html) {
@@ -5351,7 +5351,7 @@ function JQuery() {
 
         function prepend() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()], [new Element(), $('p').contents()]);
+            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()], [new Element(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').prepend(function(index, html) {
