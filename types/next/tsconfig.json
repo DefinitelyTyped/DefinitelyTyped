@@ -26,6 +26,7 @@
         "head.d.ts",
         "link.d.ts",
         "router.d.ts",
+        "config.d.ts",
         "test/next-tests.ts",
         "test/next-error-tests.tsx",
         "test/next-head-tests.tsx",

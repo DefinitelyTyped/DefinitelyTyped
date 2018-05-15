@@ -21,6 +21,7 @@ export interface PropTypes {
         name?: string;
         placeholder?: string;
         onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+        disabled?: boolean;
     };
     onError?: (status: string, clearSuggestion: () => void) => void;
     onSelect?: (address: string, placeID: string) => void;

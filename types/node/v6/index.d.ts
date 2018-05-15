@@ -6,6 +6,7 @@
 //                 Thomas Bouldin <https://github.com/inlined>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Alorel <https://github.com/Alorel>
+//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -54,6 +55,21 @@ interface MapConstructor { }
 interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
+
+// Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
+interface Iterable<T> { }
+interface Iterator<T> {
+    next(value?: any): IteratorResult<T>;
+}
+
+interface IteratorResult<T> { }
+interface AsyncIterableIterator<T> {}
+interface SymbolConstructor {
+    readonly iterator: symbol;
+    readonly asyncIterator: symbol;
+}
+
+declare var Symbol: SymbolConstructor;
 
 /************************************************
 *                                               *
@@ -164,10 +180,6 @@ declare var Buffer: {
     new (buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
-     * Allocates a new Buffer using an {array} of octets.
-     */
-    from(array: any[]): Buffer;
-    /**
      * When passed a reference to the .buffer property of a TypedArray instance,
      * the newly created Buffer will share the same allocated memory as the TypedArray.
      * The optional {byteOffset} and {length} arguments specify a memory range
@@ -177,9 +189,10 @@ declare var Buffer: {
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
-     * Copies the passed {buffer} data onto a new Buffer instance.
+     * Creates a new Buffer using the passed {data}
+     * @param data data to create a new Buffer
      */
-    from(buffer: Buffer): Buffer;
+    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -415,6 +428,7 @@ declare namespace NodeJS {
         rss: number;
         heapTotal: number;
         heapUsed: number;
+        external: number;
     }
 
     export interface CpuUsage {
@@ -1789,7 +1803,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
-    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
         cwd?: string;
@@ -1959,8 +1973,54 @@ declare module "url" {
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
+    export function format(URL: URL, options?: URLFormatOptions): string;
     export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
+
+    export function domainToASCII(domain: string): string;
+    export function domainToUnicode(domain: string): string;
+
+    export interface URLFormatOptions {
+        auth?: boolean;
+        fragment?: boolean;
+        search?: boolean;
+        unicode?: boolean;
+    }
+
+    export class URLSearchParams implements Iterable<string[]> {
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );
+        append(name: string, value: string): void;
+        delete(name: string): void;
+        entries(): Iterator<string[]>;
+        forEach(callback: (value: string, name: string) => void): void;
+        get(name: string): string | null;
+        getAll(name: string): string[];
+        has(name: string): boolean;
+        keys(): Iterator<string>;
+        set(name: string, value: string): void;
+        sort(): void;
+        toString(): string;
+        values(): Iterator<string>;
+        [Symbol.iterator](): Iterator<string[]>;
+    }
+
+    export class URL {
+        constructor(input: string, base?: string | URL);
+        hash: string;
+        host: string;
+        hostname: string;
+        href: string;
+        readonly origin: string;
+        password: string;
+        pathname: string;
+        port: string;
+        protocol: string;
+        search: string;
+        readonly searchParams: URLSearchParams;
+        username: string;
+        toString(): string;
+        toJSON(): string;
+    }
 }
 
 declare module "dns" {
@@ -3003,11 +3063,11 @@ declare module "path" {
     /**
      * The platform-specific file separator. '\\' or '/'.
      */
-    export var sep: string;
+    export var sep: '\\' | '/';
     /**
      * The platform-specific file delimiter. ';' or ':'.
      */
-    export var delimiter: string;
+    export var delimiter: ';' | ':';
     /**
      * Returns an object from a path string - the opposite of format().
      *
@@ -3712,8 +3772,8 @@ declare module "stream" {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
-            write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
+            write?: (chunk: any, encoding: string, callback: Function) => any;
+            writev?: (chunks: { chunk: any, encoding: string }[], callback: Function) => any;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
@@ -3876,7 +3936,7 @@ declare module "assert" {
             });
         }
 
-        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;

@@ -1138,7 +1138,8 @@ angular.module('multiSlotTranscludeExample', [])
         };
     });
 
-angular.module('componentExample', [])
+// $ExpectType IModule
+const componentModule = angular.module('componentExample', [])
     .component('counter', {
         require: {ctrl: '^ctrl'},
         bindings: {
@@ -1160,6 +1161,16 @@ angular.module('componentExample', [])
         },
         template: '',
         transclude: true
+    })
+    .component({
+        aThirdComponent: {
+            controller: class AThirdComponentController {
+                count: number;
+            },
+            bindings: {
+                count: '='
+            }
+        }
     });
 
 interface ICopyExampleUser {

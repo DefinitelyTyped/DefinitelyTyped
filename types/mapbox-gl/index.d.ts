@@ -26,20 +26,12 @@ declare namespace mapboxgl {
         constructor(options?: MapboxOptions);
 
         addControl(control: Control, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
-        
+
         addControl(control: IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
 
         removeControl(control: Control): this;
-        
+
         removeControl(control: IControl): this;
-
-        addClass(klass: string, options?: mapboxgl.StyleOptions): this;
-
-        removeClass(klass: string, options?: mapboxgl.StyleOptions): this;
-
-        setClasses(klasses: string[], options?: mapboxgl.StyleOptions): this;
-
-        hasClass(klass: string): boolean;
 
         getClasses(): string[];
 
@@ -399,7 +391,7 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-        constructor();
+		constructor(options?: {showCompass?: boolean, showZoom?: boolean});
     }
 
     export class PositionOptions {
@@ -413,6 +405,7 @@ declare namespace mapboxgl {
      */
     export class GeolocateControl extends Control {
         constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean });
+        trigger(): boolean;
     }
 
     /**
@@ -873,6 +866,7 @@ declare namespace mapboxgl {
         speed?: number;
         screenSpeed?: number;
         easing?: Function;
+        maxDuration?: number;
     }
 
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
@@ -1102,6 +1096,7 @@ declare namespace mapboxgl {
         'circle-color'?: string | StyleFunction | Expression;
         'circle-blur'?: number | StyleFunction | Expression;
         'circle-opacity'?: number | StyleFunction | Expression;
+        'circle-opacity-transition'?: Transition;
         'circle-translate'?: number[] | Expression;
         'circle-translate-anchor'?: 'map' | 'viewport';
         'circle-pitch-scale'?: 'map' | 'viewport';

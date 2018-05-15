@@ -684,3 +684,51 @@ class BannerPlugin extends webpack.Plugin {
         });
     }
 }
+
+configuration = {
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                oneOf: [
+                    { resourceQuery: /global/, use: ["style-loader", "css-loader"] },
+                    { use: ["to-string-loader", "css-loader"] }
+                ]
+            }
+        ]
+    }
+};
+
+configuration = {
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                include: '/foo/bar',
+                exclude: path => path.startsWith('/foo'),
+                resourceQuery: ['foo', 'bar'],
+                resolve: {
+                    mainFields: ['foo'],
+                    aliasFields: [['bar']],
+                },
+                loader: 'foo-loader',
+                loaders: [
+                    'foo-loader',
+                    {
+                        loader: 'bar-loader',
+                        query: 'baz'
+                    }
+                ],
+                use: () => ([
+                    'foo-loader',
+                    {
+                        loader: 'bar-loader',
+                        query: {
+                            baz: 'qux'
+                        }
+                    },
+                ])
+            }
+        ]
+    }
+};

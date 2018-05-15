@@ -1,12 +1,19 @@
 import { GraphQLSchema } from "../type/schema";
-import { GraphQLType } from "../type/definition";
+import { GraphQLType, GraphQLNamedType } from "../type/definition";
 
-export interface PrinterOptions {
+export interface Options {
     commentDescriptions?: boolean;
 }
 
-export function printSchema(schema: GraphQLSchema, options?: PrinterOptions): string;
+/**
+ * Accepts options as a second argument:
+ *
+ *    - commentDescriptions:
+ *        Provide true to use preceding comments as the description.
+ *
+ */
+export function printSchema(schema: GraphQLSchema, options?: Options): string;
 
-export function printIntrospectionSchema(schema: GraphQLSchema, options?: PrinterOptions): string;
+export function printIntrospectionSchema(schema: GraphQLSchema, options?: Options): string;
 
-export function printType(type: GraphQLType, options?: PrinterOptions): string;
+export function printType(type: GraphQLNamedType, options?: Options): string;

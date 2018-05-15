@@ -109,7 +109,7 @@ declare namespace When {
      * @returns a promise that will fulfill with an array of mapped values
      *  or reject if any input promise rejects.
      */
-    function map<T>(promisesOrValues: any[], mapFunc: (value: any, index?: Number) => any): Promise<T>;
+    function map<T>(promisesOrValues: any[], mapFunc: (value: any, index: number) => any): Promise<T>;
 
     /**
      * Traditional reduce function, similar to `Array.prototype.reduce()`, but
@@ -118,10 +118,10 @@ declare namespace When {
      * be a promise for the starting value.
      * @param promisesOrValues array or promise for an array of anything,
      *      may contain a mix of promises and values.
-     * @param reduceFunc function(accumulated:*, x:*, index:Number):*} f reduce function
+     * @param reduceFunc function(accumulated:*, x:*, index:number):*} f reduce function
      * @returns a promise that will resolve to the final reduced value
      */
-    function reduce<T>(promisesOrValues: any[], reduceFunc: (reduction: T, value: any, index?: Number) => T | Promise<T>, initialValue: T): Promise<T>;
+    function reduce<T>(promisesOrValues: any[], reduceFunc: (reduction: T, value: any, index: number) => T | Promise<T>, initialValue: T): Promise<T>;
 
     /**
      * Traditional reduce function, similar to `Array.prototype.reduceRight()`, but
@@ -130,22 +130,38 @@ declare namespace When {
      * be a promise for the starting value.
      * @param promisesOrValues array or promise for an array of anything,
      *      may contain a mix of promises and values.
-     * @param reduceFunc function(accumulated:*, x:*, index:Number):*} f reduce function
+     * @param reduceFunc function(accumulated:*, x:*, index:number):*} f reduce function
      * @returns a promise that will resolve to the final reduced value
      */
-    function reduceRight<T>(promisesOrValues: any[], reduceFunc: (reduction: T, value: any, index?: Number) => T | Promise<T>, initialValue: T): Promise<T>;
+    function reduceRight<T>(promisesOrValues: any[], reduceFunc: (reduction: T, value: any, index: number) => T | Promise<T>, initialValue: T): Promise<T>;
 
     /**
-     * Describes the status of a promise.
+     * Describes the outcome of a promise.
      * state may be one of:
      * "fulfilled" - the promise has resolved
-     * "pending" - the promise is still pending to resolve/reject
      * "rejected" - the promise has rejected
      */
-    interface Descriptor<T> {
-        state: string;
-        value?: T;
-        reason?: any;
+    type Descriptor<T> = FulfilledDescriptor<T> | RejectedDescriptor;
+
+    /**
+     * Snapshot which describes the status of a promise.
+     * state may be one of:
+     * "fulfilled" - the promise has resolved
+     * "rejected" - the promise has rejected
+     * "pending" - the promise is still pending to resolve/reject
+     */
+    type Snapshot<T> = FulfilledDescriptor<T> | RejectedDescriptor | PendingDescriptor;
+
+    interface FulfilledDescriptor<T> {
+        state: 'fulfilled';
+        value: T;
+    }
+    interface RejectedDescriptor {
+        state: 'rejected';
+        reason: any;
+    }
+    interface PendingDescriptor {
+        state: 'pending';
     }
 
     /**
@@ -269,7 +285,26 @@ declare namespace When {
         // be a constructor with prototype set to an instance of Error.
         otherwise<U>(exceptionType: any, onRejected?: (reason: any) => U | Promise<U>): Promise<U>;
 
-        then<U>(onFulfilled: (value: T) => U | Promise<U>, onRejected?: (reason: any) => U | Promise<U>, onProgress?: (update: any) => void): Promise<U>;
+        then<TResult1, TResult2>(
+            onFulfilled: ((value: T) => TResult1 | Thenable<TResult1>),
+            onRejected: ((reason: any) => TResult2 | Thenable<TResult2>),
+            onProgress?: (update: any) => void
+        ): Promise<TResult1 | TResult2>;
+        then<TResult>(
+            onFulfilled: ((value: T) => TResult | Thenable<TResult>),
+            onRejected?: ((reason: any) => TResult | Thenable<TResult>) | undefined | null,
+            onProgress?: (update: any) => void
+        ): Promise<TResult>;
+        then<TResult>(
+            onFulfilled: ((value: T) => T | Thenable<T>) | undefined | null,
+            onRejected: ((reason: any) => TResult | Thenable<TResult>),
+            onProgress?: (update: any) => void
+        ): Promise<T | TResult>;
+        then(
+            onFulfilled?: ((value: T) => T | Thenable<T>) | undefined | null,
+            onRejected?: ((reason: any) => T | Thenable<T>) | undefined | null,
+            onProgress?: (update: any) => void
+        ): Promise<T>;
 
         spread<T>(onFulfilled: _.Fn0<Promise<T> | T>): Promise<T>;
         spread<A1, T>(onFulfilled: _.Fn1<A1, Promise<T> | T>): Promise<T>;
@@ -284,13 +319,7 @@ declare namespace When {
     }
 
     interface Thenable<T> {
-        then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U): Thenable<U>;
-    }
-
-    interface Snapshot<T> {
-        state: string;
-        value?: T;
-        reason?: any;
+        then<U>(onFulfilled?: (value: T) => U, onRejected?: (reason: any) => U): Thenable<U>;
     }
 }
 
@@ -369,8 +398,7 @@ declare module "when/node" {
 
     interface Resolver<T> {
         reject(reason: any): void;
-        resolve(value?: T): void;
-        resolve(value?: when.Promise<T>): void;
+        resolve(value?: T | when.Promise<T>): void;
     }
 
     function createCallback<TArg>(resolver: Resolver<TArg>): (err: any, arg: TArg) => void;

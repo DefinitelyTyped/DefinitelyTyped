@@ -28,6 +28,48 @@ import xstreamConfig from "recompose/xstreamObservableConfig";
 import baconConfig from "recompose/baconObservableConfig";
 import kefirConfig from "recompose/kefirObservableConfig";
 
+import mapPropsStandalone from "recompose/mapProps";
+import withPropsStandalone from "recompose/withProps";
+import withPropsOnChangeStandalone from "recompose/withPropsOnChange";
+import withHandlersStandalone from "recompose/withHandlers";
+import defaultPropsStandalone from "recompose/defaultProps";
+import renamePropStandalone from "recompose/renameProp";
+import renamePropsStandalone from "recompose/renameProps";
+import flattenPropStandalone from "recompose/flattenProp";
+import withStateStandalone from "recompose/withState";
+import withStateHandlersStandalone from "recompose/withStateHandlers";
+import withReducerStandalone from "recompose/withReducer";
+import branchStandalone from "recompose/branch";
+import renderComponentStandalone from "recompose/renderComponent";
+import renderNothingStandalone from "recompose/renderNothing";
+import shouldUpdateStandalone from "recompose/shouldUpdate";
+import pureStandalone from "recompose/pure";
+import onlyUpdateForKeysStandalone from "recompose/onlyUpdateForKeys";
+import onlyUpdateForPropTypesStandalone from "recompose/onlyUpdateForPropTypes";
+import withContextStandalone from "recompose/withContext";
+import getContextStandalone from "recompose/getContext";
+import lifecycleStandalone from "recompose/lifecycle";
+import toClassStandalone from "recompose/toClass";
+import setStaticStandalone from "recompose/setStatic";
+import setPropTypesStandalone from "recompose/setPropTypes";
+import setDisplayNameStandalone from "recompose/setDisplayName";
+import composeStandalone from "recompose/compose";
+import getDisplayNameStandalone from "recompose/getDisplayName";
+import wrapDisplayNameStandalone from "recompose/wrapDisplayName";
+import shallowEqualStandalone from "recompose/shallowEqual";
+import isClassComponentStandalone from "recompose/isClassComponent";
+import createSinkStandalone from "recompose/createSink";
+import componentFromPropStandalone from "recompose/componentFromProp";
+import nestStandalone from "recompose/nest";
+import hoistStaticsStandalone from "recompose/hoistStatics";
+import componentFromStreamStandalone from "recompose/componentFromStream";
+import componentFromStreamWithConfigStandalone from "recompose/componentFromStreamWithConfig";
+import mapPropsStreamStandalone from "recompose/mapPropsStream";
+import mapPropsStreamWithConfigStandalone from "recompose/mapPropsStreamWithConfig";
+import createEventHandlerStandalone from "recompose/createEventHandler";
+import createEventHandlerWithConfigStandalone from "recompose/createEventHandlerWithConfig";
+import setObservableConfigStandalone from "recompose/setObservableConfig";
+
 function testMapProps() {
     interface InnerProps {
         inn: number

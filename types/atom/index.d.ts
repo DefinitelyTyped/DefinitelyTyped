@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.25
+// Type definitions for Atom 1.26
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.25.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.26.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -1529,7 +1529,7 @@ export class TextEditor {
 
     /** Set the text in the given Range in buffer coordinates. */
     setTextInBufferRange(range: RangeCompatible, text: string, options?:
-        { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
+        TextEditOptions): Range;
 
     /* For each selection, replace the selected text with the given text. */
     insertText(text: string, options?: TextInsertionOptions): Range|false;
@@ -5145,16 +5145,13 @@ export class TextBuffer {
     setTextViaDiff(text: string): void;
 
     /** Set the text in the given range. */
-    setTextInRange(range: RangeCompatible, text: string, options?:
-        { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
+    setTextInRange(range: RangeCompatible, text: string, options?: TextEditOptions): Range;
 
     /** Insert text at the given position. */
-    insert(position: PointCompatible, text: string, options?:
-        { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
+    insert(position: PointCompatible, text: string, options?: TextEditOptions): Range;
 
     /** Append text to the end of the buffer. */
-    append(text: string, options?: { normalizeLineEndings?: boolean, undo?:
-        "skip" }): Range;
+    append(text: string, options?: TextEditOptions): Range;
 
     /** Delete the text in the given range. */
     delete(range: RangeCompatible): Range;
@@ -5647,19 +5644,28 @@ export interface FileSavedEvent {
     path: string;
 }
 
-export type FilesystemChangeEvent = Array<{
+export interface FilesystemChangeBasic<
+  Action extends "created"|"modified"|"deleted"|"renamed"
+  = "created"|"modified"|"deleted"
+> {
     /** A string describing the filesystem action that occurred. */
-    action: "created"|"modified"|"deleted"|"renamed";
+    action: Action;
 
     /** The absolute path to the filesystem entry that was acted upon. */
     path: string;
+}
 
+export interface FilesystemChangeRename extends FilesystemChangeBasic<"renamed"> {
     /**
      *  For rename events, a string containing the filesystem entry's former
      *  absolute path.
      */
-    oldPath?: string;
-}>;
+    oldPath: string;
+}
+
+export type FilesystemChange = FilesystemChangeBasic|FilesystemChangeRename;
+
+export type FilesystemChangeEvent = FilesystemChange[];
 
 export interface FullKeybindingMatchEvent {
   /** The string of keystrokes that matched the binding. */
@@ -5822,7 +5828,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.25.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.26.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -6161,7 +6167,7 @@ export interface ConfirmationOptions {
     normalizeAccessKeys?: boolean;
 }
 
-export interface ContextMenuOptions {
+export interface ContextMenuItemOptions {
     /** The menu item's label. */
     label?: string;
 
@@ -6180,12 +6186,6 @@ export interface ContextMenuOptions {
     /** An array of additional items. */
     submenu?: ReadonlyArray<ContextMenuOptions>;
 
-    /**
-     *  If you want to create a separator, provide an item with type: 'separator'
-     *  and no other keys.
-     */
-    type?: "separator";
-
     /** Whether the menu item should appear in the menu. Defaults to true. */
     visible?: boolean;
 
@@ -6200,7 +6200,27 @@ export interface ContextMenuOptions {
      *  given context menu deployment.
      */
     shouldDisplay?(event: Event): void;
+
+    /** Place this menu item before the menu items representing the given commands. */
+    before?: ReadonlyArray<string>;
+
+    /** Place this menu item after the menu items representing the given commands. */
+    after?: ReadonlyArray<string>;
+
+    /**
+     * Place this menu item's group before the containing group of the menu items
+     * representing the given commands.
+     */
+    beforeGroupContaining?: ReadonlyArray<string>;
+
+    /**
+     * Place this menu item's group after the containing group of the menu items
+     * representing the given commands.
+     */
+    afterGroupContaining?: ReadonlyArray<string>;
 }
+
+export type ContextMenuOptions = ContextMenuItemOptions | { type: "separator" };
 
 export interface CopyMarkerOptions {
     /** Whether or not the marker should be tailed. */
@@ -6474,7 +6494,18 @@ export interface SpawnProcessOptions {
     shell?: boolean | string;
 }
 
-export interface TextInsertionOptions {
+export interface TextEditOptions {
+    /** If true, all line endings will be normalized to match the editor's current mode. */
+    normalizeLineEndings?: boolean;
+
+    /**
+     * If skip, skips the undo stack for this operation.
+     * @deprecated Call groupLastChanges() on the TextBuffer afterward instead.
+     */
+    undo?: "skip";
+}
+
+export interface TextInsertionOptions extends TextEditOptions {
     /** If true, selects the newly added text. */
     select?: boolean;
 
@@ -6497,12 +6528,6 @@ export interface TextInsertionOptions {
      *  true, this behavior is suppressed.
      */
     preserveTrailingLineIndentation?: boolean;
-
-    /** If true, all line endings will be normalized to match the editor's current mode. */
-    normalizeLineEndings?: boolean;
-
-    /** If skip, skips the undo stack for this operation. */
-    undo?: "skip";
 }
 
 /** The options for a Bootstrap 3 Tooltip class, which Atom uses a variant of. */

@@ -413,7 +413,7 @@ const Example18 = (
 );
 
 const Example19 = (
-  <ButtonDropdown isOpen={true} toggle={() => true} dropup>
+  <ButtonDropdown isOpen={true} toggle={() => true} direction="up">
     <DropdownToggle caret size="lg">
       Dropup
     </DropdownToggle>
@@ -1140,6 +1140,20 @@ class Example45 extends React.Component {
             <Input type="checkbox" />{' '}
             Check me out
           </Label>
+        </FormGroup>
+        <FormGroup tag="fieldset">
+          <FormGroup check inline>
+            <Label check>
+              <Input type="checkbox" />{' '}
+              Check me out
+            </Label>
+          </FormGroup>
+          <FormGroup check inline>
+            <Label check>
+              <Input type="checkbox" />{' '}
+              Check me out as well
+            </Label>
+          </FormGroup>
         </FormGroup>
         <Button>Submit</Button>
       </Form>
@@ -2533,7 +2547,7 @@ class PopoverItem extends React.Component<any, any> {
         <Button className="mr-1" color="secondary" id={'Popover-' + this.props.id} onClick={this.toggle}>
           {this.props.item.text}
         </Button>
-        <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={'Popover-' + this.props.id} toggle={this.toggle}>
+        <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={'Popover-' + this.props.id} toggle={this.toggle} hideArrow={true}>
           <PopoverHeader>Popover Title</PopoverHeader>
           <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
@@ -3676,3 +3690,9 @@ const Example116 = (props: any) => {
     </div>
   );
 };
+
+class Example117 extends React.Component {
+  render() {
+    return <Input ref={e => { console.log(e); }}/>;
+  }
+}
