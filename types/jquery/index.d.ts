@@ -5565,7 +5565,7 @@ interface Iterable<T> { }
 
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
-    type Node = Element | Text | Comment;
+    type Node = Element | Text | Comment | DocumentFragment;
 
     /**
      * A string is designated htmlString in jQuery documentation when it is used to represent one or more
