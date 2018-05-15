@@ -3710,6 +3710,30 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryInputEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryInputEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryMouseEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryMouseEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryKeyEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryKeyEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', function(this: I1, event) {
                 // $ExpectType I1
                 this;
