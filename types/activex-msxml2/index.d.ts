@@ -424,7 +424,7 @@ declare namespace MSXML2 {
         createEntityReference(name: string): IXMLDOMEntityReference;
 
         /** create a node of the specified node type and name */
-        createNode(type: any, name: string, namespaceURI: string): IXMLDOMNode;
+        createNode(type: DOMNodeType.NODE_ATTRIBUTE | DOMNodeType.NODE_CDATA_SECTION | DOMNodeType.NODE_COMMENT | DOMNodeType.NODE_DOCUMENT_FRAGMENT | DOMNodeType.NODE_TEXT | DOMNodeType.NODE_ELEMENT | DOMNodeType.NODE_ENTITY_REFERENCE | DOMNodeType.NODE_PROCESSING_INSTRUCTION, name: string, namespaceURI: string): IXMLDOMNode;
 
         /** create a processing instruction node */
         createProcessingInstruction(target: string, data: string): IXMLDOMProcessingInstruction;
@@ -433,7 +433,7 @@ declare namespace MSXML2 {
         createTextNode(data: string): IXMLDOMText;
 
         /** the data type of the node */
-        dataType: any;
+        dataType: string | null;
 
         /** pointer to the definition of the node in the DTD or schema */
         readonly definition: IXMLDOMNode;
@@ -497,7 +497,7 @@ declare namespace MSXML2 {
         readonly nodeTypeString: string;
 
         /** value stored in the node */
-        nodeValue: any;
+        nodeValue: string | null;
 
         /** register an ondataavailable event handler */
         readonly ondataavailable: any;
@@ -795,8 +795,7 @@ declare namespace MSXML2 {
         getAllResponseHeaders(ppwszHeaders: string): void;
         GetCookie(pwszUrl: string, pwszName: string, dwFlags: number, pcCookies: number, ppCookies: tagXHR_COOKIE): void;
         getResponseHeader(pwszHeader: string, ppwszValue: string): void;
-        open(
-            pwszMethod: string, pwszUrl: string, pStatusCallback: IXMLHTTPRequest2Callback, pwszUserName: string, pwszPassword: string, pwszProxyUserName: string, pwszProxyPassword: string): void;
+        open(pwszMethod: string, pwszUrl: string, pStatusCallback: IXMLHTTPRequest2Callback, pwszUserName: string, pwszPassword: string, pwszProxyUserName: string, pwszProxyPassword: string): void;
         send(pBody: ISequentialStream, cbBody: number): void;
         SetCookie(pCookie: tagXHR_COOKIE, pdwCookieState: number): void;
         SetCustomResponseStream(pSequentialStream: ISequentialStream): void;
@@ -805,11 +804,11 @@ declare namespace MSXML2 {
     }
 
     /** IMXNamespacePrefixes interface */
-    class IMXNamespacePrefixes {
-        private 'MSXML2.IMXNamespacePrefixes_typekey': IMXNamespacePrefixes;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IMXNamespacePrefixes {
         item(index: number): string;
         readonly length: number;
+        (index: number): string;
     }
 
     /** XML Schema */
@@ -848,21 +847,21 @@ declare namespace MSXML2 {
     }
 
     /** XML Schema Item Collection */
-    class ISchemaItemCollection {
-        private 'MSXML2.ISchemaItemCollection_typekey': ISchemaItemCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface ISchemaItemCollection {
         item(index: number): ISchemaItem;
         itemByName(name: string): ISchemaItem;
         itemByQName(name: string, namespaceURI: string): ISchemaItem;
         readonly length: number;
+        (index: number): ISchemaItem;
     }
 
     /** XML Schema String Collection */
-    class ISchemaStringCollection {
-        private 'MSXML2.ISchemaStringCollection_typekey': ISchemaStringCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface ISchemaStringCollection {
         item(index: number): string;
         readonly length: number;
+        (index: number): string;
     }
 
     class ISequentialStream {
@@ -1960,10 +1959,8 @@ declare namespace MSXML2 {
         hasFeature(feature: string, version: string): boolean;
     }
 
-    class IXMLDOMNamedNodeMap {
-        private 'MSXML2.IXMLDOMNamedNodeMap_typekey': IXMLDOMNamedNodeMap;
-        private constructor();
-
+    // tslint:disable-next-line:interface-name
+    interface IXMLDOMNamedNodeMap {
         /** lookup item by name */
         getNamedItem(name: string): IXMLDOMNode;
 
@@ -1990,6 +1987,9 @@ declare namespace MSXML2 {
 
         /** set item by name */
         setNamedItem(newItem: IXMLDOMNode): IXMLDOMNode;
+
+        /** collection of nodes */
+        (index: number): IXMLDOMNode;
     }
 
     /** Core DOM node interface */
@@ -2090,10 +2090,8 @@ declare namespace MSXML2 {
         readonly xml: string;
     }
 
-    class IXMLDOMNodeList {
-        private 'MSXML2.IXMLDOMNodeList_typekey': IXMLDOMNodeList;
-        private constructor();
-
+    // tslint:disable-next-line:interface-name
+    interface IXMLDOMNodeList {
         /** collection of nodes */
         item(index: number): IXMLDOMNode;
 
@@ -2105,6 +2103,9 @@ declare namespace MSXML2 {
 
         /** reset the position of iterator */
         reset(): void;
+
+        /** collection of nodes */
+        (index: number): IXMLDOMNode;
     }
 
     /** structure for reporting parser errors */
@@ -2238,10 +2239,8 @@ declare namespace MSXML2 {
     }
 
     /** XML Schemas Collection */
-    class IXMLDOMSchemaCollection {
-        private 'MSXML2.IXMLDOMSchemaCollection_typekey': IXMLDOMSchemaCollection;
-        private constructor();
-
+    // tslint:disable-next-line:interface-name
+    interface IXMLDOMSchemaCollection {
         /** add a new schema */
         add(namespaceURI: string, var_1: any): void;
 
@@ -2259,6 +2258,9 @@ declare namespace MSXML2 {
 
         /** remove schema by namespaceURI */
         remove(namespaceURI: string): void;
+
+        /** Get namespaceURI for schema by index */
+        (index: number): string;
     }
 
     class IXMLDOMText {
@@ -2403,7 +2405,7 @@ declare namespace MSXML2 {
 
         /**
          * set <xsl:param> values
-         * @param string [namespaceURI='']
+         * @param namespaceURI [namespaceURI='0']
          */
         addParameter(baseName: string, parameter: any, namespaceURI?: string): void;
 
@@ -2424,7 +2426,7 @@ declare namespace MSXML2 {
 
         /**
          * set XSL mode and it's namespace
-         * @param string [namespaceURI='']
+         * @param namespaceURI [namespaceURI='0']
          */
         setStartMode(mode: string, namespaceURI?: string): void;
 
@@ -2487,7 +2489,7 @@ declare namespace MSXML2 {
         popContext(): void;
         pushContext(): void;
 
-        /** @param boolean [fDeep=true] */
+        /** @param fDeep [fDeep=true] */
         pushNodeContext(contextNode: IXMLDOMNode, fDeep?: boolean): void;
         reset(): void;
     }
@@ -2730,10 +2732,7 @@ declare namespace MSXML2 {
     }
 
     /** XML Schema Cache 6.0 */
-    class XMLSchemaCache60 {
-        private 'MSXML2.XMLSchemaCache60_typekey': XMLSchemaCache60;
-        private constructor();
-
+    interface XMLSchemaCache60 {
         /** add a new schema */
         add(namespaceURI: string, var_1: any): void;
 
@@ -2755,6 +2754,9 @@ declare namespace MSXML2 {
         remove(namespaceURI: string): void;
         validate(): void;
         validateOnLoad: boolean;
+
+        /** Get namespaceURI for schema by index */
+        (index: number): string;
     }
 
     /** XSL Stylesheet Cache 6.0 */
@@ -2787,12 +2789,6 @@ interface ActiveXObjectNameMap {
     'Msxml2.SAXXMLReader': MSXML2.SAXXMLReader60;
     'Msxml2.ServerXMLHTTP': MSXML2.ServerXMLHTTP60;
     'Msxml2.XMLHTTP': MSXML2.XMLHTTP60;
-    'Msxml2.XMLHTTP.6.0': MSXML2.XMLHTTP60;
     'Msxml2.XMLSchemaCache': MSXML2.XMLSchemaCache60;
-    'Msxml2.XMLSchemaCache.6.0': MSXML2.XMLSchemaCache60;
     'Msxml2.XSLTemplate': MSXML2.XSLTemplate60;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }

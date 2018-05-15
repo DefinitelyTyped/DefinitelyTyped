@@ -1,3 +1,4 @@
+import Maybe from "./tsutils/Maybe";
 import { Source } from "./language/source";
 import { GraphQLFieldResolver } from "./type/definition";
 import { GraphQLSchema } from "./type/schema";
@@ -33,25 +34,40 @@ import { ExecutionResult } from "./execution/execute";
  *    If not provided, the default field resolver is used (which looks for a
  *    value or method on the source value with the field's name).
  */
-export function graphql(args: {
+export interface GraphQLArgs {
     schema: GraphQLSchema;
-    source: string | Source;
+    source: Source | string;
     rootValue?: any;
     contextValue?: any;
-    variableValues?: {
-        [key: string]: any;
-    };
-    operationName?: string;
-    fieldResolver?: GraphQLFieldResolver<any, any>;
-}): Promise<ExecutionResult>;
+    variableValues?: Maybe<{ [key: string]: any }>;
+    operationName?: Maybe<string>;
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+}
+
+export function graphql(args: GraphQLArgs): Promise<ExecutionResult>;
 export function graphql(
     schema: GraphQLSchema,
-    source: string | Source,
+    source: Source | string,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: {
-        [key: string]: any;
-    },
-    operationName?: string,
-    fieldResolver?: GraphQLFieldResolver<any, any>
+    variableValues?: Maybe<{ [key: string]: any }>,
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
 ): Promise<ExecutionResult>;
+
+/**
+ * The graphqlSync function also fulfills GraphQL operations by parsing,
+ * validating, and executing a GraphQL document along side a GraphQL schema.
+ * However, it guarantees to complete synchronously (or throw an error) assuming
+ * that all field resolvers are also synchronous.
+ */
+export function graphqlSync(args: GraphQLArgs): ExecutionResult;
+export function graphqlSync(
+    schema: GraphQLSchema,
+    source: Source | string,
+    rootValue?: any,
+    contextValue?: any,
+    variableValues?: Maybe<{ [key: string]: any }>,
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
+): ExecutionResult;

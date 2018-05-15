@@ -1,6 +1,7 @@
 // Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
+//                 Tycho Grouwstra <https://github.com/tycho01>
 //                 Matt DeKrey <https://github.com/mdekrey>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
@@ -16,12 +17,17 @@
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Jack Leigh <https://github.com/leighman>
+//                 Keagan McClelland <https://github.com/CaptJakk>
+//                 Tomas Szabo <https://github.com/deftomat>
+//                 Bonggyun Lee <https://github.com/deptno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare let R: R.Static;
 
 declare namespace R {
+    type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
+
     type Ord = number | string | boolean;
 
     type Path = ReadonlyArray<(number | string)>;
@@ -951,10 +957,11 @@ declare namespace R {
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
         map<T, U>(fn: (x: T) => U, list: ReadonlyArray<T>): U[];
-        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
         map<T, U>(fn: (x: T) => U): (list: ReadonlyArray<T>) => U[];
-        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T], obj: T): U;
-        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T]): (obj: T) => U;
+        map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
+        map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
+        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
+        map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.
@@ -1016,11 +1023,20 @@ declare namespace R {
         median(list: ReadonlyArray<number>): number;
 
         /**
+         * @deprecated since v0.25.0
+         *
          * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and
          * returns the result. Subsequent calls to the memoized fn with the same argument set will not result in an
          * additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
-        memoize<T = any>(fn: (...a: any[]) => T): (...a: any[]) => T;
+        memoize<T extends (...args: any[]) => any>(fn: T): T;
+
+        /**
+         * A customisable version of R.memoize. memoizeWith takes an additional function that will be applied to a given
+         * argument set and used to create the cache key under which the results of the function to be memoized will be stored.
+         * Care must be taken when implementing key generation to avoid clashes that may overwrite previous entries erroneously.
+         */
+        memoizeWith<T extends (...args: any[]) => any>(keyFn: (...v: any[]) => string, fn: T): T;
 
         /**
          * Create a new object with the own properties of a
@@ -1172,8 +1188,8 @@ declare namespace R {
         /**
          * Returns a partial copy of an object omitting the keys specified.
          */
-        omit<T>(names: ReadonlyArray<string>, obj: T): T;
-        omit(names: ReadonlyArray<string>): <T>(obj: T) => T;
+        omit<T, K extends string>(names: ReadonlyArray<K>, obj: T): Omit<T, K>;
+        omit<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Omit<T, K>;
 
         /**
          * Accepts a function fn and returns a function that guards invocation of fn such that fn can only ever be
@@ -1283,8 +1299,8 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, K extends keyof T>(names: ReadonlyArray<K | string>, obj: T): Pick<T, K>;
-        pick(names: ReadonlyArray<string>): <T, U>(obj: T) => U;
+        pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+        pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
@@ -1475,6 +1491,7 @@ declare namespace R {
          * Reasonable analog to SQL `select` statement.
          */
         project<T, U>(props: ReadonlyArray<string>, objs: ReadonlyArray<T>): U[];
+        project<T, U>(props: ReadonlyArray<string>): (objs: ReadonlyArray<T>) => U[];
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.

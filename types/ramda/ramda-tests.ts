@@ -305,8 +305,38 @@ R.times(i, 5);
     function stringLength(str: string): number {
       return str.length;
     }
-    const memoStringLength = R.memoize<number>(stringLength);
+    const memoStringLength = R.memoize(stringLength);
     const isLong = memoStringLength('short') > 10; // false
+})();
+
+(() => {
+    interface Vector {
+      x: number;
+      y: number;
+    }
+
+    let numberOfCalls = 0;
+
+    function vectorSum(a: Vector, b: Vector): Vector {
+        numberOfCalls += 1;
+        return {
+            x: a.x + b.x,
+            y: a.y + b.y
+        };
+    }
+
+    const memoVectorSum = R.memoizeWith(JSON.stringify, vectorSum);
+
+    memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
+    numberOfCalls; // => 1
+    memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
+    numberOfCalls; // => 1
+    memoVectorSum({ x: 1, y: 2 }, { x: 2, y: 3 }); // => { x: 3, y: 5 }
+    numberOfCalls; // => 2
+
+    // Note that argument order matters
+    memoVectorSum({ x: 2, y: 3 }, { x: 1, y: 2 }); // => { x: 3, y: 5 }
+    numberOfCalls; // => 3
 })();
 
 (() => {
@@ -1589,6 +1619,7 @@ class Rectangle {
     const fred = {name: "Fred", age: 12, hair: "brown", grade: 7};
     const kids = [abby, fred];
     R.project(["name", "grade"], kids); // => [{name: 'Abby', grade: 2}, {name: 'Fred', grade: 7}]
+    R.project(["name", "grade"])(kids); // => [{name: 'Abby', grade: 2}, {name: 'Fred', grade: 7}]
 };
 
 () => {

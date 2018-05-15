@@ -1,15 +1,26 @@
-// Type definitions for rc-tree 1.4
+// Type definitions for rc-tree 1.10
 // Project: https://github.com/react-component/tree
-// Definitions by: John Reilly <https://github.com/johnnyreilly>
+// Definitions by: John Reilly <https://github.com/johnnyreilly>, Methuselah96 <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.7
 
-import {
-    Component,
-    Props
-} from "react";
+import { Component } from "react";
 
-export interface TreeNodeProps extends Props<TreeNode> {
+export interface InternalTreeNodeProps extends TreeNodeProps {
+    eventKey: string;
+    expanded: boolean;
+    selected: boolean;
+    checked: boolean;
+    halfChecked: boolean;
+    pos: string;
+    dragOver: boolean;
+    dragOverGapTop: boolean;
+    dragOverGapBottom: boolean;
+}
+
+export interface InternalTreeNode extends Component<InternalTreeNodeProps> { }
+
+export interface TreeNodeProps {
     /**
      * additional css class for treeNode
      */
@@ -27,10 +38,6 @@ export interface TreeNodeProps extends Props<TreeNode> {
      */
     title?: string | JSX.Element;
     /**
-     * it's used with tree props (default)ExpandedKeys / (default)CheckedKeys / (default)SelectedKeys. You'd better set it, and it must be unique in the tree's all treeNodes
-     */
-    key?: string | number;
-    /**
      * whether it is a leaf node
      */
     isLeaf?: boolean;
@@ -40,43 +47,43 @@ export class TreeNode extends Component<TreeNodeProps> { }
 
 export interface ExpandData {
     expanded: boolean;
-    node: TreeNode;
+    node: InternalTreeNode;
 }
 
 export interface CheckData {
     checked: boolean;
-    checkedNodes: TreeNode[];
+    checkedNodes: InternalTreeNode[];
     halfCheckedKeys: string[];
-    node: TreeNode;
+    node: InternalTreeNode;
     event: "check";
 }
 
 export interface SelectData {
     selected: boolean;
-    selectedNodes: TreeNode[];
-    node: TreeNode;
+    selectedNodes: InternalTreeNode[];
+    node: InternalTreeNode;
     event: "select";
 }
 
 export interface OnDragStartData {
     event: Event;
-    node: TreeNode;
+    node: InternalTreeNode;
 }
 
 export interface OnDragEnterData {
     event: Event;
-    node: TreeNode;
+    node: InternalTreeNode;
     expandedKeys: string[];
 }
 
 export interface OnDropData {
     event: Event;
-    node: TreeNode;
-    dragNode: TreeNode;
+    node: InternalTreeNode;
+    dragNode: InternalTreeNode;
     dragNodesKeys: string[];
 }
 
-export interface TreeProps extends Props<Tree> {
+export interface TreeProps {
     /**
      * additional css class of root dom node
      */
@@ -158,11 +165,11 @@ export interface TreeProps extends Props<Tree> {
     /**
      * filter some treeNodes as you need.
      */
-    filterTreeNode?(node: TreeNode): boolean;
+    filterTreeNode?(node: InternalTreeNode): boolean;
     /**
      * load data asynchronously
      */
-    loadData?(node: TreeNode): Promise<any>;
+    loadData?(node: InternalTreeNode): Promise<any>;
     /**
      * whether can drag treeNode.
      */

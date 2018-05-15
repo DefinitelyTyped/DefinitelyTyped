@@ -1,4 +1,4 @@
-// Type definitions for raven 2.1
+// Type definitions for raven 2.5
 // Project: https://github.com/getsentry/raven-node
 // Definitions by: Scott Cooper <https://github.com/scttcper>
 //                 Dmitrii Sorin <https://github.com/1999>
@@ -7,7 +7,9 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage, ServerResponse } from 'http';
+import {
+  IncomingMessage, ServerResponse, OutgoingHttpHeaders, Agent, ClientRequest
+} from 'http';
 import { EventEmitter } from 'events';
 
 // expose all methods of `Client` class since raven exposes a singleton instance
@@ -81,7 +83,7 @@ export interface ConstructorOptions {
     sampleRate?: number;
     sendTimeout?: number;
     shouldSendCallback?: ShouldSendCallback;
-    transport?: TransportCallback;
+    transport?: transports.Transport;
     captureUnhandledRejections?: boolean;
     maxBreadcrumbs?: number;
     autoBreadcrumbs?: boolean | { [breadcrumbType: string]: boolean };
@@ -113,8 +115,6 @@ export type DataCallback = (data: { [key: string]: any }) => any;
 
 export type ShouldSendCallback = (data: { [key: string]: any }) => boolean;
 
-export type TransportCallback = (options: { [key: string]: any }) => void;
-
 export interface CaptureOptions {
     tags?: { [key: string]: string };
     extra?: { [key: string]: any };
@@ -122,4 +122,42 @@ export interface CaptureOptions {
     level?: string;
     req?: IncomingMessage;
     user?: any;
+}
+
+export namespace transports {
+  interface HTTPTransportOptions {
+    hostname?: string;
+    path?: string;
+    headers?: OutgoingHttpHeaders;
+    method?: 'POST' | 'GET';
+    port?: number;
+    ca?: string;
+    agent?: Agent;
+  }
+  abstract class Transport extends EventEmitter {
+    abstract send(
+      client: Client,
+      message: any,
+      headers: OutgoingHttpHeaders,
+      eventId: string,
+      cb: CaptureCallback
+    ): void;
+  }
+  class HTTPTransport extends Transport {
+    defaultPort: string;
+    options: HTTPTransportOptions;
+    agent: Agent;
+    constructor(options?: HTTPTransportOptions);
+    send(
+      client: Client,
+      message: any,
+      headers: OutgoingHttpHeaders,
+      eventId: string,
+      cb: CaptureCallback
+    ): void;
+  }
+  class HTTPSTransport extends HTTPTransport {
+  }
+  const https: HTTPSTransport;
+  const http: HTTPTransport;
 }

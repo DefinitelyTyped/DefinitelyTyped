@@ -138,6 +138,10 @@ function testSandbox() {
         sandbox.mock(objectUnderTest).expects("process").once();
     }
     sandbox.useFakeTimers();
+    sandbox.useFakeTimers({
+        now: 1,
+        toFake: ['Date']
+    });
     sandbox.useFakeXMLHttpRequest();
     sandbox.useFakeServer();
     sandbox.restore();

@@ -1,6 +1,9 @@
 // Type definitions for yup 0.24
 // Project: https://github.com/jquense/yup
-// Definitions by: Dominik Hardtke <https://github.com/dhardtke>, Vladyslav Tserman <https://github.com/vtserman>, Moreton Bay Regional Council <https://github.com/MoretonBayRC>
+// Definitions by: Dominik Hardtke <https://github.com/dhardtke>,
+//                 Vladyslav Tserman <https://github.com/vtserman>,
+//                 Moreton Bay Regional Council <https://github.com/MoretonBayRC>,
+//                 Sindre Seppola <https://github.com/sseppola>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -34,8 +37,8 @@ export interface Schema<T> {
     meta(): any;
     describe(): SchemaDescription;
     concat(schema: this): this;
-    validate(value: T, options?: ValidateOptions): Promise<ValidationError|T>;
-    validateSync(value: T, options?: ValidateOptions): ValidationError|T;
+    validate(value: T, options?: ValidateOptions): Promise<ValidationError | T>;
+    validateSync(value: T, options?: ValidateOptions): ValidationError | T;
     isValid(value: T, options?: any): Promise<boolean>;
     isValidSync(value: T, options?: any): boolean;
     cast(value: any, options?: any): T;
@@ -51,14 +54,14 @@ export interface Schema<T> {
     oneOf(arrayOfValues: any[], message?: string): this;
     notOneOf(arrayOfValues: any[], message?: string): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
-    test(name: string, message: string, test: (value?: any) => boolean, callbackStyleAsync?: boolean): this;
+    test(name: string, message: string, test: (value?: any) => boolean | Promise<boolean>, callbackStyleAsync?: boolean): this;
     test(options: TestOptions): this;
     transform(fn: TransformFunction<this>): this;
 }
 
 export interface MixedSchemaConstructor {
-  (): MixedSchema;
-  new(options?: { type?: string, [key: string]: any }): MixedSchema;
+    (): MixedSchema;
+    new(options?: { type?: string, [key: string]: any }): MixedSchema;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -73,7 +76,7 @@ export interface StringSchemaConstructor {
 export interface StringSchema extends Schema<string> {
     min(limit: number | Ref, message?: string): StringSchema;
     max(limit: number | Ref, message?: string): StringSchema;
-    matches(regex: RegExp, message?: string): StringSchema;
+    matches(regex: RegExp, messageOrOptions?: string | { message?: string; excludeEmptyString?: boolean }): StringSchema;
     email(message?: string): StringSchema;
     url(message?: string): StringSchema;
     ensure(): StringSchema;
@@ -133,7 +136,7 @@ export interface ArraySchema<T> extends Schema<T[]> {
 
 export interface ObjectSchemaConstructor {
     <T>(fields?: { [field in keyof T]: Schema<T[field]> }): ObjectSchema<T>;
-    new (): ObjectSchema<{}>;
+    new(): ObjectSchema<{}>;
 }
 
 export interface ObjectSchema<T> extends Schema<T> {
@@ -155,8 +158,8 @@ export interface WhenOptionsBuilder<T> {
 }
 
 export type WhenOptions<T> = WhenOptionsBuilder<T>
-| { is: boolean | ((value: any) => boolean), then: any, otherwise: any }
-| object;
+    | { is: boolean | ((value: any) => boolean), then: any, otherwise: any }
+    | object;
 
 export interface ValidateOptions {
     /**
@@ -190,7 +193,7 @@ export interface TestOptions {
     /**
      * Test function, determines schema validity
      */
-    test: (value: any) => boolean;
+    test: (value: any) => boolean | Promise<boolean>;
 
     /**
      * The validation error message
@@ -245,12 +248,12 @@ export interface Lazy extends Schema<any> {
 }
 
 export interface LocaleObject {
-  mixed?: { [key in keyof MixedSchema]?: string };
-  string?: { [key in keyof StringSchema]?: string };
-  number?: { [key in keyof NumberSchema]?: string };
-  boolean?: { [key in keyof BooleanSchema]?: string };
-  bool?: { [key in keyof BooleanSchema]?: string };
-  date?: { [key in keyof DateSchema]?: string };
-  array?: { [key in keyof ArraySchema<any>]?: string };
-  object?: { [key in keyof ObjectSchema<any>]?: string };
+    mixed?: { [key in keyof MixedSchema]?: string };
+    string?: { [key in keyof StringSchema]?: string };
+    number?: { [key in keyof NumberSchema]?: string };
+    boolean?: { [key in keyof BooleanSchema]?: string };
+    bool?: { [key in keyof BooleanSchema]?: string };
+    date?: { [key in keyof DateSchema]?: string };
+    array?: { [key in keyof ArraySchema<any>]?: string };
+    object?: { [key in keyof ObjectSchema<any>]?: string };
 }

@@ -1,6 +1,9 @@
 // Type definitions for RethinkDB 2.3
 // Project: http://rethinkdb.com/
-// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>, Adrian Farmadin <https://github.com/AdrianFarmadin>
+// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>
+//                 Adrian Farmadin <https://github.com/AdrianFarmadin>
+//                 Pusztai Tibor <https://github.com/kondi>
+//                 Keiichiro Amemiya <https://github.com/hoishin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,6 +45,7 @@ declare module "rethinkdb" {
 
     export function point(lng: number, lat: number): Point;
     export function polygon(...point: Point[]): Polygon;
+    export function circle(point: Point, radius: number, options?: CircleOptions): Geometry;
 
     export var count: Aggregator;
     export function sum(prop: string): Aggregator;
@@ -51,6 +55,7 @@ declare module "rethinkdb" {
     export function expr(stuff: any): Expression<any>;
 
     export function now(): Expression<Time>;
+    export function epochTime(): Expression<Time>;
 
     // Control Structures
     export function branch(test: Expression<boolean>, trueBranch: Expression<any>, falseBranch: Expression<any>): Expression<any>;
@@ -136,6 +141,12 @@ declare module "rethinkdb" {
         noreplyWait: boolean;
     }
 
+    interface ServerResult {
+        id: string;
+        proxy: boolean;
+        name?: string;
+    }
+
     interface Connection {
         open: boolean;
 
@@ -147,6 +158,9 @@ declare module "rethinkdb" {
         reconnect(cb: (err: Error, conn: Connection) => void): void;
         reconnect(opts: NoReplyWait, cb: (err: Error, conn: Connection) => void): void;
         reconnect(opts?: NoReplyWait): Promise<Connection>;
+
+        server(cb: (err: Error, conn: ServerResult) => void): void;
+        server(): Promise<ServerResult>;
 
         use(dbName: string): void;
         addListener(event: string, cb: Function): void;
@@ -236,7 +250,7 @@ declare module "rethinkdb" {
          * See: https://rethinkdb.com/api/javascript/has_fields/
          */
         hasFields(...fields: string[]): T;
-    } 
+    }
 
     interface Geometry { }
 
@@ -245,7 +259,7 @@ declare module "rethinkdb" {
     interface Polygon extends Geometry { }
 
     interface Table extends Sequence, HasFields<Sequence> {
-        indexCreate(name: string, index?: ExpressionFunction<any>): Operation<CreateResult>;
+        indexCreate(name: string, index?: IndexFunction<any>): Operation<CreateResult>;
         indexDrop(name: string): Operation<DropResult>;
         indexList(): Operation<string[]>;
         indexWait(name?: string): Operation<Array<{ index: string, ready: true, function: number, multi: boolean, geo: boolean, outdated: boolean }>>;
@@ -301,6 +315,7 @@ declare module "rethinkdb" {
         isEmpty(): Expression<boolean>;
         union(sequence: Sequence): Sequence;
         sample(n: number): Sequence;
+        getField(prop: string): Sequence;
 
         // Aggregate
         reduce(r: ReduceFunction<any>, base?: any): Expression<any>;
@@ -314,6 +329,8 @@ declare module "rethinkdb" {
         pluck(...props: string[]): Sequence;
         without(...props: string[]): Sequence;
     }
+
+    type IndexFunction<U> = Expression<U> | Expression<U>[] | ((doc: Expression<any>) => Expression<U> | Expression<U>[]);
 
     interface ExpressionFunction<U> {
         (doc: Expression<any>): Expression<U>;
@@ -337,6 +354,28 @@ declare module "rethinkdb" {
         nonAtomic?: boolean;
         durability?: 'hard' | 'soft';
         returnChanges?: boolean;
+    }
+
+    export interface DistanceOptions {
+        /**
+         * Unit for the distance. Possible values are `m` (meter, the default), `km` (kilometer), `mi` (international mile), `nm` (nautical mile), `ft` (international foot).
+         */
+        unit?: 'm' | 'km' | 'mi' | 'nm' | 'ft';
+        /**
+         * The reference ellipsoid to use for geographic coordinates. Possible values are `WGS84` (the default), a common standard for Earth’s geometry, or `unit_sphere`, a perfect sphere of 1 meter radius.
+         */
+        geoSystem?: 'WGS84' | 'unit_sphere';
+    }
+
+    export interface CircleOptions extends DistanceOptions {
+        /**
+         * The number of vertices in the polygon or line. Defaults to 32.
+         */
+        numVertices?: number;
+        /**
+         * If `true` (the default) the circle is filled, creating a polygon; if `false` the circle is unfilled (creating a line).
+         */
+        fill?: boolean;
     }
 
     interface WriteResult {
@@ -417,6 +456,8 @@ declare module "rethinkdb" {
         mul(n: number): Expression<number>;
         div(n: number): Expression<number>;
         mod(n: number): Expression<number>;
+
+        distance(geometry: Geometry, options?: DistanceOptions): Expression<number>;
 
         default(value: T): Expression<T>;
     }

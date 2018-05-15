@@ -22,10 +22,10 @@ interface VerifyFunction {
     (clientId: string, clientSecret: string, done: (error: any, client?: any, info?: any) => void): void;
 }
 
-declare class Strategy implements passport.Strategy {
+declare class Strategy extends passport.Strategy {
     constructor(options: StrategyOptionsWithRequestInterface, verify: VerifyFunctionWithRequest);
     constructor(verify: VerifyFunction);
 
     name: string;
-    authenticate: (req: express.Request, options?: {}) => void;
+    authenticate(req: express.Request, options?: {}): void;
 }

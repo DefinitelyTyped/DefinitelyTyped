@@ -5,6 +5,7 @@ import {
   withKnobsOptions,
   number,
   color,
+  files,
   object,
   boolean,
   text,
@@ -88,3 +89,17 @@ stories.add('dynamic knobs', () => {
     </div>
   );
 });
+
+// groups
+const groupId = 'GROUP-ID1';
+
+text('label', 'default', groupId);
+boolean('label', true, groupId);
+number('label', 1, {}, groupId);
+color('label', '#ffffff', groupId);
+object('label', {}, groupId);
+array('label', [], ',', groupId);
+select<any>('label', { option: 'Option' }, null, groupId);
+files('label', 'image/*', []);
+date('label', new Date(), groupId);
+button('label', () => undefined, groupId);
