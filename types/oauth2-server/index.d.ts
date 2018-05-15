@@ -327,7 +327,6 @@ declare namespace OAuth2Server {
      * A user object is completely transparent to oauth2-server and is simply used as input to model functions.
      */
     interface User {
-        id: string;
         [key: string]: any;
     }
 
