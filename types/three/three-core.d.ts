@@ -5405,21 +5405,7 @@ export class WebGLRenderer implements Renderer {
      */
     maxMorphNormals: number;
 
-    /**
-     * An object with a series of statistical information about the graphics board memory and the rendering process. Useful for debugging or just for the sake of curiosity. The object contains the following fields:
-     */
-    info: {
-        memory: {
-            geometries: number;
-            textures: number;
-        };
-        render: {
-            calls: number;
-            faces: number;
-            points: number;
-        };
-        programs: number;
-    };
+    info: WebGLInfo;
 
     shadowMap: WebGLShadowMap;
 
@@ -6065,6 +6051,26 @@ export class WebGLLights {
     get(light: any): any;
 }
 
+/** 
+ * An object with a series of statistical information about the graphics board memory and the rendering process. 
+ */ 
+export class WebGLInfo {
+    autoReset: boolean;
+    memory: { 
+        geometries: number;
+        textures: number;
+    };
+    programs: WebGLProgram[] | null;
+    render: {
+        calls: number;
+        frame: number;
+        lines: number;
+        points: number;
+        triangles: number;
+    };
+    reset(): void;
+}
+
 export class WebGLIndexedBufferRenderer {
     constructor(gl: WebGLRenderingContext, properties: any, info: any);
 
@@ -6108,7 +6114,7 @@ export class WebGLProgram {
 export class WebGLPrograms {
     constructor(renderer: WebGLRenderer, capabilities: any);
 
-    programs: any[];
+    programs: WebGLProgram[];
 
     getParameters(material: ShaderMaterial, lights: any, fog: any, nClipPlanes: number, object: any): any;
     getProgramCode(material: ShaderMaterial, parameters: any): string;
