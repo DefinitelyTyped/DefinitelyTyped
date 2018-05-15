@@ -560,7 +560,7 @@ declare namespace webpack {
             /** Assign modules to a cache group */
             test?: ((...args: any[]) => boolean) | string | RegExp;
             /** Select chunks for determining cache group content (defaults to \"initial\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all" | ((chunk: any, index?: number, chunks?: any[]) => boolean);
+            chunks?: "initial" | "async" | "all" | ((chunk: any) => boolean);
             /** Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group */
             enforce?: boolean;
             /** Priority of this cache group */
@@ -580,7 +580,7 @@ declare namespace webpack {
         }
         interface SplitChunksOptions {
             /** Select chunks for determining shared modules (defaults to \"async\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all" | ((chunk: any, index?: number, chunks?: any[]) => boolean);
+            chunks?: "initial" | "async" | "all" | ((chunk: any) => boolean);
             /** Minimal size for the created chunk */
             minSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
