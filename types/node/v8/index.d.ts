@@ -2262,7 +2262,7 @@ declare module "child_process" {
             stdout: T;
             stderr: T;
             status: number;
-            signal: string;
+            signal: string | null;
         }
     }
     export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
