@@ -118,7 +118,7 @@ export interface LightBox {
 }
 
 export interface NavigatorEvent {
-    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview';
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress';
 }
 
 export class Navigator {
