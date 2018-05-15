@@ -8,13 +8,45 @@ pw.on('error', (err: Error) => {
     console.log(err);
 });
 
-const r1: Error | null = spawn.sync('foo').error;
-const r2: [Buffer | null, Buffer | null, Buffer | null] | null = spawn.sync('foo').output;
-const r3: Buffer | null = spawn.sync('foo').stdout;
-const r4: Buffer | null = spawn.sync('foo').stderr;
-const r5: number | null = spawn.sync('foo').status;
-const r6: string | null = spawn.sync('foo').signal;
-const r7: string | null = spawn.sync('foo', {encoding: 'utf8'}).stdout;
+function testBuffer() {
+    const res = spawn.sync('foo')
+
+    if (res.error) {
+        const r1: Error = res.error;
+        const r2: null = res.output;
+        const r3: null = res.stdout;
+        const r4: null = res.stderr;
+        const r5: null = res.status;
+        const r6: null = res.signal;
+    } else {
+        const r1: null = res.error;
+        const r2: [Buffer | null, Buffer | null, Buffer | null] = res.output;
+        const r3: Buffer = res.stdout;
+        const r4: Buffer = res.stderr;
+        const r5: number = res.status;
+        const r6: string | null = res.signal;
+    }
+}
+
+function testString() {
+    const res = spawn.sync('foo', {encoding: 'utf8'})
+
+    if (res.error) {
+        const r1: Error = res.error;
+        const r2: null = res.output;
+        const r3: null = res.stdout;
+        const r4: null = res.stderr;
+        const r5: null = res.status;
+        const r6: null = res.signal;
+    } else {
+        const r1: null = res.error;
+        const r2: [string | null, string | null, string | null] = res.output;
+        const r3: string = res.stdout;
+        const r4: string = res.stderr;
+        const r5: number = res.status;
+        const r6: string | null = res.signal;
+    }
+}
 
 spawn.sync('foo', ['bar']);
 spawn.sync('foo', ['bar'], {stdio: 'inherit'});
