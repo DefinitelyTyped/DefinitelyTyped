@@ -2,22 +2,20 @@
 // Project: https://github.com/chenglou/react-radio-group
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
-type Value = React.InputHTMLAttributes<HTMLInputElement>['value'];
-
 export namespace Radio {
-    export type RadioProps = React.InputHTMLAttributes<HTMLInputElement>;
+    type RadioProps = React.InputHTMLAttributes<HTMLInputElement>;
 }
 export const Radio: React.ComponentClass<Radio.RadioProps>;
 
 export namespace RadioGroup {
-    export interface RadioGroupProps {
+    interface RadioGroupProps {
         name?: string;
-        selectedValue?: Value;
-        onChange?: (value: Value) => void;
+        selectedValue?: React.InputHTMLAttributes<HTMLInputElement>['value'];
+        onChange?: (value: React.InputHTMLAttributes<HTMLInputElement>['value']) => void;
         Component?: string | React.ReactElement<React.HTMLProps<HTMLElement>>;
     }
 }
