@@ -9,6 +9,7 @@ import {
   Response,
   IndexSettings,
   QueryParameters,
+  Client
 } from 'algoliasearch';
 
 let _algoliaResponse: Response = {
@@ -78,7 +79,7 @@ let _algoliaIndexSettings: IndexSettings = {
   ignorePlurals: false,
   disableTypoToleranceOnAttributes: '',
   separatorsToIndex: '',
-  queryType: '',
+  queryType: 'prefixAll',
   removeWordsIfNoResults: '',
   advancedSyntax: false,
   optionalWords: [''],
@@ -86,7 +87,7 @@ let _algoliaIndexSettings: IndexSettings = {
   disablePrefixOnAttributes: [''],
   disableExactOnAttributes: [''],
   exactOnSingleWordQuery: '',
-  alternativesAsExact: false,
+  alternativesAsExact: ['ignorePlurals'],
   attributeForDistinct: '',
   distinct: false,
   numericAttributesToIndex: [''],
@@ -147,7 +148,8 @@ let _algoliaQueryParameters: QueryParameters = {
   minProximity: 0,
 };
 
-let index: Index = algoliasearch('', '').initIndex('');
+let client: Client = algoliasearch('', '');
+let index: Index = client.initIndex('');
 
 let search = index.search({ query: '' });
 
@@ -164,3 +166,12 @@ index.partialUpdateObjects([{}], () => {});
 index.partialUpdateObjects([{}], false, () => {});
 index.partialUpdateObjects([{}]).then(() => {});
 index.partialUpdateObjects([{}], false).then(() => {});
+
+let indexName : string = index.indexName;
+
+// complete copy
+client.copyIndex('from', 'to').then(()=>{})
+client.copyIndex('from', 'to', ()=> {})
+// with scope
+client.copyIndex('from', 'to', ['settings']).then(()=>{})
+client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {})

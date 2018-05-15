@@ -109,6 +109,7 @@ namespace events_tests {
         result = emitter.prependListener(event, listener);
         result = emitter.prependOnceListener(event, listener);
         result = emitter.removeListener(event, listener);
+        result = emitter.off(event, listener);
         result = emitter.removeAllListeners();
         result = emitter.removeAllListeners(event);
         result = emitter.setMaxListeners(42);
@@ -857,6 +858,35 @@ namespace util_tests {
 
         // util.isDeepStrictEqual
         util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
+
+        // util.TextDecoder()
+        var td = new util.TextDecoder();
+        new util.TextDecoder("utf-8");
+        new util.TextDecoder("utf-8", { fatal: true });
+        new util.TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
+        var ignoreBom: boolean = td.ignoreBOM;
+        var fatal: boolean = td.fatal;
+        var encoding: string = td.encoding;
+        td.decode(new Int8Array(1));
+        td.decode(new Int16Array(1));
+        td.decode(new Int32Array(1));
+        td.decode(new Uint8Array(1));
+        td.decode(new Uint16Array(1));
+        td.decode(new Uint32Array(1));
+        td.decode(new Uint8ClampedArray(1));
+        td.decode(new Float32Array(1));
+        td.decode(new Float64Array(1));
+        td.decode(new DataView(new Int8Array(1).buffer));
+        td.decode(new ArrayBuffer(1));
+        td.decode(null);
+        td.decode(null, { stream: true });
+        td.decode(new Int8Array(1), { stream: true });
+        var decode: string = td.decode(new Int8Array(1));
+
+        // util.TextEncoder()
+        var te = new util.TextEncoder();
+        var teEncoding: string = te.encoding;
+        var teEncodeRes: Uint8Array = te.encode("TextEncoder");
     }
 }
 

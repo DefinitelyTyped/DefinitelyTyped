@@ -23,6 +23,7 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Lishude <https://github.com/islishude>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -560,6 +561,7 @@ declare namespace NodeJS {
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
         removeAllListeners(event?: string | symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
@@ -1003,7 +1005,8 @@ declare module "events" {
 
     namespace internal {
         export class EventEmitter extends internal {
-            static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
+            /** @deprecated since v4.0.0 */
+            static listenerCount(emitter: EventEmitter, event: string | symbol): number;
             static defaultMaxListeners: number;
 
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1012,6 +1015,7 @@ declare module "events" {
             prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
             prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            off(event: string | symbol, listener: (...args: any[]) => void): this;
             removeAllListeners(event?: string | symbol): this;
             setMaxListeners(n: number): this;
             getMaxListeners(): number;
@@ -2253,33 +2257,33 @@ declare module "child_process" {
 
     export function execFile(file: string): ChildProcess;
     export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
+    export function execFile(file: string, args?: ReadonlyArray<string> | null): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
 
     // no `options` definitely means stdout/stderr are `string`.
     export function execFile(file: string, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
     export function execFile(file: string, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
     export function execFile(file: string, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
     export function execFile(file: string, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
     export function execFile(file: string, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace execFile {
@@ -2308,7 +2312,7 @@ declare module "child_process" {
         gid?: number;
         windowsVerbatimArguments?: boolean;
     }
-    export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
+    export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {
         cwd?: string;
@@ -2344,9 +2348,9 @@ declare module "child_process" {
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     export function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
     export interface ExecSyncOptions {
         cwd?: string;
@@ -2396,9 +2400,9 @@ declare module "child_process" {
     export function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
     export function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     export function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithStringEncoding): string;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptions): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
 }
 
 declare module "url" {
@@ -5715,6 +5719,8 @@ declare module "crypto" {
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
+
+    /** @deprecated since v10.0.0 use createCipheriv() */
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher extends NodeJS.ReadWriteStream {
@@ -5728,6 +5734,7 @@ declare module "crypto" {
         getAuthTag(): Buffer;
         setAAD(buffer: Buffer): this;
     }
+    /** @deprecated since v10.0.0 use createCipheriv() */
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
@@ -5813,17 +5820,16 @@ declare module "crypto" {
     export function getCurves(): string[];
     export function getHashes(): string[];
     export interface ECDH {
+        convertKey(key: string | Buffer /*| TypedArray*/ | DataView, curve: string, inputEncoding?: string, outputEncoding?: string, format?: string): Buffer | string;
         generateKeys(): Buffer;
-        generateKeys(encoding: HexBase64Latin1Encoding): string;
-        generateKeys(encoding: HexBase64Latin1Encoding, format: ECDHKeyFormat): string;
+        generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         computeSecret(other_public_key: Buffer): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         getPublicKey(): Buffer;
-        getPublicKey(encoding: HexBase64Latin1Encoding): string;
-        getPublicKey(encoding: HexBase64Latin1Encoding, format: ECDHKeyFormat): string;
+        getPublicKey(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         setPrivateKey(private_key: Buffer): void;
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
@@ -6220,6 +6226,38 @@ declare module "util" {
         export function isWeakSet(object: any): object is WeakSet<any>;
         export function isWebAssemblyCompiledModule(object: any): boolean;
     }
+
+    export class TextDecoder {
+        readonly encoding: string;
+        readonly fatal: boolean;
+        readonly ignoreBOM: boolean;
+        constructor(
+          encoding?: string,
+          options?: { fatal?: boolean; ignoreBOM?: boolean }
+        );
+        decode(
+          input?:
+            Int8Array
+            | Int16Array
+            | Int32Array
+            | Uint8Array
+            | Uint16Array
+            | Uint32Array
+            | Uint8ClampedArray
+            | Float32Array
+            | Float64Array
+            | DataView
+            | ArrayBuffer
+            | null,
+          options?: { stream?: boolean }
+        ): string;
+    }
+
+    export class TextEncoder {
+        readonly encoding: string;
+        constructor();
+        encode(input?: string): Uint8Array;
+    }
 }
 
 declare module "assert" {
@@ -6240,11 +6278,16 @@ declare module "assert" {
         }
 
         export function fail(message: string): never;
+        /** @deprecated since v10.0.0 */
         export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
+        /** @deprecated use strictEqual() */
         export function equal(actual: any, expected: any, message?: string): void;
+        /** @deprecated use notStrictEqual() */
         export function notEqual(actual: any, expected: any, message?: string): void;
+        /** @deprecated use deepStrictEqual() */
         export function deepEqual(actual: any, expected: any, message?: string): void;
+        /** @deprecated use notDeepStrictEqual() */
         export function notDeepEqual(acutal: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;

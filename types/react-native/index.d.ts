@@ -801,12 +801,6 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
 
 export interface TextPropsIOS {
     /**
-     * Specifies whether fonts should scale to respect Text Size accessibility setting on iOS. The
-     * default is `true`.
-     */
-    allowFontScaling?: boolean;
-
-    /**
      * Specifies whether font should be scaled down automatically to fit given style constraints.
      */
     adjustsFontSizeToFit?: boolean;
@@ -843,6 +837,12 @@ export interface TextPropsAndroid {
 
 // https://facebook.github.io/react-native/docs/text.html#props
 export interface TextProps extends TextPropsIOS, TextPropsAndroid, AccessibilityProps {
+    /**
+     * Specifies whether fonts should scale to respect Text Size accessibility settings.
+     * The default is `true`.
+     */
+    allowFontScaling?: boolean;
+
     /**
      * This can be one of the following values:
      *
@@ -1088,6 +1088,12 @@ export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | Return
  */
 export interface TextInputProps
     extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
+    /**
+     * Specifies whether fonts should scale to respect Text Size accessibility settings.
+     * The default is `true`.
+     */
+    allowFontScaling?: boolean;
+
     /**
      * Can tell TextInput to automatically capitalize certain characters.
      *      characters: all characters,
@@ -3836,6 +3842,19 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
      * How many items to render in the initial batch
      */
     initialNumToRender?: number;
+
+    /**
+     * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
+     */
+    onEndReached?: ((info: { distanceFromEnd: number }) => void) | null;
+
+    /**
+     * How far from the end (in units of visible length of the list) the bottom edge of the
+     * list must be from the end of the content to trigger the `onEndReached` callback.
+     * Thus a value of 0.5 will trigger `onEndReached` when the end of the content is
+     * within half the visible length of the list.
+     */
+    onEndReachedThreshold?: number | null;
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
