@@ -18,6 +18,7 @@ export namespace Navigation {
     function handleDeepLink(params?: { link: string; payload?: string; }): void;
     function registerScreen(screenId: string, generator: () => React.ComponentType<any>): void;
     function getCurrentlyVisibleScreenId(): Promise<string>;
+    function isAppLaunched(): Promise<boolean>;
 }
 
 export interface TabBasedApp {
@@ -153,6 +154,11 @@ export class ScreenVisibilityListener {
     constructor(params: ScreenVisibilityListenerParams);
     register(): void;
     unregister(): void;
+}
+
+export class NativeEventsReceiver {
+    constructor();
+    appLaunched(callback: () => void): void;
 }
 
 export interface ScreenVisibilityListenerParams {
