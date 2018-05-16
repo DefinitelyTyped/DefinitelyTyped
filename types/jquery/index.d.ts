@@ -4559,7 +4559,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
     on(events: string,
         selector: JQuery.Selector,
         handler: ((event: JQueryEventObject) => void)): this; // tslint:disable-line:unified-signatures
-     /**
+    /**
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
@@ -4571,7 +4571,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
     on<TData>(events: string,
               data: TData,
               handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
-     /**
+    /**
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
@@ -4583,7 +4583,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
     on<TData>(events: string,
         data: TData,
         handler: ((event: JQueryEventObject) => void)): this; // tslint:disable-line:unified-signatures
-/**
+    /**
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
