@@ -36,12 +36,6 @@ declare namespace next {
         jsonPageRes?: NodeResponse;
         /** Error object if any error is encountered during the rendering */
         err?: Error;
-        /** a callback that executes the actual React rendering logic (synchronously) */
-        renderPage(
-            cb?: (enhancer: () => JSX.Element) => React.ComponentType<any>
-        ): {
-            [key: string]: any
-        };
     }
 
     type NextSFC<P = {}> = NextStatelessComponent<P>;
