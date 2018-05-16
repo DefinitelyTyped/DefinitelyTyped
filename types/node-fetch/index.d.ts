@@ -123,6 +123,11 @@ export class Body {
     arrayBuffer(): Promise<ArrayBuffer>;
 }
 
+export class FetchError extends Error {
+    name: "FetchError";
+    constructor(message: string, type: string, systemError: string);
+}
+
 export class Response extends Body {
     constructor(body?: BodyInit, init?: ResponseInit);
     static error(): Response;
