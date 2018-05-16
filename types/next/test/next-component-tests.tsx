@@ -12,7 +12,7 @@ class ClassNext extends React.Component<NextComponentProps> {
 
     render() {
         return (
-            <div>I'm a stateless component! {this.props.example}</div>
+            <div>I'm a class component! {this.props.example}</div>
         );
     }
 }
