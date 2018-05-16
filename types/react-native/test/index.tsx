@@ -22,6 +22,7 @@ import {
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
+    Image,
     ImageStyle,
     InteractionManager,
     ListView,
@@ -458,6 +459,26 @@ class StatusBarTest extends React.Component {
                 barStyle="light-content"
                 translucent
             />
+        );
+    }
+}
+
+class StylePropsTest extends React.PureComponent {
+    render() {
+        const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
+
+        return (
+            <View backgroundColor="lightgray" flex={1} overflow="scroll">
+                <Image
+                    borderRadius={100}
+                    height={300}
+                    margin={20}
+                    overflow="visible" // ps: must fail if "scroll"
+                    source={{ uri }}
+                    tintColor="green"
+                    width={300}
+                />
+            </View>
         );
     }
 }
