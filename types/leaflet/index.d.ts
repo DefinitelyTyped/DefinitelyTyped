@@ -1192,6 +1192,7 @@ export interface LeafletEvent {
     target: any;
     sourceTarget: any;
     propagatedFrom: any;
+    layer: any;
 }
 
 export interface LeafletMouseEvent extends LeafletEvent {
