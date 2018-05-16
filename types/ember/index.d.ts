@@ -1683,7 +1683,7 @@ declare module 'ember' {
             addObserver<Target>(
                 key: keyof this,
                 target: Target,
-                method: ObserverMethod<Target, this>
+                method?: ObserverMethod<Target, this>
             ): void;
             /**
              * Remove an observer you have previously registered on this object. Pass
@@ -1693,7 +1693,7 @@ declare module 'ember' {
             removeObserver<Target>(
                 key: keyof this,
                 target: Target,
-                method: ObserverMethod<Target, this>
+                method?: ObserverMethod<Target, this>
             ): any;
             /**
              * Retrieves the value of a property, or a default value in the case that the
