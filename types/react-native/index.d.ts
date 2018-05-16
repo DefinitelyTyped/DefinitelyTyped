@@ -543,7 +543,7 @@ type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baselin
  * Flex Prop Types
  * @see https://facebook.github.io/react-native/docs/flexbox.html#proptypes
  * @see https://facebook.github.io/react-native/docs/layout-props.html
- * @see LayoutPropTypes.js
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/StyleSheet/LayoutPropTypes.js
  */
 export interface FlexStyle {
     alignContent?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around";
@@ -604,14 +604,6 @@ export interface FlexStyle {
      */
     direction?: "inherit" | "ltr" | "rtl";
 }
-
-
-/**
- * Layout Prop Types
- * @see https://facebook.github.io/react-native/docs/layout-props.html
- * @see LayoutPropTypes.js
- */
-export interface LayoutProps extends FlexStyle {}
 
 /**
  * @see ShadowPropTypesIOS.js
@@ -1584,33 +1576,46 @@ export interface GestureResponderHandlers {
     onMoveShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean;
 }
 
-// @see https://facebook.github.io/react-native/docs/view.html#style
-export interface ViewStyle extends FlexStyle, TransformsStyle {
+/**
+ * @see https://facebook.github.io/react-native/docs/view.html#style
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewStylePropTypes.js
+ */
+export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     backfaceVisibility?: "visible" | "hidden";
     backgroundColor?: string;
     borderBottomColor?: string;
+    borderBottomEndRadius?: number;
     borderBottomLeftRadius?: number;
     borderBottomRightRadius?: number;
+    borderBottomStartRadius?: number;
     borderBottomWidth?: number;
     borderColor?: string;
+    borderEndColor?: string;
     borderLeftColor?: string;
+    borderLeftWidth?: number;
     borderRadius?: number;
     borderRightColor?: string;
     borderRightWidth?: number;
+    borderStartColor?: string;
     borderStyle?: "solid" | "dotted" | "dashed";
     borderTopColor?: string;
+    borderTopEndRadius?: number;
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
+    borderTopStartRadius?: number;
     borderTopWidth?: number;
-    display?: "none" | "flex";
+    borderWidth?: number;
     opacity?: number;
-    overflow?: "visible" | "hidden";
-    shadowColor?: string;
-    shadowOffset?: { width: number; height: number };
-    shadowOpacity?: number;
-    shadowRadius?: number;
-    elevation?: number;
     testID?: string;
+    /**
+      * Sets the elevation of a view, using Android's underlying
+      * [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation).
+      * This adds a drop shadow to the item and affects z-order for overlapping views.
+      * Only supported on Android 5.0+, has no effect on earlier versions.
+      *
+      * @platform android
+      */
+    elevation?: number;
 }
 
 export interface ViewPropsIOS {
@@ -1679,6 +1684,7 @@ export interface ViewPropsAndroid {
      */
     renderToHardwareTextureAndroid?: boolean;
 }
+
 
 type Falsy = undefined | null | false;
 interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
@@ -1779,7 +1785,7 @@ type AccessibilityTraits =
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
 export interface ViewProps
-    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps, LayoutProps {
+    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps, ViewStyle {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -3237,8 +3243,9 @@ export interface ShadowStyleIOS {
 /**
  * Image style
  * @see https://facebook.github.io/react-native/docs/image.html#style
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageStylePropTypes.js
  */
-export interface ImageStyle extends FlexStyle, TransformsStyle, ShadowStyleIOS {
+export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     resizeMode?: ImageResizeMode;
     backfaceVisibility?: "visible" | "hidden";
     borderBottomLeftRadius?: number;
@@ -3385,7 +3392,7 @@ export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequi
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export interface ImageProps extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, LayoutProps {
+export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, ImageStyle {
     /**
      * onLayout function
      *
@@ -3491,15 +3498,25 @@ export interface ImageProps extends ImagePropsIOS, ImagePropsAndroid, Accessibil
     loadingIndicatorSource?: ImageURISource;
 
     /**
+     * A unique identifier for this element to be used in UI Automation testing scripts.
+     */
+    testID?: string;
+
+    /**
+     * Currently broken
+     * @see https://github.com/facebook/react-native/pull/19281
+     */
+    width?: never,
+    height?: never,
+    tintColor?: never,
+}
+
+export interface ImageProps extends ImagePropsBase {
+    /**
      *
      * Style
      */
     style?: StyleProp<ImageStyle>;
-
-    /**
-     * A unique identifier for this element to be used in UI Automation testing scripts.
-     */
-    testID?: string;
 }
 
 declare class ImageComponent extends React.Component<ImageProps> {}
@@ -3512,7 +3529,7 @@ export class Image extends ImageBase {
     queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
 }
 
-export interface ImageBackgroundProps extends ImageProps {
+export interface ImageBackgroundProps extends ImagePropsBase {
     style?: StyleProp<ViewStyle>;
     imageStyle?: StyleProp<ImageStyle>;
 }
@@ -5482,34 +5499,6 @@ export interface InteractionManagerStatic extends EventEmitterListener {
     setDeadline(deadline: number): void;
 }
 
-export interface ScrollViewStyle extends FlexStyle, TransformsStyle {
-    backfaceVisibility?: "visible" | "hidden";
-    backgroundColor?: string;
-    borderColor?: string;
-    borderTopColor?: string;
-    borderRightColor?: string;
-    borderBottomColor?: string;
-    borderLeftColor?: string;
-    borderRadius?: number;
-    borderTopLeftRadius?: number;
-    borderTopRightRadius?: number;
-    borderBottomLeftRadius?: number;
-    borderBottomRightRadius?: number;
-    borderStyle?: "solid" | "dotted" | "dashed";
-    borderWidth?: number;
-    borderTopWidth?: number;
-    borderRightWidth?: number;
-    borderBottomWidth?: number;
-    borderLeftWidth?: number;
-    opacity?: number;
-    overflow?: "visible" | "hidden";
-    shadowColor?: string;
-    shadowOffset?: { width: number; height: number };
-    shadowOpacity?: number;
-    shadowRadius?: number;
-    elevation?: number;
-}
-
 export interface ScrollResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
 interface ScrollResponderMixin extends SubscribableMixin {
@@ -6078,7 +6067,7 @@ export interface ScrollViewProps
     /**
      * Style
      */
-    style?: StyleProp<ScrollViewStyle>;
+    style?: StyleProp<ViewStyle>;
 
     /**
      * A RefreshControl component, used to provide pull-to-refresh
