@@ -27,6 +27,7 @@ export interface In {
 }
 
 export interface Network {
+    bech32?: string,
     bip32: {
         public: number;
         private: number;
