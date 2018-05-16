@@ -115,11 +115,14 @@ export class Blob {
 }
 
 export class Body {
+    constructor(body?: any, opts?: { size?: number; timeout?: number });
+    blob(): Promise<Buffer>;
     bodyUsed: boolean;
     body: NodeJS.ReadableStream;
     json(): Promise<any>;
     json<T>(): Promise<T>;
     text(): Promise<string>;
+    textConverted(): Promise<string>;
     buffer(): Promise<Buffer>;
     arrayBuffer(): Promise<ArrayBuffer>;
 }
