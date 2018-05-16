@@ -9,13 +9,14 @@
 import { Agent } from "http";
 
 export class Request extends Body {
-    constructor(input: string | Request, init?: RequestInit);
+    constructor(input: string | { href: string } | Request, init?: RequestInit);
     method: string;
     url: string;
     headers: Headers;
     context: RequestContext;
     referrer: string;
     redirect: RequestRedirect;
+    clone(): Request;
 
     //node-fetch extensions to the whatwg/fetch spec
     compress: boolean;
