@@ -15,13 +15,13 @@
 /**
  * Use the <code>webview</code> tag to actively load live content from the web over the network and embed it in your Chrome App. Your app can control the appearance of the <code>webview</code> and interact with the web content, initiate navigations in an embedded web page, react to error events that happen within it, and more (see <a href=\"#usage\">Usage</a>).
  */
-declare namespace chrome.webviewTag {
+declare namespace chrome.webview {
     /** Options that determine what data should be cleared by `clearData`. */
     export interface ClearDataOptions {
         /** Clear data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript <code>Date</code> object). If absent, defaults to <code>0</code> (which would remove all browsing data). */
         since: number;
     }
-    export interface WindowEvent extends chrome.events.Event<() => void> {}
+    export interface WindowEvent extends chrome.events.Event<() => void> { }
 
     export interface ConsoleEvent extends Event {
         /**

@@ -1,4 +1,4 @@
-import webview = chrome.webviewTag;
+import webview = chrome.webview;
 
 let element: webview.HTMLWebViewElement;
 
