@@ -4,6 +4,7 @@
 //                 Michael Ledin <https://github.com/mxl>
 //                 Pap Lőrinc <https://github.com/paplorinc>
 //                 Shrey Jain <https://github.com/shreyjain1994>
+//                 Alec Zopf <https://github.com/zopf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -131,7 +132,7 @@ declare namespace request {
         on(name: string, handler: (event: any) => void): this;
         parse(parser: Parser): this;
         part(): this;
-        pfx(cert: Buffer | string): this;
+        pfx(cert: Buffer | string | { pfx: Buffer, passphrase: string }): this;
         pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;
         query(val: object | string): this;
         redirects(n: number): this;
