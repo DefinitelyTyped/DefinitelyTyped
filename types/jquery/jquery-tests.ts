@@ -3635,6 +3635,14 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', 'myData', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 'td', 'myData', function(this: I1, event) {
                 // $ExpectType I1
                 this;
@@ -3647,6 +3655,14 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', null, 'myData', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
                 event;
             });
 
@@ -3667,6 +3683,14 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 'td', function(this: I1, event) {
                 // $ExpectType I1
                 this;
@@ -3682,6 +3706,14 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType Event<HTMLElement, number>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 3, function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
                 event;
             });
 
