@@ -4523,6 +4523,21 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
      * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
      *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: string,
+        selector: JQuery.Selector | null,
+        data: TData,
+        handler: ((event: JQueryEventObject) => void)): this; // tslint:disable-line:unified-signatures
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
      *                for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/}
@@ -4535,6 +4550,19 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param handler A function to execute when the event is triggered.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on(events: string,
+        selector: JQuery.Selector,
+        handler: ((event: JQueryEventObject) => void)): this; // tslint:disable-line:unified-signatures
+     /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
      * @param data Data to be passed to the handler in event.data when an event is triggered.
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/on/}
@@ -4543,7 +4571,19 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
     on<TData>(events: string,
               data: TData,
               handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
-    /**
+     /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: string,
+        data: TData,
+        handler: ((event: JQueryEventObject) => void)): this; // tslint:disable-line:unified-signatures
+/**
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
@@ -4563,7 +4603,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.7
      */
     on(events: string,
-        handler: ((event: JQueryEventObject) => void)): this;
+        handler: ((event: JQueryEventObject) => void)): this; // tslint:disable-line:unified-signatures
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
