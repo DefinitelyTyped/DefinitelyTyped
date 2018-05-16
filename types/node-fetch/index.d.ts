@@ -48,7 +48,7 @@ interface RequestInit {
 }
 
 type RequestContext =
-    | "audio"
+    "audio"
     | "beacon"
     | "cspreport"
     | "download"
@@ -86,7 +86,7 @@ type RequestRedirect = "error" | "follow" | "manual";
 type RequestCredentials = "omit" | "include" | "same-origin";
 
 type RequestCache =
-    | "default"
+    "default"
     | "force-cache"
     | "no-cache"
     | "no-store"
@@ -151,7 +151,7 @@ export class Response extends Body {
 }
 
 type ResponseType =
-    | "basic"
+    "basic"
     | "cors"
     | "default"
     | "error"
