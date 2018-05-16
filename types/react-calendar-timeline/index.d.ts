@@ -1,7 +1,7 @@
 // Type definitions for react-calendar-timeline v0.15.12
 // Project: https://github.com/namespace-ee/react-calendar-timeline
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
-//				   Alex Maclean <https://github.com/acemac>
+//				         Alex Maclean <https://github.com/acemac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -9,7 +9,7 @@
 
 declare module "react-calendar-timeline" {
  
-   export interface TimelineGroup {
+  export interface TimelineGroup {
     id: number;
     title: React.ReactNode;
   }
@@ -33,63 +33,63 @@ declare module "react-calendar-timeline" {
   }
 
   export interface ReactCalendarTimelineProps {
-      groups: TimelineGroup[];
-      items: TimelineItem[];
-      keys?:{
-          groupIdKey: string;
-          groupTitleKey: string;
-          itemIdKey: string;
-          itemTitleKey: string;
-          itemGroupKey: string;
-          itemTimeStartKey: string;
-          itemTimeEndKey: string;
-      };
-      selected?: number[];
-      sidebarWidth?: number;
-      sidebarContent?: any;
-      rightSidebarWidth?: number;
-      rightSidebarContent?: any;
-      dragSnap?: number;
-      minResizeWidth?: number;
-      stickyOffset?: number;
-      stickyHeader?: boolean;
-      headerRef?: any;
-      lineHeight?: number;
-      headerLabelGroupHeight?: number;
-      headerLabelHeight?: number;
-      itemHeightRatio?: number;
-      minZoom?: number;
-      maxZoom?: number;
-      clickTolerance?: number;
-      canMove?: boolean;
-      canChangeGroup?: boolean;
-      canResize?: boolean;
-      useResizeHandle?: boolean;
-      showCursorLine?: boolean;
-      stackItems?: boolean;
-      traditionalZoom?: boolean;
-      itemTouchSendsClick?: boolean;
-      onItemMove?(itemId:number, dragTime:number, newGroupOrder:number): any;
-      onItemResize?(itemId:number, newResizeEnd: number, edge: "left" | "right"): any;
-      onItemSelect?(itemId:number, e: any, time: number): any;
-      onItemClick?(itemId:number, e: any, time: number): any;
-      onItemDoubleClick?(itemId:number, e: any, time: number): any;
-      onCanvasClick?(groupId:number, time:number, e:any): any;
-      onCanvasDoubleClick?(groupId:number, time:number, e:any): any;
-      moveResizeValidator?(action:"move" | "resize", itemId:number, time:number, resizeEdge: "left" | "right"): any;
-      defaultTimeStart?: any;
-      defaultTimeEnd?: any;
-      visibleTimeStart?: number;
-      visibleTimeEnd?: number;
-      onTimeChange?(visibleTimeStart: number, visibleTimeEnd: number, updateScrollCanvas: (start: number, end: number) => void): any;
-      onTimeInit?(visibleTimeStart: number, visibleTimeEnd: number): any;
-      onBoundsChange?(canvasTimeStart: number, canvasTimeEnd: number): any;
-      onZoom?(timelineContext: TimelineContext): any;
-      children?: any;
-      fullUpdate?: boolean;
-      itemRenderer?: (props: {item: TimelineItem, context: TimelineContext}) => React.ReactNode;
-      groupRenderer?: (props: {group: TimelineGroup, isRightSidebar: boolean}) => React.ReactNode;
-      minimumWidthForItemContentVisibility?: number;
+    groups: TimelineGroup[];
+    items: TimelineItem[];
+    keys?:{
+        groupIdKey: string;
+        groupTitleKey: string;
+        itemIdKey: string;
+        itemTitleKey: string;
+        itemGroupKey: string;
+        itemTimeStartKey: string;
+        itemTimeEndKey: string;
+    };
+    selected?: number[];
+    sidebarWidth?: number;
+    sidebarContent?: any;
+    rightSidebarWidth?: number;
+    rightSidebarContent?: any;
+    dragSnap?: number;
+    minResizeWidth?: number;
+    stickyOffset?: number;
+    stickyHeader?: boolean;
+    headerRef?: any;
+    lineHeight?: number;
+    headerLabelGroupHeight?: number;
+    headerLabelHeight?: number;
+    itemHeightRatio?: number;
+    minZoom?: number;
+    maxZoom?: number;
+    clickTolerance?: number;
+    canMove?: boolean;
+    canChangeGroup?: boolean;
+    canResize?: boolean;
+    useResizeHandle?: boolean;
+    showCursorLine?: boolean;
+    stackItems?: boolean;
+    traditionalZoom?: boolean;
+    itemTouchSendsClick?: boolean;
+    onItemMove?(itemId:number, dragTime:number, newGroupOrder:number): any;
+    onItemResize?(itemId:number, newResizeEnd: number, edge: "left" | "right"): any;
+    onItemSelect?(itemId:number, e: any, time: number): any;
+    onItemClick?(itemId:number, e: any, time: number): any;
+    onItemDoubleClick?(itemId:number, e: any, time: number): any;
+    onCanvasClick?(groupId:number, time:number, e:any): any;
+    onCanvasDoubleClick?(groupId:number, time:number, e:any): any;
+    moveResizeValidator?(action:"move" | "resize", itemId:number, time:number, resizeEdge: "left" | "right"): any;
+    defaultTimeStart?: any;
+    defaultTimeEnd?: any;
+    visibleTimeStart?: number;
+    visibleTimeEnd?: number;
+    onTimeChange?(visibleTimeStart: number, visibleTimeEnd: number, updateScrollCanvas: (start: number, end: number) => void): any;
+    onTimeInit?(visibleTimeStart: number, visibleTimeEnd: number): any;
+    onBoundsChange?(canvasTimeStart: number, canvasTimeEnd: number): any;
+    onZoom?(timelineContext: TimelineContext): any;
+    children?: any;
+    fullUpdate?: boolean;
+    itemRenderer?: (props: {item: TimelineItem, context: TimelineContext}) => React.ReactNode;
+    groupRenderer?: (props: {group: TimelineGroup, isRightSidebar: boolean}) => React.ReactNode;
+    minimumWidthForItemContentVisibility?: number;
   }
   let ReactCalendarTimeline : React.ClassicComponentClass<ReactCalendarTimelineProps>;
   export default ReactCalendarTimeline;
