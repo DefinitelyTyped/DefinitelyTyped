@@ -10,39 +10,39 @@ import { Agent } from "http";
 
 export class Request extends Body {
     constructor(input: string | { href: string } | Request, init?: RequestInit);
-    method: string;
-    url: string;
-    headers: Headers;
-    context: RequestContext;
-    referrer: string;
-    redirect: RequestRedirect;
     clone(): Request;
+    context: RequestContext;
+    headers: Headers;
+    method: string;
+    redirect: RequestRedirect;
+    referrer: string;
+    url: string;
 
     //node-fetch extensions to the whatwg/fetch spec
-    compress: boolean;
     agent?: Agent;
+    compress: boolean;
     counter: number;
     follow: number;
     hostname: string;
-    protocol: string;
     port?: number;
-    timeout: number;
+    protocol: string;
     size: number;
+    timeout: number;
 }
 
 interface RequestInit {
     //whatwg/fetch standard options
-    method?: string;
-    headers?: HeaderInit | { [index: string]: string };
     body?: BodyInit;
+    headers?: HeaderInit | { [index: string]: string };
+    method?: string;
     redirect?: RequestRedirect;
 
     //node-fetch extensions
-    timeout?: number; //=0 req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
-    compress?: boolean; //=true support gzip/deflate content encoding. false to disable
-    size?: number; //=0 maximum response body size in bytes. 0 to disable
     agent?: Agent; //=null http.Agent instance, allows custom proxy, certificate etc.
+    compress?: boolean; //=true support gzip/deflate content encoding. false to disable
     follow?: number; //=20 maximum redirect count. 0 to not follow redirect
+    size?: number; //=0 maximum response body size in bytes. 0 to disable
+    timeout?: number; //=0 req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
 
     //node-fetch does not support mode, cache or credentials options
 }
@@ -74,37 +74,40 @@ type RequestContext =
     | "script"
     | "serviceworker"
     | "sharedworker"
-    | "subresource"
     | "style"
+    | "subresource"
     | "track"
     | "video"
     | "worker"
     | "xmlhttprequest"
     | "xslt";
-type RequestMode = "same-origin" | "no-cors" | "cors";
-type RequestRedirect = "follow" | "error" | "manual";
-type RequestCredentials = "omit" | "same-origin" | "include";
+type RequestMode = "cors" | "no-cors" | "same-origin";
+type RequestRedirect = "error" | "follow" | "manual";
+type RequestCredentials = "omit" | "include" | "same-origin";
+
 type RequestCache =
     | "default"
-    | "no-store"
-    | "reload"
-    | "no-cache"
     | "force-cache"
-    | "only-if-cached";
+    | "no-cache"
+    | "no-store"
+    | "only-if-cached"
+    | "reload";
 
 export class Headers implements Iterable<[string, string]> {
     constructor(init?: Headers | { [k: string]: string });
+    forEach(callback: (value: string, name: string) => void): void;
     append(name: string, value: string): void;
     delete(name: string): void;
     get(name: string): string | null;
     getAll(name: string): Array<string>;
     has(name: string): boolean;
-    set(name: string, value: string): void;
-    forEach(callback: (value: string, name: string) => void): void;
-    keys(): Iterator<string>;
-    entries(): Iterator<[string, string]>;
-    values(): Iterator<[string]>;
     raw(): { [k: string]: string };
+    set(name: string, value: string): void;
+
+    // Iterator methods
+    entries(): Iterator<[string, string]>;
+    keys(): Iterator<string>;
+    values(): Iterator<[string]>;
     [Symbol.iterator](): Iterator<[string, string]>;
 }
 
@@ -116,15 +119,15 @@ export class Blob {
 
 export class Body {
     constructor(body?: any, opts?: { size?: number; timeout?: number });
+    arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Buffer>;
-    bodyUsed: boolean;
     body: NodeJS.ReadableStream;
+    bodyUsed: boolean;
+    buffer(): Promise<Buffer>;
     json(): Promise<any>;
     json<T>(): Promise<T>;
     text(): Promise<string>;
     textConverted(): Promise<string>;
-    buffer(): Promise<Buffer>;
-    arrayBuffer(): Promise<ArrayBuffer>;
 }
 
 export class FetchError extends Error {
@@ -136,15 +139,15 @@ export class Response extends Body {
     constructor(body?: BodyInit, init?: ResponseInit);
     static error(): Response;
     static redirect(url: string, status: number): Response;
-    type: ResponseType;
-    url: string;
-    status: number;
+    clone(): Response;
+    headers: Headers;
     ok: boolean;
     size: number;
+    status: number;
     statusText: string;
     timeout: number;
-    headers: Headers;
-    clone(): Response;
+    type: ResponseType;
+    url: string;
 }
 
 type ResponseType =
@@ -156,14 +159,14 @@ type ResponseType =
     | "opaqueredirect";
 
 interface ResponseInit {
+    headers?: HeaderInit;
     status: number;
     statusText?: string;
-    headers?: HeaderInit;
 }
 
-type HeaderInit = Headers | Array<string>;
-type BodyInit = ArrayBuffer | ArrayBufferView | string | NodeJS.ReadableStream;
-type RequestInfo = Request | string;
+type HeaderInit = Array<string> | Headers;
+type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string;
+type RequestInfo = string | Request;
 
 export default function fetch(
     url: string | Request,
