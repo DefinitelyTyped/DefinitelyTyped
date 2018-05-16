@@ -1,13 +1,8 @@
-/// <reference path="chrome-app.d.ts" />
-
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Nikolai Ommundsen <https://github.com/niikoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-//
 // WebView ref: https://chromium.googlesource.com/chromium/src/+/64.0.3274.2/chrome/common/extensions/api/webview_tag.json
-//
-
+// TypeScript Version: 2.3
 
 ///////////////////
 // <webview> Tag

@@ -1,7 +1,9 @@
+/// <reference path="./chrome-webview.d.ts" />
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Nikolai Ommundsen <https://github.com/niikoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="chrome"/>
 /// <reference types="filesystem"/>
@@ -21,29 +23,10 @@ declare namespace chrome.app {
 // App Runtime
 ////////////////////
 declare namespace chrome.app.runtime {
-    enum LaunchSource {
-        "untracked" = "untracked",
-        "app_launcher" = "app_launcher",
-        "new_tab_page" = "new_tab_page",
-        "reload" = "reload",
-        "restart" = "restart",
-        "load_and_launch" = "load_and_launch",
-        "command_line" = "command_line",
-        "file_handler" = "file_handler",
-        "url_handler" = "url_handler",
-        "system_tray" = "system_tray",
-        "about_page" = "about_page",
-        "keyboard" = "keyboard",
-        "extensions_page" = "extensions_page",
-        "management_api" = "management_api",
-        "ephemeral_app" = "ephemeral_app",
-        "background" = "background",
-        "kiosk" = "kiosk",
-        "chrome_internal" = "chrome_internal",
-        "test" = "test",
-        "installed_notification" = "installed_notification",
-        "context_menu" = "context_menu",
-    }
+    type LaunchSource = 'untracked' | 'app_launcher' | 'new_tab_page' | 'reload' | 'restart' |
+        'load_and_launch' | 'command_line' | 'file_handler' | 'url_handler' | 'system_tray' |
+        'about_page' | 'keyboard' | 'extensions_page' | 'management_api' | 'ephemeral_app' |
+        'background' | 'kiosk' | 'chrome_internal' | 'test' | 'installed_notification' | 'context_menu';
 
     interface LaunchData {
         id?: string;

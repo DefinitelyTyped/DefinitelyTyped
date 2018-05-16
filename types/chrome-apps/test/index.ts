@@ -1,5 +1,3 @@
-
-
 import runtime = chrome.app.runtime;
 import cwindow = chrome.app.window;
 
@@ -44,7 +42,7 @@ var visibleEverywhere: boolean = chrome.app.window.canSetVisibleOnAllWorkspaces(
 
 function test_fileSystem(): void {
     var accepts: chrome.fileSystem.AcceptOptions[] = [
-        {mimeTypes: ["text/*"], extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf']}
+        { mimeTypes: ["text/*"], extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf'] }
     ];
     var chooseOption: chrome.fileSystem.ChooseEntryOptions = {
         type: "openFile",
@@ -58,13 +56,13 @@ function test_fileSystem(): void {
 
         var retainedId = chrome.fileSystem.retainEntry(entry);
         chrome.fileSystem.isRestorable(retainedId, (isRestorable: boolean) => {
-            if(isRestorable){
+            if (isRestorable) {
                 chrome.fileSystem.restoreEntry(retainedId, (restoredEntry: Entry) => { });
             }
         });
 
-        chrome.fileSystem.getWritableEntry(entry, (writableEntry: Entry) => {});
-        chrome.fileSystem.isWritableEntry(entry, (isWritable: boolean) => {});
+        chrome.fileSystem.getWritableEntry(entry, (writableEntry: Entry) => { });
+        chrome.fileSystem.isWritableEntry(entry, (isWritable: boolean) => { });
     });
 }
 
