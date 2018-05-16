@@ -10,6 +10,7 @@
  * @param opts custom properties to attach to the error object
  */
 declare function assert(value: any, status?: number, msg?: string, opts?: {}): void;
+declare function assert(value: any, status?: number, opts?: {}): void;
 
 declare namespace assert {
     /**
