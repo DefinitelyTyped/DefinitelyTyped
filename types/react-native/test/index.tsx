@@ -471,12 +471,13 @@ class StylePropsTest extends React.PureComponent {
             <View backgroundColor="lightgray" flex={1} overflow="scroll">
                 <Image
                     borderRadius={100}
-                    height={300}
+                    // height={200}
                     margin={20}
                     overflow="visible" // ps: must fail if "scroll"
                     source={{ uri }}
-                    tintColor="green"
-                    width={300}
+                    style={{ width: 200, height: 200, tintColor: 'green' }}
+                    // tintColor="green"
+                    // width={200}
                 />
             </View>
         );
