@@ -148,6 +148,14 @@ server.use(restify.plugins.throttle({
         }
     }
 }));
+server.use(restify.plugins.conditionalHandler([{
+    contentType: ['text/plain'],
+    handler: (req: restify.Request, res: restify.Response, next: restify.Next): void => {
+        res.send('OK');
+        next();
+    },
+    version: '0.0.0',
+}]));
 
 const logger = Logger.createLogger({ name: "test" });
 

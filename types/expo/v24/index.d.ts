@@ -15,9 +15,10 @@ import {
     ImageRequireSource,
     ImageURISource,
     NativeEventEmitter,
-    ViewProperties,
+    ViewProps,
     ViewStyle,
-    Permission
+    Permission,
+    StyleProp
 } from 'react-native';
 
 export type Axis = number;
@@ -56,6 +57,79 @@ export namespace Accelerometer {
      * @param intervalMs Desired interval in milliseconds between accelerometer updates.
      */
     function setUpdateInterval(intervalMs: number): void;
+}
+
+/**
+ * Admob
+ */
+export type AdMobBannerSize =
+    | 'banner'
+    | 'largeBanner'
+    | 'mediumRectangle'
+    | 'fullBanner'
+    | 'leaderboard'
+    | 'smartBannerPortrait'
+    | 'smartBannerLandscape';
+export interface AdMobBannerProperties extends ViewProps {
+    bannerSize?: AdMobBannerSize;
+    adUnitID?: string;
+    testDeviceID?: string;
+    didFailToReceiveAdWithError?(errorDescription: string): void;
+    adViewDidReceiveAd?(): void;
+    adViewWillPresentScreen?(): void;
+    adViewWillDismissScreen?(): void;
+    adViewDidDismissScreen?(): void;
+    adViewWillLeaveApplication?(): void;
+}
+
+export class AdMobBanner extends Component<AdMobBannerProperties> { }
+
+export interface AdMobAppEvent {
+    name: string;
+    info: string;
+}
+export interface PublisherBannerProperties extends AdMobBannerProperties {
+    admobDispatchAppEvent?(event: AdMobAppEvent): void;
+}
+export class PublisherBanner extends Component<PublisherBannerProperties> { }
+
+export type AdMobInterstitialEmptyEvent =
+    | 'interstitialDidLoad'
+    | 'interstitialDidOpen'
+    | 'interstitialDidClose'
+    | 'interstitialWillLeaveApplication';
+export type AdMobInterstitialEvent = AdMobInterstitialEmptyEvent | 'interstitialVideoDidFailToLoad';
+export namespace AdMobInterstitial {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function isReady(callback: (isReady: boolean) => void): void;
+    function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+export type AdMobRewardedEmptyEvent =
+    | 'rewardedVideoDidLoad'
+    | 'rewardedVideoDidOpen'
+    | 'rewardedVideoDidClose'
+    | 'rewardedVideoWillLeaveApplication';
+export type AdMobRewardedEvent = AdMobRewardedEmptyEvent | 'rewardedVideoDidRewardUser' | 'rewardedVideoDidFailToLoad';
+export namespace AdMobRewarded {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAd(callback?: () => void): void;
+    function showAd(callback?: (error: string) => void): void;
+    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
 }
 
 /**
@@ -622,7 +696,7 @@ export class PlaybackObject {
 /**
  * BarCodeScanner
  */
-export interface BarCodeScannerProps extends ViewProperties {
+export interface BarCodeScannerProps extends ViewProps {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
@@ -643,7 +717,7 @@ export class BarCodeScanner extends Component<BarCodeScannerProps> {
 /**
  * BlurView
  */
-export interface BlurViewProps extends ViewProperties {
+export interface BlurViewProps extends ViewProps {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
@@ -689,7 +763,7 @@ export class CameraObject {
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
 
-export interface CameraProps extends ViewProperties {
+export interface CameraProps extends ViewProps {
     flashMode?: string | number;
     type?: string | number;
     ratio?: string;
@@ -1301,7 +1375,7 @@ export namespace Font {
 /**
  * GLView
  */
-export interface GLViewProps extends ViewProperties {
+export interface GLViewProps extends ViewProps {
     onContextCreate(): void;
     msaaSamples: number;
 }
@@ -1534,11 +1608,12 @@ export class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-export interface LinearGradientProps extends ViewProperties {
+export interface LinearGradientProps {
     colors: string[];
     start?: [number, number];
     end?: [number, number];
     locations?: number[];
+    style?: StyleProp<ViewStyle>;
 }
 
 export class LinearGradient extends Component<LinearGradientProps> { }

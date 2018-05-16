@@ -3,11 +3,11 @@
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.1
+// Last module patch version validated against: 1.0.3
 
 /**
- * Returns the signed area of the specified polygon. If the vertices of the polygon are in counterclockwise order (
- * assuming a coordinate system where the origin ⟨0,0⟩ is in the top-left corner), the returned area is positive;
+ * Returns the signed area of the specified polygon. If the vertices of the polygon are in counterclockwise order
+ * (assuming a coordinate system where the origin <0,0> is in the top-left corner), the returned area is positive;
  * otherwise it is negative, or zero.
  *
  * @param polygon Array of coordinates <x0, y0>, <x1, y1> and so on.
@@ -34,7 +34,7 @@ export function polygonHull(points: Array<[number, number]>): Array<[number, num
  * Returns true if and only if the specified point is inside the specified polygon.
  *
  * @param polygon Array of coordinates <x0, y0>, <x1, y1> and so on.
- * @param point Coordinates of point <x, y>
+ * @param point Coordinates of point <x, y>.
  */
 export function polygonContains(polygon: Array<[number, number]>, point: [number, number]): boolean;
 

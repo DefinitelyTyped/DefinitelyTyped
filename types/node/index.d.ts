@@ -1,4 +1,4 @@
-// Type definitions for Node.js 9.6.x
+// Type definitions for Node.js 10.1.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -13,7 +13,6 @@
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Kelvin Jin <https://github.com/kjin>
 //                 Alvis HT Tang <https://github.com/alvis>
-//                 Oliver Joseph Ash <https://github.com/OliverJAsh>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Alberto Schiabel <https://github.com/jkomyno>
@@ -24,6 +23,7 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Lishude <https://github.com/islishude>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -32,16 +32,101 @@
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
     Console: NodeJS.ConsoleConstructor;
+    /**
+     * A simple assertion test that verifies whether `value` is truthy.
+     * If it is not, an `AssertionError` is thrown.
+     * If provided, the error `message` is formatted using `util.format()` and used as the error message.
+     */
     assert(value: any, message?: string, ...optionalParams: any[]): void;
-    dir(obj: any, options?: NodeJS.InspectOptions): void;
+    /**
+     * When `stdout` is a TTY, calling `console.clear()` will attempt to clear the TTY.
+     * When `stdout` is not a TTY, this method does nothing.
+     */
+    clear(): void;
+    /**
+     * Maintains an internal counter specific to `label` and outputs to `stdout` the number of times `console.count()` has been called with the given `label`.
+     */
+    count(label?: string): void;
+    /**
+     * Resets the internal counter specific to `label`.
+     */
+    countReset(label?: string): void;
+    /**
+     * The `console.debug()` function is an alias for {@link console.log()}.
+     */
     debug(message?: any, ...optionalParams: any[]): void;
+    /**
+     * Uses {@link util.inspect()} on `obj` and prints the resulting string to `stdout`.
+     * This function bypasses any custom `inspect()` function defined on `obj`.
+     */
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
+    /**
+     * This method calls {@link console.log()} passing it the arguments received. Please note that this method does not produce any XML formatting
+     */
+    dirxml(...data: any[]): void;
+    /**
+     * Prints to `stderr` with newline.
+     */
     error(message?: any, ...optionalParams: any[]): void;
+    /**
+     * Increases indentation of subsequent lines by two spaces.
+     * If one or more `label`s are provided, those are printed first without the additional indentation.
+     */
+    group(...label: any[]): void;
+    /**
+     * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
+     */
+    groupCollapsed(): void;
+    /**
+     * Decreases indentation of subsequent lines by two spaces.
+     */
+    groupEnd(): void;
+    /**
+     * The {@link console.info()} function is an alias for {@link console.log()}.
+     */
     info(message?: any, ...optionalParams: any[]): void;
+    /**
+     * Prints to `stdout` with newline.
+     */
     log(message?: any, ...optionalParams: any[]): void;
-    time(label: string): void;
-    timeEnd(label: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  Prints to `stdout` the array `array` formatted as a table.
+     */
+    table(tabularData: any, properties?: string[]): void;
+    /**
+     * Starts a timer that can be used to compute the duration of an operation. Timers are identified by a unique `label`.
+     */
+    time(label?: string): void;
+    /**
+     * Stops a timer that was previously started by calling {@link console.time()} and prints the result to `stdout`.
+     */
+    timeEnd(label?: string): void;
+    /**
+     * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
+     */
     trace(message?: any, ...optionalParams: any[]): void;
+    /**
+     * The {@link console.warn()} function is an alias for {@link console.error()}.
+     */
     warn(message?: any, ...optionalParams: any[]): void;
+
+    // --- Inspector mode only ---
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  Starts a JavaScript CPU profile with an optional label.
+     */
+    profile(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  Stops the current JavaScript CPU profiling session if one has been started and prints the report to the Profiles panel of the inspector.
+     */
+    profileEnd(): void;
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  Adds an event with the label `label` to the Timeline panel of the inspector.
+     */
+    timeStamp(label?: string): void;
 }
 
 interface Error {
@@ -77,8 +162,10 @@ interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
 interface IteratorResult<T> { }
+interface AsyncIterableIterator<T> {}
 interface SymbolConstructor {
     readonly iterator: symbol;
+    readonly asyncIterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
 
@@ -172,7 +259,61 @@ declare var SlowBuffer: {
 
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
-interface Buffer extends NodeBuffer { }
+interface Buffer extends Uint8Array {
+    write(string: string, offset?: number, length?: number, encoding?: string): number;
+    toString(encoding?: string, start?: number, end?: number): string;
+    toJSON(): { type: 'Buffer', data: any[] };
+    equals(otherBuffer: Buffer): boolean;
+    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
+    copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
+    slice(start?: number, end?: number): Buffer;
+    writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
+    readUInt16LE(offset: number, noAssert?: boolean): number;
+    readUInt16BE(offset: number, noAssert?: boolean): number;
+    readUInt32LE(offset: number, noAssert?: boolean): number;
+    readUInt32BE(offset: number, noAssert?: boolean): number;
+    readInt8(offset: number, noAssert?: boolean): number;
+    readInt16LE(offset: number, noAssert?: boolean): number;
+    readInt16BE(offset: number, noAssert?: boolean): number;
+    readInt32LE(offset: number, noAssert?: boolean): number;
+    readInt32BE(offset: number, noAssert?: boolean): number;
+    readFloatLE(offset: number, noAssert?: boolean): number;
+    readFloatBE(offset: number, noAssert?: boolean): number;
+    readDoubleLE(offset: number, noAssert?: boolean): number;
+    readDoubleBE(offset: number, noAssert?: boolean): number;
+    swap16(): Buffer;
+    swap32(): Buffer;
+    swap64(): Buffer;
+    writeUInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatLE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
+    fill(value: any, offset?: number, end?: number): this;
+    indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
+    lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
+    entries(): IterableIterator<[number, number]>;
+    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<number>;
+}
 
 /**
  * Raw data is stored in instances of the Buffer class.
@@ -185,18 +326,21 @@ declare var Buffer: {
      *
      * @param str String to store in buffer.
      * @param encoding encoding to use, optional.  Default is 'utf8'
+     * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
      */
     new(str: string, encoding?: string): Buffer;
     /**
      * Allocates a new buffer of {size} octets.
      *
      * @param size count of octets to allocate.
+     * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
      */
     new(size: number): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
+     * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
     new(array: Uint8Array): Buffer;
     /**
@@ -205,18 +349,21 @@ declare var Buffer: {
      *
      *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
+     * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
      */
     new(arrayBuffer: ArrayBuffer): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
+     * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
     new(array: any[]): Buffer;
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
      * @param buffer The buffer to copy.
+     * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
      */
     new(buffer: Buffer): Buffer;
     prototype: Buffer;
@@ -233,7 +380,7 @@ declare var Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
+    from(data: any[] | string | Buffer | ArrayBuffer | Uint8Array /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -252,7 +399,7 @@ declare var Buffer: {
      *
      * @param encoding string to test.
      */
-    isEncoding(encoding: string): boolean;
+    isEncoding(encoding: string): boolean | undefined;
     /**
      * Gives the actual byte length of a string. encoding defaults to 'utf8'.
      * This is not the same as String.prototype.length since that returns the number of characters in a string.
@@ -414,6 +561,7 @@ declare namespace NodeJS {
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
         removeAllListeners(event?: string | symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
@@ -439,6 +587,7 @@ declare namespace NodeJS {
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
         wrap(oldStream: ReadableStream): this;
+        [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
 
     export interface WritableStream extends EventEmitter {
@@ -473,6 +622,7 @@ declare namespace NodeJS {
         rss: number;
         heapTotal: number;
         heapUsed: number;
+        external: number;
     }
 
     export interface CpuUsage {
@@ -819,65 +969,6 @@ declare namespace NodeJS {
 
 interface IterableIterator<T> { }
 
-/**
- * @deprecated
- */
-interface NodeBuffer extends Uint8Array {
-    write(string: string, offset?: number, length?: number, encoding?: string): number;
-    toString(encoding?: string, start?: number, end?: number): string;
-    toJSON(): { type: 'Buffer', data: any[] };
-    equals(otherBuffer: Buffer): boolean;
-    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
-    copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
-    slice(start?: number, end?: number): Buffer;
-    writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    writeIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    readUIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readUInt8(offset: number, noAssert?: boolean): number;
-    readUInt16LE(offset: number, noAssert?: boolean): number;
-    readUInt16BE(offset: number, noAssert?: boolean): number;
-    readUInt32LE(offset: number, noAssert?: boolean): number;
-    readUInt32BE(offset: number, noAssert?: boolean): number;
-    readInt8(offset: number, noAssert?: boolean): number;
-    readInt16LE(offset: number, noAssert?: boolean): number;
-    readInt16BE(offset: number, noAssert?: boolean): number;
-    readInt32LE(offset: number, noAssert?: boolean): number;
-    readInt32BE(offset: number, noAssert?: boolean): number;
-    readFloatLE(offset: number, noAssert?: boolean): number;
-    readFloatBE(offset: number, noAssert?: boolean): number;
-    readDoubleLE(offset: number, noAssert?: boolean): number;
-    readDoubleBE(offset: number, noAssert?: boolean): number;
-    swap16(): Buffer;
-    swap32(): Buffer;
-    swap64(): Buffer;
-    writeUInt8(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt32LE(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt32BE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt8(value: number, offset: number, noAssert?: boolean): number;
-    writeInt16LE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt16BE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt32LE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt32BE(value: number, offset: number, noAssert?: boolean): number;
-    writeFloatLE(value: number, offset: number, noAssert?: boolean): number;
-    writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
-    writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
-    writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
-    fill(value: any, offset?: number, end?: number): this;
-    indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
-    lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
-    entries(): IterableIterator<[number, number]>;
-    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
-    keys(): IterableIterator<number>;
-    values(): IterableIterator<number>;
-}
-
 /************************************************
 *                                               *
 *                   MODULES                     *
@@ -914,7 +1005,8 @@ declare module "events" {
 
     namespace internal {
         export class EventEmitter extends internal {
-            static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
+            /** @deprecated since v4.0.0 */
+            static listenerCount(emitter: EventEmitter, event: string | symbol): number;
             static defaultMaxListeners: number;
 
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -923,6 +1015,7 @@ declare module "events" {
             prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
             prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            off(event: string | symbol, listener: (...args: any[]) => void): this;
             removeAllListeners(event?: string | symbol): this;
             setMaxListeners(n: number): this;
             getMaxListeners(): number;
@@ -2091,7 +2184,7 @@ declare module "child_process" {
         windowsHide?: boolean;
     }
 
-    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
         cwd?: string;
@@ -2164,33 +2257,33 @@ declare module "child_process" {
 
     export function execFile(file: string): ChildProcess;
     export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
+    export function execFile(file: string, args?: ReadonlyArray<string> | null): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
 
     // no `options` definitely means stdout/stderr are `string`.
     export function execFile(file: string, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
     export function execFile(file: string, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
     export function execFile(file: string, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
     export function execFile(file: string, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
     export function execFile(file: string, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace execFile {
@@ -2219,7 +2312,7 @@ declare module "child_process" {
         gid?: number;
         windowsVerbatimArguments?: boolean;
     }
-    export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
+    export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {
         cwd?: string;
@@ -2255,9 +2348,9 @@ declare module "child_process" {
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     export function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
     export interface ExecSyncOptions {
         cwd?: string;
@@ -2307,9 +2400,9 @@ declare module "child_process" {
     export function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
     export function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     export function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithStringEncoding): string;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptions): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
 }
 
 declare module "url" {
@@ -2367,23 +2460,6 @@ declare module "url" {
         unicode?: boolean;
     }
 
-    export class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
-        append(name: string, value: string): void;
-        delete(name: string): void;
-        entries(): IterableIterator<[string, string]>;
-        forEach(callback: (value: string, name: string) => void): void;
-        get(name: string): string | null;
-        getAll(name: string): string[];
-        has(name: string): boolean;
-        keys(): IterableIterator<string>;
-        set(name: string, value: string): void;
-        sort(): void;
-        toString(): string;
-        values(): IterableIterator<string>;
-        [Symbol.iterator](): IterableIterator<[string, string]>;
-    }
-
     export class URL {
         constructor(input: string, base?: string | URL);
         hash: string;
@@ -2400,6 +2476,23 @@ declare module "url" {
         username: string;
         toString(): string;
         toJSON(): string;
+    }
+
+    export class URLSearchParams implements Iterable<[string, string]> {
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
+        append(name: string, value: string): void;
+        delete(name: string): void;
+        entries(): IterableIterator<[string, string]>;
+        forEach(callback: (value: string, name: string) => void): void;
+        get(name: string): string | null;
+        getAll(name: string): string[];
+        has(name: string): boolean;
+        keys(): IterableIterator<string>;
+        set(name: string, value: string): void;
+        sort(): void;
+        toString(): string;
+        values(): IterableIterator<string>;
+        [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 }
 
@@ -2576,6 +2669,12 @@ declare module "net" {
 
     type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
 
+    export interface AddressInfo {
+        address: string;
+        family: string;
+        port: number;
+    }
+
     export interface SocketConstructorOpts {
         fd?: number;
         allowHalfOpen?: boolean;
@@ -2623,7 +2722,7 @@ declare module "net" {
         setTimeout(timeout: number, callback?: Function): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
-        address(): { port: number; family: string; address: string; };
+        address(): AddressInfo | string;
         unref(): void;
         ref(): void;
 
@@ -2739,7 +2838,7 @@ declare module "net" {
         listen(handle: any, backlog?: number, listeningListener?: Function): this;
         listen(handle: any, listeningListener?: Function): this;
         close(callback?: Function): this;
-        address(): { port: number; family: string; address: string; };
+        address(): AddressInfo | string;
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;
         unref(): this;
@@ -2815,22 +2914,17 @@ declare module "net" {
 }
 
 declare module "dgram" {
-    import * as events from "events";
+    import { AddressInfo } from "net";
     import * as dns from "dns";
+    import * as events from "events";
 
-    interface RemoteInfo {
+    export interface RemoteInfo {
         address: string;
         family: string;
         port: number;
     }
 
-    interface AddressInfo {
-        address: string;
-        family: string;
-        port: number;
-    }
-
-    interface BindOptions {
+    export interface BindOptions {
         port: number;
         address?: string;
         exclusive?: boolean;
@@ -2838,7 +2932,7 @@ declare module "dgram" {
 
     type SocketType = "udp4" | "udp6";
 
-    interface SocketOptions {
+    export interface SocketOptions {
         type: SocketType;
         reuseAddr?: boolean;
         recvBufferSize?: number;
@@ -2850,14 +2944,14 @@ declare module "dgram" {
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     export class Socket extends events.EventEmitter {
-        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | string | Uint8Array | any[], port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | string | Uint8Array, offset: number, length: number, port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(port?: number, callback?: () => void): void;
         bind(callback?: () => void): void;
         bind(options: BindOptions, callback?: Function): void;
         close(callback?: () => void): void;
-        address(): AddressInfo;
+        address(): AddressInfo | string;
         setBroadcast(flag: boolean): void;
         setTTL(ttl: number): void;
         setMulticastTTL(ttl: number): void;
@@ -4569,6 +4663,481 @@ declare module "fs" {
      * @param flags An optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
      */
     export function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
+
+    export namespace promises {
+        interface FileHandle {
+            /**
+             * Gets the file descriptor for this file handle.
+             */
+            readonly fd: number;
+
+            /**
+             * Asynchronously append data to a file, creating the file if it does not exist. The underlying file will _not_ be closed automatically.
+             * The `FileHandle` must have been opened for appending.
+             * @param data The data to write. If something other than a `Buffer` or `Uint8Array` is provided, the value is coerced to a string.
+             * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+             * If `encoding` is not supplied, the default of `'utf8'` is used.
+             * If `mode` is not supplied, the default of `0o666` is used.
+             * If `mode` is a string, it is parsed as an octal integer.
+             * If `flag` is not supplied, the default of `'a'` is used.
+             */
+            appendFile(data: any, options?: { encoding?: string | null, mode?: string | number, flag?: string | number } | string | null): Promise<void>;
+
+            /**
+             * Asynchronous fchown(2) - Change ownership of a file.
+             */
+            chown(uid: number, gid: number): Promise<void>;
+
+            /**
+             * Asynchronous fchmod(2) - Change permissions of a file.
+             * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+             */
+            chmod(mode: string | number): Promise<void>;
+
+            /**
+             * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
+             */
+            datasync(): Promise<void>;
+
+            /**
+             * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
+             */
+            sync(): Promise<void>;
+
+            /**
+             * Asynchronously reads data from the file.
+             * The `FileHandle` must have been opened for reading.
+             * @param buffer The buffer that the data will be written to.
+             * @param offset The offset in the buffer at which to start writing.
+             * @param length The number of bytes to read.
+             * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
+             */
+            read<TBuffer extends Buffer | Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+
+            /**
+             * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
+             * The `FileHandle` must have been opened for reading.
+             * @param options An object that may contain an optional flag.
+             * If a flag is not provided, it defaults to `'r'`.
+             */
+            readFile(options?: { encoding?: null, flag?: string | number } | null): Promise<Buffer>;
+
+            /**
+             * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
+             * The `FileHandle` must have been opened for reading.
+             * @param options An object that may contain an optional flag.
+             * If a flag is not provided, it defaults to `'r'`.
+             */
+            readFile(options: { encoding: BufferEncoding, flag?: string | number } | BufferEncoding): Promise<string>;
+
+            /**
+             * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
+             * The `FileHandle` must have been opened for reading.
+             * @param options An object that may contain an optional flag.
+             * If a flag is not provided, it defaults to `'r'`.
+             */
+            readFile(options?: { encoding?: string | null, flag?: string | number } | string | null): Promise<string | Buffer>;
+
+            /**
+             * Asynchronous fstat(2) - Get file status.
+             */
+            stat(): Promise<Stats>;
+
+            /**
+             * Asynchronous ftruncate(2) - Truncate a file to a specified length.
+             * @param len If not specified, defaults to `0`.
+             */
+            truncate(len?: number): Promise<void>;
+
+            /**
+             * Asynchronously change file timestamps of the file.
+             * @param atime The last access time. If a string is provided, it will be coerced to number.
+             * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+             */
+            utimes(atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+
+            /**
+             * Asynchronously writes `buffer` to the file.
+             * The `FileHandle` must have been opened for writing.
+             * @param buffer The buffer that the data will be written to.
+             * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
+             * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+             * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+             */
+            write<TBuffer extends Buffer | Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+
+            /**
+             * Asynchronously writes `string` to the file.
+             * The `FileHandle` must have been opened for writing.
+             * It is unsafe to call `write()` multiple times on the same file without waiting for the `Promise` to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
+             * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
+             * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+             * @param encoding The expected string encoding.
+             */
+            write(data: any, position?: number | null, encoding?: string | null): Promise<{ bytesWritten: number, buffer: string }>;
+
+            /**
+             * Asynchronously writes data to a file, replacing the file if it already exists. The underlying file will _not_ be closed automatically.
+             * The `FileHandle` must have been opened for writing.
+             * It is unsafe to call `writeFile()` multiple times on the same file without waiting for the `Promise` to be resolved (or rejected).
+             * @param data The data to write. If something other than a `Buffer` or `Uint8Array` is provided, the value is coerced to a string.
+             * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+             * If `encoding` is not supplied, the default of `'utf8'` is used.
+             * If `mode` is not supplied, the default of `0o666` is used.
+             * If `mode` is a string, it is parsed as an octal integer.
+             * If `flag` is not supplied, the default of `'w'` is used.
+             */
+            writeFile(data: any, options?: { encoding?: string | null, mode?: string | number, flag?: string | number } | string | null): Promise<void>;
+
+            /**
+             * Asynchronous close(2) - close a `FileHandle`.
+             */
+            close(): Promise<void>;
+        }
+
+        /**
+         * Asynchronously tests a user's permissions for the file specified by path.
+         * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         */
+        function access(path: PathLike, mode?: number): Promise<void>;
+
+        /**
+         * Asynchronously copies `src` to `dest`. By default, `dest` is overwritten if it already exists.
+         * Node.js makes no guarantees about the atomicity of the copy operation.
+         * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+         * to remove the destination.
+         * @param src A path to the source file.
+         * @param dest A path to the destination file.
+         * @param flags An optional integer that specifies the behavior of the copy operation. The only
+         * supported flag is `fs.constants.COPYFILE_EXCL`, which causes the copy operation to fail if
+         * `dest` already exists.
+         */
+        function copyFile(src: PathLike, dest: PathLike, flags?: number): Promise<void>;
+
+        /**
+         * Asynchronous open(2) - open and possibly create a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not
+         * supplied, defaults to `0o666`.
+         */
+        function open(path: PathLike, flags: string | number, mode?: string | number): Promise<FileHandle>;
+
+        /**
+         * Asynchronously reads data from the file referenced by the supplied `FileHandle`.
+         * @param handle A `FileHandle`.
+         * @param buffer The buffer that the data will be written to.
+         * @param offset The offset in the buffer at which to start writing.
+         * @param length The number of bytes to read.
+         * @param position The offset from the beginning of the file from which data should be read. If
+         * `null`, data will be read from the current position.
+         */
+        function read<TBuffer extends Buffer | Uint8Array>(handle: FileHandle, buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+
+        /**
+         * Asynchronously writes `buffer` to the file referenced by the supplied `FileHandle`.
+         * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise` to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
+         * @param handle A `FileHandle`.
+         * @param buffer The buffer that the data will be written to.
+         * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
+         * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+         * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+         */
+        function write<TBuffer extends Buffer | Uint8Array>(handle: FileHandle, buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+
+        /**
+         * Asynchronously writes `string` to the file referenced by the supplied `FileHandle`.
+         * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise` to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
+         * @param handle A `FileHandle`.
+         * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
+         * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+         * @param encoding The expected string encoding.
+         */
+        function write(handle: FileHandle, string: any, position?: number | null, encoding?: string | null): Promise<{ bytesWritten: number, buffer: string }>;
+
+        /**
+         * Asynchronous rename(2) - Change the name or location of a file or directory.
+         * @param oldPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         */
+        function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
+
+        /**
+         * Asynchronous truncate(2) - Truncate a file to a specified length.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param len If not specified, defaults to `0`.
+         */
+        function truncate(path: PathLike, len?: number): Promise<void>;
+
+        /**
+         * Asynchronous ftruncate(2) - Truncate a file to a specified length.
+         * @param handle A `FileHandle`.
+         * @param len If not specified, defaults to `0`.
+         */
+        function ftruncate(handle: FileHandle, len?: number): Promise<void>;
+
+        /**
+         * Asynchronous rmdir(2) - delete a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        function rmdir(path: PathLike): Promise<void>;
+
+        /**
+         * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
+         * @param handle A `FileHandle`.
+         */
+        function fdatasync(handle: FileHandle): Promise<void>;
+
+        /**
+         * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
+         * @param handle A `FileHandle`.
+         */
+        function fsync(handle: FileHandle): Promise<void>;
+
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        function mkdir(path: PathLike, mode?: string | number): Promise<void>;
+
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function readdir(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string[]>;
+
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function readdir(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer[]>;
+
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function readdir(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string[] | Buffer[]>;
+
+        /**
+         * Asynchronous readlink(2) - read value of a symbolic link.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function readlink(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+
+        /**
+         * Asynchronous readlink(2) - read value of a symbolic link.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function readlink(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+
+        /**
+         * Asynchronous readlink(2) - read value of a symbolic link.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function readlink(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+
+        /**
+         * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
+         * @param target A path to an existing file. If a URL is provided, it must use the `file:` protocol.
+         * @param path A path to the new symlink. If a URL is provided, it must use the `file:` protocol.
+         * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
+         * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
+         */
+        function symlink(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
+
+        /**
+         * Asynchronous fstat(2) - Get file status.
+         * @param handle A `FileHandle`.
+         */
+        function fstat(handle: FileHandle): Promise<Stats>;
+
+        /**
+         * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        function lstat(path: PathLike): Promise<Stats>;
+
+        /**
+         * Asynchronous stat(2) - Get file status.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        function stat(path: PathLike): Promise<Stats>;
+
+        /**
+         * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
+         * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+
+        /**
+         * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        function unlink(path: PathLike): Promise<void>;
+
+        /**
+         * Asynchronous fchmod(2) - Change permissions of a file.
+         * @param handle A `FileHandle`.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+         */
+        function fchmod(handle: FileHandle, mode: string | number): Promise<void>;
+
+        /**
+         * Asynchronous chmod(2) - Change permissions of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+         */
+        function chmod(path: PathLike, mode: string | number): Promise<void>;
+
+        /**
+         * Asynchronous lchmod(2) - Change permissions of a file. Does not dereference symbolic links.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+         */
+        function lchmod(path: PathLike, mode: string | number): Promise<void>;
+
+        /**
+         * Asynchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        function lchown(path: PathLike, uid: number, gid: number): Promise<void>;
+
+        /**
+         * Asynchronous fchown(2) - Change ownership of a file.
+         * @param handle A `FileHandle`.
+         */
+        function fchown(handle: FileHandle, uid: number, gid: number): Promise<void>;
+
+        /**
+         * Asynchronous chown(2) - Change ownership of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        function chown(path: PathLike, uid: number, gid: number): Promise<void>;
+
+        /**
+         * Asynchronously change file timestamps of the file referenced by the supplied path.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param atime The last access time. If a string is provided, it will be coerced to number.
+         * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+         */
+        function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+
+        /**
+         * Asynchronously change file timestamps of the file referenced by the supplied `FileHandle`.
+         * @param handle A `FileHandle`.
+         * @param atime The last access time. If a string is provided, it will be coerced to number.
+         * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+         */
+        function futimes(handle: FileHandle, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+
+        /**
+         * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function realpath(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+
+        /**
+         * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function realpath(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+
+        /**
+         * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function realpath(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+
+        /**
+         * Asynchronously creates a unique temporary directory.
+         * Generates six random characters to be appended behind a required `prefix` to create a unique temporary directory.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function mkdtemp(prefix: string, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+
+        /**
+         * Asynchronously creates a unique temporary directory.
+         * Generates six random characters to be appended behind a required `prefix` to create a unique temporary directory.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function mkdtemp(prefix: string, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+
+        /**
+         * Asynchronously creates a unique temporary directory.
+         * Generates six random characters to be appended behind a required `prefix` to create a unique temporary directory.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        function mkdtemp(prefix: string, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+
+        /**
+         * Asynchronously writes data to a file, replacing the file if it already exists.
+         * It is unsafe to call `fsPromises.writeFile()` multiple times on the same file without waiting for the `Promise` to be resolved (or rejected).
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         * If a `FileHandle` is provided, the underlying file will _not_ be closed automatically.
+         * @param data The data to write. If something other than a `Buffer` or `Uint8Array` is provided, the value is coerced to a string.
+         * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+         * If `encoding` is not supplied, the default of `'utf8'` is used.
+         * If `mode` is not supplied, the default of `0o666` is used.
+         * If `mode` is a string, it is parsed as an octal integer.
+         * If `flag` is not supplied, the default of `'w'` is used.
+         */
+        function writeFile(path: PathLike | FileHandle, data: any, options?: { encoding?: string | null, mode?: string | number, flag?: string | number } | string | null): Promise<void>;
+
+        /**
+         * Asynchronously append data to a file, creating the file if it does not exist.
+         * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         * If a `FileHandle` is provided, the underlying file will _not_ be closed automatically.
+         * @param data The data to write. If something other than a `Buffer` or `Uint8Array` is provided, the value is coerced to a string.
+         * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+         * If `encoding` is not supplied, the default of `'utf8'` is used.
+         * If `mode` is not supplied, the default of `0o666` is used.
+         * If `mode` is a string, it is parsed as an octal integer.
+         * If `flag` is not supplied, the default of `'a'` is used.
+         */
+        function appendFile(path: PathLike | FileHandle, data: any, options?: { encoding?: string | null, mode?: string | number, flag?: string | number } | string | null): Promise<void>;
+
+        /**
+         * Asynchronously reads the entire contents of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * If a `FileHandle` is provided, the underlying file will _not_ be closed automatically.
+         * @param options An object that may contain an optional flag.
+         * If a flag is not provided, it defaults to `'r'`.
+         */
+        function readFile(path: PathLike | FileHandle, options?: { encoding?: null, flag?: string | number } | null): Promise<Buffer>;
+
+        /**
+         * Asynchronously reads the entire contents of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * If a `FileHandle` is provided, the underlying file will _not_ be closed automatically.
+         * @param options An object that may contain an optional flag.
+         * If a flag is not provided, it defaults to `'r'`.
+         */
+        function readFile(path: PathLike | FileHandle, options: { encoding: BufferEncoding, flag?: string | number } | BufferEncoding): Promise<string>;
+
+        /**
+         * Asynchronously reads the entire contents of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * If a `FileHandle` is provided, the underlying file will _not_ be closed automatically.
+         * @param options An object that may contain an optional flag.
+         * If a flag is not provided, it defaults to `'r'`.
+         */
+        function readFile(path: PathLike | FileHandle, options?: { encoding?: string | null, flag?: string | number } | string | null): Promise<string | Buffer>;
+    }
 }
 
 declare module "path" {
@@ -5058,23 +5627,6 @@ declare module "tls" {
         prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
     }
 
-    export interface ClearTextStream extends stream.Duplex {
-        authorized: boolean;
-        authorizationError: Error;
-        getPeerCertificate(): any;
-        getCipher: {
-            name: string;
-            version: string;
-        };
-        address: {
-            port: number;
-            family: string;
-            address: string;
-        };
-        remoteAddress: string;
-        remotePort: number;
-    }
-
     export interface SecurePair {
         encrypted: any;
         cleartext: any;
@@ -5131,6 +5683,7 @@ declare module "crypto" {
         (): Certificate;
     };
 
+    /** @deprecated since v10.0.0 */
     export var fips: boolean;
 
     export interface CredentialDetails {
@@ -5165,6 +5718,8 @@ declare module "crypto" {
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
+
+    /** @deprecated since v10.0.0 use createCipheriv() */
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher extends NodeJS.ReadWriteStream {
@@ -5178,6 +5733,7 @@ declare module "crypto" {
         getAuthTag(): Buffer;
         setAAD(buffer: Buffer): this;
     }
+    /** @deprecated since v10.0.0 use createCipheriv() */
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
@@ -5263,22 +5819,22 @@ declare module "crypto" {
     export function getCurves(): string[];
     export function getHashes(): string[];
     export interface ECDH {
+        convertKey(key: string | Buffer /*| TypedArray*/ | DataView, curve: string, inputEncoding?: string, outputEncoding?: string, format?: string): Buffer | string;
         generateKeys(): Buffer;
-        generateKeys(encoding: HexBase64Latin1Encoding): string;
-        generateKeys(encoding: HexBase64Latin1Encoding, format: ECDHKeyFormat): string;
+        generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         computeSecret(other_public_key: Buffer): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         getPublicKey(): Buffer;
-        getPublicKey(encoding: HexBase64Latin1Encoding): string;
-        getPublicKey(encoding: HexBase64Latin1Encoding, format: ECDHKeyFormat): string;
+        getPublicKey(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         setPrivateKey(private_key: Buffer): void;
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
     export function createECDH(curve_name: string): ECDH;
     export function timingSafeEqual(a: Buffer, b: Buffer): boolean;
+    /** @deprecated since v10.0.0 */
     export var DEFAULT_ENCODING: string;
 }
 
@@ -5375,14 +5931,16 @@ declare module "stream" {
             removeListener(event: "end", listener: () => void): this;
             removeListener(event: "readable", listener: () => void): this;
             removeListener(event: "error", listener: (err: Error) => void): this;
+
+            [Symbol.asyncIterator](): AsyncIterableIterator<Buffer | string>;
         }
 
         export interface WritableOptions {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
-            write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
+            write?: (chunk: any, encoding: string, callback: Function) => any;
+            writev?: (chunks: Array<{ chunk: any, encoding: string }>, callback: Function) => any;
             destroy?: (error?: Error) => any;
             final?: (callback: (error?: Error) => void) => void;
         }
@@ -5499,18 +6057,35 @@ declare module "stream" {
             uncork(): void;
         }
 
+        type TransformCallback = (err?: Error, data?: any) => void;
+
         export interface TransformOptions extends DuplexOptions {
-            transform?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            flush?: (callback: Function) => any;
+            transform?: (chunk: any, encoding: string, callback: TransformCallback) => any;
+            flush?: (callback: TransformCallback) => any;
         }
 
         export class Transform extends Duplex {
             constructor(opts?: TransformOptions);
-            _transform(chunk: any, encoding: string, callback: Function): void;
+            _transform(chunk: any, encoding: string, callback: TransformCallback): void;
             destroy(error?: Error): void;
         }
 
         export class PassThrough extends Transform { }
+
+        export function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T, callback?: (err: NodeJS.ErrnoException) => void): T;
+        export function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: T, callback?: (err: NodeJS.ErrnoException) => void): T;
+        export function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: T, callback?: (err: NodeJS.ErrnoException) => void): T;
+        export function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: NodeJS.ReadWriteStream, stream5: T, callback?: (err: NodeJS.ErrnoException) => void): T;
+        export function pipeline(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>, callback?: (err: NodeJS.ErrnoException) => void): NodeJS.WritableStream;
+        export function pipeline(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream, ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | ((err: NodeJS.ErrnoException) => void)>): NodeJS.WritableStream;
+        export namespace pipeline {
+            export function __promisify__<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T): Promise<void>;
+            export function __promisify__<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: T): Promise<void>;
+            export function __promisify__<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: T): Promise<void>;
+            export function __promisify__<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: NodeJS.ReadWriteStream, stream5: T): Promise<void>;
+            export function __promisify__(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
+            export function __promisify__(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream, ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>): Promise<void>;
+        }
     }
 
     export = internal;
@@ -5519,10 +6094,15 @@ declare module "stream" {
 declare module "util" {
     export interface InspectOptions extends NodeJS.InspectOptions { }
     export function format(format: any, ...param: any[]): string;
+    /** @deprecated since v0.11.3 - use `console.error()` instead. */
     export function debug(string: string): void;
+    /** @deprecated since v0.11.3 - use `console.error()` instead. */
     export function error(...param: any[]): void;
+    /** @deprecated since v0.11.3 - use `console.log()` instead. */
     export function puts(...param: any[]): void;
+    /** @deprecated since v0.11.3 - use `console.log()` instead. */
     export function print(...param: any[]): void;
+    /** @deprecated since v0.11.3 - use a third party module instead. */
     export function log(string: string): void;
     export var inspect: {
         (object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
@@ -5536,24 +6116,40 @@ declare module "util" {
         defaultOptions: InspectOptions;
         custom: symbol;
     };
+    /** @deprecated since v4.0.0 - use `Array.isArray()` instead. */
     export function isArray(object: any): object is any[];
+    /** @deprecated since v4.0.0 - use `util.types.isRegExp()` instead. */
     export function isRegExp(object: any): object is RegExp;
+    /** @deprecated since v4.0.0 - use `util.types.isDate()` instead. */
     export function isDate(object: any): object is Date;
+    /** @deprecated since v4.0.0 - use `util.types.isNativeError()` instead. */
     export function isError(object: any): object is Error;
     export function inherits(constructor: any, superConstructor: any): void;
     export function debuglog(key: string): (msg: string, ...param: any[]) => void;
+    /** @deprecated since v4.0.0 - use `typeof value === 'boolean'` instead. */
     export function isBoolean(object: any): object is boolean;
+    /** @deprecated since v4.0.0 - use `Buffer.isBuffer()` instead. */
     export function isBuffer(object: any): object is Buffer;
+    /** @deprecated since v4.0.0 - use `typeof value === 'function'` instead. */
     export function isFunction(object: any): boolean;
+    /** @deprecated since v4.0.0 - use `value === null` instead. */
     export function isNull(object: any): object is null;
+    /** @deprecated since v4.0.0 - use `value === null || value === undefined` instead. */
     export function isNullOrUndefined(object: any): object is null | undefined;
+    /** @deprecated since v4.0.0 - use `typeof value === 'number'` instead. */
     export function isNumber(object: any): object is number;
+    /** @deprecated since v4.0.0 - use `value !== null && typeof value === 'object'` instead. */
     export function isObject(object: any): boolean;
+    /** @deprecated since v4.0.0 - use `(typeof value !== 'object' && typeof value !== 'function') || value === null` instead. */
     export function isPrimitive(object: any): boolean;
+    /** @deprecated since v4.0.0 - use `typeof value === 'string'` instead. */
     export function isString(object: any): object is string;
+    /** @deprecated since v4.0.0 - use `typeof value === 'symbol'` instead. */
     export function isSymbol(object: any): object is symbol;
+    /** @deprecated since v4.0.0 - use `value === undefined` instead. */
     export function isUndefined(object: any): object is undefined;
     export function deprecate<T extends Function>(fn: T, message: string): T;
+    export function isDeepStrictEqual(val1: any, val2: any): boolean;
 
     export interface CustomPromisify<TCustom extends Function> extends Function {
         __promisify__: TCustom;
@@ -5591,6 +6187,76 @@ declare module "util" {
     export namespace promisify {
         const custom: symbol;
     }
+
+    export namespace types {
+        export function isAnyArrayBuffer(object: any): boolean;
+        export function isArgumentsObject(object: any): object is IArguments;
+        export function isArrayBuffer(object: any): object is ArrayBuffer;
+        export function isAsyncFunction(object: any): boolean;
+        export function isBooleanObject(object: any): object is Boolean;
+        export function isDataView(object: any): object is DataView;
+        export function isDate(object: any): object is Date;
+        export function isExternal(object: any): boolean;
+        export function isFloat32Array(object: any): object is Float32Array;
+        export function isFloat64Array(object: any): object is Float64Array;
+        export function isGeneratorFunction(object: any): boolean;
+        export function isGeneratorObject(object: any): boolean;
+        export function isInt8Array(object: any): object is Int8Array;
+        export function isInt16Array(object: any): object is Int16Array;
+        export function isInt32Array(object: any): object is Int32Array;
+        export function isMap(object: any): object is Map<any, any>;
+        export function isMapIterator(object: any): boolean;
+        export function isNativeError(object: any): object is Error;
+        export function isNumberObject(object: any): object is Number;
+        export function isPromise(object: any): object is Promise<any>;
+        export function isProxy(object: any): boolean;
+        export function isRegExp(object: any): object is RegExp;
+        export function isSet(object: any): object is Set<any>;
+        export function isSetIterator(object: any): boolean;
+        export function isSharedArrayBuffer(object: any): boolean;
+        export function isStringObject(object: any): object is String;
+        export function isSymbolObject(object: any): object is Symbol;
+        export function isTypedArray(object: any): object is Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+        export function isUint8Array(object: any): object is Uint8Array;
+        export function isUint8ClampedArray(object: any): object is Uint8ClampedArray;
+        export function isUint16Array(object: any): object is Uint16Array;
+        export function isUint32Array(object: any): object is Uint32Array;
+        export function isWeakMap(object: any): object is WeakMap<any, any>;
+        export function isWeakSet(object: any): object is WeakSet<any>;
+        export function isWebAssemblyCompiledModule(object: any): boolean;
+    }
+
+    export class TextDecoder {
+        readonly encoding: string;
+        readonly fatal: boolean;
+        readonly ignoreBOM: boolean;
+        constructor(
+          encoding?: string,
+          options?: { fatal?: boolean; ignoreBOM?: boolean }
+        );
+        decode(
+          input?:
+            Int8Array
+            | Int16Array
+            | Int32Array
+            | Uint8Array
+            | Uint16Array
+            | Uint32Array
+            | Uint8ClampedArray
+            | Float32Array
+            | Float64Array
+            | DataView
+            | ArrayBuffer
+            | null,
+          options?: { stream?: boolean }
+        ): string;
+    }
+
+    export class TextEncoder {
+        readonly encoding: string;
+        constructor();
+        encode(input?: string): Uint8Array;
+    }
 }
 
 declare module "assert" {
@@ -5611,11 +6277,16 @@ declare module "assert" {
         }
 
         export function fail(message: string): never;
+        /** @deprecated since v10.0.0 */
         export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
+        /** @deprecated use strictEqual() */
         export function equal(actual: any, expected: any, message?: string): void;
+        /** @deprecated use notStrictEqual() */
         export function notEqual(actual: any, expected: any, message?: string): void;
+        /** @deprecated use deepStrictEqual() */
         export function deepEqual(actual: any, expected: any, message?: string): void;
+        /** @deprecated use notDeepStrictEqual() */
         export function notDeepEqual(acutal: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
@@ -5633,6 +6304,11 @@ declare module "assert" {
         export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
 
         export function ifError(value: any): void;
+
+        export function rejects(block: Function | Promise<any>, message?: string): Promise<void>;
+        export function rejects(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, message?: string): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
     }
 
     export = internal;
@@ -6014,15 +6690,11 @@ declare module "async_hooks" {
      * Returns the asyncId of the current execution context.
      */
     export function executionAsyncId(): number;
-    /// @deprecated - replaced by executionAsyncId()
-    export function currentId(): number;
 
     /**
      * Returns the ID of the resource responsible for calling the callback that is currently being executed.
      */
     export function triggerAsyncId(): number;
-    /// @deprecated - replaced by triggerAsyncId()
-    export function triggerId(): number;
 
     export interface HookCallbacks {
         /**
@@ -6163,8 +6835,16 @@ declare module "http2" {
     import * as tls from "tls";
     import * as url from "url";
 
-    import { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
-    export { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+    import { IncomingHttpHeaders as Http1IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+    export { OutgoingHttpHeaders } from "http";
+
+    export interface IncomingHttpHeaders extends Http1IncomingHttpHeaders {
+        ':path'?: string;
+        ':method'?: string;
+        ':status'?: string;
+        ':authority'?: string;
+        ':scheme'?: string;
+    }
 
     // Http2Stream
 
@@ -6975,6 +7655,8 @@ declare module "http2" {
 }
 
 declare module "perf_hooks" {
+    import { AsyncResource } from "async_hooks";
+
     export interface PerformanceEntry {
         /**
          * The total number of milliseconds elapsed for this entry.
@@ -7187,7 +7869,7 @@ declare module "perf_hooks" {
 
     export type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
 
-    export class PerformanceObserver {
+    export class PerformanceObserver extends AsyncResource {
         constructor(callback: PerformanceObserverCallback);
 
         /**

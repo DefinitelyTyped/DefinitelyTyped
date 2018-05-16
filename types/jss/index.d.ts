@@ -112,19 +112,20 @@ export declare class SheetsRegistry {
     remove(sheet: StyleSheet): void;
     toString(options?: ToCssOptions): string;
 }
+export type CreateStyleSheetOptions<Name extends string = any> = Partial<{
+	media: string;
+	meta: string;
+	link: boolean;
+	element: HTMLStyleElement;
+	index: number;
+	generateClassName: GenerateClassName<Name>;
+	classNamePrefix: string;
+}>;
 declare class JSS {
 	constructor(options?: Partial<JSSOptions>);
 	createStyleSheet<Name extends string>(
 		styles: Partial<Styles<Name>>,
-		options?: Partial<{
-			media: string;
-			meta: string;
-			link: boolean;
-			element: HTMLStyleElement;
-			index: number;
-			generateClassName: GenerateClassName<Name>;
-			classNamePrefix: string;
-		}>,
+		options?: CreateStyleSheetOptions<Name>,
 	): StyleSheet<Name>;
 	removeStyleSheet(sheet: StyleSheet): this;
 	setup(options?: Partial<JSSOptions>): this;

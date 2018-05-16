@@ -24,7 +24,7 @@ export type SubComponentFunction = (rowInfo: RowInfo) => React.ReactNode;
 export type PageChangeFunction = (page: number) => void;
 export type PageSizeChangeFunction = (newPageSize: number, newPage: number) => void;
 export type SortedChangeFunction = (newSorted: SortingRule[], column: any, additive: boolean) => void;
-export type FilteredChangeFunction = (newFiltering: Filter, column: any, value: any) => void;
+export type FilteredChangeFunction = (newFiltering: Filter[], column: any, value: any) => void;
 export type ExpandedChangeFunction = (column: any, event: any, isTouch: boolean) => void;
 export type ResizedChangeFunction = (newResized: Resize[], event: any) => void;
 export type SortFunction = (a: any, b: any, desc: any) => -1 | 0 | 1;
@@ -177,6 +177,13 @@ export interface TableProps extends
 
     /** Server-side callbacks */
     onFetchData: (state: any, instance: any) => void;
+
+    /** Control callback for functional rendering */
+    children: (
+        state: FinalState,
+        makeTable: () => React.ReactElement<any>,
+        instance: Instance
+    ) => React.ReactNode;
 }
 
 export interface ControlledStateOverrideProps {
@@ -252,6 +259,14 @@ export interface PivotingProps {
 
 export interface ExpandedRows {
     [idx: number]: boolean | ExpandedRows;
+}
+
+export interface DerivedDataObject {
+    _index: number;
+    _nestingLevel: number;
+    _subRows: any;
+    _original: any;
+    [p: string]: any;
 }
 
 export interface ControlledStateCallbackProps {
@@ -648,15 +663,46 @@ export interface RowInfo {
 }
 
 export interface FinalState extends TableProps {
+    frozen: boolean;
     startRow: number;
     endRow: number;
     pageRows: number;
     padRows: number;
     hasColumnFooter: boolean;
+    hasHeaderGroups: boolean;
     canPrevious: boolean;
     canNext: boolean;
     rowMinWidth: number;
+
+    allVisibleColumns: Column[];
+    allDecoratedColumns: Column[];
+    resolvedData: DerivedDataObject[];
+    sortedData: DerivedDataObject[];
+    headerGroups: any[];
 }
 
 export const ReactTableDefaults: TableProps;
 export default class ReactTable extends React.Component<Partial<TableProps>> { }
+
+export interface Instance extends ReactTable {
+    context: any;
+    props: Partial<TableProps>;
+    refs: any;
+    state: FinalState;
+    filterColumn(...props: any[]): any;
+    filterData(...props: any[]): any;
+    fireFetchData(...props: any[]): any;
+    getDataModel(...props: any[]): any;
+    getMinRows(...props: any[]): any;
+    getPropOrState(...props: any[]): any;
+    getResolvedState(...props: any[]): any;
+    getSortedData(...props: any[]): any;
+    getStateOrProp(...props: any[]): any;
+    onPageChange: PageChangeFunction;
+    onPageSizeChange: PageSizeChangeFunction;
+    resizeColumnEnd(...props: any[]): any;
+    resizeColumnMoving(...props: any[]): any;
+    resizeColumnStart(...props: any[]): any;
+    sortColumn(...props: any[]): any;
+    sortData(...props: any[]): any;
+}

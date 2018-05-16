@@ -258,6 +258,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
 
 const authResult : AuthResult = {
     accessToken: 'fake_access_token',
+    expiresIn: 7200,
     idToken: 'fake_id_token',
     idTokenPayload: {
       aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
@@ -267,5 +268,6 @@ const authResult : AuthResult = {
       sub: "auth0|aksjfkladsf"
     },
     refreshToken: undefined,
-    state: "923jf092j3.FFSDJFDSKLDF"
+    state: "923jf092j3.FFSDJFDSKLDF",
+    tokenType: 'Bearer'
 };

@@ -62,6 +62,7 @@ declare const font: string;
 declare const quality: number;
 declare const align: string;
 declare const depth: number;
+declare const defineValue: string;
 let readStream: stream.PassThrough;
 
 gm(src)
@@ -104,7 +105,7 @@ gm(src)
 	.crop(width, height, x, y, usePercent)
 	.cycle(factor)
 	.deconstruct()
-	.define()
+	.define(defineValue)
 	.delay(time)
 	.density(width, height)
 	.despeckle()
