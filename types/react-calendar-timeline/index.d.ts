@@ -87,8 +87,8 @@ declare module "react-calendar-timeline" {
     onZoom?(timelineContext: TimelineContext): any;
     children?: any;
     fullUpdate?: boolean;
-    itemRenderer?: (props: {item: TimelineItem, context: TimelineContext}) => React.ReactElement<{}>;;
-    groupRenderer?: (props: {group: TimelineGroup, isRightSidebar: boolean}) => React.ReactElement<{}>;;
+    itemRenderer?: (props: {item: TimelineItem, context: TimelineContext}) => React.ReactElement<{}>;
+    groupRenderer?: (props: {group: TimelineGroup, isRightSidebar: boolean}) => React.ReactElement<{}>;
     minimumWidthForItemContentVisibility?: number;
   }
   let ReactCalendarTimeline : React.ClassicComponentClass<ReactCalendarTimelineProps>;
