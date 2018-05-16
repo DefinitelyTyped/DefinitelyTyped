@@ -91,7 +91,8 @@ type RequestCache =
     | "force-cache"
     | "only-if-cached";
 
-export class Headers {
+export class Headers implements Iterable<[string, string]> {
+    constructor(init?: Headers | { [k: string]: string });
     append(name: string, value: string): void;
     delete(name: string): void;
     get(name: string): string | null;
@@ -99,6 +100,11 @@ export class Headers {
     has(name: string): boolean;
     set(name: string, value: string): void;
     forEach(callback: (value: string, name: string) => void): void;
+    keys(): Iterator<string>;
+    entries(): Iterator<[string, string]>;
+    values(): Iterator<[string]>;
+    raw(): { [k: string]: string };
+    [Symbol.iterator](): Iterator<[string, string]>;
 }
 
 export class Body {
