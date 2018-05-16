@@ -107,6 +107,12 @@ export class Headers implements Iterable<[string, string]> {
     [Symbol.iterator](): Iterator<[string, string]>;
 }
 
+export class Blob {
+    type: string;
+    size: number;
+    slice(start?: number, end?: number): Blob;
+}
+
 export class Body {
     bodyUsed: boolean;
     body: NodeJS.ReadableStream;
