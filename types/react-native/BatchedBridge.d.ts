@@ -15,9 +15,9 @@ declare class MessageQueue {
 
 declare module "react-native/Libraries/BatchedBridge/BatchedBridge" {
     const BatchedBridge: MessageQueue;
-    export default BatchedBridge;
+    export = BatchedBridge;
 }
 
 declare module "react-native/Libraries/BatchedBridge/MessageQueue" {
-    export default MessageQueue;
+    export = MessageQueue;
 }
