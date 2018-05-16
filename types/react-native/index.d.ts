@@ -3494,6 +3494,14 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      * A unique identifier for this element to be used in UI Automation testing scripts.
      */
     testID?: string;
+
+    /**
+     * Currently broken
+     * @see https://github.com/facebook/react-native/pull/19281
+     */
+    width?: never,
+    height?: never,
+    tintColor?: never,
 }
 
 export interface ImageProps extends ImagePropsBase {
