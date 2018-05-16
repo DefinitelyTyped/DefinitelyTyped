@@ -14,7 +14,7 @@ export interface MarkerProps {
     value?: number;
 }
 
-export interface MutliSliderProps {
+export interface MultiSliderProps {
     /**
      * An array containing one or two values (determines one or two markers respectively) that are the initial marker values.
      * Note these must be possible values from your set up.
@@ -142,4 +142,4 @@ export interface MutliSliderProps {
     pressedMarkerStyle?: ViewStyle;
 }
 
-export default class MultiSlider extends React.Component<MutliSliderProps> {}
+export default class MultiSlider extends React.Component<MultiSliderProps> {}
