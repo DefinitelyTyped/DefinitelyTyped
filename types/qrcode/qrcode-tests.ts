@@ -54,3 +54,25 @@ QRCode.toFile('path/to/filename.png', 'Some text', {
     if (err) throw err;
     console.log('done');
 });
+
+QRCode.toFile('path/to/filename2.png', 'Some text', {
+    color: {
+        dark: '#00F',  // Blue dots
+        light: '#0000' // Transparent background
+    },
+    width: 400
+}, function (err) {
+    if (err) throw err;
+    console.log('done');
+});
+
+QRCode.toFile('path/to/filename2.png', 'Some text', {
+    color: {
+        dark: '#00F',  // Blue dots
+        light: '#0000' // Transparent background
+    },
+    scale: 200
+}, function (err) {
+    if (err) throw err;
+    console.log('done');
+});
