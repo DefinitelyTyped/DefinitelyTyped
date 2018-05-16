@@ -1,4 +1,4 @@
-// Type definitions for Matter.js - 0.10.0
+// Type definitions for Matter.js - 0.10.1
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
@@ -1630,6 +1630,19 @@ declare namespace Matter {
         stiffness?: number;
 
         /**
+         * A `Number` that specifies the damping of the constraint, 
+         * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
+         * Damping will only be apparent when the constraint also has a very low `stiffness`.
+         * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
+         * A value of `0` means the constraint will apply no damping.
+         *
+         * @property damping
+         * @type number
+         * @default 0
+         */
+        damping?: number;
+
+        /**
          * A `String` denoting the type of object.
          *
         * @property type
@@ -1771,6 +1784,19 @@ declare namespace Matter {
         * @default 1
         */
         stiffness: number;
+
+        /**
+         * A `Number` that specifies the damping of the constraint, 
+         * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
+         * Damping will only be apparent when the constraint also has a very low `stiffness`.
+         * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
+         * A value of `0` means the constraint will apply no damping.
+         *
+         * @property damping
+         * @type number
+         * @default 0
+         */
+        damping: number;
 
         /**
          * A `String` denoting the type of object.
