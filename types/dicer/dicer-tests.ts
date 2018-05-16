@@ -9,6 +9,17 @@ function testDicerSyntax() {
     };
     const dicer = new Dicer(opts);
 
+    const opts2: DicerConfig = {
+        headerFirst: true,
+        maxHeaderPairs: 1,
+    };
+
+    const opts3: DicerConfig = {
+        boundary: "more-testing",
+        headerFirst: false,
+        maxHeaderPairs: 8,
+    };
+
     dicer.setBoundary("new-testing-boundary");
 
     dicer.on("part", handleDicerPartStream);
