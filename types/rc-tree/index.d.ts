@@ -69,6 +69,21 @@ export interface SelectData {
     event: "select";
 }
 
+export interface OnRightClickData {
+    event: Event;
+    node: InternalTreeNode;
+}
+
+export interface OnMouseEnterData {
+    event: Event;
+    node: InternalTreeNode;
+}
+
+export interface OnMouseLeaveData {
+    event: Event;
+    node: InternalTreeNode;
+}
+
 export interface OnDragStartData {
     event: Event;
     node: InternalTreeNode;
@@ -204,15 +219,15 @@ export interface TreeProps {
     /**
      * select current treeNode and show customized contextmenu
      */
-    onRightClick?: (node: InternalTreeNode) => void;
+    onRightClick?: (props: OnRightClickData) => void;
     /**
      * call when mouse enter a treeNode
      */
-    onMouseEnter?: (node: InternalTreeNode) => void;
+    onMouseEnter?: (props: OnMouseEnterData) => void;
     /**
      * call when mouse leave a treeNode
      */
-    onMouseLeave?: (node: InternalTreeNode) => void;
+    onMouseLeave?: (props: OnMouseLeaveData) => void;
     /**
      * whether can drag treeNode.
      */
