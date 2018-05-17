@@ -293,11 +293,11 @@ interface JWPlayer {
 	on(event: 'adRequest', callback: EventCallback<AdRequestParam>): void;
 	once(event: 'adRequest', callback: EventCallback<AdRequestParam>): void;
 	off(event: 'adRequest'): void;
-	trigger(event: 'adRequest', args: AdScheduleParam): void;
+	trigger(event: 'adRequest', args: AdRequestParam): void;
     on(event: 'adSchedule', callback: EventCallback<AdScheduleParam>): void;
     once(event: 'adSchedule', callback: EventCallback<AdScheduleParam>): void;
     off(event: 'adSchedule'): void;
-    trigger(event: 'adSchedule', args: AdRequestParam): void;
+    trigger(event: 'adSchedule', args: AdScheduleParam): void;
     on(event: 'adStarted', callback: EventCallback<AdStartedParam>): void;
 	once(event: 'adStarted', callback: EventCallback<AdStartedParam>): void;
 	off(event: 'adStarted'): void;
