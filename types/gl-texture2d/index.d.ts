@@ -29,7 +29,7 @@ declare class Texture {
     bind(id?: number): number;
     dispose(): void;
     generateMipmap(): void;
-    setPixels( data: InputType | RawObject | ndarray, offset?: [number, number], mipLevel?: GLenum): void;
+    setPixels(data: InputType | RawObject | ndarray, offset?: [number, number], mipLevel?: GLenum): void;
 }
 
 declare function texture2d(gl: WebGLRenderingContext, array: ndarray): Texture;
