@@ -482,7 +482,7 @@ declare namespace Stripe {
             /**
              * ID of the Connect Application that earned the fee. [Expandable]
              */
-            application: string; //TODO: Implement IApplication interface and reference type here for expansion:- "string | IApplication"
+            application: string | applications.IApplication;
 
             /**
              * Balance transaction that describes the impact of this collected application
@@ -742,7 +742,7 @@ declare namespace Stripe {
             /**
              * ID of the Connect application that created the charge. [Expandable]
              */
-            application?: string | null;
+            application?: string | applications.IApplication | null;
 
             /**
              * The application fee (if any) for the charge. See the Connect documentation
@@ -783,7 +783,7 @@ declare namespace Stripe {
              * <https://stripe.com/docs/connect/destination-charges> for details.
              * [Expandable]
              */
-            destination?: string | null;
+            destination?: string | accounts.IAccount | null;
 
             /**
              * Details about the dispute if the charge has been disputed.
@@ -842,7 +842,7 @@ declare namespace Stripe {
              * Details about whether the payment was accepted, and why. See
              * understanding declines for details. [Expandable]
              */
-            outcome?: any;
+            outcome?: charges.IOutcome;
 
             /**
              * true if the charge succeeded, or was successfully authorized for later capture.
@@ -873,7 +873,7 @@ declare namespace Stripe {
             /**
              * ID of the review associated with this charge if one exists. [Expandable]
              */
-            review?: string | null;
+            review?: string | reviews.IReview | null;
 
             /**
              * Shipping information for the charge.
@@ -1095,6 +1095,48 @@ declare namespace Stripe {
                  */
                 object: "all" | "alipay_account" | "bitcoin_receiver" | "card";
             }
+        }
+
+        interface IOutcome {
+            /**
+             * The value reversed_after_approval indicates the payment was blocked by Stripe after
+             * bank authorization, and may temporarily appear as “pending” on a cardholder’s statement.
+             */
+            network_status: "approved_by_network" | "declined_by_network" | "not_sent_to_network" | "reversed_after_approval";
+
+            /**
+             * An enumerated value providing a more detailed explanation of the outcome’s type. Charges
+             * blocked by Radar’s default block rule have the value highest_risk_level. Charges placed
+             * in review by Radar’s default review rule have the value elevated_risk_level. Charges
+             * authorized, blocked, or placed in review by custom rules have the value rule. See
+             * understanding declines for more details.
+             */
+            reason: string | null;
+
+            /**
+             * Stripe’s evaluation of the riskiness of the payment. Possible values for evaluated
+             * payments are normal, elevated, highest. For non-card payments, and card-based payments
+             * predating the public assignment of risk levels, this field will have the value not_assessed.
+             * In the event of an error in the evaluation, this field will have the value unknown.
+             */
+            risk_level?: string | null;
+
+            /**
+             * The ID of the Radar rule that matched the payment, if applicable. [Expandable]
+             */
+            rule?: string | string[] | null;
+
+            /**
+             * See [understanding declines]<https://stripe.com/docs/declines> and
+             * [Radar reviews]<https://stripe.com/docs/radar/review> for details.
+             */
+            type: "authorized" | "manual_review" | "issuer_declined" | "blocked" | "invalid";
+
+            /**
+             * A human-readable description of the outcome type and reason, designed for you (the
+             * recipient of the payment), not your customer.
+             */
+            seller_message: string;
         }
 
         interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds { }
@@ -4978,6 +5020,59 @@ declare namespace Stripe {
             }
         }
     }
+
+    namespace reviews {
+        interface IReview extends IResourceObject {
+            /**
+             * Unique identifier for the object.
+             */
+            "id": string;
+
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            "object": "review";
+            
+            /**
+             * The charge associated with this review. [Expandable]
+             */
+            "charge": string | charges.ICharge;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            "created": number;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            "livemode": false;
+
+            /**
+             * If true, the review needs action.
+             */
+            "open": true;
+
+            /**
+             * The reason the review is currently open or closed.
+             */
+            "reason": "rule" | "manual" | "approved" | "refunded" | "refunded_as_fraud" | "disputed";
+        }
+    }
+
+    namespace applications {
+        interface IApplication extends IResourceObject {
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            "object": "application";
+
+            /**
+             * String representing the application’s name.
+             */
+            "name": string;
+        }
+    } 
 
     class StripeResource {
         constructor(stripe: Stripe, urlData: any);
