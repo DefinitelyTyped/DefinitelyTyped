@@ -333,6 +333,15 @@ declare namespace Chartist {
         chartPadding?: IChartPadding;
         fullWidth?: boolean;
         classNames?: ILineChartClasses;
+        series?: {
+            [key: string]: {
+                lineSmooth?: Function | boolean;
+                showLine?: boolean;
+                showPoint?: boolean;
+                showArea?: boolean;
+                areaBase?: number;
+            }
+        }
     }
 
     interface ILineChartAxis {
