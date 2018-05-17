@@ -19,6 +19,8 @@ class MyComponent extends Ember.Component {
         };
         this.addObserver('foo', lambda);
         this.removeObserver('foo', lambda);
+        Ember.addObserver(this, 'foo', lambda);
+        Ember.removeObserver(this, 'foo', lambda);
     }
 
     fooDidChange(sender: MyComponent, key: 'foo') {
