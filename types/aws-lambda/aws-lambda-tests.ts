@@ -575,6 +575,8 @@ const CodePipelineEvent: AWSLambda.CodePipelineEvent = {
     }
 };
 
+CodePipelineEvent["CodePipeline.job"].data.encryptionKey = { type: 'KMS', id: 'key' };
+
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
 const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
   Records: [
