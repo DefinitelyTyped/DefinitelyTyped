@@ -417,6 +417,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        debugPort: number;
         env: any;
         exit(code?: number): void;
         exitCode: number;
