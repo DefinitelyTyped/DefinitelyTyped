@@ -350,20 +350,15 @@ declare namespace _ {
     type LodashContains1x1<T> = (collection: lodash.List<T> | lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => boolean;
     type LodashContains1x2<T> = (target: T) => boolean;
     interface LodashCountBy {
-        <T>(iteratee: (value: string) => T): LodashCountBy1x1;
-        (iteratee: lodash.__, collection: string | null | undefined): LodashCountBy1x2;
-        <T>(iteratee: (value: string) => T, collection: string | null | undefined): lodash.Dictionary<number>;
-        <T>(iteratee: lodash.ValueIteratee<T>): LodashCountBy2x1<T>;
-        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashCountBy2x2<T>;
+        <T>(iteratee: lodash.ValueIteratee<T>): LodashCountBy1x1<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashCountBy1x2<T>;
         <T>(iteratee: lodash.ValueIteratee<T>, collection: lodash.List<T> | null | undefined): lodash.Dictionary<number>;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashCountBy3x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashCountBy2x2<T>;
         <T extends object>(iteratee: lodash.ValueIteratee<T[keyof T]>, collection: T | null | undefined): lodash.Dictionary<number>;
     }
-    type LodashCountBy1x1 = (collection: string | null | undefined) => lodash.Dictionary<number>;
-    type LodashCountBy1x2 = <T>(iteratee: (value: string) => T) => lodash.Dictionary<number>;
-    type LodashCountBy2x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<number>;
-    type LodashCountBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<number>;
-    type LodashCountBy3x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<number>;
+    type LodashCountBy1x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<number>;
+    type LodashCountBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<number>;
+    type LodashCountBy2x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<number>;
     type LodashCreate = <T extends object, U extends object>(prototype: T) => T & U;
     interface LodashCurry {
         <T1, R>(func: (t1: T1) => R): lodash.CurriedFunction1<T1, R>;
@@ -744,7 +739,7 @@ declare namespace _ {
     }
     type LodashExtendWith1x5<TSource> = <TObject>(object: TObject) => TObject & TSource;
     type LodashExtendWith1x6<TObject, TSource> = (customizer: lodash.AssignCustomizer) => TObject & TSource;
-    type LodashStubFalse = () => boolean;
+    type LodashStubFalse = () => false;
     interface LodashFill {
         (start: number): LodashFill1x1;
         (start: lodash.__, end: number): LodashFill1x2;
@@ -1580,20 +1575,15 @@ declare namespace _ {
     type LodashGetOr4x5 = (path: lodash.PropertyPath) => any;
     type LodashGetOr4x6 = (defaultValue: any) => any;
     interface LodashGroupBy {
-        (iteratee: (value: string) => lodash.NotVoid): LodashGroupBy1x1;
-        (iteratee: lodash.__, collection: string | null | undefined): LodashGroupBy1x2;
-        (iteratee: (value: string) => lodash.NotVoid, collection: string | null | undefined): lodash.Dictionary<string[]>;
-        <T>(iteratee: lodash.ValueIteratee<T>): LodashGroupBy2x1<T>;
-        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashGroupBy2x2<T>;
+        <T>(iteratee: lodash.ValueIteratee<T>): LodashGroupBy1x1<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashGroupBy1x2<T>;
         <T>(iteratee: lodash.ValueIteratee<T>, collection: lodash.List<T> | null | undefined): lodash.Dictionary<T[]>;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashGroupBy3x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashGroupBy2x2<T>;
         <T extends object>(iteratee: lodash.ValueIteratee<T[keyof T]>, collection: T | null | undefined): lodash.Dictionary<Array<T[keyof T]>>;
     }
-    type LodashGroupBy1x1 = (collection: string | null | undefined) => lodash.Dictionary<string[]>;
-    type LodashGroupBy1x2 = (iteratee: (value: string) => lodash.NotVoid) => lodash.Dictionary<string[]>;
-    type LodashGroupBy2x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<T[]>;
-    type LodashGroupBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<T[]>;
-    type LodashGroupBy3x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<Array<T[keyof T]>>;
+    type LodashGroupBy1x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<T[]>;
+    type LodashGroupBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<T[]>;
+    type LodashGroupBy2x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<Array<T[keyof T]>>;
     interface LodashGt {
         (value: any): LodashGt1x1;
         (value: lodash.__, other: any): LodashGt1x2;
@@ -1661,20 +1651,15 @@ declare namespace _ {
     type LodashIncludesFrom1x5 = (fromIndex: number) => boolean;
     type LodashIncludesFrom1x6<T> = (target: T) => boolean;
     interface LodashKeyBy {
-        (iteratee: (value: string) => lodash.PropertyName): LodashKeyBy1x1;
-        (iteratee: lodash.__, collection: string | null | undefined): LodashKeyBy1x2;
-        (iteratee: (value: string) => lodash.PropertyName, collection: string | null | undefined): lodash.Dictionary<string>;
-        <T>(iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>): LodashKeyBy2x1<T>;
-        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashKeyBy2x2<T>;
+        <T>(iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>): LodashKeyBy1x1<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashKeyBy1x2<T>;
         <T>(iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>, collection: lodash.List<T> | null | undefined): lodash.Dictionary<T>;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashKeyBy3x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashKeyBy2x2<T>;
         <T extends object>(iteratee: lodash.ValueIterateeCustom<T[keyof T], lodash.PropertyName>, collection: T | null | undefined): lodash.Dictionary<T[keyof T]>;
     }
-    type LodashKeyBy1x1 = (collection: string | null | undefined) => lodash.Dictionary<string>;
-    type LodashKeyBy1x2 = (iteratee: (value: string) => lodash.PropertyName) => lodash.Dictionary<string>;
-    type LodashKeyBy2x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<T>;
-    type LodashKeyBy2x2<T> = (iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>) => lodash.Dictionary<T>;
-    type LodashKeyBy3x2<T> = (iteratee: lodash.ValueIterateeCustom<T[keyof T], lodash.PropertyName>) => lodash.Dictionary<T[keyof T]>;
+    type LodashKeyBy1x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<T>;
+    type LodashKeyBy1x2<T> = (iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>) => lodash.Dictionary<T>;
+    type LodashKeyBy2x2<T> = (iteratee: lodash.ValueIterateeCustom<T[keyof T], lodash.PropertyName>) => lodash.Dictionary<T[keyof T]>;
     interface LodashIndexOf {
         <T>(value: T): LodashIndexOf1x1<T>;
         <T>(value: lodash.__, array: lodash.List<T> | null | undefined): LodashIndexOf1x2<T>;
@@ -3546,17 +3531,12 @@ declare namespace _ {
     type LodashSortedLastIndexOf1x2<T> = (value: T) => number;
     type LodashSortedUniq = <T>(array: lodash.List<T> | null | undefined) => T[];
     interface LodashSortedUniqBy {
-        (iteratee: (value: string) => lodash.NotVoid): LodashSortedUniqBy1x1;
-        (iteratee: lodash.__, array: string | null | undefined): LodashSortedUniqBy1x2;
-        (iteratee: (value: string) => lodash.NotVoid, array: string | null | undefined): string[];
-        <T>(iteratee: lodash.ValueIteratee<T>): LodashSortedUniqBy2x1<T>;
-        <T>(iteratee: lodash.__, array: lodash.List<T> | null | undefined): LodashSortedUniqBy2x2<T>;
+        <T>(iteratee: lodash.ValueIteratee<T>): LodashSortedUniqBy1x1<T>;
+        <T>(iteratee: lodash.__, array: lodash.List<T> | null | undefined): LodashSortedUniqBy1x2<T>;
         <T>(iteratee: lodash.ValueIteratee<T>, array: lodash.List<T> | null | undefined): T[];
     }
-    type LodashSortedUniqBy1x1 = (array: string | null | undefined) => string[];
-    type LodashSortedUniqBy1x2 = (iteratee: (value: string) => lodash.NotVoid) => string[];
-    type LodashSortedUniqBy2x1<T> = (array: lodash.List<T> | null | undefined) => T[];
-    type LodashSortedUniqBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
+    type LodashSortedUniqBy1x1<T> = (array: lodash.List<T> | null | undefined) => T[];
+    type LodashSortedUniqBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
     interface LodashSplit {
         (separator: RegExp|string): LodashSplit1x1;
         (separator: lodash.__, string: string): LodashSplit1x2;
@@ -3583,7 +3563,7 @@ declare namespace _ {
     type LodashStubArray = () => any[];
     type LodashStubObject = () => any;
     type LodashStubString = () => string;
-    type LodashStubTrue = () => boolean;
+    type LodashStubTrue = () => true;
     interface LodashSubtract {
         (minuend: number): LodashSubtract1x1;
         (minuend: lodash.__, subtrahend: number): LodashSubtract1x2;
@@ -3900,17 +3880,12 @@ declare namespace _ {
     type LodashUnionWith1x6<T> = (comparator: lodash.Comparator<T>) => T[];
     type LodashUniq = <T>(array: lodash.List<T> | null | undefined) => T[];
     interface LodashUniqBy {
-        (iteratee: (value: string) => lodash.NotVoid): LodashUniqBy1x1;
-        (iteratee: lodash.__, array: string | null | undefined): LodashUniqBy1x2;
-        (iteratee: (value: string) => lodash.NotVoid, array: string | null | undefined): string[];
-        <T>(iteratee: lodash.ValueIteratee<T>): LodashUniqBy2x1<T>;
-        <T>(iteratee: lodash.__, array: lodash.List<T> | null | undefined): LodashUniqBy2x2<T>;
+        <T>(iteratee: lodash.ValueIteratee<T>): LodashUniqBy1x1<T>;
+        <T>(iteratee: lodash.__, array: lodash.List<T> | null | undefined): LodashUniqBy1x2<T>;
         <T>(iteratee: lodash.ValueIteratee<T>, array: lodash.List<T> | null | undefined): T[];
     }
-    type LodashUniqBy1x1 = (array: string | null | undefined) => string[];
-    type LodashUniqBy1x2 = (iteratee: (value: string) => lodash.NotVoid) => string[];
-    type LodashUniqBy2x1<T> = (array: lodash.List<T> | null | undefined) => T[];
-    type LodashUniqBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
+    type LodashUniqBy1x1<T> = (array: lodash.List<T> | null | undefined) => T[];
+    type LodashUniqBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
     type LodashUniqueId = (prefix: string) => string;
     interface LodashUniqWith {
         <T>(comparator: lodash.Comparator<T>): LodashUniqWith1x1<T>;

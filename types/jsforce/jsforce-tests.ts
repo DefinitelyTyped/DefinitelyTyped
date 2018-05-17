@@ -1,3 +1,8 @@
+import * as fs from 'fs';
+import * as stream from 'stream';
+import * as express from 'express';
+import * as glob from 'glob';
+
 import * as sf from 'jsforce';
 
 export interface DummyRecord {
@@ -16,6 +21,14 @@ const salesforceConnection: sf.Connection = new sf.Connection({
 });
 
 salesforceConnection.sobject<DummyRecord>("Dummy").select(["thing", "other"]);
+
+const requestInfo: sf.RequestInfo = {
+    body: '',
+    headers: {},
+    method: '',
+    url: ''
+};
+salesforceConnection.request(requestInfo);
 
 // note the following should never compile:
 // salesforceConnection.sobject<DummyRecord>("Dummy").select(["lol"]);
@@ -118,6 +131,17 @@ async function testAnalytics(conn: sf.Connection): Promise<void> {
     });
 }
 
+async function testExecuteAnonymous(conn: sf.Connection): Promise<void> {
+    const res: sf.ExecuteAnonymousResult = await salesforceConnection.tooling.executeAnonymous('');
+    console.log('ExecuteAnonymousResult column: ' + res.column);
+    console.log('ExecuteAnonymousResult compiled: ' + res.compiled);
+    console.log('ExecuteAnonymousResult compileProblem: ' + res.compileProblem);
+    console.log('ExecuteAnonymousResult exceptionMessage: ' + res.exceptionMessage);
+    console.log('ExecuteAnonymousResult exceptionStackTrace: ' + res.exceptionStackTrace);
+    console.log('ExecuteAnonymousResult line: ' + res.line);
+    console.log('ExecuteAnonymousResult success: ' + res.success);
+}
+
 async function testMetadata(conn: sf.Connection): Promise<void> {
     const md: sf.Metadata = conn.metadata;
     const m: sf.DescribeMetadataResult = await md.describe('34.0');
@@ -125,7 +149,7 @@ async function testMetadata(conn: sf.Connection): Promise<void> {
         m.metadataObjects.filter((value: sf.MetadataObject) => value.directoryName === 'pages');
     console.log(`ApexPage?: ${pages[0].xmlName === 'ApexPage'}`);
 
-    const types: sf.ListMetadataQuery[] = [{type: 'CustomObject', folder: null}];
+    const types: sf.ListMetadataQuery[] = [{ type: 'CustomObject', folder: null }];
     md.list(types, '39.0', (err, properties: sf.FileProperties[]) => {
         if (err) {
             console.error('err', err);
@@ -147,7 +171,7 @@ async function testMetadata(conn: sf.Connection): Promise<void> {
         console.log('type: ' + meta.type);
     });
 
-    const fullNames: string[] = [ 'Account', 'Contact' ];
+    const fullNames: string[] = ['Account', 'Contact'];
     const info: sf.MetadataInfo | sf.MetadataInfo[] = await md.read('CustomObject', fullNames);
     console.log((info as sf.MetadataInfo[])[0].fullName);
     console.log((info as sf.MetadataInfo[])[1].fullName);
@@ -196,7 +220,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
                 text: 'This is new post'
             }]
         },
-        feedElementType : 'FeedItem',
+        feedElementType: 'FeedItem',
         subjectId: 'me'
     }, (err: Error, result: any) => {
         if (err) {
@@ -255,7 +279,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
                 text: 'This is new comment on the post'
             }]
         },
-        feedElementType : 'FeedItem',
+        feedElementType: 'FeedItem',
         subjectId: 'me'
     }) as Promise<sf.RequestResult>);
 
@@ -264,7 +288,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
     const itemsLikeResource: sf.Resource<sf.RequestResult> = chatter.resource(itemLikesUrl);
 
     const itemsLikeCreateResult: sf.RequestResult = await (itemsLikeResource.create('') as Promise<sf.RequestResult>);
-    console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any ['likedItem']}`);
+    console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any['likedItem']}`);
 }
 
 (async () => {
@@ -276,4 +300,45 @@ async function testChatter(conn: sf.Connection): Promise<void> {
     await testAnalytics(salesforceConnection);
     await testChatter(salesforceConnection);
     await testMetadata(salesforceConnection);
+    await testExecuteAnonymous(salesforceConnection);
 })();
+
+const oauth2 = new sf.OAuth2({
+    // you can change loginUrl to connect to sandbox or prerelease env.
+    // loginUrl : 'https://test.salesforce.com',
+    clientId: '<your Salesforce OAuth2 client ID is here>',
+    clientSecret: '<your Salesforce OAuth2 client secret is here>',
+    redirectUri: '<callback URI is here>'
+});
+oauth2.getAuthorizationUrl({ scope: 'api id web' });
+
+const job = salesforceConnection.bulk.createJob("Account", "insert");
+const batch = job.createBatch();
+batch.execute(undefined);
+batch.on("queue", (batchInfo) => { // fired when batch request is queued in server.
+    console.log('batchInfo:', batchInfo);
+    const batchId = batchInfo.id;
+    const jobId = batchInfo.jobId;
+});
+job.batch("batchId");
+batch.poll(1000, 20000);
+batch.on("response", (rets: sf.BatchResultInfo[]) => {
+    for (let i = 0; i < rets.length; i++) {
+        if (rets[i].success) {
+            console.log(`# ${(i + 1)} loaded successfully, id = ${rets[i].id}`);
+        } else {
+            console.log(`# ${(i + 1)} error occurred, message = ${rets[i].errors.join(', ')}`);
+        }
+    }
+});
+
+(async () => {
+    const batchInfos: sf.BatchInfo[] = await job.list();
+    console.log('batchInfos:', batchInfos);
+});
+
+salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((message) => {
+    console.log('Event Type : ' + message.event.type);
+    console.log('Event Created : ' + message.event.createdDate);
+    console.log('Object Id : ' + message.sobject.Id);
+});

@@ -1,7 +1,11 @@
-import pumpify from 'pumpify';
-import { Duplex, Transform, PassThrough } from 'stream';
+import * as Pumpify from 'pumpify';
+import { Duplex, Transform, PassThrough, Writable } from 'stream';
 
-class Pumpy extends pumpify {
+new Pumpify();
+new Pumpify(new Writable(), new Writable());
+const pumpify = new Pumpify([new Writable(), new Writable()]);
+
+class Pumpy extends Pumpify {
   constructor() {
     super();
     const dup1 = new Duplex();
@@ -12,3 +16,5 @@ class Pumpy extends pumpify {
 
 const pumpy = new Pumpy();
 pumpy.pipe(new PassThrough());
+
+pumpify.setPipeline(pumpy);

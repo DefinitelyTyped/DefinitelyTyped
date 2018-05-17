@@ -10,6 +10,8 @@ const CustomComponent = () => {
             width={100}
             primaryColor="#333"
             secondaryColor="#999"
+            primaryOpacity={0.06}
+            secondaryOpacity={0.12}
             preserveAspectRatio="xMinYMin meet"
             className="my-class"
         >

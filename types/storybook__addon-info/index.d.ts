@@ -29,6 +29,6 @@ export interface Options {
   maxPropStringLength?: number;
 }
 
-export function withInfo(textOrOptions: string | Options): (storyFn: RenderFunction) => () => React.ReactElement<WrapStoryProps>;
+export function withInfo(textOrOptions: string | Options): (storyFn: RenderFunction) => (context?: object) => React.ReactElement<WrapStoryProps>;
 
 export function setDefaults(newDefaults: Options): Options;

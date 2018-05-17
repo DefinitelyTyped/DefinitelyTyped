@@ -105,7 +105,7 @@ declare namespace uri {
         search(qry: Object): URI;
         segment(): string[];
         segment(segments: string[]): URI;
-        segment(position: number): string;
+        segment(position: number): string | undefined;
         segment(position: number, level: string): URI;
         segment(segment: string): URI;
         segmentCoded(): string[];

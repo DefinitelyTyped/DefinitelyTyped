@@ -16,6 +16,7 @@ export interface ConnectionConfig {
     port?: number;
     host?: string;
     connectionString?: string;
+    keepAlive?: boolean;
 }
 
 export interface Defaults extends ConnectionConfig {
@@ -99,7 +100,7 @@ export class Pool extends events.EventEmitter {
     readonly waitingCount: number;
 
     connect(): Promise<PoolClient>;
-    connect(callback: (err: Error, client: PoolClient, done: () => void) => void): void;
+    connect(callback: (err: Error, client: PoolClient, done: (release?: any) => void) => void): void;
 
     end(): Promise<void>;
     end(callback: () => void): void;
@@ -117,7 +118,7 @@ export class Pool extends events.EventEmitter {
 }
 
 export class ClientBase extends events.EventEmitter {
-    constructor(config: string | ClientConfig);
+    constructor(config?: string | ClientConfig);
 
     connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;
@@ -147,7 +148,7 @@ export class ClientBase extends events.EventEmitter {
 }
 
 export class Client extends ClientBase {
-    constructor(config: string | ClientConfig);
+    constructor(config?: string | ClientConfig);
 
     end(): Promise<void>;
     end(callback: (err: Error) => void): void;

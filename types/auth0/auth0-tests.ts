@@ -75,6 +75,25 @@ management
     // Handle the error.
   });
 
+// Link users
+management
+  .createUser({ connection: 'email', email: 'hi@me.co' })
+  .catch(err => console.error('Cannot create E-mail user', err))
+  .then((emailUser) => {
+    if (!emailUser) return;
+    management
+      .createUser({ connection: 'sms', phone_number: '+1234567890' })
+      .catch(err => console.error('Cannot create SMS user', err))
+      .then((smsUser) => {
+        if (!smsUser) return;
+        const userId = emailUser.user_id;
+        const params = { user_id: smsUser.user_id, provider: 'sms' };
+        management.linkUsers(userId, params)
+          .catch(err => console.error('Cannot link E-mail and SMS users', err))
+          .then((linkedUsers) => console.log(linkedUsers))
+      })
+  });
+
 auth
   .requestChangePasswordEmail({
     connection: 'My-Connection',
@@ -141,3 +160,12 @@ management.createPasswordChangeTicket({
 }, (err: Error, data) => {
   console.log(data.ticket);
 });
+
+// Link users
+management.linkUsers('primaryId', { user_id: 'secondaryId' })
+  .then((result: any) => console.log(result));
+
+// Link users with callback
+management.linkUsers('primaryId', { user_id: 'secondaryId' },
+  (err: Error, result: any) => {});
+

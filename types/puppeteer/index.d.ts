@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.2
+// Type definitions for puppeteer 1.3
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -94,7 +94,7 @@ export interface Touchscreen {
  */
 export interface Tracing {
   start(options: TracingStartOptions): Promise<void>;
-  stop(): Promise<void>;
+  stop(): Promise<Buffer>;
 }
 
 export interface TracingStartOptions {
@@ -136,6 +136,7 @@ export interface ConsoleMessage {
 }
 
 export type PageEvents =
+  | "close"
   | "console"
   | "dialog"
   | "error"
@@ -430,6 +431,24 @@ export interface BoundingBox {
   height: number;
 }
 
+export interface BoxModel {
+  /** Content box, represented as an array of {x, y} points. */
+  content: Box[];
+  /** Padding box, represented as an array of {x, y} points. */
+  padding: Box[];
+  /** Border box, represented as an array of {x, y} points. */
+  border: Box[];
+  /** Margin box, represented as an array of {x, y} points. */
+  margin: Box[];
+  width: number;
+  height: number;
+}
+
+export interface Box {
+  x: number;
+  y: number;
+}
+
 /**
  * Represents an in-page DOM element. ElementHandles can be created with the page.$ method.
  */
@@ -454,6 +473,11 @@ export interface ElementHandle extends JSHandle {
    * This method returns the value resolve to the bounding box of the element (relative to the main frame), or null if the element is not visible.
    */
   boundingBox(): Promise<BoundingBox | null>;
+  /**
+   * This method returns boxes of the element, or null if the element is not visible.
+   * Boxes are represented as an array of points; each Point is an object {x, y}. Box points are sorted clock-wise.
+   */
+  boxModel(): Promise<BoxModel | null>;
   /**
    * This method scrolls element into view if needed, and then uses page.mouse to click in the center of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -604,6 +628,20 @@ export type ResourceType =
   | "manifest"
   | "other";
 
+export type ErrorCode =
+  | "aborted"
+  | "accessdenied"
+  | "addressunreachable"
+  | "connectionaborted"
+  | "connectionclosed"
+  | "connectionfailed"
+  | "connectionrefused"
+  | "connectionreset"
+  | "internetdisconnected"
+  | "namenotresolved"
+  | "timedout"
+  | "failed";
+
 export interface Overrides {
   url?: string;
   method?: HttpMethod;
@@ -618,7 +656,7 @@ export interface Request {
    * To use this, request interception should be enabled with `page.setRequestInterception`.
    * @throws An exception is immediately thrown if the request interception is not enabled.
    */
-  abort(): Promise<void>;
+  abort(errorCode?: ErrorCode): Promise<void>;
 
   /**
    * Continues request with optional request overrides.
@@ -626,6 +664,11 @@ export interface Request {
    * @throws An exception is immediately thrown if the request interception is not enabled.
    */
   continue(overrides?: Overrides): Promise<void>;
+
+  /**
+   * @returns An object if the request failed, null otherwise.
+   */
+  failure(): { errorText: string; } | null;
 
   /**
    * @returns The `Frame` object that initiated the request, or `null` if navigating to error pages
@@ -761,6 +804,15 @@ export interface FrameBase {
   /** Adds a `<link rel="stylesheet">` tag into the page with the desired url or a `<style type="text/css">` tag with the content. */
   addStyleTag(options: StyleTagOptions): Promise<void>;
 
+  /**
+   * This method fetches an element with selector, scrolls it into view if needed, and
+   * then uses `page.mouse` to click in the center of the element. If there's no element
+   * matching selector, the method throws an error.
+   * @param selector A selector to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.
+   * @param options Specifies the click options.
+   */
+  click(selector: string, options?: ClickOptions): Promise<void>;
+
   /** Gets the full HTML contents of the page, including the doctype. */
   content(): Promise<string>;
 
@@ -777,13 +829,53 @@ export interface FrameBase {
   ): Promise<any>;
 
   /**
+   * Evaluates a function in the page context.
+   * If the function, passed to the page.evaluateHandle, returns a Promise, then page.evaluateHandle
+   * would wait for the promise to resolve and return its value.
+   * @param fn The function to be evaluated in the page context.
+   * @param args The arguments to pass to the `fn`.
+   * @returns A promise which resolves to return value of `fn`.
+   */
+  evaluateHandle(
+    fn: EvaluateFn,
+    ...args: any[]
+  ): Promise<JSHandle>;
+
+  /** This method fetches an element with selector and focuses it. */
+  focus(selector: string): Promise<void>;
+
+  /**
+   * This method fetches an element with `selector`, scrolls it into view if needed,
+   * and then uses page.mouse to hover over the center of the element. If there's no
+   * element matching `selector`, the method throws an error.
+   * @param selector A selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered.
+   */
+  hover(selector: string): Promise<void>;
+
+  /**
    * Sets the page content.
    * @param html HTML markup to assign to the page.
    */
   setContent(html: string): Promise<void>;
 
+  /**
+   * This method fetches an element with `selector`, scrolls it into view if needed,
+   * and then uses page.touchscreen to tap in the center of the element.
+   * @param selector A `selector` to search for element to tap. If there are multiple elements
+   * satisfying the selector, the first will be tapped.
+   */
+  tap(selector: string): Promise<void>;
+
   /** Returns page's title. */
   title(): Promise<string>;
+
+  /**
+   * Sends a `keydown`, `keypress/input`, and `keyup` event for each character in the text.
+   * @param selector A selector of an element to type into. If there are multiple elements satisfying the selector, the first will be used.
+   * @param text: A text to type into a focused element.
+   * @param options: The typing parameters.
+   */
+  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
 
   /** Returns frame's url. */
   url(): string;
@@ -808,6 +900,11 @@ export interface FrameBase {
     selector: string,
     options?: { visible?: boolean; hidden?: boolean; timeout?: number }
   ): Promise<ElementHandle>;
+
+  waitForXPath(
+    xpath: string,
+    options?: { visible?: boolean; hidden?: boolean; timeout?: number }
+  ): Promise<ElementHandle>;
 }
 
 export interface Frame extends FrameBase {
@@ -823,6 +920,8 @@ export interface Frame extends FrameBase {
 }
 
 export interface PageEventObj {
+  /** Emitted when the page closes. */
+  close: undefined;
   /**
    * Emitted when JavaScript within the page calls one of console API methods, e.g. console.log or console.dir.
    * Also emitted if the page throws an error or a warning.
@@ -897,15 +996,6 @@ export interface Page extends EventEmitter, FrameBase {
   /** Brings page to front (activates tab). */
   bringToFront(): Promise<void>;
 
-  /**
-   * This method fetches an element with selector, scrolls it into view if needed, and
-   * then uses `page.mouse` to click in the center of the element. If there's no element
-   * matching selector, the method throws an error.
-   * @param selector A selector to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.
-   * @param options Specifies the click options.
-   */
-  click(selector: string, options?: ClickOptions): Promise<void>;
-
   /** Closes the current page. */
   close(): Promise<void>;
 
@@ -962,9 +1052,6 @@ export interface Page extends EventEmitter, FrameBase {
    */
   exposeFunction(name: string, puppeteerFunction: (...args: any[]) => any): Promise<void>;
 
-  /** This method fetches an element with selector and focuses it. */
-  focus(selector: string): Promise<void>;
-
   /** An array of all frames attached to the page. */
   frames(): Frame[];
 
@@ -986,14 +1073,6 @@ export interface Page extends EventEmitter, FrameBase {
    * @param options The navigation parameters.
    */
   goto(url: string, options?: Partial<NavigationOptions>): Promise<Response | null>;
-
-  /**
-   * This method fetches an element with `selector`, scrolls it into view if needed,
-   * and then uses page.mouse to hover over the center of the element. If there's no
-   * element matching `selector`, the method throws an error.
-   * @param selector A selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered.
-   */
-  hover(selector: string): Promise<void>;
 
   /** Returns the virtual keyboard. */
   keyboard: Keyboard;
@@ -1040,6 +1119,14 @@ export interface Page extends EventEmitter, FrameBase {
    * all values are considered, otherwise only the first one is taken into account.
    */
   select(selector: string, ...values: string[]): Promise<string[]>;
+
+  /**
+   * Toggles bypassing page's Content-Security-Policy.
+   * NOTE CSP bypassing happens at the moment of CSP initialization rather then evaluation.
+   * Usually this means that page.setBypassCSP should be called before navigating to the domain.
+   * @param enabled sets bypassing of page's Content-Security-Policy.
+   */
+  setBypassCSP(enabled: boolean): Promise<void>;
 
   /**
    * Determines whether cache is enabled on the page.
@@ -1098,14 +1185,6 @@ export interface Page extends EventEmitter, FrameBase {
    */
   setViewport(viewport: Viewport): Promise<void>;
 
-  /**
-   * This method fetches an element with `selector`, scrolls it into view if needed,
-   * and then uses page.touchscreen to tap in the center of the element.
-   * @param selector A `selector` to search for element to tap. If there are multiple elements
-   * satisfying the selector, the first will be tapped.
-   */
-  tap(selector: string): Promise<void>;
-
   /** @returns The target this page was created from */
   target(): Target;
 
@@ -1117,14 +1196,6 @@ export interface Page extends EventEmitter, FrameBase {
 
   /** Returns the tracing object. */
   tracing: Tracing;
-
-  /**
-   * Sends a `keydown`, `keypress/input`, and `keyup` event for each character in the text.
-   * @param selector A selector of an element to type into. If there are multiple elements satisfying the selector, the first will be used.
-   * @param text: A text to type into a focused element.
-   * @param options: The typing parameters.
-   */
-  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
 
   /**
    * The page's URL. This is a shortcut for `page.mainFrame().url()`
@@ -1278,6 +1349,8 @@ export interface LaunchOptions {
   env?: any;
   /** Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false. */
   devtools?: boolean;
+  /** Connects to the browser over a pipe instead of a WebSocket. Defaults to false. */
+  pipe?: boolean;
 }
 
 export interface ConnectOptions {
