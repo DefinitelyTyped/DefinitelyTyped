@@ -733,6 +733,13 @@ $(".js-example-rtl").select2({
 // =====================================================
 // See: https://select2.org/advanced
 
+$.fn.select2.amd.require(
+    ["select2/utils", "select2/selection/single", "select2/selection/placeholder"],
+    (Utils: any, SingleSelection: any, Placeholder: any) => {
+        const CustomSelectionAdapter = Utils.Decorate(SingleSelection, Placeholder);
+    }
+);
+
 // TODO (Adapters)
 
 // =====================================================

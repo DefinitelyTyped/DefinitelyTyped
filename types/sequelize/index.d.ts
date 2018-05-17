@@ -6172,6 +6172,10 @@ declare namespace sequelize {
          */
         databaseVersion(): Promise<string>;
 
+        /**
+         * Get the fn for random based on the dialect
+         */
+        random(): fn;
     }
 
     //

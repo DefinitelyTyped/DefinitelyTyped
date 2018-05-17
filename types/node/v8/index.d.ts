@@ -895,7 +895,7 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
-    interface ParsedUrlQuery { [key: string]: string | string[]; }
+    interface ParsedUrlQuery { [key: string]: string | string[] | undefined; }
 
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
     export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
@@ -5601,7 +5601,7 @@ declare module "util" {
         );
         decode(
           input?:
-            | Int8Array
+            Int8Array
             | Int16Array
             | Int32Array
             | Uint8Array

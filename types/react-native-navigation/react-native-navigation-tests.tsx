@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { Navigation, NavigationComponentProps, NavigatorStyle, NavigatorButtons, NavigatorEvent } from 'react-native-navigation';
+import {
+    Navigation,
+    NavigationComponentProps,
+    NavigatorStyle,
+    NavigatorButtons,
+    NavigatorEvent,
+    NativeEventsReceiver,
+} from 'react-native-navigation';
 
 type Props = NavigationComponentProps & { height: number };
 
@@ -63,9 +70,36 @@ const Drawer = (props: NavigationComponentProps) => {
     );
 };
 
-Navigation.registerComponent('example.Screen1', () => Screen1);
+interface TestProviderProps {
+    test: string;
+}
+
+class TestProvider extends React.Component<TestProviderProps> {
+    getChildContext() {
+        return {
+            test: this.props.test
+        };
+    }
+
+    render() {
+        return this.props.children;
+    }
+}
+
+Navigation.registerComponent('example.Screen1', () => Screen1, {}, TestProvider, {test: "test"});
 Navigation.registerComponent('example.Screen2', () => Screen2);
 Navigation.registerComponent('example.Drawer', () => Drawer);
+
+Navigation.isAppLaunched().then(appLaunched => {
+    if (appLaunched) {
+      startApp(); // App is launched -> show UI
+    }
+    new NativeEventsReceiver().appLaunched(startApp); // App hasn't been launched yet -> show the UI only when needed.
+});
+
+function startApp() {
+    // do something here
+}
 
 Navigation.startTabBasedApp({
     tabs: [

@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.1
+// Type definitions for webpack 4.4
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -560,7 +560,7 @@ declare namespace webpack {
             /** Assign modules to a cache group */
             test?: ((...args: any[]) => boolean) | string | RegExp;
             /** Select chunks for determining cache group content (defaults to \"initial\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group */
             enforce?: boolean;
             /** Priority of this cache group */
@@ -580,7 +580,7 @@ declare namespace webpack {
         }
         interface SplitChunksOptions {
             /** Select chunks for determining shared modules (defaults to \"async\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Minimal size for the created chunk */
             minSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
@@ -646,6 +646,27 @@ declare namespace webpack {
             minimizer?: Array<Plugin | Tapable.Plugin>;
             /** Generate records with relative paths to be able to move the context folder". */
             portableRecords?: boolean;
+        }
+    }
+
+    namespace debug {
+        interface ProfilingPluginOptions {
+            /** A relative path to a custom output file (json) */
+            outputPath?: string;
+        }
+        /**
+         * Generate Chrome profile file which includes timings of plugins execution. Outputs `events.json` file by
+         * default. It is possible to provide custom file path using `outputPath` option.
+         *
+         * In order to view the profile file:
+         * * Run webpack with ProfilingPlugin.
+         * * Go to Chrome, open the Profile Tab.
+         * * Drag and drop generated file (events.json by default) into the profiler.
+         *
+         * It will then display timeline stats and calls per plugin!
+         */
+        class ProfilingPlugin extends Plugin {
+            constructor(options?: ProfilingPluginOptions);
         }
     }
     namespace compilation {

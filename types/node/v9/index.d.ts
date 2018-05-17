@@ -24,6 +24,7 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Lishude <https://github.com/islishude>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -981,7 +982,7 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
-    interface ParsedUrlQuery { [key: string]: string | string[]; }
+    interface ParsedUrlQuery { [key: string]: string | string[] | undefined; }
 
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
     export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
@@ -5671,6 +5672,38 @@ declare module "util" {
     export function promisify(fn: Function): Function;
     export namespace promisify {
         const custom: symbol;
+    }
+
+    export class TextDecoder {
+        readonly encoding: string;
+        readonly fatal: boolean;
+        readonly ignoreBOM: boolean;
+        constructor(
+          encoding?: string,
+          options?: { fatal?: boolean; ignoreBOM?: boolean }
+        );
+        decode(
+          input?:
+            Int8Array
+            | Int16Array
+            | Int32Array
+            | Uint8Array
+            | Uint16Array
+            | Uint32Array
+            | Uint8ClampedArray
+            | Float32Array
+            | Float64Array
+            | DataView
+            | ArrayBuffer
+            | null,
+          options?: { stream?: boolean }
+        ): string;
+    }
+
+    export class TextEncoder {
+        readonly encoding: string;
+        constructor();
+        encode(input?: string): Uint8Array;
     }
 }
 
