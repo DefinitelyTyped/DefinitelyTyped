@@ -1685,9 +1685,9 @@ declare module 'ember' {
                 target: Target,
                 method: ObserverMethod<Target, this>
             ): void;
-            addObserver<Target>(
+            addObserver(
                 key: keyof this,
-                method: ObserverMethod<Target, this>
+                method: ObserverMethod<this, this>
             ): void;
             /**
              * Remove an observer you have previously registered on this object. Pass
@@ -1699,9 +1699,9 @@ declare module 'ember' {
                 target: Target,
                 method: ObserverMethod<Target, this>
             ): any;
-            removeObserver<Target>(
+            removeObserver(
                 key: keyof this,
-                method: ObserverMethod<Target, this>
+                method: ObserverMethod<this, this>
             ): any;
             /**
              * Retrieves the value of a property, or a default value in the case that the
@@ -3018,10 +3018,10 @@ declare module 'ember' {
             method: ObserverMethod<Target, Context>,
             once?: boolean
         ): void;
-        function addListener<Context, Target>(
+        function addListener<Context>(
             obj: Context,
             key: keyof Context,
-            method: ObserverMethod<Target, Context>,
+            method: ObserverMethod<Context, Context>,
             once?: boolean
         ): void;
         /**
@@ -3033,10 +3033,10 @@ declare module 'ember' {
             target: Target,
             method: ObserverMethod<Target, Context>
         ): any;
-        function removeListener<Context, Target>(
+        function removeListener<Context>(
             obj: Context,
             key: keyof Context,
-            method: ObserverMethod<Target, Context>
+            method: ObserverMethod<Context, Context>
         ): any;
         /**
          * Send an event. The execution of suspended listeners
@@ -3131,10 +3131,10 @@ declare module 'ember' {
             target: Target,
             method: ObserverMethod<Target, Context>
         ): void;
-        function addObserver<Context, Target>(
+        function addObserver<Context>(
             obj: Context,
             key: keyof Context,
-            method: ObserverMethod<Target, Context>
+            method: ObserverMethod<Context, Context>
         ): void;
         /**
          * Remove an observer you have previously registered on this object. Pass
@@ -3147,10 +3147,10 @@ declare module 'ember' {
             target: Target,
             method: ObserverMethod<Target, Context>
         ): any;
-        function removeObserver<Context, Target>(
+        function removeObserver<Context>(
             obj: Context,
             key: keyof Context,
-            method: ObserverMethod<Target, Context>
+            method: ObserverMethod<Context, Context>
         ): any;
         /**
          * Gets the value of a property on an object. If the property is computed,
