@@ -8,7 +8,7 @@ import { Batch, BatchResultInfo } from './batch';
 
 export interface BulkOptions {
     extIdField: string;
-    concurrencyMode: 'Serial' | 'Parallel';
+    concurrencyMode?: 'Serial' | 'Parallel';
 }
 
 type BulkLoadOperation =
