@@ -89,6 +89,12 @@ interface AdImpressionParam extends CallbackParam {
     wrapper: any[];
 }
 
+interface AdScheduleParam extends CallbackParam {
+    tag: string;
+    client: string;
+    adbreaks: Array<object>;
+}
+
 interface AdStartedParam extends CallbackParam {
     creativetype: string;
     tag: string;
@@ -287,8 +293,12 @@ interface JWPlayer {
 	on(event: 'adRequest', callback: EventCallback<AdRequestParam>): void;
 	once(event: 'adRequest', callback: EventCallback<AdRequestParam>): void;
 	off(event: 'adRequest'): void;
-	trigger(event: 'adRequest', args: AdRequestParam): void;
-	on(event: 'adStarted', callback: EventCallback<AdStartedParam>): void;
+	trigger(event: 'adRequest', args: AdScheduleParam): void;
+    on(event: 'adSchedule', callback: EventCallback<AdScheduleParam>): void;
+    once(event: 'adSchedule', callback: EventCallback<AdScheduleParam>): void;
+    off(event: 'adSchedule'): void;
+    trigger(event: 'adSchedule', args: AdRequestParam): void;
+    on(event: 'adStarted', callback: EventCallback<AdStartedParam>): void;
 	once(event: 'adStarted', callback: EventCallback<AdStartedParam>): void;
 	off(event: 'adStarted'): void;
 	trigger(event: 'adStarted', args: AdStartedParam): void;
@@ -424,7 +434,11 @@ interface JWPlayer {
 	once(event: 'seek', callback: EventCallback<SeekParam>): void;
 	off(event: 'seek'): void;
 	trigger(event: 'seek', args: SeekParam): void;
-	on(event: 'setupError', callback: EventCallback<ErrorParam>): void;
+    on(event: 'seeked', callback: () => void): void;
+    once(event: 'seeked', callback: () => void): void;
+    off(event: 'seeked'): void;
+    trigger(event: 'seeked'): void
+    on(event: 'setupError', callback: EventCallback<ErrorParam>): void;
 	once(event: 'setupError', callback: EventCallback<ErrorParam>): void;
 	off(event: 'setupError'): void;
 	trigger(event: 'setupError', args: ErrorParam): void;
