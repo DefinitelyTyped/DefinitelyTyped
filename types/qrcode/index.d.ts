@@ -1,4 +1,4 @@
-// Type definitions for qrcode 0.8.2
+// Type definitions for qrcode 1.2.0
 // Project: https://github.com/soldair/node-qrcode
 // Definitions by: York Yao <https://github.com/plantain-00/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
