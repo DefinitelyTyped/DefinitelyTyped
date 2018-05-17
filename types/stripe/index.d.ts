@@ -5024,39 +5024,34 @@ declare namespace Stripe {
     namespace reviews {
         interface IReview extends IResourceObject {
             /**
-             * Unique identifier for the object.
-             */
-            "id": string;
-
-            /**
              * String representing the object’s type. Objects of the same type share the same value.
              */
-            "object": "review";
+            object: "review";
             
             /**
              * The charge associated with this review. [Expandable]
              */
-            "charge": string | charges.ICharge;
+            charge: string | charges.ICharge;
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
              */
-            "created": number;
+            created: number;
 
             /**
              * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
              */
-            "livemode": false;
+            livemode: boolean;
 
             /**
              * If true, the review needs action.
              */
-            "open": true;
+            open: boolean;
 
             /**
              * The reason the review is currently open or closed.
              */
-            "reason": "rule" | "manual" | "approved" | "refunded" | "refunded_as_fraud" | "disputed";
+            reason: "rule" | "manual" | "approved" | "refunded" | "refunded_as_fraud" | "disputed";
         }
     }
 
@@ -5065,12 +5060,12 @@ declare namespace Stripe {
             /**
              * String representing the object’s type. Objects of the same type share the same value.
              */
-            "object": "application";
+            object: "application";
 
             /**
              * String representing the application’s name.
              */
-            "name": string;
+            name: string;
         }
     } 
 
