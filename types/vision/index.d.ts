@@ -242,7 +242,7 @@ declare module 'hapi' {
 }
 
 declare module 'hapi' {
-    interface RouteOptions {
+    interface HandlerDecorations {
         /**
          * The view handler can be used with routes registered in the same realm as the view manager.
          * The handler takes an options parameter that can be either a string or an object.
