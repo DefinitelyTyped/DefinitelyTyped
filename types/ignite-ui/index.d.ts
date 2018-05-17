@@ -21789,11 +21789,11 @@ interface SelectionChangingEventUIParam {
 	items?: any;
 }
 
-interface SelectionChangedEvent {
-	(event: Event, ui: SelectionChangedEventUIParam): void;
+interface IgComboSelectionChangedEvent {
+	(event: Event, ui: IgComboSelectionChangedEventUIParam): void;
 }
 
-interface SelectionChangedEventUIParam {
+interface IgComboSelectionChangedEventUIParam {
 	/**
 	 * Used to obtain reference to igCombo.
 	 */
@@ -22347,7 +22347,7 @@ interface IgCombo {
 	 * Use ui.items to obtain reference to array of new selected items. That can be null.
 	 * Use ui.oldItems to obtain reference to array of old selected items. That can be null.
 	 */
-	selectionChanged?: SelectionChangedEvent;
+	selectionChanged?: IgComboSelectionChangedEvent;
 
 	/**
 	 * Option for igCombo
@@ -23867,7 +23867,7 @@ interface JQuery {
 	 * Use ui.items to obtain reference to array of new selected items. That can be null.
 	 * Use ui.oldItems to obtain reference to array of old selected items. That can be null.
 	 */
-	igCombo(optionLiteral: 'option', optionName: "selectionChanged"): SelectionChangedEvent;
+	igCombo(optionLiteral: 'option', optionName: "selectionChanged"): IgComboSelectionChangedEvent;
 
 	/**
 	 * Event which is raised after selection change.
@@ -23879,7 +23879,7 @@ interface JQuery {
 	 *
 	 * @optionValue Define event handler function.
 	 */
-	igCombo(optionLiteral: 'option', optionName: "selectionChanged", optionValue: SelectionChangedEvent): void;
+	igCombo(optionLiteral: 'option', optionName: "selectionChanged", optionValue: IgComboSelectionChangedEvent): void;
 	igCombo(options: IgCombo): JQuery;
 	igCombo(optionLiteral: 'option', optionName: string): any;
 	igCombo(optionLiteral: 'option', options: IgCombo): JQuery;
@@ -25205,6 +25205,979 @@ interface JQuery {
 	igDialog(optionLiteral: 'option', options: IgDialog): JQuery;
 	igDialog(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igDialog(methodName: string, ...methodParams: any[]): any;
+}
+interface IgDoughnutChartSeries {
+	/**
+	 * Gets or sets the current series type.
+	 *
+	 * Valid values:
+	 * "flat" Series has flat 1-dimensional data.
+	 */
+	type?: string;
+
+	/**
+	 * Whether the series should render a tooltip.
+	 */
+	showTooltip?: boolean;
+
+	/**
+	 * The name of template or the template itself that chart tooltip will use to render.
+	 */
+	tooltipTemplate?: string;
+
+	/**
+	 * Gets or sets the data source for the chart.
+	 */
+	itemsSource?: any;
+
+	/**
+	 * Gets or Sets the property name that contains the values.
+	 */
+	valueMemberPath?: string;
+
+	/**
+	 * Gets or sets the property name that contains the labels.
+	 */
+	labelMemberPath?: string;
+
+	/**
+	 * Gets or sets the property name that contains the legend labels.
+	 */
+	legendLabelMemberPath?: string;
+
+	/**
+	 * Gets or sets the position of chart labels.
+	 *
+	 * Valid values:
+	 * "none" No labels will be displayed.
+	 * "center" Labels will be displayed in the center.
+	 * "insideEnd" Labels will be displayed inside and by the edge of the container.
+	 * "outsideEnd" Labels will be displayed outside the container.
+	 * "bestFit" Labels will automatically decide their location.
+	 */
+	labelsPosition?: string;
+
+	/**
+	 * Gets or sets whether the leader lines are visible.
+	 *
+	 * Valid values:
+	 * "visible" Display the element.
+	 * "collapsed" Do not display the element.
+	 */
+	leaderLineVisibility?: string;
+
+	/**
+	 * Gets or sets the style for the leader lines.
+	 */
+	leaderLineStyle?: any;
+
+	/**
+	 * Gets or sets what type of leader lines will be used for the outside end labels.
+	 *
+	 * Valid values:
+	 * "straight" A straight line is drawn between the slice and its label.
+	 * "arc" A curved line is drawn between the slice and its label. The line follows makes a natural turn from the slice to the label.
+	 * "spline" A curved line is drawn between the slice and its label. The line starts radially from the slice and then turns to the label.
+	 */
+	leaderLineType?: string;
+
+	/**
+	 * Gets or sets the margin between a label and its leader line. The default is 6 pixels.
+	 */
+	leaderLineMargin?: number;
+
+	/**
+	 * Gets or sets the threshold value that determines if slices are grouped into the Others slice.
+	 */
+	othersCategoryThreshold?: number;
+
+	/**
+	 * Gets or sets whether to use numeric or percent-based threshold value.
+	 *
+	 * Valid values:
+	 * "number" Data value is compared directly to the value of OthersCategoryThreshold.
+	 * "percent" Data value is compared to OthersCategoryThreshold as a percentage of the total.
+	 */
+	othersCategoryType?: string;
+
+	/**
+	 * Gets or sets the label of the Others slice.
+	 */
+	othersCategoryText?: string;
+
+	/**
+	 * Gets or sets the legend used for the current chart.
+	 */
+	legend?: any;
+
+	/**
+	 * Sets or gets a function which takes an object that produces a formatted label for displaying in the chart.
+	 */
+	formatLabel?: any;
+
+	/**
+	 * Sets or gets a function which takes an object that produces a formatted label for displaying in the chart's legend.
+	 */
+	formatLegendLabel?: any;
+
+	/**
+	 * Gets or sets the pixel amount by which the labels are offset from the edge of the slices.
+	 */
+	labelExtent?: number;
+
+	/**
+	 * Gets or sets the starting angle of the chart.
+	 * The default zero value is equivalent to 3 o'clock.
+	 */
+	startAngle?: number;
+
+	/**
+	 * Gets or sets the style used when a slice is selected.
+	 */
+	selectedStyle?: any;
+
+	/**
+	 * Gets or sets the palette of brushes to use for coloring the slices.
+	 * The value provided should be an array of css color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection.
+	 */
+	brushes?: any;
+
+	/**
+	 * Gets or sets the palette of brushes to use for outlines on the slices.
+	 * The value provided should be an array of css color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection.
+	 */
+	outlines?: any;
+
+	/**
+	 * Gets or sets whether all surface interactions with the plot area should be disabled.
+	 */
+	isSurfaceInteractionDisabled?: boolean;
+
+	/**
+	 * Gets or sets the scaling factor of the chart's radius. Value between 0 and 1.
+	 */
+	radiusFactor?: number;
+
+	/**
+	 * Option for IgDoughnutChartSeries
+	 */
+	[optionName: string]: any;
+}
+
+interface HoleDimensionsChangedEvent {
+	(event: Event, ui: HoleDimensionsChangedEventUIParam): void;
+}
+
+interface HoleDimensionsChangedEventUIParam {}
+
+interface IgDoughnutChart {
+	/**
+	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
+	 */
+	width?: string|number;
+
+	/**
+	 * The height of the chart. It can be set as a number in pixels, string (px) or percentage (%).
+	 */
+	height?: string|number;
+
+	/**
+	 * An array of series objects.
+	 */
+	series?: IgDoughnutChartSeries[];
+
+	/**
+	 * Gets or sets whether the slices can be selected.
+	 */
+	allowSliceSelection?: boolean;
+
+	/**
+	 * Gets or sets whether all surface interactions with the plot area should be disabled.
+	 */
+	isSurfaceInteractionDisabled?: boolean;
+
+	/**
+	 * Gets or sets whether the slices can be exploded.
+	 */
+	allowSliceExplosion?: boolean;
+
+	/**
+	 * Gets or sets the inner extent of the doughnut chart. It is percent from the outer ring's radius.
+	 */
+	innerExtent?: number;
+
+	/**
+	 * Gets or sets the style used when a slice is selected.
+	 */
+	selectedStyle?: any;
+
+	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	pixelScalingRatio?: number;
+
+	/**
+	 * Gets sets template for tooltip associated with chart item.
+	 * Example: "Value: $(ValueMemberPathInDataSource)"
+	 */
+	tooltipTemplate?: string;
+
+	/**
+	 * Gets sets maximum number of displayed records in chart.
+	 */
+	maxRecCount?: number;
+
+	/**
+	 * Gets sets a valid data source.
+	 * That can be instance of array or primitives, array of objects, instance of $.ig.DataSource, or any other data accepted by $.ig.DataSource.
+	 * Note: if it is set to string and "dataSourceType" option is not set, then $.ig.JSONPDataSource is used.
+	 */
+	dataSource?: any;
+
+	/**
+	 * Gets sets data source type (such as "json", "xml", etc). Please refer to the documentation of $.ig.DataSource and its type property
+	 */
+	dataSourceType?: string;
+
+	/**
+	 * Gets sets url which is used for sending JSON on request for remote data.
+	 */
+	dataSourceUrl?: string;
+
+	/**
+	 * See $.ig.DataSource. property in the response specifying the total number of records on the server.
+	 */
+	responseTotalRecCountKey?: string;
+
+	/**
+	 * See $.ig.DataSource. This is basically the property in the responses where data records are held, if the response is wrapped.
+	 */
+	responseDataKey?: string;
+
+	/**
+	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 */
+	tooltipShowing?: TooltipShowingEvent;
+
+	/**
+	 * Event fired after a tooltip is shown
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 */
+	tooltipShown?: TooltipShownEvent;
+
+	/**
+	 * Event fired when the mouse has left a series and the tooltip is about to hide
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 */
+	tooltipHiding?: TooltipHidingEvent;
+
+	/**
+	 * Event fired after a tooltip is hidden
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 */
+	tooltipHidden?: TooltipHiddenEvent;
+
+	/**
+	 * Event fired when the control is displayed on a non HTML5 compliant browser
+	 */
+	browserNotSupported?: BrowserNotSupportedEvent;
+
+	/**
+	 * Raised when the slice is clicked.
+	 */
+	sliceClick?: SliceClickEvent;
+
+	/**
+	 * Raised when the dimensions (center point or radius) of the doughnut hole change.
+	 */
+	holeDimensionsChanged?: HoleDimensionsChangedEvent;
+
+	/**
+	 * Event which is raised before data binding.
+	 * Return false in order to cancel data binding.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
+	 */
+	dataBinding?: DataBindingEvent;
+
+	/**
+	 * Event which is raised after data binding.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.data to obtain reference to array actual data which is displayed by chart.
+	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
+	 */
+	dataBound?: DataBoundEvent;
+
+	/**
+	 * Event which is raised before tooltip is updated.
+	 * Return false in order to cancel updating and hide tooltip.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.text to obtain html of tooltip. Value of that member can be modified. If modified value is null or empty string, then current content of tooltip keeps old value.
+	 * Use ui.item to obtain reference to item. Value of that member can be modified or replaced by custom item.
+	 * Use ui.x to obtain left position of tooltip in pixels relative to widget. Value of that member can be modified.
+	 * Use ui.y to obtain top position of tooltip in pixels relative to widget. Value of that member can be modified.
+	 * Use ui.element to obtain reference to jquery object which represents tooltip. Value of that member can be replaced by custom element.
+	 */
+	updateTooltip?: UpdateTooltipEvent;
+
+	/**
+	 * Event which is raised before tooltip is hidden.
+	 * Return false in order to cancel hiding and keep tooltip visible.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.item to obtain reference to item.
+	 * Use ui.element to obtain reference to jquery object which represents tooltip or value of ui.element from last updateTooltip event. Value of that member can be replaced by custom element.
+	 */
+	hideTooltip?: HideTooltipEvent;
+
+	/**
+	 * Option for igDoughnutChart
+	 */
+	[optionName: string]: any;
+}
+interface IgDoughnutChartMethods {
+	/**
+	 * Adds a new series to the doughnut chart.
+	 *
+	 * @param seriesObj The series object to be added.
+	 */
+	addSeries(seriesObj: Object): void;
+
+	/**
+	 * Removes the specified series from the doughnut chart.
+	 *
+	 * @param seriesObj The series object identifying the series to be removed.
+	 */
+	removeSeries(seriesObj: Object): void;
+
+	/**
+	 * Updates the series with the specified name with the specified new property values.
+	 *
+	 * @param value The series object identifying the series to be updated.
+	 */
+	updateSeries(value: Object): void;
+
+	/**
+	 * Returns the center of the doughnut chart.
+	 */
+	getCenterCoordinates(): Object;
+
+	/**
+	 * Returns the radius of the chart's hole.
+	 */
+	getHoleRadius(): number;
+
+	/**
+	 * Returns information about how the doughnut chart is rendered.
+	 */
+	exportVisualData(): Object;
+
+	/**
+	 * Causes all of the series that have pending changes e.g. by changed property values to be rendered immediately.
+	 */
+	flush(): void;
+
+	/**
+	 * Destroys the widget.
+	 */
+	destroy(): void;
+
+	/**
+	 * Returns data source of the series.
+	 *
+	 * @param series Optional. The series name. If not provided an array of series data sources is returned.
+	 */
+	getData(series: string): Object;
+
+	/**
+	 * Find index of item within actual data used by chart.
+	 *
+	 * @param item The reference to item.
+	 */
+	findIndexOfItem(item: Object): number;
+
+	/**
+	 * Get item within actual data used by chart. That is similar to this.getData()[ index ].
+	 *
+	 * @param index Index of data item.
+	 */
+	getDataItem(index: Object): Object;
+
+	/**
+	 * Adds a new item to the data source and notifies the chart.
+	 *
+	 * @param item The item that we want to add to the data source.
+	 */
+	addItem(item: Object): Object;
+
+	/**
+	 * Inserts a new item to the data source and notifies the chart.
+	 *
+	 * @param item the new item that we want to insert in the data source.
+	 * @param index The index in the data source where the new item will be inserted.
+	 */
+	insertItem(item: Object, index: number): Object;
+
+	/**
+	 * Deletes an item from the data source and notifies the chart.
+	 *
+	 * @param index The index in the data source from where the item will be been removed.
+	 */
+	removeItem(index: number): Object;
+
+	/**
+	 * Updates an item in the data source and notifies the chart.
+	 *
+	 * @param index The index of the item in the data source that we want to change.
+	 * @param item The new item object that will be set in the data source.
+	 */
+	setItem(index: number, item: Object): Object;
+
+	/**
+	 * Notifies the chart that an item has been set in an associated data source.
+	 *
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source that has been changed.
+	 * @param newItem the new item that has been set in the collection.
+	 * @param oldItem the old item that has been overwritten in the collection.
+	 */
+	notifySetItem(dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
+
+	/**
+	 * Notifies the chart that the items have been cleared from an associated data source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
+	 *
+	 * @param dataSource The data source in which the change happened.
+	 */
+	notifyClearItems(dataSource: Object): Object;
+
+	/**
+	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
+	 *
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source where the new item has been inserted.
+	 * @param newItem the new item that has been set in the collection.
+	 */
+	notifyInsertItem(dataSource: Object, index: number, newItem: Object): Object;
+
+	/**
+	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
+	 *
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source from where the old item has been removed.
+	 * @param oldItem the old item that has been removed from the collection.
+	 */
+	notifyRemoveItem(dataSource: Object, index: number, oldItem: Object): Object;
+
+	/**
+	 * Get reference to chart object.
+	 */
+	chart(): Object;
+
+	/**
+	 * Binds data to the chart
+	 */
+	dataBind(): void;
+}
+interface JQuery {
+	data(propertyName: "igDoughnutChart"): IgDoughnutChartMethods;
+}
+
+interface JQuery {
+	igDoughnutChart(methodName: "addSeries", seriesObj: Object): void;
+	igDoughnutChart(methodName: "removeSeries", seriesObj: Object): void;
+	igDoughnutChart(methodName: "updateSeries", value: Object): void;
+	igDoughnutChart(methodName: "getCenterCoordinates"): Object;
+	igDoughnutChart(methodName: "getHoleRadius"): number;
+	igDoughnutChart(methodName: "exportVisualData"): Object;
+	igDoughnutChart(methodName: "flush"): void;
+	igDoughnutChart(methodName: "destroy"): void;
+	igDoughnutChart(methodName: "getData", series: string): Object;
+	igDoughnutChart(methodName: "findIndexOfItem", item: Object): number;
+	igDoughnutChart(methodName: "getDataItem", index: Object): Object;
+	igDoughnutChart(methodName: "addItem", item: Object): Object;
+	igDoughnutChart(methodName: "insertItem", item: Object, index: number): Object;
+	igDoughnutChart(methodName: "removeItem", index: number): Object;
+	igDoughnutChart(methodName: "setItem", index: number, item: Object): Object;
+	igDoughnutChart(methodName: "notifySetItem", dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
+	igDoughnutChart(methodName: "notifyClearItems", dataSource: Object): Object;
+	igDoughnutChart(methodName: "notifyInsertItem", dataSource: Object, index: number, newItem: Object): Object;
+	igDoughnutChart(methodName: "notifyRemoveItem", dataSource: Object, index: number, oldItem: Object): Object;
+	igDoughnutChart(methodName: "chart"): Object;
+	igDoughnutChart(methodName: "dataBind"): void;
+
+	/**
+	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
+	 */
+
+	igDoughnutChart(optionLiteral: 'option', optionName: "width"): string|number;
+
+	/**
+	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igDoughnutChart(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
+
+	/**
+	 * The height of the chart. It can be set as a number in pixels, string (px) or percentage (%).
+	 */
+
+	igDoughnutChart(optionLiteral: 'option', optionName: "height"): string|number;
+
+	/**
+	 * The height of the chart. It can be set as a number in pixels, string (px) or percentage (%).
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igDoughnutChart(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
+
+	/**
+	 * An array of series objects.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "series"): IgDoughnutChartSeries[];
+
+	/**
+	 * An array of series objects.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "series", optionValue: IgDoughnutChartSeries[]): void;
+
+	/**
+	 * Gets  whether the slices can be selected.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "allowSliceSelection"): boolean;
+
+	/**
+	 * Sets whether the slices can be selected.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "allowSliceSelection", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether all surface interactions with the plot area should be disabled.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "isSurfaceInteractionDisabled"): boolean;
+
+	/**
+	 * Sets whether all surface interactions with the plot area should be disabled.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "isSurfaceInteractionDisabled", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether the slices can be exploded.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "allowSliceExplosion"): boolean;
+
+	/**
+	 * Sets whether the slices can be exploded.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "allowSliceExplosion", optionValue: boolean): void;
+
+	/**
+	 * Gets  the inner extent of the doughnut chart. It is percent from the outer ring's radius.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "innerExtent"): number;
+
+	/**
+	 * Sets the inner extent of the doughnut chart. It is percent from the outer ring's radius.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "innerExtent", optionValue: number): void;
+
+	/**
+	 * Gets  the style used when a slice is selected.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "selectedStyle"): any;
+
+	/**
+	 * Sets the style used when a slice is selected.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "selectedStyle", optionValue: any): void;
+
+	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
+
+	/**
+	 * Gets  template for tooltip associated with chart item.
+	 * Example: "Value: $(ValueMemberPathInDataSource)"
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipTemplate"): string;
+
+	/**
+	 * Sets template for tooltip associated with chart item.
+	 * Example: "Value: $(ValueMemberPathInDataSource)"
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipTemplate", optionValue: string): void;
+
+	/**
+	 * Gets  maximum number of displayed records in chart.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "maxRecCount"): number;
+
+	/**
+	 * Sets maximum number of displayed records in chart.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "maxRecCount", optionValue: number): void;
+
+	/**
+	 * Gets  a valid data source.
+	 * That can be instance of array or primitives, array of objects, instance of $.ig.DataSource, or any other data accepted by $.ig.DataSource.
+	 * Note: if it is set to string and "dataSourceType" option is not set, then $.ig.JSONPDataSource is used.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataSource"): any;
+
+	/**
+	 * Sets a valid data source.
+	 * That can be instance of array or primitives, array of objects, instance of $.ig.DataSource, or any other data accepted by $.ig.DataSource.
+	 * Note: if it is set to string and "dataSourceType" option is not set, then $.ig.JSONPDataSource is used.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataSource", optionValue: any): void;
+
+	/**
+	 * Gets  data source type (such as "json", "xml", etc). Please refer to the documentation of $.ig.DataSource and its type property
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceType"): string;
+
+	/**
+	 * Sets data source type (such as "json", "xml", etc). Please refer to the documentation of $.ig.DataSource and its type property
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceType", optionValue: string): void;
+
+	/**
+	 * Gets  url which is used for sending JSON on request for remote data.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceUrl"): string;
+
+	/**
+	 * Sets url which is used for sending JSON on request for remote data.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceUrl", optionValue: string): void;
+
+	/**
+	 * See $.ig.DataSource. property in the response specifying the total number of records on the server.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "responseTotalRecCountKey"): string;
+
+	/**
+	 * See $.ig.DataSource. property in the response specifying the total number of records on the server.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "responseTotalRecCountKey", optionValue: string): void;
+
+	/**
+	 * See $.ig.DataSource. This is basically the property in the responses where data records are held, if the response is wrapped.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "responseDataKey"): string;
+
+	/**
+	 * See $.ig.DataSource. This is basically the property in the responses where data records are held, if the response is wrapped.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "responseDataKey", optionValue: string): void;
+
+	/**
+	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipShowing"): TooltipShowingEvent;
+
+	/**
+	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipShowing", optionValue: TooltipShowingEvent): void;
+
+	/**
+	 * Event fired after a tooltip is shown
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipShown"): TooltipShownEvent;
+
+	/**
+	 * Event fired after a tooltip is shown
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipShown", optionValue: TooltipShownEvent): void;
+
+	/**
+	 * Event fired when the mouse has left a series and the tooltip is about to hide
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipHiding"): TooltipHidingEvent;
+
+	/**
+	 * Event fired when the mouse has left a series and the tooltip is about to hide
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipHiding", optionValue: TooltipHidingEvent): void;
+
+	/**
+	 * Event fired after a tooltip is hidden
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipHidden"): TooltipHiddenEvent;
+
+	/**
+	 * Event fired after a tooltip is hidden
+	 * Function takes arguments evt and ui.
+	 * Use ui.element to get reference to tooltip DOM element.
+	 * Use ui.item to get reference to current series item object.
+	 * Use ui.chart to get reference to chart object.
+	 * Use ui.series to get reference to current series object.
+	 * Use ui.actualItemBrush to get item brush.
+	 * Use ui.actualSeriesBrush to get series brush.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipHidden", optionValue: TooltipHiddenEvent): void;
+
+	/**
+	 * Event fired when the control is displayed on a non HTML5 compliant browser
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "browserNotSupported"): BrowserNotSupportedEvent;
+
+	/**
+	 * Event fired when the control is displayed on a non HTML5 compliant browser
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "browserNotSupported", optionValue: BrowserNotSupportedEvent): void;
+
+	/**
+	 * Raised when the slice is clicked.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "sliceClick"): SliceClickEvent;
+
+	/**
+	 * Raised when the slice is clicked.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "sliceClick", optionValue: SliceClickEvent): void;
+
+	/**
+	 * Raised when the dimensions (center point or radius) of the doughnut hole change.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "holeDimensionsChanged"): HoleDimensionsChangedEvent;
+
+	/**
+	 * Raised when the dimensions (center point or radius) of the doughnut hole change.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "holeDimensionsChanged", optionValue: HoleDimensionsChangedEvent): void;
+
+	/**
+	 * Event which is raised before data binding.
+	 * Return false in order to cancel data binding.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataBinding"): DataBindingEvent;
+
+	/**
+	 * Event which is raised before data binding.
+	 * Return false in order to cancel data binding.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataBinding", optionValue: DataBindingEvent): void;
+
+	/**
+	 * Event which is raised after data binding.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.data to obtain reference to array actual data which is displayed by chart.
+	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataBound"): DataBoundEvent;
+
+	/**
+	 * Event which is raised after data binding.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.data to obtain reference to array actual data which is displayed by chart.
+	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "dataBound", optionValue: DataBoundEvent): void;
+
+	/**
+	 * Event which is raised before tooltip is updated.
+	 * Return false in order to cancel updating and hide tooltip.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.text to obtain html of tooltip. Value of that member can be modified. If modified value is null or empty string, then current content of tooltip keeps old value.
+	 * Use ui.item to obtain reference to item. Value of that member can be modified or replaced by custom item.
+	 * Use ui.x to obtain left position of tooltip in pixels relative to widget. Value of that member can be modified.
+	 * Use ui.y to obtain top position of tooltip in pixels relative to widget. Value of that member can be modified.
+	 * Use ui.element to obtain reference to jquery object which represents tooltip. Value of that member can be replaced by custom element.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "updateTooltip"): UpdateTooltipEvent;
+
+	/**
+	 * Event which is raised before tooltip is updated.
+	 * Return false in order to cancel updating and hide tooltip.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.text to obtain html of tooltip. Value of that member can be modified. If modified value is null or empty string, then current content of tooltip keeps old value.
+	 * Use ui.item to obtain reference to item. Value of that member can be modified or replaced by custom item.
+	 * Use ui.x to obtain left position of tooltip in pixels relative to widget. Value of that member can be modified.
+	 * Use ui.y to obtain top position of tooltip in pixels relative to widget. Value of that member can be modified.
+	 * Use ui.element to obtain reference to jquery object which represents tooltip. Value of that member can be replaced by custom element.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "updateTooltip", optionValue: UpdateTooltipEvent): void;
+
+	/**
+	 * Event which is raised before tooltip is hidden.
+	 * Return false in order to cancel hiding and keep tooltip visible.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.item to obtain reference to item.
+	 * Use ui.element to obtain reference to jquery object which represents tooltip or value of ui.element from last updateTooltip event. Value of that member can be replaced by custom element.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "hideTooltip"): HideTooltipEvent;
+
+	/**
+	 * Event which is raised before tooltip is hidden.
+	 * Return false in order to cancel hiding and keep tooltip visible.
+	 * Function takes first argument null and second argument ui.
+	 * Use ui.owner to obtain reference to chart widget.
+	 * Use ui.item to obtain reference to item.
+	 * Use ui.element to obtain reference to jquery object which represents tooltip or value of ui.element from last updateTooltip event. Value of that member can be replaced by custom element.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igDoughnutChart(optionLiteral: 'option', optionName: "hideTooltip", optionValue: HideTooltipEvent): void;
+	igDoughnutChart(options: IgDoughnutChart): JQuery;
+	igDoughnutChart(optionLiteral: 'option', optionName: string): any;
+	igDoughnutChart(optionLiteral: 'option', options: IgDoughnutChart): JQuery;
+	igDoughnutChart(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
+	igDoughnutChart(methodName: string, ...methodParams: any[]): any;
 }
 interface RenderingEvent {
 	(event: Event, ui: RenderingEventUIParam): void;
@@ -26669,6 +27642,9 @@ interface IgNumericEditor {
 	 */
 	toUpper?: any;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -27248,6 +28224,9 @@ interface IgCurrencyEditor {
 	 */
 	toUpper?: any;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -27730,6 +28709,9 @@ interface IgPercentEditor {
 	 */
 	toUpper?: any;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -28128,6 +29110,9 @@ interface IgMaskEditor {
 	 */
 	dropDownOnReadOnly?: boolean;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -28663,6 +29648,9 @@ interface IgDateEditor {
 	 */
 	dropDownOrientation?: string;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -29225,6 +30213,9 @@ interface IgDatePicker {
 	 */
 	dropDownOrientation?: string;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -30059,6 +31050,9 @@ interface IgTimePicker {
 	 */
 	excludeKeys?: string;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -32002,8 +32996,12 @@ interface JQuery {
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "toUpper", optionValue: any): void;
 
+	/**
+	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -32939,8 +33937,12 @@ interface JQuery {
 	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "toUpper", optionValue: any): void;
 
+	/**
+	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -33815,8 +34817,12 @@ interface JQuery {
 	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "toUpper", optionValue: any): void;
 
+	/**
+	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -34522,8 +35528,12 @@ interface JQuery {
 	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownOnReadOnly", optionValue: boolean): void;
 
+	/**
+	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -35522,8 +36532,12 @@ interface JQuery {
 	 */
 	igDateEditor(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
+	/**
+	 */
 	igDateEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igDateEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -36538,8 +37552,12 @@ interface JQuery {
 	 */
 	igDatePicker(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
+	/**
+	 */
 	igDatePicker(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igDatePicker(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -37968,8 +38986,12 @@ interface JQuery {
 	 */
 	igTimePicker(optionLiteral: 'option', optionName: "excludeKeys", optionValue: string): void;
 
+	/**
+	 */
 	igTimePicker(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igTimePicker(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -89671,6 +90693,22 @@ interface HyperlinkExecutingEventUIParam {
 	hyperlink?: any;
 }
 
+interface IgSpreadsheetSelectionChangedEvent {
+	(event: Event, ui: IgSpreadsheetSelectionChangedEventUIParam): void;
+}
+
+interface IgSpreadsheetSelectionChangedEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get the [pane](ig.spreadsheet.SpreadsheetPane) for which the selection has changed.
+	 */
+	pane?: any;
+}
+
 interface UserPromptDisplayingEvent {
 	(event: Event, ui: UserPromptDisplayingEventUIParam): void;
 }
@@ -89970,7 +91008,7 @@ interface IgSpreadsheet {
 	/**
 	 * Invoked when the selection for a ig.spreadsheet.SpreadsheetPane of the Spreadsheet is changed.
 	 */
-	selectionChanged?: SelectionChangedEvent;
+	selectionChanged?: IgSpreadsheetSelectionChangedEvent;
 
 	/**
 	 * Invoked when the user will be prompted with a message regarding an operation that is being performed.
@@ -90657,14 +91695,14 @@ interface JQuery {
 	/**
 	 * Invoked when the selection for a ig.spreadsheet.SpreadsheetPane of the Spreadsheet is changed.
 	 */
-	igSpreadsheet(optionLiteral: 'option', optionName: "selectionChanged"): SelectionChangedEvent;
+	igSpreadsheet(optionLiteral: 'option', optionName: "selectionChanged"): IgSpreadsheetSelectionChangedEvent;
 
 	/**
 	 * Invoked when the selection for a ig.spreadsheet.SpreadsheetPane of the Spreadsheet is changed.
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igSpreadsheet(optionLiteral: 'option', optionName: "selectionChanged", optionValue: SelectionChangedEvent): void;
+	igSpreadsheet(optionLiteral: 'option', optionName: "selectionChanged", optionValue: IgSpreadsheetSelectionChangedEvent): void;
 
 	/**
 	 * Invoked when the user will be prompted with a message regarding an operation that is being performed.
@@ -93097,6 +94135,27 @@ interface IgTreeDragAndDropSettings {
 	[optionName: string]: any;
 }
 
+interface IgTreeSelectionChangedEvent {
+	(event: Event, ui: IgTreeSelectionChangedEventUIParam): void;
+}
+
+interface IgTreeSelectionChangedEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to currently selected nodes.
+	 */
+	selectedNodes?: any[];
+
+	/**
+	 * Gets a reference to the newly added nodes to the selection.
+	 */
+	newNodes?: any[];
+}
+
 interface NodeCheckstateChangingEvent {
 	(event: Event, ui: NodeCheckstateChangingEventUIParam): void;
 }
@@ -93674,7 +94733,7 @@ interface IgTree {
 	/**
 	 * Fired after a new node is selected.
 	 */
-	selectionChanged?: SelectionChangedEvent;
+	selectionChanged?: IgTreeSelectionChangedEvent;
 
 	/**
 	 * Fired before the checkbox state of a node is changed.
@@ -94578,14 +95637,14 @@ interface JQuery {
 	/**
 	 * Fired after a new node is selected.
 	 */
-	igTree(optionLiteral: 'option', optionName: "selectionChanged"): SelectionChangedEvent;
+	igTree(optionLiteral: 'option', optionName: "selectionChanged"): IgTreeSelectionChangedEvent;
 
 	/**
 	 * Fired after a new node is selected.
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igTree(optionLiteral: 'option', optionName: "selectionChanged", optionValue: SelectionChangedEvent): void;
+	igTree(optionLiteral: 'option', optionName: "selectionChanged", optionValue: IgTreeSelectionChangedEvent): void;
 
 	/**
 	 * Fired before the checkbox state of a node is changed.
@@ -112280,7 +113339,7 @@ interface JQuery {
 	igZoomSlider(methodName: string, ...methodParams: any[]): any;
 }
 
-interface IgLoader {
+interface IgLoaderSettings {
     scriptPath: string;
     cssPath: string;
     resources?: string;
@@ -112293,12 +113352,20 @@ interface IgLoader {
     preinit?: Function;
 }
 
+interface IgLoader {
+    settings?: IgLoaderSettings;
+    load(resources: string, callback?: Function, preinit?: Function): IgLoader;
+    preinit(callback: Function): IgLoader;
+}
+
 interface IgniteUIStatic {
+    regional?: any;
+    util?: any;
     tmpl(template: string, data: any, ...args: any[]): string;
-    loader(options: IgLoader): void;
-    loader(callback: Function): void;
-    loader(resources: string, callback: Function): void;
-    loader(): any;
+    loader(options: IgLoaderSettings): IgLoader;
+    loader(callback: Function): IgLoader;
+    loader(resources: string, callback: Function): IgLoader;
+    loader(): IgLoader;
     OlapUtilities: any;
 }
 
