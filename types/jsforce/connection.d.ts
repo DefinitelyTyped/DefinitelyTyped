@@ -22,9 +22,10 @@ export interface PartialOAuth2Options {
 }
 
 export interface RequestInfo {
+    body?: string;
+    headers?: object;
     method?: string;
     url?: string;
-    headers?: object;
 }
 
 export interface ConnectionOptions extends PartialOAuth2Options {
@@ -56,6 +57,16 @@ export abstract class RestApi {
     put(path: string, body: object, options: object, callback: () => object): Promise<object>;
     patch(path: string, body: object, options: object, callback: () => object): Promise<object>;
     del(path: string, options: object, callback: () => object): Promise<object>;
+}
+
+export interface ExecuteAnonymousResult {
+    compiled: boolean;
+    compileProblem: string;
+    success: boolean;
+    line: number;
+    column: number;
+    exceptionMessage: string;
+    exceptionStackTrace: string;
 }
 
 export type ConnectionEvent = "refresh";
@@ -135,5 +146,5 @@ export class Tooling extends BaseConnection {
     _logger: any;
 
     // Specific to tooling
-    executeAnonymous(body: string, callback?: (err: Error, res: any) => void): Promise<any>;
+    executeAnonymous(body: string, callback?: (err: Error, res: any) => void): Promise<ExecuteAnonymousResult>;
 }

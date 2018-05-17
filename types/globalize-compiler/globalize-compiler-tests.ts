@@ -1,6 +1,6 @@
 import * as ESTree from "estree";
+import globalize = require("globalize");
 import * as globalizeCompiler from "globalize-compiler";
-const globalize: GlobalizeStatic = null;
 
 let extractsArray: globalizeCompiler.FormatterOrParserFunction[];
 
