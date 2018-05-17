@@ -607,6 +607,27 @@ configuration = {
     },
 };
 
+configuration = {
+    mode: "production",
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                common: {
+                    name: 'common',
+                    chunks(chunk: webpack.compilation.Chunk) {
+                        const allowedChunks = [
+                            'renderer',
+                            'component-window',
+                        ];
+                        return allowedChunks.indexOf(chunk.name) >= 0;
+                    },
+                    minChunks: 2
+                }
+            }
+        }
+    },
+};
+
 plugin = new webpack.SplitChunksPlugin({ chunks: "async", minChunks: 2 });
 
 class SingleEntryDependency extends webpack.compilation.Dependency {}
