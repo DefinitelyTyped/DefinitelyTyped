@@ -1,3 +1,4 @@
+
 function sample1() {
   const canvas = new fabric.Canvas('c', {
     hoverCursor: 'pointer',
