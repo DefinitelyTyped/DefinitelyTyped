@@ -1,16 +1,17 @@
 declare class EventSource {
   constructor(url: string, eventSourceInitDict?: EventSource.EventSourceInitDict);
-
-  static CLOSED: EventSource.ReadyState;
-  static CONNECTING: EventSource.ReadyState;
-  static OPEN: EventSource.ReadyState;
-
-  url: string;
-  readyState: EventSource.ReadyState;
+  readonly CLOSED: number;
+  readonly CONNECTING: number;
+  readonly OPEN: number;
+  readonly url: string;
+  readonly readyState: number;
+  readonly withCredentials: boolean;
   onopen: EventListener;
   onmessage: EventListener;
   onerror: EventListener;
   addEventListener(type: string, listener: EventListener): void;
+  dispatchEvent(evt: Event): boolean;
+  removeEventListener(type: string, listener?: EventListener): void;
   close(): void;
 }
 
