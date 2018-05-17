@@ -1,6 +1,9 @@
 // Type definitions for Chartist v0.9.81
 // Project: https://github.com/gionkunz/chartist-js
-// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Cassey Lottman <https://github.com/clottman>
+// Definitions by: Matt Gibbs <https://github.com/mtgibbs>,
+// Simon Pfeifer <https://github.com/psimonski>,
+// Cassey Lottman <https://github.com/clottman>,
+// Anastasiia Antonova <https://github.com/affilnost>,
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chartist {
