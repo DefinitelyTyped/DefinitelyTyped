@@ -20,7 +20,7 @@
 // TypeScript Version: 2.6
 
 /**
- * Reference: https://github.com/react-navigation/react-navigation/tree/a37473c5e4833f48796ee6c7c9cb4a8ac49d9c06
+ * Reference: https://github.com/react-navigation/react-navigation/tree/3f3ef6485c8932f49fddc3dd2c508629110bf2b6
  *
  * NOTE: Please update the commit/link above when updating to a new Flow
  * react-navigation/flow/react-navigation.js reference, so we can conveniently just look at diffs on
@@ -32,7 +32,7 @@ import * as React from 'react';
 import {
   Animated,
   TextStyle,
-  ViewProperties,
+  ViewProps,
   ViewStyle,
   StyleProp,
 } from 'react-native';
@@ -313,6 +313,7 @@ export interface NavigationStackRouterConfig {
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
   navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+  initialRouteKey?: string;
 }
 
 export type NavigationStackAction =
@@ -600,9 +601,17 @@ export interface NavigationContainerProps {
   style?: StyleProp<ViewStyle>;
 }
 
+export interface NavigationContainerComponent extends React.Component<
+  NavigationContainerProps & NavigationNavigatorProps<any>
+  > {
+  dispatch: NavigationDispatch;
+}
+
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps & NavigationNavigatorProps<any>
-> {
+  > {
+  new(props: NavigationContainerProps & NavigationNavigatorProps<any>, context?: any): NavigationContainerComponent;
+
   router: NavigationRouter<any, any>;
   screenProps: { [key: string]: any };
   navigationOptions: any;
@@ -623,7 +632,7 @@ export interface SwitchNavigatorConfig {
   initialRouteName: string;
   resetOnBlur?: boolean;
   paths?: NavigationPathsConfig;
-  backBehavior?: 'none' | 'intialRoute';
+  backBehavior?: 'none' | 'initialRoute';
 }
 
 // Return createNavigationContainer
@@ -918,7 +927,7 @@ export function withNavigationFocus<T = {}>(
  * SafeAreaView Component
  */
 export type SafeAreaViewForceInsetValue = 'always' | 'never';
-export interface SafeAreaViewProps extends ViewProperties {
+export interface SafeAreaViewProps extends ViewProps {
   forceInset?: {
     top?: SafeAreaViewForceInsetValue;
     bottom?: SafeAreaViewForceInsetValue;

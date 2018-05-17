@@ -31,6 +31,7 @@ export interface APIGatewayEventRequestContext {
         accessKey: string | null;
         accountId: string | null;
         apiKey: string | null;
+        apiKeyId: string | null;
         caller: string | null;
         cognitoAuthenticationProvider: string | null;
         cognitoAuthenticationType: string | null;
@@ -472,19 +473,26 @@ export interface Condition {
  * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
  * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html
  */
-export type Statement = BaseStatement & StatementAction & StatementResource;
+export type Statement = BaseStatement & StatementAction & (StatementResource | StatementPrincipal);
 
 export interface BaseStatement {
     Effect: string;
     Sid?: string;
     Condition?: ConditionBlock;
-    Principal?: string | string[];
-    NotPrincipal?: string | string[];
 }
 
+export type PrincipalValue = { [key: string]: string | string[]; } | string | string[];
+export interface MaybeStatementPrincipal {
+    Principal?: PrincipalValue;
+    NotPrincipal?: PrincipalValue;
+}
+export interface MaybeStatementResource {
+    Resource?: string | string[];
+    NotResource?: string | string[];
+}
 export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
-export type StatementResource = { Resource: string | string[] } | { NotResource: string | string[] };
-
+export type StatementResource = MaybeStatementPrincipal & ({ Resource: string | string[] } | { NotResource: string | string[] });
+export type StatementPrincipal = MaybeStatementResource & ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output

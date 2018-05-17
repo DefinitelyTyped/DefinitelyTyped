@@ -130,6 +130,7 @@ declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
+    type SpyObjMethodNames = string[] | {[methodName: string]: any};
 
     var clock: () => Clock;
 
@@ -144,12 +145,11 @@ declare namespace jasmine {
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
     function createSpy(name?: string, originalFn?: Function): Spy;
 
-    function createSpyObj(baseName: string, methodNames: any[] | {[methodName: string]: any}): any;
-    function createSpyObj<T>(baseName: string, methodNames: any[] | {[methodName: string]: any}): SpyObj<T>;
+    function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
+    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames): SpyObj<T>;
 
-    function createSpyObj(baseName: string, methodNames: any): any;
-    function createSpyObj(methodNames: any[]): any;
-    function createSpyObj(methodNames: any): any;
+    function createSpyObj(methodNames: SpyObjMethodNames): any;
+    function createSpyObj<T>(methodNames: SpyObjMethodNames): SpyObj<T>;
 
     function pp(value: any): string;
 

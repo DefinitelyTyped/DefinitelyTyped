@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.1
+// Type definitions for webpack 4.4
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -11,6 +11,7 @@
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
+//                 Christophe Hurpeau <https://github.com/christophehurpeau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -204,9 +205,9 @@ declare namespace webpack {
 
     interface Module {
         /** A array of applied pre loaders. */
-        preLoaders?: Rule[];
+        preLoaders?: RuleSetRule[];
         /** A array of applied post loaders. */
-        postLoaders?: Rule[];
+        postLoaders?: RuleSetRule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
         noParse?: RegExp | RegExp[] | ((content: string) => boolean);
         unknownContextRequest?: string;
@@ -222,7 +223,7 @@ declare namespace webpack {
         wrappedContextCritical?: boolean;
         strictExportPresence?: boolean;
         /** An array of rules applied for modules. */
-        rules: Rule[];
+        rules: RuleSetRule[];
     }
 
     interface Resolve {
@@ -252,7 +253,7 @@ declare namespace webpack {
          * Defaults to `["browser", "module", "main"]` or `["module", "main"]`,
          * depending on the value of the `target` `Configuration` value.
          */
-        mainFields?: string[];
+        mainFields?: string[] | string[][];
 
         /**
          * A list of fields in a package description object to try to parse
@@ -263,7 +264,7 @@ declare namespace webpack {
          *
          * @see alias
          */
-        aliasFields?: string[];
+        aliasFields?: string[] | string[][];
 
         /**
          * A list of file names to search for when requiring directories that
@@ -320,6 +321,14 @@ declare namespace webpack {
          * Defaults to `true`
          */
         symlinks?: boolean;
+
+        /**
+         * If unsafe cache is enabled, includes request.context in the cache key.
+         * This option is taken into account by the enhanced-resolve module.
+         * Since webpack 3.1.0 context in resolve caching is ignored when resolve or resolveLoader plugins are provided.
+         * This addresses a performance regression.
+         */
+        cacheWithContext?: boolean;
     }
 
     interface ResolveLoader extends Resolve {
@@ -348,143 +357,173 @@ declare namespace webpack {
         __dirname?: boolean | string;
         [nodeBuiltin: string]: boolean | string | undefined;
     }
-
-    interface BaseConditionSpec {
-        /** The Condition must match. The convention is the provide a string or array of strings here, but it's not enforced. */
-        include?: Condition;
-        /** The Condition must NOT match. The convention is the provide a string or array of strings here, but it's not enforced. */
-        exclude?: Condition;
-    }
-    interface TestConditionSpec extends BaseConditionSpec {
-        /** The Condition must match. The convention is the provide a RegExp or array of RegExps here, but it's not enforced. */
-        test: Condition;
-    }
-    interface AndConditionSpec extends BaseConditionSpec {
-        /** All Conditions must match. */
-        and: Condition[];
-    }
-    interface OrConditionSpec extends BaseConditionSpec {
-        /** Any Condition must match. */
-        or: Condition[];
-    }
-    interface NotConditionSpec extends BaseConditionSpec {
-        /** The Condition must NOT match. */
-        not: Condition;
-    }
-    type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
-
-    // tslint:disable-next-line:no-empty-interface
-    interface ConditionArray extends Array<Condition> { }
-    type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
-
-    interface OldLoader {
-        loader: string;
-        query?: { [name: string]: any };
-    }
     interface NewLoader {
         loader: string;
         options?: { [name: string]: any };
     }
-    type Loader = string | OldLoader | NewLoader;
+    type Loader = string | NewLoader;
+
     interface ParserOptions {
         [optName: string]: any;
         system?: boolean;
     }
-    /**
-     * There are direct and delegate rules. Direct Rules need a test, Delegate rules delegate to subrules bringing their own.
-     * Direct rules can optionally contain delegate keys (oneOf, rules).
-     *
-     * These types exist to enforce that a rule has the keys `((loader XOR loaders) AND test) OR oneOf OR rules`
-     */
-    interface BaseRule {
+
+    type RuleSetCondition =
+        | RegExp
+        | string
+        | ((path: string) => boolean)
+        | RuleSetConditions
+        | {
+            /**
+             * Logical AND
+             */
+            and?: RuleSetCondition[];
+            /**
+             * Exclude all modules matching any of these conditions
+             */
+            exclude?: RuleSetCondition;
+            /**
+             * Exclude all modules matching not any of these conditions
+             */
+            include?: RuleSetCondition;
+            /**
+             * Logical NOT
+             */
+            not?: RuleSetCondition[];
+            /**
+             * Logical OR
+             */
+            or?: RuleSetCondition[];
+            /**
+             * Exclude all modules matching any of these conditions
+             */
+            test?: RuleSetCondition;
+        };
+
+    // A hack around circular type referencing
+    interface RuleSetConditions extends Array<RuleSetCondition> {}
+
+    interface RuleSetRule {
         /**
-         * Specifies the category of the loader. No value means normal loader.
-         *
-         * There is also an additional category "inlined loader" which are loaders applied inline of the import/require.
-         *
-         * All loaders are sorted in the order post, inline, normal, pre and used in this order.
-         *
-         * All normal loaders can be omitted (overridden) by prefixing ! in the request.
-         *
-         * All normal and pre loaders can be omitted (overridden) by prefixing -! in the request.
-         *
-         * All normal, post and pre loaders can be omitted (overridden) by prefixing !! in the request.
-         *
-         * Inline loaders and ! prefixes should not be used as they are non-standard. They may be use by loader generated code.
+         * Enforce this rule as pre or post step
          */
-        enforce?: 'pre' | 'post';
-        /** A condition that must be met */
-        test?: Condition | Condition[];
-        /** A condition that must not be met */
-        exclude?: Condition | Condition[];
-        /** A condition that must be met */
-        include?: Condition | Condition[];
-        /** A Condition matched with the resource. */
-        resource?: Condition | Condition[];
-        /** A Condition matched with the resource query. */
-        resourceQuery?: Condition | Condition[];
-        /** A condition matched with the issuer */
-        issuer?: Condition | Condition[];
+        enforce?: "pre" | "post";
         /**
-         * An object with parser options. All applied parser options are merged.
-         *
-         * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options.
-         * Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
+         * Shortcut for resource.exclude
          */
-        parser?: ParserOptions;
-        /** An array of Rules that is also used when the Rule matches. */
-        rules?: Rule[];
-        /** An array of Rules from which only the first matching Rule is used when the Rule matches. */
-        oneOf?: Rule[];
-        /** Configures module resolving. */
+        exclude?: RuleSetCondition;
+        /**
+         * Shortcut for resource.include
+         */
+        include?: RuleSetCondition;
+        /**
+         * Match the issuer of the module (The module pointing to this module)
+         */
+        issuer?: RuleSetCondition;
+        /**
+         * Shortcut for use.loader
+         */
+        loader?: RuleSetUse;
+        /**
+         * Shortcut for use.loader
+         */
+        loaders?: RuleSetUse;
+        /**
+         * Only execute the first matching rule in this array
+         */
+        oneOf?: RuleSetRule[];
+        /**
+         * Shortcut for use.options
+         */
+        options?: RuleSetQuery;
+        /**
+         * Options for parsing
+         */
+        parser?: { [k: string]: any };
+        /**
+         * Options for the resolver
+         */
         resolve?: Resolve;
-        /** Configures the module type. */
-        type?: "javascript/auto" | "javascript/esm" | "javascript/dynamic" | "json" | "webassembly/experimental";
-        /** Flags a module as with or without side effects */
+        /**
+         * Flags a module as with or without side effects
+         */
         sideEffects?: boolean;
+        /**
+         * Shortcut for use.query
+         */
+        query?: RuleSetQuery;
+        /**
+         * Module type to use for the module
+         */
+        type?: "javascript/auto" | "javascript/dynamic" | "javascript/esm" | "json" | "webassembly/experimental";
+        /**
+         * Match the resource path of the module
+         */
+        resource?: RuleSetCondition;
+        /**
+         * Match the resource query of the module
+         */
+        resourceQuery?: RuleSetCondition;
+        /**
+         * Match the child compiler name
+         */
+        compiler?: RuleSetCondition;
+        /**
+         * Match and execute these rules when this rule is matched
+         */
+        rules?: RuleSetRule[];
+        /**
+         * Shortcut for resource.test
+         */
+        test?: RuleSetCondition;
+        /**
+         * Modifiers applied to the module when rule is matched
+         */
+        use?: RuleSetUse;
     }
-    interface BaseDirectRule extends BaseRule {
-        /** A condition that must be met */
-        test: Condition | Condition[];
-    }
-    // Direct Rules
-    interface BaseSingleLoaderRule extends BaseDirectRule {
-        /** Loader name or an object with name and options */
-        loader: Loader;
-    }
-    interface OldLoaderRule extends BaseSingleLoaderRule {
+
+    type RuleSetUse =
+        | RuleSetUseItem
+        | RuleSetUseItem[]
+        | ((data: any) => RuleSetUseItem | RuleSetUseItem[]);
+
+    interface RuleSetLoader {
+        /**
+         * Loader name
+         */
+        loader?: string;
         /**
          * Loader options
-         * @deprecated:
          */
-        query?: { [name: string]: any };
-    }
-    interface NewLoaderRule extends BaseSingleLoaderRule {
-        options?: { [name: string]: any };
-    }
-    type LoaderRule = OldLoaderRule | NewLoaderRule;
-    interface OldUseRule extends BaseDirectRule {
+        options?: RuleSetQuery;
         /**
-         * A array of loaders.
-         * @deprecated  use `use` instead
+         * Unique loader identifier
          */
-        loaders: string[];
+        ident?: string;
+        /**
+         * Loader query
+         */
+        query?: RuleSetQuery;
     }
-    interface NewUseRule extends BaseDirectRule {
-        /** A loader or array of loaders */
-        use: Loader | Loader[];
-    }
-    type UseRule = OldUseRule | NewUseRule;
 
-    // Delegate Rules
-    interface RulesRule extends BaseRule {
-        /** An array of Rules that is also used when the Rule matches. */
-        rules: Rule[];
-    }
-    interface OneOfRule extends BaseRule {
-        oneOf: Rule[];
-    }
-    type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
+    type RuleSetUseItem =
+        | string
+        | RuleSetLoader
+        | ((data: any) => string | RuleSetLoader);
+
+    type RuleSetQuery =
+        | string
+        | { [k: string]: any };
+
+    /**
+     * @deprecated Use RuleSetCondition instead
+     */
+    type Condition = RuleSetCondition;
+
+    /**
+     * @deprecated Use RuleSetRule instead
+     */
+    type Rule = RuleSetRule;
 
     namespace Options {
         // tslint:disable-next-line:max-line-length
@@ -521,7 +560,7 @@ declare namespace webpack {
             /** Assign modules to a cache group */
             test?: ((...args: any[]) => boolean) | string | RegExp;
             /** Select chunks for determining cache group content (defaults to \"initial\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group */
             enforce?: boolean;
             /** Priority of this cache group */
@@ -541,7 +580,7 @@ declare namespace webpack {
         }
         interface SplitChunksOptions {
             /** Select chunks for determining shared modules (defaults to \"async\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Minimal size for the created chunk */
             minSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
@@ -607,6 +646,27 @@ declare namespace webpack {
             minimizer?: Array<Plugin | Tapable.Plugin>;
             /** Generate records with relative paths to be able to move the context folder". */
             portableRecords?: boolean;
+        }
+    }
+
+    namespace debug {
+        interface ProfilingPluginOptions {
+            /** A relative path to a custom output file (json) */
+            outputPath?: string;
+        }
+        /**
+         * Generate Chrome profile file which includes timings of plugins execution. Outputs `events.json` file by
+         * default. It is possible to provide custom file path using `outputPath` option.
+         *
+         * In order to view the profile file:
+         * * Run webpack with ProfilingPlugin.
+         * * Go to Chrome, open the Profile Tab.
+         * * Drag and drop generated file (events.json by default) into the profiler.
+         *
+         * It will then display timeline stats and calls per plugin!
+         */
+        class ProfilingPlugin extends Plugin {
+            constructor(options?: ProfilingPluginOptions);
         }
     }
     namespace compilation {

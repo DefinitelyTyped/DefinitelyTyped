@@ -167,8 +167,8 @@ browserSync({
 browserSync({
     proxy: {
         target: "http://yourlocal.dev",
-        proxyRes: function (proxyRes, req, res) {
-            console.log(proxyRes);
+        proxyRes: function (proxyResponse, req, res) {
+            console.log(proxyResponse);
         }
     }
 });
@@ -177,8 +177,28 @@ browserSync({
     proxy: {
         target: "http://yourlocal.dev",
         proxyRes: [
-            function (proxyRes, req, res) {
-                console.log(proxyRes);
+            function (proxyResponse, req, res) {
+                console.log(proxyResponse);
+            }
+        ]
+    }
+});
+
+browserSync({
+    proxy: {
+        target: "http://yourlocal.dev",
+        proxyRes: function (res) {
+            console.log(res);
+        }
+    }
+});
+
+browserSync({
+    proxy: {
+        target: "http://yourlocal.dev",
+        proxyRes: [
+            function (res) {
+                console.log(res);
             }
         ]
     }

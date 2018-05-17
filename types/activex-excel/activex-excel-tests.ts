@@ -279,7 +279,7 @@ const setColumnVisibility = (visible: boolean) => {
         const data = sheet.Range("L2", sheet.Range('L100').End(Excel.XlDirection.xlUp)).Value() as SafeArray;
         sheet.Range('L1', sheet.Range('L100').End(Excel.XlDirection.xlUp)).ClearContents();
 
-        const combobox = sheet.OLEObjects('ComboBox1').Object as MSForms.ComboBox2;
+        const combobox = sheet.OLEObjects('ComboBox1').Object as MSForms.ComboBox;
         combobox.Clear();
         ActiveXObject.set(combobox, 'List', [], data);
         combobox.ListIndex = -1;
@@ -293,7 +293,7 @@ const setColumnVisibility = (visible: boolean) => {
         const dict = new ActiveXObject('Scripting.Dictionary');
         arr.forEach(x => ActiveXObject.set(dict, 'Item', [x], true));
 
-        const combobox = sheet.OLEObjects('ComboBox1').Object as MSForms.ComboBox2;
+        const combobox = sheet.OLEObjects('ComboBox1').Object as MSForms.ComboBox;
         combobox.Clear();
         const enumerator = new Enumerator(dict.Items());
         enumerator.moveFirst();

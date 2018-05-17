@@ -192,7 +192,7 @@ function test_bindings() {
             var value = ko.utils.unwrapObservable(valueAccessor());
             $(element).toggle(value);
         }
-    };
+    } as KnockoutBindingHandler<HTMLElement, KnockoutObservable<boolean> | boolean>;
     ko.bindingHandlers.hasFocus = {
         init: function (element, valueAccessor) {
             $(element).focus(function () {
@@ -211,7 +211,7 @@ function test_bindings() {
             else
                 element.blur();
         }
-    };
+    } as KnockoutBindingHandler<HTMLElement, KnockoutObservable<boolean>>;
     ko.bindingHandlers.allowBindings = {
         init: function (elem, valueAccessor) {
             var shouldAllowBindings = ko.utils.unwrapObservable(valueAccessor());

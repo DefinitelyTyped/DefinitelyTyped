@@ -158,4 +158,6 @@ export namespace transports {
   }
   class HTTPSTransport extends HTTPTransport {
   }
+  const https: HTTPSTransport;
+  const http: HTTPTransport;
 }
