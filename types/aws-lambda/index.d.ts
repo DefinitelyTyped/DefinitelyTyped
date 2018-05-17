@@ -528,6 +528,11 @@ export interface Credentials {
     sessionToken?: string;
 }
 
+export interface EncryptionKey {
+    type: string;
+    id: string;
+}
+
 export interface CodePipelineEvent {
     "CodePipeline.job": {
         id: string;
@@ -542,6 +547,7 @@ export interface CodePipelineEvent {
             inputArtifacts: Artifact[];
             outputArtifacts: Artifact[];
             artifactCredentials: Credentials;
+            encryptionKey?: EncryptionKey & {type: 'KMS'};
             continuationToken?: string;
         };
     };
