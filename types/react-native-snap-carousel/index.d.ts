@@ -14,7 +14,6 @@ import {
     NativeScrollEvent,
     StyleProp,
     ScrollViewProps,
-    ScrollViewStyle,
     ViewStyle,
     ImageProps,
     FlatListProps
@@ -180,11 +179,11 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
     /**
      * Optional styles for Scrollview's global wrapper
      */
-    containerCustomStyle?: StyleProp<ScrollViewStyle>;
+    containerCustomStyle?: StyleProp<ViewStyle>;
     /**
      * Optional styles for Scrollview's items container
      */
-    contentContainerCustomStyle?: StyleProp<ScrollViewStyle>;
+    contentContainerCustomStyle?: StyleProp<ViewStyle>;
     /**
      * Value of the opacity effect applied to inactive slides
      */
