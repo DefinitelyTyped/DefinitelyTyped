@@ -39,7 +39,19 @@ declare module 'pdfmake/build/pdfmake' {
         bolditalics?: string;
     }
 
+    interface TDocumentInformation {
+        title?: string;
+        author?: string;
+        subject?: string;
+        keywords?: string;
+    }
+
+    type TDocumentHeaderFooterFunction = (currentPage: number, pageCount: number) => any;
+
     interface TDocumentDefinitions {
+        info?: TDocumentInformation;
+        header?: any;
+        footer?: any;
         content: any;
         styles?: any;
         pageSize?: pageSizeType;

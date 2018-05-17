@@ -63,7 +63,7 @@ type RequestCache =
 export class Headers {
 	append(name: string, value: string): void;
 	delete(name: string): void;
-	get(name: string): string;
+	get(name: string): string | null;
 	getAll(name: string): Array<string>;
 	has(name: string): boolean;
 	set(name: string, value: string): void;

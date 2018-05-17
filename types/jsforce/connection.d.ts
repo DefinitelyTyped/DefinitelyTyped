@@ -7,12 +7,14 @@ import { SObject } from './salesforce-object';
 import { Analytics } from './api/analytics';
 import { Chatter } from './api/chatter';
 import { Metadata } from './api/metadata';
+import { Bulk } from './bulk';
+import { OAuth2, Streaming } from '.';
 
-export type callback<T> = (err: Error, result: T) => void;
+export type Callback<T> = (err: Error, result: T) => void;
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
 // the oauth options can either be in the `oauth2` proeprty OR spread across the main connection
-export interface OAuth2Options {
+export interface PartialOAuth2Options {
     clientId?: string;
     clientSecret?: string;
     loginUrl?: string;
@@ -20,19 +22,20 @@ export interface OAuth2Options {
 }
 
 export interface RequestInfo {
+    body?: string;
+    headers?: object;
     method?: string;
     url?: string;
-    headers?: object;
 }
 
-export interface ConnectionOptions extends OAuth2Options {
+export interface ConnectionOptions extends PartialOAuth2Options {
     accessToken?: string;
     callOptions?: Object;
     instanceUrl?: string;
     loginUrl?: string;
     logLevel?: string;
     maxRequest?: number;
-    oauth2?: Partial<OAuth2Options>;
+    oauth2?: Partial<PartialOAuth2Options>;
     proxyUrl?: string;
     redirectUri?: string;
     refreshToken?: string;
@@ -54,6 +57,16 @@ export abstract class RestApi {
     put(path: string, body: object, options: object, callback: () => object): Promise<object>;
     patch(path: string, body: object, options: object, callback: () => object): Promise<object>;
     del(path: string, options: object, callback: () => object): Promise<object>;
+}
+
+export interface ExecuteAnonymousResult {
+    compiled: boolean;
+    compileProblem: string;
+    success: boolean;
+    line: number;
+    column: number;
+    exceptionMessage: string;
+    exceptionStackTrace: string;
 }
 
 export type ConnectionEvent = "refresh";
@@ -82,21 +95,21 @@ export abstract class BaseConnection extends EventEmitter {
     request(info: RequestInfo | string, options?: Object, callback?: (err: Error, Object: object) => void): Promise<Object>;
     query<T>(soql: string, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     queryMore<T>(locator: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
-    create<T>(type: string, records: Record<T>|Array<Record<T>>, options?: Object,
+    create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    insert<T>(type: string, records: Record<T>|Array<Record<T>>, options?: Object,
+    insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    retrieve<T>(type: string, ids: string|string[], options?: Object,
+    retrieve<T>(type: string, ids: string | string[], options?: Object,
         callback?: (err: Error, result: Record<T> | Array<Record<T>>) => void): Promise<(Record<T> | Array<Record<T>>)>;
-    update<T>(type: string, records: Record<T>|Array<Record<T>>, options?: Object,
+    update<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
         callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void): Promise<(RecordResult | RecordResult[])>;
-    upsert<T>(type: string, records: Record<T>|Array<Record<T>>, extIdField: string, options?: Object,
+    upsert<T>(type: string, records: Record<T> | Array<Record<T>>, extIdField: string, options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    del<T>(type: string, ids: string|string[], options?: Object,
+    del<T>(type: string, ids: string | string[], options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    delete<T>(type: string, ids: string|string[], options?: Object,
+    delete<T>(type: string, ids: string | string[], options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    destroy<T>(type: string, ids: string|string[], options?: Object,
+    destroy<T>(type: string, ids: string | string[], options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     describe<T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
@@ -110,6 +123,9 @@ export class Connection extends BaseConnection {
     analytics: Analytics;
     chatter: Chatter;
     metadata: Metadata;
+    bulk: Bulk;
+    oauth2: OAuth2;
+    streaming: Streaming;
 
     // Specific to Connection
     instanceUrl: string;
@@ -130,5 +146,5 @@ export class Tooling extends BaseConnection {
     _logger: any;
 
     // Specific to tooling
-    executeAnonymous(body: string, callback?: (err: Error, res: any) => void): Promise<any>;
+    executeAnonymous(body: string, callback?: (err: Error, res: any) => void): Promise<ExecuteAnonymousResult>;
 }
