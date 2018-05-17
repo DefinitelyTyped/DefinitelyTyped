@@ -40,7 +40,7 @@ export interface QRCodeToDataURLOptions extends QRCodeRenderersOptions {
     };
 }
 
-export interface QRCodeToStringOptions extends QRCodeOptions {
+export interface QRCodeToStringOptions extends QRCodeRenderersOptions {
     /**
      * Output format.
      * Default: utf8
