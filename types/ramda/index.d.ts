@@ -20,6 +20,7 @@
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
 //                 Bonggyun Lee <https://github.com/deptno>
+//                 Maciek Blim <https://github.com/blimusiek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1587,6 +1588,17 @@ declare namespace R {
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult): (acc: TResult, list: ReadonlyArray<T>) => TResult;
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+
+        /**
+         * Like reduce, reduceWhile returns a single item by iterating through the list, successively
+         * calling the iterator function. reduceWhile also takes a predicate that is evaluated before
+         * each step. If the predicate returns false, it "short-circuits" the iteration and returns
+         * the current value of the accumulator.
+         */
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult): CurriedFunction2<TResult, ReadonlyArray<T>, TResult>;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean): CurriedFunction3<(acc: TResult, elem: T) => TResult, TResult, ReadonlyArray<T>, TResult>;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
