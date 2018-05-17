@@ -45,9 +45,9 @@ export interface Paginated<T> {
 }
 
 // tslint:disable-next-line void-return
-export type Hook = <T>(hook: HookContext<T>) => (Promise<HookContext<T>> | void);
+export type Hook = (hook: HookContext) => (Promise<HookContext> | void);
 
-export interface HookContext<T> {
+export interface HookContext<T = any> {
     app?: Application;
     data?: T;
     error?: any;

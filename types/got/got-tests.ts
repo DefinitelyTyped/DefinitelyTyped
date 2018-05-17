@@ -1,10 +1,12 @@
 import got = require('got');
 import cookie = require('cookie');
 import FormData = require('form-data');
+import Keyv = require('keyv');
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
 import * as url from 'url';
+import QuickLRU = require('quick-lru');
 
 let str: string;
 let buf: Buffer;
@@ -242,7 +244,15 @@ got('todomvc', {
 });
 
 got('todomvc', {
-    cache: new Map()
+    cache: new Map(),
+}).then(res => res.fromCache);
+
+got('todomvc', {
+    cache: new Keyv(),
+}).then(res => res.fromCache);
+
+got('todomvc', {
+    cache: new QuickLRU(),
 }).then(res => res.fromCache);
 
 got(new url.URL('http://todomvc.com'));

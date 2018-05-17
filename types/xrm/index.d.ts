@@ -1121,13 +1121,13 @@ declare namespace Xrm {
          * @deprecated Use {@link Xrm.WebApi.retrieveRecord} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
-        retrieveRecord(entityType: string, id: string, options: string): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
+        retrieveRecord(entityType: string, id: string, options?: string): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
 
         /**
          * Retrieves a collection of entity records in mobile clients while working in the offline mode.
          *
          * @param entityType The logical name of the entity.
-         * @param options (Optional) The logical name of the enti
+         * @param options (Optional) The logical name of the entity
          * @param maxPageSize (Optional) A positive number to indicates the number of entity records to be returned per page.
          * * If you do not specify this parameter, the default value is passed as 5000.
          * * If the number of records being retrieved is more than maxPageSize, an @odata.nextLink property
@@ -1144,7 +1144,7 @@ declare namespace Xrm {
          * @deprecated Use {@link Xrm.WebApi.retrieveMultipleRecords} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
-        retrieveMultipleRecords(entityType: string, options: string, maxPageSize: number): Async.PromiseLike<Array<{ [key: string]: any }>>;
+        retrieveMultipleRecords(entityType: string, options?: string, maxPageSize?: number): Async.PromiseLike<Array<{ [key: string]: any }>>;
 
         /**
          * Updates an entity record in mobile clients while working in the offline mode.
@@ -2100,7 +2100,7 @@ declare namespace Xrm {
              * * optionset
              * * string
              */
-            getAttributeType(): string;
+            getAttributeType(): AttributeType;
 
             /**
              * Gets the attribute format.
@@ -3541,9 +3541,9 @@ declare namespace Xrm {
 
         /**
          * Saves the record with the given save mode.
-         * @param saveMode (Optional) the save mode to save, as either "saveandclose" or "saveandnew".
+         * @param saveMode (Optional) the save mode to save, as either "saveandclose" or "saveandnew".  If no parameter is included in the method, the record will simply be saved.
          */
-        save(saveMode: EntitySaveMode): void;
+        save(saveMode?: EntitySaveMode): void;
 
         /**
          * The collection of attributes for the record.
@@ -3692,14 +3692,14 @@ declare namespace Xrm {
              * Returns all process instances for the entity record that the calling user has access to.
              * @param callbackFunction (Optional) a function to call when the operation is complete.
              */
-            getProcessInstances(callbackFunction: GetProcessInstancesDelegate): void;
+            getProcessInstances(callbackFunction?: GetProcessInstancesDelegate): void;
 
             /**
              * Sets a process instance as the active instance
              * @param processInstanceId The Id of the process instance to make the active instance.
              * @param callbackFunction (Optional) a function to call when the operation is complete.
              */
-            setActiveProcessInstance(processInstanceId: string, callbackFunction: SetProcessInstanceDelegate): void;
+            setActiveProcessInstance(processInstanceId: string, callbackFunction?: SetProcessInstanceDelegate): void;
 
             /**
              * Returns a Stage object representing the active stage.
@@ -3837,7 +3837,7 @@ declare namespace Xrm {
              * @param status The new status for the process
              * @param callbackFunction (Optional) a function to call when the operation is complete.
              */
-            setStatus(status: ProcessStatus, callbackFunction: ProcessSetStatusDelegate): void;
+            setStatus(status: ProcessStatus, callbackFunction?: ProcessSetStatusDelegate): void;
         }
 
         /**
@@ -4786,7 +4786,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise containing a JSON object with the retrieved attributes and their values.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
          */
-        retrieveRecord(entityLogicalName: string, id: string, options: string): Async.PromiseLike<any>;
+        retrieveRecord(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<any>;
 
         /**
          * Retrieves a collection of entity records.

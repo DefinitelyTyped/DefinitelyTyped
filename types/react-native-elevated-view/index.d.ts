@@ -7,7 +7,7 @@
 import * as React from 'react';
 import * as ReactNative from 'react-native';
 
-export interface ElevatedViewProperties extends ReactNative.ViewProperties {
+export interface ElevatedViewProperties extends ReactNative.ViewProps {
     elevation?: number;
 }
 

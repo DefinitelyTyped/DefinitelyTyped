@@ -8,12 +8,21 @@ let error: Error;
 
 str = bcrypt.genSaltSync();
 str = bcrypt.genSaltSync(num);
+str = bcrypt.genSaltSync(num, str);
 
 bcrypt.genSalt(num, (err: Error, salt: string): void => { error = err; str = salt; })
       .then(salt => str = salt)
       .catch(err => error = err);
 
+bcrypt.genSalt(num, str, (err: Error, salt: string): void => { error = err; str = salt; })
+      .then(salt => str = salt)
+      .catch(err => error = err);
+
 bcrypt.genSalt(num)
+      .then(salt => str = salt)
+      .catch(err => error = err);
+
+bcrypt.genSalt(num, str)
       .then(salt => str = salt)
       .catch(err => error = err);
 

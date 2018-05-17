@@ -2,6 +2,7 @@
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
+//                 Saad Quadri <https://github.com/saadq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -240,7 +241,10 @@ export namespace Rule {
         meta?: RuleMetaData;
     }
 
-    interface RuleListener {
+    type NodeTypes = ESTree.Node['type'];
+    type NodeListener = { [T in NodeTypes]?: (node: ESTree.Node) => void };
+
+    interface RuleListener extends NodeListener {
         onCodePathStart?(codePath: CodePath, node: ESTree.Node): void;
 
         onCodePathEnd?(codePath: CodePath, node: ESTree.Node): void;
@@ -491,7 +495,7 @@ export namespace CLIEngine {
         globals?: string[];
         ignore?: boolean;
         ignorePath?: string;
-        ignorePattern?: string;
+        ignorePattern?: string | string[];
         useEslintrc?: boolean;
         parser?: string;
         parserOptions?: Linter.ParserOptions;

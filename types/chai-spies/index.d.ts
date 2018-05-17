@@ -10,6 +10,10 @@ declare namespace Chai {
         spy: ChaiSpies.Spy;
     }
 
+    interface LanguageChains {
+        on: Assertion;
+    }
+
     interface Assertion {
         /**
          * ####.spy
@@ -31,6 +35,28 @@ declare namespace Chai {
          * Note that ```called``` can be used as a chainable method.  
          */
         called: ChaiSpies.Called;
+
+        /**
+         *  * ####.been
+         * * Assert that something has been spied on. Negation passes through.
+         * * ```ts
+         * * expect(spy).to.have.been.called();
+         * * spy.should.have.been.called();
+         * ```
+         * Note that ```been``` can be used as a chainable method.
+         */
+        been: ChaiSpies.Been;
+
+        /**
+         *  * ####.nth (function)
+         * * Assert that something has been spied on on a certain index. Negation passes through.
+         * * ```ts
+         * * expect(spy).on.nth(5).be.called.with('foobar');
+         * * spy.should.on.nth(5).be.called.with('foobar');
+         * ```
+         * Note that ```nth``` can be used as a chainable method.
+         */
+        nth(index: number): Assertion;
     }
 }
 
@@ -222,6 +248,47 @@ declare namespace ChaiSpies {
          * ```   
          */
         lt(n: number): Chai.Assertion;
+    }
+
+    interface Been extends Chai.Assertion {
+        (): Chai.Assertion;
+        called: Called;
+
+        /**
+         * ####.first
+         * Assert that a spy has been called first.
+         * ```ts
+         * expect(spy).to.have.been.called.first;
+         * expect(spy).to.not.have.been.called.first;
+         * spy.should.have.been.called.first;
+         * spy.should.not.have.been.called.first;
+         * ```
+         */
+        first: Chai.Assertion;
+
+        /**
+         * ####.second
+         * Assert that a spy has been called second.
+         * ```ts
+         * expect(spy).to.have.been.called.second;
+         * expect(spy).to.not.have.been.called.second;
+         * spy.should.have.been.called.second;
+         * spy.should.not.have.been.called.second;
+         * ```
+         */
+        second: Chai.Assertion;
+
+        /**
+         * ####.third
+         * Assert that a spy has been called third.
+         * ```ts
+         * expect(spy).to.have.been.called.third;
+         * expect(spy).to.not.have.been.called.third;
+         * spy.should.have.been.called.third;
+         * spy.should.not.have.been.called.third;
+         * ```
+         */
+        third: Chai.Assertion;
     }
 
     interface With {

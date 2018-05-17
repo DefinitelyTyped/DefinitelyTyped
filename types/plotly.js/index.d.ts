@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.35
+// Type definitions for plotly.js 1.36
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 // 				Martin Duparc <https://github.com/martinduparc>
@@ -6,6 +6,7 @@
 // 				taoqf <https://github.com/taoqf>
 // 				Dadstart <https://github.com/Dadstart>
 // 				Jared Szechy <https://github.com/szechyjs>
+// 				Drew Diamantoukos <https://github.com/MercifulCode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -346,6 +347,7 @@ export interface ModeBarButton {
 // Data
 
 export type Datum = string | number | Date;
+export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
 
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
@@ -354,10 +356,11 @@ export type Color = string | Array<string | undefined | null> | Array<Array<stri
 
 // Bar Scatter
 export interface ScatterData {
-	type: 'bar' | 'scatter' | 'scattergl' | 'scatter3d';
-	x: Datum[] | Datum[][];
-	y: Datum[] | Datum[][];
-	z: Datum[] | Datum[][] | Datum[][][];
+	type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d';
+	x: Datum[] | Datum[][] | TypedArray;
+	y: Datum[] | Datum[][] | TypedArray;
+	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+	xy: Float32Array;
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];
@@ -375,6 +378,7 @@ export interface ScatterData {
 	'marker.size': number | number[];
 	'marker.maxdisplayed': number;
 	'marker.sizeref': number;
+	'marker.sizemax': number;
 	'marker.sizemin': number;
 	'marker.sizemode': 'diameter' | 'area';
 	'marker.showscale': boolean;
@@ -403,6 +407,7 @@ export interface ScatterMarker {
 	size: number | number[];
 	maxdisplayed: number;
 	sizeref: number;
+	sizemax: number;
 	sizemin: number;
 	sizemode: 'diameter' | 'area';
 	showscale: boolean;

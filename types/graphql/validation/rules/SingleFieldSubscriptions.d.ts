@@ -1,7 +1,8 @@
+import Maybe from "../../tsutils/Maybe";
 import ValidationContext from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
 
-export function singleFieldOnlyMessage(name: string | void): string;
+export function singleFieldOnlyMessage(name: Maybe<string>): string;
 
 /**
  * Subscriptions must only include one field.
