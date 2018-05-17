@@ -3021,8 +3021,7 @@ declare module 'ember' {
         function addListener<Context>(
             obj: Context,
             key: keyof Context,
-            method: ObserverMethod<Context, Context>,
-            once?: boolean
+            method: ObserverMethod<Context, Context>
         ): void;
         /**
          * Remove an event listener
