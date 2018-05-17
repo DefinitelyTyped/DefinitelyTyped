@@ -92,7 +92,7 @@ interface AdImpressionParam extends CallbackParam {
 interface AdScheduleParam extends CallbackParam {
     tag: string;
     client: string;
-    adbreaks: any[];
+    adbreaks: object[];
 }
 
 interface AdStartedParam extends CallbackParam {
