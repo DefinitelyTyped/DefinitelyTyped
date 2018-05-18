@@ -1759,10 +1759,18 @@ declare namespace algoliasearch {
     minProximity?: number;
     /**
      * This is an advanced use-case to define a token substitutable by a list of words without having the original token searchable
-     * default: ''
+     * default: {}
      * https://github.com/algolia/algoliasearch-client-js#placeholders
      */
-    placeholders?: any;
+    placeholders?: {
+      [name: string]: string[],
+    };
+    /**
+     * List of attributes on which to do a decomposition of camel case words.
+     *
+     https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
+     */
+    camelCaseAttributes?: string[];
   }
 
   interface Response {

@@ -94,7 +94,8 @@ let _algoliaIndexSettings: IndexSettings = {
   allowCompressionOfIntegerArray: false,
   altCorrections: [{}],
   minProximity: 0,
-  placeholders: '',
+  placeholders: { '': [''] },
+  camelCaseAttributes: [''],
 };
 
 let _algoliaQueryParameters: QueryParameters = {
