@@ -33,11 +33,11 @@ const getNumbers = (state: SimpleState = simpleState, type: string): number[] =>
 	return state.numbers.filter(element => {
 		const division = element % 2;
 
-		if (division === 0 && type === ODD_NUMBERS) {
+		if (division === 0 && type === EVEN_NUMBERS) {
 			return element;
 		}
 
-		if (division !== 0 && type === EVEN_NUMBERS) {
+		if (division !== 0 && type === ODD_NUMBERS) {
 			return element;
 		}
 	});
