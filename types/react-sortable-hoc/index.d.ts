@@ -36,6 +36,8 @@ export interface SortEnd {
 
 export type SortEndHandler = (sort: SortEnd, event: SortEvent) => void;
 
+export type SortOverHandler = ({index, oldIndex, newIndex, collection}: SortOver, event: SortEvent) => void;
+
 export type ContainerGetter = (element: React.ReactElement<any>) => HTMLElement;
 
 export interface Dimensions {
@@ -55,6 +57,7 @@ export interface SortableContainerProps {
     onSortStart?: SortStartHandler;
     onSortMove?: SortMoveHandler;
     onSortEnd?: SortEndHandler;
+    onSortOver?: SortOverHandler;
     useDragHandle?: boolean;
     useWindowAsScrollContainer?: boolean;
     hideSortableGhost?: boolean;
