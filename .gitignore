@@ -52,3 +52,4 @@ yarn.lock
 
 # pnpm
 shrinkwrap.yaml
+pnpm-debug.log
