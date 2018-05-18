@@ -108,12 +108,9 @@ export interface LabColorFactory extends Function {
 /**
  * Constructs a new Lab color with the specified l value and a = b = 0.
  */
-export type GrayColorFactory = (l: number, opacity?: number) => LabColor;
-
-// Using the interface creates an error
-// export interface GrayColorFactory extends Function {
-//     (l: number, opacity?: number): LabColor;
-// }
+export interface GrayColorFactory {
+    (l: number, opacity?: number): LabColor;
+}
 
 export interface HCLColor extends Color {
     h: number;
@@ -132,7 +129,7 @@ export interface HCLColorFactory extends Function {
     readonly prototype: HCLColor;
 }
 
-export interface LCHColorFactory extends Function {
+export interface LCHColorFactory {
     (l: number, c: number, h: number, opacity?: number): HCLColor;
     (cssColorSpecifier: string): HCLColor;
     (color: ColorSpaceObject | ColorCommonInstance): HCLColor;
