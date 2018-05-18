@@ -144,10 +144,53 @@ declare namespace Office {
         Universal
     }
     // Objects
-    export interface AsyncResult {
+        /**
+		* An object which encapsulates the result of an asynchronous request, including status and error information if the request failed.
+		* 
+        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
+        *
+        * **Last changed in**: 1.1
+        * 
+        * @remarks
+        * When the function you pass to the `callback` parameter of an "Async" method executes, it receives an AsyncResult object that you can access from the `callback` function's only parameter.
+		*/
+        export interface AsyncResult {
+        /**
+        * Gets the user-defined item passed to the optional `asyncContext` parameter of the invoked method in the same state as it was passed in. This the user-defined item (which can be of any JavaScript type: String, Number, Boolean, Object, Array, Null, or Undefined) passed to the optional `asyncContext` parameter of the invoked method. Returns Undefined, if you didn't pass anything to the asyncContext parameter.
+        * 
+        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
+        * 
+        * **Last changed in**: 1.1
+        */
         asyncContext: any;
+        /**
+        * Gets the [AsyncResultStatus](office.asyncresultstatus.md) of the asynchronous operation.
+        * 
+        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
+        * 
+        * **Last changed in**: 1.1
+        */
         status: AsyncResultStatus;
+        /**
+        * Gets an [Error](office.error.md) object that provides a description of the error, if any error occurred.
+        * 
+        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
+        * 
+        * **Last changed in**: 1.1
+        */
         error: Error;
+        /**
+        * Gets the payload or content of this asynchronous operation, if any.
+        * 
+        * Note: What the value property returns for a particular "Async" method varies depending on the purpose and context of that method. To determine what is returned by the value property for an "Async" method, refer to the "Callback value" section of the method's topic. For a complete listing of the "Async" methods, see the Remarks section of the AsyncResult object topic.
+        * 
+        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
+        * 
+        * **Last changed in**: 1.1
+        * 
+        * @remarks
+        * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, such as the `getSelectedDataAsync` and `setSelectedDataAsync` methods of the Document object.
+        */
         value: any;
     }
     export interface Context {
@@ -435,11 +478,27 @@ declare namespace Office {
          */
         ActiveViewChanged,
         /**
-         * A Binding.BindingDataChanged event was raised.
+         * Occurs when data within the binding is changed.
+         * 
+         * Hosts: Access, Excel, Word
+         * 
+         * Last changed in: 1.1
+         * 
+         * @remarks
+         * To add an event handler for the BindingDataChanged event of a binding, use the addHandlerAsync method of the Binding object. The event handler receives an argument of type BindingDataChangedEventArgs.
          */
         BindingDataChanged,
         /**
-         * A Binding.BindingSelectionChanged event was raised.
+         * Occurs when the selection is changed within the binding.
+         * 
+         * Hosts: Access, Excel, Word
+         * 
+         * Available in Requirement set: BindingEvents
+         * 
+         * Last changed in: 1.1
+         * 
+         * @remarks
+         * To add an event handler for the BindingSelectionChanged event of a binding, use the addHandlerAsync method of the Binding object. The event handler receives an argument of type BindingSelectionChangedEventArgs.
          */
         BindingSelectionChanged,
         /**
@@ -590,53 +649,150 @@ declare namespace Office {
         Formatted
     }
     // Objects
+    /**
+    * Represents a binding to a section of the document.
+    * 
+    * **Hosts**: Access, Excel, Word
+    * 
+    * **Available in Requirement sets**: MatrixBinding, TableBinding, TextBinding
+    * 
+    * **Last changed in**: 1.1
+    * 
+    * @remarks
+    * The Binding object exposes the functionality possessed by all bindings regardless of type.
+    * 
+    * The Binding object is never called directly. It is the abstract parent class of the objects that represent each type of binding: MatrixBinding, TableBinding, or TextBinding. All three of these objects inherit the getDataAsync and setDataAsync methods from the Binding object that enable to you interact with the data in the binding. They also inherit the id and type properties for querying those property values. Additionally, the MatrixBinding and TableBinding objects expose additional methods for matrix- and table-specific features, such as counting the number of rows and columns.
+    */
     export interface Binding {
+        /**
+        * Get the Document object associated with the binding.
+        * 
+        * **Hosts**: Access, Excel, Word
+        * 
+        * **Last changed in**: 1.1
+        */
         document: Document;
         /**
-         * Id of the Binding
+         * A string that uniquely identifies this binding among the bindings in the same Document object.
+         * 
+         * Hosts: Access, Excel, Word
+         * 
+         * Last changed in: 1.1
          */
         id: string;
+        /**
+		* Gets the type of the binding.
+		* 
+        * **Hosts**: Access, Excel, Word
+        
+		* **Last changed in**: 1.1
+		*/
         type: BindingType;
         /**
-         * Adds an event handler to the object using the specified event type.
-         * @param eventType The event type. For binding it can be 'bindingDataChanged' and 'bindingSelectionChanged'
-         * @param handler The name of the handler
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         * Adds an event handler to the object for the specified event type.
+         * 
+         * @remarks
+         * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
+         * 
+         * @param eventType The event type. For example, for bindings, it can be **Office.EventType.BindingSelectionChanged**, **Office.EventType.BindingDataChanged**, or the corresponding text values of these enumerations.
+         * @param handler The event handler function to add.
+         * @param options  { asyncContext: context } Where context is an object of any type that keeps state for the callback.
+         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Returns the current selection.
-         * @param options Syntax example: {coercionType: 'matrix,'valueFormat: 'formatted', filterType:'all'}
-         *       coercionType: The expected shape of the selection. If not specified returns the bindingType shape. Use Office.CoercionType or text value.
-         *       valueFormat: Get data with or without format. Use Office.ValueFormat or text value.
-         *       startRow: Used in partial get for table/matrix. Indicates the start row.
-         *       startColumn: Used in partial get for table/matrix. Indicates the start column.
-         *       rowCount: Used in partial get for table/matrix. Indicates the number of rows from the start row.
-         *       columnCount: Used in partial get for table/matrix. Indicates the number of columns from the start column.
-         *       filterType: Get the visible or all the data. Useful when filtering data. Use Office.FilterType or text value.
+         * Returns the data contained within the binding.
+         * 
+         * Hosts: Access, Excel, Word
+         * 
+         * Available in Requirement sets: MatrixBindings, TableBindings, TextBindings
+         * 
+         * Last changed in: 1.1
+         * 
+         * @remarks
+         * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
+         * 
+         * @param options An object with any of the following (example: {coercionType: 'matrix, 'valueFormat: 'formatted', filterType:'all'}):
+         * 
+         *       coercionType: The expected shape of the selection. Use Office.CoercionType or text value. Default: The original, uncoerced type of the binding.
+         * 
+         *       valueFormat: Specifies whether values, such as numbers and dates, are returned with their formatting applied. Use Office.ValueFormat or text value. Default: Unformatted data.
+         * 
+         *       startRow: For table or matrix bindings, specifies the zero-based starting row for a subset of the data in the binding. Default is first row.
+         * 
+         *       startColumn: For table or matrix bindings, specifies the zero-based starting column for a subset of the data in the binding. Default is first column.
+         * 
+         *       rowCount: For table or matrix bindings, specifies the number of rows offset from the startRow. Default is all subsequent rows.
+         * 
+         *       columnCount: For table or matrix bindings, specifies the number of columns offset from the startColumn. Default is all subsequent columns.
+         * 
+         *       filterType: Specify whether to get only the visible (filtered in) data or all the data (default is all). Useful when filtering data. Use Office.FilterType or text value.
+         * 
          *       asyncContext: Object keeping state for the callback
+         * 
+         *       rows: Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
+
          * @param callback The optional callback method
          */
         getDataAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Removes an event handler from the object using the specified event type.
+         * Removes the specified handler from the binding for the specified event type.
+         * 
+         * **Hosts**: Access, Excel, Word
+         * 
+         * **Available in Requirement set**: BindingEvents
+         * 
+         * **Last changed in**: 1.1
+         * 
          * @param eventType The event type. For binding can be 'bindingDataChanged' and 'bindingSelectionChanged'
-         * @param options Syntax example: {handler:eventHandler}
-         *       handler: Indicates a specific handler to be removed, if not specified all handlers are removed
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         * @param options An object with any of the following:
+         * 
+         *       handler: The handler to be removed, if not specified all handlers are removed.
+         * 
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * 
+         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         removeHandlerAsync(eventType: EventType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Writes the specified data into the current selection.
-         * @param data The data to be set. Either a string or value, 2d array or TableData object
-         * @param options Syntax example: {coercionType:Office.CoercionType.Matrix} or {coercionType: 'matrix'}
+         * Writes data to the bound section of the document represented by the specified binding object.
+         * 
+         * **Hosts**: Access, Excel, Word
+         * 
+         * **Available in Requirement sets**: MatrixBindings, TableBindings, TextBindings
+         * 
+         * **Last changed in**: 1.1
+         * 
+         * @param data The data to be set in the current selection. Possible data types by host:
+         * 
+         *        string: Excel, Excel Online, Word, and Word Online only
+         * 
+         *        array of arrays: Excel and Word only
+         * 
+         *        [TableData](office.tabledata.md): Access, Excel, and Word only
+         * 
+         *        HTML: Word and Word Online only
+         * 
+         *        Office Open XML: Word only
+         * 
+         * @param options Any of the following:
+         * 
+         *       cellFormat: For an inserted table, a list of key-value pairs that specify a range of columns, rows, or cells and the cell formatting to apply to that range.
+         * 
          *       coercionType: Explicitly sets the shape of the data object. Use Office.CoercionType or text value. If not supplied is inferred from the data type.
-         *       startRow: Used in partial set for table/matrix. Indicates the start row.
-         *       startColumn: Used in partial set for table/matrix. Indicates the start column.
-         *       asyncContext: Object keeping state for the callback
+         * 
+         *       columns: Only for table bindings in content add-ins for Access. Array of strings. Specifies the column names.
+         * 
+         *       rows: Only for table bindings in content add-ins for Access. **Office.TableRange.ThisRow** Specifies the pre-defined string "thisRow" to set data in the currently selected row.
+         * 
+         *       startRow: Specifies the zero-based starting row for a subset of the data in the binding. Only for table or matrix bindings. If omitted, data is set starting in the first row.
+         * 
+         *       startColumn: Specifies the zero-based starting column for a subset of the data. Only for table or matrix bindings. If omitted, data is set starting in the first column.
+         * 
+         *       tableOptions: For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows.
+         * 
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * 
          * @param callback The optional callback method
          */
         setDataAsync(data: TableData | any, options?: any, callback?: (result: AsyncResult) => void): void;
@@ -1011,8 +1167,38 @@ declare namespace Office {
          */
         url: string
     }
+    /**
+    * Represents a binding in two dimensions of rows and columns.
+    * 
+    * **Hosts**: Excel, Word
+    * 
+    * **Available in Requirement set**: MatrixBindings
+    * 
+    * **Last changed in**: 1.1
+    * 
+    * @remarks
+    * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
+    */
     export interface MatrixBinding extends Binding {
+        /**
+		* Gets the number of columns in the matrix data structure, as an integer value.
+		* 
+        * **Hosts**: Access, Excel, PowerPoint, Project, Word
+        * 
+        * Available in Requirement set: MatrixBindings
+        *
+		* **Last changed in**: 1.1
+		*/
         columnCount: number;
+        /**
+		* Gets the number of rows in the matrix data structure, as an integer value.
+		* 
+        * **Hosts**: Access, Excel, PowerPoint, Project, Word
+        * 
+        * Available in Requirement set: MatrixBindings
+        *
+		* **Last changed in**: 1.1
+		*/
         rowCount: number;
     }
     /**
@@ -4960,22 +5146,33 @@ declare namespace Excel {
         /**
          *
          * Gets the Binding object that represents the binding that raised the SelectionChanged event.
+         * 
+         * **Hosts:** Access, Excel, Word
          *
          * [Api set: ExcelApi 1.2]
          */
         binding: Excel.Binding;
         /**
          *
-         * Gets the number of columns selected.
+         * Gets the number of columns selected. The number of columns selected. If a single cell is selected returns 1.
          *
          * [Api set: ExcelApi 1.2]
+         * 
+         * @remarks
+         * If the user makes a non-contiguous selection, the count for the last contiguous selection within the binding is returned.
+         * 
+         * For Word, this property will work only for bindings of BindingType "table". If the binding is of type "matrix", null is returned. Also, the call will fail if the table contains merged cells, because the structure of the table must be uniform for this property to work correctly.
          */
         columnCount: number;
         /**
-         *
-         * Gets the number of rows selected.
+         * Gets the number of columns selected. The number of columns selected. If a single cell is selected returns 1.
          *
          * [Api set: ExcelApi 1.2]
+         * 
+         * @remarks
+         * If the user makes a non-contiguous selection, the count for the last contiguous selection within the binding is returned.
+         * 
+         * For Word, this property will work only for bindings of BindingType "table". If the binding is of type "matrix", null is returned. Also, the call will fail if the table contains merged cells, because the structure of the table must be uniform for this property to work correctly.
          */
         rowCount: number;
         /**
