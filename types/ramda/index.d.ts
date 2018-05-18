@@ -20,6 +20,7 @@
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
 //                 Bonggyun Lee <https://github.com/deptno>
+//                 Marcin Biernat <https://github.com/biern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -82,9 +83,28 @@ declare namespace R {
       (obj: Dictionary<T>): Dictionary<T>;
     }
 
-    type Evolver<T> =
-        | ((x: T) => T)
-        | { [K in keyof T]?: Evolver<T[K]> };
+    type Evolve<O extends Evolvable<E>, E extends Evolver> = {
+        [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
+    };
+
+    type EvolveValue<V, E> =
+        E extends (value: V) => any ? ReturnType<E> :
+        E extends Evolver ? EvolveNestedValue<V, E> :
+        never;
+
+    type EvolveNestedValue<V, E extends Evolver> =
+        V extends object ? (V extends Evolvable<E> ? Evolve<V, E> : never) : never;
+
+    interface Evolver {
+        [key: string]: ((value: any) => any) | Evolver;
+    }
+
+    // Represents all objects evolvable with Evolver E
+    type Evolvable<E extends Evolver> = {
+        [P in keyof E]?: E[P] extends (value: infer V) => any ? V :
+            E[P] extends Evolver ? Evolvable<E[P]> :
+            never
+    };
 
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
     interface CurriedTypeGuard2<T1, T2, R extends T2> {
@@ -604,8 +624,8 @@ declare namespace R {
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
-        evolve<V>(transformations: Evolver<V>, obj: V): V;
-        evolve<V>(transformations: Evolver<V>): <W extends V>(obj: W) => W;
+        evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
+        evolve<E extends Evolver>(transformations: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
         /*
          * A function that always returns false. Any passed in parameters are ignored.
