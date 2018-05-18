@@ -12,4 +12,4 @@ declare class ReactSixteenAdapter extends EnzymeAdapter {
 declare namespace ReactSixteenAdapter {
 }
 
-export = ReactSixteenAdapter;
+export default ReactSixteenAdapter;
