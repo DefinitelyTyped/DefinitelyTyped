@@ -22,6 +22,14 @@ const salesforceConnection: sf.Connection = new sf.Connection({
 
 salesforceConnection.sobject<DummyRecord>("Dummy").select(["thing", "other"]);
 
+const requestInfo: sf.RequestInfo = {
+    body: '',
+    headers: {},
+    method: '',
+    url: ''
+};
+salesforceConnection.request(requestInfo);
+
 // note the following should never compile:
 // salesforceConnection.sobject<DummyRecord>("Dummy").select(["lol"]);
 
@@ -121,6 +129,17 @@ async function testAnalytics(conn: sf.Connection): Promise<void> {
             .forEach((key: string) => console.log(`key: ${key} : ${_report[key]}`));
         console.log('report keys from callback');
     });
+}
+
+async function testExecuteAnonymous(conn: sf.Connection): Promise<void> {
+    const res: sf.ExecuteAnonymousResult = await salesforceConnection.tooling.executeAnonymous('');
+    console.log('ExecuteAnonymousResult column: ' + res.column);
+    console.log('ExecuteAnonymousResult compiled: ' + res.compiled);
+    console.log('ExecuteAnonymousResult compileProblem: ' + res.compileProblem);
+    console.log('ExecuteAnonymousResult exceptionMessage: ' + res.exceptionMessage);
+    console.log('ExecuteAnonymousResult exceptionStackTrace: ' + res.exceptionStackTrace);
+    console.log('ExecuteAnonymousResult line: ' + res.line);
+    console.log('ExecuteAnonymousResult success: ' + res.success);
 }
 
 async function testMetadata(conn: sf.Connection): Promise<void> {
@@ -281,6 +300,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
     await testAnalytics(salesforceConnection);
     await testChatter(salesforceConnection);
     await testMetadata(salesforceConnection);
+    await testExecuteAnonymous(salesforceConnection);
 })();
 
 const oauth2 = new sf.OAuth2({
@@ -302,7 +322,7 @@ batch.on("queue", (batchInfo) => { // fired when batch request is queued in serv
 });
 job.batch("batchId");
 batch.poll(1000, 20000);
-batch.on("response", (rets) => {
+batch.on("response", (rets: sf.BatchResultInfo[]) => {
     for (let i = 0; i < rets.length; i++) {
         if (rets[i].success) {
             console.log(`# ${(i + 1)} loaded successfully, id = ${rets[i].id}`);
@@ -310,6 +330,11 @@ batch.on("response", (rets) => {
             console.log(`# ${(i + 1)} error occurred, message = ${rets[i].errors.join(', ')}`);
         }
     }
+});
+
+(async () => {
+    const batchInfos: sf.BatchInfo[] = await job.list();
+    console.log('batchInfos:', batchInfos);
 });
 
 salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((message) => {
