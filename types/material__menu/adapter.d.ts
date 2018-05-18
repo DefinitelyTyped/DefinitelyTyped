@@ -14,9 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
- * Adapter for MDC Simple Menu. Provides an interface for managing
+ * Adapter for MDC Menu. Provides an interface for managing
  * - classes
  * - dom
  * - focus
@@ -30,11 +29,10 @@
  * Implement this adapter for your framework of choice to delegate updates to
  * the component in your framework of choice. See architecture documentation
  * for more details.
- * https://github.com/material-components/material-components-web/blob/master/docs/architecture.md
- *
- * @record
+ * https://github.com/material-components/material-components-web/blob/master/docs/code/architecture.md
  */
-export default class MDCSimpleMenuAdapter {
+
+export default interface MDCMenuAdapter {
     addClass(className: string): void;
 
     removeClass(className: string): void;
@@ -45,17 +43,13 @@ export default class MDCSimpleMenuAdapter {
 
     getAttributeForEventTarget(target: EventTarget, attributeName: string): string;
 
-    getInnerDimensions(): {width: number, height: number};
+    getInnerDimensions(): { width: number; height: number; };
 
     hasAnchor(): boolean;
 
-    getAnchorDimensions(): {width: number, height: number, top: number, right: number, bottom: number, left: number};
+    getAnchorDimensions(): { width: number; height: number; top: number; right: number; bottom: number; left: number; };
 
-    getWindowDimensions(): {width: number, height: number};
-
-    setScale(x: number, y: number): void;
-
-    setInnerScale(x: number, y: number): void;
+    getWindowDimensions(): { width: number; height: number; };
 
     getNumberOfItems(): number;
 
@@ -67,13 +61,9 @@ export default class MDCSimpleMenuAdapter {
 
     deregisterBodyClickHandler(handler: EventListener): void;
 
-    getYParamsForItemAtIndex(index: number): {top: number, height: number};
-
-    setTransitionDelayForItemAtIndex(index: number, value: string|null): void;
-
     getIndexForEventTarget(target: EventTarget): number;
 
-    notifySelected(evtData: {index: number}): void;
+    notifySelected(evtData: { index: number; }): void;
 
     notifyCancel(): void;
 
@@ -94,11 +84,19 @@ export default class MDCSimpleMenuAdapter {
     setTransformOrigin(origin: string): void;
 
     setPosition(position: {
-        top: string|undefined,
-        right: string|undefined,
-        bottom: string|undefined,
-        left: string|undefined
+        top: (string|undefined),
+        right: (string|undefined),
+        bottom: (string|undefined),
+        left: (string|undefined)
     }): void;
 
-    getAccurateTime(): number;
+    setMaxHeight(height: number): void;
+
+    setAttrForOptionAtIndex(index: number, attr: string, value: string): void;
+
+    rmAttrForOptionAtIndex(index: number, attr: string): void;
+
+    addClassForOptionAtIndex(index: number, className: string): void;
+
+    rmClassForOptionAtIndex(index: number, className: string): void;
 }
