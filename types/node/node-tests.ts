@@ -2111,6 +2111,124 @@ namespace child_process_tests {
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     }
 
+    namespace spawn_sync_tests {
+        import spawnSync = childProcess.spawnSync;
+
+        namespace backward_compatibility {
+            import Res = childProcess.SpawnSyncReturns;
+            const r0: Res<Buffer> = spawnSync('echo');
+            const r1: Res<string> = spawnSync('echo', {encoding: 'utf8'});
+            const r2: Res<Buffer> = spawnSync('echo', ['hello']);
+            const r3: Res<string> = spawnSync('echo', ['hello'], {encoding: 'hex'});
+        }
+
+        namespace strict_returns {
+            import Res = childProcess.SpawnSyncReturns.Strict;
+
+            namespace property_access {
+                namespace with_null {
+                    declare const res: Res<void, null>;
+                    const output: [null, null, null] = res.output;
+                    const stdout: null = res.stdout;
+                    const stderr: null = res.stderr;
+                }
+
+                namespace with_buffer {
+                    declare const res: Res<void, Buffer>;
+                    const output: [null, Buffer, Buffer] = res.output;
+                    const stdout: Buffer = res.stdout;
+                    const stderr: Buffer = res.stderr;
+                }
+
+                namespace with_string {
+                    declare const res: Res<void, string>;
+                    const output: [null, string, string] = res.output;
+                    const stdout: string = res.stdout;
+                    const stderr: string = res.stderr;
+                }
+            }
+
+            namespace cmd_only {
+                const res: Res<void, Buffer> = spawnSync('echo');
+                const output: [null, Buffer, Buffer] = res.output;
+                const stdout: Buffer = res.stdout;
+                const stderr: Buffer = res.stderr;
+            }
+
+            namespace without_args {
+                namespace without_stdio {
+                    const r0: Res<void, Buffer> = spawnSync('echo', {});
+                    const r1: Res<void, string> = spawnSync('echo', {encoding: 'utf8'});
+                }
+
+                namespace with_short_stdio {
+                    const r0: Res<void, null> = spawnSync('echo', {stdio: 'inherit'});
+                    const r1: Res<void, null> = spawnSync('echo', {stdio: 'inherit'});
+                    const r2: Res<void, Buffer> = spawnSync('echo', {stdio: 'pipe'});
+                    const r3: Res<void, Buffer> = spawnSync('echo', {stdio: null});
+                    const r4: Res<void, Buffer> = spawnSync('echo', {stdio: undefined});
+                    const r5: Res<void, string> = spawnSync('echo', {encoding: 'utf8', stdio: 'pipe'});
+                    const r6: Res<void, string> = spawnSync('echo', {encoding: 'utf8', stdio: null});
+                    const r7: Res<void, string> = spawnSync('echo', {encoding: 'utf8', stdio: undefined});
+                }
+
+                namespace with_stdio_tuple {
+                    const r0: Res<void, null> = spawnSync('echo', {stdio: ['inherit', 'inherit', 'inherit']});
+                    const r1: Res<void, null> = spawnSync('echo', {stdio: ['ignore', 'ignore', 'ignore']});
+                    const r2: Res<void, null> = spawnSync('echo', {stdio: ['inherit', 'ignore', 'inherit']});
+                    const r3: Res<void, null> = spawnSync('echo', {stdio: [0, 1, 2]});
+                    const r4: Res<void, null> = spawnSync('echo', {stdio: [process.stdin, process.stdout, process.stderr]});
+                    const r5: Res<void, null> = spawnSync('echo', {stdio: ['inherit', 1, process.stderr]});
+                    const r6: Res<void, Buffer> = spawnSync('echo', {stdio: ['pipe', 'pipe', 'pipe']});
+                    const r7: Res<void, Buffer> = spawnSync('echo', {stdio: [null, null, null]});
+                    const r8: Res<void, Buffer> = spawnSync('echo', {stdio: [undefined, undefined, undefined]});
+                    const r9: Res<void, Buffer> = spawnSync('echo', {stdio: ['pipe', null, undefined]});
+                    const r10: Res<void, string> = spawnSync('echo', {encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe']});
+                    const r11: Res<void, string> = spawnSync('echo', {encoding: 'utf8', stdio: [null, null, null]});
+                    const r12: Res<void, string> = spawnSync('echo', {encoding: 'utf8', stdio: [undefined, undefined, undefined]});
+                    const r13: Res<void, string> = spawnSync('echo', {encoding: 'utf8', stdio: ['pipe', null, undefined]});
+                }
+            }
+
+            namespace with_args {
+                declare const args: ReadonlyArray<string>;
+
+                namespace without_stdio {
+                    const r0: Res<void, Buffer> = spawnSync('echo', args, {});
+                    const r1: Res<void, string> = spawnSync('echo', args, {encoding: 'utf8'});
+                }
+
+                namespace with_short_stdio {
+                    const r0: Res<void, null> = spawnSync('echo', args, {stdio: 'inherit'});
+                    const r1: Res<void, null> = spawnSync('echo', args, {stdio: 'inherit'});
+                    const r2: Res<void, Buffer> = spawnSync('echo', args, {stdio: 'pipe'});
+                    const r3: Res<void, Buffer> = spawnSync('echo', args, {stdio: null});
+                    const r4: Res<void, Buffer> = spawnSync('echo', args, {stdio: undefined});
+                    const r5: Res<void, string> = spawnSync('echo', args, {encoding: 'utf8', stdio: 'pipe'});
+                    const r6: Res<void, string> = spawnSync('echo', args, {encoding: 'utf8', stdio: null});
+                    const r7: Res<void, string> = spawnSync('echo', args, {encoding: 'utf8', stdio: undefined});
+                }
+
+                namespace with_stdio_tuple {
+                    const r0: Res<void, null> = spawnSync('echo', args, {stdio: ['inherit', 'inherit', 'inherit']});
+                    const r1: Res<void, null> = spawnSync('echo', args, {stdio: ['ignore', 'ignore', 'ignore']});
+                    const r2: Res<void, null> = spawnSync('echo', args, {stdio: ['inherit', 'ignore', 'inherit']});
+                    const r3: Res<void, null> = spawnSync('echo', args, {stdio: [0, 1, 2]});
+                    const r4: Res<void, null> = spawnSync('echo', args, {stdio: [process.stdin, process.stdout, process.stderr]});
+                    const r5: Res<void, null> = spawnSync('echo', args, {stdio: ['inherit', 1, process.stderr]});
+                    const r6: Res<void, Buffer> = spawnSync('echo', args, {stdio: ['pipe', 'pipe', 'pipe']});
+                    const r7: Res<void, Buffer> = spawnSync('echo', args, {stdio: [null, null, null]});
+                    const r8: Res<void, Buffer> = spawnSync('echo', args, {stdio: [undefined, undefined, undefined]});
+                    const r9: Res<void, Buffer> = spawnSync('echo', args, {stdio: ['pipe', null, undefined]});
+                    const r10: Res<void, string> = spawnSync('echo', args, {encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe']});
+                    const r11: Res<void, string> = spawnSync('echo', args, {encoding: 'utf8', stdio: [null, null, null]});
+                    const r12: Res<void, string> = spawnSync('echo', args, {encoding: 'utf8', stdio: [undefined, undefined, undefined]});
+                    const r13: Res<void, string> = spawnSync('echo', args, {encoding: 'utf8', stdio: ['pipe', null, undefined]});
+                }
+            }
+        }
+    }
+
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
         let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
