@@ -2377,29 +2377,29 @@ declare module "child_process" {
             WithError |
             WithoutError<StdioToData<StdIO, Data>>;
         export type StdioToData<StdIO extends AllStdIO, Data extends Buffer | string | null> =
-            StdIO extends 'inherit' | 'ignore' | StdioTuple<StdioToData.MakeNull | StdioToData.Socket> ? null :
             StdIO extends StdioToData.MakeData | StdioTuple<StdioToData.MakeData> ? Data :
+            StdIO extends 'inherit' | 'ignore' | StdioTuple<StdioToData.MakeNull | StdioToData.Socket> ? null :
             (Data | null);
         export namespace StdioToData {
             export type MakeNull = 'inherit' | 'ignore';
-            export type MakeData = 'pipe' | null | void;
+            export type MakeData = 'pipe' | null | undefined;
             export type Socket = NodeJS.Socket | number;
             export type All = MakeNull | MakeData | Socket;
         }
         export type StdioTuple<StdIO> = Readonly<[StdioToData.All, StdIO, StdIO]>;
-        export type AllStdIO = 'inherit' | 'ignore' | 'pipe' | null | void | StdioTuple<StdioToData.All>;
+        export type AllStdIO = 'inherit' | 'ignore' | 'pipe' | null | undefined | StdioTuple<StdioToData.All>;
     }
-    export function spawnSync(command: string): SpawnSyncReturns.Strict<void, Buffer>;
-    export function spawnSync(command: string, options: SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<void, string>;
-    export function spawnSync(command: string, options: SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<void, Buffer>;
-    export function spawnSync(command: string, options: SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<void, Buffer>;
+    export function spawnSync(command: string): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync(command: string, options: SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<undefined, string>;
+    export function spawnSync(command: string, options: SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync(command: string, options: SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<undefined, Buffer>;
     export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<StdIO, string>;
     export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<StdIO, Buffer>;
     export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<StdIO, Buffer>;
-    export function spawnSync(command: string, args: ReadonlyArray<string>): SpawnSyncReturns.Strict<void, Buffer>;
-    export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<void, string>;
-    export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<void, Buffer>;
-    export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<void, Buffer>;
+    export function spawnSync(command: string, args: ReadonlyArray<string>): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<undefined, string>;
+    export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<undefined, Buffer>;
     export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, args: ReadonlyArray<string>, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<StdIO, string>;
     export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, args: ReadonlyArray<string>, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<StdIO, Buffer>;
     export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, args: ReadonlyArray<string>, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<StdIO, Buffer>;
