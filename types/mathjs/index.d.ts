@@ -1323,7 +1323,7 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		format(options: FormatOptions): string;
 		fromJSON(json: MathJSON): Unit;
 		toJSON(): MathJSON;
-		splitUnit(parts: string[]): Unit[];
+		splitUnit(parts: ReadonlyArray<string>): Unit[];
 		toNumeric(unit: string): number | Fraction | BigNumber;
 		toSI(): Unit;
 		toString(): string;
