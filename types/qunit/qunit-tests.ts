@@ -556,3 +556,9 @@ QUnit.test( "test with beforeEach and afterEach", function( assert ) {
 QUnit.todo( "a todo test", function( assert ) {
   assert.equal( 0, 1, "0 does not equal 1, so this todo should pass" );
 });
+
+let equivResult: boolean;
+equivResult = QUnit.equiv({}, {});
+equivResult = QUnit.equiv(1, 2);
+equivResult = QUnit.equiv('foo', 'bar');
+equivResult = QUnit.equiv(['foo'], ['bar']);
