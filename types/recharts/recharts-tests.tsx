@@ -88,6 +88,7 @@ class Component extends React.Component<{}, ComponentState> {
         };
         return (
             <div style={{width: "100%", height: "100%"}}>
+                <div>verticalFill sample</div>
                 <ResponsiveContainer>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
@@ -96,7 +97,53 @@ class Component extends React.Component<{}, ComponentState> {
                         <YAxis>
                             <Label>Y axis</Label>
                         </YAxis>
-                        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                        <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]}  />
+                        <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
+                        <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+                        <Tooltip />
+                        <Brush dataKey="name" />
+                        <ReferenceLine />
+                        <ReferenceArea
+                            stroke="red"
+                            fill="red"
+                            y2={1}
+                            strokeOpacity={0.2}
+                            fillOpacity={0.1}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+                <ResponsiveContainer>
+                    <LineChart width={500} height={300} data={data}>
+                        <XAxis dataKey="name">
+                            <Label>X axis - name</Label>
+                        </XAxis>
+                        <YAxis>
+                            <Label>Y axis</Label>
+                        </YAxis>
+                        <CartesianGrid vertical={false} horizontal={true} horizontalFill={["#fafafa", "#c8c8c8"]}  />
+                        <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
+                        <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+                        <Tooltip />
+                        <Brush dataKey="name" />
+                        <ReferenceLine />
+                        <ReferenceArea
+                            stroke="red"
+                            fill="red"
+                            y2={1}
+                            strokeOpacity={0.2}
+                            fillOpacity={0.1}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+                <ResponsiveContainer>
+                    <LineChart width={500} height={300} data={data}>
+                        <XAxis dataKey="name">
+                            <Label>X axis - name</Label>
+                        </XAxis>
+                        <YAxis>
+                            <Label>Y axis</Label>
+                        </YAxis>
+                        <CartesianGrid stroke="#eee" strokeDasharray="5 5"  />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
