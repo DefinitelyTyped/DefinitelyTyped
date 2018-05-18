@@ -2,6 +2,7 @@
 // Project: https://github.com/bramstein/url-template
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var urlTemplate: UrlTemplate.TemplateParser;
 

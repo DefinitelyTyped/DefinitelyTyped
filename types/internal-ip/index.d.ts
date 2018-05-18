@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/internal-ip#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function v6(): Promise<string>;
 export function v4(): Promise<string>;

@@ -2,6 +2,7 @@
 // Project: https://github.com/ftlabs/fastclick
 // Definitions by: Shinnosuke Watanabe <https://github.com/shinnn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface FastClickObject {
   lastTouchIdentifier: number;

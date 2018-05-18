@@ -2,6 +2,7 @@
 // Project: https://github.com/bgrins/TinyColor
 // Definitions by: Mordechai Zuber <https://github.com/M-Zuber>, Geert Jansen <https://github.com/geertjansen>, Niels van Hoorn <https://github.com/nvh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var tinycolor: tinycolor;
 

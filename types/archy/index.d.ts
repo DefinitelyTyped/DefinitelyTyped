@@ -2,6 +2,7 @@
 // Project: https://github.com/substack/node-archy
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare function archy(obj: archy.Data, prefix?: string, opts?: archy.Options): string;

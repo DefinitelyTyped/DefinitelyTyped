@@ -4,7 +4,7 @@
 //                 Mahdi Abedi <https://github.com/abedi-ir>
 //                 Nitecube <https://github.com/Nitecube>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 
 ///<reference types="jquery" />

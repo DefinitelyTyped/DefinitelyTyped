@@ -2,6 +2,7 @@
 // Project: https://github.com/apigee-127/bagpipes
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface FittingContext {
     /**

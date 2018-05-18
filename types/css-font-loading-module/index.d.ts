@@ -2,6 +2,7 @@
 // Project: https://drafts.csswg.org/css-font-loading/
 // Definitions by: slikts <https://github.com/slikts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type FontFaceLoadStatus = 'unloaded' | 'loading' | 'loaded' | 'error';
 export type FontFaceSetLoadStatus = 'loading' | 'loaded';

@@ -2,6 +2,7 @@
 // Project: https://github.com/fermads/graphite-udp
 // Definitions by: Eric Byers <https://github.com/EricByers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface ClientOptions {
 	/**

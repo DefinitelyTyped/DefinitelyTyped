@@ -2,6 +2,7 @@
 // Project: https://github.com/testingbot/testingbot-api
 // Definitions by: Tim Brust <https://github.com/timbru31>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace TestingBot {
 	type BrowserType = 'webdriver' | 'rc';

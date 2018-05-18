@@ -2,6 +2,7 @@
 // Project: https://github.com/emn178/js-sha512
 // Definitions by: Nico Jansen <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Hash {
     update(messageToHash: string): Hash;

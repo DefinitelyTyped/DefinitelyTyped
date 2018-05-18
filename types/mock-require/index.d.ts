@@ -2,7 +2,7 @@
 // Project: https://github.com/boblauer/mock-require
 // Definitions by: Giorgio Delgado <https://github.com/gDelgado14>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

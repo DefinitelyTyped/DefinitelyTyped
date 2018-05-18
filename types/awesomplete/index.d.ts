@@ -5,6 +5,7 @@
 //                 Trevor Bekolay <https://github.com/tbekolay>
 //                 Chris LoPresto <https://github.com/chrislopresto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Awesomplete {
     constructor(input: Element | HTMLElement | string, o?: Awesomplete.Options);

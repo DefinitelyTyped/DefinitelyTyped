@@ -2,6 +2,7 @@
 // Project: https://github.com/olado/doT
 // Definitions by: ZombieHunter <https://github.com/ZombieHunter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace doT;
 

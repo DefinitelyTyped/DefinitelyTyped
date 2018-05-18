@@ -2,6 +2,7 @@
 // Project: https://github.com/JustinTulloss/zeromq.node
 // Definitions by: Dave McKeown <https://github.com/davemckeown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

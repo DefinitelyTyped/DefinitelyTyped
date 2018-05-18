@@ -2,6 +2,7 @@
 // Project: https://github.com/One-com/rfc2047
 // Definitions by: Masanori Ohgita <https://github.com/mugifly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Decode

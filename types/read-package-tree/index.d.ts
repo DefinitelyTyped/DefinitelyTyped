@@ -2,6 +2,7 @@
 // Project: https://github.com/npm/read-package-tree
 // Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function rpt(root: string, cb: (er: Error | null, data: rpt.Node) => void): void;
 declare function rpt(root: string, filterWith: (node: rpt.Node, kidName: string) => void | undefined | boolean, cb: (er: Error | null, data: rpt.Node) => void): void;

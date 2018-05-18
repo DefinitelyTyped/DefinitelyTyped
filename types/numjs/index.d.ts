@@ -2,7 +2,7 @@
 // Project: https://github.com/nicolaspanel/numjs#readme
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export as namespace nj;
 import * as BaseNdArray from 'ndarray';

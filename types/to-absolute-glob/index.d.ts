@@ -2,6 +2,7 @@
 // Project: https://github.com/jonschlinkert/to-absolute-glob
 // Definitions by: Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function toAbsoluteGlob(pattern: string, options?: toAbsoluteGlob.Options): string;
 declare namespace toAbsoluteGlob {

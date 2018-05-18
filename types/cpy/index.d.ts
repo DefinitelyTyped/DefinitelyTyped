@@ -3,6 +3,7 @@
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import glob = require('glob');
 import cpFile = require('cp-file');

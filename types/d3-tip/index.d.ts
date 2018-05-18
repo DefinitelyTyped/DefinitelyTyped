@@ -2,6 +2,7 @@
 // Project: https://github.com/Caged/d3-tip
 // Definitions by: Gert Braspenning <https://github.com/brspnnggrt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Primitive } from "d3";
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/mtrpcic/pathjs
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface IPathHistory{
 	initial: any;

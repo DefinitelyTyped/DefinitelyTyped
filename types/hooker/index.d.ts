@@ -2,6 +2,7 @@
 // Project: https://github.com/cowboy/javascript-hooker
 // Definitions by: Michael Zabka <https://github.com/misak113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare type HookerPostHookFunction = (result: any, ...args: any[]) => IHookerPostHookResult|void;

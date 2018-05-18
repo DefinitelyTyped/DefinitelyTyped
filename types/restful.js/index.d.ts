@@ -2,6 +2,7 @@
 // Project: https://github.com/marmelab/restful.js
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export interface Headers {

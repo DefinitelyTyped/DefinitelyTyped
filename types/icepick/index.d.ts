@@ -2,6 +2,7 @@
 // Project: https://github.com/aearly/icepick
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Tobias Cohen <https://github.com/tobico>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export declare function freeze<T>(collection: T): T;

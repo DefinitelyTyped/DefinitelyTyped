@@ -2,7 +2,7 @@
 // Project: https://onlinehelp.tableau.com/current/api/js_api/en-us/JavaScriptAPI/js_api.htm
 // Definitions by: Greg Zapp <https://github.com/protip>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 declare namespace tableau {
     enum DashboardObjectType {

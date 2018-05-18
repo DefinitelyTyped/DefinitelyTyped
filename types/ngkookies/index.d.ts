@@ -2,6 +2,7 @@
 // Project: https://github.com/voronianski/ngKookies
 // Definitions by: Martin McWhorter <https://github.com/martinmcwhorter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace angular.kookies {
 

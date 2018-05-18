@@ -2,6 +2,7 @@
 // Project: https://github.com/web-animations/web-animations-js
 // Definitions by: Kristian Moerch <https://github.com/kritollm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";

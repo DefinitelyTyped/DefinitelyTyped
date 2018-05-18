@@ -2,6 +2,7 @@
 // Project: https://github.com/bvaughn/js-search
 // Definitions by: Guo Yunhe <https://github.com/guoyunhe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "js-search" {
 

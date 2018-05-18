@@ -2,7 +2,7 @@
 // Project: https://github.com/IonicaBizau/json2md#readme
 // Definitions by: MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export = json2md;
 

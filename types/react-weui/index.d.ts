@@ -2,7 +2,7 @@
 // Project: https://github.com/weui/react-weui
 // Definitions by: Tairan Wang <https://github.com/tairan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 export class ActionSheet {
     constructor(props: any);
     handleMaskClick(e: any): void;

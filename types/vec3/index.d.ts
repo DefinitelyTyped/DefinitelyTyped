@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/vec3
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export declare class Vec3 {
     constructor(x: number, y: number, z: number);

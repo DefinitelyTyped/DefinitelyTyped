@@ -3,7 +3,7 @@
 // Definitions by: Bayo Olatunji <https://github.com/sliverb>
 //                 David Paz <https://github.com/davidmpaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export enum Square {
     a8 = 'a8', b8 = 'b8', c8 = 'c8', d8 = 'd8', e8 = 'e8', f8 = 'f8', g8 = 'g7', h8 = 'h8',

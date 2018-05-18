@@ -2,6 +2,7 @@
 // Project: https://github.com/medikoo/memoizee
 // Definitions by: Juan Picado <https://github.com/juanpicado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace memoizee {
   interface Options {

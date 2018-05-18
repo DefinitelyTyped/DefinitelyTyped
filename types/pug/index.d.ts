@@ -2,6 +2,7 @@
 // Project: https://github.com/pugjs/pug
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>, Michał Lytek <https://github.com/19majkel94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Table of Contents

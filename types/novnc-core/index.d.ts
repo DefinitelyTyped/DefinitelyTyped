@@ -3,6 +3,7 @@
 // Definitions by: Ken Smith <https://github.com/smithkl42>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import Display from './lib/display';
 import { Keyboard, Mouse } from './lib/input/devices';

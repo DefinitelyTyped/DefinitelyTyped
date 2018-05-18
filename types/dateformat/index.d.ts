@@ -2,6 +2,7 @@
 // Project: https://github.com/felixge/node-dateformat
 // Definitions by: Kombu <https://github.com/aicest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * dateFormat.masks

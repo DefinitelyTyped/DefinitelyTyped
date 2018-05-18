@@ -3,6 +3,7 @@
 //          https://github.com/coderespawn/dock-spawn
 // Definitions by: Drew Noakes <https://drewnoakes.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/dock-spawn
+// TypeScript Version: 2.8
 
 declare namespace dockspawn
 {

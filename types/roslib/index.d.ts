@@ -4,6 +4,7 @@
 //                 Cooper Benson <https://github.com/skycoop>,
 //                 David Gonzalez <https://github.com/dgorobopec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 /* ----------------------------------

@@ -2,7 +2,7 @@
 // Project: https://github.com/unshiftio/url-parse
 // Definitions by: Pavlo Chernenko <https://github.com/ChernenkoPaul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import URLSearchParams = require("url-search-params");
 

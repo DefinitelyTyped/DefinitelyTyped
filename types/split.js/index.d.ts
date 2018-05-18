@@ -2,7 +2,7 @@
 // Project: https://github.com/nathancahill/Split.js
 // Definitions by: Ilia Choly <https://github.com/icholy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 // Global variable outside module loader
 export as namespace Split;

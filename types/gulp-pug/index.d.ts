@@ -2,6 +2,7 @@
 // Project: https://github.com/pugjs/gulp-pug#readme
 // Definitions by: remisery <https://github.com/remisery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

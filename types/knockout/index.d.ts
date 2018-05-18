@@ -7,7 +7,7 @@
 //                 Benjamin Eckardt <https://github.com/BenjaminEckardt>,
 //                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 interface KnockoutExtensionFunctions {
     [key: string]: any;

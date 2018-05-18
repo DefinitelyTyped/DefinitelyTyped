@@ -3,7 +3,7 @@
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 Uriel Chemouni <https://github.com/urielch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="phantomjs" />
 

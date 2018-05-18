@@ -3,6 +3,7 @@
 // Definitions by: Milen Stefanov <https://github.com/m1llen1um>
 //                 Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'pdfmake/build/vfs_fonts' {
     let pdfMake: {

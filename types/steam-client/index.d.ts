@@ -2,7 +2,7 @@
 // Project: https://github.com/DoctorMcKay/node-steam-client
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 /// <reference types="bytebuffer" />

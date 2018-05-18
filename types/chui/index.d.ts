@@ -2,7 +2,7 @@
 // Project: https://github.com/chocolatechipui/chocolatechip-ui
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // ChocolateChip-UI 3.9.1
 /**

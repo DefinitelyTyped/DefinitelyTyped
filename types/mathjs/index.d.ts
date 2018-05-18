@@ -3,7 +3,7 @@
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 // 				   Andy Patterson <https://github.com/andnp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 import { Decimal } from 'decimal.js';
 

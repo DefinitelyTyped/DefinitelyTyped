@@ -2,6 +2,7 @@
 // Project: https://github.com/pwlin/cordova-plugin-file-opener2
 // Definitions by: Cyril Gandon <https://github.com/cyrilgandon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface CordovaPluginsFileOpener2Result {
     status: number;

@@ -2,7 +2,7 @@
 // Project: https://github.com/suchipi/chai-jest-snapshot#readme
 // Definitions by: Matt Perry <https://github.com/mattvperry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /// <reference types="chai" />
 /// <reference types="mocha" />

@@ -5,7 +5,7 @@
 //                 Sequoia McDowell <https://github.com/sequoia>
 //                 Mike Crowe <https://github.com/drmikecrowe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /************************************************
 *                                               *

@@ -2,7 +2,7 @@
 // Project: https://github.com/kategengler/ember-feature-flags#readme
 // Definitions by: Frank Tan <https://github.com/tansongyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import Ember from 'ember';
 

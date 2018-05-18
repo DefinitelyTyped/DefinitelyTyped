@@ -2,6 +2,7 @@
 // Project: https://github.com/mde/timezone-js
 // Definitions by: bonnici <https://github.com/bonnici>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/timezone-js.d.ts
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/osamutake/japanese-holidays-js
 // Definitions by: syamatoo <https://github.com/syamatoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function isHoliday(date: Date, furikae?: boolean): string | undefined;
 export function isHolidayAt(date: Date, furikae?: boolean): string | undefined;

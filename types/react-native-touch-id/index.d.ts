@@ -3,6 +3,7 @@
 // Definitions by: huhuanming <https://github.com/huhuanming>
 //                 Nikolay Polukhin <https://github.com/gazaret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'react-native-touch-id' {
 

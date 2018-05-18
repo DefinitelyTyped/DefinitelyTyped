@@ -3,7 +3,7 @@
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 //                 Thomas Conner <https://github.com/thomasconner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // NOTE: definition last updated (2017-11-25) based on latest code as of https://github.com/techfort/LokiJS/commit/f6c8f1c362cfc9ed63d93cd165ef0ac3bad131bf
 

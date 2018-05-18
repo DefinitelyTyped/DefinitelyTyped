@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/node-config-manager
 // Definitions by: TANAKA Koichi <https://gitnub.com/mugeso/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface Options {

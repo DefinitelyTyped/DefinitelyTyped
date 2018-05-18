@@ -2,6 +2,7 @@
 // Project: https://github.com/LouisT/SeededShuffle
 // Definitions by: Uri Shaked <https://github.com/urish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export const seed: number;
 export const strSeed: string;

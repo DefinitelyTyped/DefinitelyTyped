@@ -5,6 +5,7 @@
 //                 Philipp Gürtler <https://github.com/philippguertler>
 //                 Daniel McGraw <https://github.com/danielmcgraw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 

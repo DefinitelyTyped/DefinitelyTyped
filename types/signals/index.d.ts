@@ -2,7 +2,7 @@
 // Project: http://millermedeiros.github.io/js-signals/
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare var signals: signals.SignalWrapper;
 

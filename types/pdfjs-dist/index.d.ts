@@ -2,6 +2,7 @@
 // Project: https://github.com/mozilla/pdf.js
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/pdf.d.ts

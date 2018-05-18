@@ -2,6 +2,7 @@
 // Project: https://github.com/shinnn/write-file-atomically#readme
 // Definitions by: Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import writeFileAtomic = require("write-file-atomic");
 

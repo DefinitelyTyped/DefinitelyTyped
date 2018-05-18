@@ -4,7 +4,7 @@
 //                 Jed Fox <https://github.com/j-f1>
 //                 Saad Quadri <https://github.com/saadq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import { JSONSchema4 } from 'json-schema';
 import * as ESTree from 'estree';

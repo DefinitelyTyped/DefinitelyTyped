@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/argv
 // Definitions by: Hookclaw <https://github.com/hookclaw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // argv module
 type args = {

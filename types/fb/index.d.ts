@@ -2,6 +2,7 @@
 // Project: https://developers.facebook.com/docs/javascript
 // Definitions by: Joshua Strobl <https://github.com/JoshStrobl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface FBInitParams{
     appId?: string;

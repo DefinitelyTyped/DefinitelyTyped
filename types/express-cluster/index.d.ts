@@ -2,6 +2,7 @@
 // Project: https://github.com/Flipboard/express-cluster
 // Definitions by: Miloslav Nenadál <https://github.com/nenadalm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

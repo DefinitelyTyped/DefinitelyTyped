@@ -3,6 +3,7 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 //                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Validator {
 

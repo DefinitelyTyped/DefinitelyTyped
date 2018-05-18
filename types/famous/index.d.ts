@@ -2,6 +2,7 @@
 // Project: http://famous.org/
 // Definitions by: Boris Vasilenko <https://github.com/borisvasilenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "famous/core" {
 	export class FamousEngine {

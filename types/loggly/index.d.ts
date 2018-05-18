@@ -2,6 +2,7 @@
 // Project: https://github.com/winstonjs/node-loggly
 // Definitions by: Ray Martone <https://github.com/rmartone>, Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export declare interface LogglyOptions {
     token: string;

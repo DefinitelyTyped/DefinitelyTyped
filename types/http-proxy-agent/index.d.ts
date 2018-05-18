@@ -2,6 +2,7 @@
 // Project: https://github.com/TooTallNate/node-http-proxy-agent
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 

@@ -4,7 +4,7 @@
 //                 Kevin Greene <https://github.com/kevin-greene-ck>
 //                 Jesse Zhang <https://github.com/jessezhang91>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

@@ -3,7 +3,7 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Evan Shortiss <https://github.com/evanshortiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export = PQueue;
 

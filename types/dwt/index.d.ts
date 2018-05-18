@@ -5,7 +5,7 @@
 //                 Lincoln Hu <https://github.com/lincoln2018>
 //                 Tom Kent <https://github.com/Tom-Dynamsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /*!
 * Based on Dynamsoft WebTwain JavaScript Intellisense

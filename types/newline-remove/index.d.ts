@@ -2,6 +2,7 @@
 // Project: https://github.com/yoshuawuyts/newline-remove
 // Definitions by: OpenByteDev <https://github.com/OpenByteDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Strip all newlines from the given value

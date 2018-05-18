@@ -19,6 +19,7 @@
 //                 Tiger Oakes <https://github.com/NotWoods>,
 //                 Seth Kingsley <https://github.com/sethk>
 // Definitions: https://github.com//DefinitelyTyped
+// TypeScript Version: 2.8
 
 export * from "./three-core";
 

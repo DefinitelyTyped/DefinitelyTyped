@@ -2,6 +2,7 @@
 // Project: https://github.com/zenorocha/clipboard.js
 // Definitions by: Andrei Kurosh <https://github.com/impworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class ClipboardJS {
     constructor(

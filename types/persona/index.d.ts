@@ -2,6 +2,7 @@
 // Project: http://www.mozilla.org/en-US/persona
 // Definitions by: James Frasca <https://github.com/Nycto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Persona {
 

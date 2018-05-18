@@ -2,6 +2,7 @@
 // Project: https://github.com/joshwnj/ffprobe-static
 // Definitions by: Steve Tran <https://github.com/iamstevetran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*~ You can declare properties of the module using const, let, or var */
 /**

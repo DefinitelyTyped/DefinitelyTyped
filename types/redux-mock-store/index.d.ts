@@ -2,7 +2,7 @@
 // Project: https://github.com/arnaudbenard/redux-mock-store
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Redux from 'redux';
 

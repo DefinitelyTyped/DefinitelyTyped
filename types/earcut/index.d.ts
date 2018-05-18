@@ -3,6 +3,7 @@
 // Definitions by: Adrian Leonhard <https://github.com/NaridaL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Duplicated export mirrors actual source: https://github.com/mapbox/earcut/blob/master/src/earcut.js#L3-L4
+// TypeScript Version: 2.8
 
 interface EarcutStatic {
 	/**

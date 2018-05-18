@@ -2,7 +2,7 @@
 // Project: https://github.com/olivernn/lunr.js
 // Definitions by: Sean Tan <https://github.com/seantanly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export as namespace lunr;
 export = lunr;

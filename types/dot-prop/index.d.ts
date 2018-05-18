@@ -3,7 +3,7 @@
 // Definitions by: Sam Verschueren <https://github.com/samverschueren>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 interface DotProp {
     get(obj: object, path: string, defaultValue?: any): any;

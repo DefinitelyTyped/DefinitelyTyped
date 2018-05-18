@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/uniq
 // Definitions by: Hans Windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface Uniq{

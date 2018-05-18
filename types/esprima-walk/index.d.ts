@@ -2,6 +2,7 @@
 // Project: https://github.com/jrajav/esprima-walk
 // Definitions by: tswaters <https://github.com/tswaters>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as ESTree from "estree";
 

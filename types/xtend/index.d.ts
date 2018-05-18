@@ -2,6 +2,7 @@
 // Project: https://github.com/Raynos/xtend
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Xtend {
 	<T, U>(target: T, source: U): T & U;

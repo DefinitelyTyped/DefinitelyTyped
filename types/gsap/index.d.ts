@@ -2,6 +2,7 @@
 // Project: http://greensock.com/
 // Definitions by: VILIC VANE <https://vilic.github.io/>, Robert S <https://github.com/codebelt>, Richard Fox <https://github.com/ProbablePrime>, Philip Bulley <https://github.com/philipbulley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference path="Animation.d.ts"/>
 /// <reference path="Ease.d.ts"/>

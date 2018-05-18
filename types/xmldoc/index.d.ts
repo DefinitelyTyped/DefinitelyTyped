@@ -4,6 +4,7 @@
 //                  Andrew Sheehan <https://github.com/ajsheehan>
 //                  Jordi Bunster <https://github.com/notlaforge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped): // TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 export class XmlDocument extends XmlElement {
     constructor(xmlString: string);

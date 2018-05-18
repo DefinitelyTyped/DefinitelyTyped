@@ -2,7 +2,7 @@
 // Project: https://github.com/webpack/tapable.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export declare abstract class Tapable {
     private _plugins: {

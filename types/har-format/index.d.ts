@@ -2,6 +2,7 @@
 // Project: https://w3c.github.io/web-performance/specs/HAR/Overview.html
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * HTTP Archive 1.2

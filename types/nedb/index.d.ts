@@ -3,6 +3,7 @@
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 //                 Anthony Nichols <https://github.com/anthonynichols>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = Nedb;
 export as namespace Nedb;

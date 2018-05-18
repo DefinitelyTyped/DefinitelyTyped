@@ -2,6 +2,7 @@
 // Project: https://github.com/adamhalasz/uniqid
 // Definitions by: idchlife <https://github.com/idchlife>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/uniqid
+// TypeScript Version: 2.8
 
 // Commmon function signature
 declare function f(prefix?: string): string;

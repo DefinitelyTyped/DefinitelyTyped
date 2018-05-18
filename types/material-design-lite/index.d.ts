@@ -2,6 +2,7 @@
 // Project: https://getmdl.io
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module MaterialDesignLite {
     interface ComponentHandler {

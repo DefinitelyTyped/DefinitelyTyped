@@ -2,6 +2,7 @@
 // Project: https://github.com/f5io/satnav-js
 // Definitions by: Christian Holm Diget <https://github.com/DotNetNerd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare type Callback = () => void;
 

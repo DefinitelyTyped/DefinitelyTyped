@@ -2,7 +2,7 @@
 // Project: https://github.com/qix-/color-convert#readme
 // Definitions by: Junyoung Clare Jang <https://github.com/Airlun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import conversions = require('./conversions');
 import route = require('./route');

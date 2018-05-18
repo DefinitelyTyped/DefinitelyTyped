@@ -2,9 +2,9 @@
 // Project: https://github.com/robrich/sequencify
 // Definitions by: Nicolas Penin <https://github.com/npenin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Definition file started by dts-gen
-// TypeScript Version: 2.1
 
 export = sequencify;
 

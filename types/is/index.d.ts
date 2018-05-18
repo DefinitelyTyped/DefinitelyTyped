@@ -2,6 +2,7 @@
 // Project: http://arasatasaygin.github.io/is.js/
 // Definitions by: Rodrigo Cabral <https://github.com/cabralRodrigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface IsStatic {
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/watson/is-ci
 // Definitions by: Arne Schubert <https://github.com/atd-schubert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = is_ci;
 

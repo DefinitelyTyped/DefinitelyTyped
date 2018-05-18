@@ -2,7 +2,7 @@
 // Project: https://github.com/facebook/jest/tree/master/packages/jest-diff
 // Definitions by: Alex Coles <https://github.com/myabc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 declare namespace diff {
     interface DiffOptions {

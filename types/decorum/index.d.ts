@@ -2,6 +2,7 @@
 // Project: https://github.com/dflor003/decorum
 // Definitions by: Danil Flores <https://github.com/dflor003>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = decorum;
 export as namespace decorum;

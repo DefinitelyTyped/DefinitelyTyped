@@ -2,6 +2,7 @@
 // Project: https://github.com/macbre/travis-fold
 // Definitions by: Andy Hanson <https://github.com/andy-ms>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function start(group: string): string;
 export function end(group: string): string;

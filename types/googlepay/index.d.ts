@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/pay/api/web/setup/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace google.payments.api {
     type AddressFormat = 'FULL' | 'MIN';

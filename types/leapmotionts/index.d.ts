@@ -2,6 +2,7 @@
 // Project: https://github.com/logotype/LeapMotionTS
 // Definitions by: Victor Norgren <https://github.com/logotype>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped  
+// TypeScript Version: 2.8
 
 
 export declare class EventDispatcher {

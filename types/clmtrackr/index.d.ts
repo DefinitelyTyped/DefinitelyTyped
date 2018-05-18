@@ -2,6 +2,7 @@
 // Project: https://github.com/auduno/clmtrackr
 // Definitions by: hellochar <https://github.com/hellochar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface TrackerParams {
     /** whether to use constant velocity model when fitting (default is true) */

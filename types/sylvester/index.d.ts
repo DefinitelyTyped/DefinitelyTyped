@@ -2,6 +2,7 @@
 // Project: https://github.com/jcoglan/sylvester
 // Definitions by: Stephane Alie <https://github.com/StephaneAlie>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // === Sylvester ===
 // Vector and Matrix mathematics modules for JavaScript

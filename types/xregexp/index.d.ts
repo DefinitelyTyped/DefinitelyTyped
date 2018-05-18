@@ -4,6 +4,7 @@
 //                 Johannes Fahrenkrug <https://github.com/jfahrenkrug>
 //                 Mateusz Jagiełło <https://github.com/sigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

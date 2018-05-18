@@ -4,6 +4,7 @@
 //                 Pavel Puchkov <https://github.com/0x6368656174>
 //                 Sam Nau <https://github.com/samnau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export default class Siema {
     currentSlide: number;

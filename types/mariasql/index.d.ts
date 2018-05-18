@@ -2,6 +2,7 @@
 // Project: https://github.com/mscdex/node-mariasql
 // Definitions by: MichaelBennett <https://github.com/bennett000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace mariasql {
     export interface MariaCallBackError {

@@ -2,7 +2,7 @@
 // Project: https://github.com/clonn/slack-node-sdk
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as request from "request";
 

@@ -3,6 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 cspotcode <https://github.com/cspotcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 /** Finds all instances of a specified executable in the PATH environment variable */

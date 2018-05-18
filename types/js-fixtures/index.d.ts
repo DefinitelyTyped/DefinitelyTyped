@@ -2,6 +2,7 @@
 // Project: https://github.com/badunk/js-fixtures
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Fixtures {
     path: string;

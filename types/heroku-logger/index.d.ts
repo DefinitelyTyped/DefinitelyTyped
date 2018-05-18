@@ -2,7 +2,7 @@
 // Project: https://github.com/ianstormtaylor/heroku-logger
 // Definitions by: Kyle Vogt <https://github.com/kylevogt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 /* =================== USAGE ===================
 
     import * as logger from 'heroku-logger';

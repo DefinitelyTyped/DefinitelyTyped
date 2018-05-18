@@ -2,6 +2,7 @@
 // Project: https://github.com/timdream/wordcloud2.js
 // Definitions by: Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = WordCloud;
 export as namespace WordCloud;

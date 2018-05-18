@@ -2,7 +2,7 @@
 // Project: https://github.com/JustMaier/angular-signalr-hub
 // Definitions by: Adam Santaniello <https://github.com/AdamSantaniello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="signalr" />
 /// <reference types="angular" />

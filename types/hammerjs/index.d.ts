@@ -2,6 +2,7 @@
 // Project: http://hammerjs.github.io/
 // Definitions by: Philip Bulley <https://github.com/milkisevil>, Han Lin Yap <https://github.com/codler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var Hammer:HammerStatic;
 

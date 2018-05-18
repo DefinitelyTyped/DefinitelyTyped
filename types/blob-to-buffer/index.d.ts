@@ -2,7 +2,7 @@
 // Project: https://github.com/feross/blob-to-buffer
 // Definitions by: nrlquaker <https://github.com/nrlquaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/gravatar-url
 // Definitions by: Ivan Gabriele <https://github.com/ivangabriele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = GravatarUrl;
 

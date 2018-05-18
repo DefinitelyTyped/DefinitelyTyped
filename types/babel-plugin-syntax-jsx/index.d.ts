@@ -2,6 +2,7 @@
 // Project: https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-jsx
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // NB: This export doesn't match the handbook example, where `jsx` is the default export.
 // But it does match the runtime behaviour (at least at the time of this writing). For some reason,

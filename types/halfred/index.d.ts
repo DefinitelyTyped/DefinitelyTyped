@@ -2,6 +2,7 @@
 // Project: https://github.com/basti1302/halfred
 // Definitions by: David Herges <https://github.com/dherges>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare module "halfred" {

@@ -2,6 +2,7 @@
 // Project: https://github.com/maxnowack/node-podcast
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface PodcastStatic
 {

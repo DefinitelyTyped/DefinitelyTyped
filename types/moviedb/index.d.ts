@@ -2,6 +2,7 @@
 // Project: https://github.com/danzajdband/moviedb
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>, Pavel Puchkov <https://github.com/0x6368656174>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Ghost module for Types
 declare namespace MovieDB {

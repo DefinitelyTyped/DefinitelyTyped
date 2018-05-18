@@ -5,6 +5,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import glob = require('glob');
 

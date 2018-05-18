@@ -2,7 +2,7 @@
 // Project: https://github.com/yochannah/jschannel
 // Definitions by: Yitzchok Gottlieb <https://github.com/yitzchok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export as namespace Channel;
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/azproduction/node-request-as-curl
 // Definitions by: Arne Schubert <https://github.com/atd-schubert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { CoreOptions, Request, RequestAPI, RequiredUriUrl } from "request";
 

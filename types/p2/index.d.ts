@@ -2,6 +2,7 @@
 // Project: https://github.com/schteppe/p2.js/
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = p2;
 export as namespace p2;

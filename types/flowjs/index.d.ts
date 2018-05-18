@@ -2,6 +2,7 @@
 // Project: https://github.com/flowjs/flow.js
 // Definitions by: Ryan McNamara <https://github.com/ryan10132>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace flowjs {
     interface IFlow {

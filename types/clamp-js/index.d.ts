@@ -2,6 +2,7 @@
 // Project: https://github.com/xavi160/Clamp.js
 // Definitions by: Sebastiaan de Rooij <https://github.com/Hikariii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace clamp {
     interface ClampOptions {

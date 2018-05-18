@@ -2,6 +2,7 @@
 // Project: https://github.com/LazarSoft/jsqrcode
 // Definitions by: Ricardo Azzi Silva <https://github.com/lordazzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function URShift(number: number, bits: number): number;
 

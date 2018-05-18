@@ -2,6 +2,7 @@
 // Project: https://github.com/tgriesser/create-error
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 // FIXME See Global type references https://github.com/Microsoft/TypeScript/issues/983

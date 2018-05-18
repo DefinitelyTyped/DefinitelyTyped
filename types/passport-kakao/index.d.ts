@@ -2,7 +2,7 @@
 // Project: https://github.com/rotoshine/passport-kakao
 // Definitions by: Park9eon <https://github.com/Park9eon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import passport = require("passport");
 import express = require("express");

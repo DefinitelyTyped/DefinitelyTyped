@@ -2,6 +2,7 @@
 // Project: http://www.outsharked.com/imagemapster/
 // Definitions by: delphinus <https://github.com/delphinus35>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import jQuery = require('jquery');
 

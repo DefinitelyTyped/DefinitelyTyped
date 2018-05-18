@@ -2,6 +2,7 @@
 // Project: https://github.com/caolan/nodeunit
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nodeunit.d.ts
 

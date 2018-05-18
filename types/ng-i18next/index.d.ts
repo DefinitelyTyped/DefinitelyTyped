@@ -2,6 +2,7 @@
 // Project: https://github.com/i18next/ng-i18next
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace angular.i18next {
     interface I18nextProvider {

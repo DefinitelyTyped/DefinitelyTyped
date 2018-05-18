@@ -2,6 +2,7 @@
 // Project: http://docopt.org/
 // Definitions by: Giovanni Bassi <https://github.com/giggio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * @param doc should be a string with the help message, written according to rules of the docopt language.

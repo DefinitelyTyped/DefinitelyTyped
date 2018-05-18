@@ -2,6 +2,7 @@
 // Project: https://github.com/geraintluff/tv4
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace tv4 {
 

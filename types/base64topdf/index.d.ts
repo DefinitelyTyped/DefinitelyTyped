@@ -2,6 +2,7 @@
 // Project: https://github.com/rpsankar001
 // Definitions by: Lucas Riondel <https://github.com/lucasriondel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace base64topdf;
 

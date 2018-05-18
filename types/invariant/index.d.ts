@@ -2,6 +2,7 @@
 // Project: https://github.com/zertosh/invariant
 // Definitions by: MichaelBennett <https://github.com/bennett000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare let invariant:invariant.InvariantStatic;
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/trentm/node-csvrow
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Parse a CSV row (i.e. a single row) into an array of strings.

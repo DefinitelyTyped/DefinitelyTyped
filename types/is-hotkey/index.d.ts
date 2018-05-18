@@ -2,6 +2,7 @@
 // Project: https://github.com/ianstormtaylor/is-hotkey#readme
 // Definitions by: Pierre-Marc Airoldi <https://github.com/petester42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface HotKeyOptions {
     byKey: boolean;

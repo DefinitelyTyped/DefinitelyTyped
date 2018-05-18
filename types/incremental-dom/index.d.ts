@@ -2,6 +2,7 @@
 // Project: https://github.com/google/incremental-dom
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>, Markus Lanthaler <https://github.com/lanthaler>, vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type NameOrCtorDef = string | { new (...args: any[]): Element; };
 

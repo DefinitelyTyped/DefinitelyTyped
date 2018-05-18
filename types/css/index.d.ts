@@ -2,6 +2,7 @@
 // Project: https://github.com/reworkcss/css
 // Definitions by: Ilya Verbitskiy <https://github.com/ilich>
 // Definitions: https://github.com/ilich/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * CSS parser / stringifier for Node.js

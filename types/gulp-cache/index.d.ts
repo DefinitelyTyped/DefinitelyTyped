@@ -2,6 +2,7 @@
 // Project: https://github.com/jgable/gulp-cache
 // Definitions by: Arun Aravind <https://github.com/aravindarun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

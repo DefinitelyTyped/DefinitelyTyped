@@ -2,6 +2,7 @@
 // Project: https://github.com/jhermsmeier/node-http-link-header
 // Definitions by: Christian Rackerseder <https://www.echooff.de/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Reference {
     uri: string;

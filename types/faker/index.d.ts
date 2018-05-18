@@ -5,6 +5,7 @@
 //                 Yuki Kokubun <https://github.com/Kuniwak>,
 //                 Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare const fakerStatic: Faker.FakerStatic;
 

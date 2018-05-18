@@ -2,6 +2,7 @@
 // Project: http://crypto.stanford.edu/sjcl/
 // Definitions by: Eugene Chernyshov <https://github.com/Evgenus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = sjcl;
 export as namespace sjcl;

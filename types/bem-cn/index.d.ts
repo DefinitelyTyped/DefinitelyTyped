@@ -2,6 +2,7 @@
 // Project: https://github.com/albburtsev/bem-cn
 // Definitions by: Vitaly Selkin <https://github.com/selkinvitaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type StateFn = (states: { [key: string]: boolean }) => BemCn.Inner;
 declare function BemCn(name: string): BemCn.Inner;

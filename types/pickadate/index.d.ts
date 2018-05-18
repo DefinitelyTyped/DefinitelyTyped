@@ -2,7 +2,7 @@
 // Project: https://github.com/amsul/pickadate.js
 // Definitions by: Theodore Brown <https://github.com/theodorejb>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 ///<reference types="jquery" />
 

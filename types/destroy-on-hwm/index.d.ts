@@ -2,7 +2,7 @@
 // Project: https://github.com/stream-utils/destroy-on-hwm
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 import { Writable } from 'stream';

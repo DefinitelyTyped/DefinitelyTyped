@@ -2,6 +2,7 @@
 // Project: http://domo-js.com/
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Domo {
     (attributes?: Object): string;

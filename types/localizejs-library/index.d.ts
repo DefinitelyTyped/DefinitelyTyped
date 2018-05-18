@@ -2,6 +2,7 @@
 // Project: https://help.localizejs.com/docs/library-api
 // Definitions by: Samer Albahra <https://github.com/salbahra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace LocalizeJS.Context {
     interface Options {

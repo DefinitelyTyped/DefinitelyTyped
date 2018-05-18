@@ -3,6 +3,7 @@
 // Definitions by: Carl Winkler <https://github.com/seikho>
 //                 Mark Line <https://github.com/jonnysparkplugs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

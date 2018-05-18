@@ -2,7 +2,7 @@
 // Project: https://github.com/apollographql/apollo-codegen
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export function downloadSchema(
     url: string,

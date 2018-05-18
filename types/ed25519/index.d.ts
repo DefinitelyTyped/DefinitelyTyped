@@ -2,6 +2,7 @@
 // Project: https://github.com/dazoe/ed25519
 // Definitions by: Erik Mavrinac <https://github.com/erikma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Main site: https://ed25519.cr.yp.to/
 // Manually generated and maintained because the package is a

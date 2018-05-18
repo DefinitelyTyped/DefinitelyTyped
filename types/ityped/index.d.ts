@@ -2,6 +2,7 @@
 // Project: https://github.com/luisvinicius167/ityped
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Configuration {
     strings?: string[];

@@ -8,6 +8,7 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Bartek Szczepański <https://github.com/barnski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Imported from: https://github.com/types/npm-redis
 

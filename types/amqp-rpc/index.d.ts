@@ -2,6 +2,7 @@
 // Project: https://github.com/demchenkoe/node-amqp-rpc/
 // Definitions by: Wonshik Kim <https://github.com/wokim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

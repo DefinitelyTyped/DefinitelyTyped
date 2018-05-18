@@ -3,6 +3,7 @@
 // Definitions by: Narcisse Assogba <https://github.com/adn05>
 //                 Paleo <https://github.com/paleo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace SqlBricks {
   /**

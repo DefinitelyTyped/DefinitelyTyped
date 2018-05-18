@@ -2,6 +2,7 @@
 // Project: https://facebook.github.io/watchman/
 // Definitions by: Wu Haotian <https://github.com/whtsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { EventEmitter } from 'events';
 

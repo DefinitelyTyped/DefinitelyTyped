@@ -3,6 +3,7 @@
 // Definitions by: Matthew James <https://github.com/matthew-matvei>
 //                 Keiichiro Amemiya <https://github.com/hoishin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface TrashOptions {
     glob: boolean;

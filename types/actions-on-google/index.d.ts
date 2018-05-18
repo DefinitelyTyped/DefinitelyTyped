@@ -2,7 +2,7 @@
 // Project: https://github.com/actions-on-google/actions-on-google-nodejs
 // Definitions by: Joel Hegg <https://github.com/joelhegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /**
  * The Actions on Google client library.

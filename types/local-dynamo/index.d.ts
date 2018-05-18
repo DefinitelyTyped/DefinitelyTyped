@@ -2,6 +2,7 @@
 // Project: https://github.com/Medium/local-dynamo
 // Definitions by: Matt Rollins <https://github.com/Sicilica>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 

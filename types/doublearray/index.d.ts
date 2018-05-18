@@ -2,6 +2,7 @@
 // Project: https://github.com/takuyaa/doublearray
 // Definitions by: MIZUSHIMA Junki <https://github.com/mzsm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace doublearray {
     interface KeyValue {

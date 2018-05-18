@@ -2,6 +2,7 @@
 // Project: https://github.com/ianstormtaylor/is-empty
 // Definitions by: Stanislav Termosa <https://github.com/termosa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Test if a value is empty

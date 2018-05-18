@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/package-json#readme
 // Definitions by: Jinwoo Lee <https://github.com/jinwoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface PackageJsonOptions {
     version?: string;

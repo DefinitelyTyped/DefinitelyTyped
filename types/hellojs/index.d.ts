@@ -4,7 +4,7 @@
 //                 Mikko Vuorinen <https://github.com/vuorinem>
 //                 Vincent Biret <https://github.com/baywet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export = hello;
 export as namespace hello;

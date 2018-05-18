@@ -2,6 +2,7 @@
 // Project: https://github.com/klughammer/node-randomstring
 // Definitions by: Isman Usoh <https://github.com/isman-usoh/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Randomstring {
     interface GenerateOptions {

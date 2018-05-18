@@ -2,6 +2,7 @@
 // Project: https://github.com/madrobby/keymaster
 // Definitions by: Martin W. Kirst <https://github.com/nitram509>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // A simple micro-library for defining and dispatching keyboard shortcuts. It has no dependencies.
 

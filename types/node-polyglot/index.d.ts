@@ -2,6 +2,7 @@
 // Project: https://github.com/airbnb/polyglot.js
 // Definitions by: Tim Jackson-Kiely <https://github.com/timjk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare namespace Polyglot {

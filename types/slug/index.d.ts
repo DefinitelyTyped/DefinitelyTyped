@@ -2,6 +2,7 @@
 // Project: https://github.com/dodo/node-slug
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = slug;
 

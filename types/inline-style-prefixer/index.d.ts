@@ -3,6 +3,7 @@
 // Definitions by: Andrej Hazucha <https://github.com/ahz>
 //                 dpetrezselyova <https://github.com/dpetrezselyova>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace InlineStylePrefixer {
     interface Configuration {

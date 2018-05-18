@@ -2,6 +2,7 @@
 // Project: https://github.com/mafintosh/pump
 // Definitions by: Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

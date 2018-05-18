@@ -2,6 +2,7 @@
 // Project: https://github.com/23/resumable.js
 // Definitions by: Daniel McAssey <https://github.com/DanielMcAssey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Resumable {
   interface ConfigurationHash {

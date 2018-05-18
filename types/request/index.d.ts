@@ -8,7 +8,7 @@
 //                 Jon Stevens <https://github.com/lookfirst>,
 //                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 

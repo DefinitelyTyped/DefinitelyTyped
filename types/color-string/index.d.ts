@@ -3,6 +3,7 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type Color = [number, number, number, number];
 

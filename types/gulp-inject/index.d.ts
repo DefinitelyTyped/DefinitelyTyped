@@ -2,6 +2,7 @@
 // Project: https://github.com/klei/gulp-inject
 // Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 /// <reference types="vinyl" />

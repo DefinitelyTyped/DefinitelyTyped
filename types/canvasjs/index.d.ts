@@ -2,6 +2,7 @@
 // Project: http://canvasjs.com/
 // Definitions by: ShuYin Zhang  <https://github.com/brutalimp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type DashType = "solid" | "shortDash" | "shortDot" | "shortDashDot" | "shortDashDotDot" | "dot" | "dash" | "dashDot" | "longDash" | "longDashDot" | "longDashDotDot";
 

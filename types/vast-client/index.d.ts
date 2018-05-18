@@ -2,6 +2,7 @@
 // Project: https://github.com/dailymotion/vast-client-js#readme
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export const client: VastClient;
 export const parser: VastParser;

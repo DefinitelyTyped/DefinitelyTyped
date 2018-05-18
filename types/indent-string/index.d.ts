@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/indent-string#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = indent_string;
 declare function indent_string(str: string, count: number, indent?: string): string;

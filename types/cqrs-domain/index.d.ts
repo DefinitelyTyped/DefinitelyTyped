@@ -2,6 +2,7 @@
 // Project: https://github.com/adrai/node-cqrs-domain
 // Definitions by: Steven Weiß <https://github.com/blissi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Domain {
     // region AggregateModel and Command

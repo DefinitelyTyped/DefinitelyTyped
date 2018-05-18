@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/path-is-absolute#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = path_is_absolute;
 declare function path_is_absolute(path: string): boolean;

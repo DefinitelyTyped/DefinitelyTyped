@@ -2,6 +2,7 @@
 // Project: https://github.com/mathiasbynens/windows-1251
 // Definitions by: RomanGolovanov <https://github.com/RomanGolovanov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var windows1251: {
     encode(input:string, options?:{ mode?: windows1251.EncoderMode }):string;

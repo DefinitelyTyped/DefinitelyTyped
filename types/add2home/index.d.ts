@@ -2,6 +2,7 @@
 // Project: http://cubiq.org/add-to-home-screen
 // Definitions by: James Wilkins <http://www.codeplex.com/site/users/view/jamesnw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var addToHome: {
     /** Shows the popup.

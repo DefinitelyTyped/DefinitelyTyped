@@ -2,6 +2,7 @@
 // Project: https://github.com/BryanDonovan/node-cache-manager
 // Definitions by: Simon Gausmann <https://github.com/GausSim>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface CachingConfig {
     ttl: number;

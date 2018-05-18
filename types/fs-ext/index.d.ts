@@ -2,6 +2,7 @@
 // Project: https://github.com/baudehlo/node-fs-ext
 // Definitions by: Oguzhan Ergin <https://github.com/OguzhanE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 ///<reference types="node"/>
 

@@ -2,6 +2,7 @@
 // Project: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/Add-on_SDK
 // Definitions by: Mohammed Hamdy <https://github.com/github-account-because-they-want-it>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare module "sdk/base64" {

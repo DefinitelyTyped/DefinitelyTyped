@@ -2,6 +2,7 @@
 // Project: https://github.com/freedomjs/freedom
 // Definitions by: Jonathan Pevarnek <https://github.com/jpevarnek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace freedom {
     // Common on/emit for message passing interfaces.

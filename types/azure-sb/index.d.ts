@@ -2,7 +2,7 @@
 // Project: https://github.com/Azure/azure-sdk-for-node/tree/master/lib/services/serviceBus
 // Definitions by: Microsoft Azure <https://github.com/Azure>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export import ServiceBusService = require('./lib/servicebusservice');
 export import NotificationHubService = require('./lib/notificationhubservice');

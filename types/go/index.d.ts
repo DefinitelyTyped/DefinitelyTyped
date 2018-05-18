@@ -2,6 +2,7 @@
 // Project: http://gojs.net
 // Definitions by: Northwoods Software <https://github.com/NorthwoodsSoftware>
 // Definitions: https://github.com/NorthwoodsSoftware/GoJS
+// TypeScript Version: 2.8
 
 /* Copyright (C) 1998-2016 by Northwoods Software Corporation. */
 

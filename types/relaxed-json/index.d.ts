@@ -2,6 +2,7 @@
 // Project: https://github.com/phadej/relaxed-json
 // Definitions by: Mikal Madsen <https://github.com/18steps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type Reviver = (this: {}, key: string, value: any) => any;
 export function transform(text: string): string;

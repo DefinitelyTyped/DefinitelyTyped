@@ -2,6 +2,7 @@
 // Project: https://github.com/vkarpov15/dookie#readme
 // Definitions by: Swanest <https://github.com/swanest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface PushOpts {
     filename?: string;

@@ -2,7 +2,7 @@
 // Project: https://github.com/cangosta/JSON-js
 // Definitions by: NN <https://github.com/NN--->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare const json: typeof JSON;
 export = json;

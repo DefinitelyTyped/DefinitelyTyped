@@ -2,6 +2,7 @@
 // Project: https://github.com/christkv/node-git
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 // lib/git/git.js

@@ -2,7 +2,7 @@
 // Project: https://github.com/aws/amazon-cognito-auth-js
 // Definitions by: Scott Escue <https://github.com/scottescue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /*
  * Create global variable to provide access to types when used without module

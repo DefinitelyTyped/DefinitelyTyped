@@ -2,6 +2,7 @@
 // Project: https://github.com/Reactive-Extensions/IxJS
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 ///<reference path="l2o.d.ts"/>
 

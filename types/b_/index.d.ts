@@ -2,6 +2,7 @@
 // Project: https://github.com/azproduction/b_
 // Definitions by: Vasya Aksyonov <https://github.com/outring>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Options {
     tailSpace?: string;

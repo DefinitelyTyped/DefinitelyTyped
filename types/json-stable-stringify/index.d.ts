@@ -2,6 +2,7 @@
 // Project: https://github.com/substack/json-stable-stringify
 // Definitions by: Matt Frantz <https://github.com/mhfrantz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function stringify(obj: any, opts?: stringify.Comparator | stringify.Options): string;
 

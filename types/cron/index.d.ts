@@ -3,6 +3,7 @@
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 //                 Lundarl Gholoi <https://github.com/winup>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export declare class CronTime {
     /**

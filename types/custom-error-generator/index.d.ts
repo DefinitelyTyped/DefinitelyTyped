@@ -2,6 +2,7 @@
 // Project: https://github.com/jproulx/node-custom-error
 // Definitions by: Thierry Miceli <https://github.com/thmiceli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare function createError(name: string, parameters?: Object, Constructor?: any): any;

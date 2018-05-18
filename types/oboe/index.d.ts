@@ -2,6 +2,7 @@
 // Project: https://github.com/jimhigson/oboe.js
 // Definitions by: Jared Klopper <https://github.com/optical>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

@@ -3,6 +3,7 @@
 // Definitions by: Alexander Rusakov <https://github.com/arusakov>
 //                 Kevin Groat <https://github.com/kgroat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace ReduxLogger;
 

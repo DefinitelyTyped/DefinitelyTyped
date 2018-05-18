@@ -2,6 +2,7 @@
 // Project: https://github.com/AvianFlu/ncp
 // Definitions by: Bart van der Schoor <https://github.com/bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

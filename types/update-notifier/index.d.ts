@@ -4,6 +4,7 @@
 //                 Noah Chen <https://github.com/nchen63>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = UpdateNotifier;
 

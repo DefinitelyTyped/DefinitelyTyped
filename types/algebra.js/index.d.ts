@@ -2,7 +2,7 @@
 // Project: http://algebra.js.org
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 declare class Term {
   coefficients: algebra.js.Fraction[];

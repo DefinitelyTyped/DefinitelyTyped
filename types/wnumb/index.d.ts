@@ -2,6 +2,7 @@
 // Project: https://github.com/leongersen/wnumb
 // Definitions by: Corey Jepperson <https://github.com/acoreyj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Create a wNumb

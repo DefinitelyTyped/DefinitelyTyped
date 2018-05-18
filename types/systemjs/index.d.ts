@@ -5,6 +5,7 @@
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Aluan Haddad <https://github.com/aluanhaddad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = SystemJSLoader;
 

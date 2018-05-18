@@ -2,6 +2,7 @@
 // Project: https://github.com/aheckmann/mpromise
 // Definitions by: Seulgi Kim <https://github.com/sgkim126>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface IResolveFunction<F, R> {
     (err: R, ...args: F[]): void;

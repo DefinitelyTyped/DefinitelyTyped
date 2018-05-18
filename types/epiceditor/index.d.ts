@@ -2,6 +2,7 @@
 // Project: http://epiceditor.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface EpicEditorOptions {

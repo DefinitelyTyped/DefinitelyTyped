@@ -2,6 +2,7 @@
 // Project: https://github.com/Box9/jss
 // Definitions by: Valentin Robert <https://github.com/Ptival>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Properties {
     [name: string]: string;

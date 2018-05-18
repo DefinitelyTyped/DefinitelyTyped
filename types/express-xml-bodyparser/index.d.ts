@@ -2,7 +2,7 @@
 // Project: https://github.com/macedigital/express-xml-bodyparser
 // Definitions by: Notice Maker <https://github.com/noticeMaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Request, Response, NextFunction } from 'express';
 

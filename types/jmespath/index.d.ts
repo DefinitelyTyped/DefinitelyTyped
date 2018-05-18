@@ -2,6 +2,7 @@
 // Project: https://github.com/jmespath/jmespath.js
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Take a JSON document and transform it into another JSON document

@@ -7,6 +7,7 @@
 //                 Arturs Vonda <https://github.com/artursvonda>
 //                 Carlos Bonetti <https://github.com/CarlosBonetti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = QueryString;
 export as namespace qs;

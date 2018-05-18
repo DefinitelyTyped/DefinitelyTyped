@@ -3,7 +3,7 @@
 // Definitions by: Warren Seymour <https://github.com/warrenseymour>
 //                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import { Request, ResponseObject, Plugin, ResponseToolkit } from 'hapi';
 import { VerifyOptions } from 'jsonwebtoken';

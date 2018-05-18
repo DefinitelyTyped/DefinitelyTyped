@@ -2,6 +2,7 @@
 // Project: http://camljs.codeplex.com
 // Definitions by: Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare class CamlBuilder {

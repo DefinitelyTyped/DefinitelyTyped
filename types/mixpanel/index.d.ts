@@ -4,6 +4,7 @@
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek>
 //                 Manduro <https://github.com/Manduro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Mixpanel {
     people: Mixpanel.People;

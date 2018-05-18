@@ -2,6 +2,7 @@
 // Project: https://github.com/eduardolundgren/tracking.js
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace tracking {
   export class ColorTracker extends Tracker {

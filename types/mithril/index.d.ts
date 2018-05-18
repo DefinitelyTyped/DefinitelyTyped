@@ -2,7 +2,7 @@
 // Project: https://mithril.js.org/
 // Definitions by: Mike Linkovich <https://github.com/spacejack>, András Parditka <https://github.com/andraaspar>, Isiah Meadows <https://github.com/isiahmeadows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /** Manually triggers a redraw of mounted components. */
 declare function redraw(): void;

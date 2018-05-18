@@ -2,6 +2,7 @@
 // Project: https://github.com/pieroxy/lz-string
 // Definitions by: Roman Nikitin <https://github.com/M0ns1gn0r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var LZString: LZString.LZStringStatic;
 export = LZString;

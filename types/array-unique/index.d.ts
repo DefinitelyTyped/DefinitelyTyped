@@ -2,6 +2,7 @@
 // Project: https://github.com/jonschlinkert/array-unique
 // Definitions by: Michaël St-Georges <https://github.com/CSLTech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function arrayUnique<T>(arr: T[]): T[];
 

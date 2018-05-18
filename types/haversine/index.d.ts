@@ -2,6 +2,7 @@
 // Project: https://github.com/njj/haversine
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace haversine {
     interface CoordinateLongitudeLatitude {

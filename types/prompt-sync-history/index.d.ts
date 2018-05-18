@@ -2,6 +2,7 @@
 // Project: https://github.com/davidmarkclements/prompt-sync-history
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { History } from 'prompt-sync';
 

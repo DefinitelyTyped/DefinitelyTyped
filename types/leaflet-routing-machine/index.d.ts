@@ -2,7 +2,7 @@
 // Project: https://github.com/perliedman/leaflet-routing-machine#readme
 // Definitions by: Chanaka Rathnayaka <https://github.com/chanakadrathnayaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import * as L from 'leaflet';
 

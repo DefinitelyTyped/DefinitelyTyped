@@ -4,6 +4,7 @@
 //                 Maxime LUCE <https://github.com/SomaticIT>,
 //                 Tommy Lent <https://github.com/tlent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

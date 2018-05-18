@@ -2,6 +2,7 @@
 // Project: https://github.com/soldair/node-buffer-compare
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface List {

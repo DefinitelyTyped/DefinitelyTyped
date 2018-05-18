@@ -6,6 +6,7 @@
 // 					samael <https://github.com/samael65535>,
 // 					taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type StateMachineErrorCallback = (
 	eventName?: string,

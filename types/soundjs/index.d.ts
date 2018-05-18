@@ -2,6 +2,7 @@
 // Project: http://www.createjs.com/#!/SoundJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*
     Copyright (c) 2012 Pedro Ferreira

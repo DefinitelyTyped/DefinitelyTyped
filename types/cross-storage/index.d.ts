@@ -2,6 +2,7 @@
 // Project: https://github.com/zendesk/cross-storage
 // Definitions by: Daniel Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface CrossStorageClientOptions {

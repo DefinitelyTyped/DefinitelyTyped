@@ -2,6 +2,7 @@
 // Project: https://github.com/gillstrom/multi-typeof#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = multi_typeof;
 declare function multi_typeof(input: any, types: string[]): boolean;

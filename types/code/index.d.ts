@@ -2,6 +2,7 @@
 // Project: https://github.com/hapijs/code
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /** Generates an assertion object. */
 export function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;

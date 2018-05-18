@@ -3,6 +3,7 @@
 // Definitions by: Arash Shakery <https://github.com/arash16>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // May 22 2013
+// TypeScript Version: 2.8
 
 
 declare namespace ArbiterDef {

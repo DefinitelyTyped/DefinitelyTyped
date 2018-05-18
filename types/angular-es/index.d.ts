@@ -2,6 +2,7 @@
 // Project: https://github.com/mbutsykin/angular-es
 // Definitions by: mbutsykin <https://github.com/mbutsykin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'angular-es' {
 

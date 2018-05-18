@@ -2,7 +2,7 @@
 // Project: https://github.com/lukechilds/keyv
 // Definitions by: AryloYeung <https://github.com/Arylo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 /// <reference types="node" />
 interface KeyvOptions {
     /** Namespace for the current instance. */

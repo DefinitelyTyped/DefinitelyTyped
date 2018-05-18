@@ -2,6 +2,7 @@
 // Project: https://github.com/mullwar/telebot
 // Definitions by: Simone Mariotti <https://github.com/mariotsi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 export = telebot;

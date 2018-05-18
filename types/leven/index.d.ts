@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/leven
 // Definitions by: Jan Alonzo <https://github.com/jmalonzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function leven(a: string, b: string): number;
 

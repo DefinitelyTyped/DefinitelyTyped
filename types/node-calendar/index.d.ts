@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/node-calendar
 // Definitions by: Luzian Zagadinow <https://github.com/luzianz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface IWeekRow<T> extends Array<T> {
 	[dayIndex: number]: T;

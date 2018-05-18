@@ -4,7 +4,7 @@
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 jwbay <https://github.com/jwbay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

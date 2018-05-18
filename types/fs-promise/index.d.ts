@@ -2,6 +2,7 @@
 // Project: https://github.com/kevinbeaty/fs-promise#readme
 // Definitions by: Thiago de Arruda <https://github.com/tarruda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

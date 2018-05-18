@@ -2,7 +2,7 @@
 // Project: https://developers.google.com/speed/pagespeed/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 ///<reference types="gapi" />
 

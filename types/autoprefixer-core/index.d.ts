@@ -2,6 +2,7 @@
 // Project: https://github.com/postcss/autoprefixer-core
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface Config {

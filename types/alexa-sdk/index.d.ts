@@ -7,7 +7,7 @@
 //                  rk-7 <https://github.com/rk-7>
 //                  Alex Malcoci <https://github.com/alexmalcoci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export function handler<T extends Request>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;

@@ -2,6 +2,7 @@
 // Project: https://github.hubspot.com/shepherd/
 // Definitions by: Matt Gibbs <https://github.com/mtgibbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace TetherShepherd {
 

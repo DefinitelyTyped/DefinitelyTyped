@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/color-name
 // Definitions by: Junyoung Clare Jang <https://github.com/Ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Tuple of Red, Green, and Blue

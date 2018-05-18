@@ -3,6 +3,7 @@
 // Definitions by: Paul Welter <https://github.com/pwelter34>
 //                 Yang He <https://github.com/abruzzihraig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var dragula: dragula.Dragula;
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/sunng87/node-geohash
 // Definitions by: Erik Rothoff Andersson <https://github.com/erkie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// TypeScript Version: 2.8
 
 declare namespace ngeohash {
   interface GeographicPoint {

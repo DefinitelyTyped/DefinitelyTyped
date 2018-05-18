@@ -2,6 +2,7 @@
 // Project: https://scottjehl.github.io/picturefill/
 // Definitions by: Alexander Azarov <https://github.com/alaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Picturefill {
   type ElementNullable = Element | null;

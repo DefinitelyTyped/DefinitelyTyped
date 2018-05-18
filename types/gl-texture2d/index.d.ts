@@ -2,7 +2,7 @@
 // Project: https://github.com/stackgl/gl-texture2d
 // Definitions by: Mathias Paumgarten <https://github.com/MathiasPaumgarten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import ndarray = require("ndarray");
 

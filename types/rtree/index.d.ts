@@ -2,6 +2,7 @@
 // Project: https://github.com/leaflet-extras/RTree 
 // Definitions by: Omede Firouz <https://github.com/oefirouz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Rectangle {
     x: number;

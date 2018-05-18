@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/node-jsfl-runner
 // Definitions by: Michael Randolph <https://github.com/mrand01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

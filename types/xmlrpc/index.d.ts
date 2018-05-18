@@ -2,6 +2,7 @@
 // Project: https://github.com/baalexander/node-xmlrpc
 // Definitions by: Andrew Short <http://ajshort.me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

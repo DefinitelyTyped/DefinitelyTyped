@@ -2,6 +2,7 @@
 // Project: http://zeptojs.com/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*
 zepto-1.0rc1.d.ts may be freely distributed under the MIT license.

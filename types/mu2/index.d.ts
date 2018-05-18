@@ -2,6 +2,7 @@
 // Project: https://github.com/raycmorgan/mu
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/mu2.d.ts
 

@@ -2,6 +2,7 @@
 // Project: https://www.nintendo.co.jp/wiiu/hardware/internetbrowser/extended_functionality.html
 // Definitions by: MIZUSHIMA Junki <https://github.com/mzsm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace wiiu {
     const enum TPValidity {

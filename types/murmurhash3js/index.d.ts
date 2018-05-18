@@ -2,6 +2,7 @@
 // Project: https://github.com/pid/murmurHash3js
 // Definitions by: Dave Lee <https://github.com/dlee-nvisia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'murmurhash3js' {
     export module x86 {

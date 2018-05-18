@@ -2,6 +2,7 @@
 // Project: https://github.com/psergus/ngWYSIWYG
 // Definitions by: Patrick Mac Kay <https://github.com/patrick-mackay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace ngWYSIWYG {
     interface Toolbar {

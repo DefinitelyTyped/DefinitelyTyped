@@ -2,6 +2,7 @@
 // Project: https://github.com/jlongster/transducers.js
 // Definitions by: David Philipson <https://github.com/dphilipson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type Reducer<TResult, TInput> = (
     result: TResult,

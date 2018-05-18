@@ -2,6 +2,7 @@
 // Project: https://github.com/AzureAD/azure-activedirectory-library-for-cordova
 // Definitions by: Kai Walter <https://github.com/KaiWalter>
 // Definitions: https://github.com/KaiWalter/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Microsoft {
 

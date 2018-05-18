@@ -2,7 +2,7 @@
 // Project: https://github.com/Delagen/typings-yandex-maps
 // Definitions by: Delagen <https://github.com/Delagen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 declare namespace ymaps {
 	interface IClassConstructor<T> {

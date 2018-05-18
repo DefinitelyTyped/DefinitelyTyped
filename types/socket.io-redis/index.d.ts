@@ -3,6 +3,7 @@
 // Definitions by: Philipp Holzer <https://github.com/nupplaphil>
 //                 seeLuck <https://github.com/seeLuck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import SocketIO = require("socket.io");
 

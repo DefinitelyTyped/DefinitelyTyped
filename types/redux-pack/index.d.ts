@@ -4,7 +4,7 @@
 //                 dschuman <https://github.com/quicksnap>
 //                 pweinberg <https://github.com/no-stack-dub-sack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import {
     Action as ReduxAction,

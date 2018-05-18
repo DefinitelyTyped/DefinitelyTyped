@@ -2,6 +2,7 @@
 // Project: https://dev.twitter.com/web/
 // Definitions by: Chitoku <https://github.com/chitoku-k>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * The interface for Twitter for Websites.

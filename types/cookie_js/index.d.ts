@@ -2,6 +2,7 @@
 // Project: https://github.com/florian/cookie.js
 // Definitions by: slawiko <https://github.com/slawiko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'cookie_js' {
   export = cookie;

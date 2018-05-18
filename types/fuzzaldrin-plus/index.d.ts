@@ -2,6 +2,7 @@
 // Project: https://github.com/jeancroy/fuzzaldrin-plus/
 // Definitions by: Jean Christophe Roy <https://github.com/jeancroy>, Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace fuzzaldrin;
 

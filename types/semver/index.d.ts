@@ -4,6 +4,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
+// TypeScript Version: 2.8
 
 export const SEMVER_SPEC_VERSION: "2.0.0";
 

@@ -2,6 +2,7 @@
 // Project: http://lesscss.org/
 // Definitions by: Tom Hasner <https://github.com/thasner>, Pranay Prakash <https://github.com/pranaygp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Less {
     interface RootFileInfo {

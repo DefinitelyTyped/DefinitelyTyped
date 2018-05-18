@@ -2,6 +2,7 @@
 // Project: https://github.com/icambron/twix.js
 // Definitions by: j3ko <https://github.com/j3ko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Moment, Duration } from 'moment';
 

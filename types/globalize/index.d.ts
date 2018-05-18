@@ -2,6 +2,7 @@
 // Project: https://github.com/jquery/globalize
 // Definitions by: Grégoire Castre <https://github.com/gcastre>, Aram Taieb <https://github.com/afromogli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as Cldr from "cldrjs";
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/GitbookIO/kramed
 // Definitions by: Matthew Wilkes <https://github.com/tonicblue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface KramedStatic {
     /**

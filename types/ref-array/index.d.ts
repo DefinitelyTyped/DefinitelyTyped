@@ -2,6 +2,7 @@
 // Project: https://github.com/TooTallNate/ref-array
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import ref = require('ref');
 

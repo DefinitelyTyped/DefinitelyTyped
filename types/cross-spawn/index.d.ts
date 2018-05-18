@@ -2,6 +2,7 @@
 // Project: https://github.com/moxystudio/node-cross-spawn
 // Definitions by: Alorel <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

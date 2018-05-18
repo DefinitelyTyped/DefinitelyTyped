@@ -2,6 +2,7 @@
 // Project: https://github.com/zenparsing/zen-observable
 // Definitions by: Kombu <https://github.com/aicest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare global {
     interface SymbolConstructor {

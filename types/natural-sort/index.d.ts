@@ -3,6 +3,7 @@
 // Definitions by: Antonio Morales <https://github.com/a-morales>
 //                 Brian Crowell <https://github.com/fluggo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace naturalSort;
 

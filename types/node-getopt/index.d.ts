@@ -2,6 +2,7 @@
 // Project: https://github.com/jiangmiao/node-getopt
 // Definitions by: Karl.M.Cauchy <https://github.com/kcauchy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Type Script Declaration for node-getopt

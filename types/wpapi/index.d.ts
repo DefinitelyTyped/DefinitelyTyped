@@ -2,7 +2,7 @@
 // Project: https://github.com/wp-api/node-wpapi
 // Definitions by: Guo Yunhe <https://github.com/guoyunhe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export = WPAPI;
 

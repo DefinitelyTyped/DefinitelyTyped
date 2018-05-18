@@ -2,6 +2,7 @@
 // Project: http://pgwjs.com/pgwmodal/
 // Definitions by: Pine Mizune <https://github.com/pine613>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface PgwModalOption {
     content?: string;

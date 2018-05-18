@@ -4,6 +4,7 @@
 //                 Vojtech Jasny <https://github.com/voy>
 //                 George Kalpakas <https://github.com/gkalpak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/node-modules/charset
 // Definitions by: Andrew Bradley <https://github.com/cspotcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 import { ClientResponse, IncomingHttpHeaders } from 'http';

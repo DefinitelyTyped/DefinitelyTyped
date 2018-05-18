@@ -2,7 +2,7 @@
 // Project: https://github.com/desandro/masonry
 // Definitions by: Mark Wilson <https://github.com/m-a-wilson>, Travis Brown <https://github.com/warriorrocker>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 

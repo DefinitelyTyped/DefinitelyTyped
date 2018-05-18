@@ -2,6 +2,7 @@
 // Project: https://github.com/felixge/node-stack-trace
 // Definitions by: Exceptionless <https://github.com/exceptionless>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export interface StackFrame {

@@ -2,6 +2,7 @@
 // Project: https://github.com/oncletom/tld.js
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * tld.js methods getDomain and getSubdomain are designed to work only with valid TLDs.

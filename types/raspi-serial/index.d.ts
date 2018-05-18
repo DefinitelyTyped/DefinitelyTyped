@@ -2,7 +2,7 @@
 // Project: https://github.com/nebrius/raspi-serial
 // Definitions by: Bryan Hughes <https://github.com/nebrius>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 import { Peripheral } from 'raspi-peripheral';

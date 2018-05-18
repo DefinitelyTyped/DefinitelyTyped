@@ -2,7 +2,7 @@
 // Project: https://github.com/redom/redom/
 // Definitions by: Rauli Laine <https://github.com/RauliL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export type RedomElement = Node | RedomComponent;
 export type RedomQuery = string | RedomElement;

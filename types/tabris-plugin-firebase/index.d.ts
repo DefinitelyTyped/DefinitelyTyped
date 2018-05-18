@@ -2,7 +2,7 @@
 // Project: https://github.com/eclipsesource/tabris-plugin-firebase/
 // Definitions by: EclipseSource <https://github.com/eclipsesource>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 declare global {
     namespace firebase {

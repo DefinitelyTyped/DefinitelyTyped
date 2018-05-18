@@ -2,6 +2,7 @@
 // Project: https://github.com/hapijs/lab
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /** The test script. */
 export function script(options?: ScriptOptions): Lab & ExperimentAlt & TestAlt;

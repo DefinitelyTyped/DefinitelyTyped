@@ -3,6 +3,7 @@
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Tim Schumacher <https://github.com/enko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/twig.d.ts
 

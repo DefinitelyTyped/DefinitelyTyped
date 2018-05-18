@@ -3,6 +3,7 @@
 // Definitions by: Tristan Jones <https://github.com/jonestristand>
 //                 styu <https://github.com/styu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export const emoji: {
     "+1": string;

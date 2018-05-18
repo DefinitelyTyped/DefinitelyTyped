@@ -3,6 +3,7 @@
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/sprintff.d.ts
 

@@ -2,6 +2,7 @@
 // Project: http://smrchy.github.io/rsmq/
 // Definitions by: Qubo <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace RedisSMQ {
     interface CallbackT<R> {

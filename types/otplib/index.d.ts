@@ -2,6 +2,7 @@
 // Project: https://yeojz.github.io/otplib
 // Definitions by: Soner Köksal <https://github.com/renjfk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export namespace authenticator {
     interface VerifyOptions {

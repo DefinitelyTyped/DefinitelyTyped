@@ -3,6 +3,7 @@
 // Definitions by: taoqf <https://github.com/taoqf>
 // 					gomydodo <https://github.com/gomydodo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 /* =================== USAGE ===================
 import * as wx from 'jweixin';
 wx.config(...);

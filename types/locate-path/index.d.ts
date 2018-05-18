@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/locate-path#readme
 // Definitions by: BendingBender <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = locatePath;
 

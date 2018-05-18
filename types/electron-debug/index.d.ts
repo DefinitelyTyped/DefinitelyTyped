@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/electron-debug
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Install keyboard shortcuts and optionally activate DevTools on each

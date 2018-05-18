@@ -2,6 +2,7 @@
 // Project: https://github.com/davglass/license-checker
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>, Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Options struct for the init() function

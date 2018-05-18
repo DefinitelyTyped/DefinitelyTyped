@@ -3,6 +3,7 @@
 // Definitions by: Nikita Litvin <https://github.com/deltaidea>
 //                 Jörg Vehlow <https://github.com/MofX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace moo;
 

@@ -3,7 +3,7 @@
 // Definitions by: downace <https://github.com/downace>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 type KeyType = string;
 type ValueType = any;

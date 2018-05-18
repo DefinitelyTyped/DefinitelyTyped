@@ -2,6 +2,7 @@
 // Project: https://github.com/janl/mustache.js
 // Definitions by: Mark Ashley Bell <https://github.com/markashleybell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface MustacheScanner {

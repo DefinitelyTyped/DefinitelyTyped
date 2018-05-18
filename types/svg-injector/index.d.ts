@@ -2,6 +2,7 @@
 // Project: https://github.com/iconic/SVGInjector
 // Definitions by: Patrick Westerhoff <https://github.com/poke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace SVGInjector {
     interface SVGInjector {

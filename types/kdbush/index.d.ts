@@ -2,6 +2,7 @@
 // Project: https://github.com/mourner/kdbush
 // Definitions by: DenisCarriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type Points = number[][];
 type Get<T> = (point: T) => number;

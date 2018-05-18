@@ -2,7 +2,7 @@
 // Project: https://github.com/mattkrick/redux-optimistic-ui
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /// <reference types="redux" />
 

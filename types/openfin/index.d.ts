@@ -3,6 +3,7 @@
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // based on v8.56.29.51
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean

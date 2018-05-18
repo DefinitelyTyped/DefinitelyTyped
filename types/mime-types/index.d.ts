@@ -2,6 +2,7 @@
 // Project: https://github.com/jshttp/mime-types#readme
 // Definitions by: Gyusun Yeom <https://github.com/Perlmint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function lookup(filenameOrExt: string): string | false;
 export function contentType(filenameOrExt: string): string | false;

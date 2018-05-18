@@ -2,6 +2,7 @@
 // Project: https://github.com/pillarjs/csrf
 // Definitions by: Markis Taylor <https://github.com/markis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type SecretCallback = (err: Error | null, secret: string) => void;
 

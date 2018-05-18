@@ -2,6 +2,7 @@
 // Project: https://github.com/Schoonology/weighted
 // Definitions by: Craig Citro <https://github.com/ccitro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'weighted' {
     export interface RandomFunc {

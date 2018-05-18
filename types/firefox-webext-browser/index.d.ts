@@ -2,8 +2,8 @@
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jacob Bom <https://github.com/bomjacob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 // Generated using script at github.com/bomjacob/definitelytyped-firefox-webext-browser
+// TypeScript Version: 2.8
 
 interface WebExtEventBase<TAddListener extends (...args: any[]) => any, TCallback> {
     addListener: TAddListener;

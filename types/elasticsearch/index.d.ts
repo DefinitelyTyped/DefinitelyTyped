@@ -10,7 +10,7 @@
 //                 Paul Brabban <https://github.com/brabster>
 //                 Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import HttpConnector = require("./src/lib/connectors/http");
 

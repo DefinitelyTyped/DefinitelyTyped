@@ -2,6 +2,7 @@
 // Project: http://json5.org/
 // Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 //commonjs loader

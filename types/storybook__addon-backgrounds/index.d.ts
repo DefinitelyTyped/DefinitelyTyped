@@ -2,7 +2,7 @@
 // Project: https://github.com/storybooks/storybook
 // Definitions by: HyunSeob <https://github.com/hyunseob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { StoryDecorator } from '@storybook/react';
 

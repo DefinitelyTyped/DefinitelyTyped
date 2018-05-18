@@ -3,6 +3,7 @@
 // Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Returns a formatted string:

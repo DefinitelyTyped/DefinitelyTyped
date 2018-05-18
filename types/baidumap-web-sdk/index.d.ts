@@ -2,6 +2,7 @@
 // Project: http://lbsyun.baidu.com/index.php?title=jspopular
 // Definitions by: Codemonk <http://www.youxianxueche.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]

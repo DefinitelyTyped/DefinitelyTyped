@@ -2,6 +2,7 @@
 // Project: https://github.com/tschaub/mock-fs
 // Definitions by: Wim Looman <https://github.com/Nemo157>, Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/aabluedragon/vkbeautify
 // Definitions by: Tim Schraepen <https://github.com/sch3lp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Original project: https://github.com/vkiryukhin/vkBeautify
 

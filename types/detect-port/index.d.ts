@@ -2,6 +2,7 @@
 // Project: https://github.com/node-modules/detect-port
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface DetectPort {
     (port: number, callback: (err: Error, _port: number) => void): void;

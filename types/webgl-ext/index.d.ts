@@ -2,6 +2,7 @@
 // Project: http://webgl.org/
 // Definitions by: Arthur Langereis <https://github.com/zenmumbler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/webgl-ext
+// TypeScript Version: 2.8
 
 // These definitions go beyond those already defined in TS 1.6.2 stdlib
 // All non-draft WebGL 1.0 extensions and prefixed extension names are

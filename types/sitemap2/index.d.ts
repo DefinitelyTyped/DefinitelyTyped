@@ -2,6 +2,7 @@
 // Project: https://github.com/vlkosinov/sitemap2
 // Definitions by: Yuichi Shundo <https://github.com/shundy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var sitemap2: Sitemap;
 

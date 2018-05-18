@@ -2,9 +2,9 @@
 // Project: https://github.com/codenautas/tabulator
 // Definitions by: Eugenio Arosteguy <https://github.com/euginio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace tabulatorLib;
-// TypeScript Version: 2.2
 
 export = Tabulator;
 

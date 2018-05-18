@@ -2,7 +2,7 @@
 // Project: https://gitlab.com/Rich-Harris/svg-parser#README
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 export interface Node {
     name: string;

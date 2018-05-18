@@ -2,6 +2,7 @@
 // Project: http://dhtmlx.com/docs/products/dhtmlxGantt
 // Definitions by: Maksim Kozhukh <https://github.com/mkozhukh>, Christophe Camicas <https://github.com/chriscamicas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 type GanttCallback = (...args: any[]) => any;

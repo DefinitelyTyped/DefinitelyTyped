@@ -3,6 +3,7 @@
 // Definitions by: Juraj Kočan <https://github.com/jurajkocan>
 //                 Evan Shortiss <https://github.com/evanshortiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Osmosis {
     /**

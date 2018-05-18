@@ -25,6 +25,7 @@
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Lishude <https://github.com/islishude>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /** inspector module types */
 /// <reference path="./inspector.d.ts" />
@@ -2314,20 +2315,34 @@ declare module "child_process" {
     }
     export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
-    export interface SpawnSyncOptions {
-        cwd?: string;
-        input?: string | Buffer;
-        stdio?: any;
-        env?: any;
-        uid?: number;
-        gid?: number;
-        timeout?: number;
-        killSignal?: string;
-        maxBuffer?: number;
-        encoding?: string;
-        shell?: boolean | string;
-        windowsHide?: boolean;
-        windowsVerbatimArguments?: boolean;
+    export interface SpawnSyncOptions extends SpawnSyncOptions.Incomplete {
+        stdio?: any; // Backward compatibility
+        encoding?: string; // Backward compatibility
+    }
+    export namespace SpawnSyncOptions {
+        export interface Incomplete {
+            cwd?: string;
+            input?: string | Buffer;
+            env?: NodeJS.ProcessEnv;
+            uid?: number;
+            gid?: number;
+            timeout?: number;
+            killSignal?: string;
+            maxBuffer?: number;
+            shell?: boolean | string;
+            windowsHide?: boolean;
+            windowsVerbatimArguments?: boolean;
+        }
+
+        export namespace Incomplete {
+            export interface WithStringEncoding extends Incomplete {
+                encoding: BufferEncoding;
+            }
+
+            export interface WithBufferEncoding extends Incomplete {
+                encoding: string;
+            }
+        }
     }
     export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -2335,22 +2350,67 @@ declare module "child_process" {
     export interface SpawnSyncOptionsWithBufferEncoding extends SpawnSyncOptions {
         encoding: string; // specify `null`.
     }
-    export interface SpawnSyncReturns<T> {
-        pid: number;
-        output: string[];
-        stdout: T;
-        stderr: T;
-        status: number;
-        signal: string;
-        error: Error;
+    export type SpawnSyncReturns<T> =
+        SpawnSyncReturns.WithError |
+        SpawnSyncReturns.WithoutError<T | null>;
+    export namespace SpawnSyncReturns {
+        export interface Base {
+            pid: number;
+        }
+        export interface WithError extends Base {
+            error: Error;
+            output: null;
+            stdout: null;
+            stderr: null;
+            status: null;
+            signal: null;
+        }
+        export interface WithoutError<Data> extends Base {
+            error: null;
+            output: [null, Data, Data];
+            stdout: Data;
+            stderr: Data;
+            status: number;
+            signal: NodeJS.Signals | null;
+        }
+        export type Strict<StdIO extends AllStdIO, Data extends Buffer | string | null> =
+            WithError |
+            WithoutError<StdioToData<StdIO, Data>>;
+        export type StdioToData<StdIO extends AllStdIO, Data extends Buffer | string | null> =
+            StdIO extends StdioToData.MakeData | StdioTuple<StdioToData.MakeData> ? Data :
+            StdIO extends 'inherit' | 'ignore' | StdioTuple<StdioToData.MakeNull | StdioToData.Socket> ? null :
+            (Data | null);
+        export namespace StdioToData {
+            export type MakeNull = 'inherit' | 'ignore';
+            export type MakeData = 'pipe' | null | undefined;
+            export type Socket = NodeJS.Socket | number;
+            export type All = MakeNull | MakeData | Socket;
+        }
+        export type StdioTuple<StdIO> = Readonly<[StdioToData.All, StdIO, StdIO]>;
+        export type AllStdIO = 'inherit' | 'ignore' | 'pipe' | null | undefined | StdioTuple<StdioToData.All>;
     }
-    export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    export function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync(command: string, options: SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<undefined, string>;
+    export function spawnSync(command: string, options: SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync(command: string, options: SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<StdIO, string>;
+    export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<StdIO, Buffer>;
+    export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<StdIO, Buffer>;
+    export function spawnSync(command: string, args: ReadonlyArray<string>): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<undefined, string>;
+    export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<undefined, Buffer>;
+    export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, args: ReadonlyArray<string>, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete.WithStringEncoding): SpawnSyncReturns.Strict<StdIO, string>;
+    export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, args: ReadonlyArray<string>, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete.WithBufferEncoding): SpawnSyncReturns.Strict<StdIO, Buffer>;
+    export function spawnSync<StdIO extends SpawnSyncReturns.AllStdIO>(command: string, args: ReadonlyArray<string>, options: {stdio: StdIO} & SpawnSyncOptions.Incomplete): SpawnSyncReturns.Strict<StdIO, Buffer>;
+
+    // QUESTION: Should I enable the following section for backward compatibility?
+    // export function spawnSync(command: string, options: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns.Strict<any, string>;
+    // export function spawnSync(command: string, options: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns.Strict<any, Buffer>;
+    // export function spawnSync(command: string, options: SpawnSyncOptions): SpawnSyncReturns.Strict<any, Buffer>;
+    // export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns.Strict<any, string>;
+    // export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns.Strict<any, Buffer>;
+    // export function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptions): SpawnSyncReturns.Strict<any, Buffer>;
 
     export interface ExecSyncOptions {
         cwd?: string;

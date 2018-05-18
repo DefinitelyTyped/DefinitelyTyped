@@ -2,6 +2,7 @@
 // Project: https://github.com/lukeed/fromNow
 // Definitions by: Martin Bukovics <https://github.com/marinewater>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var FromNow: FromNow.FromNowStatic;
 export = FromNow;

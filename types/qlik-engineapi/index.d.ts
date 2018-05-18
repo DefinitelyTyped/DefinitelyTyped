@@ -2,6 +2,7 @@
 // Project: http://help.qlik.com/en-US/sense-developer/November2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace EngineAPI {
     type CommandType = "JsonRequest" | "GetCustomCaption" | "IsConnected" | "DisableQlikViewSelectButton" | "HaveStarField";

@@ -2,7 +2,7 @@
 // Project: https://github.com/johntron/superagent-prefix
 // Definitions by: Michael Ledin <https://github.com/mxl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import * as request from 'superagent';
 

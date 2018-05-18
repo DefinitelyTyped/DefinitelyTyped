@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/pluralize
 // Definitions by: Syu Kato <https://github.com/ukyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface PluralizeStatic {
     /**

@@ -2,6 +2,7 @@
 // Project: https://github.com/rxaviers/cldrjs
 // Definitions by: Raman But-Husaim <https://github.com/RamanBut-Husaim>, Grégoire Castre <https://github.com/gcastre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = self;
 export as namespace Cldr;

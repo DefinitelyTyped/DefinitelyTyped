@@ -2,6 +2,7 @@
 // Project: http://vertx.io
 // Definitions by: Odd Eirik Nes <https://github.com/oddeirik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace EventBus {
   interface EventBusStatic {

@@ -2,6 +2,7 @@
 // Project: https://github.com/LinusU/node-appdmg#readme
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

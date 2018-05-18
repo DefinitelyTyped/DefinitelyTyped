@@ -2,6 +2,7 @@
 // Project: https://github.com/JTOne123/browser-report
 // Definitions by: Paul Datsiuk <https://github.com/JTOne123>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Window {
     browserReport(result: (error: ErrorEvent, report: ReportResult) => any): void;

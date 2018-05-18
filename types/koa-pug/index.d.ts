@@ -2,7 +2,7 @@
 // Project: https://github.com/chrisyip/koa-pug
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as koa from "koa";
 

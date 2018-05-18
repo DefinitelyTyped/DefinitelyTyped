@@ -3,6 +3,7 @@
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 //                 David Paz <https://github.com/davidmpaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Currency {
     code: string;

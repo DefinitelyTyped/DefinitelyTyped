@@ -2,6 +2,7 @@
 // Project: https://github.com/fb55/node-entities
 // Definitions by: Alice Klipper <https://github.com/aliceklipper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function decode(data: string, level?: number): string;
 export function decodeStrict(data: string, level?: number): string;

@@ -2,6 +2,7 @@
 // Project: https://github.com/goldfire/howler.js
 // Definitions by: Pedro Casaubon <https://github.com/xperiments>, Todd Dukart <https://github.com/tdukart>, Alexander Leon <https://github.com/alien35>, Nicholas Higgins <https://github.com/nicholashza> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface HowlerGlobal {
     mute(muted: boolean): void;

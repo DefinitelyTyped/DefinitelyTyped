@@ -2,6 +2,7 @@
 // Project: https://github.com/Ranks/emojione
 // Definitions by: Danilo Bargen <https://github.com/dbrgn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace emojione;
 

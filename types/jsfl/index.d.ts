@@ -2,6 +2,7 @@
 // Project: https://adobe.com
 // Definitions by: soywiz <https://github.com/soywiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface FlashPoint {
 	x: number;

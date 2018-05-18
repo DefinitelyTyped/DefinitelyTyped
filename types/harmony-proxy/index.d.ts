@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/harmony-proxy
 // Definitions by: Remo Jansen <https://github.com/remojansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace harmonyProxy {
     type PropertyKey = string | number | symbol;

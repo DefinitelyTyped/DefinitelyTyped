@@ -2,7 +2,7 @@
 // Project: https://github.com/acdlite/redux-promise
 // Definitions by: Rogelio Morrell Caballero <https://github.com/molekilla>, Kaur Kuut <https://github.com/xStrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Redux from 'redux';
 

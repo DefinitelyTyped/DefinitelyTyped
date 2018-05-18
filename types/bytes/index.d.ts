@@ -3,6 +3,7 @@
 // Definitions by: Zhiyuan Wang <https://github.com/danny8002>
 //                 Rickard Laurin <https://github.com/believer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface BytesOptions {
     decimalPlaces?: number;

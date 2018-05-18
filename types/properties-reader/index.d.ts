@@ -2,6 +2,7 @@
 // Project: https://github.com/steveukx/properties
 // Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace PropertiesReader {
     type Value = string|number|boolean;

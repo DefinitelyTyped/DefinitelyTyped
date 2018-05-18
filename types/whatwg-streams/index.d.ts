@@ -3,7 +3,7 @@
 // Definitions by: Kagami Sascha Rosylight <https://github.com/saschanaz>
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export interface ReadableStreamSource<R = ArrayBufferView> {
     start?(controller: ReadableStreamDefaultController<R>): void | Promise<void>;

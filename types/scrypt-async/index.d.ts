@@ -3,6 +3,7 @@
 // Definitions by: Kaur Kuut <https://github.com/xStrom>
 //                 Stefano Sicco <https://github.com/stesix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace scrypt {
 	interface CallbackFunc {

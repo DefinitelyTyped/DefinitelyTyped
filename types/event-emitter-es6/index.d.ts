@@ -2,6 +2,7 @@
 // Project: https://github.com/insane-jo/event-emitter#readme
 // Definitions by: Anton Strömkvist <https://github.com/ahstro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Options {
   emitDelay?: number;

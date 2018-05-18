@@ -2,6 +2,7 @@
 // Project: https://github.com/stevelacy/bump-regex
 // Definitions by: silkentrance <https://github.com/silkentrance>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function BumpRegex(opts: string|BumpRegex.Options, cb: BumpRegex.Callback): any;
 

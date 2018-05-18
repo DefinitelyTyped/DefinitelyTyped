@@ -2,6 +2,7 @@
 // Project: http://www.w3.org/TR/file-writer-api/
 // Definitions by: Kon <http://phyzkit.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * This interface provides methods to monitor the asynchronous writing of blobs to disk using progress events [PROGRESS-EVENTS] and event handler attributes.

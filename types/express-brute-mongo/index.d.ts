@@ -2,7 +2,7 @@
 // Project: https://github.com/auth0/express-brute-mongo
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Collection } from "mongodb";
 

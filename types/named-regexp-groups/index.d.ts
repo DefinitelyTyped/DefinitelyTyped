@@ -2,7 +2,7 @@
 // Project: https://github.com/commenthol/named-regexp-groups/
 // Definitions by: Vilim Stubičan <https://github.com/jewbre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 interface NamedRegExpExecArray extends RegExpExecArray {
     groups: { [propName: string]: string };

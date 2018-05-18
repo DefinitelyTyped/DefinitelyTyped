@@ -2,6 +2,7 @@
 // Project: https://github.com/jquatier/eureka-js-client
 // Definitions by: Ilko Hoffmann <https://github.com/Schnillz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export class Eureka {
     constructor(config: EurekaClient.EurekaConfig)

@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/wallpaper#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function get(): Promise<string>;
 export function set(imagePath: string, options?: WallpaperOptions): Promise<void>;

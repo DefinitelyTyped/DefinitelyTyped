@@ -6,6 +6,7 @@
 //                 Samer Albahra <https://github.com/salbahra>
 //                 Onat Yigit Mercan <https://github.com/onatm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Intercom_ {
   interface IntercomSettings {

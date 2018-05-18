@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/diff-match-patch
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type Diff = [number, string];
 

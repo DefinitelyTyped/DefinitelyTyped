@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/browser-fingerprint
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface browserFingerprint {
     (): string;

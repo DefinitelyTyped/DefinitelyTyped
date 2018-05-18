@@ -2,6 +2,7 @@
 // Project: https://github.com/yui/yui3
 // Definitions by: Gia Bảo @ Sân Đình <https://github.com/giabao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference path="yui-test.d.ts" />
 

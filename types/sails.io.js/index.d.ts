@@ -2,6 +2,7 @@
 // Project: http://sailsjs.org/documentation/reference/web-sockets/socket-client
 // Definitions by: Arvitaly <https://github.com/arvitaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="socket.io-client"/>
 

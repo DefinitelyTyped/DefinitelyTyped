@@ -2,6 +2,7 @@
 // Project: http://en.kii.com/
 // Definitions by: Kii Consortium <http://jp.kii.com/consortium/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace KiiCloud {
     enum KiiACLAction {

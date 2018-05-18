@@ -4,6 +4,7 @@
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 John McLaughlin <https://github.com/zamb3zi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var debug: debug.IDebug;
 

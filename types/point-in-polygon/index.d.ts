@@ -3,6 +3,7 @@
 // Definitions by: dyst5422 <https://github.com/dyst5422>
 //                 kogai <https://github.com/kogai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function inside(point: ReadonlyArray<number>, polygon: ReadonlyArray<ReadonlyArray<number>>): boolean;
 export = inside;

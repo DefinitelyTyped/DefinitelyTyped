@@ -2,6 +2,7 @@
 // Project: https://github.com/PeculiarVentures/pvutils
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = PvUtils
 

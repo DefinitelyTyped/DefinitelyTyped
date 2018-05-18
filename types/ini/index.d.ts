@@ -2,6 +2,7 @@
 // Project: https://github.com/isaacs/ini
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface EncodeOptions {
     section: string

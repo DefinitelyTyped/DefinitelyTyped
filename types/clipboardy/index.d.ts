@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/clipboardy#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function write(input: string): Promise<void>;
 export function writeSync(input: string): void;

@@ -2,6 +2,7 @@
 // Project: https://github.com/suckgamony/fromjs
 // Definitions by: Glenn Dierckx <https://github.com/glenndierckx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function from<T>(results: Array<T>): FromJS.IQueryable<T>;
 declare function from<T>(results: any): FromJS.IQueryable<any>;

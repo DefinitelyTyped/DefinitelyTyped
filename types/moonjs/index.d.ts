@@ -2,7 +2,7 @@
 // Project: https://github.com/KingPixil/moon
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace Moon {
     interface Instance<Data> {

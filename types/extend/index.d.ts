@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/extend
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function extend<T, U>(deep: boolean, target: T, source: U): T & U;
 declare function extend<T, U, V>(deep: boolean, target: T, source1: U, source2: V): T & U & V;

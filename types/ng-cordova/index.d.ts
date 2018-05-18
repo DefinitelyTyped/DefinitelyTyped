@@ -2,7 +2,7 @@
 // Project: https://github.com/driftyco/ng-cordova
 // Definitions by: Kapil Sachdeva <https://github.com/ksachdeva>
 // Definitions: https://github.com/ksachdeva/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference path="device.d.ts"/>
 /// <reference path="toast.d.ts"/>

@@ -2,7 +2,7 @@
 // Project: https://github.hubspot.com/drop/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import Tether = require("tether");
 

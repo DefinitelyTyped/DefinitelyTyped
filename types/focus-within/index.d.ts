@@ -2,6 +2,7 @@
 // Project: https://github.com/jonathantneal/focus-within#readme
 // Definitions by: Damien Erambert <https://github.com/eramdam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace focusWithin {
     interface FocusWithinOpts {

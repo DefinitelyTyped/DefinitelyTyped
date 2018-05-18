@@ -2,6 +2,7 @@
 // Project: https://github.com/oozcitak/xmlbuilder-js
 // Definitions by: Wallymathieu <https://github.com/wallymathieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export = xmlbuilder;

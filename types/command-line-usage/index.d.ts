@@ -3,7 +3,7 @@
 // Definitions by: matrumz <https://github.com/matrumz>
 //                 Andrija Dvorski <https://github.com/Dvorsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /**
  * Generates a usage guide suitable for a command-line app.

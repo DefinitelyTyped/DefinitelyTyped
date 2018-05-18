@@ -2,6 +2,7 @@
 // Project: https://github.com/poly/fxn
 // Definitions by: Adam Charron <https://github.com/charrondev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 

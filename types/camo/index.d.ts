@@ -2,6 +2,7 @@
 // Project: https://github.com/scottwrobinson/camo
 // Definitions by: Lucas Matías Ciruzzi <https://github.com/lucasmciruzzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "camo" {
 

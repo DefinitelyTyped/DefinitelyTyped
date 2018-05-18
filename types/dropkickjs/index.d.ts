@@ -2,6 +2,7 @@
 // Project: http://dropkickjs.com/
 // Definitions by: Dmitry Pesterev <https://github.com/VorobeY1326>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface DropkickOptions {
     disabled?: boolean;

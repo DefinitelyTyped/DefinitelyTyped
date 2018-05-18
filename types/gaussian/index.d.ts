@@ -2,6 +2,7 @@
 // Project: https://github.com/errcw/gaussian
 // Definitions by: Scott Cooper <https://github.com/scttcper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function gaussian(mean: number, variance: number): gaussian.Gaussian;
 

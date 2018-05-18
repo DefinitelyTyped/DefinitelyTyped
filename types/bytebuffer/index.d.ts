@@ -3,6 +3,7 @@
 // Definitions by: Denis Cappellin <https://github.com/cappellin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: SINTEF-9012 <https://github.com/SINTEF-9012>
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 import Long = require("long");

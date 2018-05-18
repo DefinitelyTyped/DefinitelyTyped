@@ -2,6 +2,7 @@
 // Project: https://github.com/ciaranj/node-oauth#readme
 // Definitions by: nonAlgebraic <https://github.com/nonAlgebraic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types='node' />
 

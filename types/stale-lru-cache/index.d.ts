@@ -2,6 +2,7 @@
 // Project: https://github.com/cyberthom/stale-lru-cache
 // Definitions by: Joona Heikkilä <https://github.com/cxcorp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Cache<K, V> {
     constructor(options?: Cache.CacheOptions<K, V>);

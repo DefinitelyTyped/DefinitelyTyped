@@ -3,6 +3,7 @@
 // Definitions by: Mohsen Azimi <https://github.com/mohsen1>
 //                 Forbes Lindesay <https://github.com/ForbesLindesay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface SourceLocation {
     start: { line: number; column?: number };

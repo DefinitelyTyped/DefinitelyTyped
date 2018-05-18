@@ -5,7 +5,7 @@
 //                 Pete Vilter <https://github.com/vilterp>
 //                 David Newell <https://github.com/rustedgrail>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export as namespace dagre;
 

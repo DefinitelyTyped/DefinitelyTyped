@@ -6,7 +6,7 @@
 //                 Malte Blanken <https://github.com/neknalb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import OrderedMap = require('orderedmap');
 

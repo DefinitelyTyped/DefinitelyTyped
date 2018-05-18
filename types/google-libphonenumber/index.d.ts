@@ -3,6 +3,7 @@
 // Definitions by: Leon Yu <https://github.com/leonyu>
 //		   Roman Jurkov <https://github.com/winfinit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace libphonenumber {
     export enum PhoneNumberFormat {

@@ -2,6 +2,7 @@
 // Project: https://github.com/yahoo/xss-filters
 // Definitions by: Dave Taylor <http://davetayls.me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface XSSFilters {
   inHTMLComment(s:string):string;

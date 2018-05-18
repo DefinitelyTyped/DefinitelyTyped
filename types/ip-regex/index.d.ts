@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/ip-regex
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /** Regular expression for matching IP addresses (IPv4 & IPv6). */
 declare function ipRegex(options?: {

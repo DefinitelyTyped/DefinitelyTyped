@@ -2,6 +2,7 @@
 // Project: https://github.com/dial-once/node-bunnymq
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function bunnymq(options?: bunnymq.Options): bunnymq.Instance;
 declare namespace bunnymq {

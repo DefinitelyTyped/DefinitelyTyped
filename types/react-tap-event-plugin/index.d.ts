@@ -2,6 +2,7 @@
 // Project: https://github.com/zilverline/react-tap-event-plugin
 // Definitions by: Michael Ledin <https://github.com/mxl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface StrategyOverrides {
     shouldRejectClick?: (lastTouchEventTimestamp: Date, clickEventTimestamp: Date) => boolean;

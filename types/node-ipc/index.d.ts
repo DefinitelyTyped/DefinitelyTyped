@@ -2,6 +2,7 @@
 // Project: http://riaevangelist.github.io/node-ipc/
 // Definitions by: Arvitaly <https://github.com/arvitaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 /// <reference types="node" />
 import { Socket } from "net";
 declare namespace NodeIPC {

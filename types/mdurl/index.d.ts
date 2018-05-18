@@ -2,6 +2,7 @@
 // Project: https://github.com/markdown-it/mdurl#readme
 // Definitions by: Junyoung Choi <https://github.com/rokt33r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 import encode = require('./encode');
 import decode = require('./decode');
 import parse = require('./parse');

@@ -2,6 +2,7 @@
 // Project: https://github.com/tj/callsite
 // Definitions by: newclear <https://github.com/newclear>
 // Definitions: https://github.com/newclear/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/pify
 // Definitions by: Sam Verschueren <https://github.com/samverschueren>, [Michael Müller] <https://github.com/mad-mike>, Christoph Müller <https://github.com/c7hm4r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface PromiseModule {
     new(executor: (resolve: (value?: any) => void, reject: (reason?: any) => void) => void): any;

@@ -2,7 +2,7 @@
 // Project: https://github.com/tuananh/camaro
 // Definitions by: Tuan Anh Tran <https://github.com/tuananh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /**
  * Transform the input xml to json using the input template object.

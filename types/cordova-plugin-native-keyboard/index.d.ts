@@ -2,6 +2,7 @@
 // Project: https://github.com/EddyVerbruggen/cordova-plugin-native-keyboard#readme
 // Definitions by: Daniel Brolli <https://github.com/lobo87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 interface NativeKeyboard {
     /**
      * Show the messenger, the bare minimum which has to be passed to the function is

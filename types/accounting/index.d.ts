@@ -3,6 +3,7 @@
 // Definitions by: Sergey Gerasimov <https://github.com/gerich-home>
 //                 Christopher Eck <https://github.com/chrisleck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace accounting {
     interface CurrencyFormat {

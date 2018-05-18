@@ -6,7 +6,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 //                 ErikSchierboom <https://github.com/ErikSchierboom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export enum Status {
     AMBIGUOUS = "ambiguous",

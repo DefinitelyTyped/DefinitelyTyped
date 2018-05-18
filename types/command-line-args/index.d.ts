@@ -2,7 +2,7 @@
 // Project: https://github.com/75lb/command-line-args
 // Definitions by: Lloyd Brookes <https://github.com/75lb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /**
  * Returns an object containing option values parsed from the command line. By default it parses the global `process.argv` array.

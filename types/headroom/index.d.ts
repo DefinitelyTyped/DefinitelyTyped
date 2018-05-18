@@ -2,6 +2,7 @@
 // Project: http://wicky.nillia.ms/headroom.js/
 // Definitions by: Jakub Olek <https://github.com/hakubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface HeadroomOptions {
 	offset?: number;

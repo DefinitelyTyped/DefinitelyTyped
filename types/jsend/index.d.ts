@@ -2,6 +2,7 @@
 // Project: https://github.com/Prestaul/jsend
 // Definitions by: Federico Caselli <https://github.com/CaselIT> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Express {
   export interface Response {

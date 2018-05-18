@@ -4,6 +4,7 @@
 //                 Sebastian Haas <https://github.com/sebastianhaas>
 //                 Basti Hoffmann <https://github.com/bohoffi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 //inconsistent namespace: this is a helper funtion from tables.js and should not pollute the global namespace!
 declare function sanitizeDuration(duration : string) : string;

@@ -2,7 +2,7 @@
 // Project: https://github.com/jshttp/mime-db
 // Definitions by: AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /**
  * Data Structure

@@ -2,6 +2,7 @@
 // Project: https://github.com/sendgrid/smtpapi-nodejs
 // Definitions by: Antonio Morales <https://github.com/a-morales>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var SmtpApi: SmtpApi.Constructor;
 export = SmtpApi;

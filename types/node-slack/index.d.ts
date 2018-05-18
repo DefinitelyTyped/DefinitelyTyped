@@ -2,7 +2,7 @@
 // Project: https://github.com/xoxco/node-slack
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 
 import request = require('request');

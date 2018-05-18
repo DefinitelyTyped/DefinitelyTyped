@@ -2,6 +2,7 @@
 // Project: https://github.com/martinandert/inflected
 // Definitions by: Daniel Schmidt <https://github.com/dsci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

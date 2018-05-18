@@ -2,7 +2,7 @@
 // Project: https://www.mapbox.com/mapbox.js/
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Leaflet from "leaflet";
 

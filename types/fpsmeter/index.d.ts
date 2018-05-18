@@ -2,6 +2,7 @@
 // Project: http://darsa.in/fpsmeter/
 // Definitions by: Aaron Lampros <https://github.com/alampros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface FPSMeterOptions {
 	interval?: number; 		// Update interval in milliseconds.

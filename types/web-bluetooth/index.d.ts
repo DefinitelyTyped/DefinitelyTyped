@@ -3,6 +3,7 @@
 // Definitions by: Uri Shaked <https://github.com/urish>
 // 								 Xavier Lozinguez <http://github.com/xlozinguez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type BluetoothServiceUUID = number | string;
 type BluetoothCharacteristicUUID = number | string;

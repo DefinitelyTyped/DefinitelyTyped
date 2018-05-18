@@ -2,6 +2,7 @@
 // Project: http://app-framework-software.intel.com/
 // Definitions by: kyo_ago <https://github.com/kyo-ago>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface appFrameworkStatic {
     /**

@@ -2,6 +2,7 @@
 // Project: https://developer.riotgames.com/
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace RiotGamesAPI{
 	/**

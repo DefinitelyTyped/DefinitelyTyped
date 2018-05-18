@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/dsv
 // Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 	/** A parser and formatter for DSV (CSV and TSV) files.

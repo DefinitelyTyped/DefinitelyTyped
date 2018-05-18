@@ -4,6 +4,7 @@
 //                 Brice BERNARD <https://github.com/brikou>
 //                 Carlos Sanchez <https://github.com/cafesanu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Chance {
     type Seed = number | string;

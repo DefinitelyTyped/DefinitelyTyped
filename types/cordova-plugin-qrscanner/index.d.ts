@@ -3,6 +3,7 @@
 // Definitions by: Jason Dreyzehner <https://github.com/bitjson>
 //                 Josh Bronson <https://github.com/jab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
 * Global object QRScanner.

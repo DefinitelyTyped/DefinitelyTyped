@@ -7,7 +7,7 @@
 //                 Jan Hirzel <https://github.com/janhi>,
 //                 Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 

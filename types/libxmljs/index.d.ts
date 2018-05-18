@@ -2,6 +2,7 @@
 // Project: https://github.com/polotek/libxmljs
 // Definitions by: François de Campredon <https://github.com/fdecampredon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 

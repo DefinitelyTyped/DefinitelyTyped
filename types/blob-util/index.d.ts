@@ -2,7 +2,7 @@
 // Project: https://github.com/nolanlawson/blob-util#readme
 // Definitions by: Max Battcher <https://github.com/WorldMaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /**
  * Shim for new Blob() to support older browsers that use the deprecated BlobBuilder API.

@@ -3,7 +3,7 @@
 // Definitions by: TANAKA Koichi <https://github.com/mugeso>
 //                 Nick Morton <https://github.com/nickmorton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /* =================== USAGE ===================
  import express = require('express');

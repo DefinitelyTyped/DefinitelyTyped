@@ -4,6 +4,7 @@
 //                 Sebastian Sebald <https://github.com/sebald>
 //                 Gavin Gregory <https://github.com/gavingregory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as Redux from 'redux';
 import { Collection } from 'immutable';

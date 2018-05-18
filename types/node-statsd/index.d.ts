@@ -3,6 +3,7 @@
 // Definitions by: Alex Turek <https://github.com/alexturek>
 //                 Convoy <https://github.com/convoyinc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Comments copied with modifications from
 // https://github.com/sivy/node-statsd/blob/master/lib/statsd.js

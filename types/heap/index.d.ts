@@ -2,6 +2,7 @@
 // Project: https://github.com/qiao/heap.js
 // Definitions by: Ryan McNamara <https://github.com/ryan10132>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Heap<T> {
 

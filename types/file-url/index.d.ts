@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/file-url
 // Definitions by: coderslagoon <https://github.com/coderslagoon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*
   Original typings for 1.0 were provided by

@@ -2,6 +2,7 @@
 // Project: https://github.com/bensmithett/dragster
 // Definitions by: Zsolt Kovacs <https://github.com/zskovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Dragster {
     interface Dragster {

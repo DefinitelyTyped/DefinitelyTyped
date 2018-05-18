@@ -2,6 +2,7 @@
 // Project: https://github.com/d3/d3-hsv/
 // Definitions by: Yuri Feldman <https://github.com/arrayjam>, denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Last module patch version validated against: 0.1.0
 

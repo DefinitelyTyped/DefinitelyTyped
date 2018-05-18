@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 szdc <https://github.com/szdc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export = JsDiff;
 export as namespace JsDiff;

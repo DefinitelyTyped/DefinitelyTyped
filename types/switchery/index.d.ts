@@ -2,6 +2,7 @@
 // Project: https://github.com/abpetkov/switchery
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>, Clayton Lautier <https://github.com/claylaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var switchery: Switchery.SwitcheryStatic;
 export default switchery;

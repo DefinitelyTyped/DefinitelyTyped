@@ -2,6 +2,7 @@
 // Project: https://github.com/MindscapeHQ/raygun4js
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>, Benjamin Harding <https://github.com/BenjaminHarding>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface TracekitStackTrace {
     message: string;

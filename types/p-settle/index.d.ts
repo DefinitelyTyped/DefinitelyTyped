@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/p-settle#readme
 // Definitions by: Nate Silva <https://github.com/natesilva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace pSettle {
   interface SettledResult<T> {

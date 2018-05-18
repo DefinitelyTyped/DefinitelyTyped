@@ -2,7 +2,7 @@
 // Project: https://github.com/postmanlabs/postman-collection
 // Definitions by: Kyle Buzby <https://github.com/kbuzby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 /// <reference types="node" />
 
 export interface PropertyBaseDefinition {

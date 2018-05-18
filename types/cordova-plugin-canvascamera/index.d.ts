@@ -2,6 +2,7 @@
 // Project: https://github.com/VirtuoWorks/CanvasCameraPlugin
 // Definitions by: Ricardo Azzi Silva <https://github.com/lordazzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface CordovaPlugins {
     /**

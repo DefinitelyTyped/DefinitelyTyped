@@ -3,6 +3,7 @@
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface NightwatchCustomPageObjects {
     page: {[name: string]: () => NightwatchBrowser};

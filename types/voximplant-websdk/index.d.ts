@@ -2,6 +2,7 @@
 // Project: http://voximplant.com/
 // Definitions by: Alexey Aylarov <https://github.com/aylarov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = VoxImplant;
 export as namespace VoxImplant;

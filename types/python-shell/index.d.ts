@@ -2,6 +2,7 @@
 // Project: https://github.com/extrabacon/python-shell
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>, Colin Richardson <https://github.com/WORMSS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { EventEmitter } from "events";
 

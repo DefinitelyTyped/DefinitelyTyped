@@ -2,6 +2,7 @@
 // Project: https://github.com/gaearon/base16-js
 // Definitions by: Alec Hill <https://github.com/alechill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Type describing a syntax highlighting scheme as a JS object, as used in redux dev tools

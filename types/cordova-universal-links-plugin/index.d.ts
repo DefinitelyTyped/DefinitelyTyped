@@ -2,6 +2,7 @@
 // Project: https://github.com/nordnet/cordova-universal-links-plugin#readme
 // Definitions by: David Broder-Rodgers <https://github.com/broder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace universalLinks {
     function subscribe(eventName: string | null, callback: (data: EventData) => void): void;

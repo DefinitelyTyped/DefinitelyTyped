@@ -4,6 +4,7 @@
 //                 Sumant Manne <https://github.com/dpyro>
 //                 Behind The Math <https://github.com/BehindTheMath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

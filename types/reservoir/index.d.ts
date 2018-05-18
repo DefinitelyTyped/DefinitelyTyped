@@ -2,6 +2,7 @@
 // Project: https://github.com/imbcmdth/reservoir
 // Definitions by: Dan Vanderkam <https://github.com/danvk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace Reservoir;
 export = Reservoir;

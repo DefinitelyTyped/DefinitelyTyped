@@ -2,6 +2,7 @@
 // Project: https://github.com/cryptocoinjs/bs58
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="base-x" />
 

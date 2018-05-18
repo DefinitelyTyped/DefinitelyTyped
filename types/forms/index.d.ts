@@ -2,6 +2,7 @@
 // Project: https://github.com/caolan/forms
 // Definitions by: suXin <https://github.com/suXinjke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface FieldObjectChoice {
     [key: string]: string | FieldObjectChoice;

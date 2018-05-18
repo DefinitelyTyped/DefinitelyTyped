@@ -2,6 +2,7 @@
 // Project: https://github.com/FormidableLabs/mock-raf
 // Definitions by: Daniel Pereira <https://github.com/djpereira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace MockRaf {
   interface Options {

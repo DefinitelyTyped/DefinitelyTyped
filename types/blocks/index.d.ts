@@ -2,6 +2,7 @@
 // Project: http://jsblocks.com/
 // Definitions by: Krzysztof Śmigiel <https://github.com/ksmigiel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /////////////////////////////////////////
 // blocks methods

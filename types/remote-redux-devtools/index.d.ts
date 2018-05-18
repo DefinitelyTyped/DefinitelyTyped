@@ -2,6 +2,7 @@
 // Project: https://github.com/zalmoxisus/remote-redux-devtools
 // Definitions by: Colin Eberhardt <https://github.com/ColinEberhardt>, Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import {
   Action,

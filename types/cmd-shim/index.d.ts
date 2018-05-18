@@ -2,6 +2,7 @@
 // Project: https://github.com/ForbesLindesay/cmd-shim
 // Definitions by: Andrew Bradley <https://github.com/cspotcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  *

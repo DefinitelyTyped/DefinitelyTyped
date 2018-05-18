@@ -2,6 +2,7 @@
 // Project: https://github.com/yeoman/insight
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace insight {
     interface IPackage {

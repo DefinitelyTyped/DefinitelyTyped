@@ -2,6 +2,7 @@
 // Project: https://github.com/mozilla/popcorn-js
 // Definitions by: grapswiz <https://github.com/grapswiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var Popcorn:PopcornStatic;
 

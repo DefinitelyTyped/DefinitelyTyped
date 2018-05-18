@@ -2,6 +2,7 @@
 // Project: http://raphaeljs.com
 // Definitions by: CheCoxshall <https://github.com/CheCoxshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface BoundingBox {

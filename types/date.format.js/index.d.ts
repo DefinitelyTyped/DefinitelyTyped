@@ -2,6 +2,7 @@
 // Project: http://blog.stevenlevithan.com/archives/date-time-format
 // Definitions by: Rob Stutton <https://github.com/balrob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*****************************************************************************
  Portions Copyright (c) Microsoft Corporation. All rights reserved.

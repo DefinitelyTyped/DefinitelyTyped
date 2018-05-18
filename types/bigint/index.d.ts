@@ -2,6 +2,7 @@
 // Project: https://github.com/Evgenus/BigInt
 // Definitions by: Eugene Chernyshov <https://github.com/Evgenus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Development repository: https://github.com/Evgenus/bigint-typescript-definitions
 // For answers, fixes and cutting edge version please see development repository.

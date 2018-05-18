@@ -2,6 +2,7 @@
 // Project: https://github.com/petkaantonov/deque
 // Definitions by: Dmitry <https://github.com/dsagal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Deque<T> {
     readonly length: number;

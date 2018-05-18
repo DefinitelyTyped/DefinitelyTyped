@@ -2,6 +2,7 @@
 // Project: https://github.com/cowboy/node-findup-sync
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Nathan Brown <https://github.com/ngbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import minimatch = require('minimatch');
 

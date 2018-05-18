@@ -2,7 +2,7 @@
 // Project: http://i18next.com/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace i18nextBrowserLanguageDetector {
     interface DetectorOptions {

@@ -2,6 +2,7 @@
 // Project: https://github.com/pauldijou/jwt-client
 // Definitions by: Timoteo Ponce <https://github.com/timoteoponce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare module "jwt-client"{

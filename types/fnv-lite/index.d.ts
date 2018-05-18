@@ -2,6 +2,7 @@
 // Project: https://github.com/casetext/fnv-lite
 // Definitions by: MarcinD <https://github.com/marcind>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type Input = string | ArrayLike<number>;
 

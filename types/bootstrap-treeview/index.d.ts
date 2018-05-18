@@ -2,7 +2,7 @@
 // Project: https://github.com/jonmiles/bootstrap-treeview
 // Definitions by: Jan Böhmer <https://github.com/jbtronics>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery"/>
 

@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // For more information see the Developer Guide for SAP HANA XS Advanced Model run time.
 // The module is available on the https://npm.sap.com registry.
+// TypeScript Version: 2.8
 
 export function loadEnv(jsonFile?: string): void;
 export function readCFServices(): any;

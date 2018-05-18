@@ -2,6 +2,7 @@
 // Project: https://github.com/mcollina/steed#readme
 // Definitions by: Paul Isache <https://github.com/Paul-Isache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace steed {
     interface Dictionary<T> { [key: string]: T; }

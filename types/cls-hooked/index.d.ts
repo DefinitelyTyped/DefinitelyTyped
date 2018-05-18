@@ -2,6 +2,7 @@
 // Project: https://github.com/jeff-lewis/cls-hooked
 // Definitions by: Leo Liang <https://github.com/aleung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

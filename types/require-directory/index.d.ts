@@ -2,7 +2,7 @@
 // Project: https://github.com/troygoode/node-require-directory/
 // Definitions by: My Self <https://github.com/Igmat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 /// <reference types="node" />
 
 declare namespace requireDirectory {

@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/is-path-in-cwd
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = is_path_in_cwd;
 declare function is_path_in_cwd(str: string): boolean;

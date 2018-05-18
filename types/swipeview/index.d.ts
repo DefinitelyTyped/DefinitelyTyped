@@ -2,6 +2,7 @@
 // Project: http://cubiq.org/swipeview
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface SwipeViewEvent {

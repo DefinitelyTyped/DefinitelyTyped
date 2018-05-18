@@ -2,6 +2,7 @@
 // Project: https://github.com/medikoo/event-emitter#readme
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace ee {
     type EventListener = (...args: any[]) => void;

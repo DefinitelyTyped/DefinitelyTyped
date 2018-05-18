@@ -2,6 +2,7 @@
 // Project: https://github.com/sandeepmistry/bleno
 // Definitions by: Manuel Francisco Naranjo <naranjo.manuel@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export class Characteristic {
     uuid: any;

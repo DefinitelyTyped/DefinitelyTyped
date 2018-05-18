@@ -2,7 +2,7 @@
 // Project: https://github.com/AngularClass/angular-websocket
 // Definitions by: Nick Veys <https://github.com/nickveys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as angular from "angular";
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/dankogai/js-base64
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>, Tommy Lent <https://github.com/tlent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export namespace Base64 {
     const VERSION: string;

@@ -3,6 +3,7 @@
 // Definitions by: Nick <https://github.com/nick121212>
 //                 Neha <https://github.com/nrathi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class URLSearchParams {
     constructor(init?: string | URLSearchParams | any);

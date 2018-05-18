@@ -2,7 +2,7 @@
 // Project: https://github.com/dchest/ed2curve-js
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { BoxKeyPair, SignKeyPair } from "tweetnacl";
 

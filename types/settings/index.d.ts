@@ -2,7 +2,7 @@
 // Project: https://github.com/mgutz/node-settings
 // Definitions by: Shrey Jain <https://github.com/shreyjain1994>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 // This wierd looking class definition is necessary since the function that the module
 // exposes NEEDS (will throw error otherwise) to be called with the `new` keyword

@@ -2,6 +2,7 @@
 // Project: https://github.com/yyc-git/Wonder.js
 // Definitions by: YYC <https://github.com/yyc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="wonder-commonlib" />
 /// <reference types="wonder-frp" />

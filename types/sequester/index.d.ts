@@ -2,6 +2,7 @@
 // Project: https://github.com/bigeasy/sequester
 // Definitions by: Artur Eshenbrener <https://github.com/Strate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type Callback = () => void;
 

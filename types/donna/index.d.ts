@@ -2,6 +2,7 @@
 // Project: https://github.com/atom/donna
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function generateMetadata(modules: string[]): DonnaTypes.Metadata;
 

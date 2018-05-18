@@ -2,6 +2,7 @@
 // Project: https://github.com/rtfpessoa/diff2html
 // Definitions by: rtfpessoa <https://github.com/rtfpessoa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Diff2Html {
 

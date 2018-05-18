@@ -4,6 +4,7 @@
 //                 Felix Becker <https://github.com/felixfbecker>
 //                 Zach Cardoza <https://github.com/bayssmekanique>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

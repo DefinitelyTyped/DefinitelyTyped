@@ -2,6 +2,7 @@
 // Project: https://github.com/Floby/node-url-assembler
 // Definitions by: Wolfgang Faust <https://github.com/wolfgang42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface UrlAssembler {
 	template(template: string): UrlAssembler;

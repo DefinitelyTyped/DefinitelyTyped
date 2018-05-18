@@ -3,6 +3,7 @@
 // Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = tempfile;
 

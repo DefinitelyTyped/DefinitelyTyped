@@ -2,6 +2,7 @@
 // Project: https://github.com/keype/swe-validation
 // Definitions by: Robert Hjalmers <https://github.com/hjalmers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface cin {
     isValid: boolean;

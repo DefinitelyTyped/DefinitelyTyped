@@ -2,6 +2,7 @@
 // Project: http://jdenticon.com/
 // Definitions by: Martin Thorsen Ranang <https://github.com/mtr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface JdenticonConfig {
     lightness?: {

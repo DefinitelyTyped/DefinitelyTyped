@@ -2,6 +2,7 @@
 // Project: https://github.com/quentinrossetti/node-7z
 // Definitions by: Erik Rothoff Andersson <https://github.com/erkie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// TypeScript Version: 2.8
 
 declare module "node-7z" {
   // node-7z uses `when` promises which have a progress method, however they are deprecated

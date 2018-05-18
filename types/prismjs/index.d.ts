@@ -4,6 +4,7 @@
 //                 Andre Wiggins <https://github.com/andrewiggins>
 //                 Michał Miszczyszyn <https://github.com/mmiszy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace Prism;
 

@@ -2,6 +2,7 @@
 // Project: http://paperjs.org/
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Jon Lucas <https://github.com/Xakaloz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type NativeMouseEvent = MouseEvent;
 

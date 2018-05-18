@@ -4,7 +4,7 @@
 //                 Eduard Shvedai <https://github.com/eshvedai>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { EditorState, Plugin, SelectionRange, Transaction, PluginKey } from 'prosemirror-state';
 import { Node as ProsemirrorNode, NodeSpec, Slice, ResolvedPos, Schema } from 'prosemirror-model';

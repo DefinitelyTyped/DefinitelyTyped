@@ -2,6 +2,7 @@
 // Project: https://github.com/danielfm/jshamcrest/
 // Definitions by: David Harkness <https://github.com/dharkness>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Top-level module for the JsHamcrest matcher library.

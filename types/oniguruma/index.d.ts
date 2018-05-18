@@ -2,6 +2,7 @@
 // Project: http://atom.github.io/node-oniguruma
 // Definitions by: smhxx <https://github.com/smhxx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * An (error, match) callback function to be invoked after an asynchronous

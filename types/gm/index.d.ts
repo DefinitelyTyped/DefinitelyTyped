@@ -2,6 +2,7 @@
 // Project: https://github.com/aheckmann/gm
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>, Maarten van Vliet <https://github.com/maartenvanvliet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/cho45/jsdeferred
 // Definitions by: Daisuke Mino <https://github.com/minodisk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import $ = require('jquery');
 

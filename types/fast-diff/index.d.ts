@@ -2,6 +2,7 @@
 // Project: https://github.com/jhchen/fast-diff#readme
 // Definitions by: John Renner <https://github.com/djrenren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function diff(text1: string, text2: string, cursorPos?: number): diff.Diff[];
 

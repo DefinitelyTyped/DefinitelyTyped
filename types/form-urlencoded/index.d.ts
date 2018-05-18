@@ -2,6 +2,7 @@
 // Project: https://github.com/iambumblehead/form-urlencoded#readme
 // Definitions by: Antoine Lépée <https://github.com/alepee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface FormEncodedOptions {
     sorted?: boolean;

@@ -2,6 +2,7 @@
 // Project: https://github.com/laverdet/node-fibers
 // Definitions by: Cary Haynie <https://github.com/caryhaynie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Fiber {
     reset: () => any;

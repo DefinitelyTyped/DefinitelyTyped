@@ -3,7 +3,7 @@
 // Definitions by: Yang Guan <https://github.com/lookuptable>
 //                 Rhys van der Waerden <https://github.com/rhys-vdw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export as namespace h337;
 

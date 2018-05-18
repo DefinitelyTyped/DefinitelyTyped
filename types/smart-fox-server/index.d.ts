@@ -2,6 +2,7 @@
 // Project: http://docs2x.smartfoxserver.com/api-docs/jsdoc/
 // Definitions by: Gregory Moore <https://github.com/ChanceM>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 //#region SFX2X
 

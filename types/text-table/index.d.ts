@@ -2,6 +2,7 @@
 // Project: https://github.com/substack/text-table
 // Definitions by: Saad Quadri <https://github.com/saadq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Generates borderless text table strings suitable for printing to stdout.

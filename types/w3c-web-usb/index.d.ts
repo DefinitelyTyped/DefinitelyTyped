@@ -2,7 +2,7 @@
 // Project: https://wicg.github.io/webusb/
 // Definitions by: Lars Knudsen <https://github.com/larsgk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 type USBDirection = "in" | "out";
 type USBEndpointType = "bulk" | "interrupt" | "isochronous";

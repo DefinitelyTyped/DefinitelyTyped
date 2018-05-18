@@ -2,7 +2,7 @@
 // Project: https://github.com/MayhemYDG/iltorb
 // Definitions by: Arturas Molcanovas <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 

@@ -4,7 +4,7 @@
 //                 LiJinyao <https://github.com/LiJinyao>
 //                 Michael Wei <https://github.com/no2chem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /**
  * Parse a cookie date string into a Date.

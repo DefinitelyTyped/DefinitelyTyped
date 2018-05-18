@@ -2,6 +2,7 @@
 // Project: https://github.com/ethereumjs/ethereumjs-util#readme
 // Definitions by: Juan J. Jimenez-Anca <https://github.com/cortopy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

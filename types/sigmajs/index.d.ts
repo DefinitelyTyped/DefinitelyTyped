@@ -2,6 +2,7 @@
 // Project: https://github.com/jacomyal/sigma.js
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace SigmaJs{
     interface Animation {

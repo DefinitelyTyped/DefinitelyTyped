@@ -2,6 +2,7 @@
 // Project: https://github.com/Mikhus/domurl
 // Definitions by: Mikhus <ttps://github.com/Mikhus>
 // Definitions: https://github.com/Mikhus/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class QueryString {
     constructor(qs?: string);

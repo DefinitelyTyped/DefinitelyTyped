@@ -2,6 +2,7 @@
 // Project: https://bitbucket.org/pellepim/jstimezonedetect
 // Definitions by: Olivier Lamothe <https://github.com/olamothe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function determine(): {
     name(): string;

@@ -2,6 +2,7 @@
 // Project: https://github.com/SBoudrias/gulp-istanbul
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 

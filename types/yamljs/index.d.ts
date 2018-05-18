@@ -2,6 +2,7 @@
 // Project: https://github.com/jeremyfa/yaml.js
 // Definitions by: Tim Jonischkat <http://www.tim-jonischkat.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace YAML;
 export = YAML;

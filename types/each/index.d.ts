@@ -2,6 +2,7 @@
 // Project: http://www.adaltas.com/projects/node-each/
 // Definitions by: Michael Zabka <https://github.com/misak113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Each {
 	paused: boolean;

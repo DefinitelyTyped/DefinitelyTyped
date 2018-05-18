@@ -2,6 +2,7 @@
 // Project: https://github.com/taye/interact.js
 // Definitions by: Douglas Eichelberger <https://github.com/dduugg>, Adi Dahiya <https://github.com/adidahiya>, Tom Hasner <https://github.com/thasner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // API documentation: http://interactjs.io/docs
 

@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/configurable
 // Definitions by: Vilim Stubičan <https://github.com/jewbre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 // Make any object configurable
 declare function configurable<T extends object>(obj: T): T & Configurable<T>;

@@ -2,6 +2,7 @@
 // Project: https://github.com/thlorenz/parse-link-header
 // Definitions by: Nick Zelei <https://github.com/zelein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace parseLinkHeader {
     interface Link {

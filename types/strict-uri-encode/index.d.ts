@@ -2,6 +2,7 @@
 // Project: https://github.com/kevva/strict-uri-encode#readme
 // Definitions by: Keiichiro Amemiya <https://github.com/hoishin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = strict_uri_encode;
 

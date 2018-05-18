@@ -2,6 +2,7 @@
 // Project: https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin/
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Window {
 	plugins: Plugins;

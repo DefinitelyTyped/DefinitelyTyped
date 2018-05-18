@@ -3,6 +3,7 @@
 // Definitions by: Hisham Al-Shurafa <https://github.com/hisham>
 //                 Lukas Klinzing <https://github.com/theluk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Options for function `start`

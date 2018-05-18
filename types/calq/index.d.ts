@@ -2,6 +2,7 @@
 // Project: https://calq.io/docs/client/javascript/reference
 // Definitions by: Eirik Hoem <https://github.com/eirikhm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Calq
 {

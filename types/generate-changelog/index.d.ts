@@ -2,6 +2,7 @@
 // Project: https://github.com/lob/generate-changelog#readme
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Options {
     /** exclude listed commit types (e.g. `['chore', 'style', 'refactor']`) */

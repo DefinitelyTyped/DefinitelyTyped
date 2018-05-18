@@ -2,6 +2,7 @@
 // Project: https://github.com/behavior3/behavior3js
 // Definitions by: carry.wu <https://github.com/carrrywu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Behavior3JS

@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/bind-ponyfill
 // Definitions by: Steve Jenkins <https://github.com/skysteve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function ponyBind(fn: Function, that: any, ...args: Array<any>): Function;
 export = ponyBind;

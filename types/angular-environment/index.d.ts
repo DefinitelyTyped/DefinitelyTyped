@@ -2,6 +2,7 @@
 // Project: https://github.com/juanpablob/angular-environment
 // Definitions by: Matt Wheatley <https://github.com/terrawheat>
 // Definitions: https://github.com/LiberisLabs
+// TypeScript Version: 2.8
 
 declare namespace angular.environment {
   interface ServiceProvider {

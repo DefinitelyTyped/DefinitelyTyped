@@ -2,6 +2,7 @@
 // Project: https://github.com/anvaka/wheel
 // Definitions by: Bradley Odell <https://github.com/BTOdell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Adds a callback to receive mouse wheel events from the given element.

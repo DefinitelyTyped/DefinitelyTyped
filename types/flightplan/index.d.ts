@@ -2,6 +2,7 @@
 // Project: https://github.com/pstadler/flightplan
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var flightplan: FlightplanInterfaces.Flightplan;
 

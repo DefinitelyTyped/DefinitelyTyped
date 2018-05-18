@@ -3,6 +3,7 @@
 // Definitions by: Shogo Iwano <https://github.com/shiwano>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = pathExists;
 

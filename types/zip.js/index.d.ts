@@ -2,6 +2,7 @@
 // Project: https://github.com/gildas-lormeau/zip.js
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface FileEntry {}
 

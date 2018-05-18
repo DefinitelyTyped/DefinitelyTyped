@@ -2,6 +2,7 @@
 // Project: https://github.com/PeculiarVentures/PKI.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="asn1js" />
 /// <reference types="pvutils" />

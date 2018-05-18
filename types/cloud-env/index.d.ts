@@ -2,6 +2,7 @@
 // Project: https://github.com/ryanj/cloud-env
 // Definitions by: Ben Davies <https://github.com/Morfent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare interface DefaultSettings {
 	PORT?: number;

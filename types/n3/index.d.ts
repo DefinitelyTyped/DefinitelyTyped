@@ -2,6 +2,7 @@
 // Project: https://github.com/RubenVerborgh/N3.js
 // Definitions by: Fred Eisele <https://github.com/phreed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

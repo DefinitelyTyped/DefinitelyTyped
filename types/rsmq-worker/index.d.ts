@@ -2,6 +2,7 @@
 // Project: http://smrchy.github.io/rsmq/rsmq-worker/
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="rsmq"/>
 

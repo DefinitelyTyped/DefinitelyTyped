@@ -11,6 +11,7 @@
 //                 Hauke Stieler <https://github.com/hauke96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
+// TypeScript Version: 2.8
 
 export as namespace ol;
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/T-PWK/flake-idgen
 // Definitions by: Yuce Tekol <http://yuce.me/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

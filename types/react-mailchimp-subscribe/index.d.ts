@@ -2,7 +2,7 @@
 // Project: https://revolunet.github.io/react-mailchimp-subscribe/
 // Definitions by: Omar Diab <https://github.com/osdiab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, ReactNode } from "react";
 

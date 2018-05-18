@@ -2,5 +2,6 @@
 // Project: https://github.com/trevnorris/node-ofe
 // Definitions by: Ben Davies <https://github.com/Morfent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function call(): 'done';

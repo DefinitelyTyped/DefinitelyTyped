@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/cordova-plugin-device-name
 // Definitions by: Larry Bahr <https://github.com/larrybahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 //
 // Licensed under the MIT license.
 

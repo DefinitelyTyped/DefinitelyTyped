@@ -2,6 +2,7 @@
 // Project: https://github.com/jonschlinkert/is-number
 // Definitions by: Harry Shipton <https://github.com/harryshipton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = is_number;
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/allipierre/jquery-notifier
 // Definitions by: Alli Pierre Yotti <https://github.com/allipierre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace notifier {
     /**

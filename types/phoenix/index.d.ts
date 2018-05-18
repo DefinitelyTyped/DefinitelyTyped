@@ -2,6 +2,7 @@
 // Project: https://github.com/phoenixframework/phoenix
 // Definitions by: Mirosław Ciastek <https://github.com/mciastek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "phoenix" {
   class Push {

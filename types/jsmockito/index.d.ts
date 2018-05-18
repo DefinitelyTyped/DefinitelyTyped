@@ -2,6 +2,7 @@
 // Project: https://github.com/chrisleishman/jsmockito
 // Definitions by: Karl Bennett <https://github.com/shiver-me-timbers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Top-level module for the JsMockito mocking library.

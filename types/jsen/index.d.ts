@@ -2,6 +2,7 @@
 // Project: https://github.com/bugventure/jsen
 // Definitions by: Vladimir Đokić <https://github.com/vladeck>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Jsen {
 

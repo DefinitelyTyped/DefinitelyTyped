@@ -5,6 +5,7 @@
 //                 Aakash Goenka <https://github.com/a-k-g>
 //                 Rafal2228 <https://github.com/rafal2228>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "node-forge" {
     type Byte = string;

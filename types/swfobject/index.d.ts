@@ -2,6 +2,7 @@
 // Project: https://code.google.com/p/swfobject/
 // Definitions by: rou <https://github.com/rou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var swfobject: swfobject.SwfObject;
 

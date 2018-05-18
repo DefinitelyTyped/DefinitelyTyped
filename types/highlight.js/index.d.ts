@@ -4,6 +4,7 @@
 //                 Jeremy Hull <https://github.com/sourrust>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace hljs
 {

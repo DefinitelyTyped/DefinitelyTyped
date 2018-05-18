@@ -2,7 +2,7 @@
 // Project: https://github.com/tim-kos/node-retry
 // Definitions by: Stan Goldmann <https://github.com/krenor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export interface RetryOperation {
   /**

@@ -2,6 +2,7 @@
 // Project: https://github.com/braintree/card-validator
 // Definitions by: Gregory Moore <https://github.com/ChanceM>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Card {
     niceType: string;

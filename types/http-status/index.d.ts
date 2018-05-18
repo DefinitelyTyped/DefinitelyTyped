@@ -2,6 +2,7 @@
 // Project: https://github.com/wdavidw/node-http-status
 // Definitions by: Michael Zabka <https://github.com/misak113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface HttpStatus {
 	100: string;

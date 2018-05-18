@@ -2,6 +2,7 @@
 // Project: https://github.com/jfromaniello/url-join
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>, Mike Deverell <https://github.com/devrelm>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Join all arguments together and normalize the resulting url.

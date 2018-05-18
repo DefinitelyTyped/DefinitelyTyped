@@ -3,6 +3,7 @@
 // Definitions by: Albert Wu <https://github.com/albertywu>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function AsyncRetry<A>(
 	fn: AsyncRetry.RetryFunction<A>,

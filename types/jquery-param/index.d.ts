@@ -2,6 +2,7 @@
 // Project: https://github.com/knowledgecode/jquery-param
 // Definitions by: Pat Sissons <https://github.com/patsissons>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace param;
 

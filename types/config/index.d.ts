@@ -5,6 +5,7 @@
 //                 James Donald <https://github.com/jndonald3>
 //                 Alberto Vasquez <https://github.com/albertovasquez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

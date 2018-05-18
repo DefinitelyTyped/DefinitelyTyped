@@ -2,7 +2,7 @@
 // Project: https://docs.microsoft.com/en-us/sql/ado/reference/adox-api/adox-object-model
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="activex-adodb" />
 

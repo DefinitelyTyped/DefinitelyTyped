@@ -2,7 +2,7 @@
 // Project: https://github.com/shutterstock/node-common-errors
 // Definitions by: Ian Copp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as express from 'express';
 

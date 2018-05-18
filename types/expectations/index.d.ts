@@ -2,6 +2,7 @@
 // Project: https://github.com/spmason/expectations
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var expect:Expectations.IExpectations;
 

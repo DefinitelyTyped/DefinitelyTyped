@@ -2,7 +2,7 @@
 // Project: https://github.com/kartena/Leaflet.Pancontrol
 // Definitions by: Brictarus <https://github.com/Brictarus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { ControlOptions, Control as LControl } from 'leaflet';
 

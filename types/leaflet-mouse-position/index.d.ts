@@ -2,7 +2,7 @@
 // Project: https://github.com/danwild/Leaflet.MousePosition
 // Definitions by: Hanyon <https://github.com/Hanyon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { ControlOptions, Control as LControl } from 'leaflet';
 

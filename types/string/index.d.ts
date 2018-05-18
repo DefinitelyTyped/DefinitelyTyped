@@ -2,6 +2,7 @@
 // Project: http://stringjs.com
 // Definitions by: Bas Pennings <https://github.com/basp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface StringJS {
 	length: number;

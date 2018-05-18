@@ -2,7 +2,7 @@
 // Project: https://github.com/npm/npmlog#readme
 // Definitions by: Daniel Schmidt <https://github.com/DanielMSchmidt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export enum LogLevels {
     silly = "silly",

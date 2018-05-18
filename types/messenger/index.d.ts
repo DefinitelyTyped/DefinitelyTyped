@@ -2,6 +2,7 @@
 // Project: https://github.com/HubSpot/messenger
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface IMessenger {
     (): Messenger;

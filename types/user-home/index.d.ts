@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/user-home
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = user_home;
 declare const user_home: string;

@@ -5,7 +5,7 @@
 //                 Federico Caselli <https://github.com/CaselIT>
 //                 Bas Luksenburg <https://github.com/bas-l>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 /// <reference types="chai" />

@@ -2,6 +2,7 @@
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/index.html
 // Definitions by: vargeek <https://github.com/vargeek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace wx {
     type NoneParamCallback = () => void;

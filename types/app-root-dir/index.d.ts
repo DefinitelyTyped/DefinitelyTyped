@@ -2,6 +2,7 @@
 // Project: https://github.com/philidem/node-app-root-dir
 // Definitions by: shaochenyang <https://github.com/chenyang-biu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface AppRootDir {
   // Get the application's root directory

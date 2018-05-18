@@ -2,6 +2,7 @@
 // Project: https://github.com/hiddentao/fast-levenshtein
 // Definitions by: Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface LevenshteinOptions {
     useCollator?: boolean;

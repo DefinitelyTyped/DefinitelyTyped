@@ -2,6 +2,7 @@
 // Project: https://github.com/mrchimp/tock
 // Definitions by: Evan Shortiss <https://github.com/evanshortiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function t(opts?: t.TockOptions): t.Tock;
 

@@ -3,6 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Tate Thurston <https://github.com/tatethurston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function throng(startOrOptions: throng.ProcessCallback | throng.Options): void;
 declare function throng(workers: throng.WorkerCount, start: throng.ProcessCallback): void;

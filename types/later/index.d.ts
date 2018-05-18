@@ -2,6 +2,7 @@
 // Project: http://bunkat.github.io/later/
 // Definitions by: Jason D Dryhurst-Smith <https://github.com/jasond-s>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace later {
     interface ScheduleData {

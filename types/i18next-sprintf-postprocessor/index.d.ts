@@ -2,6 +2,7 @@
 // Project: https://github.com/i18next/i18next-sprintf-postProcessor
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "i18next-sprintf-postprocessor" {
     import i18next = require("i18next");

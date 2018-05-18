@@ -4,6 +4,7 @@
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Timer object used in node.

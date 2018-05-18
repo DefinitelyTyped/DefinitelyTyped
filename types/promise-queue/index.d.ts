@@ -2,6 +2,7 @@
 // Project: https://github.com/azproduction/promise-queue
 // Definitions by: Lachlan Stuart <https://github.com/LachlanStuart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = PromiseQueue;
 

@@ -4,7 +4,7 @@
 //                 Oleg Slobodskoi <https://github.com/kof>
 //                 Thomas Crockett <https://github.com/pelotom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Style } from './css';
 

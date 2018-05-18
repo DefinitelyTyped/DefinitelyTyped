@@ -2,7 +2,7 @@
 // Project: https://github.com/zloirock/core-js/
 // Definitions by: Ron Buckton <https://github.com/rbuckton>, Michel Felipe <https://github.com/mfdeveloper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

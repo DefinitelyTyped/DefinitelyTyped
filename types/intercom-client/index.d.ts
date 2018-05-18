@@ -2,6 +2,7 @@
 // Project: https://github.com/intercom/intercom-node
 // Definitions by: Jinesh Shah <https://github.com/jineshshah36>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface IdentityVerificationOptions {
     secretKey: string;

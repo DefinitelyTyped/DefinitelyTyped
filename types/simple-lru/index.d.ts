@@ -2,7 +2,7 @@
 // Project: https://github.com/smagch/simple-lru
 // Definitions by: NN <https://github.com/NN--->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare class SimpleLRU<K, V> {
     constructor(max: number);

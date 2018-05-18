@@ -2,6 +2,7 @@
 // Project: http://www.fusioncharts.com
 // Definitions by: Rohit Kumar <https://github.com/rohitkr>, Shivaraj KV <https://github.com/shivarajkv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace FusionCharts {
     type ChartDataFormats = 'json' | 'jsonurl' | 'csv' | 'xml' | 'xmlurl';

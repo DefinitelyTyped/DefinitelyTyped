@@ -2,6 +2,7 @@
 // Project: http://wallabyjs.com
 // Definitions by: Andrew Connell <https://github.com/andrewconnell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'wallabyjs' {
   /**

@@ -2,7 +2,7 @@
 // Project: https://github.com/jDataView/jDataView
 // Definitions by: Ingvar Stepanyan <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare class jDataView implements DataView {
 	constructor(byteCount: number, offset?: number, length?: number, littleEndian?: boolean)

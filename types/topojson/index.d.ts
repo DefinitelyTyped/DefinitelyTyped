@@ -4,7 +4,7 @@
 //                 Zhutian Chen <https://github.com/chenzhutian>
 //                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.8
 
 import * as GeoJSON from "geojson";
 import * as TopoJSON from "topojson-specification";

@@ -2,6 +2,7 @@
 // Project: http://arshaw.com/xdate/
 // Definitions by: yamada28go <https://github.com/yamada28go>
 // Definitions: https://github.com/daptiv/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface formatters_info

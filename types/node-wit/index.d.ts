@@ -2,6 +2,7 @@
 // Project: https://github.com/wit-ai/node-wit#readme
 // Definitions by: Julien Dufresne <https://github.com/julienduf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export namespace log {
     class Logger {

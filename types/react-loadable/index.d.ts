@@ -6,7 +6,7 @@
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Ian Mobley <https://github.com/iMobs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 

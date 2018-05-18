@@ -2,6 +2,7 @@
 // Project: http://winterbe.github.io/streamjs/
 // Definitions by: Bence Eros <https://github.com/erosb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Stream<T> {
 	static from <T> (elems: T[]): Stream<T>;

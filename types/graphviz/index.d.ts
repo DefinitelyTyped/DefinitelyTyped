@@ -2,6 +2,7 @@
 // Project: https://github.com/glejeune/node-graphviz
 // Definitions by: Matt Frantz <https://github.com/mhfrantz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // graphviz.d.ts
 

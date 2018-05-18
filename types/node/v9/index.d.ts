@@ -2324,14 +2324,27 @@ declare module "child_process" {
     export interface SpawnSyncOptionsWithBufferEncoding extends SpawnSyncOptions {
         encoding: string; // specify `null`.
     }
-    export interface SpawnSyncReturns<T> {
-        pid: number;
-        output: string[];
-        stdout: T;
-        stderr: T;
-        status: number;
-        signal: string;
-        error: Error;
+    export type SpawnSyncReturns<T> = SpawnSyncReturns.WithError | SpawnSyncReturns.WithoutError<T>;
+    export namespace SpawnSyncReturns {
+        export interface Base {
+            pid: number;
+        }
+        export interface WithError extends Base {
+            error: Error;
+            output: null;
+            stdout: null;
+            stderr: null;
+            status: null;
+            signal: null;
+        }
+        export interface WithoutError<T> extends Base {
+            error: null;
+            output: [T | null, T | null, T | null];
+            stdout: T | null;
+            stderr: T | null;
+            status: number;
+            signal: string | null;
+        }
     }
     export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;

@@ -4,7 +4,7 @@
 //                 Shayne Hartford <https://github.com/ShayBox>
 //                 Yukine <https://github.com/Dev-Yukine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

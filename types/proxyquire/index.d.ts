@@ -2,6 +2,7 @@
 // Project: https://github.com/thlorenz/proxyquire
 // Definitions by: jt000 <https://github.com/jt000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var p: Proxyquire;
 export = p;

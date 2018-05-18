@@ -2,6 +2,7 @@
 // Project: https://github.com/bgrins/javascript-astar
 // Definitions by: brian ridley <https://github.com/ptlis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Graph {
     grid: Array<Array<GridNode>>;

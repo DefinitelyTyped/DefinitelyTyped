@@ -2,6 +2,7 @@
 // Project: https://github.com/NickQiZhu/di.js
 // Definitions by: Timothy Morris <https://github.com/dcrusader>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace DiLite {
     interface DiLiteStatic {

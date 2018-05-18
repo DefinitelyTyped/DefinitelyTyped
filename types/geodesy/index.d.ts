@@ -4,6 +4,7 @@
 // 		   Gilbert Handy <https://github.com/HandyG52>
 //         Harry Nicholls <https://github.com/excelulous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type format = 'd' | 'dm' | 'dms';
 export type datum = 'ED50'| 'Irl1975'| 'NAD27'| 'NAD83'| 'NTF'| 'OSGB36'| 'Potsdam'| 'TokyoJapan'| 'WGS72'| 'WGS84';

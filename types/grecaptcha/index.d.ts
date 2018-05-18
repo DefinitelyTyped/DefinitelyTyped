@@ -2,6 +2,7 @@
 // Project: https://www.google.com/recaptcha
 // Definitions by: Kristof Mattei <http://kristofmattei.be>, Martin Costello <https://martincostello.com/>, Ruslan Arkhipau <https://github.com/DethAriel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
 

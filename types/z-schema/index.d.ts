@@ -2,6 +2,7 @@
 // Project: https://github.com/zaggino/z-schema
 // Definitions by: pgonzal <https://github.com/pgonzal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Validator {
     export interface Options {

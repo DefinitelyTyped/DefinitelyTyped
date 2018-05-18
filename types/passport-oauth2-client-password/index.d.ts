@@ -2,7 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-oauth2-client-password
 // Definitions by: Ivan Zubok <https://github.com/akaNightmare>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="passport"/>
 /// <reference types="express"/>

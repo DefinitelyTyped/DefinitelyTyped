@@ -2,6 +2,7 @@
 // Project: http://yammer.github.io/circuit-breaker-js/
 // Definitions by: Timur Amirov <https://github.com/DeTeam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = CircuitBreaker;
 

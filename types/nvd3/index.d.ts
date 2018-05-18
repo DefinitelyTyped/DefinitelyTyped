@@ -2,6 +2,7 @@
 // Project: https://github.com/novus/nvd3
 // Definitions by: Peter Mitchell <https://github.com/PjMitchell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as d3 from "d3";
 

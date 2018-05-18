@@ -2,6 +2,7 @@
 // Project: https://github.com/bramstein/bit-array
 // Definitions by: Mudkip <https://github.com/mudkipme>
 // Definitions: https://github.com/mudkipme/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "bit-array" {
 

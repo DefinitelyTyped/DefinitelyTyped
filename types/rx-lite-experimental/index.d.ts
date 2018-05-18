@@ -2,6 +2,7 @@
 // Project: https://github.com/Reactive-Extensions/RxJS
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="rx-lite"/>
 

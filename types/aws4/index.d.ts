@@ -2,6 +2,7 @@
 // Project: https://github.com/mhart/aws4
 // Definitions by: Andrew Crites <https://github.com/ajcrites>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export class RequestSigner {
     constructor(request?: any, credentials?: any);

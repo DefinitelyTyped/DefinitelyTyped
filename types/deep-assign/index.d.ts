@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/deep-assign
 // Definitions by: Ionut Costica <https://github.com/souldreamer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Pretty much just returns the target object

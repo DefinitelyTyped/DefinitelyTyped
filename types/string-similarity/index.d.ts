@@ -2,6 +2,7 @@
 // Project: https://github.com/aceakash/string-similarity#readme
 // Definitions by: ragtime <https://github.com/ragtime>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Returns a fraction between 0 and 1, which indicates the degree of similarity between the two strings.

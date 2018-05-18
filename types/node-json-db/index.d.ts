@@ -2,6 +2,7 @@
 // Project: https://github.com/Belphemur/node-json-db
 // Definitions by: Ilya Kuznetsov <https://github.com/kuzn-ilya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class JsonDB {
         /**

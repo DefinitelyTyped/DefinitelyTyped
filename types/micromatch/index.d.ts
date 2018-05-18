@@ -3,8 +3,8 @@
 // Definitions by: glen-84 <https://github.com/glen-84>
 //                 vemoo <https://github.com/vemoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
-// TypeScript Version: 2.2
 
 import * as braces from "braces";
 declare namespace micromatch {

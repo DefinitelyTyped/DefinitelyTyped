@@ -2,6 +2,7 @@
 // Project: https://github.com/katzer/cordova-plugin-background-mode
 // Definitions by: Paul Thiel <https://github.com/Lordnoname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * The plugin prevent the app from going to sleep while in background

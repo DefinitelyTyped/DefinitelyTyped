@@ -2,6 +2,7 @@
 // Project: https://github.com/dpup/node-logg
 // Definitions by: Bret Little <https://github.com/blittle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Logger {
     setLogLevel: (level: number)=> void;

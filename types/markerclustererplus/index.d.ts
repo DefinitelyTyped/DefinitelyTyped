@@ -3,7 +3,7 @@
 // Definitions by: Mathias Rodriguez <https://github.com/enanox>
 //                 Michael Ledin <https://github.com/mxl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="google-maps" />
 

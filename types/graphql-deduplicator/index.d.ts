@@ -2,7 +2,7 @@
 // Project: https://github.com/gajus/graphql-deduplicator#readme
 // Definitions by: Luis Fernando Alvarez D. <https://github.com/lfades>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export function deflate(response: object): {
     [key: string]: any;

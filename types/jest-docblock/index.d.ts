@@ -2,6 +2,7 @@
 // Project: https://github.com/facebook/jest/tree/master/packages/jest-docblock
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * extract the "first" docblock from code, return empty string if not found.

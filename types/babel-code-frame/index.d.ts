@@ -2,6 +2,7 @@
 // Project: https://github.com/babel/babel/tree/master/packages
 // Definitions by: Mohsen Azimi <https://github.com/mohsen1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface BabelCodeFrameOptions {
     /** Syntax highlight the code as JavaScript for terminals. default: false */

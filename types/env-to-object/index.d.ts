@@ -2,6 +2,7 @@
 // Project: https://github.com/kgryte/node-env-to-object#readme
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace env {
     interface Mappings {

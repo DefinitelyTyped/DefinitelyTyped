@@ -3,6 +3,7 @@
 // Definitions by: Nico Jansen <https://github.com/nicojs>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export class Node {
     constructor(nodeType: string, sourcepos?: Position);

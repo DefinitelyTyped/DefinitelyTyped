@@ -3,6 +3,7 @@
 // Definitions by: Tobias Wolff <https://github.com/Tobias4872>
 //                 Eric Henry <https://github.com/EricHenry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 import { Spec as Swagger } from 'swagger-schema-official';
 
 export namespace SwaggerParser {

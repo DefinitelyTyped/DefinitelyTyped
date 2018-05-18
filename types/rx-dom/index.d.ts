@@ -2,6 +2,7 @@
 // Project: https://github.com/Reactive-Extensions/RxJS-DOM
 // Definitions by: oliver Weichhold <https://github.com/oliverw>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as Rx from 'rx';
 

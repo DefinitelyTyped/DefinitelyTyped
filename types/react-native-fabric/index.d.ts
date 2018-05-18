@@ -2,6 +2,7 @@
 // Project: https://github.com/corymsmith/react-native-fabric
 // Definitions by: Joseph Roque <https://github.com/josephroque>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface CustomAttributes {
     [key: string]: any;

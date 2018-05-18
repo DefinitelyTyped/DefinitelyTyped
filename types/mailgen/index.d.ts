@@ -2,6 +2,7 @@
 // Project: https://github.com/eladnava/mailgen#readme
 // Definitions by: Kiet Thanh Vo <https://github.com/vothanhkiet>, Jordan Farrer <https://github.com/jordanfarrer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 import Option = Mailgen.Option;
 import Content = Mailgen.Content;
 /**

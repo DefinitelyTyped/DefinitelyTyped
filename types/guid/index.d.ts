@@ -2,7 +2,7 @@
 // Project: https://github.com/dandean/guid
 // Definitions by: Marc-Andre Roy <https://github.com/maroy1986>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export = guid;
 

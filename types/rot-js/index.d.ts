@@ -2,6 +2,7 @@
 // Project: https://github.com/ondras/rot.js
 // Definitions by: Roger Ostrander <https://github.com/atiaxi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Extensions (thanks, https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html )
 declare global {

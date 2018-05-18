@@ -2,6 +2,7 @@
 // Project: https://github.com/broofa/node-uuid
 // Definitions by: Jeff May <https://github.com/jeffmay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

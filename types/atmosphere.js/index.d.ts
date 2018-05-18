@@ -4,6 +4,7 @@
 //                 Fedor Kirpichev <https://github.com/Mory1879>
 //                 Jorge Beltran <https://github.com/Scipion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Use this typings in future instead of deprecated 'atmosphere'.
 

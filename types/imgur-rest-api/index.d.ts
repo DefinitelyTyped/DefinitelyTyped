@@ -2,6 +2,7 @@
 // Project: https://api.imgur.com/
 // Definitions by: Luke William Westby <https://github.com/lukewestby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace ImgurRestApi {
 

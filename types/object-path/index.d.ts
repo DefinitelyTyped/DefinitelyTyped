@@ -2,6 +2,7 @@
 // Project: https://github.com/mariocasciaro/object-path
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var objectPath: ObjectPathGlobal.IObjectPathStatic;
 

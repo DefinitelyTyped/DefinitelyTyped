@@ -2,6 +2,7 @@
 // Project: https://github.com/cloudhead/eyes.js
 // Definitions by: bryn austin bellomy <https://github.com/brynbellomy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 ///<reference types="node"/>
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/jonschlinkert/parse-glob
 // Definitions by: glen-84 <https://github.com/glen-84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare namespace parseGlob {
