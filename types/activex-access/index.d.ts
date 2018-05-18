@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
 /// <reference types="activex-office" />
 /// <reference types="activex-dao" />
 /// <reference types="activex-vbide" />
@@ -8882,7 +8883,6 @@ interface ActiveXObject {
         Access.OptionButton | Access.OptionGroup | Access.Page | Access.SubForm | Access.TabControl | Access.TextBox | Access.ToggleButton | Access.WebBrowserControl,
         propertyName: 'accName' | 'accValue', parameterTypes: [any], newValue: string): void;
     set(obj: Access._ControlInReportEvents | Access.ComboBox | Access.Control | Access.ListBox, propertyName: 'Selected', parameterTypes: [number], newValue: number): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
