@@ -1,7 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "max-line-length": false,
-        "no-declare-current-package": false
-    }
-}
+{ "extends": "dtslint/dt.json" }
