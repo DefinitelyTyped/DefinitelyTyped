@@ -3366,6 +3366,13 @@ declare namespace sequelize {
          * Throw EmptyResultError if a record is not found
          */
         rejectOnEmpty?: boolean;
+
+       /**
+         * Force the query to use the write pool
+         *
+         * Defaults to false
+         */
+        useMaster?: boolean;
     }
 
     type AnyFindOptions = FindOptions<any>;
