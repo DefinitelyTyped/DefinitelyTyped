@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export interface MDCGridListAdapter {
+export default interface MDCGridListAdapter {
     getOffsetWidth(): number;
 
     getNumberOfTiles(): number;

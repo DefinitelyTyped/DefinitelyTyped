@@ -1,5 +1,6 @@
 /**
- * Copyright 2016 Google Inc. All Rights Reserved.
+ * @license
+ * Copyright 2018 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,5 +15,8 @@
  * limitations under the License.
  */
 
-// Determine whether the current browser supports passive event listeners, and if so, use them.
-export function applyPassive(globalObj?: Window, forceRefresh?: boolean): boolean;
+import MDCTopAppBarBaseFoundation from '../foundation';
+import MDCTopAppBarAdapter from '../adapter';
+
+export default class MDCShortTopAppBarFoundation extends MDCTopAppBarBaseFoundation {
+}

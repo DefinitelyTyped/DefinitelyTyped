@@ -32,11 +32,9 @@
  * Implement this adapter for your framework of choice to delegate updates to
  * the component in your framework of choice. See architecture documentation
  * for more details.
- * https://github.com/material-components/material-components-web/blob/master/docs/architecture.md
- *
- * @record
+ * https://github.com/material-components/material-components-web/blob/master/docs/code/architecture.md
  */
-export default class MDCRippleAdapter {
+export default interface MDCRippleAdapter {
     browserSupportsCssVars(): boolean;
 
     isUnbounded(): boolean;
@@ -49,17 +47,23 @@ export default class MDCRippleAdapter {
 
     removeClass(className: string): void;
 
+    containsEventTarget(target: EventTarget): void;
+
     registerInteractionHandler(evtType: string, handler: EventListener): void;
 
     deregisterInteractionHandler(evtType: string, handler: EventListener): void;
+
+    registerDocumentInteractionHandler(evtType: string, handler: EventListener): void;
+
+    deregisterDocumentInteractionHandler(evtType: string, handler: EventListener): void;
 
     registerResizeHandler(handler: EventListener): void;
 
     deregisterResizeHandler(handler: EventListener): void;
 
-    updateCssVariable(varName: string, value: number|string): void;
+    updateCssVariable(varName: string, value: number | string | null): void;
 
     computeBoundingRect(): ClientRect;
 
-    getWindowPageOffset(): {x: number, y: number};
+    getWindowPageOffset(): { x: number; y: number; };
 }
