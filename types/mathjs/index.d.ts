@@ -1,4 +1,4 @@
-// Type definitions for mathjs 3.20
+// Type definitions for mathjs 3.21
 // Project: http://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 // 				   Andy Patterson <https://github.com/andnp>
