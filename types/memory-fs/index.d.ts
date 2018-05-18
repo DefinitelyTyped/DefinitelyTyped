@@ -1,9 +1,12 @@
-// Type definitions for memory-fs 0.3.0
+// Type definitions for memory-fs 0.4.0
 // Project: https://github.com/webpack/memory-fs
 // Definitions by: e-cloud <https://github.com/e-cloud>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+declare namespace MemoryFileSystem {}
 
 declare class MemoryFileSystem {
     data: any;
