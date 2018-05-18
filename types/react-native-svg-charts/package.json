@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/d3-scale": "^2.0.0",
+        "@types/d3-shape": "^1.2.2",
+        "react-native-svg": "^6.2.1"
+    }
+}
