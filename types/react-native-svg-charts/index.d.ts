@@ -33,10 +33,10 @@ export type OrderFunction = (series: Series<any, any>) => number[];
 
 export interface ChartProps<T> {
     data: T[];
-    style: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
     animate?: boolean;
     animationDuration?: number;
-    svg?: PathProps;
+    svg?: Partial<PathProps>;
     width?: number;
     height?: number;
     curve?: CurveFactory;
@@ -64,7 +64,7 @@ export class LineChart<T> extends React.PureComponent<ChartProps<T>> {
 // Pie Chart
 
 export interface PieChartData {
-    svg?: PathProps;
+    svg?: Partial<PathProps>;
     key: string | number;
     value?: number;
     arc?: {
@@ -150,17 +150,20 @@ export interface BarChartProps<T> extends ChartProps<T> {
 export class BarChart<T> extends React.PureComponent<BarChartProps<T>> {
 }
 
-// XAxis
+// Axis
 
 export interface AxisProps<T> {
+    style?: StyleProp<ViewStyle>;
     data: T[];
     spacingInner?: number;
     spacingOuter?: number;
     formatLabel?: (value: any, index: number) => number | string;
     scale?: ScaleFunction;
     numberOfTicks?: number;
-    svg?: TextProps;
+    svg?: Partial<TextProps>;
 }
+
+// XAxis
 
 export interface XAxisProps<T> extends AxisProps<T> {
     contentInset?: {
@@ -176,6 +179,7 @@ export class XAxis<T> extends React.PureComponent<XAxisProps<T>> {
 // YAxis
 
 export interface YAxisProps<T> extends AxisProps<T> {
+    style?: StyleProp<ViewStyle>;
     contentInset?: {
         top?: number;
         bottom?: number;
@@ -246,7 +250,7 @@ export type GridDirection = 'VERTICAL' | 'HORIZONTAL' | 'BOTH';
 export interface GridProps<T> {
     direction?: GridDirection;
     belowChart?: boolean;
-    svg?: LineProps;
+    svg?: Partial<LineProps>;
     ticks?: T[];
     x?: (t: T) => number;
     y?: (t: T) => number;
