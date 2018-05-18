@@ -88,7 +88,6 @@ class Component extends React.Component<{}, ComponentState> {
         };
         return (
             <div style={{width: "100%", height: "100%"}}>
-                <div>verticalFill sample</div>
                 <ResponsiveContainer>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
