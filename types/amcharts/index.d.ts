@@ -2,7 +2,7 @@
 // Project: http://www.amcharts.com/
 // Definitions by: ldrick <https://github.com/ldrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import _AmAngularGauge from "./AmAngularGauge";
 import _AmBalloon from "./AmBalloon";

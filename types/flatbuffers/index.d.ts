@@ -2,6 +2,7 @@
 // Project: http://google.github.io/flatbuffers/index.html
 // Definitions by: Kamil Rojewski <kamil.rojewski@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export { flatbuffers };
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/flosse/json-file-store
 // Definitions by: Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 declare const JsonFileStore: JsonFileStore.JsonFileStore;
 

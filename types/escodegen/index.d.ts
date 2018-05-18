@@ -2,6 +2,7 @@
 // Project: https://github.com/estools/escodegen
 // Definitions by: Simon de Lang <https://github.com/simondel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface FormatOptions {
     /**

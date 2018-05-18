@@ -4,6 +4,7 @@
 //                 Dan Caddigan <https://github.com/goldcaddy77>
 //                 Larry Faudree <https://github.com/lfaudreejr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="auth0-js" />
 

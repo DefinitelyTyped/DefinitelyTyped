@@ -2,6 +2,7 @@
 // Project: https://github.com/chaijs/chai-json-schema/
 // Definitions by: Ulrich Heiniger <https://github.com/ulrichheiniger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // <reference types="node"/>
 // <reference types="chai" />

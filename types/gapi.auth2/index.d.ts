@@ -2,7 +2,7 @@
 // Project: https://developers.google.com/identity/sign-in/web/
 // Definitions by: Derek Lawless <https://github.com/flawless2011>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="gapi" />
 

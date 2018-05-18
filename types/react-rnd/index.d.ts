@@ -2,7 +2,7 @@
 // Project: https://github.com/bokuweb/react-rnd
 // Definitions by: Ragg <https://github.com/Ragg->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 import React = require('react');
 
 type CSSProperties = React.CSSProperties;

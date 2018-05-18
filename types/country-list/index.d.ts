@@ -2,6 +2,7 @@
 // Project: https://github.com/fannarsh/country-list
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export default function Countries(): {
   /**

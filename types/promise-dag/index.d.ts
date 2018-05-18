@@ -2,6 +2,7 @@
 // Project: https://github.com/vvvvalvalval/promise-dag#readme
 // Definitions by: Sjoerd Diepen <https://github.com/OSjoerdWie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type Step = string | ((...args: any[]) => PromiseLike<any>);
 

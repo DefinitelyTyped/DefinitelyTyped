@@ -2,6 +2,7 @@
 // Project: https://github.com/flatiron/cliff
 // Definitions by: bryn austin bellomy <https://github.com/brynbellomy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function inspect(obj: any): string;
 export function stringifyRows(rows: string[][], colors?: string[]): string;

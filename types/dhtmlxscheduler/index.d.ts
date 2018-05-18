@@ -2,6 +2,7 @@
 // Project: http://dhtmlx.com/docs/products/dhtmlxScheduler
 // Definitions by: Maksim Kozhukh <https://github.com/mkozhukh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface SchedulerCallback { (...args: any[]): any }
 interface SchedulerFilterCallback { (id: string | number, event: any): boolean }

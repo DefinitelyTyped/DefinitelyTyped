@@ -2,6 +2,7 @@
 // Project: https://github.com/fivdi/pigpio
 // Definitions by: ManerFan <https://github.com/manerfan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

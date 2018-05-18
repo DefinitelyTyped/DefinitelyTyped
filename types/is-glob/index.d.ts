@@ -2,6 +2,7 @@
 // Project: https://github.com/jonschlinkert/is-glob
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function isGlob(pattern?: string | string[] | null, options?: isGlob.Options): boolean;
 

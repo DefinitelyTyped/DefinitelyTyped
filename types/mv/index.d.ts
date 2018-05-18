@@ -2,6 +2,7 @@
 // Project: https://github.com/andrewrk/node-mv
 // Definitions by: Miloslav Nenadál <https://github.com/nenadalm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Options {
     mkdirp?: boolean;

@@ -2,6 +2,7 @@
 // Project: http://cmstead.github.io/JFP
 // Definitions by: Chris Stead <http://www.chrisstead.com>
 // Definitions: https://github.com/cmstead/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var j: j.JfpStatic;
 export = j;

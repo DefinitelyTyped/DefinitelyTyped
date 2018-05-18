@@ -5,7 +5,7 @@
 //                 Sven Tschui <https://github.com/sventschui>,
 //                 Volker Nauruhn <https://github.com/razorness>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Backbone from 'backbone';
 import * as JQuery from 'jquery';

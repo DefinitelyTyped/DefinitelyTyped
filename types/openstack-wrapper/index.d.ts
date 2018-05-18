@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/openstack-wrapper
 // Definitions by: Sanjay Madane <https://github.com/sanjaymadane>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export interface RequestOption {
     uri?: string;

@@ -4,6 +4,7 @@
 //                 Daniel Thunell <https://github.com/dthunell>
 //                 Ulf Seltmann <https://github.com/useltmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

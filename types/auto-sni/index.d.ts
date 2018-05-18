@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/auto-sni
 // Definitions by: Jan Wolf <https://github.com/janwo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

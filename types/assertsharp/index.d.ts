@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/assertsharp
 // Definitions by: Bruno Leonardo Michels <https://github.com/brunolm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export default class Assert {
     static AreEqual<T>(expected: T, actual: T, message?: string): void;

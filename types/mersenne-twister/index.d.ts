@@ -2,6 +2,7 @@
 // Project: https://github.com/boo1ean/mersenne-twister
 // Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = MersenneTwister;
 declare class MersenneTwister {

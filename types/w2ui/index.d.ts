@@ -2,7 +2,7 @@
 // Project: http://w2ui.com/
 // Definitions by: Valentin Robert <https://github.com/Ptival>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 

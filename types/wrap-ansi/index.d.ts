@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/wrap-ansi
 // Definitions by: Klaus Reimer <https://github.com/kayahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 /**

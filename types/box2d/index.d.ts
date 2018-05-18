@@ -2,6 +2,7 @@
 // Project: http://code.google.com/p/box2dweb/
 // Definitions by: jbaldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
 * Box2DWeb-2.1.d.ts Copyright (c) 2012-2013 Josh Baldwin https://github.com/jbaldwin/box2dweb.d.ts

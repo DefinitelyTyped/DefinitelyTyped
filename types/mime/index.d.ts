@@ -3,6 +3,7 @@
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 //                 Daniel Hritzkiv <https://github.com/dhritzkiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Originally imported from: https://github.com/soywiz/typescript-node-definitions/mime.d.ts
 

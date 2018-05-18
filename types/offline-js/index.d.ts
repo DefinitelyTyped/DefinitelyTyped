@@ -2,6 +2,7 @@
 // Project: https://github.com/HubSpot/offline
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var Offline: {
     options: OfflineOptions;

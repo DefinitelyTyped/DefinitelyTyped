@@ -3,6 +3,7 @@
 // Definitions by: Viktor Zozuliak <https://github.com/zuzusik>
 //                 Paul Wang <https://github.com/tzupengwang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'common-tags' {
     type TemplateTag = (literals: TemplateStringsArray, ...placeholders: any[]) => string;

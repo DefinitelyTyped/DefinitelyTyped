@@ -2,6 +2,7 @@
 // Project: https://github.com/bpmn-io/object-refs
 // Definitions by: Jan Steinbruecker <https://github.com/3fd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = Refs;
 

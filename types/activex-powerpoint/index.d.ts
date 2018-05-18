@@ -2,7 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/library/fp161225.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="activex-office" />
 /// <reference types="activex-vbide" />

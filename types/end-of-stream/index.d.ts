@@ -2,6 +2,7 @@
 // Project: https://github.com/mafintosh/end-of-stream
 // Definitions by: Sami Kukkonen <https://github.com/strax>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 /// <reference types="node"/>
 
 interface Options {

@@ -2,6 +2,7 @@
 // Project: https://github.com/weisjohn/nanp
 // Definitions by: Karn Saheb <https://github.com/karn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Nanp {
 

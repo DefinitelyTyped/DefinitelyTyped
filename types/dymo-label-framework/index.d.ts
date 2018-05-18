@@ -2,6 +2,7 @@
 // Project: http://www.labelwriter.com/software/dls/sdk/docs/DYMOLabelFrameworkJavaScriptHelp/index.html
 // Definitions by: Thijs Kuipers <https://github.com/thijskuipers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Top namespace for DYMO Label Framework JavaScript library.

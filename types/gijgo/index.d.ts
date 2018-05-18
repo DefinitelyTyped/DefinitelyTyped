@@ -2,7 +2,7 @@
 // Project: http://gijgo.com
 // Definitions by: Atanas Atanasov <https://github.com/atatanasov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare module 'gijgo' {
     export = Types;

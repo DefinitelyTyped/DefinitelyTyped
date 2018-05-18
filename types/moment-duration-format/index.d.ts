@@ -5,7 +5,7 @@
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 //                 Lukasz Bendykowski <https://github.com/bendykowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 import * as moment from "moment";
 

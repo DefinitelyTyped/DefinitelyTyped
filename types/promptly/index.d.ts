@@ -2,6 +2,7 @@
 // Project: https://github.com/IndigoUnited/node-promptly
 // Definitions by: Dan Spencer <https://github.com/danrspencer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 ///<reference types="node"/>
 

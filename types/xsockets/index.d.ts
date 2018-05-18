@@ -2,6 +2,7 @@
 // Project: http://xsockets.net/
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace XSockets {
     export class WebSocket {

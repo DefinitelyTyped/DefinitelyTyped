@@ -2,6 +2,7 @@
 // Project: https://github.com/wix/detox
 // Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare const detox: Detox.Detox;
 declare const device: Detox.Device;

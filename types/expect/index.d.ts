@@ -2,6 +2,7 @@
 // Project: https://github.com/mjackson/expect
 // Definitions by: Justin Reidy <https://github.com/jmreidy>, Risto Keravuori <https://github.com/merrywhether>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace expect {
     type CompareValues<T> = (a: T, b: T) => boolean;

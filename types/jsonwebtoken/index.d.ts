@@ -5,7 +5,7 @@
 //                 Brice BERNARD <https://github.com/brikou>,
 //                 Veli-Pekka Kestilä <https://github.com/vpk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

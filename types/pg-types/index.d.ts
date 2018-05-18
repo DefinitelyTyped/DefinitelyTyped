@@ -2,6 +2,7 @@
 // Project: https://github.com/brianc/node-pg-types
 // Definitions by: James Bracy <https://github.com/waratuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type TypeParser = (value: any) => any;
 

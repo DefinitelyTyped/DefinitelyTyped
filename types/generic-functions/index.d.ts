@@ -2,6 +2,7 @@
 // Project: https://github.com/stpettersens/generic-functions
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/definitelytyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "generic-functions" {
     function strcmp(str1: string, str2: string): boolean;

@@ -2,6 +2,7 @@
 // Project: https://github.com/shaneGirish/bcrypt-nodejs
 // Definitions by: David Broder-Rodgers <https://github.com/DavidBR-SW/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 /**

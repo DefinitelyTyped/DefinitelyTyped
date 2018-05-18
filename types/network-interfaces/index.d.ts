@@ -2,6 +2,7 @@
 // Project: https://github.com/Wizcorp/network-interfaces#readme
 // Definitions by: Anders Westberg <https://github.com/anderswestberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function toIp(interfaceName: string, options: {}): string;
 export function toIps(interfaceName: string, options: {}): string[];

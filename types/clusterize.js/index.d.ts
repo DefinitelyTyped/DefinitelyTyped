@@ -2,6 +2,7 @@
 // Project: https://github.com/NeXTs/Clusterize.js
 // Definitions by: Pr1st0n <https://github.com/Pr1st0n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Clusterize {
     constructor(options: Clusterize.Options);

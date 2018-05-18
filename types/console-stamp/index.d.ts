@@ -2,6 +2,7 @@
 // Project: https://github.com/starak/node-console-stamp
 // Definitions by: Eric Byers <https://github.com/ericbyers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

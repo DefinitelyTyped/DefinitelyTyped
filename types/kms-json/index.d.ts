@@ -2,8 +2,8 @@
 // Project: https://github.com/AlexanderMS/kms-json
 // Definitions by: Yoichi Imai <https://github.com/sunnyone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
-// TypeScript Version: 2.2
 
 declare namespace KmsJson {
     interface KmsJsonOptions {

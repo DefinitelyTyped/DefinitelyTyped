@@ -2,6 +2,7 @@
 // Project: https://github.com/itaylor/redux-socket.io#readme
 // Definitions by: Igor Voropaev <https://github.com/snakeego>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="socket.io-client" />
 

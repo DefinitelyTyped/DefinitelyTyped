@@ -5,7 +5,7 @@
 //                 Moreton Bay Regional Council <https://github.com/MoretonBayRC>,
 //                 Sindre Seppola <https://github.com/sseppola>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export function reach<T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T>;
 export function addMethod<T extends Schema<any>>(schemaCtor: AnySchemaConstructor, name: string, method: (this: T, ...args: any[]) => T): void;

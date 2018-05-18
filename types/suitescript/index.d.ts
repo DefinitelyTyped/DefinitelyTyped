@@ -2,6 +2,7 @@
 // Project: http://www.netsuite.com
 // Definitions by: Darren Hill <https://github.com/darrenhillconsulting>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace nlobjRecord.prototype {
     // nlobjRecord.prototype.getSubList.!ret

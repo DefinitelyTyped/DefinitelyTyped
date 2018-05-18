@@ -2,6 +2,7 @@
 // Project: https://github.com/hapijs/cryptiles
 // Definitions by: Alex Wendland <https://github.com/awendland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Returns a cryptographically strong pseudo-random data string. Takes a size argument for the length of the string.

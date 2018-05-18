@@ -2,6 +2,7 @@
 // Project: http://quixote-css.com/
 // Definitions by: Aleksandr Filatov <https://github.com/greybax>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Quixote {
     // Create a test iframe. This is a slow operation, so once you have a frame, it's best to use QFrame.reset() on it rather than creating a new frame for each test

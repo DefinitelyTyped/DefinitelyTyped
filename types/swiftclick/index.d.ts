@@ -2,6 +2,7 @@
 // Project: https://github.com/munkychop/swiftclick
 // Definitions by: Laurence C <https://github.com/Laurence-C>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface SwiftClickObject {
     addNodeNamesToTrack(nodeNamesArray: string[]): void;

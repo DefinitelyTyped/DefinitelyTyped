@@ -2,6 +2,7 @@
 // Project: https://github.com/theSmaw/Caja-HTML-Sanitizer
 // Definitions by: Dave Taylor <http://davetayls.me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export interface ISaxHandler {

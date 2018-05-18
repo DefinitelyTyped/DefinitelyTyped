@@ -11,7 +11,7 @@
 //                 Julien Chaumond <https://github.com/julien-c>
 //                 Dan Aprahamian <https://github.com/daprahamian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/3.0/api/
 

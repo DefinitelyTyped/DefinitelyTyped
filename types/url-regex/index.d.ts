@@ -2,6 +2,7 @@
 // Project: https://github.com/kevva/url-regex
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /** Regular expression for matching URLs. */
 declare function urlRegex(options?: {

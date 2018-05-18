@@ -4,7 +4,7 @@
 //                 Bernd Hacker <https://github.com/denyo>
 //                 Ferdinand Armbruster <https://github.com/fx88>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 declare namespace H {
     /***** Map *****/

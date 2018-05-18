@@ -2,6 +2,7 @@
 // Project: https://developers.facebook.com/docs/javascript
 // Definitions by: Amrit Kahlon <https://github.com/amritk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import fb = facebook;
 declare var FB: fb.FacebookStatic;

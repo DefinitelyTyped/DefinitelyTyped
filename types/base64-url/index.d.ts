@@ -2,6 +2,7 @@
 // Project: https://github.com/joaquimserafim/base64-url
 // Definitions by: Uri Shaked <https://github.com/urish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function decode(value: string, encoding?: string): string;
 export function encode(value: string, encoding?: string): string;

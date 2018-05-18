@@ -2,6 +2,7 @@
 // Project: https://github.com/GitbookIO/isbn-utils
 // Definitions by: Jørgen Elgaard Larsen <https://github.com/elhaard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type IGroups = any;
 

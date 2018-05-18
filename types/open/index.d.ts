@@ -2,6 +2,7 @@
 // Project: https://github.com/jjrdn/node-open
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare function open(target: string, app?: string): void;

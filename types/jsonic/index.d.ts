@@ -2,6 +2,7 @@
 // Project: https://github.com/rjrodger/jsonic
 // Definitions by: Rong SHen <https://github.com/jacobbubu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function jsonic(text: string): any;
 declare namespace jsonic {

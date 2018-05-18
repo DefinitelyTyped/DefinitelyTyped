@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Type definition file for 'karma-viewport'
 // https://www.npmjs.com/package/karma-viewport
+// TypeScript Version: 2.8
 
 declare namespace KarmaViewport {
     interface Breakpoint {

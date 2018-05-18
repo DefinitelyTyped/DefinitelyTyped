@@ -7,7 +7,7 @@
 //                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Redis from "ioredis";
 import * as Promise from "bluebird";

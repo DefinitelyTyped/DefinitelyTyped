@@ -4,6 +4,7 @@
 //                 David Philipson <https://github.com/dphilipson>
 //                 Adrian Leonhard <https://github.com/NaridaL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Reduced<TResult> {
   ['@@transducer/reduced']: boolean;

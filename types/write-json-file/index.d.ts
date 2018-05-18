@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/write-json-file
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function writeJsonFile(filepath: string, data: any, options?: writeJsonFile.Options): Promise<void>;
 declare namespace writeJsonFile {

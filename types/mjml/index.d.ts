@@ -2,6 +2,7 @@
 // Project: https://github.com/mjmlio/mjml
 // Definitions by: aahoughton <https://github.com/aahoughton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface MJMLParsingOpts {
     fonts?: { [key: string]: string; };

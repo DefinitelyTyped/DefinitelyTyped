@@ -2,6 +2,7 @@
 // Project: https://github.com/hjson/hjson-js
 // Definitions by: Mark van Straten <https://github.com/crunchie84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface DeserializeOptions {
   /**

@@ -3,6 +3,7 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Mike Dvorscak <https://github.com/mdvorscak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace timeSpan {
     interface TimeSpanObject {

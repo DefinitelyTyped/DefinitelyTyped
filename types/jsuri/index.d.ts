@@ -2,6 +2,7 @@
 // Project: https://github.com/derek-watson/jsUri
 // Definitions by: Chris Charabaruk <https://github.com/coldacid>, Florian Wagner <https://github.com/flqw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace jsuri {
   type Primitive = string | number | boolean;

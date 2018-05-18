@@ -2,7 +2,7 @@
 // Project: https://github.com/stackgl/gl-shader
 // Definitions by: Mathias Paumgarten <https://github.com/MathiasPaumgarten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 interface Parameter {
     type: string;

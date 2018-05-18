@@ -2,6 +2,7 @@
 // Project: https://github.com/bjornharrtell/jsts
 // Definitions by: Stephane Alie <https://github.com/StephaneAlie>, Jorge Rocha Gualtieri <https://github.com/jrocha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="openlayers" />
 

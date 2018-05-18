@@ -2,7 +2,7 @@
 // Project: https://github.com/wa0x6e/cal-heatmap
 // Definitions by: Chris Baker <https://github.com/RetroChrisB>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as d3 from "d3";
 

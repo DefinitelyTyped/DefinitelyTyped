@@ -2,7 +2,7 @@
 // Project: https://github.com/component/textarea-caret-position
 // Definitions by: Brendan Forster <https://github.com/shiftkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export = textarea_caret;
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/micku7zu/vanilla-tilt.js
 // Definitions by: Livio Brunner <https://github.com/BrunnerLivio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * A smooth 3D tilt javascript library forked from Tilt.js (jQuery version).

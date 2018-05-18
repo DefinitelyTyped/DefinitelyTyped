@@ -2,7 +2,7 @@
 // Project: https://github.com/ghybs/Leaflet.MarkerCluster.LayerSupport
 // Definitions by: AsamK <https://github.com/AsamK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as L from 'leaflet';
 import 'leaflet.markercluster';

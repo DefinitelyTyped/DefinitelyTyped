@@ -5,6 +5,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 //                 Soner Köksal <https://github.com/renjfk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = SockJS;
 export as namespace SockJS;

@@ -2,6 +2,7 @@
 // Project: https://github.com/jmenglis/clamp-js-main#readme
 // Definitions by: Sinziana Nicolae <https://github.com/sinziananicolae>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface ClampOptions {
     clamp?: number|string;

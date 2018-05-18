@@ -2,6 +2,7 @@
 // Project: https://github.com/rafeca/prettyjson
 // Definitions by: Wael BEN ZID EL GUEBSI <https://github.com/benzid-wael/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

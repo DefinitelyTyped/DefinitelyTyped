@@ -3,7 +3,7 @@
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 //                 Periklis Tsirakidis <https://github.com/periklis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="webassembly-js-api" />
 

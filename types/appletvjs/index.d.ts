@@ -2,6 +2,7 @@
 // Project: https://developer.apple.com/library/prerelease/tvos/documentation/TVMLJS/Reference/TVJSFrameworkReference/index.html
 // Definitions by: Adam Valverde <https://github.com/brainded>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var App: AppleTVJS.App;
 declare var Device: AppleTVJS.Device;

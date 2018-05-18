@@ -2,6 +2,7 @@
 // Project: https://github.com/afsuarez/mapsforge-cordova-plugin
 // Definitions by: rafw87 <https://github.com/rafw87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Window {
     mapsforge: MapsforgePlugin;

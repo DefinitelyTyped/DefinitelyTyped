@@ -2,7 +2,7 @@
 // Project: https://github.com/bkonkle/ignore-styles
 // Definitions by: Taiju Muto <https://github.com/tai2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types='node' />
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/tsayen/dom-to-image
 // Definitions by: Jip Sterk <https://github.com/JipSterk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

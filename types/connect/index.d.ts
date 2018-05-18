@@ -3,6 +3,7 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Evan Hahn <https://github.com/EvanHahn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/jakwings/node-temp-fs
 // Definitions by: MEDIA CHECK s.r.o. <http://www.mediacheck.cz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * A temporary file and directory creator.

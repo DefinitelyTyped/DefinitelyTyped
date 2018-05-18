@@ -2,6 +2,7 @@
 // Project: https://github.com/substack/static-eval
 // Definitions by: Ben Liddicott <https://github.com/benliddicott/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="esprima" />
 

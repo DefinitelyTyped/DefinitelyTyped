@@ -2,7 +2,7 @@
 // Project: https://github.com/caleb531/jcanvas
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery"/>
 

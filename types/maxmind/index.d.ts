@@ -2,6 +2,7 @@
 // Project: https://github.com/runk/node-maxmind
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export declare function open(database: string, cb: (err: Error, reader: Reader) => void): void;
 export declare function open(database: string, opts: Options, cb: (err: Error, reader: Reader) => void): void;

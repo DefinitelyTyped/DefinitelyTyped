@@ -2,6 +2,7 @@
 // Project: http://github.com/coderaiser/format-io
 // Definitions by: Amit Beckenstein <https://github.com/amitbeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Appends a '/' to the end of the path unless it exists.

@@ -2,6 +2,7 @@
 // Project: https://github.com/yamill/react-native-orientation
 // Definitions by: Moshe Atlow <https://github.com/MoLow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Orientation {
     type orientation = "LANDSCAPE" | "PORTRAIT" | "UNKNOWN" | "PORTRAITUPSIDEDOWN";

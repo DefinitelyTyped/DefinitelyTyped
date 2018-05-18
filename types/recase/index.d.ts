@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/recase
 // Definitions by: Mikal Madsen <https://github.com/18steps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Recase {
     camelCopy(orig: any): any;

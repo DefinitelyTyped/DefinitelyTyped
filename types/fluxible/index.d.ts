@@ -2,7 +2,7 @@
 // Project: https://fluxible.io/
 // Definitions by: xbim <https://github.com/xbim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.8
 /// <reference types="node" />
 import { Dispatcher, DispatcherInterface, StoreClass } from 'dispatchr';
 import BaseStore = require('./addons/BaseStore');

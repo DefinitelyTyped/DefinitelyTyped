@@ -2,6 +2,7 @@
 // Project: https://github.com/mateogianolio/nblas
 // Definitions by: Erik Gerrits <https://github.com/erikgerrits>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export const enum TRANS {
     NoTrans = 111,

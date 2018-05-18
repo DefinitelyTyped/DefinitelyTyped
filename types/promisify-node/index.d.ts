@@ -2,6 +2,7 @@
 // Project: https://github.com/nodegit/promisify-node
 // Definitions by: Borek Bernard <https://github.com/borekb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export = promisify;

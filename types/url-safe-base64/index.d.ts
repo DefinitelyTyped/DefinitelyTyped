@@ -2,6 +2,7 @@
 // Project: https://github.com/commenthol/url-safe-base64#readme
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function decode(safe: string): string;
 

@@ -5,7 +5,7 @@
 //                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
 //                 Kiyotoshi Ichikawa <https://github.com/aznnomness>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="chokidar"/>
 /// <reference types="node" />

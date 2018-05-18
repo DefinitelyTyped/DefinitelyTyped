@@ -4,7 +4,7 @@
 //                 nrlquaker <https://github.com/nrlquaker>,
 //                 John Woodruff <https://github.com/jbw91>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export interface DataOptions { dataPath: string; }
 export function getDefaultDataPath(): string;

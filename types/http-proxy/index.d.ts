@@ -4,6 +4,7 @@
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Daniel Schmidt <https://github.com/DanielMSchmidt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

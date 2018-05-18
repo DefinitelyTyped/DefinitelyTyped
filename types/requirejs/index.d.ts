@@ -2,6 +2,7 @@
 // Project: http://requirejs.org/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*
 require-2.1.8.d.ts may be freely distributed under the MIT license.

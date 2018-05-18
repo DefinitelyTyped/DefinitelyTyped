@@ -2,6 +2,7 @@
 // Project: https://github.com/micromatch/bash-glob
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type Patterns = string | string[];
 type Callback = (err: Error, files: string[]) => void;

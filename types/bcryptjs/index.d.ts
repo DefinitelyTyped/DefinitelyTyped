@@ -2,6 +2,7 @@
 // Project: https://github.com/dcodeIO/bcrypt.js
 // Definitions by: Joshua Filby <https://github.com/Joshua-F/>, Rafael Kraut <https://github.com/RafaelKr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

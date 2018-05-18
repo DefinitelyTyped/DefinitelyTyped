@@ -2,6 +2,7 @@
 // Project: https://zengabor.github.io/zenscroll/
 // Definitions by: Hamed Fathi <https://github.com/HamedFathi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var zenScroll: ZenScroll.zenscroll;
 export = zenScroll;

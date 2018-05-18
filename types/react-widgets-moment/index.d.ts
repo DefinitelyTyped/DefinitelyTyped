@@ -2,5 +2,6 @@
 // Project: https://github.com/jquense/react-widgets#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export default function momentLocalizer(): void;

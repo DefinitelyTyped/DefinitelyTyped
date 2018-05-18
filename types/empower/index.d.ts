@@ -2,6 +2,7 @@
 // Project: https://github.com/twada/empower
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function empower(originalAssert:any, formatter:any, options?:empower.Options):any;
 

@@ -4,7 +4,7 @@
 //                 smhxx <https://github.com/smhxx>
 //                 lierdakil <https://github.com/lierdakil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // NOTE: only those classes exported within this file should be retain that status below.
 // https://github.com/atom/atom/blob/v1.26.0/exports/atom.js

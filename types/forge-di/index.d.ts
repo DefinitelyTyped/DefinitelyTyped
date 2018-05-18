@@ -2,6 +2,7 @@
 // Project: https://github.com/nkohari/forge
 // Definitions by: Adam Carr <https://github.com/adamcarr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 /**

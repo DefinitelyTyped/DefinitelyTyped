@@ -2,7 +2,7 @@
 // Project: https://github.com/eslint/eslint-visitor-keys#readme
 // Definitions by: Toru Nagashima <https://github.com/mysticatea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export interface VisitorKeys {
     readonly [type: string]: ReadonlyArray<string> | undefined;

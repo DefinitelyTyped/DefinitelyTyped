@@ -2,6 +2,7 @@
 // Project: https://developer.pebble.com/docs/js/Pebble/
 // Definitions by: Makoto Kawasaki <https://github.com/makotokw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace PebbleKit {
 

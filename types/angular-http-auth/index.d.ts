@@ -2,7 +2,7 @@
 // Project: https://github.com/witoldsz/angular-http-auth
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="angular" />
 

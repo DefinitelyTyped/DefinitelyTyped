@@ -2,7 +2,7 @@
 // Project: https://github.com/zemirco/json2csv
 // Definitions by: Juanjo Diaz <https://github.com/juanjoDiaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import { json2csv } from './JSON2CSVBase';
 import JSON2CSVParser from './JSON2CSVParser';

@@ -2,6 +2,7 @@
 // Project: https://github.com/wkh237/react-native-fetch-blob#readme
 // Definitions by: MNB <https://github.com/MNBuyskih>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export const RNFetchBlob: RNFetchBlobStatic;
 export type RNFetchBlob = RNFetchBlobStatic;

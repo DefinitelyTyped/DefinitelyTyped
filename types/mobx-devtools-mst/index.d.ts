@@ -2,7 +2,7 @@
 // Project: https://mobxjs.github.io/mobx
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 declare function makeInspectable(state: object): void;
 export = makeInspectable;

@@ -5,6 +5,7 @@
 //                 Boris Yankov <https://github.com/borisyankov>,
 //                 Henrique Machado <https://github.com/henriquefm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Last module patch version validated against: 1.2.0
 

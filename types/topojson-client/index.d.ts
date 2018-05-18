@@ -3,7 +3,7 @@
 // Definitions by: denisname <https://github.com/denisname>
 //                 Ricardo Mello <https://github.com/ricardo-mello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.8
 
 import * as GeoJSON from "geojson";
 import {

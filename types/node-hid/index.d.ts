@@ -4,6 +4,7 @@
 //                 Robert Kiss <https://github.com/ert78gb>
 //                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Device {
     vendorId: number;

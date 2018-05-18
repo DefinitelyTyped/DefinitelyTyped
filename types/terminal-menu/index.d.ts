@@ -2,6 +2,7 @@
 // Project: https://github.com/substack/terminal-menu
 // Definitions by: Arun Aravind <https://github.com/aravindarun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

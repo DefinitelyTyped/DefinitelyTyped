@@ -2,6 +2,7 @@
 // Project: https://github.com/stampit-org/stampit
 // Definitions by: Vasyl Boroviak <https://github.com/koresar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Function used as .init() argument.

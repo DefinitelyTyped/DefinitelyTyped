@@ -2,6 +2,7 @@
 // Project: https://github.com/twitter/twitter-text
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export interface HashtagWithIndices {

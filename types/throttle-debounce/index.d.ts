@@ -2,6 +2,7 @@
 // Project: https://github.com/niksy/throttle-debounce
 // Definitions by: Marek Buchar <https://github.com/czbuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Throttle execution of a function. Especially useful for rate limiting

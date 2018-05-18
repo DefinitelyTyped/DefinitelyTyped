@@ -2,6 +2,7 @@
 // Project: https://github.com/rails/rails/tree/master/actioncable
 // Definitions by: Vincent Zhu <https://github.com/zhu1230>
 // Definitions: https://github.com/zhu1230/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module ActionCable {
   interface Channel {

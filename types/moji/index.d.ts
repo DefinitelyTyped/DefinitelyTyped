@@ -2,7 +2,7 @@
 // Project: https://github.com/niwaringo/moji
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 declare namespace moji {
   type Mojisyu = "ZE" | "HE" | "ZS" | "HS" | "HG" | "KK" | "ZK" | "HK";

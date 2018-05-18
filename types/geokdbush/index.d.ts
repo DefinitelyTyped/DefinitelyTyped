@@ -2,6 +2,7 @@
 // Project: https://github.com/mourner/geokdbush
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { KDBush } from 'kdbush';
 

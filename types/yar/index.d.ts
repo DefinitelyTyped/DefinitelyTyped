@@ -2,8 +2,8 @@
 // Project: https://github.com/hapijs/yar#readme
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 // From https://github.com/hapijs/yar/blob/master/API.md
+// TypeScript Version: 2.8
 
 import {
     Server,

@@ -2,6 +2,7 @@
 // Project: https://w3c.github.io/uievents/#interface-inputevent
 // Definitions by: Steven Sinatra <https://github.com/diagramatics>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface InputEventInit extends UIEventInit {
     data?: string;

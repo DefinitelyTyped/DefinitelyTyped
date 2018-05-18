@@ -3,6 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Remisery <https://github.com/remisery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

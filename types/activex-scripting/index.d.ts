@@ -2,7 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/library/bstcxhf7(v=vs.84).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare namespace Scripting {
     // tslint:disable-next-line:no-const-enum

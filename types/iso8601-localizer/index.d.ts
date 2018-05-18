@@ -2,6 +2,7 @@
 // Project: https://github.com/avielfedida/ISO8601-Localizer
 // Definitions by: Aviel Fedida <https://github.com/avielfedida>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface localizer {
 	to(offset: number): localizer,

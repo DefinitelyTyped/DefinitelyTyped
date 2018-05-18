@@ -2,6 +2,7 @@
 // Project: https://code.google.com/p/crypto-js/
 // Definitions by: Gia Bảo @ Sân Đình <https://github.com/giabao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var CryptoJS: CryptoJS.CryptoJSStatic;
 

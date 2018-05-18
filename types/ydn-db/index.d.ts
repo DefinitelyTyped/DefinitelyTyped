@@ -2,6 +2,7 @@
 // Project: http://dev.yathit.com/ydn-db/index.html
 // Definitions by: Kyaw Tun <https://github.com/yathit>, Gabriel Monteagudo <https://github.com/gabrielmaldi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface FullTextSource {
   storeName: string;

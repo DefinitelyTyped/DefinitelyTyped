@@ -2,6 +2,7 @@
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * @module braintree-web/american-express

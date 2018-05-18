@@ -2,6 +2,7 @@
 // Project: https://github.com/franciscop/loadware
 // Definitions by: A.J.J. Lyman <https://github.com/ALyman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // tslint:disable-next-line:ban-types
 type AnyFunction = Function;

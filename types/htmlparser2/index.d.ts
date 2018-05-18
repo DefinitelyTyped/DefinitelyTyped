@@ -3,6 +3,7 @@
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 //                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 ///<reference types="node"/>
 

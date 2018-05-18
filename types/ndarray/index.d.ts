@@ -2,7 +2,7 @@
 // Project: https://github.com/scijs/ndarray
 // Definitions by: Giff Song <https://github.com/pawsong>, taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare function ndarray<T = number>(
 	data: ndarray.Data<T>, shape?: number[], stride?: number[], offset?: number

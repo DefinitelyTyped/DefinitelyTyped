@@ -2,6 +2,7 @@
 // Project: https://github.com/gf3/Levenshtein
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Levenshtein {
     /**

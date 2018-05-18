@@ -2,6 +2,7 @@
 // Project: http://countdownjs.org/
 // Definitions by: Gabriel Juchault <https://github.com/gjuchault>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace countdown {
   type DateFunction = (timespan: Timespan) => void;

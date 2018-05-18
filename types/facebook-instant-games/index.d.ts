@@ -2,6 +2,7 @@
 // Project: https://developers.facebook.com/docs/games/instant-games
 // Definitions by: Menushka Weeratunga <https://github.com/menushka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace FBInstant {
     let player: Player;

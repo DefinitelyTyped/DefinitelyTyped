@@ -2,6 +2,7 @@
 // Project: https://github.com/9joneg/gulp-dtsm
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

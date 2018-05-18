@@ -2,7 +2,7 @@
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/photopea/UPNG.js
 // Definitions by: York Yao <https://github.com/plantain-00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function decode(buff: ArrayBuffer): PngData;
 

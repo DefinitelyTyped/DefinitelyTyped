@@ -2,6 +2,7 @@
 // Project: https://github.com/TooTallNate/node-bindings
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * The main `bindings()` function loads the compiled bindings for a given module.

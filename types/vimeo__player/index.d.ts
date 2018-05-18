@@ -4,6 +4,7 @@
 //                 Felix Albert <f.albert.work@icloud.com>
 //                 Tim Chen <https://github.com/timc13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function myMethod(a: string): string;
 export function myOtherMethod(a: number): number;

@@ -2,6 +2,7 @@
 // Project: https://github.com/75lb/command-line-commands
 // Definitions by: CzBuCHi <https://github.com/CzBuCHi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Parses the `argv` value supplied (or `process.argv` by default), extracting and returning the `command` and remainder of `argv`. The command will be the first value in the `argv` array unless it is an option (e.g. `--help`).

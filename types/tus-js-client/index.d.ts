@@ -2,6 +2,7 @@
 // Project: https://github.com/tus/tus-js-client/
 // Definitions by: Kevin Somers-Higgins <https://github.com/kevhiggins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface UploadOptions {
     endpoint: string;

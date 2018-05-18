@@ -2,6 +2,7 @@
 // Project: https://github.com/EyalAr/lwip
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

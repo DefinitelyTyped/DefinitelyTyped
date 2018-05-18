@@ -2,6 +2,7 @@
 // Project: http://cometd.org
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace CometD {
 

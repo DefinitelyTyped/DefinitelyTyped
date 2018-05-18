@@ -2,6 +2,7 @@
 // Project: https://github.com/catdad/canvas-confetti#readme
 // Definitions by: Martin Tracey <https://github.com/matracey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * `confetti` takes a single optional object. When `window.Promise` is available, it will return a Promise to let you know when it is done. When promises are not available (like in IE), it will return

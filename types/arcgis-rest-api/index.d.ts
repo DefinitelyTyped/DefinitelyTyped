@@ -2,6 +2,7 @@
 // Project: http://resources.arcgis.com/en/help/arcgis-rest-api/
 // Definitions by: Jeff Jacobson <https://github.com/JeffJacobson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Feature {
     geometry: Geometry;

@@ -2,6 +2,7 @@
 // Project: https://github.com/kaiquewdev/Graph
 // Definitions by: yevt <https://github.com/yevt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 /**

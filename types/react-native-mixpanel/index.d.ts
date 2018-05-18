@@ -2,7 +2,7 @@
 // Project: https://github.com/davodesign84/react-native-mixpanel#readme
 // Definitions by: Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export function sharedInstanceWithToken(token: string): void;
 export function track(event: string): void;

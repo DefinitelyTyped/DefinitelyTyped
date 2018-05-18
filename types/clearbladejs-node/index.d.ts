@@ -2,7 +2,7 @@
 // Project: https://github.com/ClearBlade/Node-SDK
 // Definitions by: Jim Bouquet <https://github.com/ClearBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="request" />
 

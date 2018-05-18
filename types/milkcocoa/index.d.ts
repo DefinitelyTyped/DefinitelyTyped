@@ -3,6 +3,7 @@
 // Definitions by: odangosan <https://github.com/odangosan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Api Reference : https://mlkcca.com/document/api-js.html
+// TypeScript Version: 2.8
 
 declare namespace milkcocoa {
   class MilkCocoa {

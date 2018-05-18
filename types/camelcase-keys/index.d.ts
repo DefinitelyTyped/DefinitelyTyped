@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/camelcase-keys#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = camelcaseKeys;
 declare function camelcaseKeys(input: any, options?: { exclude?: string[] | RegExp[], deep?: boolean }): any;

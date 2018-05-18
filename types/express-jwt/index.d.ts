@@ -5,7 +5,7 @@
 //                  Sl1MBoy <https://github.com/Sl1MBoy>
 //                  Milan Mimra <https://github.com/milan-mimra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import express = require('express');
 import unless = require('express-unless');

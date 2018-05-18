@@ -2,6 +2,7 @@
 // Project: https://github.com/Constellation/structured-source
 // Definitions by: azu <https://github.com/azu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace StructuredSource {
     interface SourcePosition {

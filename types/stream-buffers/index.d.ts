@@ -2,6 +2,7 @@
 // Project: https://github.com/samcday/node-stream-buffer#readme
 // Definitions by: Jason Dent <https://github.com/Jason3S>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 import * as stream from 'stream';

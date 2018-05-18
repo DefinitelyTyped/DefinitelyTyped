@@ -2,6 +2,7 @@
 // Project: https://github.com/paularmstrong/swig
 // Definitions by: Peter Harris <https://github.com/CodeAnimal>, Carlos Ballesteros Velasco <https://github.com/soywiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // API Documentation : http://paularmstrong.github.io/swig/docs/api/
 

@@ -2,6 +2,7 @@
 // Project: http://benalman.com/projects/jquery-bbq-plugin/
 // Definitions by: Adam R. Smith <https://github.com/sunetos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import $ = require('jquery');
 

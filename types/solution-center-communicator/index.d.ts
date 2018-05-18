@@ -2,6 +2,7 @@
 // Project: https://github.com/zalando-incubator/solution-center-communicator
 // Definitions by: Damián García <https://github.com/dami-gg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace ScCommunicator {
 

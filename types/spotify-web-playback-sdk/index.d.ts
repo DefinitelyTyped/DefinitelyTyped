@@ -4,6 +4,7 @@
 //                 Marcus Weiner <https://github.com/mraerino>
 //                 Moritz Gunz <https://github.com/NeoLegends>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Window {
     onSpotifyWebPlaybackSDKReady(): void;

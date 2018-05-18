@@ -2,7 +2,7 @@
 // Project: https://github.com/thejoshwolfe/yazl
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

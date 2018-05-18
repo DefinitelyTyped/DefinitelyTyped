@@ -2,7 +2,7 @@
 // Project: http://www.jstorage.info/
 // Definitions by: Danil Flores <https://github.com/dflor003>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 interface JStorageOptions {
     TTL: number;

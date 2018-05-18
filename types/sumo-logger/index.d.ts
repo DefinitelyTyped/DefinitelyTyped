@@ -3,7 +3,7 @@
 // Definitions by: forabi <https://github.com/forabi>
 //                 clementallen <https://github.com/clementallen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

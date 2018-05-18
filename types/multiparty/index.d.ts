@@ -2,6 +2,7 @@
 // Project: https://github.com/andrewrk/node-multiparty
 // Definitions by: Ken Fukuyama <https://github.com/kenfdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

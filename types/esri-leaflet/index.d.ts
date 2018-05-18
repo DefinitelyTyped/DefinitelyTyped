@@ -2,7 +2,7 @@
 // Project: http://esri.github.io/esri-leaflet
 // Definitions by: strajuser <https://github.com/strajuser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as L from 'leaflet';
 

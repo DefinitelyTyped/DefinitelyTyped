@@ -3,7 +3,7 @@
 // Definitions by: Theodore Brown <https://github.com/theodorejb>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace Cookies {
     interface CookieAttributes {

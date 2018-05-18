@@ -2,6 +2,7 @@
 // Project: https://github.com/kodie/moment-holiday
 // Definitions by: Robert Winslow Dalpe <https://github.com/rwdalpe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as moment from 'moment';
 

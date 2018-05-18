@@ -2,6 +2,7 @@
 // Project: https://github.com/dylang/node-rss
 // Definitions by: Second Datke <https://github.com/secondwtq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var factory: NodeRSS.RSSFactory;
 export = factory;

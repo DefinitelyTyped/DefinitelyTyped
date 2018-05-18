@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/earth/
 // Definitions by: Ilia Choly <https://github.com/icholy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace google {
 

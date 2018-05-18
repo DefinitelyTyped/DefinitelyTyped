@@ -2,6 +2,7 @@
 // Project: http://www.timdown.co.uk/jshashtable/
 // Definitions by: Sergey Gerasimov <https://github.com/gerich-home/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface IHashtable<TKey, TValue>
 {

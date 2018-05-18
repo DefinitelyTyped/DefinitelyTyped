@@ -2,6 +2,7 @@
 // Project: https://github.com/iammerrick/Squire.js
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare class Squire {

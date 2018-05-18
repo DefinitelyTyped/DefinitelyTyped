@@ -3,7 +3,7 @@
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 Tom Sawkins <https://github.com/tomSawkins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export interface PushNotificationPermissions {
     alert?: boolean;

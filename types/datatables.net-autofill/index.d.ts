@@ -2,7 +2,7 @@
 // Project: https://datatables.net
 // Definitions by: Andy Ma <https://github.com/andy-maca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>

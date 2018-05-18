@@ -9,6 +9,7 @@
 //                 Adam Lewis <https://github.com/supercargo>
 //                 Alex Soh <https://github.com/takato1314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
 export type MomentConstructor1 =

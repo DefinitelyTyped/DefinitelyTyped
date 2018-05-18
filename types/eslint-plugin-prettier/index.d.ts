@@ -2,6 +2,7 @@
 // Project: https://github.com/prettier/eslint-plugin-prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Converts invisible characters to a commonly recognizable visible form.

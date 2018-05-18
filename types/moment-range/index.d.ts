@@ -5,6 +5,7 @@
 //                 Juan Francisco Adame <https://github.com/franjuan>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import moment = require('moment');
 

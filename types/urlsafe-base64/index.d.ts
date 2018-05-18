@@ -2,6 +2,7 @@
 // Project: https://github.com/RGBboy/urlsafe-base64
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 

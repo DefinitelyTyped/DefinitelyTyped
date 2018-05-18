@@ -2,6 +2,7 @@
 // Project: https://github.com/AtenDesignGroup/url-params
 // Definitions by: Daniel Sogl <https://github.com/danielsogl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 export function add(oldUrl: string, param: string, value: any): string;
 
 export function createUrlObject(oldUrl: string): any;

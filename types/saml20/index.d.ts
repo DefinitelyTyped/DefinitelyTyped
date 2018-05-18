@@ -2,6 +2,7 @@
 // Project: https://github.com/leandrob/saml20
 // Definitions by: Jan Petzold <https://github.com/HackerUndKoch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Profile {
     issuer: string;

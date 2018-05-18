@@ -2,6 +2,7 @@
 // Project: https://github.com/stereolux/cordovarduino
 // Definitions by: Hendrik Maus <https://github.com/hendrikmaus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Cordovardunio {
     interface Serial {

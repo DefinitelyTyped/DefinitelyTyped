@@ -2,6 +2,7 @@
 // Project: https://github.com/werk85/node-html-to-text
 // Definitions by: Eryk Warren <https://github.com/erykwarren>
 // Definitions: https://github.com/DefinitelyTyped/html-to-text
+// TypeScript Version: 2.8
 
 interface HtmlToTextStatic {
     /**

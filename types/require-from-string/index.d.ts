@@ -2,6 +2,7 @@
 // Project: https://github.com/floatdrop/require-from-string
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Load module from string in Node.

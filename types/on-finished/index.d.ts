@@ -3,6 +3,7 @@
 // Definitions by: Honza Dvorsky <https://github.com/czechboy0>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 import { IncomingMessage, OutgoingMessage } from 'http';

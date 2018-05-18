@@ -2,6 +2,7 @@
 // Project: github.com/arekinath/node-sshpk
 // Definitions by: Meno Abels <https://github.com/mabels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

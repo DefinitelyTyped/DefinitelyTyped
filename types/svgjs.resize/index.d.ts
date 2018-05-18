@@ -3,6 +3,7 @@
 // Definitions by: Kevin Gutiérrez <https://github.com/jkevingutierrez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Reference: https://github.com/Fuzzyma/svg.resize.js
+// TypeScript Version: 2.8
 
 
 declare namespace svgjs {

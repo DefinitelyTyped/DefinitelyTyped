@@ -2,6 +2,7 @@
 // Project: https://github.com/davidwood/node-password-hash
 // Definitions by: TANAKA Koichi <https://github.com/mugeso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export declare function generate(password: string, options?: Options): string;

@@ -2,6 +2,7 @@
 // Project: https://github.com/rhalff/dot-object
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare namespace DotObject {

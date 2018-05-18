@@ -2,6 +2,7 @@
 // Project: https://github.com/mapbox/pbf
 // Definitions by: Christian Schwarz <https://github.com/cschwarz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Pbf {
     buf: Uint8Array;

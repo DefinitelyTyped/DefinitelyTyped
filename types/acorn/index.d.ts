@@ -2,6 +2,7 @@
 // Project: https://github.com/marijnh/acorn
 // Definitions by: RReverser <https://github.com/RReverser>, e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace acorn;
 export = acorn;

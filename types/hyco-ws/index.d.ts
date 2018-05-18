@@ -2,6 +2,7 @@
 // Project: https://github.com/Azure/azure-relay-node
 // Definitions by: Manuel Rodrigo Cabello <https://github.com/mrcabellom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

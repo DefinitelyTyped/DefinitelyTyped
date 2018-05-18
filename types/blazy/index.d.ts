@@ -3,6 +3,7 @@
 // Definitions by: Julien Paroche <https://github.com/julienpa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/blazy
 // Definitions based on: http://dinbror.dk/blog/blazy
+// TypeScript Version: 2.8
 
 declare var Blazy: Blazy;
 

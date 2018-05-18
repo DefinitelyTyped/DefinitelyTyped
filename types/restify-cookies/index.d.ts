@@ -2,7 +2,7 @@
 // Project: https://github.com/nathschmidt/restify-cookies
 // Definitions by: weekens <https://github.com/weekens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import * as restify from 'restify';
 

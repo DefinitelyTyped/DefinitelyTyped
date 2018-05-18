@@ -9,7 +9,7 @@
 //                 Santiago Vilar <https://github.com/smvilar>
 //                 Ulf Schwekendiek <https://github.com/sulf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as Immutable from 'immutable';

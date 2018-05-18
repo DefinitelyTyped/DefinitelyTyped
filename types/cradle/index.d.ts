@@ -2,6 +2,7 @@
 // Project: https://github.com/flatiron/cradle
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface Options {

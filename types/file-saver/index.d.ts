@@ -4,6 +4,7 @@
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Chris Barr <https://github.com/chrismbarr>
 // Definitions:  https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/file-saver
+// TypeScript Version: 2.8
 
 declare namespace FileSaver {
     /**

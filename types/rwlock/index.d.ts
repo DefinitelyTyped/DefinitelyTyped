@@ -2,6 +2,7 @@
 // Project: https://github.com/71104/rwlock
 // Definitions by: Federico Caselli <https://github.com/CaselIT/typings-rwlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class ReadWriteGeneric<T> {
   readLock(callback: T, options?: ReadWriteLock.Options): void;

@@ -2,6 +2,7 @@
 // Project: https://github.com/WebReflection/cloner
 // Definitions by: matrumz <https://github.com/matrumz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Deep-style methods that will perform operations by value, instead of reference.

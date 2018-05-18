@@ -3,6 +3,7 @@
 // Definitions by: Louis Orleans <https://github.com/dudeofawesome>
 //                 Jeff Dickey <https://github.com/jdxcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import normalize = require('normalize-package-data');
 

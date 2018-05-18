@@ -2,6 +2,7 @@
 // Project: https://github.com/kss-node/kss-node
 // Definitions by: Gilad Gray <https://github.com/giladgray>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /** Builds a styleguide given the proper options. */
 declare function kss(options?: kss.KssOptions): Promise<kss.KssStyleguide>;

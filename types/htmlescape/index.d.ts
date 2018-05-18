@@ -2,6 +2,7 @@
 // Project: https://github.com/zertosh/htmlescape
 // Definitions by: bouzuya <http://bouzuya.net>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function htmlescape(o: any): string;
 declare namespace htmlescape {

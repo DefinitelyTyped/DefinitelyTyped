@@ -2,6 +2,7 @@
 // Project: https://github.com/sebhildebrandt/systeminformation
 // Definitions by: PixelCrab <https://github.com/PixelcrabAT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function version(): string;
 

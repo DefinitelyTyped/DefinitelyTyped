@@ -2,6 +2,7 @@
 // Project: http://socket.io/
 // Definitions by: PROGRE <https://github.com/progre>, Damian Connolly <https://github.com/divillysausages>, Florent Poujol <https://github.com/florentpoujol>, KentarouTakeda <https://github.com/KentarouTakeda>, Alexey Snigirev <https://github.com/gigi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 ///<reference types="node" />
 

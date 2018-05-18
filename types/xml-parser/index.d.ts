@@ -2,6 +2,7 @@
 // Project: https://github.com/segmentio/xml-parser
 // Definitions by: Matt Frantz <https://github.com/mhfrantz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

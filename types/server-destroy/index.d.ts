@@ -2,6 +2,7 @@
 // Project: https://github.com/isaacs/server-destroy#readme
 // Definitions by: Gyula Szalai <https://github.com/gyszalai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 /// <reference types="node" />
 
 import * as http from "http";

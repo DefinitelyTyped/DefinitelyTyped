@@ -2,6 +2,7 @@
 // Project: https://github.com/ember-cli/ember-cli-htmlbars-inline-precompile
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // This is a bit of a funky one: it's from a [Babel plugin], but is exported for
 // Ember applications as the module `"htmlbars-inline-precompile"`. It acts

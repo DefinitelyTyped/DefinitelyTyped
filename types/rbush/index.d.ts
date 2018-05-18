@@ -2,6 +2,7 @@
 // Project: https://github.com/mourner/rbush
 // Definitions by: Dan Vanderkam <http://danvk.org/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace rbush {
   export interface BBox {

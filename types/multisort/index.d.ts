@@ -2,6 +2,7 @@
 // Project: https://github.com/peterkhayes/multisort
 // Definitions by: Marek Buchar <https://github.com/CzBuCHi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Returns sorting function which sorts its argument by given criterions.

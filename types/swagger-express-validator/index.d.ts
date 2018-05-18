@@ -2,7 +2,7 @@
 // Project: https://github.com/gargol/swagger-express-validator
 // Definitions by: Pinguet62 <https://github.com/pinguet62>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import { Request, RequestHandler } from "express";
 

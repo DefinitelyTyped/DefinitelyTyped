@@ -2,6 +2,7 @@
 // Project: https://github.com/sumegizoltan/BgiFrame
 // Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*! The plugin based on:
  *

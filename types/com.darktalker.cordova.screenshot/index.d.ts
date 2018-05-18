@@ -2,6 +2,7 @@
 // Project: https://github.com/gitawego/cordova-screenshot
 // Definitions by: Ivana Dolezalova <https://github.com/akarienta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace com.darktalker.cordova.screenshot {
     interface Plugin {

@@ -2,6 +2,7 @@
 // Project: https://github.com/jonathantneal/document-promises#readme
 // Definitions by: Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * document.parsed is a promise that fulfills when the document is parsed

@@ -2,6 +2,7 @@
 // Project: https://github.com/louischatriot/nedb-logger
 // Definitions by: Joe vanderstelt <https://github.com/thisboyiscrazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = NeDBLoggerDataStore;
 export as namespace NedbLogger;

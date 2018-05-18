@@ -2,6 +2,7 @@
 // Project: https://github.com/davidmerfield/randomColor
 // Definitions by: Mathias Feitzinger <https://github.com/feitzi>, Brady Liles <https://github.com/BradyLiles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function randomColor(options?: RandomColorOptions): string;
 

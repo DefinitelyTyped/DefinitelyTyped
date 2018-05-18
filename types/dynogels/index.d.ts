@@ -4,7 +4,7 @@
 //                 Ramon de Klein <https://github.com/ramondeklein>
 //                 Stephen Tuso <https://github.com/stephentuso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

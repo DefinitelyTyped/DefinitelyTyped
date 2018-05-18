@@ -2,6 +2,7 @@
 // Project: https://github.com/conwetlab/ngsijs
 // Definitions by: Guillermofr <https://github.com/guillermofr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export class Connection {
     constructor(url: any);

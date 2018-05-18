@@ -2,6 +2,7 @@
 // Project: https://github.com/davepacheco/node-verror
 // Definitions by: Sven Reglitzki <https://github.com/svi3c>, Maxime Toumi-M <https://github.com/max4t>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*
  * VError([cause], fmt[, arg...]): Like JavaScript's built-in Error class, but

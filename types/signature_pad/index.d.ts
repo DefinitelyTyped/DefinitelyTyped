@@ -4,6 +4,7 @@
 //                 Jason Mihalick <https://github.com/jrmihalick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Szymon Nowak <https://github.com/szimek>
+// TypeScript Version: 2.8
 
 declare namespace SignaturePad {
 	class Point {

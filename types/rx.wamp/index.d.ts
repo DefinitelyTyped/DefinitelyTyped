@@ -2,6 +2,7 @@
 // Project: https://github.com/paulpdaniels/rx.wamp/
 // Definitions by: Elad Zelingher <https://github.com/darkl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import autobahn = require("autobahn");
 import * as Rx from "rx";

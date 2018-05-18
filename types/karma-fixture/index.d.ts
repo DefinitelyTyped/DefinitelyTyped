@@ -2,6 +2,7 @@
 // Project: https://github.com/billtrik/karma-fixture
 // Definitions by: Ezekiel Victor <https://github.com/evictor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace fixture {
   export var el: HTMLElement;

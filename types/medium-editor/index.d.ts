@@ -3,6 +3,7 @@
 // Definitions by: keika299 <https://github.com/keika299>
 //                 pascaliske <https://github.com/pascaliske>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace MediumEditor {
     export interface MediumEditor {

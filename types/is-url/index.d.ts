@@ -2,6 +2,7 @@
 // Project: https://github.com/segmentio/is-url
 // Definitions by: Ryota Murohoshi <https://github.com/RyotaMurohoshi>
 // Definitions: https://github.com/RyotaMurohoshi/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export = isUrl

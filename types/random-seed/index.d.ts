@@ -2,6 +2,7 @@
 // Project: https://github.com/skratchdot/random-seed/
 // Definitions by: Endel Dreyer <https://github.com/endel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface RandomSeed {
     (range: number): number;

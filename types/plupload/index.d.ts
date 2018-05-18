@@ -2,6 +2,7 @@
 // Project: http://www.plupload.com/
 // Definitions by: Patrick Bußmann <https://github.com/patrickbussmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface plupload_settings {
     /** Required Options */

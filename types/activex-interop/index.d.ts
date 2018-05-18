@@ -2,7 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/library/ff521046(v=vs.85).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // tslint:disable-next-line no-empty-interface
 interface ActiveXObjectNameMap { }

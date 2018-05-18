@@ -2,6 +2,7 @@
 // Project: http://www.prismtech.com/vortex/vortex-web
 // Definitions by: Stefan Profanter <https://github.com/Pro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*
  Vortex Web

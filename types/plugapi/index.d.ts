@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/plugapi
 // Definitions by: Brice Theurillat <https://github.com/BNedry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 declare namespace PlugAPI {
     interface PlugLogin {
         email: string;

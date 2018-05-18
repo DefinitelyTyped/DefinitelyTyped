@@ -5,7 +5,7 @@
 //                  David Moniz <https://github.com/MonizDave>
 //                  Daniel Hoenes <https://github.com/broccoliarchy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 /// <reference path="./autocomplete.d.ts" />

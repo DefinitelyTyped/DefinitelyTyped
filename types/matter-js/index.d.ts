@@ -4,6 +4,7 @@
 //                 David Asmuth <https://github.com/piranha771>,
 //                 Piotr Pietrzak <https://github.com/hasparus> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = Matter;
 export as namespace Matter;

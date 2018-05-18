@@ -2,6 +2,7 @@
 // Project: https://github.com/Teamwork/node-auto-launch
 // Definitions by: rhysd <https://github.com/rhysd>, Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface AutoLaunchOptions {
   /**

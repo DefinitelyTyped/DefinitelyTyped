@@ -2,6 +2,7 @@
 // Project: https://github.com/laverdet/node-fibers
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/fibers.d.ts
 

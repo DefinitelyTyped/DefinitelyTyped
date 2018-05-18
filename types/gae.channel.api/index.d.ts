@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/appengine/docs/java/channel/javascript
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace goog.appengine {
 	export class Channel {

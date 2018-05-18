@@ -2,7 +2,7 @@
 // Project: https://github.com/antelle/argon2-browser#readme
 // Definitions by: Ivan Gabriele <https://github.com/ivangabriele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 export namespace argon2 {
     function hash(options: Argon2BrowserHashOptions): Promise<Argon2BrowserHashResult>;

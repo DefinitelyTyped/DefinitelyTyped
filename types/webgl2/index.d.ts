@@ -3,6 +3,7 @@
 // Definitions by: Nico Kemnitz <https://github.com/nkemnitz>
 //                 Adrian Blumer <https://github.com/karhu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface HTMLCanvasElement extends HTMLElement {
     getContext(contextId: "webgl2" | "experimental-webgl2", contextAttributes?: WebGLContextAttributes): WebGL2RenderingContext | null;

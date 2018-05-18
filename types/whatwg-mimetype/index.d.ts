@@ -2,6 +2,7 @@
 // Project: https://github.com/jsdom/whatwg-mimetype#readme
 // Definitions by: Pete Johanson <https://github.com/petejohanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = MIMEType;
 

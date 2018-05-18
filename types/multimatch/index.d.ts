@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/multimatch
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Match utility function which supports multiple pattern globbing.

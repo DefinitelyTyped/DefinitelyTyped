@@ -2,7 +2,7 @@
 // Project: http://github.com/EventSource/eventsource
 // Definitions by: Scott Lee Davis <https://github.com/scottleedavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 declare class EventSource {
   constructor(url: string, eventSourceInitDict?: EventSource.EventSourceInitDict);

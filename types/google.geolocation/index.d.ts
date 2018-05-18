@@ -2,6 +2,7 @@
 // Project: https://code.google.com/p/geo-location-javascript/
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
+// TypeScript Version: 2.8
 
 interface GeolocationStatic {
 	init(): boolean;

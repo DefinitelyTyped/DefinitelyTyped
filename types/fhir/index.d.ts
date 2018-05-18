@@ -2,6 +2,7 @@
 // Project: http://hl7.org/fhir/index.html
 // Definitions by: Artifact Health <https://www.artifacthealth.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 declare module fhir {
     /**
      * Any combination of letters, numerals, "-" and ".", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.

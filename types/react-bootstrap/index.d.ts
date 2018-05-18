@@ -13,7 +13,7 @@
 //                 Aaron Beall <https://github.com/aaronbeall>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/kevva/hash-file#readme
 // Definitions by: Hiromi Shikata <https://github.com/HiromiShikata>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = hash_file;
 

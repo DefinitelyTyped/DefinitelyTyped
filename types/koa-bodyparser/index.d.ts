@@ -2,7 +2,7 @@
 // Project: https://github.com/koajs/bodyparser
 // Definitions by: Jerry Chin <https://github.com/hellopao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /* =================== USAGE ===================
 

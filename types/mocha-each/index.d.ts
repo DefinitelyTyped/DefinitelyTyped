@@ -2,7 +2,7 @@
 // Project: https://github.com/ryym/mocha-each#readme
 // Definitions by: Tom Harley <https://github.com/magnostherobot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 import { ITest, ITestDefinition, ITestCallbackContext } from 'mocha';
 

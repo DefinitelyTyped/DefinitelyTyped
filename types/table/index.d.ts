@@ -3,6 +3,7 @@
 // Definitions by: Evan Shortiss <https://github.com/evanshortiss>
 //                 mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type BorderType = 'honeywell' | 'norc' | 'ramac' | 'void';
 

@@ -2,6 +2,7 @@
 // Project: https://stripe.com/checkout
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="stripe-v2"/>
 

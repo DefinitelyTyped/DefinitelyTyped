@@ -14,7 +14,7 @@
 //                 Todd Bealmear <https://github.com/todd>
 //                 Nick Schultz <https://github.com/nrschultz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 

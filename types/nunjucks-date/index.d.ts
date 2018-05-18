@@ -2,6 +2,7 @@
 // Project: https://github.com/techmsi/nunjucks-date
 // Definitions by: kruncher <https://github.com/kruncher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "nunjucks-date" {
 

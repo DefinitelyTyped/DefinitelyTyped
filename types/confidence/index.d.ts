@@ -2,6 +2,7 @@
 // Project: https://github.com/hapijs/confidence.git
 // Definitions by: Jean-Philippe Pellerin <https://github.com/jppellerin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
 * Confidence is a configuration document format, an API, and a foundation for A/B testing.

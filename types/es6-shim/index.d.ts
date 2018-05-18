@@ -2,7 +2,7 @@
 // Project: https://github.com/paulmillr/es6-shim
 // Definitions by: Ron Buckton <https://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 // TODO: As of TypeScript@2.9 there is a global type PropertyKey that should be used instead of this.
 declare type KeyOfProperty = string | number | symbol;

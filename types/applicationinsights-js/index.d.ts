@@ -2,6 +2,7 @@
 // Project: https://github.com/Microsoft/ApplicationInsights-JS
 // Definitions by: Kamil Szostak <https://github.com/kamilszostak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module AI {
     enum SeverityLevel {

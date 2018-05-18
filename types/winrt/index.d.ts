@@ -2,6 +2,7 @@
 // Project: http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx
 // Definitions by: TypeScript samples <https://www.typescriptlang.org/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

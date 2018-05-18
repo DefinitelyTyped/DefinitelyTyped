@@ -2,7 +2,7 @@
 // Project: https://github.com/terrierscript/historykana
 // Definitions by: shiratsuki <https://github.com/h-shiratsuki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /**
  * Get Kana string from input history array.

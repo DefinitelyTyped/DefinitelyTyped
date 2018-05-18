@@ -2,7 +2,7 @@
 // Project: https://github.com/angular-ui-tree/angular-ui-tree
 // Definitions by: Calvin Fernandez <https://github.com/CalvinFernandez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="angular" />
 

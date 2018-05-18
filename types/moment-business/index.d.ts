@@ -2,6 +2,7 @@
 // Project: https://github.com/jmeas/moment-business
 // Definitions by: Greg Sieranski <https://github.com/wonbyte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as moment from "moment";
 

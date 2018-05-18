@@ -2,6 +2,7 @@
 // Project: https://github.com/0x00A/prompt-sync
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace PromptSync {
     export interface Prompt {

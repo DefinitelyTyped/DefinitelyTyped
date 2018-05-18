@@ -2,6 +2,7 @@
 // Project: http://npmjs.com/milliseconds
 // Definitions by: Elmar Burke <github.com/elmarburke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Milliseconds {
 	seconds(seconds: number): number

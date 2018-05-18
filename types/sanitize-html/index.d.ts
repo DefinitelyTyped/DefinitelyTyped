@@ -4,6 +4,7 @@
 //                 Afshin Darian <https://github.com/afshin>
 //                 BehindTheMath <https://github.com/BehindTheMath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = sanitize;
 

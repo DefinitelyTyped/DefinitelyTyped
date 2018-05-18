@@ -2,7 +2,7 @@
 // Project: https://github.com/pgte/pouch-redux-middleware
 // Definitions by: Adam Charron <https://github.com/charrondev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Dispatch, Action, Middleware } from 'redux';
 import * as PouchDB from 'pouchdb';

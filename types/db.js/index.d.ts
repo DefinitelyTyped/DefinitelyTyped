@@ -2,6 +2,7 @@
 // Project: https://github.com/aaronpowell/db.js/
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module DbJs {
     interface ErrorListener {

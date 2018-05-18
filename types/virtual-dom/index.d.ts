@@ -2,6 +2,7 @@
 // Project: https://github.com/Matt-Esch/virtual-dom
 // Definitions by: Christopher Brown <https://github.com/chbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace VirtualDOM {
   interface VHook {

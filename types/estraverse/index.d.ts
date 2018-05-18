@@ -2,6 +2,7 @@
 // Project: https://github.com/estools/estraverse
 // Definitions by: Sanex3339 <https://github.com/sanex3339>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as ESTree from 'estree';
 

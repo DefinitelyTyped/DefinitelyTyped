@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/mkpath
 // Definitions by: Jared Klopper <https://github.com/optical>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare namespace mkpath {

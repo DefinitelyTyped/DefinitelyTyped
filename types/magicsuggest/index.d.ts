@@ -2,7 +2,7 @@
 // Project: http://nicolasbize.com/magicsuggest
 // Definitions by: Leonardo Chaia <https://github.com/leonardochaia>
 // Definitions: https://github.com/leonardochaia/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 interface JQuery {

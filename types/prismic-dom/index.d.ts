@@ -2,6 +2,7 @@
 // Project: https://github.com/prismicio/prismic-dom#readme
 // Definitions by: Nick Whyte <https://github.com/nickw444>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface RichText {
     asHtml(richText: any, linkResolver?: (doc: any) => string): string;

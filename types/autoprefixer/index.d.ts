@@ -2,6 +2,7 @@
 // Project: https://github.com/postcss/autoprefixer
 // Definitions by: Armando Meziat <https://github.com/odnamrataizem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Plugin, Transformer as PostcssTransformer } from 'postcss';
 

@@ -4,7 +4,7 @@
 //                 syy1125 <https://github.com/syy1125>
 //                 AppLover69 <https://github.com/AppLover69>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export = deepmerge;
 

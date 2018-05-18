@@ -2,6 +2,7 @@
 // Project: https://github.com/rannn505/node-powershell
 // Definitions by: Rodrigo F. Fernandes <https://github.com/rodrigoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

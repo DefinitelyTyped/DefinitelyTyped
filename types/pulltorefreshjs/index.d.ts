@@ -3,6 +3,7 @@
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 //                 Tamas Kinsztler <https://github.com/humpedli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function init(options?: Options): void;
 

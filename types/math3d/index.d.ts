@@ -3,6 +3,7 @@
 // Definitions by: Laszlo Jakab <https://github.com/laszlojakab>
 //                 Jim Smart <https://github.com/jimsmart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export class Vector3 {
     constructor(x?: number, y?: number, z?: number);

@@ -2,6 +2,7 @@
 // Project: https://github.com/timjansen/PinkySwear.js
 // Definitions by: Chance Snow <https://github.com/chances>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*
  * PinkySwear.js 2.2.2 - Minimalistic implementation of the Promises/A+ spec

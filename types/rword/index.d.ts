@@ -2,6 +2,7 @@
 // Project: https://github.com/Xyfir/rword#readme
 // Definitions by: icopp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface GenerateOptions {
     /**

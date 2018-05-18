@@ -2,6 +2,7 @@
 // Project: https://github.com/neoziro/std-mocks#readme
 // Definitions by: Jeff Dickey <https://github.com/jdxcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Options {
     stdout?: boolean;

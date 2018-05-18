@@ -2,6 +2,7 @@
 // Project: https://github.com/mock-end/pick-weight#readme
 // Definitions by: Roberts Slisans <https://github.com/rsxdalv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Dummy function allows to avoid hard to kill or fix tslint warning
 // (exporting pluginFunc will make this a non-importable module)

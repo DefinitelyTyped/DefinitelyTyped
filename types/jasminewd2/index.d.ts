@@ -2,7 +2,7 @@
 // Project: https://github.com/angular/jasminewd
 // Definitions by: Sammy Jelin <https://github.com/sjelin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /// <reference types="jasmine" />
 

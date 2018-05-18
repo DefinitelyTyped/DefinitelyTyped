@@ -2,7 +2,7 @@
 // Project: https://www.cloudflare.com/apps/
 // Definitions by: MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /**
  * An object which contains all of the options the installer specified,

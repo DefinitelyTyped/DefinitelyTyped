@@ -2,6 +2,7 @@
 // Project: http://netflix.github.io/falcor/
 // Definitions by: Quramy <https://github.com/Quramy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Path, PathSet, PathValue, JSONEnvelope, JSONGraph, JSONGraphEnvelope } from 'falcor-json-graph';
 

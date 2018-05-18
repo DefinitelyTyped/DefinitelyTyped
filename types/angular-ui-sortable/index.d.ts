@@ -2,7 +2,7 @@
 // Project: https://github.com/angular-ui/ui-sortable
 // Definitions by: Thodoris Greasidis <https://github.com/thgreasi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="angular" />
 

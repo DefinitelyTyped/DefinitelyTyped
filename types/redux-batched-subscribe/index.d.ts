@@ -2,6 +2,7 @@
 // Project: https://github.com/tappleby/redux-batched-subscribe
 // Definitions by: Dibyo Majumdar <https://github.com/mDibyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { GenericStoreEnhancer } from 'redux';
 

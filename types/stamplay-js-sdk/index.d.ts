@@ -2,6 +2,7 @@
 // Project: https://github.com/Stamplay/stamplay-js-sdk
 // Definitions by: Riderman de Sousa Barbosa <https://github.com/ridermansb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Stamplay {
   function init(appId: string): void;

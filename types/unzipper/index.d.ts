@@ -3,7 +3,7 @@
 // Definitions by: s73obrien <https://github.com/s73obrien>
 //                 Nate <https://github.com/natemara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 /// <reference types="node" />
 
 import { Readable, Stream, PassThrough, Duplex } from "stream";

@@ -2,7 +2,7 @@
 // Project: https://github.com/soggie/jsonrpc-serializer
 // Definitions by: Akim95 <https://github.com/Akim95>, many20 <https://github.com/many20>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.8
 
 export type PayloadType = 'request' | 'notification' | 'success' | 'error';
 // export const PayloadType = {

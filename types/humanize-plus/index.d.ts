@@ -2,6 +2,7 @@
 // Project: https://github.com/HubSpot/humanize
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Numbers
 export function formatNumber(number: number, decimals?: number): string;

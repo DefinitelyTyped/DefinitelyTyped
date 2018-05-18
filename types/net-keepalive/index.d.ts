@@ -2,6 +2,7 @@
 // Project: https://github.com/hertzg/node-net-keepalive
 // Definitions by: George Kotchlamazashvili <https://github.com/hertzg>
 // Definitions: https://github.com/hertzg/node-net-keepalive
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

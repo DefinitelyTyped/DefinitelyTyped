@@ -2,7 +2,7 @@
 // Project: https://github.com/rubenverborgh/AsyncIterator#readme
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

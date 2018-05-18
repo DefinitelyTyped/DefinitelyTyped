@@ -2,7 +2,7 @@
 // Project: https://github.com/nodefluent/schema-registry#readme
 // Definitions by: Tomislav Fabeta <https://github.com/bonzzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 export interface RegistryClientConfig {

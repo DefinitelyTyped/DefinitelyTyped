@@ -2,6 +2,7 @@
 // Project: https://github.com/dankogai/js-combinatorics
 // Definitions by: Vasya Aksyonov <https://github.com/outring>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace __Combinatorics {
 

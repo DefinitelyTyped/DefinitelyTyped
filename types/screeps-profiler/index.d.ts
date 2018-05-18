@@ -2,6 +2,7 @@
 // Project: https://github.com/gdborton/screeps-profiler
 // Definitions by: Casey Link <https://github.com/ramblurr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * The Screeps Profiler is a library that helps to understand where your CPU is being spent in

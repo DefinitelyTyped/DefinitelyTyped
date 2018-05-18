@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/pkg-dir#readme
 // Definitions by: NK-WEB-Git <https://github.com/NK-WEB-Git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = pkgDir;
 

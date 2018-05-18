@@ -2,6 +2,7 @@
 // Project: https://github.com/drlukeangel/Pet-Finder-API-Javascript-Library
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 declare function petFinder(api_key: string, api_secret: string, options?: any): petFinder.PetFinder;
 
 declare namespace petFinder {

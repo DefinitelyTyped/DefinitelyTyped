@@ -4,7 +4,7 @@
 //                 Felipe Ochoa <https://github.com/felipeochoa>
 //                 Chris Barth <https://github.com/cjbarth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 // The version number has been artificially set to 3.4, instead of 3.0,
 // because of the existing uuid-js npm types package being at 3.3.28,

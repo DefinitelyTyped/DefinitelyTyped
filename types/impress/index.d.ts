@@ -2,6 +2,7 @@
 // Project: https://github.com/bartaz/impress.js
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface Impress {

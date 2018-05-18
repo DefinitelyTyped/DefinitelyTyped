@@ -2,6 +2,7 @@
 // Project: https://github.com/APSL/react-native-version-number
 // Definitions by: Vincent Langlet <https://github.com/VincentLanglet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface VersionNumber {
     appVersion?: string;

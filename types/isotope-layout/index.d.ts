@@ -3,7 +3,7 @@
 // Definitions by: Anže Videnič <https://github.com/avidenic>
 //                 Mălin Brândușe <https://github.com/malinushj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export as namespace Isotope
 export = Isotope;

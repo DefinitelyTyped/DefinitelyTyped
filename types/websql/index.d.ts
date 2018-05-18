@@ -2,6 +2,7 @@
 // Project: http://www.w3.org/TR/webdatabase/
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // W3C spec: http://www.w3.org/TR/webdatabase/#database
 // Spec revision: 2010-11-18

@@ -2,6 +2,7 @@
 // Project: https://github.com/clux/decay
 // Definitions by: Eric Naeseth <https://github.com/enaeseth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Creates a function to rank posts using Reddit's "hot" algorithm.

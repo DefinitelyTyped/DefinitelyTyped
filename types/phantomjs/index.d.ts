@@ -2,6 +2,7 @@
 // Project: https://github.com/ariya/phantomjs/wiki/API-Reference
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>, Mike Keesey <https://github.com/keesey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function require(module: string): any;
 

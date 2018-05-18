@@ -2,6 +2,7 @@
 // Project: https://github.com/andrewrk/node-diacritics
 // Definitions by: Oto Ciulis <https://github.com/otociulis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function remove(str: string): string;
 export const replacementList: Array<{

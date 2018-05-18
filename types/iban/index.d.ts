@@ -2,6 +2,7 @@
 // Project: https://github.com/arhs/iban.js/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * @summary Interface for {@link IBAN} object.

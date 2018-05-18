@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/array-foreach
 // Definitions by: Steve Jenkins <https://github.com/skysteve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
 * Performs the specified action for each element in an array.

@@ -2,7 +2,7 @@
 // Project: https://github.com/DVLP/signalr-no-jquery/
 // Definitions by: Martin Gjoshevski <https://github.com/gjoshevski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export function hubConnection(url?: string, options?: Options): Connection;
 

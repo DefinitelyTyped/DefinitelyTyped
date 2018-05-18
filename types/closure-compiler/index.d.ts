@@ -2,6 +2,7 @@
 // Project: https://github.com/tim-smart/node-closure/
 // Definitions by: Martin Probst <https://github.com/mprobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export type Callback = (err: Error, stdout: string, stderr: string) => any;

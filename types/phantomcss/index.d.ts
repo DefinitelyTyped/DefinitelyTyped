@@ -2,7 +2,7 @@
 // Project: https://github.com/Huddle/PhantomCSS
 // Definitions by: Amaury Bauzac <https://github.com/abauzac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="resemblejs" />
 import { Casper } from 'casperjs';

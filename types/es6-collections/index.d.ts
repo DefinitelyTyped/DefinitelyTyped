@@ -2,7 +2,7 @@
 // Project: https://github.com/WebReflection/es6-collections/
 // Definitions by: Ron Buckton <https://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

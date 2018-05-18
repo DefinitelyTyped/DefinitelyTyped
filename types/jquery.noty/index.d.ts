@@ -2,7 +2,7 @@
 // Project: http://needim.github.io/noty/
 // Definitions by: Aaron King <https://github.com/kingdango>, Tim Helfensdörfer <https://github.com/thelfensdrfer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Project by: Nedim Carter <http://needim.github.io>
 

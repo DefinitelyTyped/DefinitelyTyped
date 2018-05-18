@@ -2,6 +2,7 @@
 // Project: https://github.com/motdotla/dotenv
 // Definitions by: Jussi Kinnula <https://github.com/jussikinnula>, Borek Bernard <https://github.com/borekb>, Eric Naeseth <https://github.com/enaeseth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

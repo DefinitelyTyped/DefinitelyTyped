@@ -7,5 +7,5 @@
 //                 Brian Martinson <https://github.com/bmartinson>
 //                 Rogerio Teixeira <https://github.com/RogerioTeixeira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 export import fabric = require("./fabric-impl");

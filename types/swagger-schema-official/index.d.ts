@@ -2,6 +2,7 @@
 // Project: http://swagger.io/specification/
 // Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Info {
   title: string;

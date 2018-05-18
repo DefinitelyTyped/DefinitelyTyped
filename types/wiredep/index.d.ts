@@ -2,6 +2,7 @@
 // Project: https://github.com/taptapship/wiredep
 // Definitions by: Abraão Alves <http://abraaoalves.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

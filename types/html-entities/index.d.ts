@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/html-entities
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare abstract class Entities {
     encode(toEncode: string): string;

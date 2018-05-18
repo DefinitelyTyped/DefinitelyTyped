@@ -2,6 +2,7 @@
 // Project: https://github.com/cGuille/async-polling
 // Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace AsyncPolling {
     export type EventName = "run"|"start"|"error"|"result"|"end"|"schedule"|"stop";

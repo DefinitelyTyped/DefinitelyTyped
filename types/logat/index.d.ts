@@ -2,6 +2,7 @@
 // Project: https://github.com/krvikash35/logat
 // Definitions by: Vikash <https://github.com/krvikash35>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

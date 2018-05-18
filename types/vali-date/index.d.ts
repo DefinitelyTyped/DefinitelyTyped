@@ -2,6 +2,7 @@
 // Project: https://github.com/SamVerschueren/vali-date
 // Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function valiDate(input: string): boolean;
 declare namespace valiDate { }

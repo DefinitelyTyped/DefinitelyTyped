@@ -2,6 +2,7 @@
 // Project: https://github.com/MathieuTurcotte/node-precond
 // Definitions by: Oliver Schneider <https://github.com/olsio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 export declare function checkArgument(value: any, message?: string, ...formatArgs: any[]): void;

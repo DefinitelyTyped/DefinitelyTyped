@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/electron-is-dev#readme
 // Definitions by: Troy McKinnon <https://github.com/trodi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = electron_is_dev;
 

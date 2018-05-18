@@ -2,6 +2,7 @@
 // Project: https://github.com/Bruce17/safe-compare#readme
 // Definitions by: Vadim Belorussov <https://github.com/bevalorous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = safeCompare;
 

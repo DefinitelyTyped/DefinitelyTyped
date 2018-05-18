@@ -2,6 +2,7 @@
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
 declare namespace newrelic {

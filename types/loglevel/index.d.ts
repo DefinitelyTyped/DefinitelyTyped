@@ -4,7 +4,7 @@
 //                 Gabor Szmetanko <https://github.com/szmeti>
 //                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 declare var log: log.Logger;
 export as namespace log;

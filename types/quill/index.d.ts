@@ -4,6 +4,7 @@
 //                 Guillaume <https://github.com/guillaume-ro-fr>
 //                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Blot } from 'parchment/dist/src/blot/abstract/blot';
 

@@ -2,6 +2,7 @@
 // Project: http://www.breezejs.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, IdeaBlade <https://github.com/IdeaBlade/Breeze/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Updated Jan 14 2011 - Jay Traband ( www.ideablade.com).
 // Updated Aug 13 2013 - Steve Schmitt ( www.ideablade.com).

@@ -2,6 +2,7 @@
 // Project: https://github.com/netceteragroup/valdr
 // Definitions by: Kai Ilbertz <https://github.com/ilbertz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace valdr.message {
 

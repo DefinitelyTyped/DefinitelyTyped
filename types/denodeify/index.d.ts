@@ -2,6 +2,7 @@
 // Project: https://github.com/matthew-andrews/denodeify
 // Definitions by: joaomoreno <https://github.com/joaomoreno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare function _<R>(fn: _.F0<R>, transformer?: _.M): () => Promise<R>;

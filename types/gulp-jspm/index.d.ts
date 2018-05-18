@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/gulp-jspm
 // Definitions by: Peter Juras <https://github.com/peterjuras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 /// <reference types="node" />
 
 

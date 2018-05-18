@@ -2,6 +2,7 @@
 // Project: https://github.com/pluma/httperr
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

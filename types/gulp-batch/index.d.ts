@@ -2,6 +2,7 @@
 // Project: https://github.com/floatdrop/gulp-batch
 // Definitions by: Alvaro Menezes <https://github.com/alvarollmenezes>, Vinicius Salomao <https://github.com/vizeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function batch(opts?: any, cb?: any, errorHandler?: any): (event: any) => void;
 declare namespace batch { }

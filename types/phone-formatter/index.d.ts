@@ -2,6 +2,7 @@
 // Project: https://github.com/stevekinney/node-phone-formatter
 // Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'phone-formatter' {
 

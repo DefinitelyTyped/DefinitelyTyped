@@ -2,7 +2,7 @@
 // Project: https://github.com/satazor/js-spark-md5#readme
 // Definitions by: Bastien Moulia <https://github.com/bastienmoulia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 interface State {
 	buff: Uint8Array;

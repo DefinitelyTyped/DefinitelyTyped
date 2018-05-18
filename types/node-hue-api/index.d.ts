@@ -2,6 +2,7 @@
 // Project: https://github.com/peter-murray/node-hue-api
 // Definitions by: wind-rider <https://github.com/wind-rider/>, Frederic Morel <https://github.com/fjmorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

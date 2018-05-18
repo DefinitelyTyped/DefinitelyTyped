@@ -2,6 +2,7 @@
 // Project: https://github.com/zenparsing/zen-push
 // Definitions by: daprahamian <https://github.com/daprahamian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as Observable from 'zen-observable';
 

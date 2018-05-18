@@ -6,6 +6,7 @@
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Orblazer <https://github.com/orblazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

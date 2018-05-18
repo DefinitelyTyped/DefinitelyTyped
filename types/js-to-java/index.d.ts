@@ -2,7 +2,7 @@
 // Project: https://github.com/node-modules/js-to-java
 // Definitions by: skyitachi <https://github.com/skyitachi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 interface Currency {
   currencyCode: string;

@@ -2,6 +2,7 @@
 // Project: https://github.com/ericelliott/cuid
 // Definitions by: Dave Keen <http://www.keendevelopment.ch>, João Forja <http://discipliningcode.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface CUID {
     (): string;

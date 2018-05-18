@@ -5,7 +5,7 @@
 //                 Eloy Durán <https://github.com/alloy>
 //                 Nicolas Pirotte <https://github.com/npirotte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export {
     commitLocalUpdate,

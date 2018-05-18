@@ -2,6 +2,7 @@
 // Project: https://github.com/nosir/obelisk.js/
 // Definitions by: Brian Drupieski <https://github.com/bdrupieski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace obelisk {
 

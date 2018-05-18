@@ -2,6 +2,7 @@
 // Project: https://github.com/manuelmhtr/countries-and-timezones#readme
 // Definitions by: David Bird <https://github.com/zero51>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Country {
 	id: string;

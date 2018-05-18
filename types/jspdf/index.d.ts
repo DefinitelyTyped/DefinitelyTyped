@@ -2,6 +2,7 @@
 // Project: https://github.com/MrRio/jsPDF
 // Definitions by: Amber Schühmacher <https://github.com/amberjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module 'jspdf' {
     class jsPDF {

@@ -3,6 +3,7 @@
 // Definitions by: soundTricker <https://github.com/soundTricker>
 //                 NateScarlet <https://github.com/NateScarlet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Notify {
     constructor(title: string, options?: INotifyOption);

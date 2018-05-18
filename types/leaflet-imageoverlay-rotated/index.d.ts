@@ -2,7 +2,7 @@
 // Project: https://github.com/IvanSanchez/Leaflet.ImageOverlay.Rotated
 // Definitions by: Thomas Kleinke <https://github.com/tkleinke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as L from 'leaflet';
 

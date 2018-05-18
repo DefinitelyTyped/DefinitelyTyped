@@ -2,6 +2,7 @@
 // Project: https://github.com/yahoo/serialize-javascript
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace serializeJavascript {
     interface SerializeJSOptions {

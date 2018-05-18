@@ -2,6 +2,7 @@
 // Project: http://dygraphs.com
 // Definitions by: Dan Vanderkam <https://github.com/danvk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="google.visualization" />
 

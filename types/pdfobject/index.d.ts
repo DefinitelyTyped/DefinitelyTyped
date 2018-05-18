@@ -2,6 +2,7 @@
 // Project: https://github.com/pipwerks/PDFObject
 // Definitions by: Niels Boogaard <https://github.com/nielsboogaard>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "pdfobject" {
     interface PDFObject {

@@ -2,6 +2,7 @@
 // Project: http://www.w3.org/TR/gamepad/
 // Definitions by: Kon <http://phyzkit.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Gamepad{
     /**

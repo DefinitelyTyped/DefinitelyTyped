@@ -2,6 +2,7 @@
 // Project: https://github.com/doowb/ansi-colors
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function bgblack(s: string): string;
 export function bgblue(s: string): string;

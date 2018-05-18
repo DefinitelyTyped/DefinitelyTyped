@@ -2,6 +2,7 @@
 // Project: http://jpillora.com/xdomain/
 // Definitions by: Dan Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare interface XDomainCookies {

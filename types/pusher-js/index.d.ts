@@ -3,6 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Lance Ivy <https://github.com/cainlevy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace pusher {
     interface PusherStatic {

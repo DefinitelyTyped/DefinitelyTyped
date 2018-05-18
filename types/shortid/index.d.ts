@@ -2,6 +2,7 @@
 // Project: https://github.com/dylang/shortid
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>, Danny Arnold <https://github.com/despairblue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare const shortid: ShortId
 

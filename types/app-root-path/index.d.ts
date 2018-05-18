@@ -2,6 +2,7 @@
 // Project: https://github.com/inxilpro/node-app-root-path
 // Definitions by: Shant Marouti <https://github.com/shantmarouti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface RootPath {
 

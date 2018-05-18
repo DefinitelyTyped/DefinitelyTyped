@@ -8,8 +8,8 @@
 //                 Synarque <https://github.com/synarque>
 //                 Justin Rockwood <https://github.com/jrockwood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
-// TypeScript Version: 2.3
 /// <reference types="rx" />
 
 import through = require('through');

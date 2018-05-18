@@ -2,7 +2,7 @@
 // Project: https://github.com/googlesamples/apps-script-oauth2
 // Definitions by: dhayab <https://github.com/dhayab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="google-apps-script" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/clear-module
 // Definitions by: dan-j <https://github.com/dan-j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface ClearRequire {
     (moduleId: string): boolean;

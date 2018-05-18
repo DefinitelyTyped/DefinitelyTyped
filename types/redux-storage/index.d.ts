@@ -2,6 +2,7 @@
 // Project: https://github.com/michaelcontento/redux-storage
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="redux" />
 

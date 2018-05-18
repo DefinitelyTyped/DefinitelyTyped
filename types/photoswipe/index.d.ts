@@ -2,6 +2,7 @@
 // Project: http://photoswipe.com/
 // Definitions by: Xiaohan Zhang <https://github.com/hellochar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace PhotoSwipe {
     /**

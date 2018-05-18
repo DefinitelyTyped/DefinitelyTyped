@@ -2,6 +2,7 @@
 // Project: https://github.com/CodingFu/typeof
 // Definitions by: OpenByteDev <https://github.com/OpenByteDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function typeOf(object: any): string;
 

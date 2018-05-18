@@ -2,6 +2,7 @@
 // Project: https://github.com/cure53/DOMPurify
 // Definitions by: Dave Taylor <http://davetayls.me>, Samira Bazuzi <https://github.com/bazuzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace DOMPurify;
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/chovy/humanparser
 // Definitions by: Michał Podeszwa <https://github.com/MichalPodeszwa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace humanparser {
     interface NameOutput {

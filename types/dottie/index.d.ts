@@ -2,7 +2,7 @@
 // Project: https://github.com/mickhansen/dottie
 // Definitions by: Dom Armstrong <https://github.com/domarmstrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 declare const dottie: dottie.Dottie;
 export = dottie;

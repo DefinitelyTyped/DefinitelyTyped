@@ -2,7 +2,7 @@
 // Project: https://github.com/npm/npm-packlist
 // Definitions by: Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 declare function packlist(options?: packlist.Options): Promise<string[]>;
 declare function packlist<T>(options: packlist.Options | undefined, callback: (result: string[]) => T): Promise<T>;

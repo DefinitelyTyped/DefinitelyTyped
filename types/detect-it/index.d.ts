@@ -2,6 +2,7 @@
 // Project: https://github.com/rafrex/detect-it#readme
 // Definitions by: Thomas Tilkema <https://github.com/thomastilkema>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import detectHover from 'detect-hover';
 import detectPassiveEvents from 'detect-passive-events';

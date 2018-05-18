@@ -3,7 +3,7 @@
 // Definitions by: AmirSaber Sharifi <https://github.com/amirsaber>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import Koa = require("koa");
 

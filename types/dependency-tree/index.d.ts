@@ -2,6 +2,7 @@
 // Project: https://github.com/mrjoelkemp/node-dependency-tree
 // Definitions by: Joscha Feth <https://github.com/joscha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace dependencyTree {
     interface DependencyObj {

@@ -2,6 +2,7 @@
 // Project: https://github.com/jshttp/media-typer
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function parse(mediaType: string): MediaType;
 export function format(mediaTypeDescriptor: MediaType): string;

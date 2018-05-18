@@ -2,6 +2,7 @@
 // Project: https://github.com/PolicyStat/combokeys
 // Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Combokeys {
     interface CombokeysStatic {

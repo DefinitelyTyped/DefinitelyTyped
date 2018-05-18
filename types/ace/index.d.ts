@@ -2,6 +2,7 @@
 // Project: http://ace.ajax.org/
 // Definitions by: Diullei Gomes <https://github.com/Diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace AceAjax {
 

@@ -2,6 +2,7 @@
 // Project: https://fitzgen.github.io/wu.js/
 // Definitions by: phiresky <https://github.com/phiresky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Wu {
 	type Consumer<T> = (t: T) => void;

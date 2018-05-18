@@ -2,7 +2,7 @@
 // Project: http://datatables.net/extensions/buttons/
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>, Sam Germano <https://github.com/SammyG4Free>, Jim Hartford <https://github.com/jimhartford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>

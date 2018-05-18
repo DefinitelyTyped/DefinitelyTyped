@@ -3,6 +3,7 @@
 // Definitions by: Peter Kooijmans <https://github.com/peterkooijmans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: Denis Cappellin <https://github.com/cappellin>
+// TypeScript Version: 2.8
 
 export = Long;
 export as namespace Long;

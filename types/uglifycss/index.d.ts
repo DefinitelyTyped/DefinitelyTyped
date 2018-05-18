@@ -2,6 +2,7 @@
 // Project: https://github.com/fmarcia/UglifyCSS
 // Definitions by: gevik Babakhani <https://github.com/blendsdk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "uglifycss" {
 

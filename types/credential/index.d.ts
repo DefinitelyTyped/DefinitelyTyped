@@ -2,6 +2,7 @@
 // Project: https://github.com/ericelliott/credential
 // Definitions by: Phú <https://github.com/phuvo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface defaultOptions {

@@ -2,6 +2,7 @@
 // Project: https://github.com/katzer/cordova-plugin-badge
 // Definitions by: Tim Brust <https://github.com/timbru31>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface CordovaPlugins {
 	notification: {

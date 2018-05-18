@@ -2,6 +2,7 @@
 // Project: https://navermaps.github.io/maps.js
 // Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 declare namespace naver.maps {
   /**
    * Types

@@ -2,6 +2,7 @@
 // Project: https://github.com/yaniswang/HTMLHint
 // Definitions by: Alan Agius <https://github.com/alan-agius4/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface LintResult {
     evidence: string;

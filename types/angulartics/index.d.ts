@@ -2,7 +2,7 @@
 // Project: http://luisfarzati.github.io/angulartics/
 // Definitions by: Bateast2 <https://github.com/bateast2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as angular from 'angular';
 

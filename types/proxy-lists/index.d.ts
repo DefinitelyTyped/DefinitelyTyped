@@ -2,7 +2,7 @@
 // Project: https://github.com/chill117/proxy-lists#readme
 // Definitions by: BehindTheMath <https://github.com/BehindTheMath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { CoreOptions as RequestOptions } from "request";
 import { EventEmitter } from "events";

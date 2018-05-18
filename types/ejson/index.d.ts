@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/ejson
 // Definitions by: Shantanu Bhadoria <https://github.com/shantanubhadoria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface StringifyOptions {
   canonical: boolean;

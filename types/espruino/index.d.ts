@@ -2,6 +2,7 @@
 // Project: http://www.espruino.com/
 // Definitions by: Stanislav Berkov <https://github.com/stasberkov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare interface Object {
     removeListener(event: string, listener: any): any;

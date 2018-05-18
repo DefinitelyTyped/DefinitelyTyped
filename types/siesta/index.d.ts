@@ -2,6 +2,7 @@
 // Project: http://www.bryntum.com/products/siesta/
 // Definitions by: bquarmby <https://github.com/bquarmby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Siesta {
     /**

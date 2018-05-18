@@ -6,7 +6,7 @@
 //                 Vadim Macagon <https://github.com/enlight>
 //                 Andrew Bradley <https://github.com/cspotcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 interface MochaSetupOptions {
     // milliseconds to wait before considering a test slow

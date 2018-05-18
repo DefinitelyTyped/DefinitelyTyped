@@ -6,6 +6,7 @@
 //                 Luca Trazzi <https://github.com/lucax88x>
 //                 Nathan Hardy <https://github.com/nhardy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface AudioBoolean {
     ogg: string;

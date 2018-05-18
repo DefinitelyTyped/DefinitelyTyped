@@ -2,6 +2,7 @@
 // Project: https://github.com/mafintosh/is-my-json-valid
 // Definitions by: kruncher <https://github.com/kruncher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/aickin/shrink-ray
 // Definitions by: forabi <https://github.com/forabi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { RequestHandler, Request, Response } from 'express';
 import * as zlib from 'zlib';

@@ -2,6 +2,7 @@
 // Project: https://github.com/mcollina/split2
 // Definitions by: TANAKA Koichi <https://github.com/mugeso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 declare module "split2" {

@@ -2,7 +2,7 @@
 // Project: https://github.com/paritytrading/node-parity-poe
 // Definitions by: Leo Vujanić <https://github.com/leovujanic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

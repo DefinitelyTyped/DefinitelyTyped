@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/is-ip#readme
 // Definitions by: coderslagoon <https://github.com/coderslagoon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /** Check if input is IPv4 or IPv6. */
 declare function isIp(input: string): boolean;

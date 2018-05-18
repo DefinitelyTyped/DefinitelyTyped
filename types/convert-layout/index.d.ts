@@ -2,7 +2,7 @@
 // Project: https://github.com/ai/convert-layout#readme
 // Definitions by: Mikhail Aksenov <https://github.com/xeningem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 declare var layouts: { [id: string]: layout };
 declare var lang_layout: layout;
 

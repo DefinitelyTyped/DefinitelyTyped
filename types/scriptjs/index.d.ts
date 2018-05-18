@@ -2,6 +2,7 @@
 // Project: https://github.com/ded/script.js
 // Definitions by: Steve Lam <https://github.com/ssttevee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface $script {
   (paths:string | string[], idOrDone:string | (() => void), optDone?:() => void): $script;

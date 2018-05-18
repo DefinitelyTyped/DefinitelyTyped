@@ -2,7 +2,7 @@
 // Project: http://echarts.baidu.com/
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>, AntiMoron <https://github.com/AntiMoron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace echarts {
     function init(dom: HTMLDivElement | HTMLCanvasElement, theme?: Object | string, opts?: {

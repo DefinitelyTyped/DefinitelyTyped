@@ -2,6 +2,7 @@
 // Project: https://github.com/davidkalosi/js-money
 // Definitions by: Kanat Kubash <https://github.com/kanatkubash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Currency } from './lib/currency';
 

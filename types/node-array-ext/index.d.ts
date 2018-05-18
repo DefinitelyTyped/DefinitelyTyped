@@ -2,6 +2,7 @@
 // Project: https://github.com/Beng89/node-array-ext
 // Definitions by: Ben Goltz <https://github.com/Beng89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 /**

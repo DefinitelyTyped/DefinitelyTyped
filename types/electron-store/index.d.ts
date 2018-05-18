@@ -3,8 +3,8 @@
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
 //                 Jakub Synowiec <https://github.com/jsynowiec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
-// TypeScript Version: 2.3
 
 /// <reference types="node" />
 

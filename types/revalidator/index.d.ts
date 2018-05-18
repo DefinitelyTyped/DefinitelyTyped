@@ -2,6 +2,7 @@
 // Project: https://github.com/flatiron/revalidator
 // Definitions by: Jason Turner <https://github.com/brewsoftware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module Revalidator {
 

@@ -2,6 +2,7 @@
 // Project: http://linkedin.github.io/hopscotch/
 // Definitions by: Tim Perry <https://github.com/pimterry>, Aurimas <https://github.com/Aurimas1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare type CallbackNameNamesOrDefinition = string | string[] | (() => void);
 declare type placementTypes = 'top' | 'bottom' | 'right' | 'left';

@@ -2,7 +2,7 @@
 // Project: https://github.com/marcbachmann/localized-countries#readme
 // Definitions by: coderslagoon <https://github.com/coderslagoon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 interface LocalizedCountries {
     get(code: string): string;

@@ -4,6 +4,7 @@
 //                  Ayman Nedjmeddine <https://github.com/IOAyman>
 //                  David Stapleton <https://github.com/dstapleton92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 /**

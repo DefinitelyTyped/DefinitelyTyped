@@ -4,7 +4,7 @@
 //                 Chris Grigg <https://github.com/subvertallchris>,
 //                 Alex Bukurov <https://github.com/abukurov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace rosie {
   interface IFactoryStatic {

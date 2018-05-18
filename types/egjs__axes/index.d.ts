@@ -2,7 +2,7 @@
 // Project: https://github.com/naver/egjs-axes
 // Definitions by: Naver <https://github.com/naver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export as namespace eg;
 import * as Axes from "./Axes";

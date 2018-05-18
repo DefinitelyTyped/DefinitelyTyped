@@ -3,6 +3,7 @@
 // Definitions by: Exceptionless <https://github.com/exceptionless>
 //                 Chun-Yan Ho <https://github.com/pilagod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace StackTrace {
 

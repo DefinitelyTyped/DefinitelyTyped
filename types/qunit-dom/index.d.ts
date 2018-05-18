@@ -2,7 +2,7 @@
 // Project: https://github.com/simplabs/qunit-dom#readme
 // Definitions by: Don Denton <https://github.com/happycollision>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="qunit" />
 

@@ -4,6 +4,7 @@
 //                 matt traynham <https://github.com/mtraynham>
 //                 matthias jobst <https://github.com/MatthiasJobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
 

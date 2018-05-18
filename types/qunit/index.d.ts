@@ -2,6 +2,7 @@
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Assert {
     /**

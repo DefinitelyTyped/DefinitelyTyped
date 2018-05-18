@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>, Ascari Andrea <https://github.com/ascariandrea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as ssh2 from 'ssh2';
 

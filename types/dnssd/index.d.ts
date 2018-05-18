@@ -2,6 +2,7 @@
 // Project: https://github.com/DeMille/dnssd.js#readme
 // Definitions by: Angel Merino <https://github.com/angelmerino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 import { EventEmitter } from 'events';

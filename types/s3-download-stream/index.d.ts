@@ -2,6 +2,7 @@
 // Project: https://github.com/jb55/s3-download-stream
 // Definitions by: Caleb Everett <https://github.com/everettcaleb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

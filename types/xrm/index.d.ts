@@ -7,7 +7,7 @@
 //                  Tully H <https://github.com/clownwilleatme>
 //                  Scott Durow <https://github.com/scottdurow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 declare var Xrm: Xrm.XrmStatic;
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/weareoutman/clockpicker
 // Definitions by: jfcere <https://github.com/jfcere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 

@@ -5,7 +5,7 @@
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { MarkdownIt } from 'markdown-it';
 import { Node as ProsemirrorNode, Schema } from 'prosemirror-model';

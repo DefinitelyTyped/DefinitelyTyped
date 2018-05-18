@@ -2,7 +2,7 @@
 // Project: https://github.com/koa-modules/multer
 // Definitions by: benstevens48 <https://github.com/benstevens48>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /**
  * @file

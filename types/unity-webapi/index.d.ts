@@ -2,6 +2,7 @@
 // Project: https://launchpad.net/libunity-webapps
 // Definitions by: John Vrbanac <https://github.com/jmvrbanac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface External {
    getUnityObject(version: number): Unity;

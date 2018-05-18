@@ -2,6 +2,7 @@
 // Project: https://github.com/dcgauld/gulp-responsive-images#readme
 // Definitions by: Aankhen <https://github.com/aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

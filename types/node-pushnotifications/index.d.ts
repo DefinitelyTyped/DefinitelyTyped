@@ -2,8 +2,8 @@
 // Project: https://github.com/appfeel/node-pushnotifications
 // Definitions by: Menushka Weeratunga <https://github.com/menushka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
-// TypeScript Version: 2.1
 /// <reference types="node" />
 
 export = PushNotifications;

@@ -3,6 +3,7 @@
 // Definitions by: Robin Van den Broeck <https://github.com/gamesmaxed>
 //                 M. Fatih Mar <https://github.com/mfatihmar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "electron-devtools-installer" {
     interface ExtensionReference {

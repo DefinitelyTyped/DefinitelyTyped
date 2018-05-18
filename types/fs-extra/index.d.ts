@@ -6,7 +6,7 @@
 //                 Mees van Dijk <https://github.com/mees->,
 //                 Justin Rockwood <https://github.com/jrockwood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

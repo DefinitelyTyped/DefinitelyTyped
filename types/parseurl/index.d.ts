@@ -2,6 +2,7 @@
 // Project: https://github.com/pillarjs/parseurl
 // Definitions by: Stefan Reichel <https://github.com/bomret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

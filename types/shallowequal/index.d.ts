@@ -2,6 +2,7 @@
 // Project: https://github.com/dashed/shallowequal
 // Definitions by: Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function shallowEqual(objA: any, objB: any, compare?: (objA: any, objB: any, indexOrKey?: number | string) => boolean, compareContext?: any): boolean;
 

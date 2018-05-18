@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/lazy-value
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Create a [lazily evaluated](https://en.wikipedia.org/wiki/Lazy_evaluation) value.

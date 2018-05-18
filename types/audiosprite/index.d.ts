@@ -2,6 +2,7 @@
 // Project: https://github.com/tonistiigi/audiosprite
 // Definitions by: Gyusun Yeom <https://github.com/Perlmint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace audiosprite;
 export = audiosprite;

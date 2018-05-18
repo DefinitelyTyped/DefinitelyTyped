@@ -2,6 +2,7 @@
 // Project: https://github.com/CyberAgent/bucks.js
 // Definitions by: Shunsuke Ohtani <https://github.com/zaneli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Bucks {
 

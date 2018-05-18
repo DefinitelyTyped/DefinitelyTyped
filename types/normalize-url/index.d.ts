@@ -3,6 +3,7 @@
 // Definitions by: odin3 <https://github.com/odin3>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace normalizeUrl {
     interface Options {

@@ -2,6 +2,7 @@
 // Project: https://github.com/getopts/getopts#readme
 // Definitions by: Aleh Zasypkin <https://github.com/azasypkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface ParsedOptions {
     _: string[];

@@ -2,7 +2,7 @@
 // Project: https://github.com/Esri/esri-leaflet-geocoder
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import * as L from 'leaflet';
 import 'esri-leaflet';

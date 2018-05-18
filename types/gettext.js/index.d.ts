@@ -2,6 +2,7 @@
 // Project: https://github.com/guillaumepotier/gettext.js
 // Definitions by: Julien Crouzet <https://github.com/jucrouzet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type PluralForm = (n: number) => number;
 

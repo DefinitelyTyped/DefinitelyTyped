@@ -2,6 +2,7 @@
 // Project: https://github.com/atom/node-nslog
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Outputs a message to the native console.

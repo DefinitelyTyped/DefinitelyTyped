@@ -2,6 +2,7 @@
 // Project: https://github.com/takenet/lime-js
 // Definitions by: Arthur Xavier <https://github.com/arthur-xavier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Support for painless dependency injection
 export as namespace Lime;

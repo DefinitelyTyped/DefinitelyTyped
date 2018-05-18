@@ -2,6 +2,7 @@
 // Project: https://github.com/okland/accounts-phone
 // Definitions by: Eytan Manor <https://github.com/DAB0mB>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace SMS {
   var twilio: {

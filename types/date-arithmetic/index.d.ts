@@ -2,6 +2,7 @@
 // Project: https://github.com/jquense/date-math
 // Definitions by: Sergii Paryzhskyi <https://github.com/HeeL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type Unit = 'second' | 'minutes' | 'hours' | 'day' | 'week' | 'month' | 'year' | 'decade' | 'century';
 

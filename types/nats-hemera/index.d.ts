@@ -2,7 +2,7 @@
 // Project: https://github.com/hemerajs/hemera
 // Definitions by: Vladimir Djukic <https://github.com/vforv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export = Hemera;
 export as namespace Hemera;

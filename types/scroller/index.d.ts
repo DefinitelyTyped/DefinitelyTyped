@@ -2,6 +2,7 @@
 // Project: http://zynga.github.com/scroller/
 // Definitions by: Marcelo Haskell Camargo <https://github.com/haskellcamargo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Scroller {
   interface Options {

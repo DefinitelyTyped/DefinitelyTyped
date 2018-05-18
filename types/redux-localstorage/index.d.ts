@@ -2,6 +2,7 @@
 // Project: https://github.com/elgerlambert/redux-localstorage
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as Redux from "redux";
 

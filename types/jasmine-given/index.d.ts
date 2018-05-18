@@ -2,6 +2,7 @@
 // Project: https://github.com/searls/jasmine-given
 // Definitions by: Shai Reznik <https://github.com/shairez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function Given(func: (done?: () => void) => void): void;
 declare function When(func: (done?: () => void) => void): void;

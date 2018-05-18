@@ -2,6 +2,7 @@
 // Project: https://github.com/jaredreich/notie.js
 // Definitions by: Mateus Demboski <https://github.com/mateusdemboski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
  
 declare var notie: {
     alert: (type: number, message: string, seconds: number) => void;

@@ -6,6 +6,7 @@
 //                 Christoph Wagner <https://github.com/IgelCampus>
 //                 Gio Freitas <https://github.com/giofreitas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // The Video.js API allows you to interact with the video through
 // Javascript, whether the browser is playing the video through HTML5

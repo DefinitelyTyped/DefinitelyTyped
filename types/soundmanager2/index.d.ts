@@ -2,7 +2,7 @@
 // Project: https://github.com/scottschiller/SoundManager2
 // Definitions by: Elton Lee <https://github.com/elton2048>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare var soundManager: soundmanager.SoundManager;
 

@@ -2,6 +2,7 @@
 // Project: http://pid.github.io/speakingurl/
 // Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Dictionary<T> {
     [x: string]: T;

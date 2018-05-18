@@ -2,6 +2,7 @@
 // Project: https://github.com/moxystudio/node-proper-lockfile
 // Definitions by: Nikita Volodin <https://github.com/qlonik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface LockOptions {
     stale?: number; // default: 10000

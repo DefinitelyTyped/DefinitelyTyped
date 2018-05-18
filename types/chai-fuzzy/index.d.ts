@@ -2,6 +2,7 @@
 // Project: http://chaijs.com/plugins/chai-fuzzy
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="chai" />
 

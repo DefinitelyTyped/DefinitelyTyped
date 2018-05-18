@@ -3,7 +3,7 @@
 // Definitions by: HuHuanming <https://github.com/huhuanming>
 //                 Paito <https://github.com/PaitoAnderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export function phonecall(phoneNumber: string, isPrompt: boolean): void;
 export function email(): void;

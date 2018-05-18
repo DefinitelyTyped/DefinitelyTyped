@@ -2,6 +2,7 @@
 // Project: https://github.com/typekit/webfontloader
 // Definitions by: doskallemaskin <https://github.com/doskallemaskin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = WebFont;
 export as namespace WebFont;

@@ -4,7 +4,7 @@
 //                 Arne Schubert <https://github.com/atd-schubert>
 //                 Michael Auer <https://github.com/mcauer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export as namespace L;
 

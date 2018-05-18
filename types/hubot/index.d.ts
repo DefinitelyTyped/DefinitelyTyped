@@ -3,6 +3,7 @@
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
 //                 Kees C. Bakker <https://github.com/KeesCBakker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Hubot {
     class Brain {

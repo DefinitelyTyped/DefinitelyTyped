@@ -2,6 +2,7 @@
 // Project: https://github.com/vvatanabe/tinycopy
 // Definitions by: Yuichi Watanabe <https://github.com/vvatanabe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "tinycopy" {
   export default class TinyCopy {

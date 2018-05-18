@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/mem
 // Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Options {
 	maxAge?: number;

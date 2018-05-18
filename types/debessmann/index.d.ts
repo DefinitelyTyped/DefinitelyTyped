@@ -2,6 +2,7 @@
 // Project: https://github.com/fs535/debessmann#readme
 // Definitions by: Vladislavs Korehovs <https://github.com/vkorehov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export class EventId {
     time: Date;

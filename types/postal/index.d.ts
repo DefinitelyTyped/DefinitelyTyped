@@ -2,6 +2,7 @@
 // Project: https://github.com/postaljs/postal.js
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta>, Paul Jolly <https://github.com/myitcv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface IConfiguration {
 	SYSTEM_CHANNEL: string;

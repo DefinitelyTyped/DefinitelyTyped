@@ -2,6 +2,7 @@
 // Project: https://github.com/dreamerslab/node.inflection
 // Definitions by: Shogo Iwano <https://github.com/shiwano>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Inflection {
     indexOf<T, T2>(arr: T[], item: T2, from_index?: number, compare_func?: (arr_item: T, item: T2) => boolean): number;

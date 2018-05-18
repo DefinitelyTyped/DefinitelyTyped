@@ -5,10 +5,10 @@
 //                  Yuri Pereira Constante <https://github.com/ypconstante>
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 //
 // Translation from Objects in help to Typescript interface.
 // http://js.cytoscape.org/#notation/functions
-// TypeScript Version: 2.2
 
 /**
  * cy   --> Cy.Core

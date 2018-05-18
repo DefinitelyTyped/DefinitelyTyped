@@ -2,7 +2,7 @@
 // Project: https://bitbucket.org/atlassian/atlaskit-mk-2/
 // Definitions by: Jimmy Luong <https://github.com/dijimsta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import {
     Component,

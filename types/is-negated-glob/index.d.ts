@@ -2,6 +2,7 @@
 // Project: https://github.com/jonschlinkert/is-negated-glob
 // Definitions by: Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function isNegatedGlob(pattern: string): isNegatedGlob.Result;
 declare namespace isNegatedGlob {

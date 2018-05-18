@@ -3,6 +3,7 @@
 // Definitions by: Matt Frantz <https://github.com/mhfrantz>
 //                 Arturas Molcanovas <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function semaphore(capacity?: number): semaphore.Semaphore;
 

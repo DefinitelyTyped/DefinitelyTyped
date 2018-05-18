@@ -2,6 +2,7 @@
 // Project: https://github.com/mattboldt/typed.js
 // Definitions by: Davide Donadello <https://github.com/Dona278>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export default Typed;
 

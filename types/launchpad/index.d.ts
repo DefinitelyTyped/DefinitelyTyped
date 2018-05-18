@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/launchpad
 // Definitions by: Peter Burns <https://github.com/rictic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * For launching local browsers. The callback will be given a Launcher to

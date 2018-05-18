@@ -2,6 +2,7 @@
 // Project: https://github.com/Valve/fingerprintjs2
 // Definitions by: Curt Mullin <https://github.com/curtstate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Fingerprint2 {
     static VERSION: string;

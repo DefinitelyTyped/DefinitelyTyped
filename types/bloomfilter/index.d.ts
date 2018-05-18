@@ -2,6 +2,7 @@
 // Project: https://github.com/jasondavies/bloomfilter.js
 // Definitions by: slawiko <https://github.com/slawiko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export class BloomFilter {
     buckets: Int32Array[];

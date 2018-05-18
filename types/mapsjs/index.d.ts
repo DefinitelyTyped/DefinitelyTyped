@@ -2,6 +2,7 @@
 // Project: https://github.com/mapsjs
 // Definitions by: Matthew James Davis <https://github.com/davismj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Mapsjs 9.6.0 Copyright (c) 2013 ISC. All Rights Reserved.

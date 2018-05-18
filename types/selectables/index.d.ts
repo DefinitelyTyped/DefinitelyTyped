@@ -2,6 +2,7 @@
 // Project: https://github.com/p34eu/Selectables#readme
 // Definitions by: Soner Köksal <https://github.com/renjfk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = Selectables;
 

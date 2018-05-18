@@ -2,6 +2,7 @@
 // Project: https://github.com/firebase/firebase-token-generator-node
 // Definitions by: Hans Van den Keybus <https://github.com/dotdotcommadot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface TokenOptions {
   expires?: number;

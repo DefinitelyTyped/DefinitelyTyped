@@ -2,7 +2,7 @@
 // Project: https://github.com/arangodb/aqbjs
 // Definitions by: Athenkosi Mase <https://github.com/Athenkosi-Mase>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 interface AqlError extends Error {
     new(message: string): Error;
     name: string;

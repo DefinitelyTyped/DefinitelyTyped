@@ -2,7 +2,7 @@
 // Project: https://github.com/eclipse/paho.mqtt.javascript#readme
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /// <reference path="module.d.ts"/>
 

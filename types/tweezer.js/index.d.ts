@@ -2,6 +2,7 @@
 // Project: https://github.com/jaxgeller/tweezer.js
 // Definitions by: Lindsey Smith <https://github.com/praxxis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Options {
   duration?: number;

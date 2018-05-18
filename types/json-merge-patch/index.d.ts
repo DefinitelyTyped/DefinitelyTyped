@@ -2,6 +2,7 @@
 // Project: https://github.com/pierreinglebert/json-merge-patch
 // Definitions by: Arsenij Schuetzer <https://github.com/senyaarseniy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare module "json-merge-patch" {

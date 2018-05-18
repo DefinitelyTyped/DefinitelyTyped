@@ -2,6 +2,7 @@
 // Project: http://fabien-d.github.io/alertify.js/
 // Definitions by: John Jeffery <https://github.com/jjeffery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var alertify: alertify.IAlertifyStatic;
 

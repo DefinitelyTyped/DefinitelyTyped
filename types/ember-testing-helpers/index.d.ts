@@ -2,7 +2,7 @@
 // Project: https://github.com/emberjs/ember.js/tree/master/packages/ember-testing/lib/helpers
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 // Note that these are distributed separately because they represent a discrete
 // set of functionality, and as globally-injected items (as of Ember 2.13), are

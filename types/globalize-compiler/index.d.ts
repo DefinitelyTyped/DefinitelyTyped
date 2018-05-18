@@ -2,6 +2,7 @@
 // Project: https://github.com/jquery-support/globalize-compiler
 // Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as ESTree from "estree";
 import globalize = require("globalize");

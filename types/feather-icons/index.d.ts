@@ -2,6 +2,7 @@
 // Project: https://github.com/feathericons/feather#readme
 // Definitions by: Jinesh Shah <https://github.com/jineshshah36>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace feather;
 

@@ -3,6 +3,7 @@
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 //                Narain Sagar <https://github.com/narainsagar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface FuzzySet {
     get(candidate: string): Array<[number, string]>;

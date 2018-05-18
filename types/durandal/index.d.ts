@@ -2,7 +2,7 @@
 // Project: http://durandaljs.com
 // Definitions by: Blue Spire <https://github.com/BlueSpire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /**
  * Durandal 2.1.0 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.

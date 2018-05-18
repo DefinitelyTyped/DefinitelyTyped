@@ -2,6 +2,7 @@
 // Project: https://github.com/lennym/moment-business-time
 // Definitions by: Tomasz Nguyen <https://github.com/swist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*~ On this line, import the module which this module adds to */
 import * as moment from 'moment';

@@ -2,7 +2,7 @@
 // Project: https://github.com/jakerella/jquery-mockjax
 // Definitions by: Laszlo Jakab <https://github.com/laszlojakab>, Vladimir Đokić <https://github.com/vladeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 

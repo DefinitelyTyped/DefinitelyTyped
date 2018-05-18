@@ -2,6 +2,7 @@
 // Project: https://github.com/hughsk/beats/
 // Definitions by: Uri Shaked <https://github.com/urish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = beats;
 

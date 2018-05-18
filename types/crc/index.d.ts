@@ -2,6 +2,7 @@
 // Project: https://github.com/alexgorbatchev/node-crc/
 // Definitions by: Jianrong Yu <https://github.com/YuJianrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

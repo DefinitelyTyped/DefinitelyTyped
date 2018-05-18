@@ -2,6 +2,7 @@
 // Project: https://github.com/inversify/inversify-devtools
 // Definitions by: inversify <https://github.com/inversify>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as inversify from "inversify";
 

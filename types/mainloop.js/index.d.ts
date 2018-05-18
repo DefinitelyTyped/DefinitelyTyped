@@ -2,6 +2,7 @@
 // Project: https://github.com/IceCreamYou/MainLoop.js
 // Definitions by: Isaac Sukin <http://isaacsukin.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Interface for the MainLoop.js global.

@@ -3,6 +3,7 @@
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Orblazer <https://github.com/orblazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

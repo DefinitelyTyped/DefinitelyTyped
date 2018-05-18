@@ -2,6 +2,7 @@
 // Project: https://github.com/iriscouch/traceback
 // Definitions by: Michael Zabka <https://github.com/misak113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Traceback {
 	name: string; // | The function name

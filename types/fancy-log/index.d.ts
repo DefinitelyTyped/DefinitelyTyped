@@ -2,6 +2,7 @@
 // Project: https://github.com/js-cli/fancy-log
 // Definitions by: Pine Mizune <https://github.com/pine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace FancyLog {
     interface Logger {

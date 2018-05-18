@@ -2,6 +2,7 @@
 // Project: https://github.com/substack/provinces
 // Definitions by: My Self <https://github.com/gatimus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare global {
     /**

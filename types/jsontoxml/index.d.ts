@@ -2,6 +2,7 @@
 // Project: https://github.com/soldair/node-jsontoxml
 // Definitions by: benstevens48 <https://github.com/benstevens48>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace jsontoxml {
     function escape(str: string): string;

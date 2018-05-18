@@ -2,6 +2,7 @@
 // Project: https://github.com/NUKnightLab/TimelineJS3
 // Definitions by: Michael Matuszak <https://github.com/MikeMatusz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace TL {
 

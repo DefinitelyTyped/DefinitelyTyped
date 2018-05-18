@@ -2,7 +2,7 @@
 // Project: http://ejs.co/
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export interface Data {
     [name: string]: any;

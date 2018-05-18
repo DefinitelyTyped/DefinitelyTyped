@@ -5,7 +5,7 @@
 //                 Jeff Jacobson <https://github.com/JeffJacobson>
 //                 Ilia Choly <https://github.com/icholy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Note: as of the RFC 7946 version of GeoJSON, Coordinate Reference Systems
 // are no longer supported. (See https://tools.ietf.org/html/rfc7946#appendix-B)}

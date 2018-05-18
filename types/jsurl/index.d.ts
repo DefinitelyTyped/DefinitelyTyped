@@ -2,6 +2,7 @@
 // Project: https://github.com/Mikhus/jsurl
 // Definitions by: Alexey Gorshkov <https://github.com/agorshkov23>
 // Definitions: https://github.com/agorshkov23/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface UrlQuery {
     clear: () => void;

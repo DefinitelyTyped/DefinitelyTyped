@@ -2,6 +2,7 @@
 // Project: https://github.com/onesignal/OneSignal-Cordova-SDK#readme
 // Definitions by: David Broder-Rodgers <https://github.com/broder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Window {
     plugins: { OneSignal: OneSignalCordovaPlugin.OneSignalCordovaPlugin };

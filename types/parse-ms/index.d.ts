@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/parse-ms#readme
 // Definitions by: Giles Roadnight <https://github.com/Roaders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export default function parseMs(ms: number): {
     days: number;

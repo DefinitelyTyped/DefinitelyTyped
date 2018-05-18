@@ -2,6 +2,7 @@
 // Project: https://github.com/cheeriojs/cheerio
 // Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>, LiJinyao <https://github.com/LiJinyao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Cheerio {
     // Document References

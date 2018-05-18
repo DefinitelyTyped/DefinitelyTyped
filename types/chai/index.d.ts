@@ -11,6 +11,7 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Erik Schierboom <https://github.com/ErikSchierboom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Chai {
     interface ChaiStatic {

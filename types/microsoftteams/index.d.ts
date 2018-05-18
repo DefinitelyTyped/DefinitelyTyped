@@ -4,7 +4,7 @@
 //                 Jay Ongg <https://github.com/jayongg>
 //                 Yuri Dogandjiev <https://github.com/ydogandjiev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/microsoftteams
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 interface MessageEvent {
     originalEvent: MessageEvent;

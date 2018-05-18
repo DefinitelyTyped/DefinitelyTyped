@@ -6,7 +6,7 @@
 //                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures

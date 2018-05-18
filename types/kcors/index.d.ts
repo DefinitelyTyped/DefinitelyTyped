@@ -2,7 +2,7 @@
 // Project: https://github.com/koajs/cors
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>, Izayoi Ko <https://github.com/izayoiko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import * as Koa from "koa";
 

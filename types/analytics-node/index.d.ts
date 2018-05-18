@@ -3,6 +3,7 @@
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 //                 Thomas Thiebaud <https://github.com/thomasthiebaud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = AnalyticsNode.Analytics;
 

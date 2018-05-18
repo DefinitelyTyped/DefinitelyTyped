@@ -3,6 +3,7 @@
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 harry0000 <https://github.com/harry0000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // Cross-browser storage for all use cases, used across the web.
 

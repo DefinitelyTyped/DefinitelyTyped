@@ -2,6 +2,7 @@
 // Project: https://github.com/aseemk/requireDir
 // Definitions by: weekens <https://github.com/weekens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function requireDir(directory: string): { [path: string]: any };
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/mklabs/node-tabtab
 // Definitions by: Vojtěch Habarta <https://github.com/vojtechhabarta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/google/google-protobuf
 // Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 type ScalarFieldType = boolean | number | string;

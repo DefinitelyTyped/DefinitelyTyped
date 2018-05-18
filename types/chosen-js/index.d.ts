@@ -2,7 +2,7 @@
 // Project: http://harvesthq.github.com/chosen/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Validated against Chosen version 1.8.5
 

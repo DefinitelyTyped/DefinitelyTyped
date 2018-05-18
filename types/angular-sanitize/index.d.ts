@@ -2,7 +2,7 @@
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <https://github.com/diegovilar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare var _: string;
 export = _;

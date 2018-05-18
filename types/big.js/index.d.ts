@@ -3,6 +3,7 @@
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet>
 //                 Miika Hänninen <https://github.com/googol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type BigSource = number | string | Big;
 

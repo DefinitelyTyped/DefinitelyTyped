@@ -2,6 +2,7 @@
 // Project: https://github.com/maxtruxa/tokgen#readme
 // Definitions by: Jonas Lochmann <https://github.com/l-jonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = TokenGenerator;
 

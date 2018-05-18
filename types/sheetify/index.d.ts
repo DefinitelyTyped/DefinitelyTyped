@@ -2,6 +2,7 @@
 // Project: https://github.com/stackcss/sheetify
 // Definitions by: Todd Kennedy <https://github.com/toddself>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace sheetify {
   function getPrefix(css: string): string;

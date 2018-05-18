@@ -2,6 +2,7 @@
 // Project: https://github.com/pvorb/node-clone
 // Definitions by: Kieran Simpson <https://github.com/kierans/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * See clone JS source for API docs

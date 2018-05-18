@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/parse-json
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function parseJson(input: string | null, filepath?: string): any;
 declare function parseJson(input: string | null, reviver: (key: any, value: any) => any, filepath?: string): any;

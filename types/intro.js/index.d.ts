@@ -2,6 +2,7 @@
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace IntroJs {
     interface Step {

@@ -13,7 +13,7 @@
 //                 Rafael Kallis <https://github.com/rafaelkallis>
 //                 Conan Lai <https://github.com/aconanlai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
 

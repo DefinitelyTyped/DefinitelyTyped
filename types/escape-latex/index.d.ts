@@ -2,6 +2,7 @@
 // Project: https://github.com/dangmai/escape-latex
 // Definitions by: Oliver Schneider <https://github.com/olsio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare function lescape(texString: string): string;

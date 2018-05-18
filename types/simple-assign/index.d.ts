@@ -2,6 +2,7 @@
 // Project: https://github.com/newoga/simple-assign
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function simpleAssign<T, U>(target: T, source: U): T & U;
 declare function simpleAssign<T, U, V>(target: T, source1: U, source2: V): T & U & V;

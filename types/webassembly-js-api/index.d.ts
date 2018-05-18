@@ -4,6 +4,7 @@
 //                 Wink Saville <wink@saville.com>
 //                 Periklis Tsirakidis <https://github.com/periklis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * The WebAssembly namespace, see [WebAssembly](https://github.com/webassembly)

@@ -3,6 +3,7 @@
 // Definitions by: Denis Sokolov <https://github.com/denis-sokolov>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = once;
 

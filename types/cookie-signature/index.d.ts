@@ -2,6 +2,7 @@
 // Project: https://github.com/tj/node-cookie-signature
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /** Sign the given `val` with `secret`. */
 export function sign(value: string, secret: string): string;

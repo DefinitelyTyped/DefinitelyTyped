@@ -2,6 +2,7 @@
 // Project: https://github.com/mapbox/polylabel
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Polylabel returns the pole of inaccessibility coordinate in [x, y] format.

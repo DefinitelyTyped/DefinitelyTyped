@@ -4,7 +4,7 @@
 //                 szeck87 <https://github.com/szeck87>
 //                 saadq <https://github.com/saadq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

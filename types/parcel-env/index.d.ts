@@ -3,6 +3,7 @@
 // Definitions by: Fathy Boundjadj <https://github.com/fathyb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Based on @types/webpack-env
+// TypeScript Version: 2.8
 
 /**
  * Parcel module API - variables and global functions available inside modules

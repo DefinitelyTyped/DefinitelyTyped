@@ -2,6 +2,7 @@
 // Project: https://github.com/mscdex/ssh2
 // Definitions by: Qubo <https://github.com/tkQubo>, Ron Buckton <https://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

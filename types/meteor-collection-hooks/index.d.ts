@@ -2,6 +2,7 @@
 // Project: https://github.com/matb33/meteor-collection-hooks
 // Definitions by: Trygve Wastvedt <https://github.com/twastvedt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference path="meteor-mongo.d.ts" />
 

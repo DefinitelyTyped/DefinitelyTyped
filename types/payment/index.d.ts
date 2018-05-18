@@ -2,6 +2,7 @@
 // Project: https://github.com/jessepollak/payment#readme
 // Definitions by: Alexandre Paré <https://github.com/apare>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Fns {
     /**

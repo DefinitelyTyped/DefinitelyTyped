@@ -3,6 +3,7 @@
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
 //                 Anthony Ciccarello <https://github.com/aciccarello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // In module contexts the class constructor function is the exported object
 export = AuthenticationContext;

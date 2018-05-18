@@ -2,6 +2,7 @@
 // Project: https://code.google.com/p/oauth/
 // Definitions by: NOBUOKA Yu <https://github.com/nobuoka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace OAuth {
 

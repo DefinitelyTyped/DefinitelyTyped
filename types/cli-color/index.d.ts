@@ -2,6 +2,7 @@
 // Project: https://github.com/medikoo/cli-color
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "cli-color" {
 	namespace m {

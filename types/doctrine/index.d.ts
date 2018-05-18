@@ -2,6 +2,7 @@
 // Project: https://github.com/eslint/doctrine
 // Definitions by: rictic <https://github.com/rictic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Doctrine is a JSDoc parser that parses documentation comments from JavaScript

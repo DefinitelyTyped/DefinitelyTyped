@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/google-apps/realtime/
 // Definitions by: Dustin Wehr <http://cs.toronto.edu/~wehr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // This definition file is merge-compatible with ../gapi/gapi.d.ts
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/sgentle/phantomjs-node
 // Definitions by: horiuchi <https://github.com/horiuchi>, Random <https://github.com/llRandom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function create(args?: string[]): Promise<PhantomJS>;
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/fengyuanchen/cropperjs
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 declare namespace cropperjs {
     enum CropperViewMods {

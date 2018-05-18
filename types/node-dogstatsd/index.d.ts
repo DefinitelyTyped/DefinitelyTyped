@@ -2,6 +2,7 @@
 // Project: https://github.com/joybro/node-dogstatsd
 // Definitions by: Chris Bobo <https://github.com/chrisbobo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "node-dogstatsd" {
 

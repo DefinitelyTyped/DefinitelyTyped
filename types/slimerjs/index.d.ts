@@ -2,6 +2,7 @@
 // Project: https://docs.slimerjs.org/current/index.html#api-reference
 // Definitions by: Alex Wall <https://github.com/alexwall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var phantom: Phantom;
 declare var slimer: Slimer;

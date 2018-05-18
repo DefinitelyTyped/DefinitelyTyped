@@ -2,6 +2,7 @@
 // Project: https://github.com/ckknight/random-js
 // Definitions by: Gustavo Di Pietro <https://github.com/pistacchio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Random {
     interface Engine {

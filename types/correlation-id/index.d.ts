@@ -2,6 +2,7 @@
 // Project: https://github.com/toboid/correlation-id#readme
 // Definitions by: Nate <https://github.com/natemara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function withId(id: string, work: () => void): void;
 export function withId(work: () => void): void;

@@ -3,6 +3,7 @@
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace googletag {
     export type SingleSizeArray = number[];

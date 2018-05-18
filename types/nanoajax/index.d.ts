@@ -2,6 +2,7 @@
 // Project: https://github.com/yanatan16/nanoajax
 // Definitions by: Nathan Cahill <https://github.com/nathancahill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface RequestParameters {

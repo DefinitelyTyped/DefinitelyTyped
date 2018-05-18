@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/elastic.js
 // Definitions by: Oleksii Trekhleb <https://ua.linkedin.com/in/trekhleb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = elasticjs;
 

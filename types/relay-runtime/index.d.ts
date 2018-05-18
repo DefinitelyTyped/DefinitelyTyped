@@ -3,7 +3,7 @@
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /**
  * SOURCE:

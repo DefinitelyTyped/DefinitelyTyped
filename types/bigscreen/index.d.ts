@@ -2,6 +2,7 @@
 // Project: http://brad.is/coding/BigScreen/
 // Definitions by: Douglas Eichelberger <https://github.com/dduugg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace BigScreen;
 

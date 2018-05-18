@@ -2,6 +2,7 @@
 // Project: https://github.com/guille/ms.js
 // Definitions by: Zhiyuan Wang <https://github.com/danny8002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

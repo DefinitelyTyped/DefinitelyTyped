@@ -2,7 +2,7 @@
 // Project: https://github.com/riot/riot
 // Definitions by: Boriss Nazarovs <https://github.com/Stubb0rn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /**
  * Current version number as a string

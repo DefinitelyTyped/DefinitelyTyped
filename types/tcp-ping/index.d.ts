@@ -2,6 +2,7 @@
 // Project: https://github.com/wesolyromek/tcp-ping
 // Definitions by: JUNG YONG WOO <https://github.com/stegano>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Options {
     address?: string;

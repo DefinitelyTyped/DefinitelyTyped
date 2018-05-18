@@ -2,6 +2,7 @@
 // Project: http://www.steema.com
 // Definitions by: Steema Software <https://steema.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 /**
  * TeeChart(tm) for TypeScript
  *

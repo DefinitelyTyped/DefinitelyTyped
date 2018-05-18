@@ -2,6 +2,7 @@
 // Project: https://github.com/soldair/node-procfs-stats
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function procfs(pid: number): procfs.StatStatic;
 declare namespace procfs {

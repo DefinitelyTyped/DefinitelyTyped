@@ -2,7 +2,7 @@
 // Project: http://joseshiru.github.io/p-loading/
 // Definitions by: Soner Köksal <https://github.com/renjfk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 

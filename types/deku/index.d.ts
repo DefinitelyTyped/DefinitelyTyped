@@ -2,6 +2,7 @@
 // Project: https://github.com/anthonyshort/deku
 // Definitions by: Sho Fuji <https://github.com/pocka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = deku;
 export as namespace deku;

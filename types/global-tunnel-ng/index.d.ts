@@ -2,6 +2,7 @@
 // Project: https://github.com/salesforce/global-tunnel
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function initialize(options?: Options | string): void;
 

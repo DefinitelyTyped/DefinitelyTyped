@@ -2,7 +2,7 @@
 // Project: https://github.com/JedWatson/exenv
 // Definitions by: Christian Chown <https://github.com/christianchown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export const canUseDOM: boolean;
 export const canUseEventListeners: boolean;

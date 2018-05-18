@@ -2,6 +2,7 @@
 // Project: http://www.checkman.io/please/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var Please: PleaseJS.Please;
 

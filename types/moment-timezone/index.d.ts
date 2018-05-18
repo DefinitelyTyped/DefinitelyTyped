@@ -2,6 +2,7 @@
 // Project: http://momentjs.com/timezone/
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Alan Brazil Lins <https://github.com/alanblins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import moment = require('moment');
 

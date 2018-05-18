@@ -2,7 +2,7 @@
 // Project: https://github.com/tomas/needle
 // Definitions by: San Chen <https://github.com/bigsan>, Niklas Mollenhauer <https://github.com/nikeee>, Matanel Sindilevich <https://github.com/sindilevich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

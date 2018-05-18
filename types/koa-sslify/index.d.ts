@@ -2,7 +2,7 @@
 // Project: https://github.com/turboMaCk/koa-sslify#readme
 // Definitions by: Matthew Bull <https://github.com/wingsbob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as koa from 'koa';
 

@@ -4,6 +4,7 @@
 //                 lionelb <https://github.com/lionelb>
 //                 Joel Shepherd <https://github.com/joelshepherd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var screenfull: IScreenfull;
 

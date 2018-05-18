@@ -5,7 +5,7 @@
 //                 Alec Hill <https://github.com/alechill>
 //                 Alexey Pelykh <https://github.com/alexey-pelykh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export as namespace ReduxActions;
 

@@ -4,7 +4,7 @@
 //                 Alejandro <https://github.com/afharo>
 //                 Anatoly <https://github.com/rhymmor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 type AsyncLockDoneCallback<T> = (err?: Error, ret?: T) => void;
 

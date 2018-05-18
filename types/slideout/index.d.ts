@@ -2,6 +2,7 @@
 // Project: https://github.com/mango/slideout
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = Slideout;
 export as namespace Slideout;

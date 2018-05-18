@@ -2,7 +2,7 @@
 // Project: http://mozilla.github.io/nunjucks/
 // Definitions by: Ruben Slabbert <https://github.com/RubenSlabbert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export function render(name: string, context?: object): string;
 export function render(name: string, context?: object, callback?: (err: any, res: string) => any): void;

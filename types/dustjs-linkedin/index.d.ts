@@ -2,6 +2,7 @@
 // Project: https://github.com/linkedin/dustjs
 // Definitions by: Marcelo Dezem <https://github.com/mdezem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 //
 // Due to a lack of documentation it's not possible

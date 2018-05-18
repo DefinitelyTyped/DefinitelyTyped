@@ -2,6 +2,7 @@
 // Project: https://github.com/hokaccha/node-jwt-simple
 // Definitions by: Ken Fukuyama <https://github.com/kenfdev>, Gael Magnan <https://github.com/GaelMagnan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Decode jwt

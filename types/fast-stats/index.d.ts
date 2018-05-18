@@ -2,6 +2,7 @@
 // Project: https://github.com/bluesmoon/node-faststats
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

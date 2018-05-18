@@ -2,6 +2,7 @@
 // Project: https://github.com/requirejs/domReady
 // Definitions by: Nobuhiro Nakamura <https://github.com/lefb766>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface DomReady {

@@ -2,7 +2,7 @@
 // Project: https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html
 // Definitions by: SaschaNaz <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 // Spec version: 19 October 2012
 // Errata version: 6 June 2014

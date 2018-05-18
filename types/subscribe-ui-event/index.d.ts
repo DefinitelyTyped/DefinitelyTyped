@@ -2,7 +2,7 @@
 // Project: https://github.com/yahoo/subscribe-ui-event#readme
 // Definitions by: Cheng Wang <https://github.com/wangcheng678>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/subscribe-ui-event
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export type UIEventType =
     | 'resize'

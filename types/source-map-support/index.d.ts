@@ -2,6 +2,7 @@
 // Project: https://github.com/evanw/source-map-support
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Jason Cheatham <https://github.com/jason0x43>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

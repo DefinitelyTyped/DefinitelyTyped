@@ -2,6 +2,7 @@
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 // Definitions: https://github.com/Asido/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module amplitude {
     interface Config {

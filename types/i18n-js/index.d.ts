@@ -2,7 +2,7 @@
 // Project: https://github.com/fnando/i18n-js
 // Definitions by: Yuya Tanaka <https://github.com/ypresto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 // tslint:disable-next-line:export-just-namespace
 export = I18n;

@@ -2,6 +2,7 @@
 // Project: https://github.com/Netflix/falcor-router
 // Definitions by: Quramy <https://github.com/Quramy>, cdhgee <https://github.com/cdhgee>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="falcor" />
 import * as FalcorModel from 'falcor';

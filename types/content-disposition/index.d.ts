@@ -2,6 +2,7 @@
 // Project: https://github.com/jshttp/content-disposition
 // Definitions by: Stefan Reichel <https://github.com/bomret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace contentDisposition {
     interface ContentDisposition {

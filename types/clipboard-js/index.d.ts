@@ -2,6 +2,7 @@
 // Project: https://github.com/lgarron/clipboard.js
 // Definitions by: Mark Wong Siang Kai <https://github.com/markwongsk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace clipboard {
 

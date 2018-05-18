@@ -2,6 +2,7 @@
 // Project: https://github.com/leongersen/noUiSlider
 // Definitions by: Patrick Davies <https://github.com/bleuarg>, Guust Nieuwenhuis <https://github.com/lagaffe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 /// <reference types="wnumb"/>
 
 export = noUiSlider;

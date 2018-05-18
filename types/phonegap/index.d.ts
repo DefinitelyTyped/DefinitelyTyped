@@ -2,6 +2,7 @@
 // Project: http://phonegap.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Dick van den Brink <https://github.com/DickvdBrink>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface GeolocationError {
     code: number;

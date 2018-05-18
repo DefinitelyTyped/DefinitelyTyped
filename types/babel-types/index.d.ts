@@ -5,7 +5,7 @@
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Boris Cherny <https://github.com/bcherny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export interface Comment {
     value: string;

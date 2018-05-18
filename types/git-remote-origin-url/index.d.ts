@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/git-remote-origin-url#readme
 // Definitions by: Jay Anslow <https://github.com/janslow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function gitRemoteOriginUrl(cwd?: string): Promise<string>;
 

@@ -2,6 +2,7 @@
 // Project: http://dojotoolkit.org
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace dojox.dtl {
     interface __StringArgs { }

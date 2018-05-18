@@ -4,7 +4,7 @@
 //                 Dancespiele <https://github.com/dancespiele>
 //                 Daniel Almaguer <https://github.com/deini>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 type Keys = string;
 type State = {[k in Keys]: any};

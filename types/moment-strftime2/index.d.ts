@@ -2,7 +2,7 @@
 // Project: https://github.com/ShogunPanda/moment-strftime2
 // Definitions by: Piotr Roszatycki <https://github.com/dex4er>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import * as _moment from 'moment';
 

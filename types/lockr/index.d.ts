@@ -2,6 +2,7 @@
 // Project: https://github.com/tsironis/lockr
 // Definitions by: Dror Weiss <https://github.com/droritos>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var Lockr: lockr.LockrStatic;
 

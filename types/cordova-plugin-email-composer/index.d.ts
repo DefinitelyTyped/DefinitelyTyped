@@ -2,6 +2,7 @@
 // Project: https://github.com/katzer/cordova-plugin-email-composer
 // Definitions by: Dave Taylor <http://davetayls.me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * The plugin provides access to the standard interface that manages the

@@ -2,6 +2,7 @@
 // Project: https://github.com/jfairbank/revalidate
 // Definitions by: alex3165 <https://github.com/alex3165>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 // This project is licensed under the MIT license.
 // Copyrights are respective of each contributor listed at the beginning of each definition file.

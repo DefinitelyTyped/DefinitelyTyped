@@ -2,6 +2,7 @@
 // Project: https://github.com/npm/npm
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

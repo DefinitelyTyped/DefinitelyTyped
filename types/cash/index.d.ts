@@ -2,6 +2,7 @@
 // Project: https://github.com/kenwheeler/cash
 // Definitions by: Ashok Vishwakarma <https://github.com/akvlko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * OffsetType

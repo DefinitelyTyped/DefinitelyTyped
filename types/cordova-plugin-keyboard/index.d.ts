@@ -3,6 +3,7 @@
 // Definitions by:  Dan Manastireanu <https://github.com/danmana>
 //                  Jochen Becker <https://github.com/jkfb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Keyboard {
 

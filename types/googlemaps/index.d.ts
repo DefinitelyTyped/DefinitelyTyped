@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/maps/
 // Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>, Martin Costello <https://github.com/martincostello>, Sven Kreiss <https://github.com/svenkreiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*
 The MIT License

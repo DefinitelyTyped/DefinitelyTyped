@@ -2,6 +2,7 @@
 // Project: https://github.com/tblobaum/git-rev
 // Definitions by: Spicy Pixel <http://spicypixel.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export function short(callback: (short: string) => void): void;
 export function long(callback: (long: string) => void): void;

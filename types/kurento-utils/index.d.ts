@@ -3,7 +3,7 @@
 // Definitions by: Miloslav Nenadál <https://github.com/nenadalm>
 //                 Benjamin Riggs <https://github.com/riggs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import { EventEmitter } from 'events';
 

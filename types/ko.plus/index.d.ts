@@ -2,7 +2,7 @@
 // Project: https://github.com/stevegreatrex/ko.plus
 // Definitions by: Howard Richards <https://github.com/conficient>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="knockout" />
 

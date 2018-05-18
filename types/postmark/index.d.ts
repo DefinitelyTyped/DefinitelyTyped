@@ -2,7 +2,7 @@
 // Project: http://wildbit.github.io/postmark.js
 // Definitions by: Ben Bayard <https://github.com/benbayard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 interface PostmarkError {
     status: number;

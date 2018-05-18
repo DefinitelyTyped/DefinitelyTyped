@@ -2,7 +2,7 @@
 // Project: https://github.com/andpor/react-native-sqlite-storage
 // Definitions by: Sergei Dryganets <https://github.com/dryganets>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export function openDatabase(params: DatabaseParams, success?: () => void, error?: (e: SQLError) => void): SQLiteDatabase;
 export function deleteDatabase(params: DatabaseParams, success?: () => void, error?: (err: SQLError) => void): void;

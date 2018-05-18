@@ -2,7 +2,7 @@
 // Project: https://www.w3.org/TR/generic-sensor/
 // Definitions by: Kenneth Rohde Christiansen <https://github.com/kenchris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 // Explainer: https://www.w3.org/TR/motion-sensors/
 

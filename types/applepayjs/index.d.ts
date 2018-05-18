@@ -2,6 +2,7 @@
 // Project: https://developer.apple.com/reference/applepayjs
 // Definitions by: Martin Costello <https://github.com/martincostello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * ApplePaySession is the entry point for Apple Pay on the web.

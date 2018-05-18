@@ -2,6 +2,7 @@
 // Project: https://github.com/hapijs/hoek
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface ContainOptions {
     /** Perform a deep comparison of the values? */

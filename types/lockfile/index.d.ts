@@ -3,6 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Options {
     wait?: number;

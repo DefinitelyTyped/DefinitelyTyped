@@ -2,6 +2,7 @@
 // Project: https://github.com/samsonjs/strftime
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "strftime" {
     type strftimeFunction = (format: string, date?: Date) => string;

@@ -6,7 +6,7 @@
 //                 Timon van Spronsen <https://github.com/TimonVS>
 //                 Daniel Machado <https://github.com/danielmachado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
  export = Boom;
 /**

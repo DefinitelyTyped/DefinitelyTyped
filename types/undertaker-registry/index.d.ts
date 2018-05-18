@@ -2,6 +2,7 @@
 // Project: https://github.com/gulpjs/undertaker-registry
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class UndertakerRegistry {
     /**

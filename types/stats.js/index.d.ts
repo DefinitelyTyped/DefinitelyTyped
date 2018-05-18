@@ -4,6 +4,7 @@
 //                 Harm Berntsen <https://github.com/hberntsen>,
 //                 Dan Vanderkam <https://github.com/danvk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare class Stats {
     constructor();

@@ -3,6 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 Shant Marouti <https://github.com/shantmarouti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Tests a path against the pattern using the options.

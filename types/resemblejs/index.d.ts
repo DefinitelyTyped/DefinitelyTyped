@@ -2,6 +2,7 @@
 // Project: http://huddle.github.io/Resemble.js/
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = Resemble;
 export as namespace resemble;

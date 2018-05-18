@@ -2,6 +2,7 @@
 // Project: http://wavded.github.com/humane-js/
 // Definitions by: jmvrbanac <https://github.com/jmvrbanac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 interface HumaneOptions {

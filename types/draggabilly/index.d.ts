@@ -2,7 +2,7 @@
 // Project: http://draggabilly.desandro.com/
 // Definitions by: Jason Wu <https://github.com/jaydubu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export interface Position {
     x: number;

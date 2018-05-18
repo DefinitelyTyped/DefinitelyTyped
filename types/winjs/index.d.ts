@@ -2,6 +2,7 @@
 // Project: http://try.buildwinjs.com/
 // Definitions by: TypeScript samples <https://www.typescriptlang.org/>, Adam Hewitt <https://github.com/adamhewitt627>, Craig Treasure <https://github.com/craigktreasure>, Jeff Fisher <https://github.com/xirzec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

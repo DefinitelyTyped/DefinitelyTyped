@@ -3,6 +3,7 @@
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii>
 //                 Austin Cummings <https://github.com/austincummings>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as Synaptic from "synaptic"; // Need this to refer to Synaptic from within the `declare global`
 

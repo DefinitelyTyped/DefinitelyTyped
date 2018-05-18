@@ -2,6 +2,7 @@
 // Project: https://github.com/senchalabs/cssbeautify
 // Definitions by: rictic <https://github.com/rictic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Options {
   /**

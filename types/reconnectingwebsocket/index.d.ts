@@ -2,6 +2,7 @@
 // Project: https://github.com/joewalnes/reconnecting-websocket
 // Definitions by: Nicholas Guarracino <https://github.com/nguarracino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Options {
     automaticOpen?: boolean;

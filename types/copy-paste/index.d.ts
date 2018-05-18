@@ -2,6 +2,7 @@
 // Project: https://github.com/xavi-/node-copy-paste
 // Definitions by: Tobias Kahlert <https://github.com/SrTobi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

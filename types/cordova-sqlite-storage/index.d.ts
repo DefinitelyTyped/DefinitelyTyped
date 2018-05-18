@@ -2,6 +2,7 @@
 // Project: https://github.com/litehelpers/Cordova-sqlite-storage
 // Definitions by: rafw87 <https://github.com/rafw87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Window {
     sqlitePlugin: SQLitePlugin.SQLite;

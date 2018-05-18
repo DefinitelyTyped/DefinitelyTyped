@@ -2,6 +2,7 @@
 // Project: https://github.com/braintree/framebus
 // Definitions by: kbukum <https://github.com/kbukum>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.

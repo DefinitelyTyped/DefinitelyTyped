@@ -2,6 +2,7 @@
 // Project: https://github.com/dmnd/dedent
 // Definitions by: Douglas Duteil <https://github.com/douglasduteil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = dedent;
 

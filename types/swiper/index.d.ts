@@ -2,7 +2,7 @@
 // Project: https://github.com/nolimits4web/Swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>, Luca Trazzi <https://github.com/lucax88x>, Eugene Matseruk <https://github.com/ematseruk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 type CommonEvent =
     | 'init'

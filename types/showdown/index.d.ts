@@ -2,6 +2,7 @@
 // Project: https://github.com/coreyti/showdown
 // Definitions by: cbowdon <https://github.com/cbowdon>, Pei-Tang Huang <https://github.com/tan9>, Ariel-Saldana <https://github.com/arielsaldana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = Showdown;
 export as namespace showdown;

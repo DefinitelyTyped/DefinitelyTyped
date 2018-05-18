@@ -2,6 +2,7 @@
 // Project: https://github.com/Automattic/expect.js
 // Definitions by: Teppei Sato <https://github.com/teppeis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare function expect(target?: any): Expect.Root;
 

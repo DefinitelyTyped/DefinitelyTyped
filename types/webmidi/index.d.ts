@@ -2,6 +2,7 @@
 // Project: http://www.w3.org/TR/webmidi/
 // Definitions by: six a <https://github.com/lostfictions>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Navigator {
   /**

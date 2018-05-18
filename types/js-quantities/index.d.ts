@@ -2,6 +2,7 @@
 // Project: http://gentooboontoo.github.io/js-quantities/
 // Definitions by: William Rummler <https://github.com/wrummler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare const Qty: Qty.Type;
 

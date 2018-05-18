@@ -2,6 +2,7 @@
 // Project: https://github.com/urbanairship/phonegap-ua-push
 // Definitions by: Justin Unterreiner <https://github.com/Justin-Credible>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 //#region API Types
 

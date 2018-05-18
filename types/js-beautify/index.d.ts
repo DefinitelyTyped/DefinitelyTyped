@@ -2,6 +2,7 @@
 // Project: https://github.com/beautify-web/js-beautify/
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>, Hans Windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface JsBeautifyOptions {
   indent_size?: number;

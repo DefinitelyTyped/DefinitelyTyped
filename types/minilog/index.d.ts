@@ -2,6 +2,7 @@
 // Project: https://github.com/mixu/minilog
 // Definitions by: Guido <http://guido.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 //These type definitions are not complete, although basic usage should be typed.
 interface Minilog {

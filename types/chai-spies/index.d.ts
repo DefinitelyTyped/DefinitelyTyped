@@ -2,6 +2,7 @@
 // Project: https://github.com/chaijs/chai-spies
 // Definitions by: Ilya Kuznetsov <https://github.com/kuzn-ilya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="chai" />
 

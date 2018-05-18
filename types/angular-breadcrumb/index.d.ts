@@ -2,7 +2,7 @@
 // Project: https://github.com/ncuillery/angular-breadcrumb
 // Definitions by: Marc Talary <https://github.com/marctalary>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="angular-ui-router" />
 

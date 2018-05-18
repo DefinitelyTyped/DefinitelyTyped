@@ -2,7 +2,7 @@
 // Project: https://github.com/juijs/jui#readme
 // Definitions by: Jin-Ho Park <https://github.com/easylogic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { UIEvent } from 'jui-core';
 export interface UIAccordion extends UIEvent {

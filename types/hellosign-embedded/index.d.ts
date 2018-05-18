@@ -2,6 +2,7 @@
 // Project: https://github.com/HelloFax/hellosign-embedded
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 export declare module HelloSign {
     interface SignedMessageEvent {
         event: 'signature_request_signed';

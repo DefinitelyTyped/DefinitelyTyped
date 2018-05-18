@@ -2,6 +2,7 @@
 // Project: https://github.com/NodeRedis/redis-errors#readme
 // Definitions by: James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export class RedisError extends Error {
 }

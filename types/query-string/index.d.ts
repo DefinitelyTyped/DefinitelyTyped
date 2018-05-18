@@ -5,7 +5,7 @@
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Madara Uchiha <https://github.com/MadaraUchiha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export interface ParseOptions {
     arrayFormat?: 'bracket' | 'index' | 'none';

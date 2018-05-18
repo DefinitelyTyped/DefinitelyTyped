@@ -2,6 +2,7 @@
 // Project: https://github.com/zkat/json-parse-better-errors#readme
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = json_parse_better_errors;
 

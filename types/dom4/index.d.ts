@@ -2,6 +2,7 @@
 // Project: https://github.com/WebReflection/dom4
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>, Gilad Gray <https://github.com/giladgray>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * https://dom.spec.whatwg.org/#parentnode

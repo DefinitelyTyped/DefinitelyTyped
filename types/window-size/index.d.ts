@@ -2,6 +2,7 @@
 // Project: https://github.com/jonschlinkert/window-size
 // Definitions by: Pouya Kary <https://github.com/pmkary>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "window-size" {
     /** Height of the terminal window.*/

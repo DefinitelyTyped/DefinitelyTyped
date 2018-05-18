@@ -5,7 +5,7 @@
 //                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Eliot Fallon <https://github.com/eliotfallon213>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 /**
  * @see https://developers.google.com/youtube/iframe_api_reference

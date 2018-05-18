@@ -4,8 +4,8 @@
 //                 Lisa Vallfors <https://github.com/Frankrike>
 //                 Pete Vilter <https://github.com/vilterp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 // copied from definitions for dagre, since dagre-layout is a drop-in replacement
+// TypeScript Version: 2.8
 
 export namespace graphlib {
     class Graph {

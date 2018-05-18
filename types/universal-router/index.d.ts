@@ -2,6 +2,7 @@
 // Project: https://github.com/kriasoft/universal-router
 // Definitions by: Jack Moore <https://github.com/jtmthf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Params is a key/value object that represents extracted URL paramters. Each

@@ -3,6 +3,7 @@
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 //                 Grzegorz Rozdzialik <https://github.com/Gelio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 declare module CANNON {

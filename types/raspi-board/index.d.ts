@@ -2,7 +2,7 @@
 // Project: https://github.com/nebrius/raspi-board
 // Definitions by: Bryan Hughes <https://github.com/nebrius>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 export const VERSION_1_MODEL_A = "rpi1_a";
 export const VERSION_1_MODEL_B_REV_1 = "rpi1_b1";

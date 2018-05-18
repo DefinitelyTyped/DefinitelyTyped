@@ -2,6 +2,7 @@
 // Project: https://github.com/felixge/node-sandboxed-module
 // Definitions by: Sven Reglitzki <https://github.com/svi3c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 
 

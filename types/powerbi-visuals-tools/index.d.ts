@@ -3,6 +3,7 @@
 // Definitions by:  Ilfat Galiev <https://github.com/zBritva>
 //                  Microsoft <https://github.com/Microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace powerbi {
     enum VisualDataRoleKind {

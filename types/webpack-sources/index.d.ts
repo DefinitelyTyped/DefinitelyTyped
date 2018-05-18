@@ -3,6 +3,7 @@
 // Definitions by: e-cloud <https://github.com/e-cloud>
 //                 Chris Eppstein <https://github.com/chriseppstein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

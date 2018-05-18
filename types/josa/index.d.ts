@@ -2,6 +2,7 @@
 // Project: https://github.com/kimdhoe/josa
 // Definitions by: Vichyssoise <https://github.com/vichyssoise>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type Topic = '은' | '는';
 export type Subject = '이' | '가';

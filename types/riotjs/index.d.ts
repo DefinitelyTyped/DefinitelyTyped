@@ -2,7 +2,7 @@
 // Project: https://github.com/moot/riotjs
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 /// <reference path="riotjs-render.d.ts" />

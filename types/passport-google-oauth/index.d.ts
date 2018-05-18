@@ -2,7 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-google-oauth
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="passport"/>
 

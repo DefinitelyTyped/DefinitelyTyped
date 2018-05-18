@@ -2,6 +2,7 @@
 // Project: http://www.windowsazure.com/en-us/develop/mobile/
 // Definitions by: Morosinotto Daniele <https://github.com/dmorosinotto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Microsoft.WindowsAzure {
 

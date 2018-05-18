@@ -2,7 +2,7 @@
 // Project: https://github.com/carlosascari/express-flash-notification
 // Definitions by: Mister4Eyes <https://github.com/Mister4Eyes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import express = require("express");
 

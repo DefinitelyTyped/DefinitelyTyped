@@ -2,6 +2,7 @@
 // Project: https://github.com/pyrsmk/qwest
 // Definitions by: Lindsay Evans <https://github.com/lindsayevans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace Qwest {
 

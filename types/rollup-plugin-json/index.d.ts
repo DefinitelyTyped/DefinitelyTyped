@@ -2,6 +2,7 @@
 // Project: https://github.com/rollup/rollup-plugin-json#readme
 // Definitions by: Andy Mockler <https://github.com/asmockler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Plugin } from 'rollup';
 

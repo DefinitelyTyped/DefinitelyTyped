@@ -2,6 +2,7 @@
 // Project: https://wicg.github.io/mediasession/
 // Definitions by: Julien CROUZET <https://github.com/jucrouzet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 interface Navigator {
   readonly mediaSession?: MediaSession;

@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/read-pkg
 // Definitions by: Jeff Dickey <https://github.com/jdxcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import normalize = require('normalize-package-data');
 

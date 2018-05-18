@@ -2,6 +2,7 @@
 // Project: https://github.com/ogt/valid-url
 // Definitions by: Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /**
  * Is the value a well-formed uri?

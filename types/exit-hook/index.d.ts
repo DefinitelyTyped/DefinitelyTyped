@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/exit-hook
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = exitHook;
 

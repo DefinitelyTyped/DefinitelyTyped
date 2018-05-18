@@ -7,7 +7,7 @@
 //                 Matt Tennison <https://github.com/matttennison>
 //                 Quentin Bouygues <https://github.com/quentinbouygues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 declare namespace fetchMock {
     type MockRequest = Request | RequestInit;

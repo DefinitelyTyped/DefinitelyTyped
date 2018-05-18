@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/p-limit#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace pLimit {}
 

@@ -8,7 +8,7 @@
 // 				Jared Szechy <https://github.com/szechyjs>
 // 				Drew Diamantoukos <https://github.com/MercifulCode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="d3" />
 export as namespace Plotly;

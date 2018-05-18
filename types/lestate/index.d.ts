@@ -2,6 +2,7 @@
 // Project: https://github.com/LeTools/LeState
 // Definitions by: Hadrian Oliveira <https://github.com/thelambdaparty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface LeState {
     set(newValue: {}): [{

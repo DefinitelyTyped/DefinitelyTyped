@@ -2,7 +2,7 @@
 // Project: https://github.com/voltrue2/in-app-purchase#readme
 // Definitions by: Jonas Lochmann <https://github.com/l-jonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export const UNITY = 'unity';
 export const APPLE = 'apple';
