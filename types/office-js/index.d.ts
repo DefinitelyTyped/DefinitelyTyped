@@ -31,90 +31,115 @@ declare namespace Office {
     export function initialize(reason: InitializationReason): void;
     /**
     * Ensures that the Office JavaScript APIs are ready to be called by the add-in. If the framework hasn't initialized yet, the callback or promise will wait until the Office host is ready to accept API calls.
-    * Note that though this API is intended to be used inside an Office add-in, it can also be used outside the add-in.  In that case, once Office.js determines that it is running outside of an Office host application, it will call the callback and resolve the promise with "null" for both the host and platform.
+    * Note that though this API is intended to be used inside an Office add-in, it can also be used outside the add-in. In that case, once Office.js determines that it is running outside of an Office host application, it will call the callback and resolve the promise with "null" for both the host and platform.
     * @param callback - An optional callback method, that will receive the host and platform info. Alternatively, rather than use a callback, an add-in may simply wait for the Promise returned by the function to resolve.
     * @returns A Promise that contains the host and platform info, once initialization is completed.
     */
     export function onReady(callback?: (info: { host: HostType, platform: PlatformType }) => any): Promise<{ host: HostType, platform: PlatformType }>;
     /**
      * Indicates if the large namespace for objects will be used or not.
-     * @param useShortNamespace  Indicates if 'true' that the short namespace will be used
+     * @param useShortNamespace Indicates if 'true' that the short namespace will be used
      */
     export function useShortNamespace(useShortNamespace: boolean): void;
     // Enumerations
+    /**
+     * Specifies the result of an asynchronous call. 
+     * @remarks
+     * Returned by the status property of the AsyncResult object.
+     * 
+     * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
+     */
     export enum AsyncResultStatus {
         /**
-         * Operation succeeded
+         * The call succeeded.
          */
         Succeeded,
         /**
-         * Operation failed, check error object
+         * The call failed, check the error object.
          */
         Failed
     }
+    /**
+     * Specifies whether the add-in was just inserted or was already contained in the document.
+     * 
+     * @remarks
+     * Hosts: Excel, Project, Word
+     */
     export enum InitializationReason {
         /**
-         * Indicates the app was just inserted in the document
+         * The add-in was just inserted into the document.
          */
         Inserted,
         /**
-         * Indicates if the extension already existed in the document
+         * The add-in is already part of the document that was opened.
          */
         DocumentOpened
     }
+    /**
+     * Specifies the host Office application in which the add-in is running.
+     * 
+     * @remarks
+     * Hosts: Excel, Word, PowerPoint, Outlook, OneNote, Project, Access
+     */
     export enum HostType {
         /**
-         * Host is Word
+         * The Office host is Microsoft Word.
          */
         Word,
         /**
-         * Host is Excel
+         * The Office host is Microsoft Excel.
          */
         Excel,
         /**
-         * Host is PowerPoint
+         * The Office host is Microsoft PowerPoint.
          */
         PowerPoint,
         /**
-         * Host is Outlook
+         * The Office host is Microsoft Outlook.
          */
         Outlook,
         /**
-         * Host is OneNote
+         * The Office host is Microsoft OneNote.
          */
         OneNote,
         /**
-         * Host is Project
+         * The Office host is Microsoft Project.
          */
         Project,
         /**
-         * Host is Access
+         * The Office host is Microsoft Access.
          */
         Access
     }
+    /**
+     * Specifies the OS or other platform on which the Office host application is running.
+     * 
+     * @remarks
+     * Hosts: Excel, Word, PowerPoint, Outlook, OneNote, Project, Access
+     */
     export enum PlatformType {
         /**
-         * Platform is PC
+         * The platform is PC (Windows).
          */
         PC,
         /**
-         * Platform is Web
+         * The platform is Office Online.
          */
         OfficeOnline,
         /**
-         * Platform is Mac
+         * The platform is Mac.
          */
         Mac,
         /**
-         * Platform is iOS
+         * The platform an iOS device.
          */
         iOS,
         /**
-         * Platform is Android
+         * The platform is an Android device.
          */
         Android,
         /**
-         * Platform is Winrt
+         * The platform is WinRT.
          */
         Universal
     }
@@ -154,6 +179,7 @@ declare namespace Office {
      * 
      * @remarks
      * The Error object is accessed from the AsyncResult object that is returned in the function passed as the callback argument of an asynchronous data operation, such as the setSelectedDataAsync method of the Document object.
+     * 
      * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
      */
     export interface Error {
@@ -176,26 +202,26 @@ declare namespace Office {
     export interface UI {
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
-        * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
+        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
         */
         displayDialogAsync(startAddress: string): void;
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
-        * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
-        * @param options Optional. Accepts a DialogOptions object to define dialog behaviors.
+        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
+        * @param options - Optional. Accepts a DialogOptions object to define dialog behaviors.
         */
         displayDialogAsync(startAddress: string, options: DialogOptions): void;
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
-        * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
-        * @param callback Optional. Accepts a callback method to handle the dialog creation attempt.
+        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
+        * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt.
         */
         displayDialogAsync(startAddress: string, callback: (result: AsyncResult) => void): void;
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
-        * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
-        * @param options Optional. Accepts a DialogOptions object to define dialog behaviors.
-        * @param callback Optional. Accepts a callback method to handle the dialog creation attempt.
+        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
+        * @param options - Optional. Accepts a DialogOptions object to define dialog behaviors.
+        * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt.
         */
         displayDialogAsync(startAddress: string, options: DialogOptions, callback: (result: AsyncResult) => void): void;
         /**
@@ -205,10 +231,15 @@ declare namespace Office {
         messageParent(messageObject: any): void;
         /**
          * Closes the UI container where the JavaScript is executing.
+         * 
          * The behavior of this method is specified by the following:
+         * 
          * - Called from a UI-less command button: No effect. Any dialog opened by displayDialogAsync will remain open.
+         * 
          * - Called from a taskpane: The taskpane will close. Any dialog opened by displayDialogAsync will also close. If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
+         * 
          * - Called from a module extension: No effect.
+         * 
          * Hosts: Outlook - Minimum requirement set: Mailbox 1.5
          */
         closeContainer(): void;
@@ -230,13 +261,13 @@ declare namespace Office {
     export interface Auth {
         /**
         * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
-        * @param callback Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
+        * @param callback - Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
         */
         getAccessTokenAsync(callback: (result: AsyncResult) => void): void;
         /**
         * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
-        * @param options Optional. Accepts an AuthOptions object to define sign-on behaviors.
-        * @param callback Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
+        * @param options - Optional. Accepts an AuthOptions object to define sign-on behaviors.
+        * @param callback - Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
         */
         getAccessTokenAsync(options: AuthOptions, callback: (result: AsyncResult) => void): void;
 
@@ -289,75 +320,126 @@ declare namespace Office {
      */
     export function select(expression: string, callback?: (result: AsyncResult) => void): Binding;
     // Enumerations
+    /**
+     * Specifies the state of the active view of the document, for example, whether the user can edit the document.
+     * @remarks
+     * Hosts: PowerPoint
+     */
     export enum ActiveView {
+        /**
+         * The active view of the host application only lets the user read the content in the document.
+         */
         Read,
+        /**
+         * The active view of the host application lets the user edit the content in the document.
+         */
         Edit
     }
+    /**
+     * Specifies the type of the binding object that should be returned.
+     * @remarks
+     * Hosts: Access, Excel, Word
+     */
     export enum BindingType {
         /**
-         * Text based Binding
+         * Plain text. Data is returned as a run of characters.
          */
         Text,
         /**
-         * Matrix based Binding
+         * Tabular data without a header row. Data is returned as an array of arrays, for example in this form: [[row1column1, row1column2],[row2column1, row2column2]]
          */
         Matrix,
         /**
-         * Table based Binding
+         * Tabular data with a header row. Data is returned as a TableData object.
          */
         Table
     }
+    /**
+     * Specifies how to coerce data returned or set by the invoked method.
+     * 
+     * @remarks
+     * PowerPoint supports only Office.CoercionType.Text, Office.CoercionType.Image, and Office.CoercionType.SlideRange. Project supports only Office.CoercionType.Text.
+     * 
+     * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
+     */
     export enum CoercionType {
         /**
-         * Coerce as Text
+         * Return or set data as text (string).Data is returned or set as a one-dimensional run of characters.
          */
         Text,
         /**
-         * Coerce as Matrix
+         * Return or set data as tabular data with no headers. Data is returned or set as an array of arrays containing one-dimensional runs of characters. For example, three rows of  string values in two columns would be: [["R1C1", "R1C2"], ["R2C1", "R2C2"], ["R3C1", "R3C2"]].
+         * @remarks
+         * Only applies to data in Excel and Word.
          */
         Matrix,
         /**
-         * Coerce as Table
+         * Return or set data as tabular data with optional headers. Data is returned or set as an array of arrays with optional headers.
+         * @remarks
+         * Only applies to data in Access, Excel and Word.
          */
         Table,
         /**
-         * Coerce as HTML
+         * Return or set data as HTML.
+         * @remarks
+         * Only applies to data in add-ins for Word and Outlook add-ins for Outlook (compose mode).
          */
         Html,
         /**
-         * Coerce as Office Open XML
+         * Return or set data as Office Open XML.
+         * @remarks
+         * Only applies to data in Word.
          */
         Ooxml,
         /**
-         * Coerce as JSON object containing an array of the ids, titles, and indexes of the selected slides.
+         * Return a JSON object that contains an array of the ids, titles, and indexes of the selected slides.For example,  {"slides":[{"id":257,"title":"Slide 2","index":2},{"id":256,"title":"Slide 1","index":1}]} for a selection of two slides.
+         * @remarks
+         * Only applies to data in PowerPoint when calling the Document.getSelectedData method to get the current slide or selected range of slides.
          */
         SlideRange,
         /**
-        * Coerce as Image
+        * Data is returned or set as an image stream.
+        * @remarks
+        * Only applies to data in Excel, Word and PowerPoint.
         */
         Image
     }
+    /**
+     * Specifies whether the document in the associated application is read-only or read-write. 
+     * @remarks
+     * Returned by the mode property of the Document object.
+     * 
+     * Hosts: Excel, PowerPoint, Project, Word
+     */
     export enum DocumentMode {
         /**
-         * Document in Read Only Mode
+         * The document is read-only.
          */
         ReadOnly,
         /**
-         * Document in Read/Write Mode
+         * The document can be read and written to.
          */
         ReadWrite
     }
+    /**
+     * Specifies the kind of event that was raised. Returned by the type property of an EventNameEventArgs object.
+     * 
+     * @remarks
+     * Add-ins for Project support the Office.EventType.ResourceSelectionChanged, Office.EventType.TaskSelectionChanged, and Office.EventType.ViewSelectionChanged event types.
+     * 
+     * Hosts: Access, Excel, PowerPoint, Project, Word
+     */
     export enum EventType {
         /**
-         * Occurs when the user changes the current view of the document.
+         * A Document.ActiveViewChanged event was raised.
          */
         ActiveViewChanged,
         /**
-         * Triggers when a binding level data change happens
+         * A Binding.BindingDataChanged event was raised.
          */
         BindingDataChanged,
         /**
-         *  Triggers when a binding level selection happens
+         * A Binding.BindingSelectionChanged event was raised.
          */
         BindingSelectionChanged,
         /**
@@ -373,7 +455,7 @@ declare namespace Office {
          */
         DocumentSelectionChanged,
         /**
-         * Triggers when the active item changes
+         * A Document.SelectionChanged event was raised.
          */
         ItemChanged,
         /**
@@ -389,7 +471,7 @@ declare namespace Office {
          */
         NodeReplaced,
         /**
-         * Triggers when settings change in a co-Auth session.
+         * A Settings.settingsChanged event was raised.
          */
         SettingsChanged,
         /**
@@ -397,7 +479,7 @@ declare namespace Office {
          */
         TaskSelectionChanged,
         /**
-         *  Triggers when a Resource selection happens in Project.
+         * Triggers when a Resource selection happens in Project.
          */
         ResourceSelectionChanged,
         /**
@@ -405,30 +487,48 @@ declare namespace Office {
          */
         ViewSelectionChanged
     }
+    /**
+     * Specifies the format in which to return the document.
+     * 
+     * @remarks
+     * Hosts: PowerPoint, Word
+     */
     export enum FileType {
         /**
-         * Returns the file as plain text
+         * Returns only the text of the document as a string. (Word only)
          */
         Text,
         /**
-         * Returns the file as a byte array
+         * Returns the entire document (.pptx or .docx) in Office Open XML (OOXML) format as a byte array.
          */
         Compressed,
         /**
-         * Returns the file in PDF format as a byte array
+         * Returns the entire document in PDF format as a byte array.
          */
         Pdf
     }
+    /**
+     * Specifies whether filtering from the host application is applied when the data is retrieved.
+     * 
+     * @remarks
+     * Hosts: Excel, Project, Word
+     */
     export enum FilterType {
         /**
-         * Returns all items
+         * Return all data (not filtered by the host application).
          */
         All,
         /**
-         * Returns only visible items
+         * Return only the visible data (as filtered by the host application).
          */
         OnlyVisible
     }
+    /**
+     * Specifies the type of place or object to navigate to.
+     * 
+     * @remarks
+     * Hosts: Excel, PowerPoint, Word
+     */
     export enum GoToType {
         /**
          * Goes to a binding object using the specified binding id.
@@ -444,7 +544,7 @@ declare namespace Office {
          */
         Slide,
         /**
-         * Goes to the specified index by slide number or enum Office.Index
+         * Goes to the specified index by slide number or Office.Index
          */
         Index
     }
@@ -454,18 +554,38 @@ declare namespace Office {
         Next,
         Previous
     }
+    /**
+     * Specifies whether to select (highlight) the location to navigate to (when using the Document.goToByIdAsync method).
+     * 
+     * @remarks
+     * Hosts: Excel, PowerPoint, Word
+     */
     export enum SelectionMode {
         Default,
+        /**
+         * The location will be selected (highlighted).
+         */
         Selected,
+        /**
+         * The cursor is moved the beginning of the location.
+         */
         None
     }
+    /**
+     * Specifies whether values, such as numbers and dates, returned by the invoked method are returned with their formatting applied.
+     * 
+     * @remarks
+     * For example, if the valueFormat parameter is specified as "formatted", a number formatted as currency, or a date formatted as mm/dd/yy in the host application will have its formatting preserved. If the valueFormat parameter is specified as "unformatted", a date will be returned in its underlying sequential serial number form.
+     * 
+     * Hosts: Excel, Project, Word
+     */
     export enum ValueFormat {
         /**
-         * Returns items without format
+         * Return unformatted data.
          */
         Unformatted,
         /**
-         * Returns items with format
+         * Return formatted data.
          */
         Formatted
     }
@@ -833,6 +953,7 @@ declare namespace Office {
      * 
      * @remarks
      * Access the File object with the AsyncResult.value property in the callback function passed to the Document.getFileAsync method.
+     * 
      * Hosts: PowerPoint, Word
      */
     export interface File {
@@ -844,23 +965,26 @@ declare namespace Office {
         size: number;
         /**
          * Gets the number of slices into which the file is divided.
-         * @remarks
+         * @remarks 
          * Hosts: PowerPoint, Word
          */
         sliceCount: number;
         /**
          * Closes the document file.
+         * @remarks
          * No more than two documents are allowed to be in memory; otherwise the Document.getFileAsync operation will fail. Use the File.closeAsync method to close the file when you are finished working with it.
+         * 
          * Hosts: PowerPoint, Word
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the closeAsync method, you can use the properties of the AsyncResult object to return the following information.
-         * Property - Use to...
-         * AsyncResult.value - Always returns undefined because there is no object or data to retrieve.
-         * AsyncResult.status - Determine the success or failure of the operation.
-         * AsyncResult.error - Access an Error object that provides error information if the operation failed.
-         * AsyncResult.asyncContext - Access your user-defined  object or value, if you passed one as the asyncContext parameter.
+         * |Property |Use to...|
+         * |---------|---------|
+         * |AsyncResult.value|Always returns undefined because there is no object or data to retrieve.|
+         * |AsyncResult.status|Determine the success or failure of the operation.|
+         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
+         * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
          */
         closeAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -872,11 +996,12 @@ declare namespace Office {
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following information.
-         * Property - Use to...
-         * AsyncResult.value - Access the Slice object.
-         * AsyncResult.status - Determine the success or failure of the operation.
-         * AsyncResult.error - Access an Error object that provides error information if the operation failed.
-         * AsyncResult.asyncContext - Access your user-defined  object or value, if you passed one as the asyncContext parameter.
+         * |Property |Use to...|
+         * |---------|---------|
+         * |AsyncResult.value|Access the Slice object.|
+         * |AsyncResult.status|Determine the success or failure of the operation.|
+         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
+         * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
          */
         getSliceAsync(sliceIndex: number, callback?: (result: AsyncResult) => void): void;
     }
@@ -895,8 +1020,11 @@ declare namespace Office {
      * 
      * @remarks
      * The settings created by using the methods of the Settings object are saved per add-in and per document. That is, they are available only to the add-in that created them, and only from the document in which they are saved.
+     * 
      * The name of a setting is a string, while the value can be a string, number, boolean, null, object, or array.
+     * 
      * The Settings object is automatically loaded as part of the Document object, and is available by calling the settings property of that object when the add-in is activated. The developer is responsible for calling the saveAsync method after adding or deleting settings to save the settings in the document.
+     * 
      * Hosts: Access, Excel, PowerPoint, Word
      */
     export interface Settings {
@@ -904,21 +1032,25 @@ declare namespace Office {
          * Adds an event handler for the settingsChanged event.
          * @remarks
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
-         * Important: Your add-in's code can register a handler for the settingsChanged event when the add-in is running with any Excel client, but the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel Online, and more than one user is editing the spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
+         * 
+         * > [!IMPORTANT]
+         * > Your add-in's code can register a handler for the settingsChanged event when the add-in is running with any Excel client, but the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel Online, and more than one user is editing the spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
+         * 
          * Hosts: Excel
          * @param eventType Specifies the type of event to add. Required.
          * @param handler The event handler function to add. Required.
          * @param options Specifies any of the following optional parameters.
-         * @param asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         *        asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the addHandlerAsync method, you can use the properties of the AsyncResult object to return the following information.
-         * Property - Use to...
-         * AsyncResult.value - Always returns undefined because there is no data or object to retrieve when adding an event handler.
-         * AsyncResult.status - Determine the success or failure of the operation.
-         * AsyncResult.error - Access an Error object that provides error information if the operation failed.
-         * AsyncResult.asyncContext - Access your user-defined object or value, if you passed one as the asyncContext parameter.
+         * |Property |Use to...|
+         * |---------|---------|
+         * |AsyncResult.value|Always returns undefined because there is no data or object to retrieve when adding an event handler.|
+         * |AsyncResult.status|Determine the success or failure of the operation.|
+         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
+         * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
          */
         addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -934,23 +1066,27 @@ declare namespace Office {
          * @remarks
          * This method is useful in Word and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against the same document. Because each add-in is working against an in-memory copy of the settings loaded from the document at the time the user opened it, the settings values used by each user can get out of sync. This can happen whenever an instance of the add-in calls the Settings.saveAsync method to persist all of that user's settings to the document. Calling the refreshAsync method from the event handler for the settingsChanged event of the add-in will refresh the settings values for all users.
          * The refreshAsync method can be called from add-ins created for Excel, but since it doesn't support coauthoring there is no reason to do so.
+         * 
          * Hosts: Access, Excel, PowerPoint, Word
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the refreshAsync method, you can use the properties of the AsyncResult object to return the following information.
-         * Property - Use to...
-         * AsyncResult.value - Access a Settings object with the refreshed values.
-         * AsyncResult.status - Determine the success or failure of the operation.
-         * AsyncResult.error - Access an Error object that provides error information if the operation failed.
-         * AsyncResult.asyncContext - Access your user-defined  object or value, if you passed one as the asyncContext parameter.
+         * |Property |Use to...|
+         * |---------|---------|
+         * |AsyncResult.value|Access a Settings object with the refreshed values.|
+         * |AsyncResult.status|Determine the success or failure of the operation.|
+         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
+         * |AsyncResult.asyncContext|Access your user-defined  object or value, if you passed one as the asyncContext parameter.|
          */
         refreshAsync(callback?: (result: AsyncResult) => void): void;
         /**
          * Removes the specified setting.
          * @remarks
          * null is a valid value for a setting. Therefore, assigning null to the setting will not remove it from the settings property bag.
-         * Important: Be aware that the Settings.remove method affects only the in-memory copy of the settings property bag. To persist the removal of the specified setting in the document, at some point after calling the Settings.remove method and before the add-in is closed, you must call the Settings.saveAsync method.
+         * 
+         * > [!IMPORTANT]
+         * > Be aware that the Settings.remove method affects only the in-memory copy of the settings property bag. To persist the removal of the specified setting in the document, at some point after calling the Settings.remove method and before the add-in is closed, you must call the Settings.saveAsync method.
          * Hosts: Access, Excel, PowerPoint, Word
          * @param settingName The case-sensitive name of the setting to remove.
          */
@@ -959,11 +1095,12 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          * @remarks
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType will be removed.
+         * 
          * Hosts: Access, Excel, PowerPoint
          * @param eventType Specifies the type of event to remove. Required.
          * @param options Specifies any of the following optional parameters.
-         * @param handler: Specifies the name of the handler to remove.
-         * @param asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param handler Specifies the name of the handler to remove.
+         *        asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
@@ -974,28 +1111,35 @@ declare namespace Office {
          * Persists the in-memory copy of the settings property bag in the document.
          * @remarks
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the set and get methods to work with the in-memory copy of the settings property bag. When you want to persist the settings so that they are available the next time the add-in is used, use the saveAsync method.
-         * Note: The saveAsync method persists the in-memory settings property bag into the document file; however, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system.
-         * The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
+         * 
+         * > [!NOTE]
+         * > The saveAsync method persists the in-memory settings property bag into the document file; however, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system.
+         * > The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
+         * 
          * Hosts: Access, Excel, PowerPoint, Word
          * @param options Syntax example: {overwriteIfStale:false}
-         * @param overwriteIfStale: Indicates whether the setting will be replaced if stale.
-         * @param asyncContext: Object keeping state for the callback
+         * @param overwriteIfStale Indicates whether the setting will be replaced if stale.
+         *        asyncContext: Object keeping state for the callback
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the saveAsync method, you can use the properties of the AsyncResult object to return the following information.
-         * Property - Use to...
-         * AsyncResult.value - Always returns  undefined because there is no object or data to retrieve.
-         * AsyncResult.status - Determine the success or failure of the operation.
-         * AsyncResult.error - Access an Error object that provides error information if the operation failed.
-         * AsyncResult.asyncContext - Access your user-defined  object or value, if you passed one as the asyncContext parameter.
+         * |Property |Use to...|
+         * |---------|---------|
+         * |AsyncResult.value|Always returns undefined because there is no object or data to retrieve.|
+         * |AsyncResult.status|Determine the success or failure of the operation.|
+         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
+         * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
          */
         saveAsync(callback?: (result: AsyncResult) => void): void;
         /**
          * Sets or creates the specified setting.
          * @remarks
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name in the in-memory copy of the settings property bag. After you call the Settings.saveAsync method, the value is stored in the document as the serialized JSON representation of its data type. A maximum of 2MB is available for the settings of each add-in.
-         * Important: Be aware that the Settings.set method affects only the in-memory copy of the settings property bag. To make sure that additions or changes to settings will be available to your add-in the next time the document is opened, at some point after calling the Settings.set method and before the add-in is closed, you must call the Settings.saveAsync method to persist settings in the document.
+         * 
+         * > [!IMPORTANT]
+         * > Be aware that the Settings.set method affects only the in-memory copy of the settings property bag. To make sure that additions or changes to settings will be available to your add-in the next time the document is opened, at some point after calling the Settings.set method and before the add-in is closed, you must call the Settings.saveAsync method to persist settings in the document.
+         * 
          * Hosts: Access, Excel, PowerPoint, Word
          * @param settingName The case-sensitive name of the setting to set or create.
          * @param value Specifies the value to be stored.
@@ -1006,6 +1150,7 @@ declare namespace Office {
      * Represents a slice of a document file.
      * @remarks
      * The Slice object is accessed with the File.getSliceAsync method.
+     * 
      * Hosts: PowerPoint, Word
      */
     export interface Slice {
@@ -1013,6 +1158,7 @@ declare namespace Office {
          * Gets the raw data of the file slice in Office.FileType.Text ("text") or Office.FileType.Compressed ("compressed") format as specified by the fileType parameter of the call to the Document.getFileAsync method.
          * @remarks
          * Files in the "compressed" format will return a byte array that can be transformed to a base64-encoded string if required.
+         * 
          * Hosts: PowerPoint, Word
          */
         data: any;
@@ -1035,7 +1181,7 @@ declare namespace Office {
         rowCount: number;
         /**
          * Adds the specified columns to the table
-         * @param tableData  A TableData object with the headers and rows
+         * @param tableData A TableData object with the headers and rows
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
@@ -1043,7 +1189,7 @@ declare namespace Office {
         addColumnsAsync(tableData: TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Adds the specified rows to the table
-         * @param rows  A 2D array with the rows to add
+         * @param rows A 2D array with the rows to add
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
@@ -1104,546 +1250,2131 @@ declare namespace Office {
          * Gets or sets the headers of the table.
          * @remarks
          * To specify headers, you must specify an array of arrays that corresponds to the structure of the table. For example, to specify headers for a two-column table you would set the header property to [['header1', 'header2']].
+         * 
          * If you specify null for the headers property (or leaving the property empty when you construct a TableData object), the following results occur when your code executes:
+         * 
          * - If you insert a new table, the default column headers for the table are created.
+         * 
          * - If you overwrite or update an existing table, the existing headers are not altered.
+         * 
          * Hosts: Excel, Word
          */
         headers: any[];
         /**
          * Gets or sets the rows in the table. Returns an array of arrays that contains the data in the table. Returns an empty array ``, if there are no rows.
+         * @remarks
          * To specify rows, you must specify an array of arrays that corresponds to the structure of the table. For example, to specify two rows of string values in a two-column table you would set the rows property to [['a', 'b'], ['c', 'd']].
+         * 
          * If you specify null for the rows property (or leave the property empty when you construct a TableData object), the following results occur when your code executes:
+         * 
          * - If you insert a new table, a blank row will be inserted.
+         * 
          * - If you overwrite or update an existing table, the existing rows are not altered.
+         * 
          * Hosts: Excel, Word
          */
         rows: any[][];
     }
+    /**
+     * Specifies enumerated values for the cells: property in the cellFormat parameter of [table formatting methods](https://dev.office.com/reference/docs/excel/format-tables-in-add-ins-for-excel.htm).
+     * 
+     * @remarks
+     * Hosts: Excel
+     */
     export enum Table {
+        /**
+         * The entire table, including column headers, data, and totals (if any).
+         */
         All,
+        /**
+         * Only the data (no headers and totals).
+         */
         Data,
+        /**
+         * Only the header row.
+         */
         Headers
     }
     export interface TextBinding extends Binding { }
+    /**
+     * Specifies the project fields that are available as a parameter for the getProjectFieldAsync method.
+     * 
+     * @remarks
+     * A ProjectProjectFields constant can be used as a parameter of the getProjectFieldAsync method.
+     * 
+     * Hosts: Project
+     */
     export enum ProjectProjectFields {
+        /**
+         * The number of digits after the decimal for the currency.
+         */
         CurrencyDigits,
+        /**
+         * The currency symbol.
+         */
         CurrencySymbol,
+        /**
+         * The placement of the currency symbol: Not specified = -1; Before the value with no space ($0) = 0; After the value with no space (0$) = 1; Before the value with a space ($ 0) = 2; After the value with a space (0 $) = 3.
+         */
         CurrencySymbolPosition,
         DurationUnits,
+        /**
+         * The GUID of the project.
+         */
         GUID,
+        /**
+         * The project finish date.
+         */
         Finish,
+        /**
+         * The project start date.
+         */
         Start,
+        /**
+         * Specifies whether the project is read-only.
+         */
         ReadOnly,
+        /**
+         * The project version.
+         */
         VERSION,
+        /**
+         * The work units of the project, such as days or hours.
+         */
         WorkUnits,
+        /**
+         * The Project Web App URL, for projects that are stored in Project Server.
+         */
         ProjectServerUrl,
+        /**
+         * The SharePoint URL, for projects that are synchronized with a SharePoint list.
+         */
         WSSUrl,
+        /**
+         * The name of the SharePoint list, for projects that are synchronized with a tasks list.
+         */
         WSSList
     }
+    /**
+     * Specifies the resource fields that are available as a parameter for the getResourceFieldAsync method.
+     * 
+     * @remarks
+     * A ProjectResourceFields constant can be used as a parameter of the getResourceFieldAsync method.
+     * 
+     * For more information about working with fields in Project, see [Available fields](https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460) reference. In Project Help, search for Available fields.
+     */
     export enum ProjectResourceFields {
+        /**
+         * The accrual method that defines how a task accrues the cost of the resource: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Accrual,
+        /**
+         * The calculated actual cost of the resource for assignments in the project.
+         */
         ActualCost,
+        /**
+         * The actual overtime cost for a resource.
+         */
         ActualOvertimeCost,
+        /**
+         * The actual overtime work for a resource, in minutes.
+         */
         ActualOvertimeWork,
+        /**
+         * The actual overtime work for the resource that has been protected (made read-only).
+         */
         ActualOvertimeWorkProtected,
+        /**
+         * The actual work that the resource has done on assignments in the project.
+         */
         ActualWork,
+        /**
+         * The actual work for the resource that has been protected (made read-only).
+         */
         ActualWorkProtected,
+        /**
+         * The name of the base calendar for the resource.
+         */
         BaseCalendar,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline10BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline10BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline10Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline10Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline1BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline1BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline1Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline1Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline2BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline2BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline2Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline2Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline3BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline3BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline3Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline3Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline4BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline4BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline4Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline4Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline5BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline5BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline5Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline5Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline6BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline6BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline6Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline6Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline7BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline7BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline7Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline7Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline8BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline8BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline8Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline8Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         Baseline9BudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         Baseline9BudgetWork,
+        /**
+         * The cost for the baseline resource.
+         */
         Baseline9Cost,
+        /**
+         * The work for the baseline resource, in minutes.
+         */
         Baseline9Work,
+        /**
+         * The budget cost for the baseline resource.
+         */
         BaselineBudgetCost,
+        /**
+         * The budget work for the baseline resource, in hours.
+         */
         BaselineBudgetWork,
+        /**
+         * The baseline cost for the resource for assignments in the project.
+         */
         BaselineCost,
+        /**
+         * The baseline work for the resource for assignments in the project, in minutes.
+         */
         BaselineWork,
+        /**
+         * The budget cost for the resource.
+         */
         BudgetCost,
+        /**
+         * The budget work for the resource.
+         */
         BudgetWork,
+        /**
+         * The GUID of the resource calendar.
+         */
         ResourceCalendarGUID,
+        /**
+         * The code value of the resource.
+         */
         Code,
+        /**
+         * A cost field for the resource.
+         */
         Cost1,
+        /**
+         * A cost field for the resource.
+         */
         Cost10,
+        /**
+         * A cost field for the resource.
+         */
         Cost2,
+        /**
+         * A cost field for the resource.
+         */
         Cost3,
+        /**
+         * A cost field for the resource.
+         */
         Cost4,
+        /**
+         * A cost field for the resource.
+         */
         Cost5,
+        /**
+         * A cost field for the resource.
+         */
         Cost6,
+        /**
+         * A cost field for the resource.
+         */
         Cost7,
+        /**
+         * A cost field for the resource.
+         */
         Cost8,
+        /**
+         * A cost field for the resource.
+         */
         Cost9,
+        /**
+         * The date the resource was created.
+         */
         ResourceCreationDate,
+        /**
+         * A date field for the resource.
+         */
         Date1,
+        /**
+         * A date field for the resource.
+         */
         Date10,
+        /**
+         * A date field for the resource.
+         */
         Date2,
+        /**
+         * A date field for the resource.
+         */
         Date3,
+        /**
+         * A date field for the resource.
+         */
         Date4,
+        /**
+         * A date field for the resource.
+         */
         Date5,
+        /**
+         * A date field for the resource.
+         */
         Date6,
+        /**
+         * A date field for the resource.
+         */
         Date7,
+        /**
+         * A date field for the resource.
+         */
         Date8,
+        /**
+         * A date field for the resource.
+         */
         Date9,
+        /**
+         * A duration field for the resource.
+         */
         Duration1,
+        /**
+         * A duration field for the resource.
+         */
         Duration10,
+        /**
+         * A duration field for the resource.
+         */
         Duration2,
+        /**
+         * A duration field for the resource.
+         */
         Duration3,
+        /**
+         * A duration field for the resource.
+         */
         Duration4,
+        /**
+         * A duration field for the resource.
+         */
         Duration5,
+        /**
+         * A duration field for the resource.
+         */
         Duration6,
+        /**
+         * A duration field for the resource.
+         */
         Duration7,
+        /**
+         * A duration field for the resource.
+         */
         Duration8,
+        /**
+         * A duration field for the resource.
+         */
         Duration9,
+        /**
+         * The email address of the resource.
+         */
         Email,
+        /**
+         * The end date of the resource availability.
+         */
         End,
+        /**
+         * A finish field for the task.
+         */
         Finish1,
+        /**
+         * A finish field for the task.
+         */
         Finish10,
+        /**
+         * A finish field for the task.
+         */
         Finish2,
+        /**
+         * A finish field for the task.
+         */
         Finish3,
+        /**
+         * A finish field for the task.
+         */
         Finish4,
+        /**
+         * A finish field for the task.
+         */
         Finish5,
+        /**
+         * A finish field for the task.
+         */
         Finish6,
+        /**
+         * A finish field for the task.
+         */
         Finish7,
+        /**
+         * A finish field for the task.
+         */
         Finish8,
+        /**
+         * A finish field for the task.
+         */
         Finish9,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag10,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag1,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag11,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag12,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag13,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag14,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag15,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag16,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag17,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag18,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag19,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag2,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag20,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag3,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag4,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag5,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag6,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag7,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag8,
+        /**
+         * A Boolean flag field for the resource.
+         */
         Flag9,
+        /**
+         * The group the resource belongs to.
+         */
         Group,
+        /**
+         * The percentage of work units that the resource has assigned in the project. If the resource is working full-time on the project, Units = 100.
+         */
         Units,
+        /**
+         * The name of the resource.
+         */
         Name,
+        /**
+         * The text value of the notes regarding the resource.
+         */
         Notes,
+        /**
+         * A number field for the resource.
+         */
         Number1,
+        /**
+         * A number field for the resource.
+         */
         Number10,
+        /**
+         * A number field for the resource.
+         */
         Number11,
+        /**
+         * A number field for the resource.
+         */
         Number12,
+        /**
+         * A number field for the resource.
+         */
         Number13,
+        /**
+         * A number field for the resource.
+         */
         Number14,
+        /**
+         * A number field for the resource.
+         */
         Number15,
+        /**
+         * A number field for the resource.
+         */
         Number16,
+        /**
+         * A number field for the resource.
+         */
         Number17,
+        /**
+         * A number field for the resource.
+         */
         Number18,
+        /**
+         * A number field for the resource.
+         */
         Number19,
+        /**
+         * A number field for the resource.
+         */
         Number2,
+        /**
+         * A number field for the resource.
+         */
         Number20,
+        /**
+         * A number field for the resource.
+         */
         Number3,
+        /**
+         * A number field for the resource.
+         */
         Number4,
+        /**
+         * A number field for the resource.
+         */
         Number5,
+        /**
+         * A number field for the resource.
+         */
         Number6,
+        /**
+         * A number field for the resource.
+         */
         Number7,
+        /**
+         * A number field for the resource.
+         */
         Number8,
+        /**
+         * A number field for the resource.
+         */
         Number9,
+        /**
+         * The overtime cost for a resource.
+         */
         OvertimeCost,
+        /**
+         * The overtime rate for a resource.
+         */
         OvertimeRate,
+        /**
+         * The overtime work for a resource.
+         */
         OvertimeWork,
+        /**
+         * The percentage of work complete for a resource.
+         */
         PercentWorkComplete,
+        /**
+         * The cost per use of the resource.
+         */
         CostPerUse,
+        /**
+         * Indicates whether the resource is a generic resource (identified by skill rather than by name).
+         */
         Generic,
+        /**
+         * Indicates whether the resource is overallocated.
+         */
         OverAllocated,
+        /**
+         * The amount of regular work for the resource.
+         */
         RegularWork,
+        /**
+         * The remaining cost for the resource.
+         */
         RemainingCost,
+        /**
+         * The remaining overtime cost for the resource.
+         */
         RemainingOvertimeCost,
+        /**
+         * The remaining overtime work for the resource, in minutes.
+         */
         RemainingOvertimeWork,
+        /**
+         * The remaining work for the resource, in minutes.
+         */
         RemainingWork,
+        /**
+         * The ID of the resource.
+         */
         ResourceGUID,
+        /**
+         * The total cost of the resource.
+         */
         Cost,
+        /**
+         * The total work for the resource, in minutes.
+         */
         Work,
+        /**
+         * The start date for the resource.
+         */
         Start,
+        /**
+         * A start field for the resource.
+         */
         Start1,
+        /**
+         * A start field for the resource.
+         */
         Start10,
+        /**
+         * A start field for the resource.
+         */
         Start2,
+        /**
+         * A start field for the resource.
+         */
         Start3,
+        /**
+         * A start field for the resource.
+         */
         Start4,
+        /**
+         * A start field for the resource.
+         */
         Start5,
+        /**
+         * A start field for the resource.
+         */
         Start6,
+        /**
+         * A start field for the resource.
+         */
         Start7,
+        /**
+         * A start field for the resource.
+         */
         Start8,
+        /**
+         * A start field for the resource.
+         */
         Start9,
+        /**
+         * The standard rate of pay for the resource, in cost per hour.
+         */
         StandardRate,
+        /**
+         * A text field for the resource.
+         */
         Text1,
+        /**
+         * A text field for the resource.
+         */
         Text10,
+        /**
+         * A text field for the resource.
+         */
         Text11,
+        /**
+         * A text field for the resource.
+         */
         Text12,
+        /**
+         * A text field for the resource.
+         */
         Text13,
+        /**
+         * A text field for the resource.
+         */
         Text14,
+        /**
+         * A text field for the resource.
+         */
         Text15,
+        /**
+         * A text field for the resource.
+         */
         Text16,
+        /**
+         * A text field for the resource.
+         */
         Text17,
+        /**
+         * A text field for the resource.
+         */
         Text18,
+        /**
+         * A text field for the resource.
+         */
         Text19,
+        /**
+         * A text field for the resource.
+         */
         Text2,
+        /**
+         * A text field for the resource.
+         */
         Text20,
+        /**
+         * A text field for the resource.
+         */
         Text21,
+        /**
+         * A text field for the resource.
+         */
         Text22,
+        /**
+         * A text field for the resource.
+         */
         Text23,
+        /**
+         * A text field for the resource.
+         */
         Text24,
+        /**
+         * A text field for the resource.
+         */
         Text25,
+        /**
+         * A text field for the resource.
+         */
         Text26,
+        /**
+         * A text field for the resource.
+         */
         Text27,
+        /**
+         * A text field for the resource.
+         */
         Text28,
+        /**
+         * A text field for the resource.
+         */
         Text29,
+        /**
+         * A text field for the resource.
+         */
         Text3,
+        /**
+         * A text field for the resource.
+         */
         Text30,
+        /**
+         * A text field for the resource.
+         */
         Text4,
+        /**
+         * A text field for the resource.
+         */
         Text5,
+        /**
+         * A text field for the resource.
+         */
         Text6,
+        /**
+         * A text field for the resource.
+         */
         Text7,
+        /**
+         * A text field for the resource.
+         */
         Text8,
+        /**
+         * A text field for the resource.
+         */
         Text9
     }
+    /**
+     * Specifies the task fields that are available as a parameter for the getTaskFieldAsync method.
+     * 
+     * @remarks
+     * A ProjectTaskFields constant can be used as a parameter of the getTaskFieldAsync method.
+     * 
+     * For more information about working with fields in Project, see the [Available fields](https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460) reference. In Project Help, search for Available fields.
+     * 
+     * Hosts: Project
+     */
     export enum ProjectTaskFields {
+        /**
+         * The current actual cost for the task.
+         */
         ActualCost,
+        /**
+         * The actual duration of the task, in minutes.
+         */
         ActualDuration,
+        /**
+         * The actual finish date of the task.
+         */
         ActualFinish,
+        /**
+         * The actual overtime cost for the task.
+         */
         ActualOvertimeCost,
+        /**
+         * The actual overtime work for the task, in minutes.
+         */
         ActualOvertimeWork,
+        /**
+         * The actual start date of the task.
+         */
         ActualStart,
+        /**
+         * The actual work for the task, in minutes.
+         */
         ActualWork,
+        /**
+         * A text field for the task.
+         */
         Text1,
+        /**
+         * A text field for the task.
+         */
         Text10,
+        /**
+         * A finish field for the task.
+         */
         Finish10,
+        /**
+         * A start field for the task.
+         */
         Start10,
+        /**
+         * A text field for the task.
+         */
         Text11,
+        /**
+         * A text field for the task.
+         */
         Text12,
+        /**
+         * A text field for the task.
+         */
         Text13,
+        /**
+         * A text field for the task.
+         */
         Text14,
+        /**
+         * A text field for the task.
+         */
         Text15,
+        /**
+         * A text field for the task.
+         */
         Text16,
+        /**
+         * A text field for the task.
+         */
         Text17,
+        /**
+         * A text field for the task.
+         */
         Text18,
+        /**
+         * A text field for the task.
+         */
         Text19,
+        /**
+         * A finish field for the task.
+         */
         Finish1,
+        /**
+         * A start field for the task.
+         */
         Start1,
+        /**
+         * A text field for the task.
+         */
         Text2,
+        /**
+         * A text field for the task.
+         */
         Text20,
+        /**
+         * A text field for the task.
+         */
         Text21,
+        /**
+         * A text field for the task.
+         */
         Text22,
+        /**
+         * A text field for the task.
+         */
         Text23,
+        /**
+         * A text field for the task.
+         */
         Text24,
+        /**
+         * A text field for the task.
+         */
         Text25,
+        /**
+         * A text field for the task.
+         */
         Text26,
+        /**
+         * A text field for the task.
+         */
         Text27,
+        /**
+         * A text field for the task.
+         */
         Text28,
+        /**
+         * A text field for the task.
+         */
         Text29,
+        /**
+         * A finish field for the task.
+         */
         Finish2,
+        /**
+         * A start field for the task.
+         */
         Start2,
+        /**
+         * A text field for the task.
+         */
         Text3,
+        /**
+         * A text field for the task.
+         */
         Text30,
+        /**
+         * A finish field for the task.
+         */
         Finish3,
+        /**
+         * A start field for the task.
+         */
         Start3,
+        /**
+         * A text field for the task.
+         */
         Text4,
+        /**
+         * A finish field for the task.
+         */
         Finish4,
+        /**
+         * A start field for the task.
+         */
         Start4,
+        /**
+         * A text field for the task.
+         */
         Text5,
+        /**
+         * A finish field for the task.
+         */
         Finish5,
+        /**
+         * A start field for the task.
+         */
         Start5,
+        /**
+         * A text field for the task.
+         */
         Text6,
+        /**
+         * A finish field for the task.
+         */
         Finish6,
+        /**
+         * A start field for the task.
+         */
         Start6,
+        /**
+         * A text field for the task.
+         */
         Text7,
+        /**
+         * A finish field for the task.
+         */
         Finish7,
+        /**
+         * A start field for the task.
+         */
         Start7,
+        /**
+         * A text field for the task.
+         */
         Text8,
+        /**
+         * A finish field for the task.
+         */
         Finish8,
+        /**
+         * A start field for the task.
+         */
         Start8,
+        /**
+         * A text field for the task.
+         */
         Text9,
+        /**
+         * A finish field for the task.
+         */
         Finish9,
+        /**
+         * A start field for the task.
+         */
         Start9,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline10BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline10BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline10Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline10Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline10Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline10FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline10FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Baseline10Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline10Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline1BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline1BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline1Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline1Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline1Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline1FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline1FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Baseline1Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline1Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline2BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline2BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline2Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline2Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline2Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline2FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline2FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Baseline2Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline2Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline3BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline3BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline3Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline3Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline3Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline3FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline3FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Basline3Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline3Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline4BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline4BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline4Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline4Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline4Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline4FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline4FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Baseline4Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline4Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline5BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline5BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline5Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline5Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline5Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline5FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline5FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Baseline5Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline5Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline6BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline6BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline6Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline6Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline6Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline6FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline6FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Baseline6Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline6Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline7BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline7BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline7Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline7Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline7Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline7FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline7FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Baseline7Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline7Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline8BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline8BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline8Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline8Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline8Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline8FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline8FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Baseline8Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline8Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         Baseline9BudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         Baseline9BudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         Baseline9Cost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         Baseline9Duration,
+        /**
+         * The finish date for the baseline task.
+         */
         Baseline9Finish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         Baseline9FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         Baseline9FixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         Baseline9Start,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         Baseline9Work,
+        /**
+         * The budget cost for the baseline task.
+         */
         BaselineBudgetCost,
+        /**
+         * The budget work for the baseline task, in hours.
+         */
         BaselineBudgetWork,
+        /**
+         * The cost for the baseline task.
+         */
         BaselineCost,
+        /**
+         * The duration for the baseline task, in minutes.
+         */
         BaselineDuration,
+        /**
+         * The finish date for the baseline task.
+         */
         BaselineFinish,
+        /**
+         * The fixed cost of any non-resource expense for the baseline task.
+         */
         BaselineFixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         BaselineFixedCostAccrual,
+        /**
+         * The start date for the baseline task.
+         */
         BaselineStart,
+        /**
+         * The total person-hours scheduled for the baseline task, in minutes.
+         */
         BaselineWork,
+        /**
+         * The budget cost for the task.
+         */
         BudgetCost,
         BudgetFixedCost,
-        BudgetFixedWork,
+        BudgetFixedWork, 
+        /**
+        * The budget work for the task, in hours.
+        */
         BudgetWork,
+        /**
+         * The GUID of the task calendar.
+         */
         TaskCalendarGUID,
+        /**
+         * A constraint date for the task.
+         */
         ConstraintDate,
+        /**
+         * A constraint type for the task: As Soon As Possible = 0, As Late As Possible = 1, Must Start On = 2, Must Finish On = 3, Start No Earlier Than = 4, Start No Later Than = 5, Finish No Earlier Than = 6, Finish No Later Than = 7.
+         */
         ConstraintType,
+        /**
+         * A cost field of the task.
+         */
         Cost1,
+        /**
+         * A cost field of the task.
+         */
         Cost10,
+        /**
+         * A cost field of the task.
+         */
         Cost2,
+        /**
+         * A cost field of the task.
+         */
         Cost3,
+        /**
+         * A cost field of the task.
+         */
         Cost4,
+        /**
+         * A cost field of the task.
+         */
         Cost5,
+        /**
+         * A cost field of the task.
+         */
         Cost6,
+        /**
+         * A cost field of the task.
+         */
         Cost7,
+        /**
+         * A cost field of the task.
+         */
         Cost8,
+        /**
+         * A cost field of the task.
+         */
         Cost9,
+        /**
+         * A date field of the task.
+         */
         Date1,
+        /**
+         * A date field of the task.
+         */
         Date10,
+        /**
+         * A date field of the task.
+         */
         Date2,
+        /**
+         * A date field of the task.
+         */
         Date3,
+        /**
+         * A date field of the task.
+         */
         Date4,
+        /**
+         * A date field of the task.
+         */
         Date5,
+        /**
+         * A date field of the task.
+         */
         Date6,
+        /**
+         * A date field of the task.
+         */
         Date7,
+        /**
+         * A date field of the task.
+         */
         Date8,
+        /**
+         * A date field of the task.
+         */
         Date9,
+        /**
+         * The deadline for a task.
+         */
         Deadline,
+        /**
+         * A duration field of the task.
+         */
         Duration1,
+        /**
+         * A duration field of the task.
+         */
         Duration10,
+        /**
+         * A duration field of the task.
+         */
         Duration2,
+        /**
+         * A duration field of the task.
+         */
         Duration3,
+        /**
+         * A duration field of the task.
+         */
         Duration4,
+        /**
+         * A duration field of the task.
+         */
         Duration5,
+        /**
+         * A duration field of the task.
+         */
         Duration6,
+        /**
+         * A duration field of the task.
+         */
         Duration7,
+        /**
+         * A duration field of the task.
+         */
         Duration8,
+        /**
+         * A duration field of the task.
+         */
         Duration9,
+        /**
+         * A duration field of the task.
+         */
         Duration,
+        /**
+         * The method for calculating earned value for the task.
+         */
         EarnedValueMethod,
+        /**
+         * The duration between the Early Finish and Late Finish dates for the task, in minutes.
+         */
         FinishSlack,
+        /**
+         * The fixed cost for the task.
+         */
         FixedCost,
+        /**
+         * The accrual method that defines how the baseline task accrues fixed costs: Accrues when the task starts = 1, accrues when the task ends = 2, accrues as the task progresses (prorated) = 3.
+         */
         FixedCostAccrual,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag10,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag1,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag11,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag12,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag13,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag14,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag15,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag16,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag17,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag18,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag19,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag2,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag20,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag3,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag4,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag5,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag6,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag7,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag8,
+        /**
+         * A Boolean flag field for the task.
+         */
         Flag9,
+        /**
+         * The amount of time that the task can be delayed without delaying its successor tasks.
+         */
         FreeSlack,
+        /**
+         * Indicates whether the task has rollup subtasks.
+         */
         HasRollupSubTasks,
+        /**
+         * The index of the selected task. After the project summary task, the index of the first task in a project is 1.
+         */
         ID,
+        /**
+         * The name of the task.
+         */
         Name,
+        /**
+         * The text value of the notes regarding the task.
+         */
         Notes,
+        /**
+         * A number field for the task.
+         */
         Number1,
+        /**
+         * A number field for the task.
+         */
         Number10,
+        /**
+         * A number field for the task.
+         */
         Number11,
+        /**
+         * A number field for the task.
+         */
         Number12,
+        /**
+         * A number field for the task.
+         */
         Number13,
+        /**
+         * A number field for the task.
+         */
         Number14,
+        /**
+         * A number field for the task.
+         */
         Number15,
+        /**
+         * A number field for the task.
+         */
         Number16,
+        /**
+         * A number field for the task.
+         */
         Number17,
+        /**
+         * A number field for the task.
+         */
         Number18,
+        /**
+         * A number field for the task.
+         */
         Number19,
+        /**
+         * A number field for the task.
+         */
         Number2,
+        /**
+         * A number field for the task.
+         */
         Number20,
+        /**
+         * A number field for the task.
+         */
         Number3,
+        /**
+         * A number field for the task.
+         */
         Number4,
+        /**
+         * A number field for the task.
+         */
         Number5,
+        /**
+         * A number field for the task.
+         */
         Number6,
+        /**
+         * A number field for the task.
+         */
         Number7,
+        /**
+         * A number field for the task.
+         */
         Number8,
+        /**
+         * A number field for the task.
+         */
         Number9,
+        /**
+         * The scheduled (as opposed to actual) duration of the task.
+         */
         ScheduledDuration,
+        /**
+         * The scheduled (as opposed to actual) finish date of the task.
+         */
         ScheduledFinish,
+        /**
+         * The scheduled (as opposed to actual) start date of the task.
+         */
         ScheduledStart,
+        /**
+         * The level of the task in the outline hierarchy.
+         */
         OutlineLevel,
+        /**
+         * The overtime cost for the task.
+         */
         OvertimeCost,
+        /**
+         * The overtime work for the task.
+         */
         OvertimeWork,
+        /**
+         * The percent complete status of the task.
+         */
         PercentComplete,
+        /**
+         * The percentage of work completed for the task.
+         */
         PercentWorkComplete,
+        /**
+         * The IDs of the task's predecessors.
+         */
         Predecessors,
+        /**
+         * The finish date of a task before leveling occurred.
+         */
         PreleveledFinish,
+        /**
+         * The start date of a task before leveling occurred.
+         */
         PreleveledStart,
+        /**
+         * The priority of the task, with values from 0 (low) to 1000 (high). The default priority value is 500.
+         */
         Priority,
+        /**
+         * Indicates whether the task is active.
+         */
         Active,
+        /**
+         * Indicates whether the task is on the critical path.
+         */
         Critical,
+        /**
+         * Indicates whether the task is a milestone.
+         */
         Milestone,
+        /**
+         * Indicates whether any assignments for a task are overallocated.
+         */
         Overallocated,
+        /**
+         * Indicates whether subtask information is rolled up to the summary task bar.
+         */
         IsRollup,
+        /**
+         * Indicates whether the task is a summary task.
+         */
         Summary,
+        /**
+         * The amount of regular work for the task.
+         */
         RegularWork,
+        /**
+         * The remaining cost for the task.
+         */
         RemainingCost,
+        /**
+         * The remaining duration for the task, in minutes.
+         */
         RemainingDuration,
+        /**
+         * The remaining overtime cost for the task.
+         */
         RemainingOvertimeCost,
+        /**
+         * The remaining work for the task, in minutes.
+         */
         RemainingWork,
+        /**
+         * The names of the resources assigned to a task.
+         */
         ResourceNames,
+        /**
+         * The total cost of the task.
+         */
         Cost,
+        /**
+         * The finish date of the task.
+         */
         Finish,
+        /**
+         * The start date of the task.
+         */
         Start,
+        /**
+         * The total person-hours scheduled for the task, in minutes.
+         */
         Work,
+        /**
+         * The duration between the Early Start and Late Start dates for the task.
+         */
         StartSlack,
+        /**
+         * The status of the task: Complete = 0, on schedule = 1, late = 2, future task = 3, status not available = 4.
+         */
         Status,
+        /**
+         * The IDs of the task's successors.
+         */
         Successors,
+        /**
+         * The enterprise resource responsible for accepting or rejecting assignment progress updates for the task.
+         */
         StatusManager,
+        /**
+         * The total slack time for the task, in minutes.
+         */
         TotalSlack,
+        /**
+         * The GUID of the task.
+         */
         TaskGUID,
+        /**
+         * The way the task is calculated: Fixed units = 0, fixed duration = 1, fixed work = 2.
+         */
         Type,
+        /**
+         * The work breakdown structure code of the task.
+         */
         WBS,
+        /**
+         * The work breakdown structure codes of the task predecessors, separated by the list separator.
+         */
         WBSPREDECESSORS,
+        /**
+         * The work breakdown structure codes of the task successors, separated by the list separator.
+         */
         WBSSUCCESSORS,
+        /**
+         * The ID of the task in a SharePoint list, for a project that is synchronized with a SharePoint tasks list.
+         */
         WSSID
     }
+    /**
+     * Specifies the types of views that the getSelectedViewAsync method can recognize.
+     * 
+     * @remarks
+     * The getSelectedViewAsync method returns the ProjectViewTypes constant value and name that corresponds to the active view.
+     * 
+     * Hosts: Project
+     */
     export enum ProjectViewTypes {
+        /**
+         * The Gantt chart view.
+         */
         Gantt,
+        /**
+         * The Network Diagram view.
+         */
         NetworkDiagram,
+        /**
+         * The Task Diagram view.
+         */
         TaskDiagram,
+        /**
+         * The Task form view.
+         */
         TaskForm,
+        /**
+         * The Task Sheet view.
+         */
         TaskSheet,
+        /**
+         * The Resource Form view.
+         */
         ResourceForm,
+        /**
+         * The Resource Sheet view.
+         */
         ResourceSheet,
+        /**
+         * The Resource Graph view.
+         */
         ResourceGraph,
+        /**
+         * The Team Planner view.
+         */
         TeamPlanner,
+        /**
+         * The Task Details view.
+         */
         TaskDetails,
+        /**
+         * The Task Name Form view.
+         */
         TaskNameForm,
+        /**
+         * The Resource Names view.
+         */
         ResourceNames,
+        /**
+         * The Calendar view.
+         */
         Calendar,
+        /**
+         * The Task Usage view.
+         */
         TaskUsage,
+        /**
+         * The Resource Usage view.
+         */
         ResourceUsage,
+        /**
+         * The Timeline view.
+         */
         Timeline
     }
     // Objects
