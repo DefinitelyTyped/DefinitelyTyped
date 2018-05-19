@@ -3,7 +3,8 @@
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import 'node';
+
+/// <reference types="node" />
 
 /**
  * Parse a UUID into it's component bytes
