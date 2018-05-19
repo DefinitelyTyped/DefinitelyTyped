@@ -103,7 +103,7 @@ declare module "mongoose" {
   export function createConnection(): Connection;
   export function createConnection(uri: string,
     options?: ConnectionOptions
-  ): Connection;
+  ): Connection & Promise<Mongoose>;
 
   /**
    * Disconnects all connections.
@@ -430,7 +430,7 @@ declare module "mongoose" {
     $format(arg: any): string;
     /** Debug print helper */
     $print(name: any, i: any, args: any[]): void;
-    /** Retreives information about this collections indexes. */
+    /** Retrieves information about this collections indexes. */
     getIndexes(): any;
   }
 
