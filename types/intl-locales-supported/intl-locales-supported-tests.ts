@@ -1,4 +1,4 @@
-import areIntlLocalesSupported from "intl-locales-supported";
+import areIntLocalesSupported = require("intl-locales-supported");
 
 areIntlLocalesSupported("en-GB");
 areIntlLocalesSupported([ "en-GB", "en-US" ]);
