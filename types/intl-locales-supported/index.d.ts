@@ -5,4 +5,4 @@
 
 export = areIntlLocalesSupported;
 
-function areIntlLocalesSupported(locales: string | string[]): boolean;
+declare function areIntlLocalesSupported(locales: string | string[]): boolean;
