@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "objection": "^1.1.8"
-    }
-}

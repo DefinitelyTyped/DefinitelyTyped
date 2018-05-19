@@ -5,7 +5,7 @@ import DogModel from "./dog";
 exports.plugin = {
     register: async (
         server: Hapi.Server,
-        options: { Model: Schwifty.Model }
+        options: { Model: typeof Schwifty.Model }
     ) => {
         await server.register(Schwifty);
 

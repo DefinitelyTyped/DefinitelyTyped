@@ -13,5 +13,10 @@
         "target": "es6",
         "strictFunctionTypes": true
     },
-    "files": ["index.d.ts", "schwifty-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "schwifty-tests.ts",
+        "test/dog.ts",
+        "test/plugin.ts"
+    ]
 }

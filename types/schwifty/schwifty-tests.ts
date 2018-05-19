@@ -1,7 +1,7 @@
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as Schwifty from "schwifty";
-import DogClass from "./test/dog";
+import DogModel from "./test/dog";
 
 (async () => {
     const server = new Hapi.Server({ port: 3000 });
@@ -20,13 +20,13 @@ import DogClass from "./test/dog";
         }
     });
 
-    Schwifty.assertCompatible(DogClass, DogClass);
+    Schwifty.assertCompatible(DogModel, DogModel);
     // Register a model with schwifty...
 
-    server.schwifty(DogClass);
+    server.schwifty(DogModel);
 
     await server.initialize();
-    const Dog: typeof DogClass = server.models().Dog;
+    const Dog: typeof DogModel = server.models().Dog;
 
     await Dog.query().insert({ name: "Guinness" });
 
