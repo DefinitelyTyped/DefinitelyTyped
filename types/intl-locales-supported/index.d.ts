@@ -3,4 +3,6 @@
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function areIntlLocalesSupported(locales: string | string[]): void;
+export = areIntlLocalesSupported;
+
+function areIntlLocalesSupported(locales: string | string[]): boolean;
