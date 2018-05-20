@@ -2,21 +2,19 @@
 // Project: https://github.com/muicss/loadjs
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
 
 export as namespace loadjs;
 
 export = loadjs;
 
-declare function loadjs(file: string, loaded: loadjs.LoadedFn): void;
-declare function loadjs(files: string[], loaded: loadjs.LoadedFn): void;
-declare function loadjs(files: string[], bundleId: string): void;
-declare function loadjs(files: string[], bundleId: string, loaded: loadjs.LoadedFn): void;
-declare function loadjs(files: string[], bundleId: string, options: loadjs.LoadOptions): void;
+declare function loadjs(files: string | string[], bundleIdOrLoaded: string | loadjs.LoadedFn): void;
+declare function loadjs(files: string[], bundleId: string, optionsOrCallback: loadjs.LoadOptions | loadjs.LoadedFn): void;
 
 declare namespace loadjs {
-    export type LoadedFn = () => void;
+    type LoadedFn = () => void;
 
-    export interface LoadOptions {
+    interface LoadOptions {
         before?(path: string, scriptEl: string): void;
         success?(): void;
         error?(depsNotFound: string): void;
@@ -24,15 +22,13 @@ declare namespace loadjs {
         numRetries?: number;
     }
 
-    export interface ReadyOptions {
+    interface ReadyOptions {
         success?(): void;
         error?(depsNotFound: string): void;
     }
 
-    export function ready(bundleId: string, callback: LoadedFn): void;
-    export function ready(bundleIds: string[], callback: LoadedFn): void;
-    export function ready(bundleId: string, options: ReadyOptions): void;
-    export function isDefined(bundleId: string): boolean;
-    export function done(bundleId: string): void;
-    export function reset(): void;
+    function ready(bundleIds: string | string[], optionsOrCallback: ReadyOptions | LoadedFn): void;
+    function isDefined(bundleId: string): boolean;
+    function done(bundleId: string): void;
+    function reset(): void;
 }
