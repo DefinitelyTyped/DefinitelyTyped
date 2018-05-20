@@ -8,12 +8,12 @@ import 'angular-dragdrop';
 import 'angular-bindonce';
 import 'angular-ui';
 export class GrafanaApp {
-  registerFunctions: any;
-  ngModuleDependencies: any[];
-  preBootModules: any[];
-  constructor();
-  useModule(module: any): any;
-  init(): void;
+    registerFunctions: any;
+    ngModuleDependencies: any[];
+    preBootModules: any[];
+    constructor();
+    useModule(module: any): any;
+    init(): void;
 }
 declare var _default: GrafanaApp;
 export default _default;

@@ -1,3 +1,3 @@
 export class ThresholdMapper {
-  static alertToGraphThresholds(panel: any): boolean;
+    static alertToGraphThresholds(panel: any): boolean;
 }

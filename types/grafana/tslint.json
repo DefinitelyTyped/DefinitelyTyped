@@ -1,12 +1,12 @@
 { 
-  "extends": "dtslint/dtslint.json",
-  "rules": {
-    "no-unnecessary-class": false,
-    "array-type": false,
-    "strict-export-declare-modifiers": false,
-    "no-trailing-whitespace": false,
-    "jsdoc-format": false,
-    "no-var-keyword": false,
-    "expect": false
-  }
+    "extends": "dtslint/dtslint.json",
+    "rules": {
+        "no-unnecessary-class": false,
+        "array-type": false,
+        "strict-export-declare-modifiers": false,
+        "no-trailing-whitespace": false,
+        "jsdoc-format": false,
+        "no-var-keyword": false,
+        "expect": false
+    }
 }

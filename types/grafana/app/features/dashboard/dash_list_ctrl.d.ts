@@ -1,5 +1,5 @@
 /// 
 export class DashListCtrl {
-  /** @ngInject */
-  constructor();
+    /** @ngInject */
+    constructor();
 }

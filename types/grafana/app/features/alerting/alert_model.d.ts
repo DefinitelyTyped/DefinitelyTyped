@@ -1,4 +1,4 @@
 /// 
 export class AlertModel {
-  constructor();
+    constructor();
 }
