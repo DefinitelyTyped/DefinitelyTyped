@@ -10,7 +10,7 @@ declare namespace ps_tree {
         PID: string;
         STAT: string;
     }
-    
+
     const prototype: {
     };
 }
