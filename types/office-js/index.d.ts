@@ -328,14 +328,7 @@ declare namespace Office {
         * Do not use a dialog box to interact with a document. Use a task pane instead.
         *
         * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
-        * @param options - Optional. An object that has any of the following properties:
-        * 
-        *         displayInIframe: Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is ignored by other platforms. If false (default), the dialog will be displayed as a new browser window (pop-up). Recommended for authentication pages that cannot be displayed in an IFrame. If true, the dialog will be displayed as a floating overlay with an IFrame. This is best for user experience and performance.
-        * 
-        *         height: Defines the height of the dialog box as a percentage of the current display. The default value is 80%. The minimum resolution is 150 pixels.
-        * 
-        *         width: Defines the width of the dialog box as a percentage of the current display. The default value is 80%. The minimum resolution is 250 pixels.
-        * 
+        * @param options - Optional. Accepts a DialogOptions object to define dialog display.
         * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt. If successful, the AsyncResult.value is a DialogHandler object.
         */
         displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult) => void): void;
@@ -362,15 +355,15 @@ declare namespace Office {
     }
     export interface DialogOptions {
         /**
-         * Optional. Defines the width of the dialog as a percentage of the current display. Defaults to 99%. 250px minimum.
+         * Defines the width of the dialog as a percentage of the current display. Defaults to 80%. 250px minimum.
          */
         height?: number,
         /**
-         * Optional. Defines the height of the dialog as a percentage of the current display. Defaults to 99%. 150px minimum.
+         * Defines the height of the dialog as a percentage of the current display. Defaults to 80%. 150px minimum.
          */
         width?: number,
         /**
-         * Optional. Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is ignored on other platforms.
+         * Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is ignored by other platforms. If false (default), the dialog will be displayed as a new browser window (pop-up). Recommended for authentication pages that cannot be displayed in an IFrame. If true, the dialog will be displayed as a floating overlay with an IFrame. This is best for user experience and performance.
          */
         displayInIframe?: boolean
     }
@@ -5913,7 +5906,7 @@ declare namespace Excel {
          * Gets the Binding object that represents the binding that raised the SelectionChanged event.
          * 
          *@remarks
-         * **Hosts:** Access, Excel, Word
+         * Hosts: Access, Excel, Word
          *
          * [Api set: ExcelApi 1.2]
          */
