@@ -733,7 +733,7 @@ histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((valu
 
 // thresholds(...) -------------------------------------------------------------
 
-type thresholdsWithUndefinedCont = d3Array.ThresholdCountGenerator<number | undefined>;
+type thresholdsWithUndefinedCont = d3Array.ThresholdCountGenerator;
 type thresholdsWithUndefinedArray = d3Array.ThresholdArrayGenerator<number | undefined>;
 
 let thresholds: d3Array.ThresholdCountGenerator<number> | d3Array.ThresholdArrayGenerator<number>;

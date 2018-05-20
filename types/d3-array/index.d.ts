@@ -463,7 +463,7 @@ export function histogram<Datum, Value extends number | undefined>(): HistogramG
 export function histogram<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
 
 /**
- * @deprecated Do not use Value generic which mixes number and Date types. Use either number or Date 
+ * @deprecated Do not use Value generic which mixes number and Date types. Use either number or Date
  * (in combination with undefined, as applicable) to obtain a type-specific histogram generator.
  */
 export function histogram<Datum, Value extends number | Date | undefined>(): HistogramGenerator<Datum, Value>;
