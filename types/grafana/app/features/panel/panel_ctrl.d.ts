@@ -1,6 +1,6 @@
 /// 
 import { Emitter } from '../../core/core';
-export declare class PanelCtrl {
+export class PanelCtrl {
   panel: any;
   error: any;
   row: any;

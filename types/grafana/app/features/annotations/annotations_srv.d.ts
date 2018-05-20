@@ -1,6 +1,6 @@
 /// 
 import './editor_ctrl';
-export declare class AnnotationsSrv {
+export class AnnotationsSrv {
   private $rootScope;
   private $q;
   private datasourceSrv;

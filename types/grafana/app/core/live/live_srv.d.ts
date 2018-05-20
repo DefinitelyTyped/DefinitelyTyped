@@ -1,5 +1,4 @@
-/// 
-export declare class LiveSrv {
+export class LiveSrv {
   conn: any;
   observers: any;
   initPromise: any;
@@ -13,5 +12,6 @@ export declare class LiveSrv {
   removeObserver(stream: any, observer: any): void;
   subscribe(streamName: any): any;
 }
+
 declare var instance: LiveSrv;
 export { instance as liveSrv };

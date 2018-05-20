@@ -1,4 +1,4 @@
 /// 
-export declare class AlertModel {
+export class AlertModel {
   constructor();
 }

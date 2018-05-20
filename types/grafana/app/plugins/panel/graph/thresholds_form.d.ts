@@ -1,5 +1,4 @@
-/// 
-export declare class ThresholdFormCtrl {
+ export class ThresholdFormCtrl {
   panelCtrl: any;
   panel: any;
   disabled: boolean;

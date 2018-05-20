@@ -1,5 +1,5 @@
 /// 
-export declare class BackendSrv {
+export class BackendSrv {
   private $http;
   private alertSrv;
   private $rootScope;

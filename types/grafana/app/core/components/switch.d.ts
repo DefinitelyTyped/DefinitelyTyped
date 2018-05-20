@@ -1,4 +1,4 @@
-export declare class SwitchCtrl {
+export class SwitchCtrl {
   private $timeout;
   onChange: any;
   checked: any;
@@ -8,7 +8,7 @@ export declare class SwitchCtrl {
   constructor($scope: any, $timeout: any);
   internalOnChange(): any;
 }
-export declare function switchDirective(): {
+export function switchDirective(): {
   restrict: string;
   controller: typeof SwitchCtrl;
   controllerAs: string;

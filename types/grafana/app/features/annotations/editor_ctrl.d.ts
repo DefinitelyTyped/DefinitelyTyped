@@ -1,5 +1,5 @@
 /// 
-export declare class AnnotationsEditorCtrl {
+export class AnnotationsEditorCtrl {
   private $scope;
   private datasourceSrv;
   mode: any;

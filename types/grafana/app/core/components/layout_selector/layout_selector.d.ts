@@ -1,13 +1,12 @@
-export declare class LayoutSelectorCtrl {
+export class LayoutSelectorCtrl {
   private $rootScope;
   mode: string;
-  /** @ngInject **/
   constructor($rootScope: any);
   listView(): void;
   gridView(): void;
 }
-/** @ngInject **/
-export declare function layoutSelector(): {
+
+export function layoutSelector(): {
   restrict: string;
   controller: typeof LayoutSelectorCtrl;
   bindToController: boolean;
@@ -15,8 +14,8 @@ export declare function layoutSelector(): {
   scope: {};
   template: string;
 };
-/** @ngInject **/
-export declare function layoutMode($rootScope: any): {
+
+export function layoutMode($rootScope: any): {
   restrict: string;
   scope: {};
   link: (scope: any, elem: any) => void;

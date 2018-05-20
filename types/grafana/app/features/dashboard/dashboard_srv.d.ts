@@ -1,6 +1,6 @@
 /// 
 import { DashboardModel } from './model';
-export declare class DashboardSrv {
+export class DashboardSrv {
   private backendSrv;
   private $rootScope;
   private $location;

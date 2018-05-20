@@ -1,5 +1,5 @@
 /// 
-export declare class UtilSrv {
+export class UtilSrv {
   private $rootScope;
   private $modal;
   modalScope: any;

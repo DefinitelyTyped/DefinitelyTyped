@@ -1,5 +1,4 @@
-
-export declare class TablePanelEditorCtrl {
+export class TablePanelEditorCtrl {
   private $q;
   private uiSegmentSrv;
   panel: any;
@@ -26,7 +25,7 @@ export declare class TablePanelEditorCtrl {
   invertColorOrder(index: any): void;
 }
 /** @ngInject */
-export declare function tablePanelEditor($q: any, uiSegmentSrv: any): {
+export function tablePanelEditor($q: any, uiSegmentSrv: any): {
   restrict: string;
   scope: boolean;
   templateUrl: string;

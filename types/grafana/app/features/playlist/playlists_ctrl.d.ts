@@ -1,5 +1,5 @@
 /// 
-export declare class PlaylistsCtrl {
+export class PlaylistsCtrl {
   private $scope;
   private $location;
   private backendSrv;

@@ -1,6 +1,6 @@
 /// 
 import { Variable } from './variable';
-export declare class AdhocVariable implements Variable {
+export class AdhocVariable implements Variable {
   private model;
   filters: any[];
   defaults: {

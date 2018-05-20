@@ -1,15 +1,15 @@
 /// 
 import { DashboardExporter } from './exporter';
-export declare class DashExportCtrl {
+export class DashExportCtrl {
   private backendSrv;
   dash: any;
-  exporter: DashboardExporter;
+exporter: DashboardExporter;
   /** @ngInject */
   constructor(backendSrv: any, dashboardSrv: any, datasourceSrv: any, $scope: any);
   save(): void;
   saveJson(): void;
 }
-export declare function dashExportDirective(): {
+export function dashExportDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof DashExportCtrl;

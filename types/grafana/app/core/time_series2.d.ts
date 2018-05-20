@@ -1,4 +1,3 @@
-///
 declare class TimeSeries {
   datapoints: any;
   id: string;
@@ -34,7 +33,6 @@ declare class TimeSeries {
   hideFromLegend(options: any): boolean;
 }
 
-declare function updateLegendValues(data: TimeSeries[], panel);
+export function updateLegendValues(data: TimeSeries[], panel: any): any;
 
-
-export { TimeSeries as default, updateLegendValues };
+export { TimeSeries as default };

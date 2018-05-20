@@ -1,5 +1,4 @@
-export declare class WizardSrv {
-  /** @ngInject */
+export class WizardSrv {
   constructor();
 }
 export interface WizardStep {
@@ -7,14 +6,14 @@ export interface WizardStep {
   type: string;
   process: any;
 }
-export declare class SelectOptionStep {
+export class SelectOptionStep {
   type: string;
   name: string;
   fulfill: any;
   constructor();
   process(): Promise<{}>;
 }
-export declare class WizardFlow {
+export class WizardFlow {
   name: string;
   steps: WizardStep[];
   constructor(name: any);

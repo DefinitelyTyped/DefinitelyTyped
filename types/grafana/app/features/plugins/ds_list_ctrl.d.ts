@@ -1,5 +1,5 @@
 /// 
-export declare class DataSourcesCtrl {
+export class DataSourcesCtrl {
   private $scope;
   private $location;
   private $http;

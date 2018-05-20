@@ -1,6 +1,5 @@
 import { PanelCtrl } from 'grafana/app/plugins/sdk';
-
-declare class GettingStartedPanelCtrl extends PanelCtrl {
+export class GettingStartedPanelCtrl extends PanelCtrl {
   private backendSrv;
   private datasourceSrv;
   private $q;
@@ -8,10 +7,9 @@ declare class GettingStartedPanelCtrl extends PanelCtrl {
   checksDone: boolean;
   stepIndex: number;
   steps: any;
-  /** @ngInject **/
   constructor($scope: any, $injector: any, backendSrv: any, datasourceSrv: any, $q: any);
   $onInit(): any;
   nextStep(): any;
   dismiss(): void;
 }
-export { GettingStartedPanelCtrl, GettingStartedPanelCtrl as PanelCtrl };
+export { GettingStartedPanelCtrl as PanelCtrl };

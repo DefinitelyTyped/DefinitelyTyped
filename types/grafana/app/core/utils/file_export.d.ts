@@ -1,5 +1,5 @@
 /// 
-export declare function exportSeriesListToCsv(seriesList: any): void;
-export declare function exportSeriesListToCsvColumns(seriesList: any): void;
-export declare function exportTableDataToCsv(table: any): void;
-export declare function saveSaveBlob(payload: any, fname: any): void;
+export function exportSeriesListToCsv(seriesList: any): void;
+export function exportSeriesListToCsvColumns(seriesList: any): void;
+export function exportTableDataToCsv(table: any): void;
+export function saveSaveBlob(payload: any, fname: any): void;

@@ -1,4 +1,4 @@
-export declare class SearchCtrl {
+export class SearchCtrl {
   private $scope;
   private $location;
   private $timeout;
@@ -29,7 +29,7 @@ export declare class SearchCtrl {
   showStarred(): void;
   search(): void;
 }
-export declare function searchDirective(): {
+export function searchDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof SearchCtrl;

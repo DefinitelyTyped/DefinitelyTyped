@@ -1,6 +1,6 @@
 import { PanelCtrl } from 'grafana/app/plugins/sdk';
 
-declare class DashListCtrl extends PanelCtrl {
+export class DashListCtrl extends PanelCtrl {
   private backendSrv;
   static templateUrl: string;
   groups: any[];
@@ -22,4 +22,4 @@ declare class DashListCtrl extends PanelCtrl {
   getStarred(): any;
   getRecentDashboards(): any;
 }
-export { DashListCtrl, DashListCtrl as PanelCtrl };
+export { DashListCtrl as PanelCtrl };

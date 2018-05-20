@@ -1,5 +1,5 @@
 /// 
-export declare class DashImportCtrl {
+export class DashImportCtrl {
   private backendSrv;
   private $location;
   private $scope;
@@ -25,7 +25,7 @@ export declare class DashImportCtrl {
   checkGnetDashboard(): any;
   back(): void;
 }
-export declare function dashImportDirective(): {
+export function dashImportDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof DashImportCtrl;

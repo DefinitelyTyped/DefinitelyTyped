@@ -1,5 +1,5 @@
 /// 
-export declare class AdHocFiltersCtrl {
+export class AdHocFiltersCtrl {
   private uiSegmentSrv;
   private datasourceSrv;
   private $q;
@@ -15,7 +15,7 @@ export declare class AdHocFiltersCtrl {
   segmentChanged(segment: any, index: any): void;
   updateVariableModel(): void;
 }
-export declare function adHocFiltersComponent(): {
+export function adHocFiltersComponent(): {
   restrict: string;
   template: string;
   controller: typeof AdHocFiltersCtrl;

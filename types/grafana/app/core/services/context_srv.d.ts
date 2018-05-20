@@ -1,5 +1,5 @@
 /// 
-export declare class User {
+export class User {
   isGrafanaAdmin: any;
   isSignedIn: any;
   orgRole: any;
@@ -7,7 +7,7 @@ export declare class User {
   helpFlags1: number;
   constructor();
 }
-export declare class ContextSrv {
+export class ContextSrv {
   pinned: any;
   version: any;
   user: User;

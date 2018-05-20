@@ -1,4 +1,4 @@
-export declare class CloudWatchConfigCtrl {
+export class CloudWatchConfigCtrl {
   static templateUrl: string;
   current: any;
   accessKeyExist: boolean;

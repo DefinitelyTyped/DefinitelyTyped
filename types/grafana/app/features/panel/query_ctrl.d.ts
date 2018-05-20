@@ -1,5 +1,5 @@
 /// 
-export declare class QueryCtrl {
+export class QueryCtrl {
   $scope: any;
   private $injector;
   target: any;

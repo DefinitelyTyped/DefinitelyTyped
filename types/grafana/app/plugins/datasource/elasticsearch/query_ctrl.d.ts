@@ -2,7 +2,7 @@ import './bucket_agg';
 import './metric_agg';
 import { QueryCtrl } from 'grafana/app/plugins/sdk';
 
-export declare class ElasticQueryCtrl extends QueryCtrl {
+export class ElasticQueryCtrl extends QueryCtrl {
   private $rootScope;
   private $timeout;
   private uiSegmentSrv;

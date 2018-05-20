@@ -1,4 +1,4 @@
-export declare class ConfigCtrl {
+export class ConfigCtrl {
   private backendSrv;
   static template: string;
   appEditCtrl: any;

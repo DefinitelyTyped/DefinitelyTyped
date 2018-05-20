@@ -1,19 +1,19 @@
 import { PanelCtrl } from 'grafana/app/plugins/sdk';
 
-declare class AlertListPanel extends PanelCtrl {
+export class AlertListPanel extends PanelCtrl {
   private $location;
   private backendSrv;
   private timeSrv;
   private templateSrv;
   static templateUrl: string;
-  showOptions: {
+  showOptions: Array<{
     text: string;
     value: string;
-  }[];
-  sortOrderOptions: {
+  }>;
+  sortOrderOptions: Array<{
     text: string;
     value: number;
-  }[];
+  }>;
   contentHeight: string;
   stateFilter: any;
   currentAlerts: any;
@@ -34,4 +34,5 @@ declare class AlertListPanel extends PanelCtrl {
   getCurrentAlertState(): void;
   onInitEditMode(): void;
 }
-export { AlertListPanel, AlertListPanel as PanelCtrl };
+
+export { AlertListPanel as PanelCtrl };

@@ -1,5 +1,5 @@
 /// 
-export declare class AddPanelCtrl {
+export class AddPanelCtrl {
   private $scope;
   private $timeout;
   private $rootScope;
@@ -17,7 +17,7 @@ export declare class AddPanelCtrl {
   panelSearchChanged(): void;
   addPanel(panelPluginInfo: any): void;
 }
-export declare function addPanelDirective(): {
+export function addPanelDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof AddPanelCtrl;

@@ -1,5 +1,5 @@
 /** @ngInject */
-export declare function queryPartEditorDirective($compile: any, templateSrv: any): {
+export function queryPartEditorDirective($compile: any, templateSrv: any): {
   restrict: string;
   template: string;
   scope: {

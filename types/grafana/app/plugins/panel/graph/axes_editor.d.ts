@@ -1,5 +1,4 @@
-/// 
-export declare class AxesEditorCtrl {
+export class AxesEditorCtrl {
   private $scope;
   private $q;
   panel: any;
@@ -9,15 +8,15 @@ export declare class AxesEditorCtrl {
   xAxisModes: any;
   xAxisStatOptions: any;
   xNameSegment: any;
-  /** @ngInject **/
+
   constructor($scope: any, $q: any);
   setUnitFormat(axis: any, subItem: any): void;
   render(): void;
   xAxisOptionChanged(): void;
   getDataFieldNames(onlyNumbers: any): any;
 }
-/** @ngInject **/
-export declare function axesEditorComponent(): {
+
+export function axesEditorComponent(): {
   restrict: string;
   scope: boolean;
   templateUrl: string;

@@ -1,4 +1,4 @@
-export declare class DashboardSelectorCtrl {
+export class DashboardSelectorCtrl {
   private backendSrv;
   model: any;
   options: any;
@@ -6,7 +6,7 @@ export declare class DashboardSelectorCtrl {
   constructor(backendSrv: any);
   $onInit(): any;
 }
-export declare function dashboardSelector(): {
+export function dashboardSelector(): {
   restrict: string;
   controller: typeof DashboardSelectorCtrl;
   bindToController: boolean;

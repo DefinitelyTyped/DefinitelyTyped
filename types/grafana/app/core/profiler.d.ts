@@ -1,5 +1,5 @@
 /// 
-export declare class Profiler {
+export class Profiler {
   panelsRendered: number;
   enabled: boolean;
   panelsInitCount: any;

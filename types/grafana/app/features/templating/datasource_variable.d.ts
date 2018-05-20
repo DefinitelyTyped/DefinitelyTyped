@@ -1,15 +1,15 @@
 /// 
 import { Variable } from './variable';
-export declare class DatasourceVariable implements Variable {
+export class DatasourceVariable implements Variable {
   private model;
   private datasourceSrv;
   private variableSrv;
-  public regex: any;
-  public query: string;
-  public options: any;
-  public current: any;
-  public refresh: any;
-  public defaults: {
+  regex: any;
+  query: string;
+  options: any;
+  current: any;
+  refresh: any;
+  defaults: {
     type: string;
     name: string;
     hide: number;
@@ -20,12 +20,12 @@ export declare class DatasourceVariable implements Variable {
     query: string;
     refresh: number;
   };
-  /** @ngInject **/
+
   constructor(model: any, datasourceSrv: any, variableSrv: any);
-  public getSaveModel(): any;
-  public setValue(option: any): any;
-  public updateOptions(): any;
-  public dependsOn(variable: any): boolean;
-  public setValueFromUrl(urlValue: any): any;
-  public getValueForUrl(): any;
+   getSaveModel(): any;
+   setValue(option: any): any;
+   updateOptions(): any;
+   dependsOn(variable: any): boolean;
+   setValueFromUrl(urlValue: any): any;
+   getValueForUrl(): any;
 }

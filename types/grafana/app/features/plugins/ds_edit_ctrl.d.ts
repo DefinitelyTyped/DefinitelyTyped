@@ -1,5 +1,5 @@
 /// 
-export declare class DataSourceEditCtrl {
+export class DataSourceEditCtrl {
   private $scope;
   private $q;
   private backendSrv;

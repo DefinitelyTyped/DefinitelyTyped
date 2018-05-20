@@ -1,5 +1,4 @@
-/// 
-export declare class OpenTsConfigCtrl {
+ export class OpenTsConfigCtrl {
   static templateUrl: string;
   current: any;
   /** @ngInject */

@@ -1,5 +1,5 @@
 /// 
-export declare class SnapshotsCtrl {
+export class SnapshotsCtrl {
   private $rootScope;
   private backendSrv;
   snapshots: any;

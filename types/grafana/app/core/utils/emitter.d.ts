@@ -1,5 +1,5 @@
 /// 
-export declare class Emitter {
+export class Emitter {
   emitter: any;
   constructor();
   emit(name: any, data?: any): void;

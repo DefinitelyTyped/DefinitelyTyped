@@ -1,5 +1,5 @@
 /// 
-export declare class AlertListCtrl {
+export class AlertListCtrl {
   private backendSrv;
   private $location;
   private $scope;

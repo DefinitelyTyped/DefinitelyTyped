@@ -1,5 +1,5 @@
 /// 
-export declare class VariableSrv {
+export class VariableSrv {
   private $rootScope;
   private $q;
   private $location;

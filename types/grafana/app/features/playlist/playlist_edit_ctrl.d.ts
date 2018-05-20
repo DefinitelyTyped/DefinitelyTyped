@@ -1,5 +1,5 @@
 /// 
-export declare class PlaylistEditCtrl {
+export class PlaylistEditCtrl {
   private $scope;
   private playlistSrv;
   private backendSrv;

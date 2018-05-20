@@ -2,13 +2,13 @@ import './add_graphite_func';
 import './func_editor';
 import { QueryCtrl } from 'grafana/app/plugins/sdk';
 
-export declare class GraphiteQueryCtrl extends QueryCtrl {
+export class GraphiteQueryCtrl extends QueryCtrl {
   private uiSegmentSrv;
   private templateSrv;
   static templateUrl: string;
   functions: any[];
   segments: any[];
-  /** @ngInject **/
+
   constructor($scope: any, $injector: any, uiSegmentSrv: any, templateSrv: any);
   toggleEditorMode(): void;
   parseTarget(): void;

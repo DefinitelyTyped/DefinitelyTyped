@@ -1,7 +1,7 @@
 /// 
 import './options';
 import './add_panel';
-export declare class DashRowCtrl {
+export class DashRowCtrl {
   private $scope;
   private $rootScope;
   private $timeout;

@@ -1,5 +1,5 @@
 /// 
-export declare class SubmenuCtrl {
+export class SubmenuCtrl {
   private $rootScope;
   private variableSrv;
   private templateSrv;
@@ -14,7 +14,7 @@ export declare class SubmenuCtrl {
   openEditView(editview: any): void;
   exitBuildMode(): void;
 }
-export declare function submenuDirective(): {
+export function submenuDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof SubmenuCtrl;

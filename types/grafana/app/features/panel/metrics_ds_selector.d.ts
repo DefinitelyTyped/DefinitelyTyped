@@ -1,5 +1,5 @@
 /// 
-export declare class MetricsDsSelectorCtrl {
+export class MetricsDsSelectorCtrl {
   private uiSegmentSrv;
   dsSegment: any;
   dsName: string;

@@ -1,5 +1,5 @@
 /// 
-export declare class RowOptionsCtrl {
+export class RowOptionsCtrl {
   private $scope;
   private $timeout;
   private $rootScope;
@@ -10,7 +10,7 @@ export declare class RowOptionsCtrl {
   /** @ngInject */
   constructor($scope: any, $timeout: any, $rootScope: any);
 }
-export declare function rowOptionsDirective(): {
+export function rowOptionsDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof RowOptionsCtrl;

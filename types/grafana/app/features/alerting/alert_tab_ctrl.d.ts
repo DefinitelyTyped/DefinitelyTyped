@@ -1,5 +1,5 @@
 /// 
-export declare class AlertTabCtrl {
+export class AlertTabCtrl {
   private $scope;
   private $timeout;
   private backendSrv;
@@ -68,7 +68,7 @@ export declare class AlertTabCtrl {
   test(): any;
 }
 /** @ngInject */
-export declare function alertTab(): {
+export function alertTab(): {
   restrict: string;
   scope: boolean;
   templateUrl: string;

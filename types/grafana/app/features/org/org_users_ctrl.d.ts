@@ -1,5 +1,5 @@
 /// 
-export declare class OrgUsersCtrl {
+export class OrgUsersCtrl {
   private $scope;
   private $http;
   private backendSrv;

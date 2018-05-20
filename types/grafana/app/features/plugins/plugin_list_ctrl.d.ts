@@ -1,5 +1,5 @@
 /// 
-export declare class PluginListCtrl {
+export class PluginListCtrl {
   private backendSrv;
   plugins: any[];
   tabIndex: number;

@@ -5,6 +5,10 @@ apps development.
 
 Tested on Grafana 5.1.1
 
+# Features
+
+* All definitions satisfy `dtslint/dtslint.json`
+
 # Credits
 
 * Made by [CorpGlory Team](htto://corpglory.com)

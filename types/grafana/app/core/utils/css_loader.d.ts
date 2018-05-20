@@ -1,2 +1,2 @@
 /// 
-export declare function fetch(load: any): any;
+export function fetch(load: any): any;

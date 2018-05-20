@@ -1,6 +1,6 @@
 import TimeSeries from 'grafana/app/core/time_series2';
 
-export declare class DataProcessor {
+export class DataProcessor {
   private panel;
   constructor(panel: any);
   getSeriesList(options: any): any;

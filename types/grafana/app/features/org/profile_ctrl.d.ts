@@ -1,5 +1,5 @@
 /// 
-export declare class ProfileCtrl {
+export class ProfileCtrl {
   private backendSrv;
   private contextSrv;
   private $location;

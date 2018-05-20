@@ -1,2 +1,2 @@
 /// 
-export declare function Lexer(expression: any): void;
+export function Lexer(expression: any): void;

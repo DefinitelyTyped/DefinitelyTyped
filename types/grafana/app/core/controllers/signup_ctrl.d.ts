@@ -1,4 +1,4 @@
-export declare class SignUpCtrl {
+export class SignUpCtrl {
   private $scope;
   private $location;
   private contextSrv;

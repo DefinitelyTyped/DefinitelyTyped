@@ -1,6 +1,6 @@
 import { QueryCtrl } from 'grafana/app/plugins/sdk';
 
-export declare class OpenTsQueryCtrl extends QueryCtrl {
+export class OpenTsQueryCtrl extends QueryCtrl {
   static templateUrl: string;
   aggregators: any;
   fillPolicies: any;
@@ -16,7 +16,6 @@ export declare class OpenTsQueryCtrl extends QueryCtrl {
   suggestTagValues: any;
   addTagMode: boolean;
   addFilterMode: boolean;
-  /** @ngInject **/
   constructor($scope: any, $injector: any);
   targetBlur(): void;
   getTextValues(metricFindResult: any): any;

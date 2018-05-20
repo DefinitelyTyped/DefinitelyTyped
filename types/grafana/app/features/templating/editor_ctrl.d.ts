@@ -1,5 +1,5 @@
 /// 
-export declare class VariableEditorCtrl {
+export class VariableEditorCtrl {
   private $scope;
   private datasourceSrv;
   private variableSrv;

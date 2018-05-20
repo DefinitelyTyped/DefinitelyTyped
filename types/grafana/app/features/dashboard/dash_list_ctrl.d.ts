@@ -1,5 +1,5 @@
 /// 
-export declare class DashListCtrl {
+export class DashListCtrl {
   /** @ngInject */
   constructor();
 }

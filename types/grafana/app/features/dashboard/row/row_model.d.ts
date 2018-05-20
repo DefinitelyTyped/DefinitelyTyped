@@ -1,6 +1,6 @@
 import { Emitter } from 'grafana/app/core/core';
 
-export declare class DashboardRow {
+export class DashboardRow {
   private model;
   panels: any;
   title: any;

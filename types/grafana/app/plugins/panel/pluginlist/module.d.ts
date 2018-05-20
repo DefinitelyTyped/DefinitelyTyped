@@ -1,6 +1,6 @@
 import { PanelCtrl } from '../../../features/panel/panel_ctrl';
 
-declare class PluginListCtrl extends PanelCtrl {
+export class PluginListCtrl extends PanelCtrl {
   private backendSrv;
   private $location;
   static templateUrl: string;
@@ -15,4 +15,4 @@ declare class PluginListCtrl extends PanelCtrl {
   update(): void;
 }
 
-export { PluginListCtrl, PluginListCtrl as PanelCtrl };
+export { PluginListCtrl as PanelCtrl };

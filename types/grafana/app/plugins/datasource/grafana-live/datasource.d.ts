@@ -1,4 +1,4 @@
-export declare class GrafanaStreamDS {
+export class GrafanaStreamDS {
   subscription: any;
   /** @ngInject */
   constructor();

@@ -1,5 +1,5 @@
 /// 
-export declare class BundleLoader {
+export class BundleLoader {
   lazy: any;
   constructor(bundleName: any);
 }

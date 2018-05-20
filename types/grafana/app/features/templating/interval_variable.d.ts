@@ -1,6 +1,6 @@
 /// 
 import { Variable } from './variable';
-export declare class IntervalVariable implements Variable {
+export class IntervalVariable implements Variable {
   private model;
   private timeSrv;
   private templateSrv;

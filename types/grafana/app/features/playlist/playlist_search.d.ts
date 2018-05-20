@@ -1,5 +1,5 @@
 /// 
-export declare class PlaylistSearchCtrl {
+export class PlaylistSearchCtrl {
   private $scope;
   private $location;
   private $timeout;
@@ -16,7 +16,7 @@ export declare class PlaylistSearchCtrl {
   filterByTag(tag: any, evt: any): void;
   getTags(): void;
 }
-export declare function playlistSearchDirective(): {
+export function playlistSearchDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof PlaylistSearchCtrl;

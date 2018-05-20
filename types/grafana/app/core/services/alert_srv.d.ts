@@ -1,5 +1,5 @@
 /// 
-export declare class AlertSrv {
+export class AlertSrv {
   private $timeout;
   private $sce;
   private $rootScope;

@@ -1,6 +1,6 @@
 import { PanelCtrl } from 'grafana/app/plugins/sdk';
 
-export declare class TextPanelCtrl extends PanelCtrl {
+export class TextPanelCtrl extends PanelCtrl {
   private templateSrv;
   private $sce;
   static templateUrl: string;
@@ -10,7 +10,7 @@ export declare class TextPanelCtrl extends PanelCtrl {
     mode: string;
     content: string;
   };
-  /** @ngInject **/
+
   constructor($scope: any, $injector: any, templateSrv: any, $sce: any);
   onInitEditMode(): void;
   onRefresh(): void;

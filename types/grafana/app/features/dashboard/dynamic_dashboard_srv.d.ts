@@ -1,5 +1,5 @@
 /// 
-export declare class DynamicDashboardSrv {
+export class DynamicDashboardSrv {
   iteration: number;
   dashboard: any;
   variables: any;

@@ -1,6 +1,6 @@
-/// 
 import 'jquery.flot';
-export declare class ThresholdManager {
+
+export class ThresholdManager {
   private panelCtrl;
   plot: any;
   placeholder: any;

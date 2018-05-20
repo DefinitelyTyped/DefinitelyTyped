@@ -1,12 +1,12 @@
-
 import './graph';
 import './legend';
 import './series_overrides_ctrl';
 import './thresholds_form';
+
 import { MetricsPanelCtrl } from 'grafana/app/plugins/sdk';
 import { DataProcessor } from './data_processor';
 
-declare class GraphCtrl extends MetricsPanelCtrl {
+export class GraphCtrl extends MetricsPanelCtrl {
   private annotationsSrv;
   static template: string;
   hiddenSeries: any;
@@ -23,14 +23,14 @@ declare class GraphCtrl extends MetricsPanelCtrl {
   panelDefaults: {
     datasource: any;
     renderer: string;
-    yaxes: {
+    yaxes: Array<{
       label: any;
       show: boolean;
       logBase: number;
       min: any;
       max: any;
       format: string;
-    }[];
+    }>;
     xaxis: {
       show: boolean;
       mode: string;
@@ -63,12 +63,12 @@ declare class GraphCtrl extends MetricsPanelCtrl {
     };
     timeFrom: any;
     timeShift: any;
-    targets: {}[];
+    targets: any[];
     aliasColors: {};
     seriesOverrides: any[];
     thresholds: any[];
   };
-  /** @ngInject */
+
   constructor($scope: any, $injector: any, annotationsSrv: any);
   onInitEditMode(): void;
   onInitPanelActions(actions: any): void;
@@ -86,7 +86,7 @@ declare class GraphCtrl extends MetricsPanelCtrl {
   removeSeriesOverride(override: any): void;
   toggleLegend(): void;
   legendValuesOptionChanged(): void;
-  exportCsv(): void;
-  exportCsvColumns(): void;
+exportCsv(): void;
+exportCsvColumns(): void;
 }
-export { GraphCtrl, GraphCtrl as PanelCtrl };
+export { GraphCtrl as PanelCtrl };

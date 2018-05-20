@@ -1,6 +1,6 @@
 /// 
 import { Variable } from './variable';
-export declare class QueryVariable implements Variable {
+export class QueryVariable implements Variable {
   private model;
   private datasourceSrv;
   private templateSrv;

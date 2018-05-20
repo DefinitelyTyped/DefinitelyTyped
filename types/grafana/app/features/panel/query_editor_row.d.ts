@@ -1,5 +1,5 @@
 /// 
-export declare class QueryRowCtrl {
+export class QueryRowCtrl {
   collapsedText: string;
   canCollapse: boolean;
   getCollapsedText: any;

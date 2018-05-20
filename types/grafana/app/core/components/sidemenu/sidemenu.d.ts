@@ -1,4 +1,4 @@
-export declare class SideMenuCtrl {
+export class SideMenuCtrl {
   private $scope;
   private $location;
   private contextSrv;
@@ -21,7 +21,7 @@ export declare class SideMenuCtrl {
   openUserDropdown(): void;
   loadOrgsItems(): void;
 }
-export declare function sideMenuDirective(): {
+export function sideMenuDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof SideMenuCtrl;

@@ -1,5 +1,5 @@
 /// 
-export declare class ElasticConfigCtrl {
+export class ElasticConfigCtrl {
   static templateUrl: string;
   current: any;
   /** @ngInject */

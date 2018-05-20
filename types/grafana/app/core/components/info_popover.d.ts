@@ -1,4 +1,4 @@
-export declare function infoPopover(): {
+export function infoPopover(): {
   restrict: string;
   template: string;
   transclude: boolean;

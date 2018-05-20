@@ -10,9 +10,9 @@ declare class GrafanaAnnotationsQueryCtrl {
   constructor();
   static templateUrl: string;
 }
-export { 
-  GrafanaDatasource, 
-  GrafanaDatasource as Datasource, 
-  GrafanaQueryCtrl as QueryCtrl, 
+export {
+  GrafanaDatasource,
+  GrafanaDatasource as Datasource,
+  GrafanaQueryCtrl as QueryCtrl,
   GrafanaAnnotationsQueryCtrl as AnnotationsQueryCtrl
 };

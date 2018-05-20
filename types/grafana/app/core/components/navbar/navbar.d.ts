@@ -1,10 +1,10 @@
-export declare class NavbarCtrl {
+export class NavbarCtrl {
   private $scope;
   private contextSrv;
   /** @ngInject */
   constructor($scope: any, contextSrv: any);
 }
-export declare function navbarDirective(): {
+export function navbarDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof NavbarCtrl;

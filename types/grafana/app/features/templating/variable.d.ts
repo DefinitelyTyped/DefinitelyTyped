@@ -8,6 +8,6 @@ export interface Variable {
   getValueForUrl(): any;
   getSaveModel(): any;
 }
-export declare var variableTypes: {};
+export var variableTypes: {};
 export { assignModelProperties };
-export declare function containsVariable(...args: any[]): boolean;
+export function containsVariable(...args: any[]): boolean;

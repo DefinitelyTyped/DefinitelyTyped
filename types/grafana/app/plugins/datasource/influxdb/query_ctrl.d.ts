@@ -1,7 +1,7 @@
 import InfluxQuery from './influx_query';
 import { QueryCtrl } from 'grafana/app/plugins/sdk';
 
-export declare class InfluxQueryCtrl extends QueryCtrl {
+export class InfluxQueryCtrl extends QueryCtrl {
   private templateSrv;
   private $q;
   private uiSegmentSrv;
@@ -15,7 +15,6 @@ export declare class InfluxQueryCtrl extends QueryCtrl {
   selectMenu: any;
   measurementSegment: any;
   removeTagFilterSegment: any;
-  /** @ngInject **/
   constructor($scope: any, $injector: any, templateSrv: any, $q: any, uiSegmentSrv: any);
   buildSelectMenu(): void;
   getGroupByOptions(): any;

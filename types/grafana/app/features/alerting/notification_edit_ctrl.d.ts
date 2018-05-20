@@ -1,5 +1,5 @@
 /// 
-export declare class AlertNotificationEditCtrl {
+export class AlertNotificationEditCtrl {
   private $routeParams;
   private backendSrv;
   private $scope;

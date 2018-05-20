@@ -1,5 +1,5 @@
 /// 
-export declare class AppPageCtrl {
+export class AppPageCtrl {
   private backendSrv;
   private $routeParams;
   private $rootScope;

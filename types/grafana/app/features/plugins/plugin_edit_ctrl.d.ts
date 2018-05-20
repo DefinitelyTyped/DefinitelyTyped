@@ -1,5 +1,5 @@
 /// 
-export declare class PluginEditCtrl {
+export class PluginEditCtrl {
   private $scope;
   private $rootScope;
   private backendSrv;

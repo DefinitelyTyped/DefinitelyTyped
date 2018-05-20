@@ -1,4 +1,4 @@
-export declare class ColorPickerCtrl {
+export class ColorPickerCtrl {
   private $scope;
   private $rootScope;
   colors: any;
@@ -10,7 +10,7 @@ export declare class ColorPickerCtrl {
   toggleAxis(yaxis: any): void;
   colorSelected(color: any): void;
 }
-export declare function colorPicker(): {
+export function colorPicker(): {
   restrict: string;
   controller: typeof ColorPickerCtrl;
   bindToController: boolean;

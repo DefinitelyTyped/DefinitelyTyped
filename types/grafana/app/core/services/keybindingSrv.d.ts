@@ -1,5 +1,5 @@
 /// 
-export declare class KeybindingSrv {
+export class KeybindingSrv {
   private $rootScope;
   private $modal;
   private $location;

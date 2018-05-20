@@ -1,6 +1,6 @@
 import { MetricsPanelCtrl } from 'grafana/app/plugins/sdk';
 
-declare class TablePanelCtrl extends MetricsPanelCtrl {
+export class TablePanelCtrl extends MetricsPanelCtrl {
   private annotationsSrv;
   private $sanitize;
   static templateUrl: string;
@@ -8,11 +8,11 @@ declare class TablePanelCtrl extends MetricsPanelCtrl {
   dataRaw: any;
   table: any;
   panelDefaults: {
-    targets: {}[];
+    targets: any[];
     transform: string;
     pageSize: any;
     showHeader: boolean;
-    styles: ({
+    styles: Array<({
       type: string;
       pattern: string;
       dateFormat: string;
@@ -24,7 +24,7 @@ declare class TablePanelCtrl extends MetricsPanelCtrl {
       colorMode: any;
       pattern: string;
       thresholds: any[];
-    })[];
+    })>;
     columns: any[];
     scroll: boolean;
     fontSize: string;
@@ -42,7 +42,8 @@ declare class TablePanelCtrl extends MetricsPanelCtrl {
   onDataReceived(dataList: any): void;
   render(): void;
   toggleColumnSort(col: any, colIndex: any): void;
-  exportCsv(): void;
+exportCsv(): void;
   link(scope: any, elem: any, attrs: any, ctrl: any): void;
 }
-export { TablePanelCtrl, TablePanelCtrl as PanelCtrl };
+
+export { TablePanelCtrl as PanelCtrl };

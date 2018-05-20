@@ -7,7 +7,7 @@ import 'angular-sanitize';
 import 'angular-dragdrop';
 import 'angular-bindonce';
 import 'angular-ui';
-export declare class GrafanaApp {
+export class GrafanaApp {
   registerFunctions: any;
   ngModuleDependencies: any[];
   preBootModules: any[];

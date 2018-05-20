@@ -1,6 +1,6 @@
 /// 
 import { DashboardRow } from './row/row_model';
-export declare class DashboardModel {
+export class DashboardModel {
   id: any;
   title: any;
   autoUpdate: any;

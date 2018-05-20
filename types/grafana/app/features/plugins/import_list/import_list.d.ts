@@ -1,5 +1,5 @@
 /// 
-export declare class DashImportListCtrl {
+export class DashImportListCtrl {
   private $http;
   private backendSrv;
   private $rootScope;
@@ -13,7 +13,7 @@ export declare class DashImportListCtrl {
   import(dash: any, overwrite: any): any;
   remove(dash: any): void;
 }
-export declare function dashboardImportList(): {
+export function dashboardImportList(): {
   restrict: string;
   templateUrl: string;
   controller: typeof DashImportListCtrl;

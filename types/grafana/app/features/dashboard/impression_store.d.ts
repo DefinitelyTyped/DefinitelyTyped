@@ -1,5 +1,5 @@
 /// 
-export declare class ImpressionsStore {
+export class ImpressionsStore {
   constructor();
   addDashboardImpression(dashboardId: any): void;
   getDashboardOpened(): any;

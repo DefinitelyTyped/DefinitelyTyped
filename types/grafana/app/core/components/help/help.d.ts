@@ -1,4 +1,4 @@
-export declare class HelpCtrl {
+export class HelpCtrl {
   private $scope;
   tabIndex: any;
   shortcuts: any;
@@ -6,7 +6,7 @@ export declare class HelpCtrl {
   constructor($scope: any, $sce: any);
   dismiss(): void;
 }
-export declare function helpModal(): {
+export function helpModal(): {
   restrict: string;
   templateUrl: string;
   controller: typeof HelpCtrl;

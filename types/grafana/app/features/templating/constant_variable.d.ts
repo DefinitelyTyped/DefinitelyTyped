@@ -1,6 +1,6 @@
 /// 
 import { Variable } from './variable';
-export declare class ConstantVariable implements Variable {
+export class ConstantVariable implements Variable {
   private model;
   private variableSrv;
   query: string;

@@ -1,5 +1,5 @@
 /// 
-export declare class PrefsControlCtrl {
+export class PrefsControlCtrl {
   private backendSrv;
   private $location;
   prefs: any;
@@ -13,7 +13,7 @@ export declare class PrefsControlCtrl {
   $onInit(): any;
   updatePrefs(): void;
 }
-export declare function prefsControlDirective(): {
+export function prefsControlDirective(): {
   restrict: string;
   controller: typeof PrefsControlCtrl;
   bindToController: boolean;

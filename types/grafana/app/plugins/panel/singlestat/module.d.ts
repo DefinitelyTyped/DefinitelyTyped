@@ -3,7 +3,7 @@ import 'jquery.flot.gauge';
 import TimeSeries from 'grafana/app/core/time_series2';
 import { MetricsPanelCtrl } from 'grafana/app/plugins/sdk';
 
-declare class SingleStatCtrl extends MetricsPanelCtrl {
+export class SingleStatCtrl extends MetricsPanelCtrl {
   private $location;
   private linkSrv;
   static templateUrl: string;
@@ -20,26 +20,26 @@ declare class SingleStatCtrl extends MetricsPanelCtrl {
     datasource: any;
     maxDataPoints: number;
     interval: any;
-    targets: {}[];
+    targets: any[];
     cacheTimeout: any;
     format: string;
     prefix: string;
     postfix: string;
     nullText: any;
-    valueMaps: {
+    valueMaps: Array<{
       value: string;
       op: string;
       text: string;
-    }[];
-    mappingTypes: {
+    }>;
+    mappingTypes: Array<{
       name: string;
       value: number;
-    }[];
-    rangeMaps: {
+    }>;
+    rangeMaps: Array<{
       from: string;
       to: string;
       text: string;
-    }[];
+    }>;
     mappingType: number;
     nullPointMode: string;
     valueName: string;
@@ -82,5 +82,5 @@ declare class SingleStatCtrl extends MetricsPanelCtrl {
   link(scope: any, elem: any, attrs: any, ctrl: any): void;
 }
 
-declare function getColorForValue(data: any, value: any): any;
-export { SingleStatCtrl, SingleStatCtrl as PanelCtrl, getColorForValue };
+export function getColorForValue(data: any, value: any): any;
+export { SingleStatCtrl as PanelCtrl };

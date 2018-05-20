@@ -1,5 +1,5 @@
 /// 
-export declare class TimePickerCtrl {
+export class TimePickerCtrl {
   private $scope;
   private $rootScope;
   private timeSrv;
@@ -31,7 +31,7 @@ export declare class TimePickerCtrl {
   getAbsoluteMomentForTimezone(jsDate: any): any;
   setRelativeFilter(timespan: any): void;
 }
-export declare function settingsDirective(): {
+export function settingsDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof TimePickerCtrl;
@@ -41,7 +41,7 @@ export declare function settingsDirective(): {
     dashboard: string;
   };
 };
-export declare function timePickerDirective(): {
+export function timePickerDirective(): {
   restrict: string;
   templateUrl: string;
   controller: typeof TimePickerCtrl;

@@ -1,4 +1,4 @@
-export declare class TableRenderer {
+export class TableRenderer {
   private panel;
   private table;
   private isUtc;

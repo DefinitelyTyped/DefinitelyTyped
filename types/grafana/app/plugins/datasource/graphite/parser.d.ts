@@ -1,1 +1,1 @@
-export declare function Parser(expression: any): void;
+export function Parser(expression: any): void;
