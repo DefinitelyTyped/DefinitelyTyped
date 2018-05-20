@@ -1,6 +1,6 @@
 // Type definitions for facebook-instant-games 6.1
 // Project: https://developers.facebook.com/docs/games/instant-games
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>
+// Definitions by: Menushka Weeratunga <https://github.com/menushka>, Øyvind Johansen Amundrud <https://github.com/oyvindjam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace FBInstant {
@@ -8,23 +8,23 @@ declare namespace FBInstant {
     let context: Context;
     let payments: Payments;
 
-    function getLocale(): string;
-    function getPlatform(): string;
+    function getLocale(): string | null;
+    function getPlatform(): Platform;
     function getSDKVersion(): string;
-    function initializeAsync(): Promise<any>;
-    function setLoadingProgress(progress: number): void;
+    function initializeAsync(): Promise<void>;
+    function setLoadingProgress(percentage: number): void;
     function getSupportedAPIs(): string[];
     function getEntryPointData(): any;
     function getEntryPointAsync(): Promise<string>;
     function setSessionData(sessionData: any): void;
-    function startGameAsync(): Promise<any>;
+    function startGameAsync(): Promise<void>;
     function shareAsync(payload: SharePayload): Promise<void>;
-    function updateAsync(payload: UpdatePayload | LeaderboardUpdatePayload): Promise<void>;
-    function switchGameAsync(appID: string, data?: string): Promise<void>;
+    function updateAsync(payload: CustomUpdatePayload | LeaderboardUpdatePayload): Promise<void>;
+    function switchGameAsync(appID: string, data?: any): Promise<void>;
     function canCreateShortcutAsync(): Promise<boolean>;
     function createShortcutAsync(): Promise<void>;
     function quit(): void;
-    function logEvent(eventName: string, valueToSum?: number, parameter?: any): APIError;
+    function logEvent(eventName: string, valueToSum?: number, parameter?: { [key: string]: string; }): APIError | null;
     function onPause(func: () => void): void;
     function getInterstitialAdAsync(placementID: string): Promise<AdInstance>;
     function getRewardedVideoAsync(placementID: string): Promise<AdInstance>;
@@ -33,13 +33,13 @@ declare namespace FBInstant {
     function getLeaderboardAsync(name: string): Promise<Leaderboard>;
 
     interface Player {
-        getID(): string;
-        getSignedPlayerInfoAsync(requestPayload: string): Promise<SignedPlayerInfo>;
+        getID(): string | null;
+        getSignedPlayerInfoAsync(requestPayload?: string): Promise<SignedPlayerInfo>;
         canSubscribeBotAsync(): Promise<boolean>;
         subscribeBotAsync(): Promise<void>;
-        getName(): string;
-        getPhoto(): string;
-        getDataAsync(keys?: string[]): Promise<DataObject>;
+        getName(): string | null;
+        getPhoto(): string | null;
+        getDataAsync(keys: string[]): Promise<DataObject>;
         setDataAsync(data: DataObject): Promise<void>;
         flushDataAsync(): Promise<void>;
         getStatsAsync(keys?: string[]): Promise<StatsObject>;
@@ -49,9 +49,9 @@ declare namespace FBInstant {
     }
 
     interface Context {
-        getID(): string;
+        getID(): string | null;
         getType(): Type;
-        isSizeBetween(minSize: number, maxSize: number): ContextSizeResponse;
+        isSizeBetween(minSize?: number, maxSize?: number): ContextSizeResponse | null;
         switchAsync(id: string): Promise<void>;
         chooseAsync(options: ContextOptions): Promise<void>;
         createAsync(playerID: string): Promise<void>;
@@ -60,10 +60,10 @@ declare namespace FBInstant {
 
     interface Leaderboard {
         getName(): string;
-        getContextID(): string;
+        getContextID(): string | null;
         getEntryCountAsync(): Promise<number>;
         setScoreAsync(score: number, extraData: string): Promise<LeaderboardEntry>;
-        getPlayerEntryAsync(): Promise<LeaderboardEntry>;
+        getPlayerEntryAsync(): Promise<LeaderboardEntry | null>;
         getEntriesAsync(count: number, offset: number): Promise<LeaderboardEntry[]>;
     }
 
@@ -72,20 +72,20 @@ declare namespace FBInstant {
         getFormattedScore(): string;
         getTimestamp(): number;
         getRank(): number;
-        getExtraData(): string;
+        getExtraData(): string | null;
         getPlayer(): LeaderboardPlayer;
     }
 
     interface LeaderboardPlayer {
         getName(): string;
-        getPhoto(): string;
-        getID(): string;
+        getPhoto(): string | null;
+        getID(): string | null;
     }
 
     interface ConnectedPlayer {
         getID(): string;
-        getName(): string;
-        getPhoto(): string;
+        getName(): string | null;
+        getPhoto(): string | null;
     }
 
     interface SignedPlayerInfo {
@@ -95,8 +95,8 @@ declare namespace FBInstant {
 
     interface ContextPlayer {
         getID(): string;
-        getName(): string;
-        getPhoto(): string;
+        getName(): string | null;
+        getPhoto(): string | null;
     }
 
     interface AdInstance {
@@ -106,6 +106,7 @@ declare namespace FBInstant {
     }
 
     interface Payments {
+        getCatalogAsync(): Promise<Product[]>;
         purchaseAsync(purchaseConfig: PurchaseConfig): Promise<Purchase>;
         getPurchasesAsync(): Promise<Purchase[]>;
         consumePurchaseAsync(purchaseToken: string): Promise<void>;
@@ -143,9 +144,9 @@ declare namespace FBInstant {
     }
 
     interface SharePayload {
-        intent?: Intent;
-        image?: string;
-        text?: string;
+        intent: Intent;
+        image: string;
+        text: string;
         data?: any;
     }
 
@@ -159,12 +160,12 @@ declare namespace FBInstant {
         developerPayload?: string;
     }
 
-    interface UpdatePayload {
-        action?: UpdateAction;
-        template?: string;
+    interface CustomUpdatePayload {
+        action: UpdateAction;
+        template: string;
         cta?: (string | LocalizableContent);
-        image?: string;
-        text?: (string | LocalizableContent);
+        image: string;
+        text: (string | LocalizableContent);
         data?: any;
         strategy?: string;
         notification?: string;
@@ -181,13 +182,15 @@ declare namespace FBInstant {
         localizations: LocalizationsDict;
     }
 
-    interface DataObject { [ key: string ]: string | number; }
+    interface DataObject { [ key: string ]: any; }
 
     interface StatsObject { [ key: string ]: number; }
 
     interface IncrementObject { [ key: string ]: number; }
 
-    type LocalizationsDict = any;
+    interface LocalizationsDict {
+        [x: string]: string;
+    }
 
     type SignedPurchaseRequest = string;
 
@@ -202,20 +205,20 @@ declare namespace FBInstant {
     type Intent = "INVITE" | "REQUEST" | "CHALLENGE" | "SHARE";
 
     type ErrorCodeType = "ADS_FREQUENT_LOAD" |
-                                 "ADS_NO_FILL" |
-                                 "ADS_NOT_LOADED" |
-                                 "ADS_TOO_MANY_INSTANCES" |
-                                 "ANALYTICS_POST_EXCEPTION" |
-                                 "CLIENT_REQUIRES_UPDATE" |
-                                 "CLIENT_UNSUPPORTED_OPERATION" |
-                                 "INVALID_OPERATION" |
-                                 "INVALID_PARAM" |
-                                 "LEADERBOARD_NOT_FOUND" |
-                                 "LEADERBOARD_WRONG_CONTEXT" |
-                                 "NETWORK_FAILURE" |
-                                 "PENDING_REQUEST" |
-                                 "RATE_LIMITED" |
-                                 "SAME_CONTEXT" |
-                                 "UNKNOWN" |
-                                 "USER_INPUT";
+        "ADS_NO_FILL" |
+        "ADS_NOT_LOADED" |
+        "ADS_TOO_MANY_INSTANCES" |
+        "ANALYTICS_POST_EXCEPTION" |
+        "CLIENT_REQUIRES_UPDATE" |
+        "CLIENT_UNSUPPORTED_OPERATION" |
+        "INVALID_OPERATION" |
+        "INVALID_PARAM" |
+        "LEADERBOARD_NOT_FOUND" |
+        "LEADERBOARD_WRONG_CONTEXT" |
+        "NETWORK_FAILURE" |
+        "PENDING_REQUEST" |
+        "RATE_LIMITED" |
+        "SAME_CONTEXT" |
+        "UNKNOWN" |
+        "USER_INPUT";
 }
