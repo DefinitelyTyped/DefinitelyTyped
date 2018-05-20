@@ -444,10 +444,10 @@ export const timeYear: CountableTimeInterval;
  */
 export function timeYears(start: Date, stop: Date, step?: number): Date[];
 
-// utc Universal Coordinated Time ----------------------------------------------------------
+// utc Coordinated Universal Time ----------------------------------------------------------
 
 /**
- * Milliseconds Interval in Universal Coordinated Time (UTC); the shortest available time unit.
+ * Milliseconds Interval in Coordinated Universal Time (UTC); the shortest available time unit.
  */
 export const utcMillisecond: CountableTimeInterval;
 
@@ -461,7 +461,7 @@ export const utcMillisecond: CountableTimeInterval;
 export function utcMilliseconds(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Seconds Interval in Universal Coordinated Time (UTC); seconds (e.g., 01:23:45.0000 AM); 1,000 milliseconds.
+ * Seconds Interval in Coordinated Universal Time (UTC); seconds (e.g., 01:23:45.0000 AM); 1,000 milliseconds.
  */
 export const utcSecond: CountableTimeInterval;
 
@@ -475,7 +475,7 @@ export const utcSecond: CountableTimeInterval;
 export function utcSeconds(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Minutes Interval in Universal Coordinated Time (UTC); minutes (e.g., 01:02:00 AM); 60 seconds.
+ * Minutes Interval in Coordinated Universal Time (UTC); minutes (e.g., 01:02:00 AM); 60 seconds.
  * Note that ECMAScript ignores leap seconds.
  */
 export const utcMinute: CountableTimeInterval;
@@ -490,7 +490,7 @@ export const utcMinute: CountableTimeInterval;
 export function utcMinutes(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Hours Interval in Universal Coordinated Time (UTC); Hours (e.g., 01:00 AM); 60 minutes.
+ * Hours Interval in Coordinated Universal Time (UTC); Hours (e.g., 01:00 AM); 60 minutes.
  */
 export const utcHour: CountableTimeInterval;
 
@@ -504,7 +504,7 @@ export const utcHour: CountableTimeInterval;
 export function utcHours(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Days Interval in Universal Coordinated Time (UTC); days (e.g., February 7, 2012 at 12:00 AM); 24 hours.
+ * Days Interval in Coordinated Universal Time (UTC); days (e.g., February 7, 2012 at 12:00 AM); 24 hours.
  */
 export const utcDay: CountableTimeInterval;
 
@@ -533,7 +533,7 @@ export const utcWeek: CountableTimeInterval;
 export function utcWeeks(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Week Interval for Sunday-based weeks in Universal Coordinated Time (UTC) (e.g., February 5, 2012 at 12:00 AM).
+ * Week Interval for Sunday-based weeks in Coordinated Universal Time (UTC) (e.g., February 5, 2012 at 12:00 AM).
  * 7 days and 168 hours.
  */
 export const utcSunday: CountableTimeInterval;
@@ -548,7 +548,7 @@ export const utcSunday: CountableTimeInterval;
 export function utcSundays(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Week Interval for Monday-based weeks in Universal Coordinated Time (UTC) (e.g., February 6, 2012 at 12:00 AM).
+ * Week Interval for Monday-based weeks in Coordinated Universal Time (UTC) (e.g., February 6, 2012 at 12:00 AM).
  * 7 days and 168 hours.
  */
 export const utcMonday: CountableTimeInterval;
@@ -563,7 +563,7 @@ export const utcMonday: CountableTimeInterval;
 export function utcMondays(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Week Interval for Tuesday-based weeks in Universal Coordinated Time (UTC) (e.g., February 7, 2012 at 12:00 AM).
+ * Week Interval for Tuesday-based weeks in Coordinated Universal Time (UTC) (e.g., February 7, 2012 at 12:00 AM).
  * 7 days and 168 hours.
  */
 export const utcTuesday: CountableTimeInterval;
@@ -578,7 +578,7 @@ export const utcTuesday: CountableTimeInterval;
 export function utcTuesdays(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Week Interval for Wednesday-based weeks in Universal Coordinated Time (UTC) (e.g., February 8, 2012 at 12:00 AM).
+ * Week Interval for Wednesday-based weeks in Coordinated Universal Time (UTC) (e.g., February 8, 2012 at 12:00 AM).
  * 7 days and 168 hours.
  */
 export const utcWednesday: CountableTimeInterval;
@@ -593,7 +593,7 @@ export const utcWednesday: CountableTimeInterval;
 export function utcWednesdays(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Week Interval for Thursday-based weeks in Universal Coordinated Time (UTC) (e.g., February 9, 2012 at 12:00 AM).
+ * Week Interval for Thursday-based weeks in Coordinated Universal Time (UTC) (e.g., February 9, 2012 at 12:00 AM).
  * 7 days and 168 hours.
  */
 export const utcThursday: CountableTimeInterval;
@@ -608,7 +608,7 @@ export const utcThursday: CountableTimeInterval;
 export function utcThursdays(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Week Interval for Friday-based weeks in Universal Coordinated Time (UTC) (e.g., February 10, 2012 at 12:00 AM).
+ * Week Interval for Friday-based weeks in Coordinated Universal Time (UTC) (e.g., February 10, 2012 at 12:00 AM).
  * 7 days and 168 hours.
  */
 export const utcFriday: CountableTimeInterval;
@@ -623,7 +623,7 @@ export const utcFriday: CountableTimeInterval;
 export function utcFridays(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Week Interval for Saturday-based weeks in Universal Coordinated Time (UTC) (e.g., February 11, 2012 at 12:00 AM).
+ * Week Interval for Saturday-based weeks in Coordinated Universal Time (UTC) (e.g., February 11, 2012 at 12:00 AM).
  * 7 days and 168 hours.
  */
 export const utcSaturday: CountableTimeInterval;
@@ -638,7 +638,7 @@ export const utcSaturday: CountableTimeInterval;
 export function utcSaturdays(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Month Interval in Universal Coordinated Time (UTC); months (e.g., February 1, 2012 at 12:00 AM); ranges from 28 to 31 days.
+ * Month Interval in Coordinated Universal Time (UTC); months (e.g., February 1, 2012 at 12:00 AM); ranges from 28 to 31 days.
  */
 export const utcMonth: CountableTimeInterval;
 
@@ -652,7 +652,7 @@ export const utcMonth: CountableTimeInterval;
 export function utcMonths(start: Date, stop: Date, step?: number): Date[];
 
 /**
- * Year Interval in Universal Coordinated Time (UTC); years (e.g., January 1, 2012 at 12:00 AM); ranges from 365 to 366 days.
+ * Year Interval in Coordinated Universal Time (UTC); years (e.g., January 1, 2012 at 12:00 AM); ranges from 365 to 366 days.
  */
 export const utcYear: CountableTimeInterval;
 
