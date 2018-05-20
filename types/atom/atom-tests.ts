@@ -1740,6 +1740,10 @@ function testProject() {
     subscription = project.onDidAddBuffer(buffer => buffer.id);
     subscription = project.observeBuffers(buffer => buffer.getUri());
 
+    subscription = project.onDidReplace(projectSpec => {
+        if (projectSpec != null) str = projectSpec.originPath;
+    });
+
     // Accessing the git repository
     repositories = project.getRepositories();
 
