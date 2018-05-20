@@ -1,4 +1,4 @@
-// Type definitions for facebook-instant-games 6.1
+// Type definitions for facebook-instant-games 6.2
 // Project: https://developers.facebook.com/docs/games/instant-games
 // Definitions by: Menushka Weeratunga <https://github.com/menushka>, Øyvind Johansen Amundrud <https://github.com/oyvindjam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -65,6 +65,7 @@ declare namespace FBInstant {
         setScoreAsync(score: number, extraData: string): Promise<LeaderboardEntry>;
         getPlayerEntryAsync(): Promise<LeaderboardEntry | null>;
         getEntriesAsync(count: number, offset: number): Promise<LeaderboardEntry[]>;
+        getConnectedPlayerEntriesAsync(count: number, offset: number): Promise<LeaderboardEntry[]>;
     }
 
     interface LeaderboardEntry {
