@@ -21,9 +21,9 @@ declare namespace l {
       /**
        * General type for a callback to an async function.
        */
-      type CallbackWithoutResult = (err: Error | null) => any
-      type CallbackWithResult<T = any> = (err: Error | null, result: T) => any
-      type CallbackWithMultipleResults<T, G> = (err: Error | null, arg0: T, arg1: G) => any
+      type CallbackWithoutResult = (err: Error | null) => any;
+      type CallbackWithResult<T> = (err: Error | null, result: T) => any;
+      type CallbackWithMultipleResults<T, G> = (err: Error | null, arg0: T, arg1: G) => any;
 
       /**
        * The `App` object represents a Loopback application
@@ -1210,7 +1210,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} changes An Array of [Change](#change) objects
              */
-            static changes(since: number, filter: any, callback: CallbackWithResult): void;
+            static changes(since: number, filter: any, callback: CallbackWithResult<any>): void;
 
             /**
              * Get the changes to a model since the specified checkpoint. Provide a filter object
@@ -1283,14 +1283,23 @@ declare namespace l {
              * @param {any} options Only changes to models matching this where filter will be included in the ChangeStream.
              * @param {() => void} callback
              */
-            static createChangeStream(options: {where: any}, callback: CallbackWithResult<any>): void;
+            static createChangeStream(
+                  options: {
+                        where: any;
+                  },
+                  callback: CallbackWithResult<any>
+            ): void;
 
             /**
              * Create a change stream. See here for more info http://loopback.io/doc/en/lb2/Realtime-server-sent-events.html
              * @param {any} options Only changes to models matching this where filter will be included in the ChangeStream.
              * @returns {any} changes
              */
-            static createChangeStream(options: {where: any}): Promise<any>;
+            static createChangeStream(
+                  options: {
+                        where: any;
+                  }
+            ): Promise<any>;
 
             /**
              * Create an update list (for `Model.bulkUpdate()`) from a delta list
@@ -1314,7 +1323,7 @@ declare namespace l {
              * @param {number} currentCheckpointId Current checkpoint ID
              */
             static currentCheckpoint(callback: CallbackWithResult<number>): void;
-            
+
             /**
              * Get the current checkpoint ID
              * @returns {Promise<number>} resolves to currentCheckpointId
@@ -1449,7 +1458,7 @@ declare namespace l {
                   },
                   callback: CallbackWithResult<T[]>
             ): void;
-            
+
             /**
              * Find all model instances that match `filter` specification.
              * See [Querying models](docs.strongloop.com/display/LB/Querying+models)
@@ -1514,7 +1523,7 @@ declare namespace l {
                   },
                   callback: CallbackWithResult<T>
             ): void;
-            
+
             /**
              * Find object by ID with an optional filter for include/fields
              * @param {*} id Primary key value
