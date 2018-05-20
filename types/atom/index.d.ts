@@ -4485,6 +4485,10 @@ export interface Project {
     /** Invoke a callback when a filesystem change occurs within any open project path. */
     onDidChangeFiles(callback: (events: FilesystemChangeEvent) => void): Disposable;
 
+    /** Invoke a callback whenever the project's configuration has been replaced. */
+    onDidReplace(callback: (projectSpec: ProjectSpecification | null | undefined) => void):
+        Disposable;
+
     // Accessing the Git Repository
     /**
      * Get an Array of GitRepositorys associated with the project's directories.
@@ -5219,17 +5223,17 @@ export class TextBuffer {
      *  Undo the last operation. If a transaction is in progress, aborts it.
      *  @return A boolean of whether or not a change was made.
      */
-    undo(options?: { selectionsMarkerLayer?: MarkerLayer }): boolean;
+    undo(options?: HistoryTraversalOptions): boolean;
 
     /**
      *  Redo the last operation.
      *  @return A boolean of whether or not a change was made.
      */
-    redo(options?: { selectionsMarkerLayer?: MarkerLayer }): boolean;
+    redo(options?: HistoryTraversalOptions): boolean;
 
     /** Batch multiple operations as a single undo/redo step. */
-    transact<T>(optionsOrInterval: number | { groupingInterval?: number,
-        selectionsMarkerLayer?: MarkerLayer }, fn: () => T): T;
+    transact<T>(optionsOrInterval: number | { groupingInterval?: number } &
+        HistoryTransactionOptions, fn: () => T): T;
     /** Batch multiple operations as a single undo/redo step. */
     transact<T>(fn: () => T): T;
 
@@ -5248,13 +5252,13 @@ export class TextBuffer {
      *  `::revertToCheckpoint` and `::groupChangesSinceCheckpoint`.
      *  @return A checkpoint ID value.
      */
-    createCheckpoint(options?: { selectionsMarkerLayer?: MarkerLayer }): number;
+    createCheckpoint(options?: HistoryTransactionOptions): number;
 
     /**
      *  Revert the buffer to the state it was in when the given checkpoint was created.
      *  @return A boolean indicating whether the operation succeeded.
      */
-    revertToCheckpoint(checkpoint: number, options?: { selectionsMarkerLayer: MarkerLayer }):
+    revertToCheckpoint(checkpoint: number, options?: HistoryTraversalOptions):
         boolean;
 
     /**
@@ -5262,8 +5266,7 @@ export class TextBuffer {
      *  purposes of undo/redo.
      *  @return A boolean indicating whether the operation succeeded.
      */
-    groupChangesSinceCheckpoint(checkpoint: number, options?:
-        { selectionsMarkerLayer: MarkerLayer }): boolean;
+    groupChangesSinceCheckpoint(checkpoint: number, options?: HistoryTransactionOptions): boolean;
 
     /**
      *  Group the last two text changes for purposes of undo/redo.
@@ -6369,6 +6372,16 @@ export interface FindMarkerOptions {
     intersectsRow?: number;
 }
 
+export interface HistoryTransactionOptions {
+    /** When provided, skip taking snapshot for other selections markerLayers except given one. */
+    selectionsMarkerLayer?: MarkerLayer;
+}
+
+export interface HistoryTraversalOptions {
+    /** Restore snapshot of selections marker layer to given selectionsMarkerLayer. */
+    selectionsMarkerLayer?: MarkerLayer;
+}
+
 export interface MenuOptions {
     /** The menu itme's label. */
     label: string;
@@ -6838,6 +6851,12 @@ export interface KeyBinding {
 export interface ProjectHistory {
     paths: string[];
     lastOpened: Date;
+}
+
+export interface ProjectSpecification {
+    paths: string[];
+    originPath: string;
+    config?: ConfigValues;
 }
 
 export interface ScandalResult {
