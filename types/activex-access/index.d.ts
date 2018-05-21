@@ -2291,12 +2291,11 @@ declare namespace Access {
         Width: number;
     }
 
-    class _ItemsSelected {
-        private 'Access._ItemsSelected_typekey': _ItemsSelected;
-        private constructor();
+    interface _ItemsSelected {
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): number;
+        (Index: any): number;
     }
 
     class _OptionButtonInOption {
@@ -2746,9 +2745,7 @@ declare namespace Access {
         readonly Type: AcObjectType;
     }
 
-    class AccessObjectProperties {
-        private 'Access.AccessObjectProperties_typekey': AccessObjectProperties;
-        private constructor();
+    interface AccessObjectProperties {
         Add(PropertyName: string, Value: any): void;
         readonly Application: Application;
         readonly Count: number;
@@ -2756,6 +2753,7 @@ declare namespace Access {
         Item(Index: any): AccessObjectProperty;
         readonly Parent: any;
         Remove(Item: any): void;
+        (Index: any): AccessObjectProperty;
     }
 
     class AccessObjectProperty {
@@ -2767,124 +2765,112 @@ declare namespace Access {
         Value: any;
     }
 
-    class AdditionalData {
-        private 'Access.AdditionalData_typekey': AdditionalData;
-        private constructor();
+    interface AdditionalData {
         Add(var_0: string): AdditionalData;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): AdditionalData;
         Name: string;
+        (Index: any): AdditionalData;
     }
 
-    class AllDataAccessPages {
-        private 'Access.AllDataAccessPages_typekey': AllDataAccessPages;
-        private constructor();
+    interface AllDataAccessPages {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllDatabaseDiagrams {
-        private 'Access.AllDatabaseDiagrams_typekey': AllDatabaseDiagrams;
-        private constructor();
+    interface AllDatabaseDiagrams {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllForms {
-        private 'Access.AllForms_typekey': AllForms;
-        private constructor();
+    interface AllForms {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllFunctions {
-        private 'Access.AllFunctions_typekey': AllFunctions;
-        private constructor();
+    interface AllFunctions {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllMacros {
-        private 'Access.AllMacros_typekey': AllMacros;
-        private constructor();
+    interface AllMacros {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllModules {
-        private 'Access.AllModules_typekey': AllModules;
-        private constructor();
+    interface AllModules {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllQueries {
-        private 'Access.AllQueries_typekey': AllQueries;
-        private constructor();
+    interface AllQueries {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllReports {
-        private 'Access.AllReports_typekey': AllReports;
-        private constructor();
+    interface AllReports {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllStoredProcedures {
-        private 'Access.AllStoredProcedures_typekey': AllStoredProcedures;
-        private constructor();
+    interface AllStoredProcedures {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllTables {
-        private 'Access.AllTables_typekey': AllTables;
-        private constructor();
+    interface AllTables {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
-    class AllViews {
-        private 'Access.AllViews_typekey': AllViews;
-        private constructor();
+    interface AllViews {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): AccessObject;
         readonly Parent: any;
+        (var_0: any): AccessObject;
     }
 
     class Application {
@@ -2915,45 +2901,41 @@ declare namespace Access {
         readonly COMAddIns: Office.COMAddIns;
         readonly CommandBars: Office.CommandBars;
 
-        /** @param boolean [LogFile=false] */
+        /** @param LogFile [LogFile=false] */
         CompactRepair(SourceFile: string, DestinationFile: string, LogFile?: boolean): boolean;
         ConvertAccessProject(SourceFilename: string, DestinationFilename: string, DestinationFileFormat: AcFileFormat): void;
         CreateAccessProject(filepath: string, Connect?: any): void;
         CreateAdditionalData(): AdditionalData;
 
-        /** @param Access.AcSection [Section=0] */
+        /** @param Section [Section=0] */
         CreateControl(FormName: string, ControlType: AcControlType, Section?: AcSection, Parent?: any, ColumnName?: any, Left?: any, Top?: any, Width?: any, Height?: any): Control;
-        CreateControlEx(
-            FormName: string, ControlType: AcControlType, Section: AcSection, Parent: string, ControlSource: string, Left: number, Top: number, Width: number, Height: number): Control;
-        CreateControlExOld(
-            FormName: string, ControlType: AcControlType, Section: AcSection, Parent: string, ControlSource: string, Left: number, Top: number, Width: number, Height: number): Control;
+        CreateControlEx(FormName: string, ControlType: AcControlType, Section: AcSection, Parent: string, ControlSource: string, Left: number, Top: number, Width: number, Height: number): Control;
+        CreateControlExOld(FormName: string, ControlType: AcControlType, Section: AcSection, Parent: string, ControlSource: string, Left: number, Top: number, Width: number, Height: number): Control;
 
-        /** @param Access.AcSection [Section=0] */
+        /** @param Section [Section=0] */
         CreateControlOld(FormName: string, ControlType: AcControlType, Section?: AcSection, Parent?: any, ColumnName?: any, Left?: any, Top?: any, Width?: any, Height?: any): Control;
 
-        /** @param boolean [CreateNewFile=true] */
+        /** @param CreateNewFile [CreateNewFile=true] */
         CreateDataAccessPage(FileName: any, CreateNewFile?: boolean): DataAccessPage;
         CreateForm(Database?: any, FormTemplate?: any): Form;
         CreateGroupLevel(ReportName: string, Expression: string, Header: number, Footer: number): number;
 
         /**
-         * @param string [Path=' ']
-         * @param string [Name=' ']
-         * @param string [Company=' ']
-         * @param string [WorkgroupID=' ']
-         * @param boolean [Replace=false]
+         * @param Path [Path=' ']
+         * @param Name [Name=' ']
+         * @param Company [Company=' ']
+         * @param WorkgroupID [WorkgroupID=' ']
+         * @param Replace [Replace=false]
          */
         CreateNewWorkgroupFile(Path?: string, Name?: string, Company?: string, WorkgroupID?: string, Replace?: boolean): void;
         CreateReport(Database?: any, ReportTemplate?: any): Report;
 
-        /** @param Access.AcSection [Section=0] */
+        /** @param Section [Section=0] */
         CreateReportControl(ReportName: string, ControlType: AcControlType, Section?: AcSection, Parent?: any, ColumnName?: any, Left?: any, Top?: any, Width?: any, Height?: any): Control;
-        CreateReportControlEx(
-            ReportName: string, ControlType: AcControlType, Section: AcSection, Parent: string, ControlName: string, Left: number, Top: number, Width: number, Height: number): Control;
-        CreateReportControlExOld(
-            ReportName: string, ControlType: AcControlType, Section: AcSection, Parent: string, ControlName: string, Left: number, Top: number, Width: number, Height: number): Control;
+        CreateReportControlEx(ReportName: string, ControlType: AcControlType, Section: AcSection, Parent: string, ControlName: string, Left: number, Top: number, Width: number, Height: number): Control;
+        CreateReportControlExOld(ReportName: string, ControlType: AcControlType, Section: AcSection, Parent: string, ControlName: string, Left: number, Top: number, Width: number, Height: number): Control;
 
-        /** @param Access.AcSection [Section=0] */
+        /** @param Section [Section=0] */
         CreateReportControlOld(ReportName: string, ControlType: AcControlType, Section?: AcSection, Parent?: any, ColumnName?: any, Left?: any, Top?: any, Width?: any, Height?: any): Control;
         readonly CurrentData: CurrentData;
         CurrentDb(): DAO.Database;
@@ -2991,54 +2973,49 @@ declare namespace Access {
         DVar(Expr: string, Domain: string, Criteria?: any): any;
         DVarP(Expr: string, Domain: string, Criteria?: any): any;
 
-        /** @param string [bstrStatusBarText=''] */
+        /** @param bstrStatusBarText [bstrStatusBarText=''] */
         Echo(EchoOn: number, bstrStatusBarText?: string): void;
         EuroConvert(Number: number, SourceCurrency: string, TargetCurrency: string, FullPrecision?: any, TriangulationPrecision?: any): number;
         Eval(StringExpr: string): any;
 
         /**
-         * @param boolean [SelectedRecords=false]
-         * @param number [FromPage=1]
-         * @param number [ToPage=-1]
+         * @param SelectedRecords [SelectedRecords=false]
+         * @param FromPage [FromPage=1]
+         * @param ToPage [ToPage=-1]
          */
-        ExportCustomFixedFormat(
-            ExternalExporter: any, OutputFileName: string, ObjectName: string, ObjectType: AcOutputObjectType, SelectedRecords?: boolean, FromPage?: number, ToPage?: number): void;
+        ExportCustomFixedFormat(ExternalExporter: any, OutputFileName: string, ObjectName: string, ObjectType: AcOutputObjectType, SelectedRecords?: boolean, FromPage?: number, ToPage?: number): void;
         ExportNavigationPane(Path: string): void;
 
         /**
-         * @param string [DataTarget='']
-         * @param string [SchemaTarget='']
-         * @param string [PresentationTarget='']
-         * @param string [ImageTarget='']
-         * @param Access.AcExportXMLEncoding [Encoding=0]
-         * @param Access.AcExportXMLOtherFlags [OtherFlags=0]
-         * @param string [WhereCondition='']
+         * @param DataTarget [DataTarget='']
+         * @param SchemaTarget [SchemaTarget='']
+         * @param PresentationTarget [PresentationTarget='']
+         * @param ImageTarget [ImageTarget='']
+         * @param Encoding [Encoding=0]
+         * @param OtherFlags [OtherFlags=0]
+         * @param WhereCondition [WhereCondition='']
          */
-        ExportXML(
-            ObjectType: AcExportXMLObjectType, DataSource: string, DataTarget?: string, SchemaTarget?: string, PresentationTarget?: string, ImageTarget?: string,
-            Encoding?: AcExportXMLEncoding, OtherFlags?: AcExportXMLOtherFlags, WhereCondition?: string, AdditionalData?: any): void;
+        ExportXML(ObjectType: AcExportXMLObjectType, DataSource: string, DataTarget?: string, SchemaTarget?: string, PresentationTarget?: string, ImageTarget?: string, Encoding?: AcExportXMLEncoding, OtherFlags?: AcExportXMLOtherFlags, WhereCondition?: string, AdditionalData?: any): void;
 
         /**
-         * @param string [DataTarget='']
-         * @param string [SchemaTarget='']
-         * @param string [PresentationTarget='']
-         * @param string [ImageTarget='']
-         * @param Access.AcExportXMLEncoding [Encoding=0]
-         * @param number [OtherFlags=0]
+         * @param DataTarget [DataTarget='']
+         * @param SchemaTarget [SchemaTarget='']
+         * @param PresentationTarget [PresentationTarget='']
+         * @param ImageTarget [ImageTarget='']
+         * @param Encoding [Encoding=0]
+         * @param OtherFlags [OtherFlags=0]
          */
-        ExportXMLOld(
-            ObjectType: AcExportXMLObjectType, DataSource: string, DataTarget?: string, SchemaTarget?: string, PresentationTarget?: string, ImageTarget?: string,
-            Encoding?: AcExportXMLEncoding, OtherFlags?: number): void;
+        ExportXMLOld(ObjectType: AcExportXMLObjectType, DataSource: string, DataTarget?: string, SchemaTarget?: string, PresentationTarget?: string, ImageTarget?: string, Encoding?: AcExportXMLEncoding, OtherFlags?: number): void;
         FeatureInstall: Office.MsoFeatureInstall;
         FileDialog(dialogType: Office.MsoFileDialogType): Office.FileDialog;
         readonly FileSearch: Office.FileSearch;
 
         /**
-         * @param string [SubAddress='']
-         * @param boolean [NewWindow=false]
-         * @param boolean [AddHistory=true]
-         * @param Office.MsoExtraInfoMethod [Method=0]
-         * @param string [HeaderInfo='']
+         * @param SubAddress [SubAddress='']
+         * @param NewWindow [NewWindow=false]
+         * @param AddHistory [AddHistory=true]
+         * @param Method [Method=0]
+         * @param HeaderInfo [HeaderInfo='']
          */
         FollowHyperlink(Address: string, SubAddress?: string, NewWindow?: boolean, AddHistory?: boolean, ExtraInfo?: any, Method?: Office.MsoExtraInfoMethod, HeaderInfo?: string): void;
         readonly Forms: Forms;
@@ -3048,13 +3025,13 @@ declare namespace Access {
         HtmlEncode(PlainText: any, Length?: any): string;
         hWndAccessApp(): number;
 
-        /** @param Access.AcHyperlinkPart [Part=0] */
+        /** @param Part [Part=0] */
         HyperlinkPart(Hyperlink: any, Part?: AcHyperlinkPart): string;
 
-        /** @param boolean [fAppendOnly=false] */
+        /** @param fAppendOnly [fAppendOnly=false] */
         ImportNavigationPane(Path: string, fAppendOnly?: boolean): void;
 
-        /** @param Access.AcImportXMLOption [ImportOptions=1] */
+        /** @param ImportOptions [ImportOptions=1] */
         ImportXML(DataSource: string, ImportOptions?: AcImportXMLOption): void;
         InsertText(Text: string, ModuleName: string): void;
         InstantiateTemplate(Path: string): void;
@@ -3076,25 +3053,25 @@ declare namespace Access {
         NewAccessProject(filepath: string, Connect?: any): void;
 
         /**
-         * @param Access.AcNewDatabaseFormat [FileFormat=0]
-         * @param string [SiteAddress='']
-         * @param string [ListID='']
+         * @param FileFormat [FileFormat=0]
+         * @param SiteAddress [SiteAddress='']
+         * @param ListID [ListID='']
          */
         NewCurrentDatabase(filepath: string, FileFormat?: AcNewDatabaseFormat, Template?: any, SiteAddress?: string, ListID?: string): void;
         NewCurrentDatabaseOld(filepath: string): void;
         readonly NewFileTaskPane: Office.NewFile;
         Nz(Value: any, ValueIfNull?: any): any;
 
-        /** @param boolean [Exclusive=false] */
+        /** @param Exclusive [Exclusive=false] */
         OpenAccessProject(filepath: string, Exclusive?: boolean): void;
 
         /**
-         * @param boolean [Exclusive=false]
-         * @param string [bstrPassword='']
+         * @param Exclusive [Exclusive=false]
+         * @param bstrPassword [bstrPassword='']
          */
         OpenCurrentDatabase(filepath: string, Exclusive?: boolean, bstrPassword?: string): void;
 
-        /** @param boolean [Exclusive=false] */
+        /** @param Exclusive [Exclusive=false] */
         OpenCurrentDatabaseOld(filepath: string, Exclusive?: boolean): void;
         readonly Parent: any;
         PlainText(RichText: any, Length?: any): string;
@@ -3102,7 +3079,7 @@ declare namespace Access {
         readonly Printers: Printers;
         readonly ProductCode: string;
 
-        /** @param Access.AcQuitOption [Option=1] */
+        /** @param Option [Option=1] */
         Quit(Option?: AcQuitOption): void;
         readonly References: References;
         RefreshDatabaseWindow(): void;
@@ -3111,15 +3088,10 @@ declare namespace Access {
         ReplaceModule(objtyp: number, ModuleName: string, FileName: string, token: number): void;
         readonly Reports: Reports;
         readonly ReturnVars: ReturnVars;
-        Run(
-            Procedure: string, Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any,
-            Arg12?: any, Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any,
-            Arg24?: any, Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
+        Run(Procedure: string, Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
         RunCommand(Command: AcCommand): void;
         SaveAsAXL(ObjectType: AcObjectType, ObjectName: string, FileName: string): void;
-        SaveAsTemplate(
-            Path: string, Title: string, IconPath: string, CoreTable: string, Category: string, PreviewPath?: any, Description?: any, InstantiationForm?: any,
-            ApplicationPart?: any, IncludeData?: any, Variation?: any): void;
+        SaveAsTemplate(Path: string, Title: string, IconPath: string, CoreTable: string, Category: string, PreviewPath?: any, Description?: any, InstantiationForm?: any, ApplicationPart?: any, IncludeData?: any, Variation?: any): void;
         SaveAsText(ObjectType: AcObjectType, ObjectName: string, FileName: string): void;
         readonly Screen: Screen;
         SetDefaultWorkgroupFile(Path: string): void;
@@ -3132,8 +3104,8 @@ declare namespace Access {
         readonly TempVars: TempVars;
 
         /**
-         * @param boolean [WellFormedXMLOutput=false]
-         * @param Access.AcTransformXMLScriptOption [ScriptOption=1]
+         * @param WellFormedXMLOutput [WellFormedXMLOutput=false]
+         * @param ScriptOption [ScriptOption=1]
          */
         TransformXML(DataSource: string, TransformSource: string, OutputTarget: string, WellFormedXMLOutput?: boolean, ScriptOption?: AcTransformXMLScriptOption): void;
         UserControl: boolean;
@@ -3589,12 +3561,11 @@ declare namespace Access {
         Width: number;
     }
 
-    class Children {
-        private 'Access.Children_typekey': Children;
-        private constructor();
+    interface Children {
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): any;
+        (Index: any): any;
     }
 
     class Class {
@@ -4082,16 +4053,15 @@ declare namespace Access {
         VerticalAnchor: AcVerticalAnchor;
     }
 
-    class Controls {
-        private 'Access.Controls_typekey': Controls;
-        private constructor();
+    interface Controls {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         // tslint:disable-next-line:no-unnecessary-generics
-        Item<T>(index: number | string): T;
-        Item(Index: number | string): Control;
+        Item<T = Control>(Index: number | string): T;
         readonly Parent: any;
+        // tslint:disable-next-line:no-unnecessary-generics
+        <T = Control>(Index: number | string): T;
     }
 
     class CurrentData {
@@ -4272,14 +4242,13 @@ declare namespace Access {
         readonly WindowWidth: number;
     }
 
-    class DataAccessPages {
-        private 'Access.DataAccessPages_typekey': DataAccessPages;
-        private constructor();
+    interface DataAccessPages {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(var_0: any): DataAccessPage;
         readonly Parent: any;
+        (var_0: any): DataAccessPage;
     }
 
     class DefaultWebOptions {
@@ -4314,14 +4283,13 @@ declare namespace Access {
         readonly UnsupportedObjects: DependencyObjects;
     }
 
-    class DependencyObjects {
-        private 'Access.DependencyObjects_typekey': DependencyObjects;
-        private constructor();
+    interface DependencyObjects {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): AccessObject;
         readonly Parent: any;
+        (Index: any): AccessObject;
     }
 
     class DoCmd {
@@ -4332,41 +4300,41 @@ declare namespace Access {
         ApplyFilterOld0(FilterName?: any, WhereCondition?: any): void;
         Beep(): void;
 
-        /** @param Access.AcFormOpenDataMode [DataMode=1] */
+        /** @param DataMode [DataMode=1] */
         BrowseTo(ObjectType: AcBrowseToObjectType, ObjectName: any, PathtoSubformControl: any, WhereCondition: any, Page: any, DataMode?: AcFormOpenDataMode): void;
         CancelEvent(): void;
         ClearMacroError(): void;
 
         /**
-         * @param Access.AcObjectType [ObjectType=-1]
-         * @param Access.AcCloseSave [Save=0]
+         * @param ObjectType [ObjectType=-1]
+         * @param Save [Save=0]
          */
         Close(ObjectType: AcObjectType, ObjectName: any, Save?: AcCloseSave): void;
         Close(): void;
         CloseDatabase(): void;
         CopyDatabaseFile(DatabaseFileName: any, OverwriteExistingFile?: any, DisconnectAllUsers?: any): void;
 
-        /** @param Access.AcObjectType [SourceObjectType=-1] */
+        /** @param SourceObjectType [SourceObjectType=-1] */
         CopyObject(DestinationDatabase: any, NewName: any, SourceObjectType?: AcObjectType, SourceObjectName?: any): void;
 
-        /** @param Access.AcObjectType [ObjectType=-1] */
+        /** @param ObjectType [ObjectType=-1] */
         DeleteObject(ObjectType?: AcObjectType, ObjectName?: any): void;
         DoMenuItem(MenuBar: any, MenuName: any, Command: any, Subcommand?: any, Version?: any): void;
         Echo(EchoOn: any, StatusBarText?: any): void;
         FindNext(): void;
 
         /**
-         * @param Access.AcFindMatch [Match=1]
-         * @param Access.AcSearchDirection [Search=2]
-         * @param Access.AcFindField [OnlyCurrentField=-1]
+         * @param Match [Match=1]
+         * @param Search [Search=2]
+         * @param OnlyCurrentField [OnlyCurrentField=-1]
          */
         FindRecord(FindWhat: any, Match?: AcFindMatch, MatchCase?: any, Search?: AcSearchDirection, SearchAsFormatted?: any, OnlyCurrentField?: AcFindField, FindFirst?: any): void;
         GoToControl(ControlName: any): void;
         GoToPage(PageNumber: any, Right?: any, Down?: any): void;
 
         /**
-         * @param Access.AcDataObjectType [ObjectType=-1]
-         * @param Access.AcRecord [Record=1]
+         * @param ObjectType [ObjectType=-1]
+         * @param Record [Record=1]
          */
         GoToRecord(ObjectType?: AcDataObjectType, ObjectName?: any, Record?: AcRecord, Offset?: any): void;
         Hourglass(HourglassOn: any): void;
@@ -4376,76 +4344,76 @@ declare namespace Access {
         MoveSize(Right?: any, Down?: any, Width?: any, Height?: any): void;
         NavigateTo(Category?: any, Group?: any): void;
 
-        /** @param Access.AcDataAccessPageView [View=0] */
+        /** @param View [View=0] */
         OpenDataAccessPage(DataAccessPageName: any, View?: AcDataAccessPageView): void;
         OpenDiagram(DiagramName: any): void;
 
         /**
-         * @param Access.AcFormView [View=0]
-         * @param Access.AcFormOpenDataMode [DataMode=-1]
-         * @param Access.AcWindowMode [WindowMode=0]
+         * @param View [View=0]
+         * @param DataMode [DataMode=-1]
+         * @param WindowMode [WindowMode=0]
          */
         OpenForm(FormName: any, View?: AcFormView, FilterName?: string, WhereCondition?: string, DataMode?: AcFormOpenDataMode, WindowMode?: AcWindowMode, OpenArgs?: string): void;
 
         /**
-         * @param Access.AcView [View=0]
-         * @param Access.AcOpenDataMode [DataMode=1]
+         * @param View [View=0]
+         * @param DataMode [DataMode=1]
          */
         OpenFunction(FunctionName: any, View?: AcView, DataMode?: AcOpenDataMode): void;
         OpenModule(ModuleName?: any, ProcedureName?: any): void;
 
         /**
-         * @param Access.AcView [View=0]
-         * @param Access.AcOpenDataMode [DataMode=1]
+         * @param View [View=0]
+         * @param DataMode [DataMode=1]
          */
         OpenQuery(QueryName: any, View?: AcView, DataMode?: AcOpenDataMode): void;
 
         /**
-         * @param Access.AcView [View=0]
-         * @param Access.AcWindowMode [WindowMode=0]
+         * @param View [View=0]
+         * @param WindowMode [WindowMode=0]
          */
         OpenReport(ReportName: any, View?: AcView, FilterName?: string, WhereCondition?: string, WindowMode?: AcWindowMode, OpenArgs?: string): void;
 
-        /** @param Access.AcView [View=0] */
+        /** @param View [View=0] */
         OpenReportOld0(ReportName: any, View?: AcView, FilterName?: any, WhereCondition?: any): void;
 
         /**
-         * @param Access.AcView [View=0]
-         * @param Access.AcOpenDataMode [DataMode=1]
+         * @param View [View=0]
+         * @param DataMode [DataMode=1]
          */
         OpenStoredProcedure(ProcedureName: any, View?: AcView, DataMode?: AcOpenDataMode): void;
 
         /**
-         * @param Access.AcView [View=0]
-         * @param Access.AcOpenDataMode [DataMode=1]
+         * @param View [View=0]
+         * @param DataMode [DataMode=1]
          */
         OpenTable(TableName: any, View?: AcView, DataMode?: AcOpenDataMode): void;
 
         /**
-         * @param Access.AcView [View=0]
-         * @param Access.AcOpenDataMode [DataMode=1]
+         * @param View [View=0]
+         * @param DataMode [DataMode=1]
          */
         OpenView(ViewName: any, View?: AcView, DataMode?: AcOpenDataMode): void;
 
-        /** @param Access.AcExportQuality [OutputQuality=0] */
+        /** @param OutputQuality [OutputQuality=0] */
         OutputTo(ObjectType: AcOutputObjectType, ObjectName: any, OutputFormat: any, OutputFile: any, AutoStart: any, TemplateFile: any, Encoding: any, OutputQuality?: AcExportQuality): void;
         OutputToOld0(ObjectType: AcOutputObjectType, ObjectName?: any, OutputFormat?: any, OutputFile?: any, AutoStart?: any, TemplateFile?: any): void;
         OutputToOld1(ObjectType: AcOutputObjectType, ObjectName?: any, OutputFormat?: any, OutputFile?: any, AutoStart?: any, TemplateFile?: any, Encoding?: any): void;
 
         /**
-         * @param Access.AcPrintRange [PrintRange=0]
-         * @param Access.AcPrintQuality [PrintQuality=0]
+         * @param PrintRange [PrintRange=0]
+         * @param PrintQuality [PrintQuality=0]
          */
         PrintOut(PrintRange?: AcPrintRange, PageFrom?: any, PageTo?: any, PrintQuality?: AcPrintQuality, Copies?: any, CollateCopies?: any): void;
 
-        /** @param Access.AcQuitOption [Options=1] */
+        /** @param Options [Options=1] */
         Quit(Options?: AcQuitOption): void;
         RefreshRecord(): void;
 
-        /** @param Access.AcObjectType [ObjectType=-1] */
+        /** @param ObjectType [ObjectType=-1] */
         Rename(NewName: any, ObjectType?: AcObjectType, OldName?: any): void;
 
-        /** @param Access.AcObjectType [ObjectType=-1] */
+        /** @param ObjectType [ObjectType=-1] */
         RepaintObject(ObjectType?: AcObjectType, ObjectName?: any): void;
         Requery(ControlName?: any): void;
         Restore(): void;
@@ -4455,50 +4423,48 @@ declare namespace Access {
         RunSavedImportExport(SavedImportExportName: any): void;
         RunSQL(SQLStatement: any, UseTransaction?: any): void;
 
-        /** @param Access.AcObjectType [ObjectType=-1] */
+        /** @param ObjectType [ObjectType=-1] */
         Save(ObjectType?: AcObjectType, ObjectName?: any): void;
 
         /**
-         * @param Access.AcDataObjectType [ObjectType=-1]
-         * @param Access.AcRecord [Record=2]
+         * @param ObjectType [ObjectType=-1]
+         * @param Record [Record=2]
          */
         SearchForRecord(ObjectType?: AcDataObjectType, ObjectName?: any, Record?: AcRecord, WhereCondition?: any): void;
         SelectObject(ObjectType: AcObjectType, ObjectName?: any, InDatabaseWindow?: any): void;
 
-        /** @param Access.AcSendObjectType [ObjectType=-1] */
-        SendObject(
-            ObjectType?: AcSendObjectType, ObjectName?: any, OutputFormat?: any, To?: any, Cc?: any, Bcc?: any, Subject?: any, MessageText?: any, EditMessage?: any, TemplateFile?: any): void;
+        /** @param ObjectType [ObjectType=-1] */
+        SendObject(ObjectType?: AcSendObjectType, ObjectName?: any, OutputFormat?: any, To?: any, Cc?: any, Bcc?: any, Subject?: any, MessageText?: any, EditMessage?: any, TemplateFile?: any): void;
         SetDisplayedCategories(Show: any, Category?: any): void;
         SetFilter(FilterName?: any, WhereCondition?: any, ControlName?: any): void;
         SetMenuItem(MenuIndex: any, CommandIndex?: any, SubcommandIndex?: any, Flag?: any): void;
         SetOrderBy(OrderBy: any, ControlName?: any): void;
         SetParameter(Name: any, Expression: any): void;
 
-        /** @param Access.AcProperty [Property=0] */
+        /** @param Property [Property=0] */
         SetProperty(ControlName: any, Property?: AcProperty, Value?: any): void;
         SetWarnings(WarningsOn: any): void;
         ShowAllRecords(): void;
 
-        /** @param Access.AcShowToolbar [Show=0] */
+        /** @param Show [Show=0] */
         ShowToolbar(ToolbarName: any, Show?: AcShowToolbar): void;
         SingleStep(): void;
 
         /**
-         * @param Access.AcDataTransferType [TransferType=0]
-         * @param Access.AcObjectType [ObjectType=0]
+         * @param TransferType [TransferType=0]
+         * @param ObjectType [ObjectType=0]
          */
-        TransferDatabase(
-            TransferType?: AcDataTransferType, DatabaseType?: any, DatabaseName?: any, ObjectType?: AcObjectType, Source?: any, Destination?: any, StructureOnly?: any, StoreLogin?: any): void;
+        TransferDatabase(TransferType?: AcDataTransferType, DatabaseType?: any, DatabaseName?: any, ObjectType?: AcObjectType, Source?: any, Destination?: any, StructureOnly?: any, StoreLogin?: any): void;
         TransferSharePointList(TransferType: AcSharePointListTransferType, SiteAddress: any, ListID: any, ViewID?: any, TableName?: any, GetLookupDisplayValues?: any): void;
 
         /**
-         * @param Access.AcDataTransferType [TransferType=0]
-         * @param Access.AcSpreadSheetType [SpreadsheetType=10]
+         * @param TransferType [TransferType=0]
+         * @param SpreadsheetType [SpreadsheetType=10]
          */
         TransferSpreadsheet(TransferType?: AcDataTransferType, SpreadsheetType?: AcSpreadSheetType, TableName?: any, FileName?: any, HasFieldNames?: any, Range?: any, UseOA?: any): void;
         TransferSQLDatabase(Server: any, Database: any, UseTrustedConnection?: any, Login?: any, Password?: any, TransferCopyData?: any): void;
 
-        /** @param Access.AcTextTransferType [TransferType=0] */
+        /** @param TransferType [TransferType=0] */
         TransferText(TransferType?: AcTextTransferType, SpecificationName?: any, TableName?: any, FileName?: any, HasFieldNames?: any, HTMLTableName?: any, CodePage?: any): void;
     }
 
@@ -4578,13 +4544,12 @@ declare namespace Access {
         Width: number;
     }
 
-    class Entities {
-        private 'Access.Entities_typekey': Entities;
-        private constructor();
+    interface Entities {
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): Entity;
         readonly Parent: any;
+        (Index: any): Entity;
     }
 
     class Entity {
@@ -4733,8 +4698,8 @@ declare namespace Access {
         FrozenColumns: number;
 
         /**
-         * @param number [Right=0]
-         * @param number [Down=0]
+         * @param Right [Right=0]
+         * @param Down [Down=0]
          */
         GoToPage(PageNumber: number, Right?: number, Down?: number): void;
         GridX: number;
@@ -4933,7 +4898,7 @@ declare namespace Access {
         LongestBarLimit: AcFormatBarLimits;
         LongestBarValue: string;
 
-        /** @param Access.AcFormatConditionOperator [Operator=0] */
+        /** @param Operator [Operator=0] */
         Modify(Type: AcFormatConditionType, Operator?: AcFormatConditionOperator, Expression1?: any, Expression2?: any): void;
         readonly Operator: AcFormatConditionOperator;
         ShortestBarLimit: AcFormatBarLimits;
@@ -4942,11 +4907,8 @@ declare namespace Access {
         readonly Type: AcFormatConditionType;
     }
 
-    class FormatConditions {
-        private 'Access.FormatConditions_typekey': FormatConditions;
-        private constructor();
-
-        /** @param Access.AcFormatConditionOperator [Operator=0] */
+    interface FormatConditions {
+        /** @param Operator [Operator=0] */
         Add(Type: AcFormatConditionType, Operator?: AcFormatConditionOperator, Expression1?: any, Expression2?: any): FormatCondition;
         readonly Application: Application;
         readonly Count: number;
@@ -4954,6 +4916,7 @@ declare namespace Access {
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): FormatCondition;
         readonly Parent: any;
+        (Index: any): FormatCondition;
     }
 
     class FormOld {
@@ -5037,8 +5000,8 @@ declare namespace Access {
         FrozenColumns: number;
 
         /**
-         * @param number [Right=0]
-         * @param number [Down=0]
+         * @param Right [Right=0]
+         * @param Down [Down=0]
          */
         GoToPage(PageNumber: number, Right?: number, Down?: number): void;
         GridX: number;
@@ -5264,8 +5227,8 @@ declare namespace Access {
         FrozenColumns: number;
 
         /**
-         * @param number [Right=0]
-         * @param number [Down=0]
+         * @param Right [Right=0]
+         * @param Down [Down=0]
          */
         GoToPage(PageNumber: number, Right?: number, Down?: number): void;
         GridX: number;
@@ -5403,14 +5366,13 @@ declare namespace Access {
         ZoomControl: number;
     }
 
-    class Forms {
-        private 'Access.Forms_typekey': Forms;
-        private constructor();
+    interface Forms {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: number | string): Form;
         readonly Parent: any;
+        (Index: number | string): Form;
     }
 
     class GroupLevel {
@@ -5438,10 +5400,10 @@ declare namespace Access {
         EmailSubject: string;
 
         /**
-         * @param boolean [NewWindow=false]
-         * @param boolean [AddHistory=true]
-         * @param Office.MsoExtraInfoMethod [Method=0]
-         * @param string [HeaderInfo='']
+         * @param NewWindow [NewWindow=false]
+         * @param AddHistory [AddHistory=true]
+         * @param Method [Method=0]
+         * @param HeaderInfo [HeaderInfo='']
          */
         Follow(NewWindow?: boolean, AddHistory?: boolean, ExtraInfo?: any, Method?: Office.MsoExtraInfoMethod, HeaderInfo?: string): void;
         IsMemberSafe(dispid: number): boolean;
@@ -5555,15 +5517,15 @@ declare namespace Access {
         XML: string;
     }
 
-    class ImportExportSpecifications {
-        private 'Access.ImportExportSpecifications_typekey': ImportExportSpecifications;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface ImportExportSpecifications {
         Add(Name: string, SpecificationDefinition: string): ImportExportSpecification;
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): ImportExportSpecification;
         readonly Parent: any;
+        (Index: any): ImportExportSpecification;
     }
 
     class Label {
@@ -5910,15 +5872,14 @@ declare namespace Access {
         Value: any;
     }
 
-    class LocalVars {
-        private 'Access.LocalVars_typekey': LocalVars;
-        private constructor();
+    interface LocalVars {
         Add(Name: string, Value: any): void;
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): LocalVar;
         readonly Parent: any;
+        (Index: any): LocalVar;
     }
 
     class MacroError {
@@ -5945,9 +5906,9 @@ declare namespace Access {
         DeleteLines(StartLine: number, Count: number): void;
 
         /**
-         * @param boolean [WholeWord=false]
-         * @param boolean [MatchCase=false]
-         * @param boolean [PatternSearch=false]
+         * @param WholeWord [WholeWord=false]
+         * @param MatchCase [MatchCase=false]
+         * @param PatternSearch [PatternSearch=false]
          */
         Find(Target: string, StartLine: number, StartColumn: number, EndLine: number, EndColumn: number, WholeWord?: boolean, MatchCase?: boolean, PatternSearch?: boolean): boolean;
         InsertLines(Line: number, String: string): void;
@@ -5964,14 +5925,13 @@ declare namespace Access {
         readonly Type: AcModuleType;
     }
 
-    class Modules {
-        private 'Access.Modules_typekey': Modules;
-        private constructor();
+    interface Modules {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): Module;
         readonly Parent: any;
+        (Index: any): Module;
     }
 
     class NavigationButton {
@@ -6427,7 +6387,7 @@ declare namespace Access {
         private 'Access.Operation_typekey': Operation;
         private constructor();
 
-        /** @param string [bstrParameters=''] */
+        /** @param bstrParameters [bstrParameters=''] */
         Execute(bstrParameters?: string): any;
         IsMemberSafe(dispid: number): boolean;
         readonly Name: string;
@@ -6435,13 +6395,12 @@ declare namespace Access {
         readonly WSParameters: WSParameters;
     }
 
-    class Operations {
-        private 'Access.Operations_typekey': Operations;
-        private constructor();
+    interface Operations {
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): Operation;
         readonly Parent: any;
+        (Index: any): Operation;
     }
 
     class OptionButton {
@@ -6779,14 +6738,13 @@ declare namespace Access {
         Visible: boolean;
     }
 
-    class Pages {
-        private 'Access.Pages_typekey': Pages;
-        private constructor();
+    interface Pages {
         Add(Before?: any): Page;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): Page;
         Remove(Item?: any): void;
+        (Index: any): Page;
     }
 
     class PaletteButton {
@@ -6903,24 +6861,22 @@ declare namespace Access {
         TopMargin: number;
     }
 
-    class Printers {
-        private 'Access.Printers_typekey': Printers;
-        private constructor();
+    interface Printers {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): Printer;
         readonly Parent: any;
+        (Index: any): Printer;
     }
 
-    class Properties {
-        private 'Access.Properties_typekey': Properties;
-        private constructor();
+    interface Properties {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): any;
         readonly Parent: any;
+        (Index: any): any;
     }
 
     class Rectangle {
@@ -6991,9 +6947,7 @@ declare namespace Access {
         readonly Name: string;
     }
 
-    class References {
-        private 'Access.References_typekey': References;
-        private constructor();
+    interface References {
         AddFromFile(FileName: string): Reference;
         AddFromGuid(Guid: string, Major: number, Minor: number): Reference;
         readonly Count: number;
@@ -7001,6 +6955,7 @@ declare namespace Access {
         Item(var_0: any): Reference;
         readonly Parent: any;
         Remove(Reference: Reference): void;
+        (var_0: any): Reference;
     }
 
     class Report {
@@ -7445,14 +7400,13 @@ declare namespace Access {
         ZoomControl: number;
     }
 
-    class Reports {
-        private 'Access.Reports_typekey': Reports;
-        private constructor();
+    interface Reports {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): Report;
         readonly Parent: any;
+        (Index: any): Report;
     }
 
     class ReturnVar {
@@ -7464,14 +7418,13 @@ declare namespace Access {
         readonly Value: any;
     }
 
-    class ReturnVars {
-        private 'Access.ReturnVars_typekey': ReturnVars;
-        private constructor();
+    interface ReturnVars {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): ReturnVar;
         readonly Parent: any;
+        (Index: any): ReturnVar;
     }
 
     class Screen {
@@ -7554,14 +7507,13 @@ declare namespace Access {
         readonly Type: AcResourceType;
     }
 
-    class SharedResources {
-        private 'Access.SharedResources_typekey': SharedResources;
-        private constructor();
+    interface SharedResources {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: number): SharedResource;
         readonly Parent: any;
+        (Index: number): SharedResource;
     }
 
     class SmartTag {
@@ -7588,25 +7540,23 @@ declare namespace Access {
         readonly Parent: any;
     }
 
-    class SmartTagActions {
-        private 'Access.SmartTagActions_typekey': SmartTagActions;
-        private constructor();
+    interface SmartTagActions {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): SmartTagAction;
         readonly Parent: any;
+        (Index: any): SmartTagAction;
     }
 
-    class SmartTagProperties {
-        private 'Access.SmartTagProperties_typekey': SmartTagProperties;
-        private constructor();
+    interface SmartTagProperties {
         Add(Name: string, Value: any): SmartTagProperty;
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): SmartTagProperty;
         readonly Parent: any;
+        (Index: any): SmartTagProperty;
     }
 
     class SmartTagProperty {
@@ -7618,15 +7568,14 @@ declare namespace Access {
         Value: string;
     }
 
-    class SmartTags {
-        private 'Access.SmartTags_typekey': SmartTags;
-        private constructor();
+    interface SmartTags {
         Add(Name: string): SmartTag;
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): SmartTag;
         readonly Parent: any;
+        (Index: any): SmartTag;
     }
 
     class SubForm {
@@ -7887,9 +7836,7 @@ declare namespace Access {
         Value: any;
     }
 
-    class TempVars {
-        private 'Access.TempVars_typekey': TempVars;
-        private constructor();
+    interface TempVars {
         Add(Name: string, Value: any): void;
         readonly Application: Application;
         readonly Count: number;
@@ -7898,6 +7845,7 @@ declare namespace Access {
         readonly Parent: any;
         Remove(var_0: any): void;
         RemoveAll(): void;
+        (Index: any): TempVar;
     }
 
     class TextBox {
@@ -8417,14 +8365,13 @@ declare namespace Access {
         readonly Parent: any;
     }
 
-    class WebServices {
-        private 'Access.WebServices_typekey': WebServices;
-        private constructor();
+    interface WebServices {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): WebService;
         readonly Parent: any;
+        (Index: any): WebService;
     }
 
     class WizHook {
@@ -8460,12 +8407,8 @@ declare namespace Access {
         GetColumns(bstrBase: string): string;
         GetCurrentView(bstrTableName: string): number;
         GetDisabledExtensions(): string;
-        GetFileName(
-            hwndOwner: number, AppName: string, DlgTitle: string, OpenTitle: string, File: string, InitialDir: string, Filter: string, FilterIndex: number, View: number,
-            flags: number, fOpen: boolean): number;
-        GetFileName2(
-            hwndOwner: number, AppName: string, DlgTitle: string, OpenTitle: string, File: string, InitialDir: string, Filter: string, FilterIndex: number, View: number,
-            flags: number, fOpen: boolean, fFileSystem: any): number;
+        GetFileName(hwndOwner: number, AppName: string, DlgTitle: string, OpenTitle: string, File: string, InitialDir: string, Filter: string, FilterIndex: number, View: number, flags: number, fOpen: boolean): number;
+        GetFileName2(hwndOwner: number, AppName: string, DlgTitle: string, OpenTitle: string, File: string, InitialDir: string, Filter: string, FilterIndex: number, View: number, flags: number, fOpen: boolean, fFileSystem: any): number;
         GetFileOdso(bstrExt: string, bstrFilename: string): number;
         GetImexTblName(): string;
         GetInfoForColumns(bstrBase: string): string;
@@ -8515,13 +8458,12 @@ declare namespace Access {
         readonly Type: number;
     }
 
-    class WSParameters {
-        private 'Access.WSParameters_typekey': WSParameters;
-        private constructor();
+    interface WSParameters {
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
         Item(Index: any): WSParameter;
         readonly Parent: any;
+        (Index: any): WSParameter;
     }
 
     namespace EventHelperTypes {
@@ -8543,71 +8485,45 @@ interface ActiveXObject {
     on(obj: Access._CheckBoxInOption, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access._CheckBoxInOption, parameter: {Cancel: number}) => void): void;
     on(obj: Access._CheckBoxInOption, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access._CheckBoxInOption, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access._CheckBoxInOption, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access._CheckBoxInOption, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access._CheckBoxInOption, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access._CheckBoxInOption, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access._CheckBoxInOption, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access._CheckBoxInOption, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access._OptionButtonInOption, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access._OptionButtonInOption, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access._OptionButtonInOption, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (
-            this: Access._OptionButtonInOption, parameter: {KeyCode: number, Shift: number}) => void): void;
+    on(obj: Access._OptionButtonInOption, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access._OptionButtonInOption, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access._OptionButtonInOption, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access._OptionButtonInOption, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access._OptionButtonInOption, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'],
-        handler: (this: Access._OptionButtonInOption, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access._OptionButtonInOption, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access._OptionButtonInOption, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access._PageHdrFtrInReport, event: 'DblClick', argNames: ['Cancel'], handler: (this: Access._PageHdrFtrInReport, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access._PageHdrFtrInReport, event: 'Format', argNames: ['Cancel', 'FormatCount'], handler: (
-            this: Access._PageHdrFtrInReport, parameter: {Cancel: number, FormatCount: number}) => void): void;
-    on(
-        obj: Access._PageHdrFtrInReport, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access._PageHdrFtrInReport, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access._PageHdrFtrInReport, event: 'Format', argNames: ['Cancel', 'FormatCount'], handler: (this: Access._PageHdrFtrInReport, parameter: {Cancel: number, FormatCount: number}) => void): void;
+    on(obj: Access._PageHdrFtrInReport, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access._PageHdrFtrInReport, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access._PageHdrFtrInReport, event: 'Print', argNames: ['Cancel', 'PrintCount'], handler: (this: Access._PageHdrFtrInReport, parameter: {Cancel: number, PrintCount: number}) => void): void;
     on(obj: Access._SectionInReport, event: 'DblClick', argNames: ['Cancel'], handler: (this: Access._SectionInReport, parameter: {Cancel: number}) => void): void;
     on(obj: Access._SectionInReport, event: 'Format', argNames: ['Cancel', 'FormatCount'], handler: (this: Access._SectionInReport, parameter: {Cancel: number, FormatCount: number}) => void): void;
-    on(
-        obj: Access._SectionInReport, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access._SectionInReport, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access._SectionInReport, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access._SectionInReport, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access._SectionInReport, event: 'Print', argNames: ['Cancel', 'PrintCount'], handler: (this: Access._SectionInReport, parameter: {Cancel: number, PrintCount: number}) => void): void;
     on(obj: Access._ToggleButtonInOption, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access._ToggleButtonInOption, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access._ToggleButtonInOption, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (
-            this: Access._ToggleButtonInOption, parameter: {KeyCode: number, Shift: number}) => void): void;
+    on(obj: Access._ToggleButtonInOption, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access._ToggleButtonInOption, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access._ToggleButtonInOption, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access._ToggleButtonInOption, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access._ToggleButtonInOption, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'],
-        handler: (this: Access._ToggleButtonInOption, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access._ToggleButtonInOption, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access._ToggleButtonInOption, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.Attachment, event: 'BeforeUpdate' | 'DblClick' | 'Dirty' | 'Exit', argNames: ['Cancel'], handler: (this: Access.Attachment, parameter: {Cancel: number}) => void): void;
     on(obj: Access.Attachment, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.Attachment, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.Attachment, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.Attachment, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.Attachment, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.Attachment, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.Attachment, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.Attachment, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.BoundObjectFrame, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.BoundObjectFrame, parameter: {Cancel: number}) => void): void;
     on(obj: Access.BoundObjectFrame, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.BoundObjectFrame, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.BoundObjectFrame, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.BoundObjectFrame, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.BoundObjectFrame, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.BoundObjectFrame, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.BoundObjectFrame, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.BoundObjectFrame, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.BoundObjectFrame, event: 'Updated', argNames: ['Code'], handler: (this: Access.BoundObjectFrame, parameter: {Code: number}) => void): void;
     on(obj: Access.CheckBox, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.CheckBox, parameter: {Cancel: number}) => void): void;
     on(obj: Access.CheckBox, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.CheckBox, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.CheckBox, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.CheckBox, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.CheckBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.CheckBox, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.CheckBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.CheckBox, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.ComboBox, event: 'BeforeUpdate' | 'DblClick' | 'Dirty' | 'Exit' | 'Undo', argNames: ['Cancel'], handler: (this: Access.ComboBox, parameter: {Cancel: number}) => void): void;
     on(obj: Access.ComboBox, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.ComboBox, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.ComboBox, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.ComboBox, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.ComboBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.ComboBox, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.ComboBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.ComboBox, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.ComboBox, event: 'NotInList', argNames: ['NewData', 'Response'], handler: (this: Access.ComboBox, parameter: {NewData: string, Response: number}) => void): void;
     on(obj: Access.CommandButton, event: 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.CommandButton, parameter: {Cancel: number}) => void): void;
     on(obj: Access.CommandButton, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.CommandButton, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.CommandButton, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.CommandButton, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.CommandButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.CommandButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.CommandButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.CommandButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.CustomControl, event: 'Exit', argNames: ['Cancel'], handler: (this: Access.CustomControl, parameter: {Cancel: number}) => void): void;
     on(obj: Access.CustomControl, event: 'Updated', argNames: ['Code'], handler: (this: Access.CustomControl, parameter: {Code: number}) => void): void;
     on(obj: Access.Form, event: 'AfterDelConfirm', argNames: ['Status'], handler: (this: Access.Form, parameter: {Status: number}) => void): void;
@@ -8615,16 +8531,9 @@ interface ActiveXObject {
     on(obj: Access.Form, event: 'AfterRender', argNames: ['drawObject', 'chartObject'], handler: (this: Access.Form, parameter: {readonly drawObject: any, readonly chartObject: any}) => void): void;
     on(obj: Access.Form, event: 'ApplyFilter', argNames: ['Cancel', 'ApplyType'], handler: (this: Access.Form, parameter: {Cancel: number, ApplyType: number}) => void): void;
     on(obj: Access.Form, event: 'BeforeDelConfirm', argNames: ['Cancel', 'Response'], handler: (this: Access.Form, parameter: {Cancel: number, Response: number}) => void): void;
-    on(
-        obj: Access.Form, event: 'BeforeInsert' | 'BeforeUpdate' | 'BeginBatchEdit' | 'DblClick' | 'Delete' | 'Dirty' | 'Open' | 'RecordExit' | 'Undo' | 'UndoBatchEdit' |
-        'Unload',
-        argNames: ['Cancel'], handler: (this: Access.Form, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.Form, event: 'BeforeRender', argNames: ['drawObject', 'chartObject', 'Cancel'], handler: (
-            this: Access.Form, parameter: {readonly drawObject: any, readonly chartObject: any, readonly Cancel: any}) => void): void;
-    on(
-        obj: Access.Form, event: 'BeforeScreenTip', argNames: ['ScreenTipText', 'SourceObject'], handler: (
-            this: Access.Form, parameter: {readonly ScreenTipText: any, readonly SourceObject: any}) => void): void;
+    on(obj: Access.Form, event: 'BeforeInsert' | 'BeforeUpdate' | 'BeginBatchEdit' | 'DblClick' | 'Delete' | 'Dirty' | 'Open' | 'RecordExit' | 'Undo' | 'UndoBatchEdit' | 'Unload', argNames: ['Cancel'], handler: (this: Access.Form, parameter: {Cancel: number}) => void): void;
+    on(obj: Access.Form, event: 'BeforeRender', argNames: ['drawObject', 'chartObject', 'Cancel'], handler: (this: Access.Form, parameter: {readonly drawObject: any, readonly chartObject: any, readonly Cancel: any}) => void): void;
+    on(obj: Access.Form, event: 'BeforeScreenTip', argNames: ['ScreenTipText', 'SourceObject'], handler: (this: Access.Form, parameter: {readonly ScreenTipText: any, readonly SourceObject: any}) => void): void;
     on(obj: Access.Form, event: 'CommandBeforeExecute', argNames: ['Command', 'Cancel'], handler: (this: Access.Form, parameter: {readonly Command: any, readonly Cancel: any}) => void): void;
     on(obj: Access.Form, event: 'CommandChecked', argNames: ['Command', 'Checked'], handler: (this: Access.Form, parameter: {readonly Command: any, readonly Checked: any}) => void): void;
     on(obj: Access.Form, event: 'CommandEnabled', argNames: ['Command', 'Enabled'], handler: (this: Access.Form, parameter: {readonly Command: any, readonly Enabled: any}) => void): void;
@@ -8634,33 +8543,18 @@ interface ActiveXObject {
     on(obj: Access.Form, event: 'Filter', argNames: ['Cancel', 'FilterType'], handler: (this: Access.Form, parameter: {Cancel: number, FilterType: number}) => void): void;
     on(obj: Access.Form, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.Form, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.Form, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.Form, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.Form, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.Form, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.Form, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.Form, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.Form, event: 'MouseWheel', argNames: ['Page', 'Count'], handler: (this: Access.Form, parameter: {readonly Page: boolean, readonly Count: number}) => void): void;
-    on(
-        obj: Access.FormOld, event: 'AfterBeginTransaction' | 'AfterCommitTransaction' | 'RollbackTransaction', argNames: ['Connection'], handler: (
-            this: Access.FormOld, parameter: {readonly Connection: ADODB.Connection}) => void): void;
+    on(obj: Access.FormOld, event: 'AfterBeginTransaction' | 'AfterCommitTransaction' | 'RollbackTransaction', argNames: ['Connection'], handler: (this: Access.FormOld, parameter: {readonly Connection: ADODB.Connection}) => void): void;
     on(obj: Access.FormOld, event: 'AfterDelConfirm', argNames: ['Status'], handler: (this: Access.FormOld, parameter: {Status: number}) => void): void;
     on(obj: Access.FormOld, event: 'AfterFinalRender' | 'AfterLayout', argNames: ['drawObject'], handler: (this: Access.FormOld, parameter: {readonly drawObject: any}) => void): void;
-    on(
-        obj: Access.FormOld, event: 'AfterRender', argNames: ['drawObject', 'chartObject'], handler: (
-            this: Access.FormOld, parameter: {readonly drawObject: any, readonly chartObject: any}) => void): void;
+    on(obj: Access.FormOld, event: 'AfterRender', argNames: ['drawObject', 'chartObject'], handler: (this: Access.FormOld, parameter: {readonly drawObject: any, readonly chartObject: any}) => void): void;
     on(obj: Access.FormOld, event: 'ApplyFilter', argNames: ['Cancel', 'ApplyType'], handler: (this: Access.FormOld, parameter: {Cancel: number, ApplyType: number}) => void): void;
-    on(
-        obj: Access.FormOld, event: 'BeforeBeginTransaction' | 'BeforeCommitTransaction', argNames: ['Cancel', 'Connection'], handler: (
-            this: Access.FormOld, parameter: {Cancel: number, readonly Connection: ADODB.Connection}) => void): void;
+    on(obj: Access.FormOld, event: 'BeforeBeginTransaction' | 'BeforeCommitTransaction', argNames: ['Cancel', 'Connection'], handler: (this: Access.FormOld, parameter: {Cancel: number, readonly Connection: ADODB.Connection}) => void): void;
     on(obj: Access.FormOld, event: 'BeforeDelConfirm', argNames: ['Cancel', 'Response'], handler: (this: Access.FormOld, parameter: {Cancel: number, Response: number}) => void): void;
-    on(
-        obj: Access.FormOld, event: 'BeforeInsert' | 'BeforeUpdate' | 'BeginBatchEdit' | 'DblClick' | 'Delete' | 'Dirty' | 'Open' | 'RecordExit' | 'Undo' |
-        'UndoBatchEdit' | 'Unload',
-        argNames: ['Cancel'], handler: (this: Access.FormOld, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.FormOld, event: 'BeforeRender', argNames: ['drawObject', 'chartObject', 'Cancel'], handler: (
-            this: Access.FormOld, parameter: {readonly drawObject: any, readonly chartObject: any, readonly Cancel: any}) => void): void;
-    on(
-        obj: Access.FormOld, event: 'BeforeScreenTip', argNames: ['ScreenTipText', 'SourceObject'], handler: (
-            this: Access.FormOld, parameter: {readonly ScreenTipText: any, readonly SourceObject: any}) => void): void;
+    on(obj: Access.FormOld, event: 'BeforeInsert' | 'BeforeUpdate' | 'BeginBatchEdit' | 'DblClick' | 'Delete' | 'Dirty' | 'Open' | 'RecordExit' | 'Undo' | 'UndoBatchEdit' | 'Unload', argNames: ['Cancel'], handler: (this: Access.FormOld, parameter: {Cancel: number}) => void): void;
+    on(obj: Access.FormOld, event: 'BeforeRender', argNames: ['drawObject', 'chartObject', 'Cancel'], handler: (this: Access.FormOld, parameter: {readonly drawObject: any, readonly chartObject: any, readonly Cancel: any}) => void): void;
+    on(obj: Access.FormOld, event: 'BeforeScreenTip', argNames: ['ScreenTipText', 'SourceObject'], handler: (this: Access.FormOld, parameter: {readonly ScreenTipText: any, readonly SourceObject: any}) => void): void;
     on(obj: Access.FormOld, event: 'CommandBeforeExecute', argNames: ['Command', 'Cancel'], handler: (this: Access.FormOld, parameter: {readonly Command: any, readonly Cancel: any}) => void): void;
     on(obj: Access.FormOld, event: 'CommandChecked', argNames: ['Command', 'Checked'], handler: (this: Access.FormOld, parameter: {readonly Command: any, readonly Checked: any}) => void): void;
     on(obj: Access.FormOld, event: 'CommandEnabled', argNames: ['Command', 'Enabled'], handler: (this: Access.FormOld, parameter: {readonly Command: any, readonly Enabled: any}) => void): void;
@@ -8670,36 +8564,19 @@ interface ActiveXObject {
     on(obj: Access.FormOld, event: 'Filter', argNames: ['Cancel', 'FilterType'], handler: (this: Access.FormOld, parameter: {Cancel: number, FilterType: number}) => void): void;
     on(obj: Access.FormOld, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.FormOld, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.FormOld, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.FormOld, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.FormOld, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.FormOld, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.FormOld, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.FormOld, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.FormOld, event: 'MouseWheel', argNames: ['Page', 'Count'], handler: (this: Access.FormOld, parameter: {readonly Page: boolean, readonly Count: number}) => void): void;
-    on(
-        obj: Access.FormOldV10, event: 'AfterBeginTransaction' | 'AfterCommitTransaction' | 'RollbackTransaction', argNames: ['Connection'],
-        handler: (this: Access.FormOldV10, parameter: {readonly Connection: ADODB.Connection}) => void): void;
+    on(obj: Access.FormOldV10, event: 'AfterBeginTransaction' | 'AfterCommitTransaction' | 'RollbackTransaction', argNames: ['Connection'], handler: (this: Access.FormOldV10, parameter: {readonly Connection: ADODB.Connection}) => void): void;
     on(obj: Access.FormOldV10, event: 'AfterDelConfirm', argNames: ['Status'], handler: (this: Access.FormOldV10, parameter: {Status: number}) => void): void;
     on(obj: Access.FormOldV10, event: 'AfterFinalRender' | 'AfterLayout', argNames: ['drawObject'], handler: (this: Access.FormOldV10, parameter: {readonly drawObject: any}) => void): void;
-    on(
-        obj: Access.FormOldV10, event: 'AfterRender', argNames: ['drawObject', 'chartObject'], handler: (
-            this: Access.FormOldV10, parameter: {readonly drawObject: any, readonly chartObject: any}) => void): void;
+    on(obj: Access.FormOldV10, event: 'AfterRender', argNames: ['drawObject', 'chartObject'], handler: (this: Access.FormOldV10, parameter: {readonly drawObject: any, readonly chartObject: any}) => void): void;
     on(obj: Access.FormOldV10, event: 'ApplyFilter', argNames: ['Cancel', 'ApplyType'], handler: (this: Access.FormOldV10, parameter: {Cancel: number, ApplyType: number}) => void): void;
-    on(
-        obj: Access.FormOldV10, event: 'BeforeBeginTransaction' | 'BeforeCommitTransaction', argNames: ['Cancel', 'Connection'], handler: (
-            this: Access.FormOldV10, parameter: {Cancel: number, readonly Connection: ADODB.Connection}) => void): void;
+    on(obj: Access.FormOldV10, event: 'BeforeBeginTransaction' | 'BeforeCommitTransaction', argNames: ['Cancel', 'Connection'], handler: (this: Access.FormOldV10, parameter: {Cancel: number, readonly Connection: ADODB.Connection}) => void): void;
     on(obj: Access.FormOldV10, event: 'BeforeDelConfirm', argNames: ['Cancel', 'Response'], handler: (this: Access.FormOldV10, parameter: {Cancel: number, Response: number}) => void): void;
-    on(
-        obj: Access.FormOldV10, event: 'BeforeInsert' | 'BeforeUpdate' | 'BeginBatchEdit' | 'DblClick' | 'Delete' | 'Dirty' | 'Open' | 'RecordExit' | 'Undo' |
-        'UndoBatchEdit' | 'Unload',
-        argNames: ['Cancel'], handler: (this: Access.FormOldV10, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.FormOldV10, event: 'BeforeRender', argNames: ['drawObject', 'chartObject', 'Cancel'], handler: (
-            this: Access.FormOldV10, parameter: {readonly drawObject: any, readonly chartObject: any, readonly Cancel: any}) => void): void;
-    on(
-        obj: Access.FormOldV10, event: 'BeforeScreenTip', argNames: ['ScreenTipText', 'SourceObject'], handler: (
-            this: Access.FormOldV10, parameter: {readonly ScreenTipText: any, readonly SourceObject: any}) => void): void;
-    on(
-        obj: Access.FormOldV10, event: 'CommandBeforeExecute', argNames: ['Command', 'Cancel'], handler: (
-            this: Access.FormOldV10, parameter: {readonly Command: any, readonly Cancel: any}) => void): void;
+    on(obj: Access.FormOldV10, event: 'BeforeInsert' | 'BeforeUpdate' | 'BeginBatchEdit' | 'DblClick' | 'Delete' | 'Dirty' | 'Open' | 'RecordExit' | 'Undo' | 'UndoBatchEdit' | 'Unload', argNames: ['Cancel'], handler: (this: Access.FormOldV10, parameter: {Cancel: number}) => void): void;
+    on(obj: Access.FormOldV10, event: 'BeforeRender', argNames: ['drawObject', 'chartObject', 'Cancel'], handler: (this: Access.FormOldV10, parameter: {readonly drawObject: any, readonly chartObject: any, readonly Cancel: any}) => void): void;
+    on(obj: Access.FormOldV10, event: 'BeforeScreenTip', argNames: ['ScreenTipText', 'SourceObject'], handler: (this: Access.FormOldV10, parameter: {readonly ScreenTipText: any, readonly SourceObject: any}) => void): void;
+    on(obj: Access.FormOldV10, event: 'CommandBeforeExecute', argNames: ['Command', 'Cancel'], handler: (this: Access.FormOldV10, parameter: {readonly Command: any, readonly Cancel: any}) => void): void;
     on(obj: Access.FormOldV10, event: 'CommandChecked', argNames: ['Command', 'Checked'], handler: (this: Access.FormOldV10, parameter: {readonly Command: any, readonly Checked: any}) => void): void;
     on(obj: Access.FormOldV10, event: 'CommandEnabled', argNames: ['Command', 'Enabled'], handler: (this: Access.FormOldV10, parameter: {readonly Command: any, readonly Enabled: any}) => void): void;
     on(obj: Access.FormOldV10, event: 'CommandExecute', argNames: ['Command'], handler: (this: Access.FormOldV10, parameter: {readonly Command: any}) => void): void;
@@ -8708,67 +8585,41 @@ interface ActiveXObject {
     on(obj: Access.FormOldV10, event: 'Filter', argNames: ['Cancel', 'FilterType'], handler: (this: Access.FormOldV10, parameter: {Cancel: number, FilterType: number}) => void): void;
     on(obj: Access.FormOldV10, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.FormOldV10, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.FormOldV10, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.FormOldV10, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.FormOldV10, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.FormOldV10, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.FormOldV10, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.FormOldV10, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.FormOldV10, event: 'MouseWheel', argNames: ['Page', 'Count'], handler: (this: Access.FormOldV10, parameter: {readonly Page: boolean, readonly Count: number}) => void): void;
     on(obj: Access.Image, event: 'DblClick', argNames: ['Cancel'], handler: (this: Access.Image, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.Image, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.Image, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.Image, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.Image, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.Label, event: 'DblClick', argNames: ['Cancel'], handler: (this: Access.Label, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.Label, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.Label, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.Label, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.Label, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.ListBox, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.ListBox, parameter: {Cancel: number}) => void): void;
     on(obj: Access.ListBox, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.ListBox, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.ListBox, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.ListBox, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.ListBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.ListBox, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.ListBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.ListBox, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.NavigationButton, event: 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.NavigationButton, parameter: {Cancel: number}) => void): void;
     on(obj: Access.NavigationButton, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.NavigationButton, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.NavigationButton, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.NavigationButton, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.NavigationButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.NavigationButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
-    on(
-        obj: Access.NavigationControl, event: 'BeforeUpdate' | 'DblClick' | 'Dirty' | 'Exit' | 'Undo', argNames: ['Cancel'], handler: (
-            this: Access.NavigationControl, parameter: {Cancel: number}) => void): void;
+    on(obj: Access.NavigationButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.NavigationButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.NavigationControl, event: 'BeforeUpdate' | 'DblClick' | 'Dirty' | 'Exit' | 'Undo', argNames: ['Cancel'], handler: (this: Access.NavigationControl, parameter: {Cancel: number}) => void): void;
     on(obj: Access.NavigationControl, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.NavigationControl, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.NavigationControl, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.NavigationControl, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.NavigationControl, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.NavigationControl, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.NavigationControl, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.NavigationControl, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.ObjectFrame, event: 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.ObjectFrame, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.ObjectFrame, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.ObjectFrame, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.ObjectFrame, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.ObjectFrame, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.ObjectFrame, event: 'Updated', argNames: ['Code'], handler: (this: Access.ObjectFrame, parameter: {Code: number}) => void): void;
     on(obj: Access.OptionButton, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.OptionButton, parameter: {Cancel: number}) => void): void;
     on(obj: Access.OptionButton, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.OptionButton, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.OptionButton, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.OptionButton, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.OptionButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.OptionButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.OptionButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.OptionButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.OptionGroup, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.OptionGroup, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.OptionGroup, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.OptionGroup, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.OptionGroup, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.OptionGroup, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.Page, event: 'DblClick', argNames: ['Cancel'], handler: (this: Access.Page, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.Page, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.Page, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.Page, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.Page, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.PaletteButton, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.PaletteButton, parameter: {Cancel: number}) => void): void;
     on(obj: Access.PaletteButton, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.PaletteButton, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.PaletteButton, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.PaletteButton, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.PaletteButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.PaletteButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.PaletteButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.PaletteButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.Rectangle, event: 'DblClick', argNames: ['Cancel'], handler: (this: Access.Rectangle, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.Rectangle, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.Rectangle, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.Rectangle, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.Rectangle, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.References, event: 'ItemAdded' | 'ItemRemoved', argNames: ['Reference'], handler: (this: Access.References, parameter: {readonly Reference: Access.Reference}) => void): void;
     on(obj: Access.Report, event: 'ApplyFilter', argNames: ['Cancel', 'ApplyType'], handler: (this: Access.Report, parameter: {Cancel: number, ApplyType: number}) => void): void;
     on(obj: Access.Report, event: 'DblClick' | 'NoData' | 'Open' | 'Unload', argNames: ['Cancel'], handler: (this: Access.Report, parameter: {Cancel: number}) => void): void;
@@ -8776,58 +8627,36 @@ interface ActiveXObject {
     on(obj: Access.Report, event: 'Filter', argNames: ['Cancel', 'FilterType'], handler: (this: Access.Report, parameter: {Cancel: number, FilterType: number}) => void): void;
     on(obj: Access.Report, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.Report, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.Report, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.Report, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.Report, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.Report, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.Report, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.Report, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.Report, event: 'MouseWheel', argNames: ['Page', 'Count'], handler: (this: Access.Report, parameter: {readonly Page: boolean, readonly Count: number}) => void): void;
     on(obj: Access.ReportOld, event: 'Error', argNames: ['DataErr', 'Response'], handler: (this: Access.ReportOld, parameter: {DataErr: number, Response: number}) => void): void;
     on(obj: Access.ReportOld, event: 'NoData' | 'Open', argNames: ['Cancel'], handler: (this: Access.ReportOld, parameter: {Cancel: number}) => void): void;
     on(obj: Access.ReportOldV10, event: 'Error', argNames: ['DataErr', 'Response'], handler: (this: Access.ReportOldV10, parameter: {DataErr: number, Response: number}) => void): void;
     on(obj: Access.ReportOldV10, event: 'NoData' | 'Open', argNames: ['Cancel'], handler: (this: Access.ReportOldV10, parameter: {Cancel: number}) => void): void;
     on(obj: Access.Section, event: 'DblClick', argNames: ['Cancel'], handler: (this: Access.Section, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.Section, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.Section, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.Section, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.Section, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.SubForm, event: 'Exit', argNames: ['Cancel'], handler: (this: Access.SubForm, parameter: {Cancel: number}) => void): void;
     on(obj: Access.SubReport, event: 'Exit', argNames: ['Cancel'], handler: (this: Access.SubReport, parameter: {Cancel: number}) => void): void;
     on(obj: Access.TabControl, event: 'DblClick', argNames: ['Cancel'], handler: (this: Access.TabControl, parameter: {Cancel: number}) => void): void;
     on(obj: Access.TabControl, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.TabControl, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.TabControl, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.TabControl, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.TabControl, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.TabControl, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.TabControl, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.TabControl, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.TextBox, event: 'BeforeUpdate' | 'DblClick' | 'Dirty' | 'Exit' | 'Undo', argNames: ['Cancel'], handler: (this: Access.TextBox, parameter: {Cancel: number}) => void): void;
     on(obj: Access.TextBox, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.TextBox, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.TextBox, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.TextBox, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.TextBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.TextBox, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.TextBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.TextBox, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
     on(obj: Access.ToggleButton, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access.ToggleButton, parameter: {Cancel: number}) => void): void;
     on(obj: Access.ToggleButton, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.ToggleButton, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.ToggleButton, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.ToggleButton, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.ToggleButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.ToggleButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
-    on(
-        obj: Access.WebBrowserControl, event: 'BeforeNavigate2', argNames: Access.EventHelperTypes.WebBrowserControl_BeforeNavigate2_ArgNames,
-        handler: (this: Access.WebBrowserControl, parameter: Access.EventHelperTypes.WebBrowserControl_BeforeNavigate2_Parameter) => void): void;
-    on(
-        obj: Access.WebBrowserControl, event: 'BeforeUpdate' | 'DblClick' | 'Dirty' | 'Exit', argNames: ['Cancel'], handler: (
-            this: Access.WebBrowserControl, parameter: {Cancel: number}) => void): void;
-    on(
-        obj: Access.WebBrowserControl, event: 'DocumentComplete', argNames: ['pDisp', 'URL'], handler: (
-            this: Access.WebBrowserControl, parameter: {readonly pDisp: any, readonly URL: any}) => void): void;
+    on(obj: Access.ToggleButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.ToggleButton, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.WebBrowserControl, event: 'BeforeNavigate2', argNames: Access.EventHelperTypes.WebBrowserControl_BeforeNavigate2_ArgNames, handler: (this: Access.WebBrowserControl, parameter: Access.EventHelperTypes.WebBrowserControl_BeforeNavigate2_Parameter) => void): void;
+    on(obj: Access.WebBrowserControl, event: 'BeforeUpdate' | 'DblClick' | 'Dirty' | 'Exit', argNames: ['Cancel'], handler: (this: Access.WebBrowserControl, parameter: {Cancel: number}) => void): void;
+    on(obj: Access.WebBrowserControl, event: 'DocumentComplete', argNames: ['pDisp', 'URL'], handler: (this: Access.WebBrowserControl, parameter: {readonly pDisp: any, readonly URL: any}) => void): void;
     on(obj: Access.WebBrowserControl, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access.WebBrowserControl, parameter: {KeyCode: number, Shift: number}) => void): void;
     on(obj: Access.WebBrowserControl, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: Access.WebBrowserControl, parameter: {KeyAscii: number}) => void): void;
-    on(
-        obj: Access.WebBrowserControl, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (
-            this: Access.WebBrowserControl, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
-    on(
-        obj: Access.WebBrowserControl, event: 'NavigateError', argNames: ['pDisp', 'URL', 'TargetFrameName', 'StatusCode', 'Cancel'],
-        handler: (this: Access.WebBrowserControl, parameter: {readonly pDisp: any, readonly URL: any, readonly TargetFrameName: any, readonly StatusCode: any, Cancel: boolean}) => void): void;
-    on(
-        obj: Access.WebBrowserControl, event: 'ProgressChange', argNames: ['Progress', 'ProgressMax'], handler: (
-            this: Access.WebBrowserControl, parameter: {readonly Progress: number, readonly ProgressMax: number}) => void): void;
+    on(obj: Access.WebBrowserControl, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: Access.WebBrowserControl, parameter: {Button: number, Shift: number, X: number, Y: number}) => void): void;
+    on(obj: Access.WebBrowserControl, event: 'NavigateError', argNames: ['pDisp', 'URL', 'TargetFrameName', 'StatusCode', 'Cancel'], handler: (this: Access.WebBrowserControl, parameter: {readonly pDisp: any, readonly URL: any, readonly TargetFrameName: any, readonly StatusCode: any, Cancel: boolean}) => void): void;
+    on(obj: Access.WebBrowserControl, event: 'ProgressChange', argNames: ['Progress', 'ProgressMax'], handler: (this: Access.WebBrowserControl, parameter: {readonly Progress: number, readonly ProgressMax: number}) => void): void;
     on(obj: Access.WebBrowserControl, event: 'Updated', argNames: ['Code'], handler: (this: Access.WebBrowserControl, parameter: {Code: number}) => void): void;
     on(obj: Access._CheckBoxInOption, event: 'AfterUpdate' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access._CheckBoxInOption, parameter: {}) => void): void;
     on(obj: Access._OptionButtonInOption, event: 'AfterUpdate' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access._OptionButtonInOption, parameter: {}) => void): void;
@@ -8841,18 +8670,9 @@ interface ActiveXObject {
     on(obj: Access.ComboBox, event: 'AfterUpdate' | 'Change' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.ComboBox, parameter: {}) => void): void;
     on(obj: Access.CommandButton, event: 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.CommandButton, parameter: {}) => void): void;
     on(obj: Access.CustomControl, event: 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.CustomControl, parameter: {}) => void): void;
-    on(
-        obj: Access.Form, event: 'Activate' | 'AfterInsert' | 'AfterUpdate' | 'BeforeQuery' | 'Click' | 'Close' | 'Current' | 'DataSetChange' | 'Deactivate' | 'GotFocus' |
-        'Load' | 'LostFocus' | 'OnConnect' | 'OnDisconnect' | 'Query' | 'Resize' | 'SelectionChange' | 'Timer',
-        handler: (this: Access.Form, parameter: {}) => void): void;
-    on(
-        obj: Access.FormOld, event: 'Activate' | 'AfterInsert' | 'AfterUpdate' | 'BeforeQuery' | 'Click' | 'Close' | 'Current' | 'DataSetChange' | 'Deactivate' |
-        'GotFocus' | 'Load' | 'LostFocus' | 'OnConnect' | 'OnDisconnect' | 'Query' | 'Resize' | 'SelectionChange' | 'Timer',
-        handler: (this: Access.FormOld, parameter: {}) => void): void;
-    on(
-        obj: Access.FormOldV10, event: 'Activate' | 'AfterInsert' | 'AfterUpdate' | 'BeforeQuery' | 'Click' | 'Close' | 'Current' | 'DataSetChange' | 'Deactivate' |
-        'GotFocus' | 'Load' | 'LostFocus' | 'OnConnect' | 'OnDisconnect' | 'Query' | 'Resize' | 'SelectionChange' | 'Timer',
-        handler: (this: Access.FormOldV10, parameter: {}) => void): void;
+    on(obj: Access.Form, event: 'Activate' | 'AfterInsert' | 'AfterUpdate' | 'BeforeQuery' | 'Click' | 'Close' | 'Current' | 'DataSetChange' | 'Deactivate' | 'GotFocus' | 'Load' | 'LostFocus' | 'OnConnect' | 'OnDisconnect' | 'Query' | 'Resize' | 'SelectionChange' | 'Timer', handler: (this: Access.Form, parameter: {}) => void): void;
+    on(obj: Access.FormOld, event: 'Activate' | 'AfterInsert' | 'AfterUpdate' | 'BeforeQuery' | 'Click' | 'Close' | 'Current' | 'DataSetChange' | 'Deactivate' | 'GotFocus' | 'Load' | 'LostFocus' | 'OnConnect' | 'OnDisconnect' | 'Query' | 'Resize' | 'SelectionChange' | 'Timer', handler: (this: Access.FormOld, parameter: {}) => void): void;
+    on(obj: Access.FormOldV10, event: 'Activate' | 'AfterInsert' | 'AfterUpdate' | 'BeforeQuery' | 'Click' | 'Close' | 'Current' | 'DataSetChange' | 'Deactivate' | 'GotFocus' | 'Load' | 'LostFocus' | 'OnConnect' | 'OnDisconnect' | 'Query' | 'Resize' | 'SelectionChange' | 'Timer', handler: (this: Access.FormOldV10, parameter: {}) => void): void;
     on(obj: Access.Image, event: 'Click', handler: (this: Access.Image, parameter: {}) => void): void;
     on(obj: Access.Label, event: 'Click', handler: (this: Access.Label, parameter: {}) => void): void;
     on(obj: Access.ListBox, event: 'AfterUpdate' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.ListBox, parameter: {}) => void): void;
@@ -8864,9 +8684,7 @@ interface ActiveXObject {
     on(obj: Access.Page, event: 'Click', handler: (this: Access.Page, parameter: {}) => void): void;
     on(obj: Access.PaletteButton, event: 'AfterUpdate' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.PaletteButton, parameter: {}) => void): void;
     on(obj: Access.Rectangle, event: 'Click', handler: (this: Access.Rectangle, parameter: {}) => void): void;
-    on(
-        obj: Access.Report, event: 'Activate' | 'Click' | 'Close' | 'Current' | 'Deactivate' | 'GotFocus' | 'Load' | 'LostFocus' | 'Page' | 'Resize' | 'Timer',
-        handler: (this: Access.Report, parameter: {}) => void): void;
+    on(obj: Access.Report, event: 'Activate' | 'Click' | 'Close' | 'Current' | 'Deactivate' | 'GotFocus' | 'Load' | 'LostFocus' | 'Page' | 'Resize' | 'Timer', handler: (this: Access.Report, parameter: {}) => void): void;
     on(obj: Access.ReportOld, event: 'Activate' | 'Close' | 'Deactivate' | 'Page', handler: (this: Access.ReportOld, parameter: {}) => void): void;
     on(obj: Access.ReportOldV10, event: 'Activate' | 'Close' | 'Deactivate' | 'Page', handler: (this: Access.ReportOldV10, parameter: {}) => void): void;
     on(obj: Access.Section, event: 'Click' | 'Paint', handler: (this: Access.Section, parameter: {}) => void): void;
@@ -8876,50 +8694,11 @@ interface ActiveXObject {
     on(obj: Access.TextBox, event: 'AfterUpdate' | 'Change' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.TextBox, parameter: {}) => void): void;
     on(obj: Access.ToggleButton, event: 'AfterUpdate' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.ToggleButton, parameter: {}) => void): void;
     on(obj: Access.WebBrowserControl, event: 'AfterUpdate' | 'Change' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.WebBrowserControl, parameter: {}) => void): void;
-    set(
-        obj: Access._CheckBoxInOption | Access._ChildLabel | Access._CustomControlInReport | Access._OptionButtonInOption | Access._ToggleButtonInOption |
-        Access.Attachment | Access.BoundObjectFrame | Access.CheckBox | Access.ComboBox | Access.CommandButton | Access.CustomControl | Access.EmptyCell | Access.Form |
-        Access.FormOld | Access.FormOldV10 | Access.Label | Access.ListBox | Access.NavigationButton | Access.NavigationControl | Access.ObjectFrame |
-        Access.OptionButton | Access.OptionGroup | Access.Page | Access.SubForm | Access.TabControl | Access.TextBox | Access.ToggleButton | Access.WebBrowserControl,
-        propertyName: 'accName' | 'accValue', parameterTypes: [any], newValue: string): void;
+    set(obj: Access._CheckBoxInOption | Access._ChildLabel | Access._CustomControlInReport | Access._OptionButtonInOption | Access._ToggleButtonInOption | Access.Attachment | Access.BoundObjectFrame | Access.CheckBox | Access.ComboBox | Access.CommandButton | Access.CustomControl | Access.EmptyCell | Access.Form | Access.FormOld | Access.FormOldV10 | Access.Label | Access.ListBox | Access.NavigationButton | Access.NavigationControl | Access.ObjectFrame | Access.OptionButton | Access.OptionGroup | Access.Page | Access.SubForm | Access.TabControl | Access.TextBox | Access.ToggleButton | Access.WebBrowserControl, propertyName: 'accName' | 'accValue', parameterTypes: [any], newValue: string): void;
     set(obj: Access._ControlInReportEvents | Access.ComboBox | Access.Control | Access.ListBox, propertyName: 'Selected', parameterTypes: [number], newValue: number): void;
+    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
     'Access.Application': Access.Application;
-}
-
-interface EnumeratorConstructor {
-    new(col: Access._ItemsSelected): Enumerator<number>;
-    new(col: Access.AccessObjectProperties): Enumerator<Access.AccessObjectProperty>;
-    new(col: Access.AdditionalData): Enumerator<Access.AdditionalData>;
-    new(
-        col: Access.AllDataAccessPages | Access.AllDatabaseDiagrams | Access.AllForms | Access.AllFunctions | Access.AllMacros | Access.AllModules | Access.AllQueries |
-        Access.AllReports | Access.AllStoredProcedures | Access.AllTables | Access.AllViews | Access.DependencyObjects): Enumerator<Access.AccessObject>;
-    new(col: Access.Controls): Enumerator<Access.Control>;
-    new(col: Access.Children | Access.Properties): Enumerator<any>; // tslint:disable-line:use-default-type-parameter
-    new(col: Access.DataAccessPages): Enumerator<Access.DataAccessPage>;
-    new(col: Access.Entities): Enumerator<Access.Entity>;
-    new(col: Access.FormatConditions): Enumerator<Access.FormatCondition>;
-    new(col: Access.Forms): Enumerator<Access.Form>;
-    new(col: Access.ImportExportSpecifications): Enumerator<Access.ImportExportSpecification>;
-    new(col: Access.LocalVars): Enumerator<Access.LocalVar>;
-    new(col: Access.Modules): Enumerator<Access.Module>;
-    new(col: Access.Operations): Enumerator<Access.Operation>;
-    new(col: Access.Pages): Enumerator<Access.Page>;
-    new(col: Access.Printers): Enumerator<Access.Printer>;
-    new(col: Access.References): Enumerator<Access.Reference>;
-    new(col: Access.Reports): Enumerator<Access.Report>;
-    new(col: Access.ReturnVars): Enumerator<Access.ReturnVar>;
-    new(col: Access.SharedResources): Enumerator<Access.SharedResource>;
-    new(col: Access.SmartTagActions): Enumerator<Access.SmartTagAction>;
-    new(col: Access.SmartTagProperties): Enumerator<Access.SmartTagProperty>;
-    new(col: Access.SmartTags): Enumerator<Access.SmartTag>;
-    new(col: Access.TempVars): Enumerator<Access.TempVar>;
-    new(col: Access.WebServices): Enumerator<Access.WebService>;
-    new(col: Access.WSParameters): Enumerator<Access.WSParameter>;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }
