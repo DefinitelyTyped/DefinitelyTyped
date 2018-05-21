@@ -3336,7 +3336,7 @@ const CSSModuleExample = (props: any) => {
 };
 
 class Example107 extends React.Component {
-  private input: HTMLInputElement;
+  private input: HTMLInputElement | null;
 
   render() {
     return <Input type="file" innerRef={(input) => { this.input = input; }} />;
@@ -3694,7 +3694,6 @@ const Example116 = (props: any) => {
 function Example117() {
     const ref = (e: any) => {};
 
-    <Input ref={ref}/>;
     <Button ref={ref}/>;
     <Carousel ref={ref} next={null as any} previous={null as any}/>;
     <CarouselItem ref={ref}/>;
@@ -3712,4 +3711,14 @@ function Example117() {
     <UncontrolledButtonDropdown ref={ref}/>;
     <UncontrolledDropdown ref={ref}/>;
     <UncontrolledTooltip ref={ref} target={null as any}/>;
+}
+
+function Example118() {
+    const ref: string | ((e: any) => void) | React.RefObject<any> = null as any;
+
+    <Button innerRef={ref}/>;
+    <CardLink innerRef={ref}/>;
+    <Form innerRef={ref}/>;
+    <Input innerRef={ref}/>;
+    <NavLink innerRef={ref}/>;
 }
