@@ -403,7 +403,11 @@ declare namespace Office {
          */
         close(): void;
         /**
-         * Adds an event handler for DialogMessageReceived or DialogEventReceived
+         * Registers an event handler. The two supported events are: 
+         * 
+         * - DialogMessageReceived. Triggered when the dialog box sends a message to its parent.
+         * 
+         * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
          */
         addEventHandler(eventType: Office.EventType, handler: Function): void;
 
@@ -716,21 +720,21 @@ declare namespace Office {
         /**
         * Get the Document object associated with the binding.
         * 
-        *@remarks
+        * @remarks
         * Hosts: Access, Excel, Word
         */
         document: Document;
         /**
          * A string that uniquely identifies this binding among the bindings in the same Document object.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          */
         id: string;
         /**
         * Gets the type of the binding.
         * 
-        *@remarks
+        * @remarks
         * Hosts: Access, Excel, Word
         */
         type: BindingType;
@@ -749,7 +753,7 @@ declare namespace Office {
         /**
          * Returns the data contained within the binding.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement sets: MatrixBindings, TableBindings, TextBindings
@@ -782,7 +786,7 @@ declare namespace Office {
         /**
          * Removes the specified handler from the binding for the specified event type.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: BindingEvents
@@ -800,7 +804,7 @@ declare namespace Office {
         /**
          * Writes data to the bound section of the document represented by the specified binding object.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement sets: MatrixBindings, TableBindings, TextBindings
@@ -842,7 +846,7 @@ declare namespace Office {
     /**
     * Represents the bindings the add-in has within the document.
     * 
-    *@remarks
+    * @remarks
     * Hosts: 
     */
     export interface Bindings {
@@ -856,7 +860,7 @@ declare namespace Office {
         /**
          * Creates a binding against a named object in the document.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: MatrixBindings, TableBindings, TextBindings
@@ -889,7 +893,7 @@ declare namespace Office {
         /**
          * Create a binding by prompting the user to make a selection on the document.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel
          * 
          * Available in Requirement set: Not in a set
@@ -913,7 +917,7 @@ declare namespace Office {
         /**
          * Create a binding based on the user's current selection.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: MatrixBindings, TableBindings, TextBindings
@@ -939,7 +943,7 @@ declare namespace Office {
         /**
          * Gets all bindings that were previously created.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: MatrixBindings, TableBindings, TextBindings
@@ -951,7 +955,7 @@ declare namespace Office {
         /**
          * Retrieves a binding based on its Name
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: CustomXmlParts, MatrixBindings, TableBindings, TextBindings
@@ -966,7 +970,7 @@ declare namespace Office {
         /**
          * Removes the binding from the document
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: MatrixBindings, TableBindings, TextBindings
@@ -982,7 +986,7 @@ declare namespace Office {
     /**
     * Represents the runtime environment of the add-in and provides access to key objects of the API.
     * 
-    *@remarks
+    * @remarks
     * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
     */
     export interface Context {
@@ -994,7 +998,7 @@ declare namespace Office {
     /**
      * Represents an XML node in a tree in a document.
      * 
-     *@remarks
+     * @remarks
      * Hosts: Word
      * 
      * Available in Requirement set: CustomXmlParts
@@ -1003,7 +1007,7 @@ declare namespace Office {
         /**
          * Gets the base name of the node without the namespace prefix, if one exists.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1012,7 +1016,7 @@ declare namespace Office {
         /**
          * Retrieves the string GUID of the CustomXMLPart.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1021,7 +1025,7 @@ declare namespace Office {
         /**
          * Gets the type of the CustomXMLNode.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1030,7 +1034,7 @@ declare namespace Office {
         /**
          * Gets the nodes associated with the XPath expression.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1043,7 +1047,7 @@ declare namespace Office {
         /**
          * Gets the node value.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1055,7 +1059,7 @@ declare namespace Office {
         /**
          * Gets the text of an XML node in a custom XML part.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1067,7 +1071,7 @@ declare namespace Office {
         /**
          * Gets the node's XML.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1079,7 +1083,7 @@ declare namespace Office {
         /**
          * Sets the node value.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1092,7 +1096,7 @@ declare namespace Office {
         /**
          * Asynchronously sets the text of an XML node in a custom XML part.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1105,7 +1109,7 @@ declare namespace Office {
         /**
          * Sets the node XML.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1119,7 +1123,7 @@ declare namespace Office {
     /**
      * Represents a single CustomXMLPart in a CustomXMLParts collection.
      * 
-     *@remarks
+     * @remarks
      * Hosts: Word
      * 
      * Available in Requirement set: CustomXmlParts
@@ -1128,7 +1132,7 @@ declare namespace Office {
         /**
          * True, if the custom XML part is built in; otherwise false.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1137,7 +1141,7 @@ declare namespace Office {
         /**
          * Gets the GUID of the CustomXMLPart.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1146,7 +1150,7 @@ declare namespace Office {
         /**
          * Gets the set of namespace prefix mappings (CustomXMLPrefixMappings) used against the current CustomXMLPart.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1155,7 +1159,7 @@ declare namespace Office {
         /**
          * Adds an event handler to the object using the specified event type.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -1169,7 +1173,7 @@ declare namespace Office {
         /**
          * Deletes the Custom XML Part.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1181,7 +1185,7 @@ declare namespace Office {
         /**
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1194,7 +1198,7 @@ declare namespace Office {
         /**
          * Asynchronously gets the XML inside this custom XML part.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1206,7 +1210,7 @@ declare namespace Office {
         /**
          * Removes an event handler for the specified event type.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1221,7 +1225,7 @@ declare namespace Office {
     /**
      * Represents a collection of CustomXmlPart objects.
      * 
-     *@remarks
+     * @remarks
      * Hosts: Word
      * 
      * Available in Requirement set: CustomXmlParts
@@ -1230,7 +1234,7 @@ declare namespace Office {
         /**
          * Asynchronously adds a new custom XML part to a file.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1243,7 +1247,7 @@ declare namespace Office {
         /**
          * Asynchronously gets the specified custom XML part by its id.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1256,7 +1260,7 @@ declare namespace Office {
         /**
          * Asynchronously gets the specified custom XML part(s) by its namespace.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1270,14 +1274,14 @@ declare namespace Office {
     /**
      * Represents a collection of CustomXmlPart objects.
      * 
-     *@remarks
+     * @remarks
      * Hosts: Word
      */
     export interface CustomXmlPrefixMappings {
         /**
          * Asynchronously adds a prefix to namespace mapping to use when querying an item.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1293,7 +1297,7 @@ declare namespace Office {
         /**
          * Asynchronously gets the namespace mapped to the specified prefix.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          *
          * Available in Requirement set: CustomXmlParts
@@ -1308,7 +1312,7 @@ declare namespace Office {
         /**
          * Asynchronously gets the prefix for the specified namespace.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          * 
          * Available in Requirement set: CustomXmlParts
@@ -1324,14 +1328,14 @@ declare namespace Office {
     /**
      * An abstract class that represents the document the add-in is interacting with.
      * 
-     *@remarks
+     * @remarks
      * Hosts: Access, Excel, PowerPoint, Project, Word
      */
     export interface Document {
         /**
          * Gets an object that provides access to the bindings defined in the document.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * You don't instantiate the Document object directly in your script. To call members of the Document object to interact with the current document or worksheet, use Office.context.document in your script.
@@ -1340,35 +1344,35 @@ declare namespace Office {
         /**
          * Gets an object that represents the custom XML parts in the document.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          */
         customXmlParts: CustomXmlParts;
         /**
          * Gets the mode the document is in.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          */
         mode: DocumentMode;
         /**
          * Gets an object that represents the saved custom settings of the content or task pane add-in for the current document.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          */
         settings: Settings;
         /**
          * Gets the URL of the document that the host application currently has open. Returns null if the URL is unavailable.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Word
          */
         url: string;
         /**
          * Adds an event handler for a Document object event.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Excel, PowerPoint, Project, Word
          * 
          * Available in Requirement set: DocumentEvents
@@ -1384,7 +1388,7 @@ declare namespace Office {
         /**
          * Returns the state of the current view of the presentation (edit or read).
          *
-         *@remarks
+         * @remarks
          * Hosts: Excel, PowerPoint, Word
          * 
          * Available in Requirement set: ActiveView
@@ -1398,7 +1402,7 @@ declare namespace Office {
         /**
          * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins for iOS, file slice is supported up to 65536 (64 KB). Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Excel, PowerPoint, Word
          *
          * Available in Requirement set: File
@@ -1428,7 +1432,7 @@ declare namespace Office {
         /**
          * Gets file properties of the current document.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Excel, PowerPoint, Word
          * 
          * Available in Requirement set: not in a set
@@ -1442,7 +1446,7 @@ declare namespace Office {
         /**
          * Reads the data contained in the current selection in the document.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, PowerPoint, Project, Word
          * 
          * Available in Requirement set: Selection
@@ -1476,7 +1480,7 @@ declare namespace Office {
         /**
          * Goes to the specified object or location in the document.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Excel, PowerPoint, Word
          * 
          * Available in Requirement set: not in a set
@@ -1505,7 +1509,7 @@ declare namespace Office {
         /**
          * Removes an event handler for the specified event type.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Excel, PowerPoint, Project, Word
          * 
          * Available in Requirement set: DocumentEvents
@@ -1523,7 +1527,7 @@ declare namespace Office {
         /**
          * Writes the specified data into the current selection.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, PowerPoint, Project, Word, Word Online
          * 
          * Available in Requirement set: Selection
@@ -1588,8 +1592,11 @@ declare namespace Office {
     export interface File {
         /**
          * Gets the document file size in bytes.
+         * 
          * @remarks
          * Hosts: PowerPoint, Word
+         * 
+         * Available in Requirement set: File
          */
         size: number;
         /**
@@ -1605,6 +1612,7 @@ declare namespace Office {
          * 
          * Hosts: PowerPoint, Word
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
+         * 
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the closeAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -1614,6 +1622,8 @@ declare namespace Office {
          * |AsyncResult.status|Determine the success or failure of the operation.|
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
          * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
+         * 
+         * Available in Requirement set: File
          */
         closeAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -1631,6 +1641,8 @@ declare namespace Office {
          * |AsyncResult.status|Determine the success or failure of the operation.|
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
          * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
+         * 
+         * Available in Requirement set: File
          */
         getSliceAsync(sliceIndex: number, callback?: (result: AsyncResult) => void): void;
     }
@@ -1643,7 +1655,7 @@ declare namespace Office {
     /**
     * Represents a binding in two dimensions of rows and columns.
     * 
-    *@remarks
+    * @remarks
          * Hosts: Excel, Word
     * 
     * Available in Requirement set: MatrixBindings
@@ -1654,7 +1666,7 @@ declare namespace Office {
         /**
         * Gets the number of columns in the matrix data structure, as an integer value.
         * 
-        *@remarks
+        * @remarks
         * Hosts: Access, Excel, PowerPoint, Project, Word
         * 
         * Available in Requirement set: MatrixBindings
@@ -1663,7 +1675,7 @@ declare namespace Office {
         /**
         * Gets the number of rows in the matrix data structure, as an integer value.
         * 
-        *@remarks
+        * @remarks
         * Hosts: Access, Excel, PowerPoint, Project, Word
         * 
         * Available in Requirement set: MatrixBindings
@@ -1681,10 +1693,13 @@ declare namespace Office {
      * The Settings object is automatically loaded as part of the Document object, and is available by calling the settings property of that object when the add-in is activated. The developer is responsible for calling the saveAsync method after adding or deleting settings to save the settings in the document.
      * 
      * Hosts: Access, Excel, PowerPoint, Word
+     * 
+     * Available in Requirement set: Settings
      */
     export interface Settings {
         /**
          * Adds an event handler for the settingsChanged event.
+         * 
          * @remarks
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          * 
@@ -1692,6 +1707,9 @@ declare namespace Office {
          * > Your add-in's code can register a handler for the settingsChanged event when the add-in is running with any Excel client, but the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel Online, and more than one user is editing the spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
          * 
          * Hosts: Excel
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param eventType Specifies the type of event to add. Required.
          * @param handler The event handler function to add. Required.
          * @param options Specifies any of the following optional parameters.
@@ -1710,19 +1728,27 @@ declare namespace Office {
         addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Retrieves the specified setting.
+         * 
          * @remarks
          * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param settingName The case-sensitive name of the setting to retrieve.
          * @returns An object that has property names mapped to JSON serialized values.
          */
         get(name: string): any;
         /**
          * Reads all settings persisted in the document and refreshes the content or task pane add-in's copy of those settings held in memory.
+         * 
          * @remarks
          * This method is useful in Word and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against the same document. Because each add-in is working against an in-memory copy of the settings loaded from the document at the time the user opened it, the settings values used by each user can get out of sync. This can happen whenever an instance of the add-in calls the Settings.saveAsync method to persist all of that user's settings to the document. Calling the refreshAsync method from the event handler for the settingsChanged event of the add-in will refresh the settings values for all users.
          * The refreshAsync method can be called from add-ins created for Excel, but since it doesn't support coauthoring there is no reason to do so.
          * 
          * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
@@ -1737,21 +1763,29 @@ declare namespace Office {
         refreshAsync(callback?: (result: AsyncResult) => void): void;
         /**
          * Removes the specified setting.
+         * 
          * @remarks
          * null is a valid value for a setting. Therefore, assigning null to the setting will not remove it from the settings property bag.
          * 
          * > [!IMPORTANT]
          * > Be aware that the Settings.remove method affects only the in-memory copy of the settings property bag. To persist the removal of the specified setting in the document, at some point after calling the Settings.remove method and before the add-in is closed, you must call the Settings.saveAsync method.
          * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param settingName The case-sensitive name of the setting to remove.
          */
         remove(name: string): void;
         /**
          * Removes an event handler for the settingsChanged event.
+         * 
          * @remarks
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType will be removed.
          * 
          * Hosts: Access, Excel, PowerPoint
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param eventType Specifies the type of event to remove. Required.
          * @param options Specifies any of the following optional parameters.
          * @param handler Specifies the name of the handler to remove.
@@ -1772,6 +1806,9 @@ declare namespace Office {
          * > The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
          * 
          * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param options Syntax example: {overwriteIfStale:false}
          * @param overwriteIfStale Indicates whether the setting will be replaced if stale.
          *        asyncContext: Object keeping state for the callback
@@ -1789,6 +1826,7 @@ declare namespace Office {
         saveAsync(callback?: (result: AsyncResult) => void): void;
         /**
          * Sets or creates the specified setting.
+         * 
          * @remarks
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name in the in-memory copy of the settings property bag. After you call the Settings.saveAsync method, the value is stored in the document as the serialized JSON representation of its data type. A maximum of 2MB is available for the settings of each add-in.
          * 
@@ -1796,6 +1834,9 @@ declare namespace Office {
          * > Be aware that the Settings.set method affects only the in-memory copy of the settings property bag. To make sure that additions or changes to settings will be available to your add-in the next time the document is opened, at some point after calling the Settings.set method and before the add-in is closed, you must call the Settings.saveAsync method to persist settings in the document.
          * 
          * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param settingName The case-sensitive name of the setting to set or create.
          * @param value Specifies the value to be stored.
          */
@@ -1803,37 +1844,49 @@ declare namespace Office {
     }
     /**
      * Represents a slice of a document file.
+     * 
      * @remarks
      * The Slice object is accessed with the File.getSliceAsync method.
      * 
      * Hosts: PowerPoint, Word
+     * 
+     * Available in Requirement set: File
      */
     export interface Slice {
         /**
          * Gets the raw data of the file slice in Office.FileType.Text ("text") or Office.FileType.Compressed ("compressed") format as specified by the fileType parameter of the call to the Document.getFileAsync method.
+         * 
          * @remarks
          * Files in the "compressed" format will return a byte array that can be transformed to a base64-encoded string if required.
          * 
          * Hosts: PowerPoint, Word
+         * 
+         * Available in Requirement set: File
          */
         data: any;
         /**
          * Gets the zero-based index of the file slice.
+         * 
          * @remarks
          * Hosts: PowerPoint, Word
+         * 
+         * Available in Requirement set: File
          */
         index: number;
         /**
          * Gets the size of the slice in bytes.
+         * 
          * @remarks
          * Hosts: PowerPoint, Word
+         * 
+         * Available in Requirement set: File
          */
         size: number;
     }
     /**
     * Represents a binding in two dimensions of rows and columns, optionally with headers.
     * 
-    *@remarks
+    * @remarks
     * Hosts: Access, Excel, PowerPoint, Project, Word
     * 
     * Available in Requirement set: TableBindings
@@ -1846,7 +1899,7 @@ declare namespace Office {
         /**
         * Gets the number of columns in the TableBinding, as an integer value.
         * 
-        *@remarks
+        * @remarks
         * Hosts: Access, Excel,Word
         * 
         * Available in Requirement set: TableBindings
@@ -1855,7 +1908,7 @@ declare namespace Office {
         /**
         * True, if the table has headers; otherwise false.
         * 
-        *@remarks
+        * @remarks
         * Hosts: Access, Excel, PowerPoint, Project, Word
         * 
         * Available in Requirement set: TableBindings
@@ -1864,7 +1917,7 @@ declare namespace Office {
          /**
         * Gets the number of rows in the TableBinding, as an integer value.
         * 
-        *@remarks
+        * @remarks
         * Hosts: Access, Excel,Word
         * 
         * Available in Requirement set: TableBindings
@@ -1883,7 +1936,7 @@ declare namespace Office {
         /**
          * Adds the specified data to the table as additional columns.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Excel, Word
          * 
          * Available in Requirement set: TableBindings
@@ -1908,7 +1961,7 @@ declare namespace Office {
         /**
          * Adds the specified data to the table as additional rows.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: TableBindings
@@ -1933,7 +1986,7 @@ declare namespace Office {
         /**
          * Deletes all non-header rows and their values in the table, shifting appropriately for the host application.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: TableBindings
@@ -1947,7 +2000,7 @@ declare namespace Office {
         /**
          * Clears formatting on the bound table.
          *
-         *@remarks
+         * @remarks
          * Hosts: Excel
          * 
          * Available in Requirement set: Not in a set
@@ -1969,7 +2022,7 @@ declare namespace Office {
         /**
          * Sets formatting on specified items and data in the table.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Excel
          * 
          * Available in Requirement set: Not in a set
@@ -1989,7 +2042,7 @@ declare namespace Office {
         /**
          * Updates table formatting options on the bound table.
          *
-         *@remarks
+         * @remarks
          * Hosts: Excel
          * 
          * Available in Requirement set: Not in a set
@@ -2002,8 +2055,11 @@ declare namespace Office {
     }
     /**
      * Represents the data in a table or a TableBinding.
+     * 
      * @remarks
      * Hosts: Excel, Word
+     * 
+     * Available in Requirement set: TableBindings
      */
     export class TableData {
         constructor(rows: any[][], headers: any[]);
@@ -2020,6 +2076,8 @@ declare namespace Office {
          * - If you overwrite or update an existing table, the existing headers are not altered.
          * 
          * Hosts: Excel, Word
+         * 
+         * Available in Requirement set: TableBindings
          */
         headers: any[];
         /**
@@ -2034,6 +2092,8 @@ declare namespace Office {
          * - If you overwrite or update an existing table, the existing rows are not altered.
          * 
          * Hosts: Excel, Word
+         * 
+         * Available in Requirement set: TableBindings
          */
         rows: any[][];
     }
@@ -2060,7 +2120,7 @@ declare namespace Office {
     /**
     * Represents a bound text selection in the document.
     * 
-    *@remarks
+    * @remarks
     * Hosts: Access, Excel, PowerPoint, Project, Word
     * 
     * Available in Requirement set: TextBindings
@@ -4502,7 +4562,7 @@ declare namespace Office {
     /**
     * Represents the runtime environment of the add-in and provides access to key objects of the API.
     * 
-    *@remarks
+    * @remarks
     * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
     */
     export interface Context {
@@ -5742,7 +5802,7 @@ declare namespace Excel {
          *
          * Gets the Binding object that represents the binding that raised the SelectionChanged event.
          * 
-         *@remarks
+         * @remarks
          * Hosts: Access, Excel, Word
          *
          * [Api set: ExcelApi 1.2]
