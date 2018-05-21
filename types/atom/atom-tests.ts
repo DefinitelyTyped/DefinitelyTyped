@@ -1327,7 +1327,8 @@ function testMarkerLayer() {
     markers = markerLayer.findMarkers({ containsRange: [[0, 0], pos] });
     markers = markerLayer.findMarkers({ containsRange: [[0, 0], [0, 0]] });
 
-    str = markerLayer.getRole();
+    const role = markerLayer.getRole();
+    if (role) str = role;
 
     // Marker creation
     marker = markerLayer.markRange(range);
