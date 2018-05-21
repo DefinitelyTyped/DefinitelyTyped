@@ -55,7 +55,9 @@ export function interpolateString(a: string | { toString(): string }, b: string 
 
 export function interpolateDate(a: Date, b: Date): ((t: number) => Date);
 
-export function interpolateArray<A extends any[]>(a: any[], b: A): ((t: number) => A);
+type ArrayInterpolator<A  = any[]> = ((t: number) => A);
+
+export function interpolateArray<A extends any[]>(a: any[], b: A): ArrayInterpolator<A>;
 
 export function interpolateObject<U extends any>(a: any, b: U): ((t: number) => U);  // TODO: extends 'any' should become 'object' with TS 2.2+ definitions
 export function interpolateObject(a: { [key: string]: any }, b: { [key: string]: any }): ((t: number) => { [key: string]: any });
@@ -89,3 +91,7 @@ export const interpolateCubehelixLong: ColorGammaInterpolationFactory;
 
 export function interpolateBasis(splineNodes: number[]): ((t: number) => number);
 export function interpolateBasisClosed(splineNodes: number[]): ((t: number) => number);
+
+export function piecewise(interpolate: (a: ZoomView, b: ZoomView) => ZoomInterpolator, values: ZoomView[]): ZoomInterpolator;
+export function piecewise<A extends any[]>(interpolate: (a: any[], b: A) => ArrayInterpolator<A>, values: A): ArrayInterpolator<A>;
+export function piecewise<TData, Interpolator>(interpolate: (a: TData, b: TData) => Interpolator, values: TData[]): (t: number) => any;
