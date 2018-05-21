@@ -232,7 +232,7 @@ iNum = d3Interpolate.interpolateBasisClosed([1, 50, 30, 10]);
 
 iString = d3Interpolate.piecewise(d3Interpolate.interpolateRgb.gamma(2.2), ['red', 'green', 'blue']);
 iString = d3Interpolate.piecewise(d3Interpolate.interpolateCubehelix, ['red', 'green', 'blue']);
-iZoom = d3Interpolate.piecewise(d3Interpolate.interpolateZoom, [[50, 50, 300], [100, 100, 500]] as d3Interpolate.ZoomView[]);
+iZoom = d3Interpolate.piecewise(d3Interpolate.interpolateZoom, [[50, 50, 300], [100, 100, 500]]);
 iNum = d3Interpolate.piecewise(d3Interpolate.interpolateNumber, [1, 2, 3]);
 iNum = d3Interpolate.piecewise(d3Interpolate.interpolateRound, [1.1, 2.2, 3.3]);
 iString = d3Interpolate.piecewise(d3Interpolate.interpolateString, ['a', 'b', 'c']);
