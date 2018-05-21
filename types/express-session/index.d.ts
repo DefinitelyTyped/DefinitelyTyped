@@ -87,6 +87,7 @@ declare namespace session {
     all: (callback: (err: any, obj?: { [sid: string]: Express.SessionData; } | null) => void) => void;
     length: (callback: (err: any, length?: number | null) => void) => void;
     clear: (callback?: (err?: any) => void) => void;
+    touch: (sid: string, session: Express.Session, callback?: (err?: any) => void) => void;
   }
 
   class MemoryStore implements BaseMemoryStore {
@@ -96,6 +97,7 @@ declare namespace session {
     all: (callback: (err: any, obj?: { [sid: string]: Express.Session; } | null) => void) => void;
     length: (callback: (err: any, length?: number | null) => void) => void;
     clear: (callback?: (err?: any) => void) => void;
+    touch: (sid: string, session: Express.Session, callback?: (err?: any) => void) => void;
   }
 }
 
