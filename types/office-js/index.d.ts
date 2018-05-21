@@ -360,7 +360,7 @@ declare namespace Office {
         * @remarks
         * Hosts: Excel, OneNote, Outlook, PowerPoint, Word
         * 
-        * Requirement sets: IdentityApi
+        * Requirement sets: IdentityAPI
         * 
         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
         * 
