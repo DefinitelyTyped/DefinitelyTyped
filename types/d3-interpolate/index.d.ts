@@ -2,7 +2,6 @@
 // Project: https://github.com/d3/d3-interpolate/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.2.0
 
@@ -56,7 +55,7 @@ export function interpolateString(a: string | { toString(): string }, b: string 
 
 export function interpolateDate(a: Date, b: Date): ((t: number) => Date);
 
-type ArrayInterpolator<A  = any[]> = ((t: number) => A);
+type ArrayInterpolator<A extends any[]> = ((t: number) => A);
 
 export function interpolateArray<A extends any[]>(a: any[], b: A): ArrayInterpolator<A>;
 
