@@ -14,12 +14,15 @@
         "typeRoots": [
             "../../"
         ],
+        "types": [],
         "paths": {
             "react-navigation": [
                 "react-navigation/v2"
+            ],
+            "react-navigation/*": [
+                "react-navigation/v2/*"
             ]
         },
-        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
