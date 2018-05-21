@@ -403,7 +403,11 @@ declare namespace Office {
          */
         close(): void;
         /**
-         * Adds an event handler for DialogMessageReceived or DialogEventReceived
+         * Registers an event handler. The two supported events are: 
+         * 
+         * - DialogMessageReceived. Triggered when the dialog box sends a message to its parent.
+         * 
+         * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
          */
         addEventHandler(eventType: Office.EventType, handler: Function): void;
 
