@@ -755,8 +755,8 @@ declare namespace core {
         raw(template: TemplateStringsArray, ...substitutions: any[]): string;
         startsWith(text: string, searchString: string, position?: number): boolean;
         at(text: string, index: number): string;
-        lpad(text: string, length: number, fillStr?: string): string;
-        rpad(text: string, length: number, fillStr?: string): string;
+        padStart(text: string, length: number, fillStr?: string): string;
+        padEnd(text: string, length: number, fillStr?: string): string;
         escapeHTML(text: string): string;
         unescapeHTML(text: string): string;
     };
@@ -1454,9 +1454,13 @@ declare module "core-js/fn/string/includes" {
     const includes: typeof core.String.includes;
     export = includes;
 }
-declare module "core-js/fn/string/lpad" {
-    const lpad: typeof core.String.lpad;
-    export = lpad;
+declare module "core-js/fn/string/pad-end" {
+    const padEnd: typeof core.String.padEnd;
+    export = padEnd;
+}
+declare module "core-js/fn/string/pad-start" {
+    const padStart: typeof core.String.padStart;
+    export = padStart;
 }
 declare module "core-js/fn/string/raw" {
     const raw: typeof core.String.raw;
@@ -1465,10 +1469,6 @@ declare module "core-js/fn/string/raw" {
 declare module "core-js/fn/string/repeat" {
     const repeat: typeof core.String.repeat;
     export = repeat;
-}
-declare module "core-js/fn/string/rpad" {
-    const rpad: typeof core.String.rpad;
-    export = rpad;
 }
 declare module "core-js/fn/string/starts-with" {
     const startsWith: typeof core.String.startsWith;
@@ -2273,9 +2273,13 @@ declare module "core-js/library/fn/string/includes" {
     const includes: typeof core.String.includes;
     export = includes;
 }
-declare module "core-js/library/fn/string/lpad" {
-    const lpad: typeof core.String.lpad;
-    export = lpad;
+declare module "core-js/library/fn/string/pad-end" {
+    const padEnd: typeof core.String.padEnd;
+    export = padEnd;
+}
+declare module "core-js/library/fn/string/pad-start" {
+    const padStart: typeof core.String.padStart;
+    export = padStart;
 }
 declare module "core-js/library/fn/string/raw" {
     const raw: typeof core.String.raw;
@@ -2284,10 +2288,6 @@ declare module "core-js/library/fn/string/raw" {
 declare module "core-js/library/fn/string/repeat" {
     const repeat: typeof core.String.repeat;
     export = repeat;
-}
-declare module "core-js/library/fn/string/rpad" {
-    const rpad: typeof core.String.rpad;
-    export = rpad;
 }
 declare module "core-js/library/fn/string/starts-with" {
     const startsWith: typeof core.String.startsWith;
