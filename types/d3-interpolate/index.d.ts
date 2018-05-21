@@ -55,7 +55,7 @@ export function interpolateString(a: string | { toString(): string }, b: string 
 
 export function interpolateDate(a: Date, b: Date): ((t: number) => Date);
 
-type ArrayInterpolator<A extends any[]> = ((t: number) => A);
+export type ArrayInterpolator<A extends any[]> = ((t: number) => A);
 
 export function interpolateArray<A extends any[]>(a: any[], b: A): ArrayInterpolator<A>;
 
