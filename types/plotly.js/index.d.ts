@@ -386,7 +386,7 @@ export interface ScatterData {
 	'marker.colorbar': {}; // TODO
 	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
 	hoveron: 'points' | 'fills';
-    hoverinfo: 'all' | 'none' | 'skip' |
+    hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
                'x' | 'x+text' | 'x+name' |
                'x+y' | 'x+y+text' | 'x+y+name' |
                'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
