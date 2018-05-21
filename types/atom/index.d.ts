@@ -1005,7 +1005,7 @@ export interface MarkerLayer {
     findMarkers(params: FindMarkerOptions): Marker[];
 
     /** Get the role of the marker layer e.g. "atom.selection". */
-    getRole(): string;
+    getRole(): string | undefined;
 
     // Marker Creation
     /** Create a marker with the given range. */
