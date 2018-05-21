@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
@@ -17,5 +18,5 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   cssModule?: CSSModule;
 }
 
-declare const Button: React.StatelessComponent<ButtonProps>;
+declare class Button extends React.Component<ButtonProps> {}
 export default Button;

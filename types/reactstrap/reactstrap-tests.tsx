@@ -3691,8 +3691,25 @@ const Example116 = (props: any) => {
   );
 };
 
-class Example117 extends React.Component {
-  render() {
-    return <Input ref={e => { console.log(e); }}/>;
-  }
+function Example117() {
+    const ref = (e: any) => {};
+
+    <Input ref={ref}/>;
+    <Button ref={ref}/>;
+    <Carousel ref={ref} next={null as any} previous={null as any}/>;
+    <CarouselItem ref={ref}/>;
+    <Collapse ref={ref}/>;
+    <Dropdown ref={ref}/>;
+    <DropdownItem ref={ref}/>;
+    <DropdownToggle ref={ref}/>;
+    <Form ref={ref}/>;
+    <Input ref={ref}/>;
+    <Modal ref={ref}/>;
+    <NavLink ref={ref}/>;
+    <TabContent ref={ref}/>;
+    <Tooltip ref={ref} target={null as any}/>;
+    <UncontrolledAlert ref={ref}/>;
+    <UncontrolledButtonDropdown ref={ref}/>;
+    <UncontrolledDropdown ref={ref}/>;
+    <UncontrolledTooltip ref={ref} target={null as any}/>;
 }

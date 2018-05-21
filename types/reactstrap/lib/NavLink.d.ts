@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface NavLinkProps extends React.HTMLProps<HTMLAnchorElement> {
@@ -11,5 +12,5 @@ export interface NavLinkProps extends React.HTMLProps<HTMLAnchorElement> {
   href?: string;
 }
 
-declare const NavLink: React.StatelessComponent<NavLinkProps>;
+declare class NavLink extends React.Component<NavLinkProps> {}
 export default NavLink;

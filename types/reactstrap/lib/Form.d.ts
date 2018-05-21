@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface FormProps extends React.HTMLProps<HTMLFormElement> {
@@ -8,5 +9,5 @@ export interface FormProps extends React.HTMLProps<HTMLFormElement> {
   cssModule?: CSSModule;
 }
 
-declare const Form: React.StatelessComponent<FormProps>;
+declare class Form extends React.Component<FormProps> {}
 export default Form;
