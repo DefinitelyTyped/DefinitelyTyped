@@ -145,38 +145,30 @@ declare namespace Office {
     }
     // Objects
         /**
-		* An object which encapsulates the result of an asynchronous request, including status and error information if the request failed.
-		* 
+        * An object which encapsulates the result of an asynchronous request, including status and error information if the request failed.
+        * 
         * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
         *
-        * **Last changed in**: 1.1
-        * 
         * @remarks
         * When the function you pass to the `callback` parameter of an "Async" method executes, it receives an AsyncResult object that you can access from the `callback` function's only parameter.
-		*/
+        */
         export interface AsyncResult {
         /**
         * Gets the user-defined item passed to the optional `asyncContext` parameter of the invoked method in the same state as it was passed in. This the user-defined item (which can be of any JavaScript type: String, Number, Boolean, Object, Array, Null, or Undefined) passed to the optional `asyncContext` parameter of the invoked method. Returns Undefined, if you didn't pass anything to the asyncContext parameter.
         * 
         * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
-        * 
-        * **Last changed in**: 1.1
         */
         asyncContext: any;
         /**
         * Gets the [AsyncResultStatus](office.asyncresultstatus.md) of the asynchronous operation.
         * 
         * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
-        * 
-        * **Last changed in**: 1.1
         */
         status: AsyncResultStatus;
         /**
         * Gets an [Error](office.error.md) object that provides a description of the error, if any error occurred.
         * 
         * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
-        * 
-        * **Last changed in**: 1.1
         */
         error: Error;
         /**
@@ -185,8 +177,6 @@ declare namespace Office {
         * Note: What the value property returns for a particular "Async" method varies depending on the purpose and context of that method. To determine what is returned by the value property for an "Async" method, refer to the "Callback value" section of the method's topic. For a complete listing of the "Async" methods, see the Remarks section of the AsyncResult object topic.
         * 
         * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
-        * 
-        * **Last changed in**: 1.1
         * 
         * @remarks
         * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, such as the `getSelectedDataAsync` and `setSelectedDataAsync` methods of the Document object.
@@ -482,8 +472,6 @@ declare namespace Office {
          * 
          * Hosts: Access, Excel, Word
          * 
-         * Last changed in: 1.1
-         * 
          * @remarks
          * To add an event handler for the BindingDataChanged event of a binding, use the addHandlerAsync method of the Binding object. The event handler receives an argument of type BindingDataChangedEventArgs.
          */
@@ -494,8 +482,6 @@ declare namespace Office {
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: BindingEvents
-         * 
-         * Last changed in: 1.1
          * 
          * @remarks
          * To add an event handler for the BindingSelectionChanged event of a binding, use the addHandlerAsync method of the Binding object. The event handler receives an argument of type BindingSelectionChangedEventArgs.
@@ -656,8 +642,6 @@ declare namespace Office {
     * 
     * **Available in Requirement sets**: MatrixBinding, TableBinding, TextBinding
     * 
-    * **Last changed in**: 1.1
-    * 
     * @remarks
     * The Binding object exposes the functionality possessed by all bindings regardless of type.
     * 
@@ -668,25 +652,19 @@ declare namespace Office {
         * Get the Document object associated with the binding.
         * 
         * **Hosts**: Access, Excel, Word
-        * 
-        * **Last changed in**: 1.1
         */
         document: Document;
         /**
          * A string that uniquely identifies this binding among the bindings in the same Document object.
          * 
          * Hosts: Access, Excel, Word
-         * 
-         * Last changed in: 1.1
          */
         id: string;
         /**
-		* Gets the type of the binding.
-		* 
+        * Gets the type of the binding.
+        * 
         * **Hosts**: Access, Excel, Word
-        
-		* **Last changed in**: 1.1
-		*/
+        */
         type: BindingType;
         /**
          * Adds an event handler to the object for the specified event type.
@@ -706,8 +684,6 @@ declare namespace Office {
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement sets: MatrixBindings, TableBindings, TextBindings
-         * 
-         * Last changed in: 1.1
          * 
          * @remarks
          * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
@@ -742,8 +718,6 @@ declare namespace Office {
          * 
          * **Available in Requirement set**: BindingEvents
          * 
-         * **Last changed in**: 1.1
-         * 
          * @param eventType The event type. For binding can be 'bindingDataChanged' and 'bindingSelectionChanged'
          * @param options An object with any of the following:
          * 
@@ -760,8 +734,6 @@ declare namespace Office {
          * **Hosts**: Access, Excel, Word
          * 
          * **Available in Requirement sets**: MatrixBindings, TableBindings, TextBindings
-         * 
-         * **Last changed in**: 1.1
          * 
          * @param data The data to be set in the current selection. Possible data types by host:
          * 
@@ -1174,31 +1146,25 @@ declare namespace Office {
     * 
     * **Available in Requirement set**: MatrixBindings
     * 
-    * **Last changed in**: 1.1
-    * 
     * @remarks
     * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
     */
     export interface MatrixBinding extends Binding {
         /**
-		* Gets the number of columns in the matrix data structure, as an integer value.
-		* 
+        * Gets the number of columns in the matrix data structure, as an integer value.
+        * 
         * **Hosts**: Access, Excel, PowerPoint, Project, Word
         * 
         * Available in Requirement set: MatrixBindings
-        *
-		* **Last changed in**: 1.1
-		*/
+        */
         columnCount: number;
         /**
-		* Gets the number of rows in the matrix data structure, as an integer value.
-		* 
+        * Gets the number of rows in the matrix data structure, as an integer value.
+        * 
         * **Hosts**: Access, Excel, PowerPoint, Project, Word
         * 
         * Available in Requirement set: MatrixBindings
-        *
-		* **Last changed in**: 1.1
-		*/
+        */
         rowCount: number;
     }
     /**
