@@ -7,16 +7,18 @@
 import { VueConstructor, PluginFunction } from 'vue';
 import { NavigationGuard } from 'vue-router';
 
-export interface OktaVueOptions {
-    issuer: string;
-    client_id: string;
-    redirect_uri: string;
-    scope: string;
-}
-export function OktaVuePlugin(vm: VueConstructor, options: OktaVueOptions): void;
-export namespace OktaVuePlugin {
+declare namespace OktaVuePlugin {
+	interface OktaVueOptions {
+		issuer: string;
+		client_id: string;
+		redirect_uri: string;
+		scope: string;
+	}
+
+	function install(vm: VueConstructor, options: OktaVueOptions): PluginFunction<VueConstructor>;
     function handleCallback(): VueConstructor;
 }
+declare function OktaVuePlugin(): PluginFunction<VueConstructor>;
 export default OktaVuePlugin;
 
 declare module 'vue/types/vue' {
