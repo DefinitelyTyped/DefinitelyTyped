@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
+// Type definitions for Material Components Web 0.35
 // Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -21,7 +21,7 @@
  */
 
 import * as util from './util';
-export {MDCSlidableDrawerAdapter} from './slidable';
-export {MDCTemporaryDrawer, MDCTemporaryDrawerFoundation} from './temporary';
-export {MDCPersistentDrawer, MDCPersistentDrawerFoundation} from './persistent';
-export {util};
+export { MDCSlidableDrawerAdapter } from './slidable';
+export { MDCTemporaryDrawer, MDCTemporaryDrawerFoundation } from './temporary';
+export { MDCPersistentDrawer, MDCPersistentDrawerFoundation } from './persistent';
+export { util };
