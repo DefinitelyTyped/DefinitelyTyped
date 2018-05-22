@@ -1,4 +1,4 @@
-// Type definitions for ion-rangeslider 11.1
+// Type definitions for ion-rangeslider 2.2
 // Project: https://github.com/IonDen/ion.rangeSlider/
 // Definitions by: Karel van de Plassche <https://github.com/Karel-van-de-Plassche>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
