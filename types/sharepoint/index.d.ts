@@ -2157,15 +2157,11 @@ declare namespace SP {
     }
     let ClientObjectCollection: ClientObjectCollectionConstructor;
 
-    interface ClientObjectList<T> extends SP.ClientObjectCollection<T> {
-        new(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any): ClientObjectList<T>;
+    class ClientObjectList<T> extends SP.ClientObjectCollection<T> {
+        constructor(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
         fromJson(initValue: any): void;
         customFromJson(initValue: any): boolean;
     }
-    interface ClientObjectListConstructor {
-        new<T>(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any): ClientObjectList<T>;
-    }
-    let ClientObjectList: ClientObjectListConstructor;
     class ClientObjectPrototype {
         retrieve(propertyNames?: string[]): void;
         retrieveObject(propertyName: string): SP.ClientObjectPrototype;
@@ -2209,8 +2205,8 @@ declare namespace SP {
     }
     class ClientRequestSucceededEventArgs extends SP.ClientRequestEventArgs {
     }
-    interface ClientRuntimeContext extends Sys.IDisposable {
-        new(serverRelativeUrlOrFullUrl: string): ClientRuntimeContext;
+    class ClientRuntimeContext implements Sys.IDisposable {
+        constructor(serverRelativeUrlOrFullUrl: string);
         get_url(): string;
         get_viaUrl(): string;
         set_viaUrl(value: string): void;
