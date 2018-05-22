@@ -15,7 +15,13 @@ Copyright (c) Microsoft Corporation
 ////////////////////////////////////////////////////////////////
 
 declare namespace Office {
+    /**
+    * Provides a container for APIs that are still in Preview, not released for use in production add-ins.
+    */
     export var Preview: {
+        /**
+         * Initializes the use of custom JavaScript functions in Excel.
+         */
         startCustomFunctions(): Promise<void>;
     }
 
@@ -146,63 +152,105 @@ declare namespace Office {
     // Objects
         /**
         * An object which encapsulates the result of an asynchronous request, including status and error information if the request failed.
-        * 
-        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
-        *
+        *         
         * @remarks
+        * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
+        * 
         * When the function you pass to the `callback` parameter of an "Async" method executes, it receives an AsyncResult object that you can access from the `callback` function's only parameter.
         */
         export interface AsyncResult {
         /**
         * Gets the user-defined item passed to the optional `asyncContext` parameter of the invoked method in the same state as it was passed in. This the user-defined item (which can be of any JavaScript type: String, Number, Boolean, Object, Array, Null, or Undefined) passed to the optional `asyncContext` parameter of the invoked method. Returns Undefined, if you didn't pass anything to the asyncContext parameter.
-        * 
-        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
+        *         
+        * @remarks
+        * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
         */
         asyncContext: any;
         /**
         * Gets the [AsyncResultStatus](office.asyncresultstatus.md) of the asynchronous operation.
         * 
-        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
+        * @remarks
+        * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
         */
         status: AsyncResultStatus;
         /**
         * Gets an [Error](office.error.md) object that provides a description of the error, if any error occurred.
         * 
-        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
+        * @remarks
+        * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
         */
         error: Error;
         /**
         * Gets the payload or content of this asynchronous operation, if any.
+        
+        * @remarks
+        * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, such as the `getSelectedDataAsync` and `setSelectedDataAsync` methods of the Document object.
         * 
         * Note: What the value property returns for a particular "Async" method varies depending on the purpose and context of that method. To determine what is returned by the value property for an "Async" method, refer to the "Callback value" section of the method's topic. For a complete listing of the "Async" methods, see the Remarks section of the AsyncResult object topic.
         * 
-        * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
-        * 
-        * @remarks
-        * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, such as the `getSelectedDataAsync` and `setSelectedDataAsync` methods of the Document object.
+        * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
         */
         value: any;
     }
+    /**
+    * Represents the runtime environment of the add-in and provides access to key objects of the API.
+    * 
+    * @remarks
+    * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
+    */
     export interface Context {
+        /**
+        * Provides information and access to the signed-in user.
+        */ 
         auth: Auth;
+        /**
+        * Gets the locale (language) specified by the user for editing the document or item.
+        */
         contentLanguage: string;
+        /**
+        * Gets the locale (language) specified by the user for the UI of the Office host application.
+        */
         displayLanguage: string;
+        /**
+        * 
+        */
         license: string;
+        /**
+        * Provides access to the properties for Office theme colors.
+        */
         officeTheme: OfficeTheme;
+        /**
+        * Provides access to the properties for Office theme colors.
+        */
         touchEnabled: boolean;
+        /**
+        * Provides objects and methods that you can use to create and manipulate UI components, such as dialog boxes.
+        */
         ui: UI;
+        /**
+        * Contains the host in which the add-in (web application) is running in. Possible values are: Word, Excel, PowerPoint
+        */
         host: HostType;
+        /**
+        * Provides the platform on which the add-in is running. Possible values are: PC, OfficeOnline, Mac, iOS, Android, Universal
+        */
         platform: PlatformType;
+        /**
+        * 
+        */
         diagnostics: {
             host: HostType;
             platform: PlatformType;
             version: string;
         };
+        /**
+        * Provides a method for determining what requirement sets are supported on the current host and platform.
+        */
         requirements: {
             /**
              * Check if the specified requirement set is supported by the host Office application.
-             * @param name - Set name. e.g.: "MatrixBindings".
-             * @param minVersion - The minimum required version.
+             * @param name - Set name; e.g., "MatrixBindings".
+             * @param minVersion - The minimum required version; e.g., "1.4".
              */
             isSetSupported(name: string, minVersion?: number): boolean;
         }
@@ -234,29 +282,42 @@ declare namespace Office {
      */
     export interface UI {
         /**
-        * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
+        * Displays a dialog to show or collect information from the user or to facilitate Web navigation. 
+        *         
+        * @remarks
+        * Hosts: Word, Excel, Outlook, PowerPoint
+        * 
+        * Requirement sets: DialogApi, Mailbox 1.4
+        * 
+        * The initial page must be on the same domain as the parent page (the startAddress parameter). After the initial page loads, you can go to other domains.
+        * 
+        * Any page calling office.context.ui.messageParent must also be on the same domain as the parent page.
+        * 
+        * The following design considerations apply to dialog boxes:
+        * 
+        * - An Office Add-in can have only one dialog box open at any time.
+        * 
+        * - Every dialog box can be moved and resized by the user.
+        * 
+        * - Every dialog box is centered on the screen when opened.
+        * 
+        * - Dialog boxes appear on top of the host application and in the order in which they were created.
+        * 
+        * Use a dialog box to:
+        * 
+        * - Display authentication pages to collect user credentials.
+        * 
+        * - Display an error/progress/input screen from a ShowTaspane or ExecuteAction command.
+        * 
+        * - Temporarily increase the surface area that a user has available to complete a task.
+        * 
+        * Do not use a dialog box to interact with a document. Use a task pane instead.
+        *
         * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
+        * @param options - Optional. Accepts a DialogOptions object to define dialog display.
+        * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt. If successful, the AsyncResult.value is a DialogHandler object.
         */
-        displayDialogAsync(startAddress: string): void;
-        /**
-        * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
-        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
-        * @param options - Optional. Accepts a DialogOptions object to define dialog behaviors.
-        */
-        displayDialogAsync(startAddress: string, options: DialogOptions): void;
-        /**
-        * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
-        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
-        * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt.
-        */
-        displayDialogAsync(startAddress: string, callback: (result: AsyncResult) => void): void;
-        /**
-        * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
-        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
-        * @param options - Optional. Accepts a DialogOptions object to define dialog behaviors.
-        * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt.
-        */
-        displayDialogAsync(startAddress: string, options: DialogOptions, callback: (result: AsyncResult) => void): void;
+        displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. 
          * @param messageObject Accepts a message from the dialog to deliver to the add-in.
@@ -265,6 +326,7 @@ declare namespace Office {
         /**
          * Closes the UI container where the JavaScript is executing.
          * 
+         * @remarks
          * The behavior of this method is specified by the following:
          * 
          * - Called from a UI-less command button: No effect. Any dialog opened by displayDialogAsync will remain open.
@@ -273,36 +335,39 @@ declare namespace Office {
          * 
          * - Called from a module extension: No effect.
          * 
-         * Hosts: Outlook - Minimum requirement set: Mailbox 1.5
+         * Hosts: Excel, Word, PowerPoint, Outlook (Minimum requirement set: Mailbox 1.5)
          */
         closeContainer(): void;
     }
     export interface DialogOptions {
         /**
-         * Optional. Defines the width of the dialog as a percentage of the current display. Defaults to 99%. 250px minimum.
+         * Defines the width of the dialog as a percentage of the current display. Defaults to 80%. 250px minimum.
          */
         height?: number,
         /**
-         * Optional. Defines the height of the dialog as a percentage of the current display. Defaults to 99%. 150px minimum.
+         * Defines the height of the dialog as a percentage of the current display. Defaults to 80%. 150px minimum.
          */
         width?: number,
         /**
-         * Optional. Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is ignored on other platforms.
+         * Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is ignored by other platforms. If false (default), the dialog will be displayed as a new browser window (pop-up). Recommended for authentication pages that cannot be displayed in an IFrame. If true, the dialog will be displayed as a floating overlay with an IFrame. This is best for user experience and performance.
          */
         displayInIframe?: boolean
     }
     export interface Auth {
         /**
         * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
-        * @param callback - Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
-        */
-        getAccessTokenAsync(callback: (result: AsyncResult) => void): void;
-        /**
-        * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
+        * 
+        * @remarks
+        * Hosts: Excel, OneNote, Outlook, PowerPoint, Word
+        * 
+        * Requirement sets: IdentityAPI
+        * 
+        * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
+        * 
         * @param options - Optional. Accepts an AuthOptions object to define sign-on behaviors.
         * @param callback - Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
         */
-        getAccessTokenAsync(options: AuthOptions, callback: (result: AsyncResult) => void): void;
+        getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult) => void): void;
 
     }
     export interface AuthOptions {
@@ -338,7 +403,11 @@ declare namespace Office {
          */
         close(): void;
         /**
-         * Adds an event handler for DialogMessageReceived or DialogEventReceived
+         * Registers an event handler. The two supported events are: 
+         * 
+         * - DialogMessageReceived. Triggered when the dialog box sends a message to its parent.
+         * 
+         * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
          */
         addEventHandler(eventType: Office.EventType, handler: Function): void;
 
@@ -470,20 +539,20 @@ declare namespace Office {
         /**
          * Occurs when data within the binding is changed.
          * 
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
-         * @remarks
          * To add an event handler for the BindingDataChanged event of a binding, use the addHandlerAsync method of the Binding object. The event handler receives an argument of type BindingDataChangedEventArgs.
          */
         BindingDataChanged,
         /**
          * Occurs when the selection is changed within the binding.
          * 
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement set: BindingEvents
          * 
-         * @remarks
          * To add an event handler for the BindingSelectionChanged event of a binding, use the addHandlerAsync method of the Binding object. The event handler receives an argument of type BindingSelectionChangedEventArgs.
          */
         BindingSelectionChanged,
@@ -544,7 +613,7 @@ declare namespace Office {
          */
         Text,
         /**
-         * Returns the entire document (.pptx or .docx) in Office Open XML (OOXML) format as a byte array.
+         * Returns the entire document (.pptx, .docx, or .xslx) in Office Open XML (OOXML) format as a byte array.
          */
         Compressed,
         /**
@@ -638,11 +707,11 @@ declare namespace Office {
     /**
     * Represents a binding to a section of the document.
     * 
-    * **Hosts**: Access, Excel, Word
-    * 
-    * **Available in Requirement sets**: MatrixBinding, TableBinding, TextBinding
-    * 
     * @remarks
+    * Hosts: Access, Excel, Word
+    * 
+    * Available in Requirement sets: MatrixBinding, TableBinding, TextBinding
+    * 
     * The Binding object exposes the functionality possessed by all bindings regardless of type.
     * 
     * The Binding object is never called directly. It is the abstract parent class of the objects that represent each type of binding: MatrixBinding, TableBinding, or TextBinding. All three of these objects inherit the getDataAsync and setDataAsync methods from the Binding object that enable to you interact with the data in the binding. They also inherit the id and type properties for querying those property values. Additionally, the MatrixBinding and TableBinding objects expose additional methods for matrix- and table-specific features, such as counting the number of rows and columns.
@@ -651,19 +720,22 @@ declare namespace Office {
         /**
         * Get the Document object associated with the binding.
         * 
-        * **Hosts**: Access, Excel, Word
+        * @remarks
+        * Hosts: Access, Excel, Word
         */
         document: Document;
         /**
          * A string that uniquely identifies this binding among the bindings in the same Document object.
          * 
+         * @remarks
          * Hosts: Access, Excel, Word
          */
         id: string;
         /**
         * Gets the type of the binding.
         * 
-        * **Hosts**: Access, Excel, Word
+        * @remarks
+        * Hosts: Access, Excel, Word
         */
         type: BindingType;
         /**
@@ -682,11 +754,11 @@ declare namespace Office {
         /**
          * Returns the data contained within the binding.
          * 
+         * @remarks
          * Hosts: Access, Excel, Word
          * 
          * Available in Requirement sets: MatrixBindings, TableBindings, TextBindings
          * 
-         * @remarks
          * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
          * 
          * @param options An object with any of the following (example: {coercionType: 'matrix, 'valueFormat: 'formatted', filterType:'all'}):
@@ -715,9 +787,10 @@ declare namespace Office {
         /**
          * Removes the specified handler from the binding for the specified event type.
          * 
-         * **Hosts**: Access, Excel, Word
+         * @remarks
+         * Hosts: Access, Excel, Word
          * 
-         * **Available in Requirement set**: BindingEvents
+         * Available in Requirement set: BindingEvents
          * 
          * @param eventType The event type. For binding can be 'bindingDataChanged' and 'bindingSelectionChanged'
          * @param options An object with any of the following:
@@ -732,9 +805,10 @@ declare namespace Office {
         /**
          * Writes data to the bound section of the document represented by the specified binding object.
          * 
-         * **Hosts**: Access, Excel, Word
+         * @remarks
+         * Hosts: Access, Excel, Word
          * 
-         * **Available in Requirement sets**: MatrixBindings, TableBindings, TextBindings
+         * Available in Requirement sets: MatrixBindings, TableBindings, TextBindings
          * 
          * @param data The data to be set in the current selection. Possible data types by host:
          * 
@@ -770,75 +844,206 @@ declare namespace Office {
          */
         setDataAsync(data: TableData | any, options?: any, callback?: (result: AsyncResult) => void): void;
     }
+    /**
+    * Represents the bindings the add-in has within the document.
+    * 
+    * @remarks
+    * Hosts: 
+    */
     export interface Bindings {
+        /**
+        * Gets a Document object that represents the document associated with this set of bindings.
+        * 
+        *remarks
+        * Hosts: Access, Excel, Word
+        */
         document: Document;
         /**
-         * Creates a binding against a named object in the document
+         * Creates a binding against a named object in the document.
+         * 
+         * @remarks
+         * Hosts: Access, Excel, Word
+         * 
+         * Available in Requirement set: MatrixBindings, TableBindings, TextBindings
+         * 
+         * For Excel, the itemName parameter can refer to a named range or a table.
+         * 
+         * By default, adding a table in Excel assigns the name "Table1" for the first table you add, "Table2" for the second table you add, and so on. To assign a meaningful name for a table in the Excel UI, use the Table Name property on the Table Tools | Design tab of the ribbon.
+         * 
+         *     Note: In Excel, when specifying a table as a named item, you must fully qualify the name to include the worksheet name in the name of the table in this format: "Sheet1!Table1"
+         * 
+         * For Word, the itemName parameter refers to the Title property of a Rich Text content control. (You can't bind to content controls other than the Rich Text content control.)
+         * 
+         * By default, a content control has no Title value assigned. To assign a meaningful name in the Word UI, after inserting a Rich Text content control from the Controls group on the Developer tab of the ribbon, use the Properties command in the Controls group to display the Content Control Properties dialog box. Then set the Title property of the content control to the name you want to reference from your code.
+         * 
+         *     Note: In Word, if there are multiple Rich Text content controls with the same Title property value (name), and you try to bind to one these content controls with this method (by specifying its name as the itemName parameter), the operation will fail.
+         * 
          * @param itemName Name of the bindable object in the document. For Example 'MyExpenses' table in Excel."
-         * @param bindingType The Office BindingType for the data
-         * @param options Syntax example: {id: "BindingID"}
-         *       id: Name of the binding, autogenerated if not supplied.
+         * @param bindingType The Office BindingType for the data. The method returns null if the selected object cannot be coerced into the specified type.
+         * @param options An object like {id: "BindingID"} that has any of the following properties:
+         * 
+         *       id: Unique name of the binding. Autogenerated if not supplied.
+         * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         *       columns: The string[] of the columns involved in the binding
+         * 
+         *       columns: The string[] of the columns involved in the binding.
+         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addFromNamedItemAsync(itemName: string, bindingType: BindingType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Create a binding by prompting the user to make a selection on the document.
-         * @param bindingType The Office BindingType for the data
-         * @param options addFromPromptAsyncOptions- e.g. {promptText: "Please select data", id: "mySales"}
-         *       promptText: Greet your users with a friendly word.
+         * 
+         * @remarks
+         * Hosts: Access, Excel
+         * 
+         * Available in Requirement set: Not in a set
+         * 
+         * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. The method fails if the specified selection cannot be bound.
+         * 
+         * @param bindingType Specifies the type of the binding object to create. Required. Returns null if the selected object cannot be coerced into the specified type.
+         * @param options An object like {promptText: "Please select data", id: "mySales"} with any of the following properties:
+         * 
+         *       promptText: Specifies the string to display in the prompt UI that tells the user what to select. Limited to 200 characters. If no promptText argument is passed, "Please make a selection" is displayed.
+         * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         *       id: Identifier.
-         *       sampleData: A TableData that gives sample table in the Dialog.TableData.Headers is [][] of string.
+         * 
+         *       id: Specifies the unique name to be used to identify the new binding object.If no argument is passed for the id parameter, the Binding.id is autogenerated.
+         * 
+         *       sampleData: Specifies a table of sample data displayed in the prompt UI as an example of the kinds of fields (columns) that can be bound by your add-in. The headers provided in the TableData object specify the labels used in the field selection UI. Optional. Note: This parameter is used only in add-ins for Access. It is ignored if provided when calling the method in an add-in for Excel.
+         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addFromPromptAsync(bindingType: BindingType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Create a binding based on what the user's current selection.
-         * @param bindingType The Office BindingType for the data
-         * @param options addFromSelectionAsyncOptions- e.g. {id: "BindingID"}
-         *       id: Identifier.
+         * Create a binding based on the user's current selection.
+         * 
+         * @remarks
+         * Hosts: Access, Excel, Word
+         * 
+         * Available in Requirement set: MatrixBindings, TableBindings, TextBindings
+         * 
+         * Adds the specified type of binding object to the Bindings collection, which will be identified with the supplied id.
+         * 
+         * Note In Excel, if you call the addFromSelectionAsync method passing in the Binding.id of an existing binding, the Binding.type of that binding is used, and its type cannot be changed by specifying a different value for the bindingType parameter.If you need to use an existing id and change the bindingType, call the Bindings.releaseByIdAsync method first to release the binding, and then call the addFromSelectionAsync method to reestablish the binding with a new type.
+         * 
+         * @param bindingType Specifies the type of the binding object to create. Required. Returns null if the selected object cannot be coerced into the specified type.
+         * @param options An object like {id: "BindingID"} with any of the following properties:
+         * 
+         *       id: Specifies the unique name to be used to identify the new binding object.If no argument is passed for the id parameter, the Binding.id is autogenerated.
+         * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * 
          *       columns: The string[] of the columns involved in the binding
+         * 
          *       sampleData: A TableData that gives sample table in the Dialog.TableData.Headers is [][] of string.
+         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addFromSelectionAsync(bindingType: BindingType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets an array with all the binding objects in the document.
+         * Gets all bindings that were previously created.
+         * 
+         * @remarks
+         * Hosts: Access, Excel, Word
+         * 
+         * Available in Requirement set: MatrixBindings, TableBindings, TextBindings
+         * 
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getAllAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Retrieves a binding based on its Name
-         * @param id The binding id
+         * 
+         * @remarks
+         * Hosts: Access, Excel, Word
+         * 
+         * Available in Requirement set: CustomXmlParts, MatrixBindings, TableBindings, TextBindings
+         * 
+         * Fails if the specified id does not exist.
+         * 
+         * @param id Specifies the unique name of the binding object. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
+          */
         getByIdAsync(id: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Removes the binding from the document
-         * @param id The binding id
+         * 
+         * @remarks
+         * Hosts: Access, Excel, Word
+         * 
+         * Available in Requirement set: MatrixBindings, TableBindings, TextBindings
+         * 
+         * Fails if the specified id does not exist.
+         * 
+         * @param id Specifies the unique name to be used to identify the binding object. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         releaseByIdAsync(id: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
+    /**
+    * Represents the runtime environment of the add-in and provides access to key objects of the API.
+    * 
+    * @remarks
+    * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
+    */
     export interface Context {
+        /**
+         * Gets an object that represents the document the content or task pane add-in is interacting with.
+         */
         document: Document;
     }
+    /**
+     * Represents an XML node in a tree in a document.
+     * 
+     * @remarks
+     * Hosts: Word
+     * 
+     * Available in Requirement set: CustomXmlParts
+     */
     export interface CustomXmlNode {
+        /**
+         * Gets the base name of the node without the namespace prefix, if one exists.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         */
         baseName: string;
+        /**
+         * Retrieves the string GUID of the CustomXMLPart.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         */
         namespaceUri: string;
+        /**
+         * Gets the type of the CustomXMLNode.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         */
         nodeType: string;
         /**
-         * Gets the nodes associated with the xPath expression.
-         * @param xPath The xPath expression
+         * Gets the nodes associated with the XPath expression.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
+         * @param xPath The XPath expression that specifies the nodes to get. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -846,13 +1051,25 @@ declare namespace Office {
         getNodesAsync(xPath: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets the node value.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getNodeValueAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Asynchronously gets the text of an XML node in a custom XML part.
+         * Gets the text of an XML node in a custom XML part.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -860,6 +1077,12 @@ declare namespace Office {
         getTextAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets the node's XML.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -867,6 +1090,12 @@ declare namespace Office {
         getXmlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Sets the node value.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
          * @param value The value to be set on the node
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
@@ -875,6 +1104,12 @@ declare namespace Office {
         setNodeValueAsync(value: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Asynchronously sets the text of an XML node in a custom XML part.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
          * @param text Required. The text value of the XML node.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
@@ -883,6 +1118,12 @@ declare namespace Office {
         setTextAsync(text: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Sets the node XML.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
          * @param xml The XML to be set on the node
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
@@ -890,54 +1131,130 @@ declare namespace Office {
          */
         setXmlAsync(xml: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
+    /**
+     * Represents a single CustomXMLPart in a CustomXMLParts collection.
+     * 
+     * @remarks
+     * Hosts: Word
+     * 
+     * Available in Requirement set: CustomXmlParts
+     */
     export interface CustomXmlPart {
+        /**
+         * True, if the custom XML part is built in; otherwise false.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         */
         builtIn: boolean;
+        /**
+         * Gets the GUID of the CustomXMLPart.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         */
         id: string;
+        /**
+         * Gets the set of namespace prefix mappings (CustomXMLPrefixMappings) used against the current CustomXMLPart.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         */
         namespaceManager: CustomXmlPrefixMappings;
         /**
          * Adds an event handler to the object using the specified event type.
-         * @param eventType The event type. For CustomXmlPartNode it can be 'nodeDeleted', 'nodeInserted' or 'nodeReplaced'
-         * @param handler The name of the handler
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
+         * 
+         * @param eventType Specifies the type of event to add. Required. For a CustomXmlPart object event, the eventType parameter can be specified as Office.EventType.DataNodeDeleted, Office.EventType.DataNodeInserted, Office.EventType.DataNodeReplaced, or the corresponding text values of these enumerations.
+         * @param handler The event handler function to add, whose only parameter is of type NodeDeletedEventArgs, NodeInsertedEventArgs, or NodeReplaceEventArgs. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        addHandlerAsync(eventType: EventType, handler?: (result: any) => void, options?: any, callback?: (result: AsyncResult) => void): void;
+        addHandlerAsync(eventType: EventType, handler: (result: any) => void, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Deletes the Custom XML Part.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         deleteAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the nodes associated with the xPath expression.
-         * @param xPath The xPath expression
+         * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
+         * @param xPath An XPath expression that specifies the nodes you want returned. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
+        */
         getNodesAsync(xPath: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the XML for the Custom XML Part.
+         * Asynchronously gets the XML inside this custom XML part.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+        */
+        getXmlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Removes an event handler for the specified event type.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
+         * @param eventType Specifies the type of event to remove. Required.For a CustomXmlPart object event, the eventType parameter can be specified as Office.EventType.DataNodeDeleted, Office.EventType.DataNodeInserted, Office.EventType.DataNodeReplaced, or the corresponding text values of these enumerations.
+         * @param handler The event handler function to remove. If not specified, all event handlers for the specified eventType will be removed.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getXmlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Removes an event handler from the object using the specified event type.
-         * @param eventType The event type. For CustomXmlPartNode it can be 'nodeDeleted', 'nodeInserted' or 'nodeReplaced'
-         * @param options Syntax example: {handler:eventHandler}
-         *       handler: Indicates a specific handler to be removed, if not specified all handlers are removed
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
-        removeHandlerAsync(eventType: EventType, options?: any, callback?: (result: AsyncResult) => void): void;
+        removeHandlerAsync(eventType: EventType, handler?: (result: any) => void, options?: any, callback?: (result: AsyncResult) => void): void;
     }
+    /**
+     * Represents a collection of CustomXmlPart objects.
+     * 
+     * @remarks
+     * Hosts: Word
+     * 
+     * Available in Requirement set: CustomXmlParts
+     */
     export interface CustomXmlParts {
         /**
          * Asynchronously adds a new custom XML part to a file.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
          * @param xml The XML to add to the newly created custom XML part.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
@@ -946,7 +1263,13 @@ declare namespace Office {
         addAsync(xml: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Asynchronously gets the specified custom XML part by its id.
-         * @param id The id of the custom XML part.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
+         * @param id The GUID of the custom XML part, including opening and closing braces. 
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -954,111 +1277,314 @@ declare namespace Office {
         getByIdAsync(id: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Asynchronously gets the specified custom XML part(s) by its namespace.
-         * @param ns  The namespace to search.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
+         * @param ns  The namespace URI.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
+        */
         getByNamespaceAsync(ns: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
+    /**
+     * Represents a collection of CustomXmlPart objects.
+     * 
+     * @remarks
+     * Hosts: Word
+     */
     export interface CustomXmlPrefixMappings {
         /**
-         * Adds a namespace.
-         * @param prefix The namespace prefix
-         * @param ns The namespace URI
+         * Asynchronously adds a prefix to namespace mapping to use when querying an item.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
+         * If no namespace is assigned to the requested prefix, the method returns an empty string ("").
+         * 
+         * @param prefix Specifies the prefix to add to the prefix mapping list. Required.
+         * @param ns Specifies the namespace URI to assign to the newly added prefix. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addNamespaceAsync(prefix: string, ns: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets a namespace  with the specified prefix
-         * @param prefix The namespace prefix
+         * Asynchronously gets the namespace mapped to the specified prefix.
+         * 
+         * @remarks
+         * Hosts: Word
+         *
+         * Available in Requirement set: CustomXmlParts
+         * 
+         * If the prefix already exists in the namespace manager, this method will overwrite the mapping of that prefix except when the prefix is one added or used by the data store internally, in which case it will return an error.
+         * 
+         * @param prefix TSpecifies the prefix to get the namespace for. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getNamespaceAsync(prefix: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets a prefix  for  the specified URI
-         * @param ns The namespace URI
+         * Asynchronously gets the prefix for the specified namespace.
+         * 
+         * @remarks
+         * Hosts: Word
+         * 
+         * Available in Requirement set: CustomXmlParts
+         * 
+         * If no prefix is assigned to the requested namespace, the method returns an empty string (""). If there are multiple prefixes specified in the namespace manager, the method returns the first prefix that matches the supplied namespace.
+         * 
+         * @param ns Specifies the namespace to get the prefix for. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
+        */
         getPrefixAsync(ns: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
+    /**
+     * An abstract class that represents the document the add-in is interacting with.
+     * 
+     * @remarks
+     * Hosts: Access, Excel, PowerPoint, Project, Word
+     */
     export interface Document {
+        /**
+         * Gets an object that provides access to the bindings defined in the document.
+         * 
+         * @remarks
+         * Hosts: Access, Excel, Word
+         * 
+         * You don't instantiate the Document object directly in your script. To call members of the Document object to interact with the current document or worksheet, use Office.context.document in your script.
+         */
         bindings: Bindings;
+        /**
+         * Gets an object that represents the custom XML parts in the document.
+         * 
+         * @remarks
+         * Hosts: Word
+         */
         customXmlParts: CustomXmlParts;
+        /**
+         * Gets the mode the document is in.
+         * 
+         * @remarks
+         * Hosts: Word
+         */
         mode: DocumentMode;
+        /**
+         * Gets an object that represents the saved custom settings of the content or task pane add-in for the current document.
+         * 
+         * @remarks
+         * Hosts: Word
+         */
         settings: Settings;
+        /**
+         * Gets the URL of the document that the host application currently has open. Returns null if the URL is unavailable.
+         * 
+         * @remarks
+         * Hosts: Word
+         */
         url: string;
         /**
-         * Adds an event handler for the specified event type.
-         * @param eventType The event type. For document can be 'DocumentSelectionChanged'
-         * @param handler The name of the handler
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * Adds an event handler for a Document object event.
+         * 
+         * @remarks
+         * Hosts: Excel, PowerPoint, Project, Word
+         * 
+         * Available in Requirement set: DocumentEvents
+         * 
+         * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
+         * 
+         * @param eventType For a Document object event, the eventType parameter can be specified as Office.EventType.Document.SelectionChanged or Office.EventType.Document.ActiveViewChanged, or the corresponding text value of this enumeration.
+         * @param handler The event handler function to add, whose only parameter is of type DocumentSelectionChangedEventArgs. Required.
+         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Returns the current view of the presentation.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * Returns the state of the current view of the presentation (edit or read).
+         *
+         * @remarks
+         * Hosts: Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: ActiveView
+         * 
+         * Can trigger an event when the view changes.
+         * 
+         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
+        */
         getActiveViewAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the entire file in slices of up to 4MB.
+         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins for iOS, file slice is supported up to 65536 (64 KB). Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
+         * 
+         * @remarks
+         * Hosts: Excel, PowerPoint, Word
+         *
+         * Available in Requirement set: File
+         * 
+         * For add-ins running in Office host applications other than Office for iOS, the getFileAsync method supports getting files in slices of up to 4194304 bytes (4 MB). For add-ins running in Office for iOS apps, the getFileAsync method supports getting files in slices of up to 65536 (64 KB).
+         * 
+         * The fileType parameter can be specified by using the FileType enumeration or text values. But the possible values vary with the host: 
+         * 
+         * Excel Online, Win32, Mac, and iOS: Office.FileType.Compressed
+         * 
+         * PowerPoint on Windows desktop, Mac, and iPad, and PowerPoint Online: Office.FileType.Compressed, Office.FileType.Pdf
+         * 
+         * Word on Windows desktop, Word on Mac, and Word Online: Office.FileType.Compressed, Office.FileType.Pdf, Office.FileType.Text
+         *
+         * Word on iPad: Office.FileType.Compressed, Office.FileType.Text
+         * 
          * @param fileType The format in which the file will be returned
-         * @param options Syntax example: {sliceSize:1024}
+         * @param options An object like {sliceSize:1024} that has any of the following properties:
+         * 
          *       sliceSize: Specifies the desired slice size (in bytes) up to 4MB. If not specified a default slice size of 4MB will be used.
+         * 
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getFileAsync(fileType: FileType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets file properties of the current document.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
+         * 
+         * @remarks
+         * Hosts: Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: not in a set
+         * 
+         * You get the file's URL with the url property ( asyncResult.value.url).
+         * 
+         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+        */
         getFilePropertiesAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Returns the current selection.
-         * @param coercionType The expected shape of the selection.
-         * @param options Syntax example: {valueFormat: 'formatted', filterType:'all'}
+         * Reads the data contained in the current selection in the document.
+         * 
+         * @remarks
+         * Hosts: Access, Excel, PowerPoint, Project, Word
+         * 
+         * Available in Requirement set: Selection
+         * 
+         * The possible values for the coercionType parameter vary by the host:
+         * 
+         * Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online only: Office.CoercionType.Text (string)
+         * 
+         * Excel, Word, and Word Online only: Office.CoercionType.Matrix (array of arrays)
+         * 
+         * Access, Excel, Word, and Word Online only: Office.CoercionType.Table (TableData object)
+         * 
+         * Word only: Office.CoercionType.Html
+         * 
+         * Word and Word Online only: Office.CoercionType.Ooxml (Office Open XML)
+         * 
+         * PowerPoint and PowerPoint Online only: Office.CoercionType.SlideRange
+         * 
+         * @param coercionType The type of data structure to return. 
+         * @param options An object like {valueFormat: 'formatted', filterType:'all'} that has any of the following properties:
+         * 
          *       valueFormat: Get data with or without format. Use Office.ValueFormat or text value.
-         *       filterType: Get the visible or all the data. Useful when filtering data. Use Office.FilterType or text value.
+         * 
+         *       filterType: Get the visible or all the data. Useful when filtering data. Use Office.FilterType or text value. This parameter is ignored in Word documents.
+         * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getSelectedDataAsync(coercionType: CoercionType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Goes to the specified object or location in the document.
+         * 
+         * @remarks
+         * Hosts: Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: not in a set
+         * 
+         * PowerPoint doesn't support the goToByIdAsync method in Master Views.
+         * 
+         * The behavior caused by the selectionMode option varies by host:
+         * 
+         * In Excel: Office.SelectionMode.Selected selects all content in the binding, or named item. Office.SelectionMode.None for text bindings, selects the cell; for matrix bindings, table bindings, and named items, selects the first data cell (not first cell in header row for tables).
+         * 
+         * In PowerPoint: Office.SelectionMode.Selected selects the slide title or first textbox on the slide. Office.SelectionMode.None Doesn't select anything.
+         * 
+         * In Word: Office.SelectionMode.Selected selects all content in the binding. Office.SelectionMode.None for text bindings, moves the cursor to the beginning of the text; for matrix bindings and table bindings, selects the first data cell (not first cell in header row for tables).
+         * 
          * @param id The identifier of the object or location to go to.
          * @param goToType The type of the location to go to.
-         * @param options Syntax example: {selectionMode:Office.SelectionMode.Selected}
-         *       selectionMode: Use Office.SelectionMode or text value.
+         * @param options An object like {asyncContext:context} with any of the following values:
+         * 
+         *       selectionMode: Specifies whether the location specified by the id parameter is selected (highlighted). Use Office.SelectionMode or text value. See Remarks for more.
+         * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         goToByIdAsync(id: string | number, goToType: GoToType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Removes an event handler for the specified event type.
-         * @param eventType The event type. For document can be 'DocumentSelectionChanged'
-         * @param options Syntax example: {asyncContext:context}
+         * 
+         * @remarks
+         * Hosts: Excel, PowerPoint, Project, Word
+         * 
+         * Available in Requirement set: DocumentEvents
+         * 
+         * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
+         * @param options An object like Syntax example: {asyncContext:context} that has any of the following properties:
+         * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         *       handler: The name of the handler. If not specified all handlers are removed
+         * 
+         *       handler: The name of the handler. If not specified all handlers are removed.
+         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         removeHandlerAsync(eventType: EventType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Writes the specified data into the current selection.
-         * @param data The data to be set. Either a string or value, 2d array or TableData object
-         * @param options Syntax example: {coercionType:Office.CoercionType.Matrix} or {coercionType: 'matrix'}
+         * 
+         * @remarks
+         * Hosts: Access, Excel, PowerPoint, Project, Word, Word Online
+         * 
+         * Available in Requirement set: Selection
+         * 
+         * The possible CoercionTypes that can be used for the data parameter, or for the coercionType option, vary by host:
+         * 
+         * Office.CoercionType.Text: Excel, Word, PowerPoint
+         * 
+         * Office.CoercionType.Matrix: Excel, Word
+         * 
+         * Office.CoercionType.Table: Access, Excel, Word
+         * 
+         * Office.CoercionType.Html: Word
+         * 
+         * Office.CoercionType.Ooxml: Word
+         * 
+         * Office.CoercionType.Image: Excel, Word, PowerPoint
+         * 
+         * @param data The data to be set. Either a string or CoercionType value, 2d array or TableData object.
+         * @param options An object like {coercionType:Office.CoercionType.Matrix} with any of the following properties:
+         * 
          *       coercionType: Explicitly sets the shape of the data object. Use Office.CoercionType or text value. If not supplied is inferred from the data type.
+         * 
+         *       tableOptions: For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows 
+         * 
+         *       cellFormat: For an inserted table, a list of key-value pairs that specify a range of columns, rows, or cells and the cell formatting to apply to that range
+         * 
+         *       imageLeft: (number) This option is applicable for inserting images. Indicates the insert location in relation to the left side of the slide for PowerPoint, and its relation to the currently selected cell in Excel. This value is ignored for Word. This value is in points.
+         * 
+         *       imageTop: (number) This option is applicable for inserting images. Indicates the insert location in relation to the top of the slide for PowerPoint, and its relation to the currently selected cell in Excel. This value is ignored for Word. This value is in points.
+         * 
+         *       imageWidth: (number) This option is applicable for inserting images. Indicates the image width. If this option is provided without the imageHeight, the image will scale to match the value of the image width. If both image width and image height are provided, the image will be resized accordingly. If neither the image height or width is provided, the default image size and aspect ratio will be used. This value is in points.
+         * 
+         *       imageHeight: (number) This option is applicable for inserting images. Indicates the image height. If this option is provided without the imageWidth, the image will scale to match the value of the image height. If both image width and image height are provided, the image will be resized accordingly. If neither the image height or width is provided, the default image size and aspect ratio will be used. This value is in points.
+         * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
@@ -1088,8 +1614,11 @@ declare namespace Office {
     export interface File {
         /**
          * Gets the document file size in bytes.
+         * 
          * @remarks
          * Hosts: PowerPoint, Word
+         * 
+         * Available in Requirement set: File
          */
         size: number;
         /**
@@ -1104,7 +1633,7 @@ declare namespace Office {
          * No more than two documents are allowed to be in memory; otherwise the Document.getFileAsync operation will fail. Use the File.closeAsync method to close the file when you are finished working with it.
          * 
          * Hosts: PowerPoint, Word
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the closeAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -1114,6 +1643,8 @@ declare namespace Office {
          * |AsyncResult.status|Determine the success or failure of the operation.|
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
          * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
+         * 
+         * Available in Requirement set: File
          */
         closeAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -1121,7 +1652,7 @@ declare namespace Office {
          * @remarks
          * Hosts: PowerPoint, Word
          * @param sliceIndex Specifies the zero-based index of the slice to be retrieved. Required.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -1131,6 +1662,8 @@ declare namespace Office {
          * |AsyncResult.status|Determine the success or failure of the operation.|
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
          * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
+         * 
+         * Available in Requirement set: File
          */
         getSliceAsync(sliceIndex: number, callback?: (result: AsyncResult) => void): void;
     }
@@ -1143,18 +1676,19 @@ declare namespace Office {
     /**
     * Represents a binding in two dimensions of rows and columns.
     * 
-    * **Hosts**: Excel, Word
-    * 
-    * **Available in Requirement set**: MatrixBindings
-    * 
     * @remarks
+         * Hosts: Excel, Word
+    * 
+    * Available in Requirement set: MatrixBindings
+    * 
     * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
     */
     export interface MatrixBinding extends Binding {
         /**
         * Gets the number of columns in the matrix data structure, as an integer value.
         * 
-        * **Hosts**: Access, Excel, PowerPoint, Project, Word
+        * @remarks
+        * Hosts: Access, Excel, PowerPoint, Project, Word
         * 
         * Available in Requirement set: MatrixBindings
         */
@@ -1162,7 +1696,8 @@ declare namespace Office {
         /**
         * Gets the number of rows in the matrix data structure, as an integer value.
         * 
-        * **Hosts**: Access, Excel, PowerPoint, Project, Word
+        * @remarks
+        * Hosts: Access, Excel, PowerPoint, Project, Word
         * 
         * Available in Requirement set: MatrixBindings
         */
@@ -1179,10 +1714,13 @@ declare namespace Office {
      * The Settings object is automatically loaded as part of the Document object, and is available by calling the settings property of that object when the add-in is activated. The developer is responsible for calling the saveAsync method after adding or deleting settings to save the settings in the document.
      * 
      * Hosts: Access, Excel, PowerPoint, Word
+     * 
+     * Available in Requirement set: Settings
      */
     export interface Settings {
         /**
          * Adds an event handler for the settingsChanged event.
+         * 
          * @remarks
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          * 
@@ -1190,6 +1728,9 @@ declare namespace Office {
          * > Your add-in's code can register a handler for the settingsChanged event when the add-in is running with any Excel client, but the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel Online, and more than one user is editing the spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
          * 
          * Hosts: Excel
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param eventType Specifies the type of event to add. Required.
          * @param handler The event handler function to add. Required.
          * @param options Specifies any of the following optional parameters.
@@ -1208,19 +1749,27 @@ declare namespace Office {
         addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Retrieves the specified setting.
+         * 
          * @remarks
          * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param settingName The case-sensitive name of the setting to retrieve.
          * @returns An object that has property names mapped to JSON serialized values.
          */
         get(name: string): any;
         /**
          * Reads all settings persisted in the document and refreshes the content or task pane add-in's copy of those settings held in memory.
+         * 
          * @remarks
          * This method is useful in Word and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against the same document. Because each add-in is working against an in-memory copy of the settings loaded from the document at the time the user opened it, the settings values used by each user can get out of sync. This can happen whenever an instance of the add-in calls the Settings.saveAsync method to persist all of that user's settings to the document. Calling the refreshAsync method from the event handler for the settingsChanged event of the add-in will refresh the settings values for all users.
          * The refreshAsync method can be called from add-ins created for Excel, but since it doesn't support coauthoring there is no reason to do so.
          * 
          * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
@@ -1235,21 +1784,29 @@ declare namespace Office {
         refreshAsync(callback?: (result: AsyncResult) => void): void;
         /**
          * Removes the specified setting.
+         * 
          * @remarks
          * null is a valid value for a setting. Therefore, assigning null to the setting will not remove it from the settings property bag.
          * 
          * > [!IMPORTANT]
          * > Be aware that the Settings.remove method affects only the in-memory copy of the settings property bag. To persist the removal of the specified setting in the document, at some point after calling the Settings.remove method and before the add-in is closed, you must call the Settings.saveAsync method.
          * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param settingName The case-sensitive name of the setting to remove.
          */
         remove(name: string): void;
         /**
          * Removes an event handler for the settingsChanged event.
+         * 
          * @remarks
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType will be removed.
          * 
          * Hosts: Access, Excel, PowerPoint
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param eventType Specifies the type of event to remove. Required.
          * @param options Specifies any of the following optional parameters.
          * @param handler Specifies the name of the handler to remove.
@@ -1287,6 +1844,7 @@ declare namespace Office {
         saveAsync(callback?: (result: AsyncResult) => void): void;
         /**
          * Sets or creates the specified setting.
+         * 
          * @remarks
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name in the in-memory copy of the settings property bag. After you call the Settings.saveAsync method, the value is stored in the document as the serialized JSON representation of its data type. A maximum of 2MB is available for the settings of each add-in.
          * 
@@ -1294,6 +1852,9 @@ declare namespace Office {
          * > Be aware that the Settings.set method affects only the in-memory copy of the settings property bag. To make sure that additions or changes to settings will be available to your add-in the next time the document is opened, at some point after calling the Settings.set method and before the add-in is closed, you must call the Settings.saveAsync method to persist settings in the document.
          * 
          * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * Available in Requirement set: Settings
+         * 
          * @param settingName The case-sensitive name of the setting to set or create.
          * @param value Specifies the value to be stored.
          */
@@ -1301,55 +1862,157 @@ declare namespace Office {
     }
     /**
      * Represents a slice of a document file.
+     * 
      * @remarks
      * The Slice object is accessed with the File.getSliceAsync method.
      * 
      * Hosts: PowerPoint, Word
+     * 
+     * Available in Requirement set: File
      */
     export interface Slice {
         /**
          * Gets the raw data of the file slice in Office.FileType.Text ("text") or Office.FileType.Compressed ("compressed") format as specified by the fileType parameter of the call to the Document.getFileAsync method.
+         * 
          * @remarks
          * Files in the "compressed" format will return a byte array that can be transformed to a base64-encoded string if required.
          * 
          * Hosts: PowerPoint, Word
+         * 
+         * Available in Requirement set: File
          */
         data: any;
         /**
          * Gets the zero-based index of the file slice.
+         * 
          * @remarks
          * Hosts: PowerPoint, Word
+         * 
+         * Available in Requirement set: File
          */
         index: number;
         /**
          * Gets the size of the slice in bytes.
+         * 
          * @remarks
          * Hosts: PowerPoint, Word
+         * 
+         * Available in Requirement set: File
          */
         size: number;
     }
+    /**
+    * Represents a binding in two dimensions of rows and columns, optionally with headers.
+    * 
+    * @remarks
+    * Hosts: Access, Excel, PowerPoint, Project, Word
+    * 
+    * Available in Requirement set: TableBindings
+    * 
+    * The TableBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
+    * 
+    * For Excel, note that after you establish a table binding in Excel, each new row a user adds to the table is automatically included in the binding and rowCount increases.
+    */
     export interface TableBinding extends Binding {
+        /**
+        * Gets the number of columns in the TableBinding, as an integer value.
+        * 
+        * @remarks
+        * Hosts: Access, Excel,Word
+        * 
+        * Available in Requirement set: TableBindings
+        */
         columnCount: number;
+        /**
+        * True, if the table has headers; otherwise false.
+        * 
+        * @remarks
+        * Hosts: Access, Excel, PowerPoint, Project, Word
+        * 
+        * Available in Requirement set: TableBindings
+        */
         hasHeaders: boolean;
+         /**
+        * Gets the number of rows in the TableBinding, as an integer value.
+        * 
+        * @remarks
+        * Hosts: Access, Excel,Word
+        * 
+        * Available in Requirement set: TableBindings
+        *
+        * When you insert an empty table by selecting a single row in Excel 2013 and Excel Online (using Table on the Insert tab), both Office host applications create a single row of headers followed by a single blank row. However, if your add-in's script creates a binding for this newly inserted table (for example, by using the addFromSelectionAsync method), and then checks the value of the rowCount property, the value returned will differ depending whether the spreadsheet is open in Excel 2013 or Excel Online.
+
+        * - In Excel on the desktop, rowCount will return 0 (the blank row following the headers is not counted).
+        * 
+        * - In Excel Online, rowCount will return 1 (the blank row following the headers is counted).
+        * 
+        * You can work around this difference in your script by checking if rowCount == 1, and if so, then checking if the row contains all empty strings.
+        * 
+        * In content add-ins for Access, for performance reasons the rowCount property always returns -1.
+        */
         rowCount: number;
         /**
-         * Adds the specified columns to the table
-         * @param tableData A TableData object with the headers and rows
+         * Adds the specified data to the table as additional columns.
+         * 
+         * @remarks
+         * Hosts: Excel, Word
+         * 
+         * Available in Requirement set: TableBindings
+         * 
+         * To add one or more columns specifying the values of the data and headers, pass a TableData object as the data parameter. To add one or more columns specifying only the data, pass an array of arrays ("matrix") as the data parameter.
+         * 
+         * The success or failure of an addColumnsAsync operation is atomic. That is, the entire add columns operation must succeed, or it will be completely rolled back (and the AsyncResult.status property returned to the callback will report failure):
+         * 
+         *  - Each row in the array you pass as the data argument must have the same number of rows as the table being updated. If not, the entire operation will fail.
+         * 
+         *  - Each row and cell in the array must successfully add that row or cell to the table in the newly added column(s). If any row or cell fails to be set for any reason, the entire operation will fail.
+         * 
+         *  - If you pass a TableData object as the data argument, the number of header rows must match that of the table being updated.
+         * 
+         * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in a single call to this method.
+         *         
+         * @param tableData An array of arrays ("matrix") or a TableData object that contains one or more columns of data to add to the table. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addColumnsAsync(tableData: TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Adds the specified rows to the table
-         * @param rows A 2D array with the rows to add
+         * Adds the specified data to the table as additional rows.
+         * 
+         * @remarks
+         * Hosts: Access, Excel, Word
+         * 
+         * Available in Requirement set: TableBindings
+         * 
+         * To add one or more columns specifying the values of the data and headers, pass a TableData object as the data parameter. To add one or more columns specifying only the data, pass an array of arrays ("matrix") as the data parameter.
+         * 
+         * The success or failure of an addRowsAsync operation is atomic. That is, the entire add columns operation must succeed, or it will be completely rolled back (and the AsyncResult.status property returned to the callback will report failure):
+         * 
+         *  - Each row in the array you pass as the data argument must have the same number of columns as the table being updated. If not, the entire operation will fail.
+         * 
+         *  - Each column and cell in the array must successfully add that column or cell to the table in the newly added rows(s). If any column or cell fails to be set for any reason, the entire operation will fail.
+         * 
+         *  - If you pass a TableData object as the data argument, the number of header rows must match that of the table being updated.
+         * 
+         * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in a single call to this method.
+         *         
+         * @param rows An array of arrays ("matrix") or a TableData object that contains one or more rows of data to add to the table. Required.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addRowsAsync(rows: TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Clears the table
+         * Deletes all non-header rows and their values in the table, shifting appropriately for the host application.
+         * 
+         * @remarks
+         * Hosts: Access, Excel, Word
+         * 
+         * Available in Requirement set: TableBindings
+         * 
+         * In Excel, if the table has no header row, this method will delete the table itself.
+         *  
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -1357,6 +2020,14 @@ declare namespace Office {
         deleteAllDataValuesAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Clears formatting on the bound table.
+         *
+         * @remarks
+         * Hosts: Excel
+         * 
+         * Available in Requirement set: Not in a set
+         * 
+         * See [Format tables in add-ins for Excel](https://docs.microsoft.com/en-us/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table) for more information.
+         * 
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -1373,9 +2044,18 @@ declare namespace Office {
         getFormatsAsync(cellReference?: any, formats?: any[], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Sets formatting on specified items and data in the table.
+         * 
+         * @remarks
+         * Hosts: Excel
+         * 
+         * Available in Requirement set: Not in a set
+         * 
          * @param formatsInfo Array elements are themselves three-element arrays:[target, type, formats]
+         * 
          *       target: The identifier of the item to format. String.
+         * 
          *       type: The kind of item to format. String.
+         * 
          *       formats: An object literal containing a list of property name-value pairs that define the formatting to apply.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
@@ -1384,6 +2064,12 @@ declare namespace Office {
         setFormatsAsync(formatsInfo?: any[], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Updates table formatting options on the bound table.
+         *
+         * @remarks
+         * Hosts: Excel
+         * 
+         * Available in Requirement set: Not in a set
+         * 
          * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
@@ -1393,8 +2079,11 @@ declare namespace Office {
     }
     /**
      * Represents the data in a table or a TableBinding.
+     * 
      * @remarks
      * Hosts: Excel, Word
+     * 
+     * Available in Requirement set: TableBindings
      */
     export class TableData {
         constructor(rows: any[][], headers: any[]);
@@ -1411,6 +2100,8 @@ declare namespace Office {
          * - If you overwrite or update an existing table, the existing headers are not altered.
          * 
          * Hosts: Excel, Word
+         * 
+         * Available in Requirement set: TableBindings
          */
         headers: any[];
         /**
@@ -1425,6 +2116,8 @@ declare namespace Office {
          * - If you overwrite or update an existing table, the existing rows are not altered.
          * 
          * Hosts: Excel, Word
+         * 
+         * Available in Requirement set: TableBindings
          */
         rows: any[][];
     }
@@ -1448,6 +2141,16 @@ declare namespace Office {
          */
         Headers
     }
+    /**
+    * Represents a bound text selection in the document.
+    * 
+    * @remarks
+    * Hosts: Access, Excel, PowerPoint, Project, Word
+    * 
+    * Available in Requirement set: TextBindings
+    * 
+    * The TextBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object. It does not implement any additional properties or methods of its own.
+    */
     export interface TextBinding extends Binding { }
     /**
      * Specifies the project fields that are available as a parameter for the getProjectFieldAsync method.
@@ -3880,8 +4583,17 @@ declare namespace Office {
         phoneNumbers: Array<PhoneNumber>;
         urls: Array<string>;
     }
+    /**
+    * Represents the runtime environment of the add-in and provides access to key objects of the API.
+    * 
+    * @remarks
+    * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
+    */
     export interface Context {
         mailbox: Mailbox;
+        /**
+        * Gets an object that represents the saved custom settings of the add-in.
+        */
         roamingSettings: RoamingSettings;
     }
     export interface CustomProperties {
@@ -5114,7 +5826,8 @@ declare namespace Excel {
          *
          * Gets the Binding object that represents the binding that raised the SelectionChanged event.
          * 
-         * **Hosts:** Access, Excel, Word
+         * @remarks
+         * Hosts: Access, Excel, Word
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -46473,4 +47186,4 @@ declare namespace Visio {
 
 ////////////////////////////////////////////////////////////////
 //////////////////////// End Visio APIs ////////////////////////
-////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////Contains the host in which the add-in (web application) is running in. Possible values are: Word, Excel, PowerPoint
