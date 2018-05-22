@@ -13,7 +13,7 @@
 interface Window {
     chrome: typeof chrome;
 }
-declare module chrome { }
+declare module 'chrome' {}
 
 ////////////////////
 // Accessibility Features
@@ -496,6 +496,7 @@ declare namespace chrome.audio {
 ////////////////////
 /**
  * Use the chrome.bluetooth API to connect to a Bluetooth device. All functions report failures via chrome.runtime.lastError.
+ * Manifest: "bluetooth": {...}
  * @since Chrome 37
  */
 declare namespace chrome.bluetooth {
@@ -576,15 +577,23 @@ declare namespace chrome.bluetooth {
     export var onDeviceRemoved: BluetoothEvent<Device>;
 }
 /**
- * 	The chrome.bluetoothLowEnergy API is used to communicate with Bluetooth Smart (Low Energy) devices using the Generic Attribute Profile (GATT).
+ * The chrome.bluetoothLowEnergy API is used to communicate with Bluetooth Smart (Low Energy) devices using the Generic Attribute Profile (GATT).
+ * Manifest: "bluetooth": {...}
  * @since Chrome 37
+ * Important: This API works only on Chrome OS.
+ * Note: With Chrome 56, users can select nearby Bluetooth Low Energy devices to provide to web sites that use the Web Bluetooth API.
  */
 declare namespace chrome.bluetoothLowEnergy {
-    /** NOT IMPLEMENTED YET */
+    /**
+     * NOT IMPLEMENTED YET
+     * @see https://developer.chrome.com/apps/bluetoothLowEnergy
+     * */
 }
 /**
- * 	Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
+ * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
  * @since Chrome 37
+ * Manifest: "bluetooth": {...}
+ * Important: This API works only on OS X, Windows and Chrome OS.
  */
 declare namespace chrome.bluetoothSocket {
     /** NOT IMPLEMENTED YET */
@@ -1943,6 +1952,123 @@ declare namespace chrome.mediaGalleries {
 
     export var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
     export var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
+}
+
+////////////////////////////////////
+// Open Network Configuration (ONC)
+////////////////////////////////////
+/**
+ * The chrome.networking.onc API is used for configuring network connections (Cellular, Ethernet, VPN, WiFi or WiMAX). This API is available in Chrome OS kiosk sessions.
+ * Network connection configurations are specified following Open Network Configuration (ONC) specification.
+ * NOTE: Most dictionary properties and enum values use UpperCamelCase to match the ONC specification instead of the JavaScript lowerCamelCase convention.
+ */
+declare namespace chrome.networking.onc {
+    export type ActivationStateType = 'Activated' | 'Activating' | 'NotActivated' | 'PartiallyActivated';
+    export type CaptivePortalStatus = 'Unknown' | 'Offline' | 'Online' | 'Portal' | 'ProxyAuthRequired';
+    export type ConnectionStateType = 'Connected' | 'Connecting' | 'NotConnected';
+    export type IPConfigType = 'DHCP' | 'Static';
+    export type NetworkType = 'All' | 'Cellular' | 'Ethernet' | 'VPN' | 'Wireless' | 'WiFi' | 'WiMAX';
+    export type ProxySettingsType = 'Direct' | 'Manual' | 'PAC' | 'WPAD';
+    export interface ManagedBoolean {
+        /**
+         * @description The active value currently used by the network configuration manager (e.g. Shill).
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        Active?: boolean,
+        /**
+         * @description The source from which the effective property value was determined.
+         * @type {string}
+         * @memberof ManagedBoolean
+         */
+        Effective?: string,
+        /**
+         * @description The property value provided by the user policy.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        UserPolicy?: boolean,
+        /**
+         * @description The property value provided by the device policy.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        DevicePolicy?: boolean,
+        /**
+         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        UserSettings?: boolean,
+        /**
+         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        SharedSettings?: boolean,
+        /**
+         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        UserEditable?: boolean,
+        /**
+         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        DeviceEditable?: boolean
+    }
+    export interface ManagedLong {
+        /**
+         * @description The active value currently used by the network configuration manager (e.g. Shill).
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        Active?: number,
+        /**
+         * @description The source from which the effective property value was determined.
+         * @type {string}
+         * @memberof ManagedLong
+         */
+        Effective?: string,
+        /**
+         * @description The property value provided by the user policy.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        UserPolicy?: number,
+        /**
+         * @description The property value provided by the device policy.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        DevicePolicy?: number,
+        /**
+         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        UserSettings?: number,
+        /**
+         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        SharedSettings?: number,
+        /**
+         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedLong
+         */
+        UserEditable?: boolean,
+        /**
+         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedLong
+         */
+        DeviceEditable?: boolean
+    }
 }
 
 ////////////////////
@@ -3911,7 +4037,6 @@ declare namespace chrome.system.network {
     export function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
 }
 
-
 ////////////////////
 // System Storage
 ////////////////////
@@ -4285,115 +4410,6 @@ declare namespace chrome.usb {
     export function interruptTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
     export function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
     export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
-}
-
-declare namespace chrome.networking.onc {
-    export type ActivationStateType = 'Activated' | 'Activating' | 'NotActivated' | 'PartiallyActivated';
-    export type CaptivePortalStatus = 'Unknown' | 'Offline' | 'Online' | 'Portal' | 'ProxyAuthRequired';
-    export type ConnectionStateType = 'Connected' | 'Connecting' | 'NotConnected';
-    export type IPConfigType = 'DHCP' | 'Static';
-    export type NetworkType = 'All' | 'Cellular' | 'Ethernet' | 'VPN' | 'Wireless' | 'WiFi' | 'WiMAX';
-    export type ProxySettingsType = 'Direct' | 'Manual' | 'PAC' | 'WPAD';
-    export interface ManagedBoolean {
-        /**
-         * @description The active value currently used by the network configuration manager (e.g. Shill).
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        Active?: boolean,
-        /**
-         * @description The source from which the effective property value was determined.
-         * @type {string}
-         * @memberof ManagedBoolean
-         */
-        Effective?: string,
-        /**
-         * @description The property value provided by the user policy.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        UserPolicy?: boolean,
-        /**
-         * @description The property value provided by the device policy.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        DevicePolicy?: boolean,
-        /**
-         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        UserSettings?: boolean,
-        /**
-         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        SharedSettings?: boolean,
-        /**
-         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        UserEditable?: boolean,
-        /**
-         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        DeviceEditable?: boolean
-    }
-    export interface ManagedLong {
-        /**
-         * @description The active value currently used by the network configuration manager (e.g. Shill).
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        Active?: number,
-        /**
-         * @description The source from which the effective property value was determined.
-         * @type {string}
-         * @memberof ManagedLong
-         */
-        Effective?: string,
-        /**
-         * @description The property value provided by the user policy.
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        UserPolicy?: number,
-        /**
-         * @description The property value provided by the device policy.
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        DevicePolicy?: number,
-        /**
-         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        UserSettings?: number,
-        /**
-         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        SharedSettings?: number,
-        /**
-         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-         * @type {boolean}
-         * @memberof ManagedLong
-         */
-        UserEditable?: boolean,
-        /**
-         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-         * @type {boolean}
-         * @memberof ManagedLong
-         */
-        DeviceEditable?: boolean
-    }
 }
 
 
