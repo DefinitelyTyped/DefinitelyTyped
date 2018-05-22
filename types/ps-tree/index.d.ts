@@ -2,6 +2,7 @@
 // Project: http://github.com/indexzero/ps-tree
 // Definitions by: Alessio Paccoia <https://github.com/alessiopcc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 declare namespace ps_tree {
     interface PS {
