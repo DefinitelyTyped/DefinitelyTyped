@@ -1,6 +1,6 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>
+// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, see also the contributers on the chrome types (for extensions)
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // WebView ref: https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json
 // TypeScript Version: 2.4
@@ -14,6 +14,189 @@ interface Window {
     chrome: typeof chrome;
 }
 declare module chrome { }
+
+////////////////////
+// Accessibility Features
+////////////////////
+/**
+ * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request accessibilityFeatures.read permission. For modifying feature state, the extension needs accessibilityFeatures.modify permission. Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
+ * Availability: Since Chrome 37.
+ * Permissions: "accessibilityFeatures.read"
+ * Important: This API works only on Chrome OS.
+ */
+declare namespace chrome.accessibilityFeatures {
+    export interface AccessibilityFeaturesGetArg {
+        /** Optional. Whether to return the value that applies to the incognito session (default false).  */
+        incognito?: boolean;
+    }
+
+    export interface AccessibilityFeaturesCallbackArg {
+        /** The value of the setting. */
+        value: any;
+        /**
+         * One of
+         * • not_controllable: cannot be controlled by any extension
+         * • controlled_by_other_extensions: controlled by extensions with higher precedence
+         * • controllable_by_this_extension: can be controlled by this extension
+         * • controlled_by_this_extension: controlled by this extension
+         */
+        levelOfControl: string;
+        /** Optional. Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
+        incognitoSpecific?: boolean;
+    }
+
+    export interface AccessibilityFeaturesSetArg {
+        /**
+         * The value of the setting.
+         * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
+         */
+        value: any;
+        /**
+         * Optional.
+          * The scope of the ChromeSetting. One of
+         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+         */
+        scope?: string;
+    }
+
+    export interface AccessibilityFeaturesClearArg {
+        /**
+         * Optional.
+          * The scope of the ChromeSetting. One of
+         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+         */
+        scope?: string;
+    }
+
+    export interface AccessibilityFeaturesSetting {
+        /**
+         * Gets the value of a setting.
+         * @param details Which setting to consider.
+         * @param callback The callback parameter should be a function that looks like this:
+         * function(object details) {...};
+         */
+        get(details: AccessibilityFeaturesGetArg, callback: (details: AccessibilityFeaturesCallbackArg) => void): void;
+        /**
+         * Sets the value of a setting.
+         * @param details Which setting to change.
+         * @param callback Called at the completion of the set operation.
+         * If you specify the callback parameter, it should be a function that looks like this:
+         * function() {...};
+         */
+        set(details: AccessibilityFeaturesSetArg, callback?: () => void): void;
+        /**
+         * Clears the setting, restoring any default value.
+         * @param details Which setting to clear.
+         * @param callback Called at the completion of the clear operation.
+         * If you specify the callback parameter, it should be a function that looks like this:
+         * function() {...};
+         */
+        clear(details: AccessibilityFeaturesClearArg, callback?: () => void): void;
+    }
+
+    export var spokenFeedback: AccessibilityFeaturesSetting;
+    export var largeCursor: AccessibilityFeaturesSetting;
+    export var stickyKeys: AccessibilityFeaturesSetting;
+    export var highContrast: AccessibilityFeaturesSetting;
+    export var screenMagnifier: AccessibilityFeaturesSetting;
+    export var autoclick: AccessibilityFeaturesSetting;
+    export var virtualKeyboard: AccessibilityFeaturesSetting;
+    export var animationPolicy: AccessibilityFeaturesSetting;
+}
+
+////////////////////
+// Alarms
+////////////////////
+/**
+ * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future.
+ * Availability: Since Chrome 22.
+ * Permissions:  "alarms"
+ */
+declare namespace chrome.alarms {
+    export interface AlarmCreateInfo {
+        /** Optional. Length of time in minutes after which the onAlarm event should fire.  */
+        delayInMinutes?: number;
+        /** Optional. If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.  */
+        periodInMinutes?: number;
+        /** Optional. Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).  */
+        when?: number;
+    }
+
+    export interface Alarm {
+        /** Optional. If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.  */
+        periodInMinutes?: number;
+        /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
+        scheduledTime: number;
+        /** Name of this alarm. */
+        name: string;
+    }
+
+    export interface AlarmEvent extends chrome.events.Event<(alarm: Alarm) => void> { }
+
+    /**
+     * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+     * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+     * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+     * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
+     */
+    export function create(alarmInfo: AlarmCreateInfo): void;
+    /**
+     * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+     * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+     * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+     * @param name Optional name to identify this alarm. Defaults to the empty string.
+     * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
+     */
+    export function create(name: string, alarmInfo: AlarmCreateInfo): void;
+    /**
+     * Gets an array of all the alarms.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function(array of Alarm alarms) {...};
+     */
+    export function getAll(callback: (alarms: Alarm[]) => void): void;
+    /**
+     * Clears all alarms.
+     * @param callback If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean wasCleared) {...};
+     */
+    export function clearAll(callback?: (wasCleared: boolean) => void): void;
+    /**
+     * Clears the alarm with the given name.
+     * @param name The name of the alarm to clear. Defaults to the empty string.
+     * @param callback If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean wasCleared) {...};
+     */
+    export function clear(name?: string, callback?: (wasCleared: boolean) => void): void;
+    /**
+     * Clears the alarm without a name.
+     * @param callback If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean wasCleared) {...};
+     */
+    export function clear(callback: (wasCleared: boolean) => void): void;
+    /**
+     * Retrieves details about the specified alarm.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function( Alarm alarm) {...};
+     */
+    export function get(callback: (alarm: Alarm) => void): void;
+    /**
+     * Retrieves details about the specified alarm.
+     * @param name The name of the alarm to get. Defaults to the empty string.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function( Alarm alarm) {...};
+     */
+    export function get(name: string, callback: (alarm: Alarm) => void): void;
+
+    /** Fired when an alarm has elapsed. Useful for event pages. */
+    export var onAlarm: AlarmEvent;
+}
+
 
 ////////////////////
 // App
@@ -185,9 +368,113 @@ declare namespace chrome.app.window {
 
 
 ////////////////////
+// Audio
+////////////////////
+/**
+ * The chrome.audio API is provided to allow users to get information about and control the audio devices attached to the system. This API is currently only implemented for ChromeOS.
+ * @since Chrome 59
+ */
+declare namespace chrome.audio {
+    /** NOT IMPLEMENTED YET */
+}
+
+////////////////////
+// Bluetooth
+////////////////////
+/**
+ * Use the chrome.bluetooth API to connect to a Bluetooth device. All functions report failures via chrome.runtime.lastError.
+ * @since Chrome 37
+ */
+declare namespace chrome.bluetooth {
+    /** NOT IMPLEMENTED YET */
+}
+/**
+ * 	The chrome.bluetoothLowEnergy API is used to communicate with Bluetooth Smart (Low Energy) devices using the Generic Attribute Profile (GATT).
+ * @since Chrome 37
+ */
+declare namespace chrome.bluetoothLowEnergy {
+    /** NOT IMPLEMENTED YET */
+}
+/**
+ * 	Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
+ * @since Chrome 37
+ */
+declare namespace chrome.bluetoothSocket {
+    /** NOT IMPLEMENTED YET */
+}
+
+////////////////////
+// Browser
+////////////////////
+/**
+ * Use the chrome.browser API to interact with the Chrome browser associated with
+ * the current application and Chrome profile.
+ */
+declare namespace chrome.browser {
+    export interface Options {
+        /** The URL to navigate to when the new tab is initially opened. */
+        url: string;
+    }
+
+    /**
+     * Opens a new tab in a browser window associated with the current application
+     * and Chrome profile. If no browser window for the Chrome profile is opened,
+     * a new one is opened prior to creating the new tab.
+     * @param options Configures how the tab should be opened.
+     * @param callback Called when the tab was successfully
+     * created, or failed to be created. If failed, runtime.lastError will be set.
+     */
+    export function openTab(options: Options, callback: () => void): void;
+
+    /**
+    * Opens a new tab in a browser window associated with the current application
+    * and Chrome profile. If no browser window for the Chrome profile is opened,
+    * a new one is opened prior to creating the new tab. Since Chrome 42 only.
+    * @param options Configures how the tab should be opened.
+    */
+    export function openTab(options: Options): void;
+}
+
+////////////////////
+// Commands
+////////////////////
+/**
+ * Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the extension.
+ * Availability: Since Chrome 25.
+ * Manifest:  "commands": {...}
+ */
+declare namespace chrome.commands {
+    export interface Command {
+        /** Optional. The name of the Extension Command  */
+        name?: string;
+        /** Optional. The Extension Command description  */
+        description?: string;
+        /** Optional. The shortcut active for this command, or blank if not active.  */
+        shortcut?: string;
+    }
+
+    export interface CommandEvent extends chrome.events.Event<(command: string) => void> { }
+
+    /**
+     * Returns all the registered extension commands for this extension and their shortcut (if active).
+     * @param callback Called to return the registered commands.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(array of Command commands) {...};
+     */
+    export function getAll(callback: (commands: Command[]) => void): void;
+
+    /** Fired when a registered command is activated using a keyboard shortcut. */
+    export var onCommand: CommandEvent;
+}
+
+////////////////////
 // Context Menus
 ////////////////////
-
+/**
+ * Use the chrome.contextMenus API to add items to Google Chrome's context menu. You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages.
+ * Availability: Since Chrome 6.
+ * Permissions:  "contextMenus"
+ */
 declare namespace chrome.contextMenus {
     /**
     * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
@@ -198,35 +485,231 @@ declare namespace chrome.contextMenus {
     **/
     export type ItemType = "normal" | "checkbox" | "radio" | "separator";
 
-    /**
-    * @description Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
-    * @param {any} [object Object]
-     */
-    export function create(createProperties: object, callback?: () => void): void;
+    export interface OnClickData {
+        /**
+         * Optional.
+         * @since Since Chrome 35.
+         * The text for the context selection, if any.
+         */
+        selectionText?: string;
+        /**
+         * Optional.
+         * @since Since Chrome 35.
+         * A flag indicating the state of a checkbox or radio item after it is clicked.
+         */
+        checked?: boolean;
+        /**
+         * @since Since Chrome 35.
+         * The ID of the menu item that was clicked.
+         */
+        menuItemId: any;
+        /**
+         * Optional.
+         * @since Since Chrome 35.
+         * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
+         */
+        frameUrl?: string;
+        /**
+         * @since Since Chrome 35.
+         * A flag indicating whether the element is editable (text input, textarea, etc.).
+         */
+        editable: boolean;
+        /**
+         * Optional.
+         * @since Since Chrome 35.
+         * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
+         */
+        mediaType?: string;
+        /**
+         * Optional.
+         * @since Since Chrome 35.
+         * A flag indicating the state of a checkbox or radio item before it was clicked.
+         */
+        wasChecked?: boolean;
+        /**
+         * @since Since Chrome 35.
+         * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
+         */
+        pageUrl: string;
+        /**
+         * Optional.
+         * @since Since Chrome 35.
+         * If the element is a link, the URL it points to.
+         */
+        linkUrl?: string;
+        /**
+         * Optional.
+         * @since Since Chrome 35.
+         * The parent ID, if any, for the item clicked.
+         */
+        parentMenuItemId?: any;
+        /**
+         * Optional.
+         * @since Since Chrome 35.
+         * Will be present for elements with a 'src' URL.
+         */
+        srcUrl?: string;
+    }
+
+    export interface CreateProperties {
+        /** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
+        documentUrlPatterns?: string[];
+        /** Optional. The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.  */
+        checked?: boolean;
+        /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
+        title?: string;
+        /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
+        contexts?: string[];
+        /**
+         * Optional.
+         * Whether this context menu item is enabled or disabled. Defaults to true.
+         * @since Since Chrome 20.
+         */
+        enabled?: boolean;
+        /** Optional. Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.  */
+        targetUrlPatterns?: string[];
+        /**
+         * Optional.
+         * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
+         * @param info Information sent when a context menu item is clicked.
+         */
+        onclick?: (info: OnClickData) => void;
+        /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
+        parentId?: any;
+        /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
+        type?: string;
+        /**
+         * Optional.
+         * @since Since Chrome 21.
+         * @description The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
+         */
+        id?: string;
+        /**
+         * @description Whether the item is visible in the menu.
+         * @since Since Chrome 62
+         */
+        visible?: boolean;
+    }
+
+    export interface UpdateProperties {
+        documentUrlPatterns?: string[];
+        checked?: boolean;
+        title?: string;
+        contexts?: string[];
+        /**
+         * @since Chrome 20
+         **/
+        enabled?: boolean;
+        targetUrlPatterns?: string[];
+        onclick?: Function;
+        /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
+        parentId?: any;
+        type?: string;
+        /**
+         * @description Whether the item is visible or not.
+         * @since Since Chrome 62
+         */
+        visible?: boolean;
+    }
+
+    export interface MenuClickedEvent extends chrome.events.Event<(info: OnClickData) => void> { }
 
     /**
-    * @description Updates a previously created context menu item.
-    * @param {any} id The ID of the item to update.
-    * @param {object} updateProperties The properties to update. Accepts the same values as the create function.
-    * @param {any} [object Object]
+     * Since Chrome 38.
+     * The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored.
      */
-    export function update(id: number | string, updateProperties: object, callback?: () => void): void;
+    export var ACTION_MENU_TOP_LEVEL_LIMIT: number;
 
     /**
-    * @description Removes a context menu item.
-    * @param {any} menuItemId The ID of the context menu item to remove.
-    * @param {any} [object Object]
-     */
-    export function remove(menuItemId: number | string, callback?: () => void): void;
-
-    /**
-    * @description Removes all context menu items added by this extension.
-    * @param {any} [object Object]
+     * Removes all context menu items added by this extension.
+     * @param callback Called when removal is complete.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
      */
     export function removeAll(callback?: () => void): void;
+    /**
+     * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
+     * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function create(createProperties: CreateProperties, callback?: () => void): void;
+    /**
+     * Updates a previously created context menu item.
+     * @param id The ID of the item to update.
+     * @param updateProperties The properties to update. Accepts the same values as the create function.
+     * @param callback Called when the context menu has been updated.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function update(id: string, updateProperties: UpdateProperties, callback?: () => void): void;
+    /**
+     * Updates a previously created context menu item.
+     * @param id The ID of the item to update.
+     * @param updateProperties The properties to update. Accepts the same values as the create function.
+     * @param callback Called when the context menu has been updated.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function update(id: number, updateProperties: UpdateProperties, callback?: () => void): void;
+    /**
+     * Removes a context menu item.
+     * @param menuItemId The ID of the context menu item to remove.
+     * @param callback Called when the context menu has been removed.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function remove(menuItemId: string, callback?: () => void): void;
+    /**
+     * Removes a context menu item.
+     * @param menuItemId The ID of the context menu item to remove.
+     * @param callback Called when the context menu has been removed.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function remove(menuItemId: number, callback?: () => void): void;
+
+    /**
+     * Since Chrome 21.
+     * Fired when a context menu item is clicked.
+     */
+    export var onClicked: MenuClickedEvent;
 
 }
 
+////////////////////
+// Document Scan
+////////////////////
+/**
+ * Use the chrome.documentScan API to discover and retrieve images from attached paper document scanners.
+ * Availability: Since Chrome 44.
+ * Permissions:  "documentScan"
+ * Important: This API works only on Chrome OS.
+ */
+declare namespace chrome.documentScan {
+    export interface DocumentScanOptions {
+        /** Optional. The MIME types that are accepted by the caller.  */
+        mimeTypes?: string[];
+        /** Optional. The number of scanned images allowed (defaults to 1).  */
+        maxImages?: number;
+    }
+
+    export interface DocumentScanCallbackArg {
+        /** The data image URLs in a form that can be passed as the "src" value to an image tag. */
+        dataUrls: string[];
+        /** The MIME type of dataUrls. */
+        mimeType: string;
+    }
+
+    /**
+     * Performs a document scan. On success, the PNG data will be sent to the callback.
+     * @param options Object containing scan parameters.
+     * @param callback Called with the result and data from the scan.
+     * The callback parameter should be a function that looks like this:
+     * function(object result) {...};
+     */
+    export function scan(options: DocumentScanOptions, callback: (result: DocumentScanCallbackArg) => void): void;
+}
 
 ////////////////////
 // Events
@@ -494,6 +977,683 @@ declare namespace chrome.fileSystem {
     export function retainEntry(entry: Entry): string;
 }
 
+
+////////////////////
+// File System Provider
+////////////////////
+/**
+ * Use the chrome.fileSystemProvider API to create file systems, that can be accessible from the file manager on Chrome OS.
+ * Availability: Since Chrome 40.
+ * Permissions:  "fileSystemProvider"
+ * Important: This API works only on Chrome OS.
+ */
+declare namespace chrome.fileSystemProvider {
+    export interface OpenedFileInfo {
+        /** A request ID to be be used by consecutive read/write and close requests. */
+        openRequestId: number;
+        /** The path of the opened file. */
+        filePath: string;
+        /** Whether the file was opened for reading or writing. */
+        mode: string;
+    }
+
+    export interface FileWatchersInfo {
+        /** The path of the entry being observed. */
+        entryPath: string;
+        /** Whether watching should include all child entries recursively. It can be true for directories only. */
+        recursive: boolean;
+        /** Optional. Tag used by the last notification for the watcher.  */
+        lastTag?: string;
+    }
+
+    export interface EntryMetadata {
+        /** True if it is a directory. */
+        isDirectory: boolean;
+        /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. */
+        name: string;
+        /** File size in bytes. */
+        size: number;
+        /** The last modified time of this entry. */
+        modificationTime: Date;
+        /** Optional. Mime type for the entry.  */
+        mimeType?: string;
+        /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
+        thumbnail?: string;
+    }
+
+    export interface FileSystemInfo {
+        /** The identifier of the file system. */
+        fileSystemId: string;
+        /** A human-readable name for the file system. */
+        displayName: string;
+        /** Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files). */
+        writable: boolean;
+        /**
+         * The maximum number of files that can be opened at once. If 0, then not limited.
+         * @since Since Chrome 42.
+         */
+        openedFilesLimit: number;
+        /**
+         * List of currently opened files.
+         * @since Since Chrome 42.
+         */
+        openedFiles: OpenedFileInfo[];
+        /**
+         * Optional.
+          * Whether the file system supports the tag field for observing directories.
+         * @since Since Chrome 45. Warning: this is the current Beta channel.
+         */
+        supportsNotifyTag?: boolean;
+        /**
+         * List of watchers.
+         * @since Since Chrome 45. Warning: this is the current Beta channel.
+         */
+        watchers: FileWatchersInfo[];
+    }
+
+    /** @since Since Chrome 45. Warning: this is the current Beta channel. */
+    export interface GetActionsRequestedOptions {
+        /** The identifier of the file system related to this operation. */
+        fileSystemId: string;
+        /** The unique identifier of this request. */
+        requestId: number;
+        /** The path of the entry to return the list of actions for. */
+        entryPath: string;
+    }
+
+    /** @since Since Chrome 45. Warning: this is the current Beta channel. */
+    export interface Action {
+        /** The identifier of the action. Any string or CommonActionId for common actions. */
+        id: string;
+        /** Optional. The title of the action. It may be ignored for common actions.  */
+        title?: string;
+    }
+
+    /** @since Since Chrome 45. Warning: this is the current Beta channel. */
+    export interface ExecuteActionRequestedOptions {
+        /** The identifier of the file system related to this operation. */
+        fileSystemId: string;
+        /** The unique identifier of this request. */
+        requestId: number;
+        /** The path of the entry to be used for the action. */
+        entryPath: string;
+        /** The identifier of the action to be executed. */
+        actionId: string;
+    }
+
+    export interface MountOptions {
+        /** The string indentifier of the file system. Must be unique per each extension. */
+        fileSystemId: string;
+        /** A human-readable name for the file system. */
+        displayName: string;
+        /** Optional. Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files).  */
+        writable?: boolean;
+        /**
+         * Optional.
+          * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
+         * @since Since Chrome 41.
+         */
+        openedFilesLimit?: number;
+        /**
+         * Optional.
+          * Whether the file system supports the tag field for observed directories.
+         * @since Since Chrome 45. Warning: this is the current Beta channel.
+         */
+        supportsNotifyTag?: boolean;
+    }
+
+    export interface UnmountOptions {
+        /** The identifier of the file system to be unmounted. */
+        fileSystemId: string;
+    }
+
+    export interface NotificationChange {
+        /** The path of the changed entry. */
+        entryPath: string;
+        /** The type of the change which happened to the entry. */
+        changeType: string;
+    }
+
+    export interface NotificationOptions {
+        /** The identifier of the file system related to this change. */
+        fileSystemId: string;
+        /** The path of the observed entry. */
+        observedPath: string;
+        /** Mode of the observed entry. */
+        recursive: boolean;
+        /** The type of the change which happened to the observed entry. If it is DELETED, then the observed entry will be automatically removed from the list of observed entries. */
+        changeType: string;
+        /** Optional. List of changes to entries within the observed directory (including the entry itself)  */
+        changes?: NotificationChange[];
+        /** Optional. Tag for the notification. Required if the file system was mounted with the supportsNotifyTag option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown.  */
+        tag?: string;
+    }
+
+    export interface RequestedEventOptions {
+        /** The identifier of the file system related to this operation. */
+        fileSystemId: string;
+        /** The unique identifier of this request. */
+        requestId: number;
+    }
+
+    export interface EntryPathRequestedEventOptions extends RequestedEventOptions {
+        /** The path of the entry to which this operation is related to. */
+        entryPath: string;
+    }
+
+    export interface MetadataRequestedEventOptions extends EntryPathRequestedEventOptions {
+        /** Set to true if the thumbnail is requested. */
+        thumbnail: boolean;
+    }
+
+    export interface DirectoryPathRequestedEventOptions extends RequestedEventOptions {
+        /** The path of the directory which is to be operated on. */
+        directoryPath: string;
+    }
+
+    export interface FilePathRequestedEventOptions extends RequestedEventOptions {
+        /** The path of the entry for the operation */
+        filePath: string;
+    }
+
+    export interface OpenFileRequestedEventOptions extends FilePathRequestedEventOptions {
+        /** Whether the file will be used for reading or writing. */
+        mode: string;
+    }
+
+    export interface OpenedFileRequestedEventOptions extends RequestedEventOptions {
+        /** A request ID used to open the file. */
+        openRequestId: number;
+    }
+
+    export interface OpenedFileOffsetRequestedEventOptions extends OpenedFileRequestedEventOptions {
+        /** Position in the file (in bytes) to start reading from. */
+        offset: number;
+        /** Number of bytes to be returned. */
+        length: number;
+    }
+
+    export interface DirectoryPathRecursiveRequestedEventOptions extends DirectoryPathRequestedEventOptions {
+        /** Whether the operation is recursive (for directories only). */
+        recursive: boolean;
+    }
+
+    export interface EntryPathRecursiveRequestedEventOptions extends EntryPathRequestedEventOptions {
+        /** Whether the operation is recursive (for directories only). */
+        recursive: boolean;
+    }
+
+    export interface SourceTargetPathRequestedEventOptions extends RequestedEventOptions {
+        /** The source path for the operation. */
+        sourcePath: string;
+        /** The destination path for the operation. */
+        targetPath: string;
+    }
+
+    export interface FilePathLengthRequestedEventOptions extends FilePathRequestedEventOptions {
+        /** Number of bytes to be retained after the operation completes. */
+        length: number;
+    }
+
+    export interface OpenedFileIoRequestedEventOptions extends OpenedFileRequestedEventOptions {
+        /** Position in the file (in bytes) to start operating from. */
+        offset: number;
+        /** Buffer of bytes to be operated on the file. */
+        data: ArrayBuffer;
+    }
+
+    export interface OperationRequestedEventOptions extends RequestedEventOptions {
+        /** An ID of the request to which this operation is related. */
+        operationRequestId: number;
+    }
+
+    export interface RequestedEvent extends chrome.events.Event<(options: RequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface MetadataRequestedEvent extends chrome.events.Event<(options: MetadataRequestedEventOptions, successCallback: (metadata: EntryMetadata) => void, errorCallback: (error: string) => void) => void> { }
+
+    export interface DirectoryPathRequestedEvent extends chrome.events.Event<(options: DirectoryPathRequestedEventOptions, successCallback: (entries: EntryMetadata[], hasMore: boolean) => void, errorCallback: (error: string) => void) => void> { }
+
+    export interface OpenFileRequestedEvent extends chrome.events.Event<(options: OpenFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface OpenedFileRequestedEvent extends chrome.events.Event<(options: OpenedFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface OpenedFileOffsetRequestedEvent extends chrome.events.Event<(options: OpenedFileOffsetRequestedEventOptions, successCallback: (data: ArrayBuffer, hasMore: boolean) => void, errorCallback: (error: string) => void) => void> { }
+
+    export interface DirectoryPathRecursiveRequestedEvent extends chrome.events.Event<(options: DirectoryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface EntryPathRecursiveRequestedEvent extends chrome.events.Event<(options: EntryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface FilePathRequestedEvent extends chrome.events.Event<(options: FilePathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface SourceTargetPathRequestedEvent extends chrome.events.Event<(options: SourceTargetPathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface FilePathLengthRequestedEvent extends chrome.events.Event<(options: FilePathLengthRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface OpenedFileIoRequestedEvent extends chrome.events.Event<(options: OpenedFileIoRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface OperationRequestedEvent extends chrome.events.Event<(options: OperationRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    export interface OptionlessRequestedEvent extends chrome.events.Event<(successCallback: Function, errorCallback: (error: string) => void) => void> { }
+
+    /**
+     * Mounts a file system with the given fileSystemId and displayName. displayName will be shown in the left panel of Files.app. displayName can contain any characters including '/', but cannot be an empty string. displayName must be descriptive but doesn't have to be unique. The fileSystemId must not be an empty string.
+     * Depending on the type of the file system being mounted, the source option must be set appropriately.
+     * In case of an error, runtime.lastError will be set with a corresponding error code.
+     * @param callback A generic result callback to indicate success or failure.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function mount(options: MountOptions, callback?: () => void): void;
+    /**
+     * Unmounts a file system with the given fileSystemId. It must be called after onUnmountRequested is invoked. Also, the providing extension can decide to perform unmounting if not requested (eg. in case of lost connection, or a file error).
+     * In case of an error, runtime.lastError will be set with a corresponding error code.
+     * @param callback A generic result callback to indicate success or failure.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function unmount(options: UnmountOptions, callback?: () => void): void;
+    /**
+     * Returns all file systems mounted by the extension.
+     * @param callback Callback to receive the result of getAll function.
+     * The callback parameter should be a function that looks like this:
+     * function(array of FileSystemInfo fileSystems) {...};
+     */
+    export function getAll(callback: (fileSystems: FileSystemInfo[]) => void): void;
+    /**
+     * Returns information about a file system with the passed fileSystemId.
+     * @since Since Chrome 42.
+     * @param callback Callback to receive the result of get function.
+     * The callback parameter should be a function that looks like this:
+     * function(FileSystemInfo fileSystem) {...};
+     */
+    export function get(fileSystemId: string, callback: (fileSystem: FileSystemInfo) => void): void;
+    /**
+     * Notifies about changes in the watched directory at observedPath in recursive mode. If the file system is mounted with supportsNofityTag, then tag must be provided, and all changes since the last notification always reported, even if the system was shutdown. The last tag can be obtained with getAll.
+     * To use, the file_system_provider.notify manifest option must be set to true.
+     * Value of tag can be any string which is unique per call, so it's possible to identify the last registered notification. Eg. if the providing extension starts after a reboot, and the last registered notification's tag is equal to "123", then it should call notify for all changes which happened since the change tagged as "123". It cannot be an empty string.
+     * Not all providers are able to provide a tag, but if the file system has a changelog, then the tag can be eg. a change number, or a revision number.
+     * Note that if a parent directory is removed, then all descendant entries are also removed, and if they are watched, then the API must be notified about the fact. Also, if a directory is renamed, then all descendant entries are in fact removed, as there is no entry under their original paths anymore.
+     * In case of an error, runtime.lastError will be set will a corresponding error code.
+     * @param callback A generic result callback to indicate success or failure.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function notify(options: NotificationOptions, callback: () => void): void;
+
+    /** Raised when unmounting for the file system with the fileSystemId identifier is requested. In the response, the unmount API method must be called together with successCallback. If unmounting is not possible (eg. due to a pending operation), then errorCallback must be called.  */
+    export var onUnmountRequested: RequestedEvent;
+    /** Raised when metadata of a file or a directory at entryPath is requested. The metadata must be returned with the successCallback call. In case of an error, errorCallback must be called. */
+    export var onGetMetadataRequested: MetadataRequestedEvent;
+    /** Raised when contents of a directory at directoryPath are requested. The results must be returned in chunks by calling the successCallback several times. In case of an error, errorCallback must be called. */
+    export var onReadDirectoryRequested: DirectoryPathRequestedEvent;
+    /** Raised when opening a file at filePath is requested. If the file does not exist, then the operation must fail. Maximum number of files opened at once can be specified with MountOptions. */
+    export var onOpenFileRequested: OpenFileRequestedEvent;
+    /** Raised when opening a file previously opened with openRequestId is requested to be closed. */
+    export var onCloseFileRequested: OpenedFileRequestedEvent;
+    /** Raised when reading contents of a file opened previously with openRequestId is requested. The results must be returned in chunks by calling successCallback several times. In case of an error, errorCallback must be called. */
+    export var onReadFileRequested: OpenedFileOffsetRequestedEvent;
+    /** Raised when creating a directory is requested. The operation must fail with the EXISTS error if the target directory already exists. If recursive is true, then all of the missing directories on the directory path must be created. */
+    export var onCreateDirectoryRequested: DirectoryPathRecursiveRequestedEvent;
+    /** Raised when deleting an entry is requested. If recursive is true, and the entry is a directory, then all of the entries inside must be recursively deleted as well. */
+    export var onDeleteEntryRequested: EntryPathRecursiveRequestedEvent;
+    /** Raised when creating a file is requested. If the file already exists, then errorCallback must be called with the "EXISTS" error code. */
+    export var onCreateFileRequested: FilePathRequestedEvent;
+    /** Raised when copying an entry (recursively if a directory) is requested. If an error occurs, then errorCallback must be called. */
+    export var onCopyEntryRequested: SourceTargetPathRequestedEvent;
+    /** Raised when moving an entry (recursively if a directory) is requested. If an error occurs, then errorCallback must be called. */
+    export var onMoveEntryRequested: SourceTargetPathRequestedEvent;
+    /** Raised when truncating a file to a desired length is requested. If an error occurs, then errorCallback must be called. */
+    export var onTruncateRequested: FilePathLengthRequestedEvent;
+    /** Raised when writing contents to a file opened previously with openRequestId is requested. */
+    export var onWriteFileRequested: OpenedFileIoRequestedEvent;
+    /** Raised when aborting an operation with operationRequestId is requested. The operation executed with operationRequestId must be immediately stopped and successCallback of this abort request executed. If aborting fails, then errorCallback must be called. Note, that callbacks of the aborted operation must not be called, as they will be ignored. Despite calling errorCallback, the request may be forcibly aborted. */
+    export var onAbortRequested: OperationRequestedEvent;
+    /**
+     * Raised when showing a configuration dialog for fileSystemId is requested. If it's handled, the file_system_provider.configurable manfiest option must be set to true.
+     * @since Since Chrome 44.
+     */
+    export var onConfigureRequested: RequestedEvent;
+    /**
+     * Raised when showing a dialog for mounting a new file system is requested. If the extension/app is a file handler, then this event shouldn't be handled. Instead app.runtime.onLaunched should be handled in order to mount new file systems when a file is opened. For multiple mounts, the file_system_provider.multiple_mounts manifest option must be set to true.
+     * @since Since Chrome 44.
+     */
+    export var onMountRequested: OptionlessRequestedEvent;
+    /**
+     * Raised when setting a new directory watcher is requested. If an error occurs, then errorCallback must be called.
+     * @since Since Chrome 45. Warning: this is the current Beta channel.
+     */
+    export var onAddWatcherRequested: EntryPathRecursiveRequestedEvent;
+    /**
+     * Raised when the watcher should be removed. If an error occurs, then errorCallback must be called.
+     * @since Since Chrome 45. Warning: this is the current Beta channel.
+     */
+    export var onRemoveWatcherRequested: EntryPathRecursiveRequestedEvent;
+}
+
+////////////////////
+// Google Cloud Messaging
+////////////////////
+/**
+ * Use chrome.gcm to enable apps and extensions to send and receive messages through the Google Cloud Messaging Service.
+ * Availability: Since Chrome 35.
+ * Permissions:  "gcm"
+ */
+declare namespace chrome.gcm {
+    export interface OutgoingMessage {
+        /** The ID of the server to send the message to as assigned by Google API Console. */
+        destinationId: string;
+        /** The ID of the message. It must be unique for each message in scope of the applications. See the Cloud Messaging documentation for advice for picking and handling an ID. */
+        messageId: string;
+        /** Optional. Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The maximum and a default value of time-to-live is 86400 seconds (1 day). */
+        timeToLive?: number;
+        /** Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE. */
+        data: Object;
+    }
+
+    export interface IncomingMessage {
+        /** The message data. */
+        data: Object;
+        /**
+         * Optional.
+         * The sender who issued the message.
+         * @since Since Chrome 41.
+         */
+        from?: string;
+        /**
+         * Optional.
+         * The collapse key of a message. See Collapsible Messages section of Cloud Messaging documentation for details.
+         */
+        collapseKey?: string;
+    }
+
+    export interface GcmError {
+        /** The error message describing the problem. */
+        errorMessage: string;
+        /** Optional. The ID of the message with this error, if error is related to a specific message. */
+        messageId?: string;
+        /** Additional details related to the error, when available. */
+        detail: Object;
+    }
+
+    export interface MessageReceptionEvent extends chrome.events.Event<(message: IncomingMessage) => void> { }
+
+    export interface MessageDeletionEvent extends chrome.events.Event<() => void> { }
+
+    export interface GcmErrorEvent extends chrome.events.Event<(error: GcmError) => void> { }
+
+    /** The maximum size (in bytes) of all key/value pairs in a message. */
+    export var MAX_MESSAGE_SIZE: number;
+
+    /**
+     * Registers the application with GCM. The registration ID will be returned by the callback. If register is called again with the same list of senderIds, the same registration ID will be returned.
+     * @param senderIds A list of server IDs that are allowed to send messages to the application. It should contain at least one and no more than 100 sender IDs.
+     * @param callback Function called when registration completes. It should check runtime.lastError for error when registrationId is empty.
+     * The callback parameter should be a function that looks like this:
+     * function(string registrationId) {...};
+     * Parameter registrationId: A registration ID assigned to the application by the GCM.
+     */
+    export function register(senderIds: string[], callback: (registrationId: string) => void): void;
+    /**
+     * Unregisters the application from GCM.
+     * @param callback A function called after the unregistration completes. Unregistration was successful if runtime.lastError is not set.
+     * The callback parameter should be a function that looks like this:
+     * function() {...};
+     */
+    export function unregister(callback: () => void): void;
+    /**
+     * Sends a message according to its contents.
+     * @param message A message to send to the other party via GCM.
+     * @param callback A function called after the message is successfully queued for sending. runtime.lastError should be checked, to ensure a message was sent without problems.
+     * The callback parameter should be a function that looks like this:
+     * function(string messageId) {...};
+     * Parameter messageId: The ID of the message that the callback was issued for.
+     */
+    export function send(message: OutgoingMessage, callback: (messageId: string) => void): void;
+
+    /** Fired when a message is received through GCM. */
+    export var onMessage: MessageReceptionEvent;
+    /** Fired when a GCM server had to delete messages sent by an app server to the application. See Messages deleted event section of Cloud Messaging documentation for details on handling this event. */
+    export var onMessagesDeleted: MessageDeletionEvent;
+    /** Fired when it was not possible to send a message to the GCM server. */
+    export var onSendError: GcmErrorEvent;
+}
+
+////////////////////
+// HID
+////////////////////
+/**
+ * Use the chrome.hid API to interact with connected HID devices. This API provides access to HID operations from within the context of an app. Using this API, apps can function as drivers for hardware devices. Errors generated by this API are reported by setting runtime.lastError and executing the function's regular callback. The callback's regular parameters will be undefined in this case.
+ * @since Chrome 38
+ */
+declare namespace chrome.hid {
+    /** NOT YET IMPLEMENTED */
+}
+
+////////////////////
+// i18n
+////////////////////
+/**
+ * Use the chrome.i18n infrastructure to implement internationalization across your whole app or extension.
+ * @since Chrome 5.
+ */
+declare namespace chrome.i18n {
+    /** Holds detected ISO language code and its percentage in the input string */
+    export interface DetectedLanguage {
+        /** An ISO language code such as 'en' or 'fr'.
+         * For a complete list of languages supported by this method, see  [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}.
+         * For an unknown language, 'und' will be returned, which means that [percentage] of the text is unknown to CLD */
+        language: string;
+
+        /** The percentage of the detected language */
+        percentage: number;
+    }
+
+    /** Holds detected language reliability and array of DetectedLanguage */
+    export interface LanguageDetectionResult {
+        /** CLD detected language reliability */
+        isReliable: boolean;
+
+        /** Array of detectedLanguage */
+        languages: DetectedLanguage[];
+    }
+
+    /**
+     * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function(array of string languages) {...};
+     * Parameter languages: Array of the accept languages of the browser, such as en-US,en,zh-CN
+     */
+    export function getAcceptLanguages(callback: (languages: string[]) => void): void;
+    /**
+     * Gets the localized string for the specified message. If the message is missing, this method returns an empty string (''). If the format of the getMessage() call is wrong — for example, messageName is not a string or the substitutions array has more than 9 elements — this method returns undefined.
+     * @param messageName The name of the message, as specified in the messages.json file.
+     * @param substitutions Optional. Up to 9 substitution strings, if the message requires any.
+     */
+    export function getMessage(messageName: string, substitutions?: any): string;
+    /**
+     * Gets the browser UI language of the browser. This is different from i18n.getAcceptLanguages which returns the preferred user languages.
+     * @since Chrome 35.
+     */
+    export function getUILanguage(): string;
+
+    /** Detects the language of the provided text using CLD.
+     * @param text User input string to be translated.
+     * @param callback The callback parameter should be a function that looks like this: function(object result) {...};
+     */
+    export function detectLanguage(text: string, callback: (result: LanguageDetectionResult) => void): void;
+}
+
+////////////////////
+// Identity
+////////////////////
+/**
+ * Use the chrome.identity API to get OAuth2 access tokens.
+ * Permissions:  "identity"
+ * @since Chrome 29.
+ */
+declare namespace chrome.identity {
+    /** @since Chrome 32. */
+    export interface AccountInfo {
+        /** A unique identifier for the account. This ID will not change for the lifetime of the account. */
+        id: string;
+    }
+
+    export interface TokenDetails {
+        /**
+         * Optional.
+         * Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is true, getAuthToken will prompt the user as necessary. When the flag is false or omitted, getAuthToken will return failure any time a prompt would be required.
+         */
+        interactive?: boolean;
+        /**
+         * Optional.
+         * The account ID whose token should be returned. If not specified, the primary account for the profile will be used.
+         * account is only supported when the "enable-new-profile-management" flag is set.
+         * @since Chrome 37.
+         */
+        account?: AccountInfo;
+        /**
+         * Optional.
+         * A list of OAuth2 scopes to request.
+         * When the scopes field is present, it overrides the list of scopes specified in manifest.json.
+         * @since Chrome 37.
+         */
+        scopes?: string[];
+    }
+
+    export interface UserInfo {
+        /** An email address for the user account signed into the current profile. Empty if the user is not signed in or the identity.email manifest permission is not specified. */
+        email: string;
+        /** A unique identifier for the account. This ID will not change for the lifetime of the account. Empty if the user is not signed in or (in M41+) the identity.email manifest permission is not specified. */
+        id: string;
+    }
+
+    export interface TokenInformation {
+        /** The specific token that should be removed from the cache. */
+        token: string;
+    }
+
+    export interface WebAuthFlowOptions {
+        /** The URL that initiates the auth flow. */
+        url: string;
+        /**
+         * Optional.
+         * Whether to launch auth flow in interactive mode.
+         * Since some auth flows may immediately redirect to a result URL, launchWebAuthFlow hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
+         * If the interactive flag is true, the window will be displayed when a page load completes. If the flag is false or omitted, launchWebAuthFlow will return with an error if the initial navigation does not complete the flow.
+         */
+        interactive?: boolean;
+    }
+
+    export interface SignInChangeEvent extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void> { }
+
+    /**
+     * Retrieves a list of AccountInfo objects describing the accounts present on the profile.
+     * getAccounts is only supported on dev channel.
+     * Dev channel only.
+     */
+    export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
+    /**
+     * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
+     * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
+     * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with with no context. In particular, do not use getAuthToken interactively when your app is first launched.
+     * @param details Token options.
+     * @param callback Called with an OAuth2 access token as specified by the manifest, or undefined if there was an error.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(string token) {...};
+     */
+    export function getAuthToken(details: TokenDetails, callback?: (token: string) => void): void;
+    /**
+     * Retrieves email address and obfuscated gaia id of the user signed into a profile.
+     * This API is different from identity.getAccounts in two ways. The information returned is available offline, and it only applies to the primary account for the profile.
+     * @since Chrome 37.
+     */
+    export function getProfileUserInfo(callback: (userInfo: UserInfo) => void): void;
+    /**
+     * Removes an OAuth2 access token from the Identity API's token cache.
+     * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
+     * @param details Token information.
+     * @param callback Called when the token has been removed from the cache.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function removeCachedAuthToken(details: TokenInformation, callback?: () => void): void;
+    /**
+     * Starts an auth flow at the specified URL.
+     * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
+     * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
+     * @param details WebAuth flow options.
+     * @param callback Called with the URL redirected back to your application.
+     * The callback parameter should be a function that looks like this:
+     * function(string responseUrl) {...};
+     */
+    export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
+    /**
+     * Generates a redirect URL to be used in launchWebAuthFlow.
+     * The generated URLs match the pattern https://<app-id>.chromiumapp.org/*.
+     * @since Chrome 33.
+     * @param path Optional. The path appended to the end of the generated URL.
+     */
+    export function getRedirectURL(path?: string): string;
+
+    /**
+     * Fired when signin state changes for an account on the user's profile.
+     * @since Chrome 33.
+     */
+    export var onSignInChanged: SignInChangeEvent;
+}
+
+////////////////////
+// Idle
+////////////////////
+/**
+ * Use the chrome.idle API to detect when the machine's idle state changes.
+ * Permissions:  "idle"
+ * @since Chrome 6.
+ */
+declare namespace chrome.idle {
+    export interface IdleStateChangedEvent extends chrome.events.Event<(newState: string) => void> { }
+
+    /**
+     * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
+     * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
+     * Since Chrome 25.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function( IdleState newState) {...};
+     */
+    export function queryState(detectionIntervalInSeconds: number, callback: (newState: string) => void): void;
+    /**
+     * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
+     * @since Chrome 25.
+     * @param intervalInSeconds Threshold, in seconds, used to determine when the system is in an idle state.
+     */
+    export function setDetectionInterval(intervalInSeconds: number): void;
+
+    /** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
+    export var onStateChanged: IdleStateChangedEvent;
+}
+
+////////////////////
+// InstanceID
+////////////////////
+/**
+ * Use chrome.instanceID to access the Instance ID service.
+ * @since Chrome 46
+ */
+declare namespace chrome.instanceID {
+    /** NOT YET IMPLEMENTED */
+}
+
+////////////////////
+// mDNS
+////////////////////
+/**
+ * 	Use the chrome.mdns API to discover services over mDNS. This comprises a subset of the features of the NSD spec: http://www.w3.org/TR/discovery-api/
+ * @since Chrome 31
+ */
+declare namespace chrome.mdns {
+    /** NOT YET IMPLEMENTED */
+}
+
 ////////////////////
 // Media Galleries
 ////////////////////
@@ -596,6 +1756,818 @@ declare namespace chrome.mediaGalleries {
 
     export var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
     export var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
+}
+
+////////////////////
+// Notifications
+// https://developer.chrome.com/extensions/notifications
+////////////////////
+/**
+ * Use the chrome.notifications API to create rich notifications using templates and show these notifications to users in the system tray.
+ * Permissions:  "notifications"
+ * @since Chrome 28.
+ */
+declare namespace chrome.notifications {
+    export interface ButtonOptions {
+        title: string;
+        iconUrl?: string;
+    }
+
+    export interface ItemOptions {
+        /** Title of one item of a list notification. */
+        title: string;
+        /** Additional details about this item. */
+        message: string;
+    }
+
+    export interface NotificationOptions {
+        /** Optional. Which type of notification to display. Required for notifications.create method. */
+        type?: string;
+        /**
+         * Optional.
+         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
+         */
+        iconUrl?: string;
+        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+        title?: string;
+        /** Optional. Main notification content. Required for notifications.create method. */
+        message?: string;
+        /**
+         * Optional.
+         * Alternate notification content with a lower-weight font.
+         * @since Chrome 31.
+         */
+        contextMessage?: string;
+        /** Optional. Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is default. */
+        priority?: number;
+        /** Optional. A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n). */
+        eventTime?: number;
+        /** Optional. Text and icons for up to two notification action buttons. */
+        buttons?: ButtonOptions[];
+        /** Optional. Items for multi-item notifications. */
+        items?: ItemOptions[];
+        /**
+         * Optional.
+         * Current progress ranges from 0 to 100.
+         * @since Chrome 30.
+         */
+        progress?: number;
+        /**
+         * Optional.
+         * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
+         * @since Chrome 32.
+         */
+        isClickable?: boolean;
+        /**
+         * Optional.
+         * A URL to the app icon mask. URLs have the same restrictions as iconUrl. The app icon mask should be in alpha channel, as only the alpha channel of the image will be considered.
+         * @since Chrome 38.
+         */
+        appIconMaskUrl?: string;
+        /** Optional. A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as iconUrl. */
+        imageUrl?: string;
+        /**
+         * Indicates that the notification should remain visible on screen until the user activates or dismisses the notification.
+         * This defaults to false.
+         * @since Chrome 50
+         */
+        requireInteraction?: boolean;
+    }
+
+    export interface NotificationClosedEvent extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
+
+    export interface NotificationClickedEvent extends chrome.events.Event<(notificationId: string) => void> { }
+
+    export interface NotificationButtonClickedEvent extends chrome.events.Event<(notificationId: string, buttonIndex: number) => void> { }
+
+    export interface NotificationPermissionLevelChangedEvent extends chrome.events.Event<(level: string) => void> { }
+
+    export interface NotificationShowSettingsEvent extends chrome.events.Event<() => void> { }
+
+    /** The notification closed, either by the system or by user action. */
+    export var onClosed: NotificationClosedEvent;
+    /** The user clicked in a non-button area of the notification. */
+    export var onClicked: NotificationClickedEvent;
+    /** The user pressed a button in the notification. */
+    export var onButtonClicked: NotificationButtonClickedEvent;
+    /**
+     * The user changes the permission level.
+     * @since Chrome 32.
+     */
+    export var onPermissionLevelChanged: NotificationPermissionLevelChangedEvent;
+    /**
+     * The user clicked on a link for the app's notification settings.
+     * @since Chrome 32.
+     */
+    export var onShowSettings: NotificationShowSettingsEvent;
+
+    /**
+     * Creates and displays a notification.
+     * @param notificationId Identifier of the notification. If not set or empty, an ID will automatically be generated. If it matches an existing notification, this method first clears that notification before proceeding with the create operation.
+     * The notificationId parameter is required before Chrome 42.
+     * @param options Contents of the notification.
+     * @param callback Returns the notification id (either supplied or generated) that represents the created notification.
+     * The callback is required before Chrome 42.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(string notificationId) {...};
+     */
+    export function create(notificationId: string, options: NotificationOptions, callback?: (notificationId: string) => void): void;
+    /**
+     * Creates and displays a notification.
+     * @param notificationId Identifier of the notification. If not set or empty, an ID will automatically be generated. If it matches an existing notification, this method first clears that notification before proceeding with the create operation.
+     * The notificationId parameter is required before Chrome 42.
+     * @param options Contents of the notification.
+     * @param callback Returns the notification id (either supplied or generated) that represents the created notification.
+     * The callback is required before Chrome 42.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(string notificationId) {...};
+     */
+    export function create(options: NotificationOptions, callback?: (notificationId: string) => void): void;
+    /**
+     * Updates an existing notification.
+     * @param notificationId The id of the notification to be updated. This is returned by notifications.create method.
+     * @param options Contents of the notification to update to.
+     * @param callback Called to indicate whether a matching notification existed.
+     * The callback is required before Chrome 42.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean wasUpdated) {...};
+     */
+    export function update(notificationId: string, options: NotificationOptions, callback?: (wasUpdated: boolean) => void): void;
+    /**
+     * Clears the specified notification.
+     * @param notificationId The id of the notification to be cleared. This is returned by notifications.create method.
+     * @param callback Called to indicate whether a matching notification existed.
+     * The callback is required before Chrome 42.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean wasCleared) {...};
+     */
+    export function clear(notificationId: string, callback?: (wasCleared: boolean) => void): void;
+    /**
+     * Retrieves all the notifications.
+     * @since Chrome 29.
+     * @param callback Returns the set of notification_ids currently in the system.
+     * The callback parameter should be a function that looks like this:
+     * function(object notifications) {...};
+     */
+    export function getAll(callback: (notifications: Object) => void): void;
+    /**
+     * Retrieves whether the user has enabled notifications from this app or extension.
+     * @since Chrome 32.
+     * @param callback Returns the current permission level.
+     * The callback parameter should be a function that looks like this:
+     * function( PermissionLevel level) {...};
+     */
+    export function getPermissionLevel(callback: (level: string) => void): void;
+}
+
+////////////////////
+// Permissions
+////////////////////
+/**
+ * Use the chrome.permissions API to request declared optional permissions at run time rather than install time, so users understand why the permissions are needed and grant only those that are necessary.
+ * @since Chrome 16.
+ */
+declare namespace chrome.permissions {
+    export interface Permissions {
+        /**
+         * Optional.
+         * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
+         */
+        origins?: string[];
+        /**
+         * Optional.
+         * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
+         */
+        permissions?: string[];
+    }
+
+    export interface PermissionsRemovedEvent {
+        /**
+         * @param callback The callback parameter should be a function that looks like this:
+         * function( Permissions permissions) {...};
+         * Parameter permissions: The permissions that have been removed.
+         */
+        addListener(callback: (permissions: Permissions) => void): void;
+    }
+
+    export interface PermissionsAddedEvent {
+        /**
+         * @param callback The callback parameter should be a function that looks like this:
+         * function( Permissions permissions) {...};
+         * Parameter permissions: The newly acquired permissions.
+         */
+        addListener(callback: (permissions: Permissions) => void): void;
+    }
+
+    /**
+     * Checks if the extension has the specified permissions.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function(boolean result) {...};
+     * Parameter result: True if the extension has the specified permissions.
+     */
+    export function contains(permissions: Permissions, callback: (result: boolean) => void): void;
+    /**
+     * Gets the extension's current set of permissions.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function( Permissions permissions) {...};
+     * Parameter permissions: The extension's active permissions.
+     */
+    export function getAll(callback: (permissions: Permissions) => void): void;
+    /**
+     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
+     * @param callback If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean granted) {...};
+     * Parameter granted: True if the user granted the specified permissions.
+     */
+    export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
+    /**
+     * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
+     * @param callback If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean removed) {...};
+     * Parameter removed: True if the permissions were removed.
+     */
+    export function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
+
+    /** Fired when access to permissions has been removed from the extension. */
+    export var onRemoved: PermissionsRemovedEvent;
+    /** Fired when the extension acquires new permissions. */
+    export var onAdded: PermissionsAddedEvent;
+}
+
+////////////////////
+// Power
+////////////////////
+/**
+ * Use the chrome.power API to override the system's power management features.
+ * Permissions:  "power"
+ * @since Chrome 27.
+ */
+declare namespace chrome.power {
+    /** Requests that power management be temporarily disabled. |level| describes the degree to which power management should be disabled. If a request previously made by the same app is still active, it will be replaced by the new request. */
+    export function requestKeepAwake(level: string): void;
+    /** Releases a request previously made via requestKeepAwake(). */
+    export function releaseKeepAwake(): void;
+}
+
+////////////////////
+// Printer Provider
+////////////////////
+/**
+ * The chrome.printerProvider API exposes events used by print manager to query printers controlled by extensions, to query their capabilities and to submit print jobs to these printers.
+ * Permissions:  "printerProvider"
+ * @since Chrome 44.
+ */
+declare namespace chrome.printerProvider {
+    export interface PrinterInfo {
+        /** Unique printer ID. */
+        id: string;
+        /** Printer's human readable name. */
+        name: string;
+        /** Optional. Printer's human readable description. */
+        description?: string;
+    }
+
+    export interface PrinterCapabilities {
+        /** Device capabilities in CDD format. */
+        capabilities: any;
+    }
+
+    export interface PrintJob {
+        /** ID of the printer which should handle the job. */
+        printerId: string;
+        /** The print job title. */
+        title: string;
+        /** Print ticket in  CJT format. */
+        ticket: Object;
+        /** The document content type. Supported formats are "application/pdf" and "image/pwg-raster". */
+        contentType: string;
+        /** Blob containing the document data to print. Format must match |contentType|. */
+        document: Blob;
+    }
+
+    export interface PrinterRequestedEvent extends chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void> { }
+
+    export interface PrinterInfoRequestedEvent extends chrome.events.Event<(device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void> { }
+
+    export interface CapabilityRequestedEvent extends chrome.events.Event<(printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void> { }
+
+    export interface PrintRequestedEvent extends chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void> { }
+
+    /** Event fired when print manager requests printers provided by extensions. */
+    export var onGetPrintersRequested: PrinterRequestedEvent;
+    /**
+     * Event fired when print manager requests information about a USB device that may be a printer.
+     * Note: An application should not rely on this event being fired more than once per device. If a connected device is supported it should be returned in the onGetPrintersRequested event.
+     * @since Chrome 45.
+     */
+    export var onGetUsbPrinterInfoRequested: PrinterInfoRequestedEvent;
+    /** Event fired when print manager requests printer capabilities. */
+    export var onGetCapabilityRequested: CapabilityRequestedEvent;
+    /** Event fired when print manager requests printing. */
+    export var onPrintRequested: PrintRequestedEvent;
+}
+
+////////////////////
+// Runtime
+////////////////////
+/**
+ * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.
+ * @since Chrome 22
+ */
+declare namespace chrome.runtime {
+    /** This will be defined during an API method callback if there was an error */
+    export var lastError: LastError | undefined;
+    /** The ID of the extension/app. */
+    export var id: string;
+
+    export interface LastError {
+        /** Optional. Details about the error which occurred.  */
+        message?: string;
+    }
+
+    export interface ConnectInfo {
+        name?: string;
+    }
+
+    export interface InstalledDetails {
+        /**
+         * The reason that this event is being dispatched.
+         * One of: "install", "update", "chrome_update", or "shared_module_update"
+         */
+        reason: string;
+        /**
+         * Optional.
+         * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
+         */
+        previousVersion?: string;
+        /**
+         * Optional.
+         * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'.
+         * @since Chrome 29.
+         */
+        id?: string;
+    }
+
+    export interface MessageOptions {
+        /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
+        includeTlsChannelId?: boolean;
+    }
+
+    /**
+     * An object containing information about the script context that sent a message or request.
+     * @since Chrome 26.
+     */
+    export interface MessageSender {
+        /** The ID of the extension or app that opened the connection, if any. */
+        id?: string;
+        /**
+         * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
+         * @since Chrome 41.
+         */
+        frameId?: number;
+        /**
+         * The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it.
+         * @since Chrome 28.
+         */
+        url?: string;
+        /**
+         * The TLS channel ID of the page or frame that opened the connection, if requested by the extension or app, and if available.
+         * @since Chrome 32.
+         */
+        tlsChannelId?: string;
+    }
+
+    /**
+     * An object containing information about the current platform.
+     * @since Chrome 36.
+     */
+    export interface PlatformInfo {
+        /**
+         * The operating system chrome is running on.
+         * One of: "mac", "win", "android", "cros", "linux", or "openbsd"
+         */
+        os: string;
+        /**
+         * The machine's processor architecture.
+         * One of: "arm", "x86-32", or "x86-64"
+         */
+        arch: string;
+        /**
+         * The native client architecture. This may be different from arch on some platforms.
+         * One of: "arm", "x86-32", or "x86-64"
+         */
+        nacl_arch: string;
+    }
+
+    /**
+     * An object which allows two way communication with other pages.
+     * @since Chrome 26.
+     */
+    export interface Port {
+        postMessage: (message: Object) => void;
+        disconnect: () => void;
+        /**
+         * Optional.
+         * This property will only be present on ports passed to onConnect/onConnectExternal listeners.
+         */
+        sender?: MessageSender;
+        /** An object which allows the addition and removal of listeners for a Chrome event. */
+        onDisconnect: PortDisconnectEvent;
+        /** An object which allows the addition and removal of listeners for a Chrome event. */
+        onMessage: PortMessageEvent;
+        name: string;
+    }
+
+    export interface UpdateAvailableDetails {
+        /** The version number of the available update. */
+        version: string;
+    }
+
+    export interface UpdateCheckDetails {
+        /** The version of the available update. */
+        version: string;
+    }
+
+    export interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> { }
+
+    export interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> { }
+
+    export interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response: any) => void) => void> { }
+
+    export interface ExtensionConnectEvent extends chrome.events.Event<(port: Port) => void> { }
+
+    export interface RuntimeInstalledEvent extends chrome.events.Event<(details: InstalledDetails) => void> { }
+
+    export interface RuntimeEvent extends chrome.events.Event<() => void> { }
+
+    export interface RuntimeRestartRequiredEvent extends chrome.events.Event<(reason: string) => void> { }
+
+    export interface RuntimeUpdateAvailableEvent extends chrome.events.Event<(details: UpdateAvailableDetails) => void> { }
+
+    export interface ManifestIcons {
+        [size: number]: string;
+    }
+
+    export interface ManifestAction {
+        default_icon?: ManifestIcons;
+        default_title?: string;
+        default_popup?: string;
+    }
+
+    export interface SearchProvider {
+        name?: string;
+        keyword?: string;
+        favicon_url?: string;
+        search_url: string;
+        encoding?: string;
+        suggest_url?: string;
+        instant_url?: string;
+        image_url?: string;
+        search_url_post_params?: string;
+        suggest_url_post_params?: string;
+        instant_url_post_params?: string;
+        image_url_post_params?: string;
+        alternate_urls?: string[];
+        prepopulated_id?: number;
+        is_default?: boolean;
+    }
+
+    export interface Manifest {
+        /** Required */
+        app: {
+            background: {
+                scripts?: string[];
+            }
+        }
+        /** Should be set to 2 */
+        manifest_version: number;
+        name: string;
+        version: string;
+
+        // Recommended
+        default_locale?: string;
+        description?: string;
+        icons?: ManifestIcons;
+        // Optional
+        action_handlers?: string[];
+        author?: any;
+        automation?: any;
+        bluetooth?: {
+            uuids?: string[];
+            socket?: boolean;
+            low_energy?: boolean;
+            peripheral?: boolean;
+        };
+        commands?: {
+            [name: string]: {
+                suggested_key?: {
+                    default?: string;
+                    windows?: string;
+                    mac?: string;
+                    chromeos?: string;
+                    linux?: string;
+                };
+                description?: string;
+                global?: boolean
+            }
+        };
+        current_locale?: string;
+        event_rules?: {
+            event?: string;
+            actions?: {
+                type: string;
+            }[];
+            conditions?: {
+                type: string,
+                css?: string[]
+            }[];
+        }[];
+        file_handlers?: {
+            [key: string]: {
+                extensions?: Array<'*' | string | { include_directories: boolean }>;
+                types?: Array<'*' | string | { include_directories: boolean }>;
+            }
+        }[];
+        file_system_provider_capabilities?: {
+            configurable?: boolean;
+            multiple_mounts?: boolean;
+            source?: string;
+        };
+        import?: {
+            id: string;
+        }[];
+        key?: string;
+        kiosk?: {
+            always_update: any;
+            required_platform_version: any;
+        };
+        kiosk_enabled?: boolean,
+        kiosk_only?: boolean,
+        kiosk_secondary_apps: any;
+        minimum_chrome_version?: string;
+        nacl_modules?: {
+            path: string;
+            mime_type: string;
+        }[];
+        oauth2?: {
+            client_id: string;
+            scopes?: string[];
+        };
+        offline_enabled?: boolean;
+        optional_permissions?: string[];
+        permissions?: string[];
+        platforms?: {
+            nacl_arch?: string;
+            sub_package_path: string;
+        }[];
+        /**
+         * Technologies required by the app or extension. Hosting sites such as the Chrome Web Store may use this list to dissuade users from installing apps or extensions that will not work on their computer. Supported requirements currently include "3D" and "plugins"; additional requirements checks may be added in the future.
+         */
+        requirements?: {
+            /**
+             * The "3D" requirement denotes GPU hardware acceleration. The "webgl" requirement refers to the WebGL API. For more information on Chrome 3D graphics support, see the help article on WebGL and 3D graphics. You can list the 3D-related features your app requires, as demonstrated in the following example:
+             * "requirements": {
+             *   "3D": {
+             *     "features": ["webgl"]
+             *   }
+             * }
+             */
+            '3D'?: {
+                features?: Array<string | 'webgl'>;
+            };
+            /**
+             * The "plugins" requirement indicates if an app or extension requires NPAPI to run. This requirement is enabled by default when the manifest includes the "plugins" field. For apps and extensions that still work when plugins aren't available, you can disable this requirement by setting NPAPI to false. You can also enable this requirement manually, by setting NPAPI to true, as shown in this example:
+             * "requirements": {
+             *   "plugins": {
+             *     "npapi": true
+             *   }
+             * }
+             */
+            plugins?: {
+                npapi?: boolean;
+            }
+
+            [key: string]: any;
+        };
+        /**
+         * @deprecated Warning: Starting in version 57, Chrome will no longer allow external web content (including embedded frames and scripts) inside sandboxed pages. Please use a webview instead.
+         */
+        sandbox?: {
+            pages: string[];
+            content_security_policy?: string;
+        };
+        short_name?: string;
+        signature?: any;
+        sockets?: {
+            tcp?: {
+                connect: string | '*';
+            };
+            udp?: {
+                send: string | '*';
+            }
+        };
+        storage?: {
+            managed_schema: string
+        };
+        system_indicator?: any;
+        update_url?: string;
+        url_handlers?: {
+            [name: string]: {
+                matches: string[];
+                title?: string;
+            }
+        };
+        usb_printers?: {
+            filters: {
+                vendorId?: number;
+                productId?: number;
+                interfaceClass?: number;
+                interfaceSubclass?: number;
+                interfaceProtocol?: number;
+            }[]
+        };
+        version_name?: string;
+        webview?: {
+            partitions?: {
+                name: string;
+                accessible_resources: string[];
+            }[]
+        }
+        [key: string]: any;
+    }
+
+    /**
+     * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect.
+     * @since Chrome 26.
+     */
+    export function connect(connectInfo?: ConnectInfo): Port;
+    /**
+     * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect.
+     * @since Chrome 26.
+     * @param extensionId Optional.
+     * The ID of the extension or app to connect to. If omitted, a connection will be attempted with your own extension. Required if sending messages from a web page for web messaging.
+     */
+    export function connect(extensionId: string, connectInfo?: ConnectInfo): Port;
+    /**
+     * Connects to a native application in the host machine.
+     * @since Chrome 28.
+     * @param application The name of the registered application to connect to.
+     */
+    export function connectNative(application: string): Port;
+    /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
+    export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
+    /**
+     * Returns details about the app or extension from the manifest. The object returned is a serialization of the full manifest file.
+     * @returns The manifest details.
+     */
+    export function getManifest(): Manifest;
+    /**
+     * Returns a DirectoryEntry for the package directory.
+     * @since Chrome 29.
+     */
+    export function getPackageDirectoryEntry(callback: (directoryEntry: DirectoryEntry) => void): void;
+    /**
+     * Returns information about the current platform.
+     * @since Chrome 29.
+     * @param callback Called with results
+     */
+    export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
+    /**
+     * Converts a relative path within an app/extension install directory to a fully-qualified URL.
+     * @param path A path to a resource within an app/extension expressed relative to its install directory.
+     */
+    export function getURL(path: string): string;
+    /**
+     * Reloads the app or extension.
+     * @since Chrome 25.
+     */
+    export function reload(): void;
+    /**
+     * Requests an update check for this app/extension.
+     * @since Chrome 25.
+     * @param callback
+     * Parameter status: Result of the update check. One of: "throttled", "no_update", or "update_available"
+     * Optional parameter details: If an update is available, this contains more information about the available update.
+     */
+    export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
+    /**
+     * Restart the ChromeOS device when the app runs in kiosk mode. Otherwise, it's no-op.
+     * @since Chrome 32.
+     */
+    export function restart(): void;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 26.
+     * @param responseCallback Optional
+     * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+     */
+    export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 32.
+     * @param responseCallback Optional
+     * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+     */
+    export function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 26.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     * @param responseCallback Optional
+     * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+     */
+    export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 32.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     * @param responseCallback Optional
+     * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+     */
+    export function sendMessage(extensionId: string, message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+    /**
+     * Send a single message to a native application.
+     * @since Chrome 28.
+     * @param application The of the native messaging host.
+     * @param message The message that will be passed to the native messaging host.
+     * @param responseCallback Optional.
+     * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+     */
+    export function sendNativeMessage(application: string, message: Object, responseCallback?: (response: any) => void): void;
+    /**
+     * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
+     * @since Chrome 41.
+     * @param url Since Chrome 34.
+     * URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme. Set an empty string to not open a new tab upon uninstallation.
+     * @param callback Called when the uninstall URL is set. If the given URL is invalid, runtime.lastError will be set.
+     */
+    export function setUninstallURL(url: string, callback?: () => void): void;
+    /**
+     * Open your Extension's options page, if possible.
+     * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.
+     * If your Extension does not declare an options page, or Chrome failed to create one for some other reason, the callback will set lastError.
+     * @since Chrome 42.
+     */
+    export function openOptionsPage(callback?: () => void): void;
+
+    /**
+     * Fired when a connection is made from either an extension process or a content script.
+     * @since Chrome 26.
+     */
+    export var onConnect: ExtensionConnectEvent;
+    /**
+     * Fired when a connection is made from another extension.
+     * @since Chrome 26.
+     */
+    export var onConnectExternal: ExtensionConnectEvent;
+    /** Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. */
+    export var onSuspend: RuntimeEvent;
+    /**
+     * Fired when a profile that has this extension installed first starts up. This event is not fired when an incognito profile is started, even if this extension is operating in 'split' incognito mode.
+     * @since Chrome 23.
+     */
+    export var onStartup: RuntimeEvent;
+    /** Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version. */
+    export var onInstalled: RuntimeInstalledEvent;
+    /** Sent after onSuspend to indicate that the app won't be unloaded after all. */
+    export var onSuspendCanceled: RuntimeEvent;
+    /**
+     * Fired when a message is sent from either an extension process or a content script.
+     * @since Chrome 26.
+     */
+    export var onMessage: ExtensionMessageEvent;
+    /**
+     * Fired when a message is sent from another extension/app. Cannot be used in a content script.
+     * @since Chrome 26.
+     */
+    export var onMessageExternal: ExtensionMessageEvent;
+    /**
+     * Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps.
+     * @since Chrome 29.
+     */
+    export var onRestartRequired: RuntimeRestartRequiredEvent;
+    /**
+     * Fired when an update is available, but isn't installed immediately because the app is currently running. If you do nothing, the update will be installed the next time the background page gets unloaded, if you want it to be installed sooner you can explicitly call chrome.runtime.reload(). If your extension is using a persistent background page, the background page of course never gets unloaded, so unless you call chrome.runtime.reload() manually in response to this event the update will not get installed until the next time chrome itself restarts. If no handlers are listening for this event, and your extension has a persistent background page, it behaves as if chrome.runtime.reload() is called in response to this event.
+     * @since Chrome 25.
+     */
+    export var onUpdateAvailable: RuntimeUpdateAvailableEvent;
+    /**
+     * @deprecated since Chrome 33. Please use chrome.runtime.onRestartRequired.
+     * Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required.
+     */
+    export var onBrowserUpdateAvailable: RuntimeEvent;
+}
+
+////////////////////
+// Serial
+////////////////////
+/**
+ * Use the chrome.serial API to read from and write to a device connected to a serial port.
+ * @since Chrome 23
+ */
+declare namespace chrome.serial {
+    /** NOT YET IMPLEMENTED */
 }
 
 ////////////////////
@@ -719,6 +2691,206 @@ declare namespace chrome.sockets.tcp {
 
     export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
     export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
+}
+
+/**
+ * Use the chrome.sockets.tcpServer API to create server applications using TCP
+ * connections. This API supersedes the TCP functionality previously found in
+ * the chrome.socket API.
+ *
+ * @since Chrome 33
+ * @see https://developer.chrome.com/apps/sockets_tcpServer
+ */
+declare namespace chrome.sockets.tcpServer {
+    export interface CreateInfo {
+        socketId: number;
+    }
+
+    export interface AcceptEventArgs {
+        socketId: number;
+        clientSocketId: number;
+    }
+
+    export interface AcceptErrorEventArgs {
+        socketId: number;
+        resultCode: number;
+    }
+
+    /**
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketProperties
+     */
+    export interface SocketProperties {
+        /**
+         * Flag indicating if the socket remains open when the event page of the
+         * application is unloaded. The default value is "false." When the
+         * application is loaded, any sockets previously opened with
+         * persistent=true can be fetched with getSockets.
+         *
+         * @see http://developer.chrome.com/apps/app_lifecycle.html
+         */
+        persistent?: boolean;
+
+        /** An application-defined string associated with the socket. */
+        name?: string;
+    }
+
+    /**
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketInfo
+     */
+    export interface SocketInfo {
+        /** The socket identifier. */
+        socketId: number;
+
+        /**
+         * Flag indicating if the socket remains open when the event page of the
+         * application is unloaded (see SocketProperties.persistent). The
+         * default value is "false".
+         */
+        persistent: boolean;
+
+        /** Application-defined string associated with the socket. */
+        name?: string;
+
+        /**
+         * Flag indicating whether connection requests on a listening socket are
+         * dispatched through the onAccept event or queued up in the listen
+         * queue backlog. See setPaused. The default value is "false"
+         */
+        paused: boolean;
+
+        /** If the socket is listening, contains its local IPv4/6 address. */
+        localAddress?: string;
+
+        /** If the socket is listening, contains its local port. */
+        localPort?: number;
+    }
+
+    /**
+     * Creates a TCP server socket.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-create
+     * @param callback Called when the socket has been created.
+     */
+    export function create(callback: (createInfo: CreateInfo) => void): void;
+
+    /**
+     * Creates a TCP server socket.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-create
+     * @param properties The socket properties.
+     * @param callback   Called when the socket has been created.
+     */
+    export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
+
+    /**
+     * Updates the socket properties.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-update
+     * @param socketId   The socket identifier.
+     * @param properties The properties to update.
+     * @param callback   Called when the properties are updated.
+     */
+    export function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
+
+    /**
+     * Enables or disables a listening socket from accepting new connections.
+     * When paused, a listening socket accepts new connections until its backlog
+     * (see listen function) is full then refuses additional connection
+     * requests. onAccept events are raised only when the socket is un-paused.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-setPaused
+     * @param callback Callback from the setPaused method.
+     */
+    export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
+
+    /**
+     * Listens for connections on the specified port and address. If the
+     * port/address is in use, the callback indicates a failure.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-listen
+     * @param socketId The socket identifier.
+     * @param address  The address of the local machine.
+     * @param port     The port of the local machine. When set to 0, a free port
+     *                 is chosen dynamically. The dynamically allocated port can
+     *                 be found by calling getInfo.
+     * @param backlog  Length of the socket's listen queue. The default value
+     *                 depends on the Operating System (SOMAXCONN), which
+     *                 ensures a reasonable queue length for most applications.
+     * @param callback Called when listen operation completes.
+     */
+    export function listen(socketId: number, address: string, port: number, backlog: number, callback: (result: number) => void): void;
+
+    /**
+     * Listens for connections on the specified port and address. If the
+     * port/address is in use, the callback indicates a failure.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-listen
+     * @param socketId The socket identifier.
+     * @param address  The address of the local machine.
+     * @param port     The port of the local machine. When set to 0, a free port
+     *                 is chosen dynamically. The dynamically allocated port can
+     *                 be found by calling getInfo.
+     * @param callback Called when listen operation completes.
+     */
+    export function listen(socketId: number, address: string, port: number, callback: (result: number) => void): void;
+
+    /**
+     * Disconnects the listening socket, i.e. stops accepting new connections
+     * and releases the address/port the socket is bound to. The socket
+     * identifier remains valid, e.g. it can be used with listen to accept
+     * connections on a new port and address.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-disconnect
+     * @param socketId The socket identifier.
+     * @param callback Called when the disconnect attempt is complete.
+     */
+    export function disconnect(socketId: number, callback?: () => void): void;
+
+    /**
+     * Disconnects and destroys the socket. Each socket created should be closed
+     * after use. The socket id is no longer valid as soon at the function is
+     * called. However, the socket is guaranteed to be closed only when the
+     * callback is invoked.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-close
+     * @param socketId The socket identifier.
+     * @param callback Called when the close operation completes.
+     */
+    export function close(socketId: number, callback?: () => void): void;
+
+    /**
+     * Retrieves the state of the given socket.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-getInfo
+     * @param socketId The socket identifier.
+     * @param callback Called when the socket state is available.
+     */
+    export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
+
+    /**
+     * Retrieves the list of currently opened sockets owned by the application.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-getSockets
+     * @param callback Called when the list of sockets is available.
+     */
+    export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
+
+    /**
+     * Event raised when a connection has been made to the server socket.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAccept
+     */
+    export var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
+
+    /**
+     * Event raised when a network error occured while the runtime was waiting
+     * for new connections on the socket address and port. Once this event is
+     * raised, the socket is set to paused and no more onAccept events are
+     * raised for this socket until the socket is resumed.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAcceptError
+     */
+    export var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
 }
 
 /**
@@ -1015,204 +3187,172 @@ declare namespace chrome.sockets.udp {
     export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
+////////////////////
+// Storage
+////////////////////
 /**
- * Use the chrome.sockets.tcpServer API to create server applications using TCP
- * connections. This API supersedes the TCP functionality previously found in
- * the chrome.socket API.
- *
- * @since Chrome 33
- * @see https://developer.chrome.com/apps/sockets_tcpServer
+ * Use the chrome.storage API to store, retrieve, and track changes to user data.
+ * Permissions:  "storage"
+ * @since Chrome 20.
  */
-declare namespace chrome.sockets.tcpServer {
-    export interface CreateInfo {
-        socketId: number;
-    }
-
-    export interface AcceptEventArgs {
-        socketId: number;
-        clientSocketId: number;
-    }
-
-    export interface AcceptErrorEventArgs {
-        socketId: number;
-        resultCode: number;
-    }
-
-    /**
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketProperties
-     */
-    export interface SocketProperties {
+declare namespace chrome.storage {
+    export interface StorageArea {
         /**
-         * Flag indicating if the socket remains open when the event page of the
-         * application is unloaded. The default value is "false." When the
-         * application is loaded, any sockets previously opened with
-         * persistent=true can be fetched with getSockets.
-         *
-         * @see http://developer.chrome.com/apps/app_lifecycle.html
+         * Gets the amount of space (in bytes) being used by one or more items.
+         * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
+         * Parameter bytesInUse: Amount of space being used in storage, in bytes.
          */
-        persistent?: boolean;
-
-        /** An application-defined string associated with the socket. */
-        name?: string;
+        getBytesInUse(callback: (bytesInUse: number) => void): void;
+        /**
+         * Gets the amount of space (in bytes) being used by one or more items.
+         * @param keys A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
+         * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
+         * Parameter bytesInUse: Amount of space being used in storage, in bytes.
+         */
+        getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
+        /**
+         * Removes all items from storage.
+         * @param callback Optional.
+         * Callback on success, or on failure (in which case runtime.lastError will be set).
+         */
+        clear(callback?: () => void): void;
+        /**
+         * Sets multiple items.
+         * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
+         * Primitive values such as numbers will serialize as expected. Values with a typeof "object" and "function" will typically serialize to {}, with the exception of Array (serializes as expected), Date, and Regex (serialize using their String representation).
+         * @param callback Optional.
+         * Callback on success, or on failure (in which case runtime.lastError will be set).
+         */
+        set(items: Object, callback?: () => void): void;
+        /**
+         * Removes one or more items from storage.
+         * @param A single key or a list of keys for items to remove.
+         * @param callback Optional.
+         * Callback on success, or on failure (in which case runtime.lastError will be set).
+         */
+        remove(keys: string | string[], callback?: () => void): void;
+        /**
+         * Gets one or more items from storage.
+         * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+         * Parameter items: Object with items in their key-value mappings.
+         */
+        get(callback: (items: { [key: string]: any }) => void): void;
+        /**
+         * Gets one or more items from storage.
+         * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
+         * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
+         * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+         * Parameter items: Object with items in their key-value mappings.
+         */
+        get(keys: string | string[] | Object | null, callback: (items: { [key: string]: any }) => void): void;
     }
 
-    /**
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketInfo
-     */
-    export interface SocketInfo {
-        /** The socket identifier. */
-        socketId: number;
-
-        /**
-         * Flag indicating if the socket remains open when the event page of the
-         * application is unloaded (see SocketProperties.persistent). The
-         * default value is "false".
-         */
-        persistent: boolean;
-
-        /** Application-defined string associated with the socket. */
-        name?: string;
-
-        /**
-         * Flag indicating whether connection requests on a listening socket are
-         * dispatched through the onAccept event or queued up in the listen
-         * queue backlog. See setPaused. The default value is "false"
-         */
-        paused: boolean;
-
-        /** If the socket is listening, contains its local IPv4/6 address. */
-        localAddress?: string;
-
-        /** If the socket is listening, contains its local port. */
-        localPort?: number;
+    export interface StorageChange {
+        /** Optional. The new value of the item, if there is a new value. */
+        newValue?: any;
+        /** Optional. The old value of the item, if there was an old value. */
+        oldValue?: any;
     }
 
-    /**
-     * Creates a TCP server socket.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-create
-     * @param callback Called when the socket has been created.
-     */
-    export function create(callback: (createInfo: CreateInfo) => void): void;
+    export interface LocalStorageArea extends StorageArea {
+        /** The maximum amount (in bytes) of data that can be stored in local storage, as measured by the JSON stringification of every value plus every key's length. This value will be ignored if the extension has the unlimitedStorage permission. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
+        QUOTA_BYTES: number;
+    }
+
+    export interface SyncStorageArea extends StorageArea {
+        /** @deprecated since Chrome 40. The storage.sync API no longer has a sustained write operation quota. */
+        MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
+        /** The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
+        QUOTA_BYTES: number;
+        /** The maximum size (in bytes) of each individual item in sync storage, as measured by the JSON stringification of its value plus its key length. Updates containing items larger than this limit will fail immediately and set runtime.lastError. */
+        QUOTA_BYTES_PER_ITEM: number;
+        /** The maximum number of items that can be stored in sync storage. Updates that would cause this limit to be exceeded will fail immediately and set runtime.lastError. */
+        MAX_ITEMS: number;
+        /**
+         * The maximum number of set, remove, or clear operations that can be performed each hour. This is 1 every 2 seconds, a lower ceiling than the short term higher writes-per-minute limit.
+         * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
+         */
+        MAX_WRITE_OPERATIONS_PER_HOUR: number;
+        /**
+         * The maximum number of set, remove, or clear operations that can be performed each minute. This is 2 per second, providing higher throughput than writes-per-hour over a shorter period of time.
+         * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
+         * @since Chrome 40.
+         */
+        MAX_WRITE_OPERATIONS_PER_MINUTE: number;
+    }
+
+    export interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: string) => void> { }
+
+    /** Items in the local storage area are local to each machine. */
+    export var local: LocalStorageArea;
+    /** Items in the sync storage area are synced using Chrome Sync. */
+    export var sync: SyncStorageArea;
 
     /**
-     * Creates a TCP server socket.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-create
-     * @param properties The socket properties.
-     * @param callback   Called when the socket has been created.
+     * Items in the managed storage area are set by the domain administrator, and are read-only for the extension; trying to modify this namespace results in an error.
+     * @since Chrome 33.
      */
-    export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
+    export var managed: StorageArea;
 
-    /**
-     * Updates the socket properties.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-update
-     * @param socketId   The socket identifier.
-     * @param properties The properties to update.
-     * @param callback   Called when the properties are updated.
-     */
-    export function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
+    /** Fired when one or more items change. */
+    export var onChanged: StorageChangedEvent;
+}
 
-    /**
-     * Enables or disables a listening socket from accepting new connections.
-     * When paused, a listening socket accepts new connections until its backlog
-     * (see listen function) is full then refuses additional connection
-     * requests. onAccept events are raised only when the socket is un-paused.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-setPaused
-     * @param callback Callback from the setPaused method.
-     */
-    export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
+////////////////////
+// SyncFileSystem
+////////////////////
+/**
+ * Use the chrome.syncFileSystem API to save and synchronize data on Google Drive. This API is NOT for accessing arbitrary user docs stored in Google Drive. It provides app-specific syncable storage for offline and caching usage so that the same data can be available across different clients. Read Manage Data for more on using this API.
+ * @since Chrome 27
+ */
+declare namespace chrome.syncFileSystem {
+    /** NOT YET IMPLEMENTED */
+}
 
-    /**
-     * Listens for connections on the specified port and address. If the
-     * port/address is in use, the callback indicates a failure.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-listen
-     * @param socketId The socket identifier.
-     * @param address  The address of the local machine.
-     * @param port     The port of the local machine. When set to 0, a free port
-     *                 is chosen dynamically. The dynamically allocated port can
-     *                 be found by calling getInfo.
-     * @param backlog  Length of the socket's listen queue. The default value
-     *                 depends on the Operating System (SOMAXCONN), which
-     *                 ensures a reasonable queue length for most applications.
-     * @param callback Called when listen operation completes.
-     */
-    export function listen(socketId: number, address: string, port: number, backlog: number, callback: (result: number) => void): void;
 
-    /**
-     * Listens for connections on the specified port and address. If the
-     * port/address is in use, the callback indicates a failure.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-listen
-     * @param socketId The socket identifier.
-     * @param address  The address of the local machine.
-     * @param port     The port of the local machine. When set to 0, a free port
-     *                 is chosen dynamically. The dynamically allocated port can
-     *                 be found by calling getInfo.
-     * @param callback Called when listen operation completes.
-     */
-    export function listen(socketId: number, address: string, port: number, callback: (result: number) => void): void;
+////////////////////
+// System CPU
+////////////////////
+/**
+ * Use the system.cpu API to query CPU metadata.
+ * Permissions: "system.cpu"
+ * @since Chrome 32.
+ */
+declare namespace chrome.system.cpu {
+    export interface ProcessorUsage {
+        /** The cumulative time used by userspace programs on this processor. */
+        user: number;
+        /** The cumulative time used by kernel programs on this processor. */
+        kernel: number;
+        /** The cumulative time spent idle by this processor. */
+        idle: number;
+        /** The total cumulative time for this processor. This value is equal to user + kernel + idle. */
+        total: number;
+    }
 
-    /**
-     * Disconnects the listening socket, i.e. stops accepting new connections
-     * and releases the address/port the socket is bound to. The socket
-     * identifier remains valid, e.g. it can be used with listen to accept
-     * connections on a new port and address.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-disconnect
-     * @param socketId The socket identifier.
-     * @param callback Called when the disconnect attempt is complete.
-     */
-    export function disconnect(socketId: number, callback?: () => void): void;
+    export interface ProcessorInfo {
+        /** Cumulative usage info for this logical processor. */
+        usage: ProcessorUsage;
+    }
 
-    /**
-     * Disconnects and destroys the socket. Each socket created should be closed
-     * after use. The socket id is no longer valid as soon at the function is
-     * called. However, the socket is guaranteed to be closed only when the
-     * callback is invoked.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-close
-     * @param socketId The socket identifier.
-     * @param callback Called when the close operation completes.
-     */
-    export function close(socketId: number, callback?: () => void): void;
+    export interface CpuInfo {
+        /** The number of logical processors. */
+        numOfProcessors: number;
+        /** The architecture name of the processors. */
+        archName: string;
+        /** The model name of the processors. */
+        modelName: string;
+        /**
+         * A set of feature codes indicating some of the processor's capabilities.
+         * The currently supported codes are "mmx", "sse", "sse2", "sse3", "ssse3", "sse4_1", "sse4_2", and "avx".
+         */
+        features: string[];
+        /** Information about each logical processor. */
+        processors: ProcessorInfo[];
+    }
 
-    /**
-     * Retrieves the state of the given socket.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-getInfo
-     * @param socketId The socket identifier.
-     * @param callback Called when the socket state is available.
-     */
-    export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
-
-    /**
-     * Retrieves the list of currently opened sockets owned by the application.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-getSockets
-     * @param callback Called when the list of sockets is available.
-     */
-    export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
-
-    /**
-     * Event raised when a connection has been made to the server socket.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAccept
-     */
-    export var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
-
-    /**
-     * Event raised when a network error occured while the runtime was waiting
-     * for new connections on the socket address and port. Once this event is
-     * raised, the socket is set to paused and no more onAccept events are
-     * raised for this socket until the socket is resumed.
-     *
-     * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAcceptError
-     */
-    export var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
+    /** Queries basic CPU information of the system. */
+    export function getInfo(callback: (info: CpuInfo) => void): void;
 }
 
 ////////////////////
@@ -1552,6 +3692,26 @@ declare namespace chrome.system.display {
 }
 
 ////////////////////
+// System Memory
+////////////////////
+/**
+ * The chrome.system.memory API.
+ * Permissions:  "system.memory"
+ * @since Chrome 32.
+ */
+declare namespace chrome.system.memory {
+    export interface MemoryInfo {
+        /** The total amount of physical memory capacity, in bytes. */
+        capacity: number;
+        /** The amount of available capacity, in bytes. */
+        availableCapacity: number;
+    }
+
+    /** Get physical memory information. */
+    export function getInfo(callback: (info: MemoryInfo) => void): void;
+}
+
+////////////////////
 // System - Network
 ////////////////////
 declare namespace chrome.system.network {
@@ -1564,49 +3724,267 @@ declare namespace chrome.system.network {
     export function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
 }
 
-declare namespace chrome.runtime {
-    export interface Manifest {
-        app?: {
-            background?: {
-                scripts?: string[];
-            }
-        },
-        bluetooth?: {
-            uuids?: string[];
-            socket?: boolean;
-            low_energy?: boolean;
-            peripheral?: boolean;
-        },
-        file_handlers?: {
-            [name: string]: {
-                types?: string[];
-                extensions?: string[];
-                title?: string;
-            }
-        },
-        kiosk_enabled?: boolean,
-        kiosk_only?: boolean,
-        url_handlers?: {
-            [name: string]: {
-                matches: string[];
-                title?: string;
-            }
-        },
-        usb_printers?: {
-            filters: {
-                vendorId?: number;
-                productId?: number;
-                interfaceClass?: number;
-                interfaceSubclass?: number;
-                interfaceProtocol?: number;
-            }[]
-        },
-        webview?: {
-            partitions?: {
-                name: string;
-                accessible_resources: string[];
-            }[]
-        }
+
+////////////////////
+// System Storage
+////////////////////
+/**
+ * Use the chrome.system.storage API to query storage device information and be notified when a removable storage device is attached and detached.
+ * Permissions:  "system.storage"
+ * @since Chrome 30.
+ */
+declare namespace chrome.system.storage {
+    export interface StorageUnitInfo {
+        /** The transient ID that uniquely identifies the storage device. This ID will be persistent within the same run of a single application. It will not be a persistent identifier between different runs of an application, or between different applications. */
+        id: string;
+        /** The name of the storage unit. */
+        name: string;
+        /**
+         * The media type of the storage unit.
+         * fixed: The storage has fixed media, e.g. hard disk or SSD.
+         * removable: The storage is removable, e.g. USB flash drive.
+         * unknown: The storage type is unknown.
+         */
+        type: string;
+        /** The total amount of the storage space, in bytes. */
+        capacity: number;
+    }
+
+    export interface StorageCapacityInfo {
+        /** A copied |id| of getAvailableCapacity function parameter |id|. */
+        id: string;
+        /** The available capacity of the storage device, in bytes. */
+        availableCapacity: number;
+    }
+
+    export interface SystemStorageAttachedEvent extends chrome.events.Event<(info: StorageUnitInfo) => void> { }
+
+    export interface SystemStorageDetachedEvent extends chrome.events.Event<(id: string) => void> { }
+
+    /** Get the storage information from the system. The argument passed to the callback is an array of StorageUnitInfo objects. */
+    export function getInfo(callback: (info: StorageUnitInfo[]) => void): void;
+    /**
+     * Ejects a removable storage device.
+     * @param callback
+     * Parameter result: success: The ejection command is successful -- the application can prompt the user to remove the device; in_use: The device is in use by another application. The ejection did not succeed; the user should not remove the device until the other application is done with the device; no_such_device: There is no such device known. failure: The ejection command failed.
+     */
+    export function ejectDevice(id: string, callback: (result: string) => void): void;
+    /**
+     * Get the available capacity of a specified |id| storage device. The |id| is the transient device ID from StorageUnitInfo.
+     * @since Dev channel only.
+     */
+    export function getAvailableCapacity(id: string, callback: (info: StorageCapacityInfo) => void): void;
+
+    /** Fired when a new removable storage is attached to the system. */
+    export var onAttached: SystemStorageAttachedEvent;
+    /** Fired when a removable storage is detached from the system. */
+    export var onDetached: SystemStorageDetachedEvent;
+}
+
+////////////////////
+// Text to Speech
+////////////////////
+/**
+ * Use the chrome.tts API to play synthesized text-to-speech (TTS). See also the related ttsEngine API, which allows an extension to implement a speech engine.
+ * Permissions:  "tts"
+ * @since Chrome 14.
+ */
+declare namespace chrome.tts {
+    /** An event from the TTS engine to communicate the status of an utterance. */
+    export interface TtsEvent {
+        /** Optional. The index of the current character in the utterance. */
+        charIndex?: number;
+        /** Optional. The error description, if the event type is 'error'. */
+        errorMessage?: string;
+        /**
+         * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
+         * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
+         */
+        type: string;
+    }
+
+    /** A description of a voice available for speech synthesis. */
+    export interface TtsVoice {
+        /** Optional. The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
+        lang?: string;
+        /**
+         * Optional. This voice's gender.
+         * One of: "male", or "female"
+         */
+        gender?: string;
+        /** Optional. The name of the voice. */
+        voiceName?: string;
+        /** The ID of the extension providing this voice. */
+        extensionsId?: string;
+        /** All of the callback event types that this voice is capable of sending. */
+        eventTypes?: string[];
+        /**
+         * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
+         * @since Chrome 33.
+         */
+        remote?: boolean;
+    }
+
+    export interface SpeakOptions {
+        /** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
+        volume?: number;
+        /**
+         * Optional.
+         * If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance.
+         */
+        enqueue?: boolean;
+        /**
+         * Optional.
+         * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0.
+         */
+        rate?: number;
+        /**
+         * Optional. This function is called with events that occur in the process of speaking the utterance.
+         * @param event The update event from the text-to-speech engine indicating the status of this utterance.
+         */
+        onEvent?: (event: TtsEvent) => void;
+        /**
+         * Optional.
+         * Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch.
+         */
+        pitch?: number;
+        /** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
+        lang?: string;
+        /** Optional. The name of the voice to use for synthesis. If empty, uses any available voice. */
+        voiceName?: string;
+        /** Optional. The extension ID of the speech engine to use, if known. */
+        extensionId?: string;
+        /**
+         * Optional. Gender of voice for synthesized speech.
+         * One of: "male", or "female"
+         */
+        gender?: string;
+        /** Optional. The TTS event types the voice must support. */
+        requiredEventTypes?: string[];
+        /** Optional. The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
+        desiredEventTypes?: string[];
+    }
+
+    /** Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome. */
+    export function isSpeaking(callback?: (speaking: boolean) => void): void;
+    /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
+    export function stop(): void;
+    /** Gets an array of all available voices. */
+    export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
+    /**
+     * Speaks text using a text-to-speech engine.
+     * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
+     * @param callback Optional. Called right away, before speech finishes. Check chrome.runtime.lastError to make sure there were no errors. Use options.onEvent to get more detailed feedback.
+     */
+    export function speak(utterance: string, callback?: Function): void;
+    /**
+     * Speaks text using a text-to-speech engine.
+     * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
+     * @param options Optional. The speech options.
+     * @param callback Optional. Called right away, before speech finishes. Check chrome.runtime.lastError to make sure there were no errors. Use options.onEvent to get more detailed feedback.
+     */
+    export function speak(utterance: string, options: SpeakOptions, callback?: Function): void;
+    /**
+     * Pauses speech synthesis, potentially in the middle of an utterance. A call to resume or stop will un-pause speech.
+     * @since Chrome 29.
+     */
+    export function pause(): void;
+    /**
+     * If speech was paused, resumes speaking where it left off.
+     * @since Chrome 29.
+     */
+    export function resume(): void;
+}
+
+////////////////////
+// Types
+////////////////////
+/**
+ * The chrome.types API contains type declarations for Chrome.
+ * @since Chrome 13.
+ */
+declare namespace chrome.types {
+    export interface ChromeSettingClearDetails {
+        /**
+         * Optional.
+         * The scope of the ChromeSetting. One of
+         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+         */
+        scope?: string;
+    }
+
+    export interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
+        /**
+         * The value of the setting.
+         * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
+         */
+        value: any;
+        /**
+         * Optional.
+         * The scope of the ChromeSetting. One of
+         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+         */
+        scope?: string;
+    }
+
+    export interface ChromeSettingGetDetails {
+        /** Optional. Whether to return the value that applies to the incognito session (default false). */
+        incognito?: boolean;
+    }
+
+    /**
+     * @param details Details of the currently effective value.
+     */
+    export type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
+
+    export interface ChromeSettingGetResultDetails {
+        /**
+         * One of
+         * • not_controllable: cannot be controlled by any extension
+         * • controlled_by_other_extensions: controlled by extensions with higher precedence
+         * • controllable_by_this_extension: can be controlled by this extension
+         * • controlled_by_this_extension: controlled by this extension
+         */
+        levelOfControl: string;
+        /** The value of the setting. */
+        value: any;
+        /**
+         * Optional.
+         * Whether the effective value is specific to the incognito session.
+         * This property will only be present if the incognito property in the details parameter of get() was true.
+         */
+        incognitoSpecific?: boolean;
+    }
+
+    export interface ChromeSettingChangedEvent extends chrome.events.Event<DetailsCallback> { }
+
+    /** An interface that allows access to a Chrome browser setting. See accessibilityFeatures for an example. */
+    export interface ChromeSetting {
+        /**
+         * Sets the value of a setting.
+         * @param details Which setting to change.
+         * @param callback Optional. Called at the completion of the set operation.
+         */
+        set(details: ChromeSettingSetDetails, callback?: Function): void;
+        /**
+         * Gets the value of a setting.
+         * @param details Which setting to consider.
+         */
+        get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
+        /**
+         * Clears the setting, restoring any default value.
+         * @param details Which setting to clear.
+         * @param callback Optional. Called at the completion of the clear operation.
+         */
+        clear(details: ChromeSettingClearDetails, callback?: Function): void;
+        /** Fired after the setting changes. */
+        onChange: ChromeSettingChangedEvent;
     }
 }
 
@@ -1830,6 +4208,129 @@ declare namespace chrome.networking.onc {
         DeviceEditable?: boolean
     }
 }
+
+
+////////////////////
+// VPN Provider
+////////////////////
+/**
+ * Use the chrome.vpnProvider API to implement a VPN client.
+ * Permissions:  "vpnProvider"
+ * Important: This API works only on Chrome OS.
+ * @since Chrome 43.
+ */
+declare namespace chrome.vpnProvider {
+    export interface VpnSessionParameters {
+        /** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
+        address: string;
+        /** Optional. Broadcast address for the VPN interface. (default: deduced from IP address and mask) */
+        broadcastAddress?: string;
+        /** Optional. MTU setting for the VPN interface. (default: 1500 bytes) */
+        mtu?: string;
+        /**
+         * Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel. This can be used to bypass traffic to and from the VPN server. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
+         */
+        exclusionList: string[];
+        /**
+         * Include network traffic to the list of IP blocks in CIDR notation to the tunnel. This parameter can be used to set up a split tunnel. By default no traffic is directed to the tunnel. Adding the entry "0.0.0.0/0" to this list gets all the user traffic redirected to the tunnel. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
+         */
+        inclusionList: string[];
+        /** Optional. A list of search domains. (default: no search domain) */
+        domainSearch?: string[];
+        /** A list of IPs for the DNS servers. */
+        dnsServer: string[];
+    }
+
+    export interface VpnPlatformMessageEvent extends chrome.events.Event<(id: string, message: string, error: string) => void> { }
+
+    export interface VpnPacketReceptionEvent extends chrome.events.Event<(data: ArrayBuffer) => void> { }
+
+    export interface VpnConfigRemovalEvent extends chrome.events.Event<(id: string) => void> { }
+
+    export interface VpnConfigCreationEvent extends chrome.events.Event<(id: string, name: string, data: Object) => void> { }
+
+    export interface VpnUiEvent extends chrome.events.Event<(event: string, id?: string) => void> { }
+
+    /**
+     * Creates a new VPN configuration that persists across multiple login sessions of the user.
+     * @param name The name of the VPN configuration.
+     * @param callback Called when the configuration is created or if there is an error.
+     * Parameter id: A unique ID for the created configuration, empty string on failure.
+     */
+    export function createConfig(name: string, callback: (id: string) => void): void;
+    /**
+     * Destroys a VPN configuration created by the extension.
+     * @param id ID of the VPN configuration to destroy.
+     * @param callback Optional. Called when the configuration is destroyed or if there is an error.
+     */
+    export function destroyConfig(id: string, callback?: Function): void;
+    /**
+     * Sets the parameters for the VPN session. This should be called immediately after "connected" is received from the platform. This will succeed only when the VPN session is owned by the extension.
+     * @param parameters The parameters for the VPN session.
+     * @param callback Called when the parameters are set or if there is an error.
+     */
+    export function setParameters(parameters: VpnSessionParameters, callback: Function): void;
+    /**
+     * Sends an IP packet through the tunnel created for the VPN session. This will succeed only when the VPN session is owned by the extension.
+     * @param data The IP packet to be sent to the platform.
+     * @param callback Optional. Called when the packet is sent or if there is an error.
+     */
+    export function sendPacket(data: ArrayBuffer, callback?: Function): void;
+    /**
+     * Notifies the VPN session state to the platform. This will succeed only when the VPN session is owned by the extension.
+     * @param state The VPN session state of the VPN client.
+     * connected: VPN connection was successful.
+     * failure: VPN connection failed.
+     * @param callback Optional. Called when the notification is complete or if there is an error.
+     */
+    export function notifyConnectionStateChanged(state: string, callback?: Function): void;
+
+    /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
+    export var onPlatformMessage: VpnPlatformMessageEvent;
+    /** Triggered when an IP packet is received via the tunnel for the VPN session owned by the extension. */
+    export var onPacketReceived: VpnPacketReceptionEvent;
+    /** Triggered when a configuration created by the extension is removed by the platform. */
+    export var onConfigRemoved: VpnConfigRemovalEvent;
+    /** Triggered when a configuration is created by the platform for the extension. */
+    export var onConfigCreated: VpnConfigCreationEvent;
+    /** Triggered when there is a UI event for the extension. UI events are signals from the platform that indicate to the app that a UI dialog needs to be shown to the user. */
+    export var onUIEvent: VpnUiEvent;
+}
+
+////////////////////
+// Wallpaper
+////////////////////
+/**
+ * Use the chrome.wallpaper API to change the ChromeOS wallpaper.
+ * Permissions:  "wallpaper"
+ * Important: This API works only on Chrome OS.
+ * @since Chrome 43.
+ */
+declare namespace chrome.wallpaper {
+    export interface WallpaperDetails {
+        /** Optional. The jpeg or png encoded wallpaper image. */
+        data?: any;
+        /** Optional. The URL of the wallpaper to be set. */
+        url?: string;
+        /**
+         * The supported wallpaper layouts.
+         * One of: "STRETCH", "CENTER", or "CENTER_CROPPED"
+         */
+        layout: string;
+        /** The file name of the saved wallpaper. */
+        filename: string;
+        /** Optional. True if a 128x60 thumbnail should be generated. */
+        thumbnail?: boolean;
+    }
+
+    /**
+     * Sets wallpaper to the image at url or wallpaperData with the specified layout
+     * @param callback
+     * Optional parameter thumbnail: The jpeg encoded wallpaper thumbnail. It is generated by resizing the wallpaper to 128x60.
+     */
+    export function setWallpaper(details: WallpaperDetails, callback: (thumbnail: any) => void): void;
+}
+
 
 ///////////////////
 // Webview Tag
