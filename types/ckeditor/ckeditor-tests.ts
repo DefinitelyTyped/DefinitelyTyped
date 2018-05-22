@@ -6,9 +6,9 @@ function test_CKEDITOR() {
     CKEDITOR.skinName = 'moono';
     CKEDITOR.skinName = 'myskin,/customstuff/myskin/';
     var editor = new CKEDITOR.editor();
-    if (editor.getSelection().getType() == CKEDITOR.SELECTION_ELEMENT)
-        if (editor.getSelection().getType() == CKEDITOR.SELECTION_NONE)
-            if (editor.getSelection().getType() == CKEDITOR.SELECTION_TEXT)
+    if (editor.getSelection(true).getType() == CKEDITOR.SELECTION_ELEMENT)
+        if (editor.getSelection(false).getType() == CKEDITOR.SELECTION_NONE)
+            if (editor.getSelection(true).getType() == CKEDITOR.SELECTION_TEXT)
                 alert(CKEDITOR.basePath);
     if (CKEDITOR.currentInstance)
         alert(CKEDITOR.currentInstance.name);
@@ -268,11 +268,11 @@ function test_dom_range() {
     alert(range.collapsed);
     range.selectNodeContents(range.document.getBody());
     range.selectNodeContents(editor.document.getBody());
-    alert(range.endContainer.getName());
+    alert(range.endContainer.getPrivate());
     range.selectNodeContents(editor.document.getBody());
     alert(range.endOffset);
     range.selectNodeContents(editor.document.getBody());
-    alert(range.startContainer.getName());
+    alert(range.startContainer.getDocument());
     range.selectNodeContents(editor.document.getBody());
     alert(range.startOffset);
 }
@@ -558,7 +558,7 @@ function test_selection() {
     var editor = new CKEDITOR.editor();
     var testNode = CKEDITOR.document.getById('myElement');
 
-    var selection = editor.getSelection();
+    var selection = editor.getSelection(true);
     var ranges = selection.getRanges();
     for (var i = 0, c = ranges.length; i < c; i++) {
         var range = ranges[i];
