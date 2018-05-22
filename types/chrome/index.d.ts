@@ -195,7 +195,9 @@ declare namespace chrome.alarms {
     export var onAlarm: AlarmEvent;
 }
 
-
+////////////////////
+// Browser
+////////////////////
 /**
  * Use the chrome.browser API to interact with the Chrome browser associated with
  * the current application and Chrome profile.
