@@ -106,8 +106,8 @@ declare namespace SP {
         static resizeImageToSquareLength(imgElement: HTMLImageElement, squareLength: number): void;
     }
 
-    interface PageContextInfo {
-        new(): PageContextInfoInstance;
+    class PageContextInfo {
+        constructor();
         get_siteServerRelativeUrl(): string;
         get_webServerRelativeUrl(): string;
         get_webAbsoluteUrl(): string;
@@ -132,7 +132,6 @@ declare namespace SP {
     interface PageContextInfoInstance {
         get_pagePersonalizationScope(): string;
     }
-    let PageContextInfo: PageContextInfo;
 
     class ContextPermissions {
         has(perm: number): boolean;
@@ -2139,7 +2138,8 @@ declare namespace SP {
         constructor();
     }
     /** Provides a base class for a collection of objects on a remote client. */
-    interface ClientObjectCollection<T> extends SP.ClientObject, IEnumerable<T> {
+    class ClientObjectCollection<T> extends SP.ClientObject implements IEnumerable<T> {
+        constructor();
         get_areItemsAvailable(): boolean;
         /** Gets the data for all of the items in the collection. */
         retrieveItems(): SP.ClientObjectPrototype;
@@ -2152,11 +2152,6 @@ declare namespace SP {
         getItemAtIndex(index: number): T;
         fromJson(obj: any): void;
     }
-    interface ClientObjectCollectionConstructor {
-        new<T>(): ClientObjectCollection<T>;
-    }
-    let ClientObjectCollection: ClientObjectCollectionConstructor;
-
     class ClientObjectList<T> extends SP.ClientObjectCollection<T> {
         constructor(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
         fromJson(initValue: any): void;
@@ -2443,16 +2438,13 @@ declare namespace SP {
         assemblyVersion: string;
         wssMajorVersion: string;
     }
-    interface ClientContext extends SP.ClientRuntimeContext {
+    class ClientContext extends SP.ClientRuntimeContext {
+        constructor(serverRelativeUrlOrFullUrl?: string);
         get_web(): SP.Web;
         get_site(): SP.Site;
         get_serverVersion(): string;
+        static get_current(): SP.ClientContext;
     }
-    interface ClientContextConstructor {
-        new(serverRelativeUrlOrFullUrl?: string): ClientContext;
-        get_current(): SP.ClientContext;
-    }
-    let ClientContext: ClientContextConstructor;
     enum ULSTraceLevel {
         verbose,
     }
@@ -4398,18 +4390,15 @@ declare namespace SP {
         update(): void;
         deleteObject(): void;
     }
-    interface RoleDefinitionBindingCollectionConstructor {
-        new(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
-        newObject(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
-    }
-    interface RoleDefinitionBindingCollection extends SP.ClientObjectCollection<RoleDefinition> {
+    class RoleDefinitionBindingCollection extends SP.ClientObjectCollection<RoleDefinition> {
+        constructor(context: SP.ClientRuntimeContext);
         itemAt(index: number): SP.RoleDefinition;
         get_item(index: number): SP.RoleDefinition;
         add(roleDefinition: SP.RoleDefinition): void;
         remove(roleDefinition: SP.RoleDefinition): void;
         removeAll(): void;
+        static newObject(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
     }
-    let RoleDefinitionBindingCollection: RoleDefinitionBindingCollectionConstructor;
     interface RoleDefinitionCollection extends SP.ClientObjectCollection<RoleDefinition> {
         itemAt(index: number): SP.RoleDefinition;
         get_item(index: number): SP.RoleDefinition;
@@ -5304,17 +5293,14 @@ declare namespace Microsoft.SharePoint.Client.Search {
             exportPopularQueries: (web: SP.Web, sourceId: SP.Guid) => SP.JsonObjectResult;
         }
 
-        interface StringCollection extends SP.ClientObjectCollection<string> {
+        class StringCollection extends SP.ClientObjectCollection<string> {
+            constructor(context: SP.ClientContext);
             itemAt(index: number): string;
             get_item(index: number): string;
             get_childItemType(): typeof String;
             add(property: string): void;
             clear(): void;
         }
-        interface StringCollectionConstructor {
-            new(context: SP.ClientContext): StringCollection;
-        }
-        let StringCollection: StringCollectionConstructor;
 
         class QueryPersonalizationData extends SP.ClientObject {
             // It's really empty;
@@ -6924,15 +6910,12 @@ declare namespace SP {
             getValidatedString(value: TaxonomyFieldValue): SP.StringResult;
         }
 
-        interface TaxonomyFieldValueCollection extends SP.ClientObjectCollection<TaxonomyFieldValue> {
+        class TaxonomyFieldValueCollection extends SP.ClientObjectCollection<TaxonomyFieldValue> {
+            constructor(context: SP.ClientContext, fieldValue: string, creatingField: SP.Field);
             itemAt(index: number): TaxonomyFieldValue;
             get_item(index: number): TaxonomyFieldValue;
             populateFromLabelGuidPairs(text: string): void;
         }
-        interface TaxonomyFieldValueCollectionConstructor {
-            new(context: SP.ClientContext, fieldValue: string, creatingField: SP.Field): TaxonomyFieldValueCollection;
-        }
-        let TaxonomyFieldValueCollection: TaxonomyFieldValueCollectionConstructor;
 
         class TaxonomyFieldValue extends SP.ClientValueObject {
             get_label(): string;
