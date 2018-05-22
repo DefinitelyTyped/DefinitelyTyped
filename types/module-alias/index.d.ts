@@ -10,6 +10,9 @@ export = init;
  */
 declare function init(options?: string | init.Options): void;
 
+/**
+ * Exported functoins
+ */
 declare namespace init {
     function isPathMatchesAlias(path: string, alias: string): boolean;
 
