@@ -4527,4 +4527,23 @@ declare namespace cytoscape {
          */
         promise(animationEvent?: "completed" | "complete" | "frame"): Promise<EventObject>;
     }
+
+    /**
+     * Cytoscape extension type
+     * Definition of an extension would be in following form:
+     * @example
+     * declare module 'cytoscape-ext' {
+     *  const ext: cytoscape.Ext;
+     *  export = ext;
+     * }
+     */
+    type Ext = (cytoscape: Function) => void;
+    /**
+     * Register imported extension into cytoscape
+     * @param module Entry point for the extension, got by module = require('cy-ext')
+     * or by import module from 'cy-ext'
+     * http://js.cytoscape.org/#extensions
+     */
+    function use(module: Ext): void;
+
 }
