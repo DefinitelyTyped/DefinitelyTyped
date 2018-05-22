@@ -1,12 +1,19 @@
-/// <reference path="./chrome-webview.d.ts" />
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Nikolai Ommundsen <https://github.com/niikoo>
+// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// WebView ref: https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json
 // TypeScript Version: 2.4
 
-/// <reference types="chrome"/>
 /// <reference types="filesystem"/>
+
+////////////////////
+// Global object
+////////////////////
+interface Window {
+    chrome: typeof chrome;
+}
+declare module chrome { }
 
 ////////////////////
 // App
@@ -18,6 +25,8 @@ declare namespace chrome.app {
 
     export function getDetails(): AppDetails;
 }
+
+export type GenericEvent = Event;
 
 ////////////////////
 // App Runtime
@@ -174,8 +183,288 @@ declare namespace chrome.app.window {
     export var onRestored: WindowEvent;
 }
 
+
 ////////////////////
-// fileSystem
+// Context Menus
+////////////////////
+
+declare namespace chrome.contextMenus {
+    /**
+    * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
+    **/
+    export type ContextType = "all" | "page" | "frame" | "selection" | "link" | "editable" | "image" | "video" | "audio" | "launcher" | "browser_action" | "page_action";
+    /**
+    * The type of menu item.
+    **/
+    export type ItemType = "normal" | "checkbox" | "radio" | "separator";
+
+    /**
+    * @description Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
+    * @param {any} [object Object]
+     */
+    export function create(createProperties: object, callback?: () => void): void;
+
+    /**
+    * @description Updates a previously created context menu item.
+    * @param {any} id The ID of the item to update.
+    * @param {object} updateProperties The properties to update. Accepts the same values as the create function.
+    * @param {any} [object Object]
+     */
+    export function update(id: number | string, updateProperties: object, callback?: () => void): void;
+
+    /**
+    * @description Removes a context menu item.
+    * @param {any} menuItemId The ID of the context menu item to remove.
+    * @param {any} [object Object]
+     */
+    export function remove(menuItemId: number | string, callback?: () => void): void;
+
+    /**
+    * @description Removes all context menu items added by this extension.
+    * @param {any} [object Object]
+     */
+    export function removeAll(callback?: () => void): void;
+
+}
+
+
+////////////////////
+// Events
+////////////////////
+/**
+ * The chrome.events namespace contains common types used by APIs dispatching events to notify you when something interesting happens.
+ * Availability: Since Chrome 21.
+ */
+declare namespace chrome.events {
+    /** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
+    export interface UrlFilter {
+        /** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
+        schemes?: string[];
+        /**
+         * Optional.
+          * Since Chrome 23.
+         * Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
+         */
+        urlMatches?: string;
+        /** Optional. Matches if the path segment of the URL contains a specified string.  */
+        pathContains?: string;
+        /** Optional. Matches if the host name of the URL ends with a specified string.  */
+        hostSuffix?: string;
+        /** Optional. Matches if the host name of the URL starts with a specified string.  */
+        hostPrefix?: string;
+        /** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
+        hostContains?: string;
+        /** Optional. Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+        urlContains?: string;
+        /** Optional. Matches if the query segment of the URL ends with a specified string.  */
+        querySuffix?: string;
+        /** Optional. Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+        urlPrefix?: string;
+        /** Optional. Matches if the host name of the URL is equal to a specified string.  */
+        hostEquals?: string;
+        /** Optional. Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+        urlEquals?: string;
+        /** Optional. Matches if the query segment of the URL contains a specified string.  */
+        queryContains?: string;
+        /** Optional. Matches if the path segment of the URL starts with a specified string.  */
+        pathPrefix?: string;
+        /** Optional. Matches if the path segment of the URL is equal to a specified string.  */
+        pathEquals?: string;
+        /** Optional. Matches if the path segment of the URL ends with a specified string.  */
+        pathSuffix?: string;
+        /** Optional. Matches if the query segment of the URL is equal to a specified string.  */
+        queryEquals?: string;
+        /** Optional. Matches if the query segment of the URL starts with a specified string.  */
+        queryPrefix?: string;
+        /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+        urlSuffix?: string;
+        /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
+        ports?: any[];
+        /**
+         * Optional.
+          * Since Chrome 28.
+         * Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
+         */
+        originAndPathMatches?: string;
+    }
+
+    /** An object which allows the addition and removal of listeners for a Chrome event. */
+    export interface Event<T> {
+        /**
+         * Registers an event listener callback to an event.
+         * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
+         * The callback parameter should be a function that looks like this:
+         * function() {...};
+         */
+        addListener(callback: T): void;
+        /**
+         * Returns currently registered rules.
+         * @param callback Called with registered rules.
+         * The callback parameter should be a function that looks like this:
+         * function(array of Rule rules) {...};
+         * Parameter rules: Rules that were registered, the optional parameters are filled with values.
+         */
+        getRules(callback: (rules: Rule[]) => void): void;
+        /**
+         * Returns currently registered rules.
+         * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are returned.
+         * @param callback Called with registered rules.
+         * The callback parameter should be a function that looks like this:
+         * function(array of Rule rules) {...};
+         * Parameter rules: Rules that were registered, the optional parameters are filled with values.
+         */
+        getRules(ruleIdentifiers: string[], callback: (rules: Rule[]) => void): void;
+        /**
+         * @param callback Listener whose registration status shall be tested.
+         */
+        hasListener(callback: T): boolean;
+        /**
+         * Unregisters currently registered rules.
+         * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are unregistered.
+         * @param callback Called when rules were unregistered.
+         * If you specify the callback parameter, it should be a function that looks like this:
+         * function() {...};
+         */
+        removeRules(ruleIdentifiers?: string[], callback?: () => void): void;
+        /**
+         * Unregisters currently registered rules.
+         * @param callback Called when rules were unregistered.
+         * If you specify the callback parameter, it should be a function that looks like this:
+         * function() {...};
+         */
+        removeRules(callback?: () => void): void;
+        /**
+         * Registers rules to handle events.
+         * @param rules Rules to be registered. These do not replace previously registered rules.
+         * @param callback Called with registered rules.
+         * If you specify the callback parameter, it should be a function that looks like this:
+         * function(array of Rule rules) {...};
+         * Parameter rules: Rules that were registered, the optional parameters are filled with values.
+         */
+        addRules(rules: Rule[], callback?: (rules: Rule[]) => void): void;
+        /**
+         * Deregisters an event listener callback from an event.
+         * @param callback Listener that shall be unregistered.
+         * The callback parameter should be a function that looks like this:
+         * function() {...};
+         */
+        removeListener(callback: T): void;
+        hasListeners(): boolean;
+    }
+
+    /** Description of a declarative rule for handling events. */
+    export interface Rule {
+        /** Optional. Optional priority of this rule. Defaults to 100.  */
+        priority?: number;
+        /** List of conditions that can trigger the actions. */
+        conditions: any[];
+        /** Optional. Optional identifier that allows referencing this rule.  */
+        id?: string;
+        /** List of actions that are triggered if one of the condtions is fulfilled. */
+        actions: any[];
+        /**
+         * Optional.
+          * Since Chrome 28.
+         * Tags can be used to annotate rules and perform operations on sets of rules.
+         */
+        tags?: string[];
+    }
+}
+
+////////////////////
+// Extension Types
+////////////////////
+
+/**
+ * Primary for extensions, but also used in apps.
+ * https://developer.chrome.com/extensions/extensionTypes#type-ImageDetails
+ **/
+declare namespace chrome.extensionTypes {
+    /**
+     * The format of an image.
+     **/
+    export type ImageFormat = 'jpeg' | 'png';
+    /**
+     * Details about the format and quality of an image.
+     */
+    export interface ImageDetails {
+        /**
+         * @description The format of the resulting image. Default is "jpeg".
+         * @type {ImageFormat}
+         * @memberof ImageDetails
+         */
+        format?: ImageFormat;
+        /**
+         * @description When format is "jpeg", controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
+         * @type {number}
+         * @memberof ImageDetails
+         */
+        quality?: number;
+    }
+    /**
+     * The soonest that the JavaScript or CSS will be injected into the tab.
+     **/
+    export type RunAt = 'document_start' | 'document_end' | 'document_idle';
+    /**
+     * The origin of injected CSS.
+     **/
+    export type CSSOrigin = 'author' | 'user';
+    /**
+     * @description Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
+     * @interface InjectDetails
+     */
+    export interface InjectDetails {
+        /**
+         * JavaScript or CSS code to inject.
+         * Warning:
+         * Be careful using the code parameter. Incorrect use of it may open your extension to cross site scripting attacks.
+         * @type {string}
+         * @memberof InjectDetails
+         */
+        code?: string;
+        /**
+         * @description JavaScript or CSS file to inject.
+         * @type {string}
+         * @memberof InjectDetails
+         */
+        file?: string;
+        /**
+         * @description If allFrames is true, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's false and is only injected into the top frame. If true and frameId is set, then the code is inserted in the selected frame and all of its child frames.
+         * @type {boolean}
+         * @memberof InjectDetails
+         */
+        allFrames?: boolean;
+        /**
+         * @description The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
+         * @since Since Chrome 50.
+         * @type {number}
+         * @memberof InjectDetails
+         */
+        frameId?: number;
+        /**
+         * @description If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is false.
+         * @type {boolean}
+         * @memberof InjectDetails
+         */
+        matchAboutBlank?: boolean;
+        /**
+         * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
+         * @type {RunAt}
+         * @memberof InjectDetails
+         */
+        runAt: RunAt;
+        /**
+         * @description The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to "author".
+         * @since Since Chrome 66.
+         * @type {CSSOrigin}
+         * @memberof InjectDetails
+         */
+        cssOrigin: CSSOrigin;
+    }
+}
+
+////////////////////
+// FileSystem
 ////////////////////
 declare namespace chrome.fileSystem {
 
@@ -310,8 +599,65 @@ declare namespace chrome.mediaGalleries {
 }
 
 ////////////////////
-// Sockets
+// Socket
 ////////////////////
+declare namespace chrome.socket {
+    export interface CreateInfo {
+        socketId: number;
+    }
+
+    export interface AcceptInfo {
+        resultCode: number;
+        socketId?: number;
+    }
+
+    export interface ReadInfo {
+        resultCode: number;
+        data: ArrayBuffer;
+    }
+
+    export interface WriteInfo {
+        bytesWritten: number;
+    }
+
+    export interface RecvFromInfo {
+        resultCode: number;
+        data: ArrayBuffer;
+        port: number;
+        address: string;
+    }
+
+    export interface SocketInfo {
+        socketType: string;
+        localPort?: number;
+        peerAddress?: string;
+        peerPort?: number;
+        localAddress?: string;
+        connected: boolean;
+    }
+
+    export interface NetworkInterface {
+        name: string;
+        address: string;
+    }
+
+    export function create(type: string, options?: Object, callback?: (createInfo: CreateInfo) => void): void;
+    export function destroy(socketId: number): void;
+    export function connect(socketId: number, hostname: string, port: number, callback: (result: number) => void): void;
+    export function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
+    export function disconnect(socketId: number): void;
+    export function read(socketId: number, bufferSize?: number, callback?: (readInfo: ReadInfo) => void): void;
+    export function write(socketId: number, data: ArrayBuffer, callback?: (writeInfo: WriteInfo) => void): void;
+    export function recvFrom(socketId: number, bufferSize?: number, callback?: (recvFromInfo: RecvFromInfo) => void): void;
+    export function sendTo(socketId: number, data: ArrayBuffer, address: string, port: number, callback?: (writeInfo: WriteInfo) => void): void;
+    export function listen(socketId: number, address: string, port: number, backlog?: number, callback?: (result: number) => void): void;
+    export function accept(socketId: number, callback?: (acceptInfo: AcceptInfo) => void): void;
+    export function setKeepAlive(socketId: number, enable: boolean, delay?: number, callback?: (result: boolean) => void): void;
+    export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
+    export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
+    export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
+}
+
 declare namespace chrome.sockets.tcp {
     export interface CreateInfo {
         socketId: number;
@@ -1483,4 +1829,1231 @@ declare namespace chrome.networking.onc {
          */
         DeviceEditable?: boolean
     }
+}
+
+///////////////////
+// Webview Tag
+///////////////////
+/**
+ * Use the webview tag to actively load live content from the web over the network and embed it in your Chrome App. Your app can control the appearance of the <code>webview</code> and interact with the web content, initiate navigations in an embedded web page, react to error events that happen within it, and more (see <a href=\"#usage\">Usage</a>).
+ */
+declare namespace chrome.webview {
+    /** Options that determine what data should be cleared by `clearData`. */
+    export interface ClearDataOptions {
+        /** Clear data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript <code>Date</code> object). If absent, defaults to <code>0</code> (which would remove all browsing data). */
+        since?: number;
+    }
+    export interface WindowEvent extends chrome.events.Event<() => void> { }
+
+    export interface ConsoleEvent extends Event {
+        /**
+         * @description The severity level of the log message. Ranges from 0 to 4.
+         * @type {number}
+         * @memberof ConsoleEvent
+         */
+        level: number;
+        /**
+         * @description The logged message contents.
+         * @type {string}
+         * @memberof ConsoleEvent
+         */
+        message: string;
+        /**
+         * @description The line number of the message source.
+         * @type {number}
+         * @memberof ConsoleEvent
+         */
+        line: number;
+        /**
+         * @description A string identifying the resource which logged the message.
+         * @type {string}
+         * @memberof ConsoleEvent
+         */
+        sourceId: string;
+    }
+
+    export interface ExitEvent extends Event {
+        /**
+         * @description Chrome's internal ID of the process that exited.
+         * @type {number}
+         * @memberof ExitEvent
+         */
+        processID: number;
+        /**
+         * @description String indicating the reason for the exit.
+         * @type {string}
+         * @memberof ExitEvent
+         */
+        reason: 'normal' | 'abnormal' | 'crash' | 'kill';
+    }
+
+    /** Description of a declarative rule for handling events. */
+    export interface Rule {
+        /** Optional priority of this rule. Defaults to 100.  */
+        priority?: number;
+        /** List of conditions that can trigger the actions. */
+        conditions: any[];
+        /** Optional. Optional identifier that allows referencing this rule.  */
+        id?: string;
+        /** List of actions that are triggered if one of the condtions is fulfilled. */
+        actions: any[];
+        /**
+         * @description Tags can be used to annotate rules and perform operations on sets of rules.¨
+         * @since Chrome 28
+         * @type {string[]}
+         * @memberof Rule
+         */
+        tags?: string[];
+    }
+
+    /**
+     * @description Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
+     * @export
+     * @interface InjectDetails
+     */
+    export interface InjectDetails {
+        /**
+         * @description JavaScript or CSS code to inject.<br><br><b>Warning:</b><br>Be careful using the <code>code</code> parameter. Incorrect use of it may open your app to <a href=\"https://en.wikipedia.org/wiki/Cross-site_scripting\">cross site scripting</a> attacks.
+         * @type {string}
+         * @memberof InjectDetails
+         */
+        code?: string,
+        /**
+         * @description JavaScript or CSS file to inject.
+         * @type {string}
+         * @memberof InjectDetails
+         */
+        file?: string
+    }
+
+    export interface WebViewElementEventMap extends ElementEventMap {
+        'message': ConsoleEvent,
+        'exit': ExitEvent
+    }
+
+    /**
+     * @description
+     * @export
+     * @interface HTMLWebViewElement
+     * @extends {Element}
+     */
+    export interface HTMLWebViewElement extends Element {
+        executeScript?: (details: InjectDetails, callback?: (result: any) => void) => void;
+        src: string;
+        contentWindow: Window;
+        addEventListener<K extends keyof WebViewElementEventMap>(type: K, listener: (this: HTMLWebViewElement, ev: WebViewElementEventMap[K]) => any, useCapture?: boolean): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+    }
+
+    /**Options that determine what data should be cleared by clearData. */
+    export interface ClearDataOptions {
+
+        /**
+        * @description Clear data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data).
+         */
+        since?: number;
+    }
+    /**A set of data types. Missing properties are interpreted as false. */
+    export interface ClearDataTypeSet {
+
+        /**
+        * @description Websites' appcaches.
+         */
+        appcache?: boolean
+
+        /**
+        * @description Since Chrome 43. The browser's cache. Note: when removing data, this clears the entire cache; it is not limited to the range you specify.
+         */
+        cache?: boolean
+
+        /**
+        * @description The partition's cookies.
+         */
+        cookies?: boolean
+
+        /**
+        * @description The partition's session cookies.
+         */
+        sessionCookies?: boolean
+
+        /**
+        * @description The partition's persistent cookies.
+         */
+        persistentCookies?: boolean
+
+        /**
+        * @description Websites' filesystems.
+         */
+        fileSystems?: boolean
+
+        /**
+        * @description Websites' IndexedDB data.
+         */
+        indexedDB?: boolean
+
+        /**
+        * @description Websites' local storage data.
+         */
+        localStorage?: boolean
+
+        /**
+        * @description Websites' WebSQL data.
+         */
+        webSQL?: boolean
+    }
+    /**
+    * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts.
+    * Enum values:
+    * "all"
+    * "page"
+    * "frame"
+    * "selection"
+    * "link"
+    * "editable"
+    * "image"
+    * "video"
+    * "audio" */
+    export type ContextType = "all" | "page" | "frame" | "selection" | "link" | "editable" | "image" | "video" | "audio";
+    /**Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time. */
+    export interface InjectDetails {
+
+        /**
+        * @description JavaScript or CSS code to inject.   Warning:  Be careful using the code parameter. Incorrect use of it may open your app to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">cross site scripting</a> attacks.
+         */
+        code?: string
+
+        /**
+        * @description JavaScript or CSS file to inject.
+         */
+        file?: string
+    }
+    /**The type of injection item: code or a set of files. */
+    export interface InjectionItems {
+
+        /**
+        * @description JavaScript code or CSS to be injected into matching pages.
+         */
+        code?: string
+
+        /**
+        * @description The list of JavaScript or CSS files to be injected into matching pages. These are injected in the order they appear in this array.
+         */
+        files?: any[]
+    }
+    /**Details of the content script to inject. Refer to the <a href='/extensions/content_scripts'>content scripts</a> documentation for more details. */
+    export interface ContentScriptDetails {
+
+        /**
+        * @description The name of the content script to inject.
+         */
+        name: string
+
+        /**
+        * @description Specifies which pages this content script will be injected into.
+         */
+        matches: any[]
+
+        /**
+        * @description Excludes pages that this content script would otherwise be injected into.
+         */
+        exclude_matches?: any[]
+
+        /**
+        * @description Whether to insert the content script on about:blank and about:srcdoc. Content scripts will only be injected on pages when their inherit URL is matched by one of the declared patterns in the matches field. The inherit URL is the URL of the document that created the frame or window. Content scripts cannot be inserted in sandboxed frames.
+         */
+        match_about_blank?: boolean
+
+        /**
+        * @description The CSS code or a list of CSS files to be injected into matching pages. These are injected in the order they appear, before any DOM is constructed or displayed for the page.
+         */
+        css?: InjectionItems
+
+        /**
+        * @description The JavaScript code or a list of JavaScript files to be injected into matching pages. These are injected in the order they appear.
+         */
+        js?: InjectionItems
+
+        /**
+        * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
+         */
+        run_at?: chrome.extensionTypes.RunAt;
+
+        /**
+        * @description If all_frames is true, this implies that the JavaScript or CSS should be injected into all frames of current page. By default, all_frames is false and the JavaScript or CSS is only injected into the top frame.
+         */
+        all_frames?: boolean;
+
+        /**
+        * @description Applied after matches to include only those URLs that also match this glob. Intended to emulate the @include Greasemonkey keyword.
+         */
+        include_globs?: string[];
+
+        /**
+        * @description Applied after matches to exclude URLs that match this glob. Intended to emulate the @exclude Greasemonkey keyword.
+         */
+        exclude_globs?: string[];
+    }
+    /**@todo Add documentation */
+    export interface ContextMenuCreateProperties {
+
+        /**
+        * @description The type of menu item. Defaults to 'normal' if not specified.
+         */
+        type?: chrome.contextMenus.ItemType
+
+        /**
+        * @description The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
+         */
+        id?: string
+
+        /**
+        * @description The text to be displayed in the item; this is <em>required</em> unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".
+         */
+        title?: string
+
+        /**
+        * @description The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.
+         */
+        checked?: boolean
+
+        /**
+        * @description List of contexts this menu item will appear in. Defaults to ['page'] if not specified.
+         */
+        contexts?: any[]
+
+        /**
+        * @description A function that will be called back when the menu item is clicked.
+        * @param {any} [object Object]
+         */
+        onclick?: (info: any) => void
+
+        /**
+        * @description The ID of a parent menu item; this makes the item a child of a previously added item.
+         */
+        parentId?: number | string
+
+        /**
+        * @description Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see <a href='match_patterns'>Match Patterns</a>.
+         */
+        documentUrlPatterns?: any[]
+
+        /**
+        * @description Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
+         */
+        targetUrlPatterns?: any[]
+
+        /**
+        * @description Whether this context menu item is enabled or disabled. Defaults to true.
+         */
+        enabled?: boolean
+    }
+    /**@todo Add documentation */
+    export interface ContextMenuUpdateProperties {
+
+        /**
+        * @description The type of menu item.
+         */
+        type?: chrome.webview.ContextType;
+
+        /**
+        * @description The text to be displayed in the item
+         */
+        title?: string
+
+        /**
+        * @description The state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.
+         */
+        checked?: boolean
+
+        /**
+        * @description List of contexts this menu item will appear in.
+         */
+        contexts?: any[]
+
+        /**
+        * @description A function that will be called back when the menu item is clicked.
+        * @param {any} [object Object]
+         */
+        onclick?: (info: any) => void
+
+        /**
+        * @description The ID of a parent menu item; this makes the item a child of a previously added item. <em>Note:</em> You cannot change an item to be a child of one of its own descendants.
+         */
+        parentId?: number | string
+
+        /**
+        * @description Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see <a href='match_patterns'>Match Patterns</a>.
+         */
+        documentUrlPatterns?: any[]
+
+        /**
+        * @description Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
+         */
+        targetUrlPatterns?: any[]
+
+        /**
+        * @description Whether this context menu item is enabled or disabled.
+         */
+        enabled?: boolean
+    }
+    export interface ContextMenus {
+
+        /**
+        * @description Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
+        * @param {object} createProperties The properties used to create the item
+        * @param {any} [object Object]
+         */
+        create(createProperties: object, callback?: () => void): void;
+
+        /**
+        * @description Updates a previously created context menu item.
+        * @param {any} id The ID of the item to update.
+        * @param {object} updateProperties The properties to update. Accepts the same values as the create function.
+        * @param {any} [object Object]
+         */
+        update(id: number | string, updateProperties: object, callback?: () => void): void;
+
+        /**
+        * @description Removes a context menu item.
+        * @param {any} menuItemId The ID of the context menu item to remove.
+        * @param {any} [object Object]
+         */
+        remove(menuItemId: number | string, callback?: () => void): void;
+
+        /**
+        * @description Removes all context menu items added to this webview.
+        * @param {any} [object Object]
+         */
+        removeAll(callback?: () => void): void;
+
+
+        /**
+        * @description Fired before showing a context menu on this webview. Can be used to disable this context menu by calling event.preventDefault().
+         */
+        onShow: chrome.events.Event<chrome.webview.IOnShowEvent>;
+
+    }
+    export interface IOnShowEvent {
+        /**
+         * @description Call this to prevent showing the context menu.
+         * @memberof IOnShowEvent
+         */
+        preventDefault: () => void;
+    }
+    export interface ContentWindow {
+
+        /**
+        * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href="#event-contentload">contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it receives.</p><p>This API is identical to the <a href="https://developer.mozilla.org/en-US/docs/DOM/window.postMessage">HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
+        * @param {any} message Message object to send to the guest.
+        * @param {string} targetOrigin Specifies what the origin of the guest window must be for the event to be dispatched.
+         */
+        postMessage(message: any, targetOrigin: string): void;
+
+    }
+    export interface DialogController {
+
+        /**
+        * @description Accept the dialog. Equivalent to clicking OK in an alert, confirm, or prompt dialog.
+        * @param {string} response The response string to provide to the guest when accepting a prompt dialog.
+         */
+        ok(response?: string): void;
+
+        /**
+        * @description Reject the dialog. Equivalent to clicking Cancel in a confirm or prompt dialog.
+         */
+        cancel(): void;
+
+    }
+    /**Contains all of the results of the find request. */
+    export interface FindCallbackResults {
+
+        /**
+        * @description The number of times searchText was matched on the page.
+         */
+        numberOfMatches: number
+
+        /**
+        * @description The ordinal number of the current match.
+         */
+        activeMatchOrdinal: number
+
+        /**
+        * @description Describes a rectangle around the active match in screen coordinates.
+         */
+        selectionRect: SelectionRect
+
+        /**
+        * @description Indicates whether this find request was canceled.
+         */
+        canceled: boolean
+    }
+    /**Options for the find request. */
+    export interface FindOptions {
+
+        /**
+        * @description Flag to find matches in reverse order. The default value is false.
+         */
+        backward?: boolean
+
+        /**
+        * @description Flag to match with case-sensitivity. The default value is false.
+         */
+        matchCase?: boolean
+    }
+    export interface NewWindow {
+
+        /**
+        * @description Attach the requested target page to an existing webview element.
+        * @param {object} webview The webview element to which the target page should be attached.
+         */
+        attach(webview: object): void;
+
+        /**
+        * @description Cancel the new window request.
+         */
+        discard(): void;
+
+    }
+    export interface MediaPermissionRequest {
+
+        /**
+        * @description Allow the permission request.
+         */
+        allow(): void;
+
+        /**
+        * @description Deny the permission request. This is the default behavior if allow is not called.
+         */
+        deny(): void;
+
+    }
+    export interface GeolocationPermissionRequest {
+
+        /**
+        * @description Allow the permission request.
+         */
+        allow(): void;
+
+        /**
+        * @description Deny the permission request. This is the default behavior if allow is not called.
+         */
+        deny(): void;
+
+    }
+    export interface PointerLockPermissionRequest {
+
+        /**
+        * @description Allow the permission request.
+         */
+        allow(): void;
+
+        /**
+        * @description Deny the permission request. This is the default behavior if allow is not called.
+         */
+        deny(): void;
+
+    }
+    export interface DownloadPermissionRequest {
+
+        /**
+        * @description Allow the permission request.
+         */
+        allow(): void;
+
+        /**
+        * @description Deny the permission request. This is the default behavior if allow is not called.
+         */
+        deny(): void;
+
+    }
+    export interface FileSystemPermissionRequest {
+
+        /**
+        * @description Allow the permission request.
+         */
+        allow(): void;
+
+        /**
+        * @description Deny the permission request.
+         */
+        deny(): void;
+
+    }
+    export interface FullscreenPermissionRequest {
+
+        /**
+        * @description Allow the permission request.
+         */
+        allow(): void;
+
+        /**
+        * @description Deny the permission request.
+         */
+        deny(): void;
+
+    }
+    export interface LoadPluginPermissionRequest {
+
+        /**
+        * @description Allow the permission request. This is the default behavior if deny is not called..
+         */
+        allow(): void;
+
+        /**
+        * @description Deny the permission request.
+         */
+        deny(): void;
+
+    }
+    /**<p>Describes a rectangle in screen coordinates.</p><p>The containment semantics are array-like; that is, the coordinate (left, top) is considered to be contained by the rectangle, but the coordinate (left + width, top) is not.</p> */
+    export interface SelectionRect {
+
+        /**
+        * @description Distance from the left edge of the screen to the left edge of the rectangle.
+         */
+        left: number
+
+        /**
+        * @description Distance from the top edge of the screen to the top edge of the rectangle.
+         */
+        top: number
+
+        /**
+        * @description Width of the rectangle.
+         */
+        width: number
+
+        /**
+        * @description Height of the rectangle.
+         */
+        height: number
+    }
+    /**Interface which provides access to webRequest events on the guest page. See the <a href="http://developer.chrome.com/extensions/webRequest">chrome.webRequest</a> extensions API for details on webRequest life cycle and related concepts.<p>To illustrate how usage differs from the extensions webRequest API, consider the following example code which blocks any guest requests for URLs which match *://www.evil.com/*:</p><pre>webview.request.onBeforeRequest.addListener(
+      function(details) { return {cancel: true}; },
+      {urls: ["*://www.evil.com/*"]},
+      ["blocking"]);</pre><p>Additionally, this interface supports declarative webRequest rules through onRequest and onMessage events. See <a href="http://developer.chrome.com/extensions/declarativeWebRequest.html">declarativeWebRequest</a> for API details.</p>Note that conditions and actions for declarative webview webRequests should be instantiated from their chrome.webViewRequest.* counterparts. The following example code declaratively blocks all requests to "example.com" on the webview myWebview:</p><pre>var rule = {
+      conditions: [
+        new chrome.webViewRequest.RequestMatcher({ url: { hostSuffix: 'example.com' } })
+      ],
+      actions: [ new chrome.webViewRequest.CancelRequest() ]
+    };
+    myWebview.request.onRequest.addRules([rule]);</pre> */
+    export interface WebRequestEventInterface {
+    }
+    /**
+    * Defines the how zooming is handled in the webview.
+    * Enum values:
+    * "per-origin"
+    * * Zoom changes will persist in the zoomed page's origin, i.e. all other webviews in the same partition that are navigated to that same origin will be zoomed as well. Moreover, per-origin zoom changes are saved with the origin, meaning that when navigating to other pages in the same origin, they will all be zoomed to the same zoom factor.
+    * "per-view"
+    * * Zoom changes only take effect in this webview, and zoom changes in other webviews will not affect the zooming of this webview. Also, per-view zoom changes are reset on navigation; navigating a webview will always load pages with their per-origin zoom factors (within the scope of the partition).
+    * "disabled"
+    * * Disables all zooming in the webview. The content will revert to the default zoom level, and all attempted zoom changes will be ignored. */
+    export type ZoomMode = "per-origin" | "per-view" | "disabled";
+
+    /**
+    * @description Queries audio state.
+    * @param {any} [object Object]
+     */
+    export function getAudioState(callback: (audible: boolean) => void): void;
+
+    /**
+    * @description Sets audio mute state of the webview.
+    * @param {boolean} mute Mute audio value
+     */
+    export function setAudioMuted(mute: boolean): void;
+
+    /**
+    * @description Queries whether audio is muted.
+    * @param {any} [object Object]
+     */
+    export function isAudioMuted(callback: (muted: boolean) => void): void;
+
+    /**
+     * @description Captures the visible region of the webview.
+     * @param {(dataUrl: string) => void} callback A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
+     */
+    export function captureVisibleRegion(callback: (dataUrl: string) => void): void;
+    /**
+     * @description Captures the visible region of the webview.
+     * @param {*} options
+     * @param {(dataUrl: string) => void} callback
+     */
+    export function captureVisibleRegion(options: chrome.extensionTypes.ImageDetails, callback: (dataUrl: string) => void): void;
+
+    /**
+    * @description <p>Adds content script injection rules to the webview. When the webview navigates to a page matching one or more rules, the associated scripts will be injected. You can programmatically add rules or update existing rules.</p><p>The following example adds two rules to the webview: 'myRule' and 'anotherRule'.</p><pre>webview.addContentScripts([
+      {
+        name: 'myRule',
+        matches: ['http://www.foo.com/*'],
+        css: { files: ['mystyles.css'] },
+        js: { files: ['jquery.js', 'myscript.js'] },
+        run_at: 'document_start'
+      },
+      {
+        name: 'anotherRule',
+        matches: ['http://www.bar.com/*'],
+        js: { code: "document.body.style.backgroundColor = 'red';" },
+        run_at: 'document_end'
+      }]);
+     ...
+
+    // Navigates webview.
+    webview.src = 'http://www.foo.com';</pre><p>You can defer addContentScripts call until you needs to inject scripts.</p><p>The following example shows how to overwrite an existing rule.</p><pre>webview.addContentScripts([{
+        name: 'rule',
+        matches: ['http://www.foo.com/*'],
+        js: { files: ['scriptA.js'] },
+        run_at: 'document_start'}]);
+
+    // Do something.
+    webview.src = 'http://www.foo.com/*';
+     ...
+    // Overwrite 'rule' defined before.
+    webview.addContentScripts([{
+        name: 'rule',
+        matches: ['http://www.bar.com/*'],
+        js: { files: ['scriptB.js'] },
+        run_at: 'document_end'}]);</pre><p>If webview has been naviagted to the origin (e.g., foo.com) and calls webview.addContentScripts to add 'myRule', you need to wait for next navigation to make the scripts injected. If you want immediate injection, executeScript will do the right thing.</p><p>Rules are preserved even if the guest process crashes or is killed or even if the webview is reparented.</p><p>Refer to the <a href='/extensions/content_scripts'>content scripts</a> documentation for more details.</p>
+    * @param {ContentScriptDetails[]} contentScriptList Details of the content scripts to add.
+     */
+    export function addContentScripts(contentScriptList: ContentScriptDetails[]): void;
+
+    /**
+    * @description Navigates backward one history entry if possible. Equivalent to go(-1).
+    * @param {(success: boolean) => void} [callback] Called after the navigation has either failed or completed successfully. Success parameter indicates whether the navigation was successful.
+     */
+    export function back(callback?: (success: boolean) => void): void;
+
+    /**
+    * @description Indicates whether or not it is possible to navigate backward through history. The state of this function is cached, and updated before each loadcommit, so the best place to call it is on loadcommit.
+     */
+    export function canGoBack(): void;
+
+    /**
+    * @description Indicates whether or not it is possible to navigate forward through history. The state of this function is cached, and updated before each loadcommit, so the best place to call it is on loadcommit.
+     */
+    export function canGoForward(): void;
+
+    /**
+    * @description <p>Clears browsing data for the webview partition.</p>
+    * @param {any} options Options determining which data to clear.
+    * @param {any} types The types of data to be cleared.
+    * @param {any} [object Object]
+     */
+    export function clearData(options: ClearDataOptions, types: ClearDataTypeSet, callback?: () => void): void;
+
+    /**
+    * @description <p>Injects JavaScript code into the guest page.</p><p>The following sample code uses script injection to set the guest page's background color to red:</p><pre>webview.executeScript({ code: "document.body.style.backgroundColor = 'red'" });</pre>
+    * @param {any} details Details of the script to run.
+    * @param {any} [object Object]
+     */
+    export function executeScript(details: InjectDetails, callback?: (result?: any[]) => void): void;
+
+    /**
+    * @description Initiates a find-in-page request.
+    * @param {string} searchText The string to find in the page.
+    * @param {any} options Options for the find request.
+    * @param {any} [object Object]
+     */
+    export function find(searchText: string, options?: FindOptions, callback?: (results?: any) => void): void;
+
+    /**
+    * @description Navigates forward one history entry if possible. Equivalent to go(1).
+    * @param {any} [object Object]
+     */
+    export function forward(callback?: (success: boolean) => void): void;
+
+    /**
+    * @description Returns Chrome's internal process ID for the guest web page's current process, allowing embedders to know how many guests would be affected by terminating the process. Two guests will share a process only if they belong to the same app and have the same <a href="#partition">storage partition ID</a>. The call is synchronous and returns the embedder's cached notion of the current process ID. The process ID isn't the same as the operating system's process ID.
+     */
+    export function getProcessId(): void;
+
+    /**
+    * @description Returns the user agent string used by the webview for guest page requests.
+     */
+    export function getUserAgent(): void;
+
+    /**
+    * @description Gets the current zoom factor.
+    * @param {any} [object Object]
+     */
+    export function getZoom(callback: (zoomFactor: number) => void): void;
+
+    /**
+    * @description Gets the current zoom mode.
+    * @param {any} [object Object]
+     */
+    export function getZoomMode(callback: (ZoomMode: any) => void): void;
+
+    /**
+    * @description Navigates to a history entry using a history index relative to the current navigation. If the requested navigation is impossible, this method has no effect.
+    * @param {number} relativeIndex Relative history index to which the webview should be navigated. For example, a value of 2 will navigate forward 2 history entries if possible; a value of -3 will navigate backward 3 entries.
+    * @param {any} [object Object]
+     */
+    export function go(relativeIndex: number, callback?: (success: boolean) => void): void;
+
+    /**
+    * @description Injects CSS into the guest page.
+    * @param {any} details Details of the CSS to insert.
+    * @param {any} [object Object]
+     */
+    export function insertCSS(details: InjectDetails, callback?: () => void): void;
+
+    /**
+    * @description Indicates whether or not the webview's user agent string has been overridden by $(ref:webviewTag.setUserAgentOverride).
+     */
+    export function isUserAgentOverridden(): void;
+
+    /**
+    * @description Prints the contents of the webview. This is equivalent to calling scripted print function from the webview itself.
+     */
+    export function print(): void;
+
+    /**
+    * @description Reloads the current top-level page.
+     */
+    export function reload(): void;
+
+    /**
+    * @description <p>Removes content scripts from a webview.</p><p>The following example removes "myRule" which was added before.</p><pre>webview.removeContentScripts(['myRule']);</pre><p>You can remove all the rules by calling:</p><pre>webview.removeContentScripts();</pre>
+    * @param {any[]} scriptNameList A list of names of content scripts that will be removed. If the list is empty, all the content scripts added to the webview will be removed.
+     */
+    export function removeContentScripts(scriptNameList?: any[]): void;
+
+    /**
+    * @description Override the user agent string used by the webview for guest page requests.
+    * @param {string} userAgent The user agent string to use.
+     */
+    export function setUserAgentOverride(userAgent: string): void;
+
+    /**
+    * @description Changes the zoom factor of the page. The scope and persistence of this change are determined by the webview's current zoom mode (see $(ref:webviewTag.ZoomMode)).
+    * @param {number} zoomFactor The new zoom factor.
+    * @param {any} [object Object]
+     */
+    export function setZoom(zoomFactor: number, callback?: () => void): void;
+
+    /**
+    * @description Sets the zoom mode of the webview.
+    * @param {any} ZoomMode Defines how zooming is handled in the webview.
+    * @param {any} [object Object]
+     */
+    export function setZoomMode(ZoomMode: ZoomMode, callback?: () => void): void;
+
+    /**
+    * @description Stops loading the current webview navigation if in progress.
+     */
+    export function stop(): void;
+
+    /**
+    * @description Ends the current find session (clearing all highlighting) and cancels all find requests in progress.
+    * @param {string} action Determines what to do with the active match after the find session has ended. clear will clear the highlighting over the active match; keep will keep the active match highlighted; activate will keep the active match highlighted and simulate a user click on that match. The default action is keep.
+     */
+    export function stopFinding(action?: string): void;
+
+    /**
+    * @description Loads a data URL with a specified base URL used for relative links. Optionally, a virtual URL can be provided to be shown to the user instead of the data URL.
+    * @param {string} dataUrl The data URL to load.
+    * @param {string} baseUrl The base URL that will be used for relative links.
+    * @param {string} virtualUrl The URL that will be displayed to the user (in the address bar).
+     */
+    export function loadDataWithBaseUrl(dataUrl: string, baseUrl: string, virtualUrl?: string): void;
+
+    /**
+    * @description Forcibly kills the guest web page's renderer process. This may affect multiple webview tags in the current app if they share the same process, but it will not affect webview tags in other apps.
+     */
+    export function terminate(): void;
+
+    /**
+    * @description Fired when the guest window attempts to close itself.<p>The following example code navigates the webview to about:blank when the guest attempts to close itself.</p><pre>webview.addEventListener('close', function() {
+      webview.src = 'about:blank';
+    });</pre>
+     */
+
+    export function close(event: chrome.events.Event<GenericEvent>): void;
+
+    /**
+    * @description Fired when the guest window logs a console message.<p>The following example code forwards all log messages to the embedder's console without regard for log level or other properties.</p><pre>webview.addEventListener('consolemessage', function(e) {
+      console.log('Guest page logged a message: ', e.message);
+    });</pre>
+    * @param {any} [object Object]
+     */
+
+    export var consolemessage: chrome.events.Event<IConsolemessage>;
+
+    /**
+    * @description Fired when the guest window fires a load event, i.e., when a new document is loaded. This does <em>not</em> include page navigation within the current document or asynchronous resource loads. <p>The following example code modifies the default font size of the guest's body element after the page loads:</p><pre>webview.addEventListener('contentload', function() {
+      webview.executeScript({ code: 'document.body.style.fontSize = "42px"' });
+    });</pre>
+     */
+
+    export var contentload: (event: chrome.events.Event<GenericEvent>) => void;
+
+    /**
+    * @description Fired when the guest window attempts to open a modal dialog via window.alert, window.confirm, or window.prompt.<p>Handling this event will block the guest process until each event listener returns or the dialog object becomes unreachable (if preventDefault() was called.)</p><p>The default behavior is to cancel the dialog.</p>
+    * @param {any} [object Object]
+     */
+
+    export var dialog: chrome.events.Event<IDialog>;
+
+    /**
+    * @description Fired when the process rendering the guest web content has exited.<p>The following example code will show a farewell message whenever the guest page crashes:</p><pre>webview.addEventListener('exit', function(e) {
+      if (e.reason === 'crash') {
+        webview.src = 'data:text/plain,Goodbye, world!';
+      }
+    });</pre>
+    * @param {any} [object Object]
+     */
+
+    export var exit: chrome.events.Event<IExit>;
+
+    /**
+    * @description Fired when new find results are available for an active find request. This might happen multiple times for a single find request as matches are found.
+    * @param {any} [object Object]
+     */
+
+    export var findupdate: chrome.events.Event<IFindupdate>;
+
+    /**
+    * @description Fired when a top-level load has aborted without committing. An error message will be printed to the console unless the event is default-prevented. <p class="note"><strong>Note:</strong> When a resource load is aborted, a loadabort event will eventually be followed by a loadstop event, even if all committed loads since the last loadstop event (if any) were aborted.</p><p class="note"><strong>Note:</strong> When the load of either an about URL or a JavaScript URL is aborted, loadabort will be fired and then the webview will be navigated to 'about:blank'.</p>
+    * @param {any} [object Object]
+     */
+
+    export var loadabort: chrome.events.Event<ILoadabort>;
+
+    /**
+    * @description Fired when a load has committed. This includes navigation within the current document as well as subframe document-level loads, but does <em>not</em> include asynchronous resource loads.
+    * @param {any} [object Object]
+     */
+
+    export var loadcommit: chrome.events.Event<chrome.webview.ILoadcommit>;
+
+    /**
+    * @description Fired when a top-level load request has redirected to a different URL.
+    * @param {any} [object Object]
+     */
+
+    export var loadredirect: chrome.events.Event<chrome.webview.ILoadredirect>;
+
+    /**
+    * @description Fired when a load has begun.
+    * @param {any} [object Object]
+     */
+
+    export var loadstart: chrome.events.Event<chrome.webview.ILoadstart>;
+
+    /**
+    * @description Fired when all frame-level loads in a guest page (including all its subframes) have completed. This includes navigation within the current document as well as subframe document-level loads, but does <em>not</em> include asynchronous resource loads. This event fires every time the number of document-level loads transitions from one (or more) to zero. For example, if a page that has already finished loading (i.e., loadstop already fired once) creates a new iframe which loads a page, then a second loadstop will fire when the iframe page load completes. This pattern is commonly observed on pages that load ads. <p class="note"><strong>Note:</strong> When a committed load is aborted, a loadstop event will eventually follow a loadabort event, even if all committed loads since the last loadstop event (if any) were aborted.</p>
+     */
+
+    export function loadstop(event: chrome.events.Event<GenericEvent>): void;
+
+    /**
+    * @description Fired when the guest page attempts to open a new browser window.<p>The following example code will create and navigate a new webview in the embedder for each requested new window:</p><pre>webview.addEventListener('newwindow', function(e) {
+      var newWebview = document.createElement('webview');
+      document.body.appendChild(newWebview);
+      e.window.attach(newWebview);
+    });</pre>
+    * @param {any} [object Object]
+     */
+
+    export var newwindow: chrome.events.Event<INewwindow>;
+
+    /**
+    * @description Fired when the guest page needs to request special permission from the embedder.<p>The following example code will grant the guest page access to the webkitGetUserMedia API. Note that an app using this example code must itself specify audioCapture and/or videoCapture manifest permissions:</p><pre>webview.addEventListener('permissionrequest', function(e) {
+      if (e.permission === 'media') {
+        e.request.allow();
+      }
+    });</pre>
+    * @param {any} [object Object]
+     */
+
+    export var permissionrequest: chrome.events.Event<IPermissionrequest>;
+
+    /**
+    * @description Fired when the process rendering the guest web content has become responsive again after being unresponsive.<p>The following example code will fade the webview element in or out as it becomes responsive or unresponsive:</p><pre>webview.style.webkitTransition = 'opacity 250ms';
+    webview.addEventListener('unresponsive', function() {
+      webview.style.opacity = '0.5';
+    });
+    webview.addEventListener('responsive', function() {
+      webview.style.opacity = '1';
+    });</pre>
+    * @param {any} [object Object]
+     */
+
+    export var responsive: chrome.events.Event<chrome.webview.IResponsive>;
+
+    /**
+    * @description Fired when the embedded web content has been resized via autosize. Only fires if autosize is enabled.
+    * @param {any} [object Object]
+     */
+
+    export var sizechanged: chrome.events.Event<chrome.webview.ISizechanged>;
+
+    /**
+    * @description Fired when the process rendering the guest web content has become unresponsive. This event will be generated once with a matching responsive event if the guest begins to respond again.
+    * @param {any} [object Object]
+     */
+
+    export var unresponsive: chrome.events.Event<chrome.webview.IUnresponsive>;
+
+    /**
+    * @description Fired when the page's zoom changes.
+    * @param {any} [object Object]
+     */
+
+    export var zoomchange: chrome.events.Event<chrome.webview.IZoomchange>;
+    /**IConsolemessage (Auto generated interface) */
+    export interface IConsolemessage {
+
+        /**
+        * @description The severity level of the log message. Ranges from -1 to 2. LOG_VERBOSE (console.debug) = -1, LOG_INFO (console.log, console.info) = 0, LOG_WARNING (console.warn) = 1, LOG_ERROR (console.error) = 2.
+         */
+        level: number
+
+        /**
+        * @description The logged message contents.
+         */
+        message: string
+
+        /**
+        * @description The line number of the message source.
+         */
+        line: number
+
+        /**
+        * @description A string identifying the resource which logged the message.
+         */
+        sourceId: string
+    }
+    /**IDialog (Auto generated interface) */
+    export interface IDialog {
+
+        /**
+        * @description The type of modal dialog requested by the guest.
+         */
+        messageType: 'alert' | 'confirm' | 'prompt'
+
+        /**
+        * @description The text the guest attempted to display in the modal dialog.
+         */
+        messageText: string
+
+        /**
+        * @description An interface that can be used to respond to the guest's modal request.
+         */
+        dialog: DialogController
+    }
+    /**IExit (Auto generated interface) */
+    export interface IExit {
+
+        /**
+        * @description Chrome's internal ID of the process that exited.
+         */
+        processID: number
+
+        /**
+        * @description String indicating the reason for the exit.
+         */
+        reason: 'normal' | 'abnormal' | 'crash' | 'kill'
+    }
+    /**IFindupdate (Auto generated interface) */
+    export interface IFindupdate {
+
+        /**
+        * @description The string that is being searched for in the page.
+         */
+        searchText: string
+
+        /**
+        * @description The number of matches found for searchText on the page so far.
+         */
+        numberOfMatches: number
+
+        /**
+        * @description The ordinal number of the current active match, if it has been found. This will be 0 until then.
+         */
+        activeMatchOrdinal: number
+
+        /**
+        * @description Describes a rectangle around the active match, if it has been found, in screen coordinates.
+         */
+        selectionRect: SelectionRect
+
+        /**
+        * @description Indicates whether the find request was canceled.
+         */
+        canceled: boolean
+
+        /**
+        * @description Indicates that all find requests have completed and that no more findupdate events will be fired until more find requests are made.
+         */
+        finalUpdate: string
+    }
+    /**ILoadabort (Auto generated interface) */
+    export interface ILoadabort {
+
+        /**
+        * @description Requested URL.
+         */
+        url: string
+
+        /**
+        * @description Whether the load was top-level or in a subframe.
+         */
+        isTopLevel: boolean
+
+        /**
+        * @description Unique integer ID for the type of abort. Note that this ID is <em>not</em> guaranteed to remain backwards compatible between releases. You must not act based upon this specific integer.
+         */
+        code: number
+
+        /**
+        * @description String indicating what type of abort occurred. This string is <em>not</em> guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content. It is also possible that, in some cases, an error not listed here could be reported.
+         */
+        reason: 'ERR_ABORTED' | 'ERR_INVALID_URL' | 'ERR_DISALLOWED_URL_SCHEME' | 'ERR_BLOCKED_BY_CLIENT' | 'ERR_ADDRESS_UNREACHABLE' | 'ERR_EMPTY_RESPONSE' | 'ERR_FILE_NOT_FOUND' | 'ERR_UNKNOWN_URL_SCHEME'
+    }
+    /**ILoadcommit (Auto generated interface) */
+    export interface ILoadcommit {
+
+        /**
+        * @description The URL that committed.
+         */
+        url: string
+
+        /**
+        * @description Whether the load is top-level or in a subframe.
+         */
+        isTopLevel: boolean
+    }
+    /**ILoadredirect (Auto generated interface) */
+    export interface ILoadredirect {
+
+        /**
+        * @description The requested URL before the redirect.
+         */
+        oldUrl: string
+
+        /**
+        * @description The new URL after the redirect.
+         */
+        newUrl: string
+
+        /**
+        * @description Whether or not the redirect happened at top-level or in a subframe.
+         */
+        isTopLevel: boolean
+    }
+    /**ILoadstart (Auto generated interface) */
+    export interface ILoadstart {
+
+        /**
+        * @description Requested URL.
+         */
+        url: string
+
+        /**
+        * @description Whether the load is top-level or in a subframe.
+         */
+        isTopLevel: boolean
+    }
+    /**INewwindow (Auto generated interface) */
+    export interface INewwindow {
+
+        /**
+        * @description An interface that can be used to either attach the requested target page to an existing webview element or explicitly discard the request.
+         */
+        window: NewWindow
+
+        /**
+        * @description The target URL requested for the new window.
+         */
+        targetUrl: string
+
+        /**
+        * @description The initial width requested for the new window.
+         */
+        initialWidth: number
+
+        /**
+        * @description The initial height requested for the new window.
+         */
+        initialHeight: number
+
+        /**
+        * @description The requested name of the new window.
+         */
+        name: string
+
+        /**
+        * @description The requested disposition of the new window.
+         */
+        windowOpenDisposition: 'ignore' | 'save_to_disk' | 'current_tab' | 'new_background_tab' | 'new_foreground_tab' | 'new_window' | 'new_popup'
+    }
+    /**IPermissionrequest (Auto generated interface) */
+    export interface IPermissionrequest {
+
+        /**
+        * @description The type of permission being requested.
+         */
+        permission: 'media' | 'geolocation' | 'pointerLock' | 'download' | 'loadplugin' | 'filesystem' | 'fullscreen'
+
+        /**
+        * @description An object which holds details of the requested permission. Depending on the type of permission requested, this may be a $(ref:webviewTag.MediaPermissionRequest), $(ref:webviewTag.GeolocationPermissionRequest), $(ref:webviewTag.PointerLockPermissionRequest), $(ref:webviewTag.DownloadPermissionRequest), $(ref:webviewTag.LoadPluginPermissionRequest), or $(ref:webviewTag.FullscreenPermissionRequest).
+         */
+        request: object
+    }
+    /**IResponsive (Auto generated interface) */
+    export interface IResponsive {
+
+        /**
+        * @description Chrome's internal ID of the process that became responsive.
+         */
+        processID: number
+    }
+    /**ISizechanged (Auto generated interface) */
+    export interface ISizechanged {
+
+        /**
+        * @description Old width of embedded web content.
+         */
+        oldWidth: number
+
+        /**
+        * @description Old height of embedded web content.
+         */
+        oldHeight: number
+
+        /**
+        * @description New width of embedded web content.
+         */
+        newWidth: number
+
+        /**
+        * @description New height of embedded web content.
+         */
+        newHeight: number
+    }
+    /**IUnresponsive (Auto generated interface) */
+    export interface IUnresponsive {
+
+        /**
+        * @description Chrome's internal ID of the process that has become unresponsive.
+         */
+        processID: number
+    }
+    /**IZoomchange (Auto generated interface) */
+    export interface IZoomchange {
+
+        /**
+        * @description The page's previous zoom factor.
+         */
+        oldZoomFactor: number
+
+        /**
+        * @description The new zoom factor that the page was zoomed to.
+         */
+        newZoomFactor: number
+    }
+
 }

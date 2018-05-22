@@ -1,3 +1,4 @@
+/// <reference types="chrome-apps" />
 import runtime = chrome.app.runtime;
 import cwindow = chrome.app.window;
 
@@ -323,3 +324,7 @@ function testSystemNetwork() {
         }
     });
 }
+
+import webview = chrome.webview;
+import { chrome } from "chrome-apps";
+let element: webview.HTMLWebViewElement;
