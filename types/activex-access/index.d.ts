@@ -7806,6 +7806,224 @@ declare namespace Access {
     }
 }
 
+declare namespace AccWizObjects {
+    const enum WIZ_CSIDL_FLAGS {
+        WIZ_CSIDL_APPDATA = 26,
+        WIZ_CSIDL_BITBUCKET = 10,
+        WIZ_CSIDL_COMMON_DESKTOPDIRECTORY = 25,
+        WIZ_CSIDL_COMMON_PROGRAMS = 23,
+        WIZ_CSIDL_COMMON_STARTMENU = 22,
+        WIZ_CSIDL_COMMON_STARTUP = 24,
+        WIZ_CSIDL_CONTROLS = 3,
+        WIZ_CSIDL_DESKTOP = 0,
+        WIZ_CSIDL_DESKTOPDIRECTORY = 16,
+        WIZ_CSIDL_DRIVES = 17,
+        WIZ_CSIDL_FAVORITES = 6,
+        WIZ_CSIDL_FONTS = 20,
+        WIZ_CSIDL_NETHOOD = 19,
+        WIZ_CSIDL_NETWORK = 18,
+        WIZ_CSIDL_PERSONAL = 5,
+        WIZ_CSIDL_PRINTERS = 4,
+        WIZ_CSIDL_PRINTHOOD = 27,
+        WIZ_CSIDL_PROGRAMS = 2,
+        WIZ_CSIDL_RECENT = 8,
+        WIZ_CSIDL_SENDTO = 9,
+        WIZ_CSIDL_STARTMENU = 11,
+        WIZ_CSIDL_STARTUP = 7,
+        WIZ_CSIDL_TEMPLATES = 21,
+    }
+
+    const enum WIZ_SLGP_FLAGS {
+        WIZ_SLGP_SHORTPATH = 1,
+        WIZ_SLGP_UNCPRIORITY = 2,
+    }
+
+    const enum WIZ_SLR_FLAGS {
+        WIZ_SLR_ANY_MATCH = 2,
+        WIZ_SLR_NO_UI = 1,
+        WIZ_SLR_UPDATE = 4,
+    }
+
+    const enum WIZ_SW_FLAGS {
+        WIZ_SW_MAXIMIZE = 3,
+        WIZ_SW_MINIMIZE = 7,
+        WIZ_SW_NORMAL = 5,
+    }
+
+    /** Field List Control */
+    class FieldList {
+        private 'AccWizObjects.FieldList_typekey': FieldList;
+        private constructor();
+        AddFieldList(bstrCaption: string, nLeft: number, nTop: number, nWidth: number, nHeight: number, nMultiSelectType: number, cCols: number, fShowPictures: boolean): void;
+        AddJoinLine(IFieldList: number, iField: number, iForeignFieldList: number, iForeignField: number, lAttribs: number): void;
+        DeleteFieldList(IFieldList: number): void;
+        DeleteJoinLine(IJoinLine: number): void;
+        readonly FieldListCount: number;
+        FieldLists(IFieldList: number): any;
+        HScrollPos: number;
+        readonly JoinLineCount: number;
+        JoinLines(IJoinLine: number): any;
+        PersistentHighlight: boolean;
+        Picture: stdole.IPictureDisp;
+        PictureCols: number;
+        PictureRows: number;
+        ScrollBars: number;
+        SelectedFieldListIndex: number;
+        SetCursor(nCursorID: number): void;
+        VScrollPos: number;
+    }
+
+    /** ImexGrid Control */
+    class ImexGrid {
+        private 'AccWizObjects.ImexGrid_typekey': ImexGrid;
+        private constructor();
+        AddColumn(ColumnCaption: string, ColumnWidth: number, Index: number): void;
+        AddRow(RowText: string, Index: number): void;
+        AllowColumnSizing: boolean;
+        BackColor: stdole.OLE_COLOR;
+        CalcBestColumns(): void;
+        Caption: string;
+        ClearColumns(): void;
+        ClearRows(): void;
+        ColumnClickBehavior: number;
+        readonly ColumnCount: number;
+        Columns(ColumnNumber: number): any;
+        ColumnState: any;
+        DeleteColumn(Index: number): void;
+        DeleteRow(Index: number): void;
+        Delimiters: string;
+        DrawTextLogicalOrder: boolean;
+        FirstRowNumber: number;
+        Font: stdole.IFontDisp;
+        GridBackColor: stdole.OLE_COLOR;
+        GridFont: stdole.IFontDisp;
+        GridHeader: number;
+        Painting: boolean;
+        Refresh(): void;
+        ResetHScrollPos(): void;
+        ResetVScrollPos(): void;
+        readonly RowCount: number;
+        RowText(RowNumber: number): string;
+        ShowColLines: boolean;
+        ShowRowHeaders: boolean;
+        StringDelimiters: string;
+    }
+
+    interface WIZ_FILETIME {
+        readonly dwHighDateTime: number;
+        readonly dwLowDateTime: number;
+    }
+
+    interface WIZ_WIN32_FIND_DATA {
+        readonly cAlternate: SafeArray<number>;
+        readonly cFileName: SafeArray<number>;
+        readonly dwFileAttributes: number;
+        readonly dwReserved0: number;
+        readonly dwReserved1: number;
+        readonly ftCreationTime: WIZ_FILETIME;
+        readonly ftLastAccessTime: WIZ_FILETIME;
+        readonly ftLastWriteTime: WIZ_FILETIME;
+        readonly nFileSizeHigh: number;
+        readonly nFileSizeLow: number;
+    }
+
+    /** WizShellLinkA Class */
+    class WizShellLinkA {
+        private 'AccWizObjects.WizShellLinkA_typekey': WizShellLinkA;
+        private constructor();
+
+        /** GetArguments */
+        GetArguments(pszArgs: string, cchMaxPath: number): void;
+
+        /** GetDescription */
+        GetDescription(pszName: string, cchMaxName: number): void;
+
+        /** GetHotkey */
+        GetHotkey(pwHotkey: number): void;
+
+        /** GetIconLocation */
+        GetIconLocation(pszIconPath: string, cchIconPath: number, piIcon: number): void;
+
+        /** GetIDList */
+        GetIDList(ppidl: WIZ_CSIDL_FLAGS): void;
+
+        /** GetPath */
+        GetPath(pszFile: string, cchMaxPath: number, pfd: WIZ_WIN32_FIND_DATA, fflags: number): void;
+
+        /** GetShowCmd */
+        GetShowCmd(piShowCmd: WIZ_SW_FLAGS): void;
+
+        /** GetWorkingDirectory */
+        GetWorkingDirectory(pszDir: string, cchMaxPath: number): void;
+
+        /** Resolve */
+        Resolve(hWnd: number, fflags: number): void;
+
+        /** SetArguments */
+        SetArguments(pszArgs: string): void;
+
+        /** SetDescription */
+        SetDescription(pszName: string): void;
+
+        /** SetHotkey */
+        SetHotkey(wHotkey: number): void;
+
+        /** SetIconLocation */
+        SetIconLocation(pszIconPath: string, iIcon: number): void;
+
+        /** SetIDList */
+        SetIDList(pidl: WIZ_CSIDL_FLAGS): void;
+
+        /** SetPath */
+        SetPath(pszFile: string): void;
+
+        /** SetRelativePath */
+        SetRelativePath(pszPathRel: string, dwReserved: number): void;
+
+        /** SetShowCmd */
+        SetShowCmd(iShowCmd: WIZ_SW_FLAGS): void;
+
+        /** SetWorkingDirectory */
+        SetWorkingDirectory(pszDir: string): void;
+    }
+
+    namespace EventHelperTypes {
+        type FieldList_DragOver_ArgNames = ['SourceCtlName', 'SourceFieldList', 'SourceRow', 'State', 'X', 'Y'];
+
+        type FieldList_FldListDragDrop_ArgNames = ['SourceCtlName', 'SourceFieldList', 'SourceRow', 'TargetCtlName', 'TargetFieldList', 'TargetRow'];
+
+        type FieldList_FldListDragOver_ArgNames = ['SourceCtlName', 'SourceFieldList', 'SourceRow', 'TargetCtlName', 'TargetFieldList', 'TargetRow', 'State'];
+
+        interface FieldList_DragOver_Parameter {
+            readonly SourceCtlName: string;
+            readonly SourceFieldList: number;
+            readonly SourceRow: number;
+            readonly State: number;
+            readonly X: number;
+            readonly Y: number;
+        }
+
+        interface FieldList_FldListDragDrop_Parameter {
+            readonly SourceCtlName: string;
+            readonly SourceFieldList: number;
+            readonly SourceRow: number;
+            readonly TargetCtlName: string;
+            readonly TargetFieldList: number;
+            readonly TargetRow: number;
+        }
+
+        interface FieldList_FldListDragOver_Parameter {
+            readonly SourceCtlName: string;
+            readonly SourceFieldList: number;
+            readonly SourceRow: number;
+            readonly State: number;
+            readonly TargetCtlName: string;
+            readonly TargetFieldList: number;
+            readonly TargetRow: number;
+        }
+    }
+}
+
 interface ActiveXObject {
     on(obj: Access._CheckBoxInOption, event: 'BeforeUpdate' | 'DblClick' | 'Exit', argNames: ['Cancel'], handler: (this: Access._CheckBoxInOption, parameter: {Cancel: number}) => void): void;
     on(obj: Access._CheckBoxInOption, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: Access._CheckBoxInOption, parameter: {KeyCode: number, Shift: number}) => void): void;
@@ -7969,11 +8187,26 @@ interface ActiveXObject {
     on(obj: Access.TextBox, event: 'AfterUpdate' | 'Change' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.TextBox, parameter: {}) => void): void;
     on(obj: Access.ToggleButton, event: 'AfterUpdate' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.ToggleButton, parameter: {}) => void): void;
     on(obj: Access.WebBrowserControl, event: 'AfterUpdate' | 'Change' | 'Click' | 'Enter' | 'GotFocus' | 'LostFocus', handler: (this: Access.WebBrowserControl, parameter: {}) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'DragDrop', argNames: ['SourceCtlName', 'SourceFieldList', 'SourceRow', 'X', 'Y'], handler: (this: AccWizObjects.FieldList, parameter: { readonly SourceCtlName: string, readonly SourceFieldList: number, readonly SourceRow: number, readonly X: number, readonly Y: number }) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'DragOver', argNames: AccWizObjects.EventHelperTypes.FieldList_DragOver_ArgNames, handler: (this: AccWizObjects.FieldList, parameter: AccWizObjects.EventHelperTypes.FieldList_DragOver_Parameter) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'FldListCheckItem' | 'FldListClick' | 'FldListDblClick' | 'FldListHdrDblClick', argNames: ['FieldList'], handler: (this: AccWizObjects.FieldList, parameter: { readonly FieldList: number }) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'FldListDragDrop', argNames: AccWizObjects.EventHelperTypes.FieldList_FldListDragDrop_ArgNames, handler: (this: AccWizObjects.FieldList, parameter: AccWizObjects.EventHelperTypes.FieldList_FldListDragDrop_Parameter) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'FldListDragOver', argNames: AccWizObjects.EventHelperTypes.FieldList_FldListDragOver_ArgNames, handler: (this: AccWizObjects.FieldList, parameter: AccWizObjects.EventHelperTypes.FieldList_FldListDragOver_Parameter) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'FldListGotFocus' | 'FldListLostFocus', argNames: ['FieldListIndex'], handler: (this: AccWizObjects.FieldList, parameter: { readonly FieldListIndex: number }) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'FldListKeyDown' | 'FldListKeyUp', argNames: ['FieldList', 'KeyCode', 'Shift'], handler: (this: AccWizObjects.FieldList, parameter: { readonly FieldList: number, KeyCode: number, readonly Shift: number }) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'FldListKeyPress', argNames: ['FieldList', 'KeyAscii'], handler: (this: AccWizObjects.FieldList, parameter: { readonly FieldList: number, KeyAscii: number }) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'FldListMouseDown' | 'FldListMouseMove' | 'FldListMouseUp', argNames: ['FieldList', 'Button', 'Shift', 'X', 'Y'], handler: (this: AccWizObjects.FieldList, parameter: { readonly FieldList: number, readonly Button: number, readonly Shift: number, readonly X: stdole.OLE_XPOS_PIXELS, readonly Y: stdole.OLE_YPOS_PIXELS }) => void): void;
+    on(obj: AccWizObjects.ImexGrid, event: 'ColumnCreated' | 'ColumnDeleted' | 'ColumnSelected' | 'ColumnSized', argNames: ['Column'], handler: (this: AccWizObjects.ImexGrid, parameter: { readonly Column: number }) => void): void;
+    on(obj: AccWizObjects.FieldList, event: 'AfterStartup', handler: (this: AccWizObjects.FieldList, parameter: {}) => void): void;
     set(obj: Access._CheckBoxInOption | Access._ChildLabel | Access._CustomControlInReport | Access._OptionButtonInOption | Access._ToggleButtonInOption | Access.Attachment | Access.BoundObjectFrame | Access.CheckBox | Access.ComboBox | Access.CommandButton | Access.CustomControl | Access.EmptyCell | Access.Form | Access.Label | Access.ListBox | Access.NavigationButton | Access.NavigationControl | Access.ObjectFrame | Access.OptionButton | Access.OptionGroup | Access.Page | Access.SubForm | Access.TabControl | Access.TextBox | Access.ToggleButton | Access.WebBrowserControl, propertyName: 'accName' | 'accValue', parameterTypes: [any], newValue: string): void;
     set(obj: Access._ControlInReportEvents | Access.ComboBox | Access.Control | Access.ListBox, propertyName: 'Selected', parameterTypes: [number], newValue: number): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
+    set(obj: AccWizObjects.ImexGrid, propertyName: 'Columns', parameterTypes: [number], newValue: any): void;
+    set(obj: AccWizObjects.ImexGrid, propertyName: 'RowText', parameterTypes: [number], newValue: string): void;
 }
 
 interface ActiveXObjectNameMap {
     'Access.Application': Access.Application;
+    'ACCWIZ.FieldListCtrl': AccWizObjects.FieldList;
+    'ACCWIZ.ImexGridCtrl': AccWizObjects.ImexGrid;
+    lnkfile: AccWizObjects.WizShellLinkA;
 }
