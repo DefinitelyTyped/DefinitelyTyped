@@ -1,11 +1,18 @@
 import * as React from "react";
 import {
-    render,
     App,
     Area,
+    Box,
+    Button,
+    Checkbox,
+    ColorButton,
+    Form,
+    Grid,
     Group,
     Menu,
     RadioButtons,
+    render,
+    Text,
     Window,
 } from "proton-native";
 
@@ -58,13 +65,60 @@ class RectangleTest extends React.Component {
                 <Window title="Example" size={{ w: 500, h: 500 }}>
                 <Area>
                     <Area.Rectangle
-                    x="10"
-                    y="10"
-                    width="100"
-                    height="200"
-                    fill="blue"
+                        x="10"
+                        y="10"
+                        width="100"
+                        height="200"
+                        fill="blue"
                     />
                 </Area>
+                </Window>
+            </App>
+        );
+    }
+}
+
+class GridTest extends React.Component {
+    render() {
+        return (
+            <App>
+                <Window title="ExampleGrid" size={{ w: 500, h: 500 }}>
+                <Grid>
+                    <Box
+                        align={{h: false, v: false}}
+                        row={0}
+                        column={0}
+                    >
+                        <Text>0-0</Text>
+                    </Box>
+                    <Box
+                        align={{h: false, v: false}}
+                        row={0}
+                        column={1}
+                    >
+                        <Checkbox>Enable</Checkbox>
+                    </Box>
+                    <Box
+                        align={{h: false, v: false}}
+                        row={1}
+                        column={0}
+                    >
+                        <Button
+                            onClick={() => {
+                                const doSomething = 1;
+                            }}
+                        >
+                            Open file
+                        </Button>
+                    </Box>
+                    <Box
+                        align={{h: false, v: false}}
+                        row={1}
+                        column={1}
+                    >
+                        <Form><ColorButton label={"Test"}/></Form>
+                    </Box>
+                </Grid>
                 </Window>
             </App>
         );
