@@ -70,6 +70,12 @@ FBInstant.getLeaderboardAsync("name").then((leaderboard: FBInstant.Leaderboard) 
         const score: number = leaderboardEntry.getScore();
         const timestamp: number = leaderboardEntry.getTimestamp();
     });
+    const contextID: string = leaderboard.getContextID()!;
+    leaderboard.getEntriesAsync(10, 10).then(entries => {});
+    leaderboard.getEntryCountAsync().then((entryCount: number) => {});
+    const name = leaderboard.getName();
+    leaderboard.getPlayerEntryAsync().then(playerEntry => {});
+    leaderboard.setScoreAsync(10).then(leaderboardEntry => {});
 });
 
 FBInstant.player.canSubscribeBotAsync().then((canSubscribeBot: boolean) => {});
