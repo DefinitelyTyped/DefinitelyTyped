@@ -1,5 +1,5 @@
 const locale: string = FBInstant.getLocale()!;
-const platform: string = FBInstant.getPlatform();
+const platform: string = FBInstant.getPlatform()!;
 const sdkVersion: string = FBInstant.getSDKVersion();
 FBInstant.initializeAsync().then(() => {});
 FBInstant.setLoadingProgress(10);

@@ -33,7 +33,7 @@ declare namespace FBInstant {
     /**
      * The platform on which the game is currently running. The value will always be null until FBInstant.initializeAsync() resolves.
      */
-    function getPlatform(): Platform;
+    function getPlatform(): Platform | null;
 
     /**
      * The string representation of this SDK version.
@@ -458,7 +458,7 @@ declare namespace FBInstant {
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
          */
-        chooseAsync(options: ContextOptions): Promise<void>;
+        chooseAsync(options?: ContextOptions): Promise<void>;
 
         /**
          * Attempts to create or switch into a context between a specified player and the current player. The returned promise will reject if the player listed is not a Connected Player of the current
@@ -521,7 +521,7 @@ declare namespace FBInstant {
          * @throws INVALID_OPERATION
          * @throws RATE_LIMITED
          */
-        setScoreAsync(score: number, extraData: string): Promise<LeaderboardEntry>;
+        setScoreAsync(score: number, extraData?: string): Promise<LeaderboardEntry>;
 
         /**
          * Retrieves the leaderboard's entry for the current player, or null if the player has not set one yet.
