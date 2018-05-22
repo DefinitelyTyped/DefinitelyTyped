@@ -1,7 +1,8 @@
-// Type definitions for react-avatar-editor 10.3
+// Type definitions for react-avatar-editor 11.0
 // Project: https://github.com/mosch/react-avatar-editor
 // Definitions by: Diogo Corrêa <https://github.com/diogocorrea>
 //                 Gabriel Prates <https://github.com/gabsprates>
+//                 Sindre Seppola <https://github.com/sseppola>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -34,15 +35,13 @@ export interface AvatarEditorProps {
     position?: object;
     rotate?: number;
     crossOrigin?: string;
-    disableDrop?: boolean;
-    onDropFile?(event: DragEvent): void;
     onLoadFailure?(event: Event): void;
     onLoadSuccess?(imgInfo: ImageState): void;
     onImageReady?(event: Event): void;
     onMouseUp?(): void;
     onMouseMove?(event: Event): void;
     onImageChange?(): void;
-    onPositionChange?(): void;
+    onPositionChange?(pos: { x: number, y: number }): void;
 }
 
 export default class AvatarEditor extends React.Component<AvatarEditorProps, any> {
