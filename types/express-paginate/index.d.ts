@@ -5,14 +5,18 @@
 
 import * as express from 'express';
 
+declare global {
+    namespace Express {
+        export interface Request {
+            skip?: number,
+            offset?: number,
+        }
+    }
+}
+
 interface PageElement {
     number: number;
     url: typeof href;
-}
-
-export interface PaginatedRequest extends express.Request {
-    skip: number;
-    offset: number;
 }
 
 export function middleware(limit: number, maxLimit: number): (req: express.Request, res: express.Response, next: express.NextFunction) => void;

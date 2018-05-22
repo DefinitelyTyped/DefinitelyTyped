@@ -7,7 +7,7 @@ const app = express();
 
 app.use(paginate.middleware(10, 50))
 
-app.get('/users', async (req: paginate.PaginatedRequest, res, next) => {
+app.get('/users', async (req, res, next) => {
     // req.skip should be available
     return findAndCountAll({limit: req.query.limit, offset: req.skip})
         .then(results => {
