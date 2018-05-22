@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export type Direction = 
+export type Direction =
   | "up"
   | "down"
   | "left"
@@ -13,6 +13,7 @@ export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
   cssModule?: CSSModule;
   nav?: boolean;
   inNavbar?: boolean;
+  setActiveFromChild?: boolean;
 }
 export interface UncontrolledDropdownProps extends UncontrolledProps {
   /* intentionally blank */
