@@ -2158,7 +2158,7 @@ declare namespace SP {
     let ClientObjectCollection: ClientObjectCollectionConstructor;
 
     interface ClientObjectList<T> extends SP.ClientObjectCollection<T> {
-        new(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
+        new(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any): ClientObjectList<T>;
         fromJson(initValue: any): void;
         customFromJson(initValue: any): boolean;
     }
@@ -2210,7 +2210,7 @@ declare namespace SP {
     class ClientRequestSucceededEventArgs extends SP.ClientRequestEventArgs {
     }
     interface ClientRuntimeContext extends Sys.IDisposable {
-        new(serverRelativeUrlOrFullUrl: string);
+        new(serverRelativeUrlOrFullUrl: string): ClientRuntimeContext;
         get_url(): string;
         get_viaUrl(): string;
         set_viaUrl(value: string): void;
