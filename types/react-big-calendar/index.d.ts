@@ -61,7 +61,7 @@ export interface Format {
     /**
      * A time range format for selecting time slots, e.g "8:00am — 2:00pm"
      */
-    selectRangeFormat?: string;
+    selectRangeFormat?: (range: { start: Date, end: Date }, culture: string, localizer: object) => string;
 
     agendaDateFormat?: string;
     agendaTimeFormat?: string;
