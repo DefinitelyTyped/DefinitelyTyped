@@ -1,5 +1,10 @@
 declare class EventSource {
+  static readonly CLOSED: number;
+  static readonly CONNECTING: number;
+  static readonly OPEN: number;
+
   constructor(url: string, eventSourceInitDict?: EventSource.EventSourceInitDict);
+
   readonly CLOSED: number;
   readonly CONNECTING: number;
   readonly OPEN: number;
