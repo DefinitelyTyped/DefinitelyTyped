@@ -6,7 +6,7 @@
 //                 Tero Arvola <https://github.com/teroarvola>
 //                 Dennis George <https://github.com/dennispg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.5
 
 /// <reference types="microsoft-ajax" />
 
