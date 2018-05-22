@@ -418,7 +418,7 @@ declare namespace Office {
     /**
      * Returns a promise of an object described in the expression. Callback is invoked only if method fails.
      * @param expression The object to be retrieved. Example "bindings#BindingName", retrieves a binding promise for a binding named 'BindingName'
-     * @param callback The optional callback method
+     * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
      */
     export function select(expression: string, callback?: (result: AsyncResult) => void): Binding;
     // Enumerations
@@ -613,7 +613,7 @@ declare namespace Office {
          */
         Text,
         /**
-         * Returns the entire document (.pptx or .docx or .xslx) in Office Open XML (OOXML) format as a byte array.
+         * Returns the entire document (.pptx, .docx, or .xslx) in Office Open XML (OOXML) format as a byte array.
          */
         Compressed,
         /**
@@ -746,8 +746,9 @@ declare namespace Office {
          * 
          * @param eventType The event type. For example, for bindings, it can be **Office.EventType.BindingSelectionChanged**, **Office.EventType.BindingDataChanged**, or the corresponding text values of these enumerations.
          * @param handler The event handler function to add.
-         * @param options  { asyncContext: context } Where context is an object of any type that keeps state for the callback.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *        asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -776,11 +777,11 @@ declare namespace Office {
          * 
          *       filterType: Specify whether to get only the visible (filtered in) data or all the data (default is all). Useful when filtering data. Use Office.FilterType or text value.
          * 
-         *       asyncContext: Object keeping state for the callback
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * 
          *       rows: Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
-         *
-         * @param callback The optional callback method
+
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getDataAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -798,7 +799,7 @@ declare namespace Office {
          * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * 
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         removeHandlerAsync(eventType: EventType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -839,7 +840,7 @@ declare namespace Office {
          * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * 
-         * @param callback The optional callback method
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         setDataAsync(data: TableData | any, options?: any, callback?: (result: AsyncResult) => void): void;
     }
@@ -887,7 +888,7 @@ declare namespace Office {
          * 
          *       columns: The string[] of the columns involved in the binding.
          * 
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addFromNamedItemAsync(itemName: string, bindingType: BindingType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -911,7 +912,7 @@ declare namespace Office {
          * 
          *       sampleData: Specifies a table of sample data displayed in the prompt UI as an example of the kinds of fields (columns) that can be bound by your add-in. The headers provided in the TableData object specify the labels used in the field selection UI. Optional. Note: This parameter is used only in add-ins for Access. It is ignored if provided when calling the method in an add-in for Excel.
          * 
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addFromPromptAsync(bindingType: BindingType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -937,7 +938,7 @@ declare namespace Office {
          * 
          *       sampleData: A TableData that gives sample table in the Dialog.TableData.Headers is [][] of string.
          * 
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addFromSelectionAsync(bindingType: BindingType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -948,7 +949,8 @@ declare namespace Office {
          * 
          * Available in Requirement set: MatrixBindings, TableBindings, TextBindings
          * 
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getAllAsync(options?: any, callback?: (result: AsyncResult) => void): void;
@@ -963,8 +965,9 @@ declare namespace Office {
          * Fails if the specified id does not exist.
          * 
          * @param id Specifies the unique name of the binding object. Required.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
           */
         getByIdAsync(id: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -978,8 +981,9 @@ declare namespace Office {
          * Fails if the specified id does not exist.
          * 
          * @param id Specifies the unique name to be used to identify the binding object. Required.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         releaseByIdAsync(id: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
@@ -1040,8 +1044,9 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          * 
          * @param xPath The XPath expression that specifies the nodes to get. Required.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getNodesAsync(xPath: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1052,8 +1057,9 @@ declare namespace Office {
          * 
          * Available in Requirement set: CustomXmlParts
          * 
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getNodeValueAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1064,8 +1070,9 @@ declare namespace Office {
          * 
          * Available in Requirement set: CustomXmlParts
          * 
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getTextAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1076,8 +1083,9 @@ declare namespace Office {
          * 
          * Available in Requirement set: CustomXmlParts
          * 
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getXmlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1089,8 +1097,9 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          * 
          * @param value The value to be set on the node
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         setNodeValueAsync(value: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1102,9 +1111,10 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          * 
          * @param text Required. The text value of the XML node.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-        */
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
         setTextAsync(text: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Sets the node XML.
@@ -1115,9 +1125,10 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          * 
          * @param xml The XML to be set on the node
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-        */
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
         setXmlAsync(xml: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
     /**
@@ -1166,8 +1177,9 @@ declare namespace Office {
          * 
          * @param eventType Specifies the type of event to add. Required. For a CustomXmlPart object event, the eventType parameter can be specified as Office.EventType.DataNodeDeleted, Office.EventType.DataNodeInserted, Office.EventType.DataNodeReplaced, or the corresponding text values of these enumerations.
          * @param handler The event handler function to add, whose only parameter is of type NodeDeletedEventArgs, NodeInsertedEventArgs, or NodeReplaceEventArgs. Required.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addHandlerAsync(eventType: EventType, handler: (result: any) => void, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1178,8 +1190,9 @@ declare namespace Office {
          * 
          * Available in Requirement set: CustomXmlParts
          * 
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         deleteAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1191,8 +1204,9 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          * 
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
         */
         getNodesAsync(xPath: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1203,8 +1217,9 @@ declare namespace Office {
          * 
          * Available in Requirement set: CustomXmlParts
          * 
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
         */
         getXmlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1217,8 +1232,9 @@ declare namespace Office {
          * 
          * @param eventType Specifies the type of event to remove. Required.For a CustomXmlPart object event, the eventType parameter can be specified as Office.EventType.DataNodeDeleted, Office.EventType.DataNodeInserted, Office.EventType.DataNodeReplaced, or the corresponding text values of these enumerations.
          * @param handler The event handler function to remove. If not specified, all event handlers for the specified eventType will be removed.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         removeHandlerAsync(eventType: EventType, handler?: (result: any) => void, options?: any, callback?: (result: AsyncResult) => void): void;
     }
@@ -1240,8 +1256,9 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          * 
          * @param xml The XML to add to the newly created custom XML part.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addAsync(xml: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1253,8 +1270,9 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          * 
          * @param id The GUID of the custom XML part, including opening and closing braces. 
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getByIdAsync(id: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1266,8 +1284,9 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          * 
          * @param ns  The namespace URI.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
         */
         getByNamespaceAsync(ns: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
@@ -1290,8 +1309,9 @@ declare namespace Office {
          * 
          * @param prefix Specifies the prefix to add to the prefix mapping list. Required.
          * @param ns Specifies the namespace URI to assign to the newly added prefix. Required.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addNamespaceAsync(prefix: string, ns: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1305,8 +1325,9 @@ declare namespace Office {
          * If the prefix already exists in the namespace manager, this method will overwrite the mapping of that prefix except when the prefix is one added or used by the data store internally, in which case it will return an error.
          * 
          * @param prefix TSpecifies the prefix to get the namespace for. Required.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getNamespaceAsync(prefix: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1320,8 +1341,9 @@ declare namespace Office {
          * If no prefix is assigned to the requested namespace, the method returns an empty string (""). If there are multiple prefixes specified in the namespace manager, the method returns the first prefix that matches the supplied namespace.
          * 
          * @param ns Specifies the namespace to get the prefix for. Required.
-         * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
         */
         getPrefixAsync(ns: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
@@ -1382,7 +1404,7 @@ declare namespace Office {
          * @param eventType For a Document object event, the eventType parameter can be specified as Office.EventType.Document.SelectionChanged or Office.EventType.Document.ActiveViewChanged, or the corresponding text value of this enumeration.
          * @param handler The event handler function to add, whose only parameter is of type DocumentSelectionChangedEventArgs. Required.
          * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1396,7 +1418,7 @@ declare namespace Office {
          * Can trigger an event when the view changes.
          * 
          * @param options An object like {asyncContext:context} where `context` is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
         */
         getActiveViewAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1426,7 +1448,7 @@ declare namespace Office {
          * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * 
-         * @param callback The optional callback method
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getFileAsync(fileType: FileType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1474,7 +1496,7 @@ declare namespace Office {
          * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * 
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getSelectedDataAsync(coercionType: CoercionType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1503,7 +1525,7 @@ declare namespace Office {
          * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
          * 
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         goToByIdAsync(id: string | number, goToType: GoToType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1521,7 +1543,7 @@ declare namespace Office {
          * 
          *       handler: The name of the handler. If not specified all handlers are removed.
          * 
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         removeHandlerAsync(eventType: EventType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1564,7 +1586,7 @@ declare namespace Office {
          *       imageHeight: (number) This option is applicable for inserting images. Indicates the image height. If this option is provided without the imageWidth, the image will scale to match the value of the image height. If both image width and image height are provided, the image will be resized accordingly. If neither the image height or width is provided, the default image size and aspect ratio will be used. This value is in points.
          * 
          *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         setSelectedDataAsync(data: string | TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
     }
@@ -1611,8 +1633,7 @@ declare namespace Office {
          * No more than two documents are allowed to be in memory; otherwise the Document.getFileAsync operation will fail. Use the File.closeAsync method to close the file when you are finished working with it.
          * 
          * Hosts: PowerPoint, Word
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
-         * 
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the closeAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -1621,7 +1642,7 @@ declare namespace Office {
          * |AsyncResult.value|Always returns undefined because there is no object or data to retrieve.|
          * |AsyncResult.status|Determine the success or failure of the operation.|
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
+         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
          * 
          * Available in Requirement set: File
          */
@@ -1631,7 +1652,7 @@ declare namespace Office {
          * @remarks
          * Hosts: PowerPoint, Word
          * @param sliceIndex Specifies the zero-based index of the slice to be retrieved. Required.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -1640,7 +1661,7 @@ declare namespace Office {
          * |AsyncResult.value|Access the Slice object.|
          * |AsyncResult.status|Determine the success or failure of the operation.|
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
+         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
          * 
          * Available in Requirement set: File
          */
@@ -1714,7 +1735,7 @@ declare namespace Office {
          * @param handler The event handler function to add. Required.
          * @param options Specifies any of the following optional parameters.
          *        asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the addHandlerAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -1723,7 +1744,7 @@ declare namespace Office {
          * |AsyncResult.value|Always returns undefined because there is no data or object to retrieve when adding an event handler.|
          * |AsyncResult.status|Determine the success or failure of the operation.|
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
+         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
          */
         addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1749,7 +1770,7 @@ declare namespace Office {
          * 
          * Available in Requirement set: Settings
          * 
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the refreshAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -1758,7 +1779,7 @@ declare namespace Office {
          * |AsyncResult.value|Access a Settings object with the refreshed values.|
          * |AsyncResult.status|Determine the success or failure of the operation.|
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|Access your user-defined  object or value, if you passed one as the asyncContext parameter.|
+         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
          */
         refreshAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -1790,7 +1811,7 @@ declare namespace Office {
          * @param options Specifies any of the following optional parameters.
          * @param handler Specifies the name of the handler to remove.
          *        asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the removeHandlerAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -1806,13 +1827,10 @@ declare namespace Office {
          * > The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
          * 
          * Hosts: Access, Excel, PowerPoint, Word
-         * 
-         * Available in Requirement set: Settings
-         * 
          * @param options Syntax example: {overwriteIfStale:false}
          * @param overwriteIfStale Indicates whether the setting will be replaced if stale.
-         *        asyncContext: Object keeping state for the callback
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
+         *        asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the saveAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -1821,7 +1839,7 @@ declare namespace Office {
          * |AsyncResult.value|Always returns undefined because there is no object or data to retrieve.|
          * |AsyncResult.status|Determine the success or failure of the operation.|
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|Access your user-defined object or value, if you passed one as the asyncContext parameter.|
+         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
          */
         saveAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -1954,8 +1972,9 @@ declare namespace Office {
          * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in a single call to this method.
          *         
          * @param tableData An array of arrays ("matrix") or a TableData object that contains one or more columns of data to add to the table. Required.
-         * @param options The object like {asyncContext:context}, where context is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addColumnsAsync(tableData: TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1979,8 +1998,9 @@ declare namespace Office {
          * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in a single call to this method.
          *         
          * @param rows An array of arrays ("matrix") or a TableData object that contains one or more rows of data to add to the table. Required.
-         * @param options The object like {asyncContext:context}, where context is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addRowsAsync(rows: TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -1993,8 +2013,9 @@ declare namespace Office {
          * 
          * In Excel, if the table has no header row, this method will delete the table itself.
          *  
-         * @param options The object like {asyncContext:context}, where context is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         deleteAllDataValuesAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2007,16 +2028,18 @@ declare namespace Office {
          * 
          * See [Format tables in add-ins for Excel](https://docs.microsoft.com/en-us/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table) for more information.
          * 
-         * @param options The object like {asyncContext:context}, where context is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         clearFormatsAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets the formatting on specified items in the table.
          * @param cellReference An object literal containing name-value pairs that specify the range of cells to get formatting from.
          * @param formats An array specifying the format properties to get.
-         * @param options The object {asyncContext:context}, where context is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getFormatsAsync(cellReference?: any, formats?: any[], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2034,9 +2057,9 @@ declare namespace Office {
          *       type: The kind of item to format. String.
          * 
          *       formats: An object literal containing a list of property name-value pairs that define the formatting to apply.
-         * 
-         * @param options The object {asyncContext:context}, where context is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         setFormatsAsync(formatsInfo?: any[], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2048,8 +2071,9 @@ declare namespace Office {
          * Available in Requirement set: Not in a set
          * 
          * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
-         * @param options The object {asyncContext:context}, where context is a user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param options Syntax example: {asyncContext:context}
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         setTableOptionsAsync(tableOptions: any, options?: any, callback?: (result: AsyncResult) => void): void;
     }
@@ -4215,8 +4239,8 @@ declare namespace Office {
          * Get Project field (Ex. ProjectWebAccessURL).
          * @param fieldId Project level fields.
          * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getProjectFieldAsync(fieldId: number, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -4224,37 +4248,37 @@ declare namespace Office {
          * @param resourceId Either a string or value of the Resource Id.
          * @param fieldId Resource Fields.
          * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getResourceFieldAsync(resourceId: string, fieldId: number, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the current selected Resource's Id.
          * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getSelectedResourceAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the current selected Task's Id.
          * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getSelectedTaskAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the current selected View Type (Ex. Gantt) and View Name.
          * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getSelectedViewAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the Task Name, WSS Task Id, and ResourceNames for given taskId.
          * @param taskId Either a string or value of the Task Id.
          * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getTaskAsync(taskId: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
@@ -4262,15 +4286,15 @@ declare namespace Office {
          * @param taskId Either a string or value of the Task Id.
          * @param fieldId Task Fields.
          * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getTaskFieldAsync(taskId: string, fieldId: number, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the WSS Url and list name for the Tasks List, the MPP is synced too.
          * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: Object keeping state for the callback
-         * @param callback The optional callback method
+         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getWSSUrlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
     }
