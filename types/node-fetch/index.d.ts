@@ -4,7 +4,7 @@
 //                 Niklas Lindgren <https://github.com/nikcorg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="node" />
+/// <reference types="node" />
 
 import { Agent } from "http";
 
@@ -18,7 +18,7 @@ export class Request extends Body {
     referrer: string;
     url: string;
 
-    //node-fetch extensions to the whatwg/fetch spec
+    // node-fetch extensions to the whatwg/fetch spec
     agent?: Agent;
     compress: boolean;
     counter: number;
@@ -30,24 +30,24 @@ export class Request extends Body {
     timeout: number;
 }
 
-interface RequestInit {
-    //whatwg/fetch standard options
+export interface RequestInit {
+    // whatwg/fetch standard options
     body?: BodyInit;
     headers?: HeaderInit | { [index: string]: string };
     method?: string;
     redirect?: RequestRedirect;
 
-    //node-fetch extensions
-    agent?: Agent; //=null http.Agent instance, allows custom proxy, certificate etc.
-    compress?: boolean; //=true support gzip/deflate content encoding. false to disable
-    follow?: number; //=20 maximum redirect count. 0 to not follow redirect
-    size?: number; //=0 maximum response body size in bytes. 0 to disable
-    timeout?: number; //=0 req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
+    // node-fetch extensions
+    agent?: Agent; // =null http.Agent instance, allows custom proxy, certificate etc.
+    compress?: boolean; // =true support gzip/deflate content encoding. false to disable
+    follow?: number; // =20 maximum redirect count. 0 to not follow redirect
+    size?: number; // =0 maximum response body size in bytes. 0 to disable
+    timeout?: number; // =0 req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
 
-    //node-fetch does not support mode, cache or credentials options
+    // node-fetch does not support mode, cache or credentials options
 }
 
-type RequestContext =
+export type RequestContext =
     "audio"
     | "beacon"
     | "cspreport"
@@ -81,11 +81,11 @@ type RequestContext =
     | "worker"
     | "xmlhttprequest"
     | "xslt";
-type RequestMode = "cors" | "no-cors" | "same-origin";
-type RequestRedirect = "error" | "follow" | "manual";
-type RequestCredentials = "omit" | "include" | "same-origin";
+export type RequestMode = "cors" | "no-cors" | "same-origin";
+export type RequestRedirect = "error" | "follow" | "manual";
+export type RequestCredentials = "omit" | "include" | "same-origin";
 
-type RequestCache =
+export type RequestCache =
     "default"
     | "force-cache"
     | "no-cache"
@@ -99,7 +99,7 @@ export class Headers implements Iterable<[string, string]> {
     append(name: string, value: string): void;
     delete(name: string): void;
     get(name: string): string | null;
-    getAll(name: string): Array<string>;
+    getAll(name: string): string[];
     has(name: string): boolean;
     raw(): { [k: string]: string };
     set(name: string, value: string): void;
@@ -125,7 +125,6 @@ export class Body {
     bodyUsed: boolean;
     buffer(): Promise<Buffer>;
     json(): Promise<any>;
-    json<T>(): Promise<T>;
     text(): Promise<string>;
     textConverted(): Promise<string>;
 }
@@ -150,7 +149,7 @@ export class Response extends Body {
     url: string;
 }
 
-type ResponseType =
+export type ResponseType =
     "basic"
     | "cors"
     | "default"
@@ -158,15 +157,15 @@ type ResponseType =
     | "opaque"
     | "opaqueredirect";
 
-interface ResponseInit {
+export interface ResponseInit {
     headers?: HeaderInit;
     status: number;
     statusText?: string;
 }
 
-type HeaderInit = Array<string> | Headers;
-type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string;
-type RequestInfo = string | Request;
+export type HeaderInit = Headers | string[];
+export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string;
+export type RequestInfo = string | Request;
 
 export default function fetch(
     url: string | Request,
