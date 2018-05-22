@@ -1,4 +1,4 @@
-import * as ps_tree from "ps-tree";
+import ps_tree from "ps-tree";
 
 ps_tree(1, () => {}); // $ExpectType void
 ps_tree(1, (error: Error, children: ReadonlyArray<ps_tree.PS>) => {
