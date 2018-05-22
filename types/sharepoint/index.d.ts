@@ -5309,11 +5309,11 @@ declare namespace Microsoft.SharePoint.Client.Search {
         }
 
         interface StringCollection extends SP.ClientObjectCollection<string> {
-            itemAt: (index: number) => string;
-            get_item: (index: number) => string;
-            get_childItemType: () => typeof String;
-            add: (property: string) => void;
-            clear: () => void;
+            itemAt(index: number): string;
+            get_item(index: number): string;
+            get_childItemType(): typeof String;
+            add(property: string): void;
+            clear(): void;
         }
         interface StringCollectionConstructor {
             new(context: SP.ClientContext): StringCollection;
@@ -5393,11 +5393,11 @@ declare namespace Microsoft.SharePoint.Client.Search {
             static queryPropertyValueToObject: (val: QueryPropertyValue) => any;
         }
         interface ReorderingRuleCollection extends SP.ClientObjectCollection<ReorderingRule> {
-            itemAt: (index: number) => ReorderingRule;
-            get_item: (index: number) => ReorderingRule;
-            get_childItemType: () => typeof ReorderingRule;
-            add: (property: ReorderingRule) => void;
-            clear: () => void;
+            itemAt(index: number): ReorderingRule;
+            get_item(index: number): ReorderingRule;
+            get_childItemType(): typeof ReorderingRule;
+            add(property: ReorderingRule): void;
+            clear(): void;
         }
 
         enum ReorderingRuleMatchType {
@@ -5424,11 +5424,11 @@ declare namespace Microsoft.SharePoint.Client.Search {
         }
 
         interface SortCollection extends SP.ClientObjectCollection<Sort> {
-            itemAt: (index: number) => Sort;
-            get_item: (index: number) => Sort;
-            get_childItemType: () => typeof Sort;
-            add: (strProperty: string, sortDirection: SortDirection) => void;
-            clear: () => void;
+            itemAt(index: number): Sort;
+            get_item(index: number): Sort;
+            get_childItemType(): typeof Sort;
+            add(strProperty: string, sortDirection: SortDirection): void;
+            clear(): void;
         }
 
         enum SortDirection {
