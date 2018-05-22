@@ -892,7 +892,7 @@ export interface XAxisProps extends EventAttributes {
     interval?: AxisInterval;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/XAxis
-    label?: string | number | Label;
+    label?: string | number | LabelProps;
 }
 
 export class XAxis extends React.Component<XAxisProps> { }
@@ -943,7 +943,7 @@ export interface YAxisProps extends EventAttributes {
     interval?: AxisInterval;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
-    label?: string | number | Label;
+    label?: string | number | LabelProps;
 }
 
 export class YAxis extends React.Component<YAxisProps> { }
