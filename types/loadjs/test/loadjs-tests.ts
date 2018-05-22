@@ -1,4 +1,4 @@
-import * as importedLoadJs from 'loadjs';
+import importedLoadJs = require('loadjs');
 
 const loadOptions: importedLoadJs.LoadOptions = {
     before: (path, scriptEl) => {},
