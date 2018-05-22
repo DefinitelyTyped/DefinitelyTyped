@@ -2,19 +2,20 @@
 // Project: https://github.com/niftylettuce/express-paginate
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 import * as express from 'express';
 
 declare global {
     namespace Express {
-        export interface Request {
-            skip?: number,
-            offset?: number,
+        interface Request {
+            skip?: number;
+            offset?: number;
         }
     }
 }
 
-interface PageElement {
+export interface PageElement {
     number: number;
     url: typeof href;
 }

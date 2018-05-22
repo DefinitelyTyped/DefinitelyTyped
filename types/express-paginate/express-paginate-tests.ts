@@ -5,7 +5,7 @@ declare function findAndCountAll(params: object): Promise<{count: number, rows: 
 
 const app = express();
 
-app.use(paginate.middleware(10, 50))
+app.use(paginate.middleware(10, 50));
 
 app.get('/users', async (req, res, next) => {
     // req.skip should be available
@@ -22,5 +22,5 @@ app.get('/users', async (req, res, next) => {
                 hasNextPages: paginate.hasNextPages(req)(pageCount),
                 pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)
             });
-        }).catch(err => next(err))
+        }).catch(next);
 });
