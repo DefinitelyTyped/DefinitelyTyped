@@ -375,7 +375,120 @@ declare namespace chrome.app.window {
  * @since Chrome 59
  */
 declare namespace chrome.audio {
-    /** NOT IMPLEMENTED YET */
+    export type StreamType = 'INPUT' | 'OUTPUT';
+    export interface AudioDeviceInfo {
+        /** The unique identifier of the audio device. */
+        id: string;
+        /** Stream type associated with this device. */
+        streamType: StreamType;
+        /** Type of the device. */
+        deviceType: "HEADPHONE" | "MIC" | "USB" | "BLUETOOTH" | "HDMI" | "INTERNAL_SPEAKER" | "INTERNAL_MIC" | "FRONT_MIC" | "REAR_MIC" | "KEYBOARD_MIC" | "HOTWORD" | "LINEOUT" | "POST_MIX_LOOPBACK" | "POST_DSP_LOOPBACK" | "OTHER";
+        /** The user-friendly name (e.g. "USB Microphone"). */
+        displayName: string;
+        /** Device name. */
+        deviceName: string;
+        /** True if this is the current active device. */
+        isActive: boolean;
+        /** The sound level of the device, volume for output, gain for input. */
+        level: number;
+        /** The stable/persisted device id string when available. */
+        stableDeviceId?: string;
+    }
+    export interface DeviceIdLists {
+        /**
+         * List of input devices specified by their ID.
+         * To indicate input devices should be unaffected, leave this property unset.
+         */
+        input?: string[];
+        /**
+         * List of output devices specified by their ID.
+         * To indicate output devices should be unaffected, leave this property unset.
+         */
+        output?: string[];
+    }
+    export interface SetDeviceProperties {
+        /**
+         * The audio device's desired sound level. Defaults to the device's current sound level.
+         * If used with audio input device, represents audio device gain.
+         * If used with audio output device, represents audio device volume.
+         *
+         * Type: integer
+         */
+        level?: number;
+    }
+    export interface OnLevelChangedEvent {
+        /**
+         * The callback parameter should be a function that looks like this:
+         *   function(object event) {...};
+         * @param {(event: {
+         *             deviceId: string,
+         *             level: number
+         *         }) => void} callback
+         */
+        addListener(callback: (event: {
+            deviceId: string,
+            level: number
+        }) => void): void;
+    }
+    export interface OnMuteChangedEvent {
+        /**
+         * The callback parameter should be a function that looks like this:
+         * function(object event) {...};
+         */
+        addListener(callback: (event: {
+            streamType: StreamType[],
+            isMuted: boolean
+        }) => void): void;
+    }
+    export interface OnDeviceListChangedEvent {
+        /**
+         * The callback parameter should be a function that looks like this:
+         *   function(array of AudioDeviceInfo devices) {...};
+         * @param {(devices: AudioDeviceInfo[]) => void} callback `devices` contains a list of all present audio devices after the change.
+         */
+        addListener(callback: (devices: AudioDeviceInfo[]) => void): void;
+    }
+    /**
+     * @description Device properties by which to filter the list of returned audio devices. If the filter is not set or set to {}, returned device list will contain all available audio devices.
+     */
+    export interface Filter {
+        /**
+         * @description If set, only audio devices whose stream type is included in this list will satisfy the filter.
+         */
+        streamTypes?: StreamType[];
+        /**
+         * @description If set, only audio devices whose active state matches this value will satisfy the filter.
+         */
+        isActive?: boolean;
+    }
+    /**
+     * @description Gets a list of audio devices filtered based on |filter|.
+     */
+    export function getDevices(filter: Filter, callback: (devices: AudioDeviceInfo[]) => {});
+    export function getDevices(callback: (devices: AudioDeviceInfo[]) => {});
+    /** Sets lists of active input and/or output devices. */
+    export function setDevices(ids: DeviceIdLists[] | string[], callback: () => void);
+    /** Sets the properties for the input or output device. */
+    export function setProperties(id: string, properties: SetDeviceProperties, callback: () => {});
+    /**
+     * @description Gets the system-wide mute state for the specified stream type.
+     * @param {StreamType} streamType Stream type for which mute state should be fetched.
+     * @param {(value: boolean) => {}} callback Callback reporting whether mute is set or not for specified stream type.
+     */
+    export function getMute(streamType: StreamType, callback: (value: boolean) => {});
+    /**
+     * @description Sets mute state for a stream type. The mute state will apply to all audio devices with the specified audio stream type.
+     * @param {StreamType} streamType Stream type for which mute state should be set.
+     * @param {boolean} isMuted New mute value.
+     * @param {() => {}} [callback] If you specify the callback parameter, it should be a function that looks like this: function() {...};
+     */
+    export function setMute(streamType: StreamType, isMuted: boolean, callback?: () => {});
+    /** Fired when sound level changes for an active audio device. */
+    export var onLevelChanged: OnLevelChangedEvent;
+    /** Fired when the mute state of the audio input or output changes. Note that mute state is system-wide and the new value applies to every audio device with specified stream type. */
+    export var onMuteChanged: OnMuteChangedEvent;
+    /** Fired when audio devices change, either new devices being added, or existing devices being removed. */
+    export var onDeviceListChanged: OnDeviceListChangedEvent;
 }
 
 ////////////////////
@@ -386,7 +499,81 @@ declare namespace chrome.audio {
  * @since Chrome 37
  */
 declare namespace chrome.bluetooth {
-    /** NOT IMPLEMENTED YET */
+    export interface AdapterState {
+        address: string;
+        name: string;
+        powered: boolean;
+        available: boolean;
+        discovering: boolean;
+    }
+    export interface Device {
+        address: string;
+        name?: string;
+        deviceClass?: number;
+        vendorIdSource?: 'bluetooth' | 'usb';
+        vendorId?: number;
+        productId?: number;
+        deviceId?: number;
+        type?: "computer" | "phone" | "modem" | "audio" | "carAudio" | "video" | "peripheral" | "joystick" | "gamepad" | "keyboard" | "mouse" | "tablet" | "keyboardMouseCombo";
+        paired?: boolean;
+        connected?: boolean;
+        /**
+         * @since Chrome 48
+         */
+        connecting?: boolean;
+        /**
+         * @since Chrome 48
+         */
+        connectable?: boolean;
+        uuids?: string[];
+        /**
+         * @since Chrome 44
+         */
+        inquiryRssi: number;
+        /**
+         * @since Chrome 44
+         */
+        inquiryTxPower: number;
+    }
+
+    export interface BluetoothEvent<T> {
+        addListener(callback: (event: T) => void);
+    }
+
+    /**
+     * Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
+     */
+    export interface DeviceFilter {
+        /** Type of filter to apply to the device list. Default is all. */
+        filterType?: 'all' | 'known';
+        /** Maximum number of bluetoth devices to return. Default is 0 (no limit) if unspecified. */
+        limit?: number;
+    }
+    /** Get information about the Bluetooth adapter. */
+    export function getAdapterState(callback: (adapterInfo: AdapterState) => void);
+    /** Get information about a Bluetooth device known to the system. */
+    export function getDevice(deviceAddress: string, callback: (deviceInfo: Device) => void);
+    /**
+     * Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
+     * @param filter Since Chrome 67. Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
+     * @param callback Called when the search is completed.
+     */
+    export function getDevices(filter: DeviceFilter, callback: (deviceInfo: Device) => void);
+    /**
+     * Start discovery. Newly discovered devices will be returned via the onDeviceAdded event. Previously discovered devices already known to the adapter must be obtained using getDevices and will only be updated using the |onDeviceChanged| event if information about them changes.
+     * Discovery will fail to start if this application has already called startDiscovery. Discovery can be resource intensive: stopDiscovery should be called as soon as possible.
+     */
+    export function startDiscovery(callback: () => void);
+    /** Stop discovery. */
+    export function stopDiscovery(callback: () => void);
+    /** Fired when the state of the Bluetooth adapter changes. */
+    export var onAdapterStateChanged: BluetoothEvent<AdapterState>;
+    /** Fired when information about a new Bluetooth device is available. */
+    export var onDeviceAdded: BluetoothEvent<Device>;
+    /** Fired when information about a known Bluetooth device has changed. */
+    export var onDeviceChanged: BluetoothEvent<Device>;
+    /** Fired when a Bluetooth device that was previously discovered has been out of range for long enough to be considered unavailable again, and when a paired device is removed. */
+    export var onDeviceRemoved: BluetoothEvent<Device>;
 }
 /**
  * 	The chrome.bluetoothLowEnergy API is used to communicate with Bluetooth Smart (Low Energy) devices using the Generic Attribute Profile (GATT).
