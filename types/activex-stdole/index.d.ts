@@ -7,13 +7,19 @@
 /// <reference types="activex-interop" />
 
 declare namespace stdole {
+    type IFontDisp = StdFont;
+
     type IPictureDisp = StdPicture;
 
     type OLE_COLOR = number;
 
     type OLE_XPOS_CONTAINER = number;
 
+    type OLE_XPOS_PIXELS = number;
+
     type OLE_YPOS_CONTAINER = number;
+
+    type OLE_YPOS_PIXELS = number;
 
     const enum LoadPictureConstants {
         Color = 4,
