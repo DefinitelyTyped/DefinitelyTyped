@@ -5148,6 +5148,16 @@ export class LineSegments extends Line {
     );
 }
 
+interface Intersect
+{
+    distance: number,
+    face?: Face3,
+    faceIndex?: number,
+    object: Object3D,
+    point: Vector3,
+    uv?: Vector2
+}
+
 export class Mesh extends Object3D {
     constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[]);
 
@@ -5161,7 +5171,7 @@ export class Mesh extends Object3D {
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
     getMorphTargetIndexByName(name: string): number;
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersect[]): Intersect[];
 }
 
 /**
