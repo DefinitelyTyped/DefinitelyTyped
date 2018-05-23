@@ -1190,6 +1190,9 @@ export class Handler extends Class {
 export interface LeafletEvent {
     type: string;
     target: any;
+    sourceTarget: any;
+    propagatedFrom: any;
+    layer: any;
 }
 
 export interface LeafletMouseEvent extends LeafletEvent {
