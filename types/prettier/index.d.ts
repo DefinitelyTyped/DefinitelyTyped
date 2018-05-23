@@ -107,6 +107,7 @@ export interface RequiredOptions extends doc.printer.Options {
 export interface ParserOptions extends RequiredOptions {
     locStart: (node: any) => number;
     locEnd: (node: any) => number;
+    originalText: string;
 }
 
 export interface Plugin {
