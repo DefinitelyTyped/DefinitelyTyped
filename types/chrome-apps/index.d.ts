@@ -21,81 +21,81 @@
  * Permissions: "accessibilityFeatures.read"
  * Important: This API works only on Chrome OS.
  */
-declare namespace  chrome {
-namespace  accessibilityFeatures {
+declare namespace chrome {
+  namespace accessibilityFeatures {
     interface AccessibilityFeaturesGetArg {
-        /** Optional. Whether to return the value that applies to the incognito session (default false).  */
-        incognito?: boolean;
+      /** Optional. Whether to return the value that applies to the incognito session (default false).  */
+      incognito?: boolean;
     }
 
     interface AccessibilityFeaturesCallbackArg {
-        /** The value of the setting. */
-        value: any;
-        /**
-         * One of
-         * • not_controllable: cannot be controlled by any extension
-         * • controlled_by_other_extensions: controlled by extensions with higher precedence
-         * • controllable_by_this_extension: can be controlled by this extension
-         * • controlled_by_this_extension: controlled by this extension
-         */
-        levelOfControl: string;
-        /** Optional. Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
-        incognitoSpecific?: boolean;
+      /** The value of the setting. */
+      value: any;
+      /**
+       * One of
+       * • not_controllable: cannot be controlled by any extension
+       * • controlled_by_other_extensions: controlled by extensions with higher precedence
+       * • controllable_by_this_extension: can be controlled by this extension
+       * • controlled_by_this_extension: controlled by this extension
+       */
+      levelOfControl: string;
+      /** Optional. Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
+      incognitoSpecific?: boolean;
     }
 
     interface AccessibilityFeaturesSetArg {
-        /**
-         * The value of the setting.
-         * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
-         */
-        value: any;
-        /**
-         * Optional.
-          * The scope of the ChromeSetting. One of
-         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-         */
-        scope?: string;
+      /**
+       * The value of the setting.
+       * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
+       */
+      value: any;
+      /**
+       * Optional.
+        * The scope of the ChromeSetting. One of
+       * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+       * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+       * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+       * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+       */
+      scope?: string;
     }
 
     interface AccessibilityFeaturesClearArg {
-        /**
-         * Optional.
-          * The scope of the ChromeSetting. One of
-         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-         */
-        scope?: string;
+      /**
+       * Optional.
+        * The scope of the ChromeSetting. One of
+       * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+       * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+       * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+       * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+       */
+      scope?: string;
     }
 
     interface AccessibilityFeaturesSetting {
-        /**
-         * Gets the value of a setting.
-         * @param details Which setting to consider.
-         * @param callback The callback parameter should be a function that looks like this:
-         * function(object details) {...};
-         */
-        get(details: AccessibilityFeaturesGetArg, callback: (details: AccessibilityFeaturesCallbackArg) => void): void;
-        /**
-         * Sets the value of a setting.
-         * @param details Which setting to change.
-         * @param callback Called at the completion of the set operation.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        set(details: AccessibilityFeaturesSetArg, callback?: () => void): void;
-        /**
-         * Clears the setting, restoring any default value.
-         * @param details Which setting to clear.
-         * @param callback Called at the completion of the clear operation.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        clear(details: AccessibilityFeaturesClearArg, callback?: () => void): void;
+      /**
+       * Gets the value of a setting.
+       * @param details Which setting to consider.
+       * @param callback The callback parameter should be a function that looks like this:
+       * function(object details) {...};
+       */
+      get(details: AccessibilityFeaturesGetArg, callback: (details: AccessibilityFeaturesCallbackArg) => void): void;
+      /**
+       * Sets the value of a setting.
+       * @param details Which setting to change.
+       * @param callback Called at the completion of the set operation.
+       * If you specify the callback parameter, it should be a function that looks like this:
+       * function() {...};
+       */
+      set(details: AccessibilityFeaturesSetArg, callback?: () => void): void;
+      /**
+       * Clears the setting, restoring any default value.
+       * @param details Which setting to clear.
+       * @param callback Called at the completion of the clear operation.
+       * If you specify the callback parameter, it should be a function that looks like this:
+       * function() {...};
+       */
+      clear(details: AccessibilityFeaturesClearArg, callback?: () => void): void;
     }
 
     export var spokenFeedback: AccessibilityFeaturesSetting;
@@ -106,33 +106,33 @@ namespace  accessibilityFeatures {
     export var autoclick: AccessibilityFeaturesSetting;
     export var virtualKeyboard: AccessibilityFeaturesSetting;
     export var animationPolicy: AccessibilityFeaturesSetting;
-}
+  }
 
-////////////////////
-// Alarms
-////////////////////
-/**
- * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future.
- * Availability: Since Chrome 22.
- * Permissions:  "alarms"
- */
-namespace  alarms {
+  ////////////////////
+  // Alarms
+  ////////////////////
+  /**
+   * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future.
+   * Availability: Since Chrome 22.
+   * Permissions:  "alarms"
+   */
+  namespace alarms {
     interface AlarmCreateInfo {
-        /** Optional. Length of time in minutes after which the onAlarm event should fire.  */
-        delayInMinutes?: number;
-        /** Optional. If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.  */
-        periodInMinutes?: number;
-        /** Optional. Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).  */
-        when?: number;
+      /** Optional. Length of time in minutes after which the onAlarm event should fire.  */
+      delayInMinutes?: number;
+      /** Optional. If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.  */
+      periodInMinutes?: number;
+      /** Optional. Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).  */
+      when?: number;
     }
 
     interface Alarm {
-        /** Optional. If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.  */
-        periodInMinutes?: number;
-        /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
-        scheduledTime: number;
-        /** Name of this alarm. */
-        name: string;
+      /** Optional. If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.  */
+      periodInMinutes?: number;
+      /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
+      scheduledTime: number;
+      /** Name of this alarm. */
+      name: string;
     }
 
     interface AlarmEvent extends chrome.events.Event<(alarm: Alarm) => void> { }
@@ -193,43 +193,43 @@ namespace  alarms {
 
     /** Fired when an alarm has elapsed. Useful for event pages. */
     export var onAlarm: AlarmEvent;
-}
+  }
 
 
-////////////////////
-// App
-////////////////////
-namespace  app {
+  ////////////////////
+  // App
+  ////////////////////
+  namespace app {
     interface AppDetails extends chrome.runtime.Manifest {
-        id: string;
+      id: string;
     }
 
     export function getDetails(): AppDetails;
-}
+  }
 
-////////////////////
-// App Runtime
-////////////////////
-namespace  app.runtime {
+  ////////////////////
+  // App Runtime
+  ////////////////////
+  namespace app.runtime {
     type LaunchSource = 'untracked' | 'app_launcher' | 'new_tab_page' | 'reload' | 'restart' |
-        'load_and_launch' | 'command_line' | 'file_handler' | 'url_handler' | 'system_tray' |
-        'about_page' | 'keyboard' | 'extensions_page' | 'management_api' | 'ephemeral_app' |
-        'background' | 'kiosk' | 'chrome_internal' | 'test' | 'installed_notification' | 'context_menu';
+      'load_and_launch' | 'command_line' | 'file_handler' | 'url_handler' | 'system_tray' |
+      'about_page' | 'keyboard' | 'extensions_page' | 'management_api' | 'ephemeral_app' |
+      'background' | 'kiosk' | 'chrome_internal' | 'test' | 'installed_notification' | 'context_menu';
 
     interface LaunchData {
-        id?: string;
-        items?: LaunchDataItem[];
-        url?: string;
-        referrerUrl?: string;
-        isKioskSession?: boolean;
-        isPublicSession?: boolean;
-        source?: LaunchSource;
-        actionData?: {};
+      id?: string;
+      items?: LaunchDataItem[];
+      url?: string;
+      referrerUrl?: string;
+      isKioskSession?: boolean;
+      isPublicSession?: boolean;
+      source?: LaunchSource;
+      actionData?: {};
     }
 
     interface LaunchDataItem {
-        entry: FileEntry;
-        type: string;
+      entry: FileEntry;
+      type: string;
     }
 
     interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> { }
@@ -238,112 +238,112 @@ namespace  app.runtime {
 
     export var onLaunched: LaunchedEvent;
     export var onRestarted: RestartedEvent;
-}
+  }
 
-////////////////////
-// App Window
-////////////////////
-namespace  app.window {
+  ////////////////////
+  // App Window
+  ////////////////////
+  namespace app.window {
     interface ContentBounds {
-        left?: number;
-        top?: number;
-        width?: number;
-        height?: number;
+      left?: number;
+      top?: number;
+      width?: number;
+      height?: number;
     }
 
     interface BoundsSpecification {
-        left?: number;
-        top?: number;
-        width?: number;
-        height?: number;
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
+      left?: number;
+      top?: number;
+      width?: number;
+      height?: number;
+      minWidth?: number;
+      minHeight?: number;
+      maxWidth?: number;
+      maxHeight?: number;
     }
 
     interface Bounds {
-        left: number;
-        top: number;
-        width: number;
-        height: number;
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
-        setPosition(left: number, top: number): void;
-        setSize(width: number, height: number): void;
-        setMinimumSize(minWidth: number, minHeight: number): void;
-        setMaximumSize(maxWidth: number, maxHeight: number): void;
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+      minWidth?: number;
+      minHeight?: number;
+      maxWidth?: number;
+      maxHeight?: number;
+      setPosition(left: number, top: number): void;
+      setSize(width: number, height: number): void;
+      setMinimumSize(minWidth: number, minHeight: number): void;
+      setMaximumSize(maxWidth: number, maxHeight: number): void;
     }
     interface FrameOptions {
-        type?: string;
-        color?: string;
-        activeColor?: string;
-        inactiveColor?: string;
+      type?: string;
+      color?: string;
+      activeColor?: string;
+      inactiveColor?: string;
     }
 
     interface CreateWindowOptions {
-        id?: string;
-        innerBounds?: BoundsSpecification;
-        outerBounds?: BoundsSpecification;
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
-        /**
-         * @description
-         * @type {(string | FrameOptions)} string ("none", "chrome") or FrameOptions
-         * @memberof CreateWindowOptions
-         */
-        frame?: string | FrameOptions;
-        bounds?: ContentBounds;
-        alphaEnabled?: boolean;
-        /**
-         * @description
-         * @type {string} "normal", "fullscreen", "maximized", "minimized"
-         * @memberof CreateWindowOptions
-         */
-        state?: string;
-        hidden?: boolean;
-        resizable?: boolean;
-        singleton?: boolean;
-        alwaysOnTop?: boolean;
-        focused?: boolean;
-        visibleOnAllWorkspaces?: boolean;
+      id?: string;
+      innerBounds?: BoundsSpecification;
+      outerBounds?: BoundsSpecification;
+      minWidth?: number;
+      minHeight?: number;
+      maxWidth?: number;
+      maxHeight?: number;
+      /**
+       * @description
+       * @type {(string | FrameOptions)} string ("none", "chrome") or FrameOptions
+       * @memberof CreateWindowOptions
+       */
+      frame?: string | FrameOptions;
+      bounds?: ContentBounds;
+      alphaEnabled?: boolean;
+      /**
+       * @description
+       * @type {string} "normal", "fullscreen", "maximized", "minimized"
+       * @memberof CreateWindowOptions
+       */
+      state?: string;
+      hidden?: boolean;
+      resizable?: boolean;
+      singleton?: boolean;
+      alwaysOnTop?: boolean;
+      focused?: boolean;
+      visibleOnAllWorkspaces?: boolean;
     }
 
     interface AppWindow {
-        focus: () => void;
-        fullscreen: () => void;
-        isFullscreen: () => boolean;
-        minimize: () => void;
-        isMinimized: () => boolean;
-        maximize: () => void;
-        isMaximized: () => boolean;
-        restore: () => void;
-        moveTo: (left: number, top: number) => void;
-        resizeTo: (width: number, height: number) => void;
-        drawAttention: () => void;
-        clearAttention: () => void;
-        close: () => void;
-        show: () => void;
-        hide: () => void;
-        getBounds: () => ContentBounds;
-        setBounds: (bounds: ContentBounds) => void;
-        isAlwaysOnTop: () => boolean;
-        setAlwaysOnTop: (alwaysOnTop: boolean) => void;
-        setVisibleOnAllWorkspaces: (alwaysVisible: boolean) => void;
-        contentWindow: Window;
-        id: string;
-        innerBounds: Bounds;
-        outerBounds: Bounds;
-        onBoundsChanged: WindowEvent;
-        onClosed: WindowEvent;
-        onFullscreened: WindowEvent;
-        onMaximized: WindowEvent;
-        onMinimized: WindowEvent;
-        onRestored: WindowEvent;
+      focus: () => void;
+      fullscreen: () => void;
+      isFullscreen: () => boolean;
+      minimize: () => void;
+      isMinimized: () => boolean;
+      maximize: () => void;
+      isMaximized: () => boolean;
+      restore: () => void;
+      moveTo: (left: number, top: number) => void;
+      resizeTo: (width: number, height: number) => void;
+      drawAttention: () => void;
+      clearAttention: () => void;
+      close: () => void;
+      show: () => void;
+      hide: () => void;
+      getBounds: () => ContentBounds;
+      setBounds: (bounds: ContentBounds) => void;
+      isAlwaysOnTop: () => boolean;
+      setAlwaysOnTop: (alwaysOnTop: boolean) => void;
+      setVisibleOnAllWorkspaces: (alwaysVisible: boolean) => void;
+      contentWindow: Window;
+      id: string;
+      innerBounds: Bounds;
+      outerBounds: Bounds;
+      onBoundsChanged: WindowEvent;
+      onClosed: WindowEvent;
+      onFullscreened: WindowEvent;
+      onMaximized: WindowEvent;
+      onMinimized: WindowEvent;
+      onRestored: WindowEvent;
     }
 
     export function create(url: string, options?: CreateWindowOptions, callback?: (created_window: AppWindow) => void): void;
@@ -360,209 +360,209 @@ namespace  app.window {
     export var onMaximized: WindowEvent;
     export var onMinimized: WindowEvent;
     export var onRestored: WindowEvent;
-}
+  }
 
 
-////////////////////
-// Audio
-////////////////////
-/**
- * The chrome.audio API is provided to allow users to get information about and control the audio devices attached to the system. This API is currently only implemented for ChromeOS.
- * @since Chrome 59
- */
-namespace  audio {
+  ////////////////////
+  // Audio
+  ////////////////////
+  /**
+   * The chrome.audio API is provided to allow users to get information about and control the audio devices attached to the system. This API is currently only implemented for ChromeOS.
+   * @since Chrome 59
+   */
+  namespace audio {
     export type StreamType = 'INPUT' | 'OUTPUT';
     interface AudioDeviceInfo {
-        /** The unique identifier of the audio device. */
-        id: string;
-        /** Stream type associated with this device. */
-        streamType: StreamType;
-        /** Type of the device. */
-        deviceType: "HEADPHONE" | "MIC" | "USB" | "BLUETOOTH" | "HDMI" | "INTERNAL_SPEAKER" | "INTERNAL_MIC" | "FRONT_MIC" | "REAR_MIC" | "KEYBOARD_MIC" | "HOTWORD" | "LINEOUT" | "POST_MIX_LOOPBACK" | "POST_DSP_LOOPBACK" | "OTHER";
-        /** The user-friendly name (e.g. "USB Microphone"). */
-        displayName: string;
-        /** Device name. */
-        deviceName: string;
-        /** True if this is the current active device. */
-        isActive: boolean;
-        /** The sound level of the device, volume for output, gain for input. */
-        level: number;
-        /** The stable/persisted device id string when available. */
-        stableDeviceId?: string;
+      /** The unique identifier of the audio device. */
+      id: string;
+      /** Stream type associated with this device. */
+      streamType: StreamType;
+      /** Type of the device. */
+      deviceType: "HEADPHONE" | "MIC" | "USB" | "BLUETOOTH" | "HDMI" | "INTERNAL_SPEAKER" | "INTERNAL_MIC" | "FRONT_MIC" | "REAR_MIC" | "KEYBOARD_MIC" | "HOTWORD" | "LINEOUT" | "POST_MIX_LOOPBACK" | "POST_DSP_LOOPBACK" | "OTHER";
+      /** The user-friendly name (e.g. "USB Microphone"). */
+      displayName: string;
+      /** Device name. */
+      deviceName: string;
+      /** True if this is the current active device. */
+      isActive: boolean;
+      /** The sound level of the device, volume for output, gain for input. */
+      level: number;
+      /** The stable/persisted device id string when available. */
+      stableDeviceId?: string;
     }
     interface DeviceIdLists {
-        /**
-         * List of input devices specified by their ID.
-         * To indicate input devices should be unaffected, leave this property unset.
-         */
-        input?: string[];
-        /**
-         * List of output devices specified by their ID.
-         * To indicate output devices should be unaffected, leave this property unset.
-         */
-        output?: string[];
+      /**
+       * List of input devices specified by their ID.
+       * To indicate input devices should be unaffected, leave this property unset.
+       */
+      input?: string[];
+      /**
+       * List of output devices specified by their ID.
+       * To indicate output devices should be unaffected, leave this property unset.
+       */
+      output?: string[];
     }
     interface SetDeviceProperties {
-        /**
-         * The audio device's desired sound level. Defaults to the device's current sound level.
-         * If used with audio input device, represents audio device gain.
-         * If used with audio output device, represents audio device volume.
-         *
-         * Type: integer
-         */
-        level?: number;
+      /**
+       * The audio device's desired sound level. Defaults to the device's current sound level.
+       * If used with audio input device, represents audio device gain.
+       * If used with audio output device, represents audio device volume.
+       *
+       * Type: integer
+       */
+      level?: number;
     }
     interface OnLevelChangedEvent {
-        /**
-         * The callback parameter should be a function that looks like this:
-         *   function(object event) {...};
-         * @param {(event: {
-         *             deviceId: string,
-         *             level: number
-         *         }) => void} callback
-         */
-        addListener(callback: (event: {
-            deviceId: string,
-            level: number
-        }) => void): void;
+      /**
+       * The callback parameter should be a function that looks like this:
+       *   function(object event) {...};
+       * @param {(event: {
+       *             deviceId: string,
+       *             level: number
+       *         }) => void} callback
+       */
+      addListener(callback: (event: {
+        deviceId: string,
+        level: number
+      }) => void): void;
     }
     interface OnMuteChangedEvent {
-        /**
-         * The callback parameter should be a function that looks like this:
-         * function(object event) {...};
-         */
-        addListener(callback: (event: {
-            streamType: StreamType[],
-            isMuted: boolean
-        }) => void): void;
+      /**
+       * The callback parameter should be a function that looks like this:
+       * function(object event) {...};
+       */
+      addListener(callback: (event: {
+        streamType: StreamType[],
+        isMuted: boolean
+      }) => void): void;
     }
     interface OnDeviceListChangedEvent {
-        /**
-         * The callback parameter should be a function that looks like this:
-         *   function(array of AudioDeviceInfo devices) {...};
-         * @param {(devices: AudioDeviceInfo[]) => void} callback `devices` contains a list of all present audio devices after the change.
-         */
-        addListener(callback: (devices: AudioDeviceInfo[]) => void): void;
+      /**
+       * The callback parameter should be a function that looks like this:
+       *   function(array of AudioDeviceInfo devices) {...};
+       * @param {(devices: AudioDeviceInfo[]) => void} callback `devices` contains a list of all present audio devices after the change.
+       */
+      addListener(callback: (devices: AudioDeviceInfo[]) => void): void;
     }
     /**
      * @description Device properties by which to filter the list of returned audio devices. If the filter is not set or set to {}, returned device list will contain all available audio devices.
      */
     interface Filter {
-        /**
-         * @description If set, only audio devices whose stream type is included in this list will satisfy the filter.
-         */
-        streamTypes?: StreamType[];
-        /**
-         * @description If set, only audio devices whose active state matches this value will satisfy the filter.
-         */
-        isActive?: boolean;
+      /**
+       * @description If set, only audio devices whose stream type is included in this list will satisfy the filter.
+       */
+      streamTypes?: StreamType[];
+      /**
+       * @description If set, only audio devices whose active state matches this value will satisfy the filter.
+       */
+      isActive?: boolean;
     }
     /**
      * @description Gets a list of audio devices filtered based on |filter|.
      */
-    export function getDevices(filter: Filter, callback: (devices: AudioDeviceInfo[]) => {});
-    export function getDevices(callback: (devices: AudioDeviceInfo[]) => {});
+    export function getDevices(filter: Filter, callback: (devices: AudioDeviceInfo[]) => void): void;
+    export function getDevices(callback: (devices: AudioDeviceInfo[]) => void): void;
     /** Sets lists of active input and/or output devices. */
-    export function setDevices(ids: DeviceIdLists[] | string[], callback: () => void);
+    export function setDevices(ids: DeviceIdLists[] | string[], callback: () => void): void;
     /** Sets the properties for the input or output device. */
-    export function setProperties(id: string, properties: SetDeviceProperties, callback: () => {});
+    export function setProperties(id: string, properties: SetDeviceProperties, callback: () => void): void;
     /**
      * @description Gets the system-wide mute state for the specified stream type.
      * @param {StreamType} streamType Stream type for which mute state should be fetched.
      * @param {(value: boolean) => {}} callback Callback reporting whether mute is set or not for specified stream type.
      */
-    export function getMute(streamType: StreamType, callback: (value: boolean) => {});
+    export function getMute(streamType: StreamType, callback: (value: boolean) => void): void;
     /**
      * @description Sets mute state for a stream type. The mute state will apply to all audio devices with the specified audio stream type.
      * @param {StreamType} streamType Stream type for which mute state should be set.
      * @param {boolean} isMuted New mute value.
      * @param {() => {}} [callback] If you specify the callback parameter, it should be a function that looks like this: function() {...};
      */
-    export function setMute(streamType: StreamType, isMuted: boolean, callback?: () => {});
+    export function setMute(streamType: StreamType, isMuted: boolean, callback?: () => void): void;
     /** Fired when sound level changes for an active audio device. */
     export var onLevelChanged: OnLevelChangedEvent;
     /** Fired when the mute state of the audio input or output changes. Note that mute state is system-wide and the new value applies to every audio device with specified stream type. */
     export var onMuteChanged: OnMuteChangedEvent;
     /** Fired when audio devices change, either new devices being added, or existing devices being removed. */
     export var onDeviceListChanged: OnDeviceListChangedEvent;
-}
+  }
 
-////////////////////
-// Bluetooth
-////////////////////
-/**
- * Use the chrome.bluetooth API to connect to a Bluetooth device. All functions report failures via chrome.runtime.lastError.
- * Manifest: "bluetooth": {...}
- * @since Chrome 37
- */
-namespace  bluetooth {
+  ////////////////////
+  // Bluetooth
+  ////////////////////
+  /**
+   * Use the chrome.bluetooth API to connect to a Bluetooth device. All functions report failures via chrome.runtime.lastError.
+   * Manifest: "bluetooth": {...}
+   * @since Chrome 37
+   */
+  namespace bluetooth {
     interface AdapterState {
-        address: string;
-        name: string;
-        powered: boolean;
-        available: boolean;
-        discovering: boolean;
+      address: string;
+      name: string;
+      powered: boolean;
+      available: boolean;
+      discovering: boolean;
     }
     interface Device {
-        address: string;
-        name?: string;
-        deviceClass?: number;
-        vendorIdSource?: 'bluetooth' | 'usb';
-        vendorId?: number;
-        productId?: number;
-        deviceId?: number;
-        type?: "computer" | "phone" | "modem" | "audio" | "carAudio" | "video" | "peripheral" | "joystick" | "gamepad" | "keyboard" | "mouse" | "tablet" | "keyboardMouseCombo";
-        paired?: boolean;
-        connected?: boolean;
-        /**
-         * @since Chrome 48
-         */
-        connecting?: boolean;
-        /**
-         * @since Chrome 48
-         */
-        connectable?: boolean;
-        uuids?: string[];
-        /**
-         * @since Chrome 44
-         */
-        inquiryRssi: number;
-        /**
-         * @since Chrome 44
-         */
-        inquiryTxPower: number;
+      address: string;
+      name?: string;
+      deviceClass?: number;
+      vendorIdSource?: 'bluetooth' | 'usb';
+      vendorId?: number;
+      productId?: number;
+      deviceId?: number;
+      type?: "computer" | "phone" | "modem" | "audio" | "carAudio" | "video" | "peripheral" | "joystick" | "gamepad" | "keyboard" | "mouse" | "tablet" | "keyboardMouseCombo";
+      paired?: boolean;
+      connected?: boolean;
+      /**
+       * @since Chrome 48
+       */
+      connecting?: boolean;
+      /**
+       * @since Chrome 48
+       */
+      connectable?: boolean;
+      uuids?: string[];
+      /**
+       * @since Chrome 44
+       */
+      inquiryRssi: number;
+      /**
+       * @since Chrome 44
+       */
+      inquiryTxPower: number;
     }
 
     interface BluetoothEvent<T> {
-        addListener(callback: (event: T) => void);
+      addListener(callback: (event: T) => void): void;
     }
 
     /**
      * Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
      */
     interface DeviceFilter {
-        /** Type of filter to apply to the device list. Default is all. */
-        filterType?: 'all' | 'known';
-        /** Maximum number of bluetoth devices to return. Default is 0 (no limit) if unspecified. */
-        limit?: number;
+      /** Type of filter to apply to the device list. Default is all. */
+      filterType?: 'all' | 'known';
+      /** Maximum number of bluetoth devices to return. Default is 0 (no limit) if unspecified. */
+      limit?: number;
     }
     /** Get information about the Bluetooth adapter. */
-    export function getAdapterState(callback: (adapterInfo: AdapterState) => void);
+    export function getAdapterState(callback: (adapterInfo: AdapterState) => void): void;
     /** Get information about a Bluetooth device known to the system. */
-    export function getDevice(deviceAddress: string, callback: (deviceInfo: Device) => void);
+    export function getDevice(deviceAddress: string, callback: (deviceInfo: Device) => void): void;
     /**
      * Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
      * @param filter Since Chrome 67. Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
      * @param callback Called when the search is completed.
      */
-    export function getDevices(filter: DeviceFilter, callback: (deviceInfo: Device) => void);
+    export function getDevices(filter: DeviceFilter, callback: (deviceInfo: Device) => void): void;
     /**
      * Start discovery. Newly discovered devices will be returned via the onDeviceAdded event. Previously discovered devices already known to the adapter must be obtained using getDevices and will only be updated using the |onDeviceChanged| event if information about them changes.
      * Discovery will fail to start if this application has already called startDiscovery. Discovery can be resource intensive: stopDiscovery should be called as soon as possible.
      */
-    export function startDiscovery(callback: () => void);
+    export function startDiscovery(callback: () => void): void;
     /** Stop discovery. */
-    export function stopDiscovery(callback: () => void);
+    export function stopDiscovery(callback: () => void): void;
     /** Fired when the state of the Bluetooth adapter changes. */
     export var onAdapterStateChanged: BluetoothEvent<AdapterState>;
     /** Fired when information about a new Bluetooth device is available. */
@@ -571,41 +571,41 @@ namespace  bluetooth {
     export var onDeviceChanged: BluetoothEvent<Device>;
     /** Fired when a Bluetooth device that was previously discovered has been out of range for long enough to be considered unavailable again, and when a paired device is removed. */
     export var onDeviceRemoved: BluetoothEvent<Device>;
-}
-/**
- * The chrome.bluetoothLowEnergy API is used to communicate with Bluetooth Smart (Low Energy) devices using the Generic Attribute Profile (GATT).
- * Manifest: "bluetooth": {...}
- * @since Chrome 37
- * Important: This API works only on Chrome OS.
- * Note: With Chrome 56, users can select nearby Bluetooth Low Energy devices to provide to web sites that use the Web Bluetooth API.
- */
-namespace  bluetoothLowEnergy {
+  }
+  /**
+   * The chrome.bluetoothLowEnergy API is used to communicate with Bluetooth Smart (Low Energy) devices using the Generic Attribute Profile (GATT).
+   * Manifest: "bluetooth": {...}
+   * @since Chrome 37
+   * Important: This API works only on Chrome OS.
+   * Note: With Chrome 56, users can select nearby Bluetooth Low Energy devices to provide to web sites that use the Web Bluetooth API.
+   */
+  namespace bluetoothLowEnergy {
     /**
      * NOT IMPLEMENTED YET
      * @see https://developer.chrome.com/apps/bluetoothLowEnergy
      * */
-}
-/**
- * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
- * @since Chrome 37
- * Manifest: "bluetooth": {...}
- * Important: This API works only on OS X, Windows and Chrome OS.
- */
-namespace  bluetoothSocket {
+  }
+  /**
+   * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
+   * @since Chrome 37
+   * Manifest: "bluetooth": {...}
+   * Important: This API works only on OS X, Windows and Chrome OS.
+   */
+  namespace bluetoothSocket {
     /** NOT IMPLEMENTED YET */
-}
+  }
 
-////////////////////
-// Browser
-////////////////////
-/**
- * Use the chrome.browser API to interact with the Chrome browser associated with
- * the current application and Chrome profile.
- */
-namespace  browser {
+  ////////////////////
+  // Browser
+  ////////////////////
+  /**
+   * Use the chrome.browser API to interact with the Chrome browser associated with
+   * the current application and Chrome profile.
+   */
+  namespace browser {
     interface Options {
-        /** The URL to navigate to when the new tab is initially opened. */
-        url: string;
+      /** The URL to navigate to when the new tab is initially opened. */
+      url: string;
     }
 
     /**
@@ -625,24 +625,24 @@ namespace  browser {
     * @param options Configures how the tab should be opened.
     */
     export function openTab(options: Options): void;
-}
+  }
 
-////////////////////
-// Commands
-////////////////////
-/**
- * Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the extension.
- * Availability: Since Chrome 25.
- * Manifest:  "commands": {...}
- */
-namespace  commands {
+  ////////////////////
+  // Commands
+  ////////////////////
+  /**
+   * Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the extension.
+   * Availability: Since Chrome 25.
+   * Manifest:  "commands": {...}
+   */
+  namespace commands {
     interface Command {
-        /** Optional. The name of the Extension Command  */
-        name?: string;
-        /** Optional. The Extension Command description  */
-        description?: string;
-        /** Optional. The shortcut active for this command, or blank if not active.  */
-        shortcut?: string;
+      /** Optional. The name of the Extension Command  */
+      name?: string;
+      /** Optional. The Extension Command description  */
+      description?: string;
+      /** Optional. The shortcut active for this command, or blank if not active.  */
+      shortcut?: string;
     }
 
     interface CommandEvent extends chrome.events.Event<(command: string) => void> { }
@@ -657,17 +657,17 @@ namespace  commands {
 
     /** Fired when a registered command is activated using a keyboard shortcut. */
     export var onCommand: CommandEvent;
-}
+  }
 
-////////////////////
-// Context Menus
-////////////////////
-/**
- * Use the chrome.contextMenus API to add items to Google Chrome's context menu. You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages.
- * Availability: Since Chrome 6.
- * Permissions:  "contextMenus"
- */
-namespace  contextMenus {
+  ////////////////////
+  // Context Menus
+  ////////////////////
+  /**
+   * Use the chrome.contextMenus API to add items to Google Chrome's context menu. You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages.
+   * Availability: Since Chrome 6.
+   * Permissions:  "contextMenus"
+   */
+  namespace contextMenus {
     /**
     * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
     **/
@@ -678,130 +678,130 @@ namespace  contextMenus {
     export type ItemType = "normal" | "checkbox" | "radio" | "separator";
 
     interface OnClickData {
-        /**
-         * Optional.
-         * @since Since Chrome 35.
-         * The text for the context selection, if any.
-         */
-        selectionText?: string;
-        /**
-         * Optional.
-         * @since Since Chrome 35.
-         * A flag indicating the state of a checkbox or radio item after it is clicked.
-         */
-        checked?: boolean;
-        /**
-         * @since Since Chrome 35.
-         * The ID of the menu item that was clicked.
-         */
-        menuItemId: any;
-        /**
-         * Optional.
-         * @since Since Chrome 35.
-         * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
-         */
-        frameUrl?: string;
-        /**
-         * @since Since Chrome 35.
-         * A flag indicating whether the element is editable (text input, textarea, etc.).
-         */
-        editable: boolean;
-        /**
-         * Optional.
-         * @since Since Chrome 35.
-         * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
-         */
-        mediaType?: string;
-        /**
-         * Optional.
-         * @since Since Chrome 35.
-         * A flag indicating the state of a checkbox or radio item before it was clicked.
-         */
-        wasChecked?: boolean;
-        /**
-         * @since Since Chrome 35.
-         * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
-         */
-        pageUrl: string;
-        /**
-         * Optional.
-         * @since Since Chrome 35.
-         * If the element is a link, the URL it points to.
-         */
-        linkUrl?: string;
-        /**
-         * Optional.
-         * @since Since Chrome 35.
-         * The parent ID, if any, for the item clicked.
-         */
-        parentMenuItemId?: any;
-        /**
-         * Optional.
-         * @since Since Chrome 35.
-         * Will be present for elements with a 'src' URL.
-         */
-        srcUrl?: string;
+      /**
+       * Optional.
+       * @since Since Chrome 35.
+       * The text for the context selection, if any.
+       */
+      selectionText?: string;
+      /**
+       * Optional.
+       * @since Since Chrome 35.
+       * A flag indicating the state of a checkbox or radio item after it is clicked.
+       */
+      checked?: boolean;
+      /**
+       * @since Since Chrome 35.
+       * The ID of the menu item that was clicked.
+       */
+      menuItemId: any;
+      /**
+       * Optional.
+       * @since Since Chrome 35.
+       * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
+       */
+      frameUrl?: string;
+      /**
+       * @since Since Chrome 35.
+       * A flag indicating whether the element is editable (text input, textarea, etc.).
+       */
+      editable: boolean;
+      /**
+       * Optional.
+       * @since Since Chrome 35.
+       * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
+       */
+      mediaType?: string;
+      /**
+       * Optional.
+       * @since Since Chrome 35.
+       * A flag indicating the state of a checkbox or radio item before it was clicked.
+       */
+      wasChecked?: boolean;
+      /**
+       * @since Since Chrome 35.
+       * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
+       */
+      pageUrl: string;
+      /**
+       * Optional.
+       * @since Since Chrome 35.
+       * If the element is a link, the URL it points to.
+       */
+      linkUrl?: string;
+      /**
+       * Optional.
+       * @since Since Chrome 35.
+       * The parent ID, if any, for the item clicked.
+       */
+      parentMenuItemId?: any;
+      /**
+       * Optional.
+       * @since Since Chrome 35.
+       * Will be present for elements with a 'src' URL.
+       */
+      srcUrl?: string;
     }
 
     interface CreateProperties {
-        /** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
-        documentUrlPatterns?: string[];
-        /** Optional. The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.  */
-        checked?: boolean;
-        /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
-        title?: string;
-        /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
-        contexts?: string[];
-        /**
-         * Optional.
-         * Whether this context menu item is enabled or disabled. Defaults to true.
-         * @since Since Chrome 20.
-         */
-        enabled?: boolean;
-        /** Optional. Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.  */
-        targetUrlPatterns?: string[];
-        /**
-         * Optional.
-         * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
-         * @param info Information sent when a context menu item is clicked.
-         */
-        onclick?: (info: OnClickData) => void;
-        /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
-        parentId?: any;
-        /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
-        type?: string;
-        /**
-         * Optional.
-         * @since Since Chrome 21.
-         * @description The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
-         */
-        id?: string;
-        /**
-         * @description Whether the item is visible in the menu.
-         * @since Since Chrome 62
-         */
-        visible?: boolean;
+      /** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
+      documentUrlPatterns?: string[];
+      /** Optional. The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.  */
+      checked?: boolean;
+      /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
+      title?: string;
+      /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
+      contexts?: string[];
+      /**
+       * Optional.
+       * Whether this context menu item is enabled or disabled. Defaults to true.
+       * @since Since Chrome 20.
+       */
+      enabled?: boolean;
+      /** Optional. Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.  */
+      targetUrlPatterns?: string[];
+      /**
+       * Optional.
+       * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
+       * @param info Information sent when a context menu item is clicked.
+       */
+      onclick?: (info: OnClickData) => void;
+      /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
+      parentId?: any;
+      /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
+      type?: string;
+      /**
+       * Optional.
+       * @since Since Chrome 21.
+       * @description The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
+       */
+      id?: string;
+      /**
+       * @description Whether the item is visible in the menu.
+       * @since Since Chrome 62
+       */
+      visible?: boolean;
     }
 
     interface UpdateProperties {
-        documentUrlPatterns?: string[];
-        checked?: boolean;
-        title?: string;
-        contexts?: string[];
-        /**
-         * @since Chrome 20
-         **/
-        enabled?: boolean;
-        targetUrlPatterns?: string[];
-        onclick?: Function;
-        /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
-        parentId?: any;
-        type?: string;
-        /**
-         * @description Whether the item is visible or not.
-         * @since Since Chrome 62
-         */
-        visible?: boolean;
+      documentUrlPatterns?: string[];
+      checked?: boolean;
+      title?: string;
+      contexts?: string[];
+      /**
+       * @since Chrome 20
+       **/
+      enabled?: boolean;
+      targetUrlPatterns?: string[];
+      onclick?: Function;
+      /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
+      parentId?: any;
+      type?: string;
+      /**
+       * @description Whether the item is visible or not.
+       * @since Since Chrome 62
+       */
+      visible?: boolean;
     }
 
     interface MenuClickedEvent extends chrome.events.Event<(info: OnClickData) => void> { }
@@ -867,30 +867,30 @@ namespace  contextMenus {
      */
     export var onClicked: MenuClickedEvent;
 
-}
+  }
 
-////////////////////
-// Document Scan
-////////////////////
-/**
- * Use the chrome.documentScan API to discover and retrieve images from attached paper document scanners.
- * Availability: Since Chrome 44.
- * Permissions:  "documentScan"
- * Important: This API works only on Chrome OS.
- */
-namespace  documentScan {
+  ////////////////////
+  // Document Scan
+  ////////////////////
+  /**
+   * Use the chrome.documentScan API to discover and retrieve images from attached paper document scanners.
+   * Availability: Since Chrome 44.
+   * Permissions:  "documentScan"
+   * Important: This API works only on Chrome OS.
+   */
+  namespace documentScan {
     interface DocumentScanOptions {
-        /** Optional. The MIME types that are accepted by the caller.  */
-        mimeTypes?: string[];
-        /** Optional. The number of scanned images allowed (defaults to 1).  */
-        maxImages?: number;
+      /** Optional. The MIME types that are accepted by the caller.  */
+      mimeTypes?: string[];
+      /** Optional. The number of scanned images allowed (defaults to 1).  */
+      maxImages?: number;
     }
 
     interface DocumentScanCallbackArg {
-        /** The data image URLs in a form that can be passed as the "src" value to an image tag. */
-        dataUrls: string[];
-        /** The MIME type of dataUrls. */
-        mimeType: string;
+      /** The data image URLs in a form that can be passed as the "src" value to an image tag. */
+      dataUrls: string[];
+      /** The MIME type of dataUrls. */
+      mimeType: string;
     }
 
     /**
@@ -901,160 +901,160 @@ namespace  documentScan {
      * function(object result) {...};
      */
     export function scan(options: DocumentScanOptions, callback: (result: DocumentScanCallbackArg) => void): void;
-}
+  }
 
-////////////////////
-// Events
-////////////////////
-/**
- * The chrome.events namespace  contains common types used by APIs dispatching events to notify you when something interesting happens.
- * Availability: Since Chrome 21.
- */
-namespace  events {
+  ////////////////////
+  // Events
+  ////////////////////
+  /**
+   * The chrome.events namespace  contains common types used by APIs dispatching events to notify you when something interesting happens.
+   * Availability: Since Chrome 21.
+   */
+  namespace events {
     /** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
     interface UrlFilter {
-        /** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
-        schemes?: string[];
-        /**
-         * Optional.
-          * Since Chrome 23.
-         * Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
-         */
-        urlMatches?: string;
-        /** Optional. Matches if the path segment of the URL contains a specified string.  */
-        pathContains?: string;
-        /** Optional. Matches if the host name of the URL ends with a specified string.  */
-        hostSuffix?: string;
-        /** Optional. Matches if the host name of the URL starts with a specified string.  */
-        hostPrefix?: string;
-        /** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
-        hostContains?: string;
-        /** Optional. Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlContains?: string;
-        /** Optional. Matches if the query segment of the URL ends with a specified string.  */
-        querySuffix?: string;
-        /** Optional. Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlPrefix?: string;
-        /** Optional. Matches if the host name of the URL is equal to a specified string.  */
-        hostEquals?: string;
-        /** Optional. Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlEquals?: string;
-        /** Optional. Matches if the query segment of the URL contains a specified string.  */
-        queryContains?: string;
-        /** Optional. Matches if the path segment of the URL starts with a specified string.  */
-        pathPrefix?: string;
-        /** Optional. Matches if the path segment of the URL is equal to a specified string.  */
-        pathEquals?: string;
-        /** Optional. Matches if the path segment of the URL ends with a specified string.  */
-        pathSuffix?: string;
-        /** Optional. Matches if the query segment of the URL is equal to a specified string.  */
-        queryEquals?: string;
-        /** Optional. Matches if the query segment of the URL starts with a specified string.  */
-        queryPrefix?: string;
-        /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlSuffix?: string;
-        /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: any[];
-        /**
-         * Optional.
-          * Since Chrome 28.
-         * Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
-         */
-        originAndPathMatches?: string;
+      /** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
+      schemes?: string[];
+      /**
+       * Optional.
+        * Since Chrome 23.
+       * Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
+       */
+      urlMatches?: string;
+      /** Optional. Matches if the path segment of the URL contains a specified string.  */
+      pathContains?: string;
+      /** Optional. Matches if the host name of the URL ends with a specified string.  */
+      hostSuffix?: string;
+      /** Optional. Matches if the host name of the URL starts with a specified string.  */
+      hostPrefix?: string;
+      /** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
+      hostContains?: string;
+      /** Optional. Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+      urlContains?: string;
+      /** Optional. Matches if the query segment of the URL ends with a specified string.  */
+      querySuffix?: string;
+      /** Optional. Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+      urlPrefix?: string;
+      /** Optional. Matches if the host name of the URL is equal to a specified string.  */
+      hostEquals?: string;
+      /** Optional. Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+      urlEquals?: string;
+      /** Optional. Matches if the query segment of the URL contains a specified string.  */
+      queryContains?: string;
+      /** Optional. Matches if the path segment of the URL starts with a specified string.  */
+      pathPrefix?: string;
+      /** Optional. Matches if the path segment of the URL is equal to a specified string.  */
+      pathEquals?: string;
+      /** Optional. Matches if the path segment of the URL ends with a specified string.  */
+      pathSuffix?: string;
+      /** Optional. Matches if the query segment of the URL is equal to a specified string.  */
+      queryEquals?: string;
+      /** Optional. Matches if the query segment of the URL starts with a specified string.  */
+      queryPrefix?: string;
+      /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+      urlSuffix?: string;
+      /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
+      ports?: any[];
+      /**
+       * Optional.
+        * Since Chrome 28.
+       * Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
+       */
+      originAndPathMatches?: string;
     }
 
     /** An object which allows the addition and removal of listeners for a Chrome event. */
     interface Event<T> {
-        /**
-         * Registers an event listener callback to an event.
-         * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
-         * The callback parameter should be a function that looks like this:
-         * function() {...};
-         */
-        addListener(callback: T): void;
-        /**
-         * Returns currently registered rules.
-         * @param callback Called with registered rules.
-         * The callback parameter should be a function that looks like this:
-         * function(array of Rule rules) {...};
-         * Parameter rules: Rules that were registered, the optional parameters are filled with values.
-         */
-        getRules(callback: (rules: Rule[]) => void): void;
-        /**
-         * Returns currently registered rules.
-         * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are returned.
-         * @param callback Called with registered rules.
-         * The callback parameter should be a function that looks like this:
-         * function(array of Rule rules) {...};
-         * Parameter rules: Rules that were registered, the optional parameters are filled with values.
-         */
-        getRules(ruleIdentifiers: string[], callback: (rules: Rule[]) => void): void;
-        /**
-         * @param callback Listener whose registration status shall be tested.
-         */
-        hasListener(callback: T): boolean;
-        /**
-         * Unregisters currently registered rules.
-         * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are unregistered.
-         * @param callback Called when rules were unregistered.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        removeRules(ruleIdentifiers?: string[], callback?: () => void): void;
-        /**
-         * Unregisters currently registered rules.
-         * @param callback Called when rules were unregistered.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        removeRules(callback?: () => void): void;
-        /**
-         * Registers rules to handle events.
-         * @param rules Rules to be registered. These do not replace previously registered rules.
-         * @param callback Called with registered rules.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function(array of Rule rules) {...};
-         * Parameter rules: Rules that were registered, the optional parameters are filled with values.
-         */
-        addRules(rules: Rule[], callback?: (rules: Rule[]) => void): void;
-        /**
-         * Deregisters an event listener callback from an event.
-         * @param callback Listener that shall be unregistered.
-         * The callback parameter should be a function that looks like this:
-         * function() {...};
-         */
-        removeListener(callback: T): void;
-        hasListeners(): boolean;
+      /**
+       * Registers an event listener callback to an event.
+       * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
+       * The callback parameter should be a function that looks like this:
+       * function() {...};
+       */
+      addListener(callback: T): void;
+      /**
+       * Returns currently registered rules.
+       * @param callback Called with registered rules.
+       * The callback parameter should be a function that looks like this:
+       * function(array of Rule rules) {...};
+       * Parameter rules: Rules that were registered, the optional parameters are filled with values.
+       */
+      getRules(callback: (rules: Rule[]) => void): void;
+      /**
+       * Returns currently registered rules.
+       * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are returned.
+       * @param callback Called with registered rules.
+       * The callback parameter should be a function that looks like this:
+       * function(array of Rule rules) {...};
+       * Parameter rules: Rules that were registered, the optional parameters are filled with values.
+       */
+      getRules(ruleIdentifiers: string[], callback: (rules: Rule[]) => void): void;
+      /**
+       * @param callback Listener whose registration status shall be tested.
+       */
+      hasListener(callback: T): boolean;
+      /**
+       * Unregisters currently registered rules.
+       * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are unregistered.
+       * @param callback Called when rules were unregistered.
+       * If you specify the callback parameter, it should be a function that looks like this:
+       * function() {...};
+       */
+      removeRules(ruleIdentifiers?: string[], callback?: () => void): void;
+      /**
+       * Unregisters currently registered rules.
+       * @param callback Called when rules were unregistered.
+       * If you specify the callback parameter, it should be a function that looks like this:
+       * function() {...};
+       */
+      removeRules(callback?: () => void): void;
+      /**
+       * Registers rules to handle events.
+       * @param rules Rules to be registered. These do not replace previously registered rules.
+       * @param callback Called with registered rules.
+       * If you specify the callback parameter, it should be a function that looks like this:
+       * function(array of Rule rules) {...};
+       * Parameter rules: Rules that were registered, the optional parameters are filled with values.
+       */
+      addRules(rules: Rule[], callback?: (rules: Rule[]) => void): void;
+      /**
+       * Deregisters an event listener callback from an event.
+       * @param callback Listener that shall be unregistered.
+       * The callback parameter should be a function that looks like this:
+       * function() {...};
+       */
+      removeListener(callback: T): void;
+      hasListeners(): boolean;
     }
 
     /** Description of a declarative rule for handling events. */
     interface Rule {
-        /** Optional. Optional priority of this rule. Defaults to 100.  */
-        priority?: number;
-        /** List of conditions that can trigger the actions. */
-        conditions: any[];
-        /** Optional. Optional identifier that allows referencing this rule.  */
-        id?: string;
-        /** List of actions that are triggered if one of the condtions is fulfilled. */
-        actions: any[];
-        /**
-         * Optional.
-          * Since Chrome 28.
-         * Tags can be used to annotate rules and perform operations on sets of rules.
-         */
-        tags?: string[];
+      /** Optional. Optional priority of this rule. Defaults to 100.  */
+      priority?: number;
+      /** List of conditions that can trigger the actions. */
+      conditions: any[];
+      /** Optional. Optional identifier that allows referencing this rule.  */
+      id?: string;
+      /** List of actions that are triggered if one of the condtions is fulfilled. */
+      actions: any[];
+      /**
+       * Optional.
+        * Since Chrome 28.
+       * Tags can be used to annotate rules and perform operations on sets of rules.
+       */
+      tags?: string[];
     }
-}
+  }
 
-////////////////////
-// Extension Types
-////////////////////
+  ////////////////////
+  // Extension Types
+  ////////////////////
 
-/**
- * Primary for extensions, but also used in apps.
- * https://developer.chrome.com/extensions/extensionTypes#type-ImageDetails
- **/
-namespace  extensionTypes {
+  /**
+   * Primary for extensions, but also used in apps.
+   * https://developer.chrome.com/extensions/extensionTypes#type-ImageDetails
+   **/
+  namespace extensionTypes {
     /**
      * The format of an image.
      **/
@@ -1063,18 +1063,18 @@ namespace  extensionTypes {
      * Details about the format and quality of an image.
      */
     interface ImageDetails {
-        /**
-         * @description The format of the resulting image. Default is "jpeg".
-         * @type {ImageFormat}
-         * @memberof ImageDetails
-         */
-        format?: ImageFormat;
-        /**
-         * @description When format is "jpeg", controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
-         * @type {number}
-         * @memberof ImageDetails
-         */
-        quality?: number;
+      /**
+       * @description The format of the resulting image. Default is "jpeg".
+       * @type {ImageFormat}
+       * @memberof ImageDetails
+       */
+      format?: ImageFormat;
+      /**
+       * @description When format is "jpeg", controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
+       * @type {number}
+       * @memberof ImageDetails
+       */
+      quality?: number;
     }
     /**
      * The soonest that the JavaScript or CSS will be injected into the tab.
@@ -1089,72 +1089,72 @@ namespace  extensionTypes {
      * @interface InjectDetails
      */
     interface InjectDetails {
-        /**
-         * JavaScript or CSS code to inject.
-         * Warning:
-         * Be careful using the code parameter. Incorrect use of it may open your extension to cross site scripting attacks.
-         * @type {string}
-         * @memberof InjectDetails
-         */
-        code?: string;
-        /**
-         * @description JavaScript or CSS file to inject.
-         * @type {string}
-         * @memberof InjectDetails
-         */
-        file?: string;
-        /**
-         * @description If allFrames is true, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's false and is only injected into the top frame. If true and frameId is set, then the code is inserted in the selected frame and all of its child frames.
-         * @type {boolean}
-         * @memberof InjectDetails
-         */
-        allFrames?: boolean;
-        /**
-         * @description The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
-         * @since Since Chrome 50.
-         * @type {number}
-         * @memberof InjectDetails
-         */
-        frameId?: number;
-        /**
-         * @description If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is false.
-         * @type {boolean}
-         * @memberof InjectDetails
-         */
-        matchAboutBlank?: boolean;
-        /**
-         * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
-         * @type {RunAt}
-         * @memberof InjectDetails
-         */
-        runAt: RunAt;
-        /**
-         * @description The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to "author".
-         * @since Since Chrome 66.
-         * @type {CSSOrigin}
-         * @memberof InjectDetails
-         */
-        cssOrigin: CSSOrigin;
+      /**
+       * JavaScript or CSS code to inject.
+       * Warning:
+       * Be careful using the code parameter. Incorrect use of it may open your extension to cross site scripting attacks.
+       * @type {string}
+       * @memberof InjectDetails
+       */
+      code?: string;
+      /**
+       * @description JavaScript or CSS file to inject.
+       * @type {string}
+       * @memberof InjectDetails
+       */
+      file?: string;
+      /**
+       * @description If allFrames is true, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's false and is only injected into the top frame. If true and frameId is set, then the code is inserted in the selected frame and all of its child frames.
+       * @type {boolean}
+       * @memberof InjectDetails
+       */
+      allFrames?: boolean;
+      /**
+       * @description The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
+       * @since Since Chrome 50.
+       * @type {number}
+       * @memberof InjectDetails
+       */
+      frameId?: number;
+      /**
+       * @description If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is false.
+       * @type {boolean}
+       * @memberof InjectDetails
+       */
+      matchAboutBlank?: boolean;
+      /**
+       * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
+       * @type {RunAt}
+       * @memberof InjectDetails
+       */
+      runAt: RunAt;
+      /**
+       * @description The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to "author".
+       * @since Since Chrome 66.
+       * @type {CSSOrigin}
+       * @memberof InjectDetails
+       */
+      cssOrigin: CSSOrigin;
     }
-}
+  }
 
-////////////////////
-// FileSystem
-////////////////////
-namespace  fileSystem {
+  ////////////////////
+  // FileSystem
+  ////////////////////
+  namespace fileSystem {
 
     interface AcceptOptions {
-        description?: string;
-        mimeTypes?: string[];
-        extensions?: string[];
+      description?: string;
+      mimeTypes?: string[];
+      extensions?: string[];
     }
 
     interface ChooseEntryOptions {
-        type?: string;
-        suggestedName?: string;
-        accepts?: AcceptOptions[];
-        acceptsAllTypes?: boolean;
-        acceptsMultiple?: boolean;
+      type?: string;
+      suggestedName?: string;
+      accepts?: AcceptOptions[];
+      acceptsAllTypes?: boolean;
+      acceptsMultiple?: boolean;
     }
 
     export function getDisplayPath(entry: Entry, callback: (displayPath: string) => void): void;
@@ -1167,236 +1167,236 @@ namespace  fileSystem {
     export function restoreEntry(id: string, callback: (entry: Entry) => void): void;
     export function isRestorable(id: string, callback: (isRestorable: boolean) => void): void;
     export function retainEntry(entry: Entry): string;
-}
+  }
 
 
-////////////////////
-// File System Provider
-////////////////////
-/**
- * Use the chrome.fileSystemProvider API to create file systems, that can be accessible from the file manager on Chrome OS.
- * Availability: Since Chrome 40.
- * Permissions:  "fileSystemProvider"
- * Important: This API works only on Chrome OS.
- */
-namespace  fileSystemProvider {
+  ////////////////////
+  // File System Provider
+  ////////////////////
+  /**
+   * Use the chrome.fileSystemProvider API to create file systems, that can be accessible from the file manager on Chrome OS.
+   * Availability: Since Chrome 40.
+   * Permissions:  "fileSystemProvider"
+   * Important: This API works only on Chrome OS.
+   */
+  namespace fileSystemProvider {
     interface OpenedFileInfo {
-        /** A request ID to be be used by consecutive read/write and close requests. */
-        openRequestId: number;
-        /** The path of the opened file. */
-        filePath: string;
-        /** Whether the file was opened for reading or writing. */
-        mode: string;
+      /** A request ID to be be used by consecutive read/write and close requests. */
+      openRequestId: number;
+      /** The path of the opened file. */
+      filePath: string;
+      /** Whether the file was opened for reading or writing. */
+      mode: string;
     }
 
     interface FileWatchersInfo {
-        /** The path of the entry being observed. */
-        entryPath: string;
-        /** Whether watching should include all child entries recursively. It can be true for directories only. */
-        recursive: boolean;
-        /** Optional. Tag used by the last notification for the watcher.  */
-        lastTag?: string;
+      /** The path of the entry being observed. */
+      entryPath: string;
+      /** Whether watching should include all child entries recursively. It can be true for directories only. */
+      recursive: boolean;
+      /** Optional. Tag used by the last notification for the watcher.  */
+      lastTag?: string;
     }
 
     interface EntryMetadata {
-        /** True if it is a directory. */
-        isDirectory: boolean;
-        /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. */
-        name: string;
-        /** File size in bytes. */
-        size: number;
-        /** The last modified time of this entry. */
-        modificationTime: Date;
-        /** Optional. Mime type for the entry.  */
-        mimeType?: string;
-        /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
-        thumbnail?: string;
+      /** True if it is a directory. */
+      isDirectory: boolean;
+      /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. */
+      name: string;
+      /** File size in bytes. */
+      size: number;
+      /** The last modified time of this entry. */
+      modificationTime: Date;
+      /** Optional. Mime type for the entry.  */
+      mimeType?: string;
+      /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
+      thumbnail?: string;
     }
 
     interface FileSystemInfo {
-        /** The identifier of the file system. */
-        fileSystemId: string;
-        /** A human-readable name for the file system. */
-        displayName: string;
-        /** Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files). */
-        writable: boolean;
-        /**
-         * The maximum number of files that can be opened at once. If 0, then not limited.
-         * @since Since Chrome 42.
-         */
-        openedFilesLimit: number;
-        /**
-         * List of currently opened files.
-         * @since Since Chrome 42.
-         */
-        openedFiles: OpenedFileInfo[];
-        /**
-         * Optional.
-          * Whether the file system supports the tag field for observing directories.
-         * @since Since Chrome 45. Warning: this is the current Beta channel.
-         */
-        supportsNotifyTag?: boolean;
-        /**
-         * List of watchers.
-         * @since Since Chrome 45. Warning: this is the current Beta channel.
-         */
-        watchers: FileWatchersInfo[];
+      /** The identifier of the file system. */
+      fileSystemId: string;
+      /** A human-readable name for the file system. */
+      displayName: string;
+      /** Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files). */
+      writable: boolean;
+      /**
+       * The maximum number of files that can be opened at once. If 0, then not limited.
+       * @since Since Chrome 42.
+       */
+      openedFilesLimit: number;
+      /**
+       * List of currently opened files.
+       * @since Since Chrome 42.
+       */
+      openedFiles: OpenedFileInfo[];
+      /**
+       * Optional.
+        * Whether the file system supports the tag field for observing directories.
+       * @since Since Chrome 45. Warning: this is the current Beta channel.
+       */
+      supportsNotifyTag?: boolean;
+      /**
+       * List of watchers.
+       * @since Since Chrome 45. Warning: this is the current Beta channel.
+       */
+      watchers: FileWatchersInfo[];
     }
 
     /** @since Since Chrome 45. Warning: this is the current Beta channel. */
     interface GetActionsRequestedOptions {
-        /** The identifier of the file system related to this operation. */
-        fileSystemId: string;
-        /** The unique identifier of this request. */
-        requestId: number;
-        /** The path of the entry to return the list of actions for. */
-        entryPath: string;
+      /** The identifier of the file system related to this operation. */
+      fileSystemId: string;
+      /** The unique identifier of this request. */
+      requestId: number;
+      /** The path of the entry to return the list of actions for. */
+      entryPath: string;
     }
 
     /** @since Since Chrome 45. Warning: this is the current Beta channel. */
     interface Action {
-        /** The identifier of the action. Any string or CommonActionId for common actions. */
-        id: string;
-        /** Optional. The title of the action. It may be ignored for common actions.  */
-        title?: string;
+      /** The identifier of the action. Any string or CommonActionId for common actions. */
+      id: string;
+      /** Optional. The title of the action. It may be ignored for common actions.  */
+      title?: string;
     }
 
     /** @since Since Chrome 45. Warning: this is the current Beta channel. */
     interface ExecuteActionRequestedOptions {
-        /** The identifier of the file system related to this operation. */
-        fileSystemId: string;
-        /** The unique identifier of this request. */
-        requestId: number;
-        /** The path of the entry to be used for the action. */
-        entryPath: string;
-        /** The identifier of the action to be executed. */
-        actionId: string;
+      /** The identifier of the file system related to this operation. */
+      fileSystemId: string;
+      /** The unique identifier of this request. */
+      requestId: number;
+      /** The path of the entry to be used for the action. */
+      entryPath: string;
+      /** The identifier of the action to be executed. */
+      actionId: string;
     }
 
     interface MountOptions {
-        /** The string indentifier of the file system. Must be unique per each extension. */
-        fileSystemId: string;
-        /** A human-readable name for the file system. */
-        displayName: string;
-        /** Optional. Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files).  */
-        writable?: boolean;
-        /**
-         * Optional.
-          * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
-         * @since Since Chrome 41.
-         */
-        openedFilesLimit?: number;
-        /**
-         * Optional.
-          * Whether the file system supports the tag field for observed directories.
-         * @since Since Chrome 45. Warning: this is the current Beta channel.
-         */
-        supportsNotifyTag?: boolean;
+      /** The string indentifier of the file system. Must be unique per each extension. */
+      fileSystemId: string;
+      /** A human-readable name for the file system. */
+      displayName: string;
+      /** Optional. Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files).  */
+      writable?: boolean;
+      /**
+       * Optional.
+        * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
+       * @since Since Chrome 41.
+       */
+      openedFilesLimit?: number;
+      /**
+       * Optional.
+        * Whether the file system supports the tag field for observed directories.
+       * @since Since Chrome 45. Warning: this is the current Beta channel.
+       */
+      supportsNotifyTag?: boolean;
     }
 
     interface UnmountOptions {
-        /** The identifier of the file system to be unmounted. */
-        fileSystemId: string;
+      /** The identifier of the file system to be unmounted. */
+      fileSystemId: string;
     }
 
     interface NotificationChange {
-        /** The path of the changed entry. */
-        entryPath: string;
-        /** The type of the change which happened to the entry. */
-        changeType: string;
+      /** The path of the changed entry. */
+      entryPath: string;
+      /** The type of the change which happened to the entry. */
+      changeType: string;
     }
 
     interface NotificationOptions {
-        /** The identifier of the file system related to this change. */
-        fileSystemId: string;
-        /** The path of the observed entry. */
-        observedPath: string;
-        /** Mode of the observed entry. */
-        recursive: boolean;
-        /** The type of the change which happened to the observed entry. If it is DELETED, then the observed entry will be automatically removed from the list of observed entries. */
-        changeType: string;
-        /** Optional. List of changes to entries within the observed directory (including the entry itself)  */
-        changes?: NotificationChange[];
-        /** Optional. Tag for the notification. Required if the file system was mounted with the supportsNotifyTag option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown.  */
-        tag?: string;
+      /** The identifier of the file system related to this change. */
+      fileSystemId: string;
+      /** The path of the observed entry. */
+      observedPath: string;
+      /** Mode of the observed entry. */
+      recursive: boolean;
+      /** The type of the change which happened to the observed entry. If it is DELETED, then the observed entry will be automatically removed from the list of observed entries. */
+      changeType: string;
+      /** Optional. List of changes to entries within the observed directory (including the entry itself)  */
+      changes?: NotificationChange[];
+      /** Optional. Tag for the notification. Required if the file system was mounted with the supportsNotifyTag option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown.  */
+      tag?: string;
     }
 
     interface RequestedEventOptions {
-        /** The identifier of the file system related to this operation. */
-        fileSystemId: string;
-        /** The unique identifier of this request. */
-        requestId: number;
+      /** The identifier of the file system related to this operation. */
+      fileSystemId: string;
+      /** The unique identifier of this request. */
+      requestId: number;
     }
 
     interface EntryPathRequestedEventOptions extends RequestedEventOptions {
-        /** The path of the entry to which this operation is related to. */
-        entryPath: string;
+      /** The path of the entry to which this operation is related to. */
+      entryPath: string;
     }
 
     interface MetadataRequestedEventOptions extends EntryPathRequestedEventOptions {
-        /** Set to true if the thumbnail is requested. */
-        thumbnail: boolean;
+      /** Set to true if the thumbnail is requested. */
+      thumbnail: boolean;
     }
 
     interface DirectoryPathRequestedEventOptions extends RequestedEventOptions {
-        /** The path of the directory which is to be operated on. */
-        directoryPath: string;
+      /** The path of the directory which is to be operated on. */
+      directoryPath: string;
     }
 
     interface FilePathRequestedEventOptions extends RequestedEventOptions {
-        /** The path of the entry for the operation */
-        filePath: string;
+      /** The path of the entry for the operation */
+      filePath: string;
     }
 
     interface OpenFileRequestedEventOptions extends FilePathRequestedEventOptions {
-        /** Whether the file will be used for reading or writing. */
-        mode: string;
+      /** Whether the file will be used for reading or writing. */
+      mode: string;
     }
 
     interface OpenedFileRequestedEventOptions extends RequestedEventOptions {
-        /** A request ID used to open the file. */
-        openRequestId: number;
+      /** A request ID used to open the file. */
+      openRequestId: number;
     }
 
     interface OpenedFileOffsetRequestedEventOptions extends OpenedFileRequestedEventOptions {
-        /** Position in the file (in bytes) to start reading from. */
-        offset: number;
-        /** Number of bytes to be returned. */
-        length: number;
+      /** Position in the file (in bytes) to start reading from. */
+      offset: number;
+      /** Number of bytes to be returned. */
+      length: number;
     }
 
     interface DirectoryPathRecursiveRequestedEventOptions extends DirectoryPathRequestedEventOptions {
-        /** Whether the operation is recursive (for directories only). */
-        recursive: boolean;
+      /** Whether the operation is recursive (for directories only). */
+      recursive: boolean;
     }
 
     interface EntryPathRecursiveRequestedEventOptions extends EntryPathRequestedEventOptions {
-        /** Whether the operation is recursive (for directories only). */
-        recursive: boolean;
+      /** Whether the operation is recursive (for directories only). */
+      recursive: boolean;
     }
 
     interface SourceTargetPathRequestedEventOptions extends RequestedEventOptions {
-        /** The source path for the operation. */
-        sourcePath: string;
-        /** The destination path for the operation. */
-        targetPath: string;
+      /** The source path for the operation. */
+      sourcePath: string;
+      /** The destination path for the operation. */
+      targetPath: string;
     }
 
     interface FilePathLengthRequestedEventOptions extends FilePathRequestedEventOptions {
-        /** Number of bytes to be retained after the operation completes. */
-        length: number;
+      /** Number of bytes to be retained after the operation completes. */
+      length: number;
     }
 
     interface OpenedFileIoRequestedEventOptions extends OpenedFileRequestedEventOptions {
-        /** Position in the file (in bytes) to start operating from. */
-        offset: number;
-        /** Buffer of bytes to be operated on the file. */
-        data: ArrayBuffer;
+      /** Position in the file (in bytes) to start operating from. */
+      offset: number;
+      /** Buffer of bytes to be operated on the file. */
+      data: ArrayBuffer;
     }
 
     interface OperationRequestedEventOptions extends RequestedEventOptions {
-        /** An ID of the request to which this operation is related. */
-        operationRequestId: number;
+      /** An ID of the request to which this operation is related. */
+      operationRequestId: number;
     }
 
     interface RequestedEvent extends chrome.events.Event<(options: RequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
@@ -1520,51 +1520,51 @@ namespace  fileSystemProvider {
      * @since Since Chrome 45. Warning: this is the current Beta channel.
      */
     export var onRemoveWatcherRequested: EntryPathRecursiveRequestedEvent;
-}
+  }
 
-////////////////////
-// Google Cloud Messaging
-////////////////////
-/**
- * Use chrome.gcm to enable apps and extensions to send and receive messages through the Google Cloud Messaging Service.
- * Availability: Since Chrome 35.
- * Permissions:  "gcm"
- */
-namespace  gcm {
+  ////////////////////
+  // Google Cloud Messaging
+  ////////////////////
+  /**
+   * Use chrome.gcm to enable apps and extensions to send and receive messages through the Google Cloud Messaging Service.
+   * Availability: Since Chrome 35.
+   * Permissions:  "gcm"
+   */
+  namespace gcm {
     interface OutgoingMessage {
-        /** The ID of the server to send the message to as assigned by Google API Console. */
-        destinationId: string;
-        /** The ID of the message. It must be unique for each message in scope of the applications. See the Cloud Messaging documentation for advice for picking and handling an ID. */
-        messageId: string;
-        /** Optional. Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The maximum and a default value of time-to-live is 86400 seconds (1 day). */
-        timeToLive?: number;
-        /** Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE. */
-        data: Object;
+      /** The ID of the server to send the message to as assigned by Google API Console. */
+      destinationId: string;
+      /** The ID of the message. It must be unique for each message in scope of the applications. See the Cloud Messaging documentation for advice for picking and handling an ID. */
+      messageId: string;
+      /** Optional. Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The maximum and a default value of time-to-live is 86400 seconds (1 day). */
+      timeToLive?: number;
+      /** Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE. */
+      data: Object;
     }
 
     interface IncomingMessage {
-        /** The message data. */
-        data: Object;
-        /**
-         * Optional.
-         * The sender who issued the message.
-         * @since Since Chrome 41.
-         */
-        from?: string;
-        /**
-         * Optional.
-         * The collapse key of a message. See Collapsible Messages section of Cloud Messaging documentation for details.
-         */
-        collapseKey?: string;
+      /** The message data. */
+      data: Object;
+      /**
+       * Optional.
+       * The sender who issued the message.
+       * @since Since Chrome 41.
+       */
+      from?: string;
+      /**
+       * Optional.
+       * The collapse key of a message. See Collapsible Messages section of Cloud Messaging documentation for details.
+       */
+      collapseKey?: string;
     }
 
     interface GcmError {
-        /** The error message describing the problem. */
-        errorMessage: string;
-        /** Optional. The ID of the message with this error, if error is related to a specific message. */
-        messageId?: string;
-        /** Additional details related to the error, when available. */
-        detail: Object;
+      /** The error message describing the problem. */
+      errorMessage: string;
+      /** Optional. The ID of the message with this error, if error is related to a specific message. */
+      messageId?: string;
+      /** Additional details related to the error, when available. */
+      detail: Object;
     }
 
     interface MessageReceptionEvent extends chrome.events.Event<(message: IncomingMessage) => void> { }
@@ -1608,45 +1608,45 @@ namespace  gcm {
     export var onMessagesDeleted: MessageDeletionEvent;
     /** Fired when it was not possible to send a message to the GCM server. */
     export var onSendError: GcmErrorEvent;
-}
+  }
 
-////////////////////
-// HID
-////////////////////
-/**
- * Use the chrome.hid API to interact with connected HID devices. This API provides access to HID operations from within the context of an app. Using this API, apps can function as drivers for hardware devices. Errors generated by this API are reported by setting runtime.lastError and executing the function's regular callback. The callback's regular parameters will be undefined in this case.
- * @since Chrome 38
- */
-namespace  hid {
+  ////////////////////
+  // HID
+  ////////////////////
+  /**
+   * Use the chrome.hid API to interact with connected HID devices. This API provides access to HID operations from within the context of an app. Using this API, apps can function as drivers for hardware devices. Errors generated by this API are reported by setting runtime.lastError and executing the function's regular callback. The callback's regular parameters will be undefined in this case.
+   * @since Chrome 38
+   */
+  namespace hid {
     /** NOT YET IMPLEMENTED */
-}
+  }
 
-////////////////////
-// i18n
-////////////////////
-/**
- * Use the chrome.i18n infrastructure to implement internationalization across your whole app or extension.
- * @since Chrome 5.
- */
-namespace  i18n {
+  ////////////////////
+  // i18n
+  ////////////////////
+  /**
+   * Use the chrome.i18n infrastructure to implement internationalization across your whole app or extension.
+   * @since Chrome 5.
+   */
+  namespace i18n {
     /** Holds detected ISO language code and its percentage in the input string */
     interface DetectedLanguage {
-        /** An ISO language code such as 'en' or 'fr'.
-         * For a complete list of languages supported by this method, see  [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}.
-         * For an unknown language, 'und' will be returned, which means that [percentage] of the text is unknown to CLD */
-        language: string;
+      /** An ISO language code such as 'en' or 'fr'.
+       * For a complete list of languages supported by this method, see  [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}.
+       * For an unknown language, 'und' will be returned, which means that [percentage] of the text is unknown to CLD */
+      language: string;
 
-        /** The percentage of the detected language */
-        percentage: number;
+      /** The percentage of the detected language */
+      percentage: number;
     }
 
     /** Holds detected language reliability and array of DetectedLanguage */
     interface LanguageDetectionResult {
-        /** CLD detected language reliability */
-        isReliable: boolean;
+      /** CLD detected language reliability */
+      isReliable: boolean;
 
-        /** Array of detectedLanguage */
-        languages: DetectedLanguage[];
+      /** Array of detectedLanguage */
+      languages: DetectedLanguage[];
     }
 
     /**
@@ -1673,67 +1673,67 @@ namespace  i18n {
      * @param callback The callback parameter should be a function that looks like this: function(object result) {...};
      */
     export function detectLanguage(text: string, callback: (result: LanguageDetectionResult) => void): void;
-}
+  }
 
-////////////////////
-// Identity
-////////////////////
-/**
- * Use the chrome.identity API to get OAuth2 access tokens.
- * Permissions:  "identity"
- * @since Chrome 29.
- */
-namespace  identity {
+  ////////////////////
+  // Identity
+  ////////////////////
+  /**
+   * Use the chrome.identity API to get OAuth2 access tokens.
+   * Permissions:  "identity"
+   * @since Chrome 29.
+   */
+  namespace identity {
     /** @since Chrome 32. */
     interface AccountInfo {
-        /** A unique identifier for the account. This ID will not change for the lifetime of the account. */
-        id: string;
+      /** A unique identifier for the account. This ID will not change for the lifetime of the account. */
+      id: string;
     }
 
     interface TokenDetails {
-        /**
-         * Optional.
-         * Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is true, getAuthToken will prompt the user as necessary. When the flag is false or omitted, getAuthToken will return failure any time a prompt would be required.
-         */
-        interactive?: boolean;
-        /**
-         * Optional.
-         * The account ID whose token should be returned. If not specified, the primary account for the profile will be used.
-         * account is only supported when the "enable-new-profile-management" flag is set.
-         * @since Chrome 37.
-         */
-        account?: AccountInfo;
-        /**
-         * Optional.
-         * A list of OAuth2 scopes to request.
-         * When the scopes field is present, it overrides the list of scopes specified in manifest.json.
-         * @since Chrome 37.
-         */
-        scopes?: string[];
+      /**
+       * Optional.
+       * Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is true, getAuthToken will prompt the user as necessary. When the flag is false or omitted, getAuthToken will return failure any time a prompt would be required.
+       */
+      interactive?: boolean;
+      /**
+       * Optional.
+       * The account ID whose token should be returned. If not specified, the primary account for the profile will be used.
+       * account is only supported when the "enable-new-profile-management" flag is set.
+       * @since Chrome 37.
+       */
+      account?: AccountInfo;
+      /**
+       * Optional.
+       * A list of OAuth2 scopes to request.
+       * When the scopes field is present, it overrides the list of scopes specified in manifest.json.
+       * @since Chrome 37.
+       */
+      scopes?: string[];
     }
 
     interface UserInfo {
-        /** An email address for the user account signed into the current profile. Empty if the user is not signed in or the identity.email manifest permission is not specified. */
-        email: string;
-        /** A unique identifier for the account. This ID will not change for the lifetime of the account. Empty if the user is not signed in or (in M41+) the identity.email manifest permission is not specified. */
-        id: string;
+      /** An email address for the user account signed into the current profile. Empty if the user is not signed in or the identity.email manifest permission is not specified. */
+      email: string;
+      /** A unique identifier for the account. This ID will not change for the lifetime of the account. Empty if the user is not signed in or (in M41+) the identity.email manifest permission is not specified. */
+      id: string;
     }
 
     interface TokenInformation {
-        /** The specific token that should be removed from the cache. */
-        token: string;
+      /** The specific token that should be removed from the cache. */
+      token: string;
     }
 
     interface WebAuthFlowOptions {
-        /** The URL that initiates the auth flow. */
-        url: string;
-        /**
-         * Optional.
-         * Whether to launch auth flow in interactive mode.
-         * Since some auth flows may immediately redirect to a result URL, launchWebAuthFlow hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
-         * If the interactive flag is true, the window will be displayed when a page load completes. If the flag is false or omitted, launchWebAuthFlow will return with an error if the initial navigation does not complete the flow.
-         */
-        interactive?: boolean;
+      /** The URL that initiates the auth flow. */
+      url: string;
+      /**
+       * Optional.
+       * Whether to launch auth flow in interactive mode.
+       * Since some auth flows may immediately redirect to a result URL, launchWebAuthFlow hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
+       * If the interactive flag is true, the window will be displayed when a page load completes. If the flag is false or omitted, launchWebAuthFlow will return with an error if the initial navigation does not complete the flow.
+       */
+      interactive?: boolean;
     }
 
     interface SignInChangeEvent extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void> { }
@@ -1792,17 +1792,17 @@ namespace  identity {
      * @since Chrome 33.
      */
     export var onSignInChanged: SignInChangeEvent;
-}
+  }
 
-////////////////////
-// Idle
-////////////////////
-/**
- * Use the chrome.idle API to detect when the machine's idle state changes.
- * Permissions:  "idle"
- * @since Chrome 6.
- */
-namespace  idle {
+  ////////////////////
+  // Idle
+  ////////////////////
+  /**
+   * Use the chrome.idle API to detect when the machine's idle state changes.
+   * Permissions:  "idle"
+   * @since Chrome 6.
+   */
+  namespace idle {
     interface IdleStateChangedEvent extends chrome.events.Event<(newState: string) => void> { }
 
     /**
@@ -1822,112 +1822,112 @@ namespace  idle {
 
     /** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
     export var onStateChanged: IdleStateChangedEvent;
-}
+  }
 
-////////////////////
-// InstanceID
-////////////////////
-/**
- * Use chrome.instanceID to access the Instance ID service.
- * @since Chrome 46
- */
-namespace  instanceID {
+  ////////////////////
+  // InstanceID
+  ////////////////////
+  /**
+   * Use chrome.instanceID to access the Instance ID service.
+   * @since Chrome 46
+   */
+  namespace instanceID {
     /** NOT YET IMPLEMENTED */
-}
+  }
 
-////////////////////
-// mDNS
-////////////////////
-/**
- * 	Use the chrome.mdns API to discover services over mDNS. This comprises a subset of the features of the NSD spec: http://www.w3.org/TR/discovery-api/
- * @since Chrome 31
- */
-namespace  mdns {
+  ////////////////////
+  // mDNS
+  ////////////////////
+  /**
+   * 	Use the chrome.mdns API to discover services over mDNS. This comprises a subset of the features of the NSD spec: http://www.w3.org/TR/discovery-api/
+   * @since Chrome 31
+   */
+  namespace mdns {
     /** NOT YET IMPLEMENTED */
-}
+  }
 
-////////////////////
-// Media Galleries
-////////////////////
-namespace  mediaGalleries {
+  ////////////////////
+  // Media Galleries
+  ////////////////////
+  namespace mediaGalleries {
     interface MediaFileSystemsOptions {
-        interactive?: 'no' | 'yes' | 'if_needed';
+      interactive?: 'no' | 'yes' | 'if_needed';
     }
 
     interface MediaFileSystemMetadata {
-        name: string;
-        galleryId: string;
-        deviceId?: string;
-        isRemovable: boolean;
-        isMediaDevice: boolean;
-        isAvailable: boolean;
+      name: string;
+      galleryId: string;
+      deviceId?: string;
+      isRemovable: boolean;
+      isMediaDevice: boolean;
+      isAvailable: boolean;
     }
 
     interface MetadataOptions {
-        metadataType: 'all' | 'mimeTypeAndTags' | 'mimeTypeOnly';
+      metadataType: 'all' | 'mimeTypeAndTags' | 'mimeTypeOnly';
     }
 
     interface RawTag {
-        type: string;
-        tags: { [name: string]: string; };
+      type: string;
+      tags: { [name: string]: string; };
     }
 
     interface Metadata {
-        // The browser sniffed mime type.
-        mimeType: string;
-        // Defined for images and video. In pixels.
-        height?: number;
-        width?: number;
-        // Defined for images only.
-        xResolution?: number;
-        yResolution?: number;
-        // Defined for audio and video. In seconds.
-        duration?: number;
-        // Defined for images and video. In degrees.
-        rotation?: number;
-        // Defined for images only.
-        cameraMake?: string;
-        cameraModel?: string;
-        exposureTimeSeconds?: number;
-        flashFired?: boolean;
-        fNumber?: number;
-        focalLengthMm?: number;
-        isoEquivalent?: number;
-        // Defined for audio and video only.
-        album?: string;
-        artist?: string;
-        comment?: string;
-        copyright?: string;
-        disc?: number;
-        genre?: string;
-        language?: string;
-        title?: string;
-        track?: number;
-        // All the metadata in the media file. For formats with multiple streams, stream order will be preserved. Container metadata is the first element.
-        rawTags: RawTag[];
-        // The images embedded in the media file's metadata. This is most often used for album art or video thumbnails.
-        attachedImages: Blob[];
+      // The browser sniffed mime type.
+      mimeType: string;
+      // Defined for images and video. In pixels.
+      height?: number;
+      width?: number;
+      // Defined for images only.
+      xResolution?: number;
+      yResolution?: number;
+      // Defined for audio and video. In seconds.
+      duration?: number;
+      // Defined for images and video. In degrees.
+      rotation?: number;
+      // Defined for images only.
+      cameraMake?: string;
+      cameraModel?: string;
+      exposureTimeSeconds?: number;
+      flashFired?: boolean;
+      fNumber?: number;
+      focalLengthMm?: number;
+      isoEquivalent?: number;
+      // Defined for audio and video only.
+      album?: string;
+      artist?: string;
+      comment?: string;
+      copyright?: string;
+      disc?: number;
+      genre?: string;
+      language?: string;
+      title?: string;
+      track?: number;
+      // All the metadata in the media file. For formats with multiple streams, stream order will be preserved. Container metadata is the first element.
+      rawTags: RawTag[];
+      // The images embedded in the media file's metadata. This is most often used for album art or video thumbnails.
+      attachedImages: Blob[];
     }
 
     interface GalleryWatchResult {
-        galleryId: string;
-        success: boolean;
+      galleryId: string;
+      success: boolean;
     }
 
     interface GalleryChangedEventArgs {
-        type: 'contents_changed' | 'watch_dropped';
-        galleryId: string;
+      type: 'contents_changed' | 'watch_dropped';
+      galleryId: string;
     }
 
     interface ScanProgressEventArgs {
-        // The type of progress event, i.e. start, finish, etc.
-        type: 'start' | 'cancel' | 'finish' | 'error';
-        // The number of Galleries found.
-        galleryCount?: number;
-        // Appoximate number of media files found; some file types can be either audio or video and are included in both counts.
-        audioCount?: number;
-        imageCount?: number;
-        videoCount?: number;
+      // The type of progress event, i.e. start, finish, etc.
+      type: 'start' | 'cancel' | 'finish' | 'error';
+      // The number of Galleries found.
+      galleryCount?: number;
+      // Appoximate number of media files found; some file types can be either audio or video and are included in both counts.
+      audioCount?: number;
+      imageCount?: number;
+      videoCount?: number;
     }
 
     export function getMediaFileSystems(callback: (mediaFileSystems: FileSystem[]) => void): void;
@@ -1948,17 +1948,17 @@ namespace  mediaGalleries {
 
     export var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
     export var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
-}
+  }
 
-////////////////////////////////////
-// Open Network Configuration (ONC)
-////////////////////////////////////
-/**
- * The chrome.networking.onc API is used for configuring network connections (Cellular, Ethernet, VPN, WiFi or WiMAX). This API is available in Chrome OS kiosk sessions.
- * Network connection configurations are specified following Open Network Configuration (ONC) specification.
- * NOTE: Most dictionary properties and enum values use UpperCamelCase to match the ONC specification instead of the JavaScript lowerCamelCase convention.
- */
-namespace  networking.onc {
+  ////////////////////////////////////
+  // Open Network Configuration (ONC)
+  ////////////////////////////////////
+  /**
+   * The chrome.networking.onc API is used for configuring network connections (Cellular, Ethernet, VPN, WiFi or WiMAX). This API is available in Chrome OS kiosk sessions.
+   * Network connection configurations are specified following Open Network Configuration (ONC) specification.
+   * NOTE: Most dictionary properties and enum values use UpperCamelCase to match the ONC specification instead of the JavaScript lowerCamelCase convention.
+   */
+  namespace networking.onc {
     export type ActivationStateType = 'Activated' | 'Activating' | 'NotActivated' | 'PartiallyActivated';
     export type CaptivePortalStatus = 'Unknown' | 'Offline' | 'Online' | 'Portal' | 'ProxyAuthRequired';
     export type ConnectionStateType = 'Connected' | 'Connecting' | 'NotConnected';
@@ -1966,182 +1966,182 @@ namespace  networking.onc {
     export type NetworkType = 'All' | 'Cellular' | 'Ethernet' | 'VPN' | 'Wireless' | 'WiFi' | 'WiMAX';
     export type ProxySettingsType = 'Direct' | 'Manual' | 'PAC' | 'WPAD';
     interface ManagedBoolean {
-        /**
-         * @description The active value currently used by the network configuration manager (e.g. Shill).
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        Active?: boolean,
-        /**
-         * @description The source from which the effective property value was determined.
-         * @type {string}
-         * @memberof ManagedBoolean
-         */
-        Effective?: string,
-        /**
-         * @description The property value provided by the user policy.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        UserPolicy?: boolean,
-        /**
-         * @description The property value provided by the device policy.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        DevicePolicy?: boolean,
-        /**
-         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        UserSettings?: boolean,
-        /**
-         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        SharedSettings?: boolean,
-        /**
-         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        UserEditable?: boolean,
-        /**
-         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-         * @type {boolean}
-         * @memberof ManagedBoolean
-         */
-        DeviceEditable?: boolean
+      /**
+       * @description The active value currently used by the network configuration manager (e.g. Shill).
+       * @type {boolean}
+       * @memberof ManagedBoolean
+       */
+      Active?: boolean,
+      /**
+       * @description The source from which the effective property value was determined.
+       * @type {string}
+       * @memberof ManagedBoolean
+       */
+      Effective?: string,
+      /**
+       * @description The property value provided by the user policy.
+       * @type {boolean}
+       * @memberof ManagedBoolean
+       */
+      UserPolicy?: boolean,
+      /**
+       * @description The property value provided by the device policy.
+       * @type {boolean}
+       * @memberof ManagedBoolean
+       */
+      DevicePolicy?: boolean,
+      /**
+       * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
+       * @type {boolean}
+       * @memberof ManagedBoolean
+       */
+      UserSettings?: boolean,
+      /**
+       * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+       * @type {boolean}
+       * @memberof ManagedBoolean
+       */
+      SharedSettings?: boolean,
+      /**
+       * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+       * @type {boolean}
+       * @memberof ManagedBoolean
+       */
+      UserEditable?: boolean,
+      /**
+       * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+       * @type {boolean}
+       * @memberof ManagedBoolean
+       */
+      DeviceEditable?: boolean
     }
     interface ManagedLong {
-        /**
-         * @description The active value currently used by the network configuration manager (e.g. Shill).
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        Active?: number,
-        /**
-         * @description The source from which the effective property value was determined.
-         * @type {string}
-         * @memberof ManagedLong
-         */
-        Effective?: string,
-        /**
-         * @description The property value provided by the user policy.
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        UserPolicy?: number,
-        /**
-         * @description The property value provided by the device policy.
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        DevicePolicy?: number,
-        /**
-         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        UserSettings?: number,
-        /**
-         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
-         * @type {number}
-         * @memberof ManagedLong
-         */
-        SharedSettings?: number,
-        /**
-         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-         * @type {boolean}
-         * @memberof ManagedLong
-         */
-        UserEditable?: boolean,
-        /**
-         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-         * @type {boolean}
-         * @memberof ManagedLong
-         */
-        DeviceEditable?: boolean
+      /**
+       * @description The active value currently used by the network configuration manager (e.g. Shill).
+       * @type {number}
+       * @memberof ManagedLong
+       */
+      Active?: number,
+      /**
+       * @description The source from which the effective property value was determined.
+       * @type {string}
+       * @memberof ManagedLong
+       */
+      Effective?: string,
+      /**
+       * @description The property value provided by the user policy.
+       * @type {number}
+       * @memberof ManagedLong
+       */
+      UserPolicy?: number,
+      /**
+       * @description The property value provided by the device policy.
+       * @type {number}
+       * @memberof ManagedLong
+       */
+      DevicePolicy?: number,
+      /**
+       * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
+       * @type {number}
+       * @memberof ManagedLong
+       */
+      UserSettings?: number,
+      /**
+       * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+       * @type {number}
+       * @memberof ManagedLong
+       */
+      SharedSettings?: number,
+      /**
+       * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+       * @type {boolean}
+       * @memberof ManagedLong
+       */
+      UserEditable?: boolean,
+      /**
+       * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+       * @type {boolean}
+       * @memberof ManagedLong
+       */
+      DeviceEditable?: boolean
     }
-}
+  }
 
-////////////////////
-// Notifications
-// https://developer.chrome.com/extensions/notifications
-////////////////////
-/**
- * Use the chrome.notifications API to create rich notifications using templates and show these notifications to users in the system tray.
- * Permissions:  "notifications"
- * @since Chrome 28.
- */
-namespace  notifications {
+  ////////////////////
+  // Notifications
+  // https://developer.chrome.com/extensions/notifications
+  ////////////////////
+  /**
+   * Use the chrome.notifications API to create rich notifications using templates and show these notifications to users in the system tray.
+   * Permissions:  "notifications"
+   * @since Chrome 28.
+   */
+  namespace notifications {
     interface ButtonOptions {
-        title: string;
-        iconUrl?: string;
+      title: string;
+      iconUrl?: string;
     }
 
     interface ItemOptions {
-        /** Title of one item of a list notification. */
-        title: string;
-        /** Additional details about this item. */
-        message: string;
+      /** Title of one item of a list notification. */
+      title: string;
+      /** Additional details about this item. */
+      message: string;
     }
 
     interface NotificationOptions {
-        /** Optional. Which type of notification to display. Required for notifications.create method. */
-        type?: string;
-        /**
-         * Optional.
-         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
-         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
-         */
-        iconUrl?: string;
-        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
-        title?: string;
-        /** Optional. Main notification content. Required for notifications.create method. */
-        message?: string;
-        /**
-         * Optional.
-         * Alternate notification content with a lower-weight font.
-         * @since Chrome 31.
-         */
-        contextMessage?: string;
-        /** Optional. Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is default. */
-        priority?: number;
-        /** Optional. A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n). */
-        eventTime?: number;
-        /** Optional. Text and icons for up to two notification action buttons. */
-        buttons?: ButtonOptions[];
-        /** Optional. Items for multi-item notifications. */
-        items?: ItemOptions[];
-        /**
-         * Optional.
-         * Current progress ranges from 0 to 100.
-         * @since Chrome 30.
-         */
-        progress?: number;
-        /**
-         * Optional.
-         * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
-         * @since Chrome 32.
-         */
-        isClickable?: boolean;
-        /**
-         * Optional.
-         * A URL to the app icon mask. URLs have the same restrictions as iconUrl. The app icon mask should be in alpha channel, as only the alpha channel of the image will be considered.
-         * @since Chrome 38.
-         */
-        appIconMaskUrl?: string;
-        /** Optional. A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as iconUrl. */
-        imageUrl?: string;
-        /**
-         * Indicates that the notification should remain visible on screen until the user activates or dismisses the notification.
-         * This defaults to false.
-         * @since Chrome 50
-         */
-        requireInteraction?: boolean;
+      /** Optional. Which type of notification to display. Required for notifications.create method. */
+      type?: string;
+      /**
+       * Optional.
+       * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+       * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
+       */
+      iconUrl?: string;
+      /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+      title?: string;
+      /** Optional. Main notification content. Required for notifications.create method. */
+      message?: string;
+      /**
+       * Optional.
+       * Alternate notification content with a lower-weight font.
+       * @since Chrome 31.
+       */
+      contextMessage?: string;
+      /** Optional. Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is default. */
+      priority?: number;
+      /** Optional. A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n). */
+      eventTime?: number;
+      /** Optional. Text and icons for up to two notification action buttons. */
+      buttons?: ButtonOptions[];
+      /** Optional. Items for multi-item notifications. */
+      items?: ItemOptions[];
+      /**
+       * Optional.
+       * Current progress ranges from 0 to 100.
+       * @since Chrome 30.
+       */
+      progress?: number;
+      /**
+       * Optional.
+       * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
+       * @since Chrome 32.
+       */
+      isClickable?: boolean;
+      /**
+       * Optional.
+       * A URL to the app icon mask. URLs have the same restrictions as iconUrl. The app icon mask should be in alpha channel, as only the alpha channel of the image will be considered.
+       * @since Chrome 38.
+       */
+      appIconMaskUrl?: string;
+      /** Optional. A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as iconUrl. */
+      imageUrl?: string;
+      /**
+       * Indicates that the notification should remain visible on screen until the user activates or dismisses the notification.
+       * This defaults to false.
+       * @since Chrome 50
+       */
+      requireInteraction?: boolean;
     }
 
     interface NotificationClosedEvent extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
@@ -2228,45 +2228,45 @@ namespace  notifications {
      * function( PermissionLevel level) {...};
      */
     export function getPermissionLevel(callback: (level: string) => void): void;
-}
+  }
 
-////////////////////
-// Permissions
-////////////////////
-/**
- * Use the chrome.permissions API to request declared optional permissions at run time rather than install time, so users understand why the permissions are needed and grant only those that are necessary.
- * @since Chrome 16.
- */
-namespace  permissions {
+  ////////////////////
+  // Permissions
+  ////////////////////
+  /**
+   * Use the chrome.permissions API to request declared optional permissions at run time rather than install time, so users understand why the permissions are needed and grant only those that are necessary.
+   * @since Chrome 16.
+   */
+  namespace permissions {
     interface Permissions {
-        /**
-         * Optional.
-         * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
-         */
-        origins?: string[];
-        /**
-         * Optional.
-         * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
-         */
-        permissions?: string[];
+      /**
+       * Optional.
+       * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
+       */
+      origins?: string[];
+      /**
+       * Optional.
+       * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
+       */
+      permissions?: string[];
     }
 
     interface PermissionsRemovedEvent {
-        /**
-         * @param callback The callback parameter should be a function that looks like this:
-         * function( Permissions permissions) {...};
-         * Parameter permissions: The permissions that have been removed.
-         */
-        addListener(callback: (permissions: Permissions) => void): void;
+      /**
+       * @param callback The callback parameter should be a function that looks like this:
+       * function( Permissions permissions) {...};
+       * Parameter permissions: The permissions that have been removed.
+       */
+      addListener(callback: (permissions: Permissions) => void): void;
     }
 
     interface PermissionsAddedEvent {
-        /**
-         * @param callback The callback parameter should be a function that looks like this:
-         * function( Permissions permissions) {...};
-         * Parameter permissions: The newly acquired permissions.
-         */
-        addListener(callback: (permissions: Permissions) => void): void;
+      /**
+       * @param callback The callback parameter should be a function that looks like this:
+       * function( Permissions permissions) {...};
+       * Parameter permissions: The newly acquired permissions.
+       */
+      addListener(callback: (permissions: Permissions) => void): void;
     }
 
     /**
@@ -2302,57 +2302,57 @@ namespace  permissions {
     export var onRemoved: PermissionsRemovedEvent;
     /** Fired when the extension acquires new permissions. */
     export var onAdded: PermissionsAddedEvent;
-}
+  }
 
-////////////////////
-// Power
-////////////////////
-/**
- * Use the chrome.power API to override the system's power management features.
- * Permissions:  "power"
- * @since Chrome 27.
- */
-namespace  power {
+  ////////////////////
+  // Power
+  ////////////////////
+  /**
+   * Use the chrome.power API to override the system's power management features.
+   * Permissions:  "power"
+   * @since Chrome 27.
+   */
+  namespace power {
     /** Requests that power management be temporarily disabled. |level| describes the degree to which power management should be disabled. If a request previously made by the same app is still active, it will be replaced by the new request. */
     export function requestKeepAwake(level: string): void;
     /** Releases a request previously made via requestKeepAwake(). */
     export function releaseKeepAwake(): void;
-}
+  }
 
-////////////////////
-// Printer Provider
-////////////////////
-/**
- * The chrome.printerProvider API exposes events used by print manager to query printers controlled by extensions, to query their capabilities and to submit print jobs to these printers.
- * Permissions:  "printerProvider"
- * @since Chrome 44.
- */
-namespace  printerProvider {
+  ////////////////////
+  // Printer Provider
+  ////////////////////
+  /**
+   * The chrome.printerProvider API exposes events used by print manager to query printers controlled by extensions, to query their capabilities and to submit print jobs to these printers.
+   * Permissions:  "printerProvider"
+   * @since Chrome 44.
+   */
+  namespace printerProvider {
     interface PrinterInfo {
-        /** Unique printer ID. */
-        id: string;
-        /** Printer's human readable name. */
-        name: string;
-        /** Optional. Printer's human readable description. */
-        description?: string;
+      /** Unique printer ID. */
+      id: string;
+      /** Printer's human readable name. */
+      name: string;
+      /** Optional. Printer's human readable description. */
+      description?: string;
     }
 
     interface PrinterCapabilities {
-        /** Device capabilities in CDD format. */
-        capabilities: any;
+      /** Device capabilities in CDD format. */
+      capabilities: any;
     }
 
     interface PrintJob {
-        /** ID of the printer which should handle the job. */
-        printerId: string;
-        /** The print job title. */
-        title: string;
-        /** Print ticket in  CJT format. */
-        ticket: Object;
-        /** The document content type. Supported formats are "application/pdf" and "image/pwg-raster". */
-        contentType: string;
-        /** Blob containing the document data to print. Format must match |contentType|. */
-        document: Blob;
+      /** ID of the printer which should handle the job. */
+      printerId: string;
+      /** The print job title. */
+      title: string;
+      /** Print ticket in  CJT format. */
+      ticket: Object;
+      /** The document content type. Supported formats are "application/pdf" and "image/pwg-raster". */
+      contentType: string;
+      /** Blob containing the document data to print. Format must match |contentType|. */
+      document: Blob;
     }
 
     interface PrinterRequestedEvent extends chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void> { }
@@ -2375,52 +2375,52 @@ namespace  printerProvider {
     export var onGetCapabilityRequested: CapabilityRequestedEvent;
     /** Event fired when print manager requests printing. */
     export var onPrintRequested: PrintRequestedEvent;
-}
+  }
 
-////////////////////
-// Runtime
-////////////////////
-/**
- * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.
- * @since Chrome 22
- */
-namespace  runtime {
+  ////////////////////
+  // Runtime
+  ////////////////////
+  /**
+   * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.
+   * @since Chrome 22
+   */
+  namespace runtime {
     /** This will be defined during an API method callback if there was an error */
     export var lastError: LastError | undefined;
     /** The ID of the extension/app. */
     export var id: string;
 
     interface LastError {
-        /** Optional. Details about the error which occurred.  */
-        message?: string;
+      /** Optional. Details about the error which occurred.  */
+      message?: string;
     }
 
     interface ConnectInfo {
-        name?: string;
+      name?: string;
     }
 
     interface InstalledDetails {
-        /**
-         * The reason that this event is being dispatched.
-         * One of: "install", "update", "chrome_update", or "shared_module_update"
-         */
-        reason: string;
-        /**
-         * Optional.
-         * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
-         */
-        previousVersion?: string;
-        /**
-         * Optional.
-         * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'.
-         * @since Chrome 29.
-         */
-        id?: string;
+      /**
+       * The reason that this event is being dispatched.
+       * One of: "install", "update", "chrome_update", or "shared_module_update"
+       */
+      reason: string;
+      /**
+       * Optional.
+       * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
+       */
+      previousVersion?: string;
+      /**
+       * Optional.
+       * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'.
+       * @since Chrome 29.
+       */
+      id?: string;
     }
 
     interface MessageOptions {
-        /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
-        includeTlsChannelId?: boolean;
+      /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
+      includeTlsChannelId?: boolean;
     }
 
     /**
@@ -2428,23 +2428,23 @@ namespace  runtime {
      * @since Chrome 26.
      */
     interface MessageSender {
-        /** The ID of the extension or app that opened the connection, if any. */
-        id?: string;
-        /**
-         * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
-         * @since Chrome 41.
-         */
-        frameId?: number;
-        /**
-         * The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it.
-         * @since Chrome 28.
-         */
-        url?: string;
-        /**
-         * The TLS channel ID of the page or frame that opened the connection, if requested by the extension or app, and if available.
-         * @since Chrome 32.
-         */
-        tlsChannelId?: string;
+      /** The ID of the extension or app that opened the connection, if any. */
+      id?: string;
+      /**
+       * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
+       * @since Chrome 41.
+       */
+      frameId?: number;
+      /**
+       * The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it.
+       * @since Chrome 28.
+       */
+      url?: string;
+      /**
+       * The TLS channel ID of the page or frame that opened the connection, if requested by the extension or app, and if available.
+       * @since Chrome 32.
+       */
+      tlsChannelId?: string;
     }
 
     /**
@@ -2452,21 +2452,21 @@ namespace  runtime {
      * @since Chrome 36.
      */
     interface PlatformInfo {
-        /**
-         * The operating system chrome is running on.
-         * One of: "mac", "win", "android", "cros", "linux", or "openbsd"
-         */
-        os: string;
-        /**
-         * The machine's processor architecture.
-         * One of: "arm", "x86-32", or "x86-64"
-         */
-        arch: string;
-        /**
-         * The native client architecture. This may be different from arch on some platforms.
-         * One of: "arm", "x86-32", or "x86-64"
-         */
-        nacl_arch: string;
+      /**
+       * The operating system chrome is running on.
+       * One of: "mac", "win", "android", "cros", "linux", or "openbsd"
+       */
+      os: string;
+      /**
+       * The machine's processor architecture.
+       * One of: "arm", "x86-32", or "x86-64"
+       */
+      arch: string;
+      /**
+       * The native client architecture. This may be different from arch on some platforms.
+       * One of: "arm", "x86-32", or "x86-64"
+       */
+      nacl_arch: string;
     }
 
     /**
@@ -2474,28 +2474,28 @@ namespace  runtime {
      * @since Chrome 26.
      */
     interface Port {
-        postMessage: (message: Object) => void;
-        disconnect: () => void;
-        /**
-         * Optional.
-         * This property will only be present on ports passed to onConnect/onConnectExternal listeners.
-         */
-        sender?: MessageSender;
-        /** An object which allows the addition and removal of listeners for a Chrome event. */
-        onDisconnect: PortDisconnectEvent;
-        /** An object which allows the addition and removal of listeners for a Chrome event. */
-        onMessage: PortMessageEvent;
-        name: string;
+      postMessage: (message: Object) => void;
+      disconnect: () => void;
+      /**
+       * Optional.
+       * This property will only be present on ports passed to onConnect/onConnectExternal listeners.
+       */
+      sender?: MessageSender;
+      /** An object which allows the addition and removal of listeners for a Chrome event. */
+      onDisconnect: PortDisconnectEvent;
+      /** An object which allows the addition and removal of listeners for a Chrome event. */
+      onMessage: PortMessageEvent;
+      name: string;
     }
 
     interface UpdateAvailableDetails {
-        /** The version number of the available update. */
-        version: string;
+      /** The version number of the available update. */
+      version: string;
     }
 
     interface UpdateCheckDetails {
-        /** The version of the available update. */
-        version: string;
+      /** The version of the available update. */
+      version: string;
     }
 
     interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> { }
@@ -2515,195 +2515,195 @@ namespace  runtime {
     interface RuntimeUpdateAvailableEvent extends chrome.events.Event<(details: UpdateAvailableDetails) => void> { }
 
     interface ManifestIcons {
-        [size: number]: string;
+      [size: number]: string;
     }
 
     interface ManifestAction {
-        default_icon?: ManifestIcons;
-        default_title?: string;
-        default_popup?: string;
+      default_icon?: ManifestIcons;
+      default_title?: string;
+      default_popup?: string;
     }
 
     interface SearchProvider {
-        name?: string;
-        keyword?: string;
-        favicon_url?: string;
-        search_url: string;
-        encoding?: string;
-        suggest_url?: string;
-        instant_url?: string;
-        image_url?: string;
-        search_url_post_params?: string;
-        suggest_url_post_params?: string;
-        instant_url_post_params?: string;
-        image_url_post_params?: string;
-        alternate_urls?: string[];
-        prepopulated_id?: number;
-        is_default?: boolean;
+      name?: string;
+      keyword?: string;
+      favicon_url?: string;
+      search_url: string;
+      encoding?: string;
+      suggest_url?: string;
+      instant_url?: string;
+      image_url?: string;
+      search_url_post_params?: string;
+      suggest_url_post_params?: string;
+      instant_url_post_params?: string;
+      image_url_post_params?: string;
+      alternate_urls?: string[];
+      prepopulated_id?: number;
+      is_default?: boolean;
     }
 
     interface Manifest {
-        /** Required */
-        app: {
-            background: {
-                scripts?: string[];
-            }
+      /** Required */
+      app: {
+        background: {
+          scripts?: string[];
         }
-        /** Should be set to 2 */
-        manifest_version: number;
-        name: string;
-        version: string;
+      }
+      /** Should be set to 2 */
+      manifest_version: number;
+      name: string;
+      version: string;
 
-        // Recommended
-        default_locale?: string;
-        description?: string;
-        icons?: ManifestIcons;
-        // Optional
-        action_handlers?: string[];
-        author?: any;
-        automation?: any;
-        bluetooth?: {
-            uuids?: string[];
-            socket?: boolean;
-            low_energy?: boolean;
-            peripheral?: boolean;
-        };
-        commands?: {
-            [name: string]: {
-                suggested_key?: {
-                    default?: string;
-                    windows?: string;
-                    mac?: string;
-                    chromeos?: string;
-                    linux?: string;
-                };
-                description?: string;
-                global?: boolean
-            }
-        };
-        current_locale?: string;
-        event_rules?: {
-            event?: string;
-            actions?: {
-                type: string;
-            }[];
-            conditions?: {
-                type: string,
-                css?: string[]
-            }[];
+      // Recommended
+      default_locale?: string;
+      description?: string;
+      icons?: ManifestIcons;
+      // Optional
+      action_handlers?: string[];
+      author?: any;
+      automation?: any;
+      bluetooth?: {
+        uuids?: string[];
+        socket?: boolean;
+        low_energy?: boolean;
+        peripheral?: boolean;
+      };
+      commands?: {
+        [name: string]: {
+          suggested_key?: {
+            default?: string;
+            windows?: string;
+            mac?: string;
+            chromeos?: string;
+            linux?: string;
+          };
+          description?: string;
+          global?: boolean
+        }
+      };
+      current_locale?: string;
+      event_rules?: {
+        event?: string;
+        actions?: {
+          type: string;
         }[];
-        file_handlers?: {
-            [key: string]: {
-                extensions?: Array<'*' | string | { include_directories: boolean }>;
-                types?: Array<'*' | string | { include_directories: boolean }>;
-            }
+        conditions?: {
+          type: string,
+          css?: string[]
         }[];
-        file_system_provider_capabilities?: {
-            configurable?: boolean;
-            multiple_mounts?: boolean;
-            source?: string;
-        };
-        import?: {
-            id: string;
-        }[];
-        key?: string;
-        kiosk?: {
-            always_update: any;
-            required_platform_version: any;
-        };
-        kiosk_enabled?: boolean,
-        kiosk_only?: boolean,
-        kiosk_secondary_apps: any;
-        minimum_chrome_version?: string;
-        nacl_modules?: {
-            path: string;
-            mime_type: string;
-        }[];
-        oauth2?: {
-            client_id: string;
-            scopes?: string[];
-        };
-        offline_enabled?: boolean;
-        optional_permissions?: string[];
-        permissions?: string[];
-        platforms?: {
-            nacl_arch?: string;
-            sub_package_path: string;
-        }[];
+      }[];
+      file_handlers?: {
+        [key: string]: {
+          extensions?: Array<'*' | string | { include_directories: boolean }>;
+          types?: Array<'*' | string | { include_directories: boolean }>;
+        }
+      }[];
+      file_system_provider_capabilities?: {
+        configurable?: boolean;
+        multiple_mounts?: boolean;
+        source?: string;
+      };
+      import?: {
+        id: string;
+      }[];
+      key?: string;
+      kiosk?: {
+        always_update: any;
+        required_platform_version: any;
+      };
+      kiosk_enabled?: boolean,
+      kiosk_only?: boolean,
+      kiosk_secondary_apps: any;
+      minimum_chrome_version?: string;
+      nacl_modules?: {
+        path: string;
+        mime_type: string;
+      }[];
+      oauth2?: {
+        client_id: string;
+        scopes?: string[];
+      };
+      offline_enabled?: boolean;
+      optional_permissions?: string[];
+      permissions?: string[];
+      platforms?: {
+        nacl_arch?: string;
+        sub_package_path: string;
+      }[];
+      /**
+       * Technologies required by the app or extension. Hosting sites such as the Chrome Web Store may use this list to dissuade users from installing apps or extensions that will not work on their computer. Supported requirements currently include "3D" and "plugins"; additional requirements checks may be added in the future.
+       */
+      requirements?: {
         /**
-         * Technologies required by the app or extension. Hosting sites such as the Chrome Web Store may use this list to dissuade users from installing apps or extensions that will not work on their computer. Supported requirements currently include "3D" and "plugins"; additional requirements checks may be added in the future.
+         * The "3D" requirement denotes GPU hardware acceleration. The "webgl" requirement refers to the WebGL API. For more information on Chrome 3D graphics support, see the help article on WebGL and 3D graphics. You can list the 3D-related features your app requires, as demonstrated in the following example:
+         * "requirements": {
+         *   "3D": {
+         *     "features": ["webgl"]
+         *   }
+         * }
          */
-        requirements?: {
-            /**
-             * The "3D" requirement denotes GPU hardware acceleration. The "webgl" requirement refers to the WebGL API. For more information on Chrome 3D graphics support, see the help article on WebGL and 3D graphics. You can list the 3D-related features your app requires, as demonstrated in the following example:
-             * "requirements": {
-             *   "3D": {
-             *     "features": ["webgl"]
-             *   }
-             * }
-             */
-            '3D'?: {
-                features?: Array<string | 'webgl'>;
-            };
-            /**
-             * The "plugins" requirement indicates if an app or extension requires NPAPI to run. This requirement is enabled by default when the manifest includes the "plugins" field. For apps and extensions that still work when plugins aren't available, you can disable this requirement by setting NPAPI to false. You can also enable this requirement manually, by setting NPAPI to true, as shown in this example:
-             * "requirements": {
-             *   "plugins": {
-             *     "npapi": true
-             *   }
-             * }
-             */
-            plugins?: {
-                npapi?: boolean;
-            }
-
-            [key: string]: any;
+        '3D'?: {
+          features?: Array<string | 'webgl'>;
         };
         /**
-         * @deprecated Warning: Starting in version 57, Chrome will no longer allow external web content (including embedded frames and scripts) inside sandboxed pages. Please use a webview instead.
+         * The "plugins" requirement indicates if an app or extension requires NPAPI to run. This requirement is enabled by default when the manifest includes the "plugins" field. For apps and extensions that still work when plugins aren't available, you can disable this requirement by setting NPAPI to false. You can also enable this requirement manually, by setting NPAPI to true, as shown in this example:
+         * "requirements": {
+         *   "plugins": {
+         *     "npapi": true
+         *   }
+         * }
          */
-        sandbox?: {
-            pages: string[];
-            content_security_policy?: string;
-        };
-        short_name?: string;
-        signature?: any;
-        sockets?: {
-            tcp?: {
-                connect: string | '*';
-            };
-            udp?: {
-                send: string | '*';
-            }
-        };
-        storage?: {
-            managed_schema: string
-        };
-        system_indicator?: any;
-        update_url?: string;
-        url_handlers?: {
-            [name: string]: {
-                matches: string[];
-                title?: string;
-            }
-        };
-        usb_printers?: {
-            filters: {
-                vendorId?: number;
-                productId?: number;
-                interfaceClass?: number;
-                interfaceSubclass?: number;
-                interfaceProtocol?: number;
-            }[]
-        };
-        version_name?: string;
-        webview?: {
-            partitions?: {
-                name: string;
-                accessible_resources: string[];
-            }[]
+        plugins?: {
+          npapi?: boolean;
         }
+
         [key: string]: any;
+      };
+      /**
+       * @deprecated Warning: Starting in version 57, Chrome will no longer allow external web content (including embedded frames and scripts) inside sandboxed pages. Please use a webview instead.
+       */
+      sandbox?: {
+        pages: string[];
+        content_security_policy?: string;
+      };
+      short_name?: string;
+      signature?: any;
+      sockets?: {
+        tcp?: {
+          connect: string | '*';
+        };
+        udp?: {
+          send: string | '*';
+        }
+      };
+      storage?: {
+        managed_schema: string
+      };
+      system_indicator?: any;
+      update_url?: string;
+      url_handlers?: {
+        [name: string]: {
+          matches: string[];
+          title?: string;
+        }
+      };
+      usb_printers?: {
+        filters: {
+          vendorId?: number;
+          productId?: number;
+          interfaceClass?: number;
+          interfaceSubclass?: number;
+          interfaceProtocol?: number;
+        }[]
+      };
+      version_name?: string;
+      webview?: {
+        partitions?: {
+          name: string;
+          accessible_resources: string[];
+        }[]
+      }
+      [key: string]: any;
     }
 
     /**
@@ -2866,60 +2866,60 @@ namespace  runtime {
      * Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required.
      */
     export var onBrowserUpdateAvailable: RuntimeEvent;
-}
+  }
 
-////////////////////
-// Serial
-////////////////////
-/**
- * Use the chrome.serial API to read from and write to a device connected to a serial port.
- * @since Chrome 23
- */
-namespace  serial {
+  ////////////////////
+  // Serial
+  ////////////////////
+  /**
+   * Use the chrome.serial API to read from and write to a device connected to a serial port.
+   * @since Chrome 23
+   */
+  namespace serial {
     /** NOT YET IMPLEMENTED */
-}
+  }
 
-////////////////////
-// Socket
-////////////////////
-namespace  socket {
+  ////////////////////
+  // Socket
+  ////////////////////
+  namespace socket {
     interface CreateInfo {
-        socketId: number;
+      socketId: number;
     }
 
     interface AcceptInfo {
-        resultCode: number;
-        socketId?: number;
+      resultCode: number;
+      socketId?: number;
     }
 
     interface ReadInfo {
-        resultCode: number;
-        data: ArrayBuffer;
+      resultCode: number;
+      data: ArrayBuffer;
     }
 
     interface WriteInfo {
-        bytesWritten: number;
+      bytesWritten: number;
     }
 
     interface RecvFromInfo {
-        resultCode: number;
-        data: ArrayBuffer;
-        port: number;
-        address: string;
+      resultCode: number;
+      data: ArrayBuffer;
+      port: number;
+      address: string;
     }
 
     interface SocketInfo {
-        socketType: string;
-        localPort?: number;
-        peerAddress?: string;
-        peerPort?: number;
-        localAddress?: string;
-        connected: boolean;
+      socketType: string;
+      localPort?: number;
+      peerAddress?: string;
+      peerPort?: number;
+      localAddress?: string;
+      connected: boolean;
     }
 
     interface NetworkInterface {
-        name: string;
-        address: string;
+      name: string;
+      address: string;
     }
 
     export function create(type: string, options?: Object, callback?: (createInfo: CreateInfo) => void): void;
@@ -2937,45 +2937,45 @@ namespace  socket {
     export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
     export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
     export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
-}
+  }
 
-namespace  sockets.tcp {
+  namespace sockets.tcp {
     interface CreateInfo {
-        socketId: number;
+      socketId: number;
     }
 
     interface SendInfo {
-        resultCode: number;
-        bytesSent?: number;
+      resultCode: number;
+      bytesSent?: number;
     }
 
     interface ReceiveEventArgs {
-        socketId: number;
-        data: ArrayBuffer;
+      socketId: number;
+      data: ArrayBuffer;
     }
 
     interface ReceiveErrorEventArgs {
-        socketId: number;
-        resultCode: number;
+      socketId: number;
+      resultCode: number;
     }
 
     interface SocketProperties {
-        persistent?: boolean;
-        name?: string;
-        bufferSize?: number;
+      persistent?: boolean;
+      name?: string;
+      bufferSize?: number;
     }
 
     interface SocketInfo {
-        socketId: number;
-        persistent: boolean;
-        name?: string;
-        bufferSize?: number;
-        paused: boolean;
-        connected: boolean;
-        localAddress?: string;
-        localPort?: number;
-        peerAddress?: string;
-        peerPort?: number;
+      socketId: number;
+      persistent: boolean;
+      name?: string;
+      bufferSize?: number;
+      paused: boolean;
+      connected: boolean;
+      localAddress?: string;
+      localPort?: number;
+      peerAddress?: string;
+      peerPort?: number;
     }
 
     export function create(callback: (createInfo: CreateInfo) => void): void;
@@ -2985,13 +2985,13 @@ namespace  sockets.tcp {
     export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
 
     export function setKeepAlive(socketId: number,
-        enable: boolean, callback: (result: number) => void): void;
+      enable: boolean, callback: (result: number) => void): void;
     export function setKeepAlive(socketId: number,
-        enable: boolean, delay: number, callback: (result: number) => void): void;
+      enable: boolean, delay: number, callback: (result: number) => void): void;
 
     export function setNoDelay(socketId: number, noDelay: boolean, callback: (result: number) => void): void;
     export function connect(socketId: number,
-        peerAddress: string, peerPort: number, callback: (result: number) => void): void;
+      peerAddress: string, peerPort: number, callback: (result: number) => void): void;
     export function disconnect(socketId: number, callback?: () => void): void;
     export function send(socketId: number, data: ArrayBuffer, callback: (sendInfo: SendInfo) => void): void;
     export function close(socketId: number, callback?: () => void): void;
@@ -3000,78 +3000,78 @@ namespace  sockets.tcp {
 
     export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
     export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
-}
+  }
 
-/**
- * Use the chrome.sockets.tcpServer API to create server applications using TCP
- * connections. This API supersedes the TCP functionality previously found in
- * the chrome.socket API.
- *
- * @since Chrome 33
- * @see https://developer.chrome.com/apps/sockets_tcpServer
- */
-namespace  sockets.tcpServer {
+  /**
+   * Use the chrome.sockets.tcpServer API to create server applications using TCP
+   * connections. This API supersedes the TCP functionality previously found in
+   * the chrome.socket API.
+   *
+   * @since Chrome 33
+   * @see https://developer.chrome.com/apps/sockets_tcpServer
+   */
+  namespace sockets.tcpServer {
     interface CreateInfo {
-        socketId: number;
+      socketId: number;
     }
 
     interface AcceptEventArgs {
-        socketId: number;
-        clientSocketId: number;
+      socketId: number;
+      clientSocketId: number;
     }
 
     interface AcceptErrorEventArgs {
-        socketId: number;
-        resultCode: number;
+      socketId: number;
+      resultCode: number;
     }
 
     /**
      * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketProperties
      */
     interface SocketProperties {
-        /**
-         * Flag indicating if the socket remains open when the event page of the
-         * application is unloaded. The default value is "false." When the
-         * application is loaded, any sockets previously opened with
-         * persistent=true can be fetched with getSockets.
-         *
-         * @see http://developer.chrome.com/apps/app_lifecycle.html
-         */
-        persistent?: boolean;
+      /**
+       * Flag indicating if the socket remains open when the event page of the
+       * application is unloaded. The default value is "false." When the
+       * application is loaded, any sockets previously opened with
+       * persistent=true can be fetched with getSockets.
+       *
+       * @see http://developer.chrome.com/apps/app_lifecycle.html
+       */
+      persistent?: boolean;
 
-        /** An application-defined string associated with the socket. */
-        name?: string;
+      /** An application-defined string associated with the socket. */
+      name?: string;
     }
 
     /**
      * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketInfo
      */
     interface SocketInfo {
-        /** The socket identifier. */
-        socketId: number;
+      /** The socket identifier. */
+      socketId: number;
 
-        /**
-         * Flag indicating if the socket remains open when the event page of the
-         * application is unloaded (see SocketProperties.persistent). The
-         * default value is "false".
-         */
-        persistent: boolean;
+      /**
+       * Flag indicating if the socket remains open when the event page of the
+       * application is unloaded (see SocketProperties.persistent). The
+       * default value is "false".
+       */
+      persistent: boolean;
 
-        /** Application-defined string associated with the socket. */
-        name?: string;
+      /** Application-defined string associated with the socket. */
+      name?: string;
 
-        /**
-         * Flag indicating whether connection requests on a listening socket are
-         * dispatched through the onAccept event or queued up in the listen
-         * queue backlog. See setPaused. The default value is "false"
-         */
-        paused: boolean;
+      /**
+       * Flag indicating whether connection requests on a listening socket are
+       * dispatched through the onAccept event or queued up in the listen
+       * queue backlog. See setPaused. The default value is "false"
+       */
+      paused: boolean;
 
-        /** If the socket is listening, contains its local IPv4/6 address. */
-        localAddress?: string;
+      /** If the socket is listening, contains its local IPv4/6 address. */
+      localAddress?: string;
 
-        /** If the socket is listening, contains its local port. */
-        localPort?: number;
+      /** If the socket is listening, contains its local port. */
+      localPort?: number;
     }
 
     /**
@@ -3200,99 +3200,99 @@ namespace  sockets.tcpServer {
      * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAcceptError
      */
     export var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
-}
+  }
 
-/**
- * Use the chrome.sockets.udp API to send and receive data over the network
- * using UDP connections. This API supersedes the UDP functionality previously
- * found in the "socket" API.
- *
- * @since Chrome 33
- * @see https://developer.chrome.com/apps/sockets_udp
- */
-namespace  sockets.udp {
+  /**
+   * Use the chrome.sockets.udp API to send and receive data over the network
+   * using UDP connections. This API supersedes the UDP functionality previously
+   * found in the "socket" API.
+   *
+   * @since Chrome 33
+   * @see https://developer.chrome.com/apps/sockets_udp
+   */
+  namespace sockets.udp {
     interface CreateInfo {
-        socketId: number;
+      socketId: number;
     }
 
     interface SendInfo {
-        resultCode: number;
-        bytesSent?: number;
+      resultCode: number;
+      bytesSent?: number;
     }
 
     interface ReceiveEventArgs {
-        socketId: number;
-        data: ArrayBuffer;
-        remoteAddress: string;
-        remotePort: number;
+      socketId: number;
+      data: ArrayBuffer;
+      remoteAddress: string;
+      remotePort: number;
     }
 
     interface ReceiveErrorEventArgs {
-        socketId: number;
-        resultCode: number;
+      socketId: number;
+      resultCode: number;
     }
 
     /**
      * @see https://developer.chrome.com/apps/sockets_udp#type-SocketProperties
      */
     interface SocketProperties {
-        /**
-         * Flag indicating if the socket is left open when the event page of the
-         * application is unloaded. The default value is "false." When the
-         * application is loaded, any sockets previously opened with
-         * persistent=true can be fetched with getSockets.
-         * @see http://developer.chrome.com/apps/app_lifecycle.html
-         */
-        persistent?: boolean;
+      /**
+       * Flag indicating if the socket is left open when the event page of the
+       * application is unloaded. The default value is "false." When the
+       * application is loaded, any sockets previously opened with
+       * persistent=true can be fetched with getSockets.
+       * @see http://developer.chrome.com/apps/app_lifecycle.html
+       */
+      persistent?: boolean;
 
-        /** An application-defined string associated with the socket. */
-        name?: string;
+      /** An application-defined string associated with the socket. */
+      name?: string;
 
-        /**
-         * The size of the buffer used to receive data. If the buffer is too
-         * small to receive the UDP packet, data is lost. The default value is
-         * 4096.
-         */
-        bufferSize?: number;
+      /**
+       * The size of the buffer used to receive data. If the buffer is too
+       * small to receive the UDP packet, data is lost. The default value is
+       * 4096.
+       */
+      bufferSize?: number;
     }
 
     /**
      * @see https://developer.chrome.com/apps/sockets_udp#type-SocketInfo
      */
     interface SocketInfo {
-        /** The socket identifier. */
-        socketId: number;
+      /** The socket identifier. */
+      socketId: number;
 
-        /**
-         * Flag indicating whether the socket is left open when the application
-         * is suspended (see SocketProperties.persistent).
-         */
-        persistent: boolean;
+      /**
+       * Flag indicating whether the socket is left open when the application
+       * is suspended (see SocketProperties.persistent).
+       */
+      persistent: boolean;
 
-        /** Application-defined string associated with the socket. */
-        name?: string;
+      /** Application-defined string associated with the socket. */
+      name?: string;
 
-        /**
-         * The size of the buffer used to receive data. If no buffer size ha
-         * been specified explictly, the value is not provided.
-         */
-        bufferSize?: number;
+      /**
+       * The size of the buffer used to receive data. If no buffer size ha
+       * been specified explictly, the value is not provided.
+       */
+      bufferSize?: number;
 
-        /**
-         * Flag indicating whether the socket is blocked from firing onReceive
-         * events.
-         */
-        paused: boolean;
+      /**
+       * Flag indicating whether the socket is blocked from firing onReceive
+       * events.
+       */
+      paused: boolean;
 
-        /**
-         * If the underlying socket is bound, contains its local IPv4/6 address.
-         */
-        localAddress?: string;
+      /**
+       * If the underlying socket is bound, contains its local IPv4/6 address.
+       */
+      localAddress?: string;
 
-        /**
-         * If the underlying socket is bound, contains its local port.
-         */
-        localPort?: number;
+      /**
+       * If the underlying socket is bound, contains its local port.
+       */
+      localPort?: number;
     }
 
     /**
@@ -3494,100 +3494,100 @@ namespace  sockets.udp {
      * @see https://developer.chrome.com/apps/sockets_udp#event-onReceiveError
      */
     export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
-}
+  }
 
-////////////////////
-// Storage
-////////////////////
-/**
- * Use the chrome.storage API to store, retrieve, and track changes to user data.
- * Permissions:  "storage"
- * @since Chrome 20.
- */
-namespace  storage {
+  ////////////////////
+  // Storage
+  ////////////////////
+  /**
+   * Use the chrome.storage API to store, retrieve, and track changes to user data.
+   * Permissions:  "storage"
+   * @since Chrome 20.
+   */
+  namespace storage {
     interface StorageArea {
-        /**
-         * Gets the amount of space (in bytes) being used by one or more items.
-         * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
-         * Parameter bytesInUse: Amount of space being used in storage, in bytes.
-         */
-        getBytesInUse(callback: (bytesInUse: number) => void): void;
-        /**
-         * Gets the amount of space (in bytes) being used by one or more items.
-         * @param keys A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
-         * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
-         * Parameter bytesInUse: Amount of space being used in storage, in bytes.
-         */
-        getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
-        /**
-         * Removes all items from storage.
-         * @param callback Optional.
-         * Callback on success, or on failure (in which case runtime.lastError will be set).
-         */
-        clear(callback?: () => void): void;
-        /**
-         * Sets multiple items.
-         * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
-         * Primitive values such as numbers will serialize as expected. Values with a typeof "object" and "function" will typically serialize to {}, with the exception of Array (serializes as expected), Date, and Regex (serialize using their String representation).
-         * @param callback Optional.
-         * Callback on success, or on failure (in which case runtime.lastError will be set).
-         */
-        set(items: Object, callback?: () => void): void;
-        /**
-         * Removes one or more items from storage.
-         * @param A single key or a list of keys for items to remove.
-         * @param callback Optional.
-         * Callback on success, or on failure (in which case runtime.lastError will be set).
-         */
-        remove(keys: string | string[], callback?: () => void): void;
-        /**
-         * Gets one or more items from storage.
-         * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
-         * Parameter items: Object with items in their key-value mappings.
-         */
-        get(callback: (items: { [key: string]: any }) => void): void;
-        /**
-         * Gets one or more items from storage.
-         * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
-         * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
-         * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
-         * Parameter items: Object with items in their key-value mappings.
-         */
-        get(keys: string | string[] | Object | null, callback: (items: { [key: string]: any }) => void): void;
+      /**
+       * Gets the amount of space (in bytes) being used by one or more items.
+       * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
+       * Parameter bytesInUse: Amount of space being used in storage, in bytes.
+       */
+      getBytesInUse(callback: (bytesInUse: number) => void): void;
+      /**
+       * Gets the amount of space (in bytes) being used by one or more items.
+       * @param keys A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
+       * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
+       * Parameter bytesInUse: Amount of space being used in storage, in bytes.
+       */
+      getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
+      /**
+       * Removes all items from storage.
+       * @param callback Optional.
+       * Callback on success, or on failure (in which case runtime.lastError will be set).
+       */
+      clear(callback?: () => void): void;
+      /**
+       * Sets multiple items.
+       * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
+       * Primitive values such as numbers will serialize as expected. Values with a typeof "object" and "function" will typically serialize to {}, with the exception of Array (serializes as expected), Date, and Regex (serialize using their String representation).
+       * @param callback Optional.
+       * Callback on success, or on failure (in which case runtime.lastError will be set).
+       */
+      set(items: Object, callback?: () => void): void;
+      /**
+       * Removes one or more items from storage.
+       * @param A single key or a list of keys for items to remove.
+       * @param callback Optional.
+       * Callback on success, or on failure (in which case runtime.lastError will be set).
+       */
+      remove(keys: string | string[], callback?: () => void): void;
+      /**
+       * Gets one or more items from storage.
+       * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+       * Parameter items: Object with items in their key-value mappings.
+       */
+      get(callback: (items: { [key: string]: any }) => void): void;
+      /**
+       * Gets one or more items from storage.
+       * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
+       * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
+       * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+       * Parameter items: Object with items in their key-value mappings.
+       */
+      get(keys: string | string[] | Object | null, callback: (items: { [key: string]: any }) => void): void;
     }
 
     interface StorageChange {
-        /** Optional. The new value of the item, if there is a new value. */
-        newValue?: any;
-        /** Optional. The old value of the item, if there was an old value. */
-        oldValue?: any;
+      /** Optional. The new value of the item, if there is a new value. */
+      newValue?: any;
+      /** Optional. The old value of the item, if there was an old value. */
+      oldValue?: any;
     }
 
     interface LocalStorageArea extends StorageArea {
-        /** The maximum amount (in bytes) of data that can be stored in local storage, as measured by the JSON stringification of every value plus every key's length. This value will be ignored if the extension has the unlimitedStorage permission. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
-        QUOTA_BYTES: number;
+      /** The maximum amount (in bytes) of data that can be stored in local storage, as measured by the JSON stringification of every value plus every key's length. This value will be ignored if the extension has the unlimitedStorage permission. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
+      QUOTA_BYTES: number;
     }
 
     interface SyncStorageArea extends StorageArea {
-        /** @deprecated since Chrome 40. The storage.sync API no longer has a sustained write operation quota. */
-        MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
-        /** The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
-        QUOTA_BYTES: number;
-        /** The maximum size (in bytes) of each individual item in sync storage, as measured by the JSON stringification of its value plus its key length. Updates containing items larger than this limit will fail immediately and set runtime.lastError. */
-        QUOTA_BYTES_PER_ITEM: number;
-        /** The maximum number of items that can be stored in sync storage. Updates that would cause this limit to be exceeded will fail immediately and set runtime.lastError. */
-        MAX_ITEMS: number;
-        /**
-         * The maximum number of set, remove, or clear operations that can be performed each hour. This is 1 every 2 seconds, a lower ceiling than the short term higher writes-per-minute limit.
-         * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
-         */
-        MAX_WRITE_OPERATIONS_PER_HOUR: number;
-        /**
-         * The maximum number of set, remove, or clear operations that can be performed each minute. This is 2 per second, providing higher throughput than writes-per-hour over a shorter period of time.
-         * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
-         * @since Chrome 40.
-         */
-        MAX_WRITE_OPERATIONS_PER_MINUTE: number;
+      /** @deprecated since Chrome 40. The storage.sync API no longer has a sustained write operation quota. */
+      MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
+      /** The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
+      QUOTA_BYTES: number;
+      /** The maximum size (in bytes) of each individual item in sync storage, as measured by the JSON stringification of its value plus its key length. Updates containing items larger than this limit will fail immediately and set runtime.lastError. */
+      QUOTA_BYTES_PER_ITEM: number;
+      /** The maximum number of items that can be stored in sync storage. Updates that would cause this limit to be exceeded will fail immediately and set runtime.lastError. */
+      MAX_ITEMS: number;
+      /**
+       * The maximum number of set, remove, or clear operations that can be performed each hour. This is 1 every 2 seconds, a lower ceiling than the short term higher writes-per-minute limit.
+       * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
+       */
+      MAX_WRITE_OPERATIONS_PER_HOUR: number;
+      /**
+       * The maximum number of set, remove, or clear operations that can be performed each minute. This is 2 per second, providing higher throughput than writes-per-hour over a shorter period of time.
+       * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
+       * @since Chrome 40.
+       */
+      MAX_WRITE_OPERATIONS_PER_MINUTE: number;
     }
 
     interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: string) => void> { }
@@ -3605,157 +3605,157 @@ namespace  storage {
 
     /** Fired when one or more items change. */
     export var onChanged: StorageChangedEvent;
-}
+  }
 
-////////////////////
-// SyncFileSystem
-////////////////////
-/**
- * Use the chrome.syncFileSystem API to save and synchronize data on Google Drive. This API is NOT for accessing arbitrary user docs stored in Google Drive. It provides app-specific syncable storage for offline and caching usage so that the same data can be available across different clients. Read Manage Data for more on using this API.
- * @since Chrome 27
- */
-namespace  syncFileSystem {
+  ////////////////////
+  // SyncFileSystem
+  ////////////////////
+  /**
+   * Use the chrome.syncFileSystem API to save and synchronize data on Google Drive. This API is NOT for accessing arbitrary user docs stored in Google Drive. It provides app-specific syncable storage for offline and caching usage so that the same data can be available across different clients. Read Manage Data for more on using this API.
+   * @since Chrome 27
+   */
+  namespace syncFileSystem {
     /** NOT YET IMPLEMENTED */
-}
+  }
 
 
-////////////////////
-// System CPU
-////////////////////
-/**
- * Use the system.cpu API to query CPU metadata.
- * Permissions: "system.cpu"
- * @since Chrome 32.
- */
-namespace  system.cpu {
+  ////////////////////
+  // System CPU
+  ////////////////////
+  /**
+   * Use the system.cpu API to query CPU metadata.
+   * Permissions: "system.cpu"
+   * @since Chrome 32.
+   */
+  namespace system.cpu {
     interface ProcessorUsage {
-        /** The cumulative time used by userspace programs on this processor. */
-        user: number;
-        /** The cumulative time used by kernel programs on this processor. */
-        kernel: number;
-        /** The cumulative time spent idle by this processor. */
-        idle: number;
-        /** The total cumulative time for this processor. This value is equal to user + kernel + idle. */
-        total: number;
+      /** The cumulative time used by userspace programs on this processor. */
+      user: number;
+      /** The cumulative time used by kernel programs on this processor. */
+      kernel: number;
+      /** The cumulative time spent idle by this processor. */
+      idle: number;
+      /** The total cumulative time for this processor. This value is equal to user + kernel + idle. */
+      total: number;
     }
 
     interface ProcessorInfo {
-        /** Cumulative usage info for this logical processor. */
-        usage: ProcessorUsage;
+      /** Cumulative usage info for this logical processor. */
+      usage: ProcessorUsage;
     }
 
     interface CpuInfo {
-        /** The number of logical processors. */
-        numOfProcessors: number;
-        /** The architecture name of the processors. */
-        archName: string;
-        /** The model name of the processors. */
-        modelName: string;
-        /**
-         * A set of feature codes indicating some of the processor's capabilities.
-         * The currently supported codes are "mmx", "sse", "sse2", "sse3", "ssse3", "sse4_1", "sse4_2", and "avx".
-         */
-        features: string[];
-        /** Information about each logical processor. */
-        processors: ProcessorInfo[];
+      /** The number of logical processors. */
+      numOfProcessors: number;
+      /** The architecture name of the processors. */
+      archName: string;
+      /** The model name of the processors. */
+      modelName: string;
+      /**
+       * A set of feature codes indicating some of the processor's capabilities.
+       * The currently supported codes are "mmx", "sse", "sse2", "sse3", "ssse3", "sse4_1", "sse4_2", and "avx".
+       */
+      features: string[];
+      /** Information about each logical processor. */
+      processors: ProcessorInfo[];
     }
 
     /** Queries basic CPU information of the system. */
     export function getInfo(callback: (info: CpuInfo) => void): void;
-}
+  }
 
-////////////////////
-// System Display
-////////////////////
-/**
- * Use the system.display API to query display metadata.
- * Permissions: "system.display"
- * @since Chrome 30.
- */
-namespace  system.display {
+  ////////////////////
+  // System Display
+  ////////////////////
+  /**
+   * Use the system.display API to query display metadata.
+   * Permissions: "system.display"
+   * @since Chrome 30.
+   */
+  namespace system.display {
     interface Bounds {
-        /**  The x-coordinate of the upper-left corner. */
-        left: number;
-        /**  The y-coordinate of the upper-left corner. */
-        top: number;
-        /** The width of the display in pixels. */
-        width: number;
-        /** The height of the display in pixels. */
-        height: number;
+      /**  The x-coordinate of the upper-left corner. */
+      left: number;
+      /**  The y-coordinate of the upper-left corner. */
+      top: number;
+      /** The width of the display in pixels. */
+      width: number;
+      /** The height of the display in pixels. */
+      height: number;
     }
 
     interface Insets {
-        /** The x-axis distance from the left bound. */
-        left: number;
-        /** The y-axis distance from the top bound. */
-        top: number;
-        /** The x-axis distance from the right bound. */
-        right: number;
-        /** The y-axis distance from the bottom bound. */
-        bottom: number;
+      /** The x-axis distance from the left bound. */
+      left: number;
+      /** The y-axis distance from the top bound. */
+      top: number;
+      /** The x-axis distance from the right bound. */
+      right: number;
+      /** The y-axis distance from the bottom bound. */
+      bottom: number;
     }
 
     /**
      * @since Chrome 57
      */
     interface Point {
-        /** The x-coordinate of the point. */
-        x: number;
-        /** The y-coordinate of the point. */
-        y: number;
+      /** The x-coordinate of the point. */
+      x: number;
+      /** The y-coordinate of the point. */
+      y: number;
     }
 
     /**
      * @since Chrome 57
      */
     interface TouchCalibrationPair {
-        /**	The coordinates of the display point. */
-        displayPoint: Point;
-        /** The coordinates of the touch point corresponding to the display point. */
-        touchPoint: Point;
+      /**	The coordinates of the display point. */
+      displayPoint: Point;
+      /** The coordinates of the touch point corresponding to the display point. */
+      touchPoint: Point;
     }
 
     /**
      * @since Chrome 52
      */
     interface DisplayMode {
-        /** The display mode width in device independent (user visible) pixels. */
-        width: number;
+      /** The display mode width in device independent (user visible) pixels. */
+      width: number;
 
-        /** The display mode height in device independent (user visible) pixels. */
-        height: number;
+      /** The display mode height in device independent (user visible) pixels. */
+      height: number;
 
-        /** The display mode width in native pixels. */
-        widthInNativePixels: number;
+      /** The display mode width in native pixels. */
+      widthInNativePixels: number;
 
-        /** The display mode height in native pixels. */
-        heightInNativePixels: number;
+      /** The display mode height in native pixels. */
+      heightInNativePixels: number;
 
-        /** The display mode UI scale factor. */
-        uiScale: number;
+      /** The display mode UI scale factor. */
+      uiScale: number;
 
-        /** The display mode device scale factor. */
-        deviceScaleFactor: number;
+      /** The display mode device scale factor. */
+      deviceScaleFactor: number;
 
-        /** True if the mode is the display's native mode. */
-        isNative: boolean;
+      /** True if the mode is the display's native mode. */
+      isNative: boolean;
 
-        /** True if the display mode is currently selected. */
-        isSelected: boolean;
+      /** True if the display mode is currently selected. */
+      isSelected: boolean;
     }
 
     /**
      * @since Chrome 53
      */
     interface DisplayLayout {
-        /** The unique identifier of the display. */
-        id: string;
-        /** The unique identifier of the parent display. Empty if this is the root. */
-        parentId: string;
-        /** The layout position of this display relative to the parent. This will be ignored for the root. */
-        position: 'top' | 'right' | 'bottom' | 'left';
-        /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
-        offset: number;
+      /** The unique identifier of the display. */
+      id: string;
+      /** The unique identifier of the parent display. Empty if this is the root. */
+      parentId: string;
+      /** The layout position of this display relative to the parent. This will be ignored for the root. */
+      position: 'top' | 'right' | 'bottom' | 'left';
+      /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
+      offset: number;
     }
 
     /**
@@ -3764,14 +3764,14 @@ namespace  system.display {
      * @interface TouchCalibrationPairs
      */
     interface TouchCalibrationPairs {
-        /** First pair of touch and display point required for touch calibration. */
-        pair1: TouchCalibrationPair,
-        /** Second pair of touch and display point required for touch calibration. */
-        pair2: TouchCalibrationPair,
-        /** Third pair of touch and display point required for touch calibration. */
-        pair3: TouchCalibrationPair,
-        /** Fourth pair of touch and display point required for touch calibration. */
-        pair4: TouchCalibrationPair
+      /** First pair of touch and display point required for touch calibration. */
+      pair1: TouchCalibrationPair,
+      /** Second pair of touch and display point required for touch calibration. */
+      pair2: TouchCalibrationPair,
+      /** Third pair of touch and display point required for touch calibration. */
+      pair3: TouchCalibrationPair,
+      /** Fourth pair of touch and display point required for touch calibration. */
+      pair4: TouchCalibrationPair
     }
 
     /**
@@ -3780,37 +3780,37 @@ namespace  system.display {
      * @interface DisplayPropertiesInfo
      */
     interface DisplayPropertiesInfo {
-        /**
-         * @description Chrome OS only. If set to true, changes the display mode to unified desktop (see enableUnifiedDesktop for details). If set to false, unified desktop mode will be disabled. This is only valid for the primary display. If provided, mirroringSourceId must not be provided and other properties may not apply. This is has no effect if not provided.
-         * @since Chrome 59
-         * */
-        isUnified?: boolean;
+      /**
+       * @description Chrome OS only. If set to true, changes the display mode to unified desktop (see enableUnifiedDesktop for details). If set to false, unified desktop mode will be disabled. This is only valid for the primary display. If provided, mirroringSourceId must not be provided and other properties may not apply. This is has no effect if not provided.
+       * @since Chrome 59
+       * */
+      isUnified?: boolean;
 
-        /**
-         * Chrome OS only. If set and not empty, enables mirroring for this display. Otherwise disables mirroring for this display. This value should indicate the id of the source display to mirror, which must not be the same as the id passed to setDisplayProperties. If set, no other property may be set.
-         */
-        mirroringSourceId?: string;
+      /**
+       * Chrome OS only. If set and not empty, enables mirroring for this display. Otherwise disables mirroring for this display. This value should indicate the id of the source display to mirror, which must not be the same as the id passed to setDisplayProperties. If set, no other property may be set.
+       */
+      mirroringSourceId?: string;
 
-        /** If set to true, makes the display primary. No-op if set to false. */
-        isPrimary?: boolean;
+      /** If set to true, makes the display primary. No-op if set to false. */
+      isPrimary?: boolean;
 
-        /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
-        overscan?: Insets;
+      /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
+      overscan?: Insets;
 
-        /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
-        rotation?: 0 | 90 | 180 | 270;
+      /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
+      rotation?: 0 | 90 | 180 | 270;
 
-        /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
-        boundsOriginX?: number;
+      /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
+      boundsOriginX?: number;
 
-        /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
-        boundsOriginY: number;
+      /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
+      boundsOriginY: number;
 
-        /**
-         * @since Chrome 52
-         * @description If set, updates the display mode to the mode matching this value.
-         */
-        displayMode?: DisplayMode;
+      /**
+       * @since Chrome 52
+       * @description If set, updates the display mode to the mode matching this value.
+       */
+      displayMode?: DisplayMode;
     }
 
     /**
@@ -3820,56 +3820,56 @@ namespace  system.display {
      * @interface DisplayInfoFlags
      */
     interface DisplayInfoFlags {
-        /**
-         * @description If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode (see enableUnifiedDesktop). Defaults to false.
-         * @type {boolean}
-         * @memberof DisplayInfoFlags
-         */
-        singleUnified?: boolean;
+      /**
+       * @description If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode (see enableUnifiedDesktop). Defaults to false.
+       * @type {boolean}
+       * @memberof DisplayInfoFlags
+       */
+      singleUnified?: boolean;
     }
 
     /** Information about display properties. */
     interface DisplayInfo {
-        /** The unique identifier of the display. */
-        id: string;
-        /** The user-friendly name (e.g. "HP LCD monitor"). */
-        name: string;
-        /** Identifier of the display that is being mirrored on the display unit. If mirroring is not in progress, set to an empty string. Currently exposed only on ChromeOS. Will be empty string on other platforms. */
-        mirroringSourceId: string;
-        /** True if this is the primary display. */
-        isPrimary: boolean;
-        /** True if this is an internal display. */
-        isInternal: boolean;
-        /** True if this display is enabled. */
-        isEnabled: boolean;
-        /** The number of pixels per inch along the x-axis. */
-        dpiX: number;
-        /** The number of pixels per inch along the y-axis. */
-        dpiY: number;
-        /** The display's clockwise rotation in degrees relative to the vertical position. Currently exposed only on ChromeOS. Will be set to 0 on other platforms. */
-        rotation: number;
-        /** The display's logical bounds. */
-        bounds: Bounds;
-        /** The display's insets within its screen's bounds. Currently exposed only on ChromeOS. Will be set to empty insets on other platforms. */
-        overscan: Insets;
-        /** The usable work area of the display within the display bounds. The work area excludes areas of the display reserved for OS, for example taskbar and launcher. */
-        workArea: Bounds;
+      /** The unique identifier of the display. */
+      id: string;
+      /** The user-friendly name (e.g. "HP LCD monitor"). */
+      name: string;
+      /** Identifier of the display that is being mirrored on the display unit. If mirroring is not in progress, set to an empty string. Currently exposed only on ChromeOS. Will be empty string on other platforms. */
+      mirroringSourceId: string;
+      /** True if this is the primary display. */
+      isPrimary: boolean;
+      /** True if this is an internal display. */
+      isInternal: boolean;
+      /** True if this display is enabled. */
+      isEnabled: boolean;
+      /** The number of pixels per inch along the x-axis. */
+      dpiX: number;
+      /** The number of pixels per inch along the y-axis. */
+      dpiY: number;
+      /** The display's clockwise rotation in degrees relative to the vertical position. Currently exposed only on ChromeOS. Will be set to 0 on other platforms. */
+      rotation: number;
+      /** The display's logical bounds. */
+      bounds: Bounds;
+      /** The display's insets within its screen's bounds. Currently exposed only on ChromeOS. Will be set to empty insets on other platforms. */
+      overscan: Insets;
+      /** The usable work area of the display within the display bounds. The work area excludes areas of the display reserved for OS, for example taskbar and launcher. */
+      workArea: Bounds;
     }
 
     /** The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|. */
     interface DisplayProps {
-        /** If set and not empty, starts mirroring between this and the display with the provided id (the system will determine which of the displays is actually mirrored). If set and not empty, stops mirroring between this and the display with the specified id (if mirroring is in progress). If set, no other parameter may be set. */
-        mirroringSourceId?: string;
-        /** If set to true, makes the display primary. No-op if set to false. */
-        isPrimary?: boolean;
-        /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
-        overscan?: Insets;
-        /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
-        rotation?: number;
-        /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
-        boundsOriginX?: number;
-        /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
-        boundsOriginY?: number;
+      /** If set and not empty, starts mirroring between this and the display with the provided id (the system will determine which of the displays is actually mirrored). If set and not empty, stops mirroring between this and the display with the specified id (if mirroring is in progress). If set, no other parameter may be set. */
+      mirroringSourceId?: string;
+      /** If set to true, makes the display primary. No-op if set to false. */
+      isPrimary?: boolean;
+      /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
+      overscan?: Insets;
+      /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
+      rotation?: number;
+      /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
+      boundsOriginX?: number;
+      /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
+      boundsOriginY?: number;
     }
 
     /**
@@ -3998,71 +3998,71 @@ namespace  system.display {
      * @export
      */
     export var onDisplayChanged: DisplayChangedEvent;
-}
+  }
 
-////////////////////
-// System Memory
-////////////////////
-/**
- * The chrome.system.memory API.
- * Permissions:  "system.memory"
- * @since Chrome 32.
- */
-namespace  system.memory {
+  ////////////////////
+  // System Memory
+  ////////////////////
+  /**
+   * The chrome.system.memory API.
+   * Permissions:  "system.memory"
+   * @since Chrome 32.
+   */
+  namespace system.memory {
     interface MemoryInfo {
-        /** The total amount of physical memory capacity, in bytes. */
-        capacity: number;
-        /** The amount of available capacity, in bytes. */
-        availableCapacity: number;
+      /** The total amount of physical memory capacity, in bytes. */
+      capacity: number;
+      /** The amount of available capacity, in bytes. */
+      availableCapacity: number;
     }
 
     /** Get physical memory information. */
     export function getInfo(callback: (info: MemoryInfo) => void): void;
-}
+  }
 
-////////////////////
-// System - Network
-////////////////////
-namespace  system.network {
+  ////////////////////
+  // System - Network
+  ////////////////////
+  namespace system.network {
     interface NetworkInterface {
-        name: string;
-        address: string;
-        prefixLength: number;
+      name: string;
+      address: string;
+      prefixLength: number;
     }
 
     export function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
-}
+  }
 
-////////////////////
-// System Storage
-////////////////////
-/**
- * Use the chrome.system.storage API to query storage device information and be notified when a removable storage device is attached and detached.
- * Permissions:  "system.storage"
- * @since Chrome 30.
- */
-namespace  system.storage {
+  ////////////////////
+  // System Storage
+  ////////////////////
+  /**
+   * Use the chrome.system.storage API to query storage device information and be notified when a removable storage device is attached and detached.
+   * Permissions:  "system.storage"
+   * @since Chrome 30.
+   */
+  namespace system.storage {
     interface StorageUnitInfo {
-        /** The transient ID that uniquely identifies the storage device. This ID will be persistent within the same run of a single application. It will not be a persistent identifier between different runs of an application, or between different applications. */
-        id: string;
-        /** The name of the storage unit. */
-        name: string;
-        /**
-         * The media type of the storage unit.
-         * fixed: The storage has fixed media, e.g. hard disk or SSD.
-         * removable: The storage is removable, e.g. USB flash drive.
-         * unknown: The storage type is unknown.
-         */
-        type: string;
-        /** The total amount of the storage space, in bytes. */
-        capacity: number;
+      /** The transient ID that uniquely identifies the storage device. This ID will be persistent within the same run of a single application. It will not be a persistent identifier between different runs of an application, or between different applications. */
+      id: string;
+      /** The name of the storage unit. */
+      name: string;
+      /**
+       * The media type of the storage unit.
+       * fixed: The storage has fixed media, e.g. hard disk or SSD.
+       * removable: The storage is removable, e.g. USB flash drive.
+       * unknown: The storage type is unknown.
+       */
+      type: string;
+      /** The total amount of the storage space, in bytes. */
+      capacity: number;
     }
 
     interface StorageCapacityInfo {
-        /** A copied |id| of getAvailableCapacity function parameter |id|. */
-        id: string;
-        /** The available capacity of the storage device, in bytes. */
-        availableCapacity: number;
+      /** A copied |id| of getAvailableCapacity function parameter |id|. */
+      id: string;
+      /** The available capacity of the storage device, in bytes. */
+      availableCapacity: number;
     }
 
     interface SystemStorageAttachedEvent extends chrome.events.Event<(info: StorageUnitInfo) => void> { }
@@ -4087,90 +4087,90 @@ namespace  system.storage {
     export var onAttached: SystemStorageAttachedEvent;
     /** Fired when a removable storage is detached from the system. */
     export var onDetached: SystemStorageDetachedEvent;
-}
+  }
 
-////////////////////
-// Text to Speech
-////////////////////
-/**
- * Use the chrome.tts API to play synthesized text-to-speech (TTS). See also the related ttsEngine API, which allows an extension to implement a speech engine.
- * Permissions:  "tts"
- * @since Chrome 14.
- */
-namespace  tts {
+  ////////////////////
+  // Text to Speech
+  ////////////////////
+  /**
+   * Use the chrome.tts API to play synthesized text-to-speech (TTS). See also the related ttsEngine API, which allows an extension to implement a speech engine.
+   * Permissions:  "tts"
+   * @since Chrome 14.
+   */
+  namespace tts {
     /** An event from the TTS engine to communicate the status of an utterance. */
     interface TtsEvent {
-        /** Optional. The index of the current character in the utterance. */
-        charIndex?: number;
-        /** Optional. The error description, if the event type is 'error'. */
-        errorMessage?: string;
-        /**
-         * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
-         * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
-         */
-        type: string;
+      /** Optional. The index of the current character in the utterance. */
+      charIndex?: number;
+      /** Optional. The error description, if the event type is 'error'. */
+      errorMessage?: string;
+      /**
+       * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
+       * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
+       */
+      type: string;
     }
 
     /** A description of a voice available for speech synthesis. */
     interface TtsVoice {
-        /** Optional. The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-        lang?: string;
-        /**
-         * Optional. This voice's gender.
-         * One of: "male", or "female"
-         */
-        gender?: string;
-        /** Optional. The name of the voice. */
-        voiceName?: string;
-        /** The ID of the extension providing this voice. */
-        extensionsId?: string;
-        /** All of the callback event types that this voice is capable of sending. */
-        eventTypes?: string[];
-        /**
-         * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
-         * @since Chrome 33.
-         */
-        remote?: boolean;
+      /** Optional. The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
+      lang?: string;
+      /**
+       * Optional. This voice's gender.
+       * One of: "male", or "female"
+       */
+      gender?: string;
+      /** Optional. The name of the voice. */
+      voiceName?: string;
+      /** The ID of the extension providing this voice. */
+      extensionsId?: string;
+      /** All of the callback event types that this voice is capable of sending. */
+      eventTypes?: string[];
+      /**
+       * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
+       * @since Chrome 33.
+       */
+      remote?: boolean;
     }
 
     interface SpeakOptions {
-        /** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-        volume?: number;
-        /**
-         * Optional.
-         * If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance.
-         */
-        enqueue?: boolean;
-        /**
-         * Optional.
-         * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0.
-         */
-        rate?: number;
-        /**
-         * Optional. This function is called with events that occur in the process of speaking the utterance.
-         * @param event The update event from the text-to-speech engine indicating the status of this utterance.
-         */
-        onEvent?: (event: TtsEvent) => void;
-        /**
-         * Optional.
-         * Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch.
-         */
-        pitch?: number;
-        /** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-        lang?: string;
-        /** Optional. The name of the voice to use for synthesis. If empty, uses any available voice. */
-        voiceName?: string;
-        /** Optional. The extension ID of the speech engine to use, if known. */
-        extensionId?: string;
-        /**
-         * Optional. Gender of voice for synthesized speech.
-         * One of: "male", or "female"
-         */
-        gender?: string;
-        /** Optional. The TTS event types the voice must support. */
-        requiredEventTypes?: string[];
-        /** Optional. The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
-        desiredEventTypes?: string[];
+      /** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
+      volume?: number;
+      /**
+       * Optional.
+       * If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance.
+       */
+      enqueue?: boolean;
+      /**
+       * Optional.
+       * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0.
+       */
+      rate?: number;
+      /**
+       * Optional. This function is called with events that occur in the process of speaking the utterance.
+       * @param event The update event from the text-to-speech engine indicating the status of this utterance.
+       */
+      onEvent?: (event: TtsEvent) => void;
+      /**
+       * Optional.
+       * Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch.
+       */
+      pitch?: number;
+      /** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
+      lang?: string;
+      /** Optional. The name of the voice to use for synthesis. If empty, uses any available voice. */
+      voiceName?: string;
+      /** Optional. The extension ID of the speech engine to use, if known. */
+      extensionId?: string;
+      /**
+       * Optional. Gender of voice for synthesized speech.
+       * One of: "male", or "female"
+       */
+      gender?: string;
+      /** Optional. The TTS event types the voice must support. */
+      requiredEventTypes?: string[];
+      /** Optional. The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
+      desiredEventTypes?: string[];
     }
 
     /** Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome. */
@@ -4202,48 +4202,48 @@ namespace  tts {
      * @since Chrome 29.
      */
     export function resume(): void;
-}
+  }
 
-////////////////////
-// Types
-////////////////////
-/**
- * The chrome.types API contains type declarations for Chrome.
- * @since Chrome 13.
- */
-namespace  types {
+  ////////////////////
+  // Types
+  ////////////////////
+  /**
+   * The chrome.types API contains type declarations for Chrome.
+   * @since Chrome 13.
+   */
+  namespace types {
     interface ChromeSettingClearDetails {
-        /**
-         * Optional.
-         * The scope of the ChromeSetting. One of
-         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-         */
-        scope?: string;
+      /**
+       * Optional.
+       * The scope of the ChromeSetting. One of
+       * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+       * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+       * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+       * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+       */
+      scope?: string;
     }
 
     interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
-        /**
-         * The value of the setting.
-         * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
-         */
-        value: any;
-        /**
-         * Optional.
-         * The scope of the ChromeSetting. One of
-         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-         */
-        scope?: string;
+      /**
+       * The value of the setting.
+       * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
+       */
+      value: any;
+      /**
+       * Optional.
+       * The scope of the ChromeSetting. One of
+       * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+       * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+       * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+       * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+       */
+      scope?: string;
     }
 
     interface ChromeSettingGetDetails {
-        /** Optional. Whether to return the value that applies to the incognito session (default false). */
-        incognito?: boolean;
+      /** Optional. Whether to return the value that applies to the incognito session (default false). */
+      incognito?: boolean;
     }
 
     /**
@@ -4252,135 +4252,135 @@ namespace  types {
     export type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
 
     interface ChromeSettingGetResultDetails {
-        /**
-         * One of
-         * • not_controllable: cannot be controlled by any extension
-         * • controlled_by_other_extensions: controlled by extensions with higher precedence
-         * • controllable_by_this_extension: can be controlled by this extension
-         * • controlled_by_this_extension: controlled by this extension
-         */
-        levelOfControl: string;
-        /** The value of the setting. */
-        value: any;
-        /**
-         * Optional.
-         * Whether the effective value is specific to the incognito session.
-         * This property will only be present if the incognito property in the details parameter of get() was true.
-         */
-        incognitoSpecific?: boolean;
+      /**
+       * One of
+       * • not_controllable: cannot be controlled by any extension
+       * • controlled_by_other_extensions: controlled by extensions with higher precedence
+       * • controllable_by_this_extension: can be controlled by this extension
+       * • controlled_by_this_extension: controlled by this extension
+       */
+      levelOfControl: string;
+      /** The value of the setting. */
+      value: any;
+      /**
+       * Optional.
+       * Whether the effective value is specific to the incognito session.
+       * This property will only be present if the incognito property in the details parameter of get() was true.
+       */
+      incognitoSpecific?: boolean;
     }
 
     interface ChromeSettingChangedEvent extends chrome.events.Event<DetailsCallback> { }
 
     /** An interface that allows access to a Chrome browser setting. See accessibilityFeatures for an example. */
     interface ChromeSetting {
-        /**
-         * Sets the value of a setting.
-         * @param details Which setting to change.
-         * @param callback Optional. Called at the completion of the set operation.
-         */
-        set(details: ChromeSettingSetDetails, callback?: Function): void;
-        /**
-         * Gets the value of a setting.
-         * @param details Which setting to consider.
-         */
-        get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
-        /**
-         * Clears the setting, restoring any default value.
-         * @param details Which setting to clear.
-         * @param callback Optional. Called at the completion of the clear operation.
-         */
-        clear(details: ChromeSettingClearDetails, callback?: Function): void;
-        /** Fired after the setting changes. */
-        onChange: ChromeSettingChangedEvent;
+      /**
+       * Sets the value of a setting.
+       * @param details Which setting to change.
+       * @param callback Optional. Called at the completion of the set operation.
+       */
+      set(details: ChromeSettingSetDetails, callback?: Function): void;
+      /**
+       * Gets the value of a setting.
+       * @param details Which setting to consider.
+       */
+      get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
+      /**
+       * Clears the setting, restoring any default value.
+       * @param details Which setting to clear.
+       * @param callback Optional. Called at the completion of the clear operation.
+       */
+      clear(details: ChromeSettingClearDetails, callback?: Function): void;
+      /** Fired after the setting changes. */
+      onChange: ChromeSettingChangedEvent;
     }
-}
+  }
 
-////////////////////
-// USB
-////////////////////
-namespace  usb {
+  ////////////////////
+  // USB
+  ////////////////////
+  namespace usb {
     type Direction = 'in' | 'out';
 
     interface Device {
-        device: number,
-        vendorId: number,
-        productId: number,
-        productName: string,
-        manufacturerName: string,
-        serialNumber: string
+      device: number,
+      vendorId: number,
+      productId: number,
+      productName: string,
+      manufacturerName: string,
+      serialNumber: string
     }
 
     interface ConnectionHandle {
-        handle: number,
-        vendorId: number,
-        productId: number
+      handle: number,
+      vendorId: number,
+      productId: number
     }
 
     interface EndpointDescriptor {
-        address: number,
-        type: 'control' | 'interrupt' | 'isochronous' | 'bulk',
-        direction: Direction,
-        maximumPacketSize: number,
-        synchronization?: 'asynchronous' | 'adaptive' | 'synchronous',
-        usage?: 'data' | 'feedback' | 'explicitFeedback',
-        pollingInterval?: number,
-        extra_data: ArrayBuffer
+      address: number,
+      type: 'control' | 'interrupt' | 'isochronous' | 'bulk',
+      direction: Direction,
+      maximumPacketSize: number,
+      synchronization?: 'asynchronous' | 'adaptive' | 'synchronous',
+      usage?: 'data' | 'feedback' | 'explicitFeedback',
+      pollingInterval?: number,
+      extra_data: ArrayBuffer
     }
 
     interface InterfaceDescriptor {
-        interfaceNumber: number,
-        alternateSetting: number,
-        interfaceClass: number,
-        interfaceSubclass: number,
-        interfaceProtocol: number,
-        description?: string,
-        endpoints: EndpointDescriptor[],
-        extra_data: ArrayBuffer
+      interfaceNumber: number,
+      alternateSetting: number,
+      interfaceClass: number,
+      interfaceSubclass: number,
+      interfaceProtocol: number,
+      description?: string,
+      endpoints: EndpointDescriptor[],
+      extra_data: ArrayBuffer
     }
 
     interface ConfigDescriptor {
-        active: boolean,
-        configurationValue: number,
-        description?: string,
-        selfPowered: boolean,
-        remoteWakeup: boolean,
-        maxPower: number,
-        interfaces: InterfaceDescriptor[],
-        extra_data: ArrayBuffer
+      active: boolean,
+      configurationValue: number,
+      description?: string,
+      selfPowered: boolean,
+      remoteWakeup: boolean,
+      maxPower: number,
+      interfaces: InterfaceDescriptor[],
+      extra_data: ArrayBuffer
     }
 
     interface GenericTransferInfo {
-        direction: Direction,
-        endpoint: number,
-        length?: number,
-        data?: ArrayBuffer,
-        timeout?: number
+      direction: Direction,
+      endpoint: number,
+      length?: number,
+      data?: ArrayBuffer,
+      timeout?: number
     }
 
     interface TransferResultInfo {
-        resultCode: number,
-        data?: ArrayBuffer
+      resultCode: number,
+      data?: ArrayBuffer
     }
 
     interface DeviceFilter {
-        vendorId?: number,
-        productId?: number,
-        interfaceClass?: number,
-        interfaceSubclass?: number,
-        interfaceProtocol?: number
+      vendorId?: number,
+      productId?: number,
+      interfaceClass?: number,
+      interfaceSubclass?: number,
+      interfaceProtocol?: number
     }
 
     interface TransferInfo {
-        direction: Direction;
-        recipient: 'device' | 'interface' | 'endpoint' | 'other';
-        requestType: 'standard' | 'class' | 'vendor' | 'reserved';
-        request: number;
-        value: number;
-        index: number;
-        length?: number;
-        data?: ArrayBuffer;
-        timeout?: number;
+      direction: Direction;
+      recipient: 'device' | 'interface' | 'endpoint' | 'other';
+      requestType: 'standard' | 'class' | 'vendor' | 'reserved';
+      request: number;
+      value: number;
+      index: number;
+      length?: number;
+      data?: ArrayBuffer;
+      timeout?: number;
     }
 
     interface DeviceEvent extends chrome.events.Event<(device: Device) => void> { }
@@ -4406,38 +4406,38 @@ namespace  usb {
     export function interruptTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
     export function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
     export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
-}
+  }
 
 
-////////////////////
-// VPN Provider
-////////////////////
-/**
- * Use the chrome.vpnProvider API to implement a VPN client.
- * Permissions:  "vpnProvider"
- * Important: This API works only on Chrome OS.
- * @since Chrome 43.
- */
-namespace  vpnProvider {
+  ////////////////////
+  // VPN Provider
+  ////////////////////
+  /**
+   * Use the chrome.vpnProvider API to implement a VPN client.
+   * Permissions:  "vpnProvider"
+   * Important: This API works only on Chrome OS.
+   * @since Chrome 43.
+   */
+  namespace vpnProvider {
     interface VpnSessionParameters {
-        /** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
-        address: string;
-        /** Optional. Broadcast address for the VPN interface. (default: deduced from IP address and mask) */
-        broadcastAddress?: string;
-        /** Optional. MTU setting for the VPN interface. (default: 1500 bytes) */
-        mtu?: string;
-        /**
-         * Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel. This can be used to bypass traffic to and from the VPN server. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
-         */
-        exclusionList: string[];
-        /**
-         * Include network traffic to the list of IP blocks in CIDR notation to the tunnel. This parameter can be used to set up a split tunnel. By default no traffic is directed to the tunnel. Adding the entry "0.0.0.0/0" to this list gets all the user traffic redirected to the tunnel. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
-         */
-        inclusionList: string[];
-        /** Optional. A list of search domains. (default: no search domain) */
-        domainSearch?: string[];
-        /** A list of IPs for the DNS servers. */
-        dnsServer: string[];
+      /** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
+      address: string;
+      /** Optional. Broadcast address for the VPN interface. (default: deduced from IP address and mask) */
+      broadcastAddress?: string;
+      /** Optional. MTU setting for the VPN interface. (default: 1500 bytes) */
+      mtu?: string;
+      /**
+       * Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel. This can be used to bypass traffic to and from the VPN server. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
+       */
+      exclusionList: string[];
+      /**
+       * Include network traffic to the list of IP blocks in CIDR notation to the tunnel. This parameter can be used to set up a split tunnel. By default no traffic is directed to the tunnel. Adding the entry "0.0.0.0/0" to this list gets all the user traffic redirected to the tunnel. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
+       */
+      inclusionList: string[];
+      /** Optional. A list of search domains. (default: no search domain) */
+      domainSearch?: string[];
+      /** A list of IPs for the DNS servers. */
+      dnsServer: string[];
     }
 
     interface VpnPlatformMessageEvent extends chrome.events.Event<(id: string, message: string, error: string) => void> { }
@@ -4494,32 +4494,32 @@ namespace  vpnProvider {
     export var onConfigCreated: VpnConfigCreationEvent;
     /** Triggered when there is a UI event for the extension. UI events are signals from the platform that indicate to the app that a UI dialog needs to be shown to the user. */
     export var onUIEvent: VpnUiEvent;
-}
+  }
 
-////////////////////
-// Wallpaper
-////////////////////
-/**
- * Use the chrome.wallpaper API to change the ChromeOS wallpaper.
- * Permissions:  "wallpaper"
- * Important: This API works only on Chrome OS.
- * @since Chrome 43.
- */
-namespace  wallpaper {
+  ////////////////////
+  // Wallpaper
+  ////////////////////
+  /**
+   * Use the chrome.wallpaper API to change the ChromeOS wallpaper.
+   * Permissions:  "wallpaper"
+   * Important: This API works only on Chrome OS.
+   * @since Chrome 43.
+   */
+  namespace wallpaper {
     interface WallpaperDetails {
-        /** Optional. The jpeg or png encoded wallpaper image. */
-        data?: any;
-        /** Optional. The URL of the wallpaper to be set. */
-        url?: string;
-        /**
-         * The supported wallpaper layouts.
-         * One of: "STRETCH", "CENTER", or "CENTER_CROPPED"
-         */
-        layout: string;
-        /** The file name of the saved wallpaper. */
-        filename: string;
-        /** Optional. True if a 128x60 thumbnail should be generated. */
-        thumbnail?: boolean;
+      /** Optional. The jpeg or png encoded wallpaper image. */
+      data?: any;
+      /** Optional. The URL of the wallpaper to be set. */
+      url?: string;
+      /**
+       * The supported wallpaper layouts.
+       * One of: "STRETCH", "CENTER", or "CENTER_CROPPED"
+       */
+      layout: string;
+      /** The file name of the saved wallpaper. */
+      filename: string;
+      /** Optional. True if a 128x60 thumbnail should be generated. */
+      thumbnail?: boolean;
     }
 
     /**
@@ -4528,82 +4528,82 @@ namespace  wallpaper {
      * Optional parameter thumbnail: The jpeg encoded wallpaper thumbnail. It is generated by resizing the wallpaper to 128x60.
      */
     export function setWallpaper(details: WallpaperDetails, callback: (thumbnail: any) => void): void;
-}
+  }
 
 
-///////////////////
-// Webview Tag
-///////////////////
-/**
- * Use the webview tag to actively load live content from the web over the network and embed it in your Chrome App. Your app can control the appearance of the <code>webview</code> and interact with the web content, initiate navigations in an embedded web page, react to error events that happen within it, and more (see <a href=\"#usage\">Usage</a>).
- */
-namespace  webview {
+  ///////////////////
+  // Webview Tag
+  ///////////////////
+  /**
+   * Use the webview tag to actively load live content from the web over the network and embed it in your Chrome App. Your app can control the appearance of the <code>webview</code> and interact with the web content, initiate navigations in an embedded web page, react to error events that happen within it, and more (see <a href=\"#usage\">Usage</a>).
+   */
+  namespace webview {
     /** Options that determine what data should be cleared by `clearData`. */
     interface ClearDataOptions {
-        /** Clear data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript <code>Date</code> object). If absent, defaults to <code>0</code> (which would remove all browsing data). */
-        since?: number;
+      /** Clear data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript <code>Date</code> object). If absent, defaults to <code>0</code> (which would remove all browsing data). */
+      since?: number;
     }
     interface WindowEvent extends chrome.events.Event<() => void> { }
 
     interface ConsoleEvent extends Event {
-        /**
-         * @description The severity level of the log message. Ranges from 0 to 4.
-         * @type {number}
-         * @memberof ConsoleEvent
-         */
-        level: number;
-        /**
-         * @description The logged message contents.
-         * @type {string}
-         * @memberof ConsoleEvent
-         */
-        message: string;
-        /**
-         * @description The line number of the message source.
-         * @type {number}
-         * @memberof ConsoleEvent
-         */
-        line: number;
-        /**
-         * @description A string identifying the resource which logged the message.
-         * @type {string}
-         * @memberof ConsoleEvent
-         */
-        sourceId: string;
+      /**
+       * @description The severity level of the log message. Ranges from 0 to 4.
+       * @type {number}
+       * @memberof ConsoleEvent
+       */
+      level: number;
+      /**
+       * @description The logged message contents.
+       * @type {string}
+       * @memberof ConsoleEvent
+       */
+      message: string;
+      /**
+       * @description The line number of the message source.
+       * @type {number}
+       * @memberof ConsoleEvent
+       */
+      line: number;
+      /**
+       * @description A string identifying the resource which logged the message.
+       * @type {string}
+       * @memberof ConsoleEvent
+       */
+      sourceId: string;
     }
 
     interface ExitEvent extends Event {
-        /**
-         * @description Chrome's internal ID of the process that exited.
-         * @type {number}
-         * @memberof ExitEvent
-         */
-        processID: number;
-        /**
-         * @description String indicating the reason for the exit.
-         * @type {string}
-         * @memberof ExitEvent
-         */
-        reason: 'normal' | 'abnormal' | 'crash' | 'kill';
+      /**
+       * @description Chrome's internal ID of the process that exited.
+       * @type {number}
+       * @memberof ExitEvent
+       */
+      processID: number;
+      /**
+       * @description String indicating the reason for the exit.
+       * @type {string}
+       * @memberof ExitEvent
+       */
+      reason: 'normal' | 'abnormal' | 'crash' | 'kill';
     }
 
     /** Description of a declarative rule for handling events. */
     interface Rule {
-        /** Optional priority of this rule. Defaults to 100.  */
-        priority?: number;
-        /** List of conditions that can trigger the actions. */
-        conditions: any[];
-        /** Optional. Optional identifier that allows referencing this rule.  */
-        id?: string;
-        /** List of actions that are triggered if one of the condtions is fulfilled. */
-        actions: any[];
-        /**
-         * @description Tags can be used to annotate rules and perform operations on sets of rules.¨
-         * @since Chrome 28
-         * @type {string[]}
-         * @memberof Rule
-         */
-        tags?: string[];
+      /** Optional priority of this rule. Defaults to 100.  */
+      priority?: number;
+      /** List of conditions that can trigger the actions. */
+      conditions: any[];
+      /** Optional. Optional identifier that allows referencing this rule.  */
+      id?: string;
+      /** List of actions that are triggered if one of the condtions is fulfilled. */
+      actions: any[];
+      /**
+       * @description Tags can be used to annotate rules and perform operations on sets of rules.¨
+       * @since Chrome 28
+       * @type {string[]}
+       * @memberof Rule
+       */
+      tags?: string[];
     }
 
     /**
@@ -4612,38 +4612,38 @@ namespace  webview {
      * @interface InjectDetails
      */
     interface InjectDetails {
-        /**
-         * @description JavaScript or CSS code to inject.<br><br><b>Warning:</b><br>Be careful using the <code>code</code> parameter. Incorrect use of it may open your app to <a href=\"https://en.wikipedia.org/wiki/Cross-site_scripting\">cross site scripting</a> attacks.
-         * @type {string}
-         * @memberof InjectDetails
-         */
-        code?: string,
-        /**
-         * @description JavaScript or CSS file to inject.
-         * @type {string}
-         * @memberof InjectDetails
-         */
-        file?: string
+      /**
+       * @description JavaScript or CSS code to inject.<br><br><b>Warning:</b><br>Be careful using the <code>code</code> parameter. Incorrect use of it may open your app to <a href=\"https://en.wikipedia.org/wiki/Cross-site_scripting\">cross site scripting</a> attacks.
+       * @type {string}
+       * @memberof InjectDetails
+       */
+      code?: string,
+      /**
+       * @description JavaScript or CSS file to inject.
+       * @type {string}
+       * @memberof InjectDetails
+       */
+      file?: string
     }
 
     interface WebViewElementEventMap {
-        'close': Event,
-        'consolemessage': IConsolemessage,
-        'contentload': Event,
-        'dialog': IDialog,
-        'exit': IExit,
-        'findupdate': IFindupdate,
-        'loadabort': ILoadabort,
-        'loadcommit': ILoadcommit,
-        'loadredirect': ILoadredirect,
-        'loadstart': ILoadstart,
-        'loadstop': Event,
-        'newwindow': INewwindow,
-        'permissionrequest': IPermissionrequest,
-        'responsive': IResponsive,
-        'sizechanged': ISizechanged,
-        'unresponsive': IUnresponsive,
-        'zoomchange': IZoomchange,
+      'close': Event,
+      'consolemessage': IConsolemessage,
+      'contentload': Event,
+      'dialog': IDialog,
+      'exit': IExit,
+      'findupdate': IFindupdate,
+      'loadabort': ILoadabort,
+      'loadcommit': ILoadcommit,
+      'loadredirect': ILoadredirect,
+      'loadstart': ILoadstart,
+      'loadstop': Event,
+      'newwindow': INewwindow,
+      'permissionrequest': IPermissionrequest,
+      'responsive': IResponsive,
+      'sizechanged': ISizechanged,
+      'unresponsive': IUnresponsive,
+      'zoomchange': IZoomchange,
     }
 
 
@@ -4654,67 +4654,67 @@ namespace  webview {
      * @extends {Element}
      */
     interface HTMLWebViewElement extends Element {
-        executeScript?: (details: InjectDetails, callback?: (result: any) => void) => void;
-        src: string;
-        contentWindow: Window;
-        addEventListener<K extends keyof WebViewElementEventMap>(type: K, listener: (this: HTMLWebViewElement, ev: WebViewElementEventMap[K]) => any, useCapture?: boolean): void;
+      executeScript?: (details: InjectDetails, callback?: (result: any) => void) => void;
+      src: string;
+      contentWindow: Window;
+      addEventListener<K extends keyof WebViewElementEventMap>(type: K, listener: (this: HTMLWebViewElement, ev: WebViewElementEventMap[K]) => any, useCapture?: boolean): void;
     }
 
     /**Options that determine what data should be cleared by clearData. */
     interface ClearDataOptions {
 
-        /**
-        * @description Clear data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data).
-         */
-        since?: number;
+      /**
+      * @description Clear data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data).
+       */
+      since?: number;
     }
     /**A set of data types. Missing properties are interpreted as false. */
     interface ClearDataTypeSet {
 
-        /**
-        * @description Websites' appcaches.
-         */
-        appcache?: boolean
+      /**
+      * @description Websites' appcaches.
+       */
+      appcache?: boolean
 
-        /**
-        * @description Since Chrome 43. The browser's cache. Note: when removing data, this clears the entire cache; it is not limited to the range you specify.
-         */
-        cache?: boolean
+      /**
+      * @description Since Chrome 43. The browser's cache. Note: when removing data, this clears the entire cache; it is not limited to the range you specify.
+       */
+      cache?: boolean
 
-        /**
-        * @description The partition's cookies.
-         */
-        cookies?: boolean
+      /**
+      * @description The partition's cookies.
+       */
+      cookies?: boolean
 
-        /**
-        * @description The partition's session cookies.
-         */
-        sessionCookies?: boolean
+      /**
+      * @description The partition's session cookies.
+       */
+      sessionCookies?: boolean
 
-        /**
-        * @description The partition's persistent cookies.
-         */
-        persistentCookies?: boolean
+      /**
+      * @description The partition's persistent cookies.
+       */
+      persistentCookies?: boolean
 
-        /**
-        * @description Websites' filesystems.
-         */
-        fileSystems?: boolean
+      /**
+      * @description Websites' filesystems.
+       */
+      fileSystems?: boolean
 
-        /**
-        * @description Websites' IndexedDB data.
-         */
-        indexedDB?: boolean
+      /**
+      * @description Websites' IndexedDB data.
+       */
+      indexedDB?: boolean
 
-        /**
-        * @description Websites' local storage data.
-         */
-        localStorage?: boolean
+      /**
+      * @description Websites' local storage data.
+       */
+      localStorage?: boolean
 
-        /**
-        * @description Websites' WebSQL data.
-         */
-        webSQL?: boolean
+      /**
+      * @description Websites' WebSQL data.
+       */
+      webSQL?: boolean
     }
     /**
     * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts.
@@ -4732,416 +4732,416 @@ namespace  webview {
     /**Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time. */
     interface InjectDetails {
 
-        /**
-        * @description JavaScript or CSS code to inject.   Warning:  Be careful using the code parameter. Incorrect use of it may open your app to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">cross site scripting</a> attacks.
-         */
-        code?: string
+      /**
+      * @description JavaScript or CSS code to inject.   Warning:  Be careful using the code parameter. Incorrect use of it may open your app to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">cross site scripting</a> attacks.
+       */
+      code?: string
 
-        /**
-        * @description JavaScript or CSS file to inject.
-         */
-        file?: string
+      /**
+      * @description JavaScript or CSS file to inject.
+       */
+      file?: string
     }
     /**The type of injection item: code or a set of files. */
     interface InjectionItems {
 
-        /**
-        * @description JavaScript code or CSS to be injected into matching pages.
-         */
-        code?: string
+      /**
+      * @description JavaScript code or CSS to be injected into matching pages.
+       */
+      code?: string
 
-        /**
-        * @description The list of JavaScript or CSS files to be injected into matching pages. These are injected in the order they appear in this array.
-         */
-        files?: any[]
+      /**
+      * @description The list of JavaScript or CSS files to be injected into matching pages. These are injected in the order they appear in this array.
+       */
+      files?: any[]
     }
     /**Details of the content script to inject. Refer to the <a href='/extensions/content_scripts'>content scripts</a> documentation for more details. */
     interface ContentScriptDetails {
 
-        /**
-        * @description The name of the content script to inject.
-         */
-        name: string
+      /**
+      * @description The name of the content script to inject.
+       */
+      name: string
 
-        /**
-        * @description Specifies which pages this content script will be injected into.
-         */
-        matches: any[]
+      /**
+      * @description Specifies which pages this content script will be injected into.
+       */
+      matches: any[]
 
-        /**
-        * @description Excludes pages that this content script would otherwise be injected into.
-         */
-        exclude_matches?: any[]
+      /**
+      * @description Excludes pages that this content script would otherwise be injected into.
+       */
+      exclude_matches?: any[]
 
-        /**
-        * @description Whether to insert the content script on about:blank and about:srcdoc. Content scripts will only be injected on pages when their inherit URL is matched by one of the declared patterns in the matches field. The inherit URL is the URL of the document that created the frame or window. Content scripts cannot be inserted in sandboxed frames.
-         */
-        match_about_blank?: boolean
+      /**
+      * @description Whether to insert the content script on about:blank and about:srcdoc. Content scripts will only be injected on pages when their inherit URL is matched by one of the declared patterns in the matches field. The inherit URL is the URL of the document that created the frame or window. Content scripts cannot be inserted in sandboxed frames.
+       */
+      match_about_blank?: boolean
 
-        /**
-        * @description The CSS code or a list of CSS files to be injected into matching pages. These are injected in the order they appear, before any DOM is constructed or displayed for the page.
-         */
-        css?: InjectionItems
+      /**
+      * @description The CSS code or a list of CSS files to be injected into matching pages. These are injected in the order they appear, before any DOM is constructed or displayed for the page.
+       */
+      css?: InjectionItems
 
-        /**
-        * @description The JavaScript code or a list of JavaScript files to be injected into matching pages. These are injected in the order they appear.
-         */
-        js?: InjectionItems
+      /**
+      * @description The JavaScript code or a list of JavaScript files to be injected into matching pages. These are injected in the order they appear.
+       */
+      js?: InjectionItems
 
-        /**
-        * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
-         */
-        run_at?: chrome.extensionTypes.RunAt;
+      /**
+      * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
+       */
+      run_at?: chrome.extensionTypes.RunAt;
 
-        /**
-        * @description If all_frames is true, this implies that the JavaScript or CSS should be injected into all frames of current page. By default, all_frames is false and the JavaScript or CSS is only injected into the top frame.
-         */
-        all_frames?: boolean;
+      /**
+      * @description If all_frames is true, this implies that the JavaScript or CSS should be injected into all frames of current page. By default, all_frames is false and the JavaScript or CSS is only injected into the top frame.
+       */
+      all_frames?: boolean;
 
-        /**
-        * @description Applied after matches to include only those URLs that also match this glob. Intended to emulate the @include Greasemonkey keyword.
-         */
-        include_globs?: string[];
+      /**
+      * @description Applied after matches to include only those URLs that also match this glob. Intended to emulate the @include Greasemonkey keyword.
+       */
+      include_globs?: string[];
 
-        /**
-        * @description Applied after matches to exclude URLs that match this glob. Intended to emulate the @exclude Greasemonkey keyword.
-         */
-        exclude_globs?: string[];
+      /**
+      * @description Applied after matches to exclude URLs that match this glob. Intended to emulate the @exclude Greasemonkey keyword.
+       */
+      exclude_globs?: string[];
     }
     /**@todo Add documentation */
     interface ContextMenuCreateProperties {
 
-        /**
-        * @description The type of menu item. Defaults to 'normal' if not specified.
-         */
-        type?: chrome.contextMenus.ItemType
+      /**
+      * @description The type of menu item. Defaults to 'normal' if not specified.
+       */
+      type?: chrome.contextMenus.ItemType
 
-        /**
-        * @description The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
-         */
-        id?: string
+      /**
+      * @description The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
+       */
+      id?: string
 
-        /**
-        * @description The text to be displayed in the item; this is <em>required</em> unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".
-         */
-        title?: string
+      /**
+      * @description The text to be displayed in the item; this is <em>required</em> unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".
+       */
+      title?: string
 
-        /**
-        * @description The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.
-         */
-        checked?: boolean
+      /**
+      * @description The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.
+       */
+      checked?: boolean
 
-        /**
-        * @description List of contexts this menu item will appear in. Defaults to ['page'] if not specified.
-         */
-        contexts?: any[]
+      /**
+      * @description List of contexts this menu item will appear in. Defaults to ['page'] if not specified.
+       */
+      contexts?: any[]
 
-        /**
-        * @description A function that will be called back when the menu item is clicked.
-        * @param {any} [object Object]
-         */
-        onclick?: (info: any) => void
+      /**
+      * @description A function that will be called back when the menu item is clicked.
+      * @param {any} [object Object]
+       */
+      onclick?: (info: any) => void
 
-        /**
-        * @description The ID of a parent menu item; this makes the item a child of a previously added item.
-         */
-        parentId?: number | string
+      /**
+      * @description The ID of a parent menu item; this makes the item a child of a previously added item.
+       */
+      parentId?: number | string
 
-        /**
-        * @description Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see <a href='match_patterns'>Match Patterns</a>.
-         */
-        documentUrlPatterns?: any[]
+      /**
+      * @description Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see <a href='match_patterns'>Match Patterns</a>.
+       */
+      documentUrlPatterns?: any[]
 
-        /**
-        * @description Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
-         */
-        targetUrlPatterns?: any[]
+      /**
+      * @description Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
+       */
+      targetUrlPatterns?: any[]
 
-        /**
-        * @description Whether this context menu item is enabled or disabled. Defaults to true.
-         */
-        enabled?: boolean
+      /**
+      * @description Whether this context menu item is enabled or disabled. Defaults to true.
+       */
+      enabled?: boolean
     }
     /**@todo Add documentation */
     interface ContextMenuUpdateProperties {
 
-        /**
-        * @description The type of menu item.
-         */
-        type?: chrome.webview.ContextType;
+      /**
+      * @description The type of menu item.
+       */
+      type?: chrome.webview.ContextType;
 
-        /**
-        * @description The text to be displayed in the item
-         */
-        title?: string
+      /**
+      * @description The text to be displayed in the item
+       */
+      title?: string
 
-        /**
-        * @description The state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.
-         */
-        checked?: boolean
+      /**
+      * @description The state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.
+       */
+      checked?: boolean
 
-        /**
-        * @description List of contexts this menu item will appear in.
-         */
-        contexts?: any[]
+      /**
+      * @description List of contexts this menu item will appear in.
+       */
+      contexts?: any[]
 
-        /**
-        * @description A function that will be called back when the menu item is clicked.
-        * @param {any} [object Object]
-         */
-        onclick?: (info: any) => void
+      /**
+      * @description A function that will be called back when the menu item is clicked.
+      * @param {any} [object Object]
+       */
+      onclick?: (info: any) => void
 
-        /**
-        * @description The ID of a parent menu item; this makes the item a child of a previously added item. <em>Note:</em> You cannot change an item to be a child of one of its own descendants.
-         */
-        parentId?: number | string
+      /**
+      * @description The ID of a parent menu item; this makes the item a child of a previously added item. <em>Note:</em> You cannot change an item to be a child of one of its own descendants.
+       */
+      parentId?: number | string
 
-        /**
-        * @description Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see <a href='match_patterns'>Match Patterns</a>.
-         */
-        documentUrlPatterns?: any[]
+      /**
+      * @description Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see <a href='match_patterns'>Match Patterns</a>.
+       */
+      documentUrlPatterns?: any[]
 
-        /**
-        * @description Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
-         */
-        targetUrlPatterns?: any[]
+      /**
+      * @description Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
+       */
+      targetUrlPatterns?: any[]
 
-        /**
-        * @description Whether this context menu item is enabled or disabled.
-         */
-        enabled?: boolean
+      /**
+      * @description Whether this context menu item is enabled or disabled.
+       */
+      enabled?: boolean
     }
     interface ContextMenus {
 
-        /**
-        * @description Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
-        * @param {object} createProperties The properties used to create the item
-        * @param {any} [object Object]
-         */
-        create(createProperties: object, callback?: () => void): void;
+      /**
+      * @description Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
+      * @param {object} createProperties The properties used to create the item
+      * @param {any} [object Object]
+       */
+      create(createProperties: object, callback?: () => void): void;
 
-        /**
-        * @description Updates a previously created context menu item.
-        * @param {any} id The ID of the item to update.
-        * @param {object} updateProperties The properties to update. Accepts the same values as the create function.
-        * @param {any} [object Object]
-         */
-        update(id: number | string, updateProperties: object, callback?: () => void): void;
+      /**
+      * @description Updates a previously created context menu item.
+      * @param {any} id The ID of the item to update.
+      * @param {object} updateProperties The properties to update. Accepts the same values as the create function.
+      * @param {any} [object Object]
+       */
+      update(id: number | string, updateProperties: object, callback?: () => void): void;
 
-        /**
-        * @description Removes a context menu item.
-        * @param {any} menuItemId The ID of the context menu item to remove.
-        * @param {any} [object Object]
-         */
-        remove(menuItemId: number | string, callback?: () => void): void;
+      /**
+      * @description Removes a context menu item.
+      * @param {any} menuItemId The ID of the context menu item to remove.
+      * @param {any} [object Object]
+       */
+      remove(menuItemId: number | string, callback?: () => void): void;
 
-        /**
-        * @description Removes all context menu items added to this webview.
-        * @param {any} [object Object]
-         */
-        removeAll(callback?: () => void): void;
+      /**
+      * @description Removes all context menu items added to this webview.
+      * @param {any} [object Object]
+       */
+      removeAll(callback?: () => void): void;
 
 
-        /**
-        * @description Fired before showing a context menu on this webview. Can be used to disable this context menu by calling event.preventDefault().
-         */
-        onShow: chrome.events.Event<chrome.webview.IOnShowEvent>;
+      /**
+      * @description Fired before showing a context menu on this webview. Can be used to disable this context menu by calling event.preventDefault().
+       */
+      onShow: chrome.events.Event<chrome.webview.IOnShowEvent>;
 
     }
     interface IOnShowEvent {
-        /**
-         * @description Call this to prevent showing the context menu.
-         * @memberof IOnShowEvent
-         */
-        preventDefault: () => void;
+      /**
+       * @description Call this to prevent showing the context menu.
+       * @memberof IOnShowEvent
+       */
+      preventDefault: () => void;
     }
     interface ContentWindow {
 
-        /**
-        * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href="#event-contentload">contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it receives.</p><p>This API is identical to the <a href="https://developer.mozilla.org/en-US/docs/DOM/window.postMessage">HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
-        * @param {any} message Message object to send to the guest.
-        * @param {string} targetOrigin Specifies what the origin of the guest window must be for the event to be dispatched.
-         */
-        postMessage(message: any, targetOrigin: string): void;
+      /**
+      * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href="#event-contentload">contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it receives.</p><p>This API is identical to the <a href="https://developer.mozilla.org/en-US/docs/DOM/window.postMessage">HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
+      * @param {any} message Message object to send to the guest.
+      * @param {string} targetOrigin Specifies what the origin of the guest window must be for the event to be dispatched.
+       */
+      postMessage(message: any, targetOrigin: string): void;
 
     }
     interface DialogController {
 
-        /**
-        * @description Accept the dialog. Equivalent to clicking OK in an alert, confirm, or prompt dialog.
-        * @param {string} response The response string to provide to the guest when accepting a prompt dialog.
-         */
-        ok(response?: string): void;
+      /**
+      * @description Accept the dialog. Equivalent to clicking OK in an alert, confirm, or prompt dialog.
+      * @param {string} response The response string to provide to the guest when accepting a prompt dialog.
+       */
+      ok(response?: string): void;
 
-        /**
-        * @description Reject the dialog. Equivalent to clicking Cancel in a confirm or prompt dialog.
-         */
-        cancel(): void;
+      /**
+      * @description Reject the dialog. Equivalent to clicking Cancel in a confirm or prompt dialog.
+       */
+      cancel(): void;
 
     }
     /**Contains all of the results of the find request. */
     interface FindCallbackResults {
 
-        /**
-        * @description The number of times searchText was matched on the page.
-         */
-        numberOfMatches: number
+      /**
+      * @description The number of times searchText was matched on the page.
+       */
+      numberOfMatches: number
 
-        /**
-        * @description The ordinal number of the current match.
-         */
-        activeMatchOrdinal: number
+      /**
+      * @description The ordinal number of the current match.
+       */
+      activeMatchOrdinal: number
 
-        /**
-        * @description Describes a rectangle around the active match in screen coordinates.
-         */
-        selectionRect: SelectionRect
+      /**
+      * @description Describes a rectangle around the active match in screen coordinates.
+       */
+      selectionRect: SelectionRect
 
-        /**
-        * @description Indicates whether this find request was canceled.
-         */
-        canceled: boolean
+      /**
+      * @description Indicates whether this find request was canceled.
+       */
+      canceled: boolean
     }
     /**Options for the find request. */
     interface FindOptions {
 
-        /**
-        * @description Flag to find matches in reverse order. The default value is false.
-         */
-        backward?: boolean
+      /**
+      * @description Flag to find matches in reverse order. The default value is false.
+       */
+      backward?: boolean
 
-        /**
-        * @description Flag to match with case-sensitivity. The default value is false.
-         */
-        matchCase?: boolean
+      /**
+      * @description Flag to match with case-sensitivity. The default value is false.
+       */
+      matchCase?: boolean
     }
     interface NewWindow {
 
-        /**
-        * @description Attach the requested target page to an existing webview element.
-        * @param {object} webview The webview element to which the target page should be attached.
-         */
-        attach(webview: object): void;
+      /**
+      * @description Attach the requested target page to an existing webview element.
+      * @param {object} webview The webview element to which the target page should be attached.
+       */
+      attach(webview: object): void;
 
-        /**
-        * @description Cancel the new window request.
-         */
-        discard(): void;
+      /**
+      * @description Cancel the new window request.
+       */
+      discard(): void;
 
     }
     interface MediaPermissionRequest {
 
-        /**
-        * @description Allow the permission request.
-         */
-        allow(): void;
+      /**
+      * @description Allow the permission request.
+       */
+      allow(): void;
 
-        /**
-        * @description Deny the permission request. This is the default behavior if allow is not called.
-         */
-        deny(): void;
+      /**
+      * @description Deny the permission request. This is the default behavior if allow is not called.
+       */
+      deny(): void;
 
     }
     interface GeolocationPermissionRequest {
 
-        /**
-        * @description Allow the permission request.
-         */
-        allow(): void;
+      /**
+      * @description Allow the permission request.
+       */
+      allow(): void;
 
-        /**
-        * @description Deny the permission request. This is the default behavior if allow is not called.
-         */
-        deny(): void;
+      /**
+      * @description Deny the permission request. This is the default behavior if allow is not called.
+       */
+      deny(): void;
 
     }
     interface PointerLockPermissionRequest {
 
-        /**
-        * @description Allow the permission request.
-         */
-        allow(): void;
+      /**
+      * @description Allow the permission request.
+       */
+      allow(): void;
 
-        /**
-        * @description Deny the permission request. This is the default behavior if allow is not called.
-         */
-        deny(): void;
+      /**
+      * @description Deny the permission request. This is the default behavior if allow is not called.
+       */
+      deny(): void;
 
     }
     interface DownloadPermissionRequest {
 
-        /**
-        * @description Allow the permission request.
-         */
-        allow(): void;
+      /**
+      * @description Allow the permission request.
+       */
+      allow(): void;
 
-        /**
-        * @description Deny the permission request. This is the default behavior if allow is not called.
-         */
-        deny(): void;
+      /**
+      * @description Deny the permission request. This is the default behavior if allow is not called.
+       */
+      deny(): void;
 
     }
     interface FileSystemPermissionRequest {
 
-        /**
-        * @description Allow the permission request.
-         */
-        allow(): void;
+      /**
+      * @description Allow the permission request.
+       */
+      allow(): void;
 
-        /**
-        * @description Deny the permission request.
-         */
-        deny(): void;
+      /**
+      * @description Deny the permission request.
+       */
+      deny(): void;
 
     }
     interface FullscreenPermissionRequest {
 
-        /**
-        * @description Allow the permission request.
-         */
-        allow(): void;
+      /**
+      * @description Allow the permission request.
+       */
+      allow(): void;
 
-        /**
-        * @description Deny the permission request.
-         */
-        deny(): void;
+      /**
+      * @description Deny the permission request.
+       */
+      deny(): void;
 
     }
     interface LoadPluginPermissionRequest {
 
-        /**
-        * @description Allow the permission request. This is the default behavior if deny is not called..
-         */
-        allow(): void;
+      /**
+      * @description Allow the permission request. This is the default behavior if deny is not called..
+       */
+      allow(): void;
 
-        /**
-        * @description Deny the permission request.
-         */
-        deny(): void;
+      /**
+      * @description Deny the permission request.
+       */
+      deny(): void;
 
     }
     /**<p>Describes a rectangle in screen coordinates.</p><p>The containment semantics are array-like; that is, the coordinate (left, top) is considered to be contained by the rectangle, but the coordinate (left + width, top) is not.</p> */
     interface SelectionRect {
 
-        /**
-        * @description Distance from the left edge of the screen to the left edge of the rectangle.
-         */
-        left: number
+      /**
+      * @description Distance from the left edge of the screen to the left edge of the rectangle.
+       */
+      left: number
 
-        /**
-        * @description Distance from the top edge of the screen to the top edge of the rectangle.
-         */
-        top: number
+      /**
+      * @description Distance from the top edge of the screen to the top edge of the rectangle.
+       */
+      top: number
 
-        /**
-        * @description Width of the rectangle.
-         */
-        width: number
+      /**
+      * @description Width of the rectangle.
+       */
+      width: number
 
-        /**
-        * @description Height of the rectangle.
-         */
-        height: number
+      /**
+      * @description Height of the rectangle.
+       */
+      height: number
     }
     /**Interface which provides access to webRequest events on the guest page. See the <a href="http://developer.chrome.com/extensions/webRequest">chrome.webRequest</a> extensions API for details on webRequest life cycle and related concepts.<p>To illustrate how usage differs from the extensions webRequest API, consider the following example code which blocks any guest requests for URLs which match *://www.evil.com/*:</p><pre>webview.request.onBeforeRequest.addListener(
       function(details) { return {cancel: true}; },
@@ -5521,257 +5521,257 @@ namespace  webview {
     /**IConsolemessage (Auto generated interface) */
     interface IConsolemessage {
 
-        /**
-        * @description The severity level of the log message. Ranges from -1 to 2. LOG_VERBOSE (console.debug) = -1, LOG_INFO (console.log, console.info) = 0, LOG_WARNING (console.warn) = 1, LOG_ERROR (console.error) = 2.
-         */
-        level: number
+      /**
+      * @description The severity level of the log message. Ranges from -1 to 2. LOG_VERBOSE (console.debug) = -1, LOG_INFO (console.log, console.info) = 0, LOG_WARNING (console.warn) = 1, LOG_ERROR (console.error) = 2.
+       */
+      level: number
 
-        /**
-        * @description The logged message contents.
-         */
-        message: string
+      /**
+      * @description The logged message contents.
+       */
+      message: string
 
-        /**
-        * @description The line number of the message source.
-         */
-        line: number
+      /**
+      * @description The line number of the message source.
+       */
+      line: number
 
-        /**
-        * @description A string identifying the resource which logged the message.
-         */
-        sourceId: string
+      /**
+      * @description A string identifying the resource which logged the message.
+       */
+      sourceId: string
     }
     /**IDialog (Auto generated interface) */
     interface IDialog {
 
-        /**
-        * @description The type of modal dialog requested by the guest.
-         */
-        messageType: 'alert' | 'confirm' | 'prompt'
+      /**
+      * @description The type of modal dialog requested by the guest.
+       */
+      messageType: 'alert' | 'confirm' | 'prompt'
 
-        /**
-        * @description The text the guest attempted to display in the modal dialog.
-         */
-        messageText: string
+      /**
+      * @description The text the guest attempted to display in the modal dialog.
+       */
+      messageText: string
 
-        /**
-        * @description An interface that can be used to respond to the guest's modal request.
-         */
-        dialog: DialogController
+      /**
+      * @description An interface that can be used to respond to the guest's modal request.
+       */
+      dialog: DialogController
     }
     /**IExit (Auto generated interface) */
     interface IExit {
 
-        /**
-        * @description Chrome's internal ID of the process that exited.
-         */
-        processID: number
+      /**
+      * @description Chrome's internal ID of the process that exited.
+       */
+      processID: number
 
-        /**
-        * @description String indicating the reason for the exit.
-         */
-        reason: 'normal' | 'abnormal' | 'crash' | 'kill'
+      /**
+      * @description String indicating the reason for the exit.
+       */
+      reason: 'normal' | 'abnormal' | 'crash' | 'kill'
     }
     /**IFindupdate (Auto generated interface) */
     interface IFindupdate {
 
-        /**
-        * @description The string that is being searched for in the page.
-         */
-        searchText: string
+      /**
+      * @description The string that is being searched for in the page.
+       */
+      searchText: string
 
-        /**
-        * @description The number of matches found for searchText on the page so far.
-         */
-        numberOfMatches: number
+      /**
+      * @description The number of matches found for searchText on the page so far.
+       */
+      numberOfMatches: number
 
-        /**
-        * @description The ordinal number of the current active match, if it has been found. This will be 0 until then.
-         */
-        activeMatchOrdinal: number
+      /**
+      * @description The ordinal number of the current active match, if it has been found. This will be 0 until then.
+       */
+      activeMatchOrdinal: number
 
-        /**
-        * @description Describes a rectangle around the active match, if it has been found, in screen coordinates.
-         */
-        selectionRect: SelectionRect
+      /**
+      * @description Describes a rectangle around the active match, if it has been found, in screen coordinates.
+       */
+      selectionRect: SelectionRect
 
-        /**
-        * @description Indicates whether the find request was canceled.
-         */
-        canceled: boolean
+      /**
+      * @description Indicates whether the find request was canceled.
+       */
+      canceled: boolean
 
-        /**
-        * @description Indicates that all find requests have completed and that no more findupdate events will be fired until more find requests are made.
-         */
-        finalUpdate: string
+      /**
+      * @description Indicates that all find requests have completed and that no more findupdate events will be fired until more find requests are made.
+       */
+      finalUpdate: string
     }
     /**ILoadabort (Auto generated interface) */
     interface ILoadabort {
 
-        /**
-        * @description Requested URL.
-         */
-        url: string
+      /**
+      * @description Requested URL.
+       */
+      url: string
 
-        /**
-        * @description Whether the load was top-level or in a subframe.
-         */
-        isTopLevel: boolean
+      /**
+      * @description Whether the load was top-level or in a subframe.
+       */
+      isTopLevel: boolean
 
-        /**
-        * @description Unique integer ID for the type of abort. Note that this ID is <em>not</em> guaranteed to remain backwards compatible between releases. You must not act based upon this specific integer.
-         */
-        code: number
+      /**
+      * @description Unique integer ID for the type of abort. Note that this ID is <em>not</em> guaranteed to remain backwards compatible between releases. You must not act based upon this specific integer.
+       */
+      code: number
 
-        /**
-        * @description String indicating what type of abort occurred. This string is <em>not</em> guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content. It is also possible that, in some cases, an error not listed here could be reported.
-         */
-        reason: 'ERR_ABORTED' | 'ERR_INVALID_URL' | 'ERR_DISALLOWED_URL_SCHEME' | 'ERR_BLOCKED_BY_CLIENT' | 'ERR_ADDRESS_UNREACHABLE' | 'ERR_EMPTY_RESPONSE' | 'ERR_FILE_NOT_FOUND' | 'ERR_UNKNOWN_URL_SCHEME'
+      /**
+      * @description String indicating what type of abort occurred. This string is <em>not</em> guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content. It is also possible that, in some cases, an error not listed here could be reported.
+       */
+      reason: 'ERR_ABORTED' | 'ERR_INVALID_URL' | 'ERR_DISALLOWED_URL_SCHEME' | 'ERR_BLOCKED_BY_CLIENT' | 'ERR_ADDRESS_UNREACHABLE' | 'ERR_EMPTY_RESPONSE' | 'ERR_FILE_NOT_FOUND' | 'ERR_UNKNOWN_URL_SCHEME'
     }
     /**ILoadcommit (Auto generated interface) */
     interface ILoadcommit {
 
-        /**
-        * @description The URL that committed.
-         */
-        url: string
+      /**
+      * @description The URL that committed.
+       */
+      url: string
 
-        /**
-        * @description Whether the load is top-level or in a subframe.
-         */
-        isTopLevel: boolean
+      /**
+      * @description Whether the load is top-level or in a subframe.
+       */
+      isTopLevel: boolean
     }
     /**ILoadredirect (Auto generated interface) */
     interface ILoadredirect {
 
-        /**
-        * @description The requested URL before the redirect.
-         */
-        oldUrl: string
+      /**
+      * @description The requested URL before the redirect.
+       */
+      oldUrl: string
 
-        /**
-        * @description The new URL after the redirect.
-         */
-        newUrl: string
+      /**
+      * @description The new URL after the redirect.
+       */
+      newUrl: string
 
-        /**
-        * @description Whether or not the redirect happened at top-level or in a subframe.
-         */
-        isTopLevel: boolean
+      /**
+      * @description Whether or not the redirect happened at top-level or in a subframe.
+       */
+      isTopLevel: boolean
     }
     /**ILoadstart (Auto generated interface) */
     interface ILoadstart {
 
-        /**
-        * @description Requested URL.
-         */
-        url: string
+      /**
+      * @description Requested URL.
+       */
+      url: string
 
-        /**
-        * @description Whether the load is top-level or in a subframe.
-         */
-        isTopLevel: boolean
+      /**
+      * @description Whether the load is top-level or in a subframe.
+       */
+      isTopLevel: boolean
     }
     /**INewwindow (Auto generated interface) */
     interface INewwindow {
 
-        /**
-        * @description An interface that can be used to either attach the requested target page to an existing webview element or explicitly discard the request.
-         */
-        window: NewWindow
+      /**
+      * @description An interface that can be used to either attach the requested target page to an existing webview element or explicitly discard the request.
+       */
+      window: NewWindow
 
-        /**
-        * @description The target URL requested for the new window.
-         */
-        targetUrl: string
+      /**
+      * @description The target URL requested for the new window.
+       */
+      targetUrl: string
 
-        /**
-        * @description The initial width requested for the new window.
-         */
-        initialWidth: number
+      /**
+      * @description The initial width requested for the new window.
+       */
+      initialWidth: number
 
-        /**
-        * @description The initial height requested for the new window.
-         */
-        initialHeight: number
+      /**
+      * @description The initial height requested for the new window.
+       */
+      initialHeight: number
 
-        /**
-        * @description The requested name of the new window.
-         */
-        name: string
+      /**
+      * @description The requested name of the new window.
+       */
+      name: string
 
-        /**
-        * @description The requested disposition of the new window.
-         */
-        windowOpenDisposition: 'ignore' | 'save_to_disk' | 'current_tab' | 'new_background_tab' | 'new_foreground_tab' | 'new_window' | 'new_popup'
+      /**
+      * @description The requested disposition of the new window.
+       */
+      windowOpenDisposition: 'ignore' | 'save_to_disk' | 'current_tab' | 'new_background_tab' | 'new_foreground_tab' | 'new_window' | 'new_popup'
     }
     /**IPermissionrequest (Auto generated interface) */
     interface IPermissionrequest {
 
-        /**
-        * @description The type of permission being requested.
-         */
-        permission: 'media' | 'geolocation' | 'pointerLock' | 'download' | 'loadplugin' | 'filesystem' | 'fullscreen'
+      /**
+      * @description The type of permission being requested.
+       */
+      permission: 'media' | 'geolocation' | 'pointerLock' | 'download' | 'loadplugin' | 'filesystem' | 'fullscreen'
 
-        /**
-        * @description An object which holds details of the requested permission. Depending on the type of permission requested, this may be a $(ref:webviewTag.MediaPermissionRequest), $(ref:webviewTag.GeolocationPermissionRequest), $(ref:webviewTag.PointerLockPermissionRequest), $(ref:webviewTag.DownloadPermissionRequest), $(ref:webviewTag.LoadPluginPermissionRequest), or $(ref:webviewTag.FullscreenPermissionRequest).
-         */
-        request: object
+      /**
+      * @description An object which holds details of the requested permission. Depending on the type of permission requested, this may be a $(ref:webviewTag.MediaPermissionRequest), $(ref:webviewTag.GeolocationPermissionRequest), $(ref:webviewTag.PointerLockPermissionRequest), $(ref:webviewTag.DownloadPermissionRequest), $(ref:webviewTag.LoadPluginPermissionRequest), or $(ref:webviewTag.FullscreenPermissionRequest).
+       */
+      request: object
     }
     /**IResponsive (Auto generated interface) */
     interface IResponsive {
 
-        /**
-        * @description Chrome's internal ID of the process that became responsive.
-         */
-        processID: number
+      /**
+      * @description Chrome's internal ID of the process that became responsive.
+       */
+      processID: number
     }
     /**ISizechanged (Auto generated interface) */
     interface ISizechanged {
 
-        /**
-        * @description Old width of embedded web content.
-         */
-        oldWidth: number
+      /**
+      * @description Old width of embedded web content.
+       */
+      oldWidth: number
 
-        /**
-        * @description Old height of embedded web content.
-         */
-        oldHeight: number
+      /**
+      * @description Old height of embedded web content.
+       */
+      oldHeight: number
 
-        /**
-        * @description New width of embedded web content.
-         */
-        newWidth: number
+      /**
+      * @description New width of embedded web content.
+       */
+      newWidth: number
 
-        /**
-        * @description New height of embedded web content.
-         */
-        newHeight: number
+      /**
+      * @description New height of embedded web content.
+       */
+      newHeight: number
     }
     /**IUnresponsive (Auto generated interface) */
     interface IUnresponsive {
 
-        /**
-        * @description Chrome's internal ID of the process that has become unresponsive.
-         */
-        processID: number
+      /**
+      * @description Chrome's internal ID of the process that has become unresponsive.
+       */
+      processID: number
     }
     /**IZoomchange (Auto generated interface) */
     interface IZoomchange {
 
-        /**
-        * @description The page's previous zoom factor.
-         */
-        oldZoomFactor: number
+      /**
+      * @description The page's previous zoom factor.
+       */
+      oldZoomFactor: number
 
-        /**
-        * @description The new zoom factor that the page was zoomed to.
-         */
-        newZoomFactor: number
+      /**
+      * @description The new zoom factor that the page was zoomed to.
+       */
+      newZoomFactor: number
     }
 
-}
+  }
 
 }
 
@@ -5779,5 +5779,5 @@ namespace  webview {
 // EXPORT
 /////////////////////
 interface Window {
-    chrome: typeof chrome;
+  chrome: typeof chrome;
 }
