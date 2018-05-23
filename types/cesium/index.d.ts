@@ -6,6 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+// tslint:disable-next-line:export-just-namespace
 export = Cesium;
 export as namespace Cesium;
 
