@@ -221,7 +221,7 @@ declare namespace CKEDITOR {
             breakParent(parent: element): void;
             contains(node: node): boolean;
             copyAttributes(dest: element, skipAttributes: { [key: string]: string }): void;
-            data(name: string, value?: string | false): string;
+            data(name: string, value?: string | boolean): string;
             disableContextMenu(): void;
             find(selector: string): nodeList;
             findOne(selector: string): element;
@@ -1533,7 +1533,7 @@ declare namespace CKEDITOR {
             filter(filter: htmlParser.filter): boolean;
             filterChildren(filter: htmlParser.filter): void;
             find(criteria: string | ((el: htmlParser.node) => boolean), recursive?: boolean): htmlParser.node[];
-            forEach(callback: (node: htmlParser.node) => void | false, type?: number, skipRoot?: boolean): void;
+            forEach(callback: (node: htmlParser.node) => void | boolean, type?: number, skipRoot?: boolean): void;
             getFirst(condition: string | { [key: string]: string } | ((node: htmlParser.node) => boolean)): htmlParser.node;
             getHtml(): string;
             getOuterHtml(): string;
@@ -1591,7 +1591,7 @@ declare namespace CKEDITOR {
             add(node: htmlParser.node, index?: number): void;
             filter(filter: htmlParser.filter): void;
             filterChildren(filter: htmlParser.filter, filterRoot?: boolean): void;
-            forEach(callback: (node: htmlParser.node,) => void | false, type?: number, skipRoot?: boolean): void;
+            forEach(callback: (node: htmlParser.node,) => void | boolean, type?: number, skipRoot?: boolean): void;
             writeChildrenHtml(writer: basicWriter, filter?: htmlParser.filter, filterRoot?: boolean): void;
             writeHtml(writer: basicWriter, filter?: htmlParser.filter): void;
 
