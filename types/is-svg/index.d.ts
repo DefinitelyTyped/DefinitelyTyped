@@ -5,6 +5,9 @@
 
 /// <reference types="node" />
 
-export = isSvg;
-
 declare function isSvg(input?: string | Buffer | false | null): boolean;
+
+// So that `import * as X` is possible
+declare namespace isSvg {}
+
+export = isSvg;

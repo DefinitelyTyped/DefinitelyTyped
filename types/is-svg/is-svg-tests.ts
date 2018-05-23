@@ -1,4 +1,4 @@
-import isSvg = require('is-svg');
+import * as isSvg from 'is-svg';
 
 const data = '<svg></svg>';
 let result = false;
