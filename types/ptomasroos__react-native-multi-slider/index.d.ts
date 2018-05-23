@@ -8,7 +8,7 @@ declare module "@ptomasroos/react-native-multi-slider" {
     import * as React from "react";
     import { ViewStyle } from "react-native";
 
-    interface MarkerProps {
+    export interface MarkerProps {
         pressed: boolean;
         pressedMarkerStyle: ViewStyle;
         markerStyle: ViewStyle;
@@ -18,7 +18,7 @@ declare module "@ptomasroos/react-native-multi-slider" {
         valueSuffix: string;
     }
 
-    interface MultiSliderProps {
+    export interface MultiSliderProps {
         values?: number[];
 
         onValuesChange?: (values: number[]) => void;
