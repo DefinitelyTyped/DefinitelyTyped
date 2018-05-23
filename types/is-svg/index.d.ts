@@ -3,6 +3,8 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 export = isSvg;
 
-declare function isSvg(input: string): boolean;
+declare function isSvg(input: string | Buffer): boolean;
