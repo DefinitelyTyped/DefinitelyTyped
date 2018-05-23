@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "test/cesium-global.test.ts"
+        "test/cesium-global.test.ts",
+        "test/cesium-module.test.ts"
     ]
 }
