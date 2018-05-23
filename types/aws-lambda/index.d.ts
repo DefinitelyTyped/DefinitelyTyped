@@ -42,6 +42,7 @@ export interface APIGatewayEventRequestContext {
         userAgent: string | null;
         userArn: string | null;
     };
+    path: string;
     stage: string;
     requestId: string;
     requestTimeEpoch: number;
