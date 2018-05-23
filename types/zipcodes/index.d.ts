@@ -14,6 +14,8 @@ export interface ZipCode {
     country: string;
 }
 
+export const codes: { [index:string] : ZipCode};
+
 export function lookup(zip: any): ZipCode;
 
 export function lookupByName(city: string, state: string): ZipCode[];
