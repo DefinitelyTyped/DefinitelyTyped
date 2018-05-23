@@ -326,5 +326,4 @@ function testSystemNetwork() {
 }
 
 import webview = chrome.webview;
-import { chrome } from "chrome-apps";
 let element: webview.HTMLWebViewElement;
