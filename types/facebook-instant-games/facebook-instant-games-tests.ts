@@ -73,7 +73,7 @@ FBInstant.getLeaderboardAsync("name").then((leaderboard: FBInstant.Leaderboard) 
     const contextID: string = leaderboard.getContextID()!;
     leaderboard.getEntriesAsync(10, 10).then(entries => {});
     leaderboard.getEntryCountAsync().then((entryCount: number) => {});
-    const name = leaderboard.getName();
+    const name: string = leaderboard.getName();
     leaderboard.getPlayerEntryAsync().then(playerEntry => {});
     leaderboard.setScoreAsync(10).then(leaderboardEntry => {});
 });
