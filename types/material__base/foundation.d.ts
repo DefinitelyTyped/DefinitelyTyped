@@ -23,7 +23,7 @@ export interface MDCNumbers {
     [key: string]: number;
 }
 
-export class MDCFoundation<A> {
+export default class MDCFoundation<A> {
     static readonly cssClasses: MDCStrings;
 
     static readonly strings: MDCStrings;
@@ -40,5 +40,3 @@ export class MDCFoundation<A> {
     // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
     destroy(): void;
 }
-
-export default MDCFoundation;

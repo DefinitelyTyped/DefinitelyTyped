@@ -39,7 +39,7 @@ declare namespace ReactTooltip {
     type ElementEvents = (keyof HTMLElementEventMap) | string;
     type WindowEvents = (keyof WindowEventMap) | string;
 
-    type GetContentCallback = () => React.ReactNode;
+    type GetContentCallback = (dataTip: string) => React.ReactNode;
     type GetContent = GetContentCallback | [GetContentCallback, number];
 
     type Place = "top" | "right" | "bottom" | "left";

@@ -14,68 +14,28 @@
  * limitations under the License.
  */
 
-export interface MDCSelectAdapter {
+export default interface MDCSelectAdapter {
     addClass(className: string): void;
 
     removeClass(className: string): void;
 
-    addBodyClass(className: string): void;
+    floatLabel(value: boolean): void;
 
-    removeBodyClass(className: string): void;
+    activateBottomLine(): void;
 
-    setAttr(attr: string, value: string): void;
-
-    rmAttr(attr: string): void;
-
-    computeBoundingRect(): {left: number, top: number};
+    deactivateBottomLine(): void;
 
     registerInteractionHandler(type: string, handler: EventListener): void;
 
     deregisterInteractionHandler(type: string, handler: EventListener): void;
 
-    focus(): void;
+    getSelectedIndex(): number;
 
-    makeTabbable(): void;
+    setSelectedIndex(index: number): void;
 
-    makeUntabbable(): void;
+    setDisabled(disabled: boolean): void;
 
-    getComputedStyleValue(propertyName: string): string;
+    getValue(): string;
 
-    setStyle(propertyName: string, value: string): void;
-
-    create2dRenderingContext(): {font: string, measureText: (val: string) => {width: number}};
-
-    setMenuElStyle(propertyName: string, value: string): void;
-
-    setMenuElAttr(attr: string, value: string): void;
-
-    rmMenuElAttr(attr: string): void;
-
-    getMenuElOffsetHeight(): number;
-
-    openMenu(focusIndex: number): void;
-
-    isMenuOpen(): boolean;
-
-    setSelectedTextContent(textContent: string): void;
-
-    getNumberOfOptions(): number;
-
-    getTextForOptionAtIndex(index: number): string;
-
-    getValueForOptionAtIndex(index: number): string;
-
-    setAttrForOptionAtIndex(index: number, attr: string, value: string): void;
-
-    rmAttrForOptionAtIndex(index: number, attr: string): void;
-
-    getOffsetTopForOptionAtIndex(index: number): number;
-
-    registerMenuInteractionHandler(type: string, handler: EventListener): void;
-
-    deregisterMenuInteractionHandler(type: string, handler: EventListener): void;
-
-    notifyChange(): void;
-
-    getWindowInnerHeight(): number;
+    setValue(value: string): void;
 }

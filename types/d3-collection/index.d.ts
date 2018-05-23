@@ -7,7 +7,7 @@
 // Last module patch version validated against: 1.0.4
 
 /**
- * Reference type things that can be coerced to string implicitely
+ * Reference type things that can be coerced to string implicitly
  */
 export interface Stringifiable {
     toString(): string;
@@ -64,7 +64,7 @@ export function entries(obj: object): Array<{ key: string, value: any }>;
 // ---------------------------------------------------------------------
 
 /**
- * A datastructure similar to ES6 Maps, but with a few differences:
+ * A data structure similar to ES6 Maps, but with a few differences:
  * - Keys are coerced to strings.
  * - map.each, not map.forEach. (Also, no thisArg.)
  * - map.remove, not map.delete.
@@ -194,7 +194,7 @@ export function map(obj: object): Map<any>;
 // ---------------------------------------------------------------------
 
 /**
- * A datastructure similar to ES6 Sets, but with a few differences:
+ * A data structure similar to ES6 Sets, but with a few differences:
  *
  * - Values are coerced to strings.
  * - set.each, not set.forEach. (Also, no thisArg.)
@@ -282,11 +282,11 @@ export function set<T>(array: T[], key: (value: T, index: number, array: T[]) =>
 // ---------------------------------------------------------------------
 
 /**
- * A more formal defintion of the nested array returned by Nest.entries(...). This data structure is intended as a reference only.
+ * A more formal definition of the nested array returned by Nest.entries(...). This data structure is intended as a reference only.
  *
  * As the union types cannot be ex ante simplified without knowledge
  * of the nesting level (number of key(...) operations) and whether the data were rolled-up, this data structure becomes cumbersome
- * to use in practice. This is particularly true for discrimiation of array element types.
+ * to use in practice. This is particularly true for discrimination of array element types.
  * The use of the rollup function, or lack thereof, also determines whether NestedArray has the 'values' property
  * with an array of type Datum at leaf level, or has a rolled-up 'value' property.
  */
@@ -294,7 +294,7 @@ export function set<T>(array: T[], key: (value: T, index: number, array: T[]) =>
 export interface NestedArray<Datum, RollupType> extends Array<{ key: string, values: NestedArray<Datum, RollupType> | Datum[] | undefined, value: RollupType | undefined }> { }
 
 /**
- * A more formal defintion of the nested array returned by Nest.map(...). This data structure is intended as a reference only.
+ * A more formal definition of the nested array returned by Nest.map(...). This data structure is intended as a reference only.
  *
  * As the union types cannot be ex ante simplified without knowledge
  * of the nesting level (number of key(...) operations) and whether the data were rolled-up, this data structure becomes cumbersome
@@ -304,7 +304,7 @@ export interface NestedArray<Datum, RollupType> extends Array<{ key: string, val
 export interface NestedMap<Datum, RollupType> extends Map<NestedMap<Datum, RollupType> | Datum[] | RollupType> { }
 
 /**
- * A more formal defintion of the nested array returned by Nest.object(...). This data structure is intended as a reference only.
+ * A more formal definition of the nested array returned by Nest.object(...). This data structure is intended as a reference only.
  *
  * As the union types cannot be ex ante simplified without knowledge
  * of the nesting level (number of key(...) operations) and whether the data were rolled-up, this data structure becomes cumbersome

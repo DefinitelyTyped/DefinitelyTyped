@@ -54,10 +54,19 @@ texture2d(gl, ndarray([1, 2, 3]));
 
 const texture = texture2d(gl, canvas);
 
-texture.bind();
-texture.bind(1);
 texture.dispose();
 texture.generateMipmap();
+
+texture.bind();
+texture.bind(1);
+
+texture.setPixels(canvas);
+texture.setPixels(video);
+texture.setPixels(image);
+texture.setPixels(imageData);
+texture.setPixels(ndarray([1, 2, 3]));
+texture.setPixels(canvas, [1, 1]);
+texture.setPixels(canvas, [1, 1], 0);
 
 texture.magFilter = 1;
 texture.minFilter = 1;

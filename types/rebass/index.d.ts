@@ -1,4 +1,4 @@
-// Type definitions for Rebass 0.2.5
+// Type definitions for Rebass 0.2.6
 // Project: https://github.com/jxnblk/rebass
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,7 @@ import * as React from "react";
 export interface BaseProps<C> extends React.Props<C> {
     tagName?: string;
     className?: string;
+    fontSize?: number | number[];
     baseStyle?: Object;
     style?: Object;
     m?: number;
@@ -505,7 +506,36 @@ type ToolbarClass = React.StatelessComponent<ToolbarProps>
 export declare const Toolbar: ToolbarClass;
 
 export interface TooltipProps extends BaseProps<TooltipClass> {
+    text?: string;
     title?: string;
 }
 type TooltipClass = React.StatelessComponent<TooltipProps>
 export declare const Tooltip: TooltipClass;
+
+export interface FontWeights {
+    normal?: number;
+    bold?: number;
+}
+
+export interface Fonts {
+    [0]?: string;
+    sans?: string;
+    mono?: string;
+}
+
+export interface Theme {
+    breakpoints?: string[];
+    space?: number[];
+    fontSizes?: number[];
+    fontWeights?: FontWeights;
+    fonts?: Fonts;
+    shadows?: string[];
+    radii?: number[];
+}
+
+export interface ProviderProps {
+    theme?: Theme;
+}
+
+type ProviderClass = React.StatelessComponent<ProviderProps>;
+export const Provider: ProviderClass;

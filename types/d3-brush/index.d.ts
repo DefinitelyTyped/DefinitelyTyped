@@ -195,21 +195,21 @@ export interface BrushBehavior<Datum> {
  * Create a new two-dimensional brush.
  *
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
- * which the returned BrushBEhavoir will be applied.
+ * which the returned BrushBehavior will be applied.
  */
 export function brush<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the x-dimension.
  *
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
- * which the returned BrushBEhavoir will be applied.
+ * which the returned BrushBehavior will be applied.
  */
 export function brushX<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the y-dimension.
  *
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
- * which the returned BrushBEhavoir will be applied.
+ * which the returned BrushBehavior will be applied.
  */
 export function brushY<Datum>(): BrushBehavior<Datum>;
 
