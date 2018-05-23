@@ -112,7 +112,7 @@ function testJSZip() {
 		}).catch((e: any) => log(SEVERITY.ERROR, e));
 
 	newJszip.file("stream.txt").async('text').then((text: string) => {
-			if (text === "test string") {
+			if (text === "test stream") {
 		log(SEVERITY.INFO, "all ok");
 	} else {
 		log(SEVERITY.ERROR, "no matching file found");
