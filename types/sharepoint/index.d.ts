@@ -108,7 +108,6 @@ declare namespace SP {
 
     class PageContextInfo {
         constructor();
-        static get_clientServerTimeDelta(): number;
         static get_siteServerRelativeUrl(): string;
         static get_webServerRelativeUrl(): string;
         static get_webAbsoluteUrl(): string;
@@ -129,7 +128,6 @@ declare namespace SP {
         static get_userLoginName(): string;
         static get_webTemplate(): string;
         static get_pagePersonalizationScope(): string;
-        static get_webPermMasks(): SP.ContextPermissions;
     }
     class ContextPermissions {
         has(perm: number): boolean;
