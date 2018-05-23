@@ -1,7 +1,7 @@
-import { createQuery, createClient } from "solr-client";
+import { createClient } from "solr-client";
 
-const query = createQuery();
 const client = createClient();
+const query = client.query();
 
 query; // $ExpectType Query
 client; // $ExpectType Client

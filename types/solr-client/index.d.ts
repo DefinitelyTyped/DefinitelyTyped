@@ -8,7 +8,6 @@
 import { ClientRequest } from "http";
 
 export function createClient(options?: Options): Client;
-export function createQuery(options?: {solrVersion: string}): Query;
 
 export interface Options {
     host?: string;
@@ -160,6 +159,7 @@ export interface Client {
     get(handler: string, query: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
     post(handler: string, query: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
     escapeSpecialChars(s: string): string;
+    query(): Query;
 }
 
 export as namespace Solr;
