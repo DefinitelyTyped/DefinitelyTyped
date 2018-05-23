@@ -1,4 +1,4 @@
-// Type definitions for croppie 2.5
+// Type definitions for Croppie 2.6
 // Project: https://github.com/Foliotek/Croppie
 // Definitions by: Connor Peet <https://github.com/connor4312>
 //                 dklmuc <https://github.com/dklmuc>
@@ -8,7 +8,7 @@
 
 export as namespace Croppie;
 
-export = Croppie;
+export default Croppie;
 
 declare class Croppie {
     constructor(container: HTMLElement, options?: Croppie.CroppieOptions);
