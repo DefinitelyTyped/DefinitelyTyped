@@ -1,4 +1,4 @@
-import initStoryshots, { multiSnapshotWithOptions, snapshotWithOptions, getSnapshotFileName, renderOnly } from "@storybook/addon-storyshots";
+import initStoryshots, { multiSnapshotWithOptions, snapshotWithOptions, getSnapshotFileName, renderOnly, imageSnapshot } from "@storybook/addon-storyshots";
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import 'jest';
@@ -24,6 +24,23 @@ initStoryshots({
 initStoryshots({
     configPath: "",
     test: renderOnly
+});
+
+initStoryshots({
+    configPath: "",
+    test: imageSnapshot({
+        storybookUrl: "http://localhost:9002"
+    })
+});
+
+initStoryshots({
+    configPath: "",
+    test: imageSnapshot({
+        storybookUrl: "http://localhost:9002",
+        getScreenshotOptions: ({ context, url }) => ({ path: "/foo" }),
+        getGotoOptions: ({ context, url }) => ({ timeout: 10 }),
+        chromeExecutablePath: "/usr/local/bin/chrome"
+    })
 });
 
 initStoryshots({

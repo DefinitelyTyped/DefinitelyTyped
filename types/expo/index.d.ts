@@ -2764,3 +2764,91 @@ export namespace MailComposer {
     ): Promise<{ status: 'sent' | 'saved' | 'cancelled' }>;
 }
 // #endregion
+
+export namespace Updates {
+    namespace EventType {
+        /** A new update is available and has started downloading. */
+        type DownloadStart = 'downloadStart';
+        /** A new update is currently being downloaded and will be stored in the device's cache. */
+        type DownloadProgress = 'downloadProgress';
+        /** A new update has finished downloading and is now stored in the device's cache. */
+        type DownloadFinished = 'downloadFinished';
+        /** No updates are available, and the most up-to-date bundle of this experience is already running. */
+        type NoUpdateAvailable = 'noUpdateAvailable';
+        /** An error occurred trying to fetch the latest update. */
+        type Error = 'error';
+
+        /** A new update is available and has started downloading. */
+        const DOWNLOAD_STARTED: DownloadStart;
+        /** A new update is currently being downloaded and will be stored in the device's cache. */
+        const DOWNLOAD_PROGRESS: DownloadProgress;
+        /** A new update has finished downloading and is now stored in the device's cache. */
+        const DOWNLOAD_FINISHED: DownloadFinished;
+        /** No updates are available, and the most up-to-date bundle of this experience is already running. */
+        const NO_UPDATE_AVAILABLE: NoUpdateAvailable;
+        /** An error occurred trying to fetch the latest update. */
+        const ERROR: Error;
+    }
+
+    interface UpdateCheck {
+        /** True if an update is available, false if you're already running the most up-to-date JS bundle. */
+        isAvailable: boolean;
+        /** If `isAvailable` is true, the manifest of the available update. Undefined otherwise. */
+        manifest?: Constants.Manifest;
+    }
+
+    interface UpdateBundle {
+        /** True if the fetched bundle is new (i.e. a different version that the what's currently running). */
+        isNew: boolean;
+        /** Manifest of the fetched update. */
+        manifest: Constants.Manifest;
+    }
+
+    /** An object that is passed into each event listener when a new version is available. */
+    interface UpdateEvent {
+        /** Type of the event */
+        type: EventType.DownloadStart
+            | EventType.DownloadProgress
+            | EventType.DownloadFinished
+            | EventType.NoUpdateAvailable
+            | EventType.Error;
+        /** If `type === Expo.Updates.EventType.DOWNLOAD_FINISHED`, the manifest of the newly downloaded update. Undefined otherwise. */
+        manifest?: Constants.Manifest;
+        /** If `type === Expo.Updates.EventType.ERROR`, the error message. Undefined otherwise. */
+        message?: string;
+    }
+
+    type UpdateEventListener = (event: UpdateEvent) => any;
+
+    /**
+     * Invokes a callback when updates-related events occur,
+     * either on the initial app load or as a result of a call to `Expo.Updates.fetchUpdateAsync`.
+     */
+    function addListener(listener: UpdateEventListener): EventSubscription;
+
+    /**
+     * Check if a new published version of your project is available.
+     * Does not actually download the update.
+     * Rejects if `updates.enabled` is `false` in app.json.
+     */
+    function checkForUpdateAsync(): Promise<UpdateCheck>;
+
+    /**
+     * Downloads the most recent published version of your experience to the device's local cache.
+     * Rejects if `updates.enabled` is `false` in app.json.
+     */
+    function fetchUpdateAsync(listener?: UpdateEventListener): Promise<UpdateBundle>;
+
+    /**
+     * Immediately reloads the current experience.
+     * This will use your app.json updates configuration to fetch and load the newest available JS supported by the device's Expo environment.
+     * This is useful for triggering an update of your experience if you have published a new version.
+     */
+    function reload(): void;
+
+    /**
+     * Immediately reloads the current experience using the most recent cached version.
+     * This is useful for triggering an update of your experience if you have published and already downloaded a new version.
+     */
+    function reloadFromCache(): void;
+}

@@ -3,7 +3,6 @@
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>
 //                 Marco Falkenberg <https://github.com/mfal>
 //                 Danilo Barros <https://github.com/danilobjr>
-//                 Fábio Paiva <https://github.com/fabiopaiva>
 //                 FaithForHumans <https://github.com/FaithForHumans>
 //                 Kurt Preston <https://github.com/KurtPreston>
 //                 Tim Chen <https://github.com/timc13>

@@ -19,7 +19,7 @@ import MDCFoundation from 'material__base/foundation';
 import MDCCheckboxAdapter from './adapter';
 import { cssClasses, strings, numbers } from './constants';
 
-export class MDCCheckboxFoundation extends MDCFoundation<MDCCheckboxAdapter> {
+export default class MDCCheckboxFoundation extends MDCFoundation<MDCCheckboxAdapter> {
     static readonly cssClasses: cssClasses;
 
     static readonly strings: strings;
@@ -30,7 +30,7 @@ export class MDCCheckboxFoundation extends MDCFoundation<MDCCheckboxAdapter> {
 
     isChecked(): boolean;
 
-    setChecked(checked: boolean): boolean;
+    setChecked(checked: boolean): void;
 
     isIndeterminate(): boolean;
 
@@ -43,6 +43,8 @@ export class MDCCheckboxFoundation extends MDCFoundation<MDCCheckboxAdapter> {
     getValue(): string;
 
     setValue(value: string): void;
-}
 
-export default MDCCheckboxFoundation;
+    handleAnimationEnd(): void;
+
+    handleChange(): void;
+}

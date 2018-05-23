@@ -568,7 +568,7 @@ hierarchyRectangularNode = rectangularNodeDescendants[rectangularNodeDescendants
 
 const treemapPath: Array<d3Hierarchy.HierarchyRectangularNode<HierarchyDatumWithParentId>> = treemapRootNode.path(hierarchyRectangularNode);
 
-// links() and HierarchyRectangulerLink<...> ------------------------------------------
+// links() and HierarchyRectangularLink<...> ------------------------------------------
 
 let rectangularLinks: Array<d3Hierarchy.HierarchyRectangularLink<HierarchyDatumWithParentId>>;
 
@@ -747,7 +747,7 @@ hierarchyCircularNode = circularNodeDescendants[circularNodeDescendants.length -
 
 const packPath: Array<d3Hierarchy.HierarchyCircularNode<HierarchyDatumWithParentId>> = packRootNode.path(hierarchyCircularNode);
 
-// links() and HierarchyRectangulerLink<...> ------------------------------------------
+// links() and HierarchyRectangularLink<...> ------------------------------------------
 
 let circularLinks: Array<d3Hierarchy.HierarchyCircularLink<HierarchyDatumWithParentId>>;
 
