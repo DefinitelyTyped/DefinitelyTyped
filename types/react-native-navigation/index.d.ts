@@ -7,7 +7,7 @@
 import * as React from 'react';
 
 export namespace Navigation {
-    function registerComponent(screenID: string, generator: () => React.ComponentType<any>, store?: any, provider?: any): void;
+    function registerComponent(screenID: string, generator: () => React.ComponentType<any>, store?: any, provider?: any, options?: any): void;
     function startTabBasedApp(params: TabBasedApp): void;
     function startSingleScreenApp(params: SingleScreenApp): void;
     function showModal(params: ModalScreen): void;
@@ -18,6 +18,7 @@ export namespace Navigation {
     function handleDeepLink(params?: { link: string; payload?: string; }): void;
     function registerScreen(screenId: string, generator: () => React.ComponentType<any>): void;
     function getCurrentlyVisibleScreenId(): Promise<string>;
+    function isAppLaunched(): Promise<boolean>;
 }
 
 export interface TabBasedApp {
@@ -64,6 +65,11 @@ export interface SingleScreenApp {
     drawer?: Drawer;
     passProps?: object;
     animationType?: 'none' | 'slide-down' | 'fade';
+    appStyle?: {
+        orientation?: 'auto' | 'landscape' | 'portrait';
+        backButtonImage?: any;
+        hideBackButtonTitle?: boolean;
+    };
 }
 
 export interface Screen {
@@ -113,7 +119,7 @@ export interface LightBox {
 }
 
 export interface NavigatorEvent {
-    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview';
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress';
 }
 
 export class Navigator {
@@ -148,6 +154,11 @@ export class ScreenVisibilityListener {
     constructor(params: ScreenVisibilityListenerParams);
     register(): void;
     unregister(): void;
+}
+
+export class NativeEventsReceiver {
+    constructor();
+    appLaunched(callback: () => void): void;
 }
 
 export interface ScreenVisibilityListenerParams {

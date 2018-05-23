@@ -1,3 +1,16 @@
+/// <reference types="windows-script-host" />
+
+const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
+    const results: T[] = [];
+    const enumerator = new Enumerator<T>(col);
+    enumerator.moveFirst();
+    while (!enumerator.atEnd()) {
+        results.push(enumerator.item());
+        enumerator.moveNext();
+    }
+    return results;
+};
+
 const wshn = new ActiveXObject('WScript.Network');
 
 // https://msdn.microsoft.com/en-us/library/s6wt333f(v=vs.84).aspx

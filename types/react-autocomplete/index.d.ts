@@ -65,7 +65,7 @@ declare namespace Autocomplete {
          * an optional set of styles that can be applied to improve the look/feel
          * of the items in the dropdown menu.
          */
-        renderItem: (item: any) => ReactNode;
+        renderItem: (item: any, isHighlighted: boolean, styles?: CSSProperties) => ReactNode;
         /**
          * Arguments: `items: Array<Any>, value: String, styles: Object`
          *

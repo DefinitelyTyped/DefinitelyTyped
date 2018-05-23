@@ -40,4 +40,4 @@ interface ChaiJestSnapshot {
 }
 
 declare var ChaiJestSnapshot: ChaiJestSnapshot;
-export default ChaiJestSnapshot;
+export = ChaiJestSnapshot;

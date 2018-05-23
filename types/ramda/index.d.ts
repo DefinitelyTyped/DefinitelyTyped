@@ -1,6 +1,7 @@
 // Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
+//                 Tycho Grouwstra <https://github.com/tycho01>
 //                 Matt DeKrey <https://github.com/mdekrey>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
@@ -18,14 +19,15 @@
 //                 Jack Leigh <https://github.com/leighman>
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
+//                 Bonggyun Lee <https://github.com/deptno>
+//                 Marcin Biernat <https://github.com/biern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare let R: R.Static;
 
 declare namespace R {
-    type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
-    type Omit<T, K extends string> = Pick<T, Diff<keyof T, K>>;
+    type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
     type Ord = number | string | boolean;
 
@@ -81,9 +83,28 @@ declare namespace R {
       (obj: Dictionary<T>): Dictionary<T>;
     }
 
-    type Evolver<T> =
-        | ((x: T) => T)
-        | { [K in keyof T]?: Evolver<T[K]> };
+    type Evolve<O extends Evolvable<E>, E extends Evolver> = {
+        [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
+    };
+
+    type EvolveValue<V, E> =
+        E extends (value: V) => any ? ReturnType<E> :
+        E extends Evolver ? EvolveNestedValue<V, E> :
+        never;
+
+    type EvolveNestedValue<V, E extends Evolver> =
+        V extends object ? (V extends Evolvable<E> ? Evolve<V, E> : never) : never;
+
+    interface Evolver {
+        [key: string]: ((value: any) => any) | Evolver;
+    }
+
+    // Represents all objects evolvable with Evolver E
+    type Evolvable<E extends Evolver> = {
+        [P in keyof E]?: E[P] extends (value: infer V) => any ? V :
+            E[P] extends Evolver ? Evolvable<E[P]> :
+            never
+    };
 
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
     interface CurriedTypeGuard2<T1, T2, R extends T2> {
@@ -292,7 +313,7 @@ declare namespace R {
          * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
          * capabilities of Function.prototype.bind.
          */
-        bind<T>(thisObj: T, fn: (...args: any[]) => any): (...args: any[]) => any;
+        bind<T>(fn: (...args: any[]) => any, thisObj: T): (...args: any[]) => any;
 
         /**
          * A function wrapping calls to the two functions in an && operation, returning the result of the first function
@@ -603,8 +624,8 @@ declare namespace R {
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
-        evolve<V>(transformations: Evolver<V>, obj: V): V;
-        evolve<V>(transformations: Evolver<V>): <W extends V>(obj: W) => W;
+        evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
+        evolve<E extends Evolver>(transformations: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
         /*
          * A function that always returns false. Any passed in parameters are ignored.
@@ -1022,11 +1043,13 @@ declare namespace R {
         median(list: ReadonlyArray<number>): number;
 
         /**
+         * @deprecated since v0.25.0
+         *
          * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and
          * returns the result. Subsequent calls to the memoized fn with the same argument set will not result in an
          * additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
-        memoize<T = any>(fn: (...a: any[]) => T): (...a: any[]) => T;
+        memoize<T extends (...args: any[]) => any>(fn: T): T;
 
         /**
          * A customisable version of R.memoize. memoizeWith takes an additional function that will be applied to a given
@@ -1296,8 +1319,8 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
-        pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
+        pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+        pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
@@ -1488,6 +1511,7 @@ declare namespace R {
          * Reasonable analog to SQL `select` statement.
          */
         project<T, U>(props: ReadonlyArray<string>, objs: ReadonlyArray<T>): U[];
+        project<T, U>(props: ReadonlyArray<string>): (objs: ReadonlyArray<T>) => U[];
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.

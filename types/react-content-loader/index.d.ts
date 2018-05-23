@@ -1,6 +1,7 @@
-// Type definitions for react-content-loader 2.0
+// Type definitions for react-content-loader 3.1
 // Project: https://github.com/danilowoz/react-content-loader
 // Definitions by: Alaa Masoud <https://github.com/alaatm>
+//                 Sam Walsh <https://github.com/samwalshnz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -14,6 +15,8 @@ export interface ContentLoaderProps {
     height?: number;
     primaryColor?: string;
     secondaryColor?: string;
+    primaryOpacity?: number;
+    secondaryOpacity?: number;
     preserveAspectRatio?: 'none' | 'xMinYMin meet' | 'xMidYMin meet' | 'xMaxYMin meet' | 'xMinYMid meet' | 'xMidYMid meet' | 'xMaxYMid meet' |
     'xMinYMax meet' | 'xMidYMax meet' | 'xMaxYMax meet' | 'xMinYMin slice' | 'xMidYMin slice' | 'xMaxYMin slice' | 'xMinYMid slice' |
     'xMidYMid slice' | 'xMaxYMid slice' | 'xMinYMax slice' | 'xMidYMax slice' | 'xMaxYMax slice';

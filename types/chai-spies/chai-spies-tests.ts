@@ -88,6 +88,27 @@ spyStringArg('foo');
 expect(spyStringArg).to.have.been.called.always.with.exactly('foo');
 spyStringArg.should.have.been.called.always.with.exactly('foo');
 
+// .first / .second / .third
+const spyStringIteratedArg = chai.spy((arg: string) => arg);
+spyStringIteratedArg('foo');
+spyStringIteratedArg('bar');
+spyStringIteratedArg('baz');
+expect(spyStringIteratedArg).to.have.been.first.called.with('foo');
+spyStringIteratedArg.should.have.been.first.called.with('foo');
+expect(spyStringIteratedArg).to.have.been.first.called.with('bar');
+spyStringIteratedArg.should.have.been.first.called.with('bar');
+expect(spyStringIteratedArg).to.have.been.first.called.with('baz');
+spyStringIteratedArg.should.have.been.first.called.with('baz');
+
+// .nth
+const spyStringNthArg = chai.spy((arg: string) => arg);
+spyStringNthArg('foo');
+spyStringNthArg('bar');
+expect(spyStringNthArg).on.nth(1).be.called.with('foo');
+spyStringNthArg.should.on.nth(1).be.called.with('foo');
+expect(spyStringNthArg).on.nth(2).be.called.with('bar');
+spyStringNthArg.should.on.nth(2).be.called.with('bar');
+
 // .once
 expect(spy).to.have.been.called.once;
 expect(spy).to.not.have.been.called.once;
