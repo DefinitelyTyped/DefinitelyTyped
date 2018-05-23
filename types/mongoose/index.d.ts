@@ -236,6 +236,9 @@ declare module "mongoose" {
     /** Closes the connection */
     close(callback?: (err: any) => void): Promise<void>;
 
+    /** Closes the connection */
+    close(force?: boolean, callback?: (err: any) => void): Promise<void>;
+
     /**
      * Retrieves a collection, creating it if not cached.
      * Not typically needed by applications. Just talk to your collection through your model.
