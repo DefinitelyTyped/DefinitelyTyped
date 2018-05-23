@@ -108,31 +108,29 @@ declare namespace SP {
 
     class PageContextInfo {
         constructor();
-        get_siteServerRelativeUrl(): string;
-        get_webServerRelativeUrl(): string;
-        get_webAbsoluteUrl(): string;
-        get_serverRequestPath(): string;
-        get_siteAbsoluteUrl(): string;
-        get_webTitle(): string;
-        get_tenantAppVersion(): string;
-        get_isAppWeb(): boolean;
-        get_webLogoUrl(): string;
-        get_webLanguage(): number;
-        get_currentLanguage(): number;
-        get_pageItemId(): number;
-        get_pageListId(): string;
-        get_webPermMasks(): { High: number; Low: number; };
-        get_currentCultureName(): string;
-        get_currentUICultureName(): string;
-        get_clientServerTimeDelta(): number;
-        get_userLoginName(): string;
-        get_webTemplate(): string;
+        static get_clientServerTimeDelta(): number;
+        static get_siteServerRelativeUrl(): string;
+        static get_webServerRelativeUrl(): string;
+        static get_webAbsoluteUrl(): string;
+        static get_serverRequestPath(): string;
+        static get_siteAbsoluteUrl(): string;
+        static get_webTitle(): string;
+        static get_tenantAppVersion(): string;
+        static get_isAppWeb(): boolean;
+        static get_webLogoUrl(): string;
+        static get_webLanguage(): number;
+        static get_currentLanguage(): number;
+        static get_pageItemId(): number;
+        static get_pageListId(): string;
+        static get_webPermMasks(): { High: number; Low: number; };
+        static get_currentCultureName(): string;
+        static get_currentUICultureName(): string;
+        static get_clientServerTimeDelta(): number;
+        static get_userLoginName(): string;
+        static get_webTemplate(): string;
+        static get_pagePersonalizationScope(): string;
+        static get_webPermMasks(): SP.ContextPermissions;
     }
-
-    interface PageContextInfoInstance {
-        get_pagePersonalizationScope(): string;
-    }
-
     class ContextPermissions {
         has(perm: number): boolean;
         hasPermissions(high: number, low: number): boolean;
