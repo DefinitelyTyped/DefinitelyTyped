@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import * as paginate from 'express-paginate';
 
 declare function findAndCountAll(params: object): Promise<{count: number, rows: object[]}>;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import * as express from 'express';
+import express = require("express");
 
 declare global {
     namespace Express {
