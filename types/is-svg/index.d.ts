@@ -7,4 +7,4 @@
 
 export = isSvg;
 
-declare function isSvg(input: string | Buffer): boolean;
+declare function isSvg(input?: string | Buffer | false | null): boolean;
