@@ -1,8 +1,11 @@
 import Koa = require("koa");
 
 declare module 'koa' {
-    export interface Context {
+    export interface BaseContext {
         db(): void;
+    }
+    export interface Context {
+        user: {};
     }
 }
 
@@ -12,6 +15,7 @@ app.context.db = () => {};
 
 app.use(async ctx => {
     console.log(ctx.db);
+    ctx.user = {};
 });
 
 app.use((ctx, next) => {
