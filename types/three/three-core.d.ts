@@ -5158,7 +5158,7 @@ export class LineSegments extends Line {
     );
 }
 
-interface Intersect {
+export interface Intersect {
     distance: number;
     face?: Face3;
     faceIndex?: number;
