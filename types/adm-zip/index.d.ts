@@ -65,14 +65,14 @@ declare class AdmZip {
      * @param callback Called with the resulting string.
      * @param encoding Optional. If no encoding is specified utf8 is used
      */
-    readAsTextAsync(fileName: string, callback: (data: string) => any, encoding?: string): void;
+    readAsTextAsync(fileName: string, callback: (data: string, err?: any) => any, encoding?: string): void;
     /**
      * Asynchronous readAsText
      * @param entry ZipEntry object
      * @param callback Called with the resulting string.
      * @param encoding Optional. If no encoding is specified utf8 is used
      */
-    readAsTextAsync(fileName: AdmZip.IZipEntry, callback: (data: string) => any, encoding?: string): void;
+    readAsTextAsync(fileName: AdmZip.IZipEntry, callback: (data: string, err?: any) => any, encoding?: string): void;
     /**
      * Remove the entry from the file or the entry and all its nested directories
      * and files if the given entry is a directory
