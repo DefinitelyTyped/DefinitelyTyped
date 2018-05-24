@@ -731,10 +731,10 @@ declare namespace FHIR {
      * Construct the SMART client directly without using the Oauth2 workflow
      * @param context Context required to construct the client.
      */
-    export function client(context: SMART.Context): SMART.Client;
+    function client(context: SMART.Context): SMART.Client;
 
     /**
      * Property which exposes the OAUth2 specific workflow helpers
      */
-    export const oauth2: SMART.OAuth2;
+    const oauth2: SMART.OAuth2;
 }
