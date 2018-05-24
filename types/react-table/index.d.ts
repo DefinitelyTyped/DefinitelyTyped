@@ -474,7 +474,7 @@ export namespace Column {
          * Default: (state, rowInfo, column, instance) => ({})
          * A function that returns props to decorate the `th` element of the column
          */
-        getHeaderProps: ReactTableFunction;
+        getHeaderProps: ComponentPropsGetterC;
     }
 
     /** Configuration of a columns footer section */
