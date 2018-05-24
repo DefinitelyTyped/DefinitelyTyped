@@ -1911,7 +1911,7 @@ export class Layers {
 }
 
 export class Font {
-    constructor(jsondata: string);
+    constructor(jsondata: any);
 
     data: string;
 
@@ -2214,7 +2214,7 @@ export class FontLoader {
     manager: LoadingManager;
 
     load(url: string, onLoad?: (responseFont: Font) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
-    parse(json: string): Font;
+    parse(json: any): Font;
 }
 
 /**
