@@ -386,7 +386,7 @@ export interface ScatterData {
 	'marker.colorbar': {}; // TODO
 	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
 	hoveron: 'points' | 'fills';
-    hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
+	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
                'x' | 'x+text' | 'x+name' |
                'x+y' | 'x+y+text' | 'x+y+name' |
                'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
@@ -403,12 +403,11 @@ export interface ScatterData {
 	connectgaps: boolean;
 }
 
-/*
-Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
-examples: "x", "y", "x+y", "x+y+z", "all"
-default: "all"
-*/
-
+/**
+ * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
+ * examples: "x", "y", "x+y", "x+y+z", "all"
+ * default: "all"
+ */
 export interface ScatterMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | number[];
