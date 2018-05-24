@@ -8,15 +8,15 @@ export type AST = any;
 export type Doc = doc.builders.Doc;
 
 // https://github.com/prettier/prettier/blob/master/src/common/fast-path.js
-export interface FastPath {
+export interface FastPath<T = any> {
     stack: any[];
-    getName(): null | number | string;
-    getValue(): any;
-    getNode(count?: number): any;
-    getParentNode(count?: number): any;
-    call<T>(callback: (path: this) => T, ...names: string[]): T;
-    each(callback: (path: this) => void, ...names: string[]): void;
-    map<T>(callback: (path: this, index: number) => T, ...names: string[]): T[];
+    getName(): null | PropertyKey;
+    getValue(): T;
+    getNode(count?: number): null | T;
+    getParentNode(count?: number): null | T;
+    call<U>(callback: (path: this) => U, ...names: PropertyKey[]): U;
+    each(callback: (path: this) => void, ...names: PropertyKey[]): void;
+    map<U>(callback: (path: this, index: number) => U, ...names: PropertyKey[]): U[];
 }
 
 export type BuiltInParser = (text: string, options?: any) => AST;
