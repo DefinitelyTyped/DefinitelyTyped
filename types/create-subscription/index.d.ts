@@ -7,17 +7,6 @@
 
 import * as React from "react";
 
-export interface SubscriptionProps<S, T> {
-    children: (value: T) => React.ReactNode;
-    source: S;
-}
-
-export interface SubscriptionState<S, T> {
-    source: S;
-    value: T;
-}
-
-export interface Subscription<S, T> extends React.ComponentClass<SubscriptionProps<S, T>> {}
 export type Unsubscribe = () => any;
 
 export interface SubscriptionConfig<S, T> {
@@ -35,10 +24,14 @@ export interface SubscriptionConfig<S, T> {
      * Those handlers should not attempt to update state though;
      * They should call the callback() instead when a subscription changes.
      */
-    subscribe: (
-        source: S,
-        callback: (newValue: T) => void
-    ) => Unsubscribe;
+    subscribe: (source: S, callback: (newValue: T) => void) => Unsubscribe;
 }
+
+export interface SubscriptionProps<S, T> {
+    children: (value: T) => React.ReactNode;
+    source: S;
+}
+
+export interface Subscription<S, T> extends React.ComponentClass<SubscriptionProps<S, T>> {}
 
 export function createSubscription<S, T>(config: SubscriptionConfig<S, T>): Subscription<S, T>;
