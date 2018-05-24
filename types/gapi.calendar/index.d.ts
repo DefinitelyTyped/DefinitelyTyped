@@ -271,6 +271,7 @@ declare namespace gapi.client.calendar {
     static insert(parameters: EventsInsertParameters): HttpRequest<Event>;
     static update(parameters: EventsUpdateParameters): HttpRequest<Event>;
     static get(parameters: EventsGetParameters): HttpRequest<Event>;
+    static delete(parameters: EventsDeleteParameters): HttpRequest<Event>;
   }
 
   interface EventsGetParameters {
@@ -304,6 +305,13 @@ declare namespace gapi.client.calendar {
 
     // Event resource
     resource: EventInput;
+  }
+
+  interface EventsDeleteParameters {
+    calendarId: string;
+    eventId: string;
+    
+    sendNotifications?: boolean;
   }
 
   interface EventInput {
