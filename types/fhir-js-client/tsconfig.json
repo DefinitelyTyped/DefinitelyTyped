@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "fhirclient-tests.ts"
+        "fhir-js-client-tests.ts"
     ]
 }

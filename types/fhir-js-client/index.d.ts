@@ -1,4 +1,4 @@
-// Type definitions for fhirclient 0.1
+// Type definitions for fhir-js-client 1.0
 // Project: https://github.com/smart-on-fhir/client-js
 // Definitions by: Ramachandran Gokulachandran <https://github.com/rmchndrng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
