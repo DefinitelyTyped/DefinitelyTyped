@@ -252,6 +252,16 @@ declare namespace R {
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
          * an empty list is returned.
          */
+        aperture<T>(n: 1, list: T[]): Array<[T]>;
+        aperture<T>(n: 2, list: T[]): Array<[T, T]>;
+        aperture<T>(n: 3, list: T[]): Array<[T, T, T]>;
+        aperture<T>(n: 4, list: T[]): Array<[T, T, T, T]>;
+        aperture<T>(n: 5, list: T[]): Array<[T, T, T, T, T]>;
+        aperture<T>(n: 6, list: T[]): Array<[T, T, T, T, T, T]>;
+        aperture<T>(n: 7, list: T[]): Array<[T, T, T, T, T, T, T]>;
+        aperture<T>(n: 8, list: T[]): Array<[T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 9, list: T[]): Array<[T, T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 10, list: T[]): Array<[T, T, T, T, T, T, T, T, T, T]>;
         aperture<T>(n: number, list: ReadonlyArray<T>): T[][];
         aperture(n: number): <T>(list: ReadonlyArray<T>) => T[][];
 
