@@ -518,9 +518,9 @@ class Component {
         const observations = observationByCodesFn('29463-7');
         const observationsByCodes: FHIR.SMART.ObservationsByCode = smartClient.byCode(this.observationEntry.resource, 'code');
         // Unit helpers
-        const numericValue = smartClient.units.any(this.observationEntry.resource.valueQuantity);
+        const numericValue = smartClient.units.any(this.heightObservation.valueQuantity);
         const convertedHeightValueInCm = smartClient.units.cm(this.heightObservation.valueQuantity);
-        const convertedWeightValueInKg = smartClient.units.kg(this.observationEntry.resource.valueQuantity);
+        const convertedWeightValueInKg = smartClient.units.kg(this.weightObservationEntry.resource.valueQuantity);
     }
 
     oauth2ReadyErrback = (error: any) => {
@@ -662,9 +662,9 @@ class Component {
         const observations = observationByCodesFn('29463-7');
         const observationsByCodes: FHIR.SMART.ObservationsByCode = openSmartClient.byCode(this.observationEntry.resource, 'code');
 
-        const numericValue = openSmartClient.units.any(this.observationEntry.resource.valueQuantity);
+        const numericValue = openSmartClient.units.any(this.heightObservation.valueQuantity);
         const convertedHeightValueInCm = openSmartClient.units.cm(this.heightObservation.valueQuantity);
-        const convertedWeightValueInKg = openSmartClient.units.kg(this.observationEntry.resource.valueQuantity);
+        const convertedWeightValueInKg = openSmartClient.units.kg(this.weightObservationEntry.resource.valueQuantity);
     }
 
     closedSmartOnFhir() {

@@ -71,8 +71,8 @@ declare namespace FHIR {
              * @param params Search Parameter, same as parameter of the Search method
              * @param resolveParams Resolve Parameter, an array of string containing the each parameter in the format TargetResourceType.TargetElement
              * eg. ['Observation.subject',Observation.context']
-             * Returns a promise
-             * Resolve: (entries:any[],resolvedReferencesFn:((Resource,{reference:string})=>Resource) => { console.log(entries); console.log(resolvedReferences);}
+             * Returns a promise.
+             * Resolve: (entries:Entry[],resolvedReferences:[index: string]: Resource) => { console.log(entries); console.log(resolvedReferences);}
              * Reject: (error:any) => { console.log(error); }
              */
             fetchAllWithReferences(params: SearchParams, resolveParams: string[]): any;
@@ -575,10 +575,10 @@ declare namespace FHIR {
         }
 
         /**
-         * Indexable type used to represt
+         * Indexable type used to represent Observation FHIR resources indexed based on codes.
          */
         interface ObservationsByCode {
-            [index: string]: Resource;
+            [index: string]: Resource[];
         }
 
         /**
