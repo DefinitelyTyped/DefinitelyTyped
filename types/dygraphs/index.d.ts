@@ -408,7 +408,7 @@ declare namespace dygraphs {
          * earliest/latest are milliseconds since epoch. If the data for the x-axis is numeric, the
          * values in dateWindow must also be numbers.
          */
-        dateWindow?: number[];
+        dateWindow?: (Date|number)[];
 
         /**
          * The delimiter to look for when separating fields of a CSV file. Setting this to a tab is
