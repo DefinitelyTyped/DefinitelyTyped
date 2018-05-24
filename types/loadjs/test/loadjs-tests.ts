@@ -16,8 +16,8 @@ const readyOptions: importedLoadJs.ReadyOptions = {
 importedLoadJs('/path/to/foo.js', () => {});
 importedLoadJs(['/path/to/foo.js', '/path/to/bar.js'], () => {});
 importedLoadJs(['/path/to/foo.js', '/path/to/bar.js'], 'foobar');
-importedLoadJs.ready('foobar', () => {});
-importedLoadJs.ready(['foo', 'bar'], () => {});
+importedLoadJs.ready('foobar', () => {}).ready('foobar', () => {});
+importedLoadJs.ready(['foo', 'bar'], () => {}).ready(['foo', 'bar'], () => {});
 importedLoadJs.isDefined('foobar');
 importedLoadJs(['/path/to/foo.js', '/path/to/bar.js'], 'foobar', loadOptions);
 importedLoadJs.ready('foobar', readyOptions);

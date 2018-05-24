@@ -27,7 +27,7 @@ declare namespace loadjs {
         error?(depsNotFound: string): void;
     }
 
-    function ready(bundleIds: string | string[], optionsOrCallback: ReadyOptions | LoadedFn): void;
+    function ready(bundleIds: string | string[], optionsOrCallback: ReadyOptions | LoadedFn): typeof loadjs;
     function isDefined(bundleId: string): boolean;
     function done(bundleId: string): void;
     function reset(): void;
