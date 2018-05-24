@@ -1416,17 +1416,6 @@ declare namespace l {
             /**
              * Find all model instances that match `filter` specification.
              * See [Querying models](docs.strongloop.com/display/LB/Querying+models)
-             * @callback {() => void} callback Callback function called with `(err, returned-instances)` arguments.    Required.
-             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
-             * @param {Array} models Model instances matching the filter, or null if none found
-             */
-            static find<T = any>(
-                  callback: CallbackWithResult<T[]>
-            ): void;
-
-            /**
-             * Find all model instances that match `filter` specification.
-             * See [Querying models](docs.strongloop.com/display/LB/Querying+models)
              * @options {any} [filter] Optional Filter JSON object; see below.
              * @property {string|any|Array} fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
