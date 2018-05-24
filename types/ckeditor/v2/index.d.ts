@@ -1,4 +1,4 @@
-// Type definitions for CKEditor
+// Type definitions for CKEditor v2.0.0
 // Project: http://ckeditor.com/
 // Definitions by: Thomas Wittwer <https://github.com/wittwert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
