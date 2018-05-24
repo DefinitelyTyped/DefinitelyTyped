@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.18
+// Type definitions for react-big-calendar 0.19
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -61,7 +61,7 @@ export interface Format {
     /**
      * A time range format for selecting time slots, e.g "8:00am — 2:00pm"
      */
-    selectRangeFormat?: string;
+    selectRangeFormat?: (range: { start: Date, end: Date }, culture: string, localizer: object) => string;
 
     agendaDateFormat?: string;
     agendaTimeFormat?: string;
