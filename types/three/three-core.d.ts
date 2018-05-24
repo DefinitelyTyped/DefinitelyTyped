@@ -5158,14 +5158,13 @@ export class LineSegments extends Line {
     );
 }
 
-interface Intersect
-{
-    distance: number,
-    face?: Face3,
-    faceIndex?: number,
-    object: Object3D,
-    point: Vector3,
-    uv?: Vector2
+interface Intersect {
+    distance: number;
+    face?: Face3;
+    faceIndex?: number;
+    object: Object3D;
+    point: Vector3;
+    uv?: Vector2;
 }
 
 export class Mesh extends Object3D {
