@@ -178,6 +178,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         mock(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptions): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -229,6 +230,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         post(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPost): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -251,6 +253,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         put(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPut): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -273,6 +276,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         delete(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodDelete): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -295,6 +299,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         head(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -317,6 +322,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         patch(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -370,6 +376,7 @@ declare namespace fetchMock {
          * them or not.
          */
         calls(): MatchedRoutes;
+
         /**
          * Returns all calls to fetch matching matcherName.
          */
