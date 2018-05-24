@@ -123,7 +123,7 @@ arrNum = iArrayNum(0.5);
 iArrayStr = d3Interpolate.interpolateArray<string[]>(['1', '2'], ['4', '8']); // explicit typing
 arrStr = iArrayStr(0.5);
 
-iArrayStr = d3Interpolate.interpolateArray([1, 2], ['4', '8']); // infered typing <string>
+iArrayStr = d3Interpolate.interpolateArray([1, 2], ['4', '8']); // inferred typing <string>
 arrStr = iArrayStr(0.5);
 
 // two element array with first element date and second element string
@@ -156,7 +156,7 @@ console.log('Recommended transition duration = %d', iZoom.duration);
 
 // test quantize(interpolator, n) signature ------------------------------------------------
 
-arrNum = d3Interpolate.quantize(d3Interpolate.interpolateRound(-1, 2), 4); // infered template parameter type
+arrNum = d3Interpolate.quantize(d3Interpolate.interpolateRound(-1, 2), 4); // inferred template parameter type
 arrStr = d3Interpolate.quantize<string>(d3Interpolate.interpolateString('-1', '2'), 4); // explicit template parameter typing
 
 // arrStr = d3Interpolate.quantize<string>(d3Interpolate.interpolateRound(-1, 2), 4); // test fails, due to explicit typing v argument type mismatch

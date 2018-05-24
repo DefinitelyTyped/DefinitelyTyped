@@ -93,6 +93,7 @@ str = apiGwEvtReqCtx.identity.sourceIp;
 strOrNull = apiGwEvtReqCtx.identity.user;
 strOrNull = apiGwEvtReqCtx.identity.userAgent;
 strOrNull = apiGwEvtReqCtx.identity.userArn;
+str = apiGwEvtReqCtx.path;
 str = apiGwEvtReqCtx.stage;
 str = apiGwEvtReqCtx.requestId;
 str = apiGwEvtReqCtx.resourceId;

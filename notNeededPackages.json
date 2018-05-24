@@ -1159,6 +1159,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-monaco-editor",
+            "typingsPackageName": "react-monaco-editor",
+            "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
+            "asOfVersion": "0.16.0"
+        },
+        {
             "libraryName": "react-native-collapsible",
             "typingsPackageName": "react-native-collapsible",
             "sourceRepoURL": "https://github.com/oblador/react-native-collapsible",

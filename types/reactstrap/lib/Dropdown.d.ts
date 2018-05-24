@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type Direction = 
+export type Direction =
   | "up"
   | "down"
   | "left"
@@ -30,5 +31,5 @@ export interface DropdownProps extends Props {
   /* intentionally blank */
 }
 
-declare const Dropdown: React.StatelessComponent<DropdownProps>;
+declare class Dropdown extends React.Component<DropdownProps> {}
 export default Dropdown;

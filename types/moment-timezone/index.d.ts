@@ -57,7 +57,7 @@ declare module "moment" {
     }
 
     interface Moment {
-        tz(): string;
+        tz(): string | undefined;
         tz(timezone: string, keepLocalTime?: boolean): Moment;
         zoneAbbr(): string;
         zoneName(): string;
