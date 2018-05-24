@@ -4092,6 +4092,15 @@ declare namespace sequelize {
         /**
          * Set associations with other models
          *
+         * Not part of the sequelize API, used as convention to associate models after creation. e.g.:
+         * ```js
+         * Object.keys(models).forEach(modelName => {
+         *   if (models[modelName].associate) {
+         *     models[modelName].associate(models);
+         *   }
+         * });
+         * ```
+         *
          * @param models
          */
         associate?(models: Models): void;
