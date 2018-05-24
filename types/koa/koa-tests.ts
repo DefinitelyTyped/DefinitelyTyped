@@ -1,5 +1,11 @@
 import Koa = require("koa");
 
+declare module 'koa' {
+    export interface Context {
+        db(): void;
+    }
+}
+
 const app = new Koa();
 
 app.context.db = () => {};
