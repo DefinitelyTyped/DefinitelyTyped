@@ -5436,6 +5436,11 @@ declare namespace Highcharts {
          * @default undefined
          */
         description?: string;
+		
+		/**
+         * Individual data label for each point. The options are the same as the ones for plotOptions.series.dataLabels
+         */
+        dataLabels?: DataLabels;
 
         /**
          * An id for the series. This can be used after render time to get a pointer to the series object through
