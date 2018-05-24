@@ -2,7 +2,7 @@
 // Project: https://github.com/allure-framework/allure-js-commons
 // Definitions by: Denis Artyuhovich <https://github.com/zaqqaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.7
 
 declare class Allure {
     constructor();
@@ -49,6 +49,8 @@ declare namespace Allure {
 
     class Suite {
         constructor(name: string, timestamp?: number);
+
+        name: string;
 
         end(timestamp?: number): void;
 

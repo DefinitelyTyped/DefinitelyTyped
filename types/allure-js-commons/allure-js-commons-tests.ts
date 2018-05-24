@@ -1,4 +1,4 @@
-import * as Allure from "allure-js-commons";
+import Allure from "allure-js-commons";
 
 const shouldMakeError = new Allure("test"); // $ExpectError
 const allure = new Allure();
