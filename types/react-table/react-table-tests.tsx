@@ -127,7 +127,7 @@ const Component = (props: {}) => {
           getProps: () => { },
           headerClassName: '',
           headerStyle: {},
-          getHeaderProps: () => { },
+          getHeaderProps: (finalSate: any, rowInfo?: undefined, column: Column, instance?: any) => { },
           footerClassName: '',
           footerStyle: {},
           getFooterProps: () => { },
