@@ -1490,7 +1490,7 @@ declare namespace l {
                         skip?: number;
                         where?: any;
                   }
-            ): Promise<T[]>;
+            ): Promise<T[] | null>;
 
             /**
              * Find object by ID with an optional filter for include/fields
@@ -1540,7 +1540,7 @@ declare namespace l {
                         fields?: string|any|any[];
                         include?: string|any|any[];
                   },
-            ): Promise<T>;
+            ): Promise<T | null>;
 
             /**
              * Find one model instance that matches `filter` specification.
@@ -1616,7 +1616,7 @@ declare namespace l {
                         skip?: number;
                         where?: any;
                   }
-            ): Promise<T>;
+            ): Promise<T | null>;
 
             /**
              * Finds one record matching the optional filter object. If not found, creates
@@ -1715,7 +1715,7 @@ declare namespace l {
                         skip?: number;
                         where?: any;
                   }
-            ): Promise<{instance: T, created: boolean}>;
+            ): Promise<{instance: T, created: boolean} | null>;
 
             /**
              * Get the `Change` model.
