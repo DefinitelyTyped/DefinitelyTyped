@@ -5181,7 +5181,7 @@ export class Mesh extends Object3D {
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
     getMorphTargetIndexByName(name: string): number;
-    raycast(raycaster: Raycaster, intersects: Intersect[]): Intersect[];
+    raycast(raycaster: Raycaster, intersects: Intersect[]): void;
 }
 
 /**
