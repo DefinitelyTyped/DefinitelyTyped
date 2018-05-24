@@ -442,9 +442,9 @@ export namespace Column {
         style: object;
 
         /**
-         * @default () => ({})
+         * Default: (state, rowInfo, column, instance) => ({})
          */
-        getProps: ReactTableFunction;
+        getProps: ComponentPropsGetterC;
     }
 
     /** Configuration of a columns header section */
@@ -474,7 +474,7 @@ export namespace Column {
          * Default: (state, rowInfo, column, instance) => ({})
          * A function that returns props to decorate the `th` element of the column
          */
-        getHeaderProps: ReactTableFunction;
+        getHeaderProps: ComponentPropsGetterC;
     }
 
     /** Configuration of a columns footer section */
@@ -504,7 +504,7 @@ export namespace Column {
          * Default: (state, rowInfo, column, instance) => ({})
          * A function that returns props to decorate the `th` element of the column
          */
-        getFooterProps: ReactTableFunction;
+        getFooterProps: ComponentPropsGetterC;
     }
 
     /** Filtering related column props */
