@@ -369,7 +369,7 @@ declare namespace React {
     // This should actually be something like `Lifecycle<P, S> | DeprecatedLifecycle<P, S>`,
     // as React will _not_ call the deprecated lifecycle methods if any of the new lifecycle
     // methods are present.
-    interface ComponentLifecycle<P, S, SS = never> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
+    interface ComponentLifecycle<P, S, SS = any> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
         /**
          * Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
          */
