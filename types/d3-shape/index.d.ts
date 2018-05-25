@@ -32,7 +32,7 @@ export interface DefaultArcObject {
      */
     endAngle: number;
     /**
-     * Optional. Pad angle of arcin radians.
+     * Optional. Pad angle of arc in radians.
      */
     padAngle?: number;
 }
@@ -741,7 +741,7 @@ export interface Line<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
@@ -916,7 +916,7 @@ export interface LineRadial<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
@@ -1213,7 +1213,7 @@ export interface Area<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory>(): C;
     /**
@@ -1518,7 +1518,7 @@ export interface AreaRadial<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory>(): C;
     /**
@@ -2280,7 +2280,7 @@ export interface SymbolType {
  * use a transform (see: SVG, Canvas) to move the arc to a different position.
  *
  * The first generic corresponds to the "this" context within which the symbol generator is invoked.
- * The second generic corrsponds to the data type of the datum underlying the symbol.
+ * The second generic corresponds to the data type of the datum underlying the symbol.
  */
 export interface Symbol<This, Datum> {
     /**
@@ -2382,7 +2382,7 @@ export function symbol(): Symbol<any, any>; // tslint:disable-line ban-types
 /**
  * Constructs a new symbol generator with the default settings.
  *
- * The generic corrsponds to the data type of the datum underlying the symbol.
+ * The generic corresponds to the data type of the datum underlying the symbol.
  */
 export function symbol<Datum>(): Symbol<any, Datum>; // tslint:disable-line ban-types
 
@@ -2390,7 +2390,7 @@ export function symbol<Datum>(): Symbol<any, Datum>; // tslint:disable-line ban-
  * Constructs a new symbol generator with the default settings.
  *
  * The first generic corresponds to the "this" context within which the symbol generator is invoked.
- * The second generic corrsponds to the data type of the datum underlying the symbol.
+ * The second generic corresponds to the data type of the datum underlying the symbol.
  */
 export function symbol<This, Datum>(): Symbol<This, Datum>; // tslint:disable-line ban-types
 
@@ -2460,11 +2460,11 @@ export function pointRadial(angle: number, radius: number): [number, number];
  */
 export interface SeriesPoint<Datum> extends Array<number> {
     /**
-     * Correponds to y0, the lower value (baseline).
+     * Corresponds to y0, the lower value (baseline).
      */
     0: number;
     /**
-     * Correponds to y1, the upper value (topline).
+     * Corresponds to y1, the upper value (topline).
      */
     1: number;
     /**
@@ -2565,7 +2565,7 @@ export interface Stack<This, Datum, Key> {
     value(value: (d: Datum, key: Key, j: number, data: Datum[]) => number): this;
 
     /**
-     * Returns the current order acccesor, which defaults to stackOrderNone; this uses the order given by the key accessor.
+     * Returns the current order accessor, which defaults to stackOrderNone; this uses the order given by the key accessor.
      */
     order(): (series: Series<Datum, Key>) => number[];
     /**
@@ -2596,7 +2596,7 @@ export interface Stack<This, Datum, Key> {
     order(order: (series: Series<Datum, Key>) => number[]): this;
 
     /**
-     * Returns the current offset acccesor, which defaults to stackOffsetNone; this uses a zero baseline.
+     * Returns the current offset accessor, which defaults to stackOffsetNone; this uses a zero baseline.
      */
     offset(): (series: Series<Datum, Key>, order: number[]) => void;
     /**

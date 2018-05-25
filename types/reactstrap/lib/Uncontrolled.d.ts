@@ -1,12 +1,14 @@
+import * as React from 'react';
+
 import { UncontrolledAlertProps          } from './Alert';
 import { UncontrolledButtonDropdownProps } from './ButtonDropdown';
 import { UncontrolledDropdownProps       } from './Dropdown';
 import { UncontrolledTooltipProps        } from './Tooltip';
 
-export const UncontrolledAlert: React.StatelessComponent<UncontrolledAlertProps>;
-export const UncontrolledButtonDropdown: React.StatelessComponent<UncontrolledButtonDropdownProps>;
-export const UncontrolledDropdown: React.StatelessComponent<UncontrolledDropdownProps>;
-export const UncontrolledTooltip: React.StatelessComponent<UncontrolledTooltipProps>;
+export class UncontrolledAlert extends React.Component<UncontrolledAlertProps> {}
+export class UncontrolledButtonDropdown extends React.Component<UncontrolledButtonDropdownProps> {}
+export class UncontrolledDropdown extends React.Component<UncontrolledDropdownProps> {}
+export class UncontrolledTooltip extends React.Component<UncontrolledTooltipProps> {}
 
 export { UncontrolledAlertProps          } from './Alert';
 export { UncontrolledButtonDropdownProps } from './ButtonDropdown';

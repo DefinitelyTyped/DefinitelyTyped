@@ -533,6 +533,9 @@ $('#example').on('click', 'tbody td', () => {
 
 cells.every(() => { });
 cells.every((cellRowIdx, cellColIdx, tableLoop, cellLoop) => { });
+cells.every(function(cellRowIdx, cellColIdx, tableLoop, cellLoop) {
+    const cell: DataTables.CellMethods = this;
+});
 
 let cell = dt.cell(":contains('Not shipped')");
 cell = dt.cell(() => { });
@@ -815,6 +818,9 @@ dt.columns.adjust().draw(false); // adjust column sizing and redraw
 
 dt.columns().every(() => { });
 dt.columns().every((colIdx, tableLoop, colLoop) => { });
+dt.columns().every(function(colIdx, tableLoop, colLoop) {
+    const col: DataTables.ColumnMethods = this;
+});
 
 $('#example').on('column-visibility.dt', (e: object, settings: DataTables.Settings, column: number, state: boolean, recalc: boolean | undefined) => {
     const widthRecalced = (recalc || recalc === undefined);
@@ -864,6 +870,9 @@ const rows_12 = dt.rows("selector").nodes();
 const rows_13 = dt.rows.add([{}, {}]);
 dt.rows().every(() => { });
 dt.rows().every((rowIdx, tableLoop, rowLoop) => { });
+dt.rows().every(function(rowIdx, tableLoop, rowLoop) {
+    const row: DataTables.RowMethods = this;
+});
 const rows_14: DataTables.Api = dt.rows("selector").ids();
 const rows_15: DataTables.Api = dt.rows("selector").ids(false);
 

@@ -284,6 +284,8 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
     offset?: object;
     chartWidth?: number;
     chartHeight?: number;
+    horizontalFill?: string[];
+    verticalFill?: string[];
 }
 
 export class CartesianGrid extends React.Component<CartesianGridProps> { }

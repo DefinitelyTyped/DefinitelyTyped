@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
+
 declare namespace Scripting {
     // tslint:disable-next-line:no-const-enum
     const enum CompareMethod {
@@ -489,7 +491,6 @@ declare namespace Scripting {
 }
 
 interface ActiveXObject {
-    new <K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
     set(obj: Scripting.Dictionary, propertyName: 'Item', parameterTypes: [any], newValue: any): void;
 }
 
