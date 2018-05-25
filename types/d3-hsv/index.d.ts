@@ -68,6 +68,12 @@ export interface HSVColor extends Color {
      * Returns the RGB equivalent of this color.
      */
     rgb(): RGBColor;
+
+    /**
+     * Returns a hexadecimal string representing this color.
+     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    hex(): string;
 }
 
 export const hsv: HSVColorFactory;

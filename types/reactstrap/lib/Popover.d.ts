@@ -1,5 +1,4 @@
-/// <reference types='react' />
-
+import * as React from 'react';
 import { CSSModule } from '../index';
 import { Popper } from './Popper';
 
@@ -19,5 +18,5 @@ export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
   cssModule?: CSSModule;
 }
 
-declare const Popover: React.StatelessComponent<PopoverProps>;
+declare class Popover extends React.Component<PopoverProps> {}
 export default Popover;

@@ -54,6 +54,7 @@ export interface PasswordRealmResponse {
     idToken: string;
     scope: string;
     tokenType: "Bearer";
+    refreshToken?: string;
 }
 
 export interface RefreshTokenParams {

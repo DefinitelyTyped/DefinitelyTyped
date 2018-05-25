@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export interface MDCSnackbarAdapter {
+export default interface MDCSnackbarAdapter {
     addClass(className: string): void;
     removeClass(className: string): void;
     setAriaHidden(): void;
@@ -35,4 +35,6 @@ export interface MDCSnackbarAdapter {
     deregisterActionClickHandler(handler: EventListener): void;
     registerTransitionEndHandler(handler: EventListener): void;
     deregisterTransitionEndHandler(handler: EventListener): void;
+    notifyShow(): void;
+    notifyHide(): void;
 }
