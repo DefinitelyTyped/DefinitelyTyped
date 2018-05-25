@@ -36,11 +36,38 @@ function JQueryStatic() {
         // $ExpectType JQuery<HTMLElement>
         $('<p></p>');
 
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>('<p></p>');
+
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>('<p></p>', document);
+
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>('p');
+
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>('p', document);
+
         // $ExpectType JQuery<HTMLElement>
         $(new HTMLElement());
 
         // $ExpectType JQuery<HTMLElement>
         $([new HTMLElement()]);
+
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>(new HTMLParagraphElement());
+
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>([new HTMLParagraphElement()]);
+
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>(new HTMLParagraphElement());
+
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>([new HTMLParagraphElement()]);
+
+        // $ExpectType JQuery<HTMLElement>
+        let jWindow = $(window);
 
         // $ExpectType JQuery<HTMLElement>
         $({ foo: 'bar', hello: 'world' });
