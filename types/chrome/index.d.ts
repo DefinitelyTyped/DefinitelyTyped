@@ -5990,6 +5990,16 @@ declare namespace chrome.tabs {
          */
         audible?: boolean;
         /**
+         * Whether the tab is discarded. A discarded tab is one whose content has been unloaded from memory, but is still visible in the tab strip. Its content gets reloaded the next time it's activated.
+         * @since Chrome 54.
+         */
+        discarded: boolean;
+        /**
+         * Whether the tab can be discarded automatically by the browser when resources are low.
+         * @since Chrome 54.
+         */
+        autoDiscardable: boolean;
+        /**
          * Optional.
          * Current tab muted state and the reason for the last state change.
          * @since Chrome 46. Warning: this is the current Beta channel.
@@ -6153,6 +6163,11 @@ declare namespace chrome.tabs {
          * @since Chrome 45.
          */
         muted?: boolean;
+        /**
+         * Optional. Whether the tab should be discarded automatically by the browser when resources are low.
+         * @since Chrome 54.
+         */
+        autoDiscardable?: boolean;
     }
 
     export interface CaptureVisibleTabOptions {
@@ -6200,7 +6215,7 @@ declare namespace chrome.tabs {
          * Optional. Whether the tabs have completed loading.
          * One of: "loading", or "complete"
          */
-        status?: string;
+        status?: 'loading' | 'complete';
         /**
          * Optional. Whether the tabs are in the last focused window.
          * @since Chrome 19.
@@ -6212,7 +6227,7 @@ declare namespace chrome.tabs {
          * Optional. The type of window the tabs are in.
          * One of: "normal", "popup", "panel", "app", or "devtools"
          */
-        windowType?: string;
+        windowType?: 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
         /** Optional. Whether the tabs are active in their windows. */
         active?: boolean;
         /**
@@ -6231,6 +6246,18 @@ declare namespace chrome.tabs {
         currentWindow?: boolean;
         /** Optional. Whether the tabs are highlighted. */
         highlighted?: boolean;
+        /**
+         * Optional.
+         * Whether the tabs are discarded. A discarded tab is one whose content has been unloaded from memory, but is still visible in the tab strip. Its content gets reloaded the next time it's activated.
+         * @since Chrome 54.
+         */
+        discarded?: boolean;
+        /**
+         * Optional.
+         * Whether the tabs can be discarded automatically by the browser when resources are low.
+         * @since Chrome 54.
+         */
+        autoDiscardable?: boolean;
         /** Optional. Whether the tabs are pinned. */
         pinned?: boolean;
         /**
@@ -6280,6 +6307,16 @@ declare namespace chrome.tabs {
          * @since Chrome 45.
          */
         audible?: boolean;
+        /**
+         * The tab's new discarded state.
+         * @since Chrome 54.
+         */
+        discarded?: boolean;
+        /**
+         * The tab's new auto-discardable
+         * @since Chrome 54.
+         */
+        autoDiscardable?: boolean;
         /**
          * The tab's new muted state and the reason for the change.
          * @since Chrome 46. Warning: this is the current Beta channel.
@@ -6604,6 +6641,13 @@ declare namespace chrome.tabs {
      * Paramater zoomSettings: The tab's current zoom settings.
      */
     export function getZoomSettings(tabId: number, callback: (zoomSettings: ZoomSettings) => void): void;
+    /**
+     * Discards a tab from memory. Discarded tabs are still visible on the tab strip and are reloaded when activated.
+     * @since Chrome 54.
+     * @param tabId Optional. The ID of the tab to be discarded. If specified, the tab will be discarded unless it's active or already discarded. If omitted, the browser will discard the least important tab. This can fail if no discardable tabs exist.
+     * @param callback Called after the operation is completed.
+     */
+    export function discard(tabId: number, callback: (tab: Tab) => void): void;
 
     /**
      * Fired when the highlighted or selected tabs in a window changes.

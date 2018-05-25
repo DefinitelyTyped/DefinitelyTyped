@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.36
+// Type definitions for plotly.js 1.37
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 // 				Martin Duparc <https://github.com/martinduparc>
@@ -386,7 +386,16 @@ export interface ScatterData {
 	'marker.colorbar': {}; // TODO
 	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
 	hoveron: 'points' | 'fills';
-	hoverinfo: 'text';
+	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
+               'x' | 'x+text' | 'x+name' |
+               'x+y' | 'x+y+text' | 'x+y+name' |
+               'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
+               'y+x' | 'y+x+text' | 'y+x+name' |
+               'y+z' | 'y+z+text' | 'y+z+name' |
+               'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
+               'z+x' | 'z+x+text' | 'z+x+name' |
+               'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
+               'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
@@ -394,6 +403,11 @@ export interface ScatterData {
 	connectgaps: boolean;
 }
 
+/**
+ * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
+ * examples: "x", "y", "x+y", "x+y+z", "all"
+ * default: "all"
+ */
 export interface ScatterMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | number[];

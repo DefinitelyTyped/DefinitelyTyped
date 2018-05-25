@@ -1,5 +1,8 @@
 // Note -- running these tests under cscript requires some ES5 polyfills
 
+/// <reference types="windows-script-host" />
+/// <reference types="activex-scripting" />
+
 const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
@@ -12,9 +15,9 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
 };
 
 const toSafeArray = <T>(...items: T[]): SafeArray<T> => {
-    const dict = new ActiveXObject('Scripting.Dictionary');
+    const dict: Scripting.Dictionary<number, T> = new ActiveXObject('Scripting.Dictionary');
     items.forEach((x, index) => dict.Add(index, x));
-    return dict.Items() as SafeArray<T>;
+    return dict.Items();
 };
 
 const toConnectionString = (o: { [index: string]: any }) => {

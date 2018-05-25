@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 import { FadeProps } from './Fade';
 
@@ -28,5 +29,5 @@ export interface ModalProps extends React.HTMLAttributes<HTMLElement> {
   role?: string;
 }
 
-declare const Modal: React.StatelessComponent<ModalProps>;
+declare class Modal extends React.Component<ModalProps> {}
 export default Modal;
