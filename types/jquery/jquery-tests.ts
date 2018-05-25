@@ -67,9 +67,6 @@ function JQueryStatic() {
         $<HTMLParagraphElement>([new HTMLParagraphElement()]);
 
         // $ExpectType JQuery<HTMLElement>
-        $(window);
-
-        // $ExpectType JQuery<HTMLElement>
         $({ foo: 'bar', hello: 'world' });
 
         // $ExpectType JQuery<HTMLElement>
@@ -5861,7 +5858,7 @@ function JQuery() {
         }
 
         function contents() {
-            // $ExpectType JQuery<HTMLElement | Comment | Text>
+            // $ExpectType JQuery<HTMLElement | Text | Comment>;
             $('p').contents();
         }
 
