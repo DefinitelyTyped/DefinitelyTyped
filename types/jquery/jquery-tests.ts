@@ -5858,7 +5858,7 @@ function JQuery() {
         }
 
         function contents() {
-            // $ExpectType JQuery<HTMLElement | Text | Comment>;
+            // $ExpectType JQuery<HTMLElement | Text | Comment>
             $('p').contents();
         }
 
