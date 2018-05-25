@@ -24,7 +24,7 @@ sqlite.openDatabase({ name: 'test.db', location: 'default' }).then((db) => {
         .transaction((tx) => {
             tx
                 .executeSql('SELECT * FROM Employees a, Departments b WHERE a.department = b.department_id', [])
-                .then((result: sqlite.TransactionStatementPromise) => {
+                .then((result: sqlite.TransactionResultSetPromise) => {
                     // handle result
                 });
         })
@@ -34,7 +34,7 @@ sqlite.openDatabase({ name: 'test.db', location: 'default' }).then((db) => {
         .catch((e: sqlite.SQLError) => {
             // log error
         });
-    db.executeSql('SELECT * FROM Employees a, Departments b WHERE a.department = b.department_id', []).then((result: sqlite.StatementPromise) => {
+    db.executeSql('SELECT * FROM Employees a, Departments b WHERE a.department = b.department_id', []).then((result: sqlite.ResultSetPromise) => {
         // handle result
     });
 });
