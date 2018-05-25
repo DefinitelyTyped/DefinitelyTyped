@@ -430,7 +430,7 @@ declare module "mongoose" {
     $format(arg: any): string;
     /** Debug print helper */
     $print(name: any, i: any, args: any[]): void;
-    /** Retreives information about this collections indexes. */
+    /** Retrieves information about this collections indexes. */
     getIndexes(): any;
   }
 
@@ -448,6 +448,8 @@ declare module "mongoose" {
 
     /** Expose the possible connection states. */
     static STATES: any;
+    then(res?: any, rej?: any): PromiseLike<any>;
+    catch(rej?: any): PromiseLike<any>;
   }
 
   /*
