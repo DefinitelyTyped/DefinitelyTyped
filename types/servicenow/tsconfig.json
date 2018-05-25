@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "servicenow-jakarta-tests.ts"
+        "servicenow-tests.ts"
     ]
 }

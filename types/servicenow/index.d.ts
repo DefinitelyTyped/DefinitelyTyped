@@ -1,3 +1,8 @@
+// Type definitions for ServiceNow Javascript Scoped API 10.x
+// Project: https://docs.servicenow.com/bundle/jakarta-application-development/page/build/applications/concept/api-javascript.html
+// Definitions by: Bryce Godfrey <https://github.com/bryceg>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare const email: servicenow.IGlideEmailOutbound;
 declare const g_processor: servicenow.IGlideScriptedProcessor;
 declare const g_request: servicenow.IGlideServletRequest;
@@ -331,265 +336,266 @@ declare namespace servicenow {
         update(reason?: string): string;
         updateMultiple(): void;
     }
-export interface IGlideEmailOutbound {
-    getSubject(): string;
-    setSubject(subject: string): void;
-    setFrom(address: string): void;
-    setReplyTo(address: string): void;
-    addAddress(type: string, address: string, displayName: string): void;
-    setBody(bodyText: string): void;
-}
+    
+    export interface IGlideEmailOutbound {
+        getSubject(): string;
+        setSubject(subject: string): void;
+        setFrom(address: string): void;
+        setReplyTo(address: string): void;
+        addAddress(type: string, address: string, displayName: string): void;
+        setBody(bodyText: string): void;
+    }
 
-export interface IGlideQueryCondition {
-    addCondition(name: string, value: object|string|number): IGlideQueryCondition;
-    addCondition(name: string, oper: QueryOperator, value: object|string|number): IGlideQueryCondition;
-    addOrCondition(name: string, oper: QueryOperator, value: object|string|number): IGlideQueryCondition;
-    addOrCondition(name: string, value: object|string|number): IGlideQueryCondition;
-}
+    export interface IGlideQueryCondition {
+        addCondition(name: string, value: object|string|number): IGlideQueryCondition;
+        addCondition(name: string, oper: QueryOperator, value: object|string|number): IGlideQueryCondition;
+        addOrCondition(name: string, oper: QueryOperator, value: object|string|number): IGlideQueryCondition;
+        addOrCondition(name: string, value: object|string|number): IGlideQueryCondition;
+    }
 
-export interface IGlideElement {
-    changes(): boolean;
-    changesFrom(value: object): boolean;
-    changesTo(value: object): boolean;
-    getChoices(name?: string): Array<any>;
-    getDecryptedValue(): string;
-    getDisplayValue(maxCharacters?: number): string;
-    getED(): IGlideElementDescriptor
-    getReferenceTable(): string;
-    getRefRecord(): IGlideRecord;
-    nil(): boolean;
-    setDisplayValue(value: object): void;
-    setError(value: string): void;
-    setValue(value: object|string): void;
-    toString(): string;
-}
+    export interface IGlideElement {
+        changes(): boolean;
+        changesFrom(value: object): boolean;
+        changesTo(value: object): boolean;
+        getChoices(name?: string): Array<any>;
+        getDecryptedValue(): string;
+        getDisplayValue(maxCharacters?: number): string;
+        getED(): IGlideElementDescriptor
+        getReferenceTable(): string;
+        getRefRecord(): IGlideRecord;
+        nil(): boolean;
+        setDisplayValue(value: object): void;
+        setError(value: string): void;
+        setValue(value: object|string): void;
+        toString(): string;
+    }
 
-export interface IGlideElementDescriptor {
-    getAttachmentEncryptionType(): string;
-    getEncryptionType(): string;
-    getInternalType(): string;
-    getLabel(): string;
-    getLength(): number;
-    getName(): string;
-    getPlural(): boolean;
-    hasAttachmentsEncrypted(): boolean;
-    isAutoOrSysID(): boolean;
-    isChoiceTable(): boolean;
-    isEdgeEncrypted(): boolean;
-    isVirtual(): boolean;
-}
+    export interface IGlideElementDescriptor {
+        getAttachmentEncryptionType(): string;
+        getEncryptionType(): string;
+        getInternalType(): string;
+        getLabel(): string;
+        getLength(): number;
+        getName(): string;
+        getPlural(): boolean;
+        hasAttachmentsEncrypted(): boolean;
+        isAutoOrSysID(): boolean;
+        isChoiceTable(): boolean;
+        isEdgeEncrypted(): boolean;
+        isVirtual(): boolean;
+    }
 
-export interface IGlideScriptedProcessor {
-    redirect(url: string): void;
-    writeOutput(s: string): void;
-    writeOutput(contentType: string, s: string): void;
-    writeJSON(o: object): void;
-}
+    export interface IGlideScriptedProcessor {
+        redirect(url: string): void;
+        writeOutput(s: string): void;
+        writeOutput(contentType: string, s: string): void;
+        writeJSON(o: object): void;
+    }
 
-export interface IGlideServletRequest {
-    getContentType(): string;
-    getHeader(name: string): string;
-    getParameter(name: string): string;
-    writeOutput(mimeType: string, output: string): void;
-    toString(): string;
-}
+    export interface IGlideServletRequest {
+        getContentType(): string;
+        getHeader(name: string): string;
+        getParameter(name: string): string;
+        writeOutput(mimeType: string, output: string): void;
+        toString(): string;
+    }
 
-export interface IGlideServletResponse {
-    setContentType(type: string): void;
-    setHeader(name: string, value: string): void;
-    setStatus(value: number): void;
-}
+    export interface IGlideServletResponse {
+        setContentType(type: string): void;
+        setHeader(name: string, value: string): void;
+        setStatus(value: number): void;
+    }
 
-export interface IGlideSession {
-    isInteractive(): boolean;
-    isLoggedIn(): boolean;
-    getClientData(paramName: string): string;
-    getClientIP(): string;
-    getCurrentApplicationId(): string;
-    getLanguage(): string;
-    getTimeZoneName(): string;
-    getSessionToken(): string;
-    getUrlOnStack(): string;
-    putClientData(paramName: string, paramValue: string): void;
-}
+    export interface IGlideSession {
+        isInteractive(): boolean;
+        isLoggedIn(): boolean;
+        getClientData(paramName: string): string;
+        getClientIP(): string;
+        getCurrentApplicationId(): string;
+        getLanguage(): string;
+        getTimeZoneName(): string;
+        getSessionToken(): string;
+        getUrlOnStack(): string;
+        putClientData(paramName: string, paramValue: string): void;
+    }
 
 
 
-export interface IGlideTime {
-    new (milliseconds: number): IGlideTime;
-    getByFormat(format: string): string;
-    getDisplayValue(): string;
-    getDisplayValueinternal(): string;
-    getValue(): string;
-    setDisplayValue(asDisplayed: string): void;
-    setValue(o: string): void;
-    subtract(start: IGlideTime, end: IGlideTime): GlideDuration;
-}
+    export interface IGlideTime {
+        new (milliseconds: number): IGlideTime;
+        getByFormat(format: string): string;
+        getDisplayValue(): string;
+        getDisplayValueinternal(): string;
+        getValue(): string;
+        setDisplayValue(asDisplayed: string): void;
+        setValue(o: string): void;
+        subtract(start: IGlideTime, end: IGlideTime): GlideDuration;
+    }
 
-export interface IGlideSystem {
-    addErrorMessage(message: string): void;
-    addInfoMessage(message: string): void;
-    base64Decode(source: string): string;
-    base64Encode(source: string): string;
-    beginningOfLastMonth(): string;
-    beginningOfLastWeek(): string;
-    beginningOfNextWeek(): string;
-    beginningOfNextMonth(): string;
-    beginningOfNextYear(): string;
-    beginningOfThisMonth(): string;
-    beginningOfThisQuarter(): string;
-    beginningOfThisWeek(): string;
-    beginningOfThisYear(): string;
-    dateGenerate(date: string): string;
-    daysAgo(days: number): string;
-    daysAgoEnd(days: number): string;
-    daysAgoStart(days: number): string;
-    debug(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
-    endOfLastMonth(): string;
-    endOfLastWeek(): string;
-    endOfLastYear(): string;
-    endOfNextMonth(): string;
-    endOfNextWeek(): string;
-    endOfNextYear(): string;
-    endOfThisMonth(): string;
-    endOfThisQuarter(): string;
-    endOfThisWeek(): string;
-    endOfThisYear(): string;
-    error(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
-    eventQueue(eventName: string, gr: IGlideRecord, optionalParam1: string, optionalParam2: string, eventQueue?: string): void;
-    eventQueueScheduled(name: string, instance: IGlideRecord, parm1: string, parm2: string, expiration: object): void;
-    executeNow(job: IGlideRecord): string;
-    generateGUID(): string;
-    getCallerScopeName(): string;
-    getCssCacheVersionString(): string;
-    getCurrentApplicationId(): string;
-    getCurrentScopeName(): string;
-    getErrorMessages(id: string, args?: Array<string>): string;
-    getMessage(id: string, object?: any): string;
-    getProperty<T>(key: string, altobject?: T): T;
-    getSession(): string | IGlideSession;
-    getSessionID(): string;
-    getSessionToken(): string;
-    getTimeZoneName(): string;
-    getUrlOnStack(): string;
-    getUser(): IGlideUser;
-    getUserDisplayName(): string;
-    getUserID(): string;
-    getUserName(): string;
-    getUserNameByUserID(id: string): string;
-    hasRole(roleName: string): boolean;
-    include(include: string): void;
-    info(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
-    isDebugging(): boolean;
-    isInteractive(): boolean;
-    isLoggedIn(): boolean;
-    isMobile(): boolean;
-    minutesAgoEnd(num: number): string;
-    minutesAgoStart(num: number): string;
-    monthsAgo(num: number): string;
-    monthsAgoEnd(num: number): string;
-    monthsAgoStart(num: number): string;
-    nil(object: any): boolean;
-    quartersAgoEnd(num: number): string;
-    quartersAgoStart(num: number): string;
-    setRedirect(uri: string): void;
-    tableExists(table: string): boolean;
-    warn(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
-    xmlToJSON(xml: string): any;
-    yearsAgo(years: number): string;
-    yesterday(): string;
-}
+    export interface IGlideSystem {
+        addErrorMessage(message: string): void;
+        addInfoMessage(message: string): void;
+        base64Decode(source: string): string;
+        base64Encode(source: string): string;
+        beginningOfLastMonth(): string;
+        beginningOfLastWeek(): string;
+        beginningOfNextWeek(): string;
+        beginningOfNextMonth(): string;
+        beginningOfNextYear(): string;
+        beginningOfThisMonth(): string;
+        beginningOfThisQuarter(): string;
+        beginningOfThisWeek(): string;
+        beginningOfThisYear(): string;
+        dateGenerate(date: string): string;
+        daysAgo(days: number): string;
+        daysAgoEnd(days: number): string;
+        daysAgoStart(days: number): string;
+        debug(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
+        endOfLastMonth(): string;
+        endOfLastWeek(): string;
+        endOfLastYear(): string;
+        endOfNextMonth(): string;
+        endOfNextWeek(): string;
+        endOfNextYear(): string;
+        endOfThisMonth(): string;
+        endOfThisQuarter(): string;
+        endOfThisWeek(): string;
+        endOfThisYear(): string;
+        error(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
+        eventQueue(eventName: string, gr: IGlideRecord, optionalParam1: string, optionalParam2: string, eventQueue?: string): void;
+        eventQueueScheduled(name: string, instance: IGlideRecord, parm1: string, parm2: string, expiration: object): void;
+        executeNow(job: IGlideRecord): string;
+        generateGUID(): string;
+        getCallerScopeName(): string;
+        getCssCacheVersionString(): string;
+        getCurrentApplicationId(): string;
+        getCurrentScopeName(): string;
+        getErrorMessages(id: string, args?: Array<string>): string;
+        getMessage(id: string, object?: any): string;
+        getProperty<T>(key: string, altobject?: T): T;
+        getSession(): string | IGlideSession;
+        getSessionID(): string;
+        getSessionToken(): string;
+        getTimeZoneName(): string;
+        getUrlOnStack(): string;
+        getUser(): IGlideUser;
+        getUserDisplayName(): string;
+        getUserID(): string;
+        getUserName(): string;
+        getUserNameByUserID(id: string): string;
+        hasRole(roleName: string): boolean;
+        include(include: string): void;
+        info(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
+        isDebugging(): boolean;
+        isInteractive(): boolean;
+        isLoggedIn(): boolean;
+        isMobile(): boolean;
+        minutesAgoEnd(num: number): string;
+        minutesAgoStart(num: number): string;
+        monthsAgo(num: number): string;
+        monthsAgoEnd(num: number): string;
+        monthsAgoStart(num: number): string;
+        nil(object: any): boolean;
+        quartersAgoEnd(num: number): string;
+        quartersAgoStart(num: number): string;
+        setRedirect(uri: string): void;
+        tableExists(table: string): boolean;
+        warn(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
+        xmlToJSON(xml: string): any;
+        yearsAgo(years: number): string;
+        yesterday(): string;
+    }
 
-export interface IGlideUser {
-    getCompanyID(): string;
-    getDisplayName(): string;
-    getID(): string;
-    getName(): string;
-    getPreference(name: string): string;
-    hasRole(role: string): boolean;
-    isMemberOf(group: string): boolean;
-    savePreference(name: string, value: string): void;
-}
+    export interface IGlideUser {
+        getCompanyID(): string;
+        getDisplayName(): string;
+        getID(): string;
+        getName(): string;
+        getPreference(name: string): string;
+        hasRole(role: string): boolean;
+        isMemberOf(group: string): boolean;
+        savePreference(name: string, value: string): void;
+    }
 
-export interface IXMLNode {
-    getLastChild(): IXMLNode;
-    getFirstChild(): IXMLNode;
-    getNodeValue(): string;
-    getNodeName(): string;
-    hasAttribute(name: string): boolean;
-    getAttribute(attribute: string): string;
-    getChildNodeIterator(): IXMLNodeIterator;
-    getTextContent(): string;
-    toString(): string;
-}
+    export interface IXMLNode {
+        getLastChild(): IXMLNode;
+        getFirstChild(): IXMLNode;
+        getNodeValue(): string;
+        getNodeName(): string;
+        hasAttribute(name: string): boolean;
+        getAttribute(attribute: string): string;
+        getChildNodeIterator(): IXMLNodeIterator;
+        getTextContent(): string;
+        toString(): string;
+    }
 
-export interface IXMLNodeIterator {
-    hasNext(): Boolean;
-    next(): IXMLNode;
-}
+    export interface IXMLNodeIterator {
+        hasNext(): Boolean;
+        next(): IXMLNode;
+    }
 
-export interface ISOAPResponseV2 {
-    waitForResponse(timeoutSecs: number): void;
-    getStatusCode(): number;
-    getHeader(name: string): string;
-    getHeaders(): object;
-    getBody(): string;
-    haveError(): boolean;
-    getErrorCode(): number;
-    getErrorMessage(): string;
-}
+    export interface ISOAPResponseV2 {
+        waitForResponse(timeoutSecs: number): void;
+        getStatusCode(): number;
+        getHeader(name: string): string;
+        getHeaders(): object;
+        getBody(): string;
+        haveError(): boolean;
+        getErrorCode(): number;
+        getErrorMessage(): string;
+    }
 
-export interface IRESTResponseV2 {
-    getBody(): string;
-    getCookies(): {size: ()=>number, get: (index: number)=>string};
-    getErrorCode(): number;
-    getErrorMessage(): string;
-    getHeader(name: string): string;
-    getHeaders(): object;
-    getQueryString(): string;
-    getResponseAttachmentSysid(): string;
-    getStatusCode(): number;
-    haveError(): boolean;
-    waitForResponse(timeoutSecs: number): void;
-}
+    export interface IRESTResponseV2 {
+        getBody(): string;
+        getCookies(): {size: ()=>number, get: (index: number)=>string};
+        getErrorCode(): number;
+        getErrorMessage(): string;
+        getHeader(name: string): string;
+        getHeaders(): object;
+        getQueryString(): string;
+        getResponseAttachmentSysid(): string;
+        getStatusCode(): number;
+        haveError(): boolean;
+        waitForResponse(timeoutSecs: number): void;
+    }
 
-export interface IRESTAPIRequest<T> {
-    body: IRESTAPIRequestBody<T>;
-    pathParams: { [paramName: string]: string };
-    queryParams: { [paramName: string]: Array<string> };
-    queryString: string;
-    uri: string;
-    url: string;
-    headers: { [paramName: string]: string };
-    getHeader(header: string): string;
-    getSupportedResponseContentTypes(): Array<string>;
-}
+    export interface IRESTAPIRequest<T> {
+        body: IRESTAPIRequestBody<T>;
+        pathParams: { [paramName: string]: string };
+        queryParams: { [paramName: string]: Array<string> };
+        queryString: string;
+        uri: string;
+        url: string;
+        headers: { [paramName: string]: string };
+        getHeader(header: string): string;
+        getSupportedResponseContentTypes(): Array<string>;
+    }
 
-export interface IRESTAPIRequestBody<T> {
-    data: T;
-    dataStream: any;
-    dataString: string;
-    hasNext(): boolean;
-    nextEntry(): any;
-}
+    export interface IRESTAPIRequestBody<T> {
+        data: T;
+        dataStream: any;
+        dataString: string;
+        hasNext(): boolean;
+        nextEntry(): any;
+    }
 
-export interface IRESTAPIResponse {
-    getStreamWriter(): IRESTAPIResponseStream;
-    setBody(body: any): void;
-    setHeaders(headers: any): void;
-    setLocation(location: string): void;
-    setStatus(status: number): void;
-    setHeader(header: string, value: string): void;
-    setContentType(contentType: string): void;
-    setError(error: any): void;
-}
+    export interface IRESTAPIResponse {
+        getStreamWriter(): IRESTAPIResponseStream;
+        setBody(body: any): void;
+        setHeaders(headers: any): void;
+        setLocation(location: string): void;
+        setStatus(status: number): void;
+        setHeader(header: string, value: string): void;
+        setContentType(contentType: string): void;
+        setError(error: any): void;
+    }
 
-export interface IRESTAPIResponseStream {
-    writeStream(stream: object): void;
-    writeString(data: string): void;
-}
+    export interface IRESTAPIResponseStream {
+        writeStream(stream: object): void;
+        writeString(data: string): void;
+    }
 
-export type QueryOperator = "="|"!="|">"|">="|"<"|"<="|"IN"|"STARTSWITH"|"ENDSWITH"|"CONTAINS"|"DOESNOTCONTAIN"|"INSTANCEOF"
-export type RestHTTPMethods = "get"|"post"|"delete"|"patch"|"put"|"head"|"delete"|"options";
-export type GlideRecordOperation = "insert"|"update"|"delete";
+    export type QueryOperator = "="|"!="|">"|">="|"<"|"<="|"IN"|"STARTSWITH"|"ENDSWITH"|"CONTAINS"|"DOESNOTCONTAIN"|"INSTANCEOF"
+    export type RestHTTPMethods = "get"|"post"|"delete"|"patch"|"put"|"head"|"delete"|"options";
+    export type GlideRecordOperation = "insert"|"update"|"delete";
 }
