@@ -28,16 +28,16 @@ const modernEnvironment = new Environment({ network, store });
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern QueryRenderer
 // ~~~~~~~~~~~~~~~~~~~~~
-const MyQueryRenderer = (props: { name: string }) => (
+const MyQueryRenderer = (props: { name: string, show: boolean }) => (
     <QueryRenderer
         environment={modernEnvironment}
-        query={graphql`
+        query={props.show ? graphql`
             query ExampleQuery($pageID: ID!) {
                 page(id: $pageID) {
                     name
                 }
             }
-        `}
+        ` : null}
         variables={{
             pageID: "110798995619330",
         }}
@@ -46,6 +46,23 @@ const MyQueryRenderer = (props: { name: string }) => (
                 return <div>{error.message}</div>;
             } else if (props) {
                 return <div>{props.name} is great!</div>;
+            }
+            return <div>Loading</div>;
+        }}
+    />
+);
+
+const MyEmptyQueryRenderer = () => (
+    <QueryRenderer
+        environment={modernEnvironment}
+        // NOTE: let's intentionally leave out `query`
+        // query={undefined}
+        variables={{}}
+        render={({ error, props }) => {
+            if (error) {
+                return <div>{error.message}</div>;
+            } else if (props) {
+                throw new Error('This code path should never be hit');
             }
             return <div>Loading</div>;
         }}

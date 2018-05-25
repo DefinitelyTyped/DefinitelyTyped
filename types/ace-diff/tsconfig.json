@@ -15,11 +15,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-monaco-editor-tests.tsx"
+        "ace-diff-tests.ts"
     ]
 }
