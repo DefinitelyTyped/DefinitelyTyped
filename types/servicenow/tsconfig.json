@@ -3,6 +3,7 @@
         "lib": [
             "es5"
         ],
+        "module": "commonjs",        
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -13,8 +14,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "noLib": false
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

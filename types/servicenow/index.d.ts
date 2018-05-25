@@ -2,21 +2,22 @@
 // Project: https://docs.servicenow.com/bundle/jakarta-application-development/page/build/applications/concept/api-javascript.html
 // Definitions by: Bryce Godfrey <https://github.com/bryceg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
-declare const email: servicenow.IGlideEmailOutbound;
-declare const g_processor: servicenow.IGlideScriptedProcessor;
-declare const g_request: servicenow.IGlideServletRequest;
-declare const g_response: servicenow.IGlideServletResponse;
-declare const gs: servicenow.IGlideSystem;
-declare const GlideRecordSecure: servicenow.IGlideRecord;
-declare const GlideRecord: servicenow.IGlideRecord;
+declare const email: servicenow.GlideEmailOutbound;
+declare const g_processor: servicenow.GlideScriptedProcessor;
+declare const g_request: servicenow.GlideServletRequest;
+declare const g_response: servicenow.GlideServletResponse;
+declare const gs: servicenow.GlideSystem;
+declare const GlideRecordSecure: servicenow.GlideRecord;
+declare const GlideRecord: servicenow.GlideRecord;
 
 declare namespace sn_ws {
     class RESTMessageV2 {
         constructor();
-        constructor (name: string, methodName: servicenow.RestHTTPMethods);
-        execute(): servicenow.IRESTResponseV2;
-        executeAsync(): servicenow.IRESTResponseV2;
+        constructor(name: string, methodName: servicenow.RestHTTPMethods);
+        execute(): servicenow.RESTResponseV2;
+        executeAsync(): servicenow.RESTResponseV2;
         getEndpoint(): string;
         getRequestBody(): string;
         getRequestHeader(headerName: string): string;
@@ -43,10 +44,10 @@ declare namespace sn_ws {
     }
 
     class SOAPMessageV2 {
-        constructor ();
-        constructor (soapMessage: string, soapFunction: string);
-        execute(): servicenow.ISOAPResponseV2;
-        executeAsync(): servicenow.ISOAPResponseV2;
+        constructor();
+        constructor(soapMessage: string, soapFunction: string);
+        execute(): servicenow.SOAPResponseV2;
+        executeAsync(): servicenow.SOAPResponseV2;
         setHttpMethod(method: string): void;
         setHttpTimeout(timeoutMs: number): void;
         setBasicAuth(userName: string, userPass: string): void;
@@ -68,50 +69,58 @@ declare namespace sn_ws {
 }
 
 declare namespace global {
-    class GlideStringUtil {
-        static base64Decode(value: string): string;
-        static base64DecodeAsBytes(value: string): any;
-        static escapeHTML(value: string): string;
-        static getStringFromStream(stream: object): string;
-    }
+    const GlideStringUtil: {
+        base64Decode(value: string): string,
+        base64DecodeAsBytes(value: string): any,
+        escapeHTML(value: string): string,
+        getStringFromStream(stream: object): string
+    };
 
-    class Class {
-        static create(): any;
-    }
+    const Class: {
+        create(): any;
+    };
 
     class Workflow {
         constructor();
         broadcastEvent(contextId: string, eventName: string): void;
-        cancel(record: servicenow.IGlideRecord): void;
-        cancelContext(context: servicenow.IGlideRecord): void;
-        deleteWorkflow(current: servicenow.IGlideRecord): void;
-        fireEvent(eventRecord: servicenow.IGlideRecord, eventName: string): void;
+        cancel(record: servicenow.GlideRecord): void;
+        cancelContext(context: servicenow.GlideRecord): void;
+        deleteWorkflow(current: servicenow.GlideRecord): void;
+        fireEvent(eventRecord: servicenow.GlideRecord, eventName: string): void;
         fireEventById(eventRecordId: string, eventName: string): void;
-        getContexts(record: servicenow.IGlideRecord): servicenow.IGlideRecord;
+        getContexts(record: servicenow.GlideRecord): servicenow.GlideRecord;
         getEstimatedDeliveryTime(workflowId: string): string;
-        getEstimatedDeliveryTimeFromWFVersion(wfVersion: servicenow.IGlideRecord): string;
-        getReturnValue(workflowID: string, amount: number, result: boolean): any|null;
-        getRunningFlows(record: servicenow.IGlideRecord): servicenow.IGlideRecord;
+        getEstimatedDeliveryTimeFromWFVersion(wfVersion: servicenow.GlideRecord): string;
+        getReturnValue(workflowID: string, amount: number, result: boolean): {};
+        getRunningFlows(record: servicenow.GlideRecord): servicenow.GlideRecord;
         getVersion(workflowId: string): void;
         getVersionFromName(workflowName: string): void;
         getWorkflowFromName(workflowName: string): void;
-        hasWorkflow(record: servicenow.IGlideRecord): boolean;
-        restartWorkflow(record: servicenow.IGlideRecord, maintainStateFlag: boolean): void;
-        runFlows(record: servicenow.IGlideRecord, operation: servicenow.GlideRecordOperation): void;
-        startFlow(workflowId: string, current: servicenow.IGlideRecord|null, operation: servicenow.GlideRecordOperation, vars?: object) : string;
-        startFlowFromContextInsert(context: servicenow.IGlideRecord, operation: servicenow.GlideRecordOperation): void;
-        startFlowRetroactive(workflowID: string, retroactiveMSecs: number, current: servicenow.IGlideRecord, operation: servicenow.GlideRecordOperation, vars?: object, withSchedule?: any): servicenow.IGlideRecord;
-   
+        hasWorkflow(record: servicenow.GlideRecord): boolean;
+        restartWorkflow(record: servicenow.GlideRecord, maintainStateFlag: boolean): void;
+        runFlows(record: servicenow.GlideRecord, operation: servicenow.GlideRecordOperation): void;
+        startFlow(workflowId: string, current: servicenow.GlideRecord|null, operation: servicenow.GlideRecordOperation, vars?: object): string;
+        startFlowFromContextInsert(context: servicenow.GlideRecord, operation: servicenow.GlideRecordOperation): void;
+        startFlowRetroactive(
+            workflowID: string, retroactiveMSecs: number, current: servicenow.GlideRecord, operation: servicenow.GlideRecordOperation, vars?: object, withSchedule?: any): servicenow.GlideRecord;
     }
 }
 
-declare class GlideDateTime {
-    constructor ();
-    constructor (value: string);
-    constructor (g: GlideDateTime);
+declare class GlideTime {
+    constructor(milliseconds: number);
+    getByFormat(format: string): string;
+    getDisplayValue(): string;
+    getDisplayValueinternal(): string;
+    getValue(): string;
+    setDisplayValue(asDisplayed: string): void;
+    setValue(o: string): void;
+    subtract(start: GlideTime, end: GlideTime): GlideDuration;
+}
 
-    add(gd: servicenow.IGlideTime): void;
-    add(milliseconds: number): void;
+declare class GlideDateTime {
+    constructor(value?: string|GlideDateTime);
+
+    add(gd: GlideTime|number): void;
     addDaysLocalTime(amount: number): void;
     addDaysUTC(amount: number): void;
     addMonthsLocalTime(amount: number): void;
@@ -123,8 +132,7 @@ declare class GlideDateTime {
     addYearsUTC(amount: number): void;
     compareTo(o: object): number;
     equals(o: object): boolean;
-    getDSTOffset(): number;
-    getDate(): servicenow.IGlideTime;
+    getDate(): GlideTime;
     getDayOfMonthLocalTime(): number;
     getDayOfMonthUTC(): number;
     getDayOfWeekLocalTime(): number;
@@ -134,13 +142,13 @@ declare class GlideDateTime {
     getDisplayValueInternal(): string;
     getDSTOffset(): number;
     getErrorMsg(): string;
-    getLocalDate(): servicenow.IGlideTime;
-    getLocalTime(): servicenow.IGlideTime;
+    getLocalDate(): GlideTime;
+    getLocalTime(): GlideTime;
     getMonthLocalTime(): number;
     getMonthUTC(): number;
     getNumericValue(): number;
+    getTime(): GlideTime;
     getTZOffset(): number;
-    getTime(): servicenow.IGlideTime;
     getValue(): string;
     getWeekOfYearLocalTime(): number;
     getWeekOfYearUTC(): number;
@@ -151,8 +159,7 @@ declare class GlideDateTime {
     isValid(): boolean;
     setDayOfMonthLocalTime(day: number): void;
     setDayOfMonthUTC(day: number): void;
-    setDisplayValue(asDisplayed: string): void;
-    setDisplayValue(value: string, format: string): void;
+    setDisplayValue(value: string, format?: string): void;
     setDisplayValueInternal(value: string): void;
     setGlideDateTime(g: GlideDateTime): void;
     setMonthLocalTime(month: number): void;
@@ -162,63 +169,58 @@ declare class GlideDateTime {
     setValueUTC(dt: string, format: string): void;
     setYearLocalTime(year: number): void;
     setYearUTC(year: number): void;
-    subtract(gd: servicenow.IGlideTime): void;
-    subtract(start: GlideDateTime, end: GlideDateTime): GlideDuration;
-    subtract(value: number): void;
-    subtract(time: servicenow.IGlideTime): void;
+    subtract(start: GlideDateTime, end?: GlideDateTime): GlideDuration;
+    subtract(time: GlideTime|number): void;
     toString(): string;
 }
 
-declare class RP {
-    static getReferringURL(): string;
-    static isDialog(): boolean;
-    static isHomePage(): boolean;
-    static isPrint(): boolean;
-    static isMobile(): boolean;
-    static getParameterValue(value: string): string;
-    static getParameters(): Array<string>;
-    static getViewID(): string;
-}
+declare const RP: {
+    getParameters(): string[];
+    getParameterValue(value: string): string;
+    getReferringURL(): string;
+    getViewID(): string;
+    isDialog(): boolean;
+    isHomePage(): boolean;
+    isMobile(): boolean;
+    isPrint(): boolean;
+};
 
 declare class XMLDocument2 {
-    constructor ();
-    parseXML(xmlDoc: string): void;
+    constructor();
+    createElement(name: string): servicenow.XMLNode;
+    createElementWithTextValue(name: string, value: string): servicenow.XMLNode;
+    getDocumentElement(): servicenow.XMLNode;
+    getFirstNode(xpath: string): servicenow.XMLNode;
+    getNextNode(prev: object): servicenow.XMLNode;
+    getNode(xpath: string): servicenow.XMLNode;
     getNodeText(xpath: string): string;
-    getNode(xpath: string): servicenow.IXMLNode;
-    getFirstNode(xpath: string): servicenow.IXMLNode;
-    getNextNode(prev: object): servicenow.IXMLNode;
-    createElement(name: string): servicenow.IXMLNode;
-    createElementWithTextValue(name: string, value: string): servicenow.IXMLNode;
-    setCurrentElement(element: servicenow.IXMLNode): void;
-    getDocumentElement(): servicenow.IXMLNode;
+    parseXML(xmlDoc: string): void;
+    setCurrentElement(element: servicenow.XMLNode): void;
     toString(): string;
 }
 
 declare class GlideDuration {
-    constructor ();
-    constructor (another: GlideDuration);
-    constructor (ms: number);
-    constructor (displayValue: string);
+    constructor(value?: GlideDuration|number|string);
     add(value: GlideDuration): GlideDuration;
     getByFormat(format: string): string;
     getDayPart(): number;
-    getRoundedDayPart(): number;
     getDisplayValue(): string;
     getDurationValue(): string;
+    getNumericValue(): number;
+    getRoundedDayPart(): number;
     getValue(): string;
     setDisplayValue(asDisplayed: string): void;
     setValue(o: object): void;
     subtract(value: GlideDuration): GlideDuration;
-    getNumericValue(): number;
 }
 
-declare class GlideFilter {
-    static checkRecord(gr: servicenow.IGlideRecord, filter: string, matchAll?: object): boolean;
-}
+declare const GlideFilter: {
+    checkRecord(gr: servicenow.GlideRecord, filter: string, matchAll?: object): boolean;
+};
 
-declare class GlideGuid {
-    static generate(): string;
-}
+declare const GlideGuid: {
+    generate(): string;
+};
 
 declare class GlideLocale {
     static get(): GlideLocale;
@@ -226,13 +228,13 @@ declare class GlideLocale {
     getDecimalSeparator(): string;
 }
 
-declare class GlidePluginManager {
-    static isActive(pluginId: string): boolean;
-}
+declare const GlidePluginManager: {
+    isActive(pluginId: string): boolean;
+};
 
 declare class GlideSchedule {
-    constructor ();
-    constructor (sysId: string, timeZone: string);
+    constructor();
+    constructor(sysId: string, timeZone: string);
     add(startDate: GlideDateTime, offset: GlideDuration): GlideDateTime;
     duration(startDate: GlideDateTime, endDate: GlideDateTime): GlideDuration;
     getName(): string;
@@ -244,50 +246,47 @@ declare class GlideSchedule {
 }
 
 declare class GlideEvaluator {
-    constructor ();
-    evaluateScript(grObj: servicenow.IGlideRecord, scriptField?: string, variables?: object): object;
-    getVariable<T>(name: string): T;
-    putVariable<T>(name: string, value: T): void;
+    constructor();
+    evaluateScript(grObj: servicenow.GlideRecord, scriptField?: string, variables?: object): object;
+    getVariable(name: string): {};
+    putVariable(name: string, value: {}): void;
 }
 
-declare class GlideSecureRandomUtil {
-    static getSecureRandomInt(): number;
-    static getSecureRandomIntBound(bound: number): number;
-    static getSecureRandomLong(): number;
-    static getSecureRandomString(length: number): string;
-}
+declare const GlideSecureRandomUtil: {
+    getSecureRandomInt(): number,
+    getSecureRandomIntBound(bound: number): number,
+    getSecureRandomLong(): number,
+    getSecureRandomString(length: number): string
+};
 
 declare class GlideSysAttachment {
-    constructor ();
+    constructor();
     copy(sourceTable: string, sourceSysId: string, destinationTable: string, destinationSysId: string): void;
     deleteAttachment(sysId: string): void;
-    getContent(record: servicenow.IGlideRecord): any;
-    getContentBase64(record: servicenow.IGlideRecord): string;
+    getContent(record: servicenow.GlideRecord): any;
+    getContentBase64(record: servicenow.GlideRecord): string;
     getContentStream(sysId: string): object;
-    write(record: servicenow.IGlideRecord, fileName: string, contentType: string, data: any): string;
-    writeBase64(record: servicenow.IGlideRecord, fileName: string, contentType: string, base64Content: string): string;
-    writeContentStream(record: servicenow.IGlideRecord, fileName: string, contentType: string, inputStream: object): string;
+    write(record: servicenow.GlideRecord, fileName: string, contentType: string, data: any): string;
+    writeBase64(record: servicenow.GlideRecord, fileName: string, contentType: string, base64Content: string): string;
+    writeContentStream(record: servicenow.GlideRecord, fileName: string, contentType: string, inputStream: object): string;
 }
 
 declare namespace servicenow {
-    export interface IGlideRecord {
-        readonly sys_created_by: string & IGlideElement;
-        readonly sys_created_on: GlideDateTime & IGlideElement;
+    interface GlideRecord {
+        readonly sys_created_by: string & GlideElement;
+        readonly sys_created_on: GlideDateTime & GlideElement;
         readonly sys_id: string;
-        readonly sys_mod_count: number & IGlideElement;
-        readonly sys_updated_by: string & IGlideElement;
-        readonly sys_updated_on: GlideDateTime & IGlideElement;
-        
-        new (type: string) : IGlideRecord;
-
-        addActiveQuery(): IGlideQueryCondition;
+        readonly sys_mod_count: number & GlideElement;
+        readonly sys_updated_by: string & GlideElement;
+        readonly sys_updated_on: GlideDateTime & GlideElement;
+        new (type: string): GlideRecord;
+        addActiveQuery(): GlideQueryCondition;
         addEncodedQuery(query: string): void;
-        addJoinQuery(joinTable: string, primaryField?: string, joinTableField?: string): IGlideQueryCondition;
-        addNotNullQuery(fieldName: string): IGlideQueryCondition;
-        addNullQuery(fieldName: string): IGlideQueryCondition;
-        addQuery(encodedQuery: string): IGlideQueryCondition;
-        addQuery(fieldName: string, operator: QueryOperator, value: object|string|number): IGlideQueryCondition;
-        addQuery(fieldName: string, value: object|string|number): IGlideQueryCondition;
+        addJoinQuery(joinTable: string, primaryField?: string, joinTableField?: string): GlideQueryCondition;
+        addNotNullQuery(fieldName: string): GlideQueryCondition;
+        addNullQuery(fieldName: string): GlideQueryCondition;
+        addQuery(fieldName: string, operator: QueryOperator, value: object|string|number): GlideQueryCondition;
+        addQuery(fieldName: string, value?: object|string|number): GlideQueryCondition;
         canCreate(): boolean;
         canDelete(): boolean;
         canRead(): boolean;
@@ -299,8 +298,8 @@ declare namespace servicenow {
         getAttribute(fieldName: string): string;
         getClassDisplayValue(): string;
         getDisplayValue(field?: string): string;
-        getED(): IGlideElementDescriptor;
-        getElement(columnName: string): IGlideElement;
+        getED(): GlideElementDescriptor;
+        getElement(columnName: string): GlideElement;
         getEncodedQuery(): string;
         getLabel(): string;
         getLastErrorMessage(): string;
@@ -321,12 +320,10 @@ declare namespace servicenow {
         newRecord(): void;
         next(): boolean;
         _next(): boolean;
-        operation(): servicenow.GlideRecordOperation;
+        operation(): GlideRecordOperation;
         orderBy(name: string): void;
         orderByDesc(name: string): void;
-        query(): void;
-        query(field: string, value: object): void;
-        query(query: string): void;
+        query(field?: string, value?: object): void;
         _query(field: string, value: object): void;
         setAbortAction(b: boolean): void;
         setNewGuidValue(guid: string): void;
@@ -336,8 +333,8 @@ declare namespace servicenow {
         update(reason?: string): string;
         updateMultiple(): void;
     }
-    
-    export interface IGlideEmailOutbound {
+
+    interface GlideEmailOutbound {
         getSubject(): string;
         setSubject(subject: string): void;
         setFrom(address: string): void;
@@ -346,23 +343,27 @@ declare namespace servicenow {
         setBody(bodyText: string): void;
     }
 
-    export interface IGlideQueryCondition {
-        addCondition(name: string, value: object|string|number): IGlideQueryCondition;
-        addCondition(name: string, oper: QueryOperator, value: object|string|number): IGlideQueryCondition;
-        addOrCondition(name: string, oper: QueryOperator, value: object|string|number): IGlideQueryCondition;
-        addOrCondition(name: string, value: object|string|number): IGlideQueryCondition;
+    interface GlideQueryCondition {
+        addCondition(name: string, value: object|string|number): GlideQueryCondition;
+        addCondition(name: string, oper: QueryOperator, value: object|string|number): GlideQueryCondition;
+        addOrCondition(name: string, oper: QueryOperator, value: object|string|number): GlideQueryCondition;
+        addOrCondition(name: string, value: object|string|number): GlideQueryCondition;
     }
 
-    export interface IGlideElement {
+    interface GlideElement {
+        canCreate(): boolean;
+        canRead(): boolean;
+        canWrite(): boolean;
         changes(): boolean;
         changesFrom(value: object): boolean;
         changesTo(value: object): boolean;
-        getChoices(name?: string): Array<any>;
+        getAttribute(attributeName: string): string;
+        getChoices(name?: string): any[];
         getDecryptedValue(): string;
         getDisplayValue(maxCharacters?: number): string;
-        getED(): IGlideElementDescriptor
+        getED(): GlideElementDescriptor;
         getReferenceTable(): string;
-        getRefRecord(): IGlideRecord;
+        getRefRecord(): GlideRecord;
         nil(): boolean;
         setDisplayValue(value: object): void;
         setError(value: string): void;
@@ -370,7 +371,7 @@ declare namespace servicenow {
         toString(): string;
     }
 
-    export interface IGlideElementDescriptor {
+    interface GlideElementDescriptor {
         getAttachmentEncryptionType(): string;
         getEncryptionType(): string;
         getInternalType(): string;
@@ -385,14 +386,13 @@ declare namespace servicenow {
         isVirtual(): boolean;
     }
 
-    export interface IGlideScriptedProcessor {
+    interface GlideScriptedProcessor {
         redirect(url: string): void;
-        writeOutput(s: string): void;
-        writeOutput(contentType: string, s: string): void;
+        writeOutput(contentType: string, s?: string): void;
         writeJSON(o: object): void;
     }
 
-    export interface IGlideServletRequest {
+    interface GlideServletRequest {
         getContentType(): string;
         getHeader(name: string): string;
         getParameter(name: string): string;
@@ -400,13 +400,13 @@ declare namespace servicenow {
         toString(): string;
     }
 
-    export interface IGlideServletResponse {
+    interface GlideServletResponse {
         setContentType(type: string): void;
         setHeader(name: string, value: string): void;
         setStatus(value: number): void;
     }
 
-    export interface IGlideSession {
+    interface GlideSession {
         isInteractive(): boolean;
         isLoggedIn(): boolean;
         getClientData(paramName: string): string;
@@ -419,20 +419,7 @@ declare namespace servicenow {
         putClientData(paramName: string, paramValue: string): void;
     }
 
-
-
-    export interface IGlideTime {
-        new (milliseconds: number): IGlideTime;
-        getByFormat(format: string): string;
-        getDisplayValue(): string;
-        getDisplayValueinternal(): string;
-        getValue(): string;
-        setDisplayValue(asDisplayed: string): void;
-        setValue(o: string): void;
-        subtract(start: IGlideTime, end: IGlideTime): GlideDuration;
-    }
-
-    export interface IGlideSystem {
+    interface GlideSystem {
         addErrorMessage(message: string): void;
         addInfoMessage(message: string): void;
         base64Decode(source: string): string;
@@ -462,23 +449,23 @@ declare namespace servicenow {
         endOfThisWeek(): string;
         endOfThisYear(): string;
         error(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
-        eventQueue(eventName: string, gr: IGlideRecord, optionalParam1: string, optionalParam2: string, eventQueue?: string): void;
-        eventQueueScheduled(name: string, instance: IGlideRecord, parm1: string, parm2: string, expiration: object): void;
-        executeNow(job: IGlideRecord): string;
+        eventQueue(eventName: string, gr: GlideRecord, optionalParam1: string, optionalParam2: string, eventQueue?: string): void;
+        eventQueueScheduled(name: string, instance: GlideRecord, parm1: string, parm2: string, expiration: object): void;
+        executeNow(job: GlideRecord): string;
         generateGUID(): string;
         getCallerScopeName(): string;
         getCssCacheVersionString(): string;
         getCurrentApplicationId(): string;
         getCurrentScopeName(): string;
-        getErrorMessages(id: string, args?: Array<string>): string;
+        getErrorMessages(id: string, args?: string[]): string;
         getMessage(id: string, object?: any): string;
-        getProperty<T>(key: string, altobject?: T): T;
-        getSession(): string | IGlideSession;
+        getProperty(key: string, altobject?: {}): {};
+        getSession(): string | GlideSession;
         getSessionID(): string;
         getSessionToken(): string;
         getTimeZoneName(): string;
         getUrlOnStack(): string;
-        getUser(): IGlideUser;
+        getUser(): GlideUser;
         getUserDisplayName(): string;
         getUserID(): string;
         getUserName(): string;
@@ -506,7 +493,7 @@ declare namespace servicenow {
         yesterday(): string;
     }
 
-    export interface IGlideUser {
+    interface GlideUser {
         getCompanyID(): string;
         getDisplayName(): string;
         getID(): string;
@@ -517,24 +504,24 @@ declare namespace servicenow {
         savePreference(name: string, value: string): void;
     }
 
-    export interface IXMLNode {
-        getLastChild(): IXMLNode;
-        getFirstChild(): IXMLNode;
+    interface XMLNode {
+        getLastChild(): XMLNode;
+        getFirstChild(): XMLNode;
         getNodeValue(): string;
         getNodeName(): string;
         hasAttribute(name: string): boolean;
         getAttribute(attribute: string): string;
-        getChildNodeIterator(): IXMLNodeIterator;
+        getChildNodeIterator(): XMLNodeIterator;
         getTextContent(): string;
         toString(): string;
     }
 
-    export interface IXMLNodeIterator {
-        hasNext(): Boolean;
-        next(): IXMLNode;
+    interface XMLNodeIterator {
+        hasNext(): boolean;
+        next(): XMLNode;
     }
 
-    export interface ISOAPResponseV2 {
+    interface SOAPResponseV2 {
         waitForResponse(timeoutSecs: number): void;
         getStatusCode(): number;
         getHeader(name: string): string;
@@ -545,9 +532,9 @@ declare namespace servicenow {
         getErrorMessage(): string;
     }
 
-    export interface IRESTResponseV2 {
+    interface RESTResponseV2 {
         getBody(): string;
-        getCookies(): {size: ()=>number, get: (index: number)=>string};
+        getCookies(): { size: () => number, get: (index: number) => string };
         getErrorCode(): number;
         getErrorMessage(): string;
         getHeader(name: string): string;
@@ -559,28 +546,27 @@ declare namespace servicenow {
         waitForResponse(timeoutSecs: number): void;
     }
 
-    export interface IRESTAPIRequest<T> {
-        body: IRESTAPIRequestBody<T>;
-        pathParams: { [paramName: string]: string };
-        queryParams: { [paramName: string]: Array<string> };
-        queryString: string;
-        uri: string;
-        url: string;
-        headers: { [paramName: string]: string };
+    interface RESTAPIRequest<T> {
+        readonly body: RESTAPIRequestBody<T>;
+        readonly pathParams: { [paramName: string]: string };
+        readonly queryParams: { [paramName: string]: string[] };
+        readonly queryString: string;
+        readonly url: string;
+        readonly headers: { [paramName: string]: string };
         getHeader(header: string): string;
-        getSupportedResponseContentTypes(): Array<string>;
+        getSupportedResponseContentTypes(): string[];
     }
 
-    export interface IRESTAPIRequestBody<T> {
-        data: T;
-        dataStream: any;
-        dataString: string;
+    interface RESTAPIRequestBody<T> {
+        readonly data: T;
+        readonly dataStream: object;
+        readonly dataString: string;
         hasNext(): boolean;
         nextEntry(): any;
     }
 
-    export interface IRESTAPIResponse {
-        getStreamWriter(): IRESTAPIResponseStream;
+    interface RESTAPIResponse {
+        getStreamWriter(): RESTAPIResponseStream;
         setBody(body: any): void;
         setHeaders(headers: any): void;
         setLocation(location: string): void;
@@ -590,12 +576,12 @@ declare namespace servicenow {
         setError(error: any): void;
     }
 
-    export interface IRESTAPIResponseStream {
+    interface RESTAPIResponseStream {
         writeStream(stream: object): void;
         writeString(data: string): void;
     }
 
-    export type QueryOperator = "="|"!="|">"|">="|"<"|"<="|"IN"|"STARTSWITH"|"ENDSWITH"|"CONTAINS"|"DOESNOTCONTAIN"|"INSTANCEOF"
-    export type RestHTTPMethods = "get"|"post"|"delete"|"patch"|"put"|"head"|"delete"|"options";
-    export type GlideRecordOperation = "insert"|"update"|"delete";
+    type QueryOperator = "="|"!="|">"|">="|"<"|"<="|"IN"|"STARTSWITH"|"ENDSWITH"|"CONTAINS"|"DOESNOTCONTAIN"|"INSTANCEOF";
+    type RestHTTPMethods = "get"|"post"|"delete"|"patch"|"put"|"head"|"delete"|"options";
+    type GlideRecordOperation = "insert"|"update"|"delete";
 }

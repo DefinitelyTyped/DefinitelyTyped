@@ -1,1 +1,7 @@
-{ "extends": "dtslint/dt.json" }
+{ 
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Interface is needed for merging which is not possible on delcared classes
+        "no-misused-new": false
+    }
+}

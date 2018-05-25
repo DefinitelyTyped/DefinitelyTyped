@@ -3,7 +3,7 @@ const firstrecord = new GlideRecord("core_company");
 const record = new GlideRecord("core_company");
 record.addQuery('property', '=', firstrecord.sys_id);
 record.addQuery('property2', '!=', 'somevalue');
-if(record.get('somesysid')){
+if (record.get('somesysid')) {
     gs.info('got it');
 }
 
@@ -11,13 +11,13 @@ const wf = new global.Workflow();
 
 const rest = new sn_ws.RESTMessageV2();
 
-//test merging
+// test merging
 declare namespace servicenow {
-    export interface IGlideRecord {
-        new(type: "othertype"): IOtherType
+    interface GlideRecord {
+        new(type: "othertype"): OtherType;
     }
 
-    export interface IOtherType extends IGlideRecord {
+    interface OtherType extends GlideRecord {
         someproperty: string;
     }
 }
