@@ -14,5 +14,6 @@ setOptions({
 });
 
 setOptions({
-  hierarchySeparator: '.'
+  hierarchySeparator: '.',
+  hierarchyRootSeparator: '#',
 });
