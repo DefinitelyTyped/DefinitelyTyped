@@ -115,6 +115,11 @@ export function registerField(form: string, name: string, type: FieldType): Form
 export function reset(form: string): FormAction;
 
 /**
+ * Resets the values in the form sections back to the values past in with the most recent initialize action. 
+ */
+export function resetSection(form: string, ...sections: string[]): FormAction;
+
+/**
  * Flips the asyncValidating flag true
  */
 export function startAsyncValidation(form: string): FormAction;

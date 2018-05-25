@@ -519,6 +519,11 @@ export interface StrictFormProps<FormData extends DataShape, P, S> {
     reset(): void;
 
     /**
+     * Resets the form sections to the initialValues. It will be pristine after reset.
+     */
+    resetSection(...sections: string[]) : void;
+
+    /**
      * Whether or not your form is currently submitting. This prop will only
      * work if you have passed an onSubmit function that returns a promise. It
      * will be true until the promise is resolved or rejected.
