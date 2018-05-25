@@ -873,7 +873,7 @@ export class BufferGeometry extends EventDispatcher {
     center(): BufferGeometry;
 
     setFromObject(object: Object3D): BufferGeometry;
-    setFromPoints(points: Vector3[]): BufferGeometry;
+    setFromPoints(points: Vector3[]|Vector2[]): BufferGeometry;
     updateFromObject(object: Object3D): void;
 
     fromGeometry(geometry: Geometry, settings?: any): BufferGeometry;
@@ -1911,7 +1911,7 @@ export class Layers {
 }
 
 export class Font {
-    constructor(jsondata: string);
+    constructor(jsondata: any);
 
     data: string;
 
@@ -2214,7 +2214,7 @@ export class FontLoader {
     manager: LoadingManager;
 
     load(url: string, onLoad?: (responseFont: Font) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
-    parse(json: string): Font;
+    parse(json: any): Font;
 }
 
 /**
