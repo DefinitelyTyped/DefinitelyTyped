@@ -54,10 +54,10 @@ function JQueryStatic() {
         // $ExpectType JQuery<HTMLElement>
         $([new HTMLElement()]);
 
-        // $ExpectType JQuery<HTMLParagraphElement>
+        // $ExpectType JQuery<HTMLElement>
         $(new HTMLParagraphElement());
 
-        // $ExpectType JQuery<HTMLParagraphElement>
+        // $ExpectType JQuery<HTMLElement>
         $([new HTMLParagraphElement()]);
 
         // $ExpectType JQuery<HTMLParagraphElement>
@@ -67,7 +67,7 @@ function JQueryStatic() {
         $<HTMLParagraphElement>([new HTMLParagraphElement()]);
 
         // $ExpectType JQuery<HTMLElement>
-        let jWindow = $(window);
+        $(window);
 
         // $ExpectType JQuery<HTMLElement>
         $({ foo: 'bar', hello: 'world' });

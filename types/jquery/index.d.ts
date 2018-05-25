@@ -152,7 +152,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    <TElement extends Node = HTMLElement>(selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<TElement> | JQuery |
+    <TElement extends Node = HTMLElement>(selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
         JQuery.PlainObject | Window |
         ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>;
     /**
