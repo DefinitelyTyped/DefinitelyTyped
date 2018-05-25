@@ -55,10 +55,10 @@ function JQueryStatic() {
         $([new HTMLElement()]);
 
         // $ExpectType JQuery<HTMLParagraphElement>
-        $<HTMLParagraphElement>(new HTMLParagraphElement());
+        $(new HTMLParagraphElement());
 
         // $ExpectType JQuery<HTMLParagraphElement>
-        $<HTMLParagraphElement>([new HTMLParagraphElement()]);
+        $([new HTMLParagraphElement()]);
 
         // $ExpectType JQuery<HTMLParagraphElement>
         $<HTMLParagraphElement>(new HTMLParagraphElement());
