@@ -13,6 +13,7 @@ export interface MediaProps extends React.HTMLAttributes<HTMLElement> {
   right?: boolean;
   tag?: React.ReactType;
   top?: boolean;
+  src?: string;
   href?: string;
   alt?: string;
 }
