@@ -164,6 +164,7 @@ interface Iterator<T> {
 interface IteratorResult<T> { }
 interface AsyncIterableIterator<T> {}
 interface SymbolConstructor {
+    readonly observable: symbol;
     readonly iterator: symbol;
     readonly asyncIterator: symbol;
 }
