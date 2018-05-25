@@ -43,7 +43,7 @@ mongoose.createConnection(connectUri, {
     native_parser: true
   }
 }).open('');
-mongoose.createConnection(connectUri).then(()=>{},()=>{});
+mongoose.createConnection(connectUri).then(()=>{}, () => {});
 const dcWithCallback: null = mongoose.disconnect(cb);
 const dcPromise: Promise<void> = mongoose.disconnect();
 mongoose.get('test');

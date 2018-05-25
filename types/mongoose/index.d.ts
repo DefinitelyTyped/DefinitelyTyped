@@ -103,7 +103,7 @@ declare module "mongoose" {
   export function createConnection(): Connection;
   export function createConnection(uri: string,
     options?: ConnectionOptions
-  ): Connection & Promise<Mongoose>;
+  ): Connection;
 
   /**
    * Disconnects all connections.
@@ -448,6 +448,8 @@ declare module "mongoose" {
 
     /** Expose the possible connection states. */
     static STATES: any;
+    then(res?: any, rej?: any): PromiseLike<any>;
+    catch(rej?: any): PromiseLike<any>;
   }
 
   /*
