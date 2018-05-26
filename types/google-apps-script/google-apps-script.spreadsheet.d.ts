@@ -1,7 +1,8 @@
-// Type definitions for Google Apps Script 2018-05-03
+// Type definitions for Google Apps Script 2018-05-23
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 //                 linlex <https://github.com/linlex/>
+//                 agektmr <https://github.com/agektmr/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -21,6 +22,25 @@ declare namespace GoogleAppsScript {
      *  Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
      */
     export enum BorderStyle { DOTTED, DASHED, SOLID }
+
+    /**
+     * Access boolean conditions in `ConditionalFormatRules`. Each conditional
+     * format rule may contain a single boolean condition. The boolean condition
+     * itself contains a boolean criteria (with values) and formatting settings.
+     * The criteria is evaluated against the content of a cell resulting in
+     * either a `true` or `false` value. If the criteria evaluates to `true`,
+     * the condition's formatting settings are applied to the cell.
+     */
+    export interface BooleanCondition {
+      getBackground(): string;
+      getBold(): boolean;
+      getCriteriaType(): BooleanCriteria;
+      getCriteriaValue(): Object[];
+      getFontColor(): string,
+      getItalic(): boolean;
+      getStrikethrough(): boolean;
+      getUnderline(): boolean;
+    }
 
     /**
      * The chart's position within a sheet.  Can be updated using the EmbeddedChart.modify()
@@ -586,6 +606,42 @@ declare namespace GoogleAppsScript {
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       showRowNumberColumn(showRowNumber: boolean): EmbeddedTableChartBuilder;
       useAlternatingRowStyle(alternate: boolean): EmbeddedTableChartBuilder;
+    }
+
+    /**
+     * Access gradient (color) conditions in `ConditionalFormatRuleApis`. Each
+     * conditional format rule may contain a single gradient condition. A
+     * gradient condition is defined by three points along a number scale (min,
+     * mid, and max), each of which has a color, a value, and a
+     * `InterpolationType`. The content of a cell is compared to the values in
+     * the number scale and the color applied to the cell is interpolated based
+     * on the cell content's proximity to the gradient condition min, mid, and
+     * max points.
+     * 
+     * // Logs all the information inside gradient conditional format rules on * a sheet.
+     * var sheet = SpreadsheetApp.getActiveSheet();
+     * var rules = sheet.getConditionalFormatRules();
+     * for (int i = 0; i < rules.length; i++) {
+     *   var gradient = rules[i].getGradientCondition();
+     *   Logger.log("The conditional format gradient information for rule %d:\n
+     *     MinColor %s, MinType %s, MinValue %s, \n
+     *     MidColor %s, MidType %s, MidValue %s, \n
+     *     MaxColor %s, MaxType %s, MaxValue %s \n", i,
+     *     gradient.getMinColor(), gradient.getMinType(), gradient.getMinValue(),
+     *     gradient.getMidColor(), gradient.getMidType(), gradient.getMidValue(),
+     *     gradient.getMaxColor(), gradient.getMaxType(), gradient.getMaxValue());
+     * }
+     **/
+    export interface GradientCondition {
+      getMaxColor(): string;
+      getMaxType(): InterpolationType;
+      getMaxValue(): string;
+      getMidColor(): string;
+      getMidType(): InterpolationType;
+      getMidValue(): string;
+      getMinColor(): string;
+      getMinType(): InterpolationType;
+      getMinValue(): string;
     }
 
     /**
@@ -1244,7 +1300,7 @@ declare namespace GoogleAppsScript {
       /**
        * Sets the conditional format rule's gradient minpoint fields.
        */
-      setGradientMinpointWithValue(color: string, type: SpreadsheetApp.InterpolationType, value: string): ConditionalFormatRuleBuilder;
+      setGradientMinpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
 
       /**
        * Sets text italics for the conditional format rule's format.

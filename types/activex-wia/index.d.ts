@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
+
 declare namespace WIA {
     /** String versions of globally unique identifiers (GUIDs) that identify common Device and Item commands. */
     const enum CommandID {
@@ -791,7 +793,6 @@ declare namespace WIA {
 }
 
 interface ActiveXObject {
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
     on(obj: WIA.DeviceManager, event: 'OnEvent', argNames: ['EventID', 'DeviceID', 'ItemID'], handler: (
         this: WIA.DeviceManager, parameter: { readonly EventID: string, readonly DeviceID: string, readonly ItemID: string }) => void): void;
     set<TItem>(obj: WIA.Vector<TItem>, propertyName: 'Item', parameterTypes: [number], newValue: TItem): void;

@@ -42,7 +42,8 @@ declare class Awesomplete {
 }
 
 declare namespace Awesomplete {
-    type Suggestion = string | {label: string | any, value: string | any} | [string, string];
+    type Suggestion = string | { label: string | any, value: string | any } | [string, string];
+    type SortFunction = (left: number | any[], right: number | any[]) => number;
 
     interface Options {
         list?: string | string[] | Element | Array<{ label: string, value: any }> | Array<[string, string]>;
@@ -51,7 +52,7 @@ declare namespace Awesomplete {
         autoFirst?: boolean;
         data?(item: Suggestion, input: string): string;
         filter?(text: string, input: string): boolean;
-        sort?(left: number | any[], right: number | any[]): number;
+        sort?: boolean | SortFunction;
         item?(text: string, input: string): HTMLElement;
         replace?(text: string): void;
     }

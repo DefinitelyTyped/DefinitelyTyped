@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface CarouselProps extends React.HTMLProps<HTMLElement> {
@@ -14,5 +15,5 @@ export interface CarouselProps extends React.HTMLProps<HTMLElement> {
     cssModule?: CSSModule
 }
 
-declare const Carousel: React.StatelessComponent<CarouselProps>;
+declare class Carousel extends React.Component<CarouselProps> {}
 export default Carousel;

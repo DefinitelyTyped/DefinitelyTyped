@@ -1263,11 +1263,15 @@ declare module "./index" {
         ): LoDashExplicitSyncWrapper<any>;
         omit<T extends _.AnyKindOfDictionary>(
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
-            ...paths: _.PropertyPath[]
+            ...paths: Array<_.Many<_.PropertyName>>
         ): LoDashExplicitSyncWrapper<T>;
+        omit<T extends object, K extends keyof T>(
+            this: LoDashExplicitSyncWrapper<T | null | undefined>,
+            ...paths: Array<_.Many<K>>
+        ): LoDashExplicitSyncWrapper<_.Omit<T, K>>;
         omit<T extends object>(
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
-            ...paths: _.PropertyPath[]
+            ...paths: Array<_.Many<_.PropertyName>>
         ): LoDashExplicitSyncWrapper<_.PartialObject<T>>;
         omitBy<T extends object>(
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
@@ -2827,11 +2831,15 @@ declare module "./index" {
         ): LoDashExplicitAsyncWrapper<any>;
         omit<T extends _.AnyKindOfDictionary>(
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,
-            ...paths: _.PropertyPath[]
+            ...paths: Array<_.Many<_.PropertyName>>
         ): LoDashExplicitAsyncWrapper<T>;
+        omit<T extends object, K extends keyof T>(
+            this: LoDashExplicitAsyncWrapper<T | null | undefined>,
+            ...paths: Array<_.Many<K>>
+        ): LoDashExplicitAsyncWrapper<_.Omit<T, K>>;
         omit<T extends object>(
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,
-            ...paths: _.PropertyPath[]
+            ...paths: Array<_.Many<_.PropertyName>>
         ): LoDashExplicitAsyncWrapper<_.PartialObject<T>>;
         omitBy<T extends object>(
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,

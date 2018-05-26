@@ -1,3 +1,5 @@
+/// <reference types="windows-script-host" />
+
 // https://msdn.microsoft.com/en-us/library/ms764708(v=vs.85).aspx
 {
     const dom = new ActiveXObject('Msxml2.DOMDocument.6.0');

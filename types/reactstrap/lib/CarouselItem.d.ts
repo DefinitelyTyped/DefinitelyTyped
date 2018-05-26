@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface Transition {
@@ -16,5 +17,5 @@ export interface CarouselItemProps extends React.HTMLProps<HTMLElement>, Transit
     slide?: boolean;
 }
 
-declare const CarouselItem: React.StatelessComponent<CarouselItemProps>;
+declare class CarouselItem extends React.Component<CarouselItemProps> {}
 export default CarouselItem;

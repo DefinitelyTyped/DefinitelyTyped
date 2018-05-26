@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.26
+// Type definitions for Atom 1.27
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.26.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.27.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -1004,6 +1004,9 @@ export interface MarkerLayer {
     /** Find markers in the layer conforming to the given parameters. */
     findMarkers(params: FindMarkerOptions): Marker[];
 
+    /** Get the role of the marker layer e.g. "atom.selection". */
+    getRole(): string | undefined;
+
     // Marker Creation
     /** Create a marker with the given range. */
     markRange(range: RangeCompatible, options?: { reversed?: boolean, invalidate?:
@@ -1525,29 +1528,29 @@ export class TextEditor {
 
     // Mutating Text
     /** Replaces the entire contents of the buffer with the given string. */
-    setText(text: string): void;
+    setText(text: string, options?: ReadonlyEditOptions): void;
 
     /** Set the text in the given Range in buffer coordinates. */
     setTextInBufferRange(range: RangeCompatible, text: string, options?:
-        TextEditOptions): Range;
+        TextEditOptions & ReadonlyEditOptions): Range;
 
     /* For each selection, replace the selected text with the given text. */
-    insertText(text: string, options?: TextInsertionOptions): Range|false;
+    insertText(text: string, options?: TextInsertionOptions & ReadonlyEditOptions): Range|false;
 
     /** For each selection, replace the selected text with a newline. */
-    insertNewline(): void;
+    insertNewline(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete the character following
      *  the cursor. Otherwise delete the selected text.
      */
-    delete(): void;
+    delete(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete the character preceding
      *  the cursor. Otherwise delete the selected text.
      */
-    backspace(): void;
+    backspace(options?: ReadonlyEditOptions): void;
 
     /**
      *  Mutate the text of all the selections in a single transaction.
@@ -1561,89 +1564,89 @@ export class TextEditor {
      *  If the selection is empty, the characters preceding and following the cursor
      *  are swapped. Otherwise, the selected characters are reversed.
      */
-    transpose(): void;
+    transpose(options?: ReadonlyEditOptions): void;
 
     /**
      *  Convert the selected text to upper case.
      *  For each selection, if the selection is empty, converts the containing word
      *  to upper case. Otherwise convert the selected text to upper case.
      */
-    upperCase(): void;
+    upperCase(options?: ReadonlyEditOptions): void;
 
     /**
      *  Convert the selected text to lower case.
      *  For each selection, if the selection is empty, converts the containing word
      *  to upper case. Otherwise convert the selected text to upper case.
      */
-    lowerCase(): void;
+    lowerCase(options?: ReadonlyEditOptions): void;
 
     /**
      *  Toggle line comments for rows intersecting selections.
      *  If the current grammar doesn't support comments, does nothing.
      */
-    toggleLineCommentsInSelection(): void;
+    toggleLineCommentsInSelection(options?: ReadonlyEditOptions): void;
 
     /** For each cursor, insert a newline at beginning the following line. */
-    insertNewlineBelow(): void;
+    insertNewlineBelow(options?: ReadonlyEditOptions): void;
 
     /** For each cursor, insert a newline at the end of the preceding line. */
-    insertNewlineAbove(): void;
+    insertNewlineAbove(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing word that precede the cursor. Otherwise delete the selected text.
      */
-    deleteToBeginningOfWord(): void;
+    deleteToBeginningOfWord(options?: ReadonlyEditOptions): void;
 
     /**
      *  Similar to ::deleteToBeginningOfWord, but deletes only back to the previous
      *  word boundary.
      */
-    deleteToPreviousWordBoundary(): void;
+    deleteToPreviousWordBoundary(options?: ReadonlyEditOptions): void;
 
     /** Similar to ::deleteToEndOfWord, but deletes only up to the next word boundary. */
-    deleteToNextWordBoundary(): void;
+    deleteToNextWordBoundary(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing subword following the cursor. Otherwise delete the selected text.
      */
-    deleteToBeginningOfSubword(): void;
+    deleteToBeginningOfSubword(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing subword following the cursor. Otherwise delete the selected text.
      */
-    deleteToEndOfSubword(): void;
+    deleteToEndOfSubword(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing line that precede the cursor. Otherwise delete the selected text.
      */
-    deleteToBeginningOfLine(): void;
+    deleteToBeginningOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is not empty, deletes the selection
      *  otherwise, deletes all characters of the containing line following the cursor.
      *  If the cursor is already at the end of the line, deletes the following newline.
      */
-    deleteToEndOfLine(): void;
+    deleteToEndOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing word following the cursor. Otherwise delete the selected text.
      */
-    deleteToEndOfWord(): void;
+    deleteToEndOfWord(options?: ReadonlyEditOptions): void;
 
     /** Delete all lines intersecting selections. */
-    deleteLine(): void;
+    deleteLine(options?: ReadonlyEditOptions): void;
 
     // History
     /** Undo the last change. */
-    undo(): void;
+    undo(options?: ReadonlyEditOptions): void;
 
     /** Redo the last change. */
-    redo(): void;
+    redo(options?: ReadonlyEditOptions): void;
 
     /**
      *  Batch multiple operations as a single undo/redo step.
@@ -2284,10 +2287,10 @@ export class TextEditor {
         { preserveLeadingWhitespace?: boolean }): void;
 
     /** Indent rows intersecting selections by one level. */
-    indentSelectedRows(): void;
+    indentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /** Outdent rows intersecting selections by one level. */
-    outdentSelectedRows(): void;
+    outdentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /**
      *  Get the indentation level of the given line of text.
@@ -2298,7 +2301,7 @@ export class TextEditor {
     indentLevelForLine(line: string): number;
 
     /** Indent rows intersecting selections based on the grammar's suggested indent level. */
-    autoIndentSelectedRows(): void;
+    autoIndentSelectedRows(options?: ReadonlyEditOptions): void;
 
     // Grammars
     /** Get the current Grammar of this editor. */
@@ -2328,7 +2331,7 @@ export class TextEditor {
     copySelectedText(): void;
 
     /** For each selection, cut the selected text. */
-    cutSelectedText(): void;
+    cutSelectedText(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, replace the selected text with the contents of the clipboard.
@@ -2336,19 +2339,19 @@ export class TextEditor {
      *  each selection will be replaced with the content of the corresponding clipboard
      *  selection text.
      */
-    pasteText(options?: TextInsertionOptions): void;
+    pasteText(options?: TextInsertionOptions & ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, cut all characters of the
      *  containing screen line following the cursor. Otherwise cut the selected text.
      */
-    cutToEndOfLine(): void;
+    cutToEndOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, cut all characters of the
      *  containing buffer line following the cursor. Otherwise cut the selected text.
      */
-    cutToEndOfBufferLine(): void;
+    cutToEndOfBufferLine(options?: ReadonlyEditOptions): void;
 
     // Folds
     /**
@@ -3322,7 +3325,7 @@ export class Directory {
     /** Returns a boolean, always false. */
     isFile(): this is File;
 
-    /** Returns a roolean, always true. */
+    /** Returns a boolean, always true. */
     isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
@@ -4482,6 +4485,10 @@ export interface Project {
     /** Invoke a callback when a filesystem change occurs within any open project path. */
     onDidChangeFiles(callback: (events: FilesystemChangeEvent) => void): Disposable;
 
+    /** Invoke a callback whenever the project's configuration has been replaced. */
+    onDidReplace(callback: (projectSpec: ProjectSpecification | null | undefined) => void):
+        Disposable;
+
     // Accessing the Git Repository
     /**
      * Get an Array of GitRepositorys associated with the project's directories.
@@ -4716,107 +4723,107 @@ export interface Selection {
 
     // Modifying the selected text
     /** Replaces text at the current selection. */
-    insertText(text: string, options?: TextInsertionOptions): void;
+    insertText(text: string, options?: TextInsertionOptions & ReadonlyEditOptions): void;
 
     /**
      *  Removes the first character before the selection if the selection is empty
      *  otherwise it deletes the selection.
      */
-    backspace(): void;
+    backspace(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or, if nothing is selected, then all characters from
      *  the start of the selection back to the previous word boundary.
      */
-    deleteToPreviousWordBoundary(): void;
+    deleteToPreviousWordBoundary(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or, if nothing is selected, then all characters from
      *  the start of the selection up to the next word boundary.
      */
-    deleteToNextWordBoundary(): void;
+    deleteToNextWordBoundary(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes from the start of the selection to the beginning of the current
      *  word if the selection is empty otherwise it deletes the selection.
      */
-    deleteToBeginningOfWord(): void;
+    deleteToBeginningOfWord(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes from the beginning of the line which the selection begins on all
      *  the way through to the end of the selection.
      */
-    deleteToBeginningOfLine(): void;
+    deleteToBeginningOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or the next character after the start of the selection
      *  if the selection is empty.
      */
-    delete(): void;
+    delete(options?: ReadonlyEditOptions): void;
 
     /**
      *  If the selection is empty, removes all text from the cursor to the end of
      *  the line. If the cursor is already at the end of the line, it removes the following
      *  newline. If the selection isn't empty, only deletes the contents of the selection.
      */
-    deleteToEndOfLine(): void;
+    deleteToEndOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or all characters from the start of the selection to
      *  the end of the current word if nothing is selected.
      */
-    deleteToEndOfWord(): void;
+    deleteToEndOfWord(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or all characters from the start of the selection to
      *  the end of the current word if nothing is selected.
      */
-    deleteToBeginningOfSubword(): void;
+    deleteToBeginningOfSubword(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or all characters from the start of the selection to
      *  the end of the current word if nothing is selected.
      */
-    deleteToEndOfSubword(): void;
+    deleteToEndOfSubword(options?: ReadonlyEditOptions): void;
 
     /** Removes only the selected text. */
-    deleteSelectedText(): void;
+    deleteSelectedText(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the line at the beginning of the selection if the selection is empty
      *  unless the selection spans multiple lines in which case all lines are removed.
      */
-    deleteLine(): void;
+    deleteLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  Joins the current line with the one below it. Lines will be separated by a single space.
      *  If there selection spans more than one line, all the lines are joined together.
      */
-    joinLines(): void;
+    joinLines(options?: ReadonlyEditOptions): void;
 
     /** Removes one level of indent from the currently selected rows. */
-    outdentSelectedRows(): void;
+    outdentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /**
      *  Sets the indentation level of all selected rows to values suggested by the
      *  relevant grammars.
      */
-    autoIndentSelectedRows(): void;
+    autoIndentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /**
      *  Wraps the selected lines in comments if they aren't currently part of a comment.
      *  Removes the comment if they are currently wrapped in a comment.
      */
-    toggleLineComments(): void;
+    toggleLineComments(options?: ReadonlyEditOptions): void;
 
     /** Cuts the selection until the end of the screen line. */
-    cutToEndOfLine(): void;
+    cutToEndOfLine(maintainClipboard?: boolean, options?: ReadonlyEditOptions): void;
 
     /** Cuts the selection until the end of the buffer line. */
-    cutToEndOfBufferLine(): void;
+    cutToEndOfBufferLine(maintainClipboard?: boolean, options?: ReadonlyEditOptions): void;
 
     /** Copies the selection to the clipboard and then deletes it. */
-    cut(maintainClipboard?: boolean, fullLine?: boolean): void;
+    cut(maintainClipboard?: boolean, fullLine?: boolean, options?: ReadonlyEditOptions): void;
 
     /** Copies the current selection to the clipboard. */
     copy(maintainClipboard?: boolean, fullLine?: boolean): void;
@@ -4825,7 +4832,7 @@ export interface Selection {
     fold(): void;
 
     /** If the selection spans multiple rows, indent all of them. */
-    indentSelectedRows(): void;
+    indentSelectedRows(options?: ReadonlyEditOptions): void;
 
     // Managing multiple selections
     /** Moves the selection down one row. */
@@ -5134,6 +5141,12 @@ export class TextBuffer {
      */
     nextNonBlankRow(startRow: number): number|null;
 
+    /**
+     *  Return true if the buffer contains any astral-plane Unicode characters that
+     *  are encoded as surrogate pairs.
+     */
+    hasAstral(): boolean;
+
     // Mutating Text
     /** Replace the entire contents of the buffer with the given text. */
     setText(text: string): Range;
@@ -5172,7 +5185,7 @@ export class TextBuffer {
 
     // Markers
     /** Create a layer to contain a set of related markers. */
-    addMarkerLayer(options?: { maintainHistory?: boolean, persistent?: boolean }):
+    addMarkerLayer(options?: { maintainHistory?: boolean, persistent?: boolean, role?: string }):
         MarkerLayer;
 
     /**
@@ -5210,16 +5223,18 @@ export class TextBuffer {
      *  Undo the last operation. If a transaction is in progress, aborts it.
      *  @return A boolean of whether or not a change was made.
      */
-    undo(): boolean;
+    undo(options?: HistoryTraversalOptions): boolean;
 
     /**
      *  Redo the last operation.
      *  @return A boolean of whether or not a change was made.
      */
-    redo(): boolean;
+    redo(options?: HistoryTraversalOptions): boolean;
 
     /** Batch multiple operations as a single undo/redo step. */
-    transact<T>(groupingInterval: number, fn: () => T): T;
+    transact<T>(optionsOrInterval: number | { groupingInterval?: number } &
+        HistoryTransactionOptions, fn: () => T): T;
+    /** Batch multiple operations as a single undo/redo step. */
     transact<T>(fn: () => T): T;
 
     /**
@@ -5237,20 +5252,21 @@ export class TextBuffer {
      *  `::revertToCheckpoint` and `::groupChangesSinceCheckpoint`.
      *  @return A checkpoint ID value.
      */
-    createCheckpoint(): number;
+    createCheckpoint(options?: HistoryTransactionOptions): number;
 
     /**
      *  Revert the buffer to the state it was in when the given checkpoint was created.
      *  @return A boolean indicating whether the operation succeeded.
      */
-    revertToCheckpoint(checkpoint: number): boolean;
+    revertToCheckpoint(checkpoint: number, options?: HistoryTraversalOptions):
+        boolean;
 
     /**
      *  Group all changes since the given checkpoint into a single transaction for
      *  purposes of undo/redo.
      *  @return A boolean indicating whether the operation succeeded.
      */
-    groupChangesSinceCheckpoint(checkpoint: number): boolean;
+    groupChangesSinceCheckpoint(checkpoint: number, options?: HistoryTransactionOptions): boolean;
 
     /**
      *  Group the last two text changes for purposes of undo/redo.
@@ -5828,7 +5844,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.26.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.27.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -6356,6 +6372,16 @@ export interface FindMarkerOptions {
     intersectsRow?: number;
 }
 
+export interface HistoryTransactionOptions {
+    /** When provided, skip taking snapshot for other selections markerLayers except given one. */
+    selectionsMarkerLayer?: MarkerLayer;
+}
+
+export interface HistoryTraversalOptions {
+    /** Restore snapshot of selections marker layer to given selectionsMarkerLayer. */
+    selectionsMarkerLayer?: MarkerLayer;
+}
+
 export interface MenuOptions {
     /** The menu itme's label. */
     label: string;
@@ -6411,6 +6437,11 @@ export interface ProcessOptions extends NodeProcessOptions {
      *  created.
      */
     autoStart?: boolean;
+}
+
+export interface ReadonlyEditOptions {
+    /** Whether the readonly protections on the text editor should be ignored. */
+    bypassReadOnly?: boolean;
 }
 
 export interface ScanContextOptions {
@@ -6820,6 +6851,12 @@ export interface KeyBinding {
 export interface ProjectHistory {
     paths: string[];
     lastOpened: Date;
+}
+
+export interface ProjectSpecification {
+    paths: string[];
+    originPath: string;
+    config?: ConfigValues;
 }
 
 export interface ScandalResult {
