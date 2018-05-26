@@ -2,7 +2,7 @@
 // Project: http://ejs.co/
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export interface Data {
     [name: string]: any;
@@ -28,14 +28,22 @@ export function resolveInclude(name: string, filename: string, isDir: boolean): 
 /**
  * Compile the given `str` of ejs into a template function.
  */
-export function compile(template: string, opts?: Options): (TemplateFunction);
+export function compile(template: string, opts?: Options & { async: false }): TemplateFunction;
+export function compile(template: string, opts: Options & { async: true }): AsyncTemplateFunction;
+export function compile(template: string, opts: Options & { async: boolean }): TemplateFunction | AsyncTemplateFunction;
+export function compile(template: string, opts: Exclude<Options, { async: any }>): TemplateFunction;
+export function compile(template: string, opts?: Options): TemplateFunction | AsyncTemplateFunction;
 /**
  * Render the given `template` of ejs.
  *
  * If you would like to include options but not data, you need to explicitly
  * call this function with `data` being an empty object or `null`.
  */
-export function render(template: string, data?: Data, opts?: Options): string;
+export function render(template: string, data?: Data, opts?: Options & { async: false }): string;
+export function render(template: string, data: Data, opts: Options & { async: true }): Promise<string>;
+export function render(template: string, data: Data, opts: Options & { async: boolean }): string | Promise<string>;
+export function render(template: string, data: Data, opts: Exclude<Options, { async: any }>): string;
+export function render(template: string, data?: Data, opts?: Options): string | Promise<string>;
 
 export type RenderFileCallback<T> = (err: Error, str?: string) => T;
 
@@ -55,6 +63,7 @@ export function renderFile<T>(path: string, data: Data, opts: Options, cb: Rende
 export function clearCache(): void;
 
 export type TemplateFunction = (data?: Data) => string;
+export type AsyncTemplateFunction = (data?: Data) => Promise<string>;
 export interface Options {
     /** Compiled functions are cached, requires `filename` */
     cache?: boolean;
@@ -95,6 +104,8 @@ export interface Options {
      * (By default escapes XML).
      */
     escape?(str: string): string;
+    /** Whether or not to use a Promise */
+    async?: boolean;
 }
 
 export function escapeRegexChars(s: string): string;
