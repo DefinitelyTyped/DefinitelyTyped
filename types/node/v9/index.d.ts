@@ -6748,7 +6748,7 @@ declare module "http2" {
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
     }
 
-    export interface Http2ServerRequest extends stream.Readable {
+    export class Http2ServerRequest extends stream.Readable {
         headers: IncomingHttpHeaders;
         httpVersion: string;
         method: string;
@@ -6779,7 +6779,7 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export interface Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends events.EventEmitter {
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;
         end(callback?: () => void): void;
