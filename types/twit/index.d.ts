@@ -199,7 +199,7 @@ declare module 'twit' {
         withheld_copyright?: boolean,
         withheld_in_countries?: string[],
         withheld_scope?: string,
-        display_text_range?: number[],
+        display_text_range?: [number, number],
       }
       export interface Metadata {
         max_id?: number,
