@@ -41,6 +41,7 @@ declare namespace ReactDates {
         endDateId?: string,
         endDatePlaceholderText?: string,
         disabled?: boolean,
+        keepFocusOnInput?: boolean,
         required?: boolean,
         readOnly?: boolean,
         screenReaderInputMessage?: string,
