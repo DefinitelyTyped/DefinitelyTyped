@@ -15,8 +15,6 @@ interface MorphDomOptions {
     childrenOnly?: boolean;
 }
 
-declare namespace morphdom { }
-
 declare function morphdom(
     fromNode: Node,
     toNode: Node | string,
