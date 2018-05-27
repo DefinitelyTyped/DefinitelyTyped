@@ -30,6 +30,5 @@ export interface Entry extends stream.PassThrough {
     path: string;
     type: 'Directory' | 'File';
     size: number;
-    pipe: (stream: NodeJS.WritableStream) => void;
     autodrain: () => void;
 }
