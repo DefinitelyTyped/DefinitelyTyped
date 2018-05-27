@@ -3,11 +3,12 @@
 // Definitions by: Seon-Wook Park <https://github.com/swook>
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 John McLaughlin <https://github.com/zamb3zi>
+//                 Waiting Song <https://github.com/waitingsong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var debug: debug.IDebug;
 
-export = debug;
+export default debug;
 export as namespace debug;
 
 declare namespace debug {

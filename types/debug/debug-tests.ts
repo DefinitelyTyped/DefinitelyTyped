@@ -1,6 +1,6 @@
 
 
-import debug = require("debug");
+import debug from "debug"
 
 debug.disable();
 debug.enable("DefinitelyTyped:*");
