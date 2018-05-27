@@ -3,7 +3,7 @@
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
 //                 Giorgio Garasto <https://github.com/Dabolus>
-//                 Kallu609 <https://githun.com/Kallu609>
+//                 Kallu609 <https://github.com/Kallu609>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
