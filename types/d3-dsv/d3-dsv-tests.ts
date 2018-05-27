@@ -52,7 +52,8 @@ parseArray = d3Dsv.csvParse(csvTestStringWithHeader);
 columns = parseArray.columns;
 
 strMaybe = parseArray[0]['Year'];
-// date = parseArray[0]['Year']; // fails, return value is string
+// $ExpectError
+date = parseArray[0]['Year']; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -64,7 +65,7 @@ parseMappedArray = d3Dsv.csvParse(csvTestStringWithHeader, (rawRow, index, colum
         year: rr['Year'] ? new Date(+rr['Year']!, 0, 1) : null,
         make: rr['Make'] ? rr['Make']! : "Missing Value",
         model: rr['Model'] ? rr['Model']! : "Missing Value",
-        length: ['Length'] ? +rr['Length']! : NaN
+        length: rr['Length'] ? +rr['Length']! : NaN
     };
     return pr;
 });
@@ -81,7 +82,7 @@ parseMappedArray = d3Dsv.csvParse(csvTestStringWithHeader, (rawRow, index, colum
                     year: new Date(d, 0, 1),
                     make: rr['Make'] ? rr['Make']! : "Missing Value",
                     model: rr['Model'] ? rr['Model']! : "Missing Value",
-                    length: ['Length'] ? +rr['Length']! : NaN
+                    length: rr['Length'] ? +rr['Length']! : NaN
                 }
                 : undefined
         )
@@ -103,7 +104,8 @@ num = parseMappedArray[0].length;
 parseRowsArray = d3Dsv.csvParseRows(csvTestString);
 
 strMaybe = parseRowsArray[0][0]; // 'Year' of first row
-// date = parseRowsArray[0][0]; // fails, return value is string
+// $ExpectError
+date = parseRowsArray[0][0]; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -158,7 +160,8 @@ parseArray = d3Dsv.tsvParse(tsvTestStringWithHeader);
 columns = parseArray.columns;
 
 strMaybe = parseArray[0]['Year'];
-// date = parseArray[0]['Year']; // fails, return value is string
+// $ExpectError
+date = parseArray[0]['Year']; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -174,7 +177,7 @@ parseMappedArray = d3Dsv.tsvParse(tsvTestStringWithHeader, (rawRow, index, colum
                     year: new Date(d, 0, 1),
                     make: rr['Make'] ? rr['Make']! : "Missing Value",
                     model: rr['Model'] ? rr['Model']! : "Missing Value",
-                    length: ['Length'] ? +rr['Length']! : NaN
+                    length: rr['Length'] ? +rr['Length']! : NaN
                 }
                 : undefined
         )
@@ -196,7 +199,8 @@ num = parseMappedArray[0].length;
 parseRowsArray = d3Dsv.tsvParseRows(tsvTestString);
 
 strMaybe = parseRowsArray[0][0]; // 'Year' of first row
-// date = parseRowsArray[0][0]; // fails, return value is string
+// $ExpectError
+date = parseRowsArray[0][0]; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -256,7 +260,8 @@ parseArray = dsv.parse(pipedTestStringWithHeader);
 columns = parseArray.columns;
 
 strMaybe = parseArray[0]['Year'];
-// date = parseArray[0]['Year']; // fails, return value is string
+// $ExpectError
+date = parseArray[0]['Year']; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -272,7 +277,7 @@ parseMappedArray = dsv.parse(pipedTestStringWithHeader, (rawRow, index, columns)
                     year: new Date(d, 0, 1),
                     make: rr['Make'] ? rr['Make']! : "Missing Value",
                     model: rr['Model'] ? rr['Model']! : "Missing Value",
-                    length: ['Length'] ? +rr['Length']! : NaN
+                    length: rr['Length'] ? +rr['Length']! : NaN
                 }
                 : undefined
         )
@@ -294,7 +299,8 @@ num = parseMappedArray[0].length;
 parseRowsArray = dsv.parseRows(pipedTestString);
 
 strMaybe = parseRowsArray[0][0]; // 'Year' of first row
-// date = parseRowsArray[0][0]; // fails, return value is string
+// $ExpectError
+date = parseRowsArray[0][0]; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
 

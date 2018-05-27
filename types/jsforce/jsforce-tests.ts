@@ -30,6 +30,14 @@ const requestInfo: sf.RequestInfo = {
 };
 salesforceConnection.request(requestInfo);
 
+const queryOptions: sf.ExecuteOptions = {
+    autoFetch: true,
+    maxFetch: 5000,
+    headers: {},
+    scanAll: true
+};
+salesforceConnection.query('SELECT Id, Name FROM Account', queryOptions);
+
 // note the following should never compile:
 // salesforceConnection.sobject<DummyRecord>("Dummy").select(["lol"]);
 

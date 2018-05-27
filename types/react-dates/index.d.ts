@@ -48,40 +48,37 @@ declare namespace ReactDates {
         moveFocustoStartAndEndOfWeek: string,
         returnFocusToInput: string,
         keyboardNavigationInstructions: string,
-
         chooseAvailableDate: (date: string) => string,
         dateIsUnavailable: (date: string) => string,
     };
 
     //https://github.com/airbnb/react-dates/blob/v16.0.1/src/defaultPhrases.js
     type DateRangePickerPhrases = {
-        closeDatePicker: string,
-        clearDates: string,
-        focusStartDate: string,
-        jumpToPrevMonth: string,
-        jumpToNextMonth: string,
-        keyboardShortcuts: string,
-        showKeyboardShortcutsPanel: string,
-        hideKeyboardShortcutsPanel: string,
-        openThisPanel: string,
-        enterKey: string,
-        leftArrowRightArrow: string,
-        upArrowDownArrow: string,
-        pageUpPageDown: string,
-        homeEnd: string,
-        escape: string,
-        questionMark: string,
-        selectFocusedDate: string,
-        moveFocusByOneDay: string,
-        moveFocusByOneWeek: string,
-        moveFocusByOneMonth: string,
-        moveFocustoStartAndEndOfWeek: string,
-        returnFocusToInput: string,
-        keyboardNavigationInstructions: string,
-
-        chooseAvailableStartDate: (date: string) => string,
-        chooseAvailableEndDate: (date: string) => string,
-        dateIsUnavailable: (date: string) => string
+        calendarLabel?: string,
+        jumpToPrevMonth?: string,
+        jumpToNextMonth?: string,
+        keyboardShortcuts?: string,
+        showKeyboardShortcutsPanel?: string,
+        hideKeyboardShortcutsPanel?: string,
+        openThisPanel?: string,
+        enterKey?: string,
+        leftArrowRightArrow?: string,
+        upArrowDownArrow?: string,
+        pageUpPageDown?: string,
+        homeEnd?: string,
+        escape?: string,
+        questionMark?: string,
+        selectFocusedDate?: string,
+        moveFocusByOneDay?: string,
+        moveFocusByOneWeek?: string,
+        moveFocusByOneMonth?: string,
+        moveFocustoStartAndEndOfWeek?: string,
+        returnFocusToInput?: string,
+        chooseAvailableStartDate?: (date: string) => string,
+        chooseAvailableEndDate?: (date: string) => string,
+        chooseAvailableDate?: (date: string) => string,
+        dateIsUnavailable?: (date: string) => string,
+        dateIsSelected?: (date: string) => string
     };
     
     //https://github.com/airbnb/react-dates/blob/v16.0.1/src/shapes/DateRangePickerShape.js
@@ -103,6 +100,7 @@ declare namespace ReactDates {
         endDateId?: string,
         endDatePlaceholderText?: string,
         disabled?: boolean,
+        keepFocusOnInput?: boolean,
         required?: boolean,
         readOnly?: boolean,
         screenReaderInputMessage?: string,
@@ -223,7 +221,7 @@ declare namespace ReactDates {
         // internationalization props
         displayFormat?: (string | (() => string)),
         monthFormat?: string,
-        phrases?: SingleDatePickerPhrases,
+        phrases?: SingleDatePickerPhrases
     }
     type SingleDatePicker = React.ClassicComponentClass<SingleDatePickerShape>;
     var SingleDatePicker: React.ClassicComponentClass<SingleDatePickerShape>;
