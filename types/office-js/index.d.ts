@@ -4645,11 +4645,6 @@ declare namespace Office {
         urls: Array<string>;
     }
     export interface Item {
-        /**
-        * You can cast item with `(Item as Office.[CAST_TYPE])` where CAST_TYPE is one of the following: ItemRead, ItemCompose, Message,
-        * MessageRead, MessageCompose, Appointment, AppointmentRead, AppointmentCompose
-        */
-        __BeSureToCastThisObject__: void;
         body: Body;
         itemType: Office.MailboxEnums.ItemType;
         notificationMessages: NotificationMessages;
@@ -4925,7 +4920,11 @@ declare namespace Office {
     export interface Mailbox {
         diagnostics: Diagnostics;
         ewsUrl: string;
-        item: Item;
+        /** The mailbox item.  Depending on the context in which the add-in opened, the item may be of any number of types.
+         * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
+         * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentCompose`, `AppointmentRead`
+         */
+        item: Item & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
         userProfile: UserProfile;
         /**
          * Adds an event handler for a supported event
@@ -47186,4 +47185,4 @@ declare namespace Visio {
 
 ////////////////////////////////////////////////////////////////
 //////////////////////// End Visio APIs ////////////////////////
-////////////////////////////////////////////////////////////////Contains the host in which the add-in (web application) is running in. Possible values are: Word, Excel, PowerPoint
+////////////////////////////////////////////////////////////////
