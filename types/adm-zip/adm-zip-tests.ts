@@ -20,6 +20,9 @@ zip.extractAllTo(/*target path*/"/home/me/zipcontent/", /*overwrite*/true);
 // extracts everything and calls callback -> async extracction
 zip.extractAllToAsync(/*target path*/"/home/me/zipcontent/", /*overwrite*/true, (error: Error)=> {});
 
+// reads a file inzide the archive as text
+zip.readAsTextAsync(/*target path*/"some_folder/my_file.txt", (data: string, error: any)=> {});
+
 // creating archives
 var zip = new AdmZip();
 
@@ -39,16 +42,16 @@ function processZipEntry(zipEntry: AdmZip.IZipEntry) {
 //tests taken from examples at https://github.com/cthackers/adm-zip/wiki/ADM-ZIP
 import Zip = require("adm-zip");
 // loads and parses existing zip file local_file.zip
-var zip = new Zip("local_file.zip"); 
+var zip = new Zip("local_file.zip");
 // creates new in memory zip
 zip = new Zip();
 // loads and parses existing zip file local_file.zip
-zip = new Zip("local_file.zip"); 
+zip = new Zip("local_file.zip");
 // get all entries and iterate them
 zip.getEntries().forEach((entry) => {
     var entryName = entry.entryName;
     var decompressedData = zip.readFile(entry); // decompressed buffer of the entry
-    console.log(zip.readAsText(entry)); // outputs the decompressed content of the entry  
+    console.log(zip.readAsText(entry)); // outputs the decompressed content of the entry
 });
 
 // will extract the file myfile.txt from the archive to /home/user/folder/subfolder/myfile.txt
