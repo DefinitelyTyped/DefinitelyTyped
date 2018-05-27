@@ -14,6 +14,12 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	withCredentials: false,
 	parallelUploads: 2,
 	uploadMultiple: true,
+	chunking: true,
+	forceChunking: true,
+	chunkSize: 4000000,
+	parallelChunkUploads: true,
+	retryChunks: true,
+	retryChunksLimit: 6,
 	maxFilesize: 1024,
 	paramName: "file",
 	createImageThumbnails: true,
@@ -59,6 +65,17 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	dictFileSizeUnits: { tb: "", gb: "", mb: "", kb: "", b: "" },
 
 	accept: (file: Dropzone.DropzoneFile, done: (error?: string | Error) => void) => {
+		if (file.accepted) {
+			file.previewElement.classList.add("accepted");
+			file.previewTemplate.classList.add("accepted");
+			file.previewsContainer.classList.add("accepted");
+			done();
+		}
+		else {
+			done(new Error(file.status));
+		}
+	},
+	chunksUploaded: (file: Dropzone.DropzoneFile, done: (error?: string | Error) => void) => {
 		if (file.accepted) {
 			file.previewElement.classList.add("accepted");
 			file.previewTemplate.classList.add("accepted");
