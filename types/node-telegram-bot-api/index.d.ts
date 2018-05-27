@@ -367,11 +367,11 @@ declare namespace TelegramBot {
         fileOptions?: {
             filename: string;
             contentType: string;
-        }
+        };
     }
 
     type InputMediaVideo = InputMediaPhoto;
-    
+
     interface VideoNote extends FileBase {
         length: number;
         duration: number;
