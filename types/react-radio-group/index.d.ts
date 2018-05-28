@@ -6,17 +6,21 @@
 
 import * as React from 'react';
 
+// Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
+export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+
 export namespace Radio {
-    type RadioProps = React.InputHTMLAttributes<HTMLInputElement>;
+    type RadioProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'name' | 'role' | 'type' | 'aria-checked'> & {
+        value: any;
+    };
 }
 export const Radio: React.ComponentClass<Radio.RadioProps>;
 
 export namespace RadioGroup {
-    interface RadioGroupProps {
-        name?: string;
-        selectedValue?: React.InputHTMLAttributes<HTMLInputElement>['value'];
-        onChange?: (value: React.InputHTMLAttributes<HTMLInputElement>['value']) => void;
-        Component?: string | React.ReactElement<React.HTMLProps<HTMLElement>>;
-    }
+    type RadioGroupProps = Omit<React.HTMLProps<any>, 'onChange'> & {
+        selectedValue?: any;
+        onChange?: (value: any) => void;
+        Component?: React.ReactType<Omit<React.HTMLProps<any>, 'onChange' | 'role'>>;
+    };
 }
 export const RadioGroup: React.ComponentClass<RadioGroup.RadioGroupProps>;

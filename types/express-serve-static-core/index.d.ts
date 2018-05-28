@@ -707,6 +707,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      */
     set(field: any): Response;
     set(field: string, value?: string): Response;
+    set(field: string, value?: string[]): Response;
 
     header(field: any): Response;
     header(field: string, value?: string): Response;

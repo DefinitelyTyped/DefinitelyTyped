@@ -35,7 +35,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   valid?: boolean;
   invalid?: boolean;
   tag?: React.ReactType;
-  innerRef?: string | ((instance: HTMLInputElement) => any);
+  innerRef?: React.Ref<HTMLInputElement>;
   plaintext?: boolean;
   addon?: boolean;
   className?: string;
