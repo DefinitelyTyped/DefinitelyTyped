@@ -102,6 +102,7 @@ declare namespace Rnd {
 
         lockAspectRatio: boolean;
         enableResizing?: Enable;
+        disableDragging?: boolean
 
         onResizeStart: () => void;
         onResize: () => void;
