@@ -5922,7 +5922,7 @@ function JQuery() {
         }
 
         function contents() {
-            // $ExpectType JQuery<HTMLElement | Text | Comment>
+            // $ExpectType JQuery<HTMLElement | Comment | Text>
             $('p').contents();
         }
 
