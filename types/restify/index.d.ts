@@ -51,6 +51,8 @@ export interface ServerOptions {
     noWriteContinue?: boolean;
 
     rejectUnauthorized?: boolean;
+
+    ignoreTrailingSlash?: boolean;
 }
 
 export interface AddressInterface {
