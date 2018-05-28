@@ -57,6 +57,7 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	dictRemoveFileConfirmation: "",
 	dictMaxFilesExceeded: "",
 	dictFileSizeUnits: { tb: "", gb: "", mb: "", kb: "", b: "" },
+	dictUploadCanceled: "",
 
 	accept: (file: Dropzone.DropzoneFile, done: (error?: string | Error) => void) => {
 		if (file.accepted) {
@@ -227,6 +228,8 @@ dropzone.resizeImage(firstFile, 120);
 dropzone.resizeImage(firstFile, 120, 120);
 dropzone.resizeImage(firstFile, 120, 120, 'contain');
 dropzone.resizeImage(firstFile, 120, 120, 'contain', function () { });
+
+document.createElement("div").dropzone;
 
 dropzone
 	.on("drop", () => {

@@ -81,6 +81,7 @@ declare namespace Dropzone {
 		dictRemoveFileConfirmation?: string;
 		dictMaxFilesExceeded?: string;
 		dictFileSizeUnits?: DropzoneDictFileSizeUnits;
+		dictUploadCanceled?: string;
 
 		accept?(file: DropzoneFile, done: (error?: string | Error) => void): void;
 		init?(): void;
@@ -299,8 +300,14 @@ declare class Dropzone {
 
 }
 
-interface JQuery {
-	dropzone(options: Dropzone.DropzoneOptions): Dropzone;
+declare global {
+	interface JQuery {
+		dropzone(options: Dropzone.DropzoneOptions): Dropzone;
+	}
+
+	interface HTMLElement {
+		dropzone: Dropzone;
+	}
 }
 
 export = Dropzone;
