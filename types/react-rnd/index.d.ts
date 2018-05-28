@@ -18,6 +18,17 @@ declare namespace Rnd {
         | 'topLeft'
         | 'topRight';
 
+    export type Enable = {
+        bottom?: boolean;
+        bottomLeft?: boolean;
+        bottomRight?: boolean;
+        left?: boolean;
+        right?: boolean;
+        top?: boolean;
+        topLeft?: boolean;
+        topRight?: boolean;
+    }
+    
     interface HandleClasses {
         bottom?: string;
         bottomLeft?: string;
@@ -90,7 +101,7 @@ declare namespace Rnd {
         resizeHandleStyles: HandleStyles;
 
         lockAspectRatio: boolean;
-        enableResizing: boolean;
+        enableResizing?: Enable;
 
         onResizeStart: () => void;
         onResize: () => void;
