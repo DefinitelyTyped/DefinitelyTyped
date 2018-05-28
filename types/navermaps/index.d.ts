@@ -657,7 +657,7 @@ declare namespace naver.maps {
     layers: any;
     mapTypes: any;
     mapSystemProjection: any;
-    constructor(mapDiv: string, mapOptions?: MapOptions);
+    constructor(mapDiv: string | HTMLElement, mapOptions?: MapOptions);
     addPane(name: string, elementOrIndex: HTMLElement | number): void;
     destory(): void;
     fitBounds(bounds: any, margin?: any): void;
