@@ -1,39 +1,37 @@
-// Type definitions for dd-trace-js 0.2.0
+// Type definitions for dd-trace-js 0.2
 // Project: https://github.com/DataDog/dd-trace-js
 // Definitions by: Colin Bradley <https://github.com/ColinBradley>
-//                 The people of <https://github.com/opentracing/opentracing-javascript>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var trace: TraceProxy;
 export = trace;
 
 declare class TraceProxy extends Tracer {
-
     /**
      * Initializes the tracer. This should be called before importing other libraries.
      */
-    init(options?: ITracerOptions): this;
+    init(options?: TracerOptions): this;
 
     /**
      * Enable and optionally configure a plugin.
      * @param plugin The name of a built-in plugin.
      * @param config Configuration options.
      */
-    use(plugin: string, config: IPluginOptions): this;
+    use(plugin: string, config: PluginOptions): this;
 
     /**
      * Initiate a trace and creates a new span.
      * @param operationName The operation name to be used for this span.
      * @param options Configuration options. These will take precedence over environment variables.
      */
-    trace(operationName: string, options: ITraceOptions): Promise<Span>;
+    trace(operationName: string, options: TraceOptions): Promise<Span>;
 
     /**
      * Initiate a trace and creates a new span.
      * @param operationName The operation name to be used for this span.
      * @param options Configuration options. These will take precedence over environment variables.
      */
-    trace(operationName: string, options: ITraceOptions, callback: (span: Span) => void): void;
+    trace(operationName: string, options: TraceOptions, callback: (span: Span) => void): void;
 
     /**
      * Get the span from the current context.
@@ -99,9 +97,9 @@ declare class Tracer {
      *         ],
      *     });
      *
-     * @param {string} name - the name of the operation (REQUIRED).
-     * @param {SpanOptions} [options] - options for the newly created span.
-     * @return {Span} - a new Span object.
+     * @param name - the name of the operation (REQUIRED).
+     * @param options - options for the newly created span.
+     * @return A new Span object.
      */
     startSpan(name: string, options?: SpanOptions): Span;
 
@@ -126,12 +124,12 @@ declare class Tracer {
      *     Object.assign(outboundHTTPReq.headers, headersCarrier);
      *     // ... send the httpReq
      *
-     * @param  {SpanContext} spanContext - the SpanContext to inject into the
+     * @param  spanContext - the SpanContext to inject into the
      *         carrier object. As a convenience, a Span instance may be passed
      *         in instead (in which case its .context() is used for the
      *         inject()).
-     * @param  {string} format - the format of the carrier.
-     * @param  {any} carrier - see the documentation for the chosen `format`
+     * @param  format - the format of the carrier.
+     * @param  carrier - see the documentation for the chosen `format`
      *         for a description of the carrier object.
      */
     inject(spanContext: SpanContext | Span, format: string, carrier: any): void;
@@ -151,11 +149,10 @@ declare class Tracer {
      *     var wireCtx = Tracer.extract(Tracer.FORMAT_HTTP_HEADERS, headersCarrier);
      *     var serverSpan = Tracer.startSpan('...', { childOf : wireCtx });
      *
-     * @param  {string} format - the format of the carrier.
-     * @param  {any} carrier - the type of the carrier object is determined by
+     * @param  format - the format of the carrier.
+     * @param  carrier - the type of the carrier object is determined by
      *         the format.
-     * @return {SpanContext}
-     *         The extracted SpanContext, or null if no such SpanContext could
+     * @return The extracted SpanContext, or null if no such SpanContext could
      *         be found in `carrier`
      */
     extract(format: string, carrier: any): SpanContext | null;
@@ -199,10 +196,9 @@ declare class Span {
     /**
      * Returns the value for a baggage item given its key.
      *
-     * @param  {string} key
+     * @param  key
      *         The key for the given trace attribute.
-     * @return {string}
-     *         String value for the given key, or undefined if the key does not
+     * @return String value for the given key, or undefined if the key does not
      *         correspond to a set trace attribute.
      */
     getBaggageItem(key: string): string | undefined;
@@ -246,11 +242,11 @@ declare class Span {
      *         "error.description": someError.description(),
      *     }, someError.timestampMillis());
      *
-     * @param {object} keyValuePairs
+     * @param keyValuePairs
      *        An object mapping string keys to arbitrary value types. All
      *        Tracer implementations should support bool, string, and numeric
      *        value types, and some may also support Object values.
-     * @param {number} timestamp
+     * @param timestamp
      *        An optional parameter specifying the timestamp in milliseconds
      *        since the Unix epoch. Fractional values are allowed so that
      *        timestamps with sub-millisecond accuracy can be represented. If
@@ -269,7 +265,7 @@ declare class Span {
      * finish() must be the last call made to any span instance, and to do
      * otherwise leads to undefined behavior.
      *
-     * @param  {number} finishTime
+     * @param  finishTime
      *         Optional finish time in milliseconds as a Unix timestamp. Decimal
      *         values are supported for timestamps with sub-millisecond accuracy.
      *         If not specified, the current time (as defined by the
@@ -279,17 +275,14 @@ declare class Span {
 }
 
 declare class Reference {
-    protected _type: string;
-    protected _referencedContext: SpanContext;
-
     /**
-     * @return {string} The Reference type (e.g., REFERENCE_CHILD_OF or
+     * @return The Reference type (e.g., REFERENCE_CHILD_OF or
      *         REFERENCE_FOLLOWS_FROM).
      */
     type(): string;
 
     /**
-     * @return {SpanContext} The SpanContext being referred to (e.g., the
+     * @return The SpanContext being referred to (e.g., the
      *         parent in a REFERENCE_CHILD_OF Reference).
      */
     referencedContext(): SpanContext;
@@ -297,9 +290,9 @@ declare class Reference {
     /**
      * Initialize a new Reference instance.
      *
-     * @param {string} type - the Reference type constant (e.g.,
+     * @param type - the Reference type constant (e.g.,
      *        REFERENCE_CHILD_OF or REFERENCE_FOLLOWS_FROM).
-     * @param {SpanContext} referencedContext - the SpanContext being referred
+     * @param referencedContext - the SpanContext being referred
      *        to. As a convenience, a Span instance may be passed in instead
      *        (in which case its .context() is used here).
      */
@@ -319,7 +312,7 @@ declare class Reference {
 declare class SpanContext {
 }
 
-interface ITracerOptions {
+interface TracerOptions {
     /**
      * Enable debug logging in the tracer.
      * @default false
@@ -359,7 +352,7 @@ interface ITracerOptions {
      * Experimental features can be enabled all at once by using true or individually using key / value pairs.
      * @default {}
      */
-    experimental?: IExperimentalOptions | boolean;
+    experimental?: ExperimentalOptions | boolean;
 
     /**
      * Whether to load all built-in plugins.
@@ -368,7 +361,7 @@ interface ITracerOptions {
     plugins?: boolean;
 }
 
-interface IExperimentalOptions {
+interface ExperimentalOptions {
     /**
      * Whether to use Node's experimental async hooks.
      * @default false
@@ -376,17 +369,16 @@ interface IExperimentalOptions {
     asyncHooks?: boolean;
 }
 
-interface IPluginOptions {
-
+interface PluginOptions {
     /**
      * The service name to be used for this plugin.
      */
     service: string;
 }
 
-interface ITraceOptions {
+interface TraceOptions {
     /**
-     * The service name to be used for this span. 
+     * The service name to be used for this span.
      * The service name from the tracer will be used if this is not provided.
      */
     service?: string;

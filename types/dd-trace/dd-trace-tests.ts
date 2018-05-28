@@ -7,6 +7,6 @@ tracer
         service: 'my_service'
     })
     .then(span => {
-        span.setTag('my_tag', 'my_value')
-        span.finish()
-    })
+        span.setTag('my_tag', 'my_value');
+        span.finish();
+    });
