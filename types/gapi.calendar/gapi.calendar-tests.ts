@@ -151,12 +151,7 @@
   });
 
 
-  /*
-  * deleting existing event from calendar https://developers.google.com/calendar/v3/reference/events/delete
-  * pass the Event.id from the existing events list response
-  * refer to https://developers.google.com/calendar/v3/reference/events#resource-representations
-  * input @param {string} calendarEventId that needs to be deleted from the calendar
-  * */
+  
   function deleteEvent(calendarEventId: any) {
     var request = gapi.client.calendar.events.delete({
       calendarId: 'primary',
