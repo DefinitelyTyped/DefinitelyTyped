@@ -2481,3 +2481,7 @@ class Why {
 () => {
     R.bind(console.log, console);
 };
+
+() => {
+    R.gte(R.__, 6);
+};
