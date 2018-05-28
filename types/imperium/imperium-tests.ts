@@ -1,9 +1,9 @@
 import imperium from 'imperium'
 
-import { Imperium, ImperiumUnauthorizedError } from 'imperium'
+import { Imperium, UnauthorizedError } from 'imperium'
 
 imperium.role('admin', async (req) => {
-    return req.session.role === 'admin'
+    return true
 })
 
 imperium.role('user')

@@ -8,12 +8,14 @@
 /// <reference types="express" />
 
 declare module 'imperium' {
-    type ImperiumMiddleware = (req: Express.Request, res: Express.Response, next: Function) => Promise<void>
-    type ImperiumGetAcl = (req: Express.Request) => Promise<Boolean> | Promise<Object>
-    type ImperiumActions = Array<String> | String
-    type ImperiumContext = Array<'params' | 'query' | 'headers' | 'body'>
+    import express = require('express')
+
+    type Middleware = (req: express.Request, res: express.Response, next: Function) => Promise<void>
+    type GetAcl = (req: express.Request) => Promise<Boolean> | Promise<Object>
+    type Actions = Array<String> | String
+    type Context = Array<'params' | 'query' | 'headers' | 'body'>
     // Can contain when key that is evaluated during route action
-    type ImperiumRoleParams = { [key: string]: String }
+    type RoleParams = { [key: string]: String }
 
     export class Imperium {
         constructor()
@@ -22,44 +24,44 @@ declare module 'imperium' {
         roles: Roles
 
         // Add new role with specific ImperiumGetAcl
-        role(roleName: String, getAcl: ImperiumGetAcl): ImperiumRole
+        role(roleName: String, getAcl: GetAcl): Role
 
         // Return specific imperium role instance
-        role(roleName: String): ImperiumRole
+        role(roleName: String): Role
 
         // Check if user has role
-        is(roleName: String): ImperiumMiddleware
+        is(roleName: String): Middleware
 
         // Check if user has on of listed roles act like an OR
-        is(roleNames: Array<String>): ImperiumMiddleware
+        is(roleNames: Array<String>): Middleware
 
         // Check if current user can do action
-        can(action: String): ImperiumMiddleware
+        can(action: String): Middleware
 
-        can(actions: Array<String>): ImperiumMiddleware
+        can(actions: Array<String>): Middleware
 
-        can(action: Action): ImperiumMiddleware
+        can(action: Action): Middleware
 
-        can(actions: Array<Action>): ImperiumMiddleware
+        can(actions: Array<Action>): Middleware
 
-        private addRole(roleName: String, getAcl: ImperiumGetAcl): void
+        private addRole(roleName: String, getAcl: GetAcl): void
 
-        private evaluateRouteActions(req: Express.Request, action: Array<Action>, context: ImperiumContext): ImperiumActions
+        private evaluateRouteActions(req: express.Request, action: Array<Action>, context: Context): Actions
 
-        private evaluateRouteAction(req: Express.Request, expr: String, key: String, context: ImperiumContext): String
+        private evaluateRouteAction(req: express.Request, expr: String, key: String, context: Context): String
 
-        private evaluateUserActions(req: Express.Request, roles: Array<ImperiumRole>): Promise<Array<Action>>
+        private evaluateUserActions(req: express.Request, roles: Array<Role>): Promise<Array<Action>>
 
-        private evaluateUserAction(action: ImperiumRoleParams, context: { [key: string]: Array<String> }): { [key: string]: Array<String> }
+        private evaluateUserAction(action: RoleParams, context: { [key: string]: Array<String> }): { [key: string]: Array<String> }
     }
 
     interface Roles {
-        [key: string]: Role
+        [key: string]: RoleActions
     }
 
-    interface Role {
+    interface RoleActions {
         actions: Array<Action>
-        getAcl?: ImperiumGetAcl
+        getAcl?: GetAcl
     }
 
     interface Action {
@@ -67,7 +69,7 @@ declare module 'imperium' {
         [key: string]: String
     }
 
-    export class ImperiumRole {
+    export class Role {
         constructor(imperium: Imperium, roleName: String)
 
         // Imperium instance to retreive child role
@@ -75,16 +77,16 @@ declare module 'imperium' {
         // Role name
         roleName: String
         // Contain all the actions for this specific role
-        role: Role
+        role: RoleActions
 
         /* Add action with specific params */
-        can(action: String, params: ImperiumRoleParams): ImperiumRole
+        can(action: String, params: RoleParams): Role
 
         /* Get actions of childRoleName and replace params */
-        is(childRoleName: String, params: ImperiumRoleParams): ImperiumRole
+        is(childRoleName: String, params: RoleParams): Role
     }
 
-    export class ImperiumUnauthorizedError extends Error {
+    export class UnauthorizedError extends Error {
         constructor(message: String, status: number, context: any)
     }
 
