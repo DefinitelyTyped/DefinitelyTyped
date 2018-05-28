@@ -44,6 +44,6 @@ app.use((ctx, next) => {
     ctx.session = null;
 
     return next();
-})
+});
 
 app.listen(3000);
