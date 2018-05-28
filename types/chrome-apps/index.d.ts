@@ -1,16 +1,14 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, see also the contributers on the chrome types (for extensions)
+// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// WebView ref: https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json
 // TypeScript Version: 2.4
 
 /// <reference types="filesystem"/>
 
-////////////////////
-// Global object
-////////////////////
-
+///////////////
+// WebView ref: https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json
+///////////////
 
 ////////////////////
 // Accessibility Features
