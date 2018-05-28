@@ -49,11 +49,13 @@ interface SpanOptions {
      * `references` must be unspecified.
      */
     childOf?: Span | SpanContext;
+
     /**
      * an array of Reference instances, each pointing to a causal parent
      * SpanContext. If specified, `fields.childOf` must be unspecified.
      */
     references?: Reference[];
+
     /**
      * set of key-value pairs which will be set as tags on the newly created
      * Span. Ownership of the object is passed to the created span for
@@ -63,6 +65,7 @@ interface SpanOptions {
     tags?: {
         [key: string]: any;
     };
+
     /**
      * a manually specified start time for the created Span object. The time
      * should be specified in milliseconds as Unix timestamp. Decimal value are
