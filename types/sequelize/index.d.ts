@@ -3366,6 +3366,13 @@ declare namespace sequelize {
          * Throw EmptyResultError if a record is not found
          */
         rejectOnEmpty?: boolean;
+
+       /**
+         * Force the query to use the write pool
+         *
+         * Defaults to false
+         */
+        useMaster?: boolean;
     }
 
     type AnyFindOptions = FindOptions<any>;
@@ -4084,6 +4091,15 @@ declare namespace sequelize {
 
         /**
          * Set associations with other models
+         *
+         * Not part of the sequelize API, used as convention to associate models after creation. e.g.:
+         * ```js
+         * Object.keys(models).forEach(modelName => {
+         *   if (models[modelName].associate) {
+         *     models[modelName].associate(models);
+         *   }
+         * });
+         * ```
          *
          * @param models
          */
@@ -6172,6 +6188,10 @@ declare namespace sequelize {
          */
         databaseVersion(): Promise<string>;
 
+        /**
+         * Get the fn for random based on the dialect
+         */
+        random(): fn;
     }
 
     //

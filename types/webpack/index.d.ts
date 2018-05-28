@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.1
+// Type definitions for webpack 4.4
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -253,7 +253,7 @@ declare namespace webpack {
          * Defaults to `["browser", "module", "main"]` or `["module", "main"]`,
          * depending on the value of the `target` `Configuration` value.
          */
-        mainFields?: string[];
+        mainFields?: string[] | string[][];
 
         /**
          * A list of fields in a package description object to try to parse
@@ -264,7 +264,7 @@ declare namespace webpack {
          *
          * @see alias
          */
-        aliasFields?: string[];
+        aliasFields?: string[] | string[][];
 
         /**
          * A list of file names to search for when requiring directories that
@@ -368,15 +368,16 @@ declare namespace webpack {
         system?: boolean;
     }
 
-    type RuleSetCondition = string
-        | {
-            [k: string]: any;
-        }
+    type RuleSetCondition =
+        | RegExp
+        | string
+        | ((path: string) => boolean)
+        | RuleSetConditions
         | {
             /**
              * Logical AND
              */
-            and?: RuleSetConditions;
+            and?: RuleSetCondition[];
             /**
              * Exclude all modules matching any of these conditions
              */
@@ -388,17 +389,19 @@ declare namespace webpack {
             /**
              * Logical NOT
              */
-            not?: RuleSetConditions;
+            not?: RuleSetCondition[];
             /**
              * Logical OR
              */
-            or?: RuleSetConditions;
+            or?: RuleSetCondition[];
             /**
              * Exclude all modules matching any of these conditions
              */
             test?: RuleSetCondition;
         };
-    type RuleSetConditions = RuleSetCondition[];
+
+    // A hack around circular type referencing
+    interface RuleSetConditions extends Array<RuleSetCondition> {}
 
     interface RuleSetRule {
         /**
@@ -408,25 +411,19 @@ declare namespace webpack {
         /**
          * Shortcut for resource.exclude
          */
-        exclude?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        exclude?: RuleSetCondition;
         /**
          * Shortcut for resource.include
          */
-        include?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        include?: RuleSetCondition;
         /**
          * Match the issuer of the module (The module pointing to this module)
          */
-        issuer?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        issuer?: RuleSetCondition;
         /**
          * Shortcut for use.loader
          */
-        loader?: RuleSetLoader | RuleSetUse;
+        loader?: RuleSetUse;
         /**
          * Shortcut for use.loader
          */
@@ -434,7 +431,7 @@ declare namespace webpack {
         /**
          * Only execute the first matching rule in this array
          */
-        oneOf?: RuleSetRules;
+        oneOf?: RuleSetRule[];
         /**
          * Shortcut for use.options
          */
@@ -442,9 +439,7 @@ declare namespace webpack {
         /**
          * Options for parsing
          */
-        parser?: {
-            [k: string]: any;
-        };
+        parser?: { [k: string]: any };
         /**
          * Options for the resolver
          */
@@ -464,9 +459,7 @@ declare namespace webpack {
         /**
          * Match the resource path of the module
          */
-        resource?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        resource?: RuleSetCondition;
         /**
          * Match the resource query of the module
          */
@@ -478,56 +471,49 @@ declare namespace webpack {
         /**
          * Match and execute these rules when this rule is matched
          */
-        rules?: RuleSetRules;
+        rules?: RuleSetRule[];
         /**
          * Shortcut for resource.test
          */
-        test?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        test?: RuleSetCondition;
         /**
          * Modifiers applied to the module when rule is matched
          */
         use?: RuleSetUse;
     }
-    type RuleSetLoader = string;
+
     type RuleSetUse =
         | RuleSetUseItem
-        | {
-            [k: string]: any;
-        }
-        | RuleSetUseItem[];
+        | RuleSetUseItem[]
+        | ((data: any) => RuleSetUseItem | RuleSetUseItem[]);
+
+    interface RuleSetLoader {
+        /**
+         * Loader name
+         */
+        loader?: string;
+        /**
+         * Loader options
+         */
+        options?: RuleSetQuery;
+        /**
+         * Unique loader identifier
+         */
+        ident?: string;
+        /**
+         * Loader query
+         */
+        query?: RuleSetQuery;
+    }
+
     type RuleSetUseItem =
+        | string
         | RuleSetLoader
-        | {
-            [k: string]: any;
-        }
-        | {
-            /**
-             * Loader name
-             */
-            loader?: RuleSetLoader;
-            /**
-             * Loader options
-             */
-            options?: RuleSetQuery;
-            /**
-             * Unique loader identifier
-             */
-            ident?: string;
-            /**
-             * Loader query
-             */
-            query?: RuleSetQuery;
-        };
+        | ((data: any) => string | RuleSetLoader);
+
     type RuleSetQuery =
-        | {
-            [k: string]: any;
-        }
-        | string;
-    type CommonArrayOfStringOrStringArrayValues = Array<(string | string[])>;
-    type CommonArrayOfStringValues = string[];
-    type RuleSetRules = RuleSetRule[];
+        | string
+        | { [k: string]: any };
 
     /**
      * @deprecated Use RuleSetCondition instead
@@ -574,7 +560,7 @@ declare namespace webpack {
             /** Assign modules to a cache group */
             test?: ((...args: any[]) => boolean) | string | RegExp;
             /** Select chunks for determining cache group content (defaults to \"initial\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group */
             enforce?: boolean;
             /** Priority of this cache group */
@@ -594,7 +580,7 @@ declare namespace webpack {
         }
         interface SplitChunksOptions {
             /** Select chunks for determining shared modules (defaults to \"async\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Minimal size for the created chunk */
             minSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
@@ -660,6 +646,27 @@ declare namespace webpack {
             minimizer?: Array<Plugin | Tapable.Plugin>;
             /** Generate records with relative paths to be able to move the context folder". */
             portableRecords?: boolean;
+        }
+    }
+
+    namespace debug {
+        interface ProfilingPluginOptions {
+            /** A relative path to a custom output file (json) */
+            outputPath?: string;
+        }
+        /**
+         * Generate Chrome profile file which includes timings of plugins execution. Outputs `events.json` file by
+         * default. It is possible to provide custom file path using `outputPath` option.
+         *
+         * In order to view the profile file:
+         * * Run webpack with ProfilingPlugin.
+         * * Go to Chrome, open the Profile Tab.
+         * * Drag and drop generated file (events.json by default) into the profiler.
+         *
+         * It will then display timeline stats and calls per plugin!
+         */
+        class ProfilingPlugin extends Plugin {
+            constructor(options?: ProfilingPluginOptions);
         }
     }
     namespace compilation {

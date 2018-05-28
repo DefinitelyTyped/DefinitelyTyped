@@ -51,3 +51,8 @@ const blameOptions = new Git.BlameOptions();
 Git.Branch.lookup(repo, "branch_name", Git.Branch.BRANCH.LOCAL).then((reference) => {
     // Use reference
 });
+
+const signature = Git.Signature.now("name", "email");
+signature.name();
+signature.email();
+signature.when();

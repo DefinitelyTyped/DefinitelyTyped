@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 
+/// <reference types="activex-interop" />
+
 declare namespace DiskQuotaTypeLibrary {
     // tslint:disable-next-line no-const-enum
     const enum AccountStatusConstants {
@@ -136,7 +138,6 @@ interface ActiveXObject {
     on(
         obj: DiskQuotaTypeLibrary.DiskQuotaControl, event: 'OnUserNameChanged', argNames: ['pUser'], handler: (
             this: DiskQuotaTypeLibrary.DiskQuotaControl, parameter: {readonly pUser: DiskQuotaTypeLibrary.DIDiskQuotaUser}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
@@ -145,8 +146,4 @@ interface ActiveXObjectNameMap {
 
 interface EnumeratorConstructor {
     new(col: DiskQuotaTypeLibrary.DiskQuotaControl): Enumerator<DiskQuotaTypeLibrary.DIDiskQuotaUser>;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }
