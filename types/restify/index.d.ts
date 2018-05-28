@@ -1,12 +1,16 @@
-// Type definitions for restify 5.0
+// Type definitions for restify 7.2
 // Project: https://github.com/restify/node-restify
-// Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>, Leandro Almeida <https://github.com/leanazulyoro>
+// Definitions by:  Bret Little <https://github.com/blittle>
+//                  Steve Hipwell <https://github.com/stevehipwell>
+//                  Leandro Almeida <https://github.com/leanazulyoro>
+//                  Martin Wentzel <https://github.com/Junkern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
 
 import http = require('http');
+import http2 = require('http2');
 import https = require('https');
 import Logger = require('bunyan');
 import url = require('url');
@@ -14,17 +18,13 @@ import spdy = require('spdy');
 import stream = require('stream');
 
 export interface ServerOptions {
-    ca?: string | Buffer | ReadonlyArray<string | Buffer>;
-
     certificate?: string | Buffer | ReadonlyArray<string | Buffer>;
 
+    dtrace?: boolean;
+
+    url?: string;
+
     key?: string | Buffer | ReadonlyArray<string | Buffer>;
-
-    passphrase?: string;
-
-    requestCert?: boolean;
-
-    ciphers?: string;
 
     formatters?: Formatters;
 
@@ -34,9 +34,11 @@ export interface ServerOptions {
 
     spdy?: spdy.ServerOptions;
 
-    version?: string;
+    http2?: http2.SecureServerOptions;
 
-    versions?: string[];
+    onceNext?: boolean;
+
+    strictNext?: boolean;
 
     handleUpgrades?: boolean;
 
@@ -45,8 +47,6 @@ export interface ServerOptions {
     handleUncaughtExceptions?: boolean;
 
     router?: Router;
-
-    socketio?: boolean;
 
     noWriteContinue?: boolean;
 
