@@ -2,8 +2,8 @@
 // Project: https://github.com/federicobond/solidity-parser-antlr
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-// tslint:disable-line:no-empty-interface
 export interface BaseASTNode {
     range: [number, number];
 }
