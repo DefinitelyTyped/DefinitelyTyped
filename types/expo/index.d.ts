@@ -761,7 +761,7 @@ export interface RecordingOptions {
 }
 
 export class CameraObject {
-    takePictureAsync(options: PictureOptions): Promise<PictureResponse>;
+    takePictureAsync(options?: PictureOptions): Promise<PictureResponse>;
     recordAsync(options: RecordingOptions): Promise<{ uri: string; }>;
     stopRecording(): void;
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
