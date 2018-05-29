@@ -3,11 +3,18 @@
 // Definitions by: jordandrako <https://github.com/jordandrako>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export interface RebaseBinding {
+    context: object;
+    endpoint: string;
+    id: number;
+    method: string;
+}
+
 export interface SyncStateOptions {
     /**
      * The context of your component.
      */
-    context: {};
+    context: object;
 
     /**
      * The state property you want to sync with Firebase; can be an
@@ -20,7 +27,7 @@ export interface SyncStateOptions {
      * on init) (use this if you want a value other than an empty object or
      * empty array)
      */
-    defaultValue?: string | boolean | number | {};
+    defaultValue?: string | boolean | number | object;
 
     /**
      * Returns the Firebase data at the specified endpoint as an Array
@@ -39,7 +46,7 @@ export interface SyncStateOptions {
      * [Query Options](https://github.com/tylermcginnis/re-base#queries)
      * for more details.
      */
-    queries?: {};
+    queries?: object;
 
     /**
      * The callback function that will be invoked when the initial listener
@@ -59,7 +66,7 @@ export interface BindToStateOptions {
     /**
      * The context of your component.
      */
-    context: {};
+    context: object;
 
     /**
      * The state property you want to sync with Firebase; can be an
@@ -78,7 +85,7 @@ export interface BindToStateOptions {
      * [Query Options](https://github.com/tylermcginnis/re-base#queries)
      * for more details.
      */
-    queries?: {};
+    queries?: object;
 
     /**
      * The callback function that will be invoked when the initial listener
@@ -98,7 +105,7 @@ export interface ListenToOptions {
     /**
      * The context of your component.
      */
-    context: {};
+    context: object;
 
     /**
      * Returns the Firebase data at the specified endpoint as an Array
@@ -123,14 +130,14 @@ export interface ListenToOptions {
      * [Query Options](https://github.com/tylermcginnis/re-base#queries)
      * for more details.
      */
-    queries?: {};
+    queries?: object;
 }
 
 export interface FetchOptions {
     /**
      * The context of your component.
      */
-    context: {};
+    context: object;
 
     /**
      * Returns the Firebase data at the specified endpoint as an Array
@@ -155,7 +162,7 @@ export interface FetchOptions {
      * [Query Options](https://github.com/tylermcginnis/re-base#queries)
      * for more details.
      */
-    queries?: {};
+    queries?: object;
 }
 
 export interface PostOptions {
@@ -204,7 +211,7 @@ export interface bindDocOptions {
     /**
      * The context of your component.
      */
-    context: {};
+    context: object;
 
     /**
      * A property name on your state to bind your document to, if omitted
@@ -229,7 +236,7 @@ export interface listenToDocOptions {
     /**
      * The context of your component.
      */
-    context: {};
+    context: object;
 
     /**
      * A callback that will be called when the listener is set, use for
@@ -248,7 +255,7 @@ export interface bindCollectionOptions {
     /**
      * The context of your component.
      */
-    context: {};
+    context: object;
 
     /**
      * The state property to bind the collection to.
@@ -291,7 +298,7 @@ export interface listenToCollectionOptions {
     /**
      * The context of your component.
      */
-    context: {};
+    context: object;
 
     /**
      * A callback that will be called with the data.
@@ -358,7 +365,7 @@ export interface syncDocOptions {
     /**
      * The context of your component.
      */
-    context: {};
+    context: object;
 
     /**
      * The state property to sync.
@@ -387,7 +394,7 @@ export interface Rebase {
      * if you are using the auth service and want to quickly access it off
      * of re-base.
      */
-    initializedApp: {};
+    initializedApp: object;
 
     /**
      * This property contains an object that you can use when adding data
@@ -395,7 +402,7 @@ export interface Rebase {
      * [the docs](https://firebase.google.com/docs/reference/js/firebase.database.ServerValue)
      * for more info.
      */
-    timestamp: {};
+    timestamp: object;
 
     /**
      * Allows you to set up two way data binding between your component's
@@ -408,7 +415,7 @@ export interface Rebase {
      * @returns An object which you can pass to `removeBinding` if you want
      * to remove the listener while the component is still mounted.
      */
-    syncState(endpoint: string, options: SyncStateOptions): {};
+    syncState(endpoint: string, options: SyncStateOptions): RebaseBinding;
 
     /**
      * One way data binding from Firebase to your component's state. Allows
@@ -421,7 +428,7 @@ export interface Rebase {
      * @returns An object which you can pass to `removeBinding` if you want
      * to remove the listener while the component is still mounted.
      */
-    bindToState(endpoint: string, options: BindToStateOptions): {};
+    bindToState(endpoint: string, options: BindToStateOptions): RebaseBinding;
 
     /**
      * Allows you to listen to Firebase endpoints without binding those
@@ -433,7 +440,7 @@ export interface Rebase {
      * @returns An object which you can pass to `removeBinding` when your
      * component unmounts to remove the Firebase listeners.
      */
-    listenTo(endpoint: string, options: ListenToOptions): {};
+    listenTo(endpoint: string, options: ListenToOptions): RebaseBinding;
 
     /**
      * Allows you to retrieve the data from a Firebase endpoint just once
@@ -510,7 +517,7 @@ export interface Rebase {
      * @returns An object which you can pass to `removeBinding` if you want
      * to remove the listener while the component is still mounted.
      */
-    bindDoc(refOrPath: {} | string, options: bindDocOptions): {};
+    bindDoc(refOrPath: object | string, options: bindDocOptions): object;
 
     /**
      * Listen to a document, when the data changes it will invoke a
@@ -520,7 +527,7 @@ export interface Rebase {
      * @returns An object which you can pass to `removeBinding` if you want
      * to remove the listener while the component is still mounted.
      */
-    listenToDoc(refOrPath: {} | string, options: listenToDocOptions): {};
+    listenToDoc(refOrPath: object | string, options: listenToDocOptions): object;
 
     /**
      * Bind a collection to a state property in your component. When then
@@ -532,9 +539,9 @@ export interface Rebase {
      * to remove the listener while the component is still mounted.
      */
     bindCollection(
-        refOrPath: {} | string,
+        refOrPath: object | string,
         options: bindCollectionOptions
-    ): {};
+    ): RebaseBinding;
 
     /**
      * Listen to a collection, when the data changes it will invoke a
@@ -545,9 +552,9 @@ export interface Rebase {
      * to remove the listener while the component is still mounted.
      */
     listenToCollection(
-        refOrPath: {} | string,
+        refOrPath: object | string,
         options: listenToCollectionOptions
-    ): {};
+    ): RebaseBinding;
 
     /**
      * Fetch either a Collection or Document.
@@ -558,7 +565,7 @@ export interface Rebase {
      * errors.
      */
     get(
-        refOrPath: {} | {} | string,
+        refOrPath: object | object | string,
         options: listenToCollectionOptions
     ): Promise<any>;
 
@@ -573,8 +580,8 @@ export interface Rebase {
      * errors.
      */
     addToCollection(
-        refOrPath: {} | string,
-        data: {},
+        refOrPath: object | string,
+        data: object,
         id?: string
     ): Promise<any>;
 
@@ -586,7 +593,7 @@ export interface Rebase {
      * if the document/collection does not exist or there are any read
      * errors.
      */
-    updateDoc(refOrPath: {} | string, data: {}): Promise<any>;
+    updateDoc(refOrPath: object | string, data: object): Promise<any>;
 
     /**
      * Deletes a document.
@@ -596,7 +603,7 @@ export interface Rebase {
      * if the document/collection does not exist or there are any read
      * errors.
      */
-    removeDoc(refOrPath: {} | string, data: {}): Promise<any>;
+    removeDoc(refOrPath: object | string, data: object): Promise<any>;
 
     /**
      * Removes documents from a collection. If no query is supplied, it
@@ -609,7 +616,7 @@ export interface Rebase {
      * errors.
      */
     removeFromCollection(
-        refOrPath: {} | string,
+        refOrPath: object | string,
         options: removeFromCollectionOptions
     ): Promise<any>;
 
@@ -621,7 +628,7 @@ export interface Rebase {
      * if the document/collection does not exist or there are any read
      * errors.
      */
-    syncDoc(refOrPath: {} | string, options: syncDocOptions): {};
+    syncDoc(refOrPath: object | string, options: syncDocOptions): object;
 
     /**
      * Clean up a listener. Listeners are automatically cleaned up when
@@ -633,7 +640,7 @@ export interface Rebase {
      * `listenToCollection`, `bindCollection`, `listenToDoc`, `bindDoc` or
      * `syncDoc`.
      */
-    removeBinding(ref: {}): void;
+    removeBinding(ref: object): void;
 
     /**
      * Removes every Firebase/Firestore listener.
@@ -647,4 +654,4 @@ export interface Rebase {
  * database.
  * @return An instance of re-base.
  */
-export function createClass(database: {}): Rebase;
+export function createClass(database: object): Rebase;
