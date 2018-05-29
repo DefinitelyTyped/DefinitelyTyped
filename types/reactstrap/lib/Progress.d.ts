@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type ProgressProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
@@ -14,5 +15,5 @@ export type ProgressProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   barClassName?: string;
 } & T;
 
-declare class Progress<T = {[key: string]: any}> extends React.Component<ProgressProps<T>> {};
+declare class Progress<T = {[key: string]: any}> extends React.Component<ProgressProps<T>> {}
 export default Progress;
