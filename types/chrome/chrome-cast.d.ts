@@ -240,15 +240,13 @@ declare namespace chrome.cast {
 
     }
 
-    export interface Image {
+    export class Image {
         /**
          * @param {string} url
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Image
          */
-        new(
-            url: string
-        ): Image;
+        constructor(url: string);
 
         url: string;
         height?: number;
