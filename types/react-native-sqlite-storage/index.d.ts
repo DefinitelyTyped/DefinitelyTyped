@@ -61,14 +61,12 @@ export interface SQLError {
 export type StatementCallback = (transaction: Transaction, resultSet: ResultSet) => void;
 export type StatementErrorCallback = (transaction: Transaction, error: SQLError) => void;
 export interface Transaction {
-    executeSql(sqlStatement: string, arguments?: any[]): Promise<TransactionResultSetPromise>;
+    executeSql(sqlStatement: string, arguments?: any[]): Promise<[Transaction, ResultSet]>;
     executeSql(sqlStatement: string, arguments?: any[], callback?: StatementCallback, errorCallback?: StatementErrorCallback): void;
 }
 
 export type TransactionCallback = (transaction: Transaction) => void;
 export type TransactionErrorCallback = (error: SQLError) => void;
-export type ResultSetPromise = [ResultSet];
-export type TransactionResultSetPromise = [Transaction, ResultSet];
 
 export interface SQLiteDatabase {
     transaction(scope: (tx: Transaction) => void): Promise<Transaction>;
@@ -77,7 +75,7 @@ export interface SQLiteDatabase {
     readTransaction(scope: (tx: Transaction) => void, error?: TransactionErrorCallback, success?: TransactionCallback): void;
     close(): Promise<void>;
     close(success: () => void, error: (err: SQLError) => void): void;
-    executeSql(statement: string, params?: any[]): Promise<ResultSetPromise>;
+    executeSql(statement: string, params?: any[]): Promise<[ResultSet]>;
     executeSql(statement: string, params?: any[], success?: StatementCallback, error?: StatementErrorCallback): void;
 
     attach(nameToAttach: string, alias: string): Promise<void>;
