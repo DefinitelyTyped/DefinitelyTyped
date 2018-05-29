@@ -64,6 +64,7 @@ declare namespace session {
     proxy?: boolean;
     saveUninitialized?: boolean;
     unset?: string;
+    sameSite?: boolean | string;
   }
 
   interface BaseMemoryStore {
