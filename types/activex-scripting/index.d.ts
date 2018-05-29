@@ -499,3 +499,7 @@ interface ActiveXObjectNameMap {
     'Scripting.Encoder': Scripting.Encoder;
     'Scripting.FileSystemObject': Scripting.FileSystemObject;
 }
+
+interface EnumeratorConstructor {
+    new <TKey>(dict: Scripting.Dictionary<TKey>): Enumerator<TKey>;
+}
