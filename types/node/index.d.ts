@@ -6888,7 +6888,7 @@ declare module "http2" {
 
     export interface Http2Stream extends stream.Duplex {
         readonly aborted: boolean;
-        close(code: number, callback?: () => void): void;
+        close(code?: number, callback?: () => void): void;
         readonly closed: boolean;
         readonly destroyed: boolean;
         readonly pending: boolean;

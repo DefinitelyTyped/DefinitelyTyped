@@ -1523,6 +1523,13 @@ s.define( 'ScopeMe', {
     }
 } );
 
+// Test convention method used to associate models after creation
+Object.keys(s.models).forEach(modelName => {
+    if (s.models[modelName].associate) {
+        s.models[modelName].associate(s.models);
+    }
+});
+
 // Generic find options
 interface ChairAttributes {
     id: number;

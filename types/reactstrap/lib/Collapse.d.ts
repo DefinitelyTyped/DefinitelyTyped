@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface CollapseProps extends React.HTMLProps<HTMLElement> {
@@ -19,5 +20,5 @@ export interface CollapseProps extends React.HTMLProps<HTMLElement> {
   onExited?: () => void;
 }
 
-declare const Collapse: React.StatelessComponent<CollapseProps>;
+declare class Collapse extends React.Component<CollapseProps> {}
 export default Collapse;

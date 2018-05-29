@@ -199,7 +199,7 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
     /**
      * Set the maximum distance that the mouse can move between mousedown and mouseup that will trigger
      * a subsequent click event. If at any point between mousedown and mouseup the mouse is greater than or equal to
-     * distance from its position on mousedown, the click event follwing mouseup will be suppressed.
+     * distance from its position on mousedown, the click event following mouseup will be suppressed.
      *
      * @param distance The distance threshold between mousedown and mouseup measured in client coordinates (event.clientX and event.clientY).
      * The default is zero.
