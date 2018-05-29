@@ -17,7 +17,8 @@ app.use(session({
   resave: true,
   proxy: true,
   saveUninitialized: true,
-  unset: 'keep'
+  unset: 'keep',
+  sameSite: true
 }));
 
 interface MySession extends Express.Session {
