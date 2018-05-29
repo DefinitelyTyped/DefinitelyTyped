@@ -1,7 +1,7 @@
 /// <reference types="windows-script-host" />
 /// <reference types="activex-scripting" />
 
-const collectionToArray = <T>(col: { Item(index: any): T } | SafeArray<T>) => {
+const collectionToArray = <T>(col: { Item(index: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -423,7 +423,7 @@ the job?
     document.GroupBroadcastReceipts = true;
 
     const jobIDs = document.Submit('');
-    collectionToArray(jobIDs).forEach(jobID => WScript.Echo(`The job ID is ${jobID}`));
+    new VBArray(jobIDs).toArray().forEach(jobID => WScript.Echo(`The job ID is ${jobID}`));
 
     while (recipients.Count > 0) {
         recipients.Remove(1);
