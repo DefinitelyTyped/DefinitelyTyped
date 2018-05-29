@@ -18,13 +18,8 @@ declare namespace listen {
         raw: string;
     }
 
-    interface Callback {
-        (key: Key): void;
-    }
-
-    interface OffKeyPress {
-        (): void;
-    }
+    type Callback = (key: Key) => void;
+    type OffKeyPress = (key: Key) => void;
 }
 
 declare function listen(
