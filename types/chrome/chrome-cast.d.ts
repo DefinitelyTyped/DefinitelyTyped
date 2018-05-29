@@ -10,7 +10,7 @@
 declare namespace chrome.cast {
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.AutoJoinPolicy
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.AutoJoinPolicy
      */
     export enum AutoJoinPolicy {
         CUSTOM_CONTROLLER_SCOPED = "custom_controller_scoped",
@@ -21,7 +21,7 @@ declare namespace chrome.cast {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.DefaultActionPolicy
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.DefaultActionPolicy
      */
     export enum DefaultActionPolicy {
         CREATE_SESSION = "create_session",
@@ -30,7 +30,7 @@ declare namespace chrome.cast {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Capability
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.Capability
      */
     export enum Capability {
         VIDEO_OUT = "video_out",
@@ -42,7 +42,7 @@ declare namespace chrome.cast {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ErrorCode
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ErrorCode
      */
     export enum ErrorCode {
         CANCEL = "cancel",
@@ -59,7 +59,7 @@ declare namespace chrome.cast {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ReceiverAvailability
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ReceiverAvailability
      */
     export enum ReceiverAvailability {
         AVAILABLE = "available",
@@ -68,7 +68,7 @@ declare namespace chrome.cast {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SenderPlatform
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.SenderPlatform
      */
     export enum SenderPlatform {
         CHROME = "chrome",
@@ -78,7 +78,7 @@ declare namespace chrome.cast {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ReceiverType
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ReceiverType
      */
     export enum ReceiverType {
         CAST = "cast",
@@ -89,7 +89,7 @@ declare namespace chrome.cast {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ReceiverAction
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ReceiverAction
      */
     export enum ReceiverAction {
         CAST = "cast",
@@ -100,7 +100,7 @@ declare namespace chrome.cast {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SessionStatus
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.SessionStatus
      */
     export enum SessionStatus {
         CONNECTED = "connected",
@@ -503,7 +503,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MediaCommand
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.MediaCommand
      */
     export enum MediaCommand {
         PAUSE = "pause",
@@ -514,7 +514,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {number}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MetadataType
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.MetadataType
      */
     export enum MetadataType {
         GENERIC,
@@ -526,7 +526,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PlayerState
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.PlayerState
      */
     export enum PlayerState {
         IDLE = "IDLE",
@@ -537,7 +537,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.ResumeState
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.ResumeState
      */
     export enum ResumeState {
         PLAYBACK_START = "PLAYBACK_START",
@@ -546,7 +546,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.StreamType
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.StreamType
      */
     export enum StreamType {
         BUFFERED = "BUFFERED",
@@ -556,7 +556,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.IdleReason
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.IdleReason
      */
     export enum IdleReason {
         CANCELLED = "CANCELLED",
@@ -671,7 +671,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TrackType
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TrackType
      */
     export enum TrackType {
         TEXT = "TEXT",
@@ -681,7 +681,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackType
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackType
      */
     export enum TextTrackType {
         SUBTITLES = "SUBTITLES",
@@ -693,7 +693,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackEdgeType
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackEdgeType
      */
     export enum TextTrackEdgeType {
         NONE = "NONE",
@@ -705,7 +705,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackWindowType
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackWindowType
      */
     export enum TextTrackWindowType {
         NONE = "NONE",
@@ -715,7 +715,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackFontGenericFamily
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackFontGenericFamily
      */
     export enum TextTrackFontGenericFamily {
         SANS_SERIF = "SANS_SERIF",
@@ -729,7 +729,7 @@ declare namespace chrome.cast.media {
 
     /**
      * @enum {string}
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackFontStyle
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackFontStyle
      */
     export enum TextTrackFontStyle {
         NORMAL = "NORMAL",
