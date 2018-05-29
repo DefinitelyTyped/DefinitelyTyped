@@ -15,10 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths":{
+            "@ptomasroos/react-native-multi-slider": ["ptomasroos__react-native-multi-slider"]
+        }
     },
     "files": [
-        "index.d.ts",
-        "ptomasroos__react-native-multi-slider-tests.tsx"
+        "index.d.ts"
     ]
 }
