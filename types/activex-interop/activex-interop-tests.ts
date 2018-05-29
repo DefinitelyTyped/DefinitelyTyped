@@ -14,7 +14,7 @@ while (!keyEnumerator.atEnd()) {
 
 const keysArray = new VBArray(dict.Keys()).toArray();
 const itemsArray = new VBArray(dict.Items()).toArray();
-for (const index in keysArray) {
-    const key = keysArray[index];
-    const item = itemsArray[index];
+for (let i = 0; i < keysArray.length; i++) {
+    const key = keysArray[i];
+    const item = itemsArray[i];
 }
