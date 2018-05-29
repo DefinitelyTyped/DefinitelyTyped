@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "stampit": [
-                "stampit/v3"
+                "stampit/v2"
             ]
         }
     },

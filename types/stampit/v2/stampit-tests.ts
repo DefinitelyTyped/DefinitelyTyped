@@ -11,6 +11,7 @@ var a = stampit().init((options) => {
 a(); // Object -- so far so good.
 a().getA(); // "a"
 
+
 var b = stampit().init(function () {
     var a = 'b';
     this.getB = function () {
@@ -24,15 +25,36 @@ var foo = c(); // we won't throw this one away...
 foo.getA(); // "a"
 foo.getB(); // "b"
 
+
+// Some more privileged methods, with some private data.
+// Use stampit.mixIn() to make this feel declarative:
+var availability = stampit().init(function () {
+    var isOpen = false; // private
+
+    return stampit.mixIn(this, {
+        open: function open() {
+            isOpen = true;
+            return this;
+        },
+        close: function close() {
+            isOpen = false;
+            return this;
+        },
+        isOpen: function isOpenMethod() {
+            return isOpen;
+        }
+    });
+});
+
 // Here's a mixin with public methods, and some refs:
 var membership = stampit({
     methods: {
         members: {},
-        add: function (member: any) {
+        add: function (member:any) {
             this.members[member.name] = member;
             return this;
         },
-        getMember: function (name: any) {
+        getMember: function (name:any) {
             return this.members[name];
         }
     },
@@ -48,11 +70,11 @@ var defaults = stampit().refs({
 
 // Classical inheritance has nothing on this. No parent/child coupling. No deep inheritance hierarchies.
 // Just good, clean code reusability.
-var bar = stampit.compose(defaults, membership);
+var bar = stampit.compose(defaults, availability, membership);
 // Note that you can override refs on instantiation:
-var myBar = bar({ name: 'Moe\'s' });
+var myBar = bar({name: 'Moe\'s'});
 // Silly, but proves that everything is as it should be.
-myBar.add({ name: 'Homer' }).open().getMember('Homer');
+myBar.add({name: 'Homer'}).open().getMember('Homer');
 
 
 var myStamp = stampit().methods({
@@ -71,8 +93,8 @@ var myStamp = stampit().methods({
     }
 });
 
-myStamp.props({
-    foo: { bar: 'bar' },
+myStamp.refs({
+    foo: {bar: 'bar'},
     refsOverride: false
 }).refs({
     bar: 'bar',
@@ -87,16 +109,20 @@ myStamp.init(function () {
     };
 }).init(function () {
     this.a = true;
-}).init(function () {
-    this.b = true;
-}, function () {
-    this.c = true;
+}).init({
+    bar: function bar() {
+        this.b = true;
+    }
+}, {
+    baz: function baz() {
+        this.c = true;
+    }
 });
 
 var obj = myStamp.create();
 obj.getSecret && obj.a && obj.b && obj.c; // true
 
-var newStamp = stampit({ refs: { defaultNum: 1 } }).compose(myStamp);
+var newStamp = stampit({refs: {defaultNum: 1}}).compose(myStamp);
 
 
 var obj1 = stampit().methods({
@@ -104,18 +130,18 @@ var obj1 = stampit().methods({
         return 'a';
     }
 }, {
-        b: function () {
-            return 'b';
-        }
-    }).create();
+    b: function () {
+        return 'b';
+    }
+}).create();
 
 var obj2 = stampit().refs({
     a: 'a'
 }, {
-        b: 'b'
-    }).create();
+    b: 'b'
+}).create();
 
-var obj = defaults.compose(newStamp, membership).create();
+var obj = defaults.compose(newStamp, membership, availability).create();
 
 
 // The old constructor / class thing...
@@ -125,6 +151,9 @@ var Constructor = function Constructor() {
 Constructor.prototype.foo = function foo() {
     return 'foo';
 };
+
+// The conversion
+var oldskool = stampit.convertConstructor(Constructor);
 
 // A new stamp to compose with...
 var newskool = stampit().methods({
@@ -138,7 +167,7 @@ var newskool = stampit().methods({
 
 // Now you can compose those old constructors just like you could
 // with any other stamp...
-var myThing = stampit.compose(newskool);
+var myThing = stampit.compose(oldskool, newskool);
 
 var t = myThing();
 
