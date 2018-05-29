@@ -21,6 +21,7 @@
         }
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "ptomasroos__react-native-multi-slider-tests.tsx"
     ]
 }
