@@ -14,7 +14,7 @@ import { WrapOptions } from "retry";
  * @param attempt The number of the attempt.
  * @returns A Promise for anything (eg. a HTTP response).
  */
-type RetryableFn = ((retry: (error: any) => never, attempt: number) => Promise<any>);
+type RetryableFn<ResponseType> = ((retry: (error: any) => never, attempt: number) => Promise<ResponseType>);
 /**
  * Wrap all functions of the object with retry. The params can be entered in either order, just like in the original library.
  *
@@ -22,6 +22,6 @@ type RetryableFn = ((retry: (error: any) => never, attempt: number) => Promise<a
  * @param options The options for how long/often to retry the function for.
  * @returns The Promise resolved by the input retryableFn, or rejected (if not retried) from its catch block.
  */
-declare function promiseRetry(retryableFn: RetryableFn, options?: WrapOptions): Promise<any>;
-declare function promiseRetry(options: WrapOptions, retryableFn: RetryableFn): Promise<any>;
+declare function promiseRetry<ResponseType>(retryableFn: RetryableFn<ResponseType>, options?: WrapOptions): Promise<ResponseType>;
+declare function promiseRetry<ResponseType>(options: WrapOptions, retryableFn: RetryableFn<ResponseType>): Promise<ResponseType>;
 export = promiseRetry;
