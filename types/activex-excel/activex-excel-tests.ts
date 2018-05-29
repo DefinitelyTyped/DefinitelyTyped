@@ -305,7 +305,7 @@ const setColumnVisibility = (visible: boolean) => {
             enumerator.moveNext();
         }
 
-        // alternatively, make a JS array out of the keys
+        // alternatively, make a JS array out of the keys, and iterate using forEach
         // new VBArray(dict.Keys()).toArray().forEach(x => combobox.AddItem(x));
     })();
 })();
