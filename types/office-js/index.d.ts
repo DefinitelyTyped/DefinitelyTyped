@@ -1724,8 +1724,7 @@ declare namespace Office {
          * @remarks
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          * 
-         * > [!IMPORTANT]
-         * > Your add-in's code can register a handler for the settingsChanged event when the add-in is running with any Excel client, but the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel Online, and more than one user is editing the spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
+         * Important: Your add-in's code can register a handler for the settingsChanged event when the add-in is running with any Excel client, but the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel Online, and more than one user is editing the spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
          * 
          * Hosts: Excel
          * 
@@ -1788,8 +1787,7 @@ declare namespace Office {
          * @remarks
          * null is a valid value for a setting. Therefore, assigning null to the setting will not remove it from the settings property bag.
          * 
-         * > [!IMPORTANT]
-         * > Be aware that the Settings.remove method affects only the in-memory copy of the settings property bag. To persist the removal of the specified setting in the document, at some point after calling the Settings.remove method and before the add-in is closed, you must call the Settings.saveAsync method.
+         * Important: Be aware that the Settings.remove method affects only the in-memory copy of the settings property bag. To persist the removal of the specified setting in the document, at some point after calling the Settings.remove method and before the add-in is closed, you must call the Settings.saveAsync method.
          * Hosts: Access, Excel, PowerPoint, Word
          * 
          * Available in Requirement set: Settings
@@ -1822,9 +1820,9 @@ declare namespace Office {
          * @remarks
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the set and get methods to work with the in-memory copy of the settings property bag. When you want to persist the settings so that they are available the next time the add-in is used, use the saveAsync method.
          * 
-         * > [!NOTE]
-         * > The saveAsync method persists the in-memory settings property bag into the document file; however, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system.
-         * > The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
+         * Note:
+         * The saveAsync method persists the in-memory settings property bag into the document file; however, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system.
+         * The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
          * 
          * Hosts: Access, Excel, PowerPoint, Word
          * @param options Syntax example: {overwriteIfStale:false}
@@ -1848,8 +1846,7 @@ declare namespace Office {
          * @remarks
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name in the in-memory copy of the settings property bag. After you call the Settings.saveAsync method, the value is stored in the document as the serialized JSON representation of its data type. A maximum of 2MB is available for the settings of each add-in.
          * 
-         * > [!IMPORTANT]
-         * > Be aware that the Settings.set method affects only the in-memory copy of the settings property bag. To make sure that additions or changes to settings will be available to your add-in the next time the document is opened, at some point after calling the Settings.set method and before the add-in is closed, you must call the Settings.saveAsync method to persist settings in the document.
+         * Important: Be aware that the Settings.set method affects only the in-memory copy of the settings property bag. To make sure that additions or changes to settings will be available to your add-in the next time the document is opened, at some point after calling the Settings.set method and before the add-in is closed, you must call the Settings.saveAsync method to persist settings in the document.
          * 
          * Hosts: Access, Excel, PowerPoint, Word
          * 
@@ -5370,7 +5367,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This member is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This member is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5507,7 +5504,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          * 
          * @remarks
-         * [!NOTE] In Outlook on the web, if the item is an appointment and it has previously been saved using saveAsync, the user is prompted to save, discard, or cancel even if no changes have occurred since the item was last saved.
+         * Note: In Outlook on the web, if the item is an appointment and it has previously been saved using saveAsync, the user is prompted to save, discard, or cancel even if no changes have occurred since the item was last saved.
          * 
          * Minimum permission level: Restricted
          * Applicable Outlook mode: Compose
@@ -5520,7 +5517,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5604,9 +5601,9 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          * 
          * @remarks
-         * [!NOTE] If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that when Outlook is in cached mode, it may take some time before the item is actually synced to the server. Until the item is synced, using the itemId will return an error.
+         * Note: If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that when Outlook is in cached mode, it may take some time before the item is actually synced to the server. Until the item is synced, using the itemId will return an error.
          * 
-         * [!NOTE] The following clients have different behavior for saveAsync on appointments in compose mode:
+         * Note: The following clients have different behavior for saveAsync on appointments in compose mode:
          * 
          * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
          * 
@@ -5668,7 +5665,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, see [Blocked attachments in Outlook]<https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519>.
+         * Note: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, see [Blocked attachments in Outlook]<https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519>.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5704,7 +5701,7 @@ declare namespace Office {
          * 
          * @remarks
          *  
-         * [!NOTE] The identifier returned by the itemId property is the same as the Exchange Web Services item identifier. The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. For more details, see Use the Outlook REST APIs from an Outlook add-in.         * 
+         * Note: The identifier returned by the itemId property is the same as the Exchange Web Services item identifier. The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. For more details, see Use the Outlook REST APIs from an Outlook add-in.         * 
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5757,7 +5754,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5787,7 +5784,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5811,7 +5808,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5838,7 +5835,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: Restricted
          * Applicable Outlook mode: Read
@@ -5854,7 +5851,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5877,7 +5874,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5897,7 +5894,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5912,7 +5909,7 @@ declare namespace Office {
          *  
          * @remarks
          * 
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -5934,7 +5931,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -6038,7 +6035,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] The recipientType property of the EmailAddressDetails object in the from property is undefined.
+         * Note: The recipientType property of the EmailAddressDetails object in the from property is undefined.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -6064,7 +6061,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] The recipientType property of the EmailAddressDetails object in the sender property is undefined.
+         * Note: The recipientType property of the EmailAddressDetails object in the sender property is undefined.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -6211,7 +6208,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This member is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This member is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Compose or read
@@ -6267,7 +6264,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          * 
          * @remarks
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: Restricted
          * Applicable Outlook mode: Compose or read
@@ -6301,7 +6298,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          * 
          * @remarks
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: Restricted
          * Applicable Outlook mode: Compose or read
@@ -6340,7 +6337,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          * 
          * @remarks
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Compose or read
@@ -6361,7 +6358,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          * 
          * @remarks
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Compose or read
@@ -6382,7 +6379,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          * 
          * @remarks
-         * [!NOTE] This method is not supported in Outlook for iOS or Outlook for Android.
+         * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Read
@@ -6447,7 +6444,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible. 
+         * Note: It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible. 
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Compose and read
@@ -6476,7 +6473,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible. 
+         * Note: It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible. 
          * 
          * Minimum permission level: ReadItem
          * Applicable Outlook mode: Compose and read
@@ -6547,9 +6544,9 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * [!NOTE] This method is not supported in the following scenarios. - In Outlook for iOS or Outlook for Android - When the add-in is loaded in a Gmail mailbox
+         * Note: This method is not supported in the following scenarios. - In Outlook for iOS or Outlook for Android - When the add-in is loaded in a Gmail mailbox
          * 
-         * [!NOTE] The server administrator must set OAuthAuthentication to true on the Client Access Server EWS directory to enable the makeEwsRequestAsync method to make EWS requests.
+         * Note: The server administrator must set OAuthAuthentication to true on the Client Access Server EWS directory to enable the makeEwsRequestAsync method to make EWS requests.
          * 
          * *Version differences*
          * 
@@ -6867,7 +6864,7 @@ declare namespace Office {
      * [Api set: Mailbox 1.0]
      * 
      * @remarks
-     * [!IMPORTANT]: The RoamingSettings object is initialized from the persisted storage only when the add-in is first loaded. For task panes, this means that it is only initialized when the task pane first opens. If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if your add-in has persisted changes. The persisted changes will not be available until the task pane is closed and reopened.
+     * Important: The RoamingSettings object is initialized from the persisted storage only when the add-in is first loaded. For task panes, this means that it is only initialized when the task pane first opens. If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if your add-in has persisted changes. The persisted changes will not be available until the task pane is closed and reopened.
      * 
      * Minimum permission level: Restricted
      * Applicable Outlook mode: Compose or read
@@ -7091,7 +7088,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.6]
          * 
          * @remarks
-         * [!NOTE] This member is currently only supported in Outlook 2016 for Mac, build 16.9.1212 and greater.
+         * Note: This member is currently only supported in Outlook 2016 for Mac, build 16.9.1212 and greater.
          * 
          * |Value    |Description   |
          * |---------|--------------|
