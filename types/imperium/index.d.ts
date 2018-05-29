@@ -1,5 +1,5 @@
 // Type definitions for imperium v2.0.2
-// Project: https://www.npmjs.org/package/mono-js/imperium
+// Project: https://www.npmjs.org/package/imperium
 // Definitions by: Gaetan SENN <https://github.com/gaetansenn>
 // Definitions: https://github.com/psnider/DefinitelyTyped/imperium
 // TypeScript Version: 2.7
