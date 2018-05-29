@@ -6244,8 +6244,8 @@ export class WebGLDepthBuffer {
     constructor(gl: any, state: any);
 
     setTest(depthTest: boolean): void;
-    sertMask(depthMask: number): void;
-    setFunc(depthFunc: Function): void;
+    setMask(depthMask: number): void;
+    setFunc(depthFunc: number): void;
     setLocked(lock: boolean): void;
     setClear(depth: any): void;
     reset(): void;
@@ -6255,8 +6255,8 @@ export class WebGLStencilBuffer {
     constructor(gl: any, state: any);
 
     setTest(stencilTest: boolean): void;
-    sertMask(stencilMask: number): void;
-    setFunc(stencilFunc: Function, stencilRef: any, stencilMask: number): void;
+    setMask(stencilMask: number): void;
+    setFunc(stencilFunc: number, stencilRef: any, stencilMask: number): void;
     setOp(stencilFail: any, stencilZFail: any, stencilZPass: any): void;
     setLocked(lock: boolean): void;
     setClear(stencil: any): void;

@@ -72,7 +72,7 @@ declare namespace vision {
          * Disable layout when using Jade as it will handle including any layout files independently.
          * Defaults to false.
          */
-        layout?: boolean;
+        layout?: boolean | string;
         /** the root file path, or array of file paths, where layout templates are located (using the relativeTo prefix if present). Defaults to path. */
         layoutPath?: string | string[];
         /** the key used by the template engine to denote where primary template content should go. Defaults to 'content'. */

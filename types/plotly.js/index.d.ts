@@ -7,6 +7,7 @@
 // 				Dadstart <https://github.com/Dadstart>
 // 				Jared Szechy <https://github.com/szechyjs>
 // 				Drew Diamantoukos <https://github.com/MercifulCode>
+// 				Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -356,7 +357,7 @@ export type Color = string | Array<string | undefined | null> | Array<Array<stri
 
 // Bar Scatter
 export interface ScatterData {
-	type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d';
+	type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' |'surface';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;

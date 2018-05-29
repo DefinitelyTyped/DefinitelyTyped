@@ -1,4 +1,4 @@
-// Type definitions for snoowrap 1.15
+// Type definitions for snoowrap 1.16
 // Project: https://github.com/not-an-aardvark/snoowrap
 // Definitions by: Vito Samson <https://github.com/vitosamson>
 //                 TheAppleFreak <https://github.com/TheAppleFreak>
@@ -49,7 +49,7 @@ declare class Snoowrap {
   checkCaptchaRequirement(): Promise<boolean>;
   checkUsernameAvailability(name: string): Promise<boolean>;
   composeMessage(options: Snoowrap.ComposeMessageParams): Promise<any>;
-  config(opts: Snoowrap.ConfigOptions): Snoowrap.ConfigOptions;
+  config(opts?: Snoowrap.ConfigOptions): Snoowrap.ConfigOptions;
   createLivethread(options: LiveThreadSettings): Promise<_LiveThread>;
   createMultireddit(options: MultiRedditProperties & { name: string; subreddits: _Subreddit[] | string[]}): Promise<_MultiReddit>;
   createSubreddit(options: SubredditSettings): Promise<_Subreddit>;

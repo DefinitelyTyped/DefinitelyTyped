@@ -236,6 +236,9 @@ declare module "mongoose" {
     /** Closes the connection */
     close(callback?: (err: any) => void): Promise<void>;
 
+    /** Closes the connection */
+    close(force?: boolean, callback?: (err: any) => void): Promise<void>;
+
     /**
      * Retrieves a collection, creating it if not cached.
      * Not typically needed by applications. Just talk to your collection through your model.
@@ -430,7 +433,7 @@ declare module "mongoose" {
     $format(arg: any): string;
     /** Debug print helper */
     $print(name: any, i: any, args: any[]): void;
-    /** Retreives information about this collections indexes. */
+    /** Retrieves information about this collections indexes. */
     getIndexes(): any;
   }
 
@@ -448,6 +451,9 @@ declare module "mongoose" {
 
     /** Expose the possible connection states. */
     static STATES: any;
+
+    then: Promise<Connection>["then"];
+    catch: Promise<Connection>["catch"];
   }
 
   /*

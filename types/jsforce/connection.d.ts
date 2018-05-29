@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
-import { Query, QueryResult } from './query';
+import { Query, QueryResult, ExecuteOptions } from './query';
 import { Record } from './record';
 import { RecordResult } from './record-result';
 import { SObject } from './salesforce-object';
@@ -93,8 +93,8 @@ export type ConnectionEvent = "refresh";
 export abstract class BaseConnection extends EventEmitter {
     _baseUrl(): string;
     request(info: RequestInfo | string, options?: Object, callback?: (err: Error, Object: object) => void): Promise<Object>;
-    query<T>(soql: string, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
-    queryMore<T>(locator: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
+    query<T>(soql: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
+    queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
     create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,

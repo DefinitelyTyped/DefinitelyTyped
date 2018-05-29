@@ -42,6 +42,12 @@ declare namespace Dropzone {
 		timeout?: number;
 		parallelUploads?: number;
 		uploadMultiple?: boolean;
+		chunking?: boolean;
+		forceChunking?: boolean;
+		chunkSize?: number;
+		parallelChunkUploads?: boolean;
+		retryChunks?: boolean;
+		retryChunksLimit?: number;
 		maxFilesize?: number;
 		paramName?: string;
 		createImageThumbnails?: boolean;
@@ -83,6 +89,7 @@ declare namespace Dropzone {
 		dictFileSizeUnits?: DropzoneDictFileSizeUnits;
 
 		accept?(file: DropzoneFile, done: (error?: string | Error) => void): void;
+		chunksUploaded?(file: DropzoneFile, done: (error?: string | Error) => void): void; 
 		init?(): void;
 		forceFallback?: boolean;
 		fallback?(): void;

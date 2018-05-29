@@ -5,6 +5,7 @@ const CustomComponent = () => {
     return (
         <ContentLoader
             style={{ borderBottom: '1px solid' }}
+            animate={false}
             speed={1}
             height={100}
             width={100}
@@ -13,6 +14,7 @@ const CustomComponent = () => {
             primaryOpacity={0.06}
             secondaryOpacity={0.12}
             preserveAspectRatio="xMinYMin meet"
+            uniquekey="reactcontentloader"
             className="my-class"
         >
             {/* Pure SVG */}
