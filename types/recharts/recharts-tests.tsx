@@ -160,6 +160,7 @@ class Component extends React.Component<{}, ComponentState> {
                 <ResponsiveContainer>
                     <PieChart width={800} height={400}>
                         <Pie
+                            label={(props: {name: string}) => <Label>{name}</Label>}
                             dataKey="value"
                             activeIndex={this.state.activeIndex}
                             activeShape={renderActiveShape}
