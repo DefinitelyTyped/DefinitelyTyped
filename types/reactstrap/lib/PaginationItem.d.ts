@@ -1,12 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface PaginationItemProps extends React.HTMLAttributes<HTMLElement> {
+export type PaginationItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   active?: boolean;
   disabled?: boolean;
   tag?: React.ReactType;
-}
+} & T;
 
-declare const PaginationItem: React.StatelessComponent<PaginationItemProps>;
+declare class PaginationItem<T = {}> extends React.Component<PaginationItemProps<T>> {}
 export default PaginationItem;

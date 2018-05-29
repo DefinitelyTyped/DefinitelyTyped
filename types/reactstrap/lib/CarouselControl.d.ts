@@ -1,11 +1,12 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface CarouselControlProps extends React.HTMLProps<HTMLElement> {
+export type CarouselControlProps<T = {}> = React.HTMLProps<HTMLElement> & {
     direction: 'prev' | 'next';
     onClickHandler: () => void;
     cssModule?: CSSModule;
     directionText: string;
-}
+} & T;
 
-declare const CarouselControl: React.StatelessComponent<CarouselControlProps>;
+declare class CarouselControl<T = {}> extends React.Component<CarouselControlProps<T>> {}
 export default CarouselControl;

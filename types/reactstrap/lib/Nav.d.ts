@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface NavProps extends React.HTMLProps<HTMLUListElement> {
+export type NavProps<T = {}> = React.HTMLProps<HTMLUListElement> & {
   tabs?: boolean;
   pills?: boolean;
   vertical?: boolean | string;
@@ -12,7 +13,7 @@ export interface NavProps extends React.HTMLProps<HTMLUListElement> {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare const Nav: React.StatelessComponent<NavProps>;
+declare class Nav<T = {}> extends React.Component<NavProps<T>> {}
 export default Nav;

@@ -1,10 +1,11 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface CarouselCaptionProps extends React.HTMLProps<HTMLElement> {
+export type CarouselCaptionProps<T = {}> = React.HTMLProps<HTMLElement> & {
     captionHeader?: string;
     captionText: string;
     cssModule?: CSSModule;
-}
+} & T;
 
-declare const CarouselCaption: React.StatelessComponent<CarouselCaptionProps>;
+declare class CarouselCaption<T = {}> extends React.Component<CarouselCaptionProps<T>> {}
 export default CarouselCaption;

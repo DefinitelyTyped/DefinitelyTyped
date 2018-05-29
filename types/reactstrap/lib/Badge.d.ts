@@ -1,12 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLElement> {
+export type BadgeProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   color?: string;
   pill?: boolean;
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare const Badge: React.StatelessComponent<BadgeProps>;
+declare class Badge<T = {}> extends React.Component<BadgeProps<T>> {}
 export default Badge;

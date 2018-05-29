@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export type ColumnProps
   = string
   | boolean
@@ -10,7 +12,7 @@ export type ColumnProps
     order?: string | number
   };
 
-export interface ColProps extends React.HTMLProps<HTMLDivElement> {
+export type ColProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
   tag?: React.ReactType;
   xs?: ColumnProps;
   sm?: ColumnProps;
@@ -20,7 +22,7 @@ export interface ColProps extends React.HTMLProps<HTMLDivElement> {
 
   //custom widths
   widths?: string[];
-}
+} & T;
 
-declare const Col: React.StatelessComponent<ColProps>;
+declare class Col<T = {}> extends React.Component<ColProps<T>> {}
 export default Col;

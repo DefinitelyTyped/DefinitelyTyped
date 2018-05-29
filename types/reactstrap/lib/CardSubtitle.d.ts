@@ -1,10 +1,11 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface CardSubtitleProps extends React.HTMLAttributes<HTMLElement> {
+export type CardSubtitleProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare const CardSubtitle: React.StatelessComponent<CardSubtitleProps>;
+declare class CardSubtitle<T = {}> extends React.Component<CardSubtitleProps<T>> {}
 export default CardSubtitle;

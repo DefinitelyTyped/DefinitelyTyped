@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface ProgressProps extends React.HTMLAttributes<HTMLElement> {
+export type ProgressProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   bar?: boolean;
   multi?: boolean;
   tag?: string;
@@ -12,7 +12,7 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   barClassName?: string;
-}
+} & T;
 
-declare const Progress: React.StatelessComponent<ProgressProps>;
+declare class Progress<T = {}> extends React.Component<ProgressProps<T>> {};
 export default Progress;

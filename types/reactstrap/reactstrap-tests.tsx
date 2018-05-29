@@ -350,7 +350,7 @@ class Example15 extends React.Component<any, any> {
           <DropdownItem disabled>Action</DropdownItem>
           <DropdownItem>Another Action</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem onClick={event => {
+          <DropdownItem onClick={(event: React.MouseEvent<HTMLElement>) => {
             // something happens here
           }}>Another Action</DropdownItem>
         </DropdownMenu>

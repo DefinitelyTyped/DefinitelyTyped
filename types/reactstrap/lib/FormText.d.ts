@@ -1,12 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface FormTextProps extends React.HTMLAttributes<HTMLElement> {
+export type FormTextProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   inline?: boolean;
   tag?: React.ReactType;
   color?: string;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare const FormText: React.StatelessComponent<FormTextProps>;
+declare class FormText<T = {}> extends React.Component<FormTextProps<T>> {}
 export default FormText;

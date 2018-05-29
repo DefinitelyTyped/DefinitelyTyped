@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
+export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   color?: string;
@@ -8,15 +9,13 @@ export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
   transitionAppearTimeout?: number;
   transitionEnterTimeout?: number;
   transitionLeaveTimeout?: number;
-}
-export interface UncontrolledAlertProps extends UncontrolledProps {
-  /* intentionally blank */
-}
+} & T;
+export type UncontrolledAlertProps<T = {}> = UncontrolledProps<T>;
 
-export interface AlertProps extends UncontrolledAlertProps {
+export type AlertProps<T = {}> = UncontrolledAlertProps<T> & {
   isOpen?: boolean;
   toggle?: () => void;
-}
+};
 
-declare const Alert: React.StatelessComponent<AlertProps>;
+declare class Alert<T = {}> extends React.Component<AlertProps<T>> {}
 export default Alert;

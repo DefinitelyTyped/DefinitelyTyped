@@ -17,5 +17,5 @@ export interface CarouselItemProps extends React.HTMLProps<HTMLElement>, Transit
     slide?: boolean;
 }
 
-declare class CarouselItem extends React.Component<CarouselItemProps> {}
+declare class CarouselItem<T = {}> extends React.Component<CarouselItemProps> {}
 export default CarouselItem;
