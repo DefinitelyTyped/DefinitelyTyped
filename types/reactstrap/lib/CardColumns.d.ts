@@ -7,5 +7,5 @@ export type CardColumnsProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class CardColumns<T = {}> extends React.Component<CardColumnsProps<T>> {}
+declare class CardColumns<T = {[key: string]: any}> extends React.Component<CardColumnsProps<T>> {}
 export default CardColumns;

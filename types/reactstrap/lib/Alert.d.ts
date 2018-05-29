@@ -17,5 +17,5 @@ export type AlertProps<T = {}> = UncontrolledAlertProps<T> & {
   toggle?: () => void;
 };
 
-declare class Alert<T = {}> extends React.Component<AlertProps<T>> {}
+declare class Alert<T = {[key: string]: any}> extends React.Component<AlertProps<T>> {}
 export default Alert;

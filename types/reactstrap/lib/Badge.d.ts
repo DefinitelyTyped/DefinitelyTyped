@@ -9,5 +9,5 @@ export type BadgeProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class Badge<T = {}> extends React.Component<BadgeProps<T>> {}
+declare class Badge<T = {[key: string]: any}> extends React.Component<BadgeProps<T>> {}
 export default Badge;

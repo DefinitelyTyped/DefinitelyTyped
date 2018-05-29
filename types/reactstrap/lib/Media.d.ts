@@ -18,5 +18,5 @@ export type MediaProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   alt?: string;
 } & T;
 
-declare class Media<T = {}> extends React.Component<MediaProps<T>> {}
+declare class Media<T = {[key: string]: any}> extends React.Component<MediaProps<T>> {}
 export default Media;

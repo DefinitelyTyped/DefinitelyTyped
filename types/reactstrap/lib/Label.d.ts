@@ -23,5 +23,5 @@ export type LabelProps<T = {}> = Intermediate & {
   xl?: ColumnProps;
 } & T;
 
-declare class Label<T = {}> extends React.Component<LabelProps<T>> {}
+declare class Label<T = {[key: string]: any}> extends React.Component<LabelProps<T>> {}
 export default Label;

@@ -11,5 +11,5 @@ export type FormGroupProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class FormGroup<T = {}> extends React.Component<FormGroupProps<T>> {}
+declare class FormGroup<T = {[key: string]: any}> extends React.Component<FormGroupProps<T>> {}
 export default FormGroup;

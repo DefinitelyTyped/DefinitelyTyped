@@ -8,5 +8,5 @@ export type ListGroupProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class ListGroup<T = {}> extends React.Component<ListGroupProps<T>> {}
+declare class ListGroup<T = {[key: string]: any}> extends React.Component<ListGroupProps<T>> {}
 export default ListGroup;

@@ -14,5 +14,5 @@ export type ListGroupItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   onClick?: React.MouseEventHandler<any>;
 } & T;
 
-declare class ListGroupItem<T = {}> extends React.Component<ListGroupItemProps<T>> {}
+declare class ListGroupItem<T = {[key: string]: any}> extends React.Component<ListGroupItemProps<T>> {}
 export default ListGroupItem;

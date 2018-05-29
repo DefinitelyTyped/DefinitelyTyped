@@ -27,5 +27,5 @@ export type Props<T = {}> = UncontrolledProps<T> & {
 };
 export type DropdownProps<T = {}> = Props<T>;
 
-declare class Dropdown<T = {}> extends React.Component<DropdownProps<T>> {}
+declare class Dropdown<T = {[key: string]: any}> extends React.Component<DropdownProps<T>> {}
 export default Dropdown;

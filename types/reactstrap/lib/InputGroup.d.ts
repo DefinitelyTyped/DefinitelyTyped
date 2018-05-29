@@ -8,5 +8,5 @@ export type InputGroupProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class InputGroup<T = {}> extends React.Component<InputGroupProps<T>> {}
+declare class InputGroup<T = {[key: string]: any}> extends React.Component<InputGroupProps<T>> {}
 export default InputGroup;

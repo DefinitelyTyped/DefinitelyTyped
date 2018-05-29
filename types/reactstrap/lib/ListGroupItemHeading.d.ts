@@ -7,5 +7,5 @@ export type ListGroupItemHeadingProps<T = {}> = React.HTMLAttributes<HTMLElement
   cssModule?: CSSModule;
 } & T;
 
-declare class ListGroupItemHeading<T = {}> extends React.Component<ListGroupItemHeadingProps<T>> {}
+declare class ListGroupItemHeading<T = {[key: string]: any}> extends React.Component<ListGroupItemHeadingProps<T>> {}
 export default ListGroupItemHeading;

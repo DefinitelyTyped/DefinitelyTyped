@@ -6,5 +6,5 @@ export type UncontrolledButtonDropdownProps<T = {}> = UncontrolledProps<T>;
 
 export type ButtonDropdownProps<T = {}> = DropdownProps<T>;
 
-declare class ButtonDropdown<T = {}> extends React.Component<ButtonDropdownProps<T>> {}
+declare class ButtonDropdown<T = {[key: string]: any}> extends React.Component<ButtonDropdownProps<T>> {}
 export default ButtonDropdown;

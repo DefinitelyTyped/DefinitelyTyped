@@ -8,5 +8,5 @@ export type CarouselIndicatorsProps<T = {}> = React.HTMLProps<HTMLElement> & {
     onClickHandler: (idx: number) => void;
 } & T;
 
-declare class CarouselIndicators<T = {}> extends React.Component<CarouselIndicatorsProps<T>> {}
+declare class CarouselIndicators<T = {[key: string]: any}> extends React.Component<CarouselIndicatorsProps<T>> {}
 export default CarouselIndicators;

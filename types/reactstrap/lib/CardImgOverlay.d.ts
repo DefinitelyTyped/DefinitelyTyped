@@ -7,5 +7,5 @@ export type CardImgOverlayProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class CardImgOverlay<T = {}> extends React.Component<CardImgOverlayProps<T>> {}
+declare class CardImgOverlay<T = {[key: string]: any}> extends React.Component<CardImgOverlayProps<T>> {}
 export default CardImgOverlay;

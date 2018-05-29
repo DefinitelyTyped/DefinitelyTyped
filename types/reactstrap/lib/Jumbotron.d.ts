@@ -8,5 +8,5 @@ export type JumbotronProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class Jumbotron<T = {}> extends React.Component<JumbotronProps<T>> {}
+declare class Jumbotron<T = {[key: string]: any}> extends React.Component<JumbotronProps<T>> {}
 export default Jumbotron;

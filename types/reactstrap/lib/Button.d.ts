@@ -18,5 +18,5 @@ export type ButtonProps<T = {}> = React.HTMLProps<HTMLButtonElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class Button<T = {}> extends React.Component<ButtonProps<T>> {}
+declare class Button<T = {[key: string]: any}> extends React.Component<ButtonProps<T>> {}
 export default Button;

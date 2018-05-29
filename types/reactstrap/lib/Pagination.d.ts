@@ -7,5 +7,5 @@ export type PaginationProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   size?: string;
 } & T;
 
-declare class Pagination<T = {}> extends React.Component<PaginationProps<T>> {}
+declare class Pagination<T = {[key: string]: any}> extends React.Component<PaginationProps<T>> {}
 export default Pagination;

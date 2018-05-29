@@ -7,5 +7,5 @@ export type CarouselCaptionProps<T = {}> = React.HTMLProps<HTMLElement> & {
     cssModule?: CSSModule;
 } & T;
 
-declare class CarouselCaption<T = {}> extends React.Component<CarouselCaptionProps<T>> {}
+declare class CarouselCaption<T = {[key: string]: any}> extends React.Component<CarouselCaptionProps<T>> {}
 export default CarouselCaption;

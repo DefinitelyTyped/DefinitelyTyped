@@ -17,5 +17,5 @@ export type NavbarProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   expand?: boolean | string;
 } & T;
 
-declare class Navbar<T = {}> extends React.Component<NavbarProps<T>> {}
+declare class Navbar<T = {[key: string]: any}> extends React.Component<NavbarProps<T>> {}
 export default Navbar;

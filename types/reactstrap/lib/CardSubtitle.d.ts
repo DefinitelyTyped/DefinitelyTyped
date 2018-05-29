@@ -7,5 +7,5 @@ export type CardSubtitleProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class CardSubtitle<T = {}> extends React.Component<CardSubtitleProps<T>> {}
+declare class CardSubtitle<T = {[key: string]: any}> extends React.Component<CardSubtitleProps<T>> {}
 export default CardSubtitle;

@@ -7,5 +7,5 @@ export type PopoverHeaderProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class PopoverHeader<T = {}> extends React.Component<PopoverHeaderProps<T>> {}
+declare class PopoverHeader<T = {[key: string]: any}> extends React.Component<PopoverHeaderProps<T>> {}
 export default PopoverHeader;

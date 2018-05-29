@@ -20,5 +20,5 @@ export type CollapseProps<T = {}> = React.HTMLProps<HTMLElement> & {
   onExited?: () => void;
 } & T;
 
-declare class Collapse<T = {}> extends React.Component<CollapseProps<T>> {}
+declare class Collapse<T = {[key: string]: any}> extends React.Component<CollapseProps<T>> {}
 export default Collapse;

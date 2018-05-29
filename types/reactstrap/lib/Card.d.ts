@@ -13,5 +13,5 @@ export type CardProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   style?: React.CSSProperties;
 } & T;
 
-declare class Card<T = {}> extends React.Component<CardProps<T>> {}
+declare class Card<T = {[key: string]: any}> extends React.Component<CardProps<T>> {}
 export default Card;

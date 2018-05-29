@@ -8,5 +8,5 @@ export type FormFeedbackProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   valid?: boolean;
 } & T;
 
-declare class FormFeedback<T = {}> extends React.Component<FormFeedbackProps<T>> {}
+declare class FormFeedback<T = {[key: string]: any}> extends React.Component<FormFeedbackProps<T>> {}
 export default FormFeedback;

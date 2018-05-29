@@ -11,5 +11,5 @@ export type ButtonGroupProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   vertical?: boolean;
 } & T;
 
-declare class ButtonGroup<T = {}> extends React.Component<ButtonGroupProps<T>> {}
+declare class ButtonGroup<T = {[key: string]: any}> extends React.Component<ButtonGroupProps<T>> {}
 export default ButtonGroup;

@@ -7,5 +7,5 @@ export type CardFooterProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class CardFooter<T = {}> extends React.Component<CardFooterProps<T>> {}
+declare class CardFooter<T = {[key: string]: any}> extends React.Component<CardFooterProps<T>> {}
 export default CardFooter;

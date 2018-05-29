@@ -8,5 +8,5 @@ export type ContainerProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class Container<T = {}> extends React.Component<ContainerProps<T>> {}
+declare class Container<T = {[key: string]: any}> extends React.Component<ContainerProps<T>> {}
 export default Container;

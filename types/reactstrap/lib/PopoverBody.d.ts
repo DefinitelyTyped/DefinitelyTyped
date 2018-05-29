@@ -7,5 +7,5 @@ export type PopoverBodyProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class PopoverBody<T = {}> extends React.Component<PopoverBodyProps<T>> {}
+declare class PopoverBody<T = {[key: string]: any}> extends React.Component<PopoverBodyProps<T>> {}
 export default PopoverBody;

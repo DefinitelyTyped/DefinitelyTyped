@@ -10,12 +10,12 @@ export interface Transition {
     onExited?: () => void;
 }
 
-export interface CarouselItemProps extends React.HTMLProps<HTMLElement>, Transition {
+export type CarouselItemProps<T = {}> = React.HTMLProps<HTMLElement> & Transition & {
     tag?: React.ReactType;
     in?: boolean;
     cssModule?: CSSModule;
     slide?: boolean;
-}
+} & T;
 
-declare class CarouselItem<T = {}> extends React.Component<CarouselItemProps> {}
+declare class CarouselItem<T = {[key: string]: any}> extends React.Component<CarouselItemProps<T>> {}
 export default CarouselItem;

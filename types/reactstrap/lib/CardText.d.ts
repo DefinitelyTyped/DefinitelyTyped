@@ -7,5 +7,5 @@ export type CardTextProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class CardText<T = {}> extends React.Component<CardTextProps<T>> {}
+declare class CardText<T = {[key: string]: any}> extends React.Component<CardTextProps<T>> {}
 export default CardText;

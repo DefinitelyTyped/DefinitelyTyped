@@ -24,5 +24,5 @@ export type ColProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
   widths?: string[];
 } & T;
 
-declare class Col<T = {}> extends React.Component<ColProps<T>> {}
+declare class Col<T = {[key: string]: any}> extends React.Component<ColProps<T>> {}
 export default Col;

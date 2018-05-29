@@ -11,5 +11,5 @@ export type BreadcrumbItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   [others: string]: any;
 } & T;
 
-declare class BreadcrumbItem<T = {}> extends React.Component<BreadcrumbItemProps<T>> {}
+declare class BreadcrumbItem<T = {[key: string]: any}> extends React.Component<BreadcrumbItemProps<T>> {}
 export default BreadcrumbItem;

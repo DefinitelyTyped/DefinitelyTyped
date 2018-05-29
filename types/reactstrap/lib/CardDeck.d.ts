@@ -7,5 +7,5 @@ export type CardDeckProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class CardDeck<T = {}> extends React.Component<CardDeckProps<T>> {}
+declare class CardDeck<T = {[key: string]: any}> extends React.Component<CardDeckProps<T>> {}
 export default CardDeck;

@@ -15,5 +15,5 @@ export type TableProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   responsiveTag?: React.ReactType;
 } & T;
 
-declare class Table<T = {}> extends React.Component<TableProps<T>> {}
+declare class Table<T = {[key: string]: any}> extends React.Component<TableProps<T>> {}
 export default Table;

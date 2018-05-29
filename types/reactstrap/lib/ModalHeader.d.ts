@@ -9,5 +9,5 @@ export type ModalHeaderProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   toggle?: () => void;
 } & T;
 
-declare class ModalHeader<T = {}> extends React.Component<ModalHeaderProps<T>> {}
+declare class ModalHeader<T = {[key: string]: any}> extends React.Component<ModalHeaderProps<T>> {}
 export default ModalHeader;

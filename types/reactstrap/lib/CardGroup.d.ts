@@ -7,5 +7,5 @@ export type CardGroupProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class CardGroup<T = {}> extends React.Component<CardGroupProps<T>> {}
+declare class CardGroup<T = {[key: string]: any}> extends React.Component<CardGroupProps<T>> {}
 export default CardGroup;

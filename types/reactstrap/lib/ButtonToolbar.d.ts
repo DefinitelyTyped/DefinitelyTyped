@@ -9,5 +9,5 @@ export type ButtonToolbarProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   role?: string;
 } & T;
 
-declare class ButtonToolbar<T = {}> extends React.Component<ButtonToolbarProps<T>> {}
+declare class ButtonToolbar<T = {[key: string]: any}> extends React.Component<ButtonToolbarProps<T>> {}
 export default ButtonToolbar;

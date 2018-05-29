@@ -7,5 +7,5 @@ export type ModalBodyProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class ModalBody<T = {}> extends React.Component<ModalBodyProps<T>> {}
+declare class ModalBody<T = {[key: string]: any}> extends React.Component<ModalBodyProps<T>> {}
 export default ModalBody;

@@ -8,5 +8,5 @@ export type NavItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class NavItem<T = {}> extends React.Component<NavItemProps<T>> {}
+declare class NavItem<T = {[key: string]: any}> extends React.Component<NavItemProps<T>> {}
 export default NavItem;

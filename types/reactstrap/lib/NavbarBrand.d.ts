@@ -7,5 +7,5 @@ export type NavbarBrandProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class NavbarBrand<T = {}> extends React.Component<NavbarBrandProps<T>> {}
+declare class NavbarBrand<T = {[key: string]: any}> extends React.Component<NavbarBrandProps<T>> {}
 export default NavbarBrand;

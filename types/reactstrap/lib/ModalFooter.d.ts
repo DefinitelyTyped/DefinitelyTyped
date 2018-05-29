@@ -7,5 +7,5 @@ export type ModalFooterProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class ModalFooter<T = {}> extends React.Component<ModalFooterProps<T>> {}
+declare class ModalFooter<T = {[key: string]: any}> extends React.Component<ModalFooterProps<T>> {}
 export default ModalFooter;

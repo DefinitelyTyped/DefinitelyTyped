@@ -8,5 +8,5 @@ export type TabPaneProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tabId?: number | string;
 } & T;
 
-declare class TabPane<T = {}> extends React.Component<TabPaneProps<T>> {}
+declare class TabPane<T = {[key: string]: any}> extends React.Component<TabPaneProps<T>> {}
 export default TabPane;

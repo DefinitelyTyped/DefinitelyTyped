@@ -9,5 +9,5 @@ export type FormTextProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
-declare class FormText<T = {}> extends React.Component<FormTextProps<T>> {}
+declare class FormText<T = {[key: string]: any}> extends React.Component<FormTextProps<T>> {}
 export default FormText;

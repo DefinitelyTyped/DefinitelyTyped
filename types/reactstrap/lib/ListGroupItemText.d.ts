@@ -7,5 +7,5 @@ export type ListGroupItemTextProps<T = {}> = React.HTMLAttributes<HTMLElement> &
   cssModule?: CSSModule;
 } & T;
 
-declare class ListGroupItemText<T = {}> extends React.Component<ListGroupItemTextProps<T>> {}
+declare class ListGroupItemText<T = {[key: string]: any}> extends React.Component<ListGroupItemTextProps<T>> {}
 export default ListGroupItemText;
