@@ -3722,3 +3722,332 @@ function Example118() {
     <Input innerRef={ref}/>;
     <NavLink innerRef={ref}/>;
 }
+
+import { default as Alert_ } from './lib/Alert'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Badge_ } from './lib/Badge'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Breadcrumb_ } from './lib/Breadcrumb'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as BreadcrumbItem_ } from './lib/BreadcrumbItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Button_ } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ButtonDropdown_ } from './lib/ButtonDropdown'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ButtonGroup_ } from './lib/ButtonGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ButtonToolbar_ } from './lib/ButtonToolbar'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Card_ } from './lib/Card'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardBody_ } from './lib/CardBody'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardColumns_ } from './lib/CardColumns'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardDeck_ } from './lib/CardDeck'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardFooter_ } from './lib/CardFooter'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardGroup_ } from './lib/CardGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardHeader_ } from './lib/CardHeader'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardImg_ } from './lib/CardImg'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardImgOverlay_ } from './lib/CardImgOverlay'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardLink_ } from './lib/CardLink'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardSubtitle_ } from './lib/CardSubtitle'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardText_ } from './lib/CardText'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardTitle_ } from './lib/CardTitle'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Carousel_ } from './lib/Carousel'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CarouselItem_ } from './lib/CarouselItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CarouselControl_ } from './lib/CarouselControl'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CarouselIndicators_ } from './lib/CarouselIndicators'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CarouselCaption_ } from './lib/CarouselCaption'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Col_ } from './lib/Col'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Collapse_ } from './lib/Collapse'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Container_ } from './lib/Container'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Dropdown_ } from './lib/Dropdown'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as DropdownItem_ } from './lib/DropdownItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as DropdownMenu_ } from './lib/DropdownMenu'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as DropdownToggle_ } from './lib/DropdownToggle'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Fade_ } from './lib/Fade'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Form_ } from './lib/Form'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as FormFeedback_ } from './lib/FormFeedback'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as FormGroup_ } from './lib/FormGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as FormText_ } from './lib/FormText'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Input_ } from './lib/Input'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as InputGroup_ } from './lib/InputGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as InputGroupAddon_ } from './lib/InputGroupAddon'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as InputGroupButtonDropdown_ } from './lib/InputGroupButtonDropdown'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as InputGroupText_ } from './lib/InputGroupText'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Jumbotron_ } from './lib/Jumbotron'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Label_ } from './lib/Label'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ListGroup_ } from './lib/ListGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ListGroupItem_ } from './lib/ListGroupItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ListGroupItemHeading_ } from './lib/ListGroupItemHeading'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ListGroupItemText_ } from './lib/ListGroupItemText'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Media_ } from './lib/Media'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Modal_ } from './lib/Modal'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ModalBody_ } from './lib/ModalBody'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ModalFooter_ } from './lib/ModalFooter'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ModalHeader_ } from './lib/ModalHeader'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Nav_ } from './lib/Nav'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Navbar_ } from './lib/Navbar'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as NavbarBrand_ } from './lib/NavbarBrand'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as NavbarToggler_ } from './lib/NavbarToggler'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as NavItem_ } from './lib/NavItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as NavLink_ } from './lib/NavLink'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Pagination_ } from './lib/Pagination'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as PaginationItem_ } from './lib/PaginationItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as PaginationLink_ } from './lib/PaginationLink'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Popover_ } from './lib/Popover'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as PopoverBody_ } from './lib/PopoverBody'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as PopoverHeader_ } from './lib/PopoverHeader'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Progress_ } from './lib/Progress'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Row_ } from './lib/Row'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as TabContent_ } from './lib/TabContent'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Table_ } from './lib/Table'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as TabPane_ } from './lib/TabPane'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Tag_ } from './lib/Tag'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Tooltip_ } from './lib/Tooltip'; /* tslint:disable-line: no-relative-import-in-test */
+import { UncontrolledAlert as UncontrolledAlert_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledButtonDropdown as UncontrolledButtonDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledDropdown as UncontrolledDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledTooltip as UncontrolledTooltip_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+
+function AnyPropExample() {
+  return (
+    <React.Fragment >
+      <Alert_ foo={1} bar={false} foobar="example" />
+      <Badge_ foo={1} bar={false} foobar="example" />
+      <Breadcrumb_ foo={1} bar={false} foobar="example" />
+      <BreadcrumbItem_ foo={1} bar={false} foobar="example" />
+      <Button_ foo={1} bar={false} foobar="example" />
+      <ButtonDropdown_ foo={1} bar={false} foobar="example" />
+      <ButtonGroup_ foo={1} bar={false} foobar="example" />
+      <ButtonToolbar_ foo={1} bar={false} foobar="example" />
+      <Card_ foo={1} bar={false} foobar="example" />
+      <CardBody_ foo={1} bar={false} foobar="example" />
+      <CardColumns_ foo={1} bar={false} foobar="example" />
+      <CardDeck_ foo={1} bar={false} foobar="example" />
+      <CardFooter_ foo={1} bar={false} foobar="example" />
+      <CardGroup_ foo={1} bar={false} foobar="example" />
+      <CardHeader_ foo={1} bar={false} foobar="example" />
+      <CardImg_ foo={1} bar={false} foobar="example" />
+      <CardImgOverlay_ foo={1} bar={false} foobar="example" />
+      <CardLink_ foo={1} bar={false} foobar="example" />
+      <CardSubtitle_ foo={1} bar={false} foobar="example" />
+      <CardText_ foo={1} bar={false} foobar="example" />
+      <CardTitle_ foo={1} bar={false} foobar="example" />
+      <Carousel_ foo={1} bar={false} foobar="example" next={() => {}} previous={() => {}}/>
+      <CarouselItem_ foo={1} bar={false} foobar="example" />
+      <CarouselControl_ foo={1} bar={false} foobar="example" direction="next" onClickHandler={() => {}} directionText="" />
+      <CarouselIndicators_ foo={1} bar={false} foobar="example" items={[]} activeIndex={-1} onClickHandler={() => {}} />
+      <CarouselCaption_ foo={1} bar={false} foobar="example" captionText="" />
+      <Col_ foo={1} bar={false} foobar="example" />
+      <Collapse_ foo={1} bar={false} foobar="example" />
+      <Container_ foo={1} bar={false} foobar="example" />
+      <Dropdown_ foo={1} bar={false} foobar="example" />
+      <DropdownItem_ foo={1} bar={false} foobar="example" />
+      <DropdownMenu_ foo={1} bar={false} foobar="example" />
+      <DropdownToggle_ foo={1} bar={false} foobar="example" />
+      <Fade_ foo={1} bar={false} foobar="example" />
+      <Form_ foo={1} bar={false} foobar="example" />
+      <FormFeedback_ foo={1} bar={false} foobar="example" />
+      <FormGroup_ foo={1} bar={false} foobar="example" />
+      <FormText_ foo={1} bar={false} foobar="example" />
+      <Input_ foo={1} bar={false} foobar="example" />
+      <InputGroup_ foo={1} bar={false} foobar="example" />
+      <InputGroupAddon_ foo={1} bar={false} foobar="example" addonType="prepend" />
+      <InputGroupButtonDropdown_ foo={1} bar={false} foobar="example" addonType="prepend" />
+      <InputGroupText_ foo={1} bar={false} foobar="example" />
+      <Jumbotron_ foo={1} bar={false} foobar="example" />
+      <Label_ foo={1} bar={false} foobar="example" />
+      <ListGroup_ foo={1} bar={false} foobar="example" />
+      <ListGroupItem_ foo={1} bar={false} foobar="example" />
+      <ListGroupItemHeading_ foo={1} bar={false} foobar="example" />
+      <ListGroupItemText_ foo={1} bar={false} foobar="example" />
+      <Media_ foo={1} bar={false} foobar="example" />
+      <Modal_ foo={1} bar={false} foobar="example" />
+      <ModalBody_ foo={1} bar={false} foobar="example" />
+      <ModalFooter_ foo={1} bar={false} foobar="example" />
+      <ModalHeader_ foo={1} bar={false} foobar="example" />
+      <Nav_ foo={1} bar={false} foobar="example" />
+      <Navbar_ foo={1} bar={false} foobar="example" />
+      <NavbarBrand_ foo={1} bar={false} foobar="example" />
+      <NavbarToggler_ foo={1} bar={false} foobar="example" />
+      <NavItem_ foo={1} bar={false} foobar="example" />
+      <NavLink_ foo={1} bar={false} foobar="example" />
+      <Pagination_ foo={1} bar={false} foobar="example" />
+      <PaginationItem_ foo={1} bar={false} foobar="example" />
+      <PaginationLink_ foo={1} bar={false} foobar="example" />
+      <Popover_ foo={1} bar={false} foobar="example" target="" />
+      <PopoverBody_ foo={1} bar={false} foobar="example" />
+      <PopoverHeader_ foo={1} bar={false} foobar="example" />
+      <Progress_ foo={1} bar={false} foobar="example" />
+      <Row_ foo={1} bar={false} foobar="example" />
+      <TabContent_ foo={1} bar={false} foobar="example" />
+      <Table_ foo={1} bar={false} foobar="example" />
+      <TabPane_ foo={1} bar={false} foobar="example" />
+      <Tag_ foo={1} bar={false} foobar="example" />
+      <Tooltip_ foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledAlert_ foo={1} bar={false} foobar="example" />
+      <UncontrolledButtonDropdown_ foo={1} bar={false} foobar="example" />
+      <UncontrolledDropdown_ foo={1} bar={false} foobar="example" />
+      <UncontrolledTooltip_ foo={1} bar={false} foobar="example" target="" />
+    </React.Fragment >
+  );
+}
+
+interface GenericInterface {
+  foo: number;
+  bar: boolean;
+  foobar?: string;
+}
+class AlertGeneric extends Alert<GenericInterface> {}
+class BadgeGeneric extends Badge<GenericInterface> {}
+class BreadcrumbGeneric extends Breadcrumb<GenericInterface> {}
+class BreadcrumbItemGeneric extends BreadcrumbItem<GenericInterface> {}
+class ButtonGeneric extends Button<GenericInterface> {}
+class ButtonDropdownGeneric extends ButtonDropdown<GenericInterface> {}
+class ButtonGroupGeneric extends ButtonGroup<GenericInterface> {}
+class ButtonToolbarGeneric extends ButtonToolbar<GenericInterface> {}
+class CardGeneric extends Card<GenericInterface> {}
+class CardBodyGeneric extends CardBody<GenericInterface> {}
+class CardColumnsGeneric extends CardColumns<GenericInterface> {}
+class CardDeckGeneric extends CardDeck<GenericInterface> {}
+class CardFooterGeneric extends CardFooter<GenericInterface> {}
+class CardGroupGeneric extends CardGroup<GenericInterface> {}
+class CardHeaderGeneric extends CardHeader<GenericInterface> {}
+class CardImgGeneric extends CardImg<GenericInterface> {}
+class CardImgOverlayGeneric extends CardImgOverlay<GenericInterface> {}
+class CardLinkGeneric extends CardLink<GenericInterface> {}
+class CardSubtitleGeneric extends CardSubtitle<GenericInterface> {}
+class CardTextGeneric extends CardText<GenericInterface> {}
+class CardTitleGeneric extends CardTitle<GenericInterface> {}
+class CarouselGeneric extends Carousel<GenericInterface> {}
+class CarouselItemGeneric extends CarouselItem<GenericInterface> {}
+class CarouselControlGeneric extends CarouselControl<GenericInterface> {}
+class CarouselIndicatorsGeneric extends CarouselIndicators<GenericInterface> {}
+class CarouselCaptionGeneric extends CarouselCaption<GenericInterface> {}
+class ColGeneric extends Col<GenericInterface> {}
+class CollapseGeneric extends Collapse<GenericInterface> {}
+class ContainerGeneric extends Container<GenericInterface> {}
+class DropdownGeneric extends Dropdown<GenericInterface> {}
+class DropdownItemGeneric extends DropdownItem<GenericInterface> {}
+class DropdownMenuGeneric extends DropdownMenu<GenericInterface> {}
+class DropdownToggleGeneric extends DropdownToggle<GenericInterface> {}
+class FadeGeneric extends Fade<GenericInterface> {}
+class FormGeneric extends Form<GenericInterface> {}
+class FormFeedbackGeneric extends FormFeedback<GenericInterface> {}
+class FormGroupGeneric extends FormGroup<GenericInterface> {}
+class FormTextGeneric extends FormText<GenericInterface> {}
+class InputGeneric extends Input<GenericInterface> {}
+class InputGroupGeneric extends InputGroup<GenericInterface> {}
+class InputGroupAddonGeneric extends InputGroupAddon<GenericInterface> {}
+class InputGroupButtonDropdownGeneric extends InputGroupButtonDropdown<GenericInterface> {}
+class InputGroupTextGeneric extends InputGroupText<GenericInterface> {}
+class JumbotronGeneric extends Jumbotron<GenericInterface> {}
+class LabelGeneric extends Label<GenericInterface> {}
+class ListGroupGeneric extends ListGroup<GenericInterface> {}
+class ListGroupItemGeneric extends ListGroupItem<GenericInterface> {}
+class ListGroupItemHeadingGeneric extends ListGroupItemHeading<GenericInterface> {}
+class ListGroupItemTextGeneric extends ListGroupItemText<GenericInterface> {}
+class MediaGeneric extends Media<GenericInterface> {}
+class ModalGeneric extends Modal<GenericInterface> {}
+class ModalBodyGeneric extends ModalBody<GenericInterface> {}
+class ModalFooterGeneric extends ModalFooter<GenericInterface> {}
+class ModalHeaderGeneric extends ModalHeader<GenericInterface> {}
+class NavGeneric extends Nav<GenericInterface> {}
+class NavbarGeneric extends Navbar<GenericInterface> {}
+class NavbarBrandGeneric extends NavbarBrand<GenericInterface> {}
+class NavbarTogglerGeneric extends NavbarToggler<GenericInterface> {}
+class NavItemGeneric extends NavItem<GenericInterface> {}
+class NavLinkGeneric extends NavLink<GenericInterface> {}
+class PaginationGeneric extends Pagination<GenericInterface> {}
+class PaginationItemGeneric extends PaginationItem<GenericInterface> {}
+class PaginationLinkGeneric extends PaginationLink<GenericInterface> {}
+class PopoverGeneric extends Popover<GenericInterface> {}
+class PopoverBodyGeneric extends PopoverBody<GenericInterface> {}
+class PopoverHeaderGeneric extends PopoverHeader<GenericInterface> {}
+class ProgressGeneric extends Progress<GenericInterface> {}
+class RowGeneric extends Row<GenericInterface> {}
+class TabContentGeneric extends TabContent<GenericInterface> {}
+class TableGeneric extends Table<GenericInterface> {}
+class TabPaneGeneric extends TabPane<GenericInterface> {}
+class TagGeneric extends Tag<GenericInterface> {}
+class TooltipGeneric extends Tooltip<GenericInterface> {}
+class UncontrolledAlertGeneric extends UncontrolledAlert<GenericInterface> {}
+class UncontrolledButtonDropdownGeneric extends UncontrolledButtonDropdown<GenericInterface> {}
+class UncontrolledDropdownGeneric extends UncontrolledDropdown<GenericInterface> {}
+class UncontrolledTooltipGeneric extends UncontrolledTooltip<GenericInterface> {}
+
+function GenericPropExample() {
+  return (
+    <React.Fragment >
+      <AlertGeneric foo={1} bar={false} foobar="example" />
+      <BadgeGeneric foo={1} bar={false} foobar="example" />
+      <BreadcrumbGeneric foo={1} bar={false} foobar="example" />
+      <BreadcrumbItemGeneric foo={1} bar={false} foobar="example" />
+      <ButtonGeneric foo={1} bar={false} foobar="example" />
+      <ButtonDropdownGeneric foo={1} bar={false} foobar="example" />
+      <ButtonGroupGeneric foo={1} bar={false} foobar="example" />
+      <ButtonToolbarGeneric foo={1} bar={false} foobar="example" />
+      <CardGeneric foo={1} bar={false} foobar="example" />
+      <CardBodyGeneric foo={1} bar={false} foobar="example" />
+      <CardColumnsGeneric foo={1} bar={false} foobar="example" />
+      <CardDeckGeneric foo={1} bar={false} foobar="example" />
+      <CardFooterGeneric foo={1} bar={false} foobar="example" />
+      <CardGroupGeneric foo={1} bar={false} foobar="example" />
+      <CardHeaderGeneric foo={1} bar={false} foobar="example" />
+      <CardImgGeneric foo={1} bar={false} foobar="example" />
+      <CardImgOverlayGeneric foo={1} bar={false} foobar="example" />
+      <CardLinkGeneric foo={1} bar={false} foobar="example" />
+      <CardSubtitleGeneric foo={1} bar={false} foobar="example" />
+      <CardTextGeneric foo={1} bar={false} foobar="example" />
+      <CardTitleGeneric foo={1} bar={false} foobar="example" />
+      <CarouselGeneric foo={1} bar={false} foobar="example" next={() => {}} previous={() => {}}/>
+      <CarouselItemGeneric foo={1} bar={false} foobar="example" />
+      <CarouselControlGeneric foo={1} bar={false} foobar="example" direction="next" onClickHandler={() => {}} directionText="" />
+      <CarouselIndicatorsGeneric foo={1} bar={false} foobar="example" items={[]} activeIndex={-1} onClickHandler={() => {}} />
+      <CarouselCaptionGeneric foo={1} bar={false} foobar="example" captionText="" />
+      <ColGeneric foo={1} bar={false} foobar="example" />
+      <CollapseGeneric foo={1} bar={false} foobar="example" />
+      <ContainerGeneric foo={1} bar={false} foobar="example" />
+      <DropdownGeneric foo={1} bar={false} foobar="example" />
+      <DropdownItemGeneric foo={1} bar={false} foobar="example" />
+      <DropdownMenuGeneric foo={1} bar={false} foobar="example" />
+      <DropdownToggleGeneric foo={1} bar={false} foobar="example" />
+      <FadeGeneric foo={1} bar={false} foobar="example" />
+      <FormGeneric foo={1} bar={false} foobar="example" />
+      <FormFeedbackGeneric foo={1} bar={false} foobar="example" />
+      <FormGroupGeneric foo={1} bar={false} foobar="example" />
+      <FormTextGeneric foo={1} bar={false} foobar="example" />
+      <InputGeneric foo={1} bar={false} foobar="example" />
+      <InputGroupGeneric foo={1} bar={false} foobar="example" />
+      <InputGroupAddonGeneric foo={1} bar={false} foobar="example" addonType="prepend" />
+      <InputGroupButtonDropdownGeneric foo={1} bar={false} foobar="example" addonType="prepend" />
+      <InputGroupTextGeneric foo={1} bar={false} foobar="example" />
+      <JumbotronGeneric foo={1} bar={false} foobar="example" />
+      <LabelGeneric foo={1} bar={false} foobar="example" />
+      <ListGroupGeneric foo={1} bar={false} foobar="example" />
+      <ListGroupItemGeneric foo={1} bar={false} foobar="example" />
+      <ListGroupItemHeadingGeneric foo={1} bar={false} foobar="example" />
+      <ListGroupItemTextGeneric foo={1} bar={false} foobar="example" />
+      <MediaGeneric foo={1} bar={false} foobar="example" />
+      <ModalGeneric foo={1} bar={false} foobar="example" />
+      <ModalBodyGeneric foo={1} bar={false} foobar="example" />
+      <ModalFooterGeneric foo={1} bar={false} foobar="example" />
+      <ModalHeaderGeneric foo={1} bar={false} foobar="example" />
+      <NavGeneric foo={1} bar={false} foobar="example" />
+      <NavbarGeneric foo={1} bar={false} foobar="example" />
+      <NavbarBrandGeneric foo={1} bar={false} foobar="example" />
+      <NavbarTogglerGeneric foo={1} bar={false} foobar="example" />
+      <NavItemGeneric foo={1} bar={false} foobar="example" />
+      <NavLinkGeneric foo={1} bar={false} foobar="example" />
+      <PaginationGeneric foo={1} bar={false} foobar="example" />
+      <PaginationItemGeneric foo={1} bar={false} foobar="example" />
+      <PaginationLinkGeneric foo={1} bar={false} foobar="example" />
+      <PopoverGeneric foo={1} bar={false} foobar="example" target="" />
+      <PopoverBodyGeneric foo={1} bar={false} foobar="example" />
+      <PopoverHeaderGeneric foo={1} bar={false} foobar="example" />
+      <ProgressGeneric foo={1} bar={false} foobar="example" />
+      <RowGeneric foo={1} bar={false} foobar="example" />
+      <TabContentGeneric foo={1} bar={false} foobar="example" />
+      <TableGeneric foo={1} bar={false} foobar="example" />
+      <TabPaneGeneric foo={1} bar={false} foobar="example" />
+      <TagGeneric foo={1} bar={false} foobar="example" />
+      <TooltipGeneric foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledAlertGeneric foo={1} bar={false} foobar="example" />
+      <UncontrolledButtonDropdownGeneric foo={1} bar={false} foobar="example" />
+      <UncontrolledDropdownGeneric foo={1} bar={false} foobar="example" />
+      <UncontrolledTooltipGeneric foo={1} bar={false} foobar="example" target="" />
+    </React.Fragment >
+  );
+}
