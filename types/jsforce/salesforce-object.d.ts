@@ -28,11 +28,11 @@ export class SObject<T> {
     findOne<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T) => void): Query<T>;
 
     /** Returns a value from the cache if it exists, otherwise calls SObject.approvalLayouts */
-    approvalLayouts$(callback?: (layoutInfo: ApprovalLayoutInfo) => void): Promise<ApprovalLayoutInfo>;
+    approvalLayouts$(callback?: (layoutInfo: ApprovalLayoutInfo) => void): ApprovalLayoutInfo;
     approvalLayouts(callback?: (layoutInfo: ApprovalLayoutInfo) => void): Promise<ApprovalLayoutInfo>;
     bulkload(operation: string, options?: { extIdField?: string }, input?: Array<Record<T>> | stream.Stream[] | string[], callback?: (err: Error, ret: RecordResult) => void): Batch;
     /** Returns a value from the cache if it exists, otherwise calls SObject.compactLayouts */
-    compactLayouts$(callback?: CompactLayoutInfo): Promise<CompactLayoutInfo>;
+    compactLayouts$(callback?: CompactLayoutInfo): CompactLayoutInfo;
     compactLayouts(callback?: CompactLayoutInfo): Promise<CompactLayoutInfo>;
     count(conditions?: Object | string, callback?: (err: Error, num: number) => void): Promise<number>;
     create(options: any | any[], callback?: (err: Error, ret: RecordResult | RecordResult[]) => void): Promise<RecordResult | RecordResult[]>;
@@ -47,11 +47,11 @@ export class SObject<T> {
     deleteHardBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: (err: Error, ret: RecordResult) => void): Batch;
     describe(callback?: (err: Error, ret: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
     /** Returns a value from the cache if it exists, otherwise calls SObject.describe */
-    describe$(callback?: (err: Error, ret: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    describe$(callback?: (err: Error, ret: DescribeSObjectResult) => void): DescribeSObjectResult;
     insert(options: any | any[], callback?: (err: Error, ret: RecordResult | RecordResult[]) => void): Promise<RecordResult | RecordResult[]>;
     insertBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: (err: Error, ret: RecordResult) => void): Batch;
     /** Returns a value from the cache if it exists, otherwise calls SObject.layouts */
-    layouts$(layoutName?: string, callback?: (err: Error, info: LayoutInfo) => void): Promise<LayoutInfo>;
+    layouts$(layoutName?: string, callback?: (err: Error, info: LayoutInfo) => void): LayoutInfo;
     layouts(layoutName?: string, callback?: (err: Error, info: LayoutInfo) => void): Promise<LayoutInfo>;
     listview(id: string): ListView;
     listviews(callback?: (err: Error, info: ListViewsInfo) => void): Promise<ListViewsInfo>;
