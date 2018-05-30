@@ -388,10 +388,34 @@ declare namespace Office {
          */
         asyncContext?: any
     }
+    /**
+     * Provides access to the properties for Office theme colors.
+     * 
+     * Using Office theme colors lets you coordinate the color scheme of your add-in with the current Office theme selected by the user with File > Office Account > Office Theme UI, which is applied across all Office host applications. Using Office theme colors is appropriate for mail and task pane add-ins.
+     * 
+     * [Api set: Mailbox 1.3]
+     * 
+     * @remarks
+     * Note: This member is not supported in Outlook for iOS or Outlook for Android.
+     * 
+     * Applicable Outlook mode: Compose or read
+     */
     export interface OfficeTheme {
+        /**
+         * Gets the Office theme body background color as a hexadecimal color triplet.
+         */
         bodyBackgroundColor: string;
+        /**
+         * Gets the Office theme body foreground color as a hexadecimal color triplet.
+         */
         bodyForegroundColor: string;
+        /**
+         * Gets the Office theme control background color as a hexadecimal color triplet.
+         */
         controlBackgroundColor: string;
+        /**
+         * Gets the Office theme body control color as a hexadecimal color triplet.
+         */
         controlForegroundColor: string;
     }
     /**
@@ -4751,26 +4775,6 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          */
         mailbox: Mailbox;
-        /**
-         * Provides access to the properties for Office theme colors.
-         * 
-         * Using Office theme colors let's you coordinate the color scheme of your add-in with the current Office theme selected by the user with File > Office Account > Office Theme UI, which is applied across all Office host applications. Using Office theme colors is appropriate for mail and task pane add-ins.
-         * 
-         * |Name |Type |Description|
-         * |-----|-----|-----------|
-         * |bodyBackgroundColor|String|Gets the Office theme body background color as a hexadecimal color triplet.|
-         * |bodyForegroundColor|String|Gets the Office theme body foreground color as a hexadecimal color triplet.|
-         * |controlBackgroundColor|String|Gets the Office theme control background color as a hexadecimal color triplet.|
-         * |controlForegroundColor|String|Gets the Office theme body control color as a hexadecimal color triplet.|
-         * 
-         * [Api set: Mailbox 1.3]
-         * 
-         * @remarks
-         * Note: This member is not supported in Outlook for iOS or Outlook for Android.
-         * 
-         * Applicable Outlook mode: Compose or read
-         */
-        officeTheme: Object;
         /**
          * Gets an object that represents the custom settings or state of a mail add-in saved to a user's mailbox.
          * 
