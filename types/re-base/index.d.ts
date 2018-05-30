@@ -2,6 +2,7 @@
 // Project: https://github.com/tylermcginnis/re-base#readme
 // Definitions by: jordandrako <https://github.com/jordandrako>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export interface RebaseBinding {
     context: object;
