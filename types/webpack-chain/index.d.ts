@@ -47,6 +47,7 @@ declare class Config extends __Config.ChainedMap<void> {
 	module: Config.Module;
 	node: Config.ChainedMap<this>;
 	output: Config.Output;
+	optimization: Config.Optimization;
 	performance: Config.Performance;
 	plugins: Config.Plugins<this>;
 	resolve: Config.Resolve;
@@ -197,6 +198,33 @@ declare namespace Config {
 		pre(): this;
 		post(): this;
 	}
+
+	class Optimization extends ChainedMap<Config> {
+		concatenateModules(value: boolean): this;
+		flagIncludedChunks(value: boolean): this;
+		mergeDuplicateChunks(value: boolean): this;
+		minimize(value: boolean): this;
+		minimizer(value: webpack.Plugin[]): this;
+		namedChunks(value: boolean): this;
+		namedModules(value: boolean): this;
+		nodeEnv(value: boolean | string): this;
+		noEmitOnErrors(value: boolean): this;
+		occurrenceOrder(value: boolean): this;
+		portableRecords(value: boolean): this;
+		providedExports(value: boolean): this;
+		removeAvailableModules(value: boolean): this;
+		removeEmptyChunks(value: boolean): this;
+		runtimeChunk(value: boolean | "single" | "multiple" | RuntimeChunk): this;
+		sideEffects(value: boolean): this;
+		splitChunks(value: SplitChunksOptions): this;
+		usedExports(value: boolean): this;
+	}
+
+	interface RuntimeChunk {
+		name: string | Function;
+	}
+
+	interface SplitChunksOptions { [name: string]: any; }
 
 	interface LoaderOptions { [name: string]: any; }
 
