@@ -221,7 +221,11 @@ declare namespace Config {
 	}
 
 	interface RuntimeChunk {
-		name: string | Function;
+		name: string | RuntimeChunkFunction;
+	}
+
+	interface RuntimeChunkFunction {
+		(entryPoint: Config.EntryPoint): string;
 	}
 
 	interface SplitChunksOptions { [name: string]: any; }

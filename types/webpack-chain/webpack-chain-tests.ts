@@ -166,6 +166,7 @@ config
 		.removeAvailableModules(true)
 		.removeEmptyChunks(true)
 		.runtimeChunk("single")
+		.runtimeChunk({ name: ({}) => "hello" })
 		.sideEffects(true)
 		.splitChunks({})
 		.usedExports(true)
