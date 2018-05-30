@@ -354,12 +354,12 @@ salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((messa
 
 async function testDescribe() {
     const global: sf.DescribeGlobalResult = await salesforceConnection.describeGlobal();
-    const globalCached: sf.DescribeGlobalResult = await salesforceConnection.describeGlobal$();
+    const globalCached: sf.DescribeGlobalResult = salesforceConnection.describeGlobal$();
     const globalCachedCorrectly = global === globalCached;
 
     globalCached.sobjects.forEach(async (sobject: sf.DescribeGlobalSObjectResult) => {
         const object: sf.DescribeSObjectResult = await salesforceConnection.describe(sobject.name);
-        const cachedObject: sf.DescribeSObjectResult = await salesforceConnection.describe$(sobject.name);
+        const cachedObject: sf.DescribeSObjectResult = salesforceConnection.describe$(sobject.name);
 
         object.fields.forEach(field => {
             const type: sf.FieldType = field.type;
