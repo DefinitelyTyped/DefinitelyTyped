@@ -45,8 +45,8 @@ salesforceConnection.sobject("Account").create({
     Name: "Test Acc 2",
     BillingStreet: "Maplestory street",
     BillingPostalCode: "ME4 666"
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
+    if (err || !Array.isArray(ret) && !ret.success) {
         return;
     }
 });
@@ -56,8 +56,8 @@ salesforceConnection.sobject("ContentVersion").create({
     Title: 'hello',
     PathOnClient: './hello-world.jpg',
     VersionData: '{ Test: Data }'
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
+    if (err || !Array.isArray(ret) && !ret.success) {
         return;
     }
 });
@@ -77,8 +77,8 @@ salesforceConnection.sobject("ContentDocumentLink").create({
     ContentDocumentId: '',
     LinkedEntityId: '',
     ShareType: "I"
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
+    if (err || !Array.isArray(ret) && !ret.success) {
         return;
     }
 });
