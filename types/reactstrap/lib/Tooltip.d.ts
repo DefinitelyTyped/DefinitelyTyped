@@ -1,5 +1,4 @@
-/// <reference types='react' />
-
+import * as React from 'react';
 import { CSSModule } from '../index';
 import {Popper} from './Popper';
 
@@ -23,5 +22,5 @@ export interface TooltipProps extends UncontrolledTooltipProps {
   isOpen?: boolean;
 }
 
-declare const Tooltip: React.StatelessComponent<TooltipProps>;
+declare class Tooltip extends React.Component<TooltipProps> {}
 export default Tooltip;

@@ -3550,6 +3550,11 @@ namespace http2_tests {
             weight: 0
         };
 
+        http2Stream.close();
+        http2Stream.close(0);
+        http2Stream.close(0, () => {});
+        http2Stream.close(undefined, () => {});
+
         // ClientHttp2Stream
         let clientHttp2Stream: http2.ClientHttp2Stream;
         clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});

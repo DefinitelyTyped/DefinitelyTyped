@@ -3,6 +3,7 @@
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
 //                 Giorgio Garasto <https://github.com/Dabolus>
+//                 Kallu609 <https://github.com/Kallu609>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -107,6 +108,11 @@ declare namespace TelegramBot {
 
     interface SendDocumentOptions extends SendBasicOptions {
         caption?: string;
+    }
+
+    interface SendMediaGroupOptions {
+        disable_notification?: boolean;
+        reply_to_message_id?: number;
     }
 
     type SendStickerOptions = SendBasicOptions;
@@ -354,6 +360,17 @@ declare namespace TelegramBot {
         duration: number;
         mime_type?: string;
     }
+
+    interface InputMediaPhoto {
+        type: string;
+        media: string;
+        fileOptions?: {
+            filename: string;
+            contentType: string;
+        };
+    }
+
+    type InputMediaVideo = InputMediaPhoto;
 
     interface VideoNote extends FileBase {
         length: number;
@@ -834,6 +851,8 @@ declare class TelegramBot extends EventEmitter {
     sendAudio(chatId: number | string, audio: string | Stream | Buffer, options?: TelegramBot.SendAudioOptions): Promise<TelegramBot.Message | Error>;
 
     sendDocument(chatId: number | string, doc: string | Stream | Buffer, options?: TelegramBot.SendDocumentOptions, fileOpts?: any): Promise<TelegramBot.Message | Error>;
+
+    sendMediaGroup(chatId: number | string, media: Array<TelegramBot.InputMediaPhoto | TelegramBot.InputMediaVideo>, options?: TelegramBot.SendMediaGroupOptions): Promise<TelegramBot.Message | Error>;
 
     sendSticker(chatId: number | string, sticker: string | Stream | Buffer, options?: TelegramBot.SendStickerOptions): Promise<TelegramBot.Message | Error>;
 

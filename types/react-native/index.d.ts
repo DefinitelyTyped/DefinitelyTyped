@@ -3523,10 +3523,10 @@ declare class ImageComponent extends React.Component<ImageProps> {}
 declare const ImageBase: Constructor<NativeMethodsMixin> & typeof ImageComponent;
 export class Image extends ImageBase {
     resizeMode: ImageResizeMode;
-    getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
-    prefetch(url: string): any;
-    abortPrefetch?(requestId: number): void;
-    queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+    static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
+    static prefetch(url: string): any;
+    static abortPrefetch?(requestId: number): void;
+    static queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {

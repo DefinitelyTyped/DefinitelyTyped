@@ -1001,6 +1001,30 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    const isOdd = (acc: number, x: number) => x % 2 === 1;
+
+    const xs: number[] = [1, 3, 5, 60, 777, 800];
+    R.reduceWhile(isOdd, R.add, 0, xs); // => 9
+    R.reduceWhile(isOdd)(R.add, 0, xs); // => 9
+    R.reduceWhile(isOdd)(R.add, 0)(xs); // => 9
+    R.reduceWhile(isOdd)(R.add)(0, xs); // => 9
+    R.reduceWhile(isOdd)(R.add)(0)(xs); // => 9
+    R.reduceWhile(isOdd, R.add)(0, xs); // => 9
+    R.reduceWhile(isOdd, R.add)(0)(xs); // => 9
+    R.reduceWhile(isOdd, R.add, 0)(xs); // => 9
+
+    const ys: number[] = [];
+    R.reduceWhile(isOdd, R.add, 111, ys); // => 111
+    R.reduceWhile(isOdd)(R.add, 111, ys); // => 111
+    R.reduceWhile(isOdd)(R.add, 111)(ys); // => 111
+    R.reduceWhile(isOdd)(R.add)(111, ys); // => 111
+    R.reduceWhile(isOdd)(R.add)(111)(ys); // => 111
+    R.reduceWhile(isOdd, R.add)(111, ys); // => 111
+    R.reduceWhile(isOdd, R.add)(111)(ys); // => 111
+    R.reduceWhile(isOdd, R.add, 111)(ys); // => 111
+};
+
+() => {
     function isOdd(n: number) {
         return n % 2 === 1;
     }
@@ -1307,19 +1331,55 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const a1 = R.evolve({elapsed: R.add(1), remaining: R.add(-1)}, {name: "Tomato", elapsed: 100, remaining: 1400});
-    const a2 = R.evolve({elapsed: R.add(1), remaining: R.add(-1)})({name: "Tomato", elapsed: 100, remaining: 1400});
-};
+    // No type transformation
 
-() => {
-    // const tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id:123};
-    // const transformations = {
-    //     firstName: R.trim,
-    //     lastName: R.trim, // Will not get invoked.
-    //     data: {elapsed: R.add(1), remaining: R.add(-1)}
-    // };
-    // const a = R.evolve(transformations, tomato); // => {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
-    // const b = R.evolve(transformations)(tomato); // => {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
+    const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: "Tomato", elapsed: 100, remaining: 1400 });
+
+    const a1Test: { elapsed: number, remaining: number, name: string } = a1;
+
+    const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: "Tomato", elapsed: 100, remaining: 1400 });
+
+    const a2Test: { elapsed: number, remaining: number, name: string } = a2;
+
+    // Object doesn't have all evolver keys
+
+    const a3 = R.evolve({ age: R.add(1), name: R.trim }, { name: "Potato", elapsed: 100 });
+
+    const a3Test: { name: string, elapsed: number } = a3;
+
+    // Flat transformation
+
+    const ex0 = R.evolve({ a: parseInt }, { a: '10', b: 1 });
+
+    const ex0Test: { a: number, b: number } = ex0;
+
+    // Nested transformation:
+
+    const ex1 = R.evolve(
+        { a: { b: R.toString, d: { e: R.toString } } },
+        { a: { b: 1, c: null, d: { e: 2 } } },
+    );
+
+    const ex1Test: { a: { b: string, c: null, d: { e: string } } } = ex1;
+
+    // Mapping a nested object with a single function
+
+    const ex2 = R.evolve(
+        { a: (obj: { foo: string }) => ({ bar: 1, baz: 2 }) },
+        { a: { foo: 'a', skipped: 3 }, b: null },
+    );
+
+    const ex2Test: { a: { bar: number, baz: number }, b: null } = ex2;
+
+    // Nested curried:
+
+    const ex3 = R.evolve(
+        { a: { b: R.toString, d: { e: R.toString } } },
+    )(
+        { a: { b: 1, c: null, d: { e: 2 } } }
+    );
+
+    const ex3Test: { a: { b: string, c: null, d: { e: string } } } = ex3;
 };
 
 () => {
@@ -2416,4 +2476,8 @@ class Why {
 () => {
     R.intersection([1, 2, 3], [2, 3, 3, 4]); // => [2, 3]
     R.intersection([1, 2, 3])([2, 3, 3, 4]); // => [2, 3]
+};
+
+() => {
+    R.bind(console.log, console);
 };

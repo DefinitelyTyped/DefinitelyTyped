@@ -1406,52 +1406,6 @@ declare namespace algoliasearch {
     userData?: string | object;
   }
 
-  interface AlgoliaResponse {
-    /**
-     * Contains all the hits matching the query
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    hits: any[];
-    /**
-     * Current page
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    page: number;
-    /**
-     * Number of total hits matching the query
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    nbHits: number;
-    /**
-     * Number of pages
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    nbPage: number;
-    /**
-     * Number of hits per pages
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    hitsPerPage: number;
-    /**
-     * Engine processing time (excluding network transfer)
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    processingTimeMS: number;
-    /**
-     * Query used to perform the search
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    query: string;
-    /**
-     * GET parameters used to perform the search
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    params: string;
-    facets: {
-      [facetName: string]: { [facetValue: string]: number };
-    };
-  }
-
   namespace SearchForFacetValues {
     interface Parameters extends QueryParameters {
       /**
@@ -1759,10 +1713,18 @@ declare namespace algoliasearch {
     minProximity?: number;
     /**
      * This is an advanced use-case to define a token substitutable by a list of words without having the original token searchable
-     * default: ''
+     * default: {}
      * https://github.com/algolia/algoliasearch-client-js#placeholders
      */
-    placeholders?: any;
+    placeholders?: {
+      [name: string]: string[],
+    };
+    /**
+     * List of attributes on which to do a decomposition of camel case words.
+     *
+     https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
+     */
+    camelCaseAttributes?: string[];
   }
 
   interface Response {

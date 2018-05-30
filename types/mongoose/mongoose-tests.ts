@@ -37,6 +37,11 @@ const connection3: null = mongoose.connect(connectUri, function (error) {
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
 mongooseConnection.dropDatabase().then(()=>{});
 mongooseConnection.dropCollection('foo').then(()=>{});
+mongoose.createConnection(connectUri).then((conn)=> {
+  return conn.collections;
+}, () => {
+
+});
 mongoose.createConnection(connectUri).open('');
 mongoose.createConnection(connectUri, {
   db: {
@@ -135,7 +140,10 @@ conn1.openUri('mongodb://localhost/test', 'myDb', 27017, {
     autoIndex: false
   }
 }, function (err) {}).open('');
-conn1.close().catch(function (err) {});
+conn1.close().then(function () {}).catch(function (err) {});
+conn1.close(true).then(function () {}).catch(function (err) {});
+conn1.close(function (err) {});
+conn1.close(true, function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
 conn1.models.myModel.findOne().exec();
