@@ -524,7 +524,8 @@ declare namespace R {
          * elements.
          */
         differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        differenceWith<T>(pred: (a: T, b: T) => boolean): <T> (list1: ReadonlyArray<T>, list2: ReadonlyArray<T>) => T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean): (list1: ReadonlyArray<T>, list2: ReadonlyArray<T>) => T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
 
         /*
          * Returns a new object that does not contain a prop property.

@@ -1958,8 +1958,11 @@ class Rectangle {
     const l2 = [{a: 3}, {a: 4}];
     R.differenceWith(cmp, l1, l2); // => [{a: 1}, {a: 2}]
 
-    const differenceWithCurried = R.differenceWith(cmp);
-    differenceWithCurried(l1, l2); // =>[{a: 1}, {a: 2}]
+    const differenceWithCurried1 = R.differenceWith(cmp);
+    differenceWithCurried1(l1, l2); // =>[{a: 1}, {a: 2}]
+
+    const differenceWithCurried2 = R.differenceWith(cmp, l1);
+    differenceWithCurried2(l2); // =>[{a: 1}, {a: 2}]
 };
 
 () => {
