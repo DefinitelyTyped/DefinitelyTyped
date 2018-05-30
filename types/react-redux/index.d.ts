@@ -105,17 +105,17 @@ export interface Connect {
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>
-    ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp & TOwnProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp, TOwnProps>;
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TDispatchProps & TOwnProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps & TOwnProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
