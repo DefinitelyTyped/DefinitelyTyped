@@ -3,7 +3,6 @@ import * as url from "url";
 import * as Logger from "bunyan";
 import * as http from "http";
 import * as stream from "stream";
-import { resolveSoa } from "dns";
 
 let server: restify.Server;
 
