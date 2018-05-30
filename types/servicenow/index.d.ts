@@ -324,7 +324,7 @@ declare namespace servicenow {
         orderBy(name: string): void;
         orderByDesc(name: string): void;
         query(field?: string, value?: object): void;
-        _query(field: string, value: object): void;
+        _query(field?: string, value?: object): void;
         setAbortAction(b: boolean): void;
         setNewGuidValue(guid: string): void;
         setLimit(limit: number): void;
