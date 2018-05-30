@@ -8,6 +8,7 @@ import { Analytics } from './api/analytics';
 import { Chatter } from './api/chatter';
 import { Metadata } from './api/metadata';
 import { Bulk } from './bulk';
+import { Cache } from './cache'
 import { OAuth2, Streaming } from '.';
 
 export type Callback<T> = (err: Error, result: T) => void;
@@ -111,7 +112,11 @@ export abstract class BaseConnection extends EventEmitter {
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     destroy<T>(type: string, ids: string | string[], options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
+    /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
+    describe$<T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
     describe<T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
+    describeGlobal$<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
     sobject<T>(resource: string): SObject<T>;
 }
@@ -126,6 +131,7 @@ export class Connection extends BaseConnection {
     bulk: Bulk;
     oauth2: OAuth2;
     streaming: Streaming;
+    cache: Cache;
 
     // Specific to Connection
     instanceUrl: string;
