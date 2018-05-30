@@ -146,6 +146,7 @@ export function everyLimit<T, E>(arr: IterableCollection<T>, limit: number, iter
 export const all: typeof every;
 export const allSeries: typeof every;
 export const allLimit: typeof everyLimit;
+export const tryEach: typeof parallel;
 
 export function concat<T, R, E>(arr: IterableCollection<T>, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export function concatLimit<T, R, E>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
