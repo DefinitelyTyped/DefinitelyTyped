@@ -4,6 +4,7 @@
 //                 Kamil Ejsymont <https://github.com/netes>
 //                 Thomas Dvornik <https://github.com/amphro>
 //                 Tim Noonan <https://github.com/tnoonan-salesforce>
+//                 Abraham White <https://github.com/whiteabelincoln>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
