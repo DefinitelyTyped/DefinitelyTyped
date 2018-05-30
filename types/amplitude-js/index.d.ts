@@ -59,3 +59,5 @@ declare module amplitude {
 
     export var options: Config;
 }
+
+export = amplitude
