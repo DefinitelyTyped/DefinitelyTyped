@@ -6205,25 +6205,25 @@ declare module "util" {
         export function isInt8Array(object: any): object is Int8Array;
         export function isInt16Array(object: any): object is Int16Array;
         export function isInt32Array(object: any): object is Int32Array;
-        export function isMap(object: any): object is Map<any, any>;
+        export function isMap(object: any): boolean;
         export function isMapIterator(object: any): boolean;
         export function isNativeError(object: any): object is Error;
         export function isNumberObject(object: any): object is Number;
-        export function isPromise(object: any): object is Promise<any>;
+        export function isPromise(object: any): boolean;
         export function isProxy(object: any): boolean;
         export function isRegExp(object: any): object is RegExp;
-        export function isSet(object: any): object is Set<any>;
+        export function isSet(object: any): boolean;
         export function isSetIterator(object: any): boolean;
         export function isSharedArrayBuffer(object: any): boolean;
-        export function isStringObject(object: any): object is String;
-        export function isSymbolObject(object: any): object is Symbol;
+        export function isStringObject(object: any): boolean;
+        export function isSymbolObject(object: any): boolean;
         export function isTypedArray(object: any): object is Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
         export function isUint8Array(object: any): object is Uint8Array;
         export function isUint8ClampedArray(object: any): object is Uint8ClampedArray;
         export function isUint16Array(object: any): object is Uint16Array;
         export function isUint32Array(object: any): object is Uint32Array;
-        export function isWeakMap(object: any): object is WeakMap<any, any>;
-        export function isWeakSet(object: any): object is WeakSet<any>;
+        export function isWeakMap(object: any): boolean;
+        export function isWeakSet(object: any): boolean;
         export function isWebAssemblyCompiledModule(object: any): boolean;
     }
 
