@@ -527,7 +527,10 @@ export interface Rebase {
      * @returns An object which you can pass to `removeBinding` if you want
      * to remove the listener while the component is still mounted.
      */
-    listenToDoc(refOrPath: object | string, options: listenToDocOptions): object;
+    listenToDoc(
+        refOrPath: object | string,
+        options: listenToDocOptions
+    ): object;
 
     /**
      * Bind a collection to a state property in your component. When then
