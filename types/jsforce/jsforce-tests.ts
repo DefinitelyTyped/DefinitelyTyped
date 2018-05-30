@@ -356,10 +356,12 @@ async function testDescribe() {
     const global: sf.DescribeGlobalResult = await salesforceConnection.describeGlobal();
     const globalCached: sf.DescribeGlobalResult = salesforceConnection.describeGlobal$();
     const globalCachedCorrectly = global === globalCached;
+    salesforceConnection.describeGlobal$.clear();
 
     globalCached.sobjects.forEach(async (sobject: sf.DescribeGlobalSObjectResult) => {
         const object: sf.DescribeSObjectResult = await salesforceConnection.describe(sobject.name);
         const cachedObject: sf.DescribeSObjectResult = salesforceConnection.describe$(sobject.name);
+        salesforceConnection.describe$.clear();
 
         object.fields.forEach(field => {
             const type: sf.FieldType = field.type;

@@ -112,11 +112,17 @@ export abstract class BaseConnection extends EventEmitter {
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     destroy<T>(type: string, ids: string | string[], options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
-    describe$<T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+    describe$: {
+        /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
+        <T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+        clear(): void;
+    }
     describe<T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
-    /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
-    describeGlobal$<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
+    describeGlobal$: {
+        /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
+        <T>(callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
+        clear(): void;
+    }
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
     sobject<T>(resource: string): SObject<T>;
 }
