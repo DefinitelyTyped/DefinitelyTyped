@@ -18,6 +18,7 @@
 //                 David Hayden <https://github.com/Haydabase>
 //                 Chris Redekop <https://github.com/repl-chris>
 //                 Aneil Mallavarapu <https://github.com/aneilbaboo>
+//                 Dan Segal <https://github.com/dsegal92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -641,6 +642,31 @@ export interface KinesisStreamEvent {
     Records: KinesisStreamRecord[];
 }
 
+// Kinesis Data Firehose
+// https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-firehose
+
+export interface KinesisDataFirehoseRecordMetadata {
+  shardId: string;
+  partitionKey: string;
+  approximateArrivalTimestamp: string;
+  sequenceNumber: string;
+  subsequenceNumber: string;
+}
+
+export interface KinesisDataFirehoseRecord {
+  data: string;
+  recordId: string;
+  approximateArrivalTimestamp: number;
+  kinesisRecordMetadata: KinesisDataFirehoseRecordMetadata;
+}
+
+export interface KinesisDataFirehoseEvent {
+  invocationId: string;
+  deliveryStreamArn: string;
+  region: string;
+  Records: KinesisDataFirehoseRecord[];
+}
+
 /**
  * AWS Lambda handler function.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
@@ -716,7 +742,7 @@ export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
 
 export type KinesisStreamHandler = Handler<KinesisStreamEvent, void>;
 
-// TODO: Kinesis Firehose
+export type KinesisDataFirehoseHandler = Handler<KinesisDataFirehoseEvent, void>;
 
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
