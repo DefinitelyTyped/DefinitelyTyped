@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace pDefer {
-	interface DeferredPromise<T> {
+	export interface DeferredPromise<T> {
 		resolve<U>(value: U | PromiseLike<U>): Promise<U>;
 		reject(reason: any): Promise<never>;
 		promise: Promise<T>;
