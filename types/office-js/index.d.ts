@@ -4526,6 +4526,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Read
      */
     export interface AttachmentDetails {
@@ -4561,6 +4562,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface Body {
@@ -4575,6 +4577,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param coercionType The format for the returned body.
@@ -4591,6 +4594,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -4630,8 +4634,11 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.
+         * 
          * InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
          * 
          * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters.
@@ -4652,8 +4659,11 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.
+         * 
          * InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
          * 
          * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters.
@@ -4673,6 +4683,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: Restricted
+     * 
      * Applicable Outlook mode: Read
      */
     export interface Contact {
@@ -4736,6 +4747,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Compose or read
          */
         mailbox: Mailbox;
@@ -4768,6 +4780,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Compose or read
          */
         roamingSettings: RoamingSettings;
@@ -4781,6 +4794,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface CustomProperties {
@@ -4793,6 +4807,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         get(name: string): any;
@@ -4807,6 +4822,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param name The name of the property to be set.
@@ -4823,6 +4839,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         remove(name: string): void;
@@ -4840,6 +4857,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         saveAsync(callback?: (result: AsyncResult) => void, asyncContext?: any): void;
@@ -4851,6 +4869,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface Diagnostics {
@@ -4863,6 +4882,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         hostName: string;
@@ -4875,6 +4895,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         hostVersion: string;
@@ -4897,6 +4918,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         OWAView: string;
@@ -4908,6 +4930,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface EmailAddressDetails {
@@ -4935,6 +4958,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Read
      */
     export interface EmailUser {
@@ -4966,6 +4990,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Read
      */
     export interface Entities {
@@ -5023,6 +5048,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         end: Time;
@@ -5042,6 +5068,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         location: Location;
@@ -5061,6 +5088,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         optionalAttendees: Recipients;
@@ -5080,6 +5108,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         requiredAttendees: Recipients;
@@ -5103,6 +5132,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         start: Time;
@@ -5125,6 +5155,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         location: string;
@@ -5144,6 +5175,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         optionalAttendees: Array<EmailAddressDetails>;
@@ -5155,6 +5187,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         organizer: EmailAddressDetails;
@@ -5174,6 +5207,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         requiredAttendees: Array<EmailAddressDetails>;
@@ -5197,6 +5231,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         start: Date;
@@ -5222,6 +5257,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         end: Date; 
@@ -5260,6 +5296,7 @@ declare namespace Office {
         * @remarks
         * 
         * Minimum permission level: ReadItem
+        * 
         * Applicable Outlook mode: Compose or read
         */
        optionalAttendees: Array<string> | Array<EmailAddressDetails>;
@@ -5279,6 +5316,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         requiredAttendees: Array<string> | Array<EmailAddressDetails>;
@@ -5302,6 +5340,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         start: Date;    
@@ -5323,6 +5362,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */   
         subject: string;
@@ -5335,6 +5375,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: Restricted
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface Item {
@@ -5346,6 +5387,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         body: Body;
@@ -5357,6 +5399,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         dateTimeCreated: Date;
@@ -5370,6 +5413,7 @@ declare namespace Office {
          * Note: This member is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         dateTimeModifed: Date;
@@ -5383,6 +5427,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         itemType: Office.MailboxEnums.ItemType;
@@ -5394,6 +5439,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         notificationMessages: NotificationMessages;       
@@ -5409,6 +5455,7 @@ declare namespace Office {
         * @remarks
         * 
         * Minimum permission level: ReadItem
+        * 
         * Applicable Outlook mode: Compose or read
         * 
         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
@@ -5435,6 +5482,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         subject: Subject;
@@ -5449,6 +5497,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * Errors: 
@@ -5480,6 +5529,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * Errors:
@@ -5507,6 +5557,7 @@ declare namespace Office {
          * Note: In Outlook on the web, if the item is an appointment and it has previously been saved using saveAsync, the user is prompted to save, discard, or cancel even if no changes have occurred since the item was last saved.
          * 
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Compose
          */
         close(): void;
@@ -5520,6 +5571,7 @@ declare namespace Office {
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -5542,6 +5594,7 @@ declare namespace Office {
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          * 
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * @param coercionType Requests a format for the data. If Text, the method returns the plain text as a string , removing any HTML tags present. If HTML, the method returns the selected text, whether it is plaintext or HTML.
@@ -5563,6 +5616,7 @@ declare namespace Office {
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          * 
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * @param coercionType Requests a format for the data. If Text, the method returns the plain text as a string , removing any HTML tags present. If HTML, the method returns the selected text, whether it is plaintext or HTML.
@@ -5581,7 +5635,9 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
          * 
          * @param attachmentIndex The identifier of the attachment to remove. The maximum length of the string is 100 characters.
@@ -5590,7 +5646,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
         removeAttachmentAsync(attachmentIndex: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-                /**
+        /**
          * Asynchronously saves an item.
          * 
          * When invoked, this method saves the current message as a draft and returns the item id via the callback method. In Outlook Web App or Outlook in online mode, the item is saved to the server. In Outlook in cached mode, the item is saved to the local cache.
@@ -5610,7 +5666,9 @@ declare namespace Office {
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          * 
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -5628,7 +5686,9 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
          * 
          * @param data The data to be inserted. Data is not to exceed 1,000,000 characters. If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
@@ -5645,7 +5705,9 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
          * 
          * @param data The data to be inserted. Data is not to exceed 1,000,000 characters. If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
@@ -5668,6 +5730,7 @@ declare namespace Office {
          * Note: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, see [Blocked attachments in Outlook]<https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519>.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          * 
          */
@@ -5689,6 +5752,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         itemClass: string;
@@ -5704,6 +5768,7 @@ declare namespace Office {
          * Note: The identifier returned by the itemId property is the same as the Exchange Web Services item identifier. The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. For more details, see Use the Outlook REST APIs from an Outlook add-in.         * 
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         itemId: string;
@@ -5717,6 +5782,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         normalizedSubject: string;
@@ -5738,6 +5804,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         subject: string;
@@ -5757,6 +5824,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          * 
          * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
@@ -5787,6 +5855,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          * 
          * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
@@ -5811,6 +5880,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         getEntities(): Entities;
@@ -5838,7 +5908,9 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Read
+         * 
          * @param entityType One of the EntityType enumeration values.
          */
         getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Array<(string | Contact | MeetingSuggestion | PhoneNumber | TaskSuggestion)>;
@@ -5854,6 +5926,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          * 
          * @param name The name of the ItemHasKnownEntity rule element that defines the filter to match.
@@ -5877,6 +5950,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         getRegExMatches(): any;
@@ -5897,6 +5971,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          * 
          * @param name The name of the ItemHasRegularExpressionMatch rule element that defines the filter to match.
@@ -5912,6 +5987,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          * 
          * @param name The name of the ItemHasRegularExpressionMatch rule element that defines the filter to match.
@@ -5934,6 +6010,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         getSelectedRegExMatches(): any;
@@ -5951,6 +6028,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         conversationId: string;
@@ -5964,6 +6042,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
          */
         bcc: Recipients;
@@ -5983,6 +6062,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         cc: Recipients;
@@ -6002,6 +6082,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         to: Recipients;
@@ -6023,6 +6104,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         cc: Array<EmailAddressDetails>;
@@ -6038,6 +6120,7 @@ declare namespace Office {
          * Note: The recipientType property of the EmailAddressDetails object in the from property is undefined.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         from: EmailAddressDetails;
@@ -6049,6 +6132,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         internetMessageId: string;
@@ -6064,6 +6148,7 @@ declare namespace Office {
          * Note: The recipientType property of the EmailAddressDetails object in the sender property is undefined.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          */
         sender: EmailAddressDetails;
@@ -6083,6 +6168,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         to: Array<EmailAddressDetails>;
@@ -6095,6 +6181,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Read
      */
     export interface LocalClientTime {
@@ -6138,6 +6225,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose
      */
     export interface Location {
@@ -6154,6 +6242,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
          */
         getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -6171,7 +6260,9 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: DataExceedsMaximumSize - The location parameter is longer than 255 characters.
          */
         setAsync(location: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -6192,6 +6283,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: Restricted
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface Mailbox {
@@ -6211,6 +6303,7 @@ declare namespace Office {
          * Note: This member is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         ewsUrl: string;
@@ -6234,6 +6327,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */        
         restUrl: string;
@@ -6247,6 +6341,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param eventType The event that should invoke the handler.
@@ -6267,6 +6362,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param itemId An item ID formatted for the Outlook REST APIs.
@@ -6285,6 +6381,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param timeValue A Date object.
@@ -6301,6 +6398,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param itemId An item ID formatted for Exchange Web Services (EWS)
@@ -6317,6 +6415,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param input The local time value to convert.
@@ -6340,7 +6439,9 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
+         * 
          * @param itemId The Exchange Web Services (EWS) identifier for an existing calendar appointment.
          */
         displayAppointmentForm(itemId: string): void;
@@ -6361,7 +6462,9 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
+         * 
          * @param itemId The Exchange Web Services (EWS) identifier for an existing message.
          */
         displayMessageForm(itemId: string): void;
@@ -6382,6 +6485,7 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          * 
          * @param parameters A dictionary of parameters describing the new appointment. All parameters are optional.
@@ -6407,6 +6511,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Read
          * 
          * @param parameters A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
@@ -6447,6 +6552,7 @@ declare namespace Office {
          * Note: It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible. 
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose and read
          * 
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. The token is provided as a string in the asyncResult.value property.
@@ -6476,6 +6582,7 @@ declare namespace Office {
          * Note: It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible. 
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose and read
          * 
          * @param options An object literal that contains one or more of the following properties.
@@ -6500,6 +6607,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose and read
          * 
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. The token is provided as a string in the asyncResult.value property.
@@ -6518,6 +6626,7 @@ declare namespace Office {
          * @remarks
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose and read
          * 
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
@@ -6557,6 +6666,7 @@ declare namespace Office {
          * You do not need to set the encoding value when your mail app is running in Outlook on the web. You can determine whether your mail app is running in Outlook or Outlook on the web by using the mailbox.diagnostics.hostName property. You can determine what version of Outlook is running by using the mailbox.diagnostics.hostVersion property.
          * 
          * Minimum permission level: ReadWriteMailbox
+         * 
          * Applicable Outlook mode: Compose and read
          * 
          * @param data The EWS request.
@@ -6577,6 +6687,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Read
      */
     export interface MeetingSuggestion {
@@ -6612,6 +6723,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface NotificationMessageDetails {
@@ -6643,6 +6755,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface NotificationMessages {
@@ -6665,6 +6778,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         addAsync(key: string, JSONmessage: NotificationMessageDetails, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -6676,6 +6790,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -6691,6 +6806,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param key The key for the notification message to remove.
@@ -6709,6 +6825,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param key The key for the notification message to replace. It can't be longer than 32 characters.
@@ -6733,6 +6850,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Read
      */
     export interface PhoneNumber {
@@ -6754,6 +6872,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose
      */
     export interface Recipients {
@@ -6772,7 +6891,9 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.
          * 
          * @param recipients The recipients to add to the recipients list.
@@ -6791,6 +6912,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
@@ -6805,6 +6927,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * @param options An object literal that contains one or more of the following properties.
@@ -6830,7 +6953,9 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.
          * 
          * @param recipients The recipients to add to the recipients list.
@@ -6867,6 +6992,7 @@ declare namespace Office {
      * Important: The RoamingSettings object is initialized from the persisted storage only when the add-in is first loaded. For task panes, this means that it is only initialized when the task pane first opens. If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if your add-in has persisted changes. The persisted changes will not be available until the task pane is closed and reopened.
      * 
      * Minimum permission level: Restricted
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface RoamingSettings {
@@ -6877,6 +7003,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param name The case-sensitive name of the setting to retrieve.
@@ -6890,6 +7017,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param name The case-sensitive name of the setting to remove.
@@ -6904,6 +7032,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param callback Optional? When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
@@ -6922,6 +7051,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: Restricted
+         * 
          * Applicable Outlook mode: Compose or read
          * 
          * @param name The case-sensitive name of the setting to set or create.
@@ -6937,6 +7067,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose
      */
     export interface Subject {
@@ -6948,6 +7079,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
@@ -6962,6 +7094,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * @param options An object literal that contains one or more of the following properties.
@@ -6979,7 +7112,9 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: DataExceedsMaximumSize - The subject parameter is longer than 255 characters.
          * 
          * @param subject The subject of the appointment or message. The string is limited to 255 characters.
@@ -6999,6 +7134,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Read
      */
     export interface TaskSuggestion {
@@ -7018,6 +7154,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose
      */
     export interface Time {
@@ -7030,6 +7167,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
@@ -7044,6 +7182,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose
          * 
          * @param options An object literal that contains one or more of the following properties.
@@ -7063,7 +7202,9 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: InvalidEndTime - The appointment end time is before the appointment start time.
          * 
          * @param dateTime A date-time object in Coordinated Universal Time (UTC).
@@ -7079,6 +7220,7 @@ declare namespace Office {
      * 
      * @remarks
      * Minimum permission level: ReadItem
+     * 
      * Applicable Outlook mode: Compose or read
      */
     export interface UserProfile {
@@ -7098,6 +7240,7 @@ declare namespace Office {
          * |outlookCom |The mailbox is associated with a personal Outlook.com account.|
          * 
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         accountType: string;
@@ -7108,6 +7251,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         displayName: string;
@@ -7118,6 +7262,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         emailAddress: string;
@@ -7128,6 +7273,7 @@ declare namespace Office {
          * 
          * @remarks
          * Minimum permission level: ReadItem
+         * 
          * Applicable Outlook mode: Compose or read
          */
         timeZone: string;
