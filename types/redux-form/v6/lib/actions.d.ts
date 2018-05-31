@@ -84,14 +84,22 @@ export function destroy(...form: string[]): FormAction;
 export function focus(form: string, field: string): FormAction;
 
 /**
- * Sets the initial values in the form with which future data values will be compared to calculate dirty and pristine.
- * The data parameter may contain deep nested array and object values that match the shape of your form fields.
- * If the keepDirty parameter is true, the values of the currently dirty fields will be retained to avoid overwriting
- * user edits.
+ * Sets the initial values in the form with which future data values will be compared to calculate dirty and pristine. 
+ * 
+ * If the keepDirty parameter is true, the values of currently dirty fields will be retained to avoid overwriting user edits.
+ * 
+ * If the keepSubmitSucceeded parameter is true, it will not clear the submitSucceeded flag if it is set.
+ * 
+ * If the updateUnregisteredFields parameter is true, it will update every initialValue if still pristine instead of only 
+ * registered fields. Highly recommended, defaults to false because of non-breaking backwards compatibility.
+ * 
+ * If the keepValues parameter is true, it will keep the old values and initial values.
  */
 interface InitializeOptions {
     keepDirty: boolean;
     keepSubmitSucceeded: boolean;
+    updateUnregisteredFields: boolean;
+    keepValues: boolean;
 }
 
 export function initialize(form: string, data: any, keepDirty?: boolean | InitializeOptions, options?: InitializeOptions): FormAction;
@@ -105,6 +113,11 @@ export function registerField(form: string, name: string, type: FieldType): Form
  * Resets the values in the form back to the values past in with the most recent initialize action.
  */
 export function reset(form: string): FormAction;
+
+/**
+ * Resets the values in the form sections back to the values past in with the most recent initialize action. 
+ */
+export function resetSection(form: string, ...sections: string[]): FormAction;
 
 /**
  * Flips the asyncValidating flag true
