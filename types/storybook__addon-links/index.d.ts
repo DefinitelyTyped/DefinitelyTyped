@@ -9,6 +9,9 @@ import * as React from 'react';
 
 export type LinkToFunction = (...args: any[]) => string;
 
-export function linkTo<T>(book: string | LinkToFunction, kind?: string | LinkToFunction): React.MouseEventHandler<T>;
+export function linkTo<T>(
+  book: string | LinkToFunction,
+  kind?: string | LinkToFunction
+): (event?: React.MouseEvent<T>) => void;
 
 export function hrefTo(kind: string, story: string): Promise<string>;
