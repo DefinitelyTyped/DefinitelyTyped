@@ -4198,6 +4198,13 @@ declare namespace Xrm {
             confirmed: boolean;
         }
 
+        interface OpenFormResult {
+            /**
+             * Identifies the record displayed or created
+             */
+            savedEntityReference: LookupValue[]
+        }
+
         /**
          * Details to show in the Error dialog
          */
@@ -4378,7 +4385,7 @@ declare namespace Xrm {
         /**
          * Opens an entity form or a quick create form.
          */
-        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters?: Utility.OpenParameters): Async.PromiseLike<any>;
+        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters?: Utility.OpenParameters): Async.PromiseLike<Navigation.OpenFormResult>;
 
         /**
          * Opens a URL, including file URLs.
