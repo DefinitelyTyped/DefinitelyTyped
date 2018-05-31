@@ -1,4 +1,4 @@
-// Type definitions for CodeMirror
+﻿// Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
 //                 nrbernard <https://github.com/nrbernard>
@@ -327,7 +327,7 @@ declare namespace CodeMirror {
         getTokenTypeAt(pos: CodeMirror.Position): string;
 
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
-        getLineTokens(line: number, precise?: boolean): Token[]; 
+        getLineTokens(line: number, precise?: boolean): Token[];
 
         /** Returns the mode's parser state, if any, at the end of the given line number.
         If no line number is given, the state at the end of the document is returned.
