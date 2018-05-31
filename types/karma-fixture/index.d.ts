@@ -25,3 +25,6 @@ declare namespace fixture {
 
   export function setBase(fixtureBasePath: string): void;
 }
+
+export = fixture;
+export as namespace fixture;
