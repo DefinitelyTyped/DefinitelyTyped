@@ -11,10 +11,14 @@ import { Page, NavigationOptions, ScreenshotOptions } from "puppeteer";
 export type Test = (options: {
     story: StoryObject;
     context: StoryContext;
-    renderShallowTree: any;
-    renderTree: any;
+    renderShallowTree: RenderTree;
+    renderTree: RenderTree;
     snapshotFileName: string;
 }) => void | undefined | Promise<void>;
+
+export interface RenderTree {
+    (story: StoryObject, context: StoryContext, options?: SnapshotOptions): void | undefined | Promise<void>;
+}
 
 export interface SnapshotOptions {
     createNodeMock?: (element: any) => any;
@@ -54,10 +58,16 @@ export const renderOnly: Test;
 
 export function getSnapshotFileName(context: StoryContext): string;
 
-export default function initStoryshots(options: {
+export default function initStoryshots<Rendered>(options: InitOptions<Rendered>): void;
+
+export interface InitOptions<Rendered = any> {
     configPath?: string;
-    framework?: string;
-    integrityOptions?: {};
     suite?: string;
+    storyKindRegex?: RegExp;
+    storyNameRegex?: RegExp;
+    framework?: string;
     test?: Test;
-}): void;
+    renderer?: (node: React.ReactElement<any>) => Rendered;
+    serializer?: (rendered: Rendered) => any;
+    integrityOptions?: {};
+}
