@@ -4378,7 +4378,7 @@ declare namespace Xrm {
         /**
          * Opens an entity form or a quick create form.
          */
-        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters: Utility.OpenParameters): Async.PromiseLike<any>;
+        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters?: Utility.OpenParameters): Async.PromiseLike<any>;
 
         /**
          * Opens a URL, including file URLs.
