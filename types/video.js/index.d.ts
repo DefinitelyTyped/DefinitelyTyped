@@ -5,6 +5,7 @@
 //                 Sean Bennett <https://github.com/SWBennett06>
 //                 Christoph Wagner <https://github.com/IgelCampus>
 //                 Gio Freitas <https://github.com/giofreitas>
+//                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -109,8 +110,8 @@ declare namespace videojs {
 	}
 
 	class Player extends Component {
-        autoplay(value?: boolean): string;
-		addRemoteTextTrack(options: {}): HTMLTrackElement;
+		autoplay(value?: boolean): string;
+		addRemoteTextTrack(options: {}, manualCleanup?: boolean): HTMLTrackElement;
 		buffered(): TimeRanges;
 		bufferedPercent(): number;
 		cancelFullScreen(): Player;
@@ -122,16 +123,17 @@ declare namespace videojs {
 		height(): number;
 		height(num: number): void;
 		languageSwitch(options: any): void;
-        loop(value?: boolean): string;
-        muted(muted?: boolean): boolean;
+		loop(value?: boolean): string;
+		muted(muted?: boolean): boolean;
 		off(eventName?: string, callback?: (eventObject: Event) => void): void;
 		on(eventName: string, callback: (eventObject: Event) => void): void;
+		one(eventName: string, callback: (eventObject: Event) => void): void;
 		pause(): Player;
 		paused(): boolean;
 		play(): Player;
 		playbackRate(rate?: number): number;
 		poster(val?: string): string | Player;
-        preload(value?: boolean): string;
+		preload(value?: boolean): string;
 		removeRemoteTextTrack(track: HTMLTrackElement): void;
 		requestFullScreen(): Player;
 		size(width: number, height: number): Player;
