@@ -142,7 +142,7 @@ export interface ObjectSchemaConstructor {
 export interface ObjectSchema<T> extends Schema<T> {
     shape(fields: { [field in keyof T]: Schema<T[field]> }, noSortEdges?: Array<[string, string]>): ObjectSchema<T>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
-    noUnknown(onlyKnownKeys: boolean, message?: string): ObjectSchema<T>;
+    noUnknown(onlyKnownKeys?: boolean, message?: string): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
