@@ -12,6 +12,6 @@ export type LinkToFunction = (...args: any[]) => string;
 export function linkTo<T>(
   book: string | LinkToFunction,
   kind?: string | LinkToFunction
-): (event?: React.MouseEvent<T>) => void;
+): () => void;
 
 export function hrefTo(kind: string, story: string): Promise<string>;
