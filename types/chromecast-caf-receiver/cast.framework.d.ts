@@ -1,16 +1,4 @@
-// Type definitions for chromecast-caf-receiver 3.x
-// Project: https://developers.google.com/cast/docs/reference/caf_receiver/
-// Definitions by: Craig Bruce https://github.com/craigrbruce
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="./index.d.ts" />
-/// <reference path="./cast.framework.breaks.d.ts" />
-/// <reference path="./cast.framework.events.d.ts" />
-/// <reference path="./cast.framework.messages.d.ts" />
-/// <reference path="./cast.framework.system.d.ts" />
-/// <reference path="./cast.framework.ui.d.ts" />
-
-import { EventType } from './cast.framework.events';
+import { EventType } from "./cast.framework.events";
 import {
     PlayerState,
     PlayStringId,
@@ -27,38 +15,35 @@ import {
     LiveSeekableRange,
     MediaInformation,
     ErrorData,
-    RequestData,
-} from './cast.framework.messages';
-import { BreakManager } from './cast.framework.breaks';
-import { EventHandler, RequestHandler, BinaryHandler } from './cast';
+    RequestData
+} from "./cast.framework.messages";
+import { BreakManager } from "./cast.framework.breaks";
+import { EventHandler, RequestHandler, BinaryHandler } from "./index";
 import {
+    EventType as SystemEventType,
     ApplicationData,
     Sender,
     StandbyState,
-    SystemState,
-} from './cast.framework.system';
+    SystemState
+} from "./cast.framework.system";
 
 export = cast.framework;
-
+type HTMLMediaElement = any;
 declare namespace cast.framework {
-    export type LoggerLevel =
-        | 'DEBUG'
-        | 'VERBOSE'
-        | 'INFO'
-        | 'WARNING'
-        | 'ERROR'
-        | 'NONE';
+    type LoggerLevel =
+        | "DEBUG"
+        | "VERBOSE"
+        | "INFO"
+        | "WARNING"
+        | "ERROR"
+        | "NONE";
 
-    export type ContentProtection =
-        | 'NONE'
-        | 'CLEARKEY'
-        | 'PLAYREADY'
-        | 'WIDEVINE';
+    type ContentProtection = "NONE" | "CLEARKEY" | "PLAYREADY" | "WIDEVINE";
 
     /**
      * Manages text tracks.
      */
-    export class TextTracksManager {
+    class TextTracksManager {
         constructor(params: any);
 
         /**
@@ -120,7 +105,7 @@ declare namespace cast.framework {
     /**
      * QueueManager exposes several queue manipulation APIs to developers.
      */
-    export class QueueManager {
+    class QueueManager {
         constructor(params: any);
 
         /**
@@ -162,7 +147,7 @@ declare namespace cast.framework {
     /**
      * Base implementation of a queue.
      */
-    export class QueueBase {
+    class QueueBase {
         /**
          * Fetches a window of items using the specified item id as reference; called by the receiver MediaManager when it needs more queue items; often as a request from senders. If only one of nextCount and prevCount is non-zero; fetchItems should only return items after or before the reference item; if both nextCount and prevCount are non-zero; a window of items including the reference item should be returned.
          */
@@ -175,7 +160,9 @@ declare namespace cast.framework {
         /**
          * Initializes the queue with the requestData. This is called when a new LOAD request comes in to the receiver. If this returns or resolves to null; our default queueing implementation will create a queue based on queueData.items or the single media in the load request data.
          */
-        initialize(requestData: LoadRequestData): QueueData | Promise<QueueData>;
+        initialize(
+            requestData: LoadRequestData
+        ): QueueData | Promise<QueueData>;
 
         /**
          * Returns next items after the reference item; often the end of the current queue; called by the receiver MediaManager.
@@ -211,7 +198,7 @@ declare namespace cast.framework {
     /**
      * Controls and monitors media playback.
      */
-    export class PlayerManager {
+    class PlayerManager {
         constructor(params: any);
 
         /**
@@ -444,7 +431,7 @@ declare namespace cast.framework {
     /**
      * Configuration to customize playback behavior.
      */
-    export class PlaybackConfig {
+    class PlaybackConfig {
         /**
          * Duration of buffered media in seconds to start buffering.
          */
@@ -523,7 +510,7 @@ declare namespace cast.framework {
     /**
      * HTTP(s) Request/Response information.
      */
-    export class NetworkRequestInfo {
+    class NetworkRequestInfo {
         /**
          * The content of the request. Can be used to modify license request body.
          */
@@ -545,7 +532,7 @@ declare namespace cast.framework {
         withCredentials: boolean;
     }
     /** Cast receiver context options. All options are optionals. */
-    export class CastReceiverOptions {
+    class CastReceiverOptions {
         /**
          * Optional map of custom messages namespaces to initialize and their types.
          * Custom messages namespaces need to be initiated before the application started;
@@ -624,7 +611,7 @@ declare namespace cast.framework {
     }
 
     /** Manages loading of underlying libraries and initializes underlying cast receiver SDK. */
-    export class CastReceiverContext {
+    class CastReceiverContext {
         /** Returns the CastReceiverContext singleton instance. */
         static getInstance(): CastReceiverContext;
 
@@ -633,12 +620,18 @@ declare namespace cast.framework {
         /**
          * Sets message listener on custom message channel.
          */
-        addCustomMessageListener(namespace: string, listener: EventHandler): void;
+        addCustomMessageListener(
+            namespace: string,
+            listener: EventHandler
+        ): void;
 
         /**
          * Add listener to cast system events.
          */
-        addEventListener(type: EventType, handler: EventHandler): void;
+        addEventListener(
+            type: SystemEventType | SystemEventType[],
+            handler: EventHandler
+        ): void;
 
         /**
          * Checks if the given media params of video or audio streams are supported by the platform.
@@ -690,7 +683,7 @@ declare namespace cast.framework {
         /**
          * Reports if the cast application is the HDMI active input.
          */
-        getVisibilityState(): VisibilityState;
+        getVisibilityState(): any;
 
         /**
          * When the application calls start; the system will send the ready event to indicate
@@ -720,7 +713,11 @@ declare namespace cast.framework {
         /**
          * Sends a message to a specific sender.
          */
-        sendCustomMessage(namespace: string, senderId: string, message: any): void;
+        sendCustomMessage(
+            namespace: string,
+            senderId: string,
+            message: any
+        ): void;
 
         /**
          * This function should be called in response to the feedbackstarted event if the application
@@ -760,7 +757,7 @@ declare namespace cast.framework {
     }
 
     /** Manages audio tracks. */
-    export class AudioTracksManager {
+    class AudioTracksManager {
         constructor(params: any);
         getActiveId(): number;
         getActiveTrack(): Track;

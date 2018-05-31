@@ -1,59 +1,48 @@
-// Type definitions for chromecast-caf-receiver 3.x
-// Project: https://developers.google.com/cast/docs/reference/caf_receiver/
-// Definitions by: Craig Bruce https://github.com/craigrbruce
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="./index.d.ts" />
-/// <reference path="./cast.framework.d.ts" />
-/// <reference path="./cast.framework.breaks.d.ts" />
-/// <reference path="./cast.framework.events.d.ts" />
-/// <reference path="./cast.framework.messages.d.ts" />
-/// <reference path="./cast.framework.system.d.ts" />
-
-import { PlayerDataEventType } from './cast.framework.ui';
-import { MediaMetadata } from './cast.framework.messages';
+import { PlayerDataEventType } from "./cast.framework.ui";
+import { MediaMetadata } from "./cast.framework.messages";
+import { PlayerDataChangedEventHandler } from "./index";
 
 export = cast.framework.ui;
 
 declare namespace cast.framework.ui {
-    export type ContentType = 'VIDEO' | 'AUDIO' | 'IMAGE';
+    type ContentType = "video" | "audio" | "image";
 
-    export type State =
-        | 'LAUNCHING'
-        | 'IDLE'
-        | 'LOADING'
-        | 'BUFFERING'
-        | 'PAUSED'
-        | 'PLAYING';
+    type State =
+        | "launching"
+        | "idle"
+        | "loading"
+        | "buffering"
+        | "paused"
+        | "playing";
 
-    export type PlayerDataEventType =
-        | 'ANY_CHANGE'
-        | 'STATE_CHANGED'
-        | 'IS_SEEKING_CHANGED'
-        | 'DURATION_CHANGED'
-        | 'CURRENT_TIME_CHANGED'
-        | 'METADATA_CHANGED'
-        | 'TITLE_CHANGED'
-        | 'SUBTITLE_CHANGED'
-        | 'THUMBNAIL_URL_CHANGED'
-        | 'NEXT_TITLE_CHANGED'
-        | 'NEXT_SUBTITLE_CHANGED'
-        | 'NEXT_THUMBNAIL_URL_CHANGED'
-        | 'PRELOADING_NEXT_CHANGED'
-        | 'CONTENT_TYPE_CHANGED'
-        | 'IS_LIVE_CHANGED'
-        | 'BREAK_PERCENTAGE_POSITIONS_CHANGED'
-        | 'IS_PLAYING_BREAK_CHANGED'
-        | 'IS_BREAK_SKIPPABLE_CHANGED'
-        | 'WHEN_SKIPPABLE_CHANGED'
-        | 'NUMBER_BREAK_CLIPS_CHANGED'
-        | 'CURRENT_BREAK_CLIP_NUMBER_CHANGED'
-        | 'DISPLAY_STATUS_CHANGED';
+    type PlayerDataEventType =
+        | "ANY_CHANGE"
+        | "STATE_CHANGED"
+        | "IS_SEEKING_CHANGED"
+        | "DURATION_CHANGED"
+        | "CURRENT_TIME_CHANGED"
+        | "METADATA_CHANGED"
+        | "TITLE_CHANGED"
+        | "SUBTITLE_CHANGED"
+        | "THUMBNAIL_URL_CHANGED"
+        | "NEXT_TITLE_CHANGED"
+        | "NEXT_SUBTITLE_CHANGED"
+        | "NEXT_THUMBNAIL_URL_CHANGED"
+        | "PRELOADING_NEXT_CHANGED"
+        | "CONTENT_TYPE_CHANGED"
+        | "IS_LIVE_CHANGED"
+        | "BREAK_PERCENTAGE_POSITIONS_CHANGED"
+        | "IS_PLAYING_BREAK_CHANGED"
+        | "IS_BREAK_SKIPPABLE_CHANGED"
+        | "WHEN_SKIPPABLE_CHANGED"
+        | "NUMBER_BREAK_CLIPS_CHANGED"
+        | "CURRENT_BREAK_CLIP_NUMBER_CHANGED"
+        | "DISPLAY_STATUS_CHANGED";
 
     /**
      * Player data changed event. Provides the changed field (type); and new value.
      */
-    export class PlayerDataChangedEvent {
+    class PlayerDataChangedEvent {
         constructor(type: PlayerDataEventType, field: string, value: any);
 
         /**
@@ -74,23 +63,29 @@ declare namespace cast.framework.ui {
     /**
      * Player data binder. Bind a player data object to the player state. The player data will be updated to reflect correctly the current player state without firing any change event.
      */
-    export class PlayerDataBinder {
-        constructor(playerData: PlayerData | any);
+    class PlayerDataBinder {
+        constructor(playerData: PlayerData);
 
         /**
          * Add listener to player data changes.
          */
-        // addEventListener: (type: PlayerDataEventType; listener: PlayerDataChangedEventHandler);
+        addEventListener: (
+            type: PlayerDataEventType,
+            listener: PlayerDataChangedEventHandler
+        ) => void;
 
         /**
          * Remove listener to player data changes.
          */
-        // removeEventListener: (type: PlayerDataEventType; listener: PlayerDataChangedEventHandler);
+        removeEventListener: (
+            type: PlayerDataEventType,
+            listener: PlayerDataChangedEventHandler
+        ) => void;
     }
     /**
      * Player data. Provide the player media and break state.
      */
-    export interface PlayerData {
+    interface PlayerData {
         /**
          * Array of breaks positions in percentage.
          */
@@ -144,7 +139,7 @@ declare namespace cast.framework.ui {
         /**
          * Media metadata.
          */
-        metadata: MediaMetadata | any;
+        metadata: MediaMetadata;
 
         /**
          * Next Item subtitle.

@@ -1,212 +1,202 @@
-// Type definitions for chromecast-caf-receiver 3.x
-// Project: https://developers.google.com/cast/docs/reference/caf_receiver/
-// Definitions by: Craig Bruce https://github.com/craigrbruce
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="./index.d.ts" />
-/// <reference path="./cast.framework.d.ts" />
-/// <reference path="./cast.framework.breaks.d.ts" />
-/// <reference path="./cast.framework.events.d.ts" />
-/// <reference path="./cast.framework.system.d.ts" />
-/// <reference path="./cast.framework.ui.d.ts" />
-
-import { DetailedErrorCode } from './cast.framework.events';
+import { Event, DetailedErrorCode } from "./cast.framework.events";
 export = cast.framework.messages;
 
 declare namespace cast.framework.messages {
-    export type UserAction =
-        | 'LIKE'
-        | 'DISLIKE'
-        | 'FOLLOW'
-        | 'UNFOLLOW'
-        | 'FLAG'
-        | 'SKIP_AD';
+    type UserAction =
+        | "LIKE"
+        | "DISLIKE"
+        | "FOLLOW"
+        | "UNFOLLOW"
+        | "FLAG"
+        | "SKIP_AD";
 
-    export type UserActionContext =
-        | 'UNKNOWN_CONTEXT'
-        | 'ALBUM'
-        | 'ARTIST'
-        | 'PLAYLIST'
-        | 'EPISODE'
-        | 'SERIES'
-        | 'MOVIE'
-        | 'CHANNEL'
-        | 'TEAM'
-        | 'PLAYER'
-        | 'COACH';
+    type UserActionContext =
+        | "UNKNOWN_CONTEXT"
+        | "ALBUM"
+        | "ARTIST"
+        | "PLAYLIST"
+        | "EPISODE"
+        | "SERIES"
+        | "MOVIE"
+        | "CHANNEL"
+        | "TEAM"
+        | "PLAYER"
+        | "COACH";
 
-    export type TextTrackType =
-        | 'SUBTITLES'
-        | 'CAPTIONS'
-        | 'DESCRIPTIONS'
-        | 'CHAPTERS'
-        | 'METADATA';
+    type TextTrackType =
+        | "SUBTITLES"
+        | "CAPTIONS"
+        | "DESCRIPTIONS"
+        | "CHAPTERS"
+        | "METADATA";
 
-    export type TextTrackWindowType = 'NONE' | 'NORMAL' | 'ROUNDED_CORNERS';
+    type TextTrackWindowType = "NONE" | "NORMAL" | "ROUNDED_CORNERS";
 
-    export type TrackType = 'TEXT' | 'AUDIO' | 'VIDEO';
+    type TrackType = "TEXT" | "AUDIO" | "VIDEO";
 
-    export type TextTrackFontGenericFamily =
-        | 'SANS_SERIF'
-        | 'MONOSPACED_SANS_SERIF'
-        | 'SERIF'
-        | 'MONOSPACED_SERIF'
-        | 'CASUAL'
-        | 'CURSIVE'
-        | 'SMALL_CAPITALS';
+    type TextTrackFontGenericFamily =
+        | "SANS_SERIF"
+        | "MONOSPACED_SANS_SERIF"
+        | "SERIF"
+        | "MONOSPACED_SERIF"
+        | "CASUAL"
+        | "CURSIVE"
+        | "SMALL_CAPITALS";
 
-    export type TextTrackFontStyle = 'NORMAL' | 'BOLD' | 'BOLD_ITALIC' | 'ITALIC';
+    type TextTrackFontStyle = "NORMAL" | "BOLD" | "BOLD_ITALIC" | "ITALIC";
 
-    export type TextTrackEdgeType =
-        | 'NONE'
-        | 'OUTLINE'
-        | 'DROP_SHADOW'
-        | 'RAISED'
-        | 'DEPRESSED';
+    type TextTrackEdgeType =
+        | "NONE"
+        | "OUTLINE"
+        | "DROP_SHADOW"
+        | "RAISED"
+        | "DEPRESSED";
 
-    export type Command =
-        | 'PAUSE'
-        | 'SEEK'
-        | 'STREAM_VOLUME'
-        | 'STREAM_MUTE'
-        | 'ALL_BASIC_MEDIA'
-        | 'QUEUE_NEXT'
-        | 'QUEUE_PREV'
-        | 'QUEUE_SHUFFLE'
-        | 'SKIP_AD';
+    type Command =
+        | "PAUSE"
+        | "SEEK"
+        | "STREAM_VOLUME"
+        | "STREAM_MUTE"
+        | "ALL_BASIC_MEDIA"
+        | "QUEUE_NEXT"
+        | "QUEUE_PREV"
+        | "QUEUE_SHUFFLE"
+        | "SKIP_AD";
 
-    export type SeekResumeState = 'PLAYBACK_START' | 'PLAYBACK_PAUSE';
+    type SeekResumeState = "PLAYBACK_START" | "PLAYBACK_PAUSE";
 
-    export type StreamingProtocolType =
-        | 'UNKNOWN'
-        | 'MPEG_DASH'
-        | 'HLS'
-        | 'SMOOTH_STREAMING';
+    type StreamingProtocolType =
+        | "UNKNOWN"
+        | "MPEG_DASH"
+        | "HLS"
+        | "SMOOTH_STREAMING";
 
-    export type StreamType = 'BUFFERED' | 'LIVE' | 'NONE';
+    type StreamType = "BUFFERED" | "LIVE" | "NONE";
 
-    export type FocusState = 'IN_FOCUS' | 'NOT_IN_FOCUS';
+    type FocusState = "IN_FOCUS" | "NOT_IN_FOCUS";
 
-    export type ExtendedPlayerState = 'LOADING';
+    type ExtendedPlayerState = "LOADING";
 
-    export type ErrorType =
-        | 'INVALID_PLAYER_STATE'
-        | 'LOAD_FAILED'
-        | 'LOAD_CANCELLED'
-        | 'INVALID_REQUEST'
-        | 'ERROR';
+    type ErrorType =
+        | "INVALID_PLAYER_STATE"
+        | "LOAD_FAILED"
+        | "LOAD_CANCELLED"
+        | "INVALID_REQUEST"
+        | "ERROR";
 
-    export type ErrorReason =
-        | 'INVALID_COMMAND'
-        | 'INVALID_PARAMS'
-        | 'INVALID_MEDIA_SESSION_ID'
-        | 'SKIP_LIMIT_REACHED'
-        | 'NOT_SUPPORTED'
-        | 'LANGUAGE_NOT_SUPPORTED'
-        | 'END_OF_QUEUE'
-        | 'APP_ERROR'
-        | 'AUTHENTICATION_EXPIRED'
-        | 'PREMIUM_ACCOUNT_REQUIRED'
-        | 'CONCURRENT_STREAM_LIMIT'
-        | 'PARENTAL_CONTROL_RESTRICTED'
-        | 'NOT_AVAILABLE_IN_REGION'
-        | 'CONTENT_ALREADY_PLAYING'
-        | 'INVALID_REQUEST'
-        | 'GENERIC_LOAD_ERROR';
+    type ErrorReason =
+        | "INVALID_COMMAND"
+        | "INVALID_PARAMS"
+        | "INVALID_MEDIA_SESSION_ID"
+        | "SKIP_LIMIT_REACHED"
+        | "NOT_SUPPORTED"
+        | "LANGUAGE_NOT_SUPPORTED"
+        | "END_OF_QUEUE"
+        | "APP_ERROR"
+        | "AUTHENTICATION_EXPIRED"
+        | "PREMIUM_ACCOUNT_REQUIRED"
+        | "CONCURRENT_STREAM_LIMIT"
+        | "PARENTAL_CONTROL_RESTRICTED"
+        | "NOT_AVAILABLE_IN_REGION"
+        | "CONTENT_ALREADY_PLAYING"
+        | "INVALID_REQUEST"
+        | "GENERIC_LOAD_ERROR";
 
-    export type RepeatMode =
-        | 'REPEAT_OFF'
-        | 'REPEAT_ALL'
-        | 'REPEAT_SINGLE'
-        | 'REPEAT_ALL_AND_SHUFFLE';
+    type RepeatMode =
+        | "REPEAT_OFF"
+        | "REPEAT_ALL"
+        | "REPEAT_SINGLE"
+        | "REPEAT_ALL_AND_SHUFFLE";
 
-    export type IdleReason = 'CANCELLED' | 'INTERRUPTED' | 'FINISHED' | 'ERROR';
+    type IdleReason = "CANCELLED" | "INTERRUPTED" | "FINISHED" | "ERROR";
 
-    export type HlsSegmentFormat = 'AAC' | 'AC3' | 'MP3' | 'TS' | 'TS_AAC';
+    type HlsSegmentFormat = "AAC" | "AC3" | "MP3" | "TS" | "TS_AAC";
 
-    export type HdrType = 'SDR' | 'HDR' | 'DV';
+    type HdrType = "SDR" | "HDR" | "DV";
 
-    export type PlayStringId =
-        | 'FREE_TRIAL_ABOUT_TO_EXPIRE'
-        | 'SUBSCRIPTION_ABOUT_TO_EXPIRE'
-        | 'STREAM_HIJACKED';
+    type PlayStringId =
+        | "FREE_TRIAL_ABOUT_TO_EXPIRE"
+        | "SUBSCRIPTION_ABOUT_TO_EXPIRE"
+        | "STREAM_HIJACKED";
 
-    export type GetStatusOptions = 'NO_METADATA' | 'NO_QUEUE_ITEMS';
+    type GetStatusOptions = "NO_METADATA" | "NO_QUEUE_ITEMS";
 
-    export type MessageType =
-        | 'MEDIA_STATUS'
-        | 'CLOUD_STATUS'
-        | 'QUEUE_CHANGE'
-        | 'QUEUE_ITEMS'
-        | 'QUEUE_ITEM_IDS'
-        | 'GET_STATUS'
-        | 'LOAD'
-        | 'PAUSE'
-        | 'STOP'
-        | 'PLAY'
-        | 'SKIP_AD'
-        | 'PLAY_AGAIN'
-        | 'SEEK'
-        | 'SET_PLAYBACK_RATE'
-        | 'SET_VOLUME'
-        | 'EDIT_TRACKS_INFO'
-        | 'EDIT_AUDIO_TRACKS'
-        | 'PRECACHE'
-        | 'PRELOAD'
-        | 'QUEUE_LOAD'
-        | 'QUEUE_INSERT'
-        | 'QUEUE_UPDATE'
-        | 'QUEUE_REMOVE'
-        | 'QUEUE_REORDER'
-        | 'QUEUE_NEXT'
-        | 'QUEUE_PREV'
-        | 'QUEUE_GET_ITEM_RANGE'
-        | 'QUEUE_GET_ITEMS'
-        | 'QUEUE_GET_ITEM_IDS'
-        | 'QUEUE_SHUFFLE'
-        | 'SET_CREDENTIALS'
-        | 'LOAD_BY_ENTITY'
-        | 'USER_ACTION'
-        | 'DISPLAY_STATUS'
-        | 'FOCUS_STATE'
-        | 'CUSTOM_COMMAND';
+    type MessageType =
+        | "MEDIA_STATUS"
+        | "CLOUD_STATUS"
+        | "QUEUE_CHANGE"
+        | "QUEUE_ITEMS"
+        | "QUEUE_ITEM_IDS"
+        | "GET_STATUS"
+        | "LOAD"
+        | "PAUSE"
+        | "STOP"
+        | "PLAY"
+        | "SKIP_AD"
+        | "PLAY_AGAIN"
+        | "SEEK"
+        | "SET_PLAYBACK_RATE"
+        | "SET_VOLUME"
+        | "EDIT_TRACKS_INFO"
+        | "EDIT_AUDIO_TRACKS"
+        | "PRECACHE"
+        | "PRELOAD"
+        | "QUEUE_LOAD"
+        | "QUEUE_INSERT"
+        | "QUEUE_UPDATE"
+        | "QUEUE_REMOVE"
+        | "QUEUE_REORDER"
+        | "QUEUE_NEXT"
+        | "QUEUE_PREV"
+        | "QUEUE_GET_ITEM_RANGE"
+        | "QUEUE_GET_ITEMS"
+        | "QUEUE_GET_ITEM_IDS"
+        | "QUEUE_SHUFFLE"
+        | "SET_CREDENTIALS"
+        | "LOAD_BY_ENTITY"
+        | "USER_ACTION"
+        | "DISPLAY_STATUS"
+        | "FOCUS_STATE"
+        | "CUSTOM_COMMAND";
 
-    export type PlayerState = 'IDLE' | 'PLAYING' | 'PAUSED' | 'BUFFERING';
+    type PlayerState = "IDLE" | "PLAYING" | "PAUSED" | "BUFFERING";
 
-    export type QueueChangeType =
-        | 'INSERT'
-        | 'REMOVE'
-        | 'ITEMS_CHANGE'
-        | 'UPDATE'
-        | 'NO_CHANGE';
+    type QueueChangeType =
+        | "INSERT"
+        | "REMOVE"
+        | "ITEMS_CHANGE"
+        | "UPDATE"
+        | "NO_CHANGE";
 
-    export type QueueType =
-        | 'ALBUM'
-        | 'PLAYLIST'
-        | 'AUDIOBOOK'
-        | 'RADIO_STATION'
-        | 'PODCAST_SERIES'
-        | 'TV_SERIES'
-        | 'VIDEO_PLAYLIST'
-        | 'LIVE_TV'
-        | 'MOVIE';
+    type QueueType =
+        | "ALBUM"
+        | "PLAYLIST"
+        | "AUDIOBOOK"
+        | "RADIO_STATION"
+        | "PODCAST_SERIES"
+        | "TV_SERIES"
+        | "VIDEO_PLAYLIST"
+        | "LIVE_TV"
+        | "MOVIE";
 
-    export type MetadataType =
-        | 'GENERIC'
-        | 'MOVIE'
-        | 'TV_SHOW'
-        | 'MUSIC_TRACK'
-        | 'PHOTO';
+    type MetadataType =
+        | "GENERIC"
+        | "MOVIE"
+        | "TV_SHOW"
+        | "MUSIC_TRACK"
+        | "PHOTO";
 
     /**
      * RefreshCredentials request data.
      */
-    export interface RefreshCredentialsRequestData { }
+    interface RefreshCredentialsRequestData {
+        [key: string]: any;
+    }
 
     /**
      * Media event SET_VOLUME request data.
      */
-    export interface VolumeRequestData extends RequestData {
+    interface VolumeRequestData extends RequestData {
         /**
          * The media stream volume
          */
@@ -216,7 +206,7 @@ declare namespace cast.framework.messages {
     /**
      * Represents the volume of a media session stream.
      */
-    export interface Volume {
+    interface Volume {
         /**
          * Value from 0 to 1 that represents the current stream volume level.
          */
@@ -231,7 +221,7 @@ declare namespace cast.framework.messages {
     /**
      * Video information such as video resolution and High Dynamic Range (HDR).
      */
-    export class VideoInformation {
+    class VideoInformation {
         constructor(width: number, height: number, hdrType: HdrType);
 
         /**
@@ -253,7 +243,7 @@ declare namespace cast.framework.messages {
     /**
      * VAST ad request configuration.
      */
-    export interface VastAdsRequest {
+    interface VastAdsRequest {
         /**
          * Specifies a VAST document to be used as the ads response instead of making a request via an ad tag url. This can be useful for debugging and other situations where a VAST response is already available.
          */
@@ -268,7 +258,7 @@ declare namespace cast.framework.messages {
     /**
      * UserAction request data.
      */
-    export interface UserActionRequestData {
+    interface UserActionRequestData {
         /**
          * Optional request source. It contain the assistent query that initiate the request.
          */
@@ -288,7 +278,7 @@ declare namespace cast.framework.messages {
     /**
      * A TV episode media description.
      */
-    export interface TvShowMediaMetadata {
+    interface TvShowMediaMetadata {
         /**
          * TV episode number. A positive integer.
          */
@@ -342,7 +332,7 @@ declare namespace cast.framework.messages {
     /**
      * Describes track metadata information.
      */
-    export class Track {
+    class Track {
         constructor(trackId: number, trackType: TrackType);
 
         /**
@@ -388,7 +378,7 @@ declare namespace cast.framework.messages {
     /**
      * Describes style information for a text track.
      */
-    export interface TextTrackStyle {
+    interface TextTrackStyle {
         /**
          * The background 32 bit RGBA color. The alpha channel should be used for transparent backgrounds.
          */
@@ -453,7 +443,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event playback rate request data.
      */
-    export interface SetPlaybackRateRequestData extends RequestData {
+    interface SetPlaybackRateRequestData extends RequestData {
         /**
          * New playback rate (>0).
          */
@@ -468,7 +458,7 @@ declare namespace cast.framework.messages {
     /**
      * SetCredentials request data.
      */
-    export interface SetCredentialsRequestData {
+    interface SetCredentialsRequestData {
         /**
          * Credentials to use by receiver.
          */
@@ -488,7 +478,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event SEEK request data.
      */
-    export interface SeekRequestData extends RequestData {
+    interface SeekRequestData extends RequestData {
         /**
          * Seconds since beginning of content.
          */
@@ -508,7 +498,7 @@ declare namespace cast.framework.messages {
     /**
      * Provides seekable range in seconds.
      */
-    export class SeekableRange {
+    class SeekableRange {
         constructor(start?: number, end?: number);
 
         /**
@@ -525,7 +515,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event request data.
      */
-    export class RequestData {
+    class RequestData {
         constructor(type: MessageType);
 
         /**
@@ -547,7 +537,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event UPDATE queue request data.
      */
-    export interface QueueUpdateRequestData {
+    interface QueueUpdateRequestData {
         /**
          * ID of the current media Item after the deletion (if not provided; the currentItem value will be the same as before the deletion; if it does not exist because it has been deleted; the currentItem will point to the next logical item in the list).
          */
@@ -582,7 +572,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event queue REORDER request data.
      */
-    export class QueueReorderRequestData extends RequestData {
+    class QueueReorderRequestData extends RequestData {
         constructor(itemIds: number[]);
 
         /**
@@ -601,21 +591,21 @@ declare namespace cast.framework.messages {
         insertBefore?: number;
 
         /**
-               * IDs of the items to be reordered; in the new order. Items not provided will keep their existing order. The provided list will be inserted at the position determined by insertBefore. For example:
+           * IDs of the items to be reordered; in the new order. Items not provided will keep their existing order. The provided list will be inserted at the position determined by insertBefore. For example:
 
-                  If insertBefore is not specified Existing queue: “A”;”D”;”G”;”H”;”B”;”E” itemIds: “D”;”H”;”B” New Order: “A”;”G”;”E”;“D”;”H”;”B”
+              If insertBefore is not specified Existing queue: “A”;”D”;”G”;”H”;”B”;”E” itemIds: “D”;”H”;”B” New Order: “A”;”G”;”E”;“D”;”H”;”B”
 
-                  If insertBefore is “A” Existing queue: “A”;”D”;”G”;”H”;”B” itemIds: “D”;”H”;”B” New Order: “D”;”H”;”B”;“A”;”G”;”E”
+              If insertBefore is “A” Existing queue: “A”;”D”;”G”;”H”;”B” itemIds: “D”;”H”;”B” New Order: “D”;”H”;”B”;“A”;”G”;”E”
 
-                  If insertBefore is “G” Existing queue: “A”;”D”;”G”;”H”;”B” itemIds: “D”;”H”;”B” New Order: “A”;“D”;”H”;”B”;”G”;”E”
-               */
+              If insertBefore is “G” Existing queue: “A”;”D”;”G”;”H”;”B” itemIds: “D”;”H”;”B” New Order: “A”;“D”;”H”;”B”;”G”;”E”
+           */
         itemIds: number[];
     }
 
     /**
      * Media event queue REMOVE request data.
      */
-    export class QueueRemoveRequestData extends RequestData {
+    class QueueRemoveRequestData extends RequestData {
         constructor(itemIds: number[]);
 
         /**
@@ -636,8 +626,8 @@ declare namespace cast.framework.messages {
     /**
      * Media event queue LOAD request data.
      */
-    export interface QueueLoadRequestData extends RequestData {
-        constructor(items: QueueItem[]): QueueLoadRequestData;
+    class QueueLoadRequestData extends RequestData {
+        constructor(items: QueueItem[]);
 
         /**
          * Seconds (since the beginning of content) to start playback of the first item to be played. If provided; this value will take precedence over the startTime value provided at the QueueItem level but only the first time the item is played. This is to cover the common case where the user casts the item that was playing locally so the currentTime does not apply to the item permanently like the QueueItem startTime does. It avoids having to reset the startTime dynamically (that may not be possible if the phone has gone to sleep).
@@ -663,7 +653,7 @@ declare namespace cast.framework.messages {
     /**
      * Queue item information. Application developers may need to create a QueueItem to insert a queue element using InsertQueueItems. In this case they should not provide an itemId (as the actual itemId will be assigned when the item is inserted in the queue). This prevents ID collisions with items added from a sender app.
      */
-    export class QueueItem {
+    class QueueItem {
         constructor(opt_itemId?: number);
 
         /**
@@ -710,7 +700,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event queue INSERT request data.
      */
-    export class QueueInsertRequestData extends RequestData {
+    class QueueInsertRequestData extends RequestData {
         constructor(items: QueueItem[]);
 
         /**
@@ -742,7 +732,7 @@ declare namespace cast.framework.messages {
     /**
      * Represents a data message containing the full list of queue ids.
      */
-    export interface QueueIds {
+    interface QueueIds {
         /**
          * List of queue item ids.
          */
@@ -762,7 +752,7 @@ declare namespace cast.framework.messages {
     /**
      * Queue data as part of the LOAD request.
      */
-    export class QueueData {
+    class QueueData {
         constructor(
             id?: string,
             name?: string,
@@ -822,7 +812,7 @@ declare namespace cast.framework.messages {
     /**
      * Represents a queue change message; such as insert; remove; and update.
      */
-    export interface QueueChange {
+    interface QueueChange {
         /**
          * The actual queue change type.
          */
@@ -857,7 +847,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event PRELOAD request data.
      */
-    export class PreloadRequestData implements LoadRequestData {
+    class PreloadRequestData implements LoadRequestData {
         /**
          * Array of trackIds that are active. If the array is not provided; the default tracks will be active.
          */
@@ -913,7 +903,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event PRECACHE request data. (Some fields of the load request; like autoplay and queueData; are ignored).
      */
-    export class PrecacheRequestData implements LoadRequestData {
+    class PrecacheRequestData implements LoadRequestData {
         /**
          * Array of trackIds that are active. If the array is not provided; the default tracks will be active.
          */
@@ -969,7 +959,7 @@ declare namespace cast.framework.messages {
     /**
      * PlayString request data.
      */
-    export class PlayStringRequestData {
+    class PlayStringRequestData {
         constructor(stringId: PlayStringId, opt_arguments?: string[]);
 
         /**
@@ -986,7 +976,7 @@ declare namespace cast.framework.messages {
     /**
      * A photo media description.
      */
-    export interface PhotoMediaMetadata {
+    interface PhotoMediaMetadata {
         /**
          * Name of the photographer.
          */
@@ -1036,7 +1026,7 @@ declare namespace cast.framework.messages {
     /**
      * A music track media description.
      */
-    export interface MusicTrackMediaMetadata {
+    interface MusicTrackMediaMetadata {
         /**
          * Album artist name.
          */
@@ -1101,7 +1091,7 @@ declare namespace cast.framework.messages {
     /**
      * A movie media description.
      */
-    export interface MovieMediaMetadata {
+    interface MovieMediaMetadata {
         /**
          * Content images. Examples would include cover art or a thumbnail of the currently playing media.
          */
@@ -1135,7 +1125,7 @@ declare namespace cast.framework.messages {
     /**
      * Represents the status of a media session.
      */
-    export interface MediaStatus {
+    interface MediaStatus {
         /**
          * List of IDs corresponding to the active tracks.
          */
@@ -1244,7 +1234,7 @@ declare namespace cast.framework.messages {
     /**
      * Common media metadata used as part of MediaInformation
      */
-    export class MediaMetadata {
+    class MediaMetadata {
         constructor(type: MetadataType);
 
         /**
@@ -1256,7 +1246,7 @@ declare namespace cast.framework.messages {
     /**
      * Represents the media information.
      */
-    export interface MediaInformation {
+    interface MediaInformation {
         /**
          * Partial list of break clips that includes current break clip that receiver is playing or ones that receiver will play shortly after; instead of sending whole list of clips. This is to avoid overflow of MediaStatus message.
          */
@@ -1326,7 +1316,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event LOAD request data.
      */
-    export interface LoadRequestData extends RequestData {
+    interface LoadRequestData extends RequestData {
         /**
          * Array of trackIds that are active. If the array is not provided; the default tracks will be active.
          */
@@ -1371,7 +1361,7 @@ declare namespace cast.framework.messages {
     /**
      * LoadByEntity request data.
      */
-    export interface LoadByEntityRequestData {
+    interface LoadByEntityRequestData {
         /**
          * Content entity information; typically represented by a stringified JSON object
          */
@@ -1391,7 +1381,7 @@ declare namespace cast.framework.messages {
     /**
      * Provides live seekable range with start and end time in seconds and two more attributes.
      */
-    export class LiveSeekableRange {
+    class LiveSeekableRange {
         constructor(
             start?: number,
             end?: number,
@@ -1413,7 +1403,7 @@ declare namespace cast.framework.messages {
     /**
      * Represents a data message containing item information for each requested ids.
      */
-    export interface ItemsInfo {
+    interface ItemsInfo {
         /**
          * List of changed itemIds.
          */
@@ -1434,7 +1424,7 @@ declare namespace cast.framework.messages {
      * An image that describes a receiver application or media item.
      * This could be an application icon; cover art; or a thumbnail.
      */
-    export class Image {
+    class Image {
         constructor(url: string);
 
         /**
@@ -1453,7 +1443,7 @@ declare namespace cast.framework.messages {
         width?: number;
     }
     /** Media event GET_STATUS request data. */
-    export interface GetStatusRequestData extends RequestData {
+    interface GetStatusRequestData extends RequestData {
         /**
          * The options of a GET_STATUS request.
          */
@@ -1463,8 +1453,8 @@ declare namespace cast.framework.messages {
     /**
      * Get items info request data.
      */
-    export interface GetItemsInfoRequestData extends RequestData {
-        constructor(itemIds: number[]): GetItemsInfoRequestData;
+    class GetItemsInfoRequestData extends RequestData {
+        constructor(itemIds: number[]);
 
         /**
          * List of item ids to be requested.
@@ -1474,7 +1464,7 @@ declare namespace cast.framework.messages {
     /**
      * A generic media description.
      */
-    export interface GenericMediaMetadata {
+    interface GenericMediaMetadata extends MediaMetadata {
         /**
          * Content images. Examples would include cover art or a thumbnail of the currently playing media.
          */
@@ -1504,7 +1494,7 @@ declare namespace cast.framework.messages {
     /**
      * Focus state change message.
      */
-    export interface FocusStateRequestData {
+    interface FocusStateRequestData {
         /**
          * The focus state of the app.
          */
@@ -1512,7 +1502,7 @@ declare namespace cast.framework.messages {
     }
 
     /** Fetch items request data. */
-    export class FetchItemsRequestData extends RequestData {
+    class FetchItemsRequestData extends RequestData {
         constructor(itemId: number, nextCount: number, prevCount: number);
 
         /**
@@ -1534,8 +1524,11 @@ declare namespace cast.framework.messages {
     /**
      * Extended media status information
      */
-    export class ExtendedMediaStatus {
-        constructor(playerState: MediaInformation, opt_media?: MediaInformation);
+    class ExtendedMediaStatus {
+        constructor(
+            playerState: MediaInformation,
+            opt_media?: MediaInformation
+        );
 
         /**
          *
@@ -1549,7 +1542,7 @@ declare namespace cast.framework.messages {
     }
 
     /** Event data for @see{@link EventType.ERROR} event. */
-    export class ErrorEvent {
+    class ErrorEvent extends Event {
         constructor(detailedErrorCode?: DetailedErrorCode, error?: any);
         /**
          * An error code representing the cause of the error.
@@ -1564,7 +1557,7 @@ declare namespace cast.framework.messages {
         error?: any;
     }
 
-    export class ErrorData {
+    class ErrorData {
         constructor(type: ErrorType);
 
         /**
@@ -1574,13 +1567,13 @@ declare namespace cast.framework.messages {
         customData?: any;
 
         /**
-                Id of the request; used to correlate request/response.
-               */
+            Id of the request; used to correlate request/response.
+           */
         requestId?: number;
     }
 
     /**  Media event EDIT_TRACKS_INFO request data. */
-    export interface EditTracksInfoRequestData extends RequestData {
+    interface EditTracksInfoRequestData extends RequestData {
         /**
          * Array of the Track trackIds that should be active.
          * If it is not provided; the active tracks will not change.
@@ -1616,7 +1609,7 @@ declare namespace cast.framework.messages {
     /**
      * Media event EDIT_AUDIO_TRACKS request data. If language is not provided; the default audio track for the media will be enabled.
      */
-    export interface EditAudioTracksRequestData extends RequestData {
+    interface EditAudioTracksRequestData extends RequestData {
         /**
          * Indicates that the provided language was not explicit user request; but rather inferred from used language in voice query.
          * It allows receiver apps to use user saved preference instead of spoken language.
@@ -1630,7 +1623,7 @@ declare namespace cast.framework.messages {
     }
 
     /** DisplayStatus request data. */
-    export interface DisplayStatusRequestData {
+    interface DisplayStatusRequestData {
         /**
          * Optional request source. It contain the assistent query that initiate the request.
          */
@@ -1638,7 +1631,7 @@ declare namespace cast.framework.messages {
     }
 
     /** CustomCommand request data. */
-    export interface CustomCommandRequestData {
+    interface CustomCommandRequestData {
         /**
          * Custom Data; typically represented by a stringified JSON object.
          */
@@ -1649,12 +1642,8 @@ declare namespace cast.framework.messages {
          */
         source: string;
     }
-    /** Cloud media status. Media status that is only sent to the cloud sender. */
-    export class CloudMediaStatus {
-        constructor();
-    }
 
-    export class BreakStatus {
+    class BreakStatus {
         constructor(currentBreakTime: number, currentBreakClipTime: number);
 
         /**
@@ -1688,7 +1677,7 @@ declare namespace cast.framework.messages {
     /**
      * Represents break clip (e.g. a clip of ad during ad break)
      */
-    export class BreakClip {
+    class BreakClip {
         constructor(id: string);
 
         /**
@@ -1719,7 +1708,7 @@ declare namespace cast.framework.messages {
         /**
          * The format of the HLS media segment.
          */
-        hlsSegmentFormat: HlsSegmentFormat;
+        hlsSegmentFormat?: HlsSegmentFormat;
         /**
          * Unique id of break clip.
          */
@@ -1735,7 +1724,7 @@ declare namespace cast.framework.messages {
         /**
          * VAST ad request configuration. Used if contentId or contentUrl is not provided.
          */
-        vastAdsRequest: VastAdsRequest;
+        vastAdsRequest?: VastAdsRequest;
         /**
          * The time in sec when this break clip becomes skippable.
          * 5 means that end user can skip this break clip after 5 seconds.
@@ -1745,7 +1734,7 @@ declare namespace cast.framework.messages {
     }
 
     /** Represents break (e.g. ad break) included in main video. */
-    export class Break {
+    class Break {
         constructor(id: string, breakClipIds: string[], position: number);
         /**
          * List of ids of break clip that this break includes.

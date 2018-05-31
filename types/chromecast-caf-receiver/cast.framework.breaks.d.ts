@@ -1,21 +1,9 @@
-// Type definitions for chromecast-caf-receiver 3.x
-// Project: https://developers.google.com/cast/docs/reference/caf_receiver/
-// Definitions by: Craig Bruce https://github.com/craigrbruce
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="./index.d.ts" />
-/// <reference path="./cast.framework.d.ts" />
-/// <reference path="./cast.framework.events.d.ts" />
-/// <reference path="./cast.framework.messages.d.ts" />
-/// <reference path="./cast.framework.system.d.ts" />
-/// <reference path="./cast.framework.ui.d.ts" />
-
-import { Break, BreakClip } from './cast.framework.messages';
+import { Break, BreakClip } from "./cast.framework.messages";
 
 export = cast.framework.breaks;
 
 declare namespace cast.framework.breaks {
-    export class BreakSeekData {
+    class BreakSeekData {
         constructor(seekFrom: number, seekTo: number, breaks: Break[]);
 
         /**
@@ -35,7 +23,7 @@ declare namespace cast.framework.breaks {
     }
 
     /** Provide context information for break clip load interceptor. */
-    export class BreakClipLoadInterceptorContext {
+    class BreakClipLoadInterceptorContext {
         constructor(brk: Break);
 
         /**
@@ -45,7 +33,7 @@ declare namespace cast.framework.breaks {
     }
 
     /** Interface to manage breaks */
-    export interface BreakManager {
+    interface BreakManager {
         /**
          * Get current media break by id.
          * @param {*} id
