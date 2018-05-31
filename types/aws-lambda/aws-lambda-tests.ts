@@ -725,6 +725,27 @@ str = kinesisStreamRecordPayload.kinesisSchemaVersion;
 str = kinesisStreamRecordPayload.partitionKey;
 str = kinesisStreamRecordPayload.sequenceNumber;
 
+/* Kinesis Firehose Events */
+declare let kinesisDataFirehoseEvent: AWSLambda.KinesisDataFirehoseEvent;
+declare let kinesisDataFirehoseRecord: AWSLambda.KinesisDataFirehoseRecord;
+declare let kinesisDataFirehoseRecordMetadata: AWSLambda.KinesisDataFirehoseRecordMetadata;
+
+str = kinesisDataFirehoseEvent.deliveryStreamArn;
+str = kinesisDataFirehoseEvent.invocationId;
+str = kinesisDataFirehoseEvent.region;
+kinesisDataFirehoseRecord = kinesisDataFirehoseEvent.Records[0];
+
+num = kinesisDataFirehoseRecord.approximateArrivalTimestamp;
+str = kinesisDataFirehoseRecord.data;
+str = kinesisDataFirehoseRecord.recordId;
+kinesisDataFirehoseRecordMetadata = kinesisDataFirehoseRecord.kinesisRecordMetadata;
+
+str = kinesisDataFirehoseRecordMetadata.approximateArrivalTimestamp;
+str = kinesisDataFirehoseRecordMetadata.partitionKey;
+str = kinesisDataFirehoseRecordMetadata.sequenceNumber;
+str = kinesisDataFirehoseRecordMetadata.shardId;
+str = kinesisDataFirehoseRecordMetadata.subsequenceNumber;
+
 /* Compatibility functions */
 context.done();
 context.done(error);
@@ -837,3 +858,5 @@ let customHandler: AWSLambda.Handler<CustomEvent, CustomResult> = (event, contex
 };
 
 let kinesisStreamHandler: AWSLambda.KinesisStreamHandler = (event: AWSLambda.KinesisStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
+
+let KinesisDataFirehoseHandler: AWSLambda.KinesisDataFirehoseHandler = (event: AWSLambda.KinesisDataFirehoseEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
