@@ -339,7 +339,10 @@ declare namespace Office {
          */
         closeContainer(): void;
     }
-    export interface DialogOptions {
+    /**
+	 * Provides options for how a dialog is displayed.
+	 */
+	export interface DialogOptions {
         /**
          * Defines the width of the dialog as a percentage of the current display. Defaults to 80%. 250px minimum.
          */
@@ -352,6 +355,10 @@ declare namespace Office {
          * Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is ignored by other platforms. If false (default), the dialog will be displayed as a new browser window (pop-up). Recommended for authentication pages that cannot be displayed in an IFrame. If true, the dialog will be displayed as a floating overlay with an IFrame. This is best for user experience and performance.
          */
         displayInIframe?: boolean
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any
     }
     export interface Auth {
         /**
@@ -370,21 +377,315 @@ declare namespace Office {
         getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult) => void): void;
 
     }
-    export interface AuthOptions {
+    /**
+	 * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the getAccessTokenAsync method.
+	 */
+	export interface AuthOptions {
         /**
-         * Optional. Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has been revoked.
+         * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has been revoked.
          */
         forceConsent?: boolean,
         /**
-         * Optional. Prompts the user to add (or to switch if already added) his or her Office account.
+         * Prompts the user to add (or to switch if already added) his or her Office account.
          */
         forceAddAccount?: boolean,
         /**
-         * Optional. Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try" call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should be used with the authChallenge option.
+         * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try" call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should be used with the authChallenge option.
          */
         authChallenge?: string
         /**
-         * Optional. A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any
+    }
+    /**
+	 * Provides an option for preserving, unchanged, context data of any type, for use in a callback, that might be changed by an asynchronous method.
+	 */
+	export interface AsyncContextOptions {
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any
+    }
+    /**
+	 * Provides options for how to get the data in a binding.
+	 *
+	 * @remarks
+	 * If the rows option is used, the value must be "thisRow".
+	 */
+	export interface GetBindingDataOptions {
+		/**
+		 * The expected shape of the selection. Use Office.CoercionType or text value. Default: The original, uncoerced type of the binding.
+		 */
+		coercionType?: Office.CoercionType | string
+        /**
+		 * Specifies whether values, such as numbers and dates, are returned with their formatting applied. Use Office.ValueFormat or text value. Default: Unformatted data.
+		 */     
+		valueFormat?: Office.ValueFormat | string
+		/**
+		* For table or matrix bindings, specifies the zero-based starting row for a subset of the data in the binding. Default is first row.
+		*/ 
+		startRow?: number
+		/**
+		* For table or matrix bindings, specifies the zero-based starting column for a subset of the data in the binding. Default is first column.
+		*/ 
+		startColumn?: number
+		/**
+		* For table or matrix bindings, specifies the number of rows offset from the startRow. Default is all subsequent rows.
+		*/ 
+		rowCount?: number
+		/**
+		* For table or matrix bindings, specifies the number of columns offset from the startColumn. Default is all subsequent columns.
+		*/ 
+		columnCount?: number
+		/**
+		* Specify whether to get only the visible (filtered in) data or all the data (default is all). Useful when filtering data. Use Office.FilterType or text value.
+		*/ 
+		filterType?: Office.FilterType | string
+		/**
+		* Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
+		*/ 
+		rows?: string
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any
+    }
+    /**
+	 * Provides options for how to set the data in a binding.
+	 *
+	 * @remarks
+	 * If the rows option is used, the value must be "thisRow".
+	 */
+	export interface SetBindingDataOptions {
+		/**
+		 * Use only with binding type table and when a TableData object is passed for the data parameter. An array of objects that specify a range of columns, rows, or cells and specify, as key-value pairs, the cell formatting to apply to that range. Example: [{cells: Office.Table.Data, format: {fontColor: "yellow"}}, 
+        {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]
+		 */
+		cellFormat?: Array<RangeFormatConfiguration>
+		/**
+		 * Explicitly sets the shape of the data object. If not supplied is inferred from the data type.
+		 */
+		coercionType?: Office.CoercionType | string
+        /**
+		* Only for table bindings in content add-ins for Access. Array of strings. Specifies the column names.
+		*/ 
+		columns?: Array<string>
+		/**
+		* Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
+		*/ 
+		rows?: string
+		/**
+		* Specifies the zero-based starting row for a subset of the data in the binding. Only for table or matrix bindings. If omitted, data is set starting in the first row.
+		*/
+		startRow?: number
+		/**
+		* Specifies the zero-based starting column for a subset of the data. Only for table or matrix bindings. If omitted, data is set starting in the first column.
+		*/ 
+		startColumn?: number	
+		/**
+		* For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows. Example: {bandedRows: true,  filterButton: false}
+		*/
+		tableOptions?: object
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any
+    }
+    /**
+	 * Specifies a range and its formatting.
+	 */
+	export interface RangeFormatConfiguration {
+		/**
+		 * Specifies the range. Example of using Office.Table enum: Office.Table.All. Example of using RangeCoordinates: {row: 3, column: 4} specifies the cell in the 3rd (zero-based) row in the 4th (zero-based) column. 
+		 */
+		 cells: Office.Table | RangeCoordinates
+		/**
+		 * Specifies the formatting as key-value pairs. Example: {borderColor: "white", fontStyle: "bold"}
+		 */
+		 format: object	
+    }
+    /**
+	 * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: {row: 4, column: 3} specifies the cell in the 3rd (zero-based) row in the 4th (zero-based) column.
+	 */
+	export interface RangeCoordinates {
+		/**
+		 * The zero-based row of the range. If not specified, all cells, in the column specified by `column` are included.
+		 */
+		 row?: number
+		/**
+		 * The zero-based column of the range. If not specified, all cells, in the row specified by `row` are included.
+		 */
+		 column?: number	
+    }
+    /**
+	 * Provides options to determine which event handler or handlers are removed.
+	 */
+	export interface RemoveHandlerOptions {
+		/**
+         * The handler to be removed. If not specified all handlers for the specified event type are removed.
+         */
+        handler?: string
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any
+    }
+    /**
+	 * Provides options for configuring the binding that is created.
+	 */
+	export interface AddBindingFromNamedItemOptions {
+		/**
+         * The unique ID of the binding. Autogenerated if not supplied.
+         */
+        id?: string
+        /**
+         * The names of the columns involved in the binding.
+         */
+        columns?: Array<string>
+		/**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any	
+    }
+    /**
+	 * Provides options for configuring the prompt and identifying the binding that is created.
+	 */
+	export interface AddBindingFromPromptOptions {
+		/**
+         * The unique ID of the binding. Autogenerated if not supplied.
+         */
+        id?: string
+        /**
+         * Specifies the string to display in the prompt UI that tells the user what to select. Limited to 200 characters. If no promptText argument is passed, "Please make a selection" is displayed.
+         */
+        promptText?: string
+		/**
+         * Specifies a table of sample data displayed in the prompt UI as an example of the kinds of fields (columns) that can be bound by your add-in. The headers provided in the TableData object specify the labels used in the field selection UI. Note: This parameter is used only in add-ins for Access. It is ignored if provided when calling the method in an add-in for Excel.
+         */
+        sampleData?: TableData
+		/**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any	
+    }
+    /**
+	 * Provides options for configuring the prompt and identifying the binding that is created.
+	 */
+	export interface AddBindingFromSelectionOptions {
+		/**
+         * The unique ID of the binding. Autogenerated if not supplied.
+         */
+        id?: string
+        /**
+         * The names of the columns involved in the binding.
+         */
+        columns?: Array<string>
+		/**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any	
+    }
+    /**
+	 * Provides options for setting the size of slices that the document will be divided into.
+	 */
+	export interface GetFileOptions {
+		/**
+         * The the size of the slices in bytes. The maximum (and the default) is 4194304 (4MB).
+         */
+        sliceSize?: number
+		/**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any	
+    }
+    /**
+	 * Provides options for customizing what data is returned and how it is formatted.
+	 */
+	export interface GetSelectedDataOptions {
+		/**
+         * Specify whether the data is formatted. Use Office.ValueFormat or string equivalent.
+         */
+        valueFormat?: Office.ValueFormat | string
+        /**
+         * Specify whether to get only the visible (that is, filtered-in) data or all the data. Useful when filtering data. Use Office.FilterType or string equivalent. This parameter is ignored in Word documents.
+         */
+        filterType?: Office.FilterType | string
+		/**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any	
+    }
+    /**
+	 * Provides options for whether to select the location that is navigated to.
+	 * 
+	 * @remarks
+     * The behavior caused by the options.selectionMode option varies by host:
+	 * 
+	 * In Excel: Office.SelectionMode.Selected selects all content in the binding, or named item. Office.SelectionMode.None for text bindings, selects the cell; for matrix bindings, table bindings, and named items, selects the first data cell (not first cell in header row for tables).
+	 * 
+	 * In PowerPoint: Office.SelectionMode.Selected selects the slide title or first textbox on the slide. Office.SelectionMode.None Doesn't select anything.
+	 * 
+	 * In Word: Office.SelectionMode.Selected selects all content in the binding. Office.SelectionMode.None for text bindings, moves the cursor to the beginning of the text; for matrix bindings and table bindings, selects the first data cell (not first cell in header row for tables). 
+	 */
+	export interface GoToByIdOptions {
+		/**
+         * Specifies whether the location specified by the id parameter is selected (highlighted). Use Office.SelectionMode or string equivalent. See the Remarks for more information.
+         */
+        selectionMode?: Office.SelectionMode | string
+		/**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any	
+    }
+    /**
+	 * Provides options for how to insert data to the selection.
+	 */
+	export interface SetSelectedDataOptions {
+		/**
+		 * Use only with binding type table and when a TableData object is passed for the data parameter. An array of objects that specify a range of columns, rows, or cells and specify, as key-value pairs, the cell formatting to apply to that range. Example: [{cells: Office.Table.Data, format: {fontColor: "yellow"}}, 
+        {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]
+		 */
+		cellFormat?: Array<RangeFormatConfiguration>
+		/**
+		 * Explicitly sets the shape of the data object. If not supplied is inferred from the data type.
+		 */
+		coercionType?: Office.CoercionType | string        
+		/** 
+         * For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows. Example: {bandedRows: true,  filterButton: false}
+		 */
+		tableOptions?: object
+		/**
+		* This option is applicable for inserting images. Indicates the insert location in relation to the top of the slide for PowerPoint, and its relation to the currently selected cell in Excel. This value is ignored for Word. This value is in points.
+		*/
+		imageTop?: number
+        /**
+		* This option is applicable for inserting images. Indicates the image width. If this option is provided without the imageHeight, the image will scale to match the value of the image width. If both image width and image height are provided, the image will be resized accordingly. If neither the image height or width is provided, the default image size and aspect ratio will be used. This value is in points.
+		*/
+		imageWidth?: number
+        /**
+		* This option is applicable for inserting images. Indicates the insert location in relation to the left side of the slide for PowerPoint, and its relation to the currently selected cell in Excel. This value is ignored for Word. This value is in points.
+		*/
+		imageLeft?: number
+        /**
+		* This option is applicable for inserting images. Indicates the image height. If this option is provided without the imageWidth, the image will scale to match the value of the image height. If both image width and image height are provided, the image will be resized accordingly. If neither the image height or width is provided, the default image size and aspect ratio will be used. This value is in points.
+		*/
+		imageHeight?: number
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any
+    }
+    /**
+	 * Provides options for saving settings.
+	 */
+	export interface SaveSettingsOptions {
+		/**
+         * Indicates whether the setting will be replaced if stale.
+         */
+        overwriteIfStale?: boolean
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -781,29 +1082,11 @@ declare namespace Office {
          * 
          * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
          * 
-         * @param options An object with any of the following (example: {coercionType: 'matrix, 'valueFormat: 'formatted', filterType:'all'}):
-         * 
-         *       coercionType: The expected shape of the selection. Use Office.CoercionType or text value. Default: The original, uncoerced type of the binding.
-         * 
-         *       valueFormat: Specifies whether values, such as numbers and dates, are returned with their formatting applied. Use Office.ValueFormat or text value. Default: Unformatted data.
-         * 
-         *       startRow: For table or matrix bindings, specifies the zero-based starting row for a subset of the data in the binding. Default is first row.
-         * 
-         *       startColumn: For table or matrix bindings, specifies the zero-based starting column for a subset of the data in the binding. Default is first column.
-         * 
-         *       rowCount: For table or matrix bindings, specifies the number of rows offset from the startRow. Default is all subsequent rows.
-         * 
-         *       columnCount: For table or matrix bindings, specifies the number of columns offset from the startColumn. Default is all subsequent columns.
-         * 
-         *       filterType: Specify whether to get only the visible (filtered in) data or all the data (default is all). Useful when filtering data. Use Office.FilterType or text value.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * 
-         *       rows: Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
+         * @param options Provides options for how to get the data in a binding.
 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getDataAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        getDataAsync(options?: GetBindingDataOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Removes the specified handler from the binding for the specified event type.
          * 
@@ -813,15 +1096,10 @@ declare namespace Office {
          * Available in Requirement set: BindingEvents
          * 
          * @param eventType The event type. For binding can be 'bindingDataChanged' and 'bindingSelectionChanged'
-         * @param options An object with any of the following:
-         * 
-         *       handler: The handler to be removed, if not specified all handlers are removed.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * 
+         * @param options Provides options to determine which event handler or handlers are removed. 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        removeHandlerAsync(eventType: EventType, options?: any, callback?: (result: AsyncResult) => void): void;
+        removeHandlerAsync(eventType: EventType, options?: RemoveHandlerOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Writes data to the bound section of the document represented by the specified binding object.
          * 
@@ -842,27 +1120,11 @@ declare namespace Office {
          * 
          *        Office Open XML: Word only
          * 
-         * @param options Any of the following:
-         * 
-         *       cellFormat: For an inserted table, a list of key-value pairs that specify a range of columns, rows, or cells and the cell formatting to apply to that range.
-         * 
-         *       coercionType: Explicitly sets the shape of the data object. Use Office.CoercionType or text value. If not supplied is inferred from the data type.
-         * 
-         *       columns: Only for table bindings in content add-ins for Access. Array of strings. Specifies the column names.
-         * 
-         *       rows: Only for table bindings in content add-ins for Access. **Office.TableRange.ThisRow** Specifies the pre-defined string "thisRow" to set data in the currently selected row.
-         * 
-         *       startRow: Specifies the zero-based starting row for a subset of the data in the binding. Only for table or matrix bindings. If omitted, data is set starting in the first row.
-         * 
-         *       startColumn: Specifies the zero-based starting column for a subset of the data. Only for table or matrix bindings. If omitted, data is set starting in the first column.
-         * 
-         *       tableOptions: For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides options for how to set the data in a binding.
          * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        setDataAsync(data: TableData | any, options?: any, callback?: (result: AsyncResult) => void): void;
+        setDataAsync(data: TableData | any, options?: SetBindingDataOptions, callback?: (result: AsyncResult) => void): void;
     }
     /**
     * Represents the bindings the add-in has within the document.
@@ -900,17 +1162,10 @@ declare namespace Office {
          * 
          * @param itemName Name of the bindable object in the document. For Example 'MyExpenses' table in Excel."
          * @param bindingType The Office BindingType for the data. The method returns null if the selected object cannot be coerced into the specified type.
-         * @param options An object like {id: "BindingID"} that has any of the following properties:
-         * 
-         *       id: Unique name of the binding. Autogenerated if not supplied.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * 
-         *       columns: The string[] of the columns involved in the binding.
-         * 
+         * @param options Provides options for configuring the binding that is created. 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        addFromNamedItemAsync(itemName: string, bindingType: BindingType, options?: any, callback?: (result: AsyncResult) => void): void;
+        addFromNamedItemAsync(itemName: string, bindingType: BindingType, options?: AddBindingFromNamedItemOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Create a binding by prompting the user to make a selection on the document.
          * 
@@ -922,19 +1177,10 @@ declare namespace Office {
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. The method fails if the specified selection cannot be bound.
          * 
          * @param bindingType Specifies the type of the binding object to create. Required. Returns null if the selected object cannot be coerced into the specified type.
-         * @param options An object like {promptText: "Please select data", id: "mySales"} with any of the following properties:
-         * 
-         *       promptText: Specifies the string to display in the prompt UI that tells the user what to select. Limited to 200 characters. If no promptText argument is passed, "Please make a selection" is displayed.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * 
-         *       id: Specifies the unique name to be used to identify the new binding object.If no argument is passed for the id parameter, the Binding.id is autogenerated.
-         * 
-         *       sampleData: Specifies a table of sample data displayed in the prompt UI as an example of the kinds of fields (columns) that can be bound by your add-in. The headers provided in the TableData object specify the labels used in the field selection UI. Optional. Note: This parameter is used only in add-ins for Access. It is ignored if provided when calling the method in an add-in for Excel.
-         * 
+         * @param options Provides options for configuring the prompt and identifying the binding that is created.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        addFromPromptAsync(bindingType: BindingType, options?: any, callback?: (result: AsyncResult) => void): void;
+        addFromPromptAsync(bindingType: BindingType, options?: AddBindingFromPromptOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Create a binding based on the user's current selection.
          * 
@@ -948,19 +1194,10 @@ declare namespace Office {
          * Note In Excel, if you call the addFromSelectionAsync method passing in the Binding.id of an existing binding, the Binding.type of that binding is used, and its type cannot be changed by specifying a different value for the bindingType parameter.If you need to use an existing id and change the bindingType, call the Bindings.releaseByIdAsync method first to release the binding, and then call the addFromSelectionAsync method to reestablish the binding with a new type.
          * 
          * @param bindingType Specifies the type of the binding object to create. Required. Returns null if the selected object cannot be coerced into the specified type.
-         * @param options An object like {id: "BindingID"} with any of the following properties:
-         * 
-         *       id: Specifies the unique name to be used to identify the new binding object.If no argument is passed for the id parameter, the Binding.id is autogenerated.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * 
-         *       columns: The string[] of the columns involved in the binding
-         * 
-         *       sampleData: A TableData that gives sample table in the Dialog.TableData.Headers is [][] of string.
-         * 
+         * @param options Provides options for configuring the prompt and identifying the binding that is created.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        addFromSelectionAsync(bindingType: BindingType, options?: any, callback?: (result: AsyncResult) => void): void;
+        addFromSelectionAsync(bindingType: BindingType, options?: AddBindingFromSelectionOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets all bindings that were previously created.
          * 
@@ -1251,12 +1488,10 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          * 
          * @param eventType Specifies the type of event to remove. Required.For a CustomXmlPart object event, the eventType parameter can be specified as Office.EventType.DataNodeDeleted, Office.EventType.DataNodeInserted, Office.EventType.DataNodeReplaced, or the corresponding text values of these enumerations.
-         * @param handler The event handler function to remove. If not specified, all event handlers for the specified eventType will be removed.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides options to determine which event handler or handlers are removed.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        removeHandlerAsync(eventType: EventType, handler?: (result: any) => void, options?: any, callback?: (result: AsyncResult) => void): void;
+        removeHandlerAsync(eventType: EventType, handler?: (result: any) => void, options?: RemoveHandlerOptions, callback?: (result: AsyncResult) => void): void;
     }
     /**
      * Represents a collection of CustomXmlPart objects.
@@ -1462,15 +1697,10 @@ declare namespace Office {
          * Word on iPad: Office.FileType.Compressed, Office.FileType.Text
          * 
          * @param fileType The format in which the file will be returned
-         * @param options An object like {sliceSize:1024} that has any of the following properties:
-         * 
-         *       sliceSize: Specifies the desired slice size (in bytes) up to 4MB. If not specified a default slice size of 4MB will be used.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * 
+         * @param options Provides options for setting the size of slices that the document will be divided into.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getFileAsync(fileType: FileType, options?: any, callback?: (result: AsyncResult) => void): void;
+        getFileAsync(fileType: FileType, options?: GetFileOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets file properties of the current document.
          * 
@@ -1508,17 +1738,10 @@ declare namespace Office {
          * PowerPoint and PowerPoint Online only: Office.CoercionType.SlideRange
          * 
          * @param coercionType The type of data structure to return. 
-         * @param options An object like {valueFormat: 'formatted', filterType:'all'} that has any of the following properties:
-         * 
-         *       valueFormat: Get data with or without format. Use Office.ValueFormat or text value.
-         * 
-         *       filterType: Get the visible or all the data. Useful when filtering data. Use Office.FilterType or text value. This parameter is ignored in Word documents.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * 
+         * @param options Provides options for customizing what data is returned and how it is formatted. 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getSelectedDataAsync(coercionType: CoercionType, options?: any, callback?: (result: AsyncResult) => void): void;
+        getSelectedDataAsync(coercionType: CoercionType, options?: GetSelectedDataOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Goes to the specified object or location in the document.
          * 
@@ -1539,15 +1762,10 @@ declare namespace Office {
          * 
          * @param id The identifier of the object or location to go to.
          * @param goToType The type of the location to go to.
-         * @param options An object like {asyncContext:context} with any of the following values:
-         * 
-         *       selectionMode: Specifies whether the location specified by the id parameter is selected (highlighted). Use Office.SelectionMode or text value. See Remarks for more.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * 
+         * @param options Provides options for whether to select the location that is navigated to. 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        goToByIdAsync(id: string | number, goToType: GoToType, options?: any, callback?: (result: AsyncResult) => void): void;
+        goToByIdAsync(id: string | number, goToType: GoToType, options?: GoToByIdOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Removes an event handler for the specified event type.
          * 
@@ -1557,15 +1775,10 @@ declare namespace Office {
          * Available in Requirement set: DocumentEvents
          * 
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
-         * @param options An object like Syntax example: {asyncContext:context} that has any of the following properties:
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
-         * 
-         *       handler: The name of the handler. If not specified all handlers are removed.
-         * 
+         * @param options Provides options to determine which event handler or handlers are removed.         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        removeHandlerAsync(eventType: EventType, options?: any, callback?: (result: AsyncResult) => void): void;
+        removeHandlerAsync(eventType: EventType, options?: RemoveHandlerOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Writes the specified data into the current selection.
          * 
@@ -1589,26 +1802,10 @@ declare namespace Office {
          * Office.CoercionType.Image: Excel, Word, PowerPoint
          * 
          * @param data The data to be set. Either a string or CoercionType value, 2d array or TableData object.
-         * @param options An object like {coercionType:Office.CoercionType.Matrix} with any of the following properties:
-         * 
-         *       coercionType: Explicitly sets the shape of the data object. Use Office.CoercionType or text value. If not supplied is inferred from the data type.
-         * 
-         *       tableOptions: For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows 
-         * 
-         *       cellFormat: For an inserted table, a list of key-value pairs that specify a range of columns, rows, or cells and the cell formatting to apply to that range
-         * 
-         *       imageLeft: (number) This option is applicable for inserting images. Indicates the insert location in relation to the left side of the slide for PowerPoint, and its relation to the currently selected cell in Excel. This value is ignored for Word. This value is in points.
-         * 
-         *       imageTop: (number) This option is applicable for inserting images. Indicates the insert location in relation to the top of the slide for PowerPoint, and its relation to the currently selected cell in Excel. This value is ignored for Word. This value is in points.
-         * 
-         *       imageWidth: (number) This option is applicable for inserting images. Indicates the image width. If this option is provided without the imageHeight, the image will scale to match the value of the image width. If both image width and image height are provided, the image will be resized accordingly. If neither the image height or width is provided, the default image size and aspect ratio will be used. This value is in points.
-         * 
-         *       imageHeight: (number) This option is applicable for inserting images. Indicates the image height. If this option is provided without the imageWidth, the image will scale to match the value of the image height. If both image width and image height are provided, the image will be resized accordingly. If neither the image height or width is provided, the default image size and aspect ratio will be used. This value is in points.
-         * 
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides options for how to insert data to the selection.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        setSelectedDataAsync(data: string | TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
+        setSelectedDataAsync(data: string | TableData | any[][], options?: SetSelectedDataOptions, callback?: (result: AsyncResult) => void): void;
     }
     /**
      * Provides information about the document that raised the SelectionChanged event.
@@ -1752,8 +1949,7 @@ declare namespace Office {
          * 
          * @param eventType Specifies the type of event to add. Required.
          * @param handler The event handler function to add. Required.
-         * @param options Specifies any of the following optional parameters.
-         *        asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
@@ -1765,7 +1961,7 @@ declare namespace Office {
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
          * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
          */
-        addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
+        addHandlerAsync(eventType: EventType, handler: any, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Retrieves the specified setting.
          * 
@@ -1827,15 +2023,13 @@ declare namespace Office {
          * Available in Requirement set: Settings
          * 
          * @param eventType Specifies the type of event to remove. Required.
-         * @param options Specifies any of the following optional parameters.
-         * @param handler Specifies the name of the handler to remove.
-         *        asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides options to determine which event handler or handlers are removed.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          * In the callback function passed to the removeHandlerAsync method, you can use the properties of the AsyncResult object to return the following information.
          */
-        removeHandlerAsync(eventType: EventType, options?: any, callback?: (result: AsyncResult) => void): void;
+        removeHandlerAsync(eventType: EventType, options?: RemoveHandlerOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Persists the in-memory copy of the settings property bag in the document.
          * @remarks
@@ -1846,9 +2040,7 @@ declare namespace Office {
          * The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
          * 
          * Hosts: Access, Excel, PowerPoint, Word
-         * @param options Syntax example: {overwriteIfStale:false}
-         * @param overwriteIfStale Indicates whether the setting will be replaced if stale.
-         *        asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides options for saving settings.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. Optional.
          * @remarks
          * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
@@ -1860,10 +2052,9 @@ declare namespace Office {
          * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
          * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
          */
-        saveAsync(callback?: (result: AsyncResult) => void): void;
+        saveAsync(options?: SaveSettingsOptions, callback?: (result: AsyncResult) => void): void;
         /**
-         * Sets or creates the specified setting.
-         * 
+         * Sets or creates the specified setting. 
          * 
          * Important: Be aware that the Settings.set method affects only the in-memory copy of the settings property bag. To make sure that additions or changes to settings will be available to your add-in the next time the document is opened, at some point after calling the Settings.set method and before the add-in is closed, you must call the Settings.saveAsync method to persist settings in the document.
          * 
@@ -2017,11 +2208,10 @@ declare namespace Office {
          * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in a single call to this method.
          *         
          * @param rows An array of arrays ("matrix") or a TableData object that contains one or more rows of data to add to the table. Required.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        addRowsAsync(rows: TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
+        addRowsAsync(rows: TableData | any[][], options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Deletes all non-header rows and their values in the table, shifting appropriately for the host application.
          * 
@@ -2032,11 +2222,10 @@ declare namespace Office {
          * 
          * In Excel, if the table has no header row, this method will delete the table itself.
          *  
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        deleteAllDataValuesAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        deleteAllDataValuesAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Clears formatting on the bound table.
          *
@@ -2047,20 +2236,18 @@ declare namespace Office {
          * 
          * See [Format tables in add-ins for Excel](https://docs.microsoft.com/en-us/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table) for more information.
          * 
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        clearFormatsAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        clearFormatsAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets the formatting on specified items in the table.
          * @param cellReference An object literal containing name-value pairs that specify the range of cells to get formatting from.
          * @param formats An array specifying the format properties to get.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getFormatsAsync(cellReference?: any, formats?: any[], options?: any, callback?: (result: AsyncResult) => void): void;
+        getFormatsAsync(cellReference?: any, formats?: any[], options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Sets formatting on specified items and data in the table.
          * 
@@ -2076,11 +2263,10 @@ declare namespace Office {
          *       type: The kind of item to format. String.
          * 
          *       formats: An object literal containing a list of property name-value pairs that define the formatting to apply.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        setFormatsAsync(formatsInfo?: any[], options?: any, callback?: (result: AsyncResult) => void): void;
+        setFormatsAsync(formatsInfo?: any[], options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Updates table formatting options on the bound table.
          *
@@ -2090,11 +2276,10 @@ declare namespace Office {
          * Available in Requirement set: Not in a set
          * 
          * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        setTableOptionsAsync(tableOptions: any, options?: any, callback?: (result: AsyncResult) => void): void;
+        setTableOptionsAsync(tableOptions: any, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     /**
      * Represents the data in a table or a TableBinding.
@@ -4257,65 +4442,57 @@ declare namespace Office {
         /**
          * Get Project field (Ex. ProjectWebAccessURL).
          * @param fieldId Project level fields.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getProjectFieldAsync(fieldId: number, options?: any, callback?: (result: AsyncResult) => void): void;
+        getProjectFieldAsync(fieldId: number, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Get resource field for provided resource Id. (Ex.ResourceName)
          * @param resourceId Either a string or value of the Resource Id.
          * @param fieldId Resource Fields.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getResourceFieldAsync(resourceId: string, fieldId: number, options?: any, callback?: (result: AsyncResult) => void): void;
+        getResourceFieldAsync(resourceId: string, fieldId: number, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the current selected Resource's Id.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getSelectedResourceAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        getSelectedResourceAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the current selected Task's Id.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getSelectedTaskAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        getSelectedTaskAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the current selected View Type (Ex. Gantt) and View Name.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getSelectedViewAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        getSelectedViewAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the Task Name, WSS Task Id, and ResourceNames for given taskId.
          * @param taskId Either a string or value of the Task Id.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getTaskAsync(taskId: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        getTaskAsync(taskId: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Get task field for provided task Id. (Ex. StartDate).
          * @param taskId Either a string or value of the Task Id.
          * @param fieldId Task Fields.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getTaskFieldAsync(taskId: string, fieldId: number, options?: any, callback?: (result: AsyncResult) => void): void;
+        getTaskFieldAsync(taskId: string, fieldId: number, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Get the WSS Url and list name for the Tasks List, the MPP is synced too.
-         * @param options Syntax example: {asyncContext:context}
-         *       asyncContext: A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
-        getWSSUrlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        getWSSUrlAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
 }
 
