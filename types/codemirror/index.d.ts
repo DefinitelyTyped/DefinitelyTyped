@@ -322,8 +322,8 @@ declare namespace CodeMirror {
         getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
 
         /** This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position, 
-        and no other information. Will return null for unstyled tokens, and a string, 
-        potentially containing multiple space-separated style names, otherwise. */
+        and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple 
+        space-separated style names, otherwise. */
         getTokenTypeAt(pos: CodeMirror.Position): string;
 
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
