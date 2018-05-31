@@ -10,6 +10,7 @@ export interface NavLinkProps extends React.HTMLProps<HTMLAnchorElement> {
   cssModule?: CSSModule;
   onClick?: React.MouseEventHandler<any>;
   href?: string;
+  [others: string]: any;
 }
 
 declare class NavLink extends React.Component<NavLinkProps> {}
