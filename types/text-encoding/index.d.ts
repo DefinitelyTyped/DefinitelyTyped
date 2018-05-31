@@ -13,11 +13,28 @@ declare namespace TextEncoding {
         (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
         new (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
     }
-    export const TextEncoder: TextEncoder;
-    export const TextDecoder: TextDecoder;
+
+    export var TextEncoder: {
+        new (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+        (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+        encoding: string;
+    };
+
+    export var TextDecoder: {
+        (label?: string, options?: TextDecoderOptions): TextDecoder;
+        new (label?: string, options?: TextDecoderOptions): TextDecoder;
+        encoding: string;
+    };
 }
 
-declare var TextEncoding: TextEncoding.TextEncodingStatic;
+interface TextEncodeOptions {
+    stream?: boolean;
+}
+
+interface TextEncoder {
+    readonly encoding: string;
+    encode(input?: string, options?: TextEncodeOptions): Uint8Array;
+}
 
 declare module "text-encoding" {
     export = TextEncoding;
