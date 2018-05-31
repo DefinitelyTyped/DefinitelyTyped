@@ -4202,7 +4202,7 @@ declare namespace Xrm {
             /**
              * Identifies the record displayed or created
              */
-            savedEntityReference: LookupValue[]
+            savedEntityReference: LookupValue[];
         }
 
         /**
