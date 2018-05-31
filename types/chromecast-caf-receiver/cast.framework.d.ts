@@ -44,7 +44,7 @@ declare namespace cast.framework {
      * Manages text tracks.
      */
     class TextTracksManager {
-        constructor(params: any);
+        constructor(params?: any);
 
         /**
          * Adds text tracks to the list.
@@ -106,7 +106,7 @@ declare namespace cast.framework {
      * QueueManager exposes several queue manipulation APIs to developers.
      */
     class QueueManager {
-        constructor(params: any);
+        constructor(params?: any);
 
         /**
          * Returns the current queue item.
@@ -199,7 +199,7 @@ declare namespace cast.framework {
      * Controls and monitors media playback.
      */
     class PlayerManager {
-        constructor(params: any);
+        constructor(params?: any);
 
         /**
          * Adds an event listener for player event.
