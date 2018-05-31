@@ -22,6 +22,7 @@
 //                 Bonggyun Lee <https://github.com/deptno>
 //                 Maciek Blim <https://github.com/blimusiek>
 //                 Marcin Biernat <https://github.com/biern>
+//                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -523,6 +524,8 @@ declare namespace R {
          * elements.
          */
         differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean): (list1: ReadonlyArray<T>, list2: ReadonlyArray<T>) => T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
 
         /*
          * Returns a new object that does not contain a prop property.
