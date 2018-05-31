@@ -12,6 +12,11 @@ export = Modal;
 
 interface ModalProps extends TransitionCallbacks, PortalProps {
   className?: string;
+  
+  /**
+   * A style object for the Modal.
+   */
+  style?: Object;
 
   /**
    * Set the visibility of the Modal
