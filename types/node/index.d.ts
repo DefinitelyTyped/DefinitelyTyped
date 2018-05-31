@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.1.x
+// Type definitions for Node.js 10.3.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -2826,6 +2826,8 @@ declare module "net" {
         backlog?: number;
         path?: string;
         exclusive?: boolean;
+        readableAll?: boolean;
+        writableAll?: boolean;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
