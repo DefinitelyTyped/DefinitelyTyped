@@ -16,9 +16,11 @@ export type Test = (options: {
     snapshotFileName: string;
 }) => void | undefined | Promise<void>;
 
-export interface RenderTree {
-    (story: StoryObject, context: StoryContext, options?: SnapshotOptions): void | undefined | Promise<void>;
-}
+export type RenderTree = (
+    story: StoryObject,
+    context: StoryContext,
+    options?: SnapshotOptions
+) => void | undefined | Promise<void>;
 
 export interface SnapshotOptions {
     createNodeMock?: (element: any) => any;
@@ -58,6 +60,7 @@ export const renderOnly: Test;
 
 export function getSnapshotFileName(context: StoryContext): string;
 
+// tslint:disable-next-line no-unnecessary-generics
 export default function initStoryshots<Rendered>(options: InitOptions<Rendered>): void;
 
 export interface InitOptions<Rendered = any> {
