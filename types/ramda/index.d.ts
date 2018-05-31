@@ -523,9 +523,9 @@ declare namespace R {
          * Duplication is determined according to the value returned by applying the supplied predicate to two list
          * elements.
          */
-        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        differenceWith<T>(pred: (a: T, b: T) => boolean): (list1: ReadonlyArray<T>, list2: ReadonlyArray<T>) => T[];
-        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
 
         /*
          * Returns a new object that does not contain a prop property.
