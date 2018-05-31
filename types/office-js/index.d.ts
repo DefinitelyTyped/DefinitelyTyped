@@ -277,6 +277,12 @@ declare namespace Office {
          */
         name: string;
     }
+    export namespace AddinCommands {
+        export interface Event {
+            
+            completed(): void;
+        }
+    }
     /**
      * Provides objects and methods that you can use to create and manipulate UI components, such as dialog boxes, in your Office Add-ins. 
      */
@@ -5226,6 +5232,54 @@ declare namespace Office {
         urls: string[];
     }
 
+    /**
+     * Provides a method to get the from value of a message in an Outlook add-in.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @remarks
+     * Minimum permission level: ReadItem
+     * 
+     * Applicable Outlook mode: Compose
+     */
+    export interface From {
+        /**
+         * Gets the from value of a message.
+         * 
+         * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
+         * 
+         * The from value of the item is provided as an EmailAddressDetails in the asyncResult.value property.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose
+         * 
+         * @param options An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+        /**
+         * Gets the from value of a message.
+         * 
+         * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
+         * 
+         * The from value of the item is provided as an EmailAddressDetails in the asyncResult.value property.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose
+         * 
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        getAsync(callback?: (result: AsyncResult) => void): void;
+    }
 
     export interface Appointment extends Item {
     }
@@ -7872,6 +7926,36 @@ declare namespace Office {
         setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (result: AsyncResult) => void): void;
 
     }
+
+    /**
+     * The recurrence object provides methods to get and set the recurrence pattern of appointments but only get the recurrence pattern of meeting requests. It will have a dictionary with the following keys: seriesTime, recurrenceType, recurrenceProperties, and recurrenceTimeZone (optional).
+     * 
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @remarks
+     * 
+     * |State|Editable?|Viewable?|
+     * |-----|---------|---------|
+     * |Appointment Organizer - Compose Series|Yes (setAsync)|Yes (getAsync)|
+     * |Appointment Organizer - Compose Instance|No (setAsync returns error)|Yes (getAsync)|
+     * |Appointment Attendee - Read Series|No (setAsync not available)|Yes (item.recurrence)|
+     * |Appointment Attendee - Read Instance|No (setAsync not available)|Yes (item.recurrence)|
+     * |Meeting Request - Read Series|No (setAsync not available)|Yes (item.recurrence)|
+     * |Meeting Request - Read Instance|No (setAsync not available)|Yes (item.recurrence)|
+     * 
+     * Minimum permission level: ReadItem
+     * 
+     * Applicable Outlook mode: Compose or read
+     */
+    export interface Recurrence {
+        recurrenceProperties :RecurrenceProperties
+    }
+
+    export interface RecurrenceProperties {
+        
+    }
+
     export interface ReplyFormAttachment {
         type: string;
         name: string;
