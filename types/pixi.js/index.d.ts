@@ -787,7 +787,7 @@ declare namespace PIXI {
         /**
          * Parameter passed to webgl context, set to "high-performance" for devices with dual graphics card
          */
-        powerPreference?: boolean;
+        powerPreference?: "high-performance";
     }
     interface ApplicationOptions extends RendererOptions {
         /**
