@@ -1020,7 +1020,7 @@ declare namespace mapboxgl {
         'symbol-placement'?: 'point' | 'line';
         'symbol-spacing'?: number | Expression;
         'symbol-avoid-edges'?: boolean;
-        'icon-allow-overlap'?: boolean;
+        'icon-allow-overlap'?: boolean | StyleFunction;
         'icon-ignore-placement'?: boolean;
         'icon-optional'?: boolean;
         'icon-rotation-alignment'?: 'map' | 'viewport' | 'auto';
