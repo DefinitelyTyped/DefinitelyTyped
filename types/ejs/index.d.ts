@@ -2,7 +2,7 @@
 // Project: http://ejs.co/
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.4
 
 export interface Data {
     [name: string]: any;
@@ -30,8 +30,7 @@ export function resolveInclude(name: string, filename: string, isDir: boolean): 
  */
 export function compile(template: string, opts?: Options & { async: false }): TemplateFunction;
 export function compile(template: string, opts: Options & { async: true }): AsyncTemplateFunction;
-export function compile(template: string, opts: Options & { async: boolean }): TemplateFunction | AsyncTemplateFunction;
-export function compile(template: string, opts: Exclude<Options, { async: any }>): TemplateFunction;
+export function compile(template: string, opts: Options & { async?: never }): TemplateFunction;
 export function compile(template: string, opts?: Options): TemplateFunction | AsyncTemplateFunction;
 /**
  * Render the given `template` of ejs.
@@ -40,9 +39,8 @@ export function compile(template: string, opts?: Options): TemplateFunction | As
  * call this function with `data` being an empty object or `null`.
  */
 export function render(template: string, data?: Data, opts?: Options & { async: false }): string;
-export function render(template: string, data: Data, opts: Options & { async: true }): Promise<string>;
-export function render(template: string, data: Data, opts: Options & { async: boolean }): string | Promise<string>;
-export function render(template: string, data: Data, opts: Exclude<Options, { async: any }>): string;
+export function render(template: string, data: Data | undefined, opts: Options & { async: true }): Promise<string>;
+export function render(template: string, data: Data | undefined, opts: Options & { async?: never }): string;
 export function render(template: string, data?: Data, opts?: Options): string | Promise<string>;
 
 export type RenderFileCallback<T> = (err: Error, str?: string) => T;
