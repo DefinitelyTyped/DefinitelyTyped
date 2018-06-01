@@ -4,13 +4,14 @@
 //                 Agadar <https://github.com/agadar>
 //                 Giorgio Garasto <https://github.com/Dabolus>
 //                 Kallu609 <https://github.com/Kallu609>
+//                 XC-Zhang <https://github.com/XC-Zhang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
-import { Stream } from 'stream';
+import { Stream, Readable } from 'stream';
 import { ServerOptions } from 'https';
 import { Options } from 'request';
 
@@ -56,6 +57,11 @@ declare namespace TelegramBot {
 
     interface StartPollingOptions extends ConstructorOptions {
         restart?: boolean;
+    }
+
+    interface StopPollingOptions {
+        cancel?: boolean;
+        reason?: string;
     }
 
     interface SetWebHookOptions {
@@ -136,6 +142,10 @@ declare namespace TelegramBot {
 
     type SendLocationOptions = SendBasicOptions;
 
+    type EditMessageLiveLocationOptions = EditMessageCaptionOptions;
+
+    type StopMessageLiveLocationOptions = EditMessageCaptionOptions;
+
     interface SendVenueOptions extends SendBasicOptions {
         foursquare_id?: string;
     }
@@ -147,6 +157,7 @@ declare namespace TelegramBot {
     type SendGameOptions = SendBasicOptions;
 
     interface SendInvoiceOptions extends SendBasicOptions {
+        provider_data?: string;
         photo_url?: string;
         photo_size?: number;
         photo_width?: number;
@@ -818,7 +829,7 @@ declare class TelegramBot extends EventEmitter {
 
     startPolling(options?: TelegramBot.StartPollingOptions): Promise<any>;
 
-    stopPolling(): Promise<any>;
+    stopPolling(options?: TelegramBot.StopPollingOptions): Promise<any>;
 
     isPolling(): boolean;
 
@@ -886,6 +897,11 @@ declare class TelegramBot extends EventEmitter {
 
     unpinChatMessage(chatId: number | string): Promise<boolean | Error>;
 
+    answerCallbackQuery(callbackQueryId: string, options?: Partial<TelegramBot.AnswerCallbackQueryOptions>): Promise<boolean | Error>;
+
+    /**
+     * @deprecated since version 0.30.0
+     */
     answerCallbackQuery(options?: TelegramBot.AnswerCallbackQueryOptions): Promise<boolean | Error>;
 
     editMessageText(text: string, options?: TelegramBot.EditMessageTextOptions): Promise<TelegramBot.Message | boolean | Error>;
@@ -898,6 +914,10 @@ declare class TelegramBot extends EventEmitter {
 
     sendLocation(chatId: number | string, latitude: number, longitude: number, options?: TelegramBot.SendLocationOptions): Promise<TelegramBot.Message | Error>;
 
+    editMessageLiveLocation(latitude: number, longitude: number, options?: TelegramBot.EditMessageLiveLocationOptions): Promise<TelegramBot.Message | boolean | Error>;
+
+    stopMessageLiveLocation(options?: TelegramBot.StopMessageLiveLocationOptions): Promise<TelegramBot.Message | boolean | Error>;
+
     sendVenue(chatId: number | string, latitude: number, longitude: number, title: string, address: string, options?: TelegramBot.SendVenueOptions): Promise<TelegramBot.Message | Error>;
 
     sendContact(chatId: number | string, phoneNumber: string, firstName: string, options?: TelegramBot.SendContactOptions): Promise<TelegramBot.Message | Error>;
@@ -905,6 +925,8 @@ declare class TelegramBot extends EventEmitter {
     getFile(fileId: string): Promise<TelegramBot.File | Error>;
 
     getFileLink(fileId: string): Promise<string | Error>;
+
+    getFileStream(fileId: string): Readable;
 
     downloadFile(fileId: string, downloadDir: string): Promise<string | Error>;
 
@@ -925,6 +947,10 @@ declare class TelegramBot extends EventEmitter {
     getChatMember(chatId: number | string, userId: string): Promise<TelegramBot.ChatMember | Error>;
 
     leaveChat(chatId: number | string): Promise<boolean | Error>;
+
+    setChatStickerSet(chatId: number | string, stickerSetName: string): Promise<boolean | Error>;
+
+    deleteChatStickerSet(chatId: number | string): Promise<boolean | Error>;
 
     sendGame(chatId: number | string, gameShortName: string, options?: TelegramBot.SendGameOptions): Promise<TelegramBot.Message | Error>;
 
