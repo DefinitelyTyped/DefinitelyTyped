@@ -4749,6 +4749,56 @@ declare namespace Office {
             Cloud
         }
         /**
+         * Specifies the day of week or type of day.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
+        enum Days {
+            /**
+             * Monday
+             */
+            Mon = "mon",
+            /**
+             * Tuesday
+             */
+            Tue = "tue",
+            /**
+             * Wednesday
+             */
+            Wed = "wed",
+            /**
+             * Thursday
+             */
+            Thu = "thu",
+            /**
+             * Friday
+             */
+            Fri = "fri",
+            /**
+             * Saturday
+             */
+            Sat = "sat",
+            /**
+             * Sunday
+             */
+            Sun = "sun",
+            /**
+             * Week day (excludes weekend days): 'Mon', 'Tue', 'Wed', 'Thu', and 'Fri'.
+             */
+            Weekday = "weekday",
+            /**
+             * Weekend day: 'Sat' and 'Sun'.
+             */
+            WeekendDay = "weekendDay",
+            /**
+             * Day of week.
+             */
+            Day = "day"
+        }
+        /**
          * Specifies an entity's type.
          *
          * [Api set: Mailbox 1.0]
@@ -4827,6 +4877,64 @@ declare namespace Office {
             Appointment
         }
         /**
+         * Specifies the month.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
+        enum Month {
+            /**
+             * January
+             */
+            Jan = "jan",
+            /**
+             * February
+             */
+            Feb = "feb",
+            /**
+             * March
+             */
+            Mar = "mar",
+            /**
+             * April
+             */
+            Apr = "apr",
+            /**
+             * May
+             */
+            May = "may",
+            /**
+             * June
+             */
+            Jun = "jun",
+            /**
+             * July
+             */
+            Jul = "jul",
+            /**
+             * August
+             */
+            Aug = "aug",
+            /**
+             * September
+             */
+            Sep = "sep",
+            /**
+             * October
+             */
+            Oct = "oct",
+            /**
+             * November
+             */
+            Nov = "nov",
+            /**
+             * December
+             */
+            Dec = "dec"
+        }
+        /**
          * Specifies the type of recipient for an appointment.
          *
          * [Api set: Mailbox 1.1]
@@ -4851,6 +4959,21 @@ declare namespace Office {
              * Specifies that the recipient is not one of the other recipient types.
              */
             Other
+        }
+        /**
+         * Specifies the time zone applied to the recurrence.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
+        enum RecurrenceTimeZone {
+
+        }
+
+        enum RecurrenceType {
+
         }
         /**
          * Specifies the type of response to a meeting invitation.
@@ -4903,6 +5026,36 @@ declare namespace Office {
              * Beta.
              */
             Beta
+        }
+        /**
+         * Specifies the week of the month.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
+        enum WeekNumber {
+            /**
+             * First week of the month.
+             */
+            First = "first",
+            /**
+             * Second week of the month.
+             */
+            Second = "second",
+            /**
+             * Third week of the month.
+             */
+            Third = "third",
+            /**
+             * Fourth week of the month.
+             */
+            Fourth = "fourth",
+            /**
+             * Last week of the month.
+             */
+            Last = "last"
         }
     }
     interface AsyncContextOptions {
@@ -8335,11 +8488,89 @@ declare namespace Office {
      * Applicable Outlook mode: Compose or read
      */
     export interface Recurrence {
-        recurrenceProperties :RecurrenceProperties
+        /**
+         * Gets or sets the properties of the recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        recurrenceProperties: RecurrenceProperties;
+        /**
+         * Gets or sets the properties of the recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        recurrenceTimeZone: RecurrenceTimeZone;
     }
 
+    /**
+     * Gets or sets the properties of the recurrence.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @remarks
+     * 
+     * Minimum permission level: ReadItem
+     * 
+     * Applicable Outlook mode: Compose or read
+     */
     export interface RecurrenceProperties {
-        
+        /**
+         * Represents the period between instances of the same recurring series.
+         */
+        interval: number;
+        /**
+         * Represents the day of the month.
+         */
+        dayOfMonth: number;
+        /**
+         * Represents the day of the week or type of day, for example, weekend day vs weekday.
+         */
+        dayOfWeek: MailboxEnums.Days;
+        /**
+         * Represents the set of days for this recurrence. Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
+         */
+        days: MailboxEnums.Days[];
+        /**
+         * Represents the number of the week in the selected month e.g. 'first' for first week of the month.
+         */
+        weekNumber: MailboxEnums.WeekNumber;
+        /**
+         * Represents the month.
+         */
+        month: MailboxEnums.Month;
+        /**
+         * Represents your chosen first day of the week otherwise the default is the value in the current user's settings. Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
+         */
+        firstDayOfWeek: MailboxEnums.Days;
+    }
+
+    /**
+     * Represents the time zone applied to the recurrence.
+     * 
+     * Note: If you include the offset but it is not valid given the name, then the offset is ignored.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @remarks
+     * 
+     * Minimum permission level: ReadItem
+     * 
+     * Applicable Outlook mode: Compose or read
+     */
+    export interface RecurrenceTimeZone {
+        name: 
     }
 
     export interface ReplyFormAttachment {
