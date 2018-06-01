@@ -5324,7 +5324,7 @@ declare namespace Office {
      * [Api set: Mailbox 1.0]
      *
      * @remarks
-     * For a full listing of the Office.context namespace, see the [Office.context reference in the Shared API]<https://dev.office.com/reference/add-ins/shared/office.context.htm>.
+     * For a full listing of the Office.context namespace, see the [Office.context reference in the Shared API](https://dev.office.com/reference/add-ins/shared/office.context.htm).
      *
      * Applicable Outlook mode: Compose or read
      */
@@ -6330,7 +6330,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * More information on [actionable messages]<https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message>.
+         * More information on [actionable messages](https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message).
          *
          * Minimum permission level: ReadItem
          *
@@ -6669,7 +6669,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * Note: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, see [Blocked attachments in Outlook]<https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519>.
+         * Note: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, see [Blocked attachments in Outlook](https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519).
          *
          * Minimum permission level: ReadItem
          *
@@ -7310,7 +7310,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * The ewsUrl value can be used by a remote service to make EWS calls to the user's mailbox. For example, you can create a remote service to [get attachments from the selected item]<https://msdn.microsoft.com/library/office/dn148008.aspx>.
+         * The ewsUrl value can be used by a remote service to make EWS calls to the user's mailbox. For example, you can create a remote service to [get attachments from the selected item](https://msdn.microsoft.com/library/office/dn148008.aspx).
          *
          * Minimum permission level: ReadItem
          *
@@ -7334,7 +7334,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * The restUrl value can be used to make [REST API]<https://docs.microsoft.com/outlook/rest/> calls to the user's mailbox.
+         * The restUrl value can be used to make [REST API](https://docs.microsoft.com/outlook/rest/) calls to the user's mailbox.
          *
          * Minimum permission level: ReadItem
          *
@@ -7407,7 +7407,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * Item IDs retrieved via EWS or via the itemId property use a different format than the format used by REST APIs (such as the [Outlook Mail API]<https://msdn.microsoft.com/office/office365/APi/mail-rest-operations> or the [Microsoft Graph]<http://graph.microsoft.io/>). The convertToRestId method converts an EWS-formatted ID into the proper format for REST.
+         * Item IDs retrieved via EWS or via the itemId property use a different format than the format used by REST APIs (such as the [Outlook Mail API](https://msdn.microsoft.com/office/office365/APi/mail-rest-operations) or the [Microsoft Graph](http://graph.microsoft.io/)). The convertToRestId method converts an EWS-formatted ID into the proper format for REST.
          *
          * Minimum permission level: Restricted
          *
@@ -7622,7 +7622,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * The getUserIdentityTokenAsync method returns a token that you can use to identify and [authenticate the add-in and user with a third-party system]<https://msdn.microsoft.com/library/office/fp179828.aspx>.
+         * The getUserIdentityTokenAsync method returns a token that you can use to identify and [authenticate the add-in and user with a third-party system](https://msdn.microsoft.com/library/office/fp179828.aspx).
          *
          * Minimum permission level: ReadItem
          *
