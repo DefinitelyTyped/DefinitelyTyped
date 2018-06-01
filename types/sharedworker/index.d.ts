@@ -16,7 +16,7 @@ declare namespace SharedWorker {
         port: MessagePort;
     }
 
-    interface SharedWorkerGlobalScope extends Worker {
+    export interface SharedWorkerGlobalScope extends Worker {
         onconnect: (event: MessageEvent) => void;
     }
 }
