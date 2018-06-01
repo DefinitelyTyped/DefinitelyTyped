@@ -1,6 +1,7 @@
 // Type definitions for @google-cloud/pubsub 0.18
 // Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/pubsub
-// Definitions by: Paul Huynh <https://github.com/pheromonez>, LunaPg <https://github.com/LunaPg>
+// Definitions by: Paul Huynh <https://github.com/pheromonez>
+//                 LunaPg <https://github.com/LunaPg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
