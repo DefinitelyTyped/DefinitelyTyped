@@ -20,7 +20,6 @@ export interface ActionTypes {
     INITIALIZE: string;
     REGISTER_FIELD: string;
     RESET: string;
-    RESET_SECTION: string;
     SET_SUBMIT_FAILED: string;
     SET_SUBMIT_SUCCEEDED: string;
     START_ASYNC_VALIDATION: string;
