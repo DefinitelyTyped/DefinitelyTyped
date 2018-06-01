@@ -841,6 +841,23 @@ export interface LabelProps {
     content?: React.ReactElement<any> | ContentRenderer<Label>;
 }
 
+export class LabelList extends React.Component<LabelListProps> { }
+
+export interface LabelListProps {
+    angle?: number;
+    children?: React.ReactNode[] | React.ReactNode;
+    className?: string;
+    clockWise?: boolean;
+    content?: React.ReactElement<any> | ContentRenderer<Label>;
+    data?: number;
+    dataKey: string | number | RechartsFunction;
+    formatter?: LabelFormatter;
+    id?: string;
+    offset?: number;
+    position?: PositionType;
+    valueAccessor?: RechartsFunction;
+}
+
 export type AxisDomain = string | number | ContentRenderer<any> | 'auto' | 'dataMin' | 'dataMax';
 
 export interface XPadding {
