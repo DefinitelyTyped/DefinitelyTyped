@@ -400,7 +400,13 @@ declare namespace Office {
         * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
         */
         value: any;
-    }    
+    }
+    /**
+     * Represents the runtime environment of the add-in and provides access to key objects of the API. 
+     *
+     * @remarks 
+     * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word 
+     */     
     interface Context {
         /**
         * Provides information and access to the signed-in user.
