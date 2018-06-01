@@ -46,11 +46,11 @@ export type HeaderMode = 'float' | 'screen' | 'none';
 
 export interface HeaderForceInset {
   horizontal?: string;
-  vertical?: string,
-  left?: string,
-  right?: string,
-  top?: string,
-  bottom?: string,
+  vertical?: string;
+  left?: string;
+  right?: string;
+  top?: string;
+  bottom?: string;
 }
 
 export interface HeaderProps extends NavigationSceneRendererProps {
@@ -665,8 +665,8 @@ export interface NavigationContainerProps<S = {}, O = {}> {
     action: NavigationAction
   ) => void | null | undefined;
   navigation?: NavigationScreenProp<S>;
-  persistenceKey?: string | null | undefined;
-  renderLoadingExperimental?: React.ComponentType<{}>,
+  persistenceKey?: string | null;
+  renderLoadingExperimental?: React.ComponentType;
   screenProps?: any;
   navigationOptions?: O;
   style?: StyleProp<ViewStyle>;
@@ -987,14 +987,14 @@ export interface NavigationDescriptor<Params = NavigationParams> {
   key: string;
   state: NavigationLeafRoute<Params> | NavigationStateRoute<Params>;
   navigation: NavigationScreenProp<any>;
-  getComponent: () => React.ComponentType<{}>;
+  getComponent: () => React.ComponentType;
 }
 
 export type NavigationView<O, S> = React.ComponentType<{
   descriptors: { [key: string]: NavigationDescriptor };
 } & NavigationInjectedProps>;
 
-export function createNavigator<C, S, Options>(
+export function createNavigator<S, Options>(
   view: NavigationView<Options, S>,
   router: NavigationRouter<S, Options>,
   navigatorConfig?: {} | null,
