@@ -150,6 +150,13 @@ export class Profile {
  */
 export class Options {
     /**
+     * Sets the browser to be in headless mode.
+     *
+     * @return {!Options} A self reference.
+     */
+    headless(): Options;
+
+    /**
      * Sets the profile to use. The profile may be specified as a
      * {@link Profile} object or as the path to an existing Firefox profile to use
      * as a template.

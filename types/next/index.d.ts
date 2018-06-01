@@ -36,6 +36,7 @@ declare namespace next {
     }
 
     interface Server {
+        setAssetPrefix: (cdnUrl: string) => void;
         handleRequest(
             req: http.IncomingMessage,
             res: http.ServerResponse,

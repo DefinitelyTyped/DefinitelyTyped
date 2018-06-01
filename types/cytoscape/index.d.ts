@@ -4,6 +4,7 @@
 //                  Shenghan Gao <https://github.com/wy193777>
 //                  Yuri Pereira Constante <https://github.com/ypconstante>
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
+//                  Cerberuser <https://github.com/cerberuser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -4527,4 +4528,22 @@ declare namespace cytoscape {
          */
         promise(animationEvent?: "completed" | "complete" | "frame"): Promise<EventObject>;
     }
+
+    /**
+     * Cytoscape extension type
+     * Definition of an extension would be in following form:
+     * @example
+     * declare module 'cytoscape-ext' {
+     *  const ext: cytoscape.Ext;
+     *  export = ext;
+     * }
+     */
+    type Ext = (cytoscape: (options?: CytoscapeOptions) => Core) => void;
+    /**
+     * Register imported extension into cytoscape
+     * @param module Entry point for the extension, got by module = require('cy-ext')
+     * or by import module from 'cy-ext'
+     * http://js.cytoscape.org/#extensions
+     */
+    function use(module: Ext): void;
 }

@@ -18,6 +18,7 @@
 //                 David Hayden <https://github.com/Haydabase>
 //                 Chris Redekop <https://github.com/repl-chris>
 //                 Aneil Mallavarapu <https://github.com/aneilbaboo>
+//                 Jeremy Nagel <https://github.com/jeznag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,6 +43,7 @@ export interface APIGatewayEventRequestContext {
         userAgent: string | null;
         userArn: string | null;
     };
+    path: string;
     stage: string;
     requestId: string;
     requestTimeEpoch: number;
@@ -502,6 +504,58 @@ export interface AuthResponseContext {
 }
 
 /**
+ * CodePipeline events
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/actions-invoke-lambda-function.html
+ */
+export interface S3ArtifactLocation {
+    bucketName: string;
+    objectKey: string;
+}
+export interface S3ArtifactStore {
+    type: 'S3';
+    s3Location: S3ArtifactLocation;
+}
+
+export type ArtifactLocation = S3ArtifactStore;
+
+export interface Artifact {
+    name: string;
+    revision: string | null;
+    location: ArtifactLocation;
+}
+
+export interface Credentials {
+    accessKeyId: string;
+    secretAccessKey: string;
+    sessionToken?: string;
+}
+
+export interface EncryptionKey {
+    type: string;
+    id: string;
+}
+
+export interface CodePipelineEvent {
+    "CodePipeline.job": {
+        id: string;
+        accountId: string;
+        data: {
+            actionConfiguration: {
+                configuration: {
+                    FunctionName: string;
+                    UserParameters: string;
+                }
+            };
+            inputArtifacts: Artifact[];
+            outputArtifacts: Artifact[];
+            artifactCredentials: Credentials;
+            encryptionKey?: EncryptionKey & {type: 'KMS'};
+            continuationToken?: string;
+        };
+    };
+}
+
+/**
  * CloudFront events
  * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
  */
@@ -608,9 +662,11 @@ export type Handler<TEvent = any, TResult = any> = (
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
  *
  * @param error – an optional parameter that you can use to provide results of the failed Lambda function execution.
+ *                It can be a string for Lambda Proxy Integrations
+ *                https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
  * @param result – an optional parameter that you can use to provide the result of a successful function execution. The result provided must be JSON.stringify compatible.
  */
-export type Callback<TResult = any> = (error?: Error | null, result?: TResult) => void;
+export type Callback<TResult = any> = (error?: Error | null | string, result?: TResult) => void;
 
 // Begin defining Handler and Callback types for each API trigger type.
 // Ordered by https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html
@@ -652,6 +708,8 @@ export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
 
 // TODO: IoT
+
+export type CodePipelineHandler = Handler<CodePipelineEvent, void>;
 
 export type CloudFrontRequestHandler = Handler<CloudFrontRequestEvent, CloudFrontRequestResult>;
 export type CloudFrontRequestCallback = Callback<CloudFrontRequestResult>;

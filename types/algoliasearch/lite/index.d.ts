@@ -8,9 +8,9 @@
 // TypeScript Version: 2.2
 
 declare namespace algoliasearch {
-  /*
-  Interface for the algolia client object
-  */
+  /**
+   * Interface for the algolia client object
+   */
   interface Client {
     /**
      * Initialization of the index
@@ -500,52 +500,6 @@ declare namespace algoliasearch {
 
     nbShards?: number;
     userData?: string | object;
-  }
-
-  interface AlgoliaResponse {
-    /**
-     * Contains all the hits matching the query
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    hits: any[];
-    /**
-     * Current page
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    page: number;
-    /**
-     * Number of total hits matching the query
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    nbHits: number;
-    /**
-     * Number of pages
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    nbPage: number;
-    /**
-     * Number of hits per pages
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    hitsPerPage: number;
-    /**
-     * Engine processing time (excluding network transfer)
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    processingTimeMS: number;
-    /**
-     * Query used to perform the search
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    query: string;
-    /**
-     * GET parameters used to perform the search
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    params: string;
-    facets: {
-      [facetName: string]: { [facetValue: string]: number };
-    };
   }
 
   namespace SearchForFacetValues {

@@ -841,7 +841,7 @@ declare namespace WebdriverIO {
         setOrientation(setTo: 'landscape' | 'portrait'): Client<T>;
         settings(settings?: { [key: string]: string }): Client<T>;
         shake(): Client<T>;
-        startActivity(appPackage: string, activity: string): Client<T>;
+        startActivity(appPackage: string, activity: string, appWaitPackage?: string, appWaitActivity?: string): Client<T>;
         strings(language: string): Client<T>;
 
         swipe(
