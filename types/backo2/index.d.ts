@@ -32,6 +32,5 @@ declare class Backoff {
      */
     setJitter(jitter: number): void;
 }
-declare namespace Backoff {}
 
 export = Backoff;

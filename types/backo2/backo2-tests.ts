@@ -1,4 +1,4 @@
-import * as Backoff from "backo2";
+import Backoff = require("backo2");
 
 const backoff = new Backoff();
 const backoff2 = new Backoff({});
