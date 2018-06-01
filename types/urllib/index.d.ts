@@ -1,4 +1,4 @@
-// Type definitions for urllib 2.25
+// Type definitions for urllib 2.28
 // Project: http://github.com/node-modules/urllib
 // Definitions by: SoraYama <https://github.com/sorayama>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,11 +9,14 @@ import * as http from 'http';
 import * as url from 'url';
 import { Readable, Writable } from 'stream';
 import { EventEmitter } from 'events';
+import { LookupFunction } from 'net';
 
 export as namespace urllib;
 export interface RequestOptions {
   /** Request method, defaults to GET. Could be GET, POST, DELETE or PUT. Alias 'type'. */
   method?: "GET" | "POST" | "DELETE" | "PUT";
+  /** Alias method  */
+  type?: "GET" | "POST" | "DELETE" | "PUT";
   /** Data to be sent. Will be stringify automatically. */
   data?: any;
   /** Force convert data to query string. */
@@ -111,6 +114,17 @@ export interface RequestOptions {
   enableProxy?: boolean;
   /** proxy agent uri or options, default is null. */
   proxy?: string | { [key: string]: any };
+  /**
+   * Custom DNS lookup function, default is dns.lookup.
+   * Require node >= 4.0.0(for http protocol) and node >=8(for https protocol)
+   */
+  lookup?: LookupFunction;
+  /**
+   * check request address to protect from SSRF and similar attacks.
+   * It receive two arguments(ip and family) and should return true or false to identified the address is legal or not.
+   * It rely on lookup and have the same version requirement.
+   */
+  checkAddress?: (ip: string, family: number | string) => boolean;
 }
 
 /**
