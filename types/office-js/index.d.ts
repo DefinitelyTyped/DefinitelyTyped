@@ -402,56 +402,89 @@ declare namespace Office {
         value: any;
     }
     /**
-    * Represents the runtime environment of the add-in and provides access to key objects of the API.
-    *
-    * @remarks
-    * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
-    */
+     * Represents the runtime environment of the add-in and provides access to key objects of the API. 
+     *
+     * @remarks 
+     * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word 
+     */     
     interface Context {
         /**
         * Provides information and access to the signed-in user.
         */
         auth: Auth;
         /**
+         * True if developers can display, on the current platform, a UI in the add-in sell or upgrade; otherwise returns False.
+         * 
+         * @remarks
+         * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on the Windows desktop or for Office Online in the browser, do allow such links. If you want the UI of your add-in to provide a link to an external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
+         */
+        commerceAllowed: boolean;
+        /**
         * Gets the locale (language) specified by the user for editing the document or item.
         */
         contentLanguage: string;
         /**
+        * Gets information about the environment in which the add-in is running.
+        */
+        diagnostics: {
+            /**
+            * Gets the Office application host in which the add-in is running.
+            */
+            host: HostType;
+            /**
+            * Gets the platform on which the add-in is running.
+            */
+            platform: PlatformType;
+            /**
+            * Gets the version of Office on which the add-in is running.
+            */
+            version: string;
+        };
+        /**
         * Gets the locale (language) specified by the user for the UI of the Office host application.
+        * @remarks
+        * When using in Outlook,the applicable modes are Compose or read.
         */
         displayLanguage: string;
         /**
-        *
+        * Gets an object that represents the document the content or task pane add-in is interacting with.
+        */
+        document: Document;
+        /**
+        * Contains the Office application host in which the add-in is running.
+        */
+        host: HostType;
+        /**
+        * Gets the license information for the user's Office installation.
         */
         license: string;
+        /**
+         * Provides access to the Outlook Add-in object model for Microsoft Outlook and Microsoft Outlook on the web.
+         *
+         * Namespaces:
+         *
+         * - diagnostics: Provides diagnostic information to an Outlook add-in.
+         *
+         * - item: Provides methods and properties for accessing a message or appointment in an Outlook add-in.
+         *
+         * - userProfile: Provides information about the user in an Outlook add-in.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * Minimum permission level: Restricted
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        mailbox: Mailbox;
         /**
         * Provides access to the properties for Office theme colors.
         */
         officeTheme: OfficeTheme;
         /**
-        * Provides access to the properties for Office theme colors.
-        */
-        touchEnabled: boolean;
-        /**
-        * Provides objects and methods that you can use to create and manipulate UI components, such as dialog boxes.
-        */
-        ui: UI;
-        /**
-        * Contains the host in which the add-in (web application) is running in. Possible values are: Word, Excel, PowerPoint
-        */
-        host: HostType;
-        /**
-        * Provides the platform on which the add-in is running. Possible values are: PC, OfficeOnline, Mac, iOS, Android, Universal
+        * Provides the platform on which the add-in is running.
         */
         platform: PlatformType;
-        /**
-        *
-        */
-        diagnostics: {
-            host: HostType;
-            platform: PlatformType;
-            version: string;
-        };
         /**
         * Provides a method for determining what requirement sets are supported on the current host and platform.
         */
@@ -463,6 +496,30 @@ declare namespace Office {
              */
             isSetSupported(name: string, minVersion?: number): boolean;
         }
+        /**
+         * Gets an object that represents the custom settings or state of a mail add-in saved to a user's mailbox.
+         *
+         * The RoamingSettings object lets you store and access data for a mail add-in that is stored in a user's mailbox, so that is available to that add-in when it is running from any host client application used to access that mailbox.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * Minimum permission level: Restricted
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        roamingSettings: RoamingSettings;
+        /**
+        * Specifies whether the platform and device allows touch interaction.
+        * 
+        * @remarks
+        * Use the touchEnabled property to determine when your add-in is running on a touch device and if necessary, adjust the kind of controls, and size and spacing of elements in your add-in's UI to accommodate touch interactions.
+        */
+        touchEnabled: boolean;
+        /**
+        * Provides objects and methods that you can use to create and manipulate UI components, such as dialog boxes.
+        */
+        ui: UI;
     }
     /**
      * Provides specific information about an error that occurred during an asynchronous data operation.
@@ -1447,18 +1504,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         releaseByIdAsync(id: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-    }
-    /**
-    * Represents the runtime environment of the add-in and provides access to key objects of the API.
-    *
-    * @remarks
-    * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
-    */
-    interface Context {
-        /**
-         * Gets an object that represents the document the content or task pane add-in is interacting with.
-         */
-        document: Document;
     }
     /**
      * Represents an XML node in a tree in a document.
@@ -5294,61 +5339,6 @@ declare namespace Office {
          * An array of strings containing the Internet URLs associated with the contact. Nullable.
          */
         urls: Array<string>;
-    }
-    /**
-     * The Office.context namespace provides shared interfaces that are used by add-ins in all of the Office apps. This listing documents only those interfaces that are used by Outlook add-ins.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * For a full listing of the Office.context namespace, see the [Office.context reference in the Shared API](https://dev.office.com/reference/add-ins/shared/office.context.htm).
-     *
-     * Applicable Outlook mode: Compose or read
-     */
-    interface Context {
-        /**
-         * Gets the locale (language) in RFC 1766 Language tag format specified by the user for the UI of the Office host application.
-         *
-         * The displayLanguage value reflects the current Display Language setting specified with File > Options > Language in the Office host application.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * Applicable Outlook mode: Compose or read
-         */
-        displayLanguage: string;
-        /**
-         * Provides access to the Outlook Add-in object model for Microsoft Outlook and Microsoft Outlook on the web.
-         *
-         * Namespaces:
-         *
-         * - diagnostics: Provides diagnostic information to an Outlook add-in.
-         *
-         * - item: Provides methods and properties for accessing a message or appointment in an Outlook add-in.
-         *
-         * - userProfile: Provides information about the user in an Outlook add-in.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * Minimum permission level: Restricted
-         *
-         * Applicable Outlook mode: Compose or read
-         */
-        mailbox: Mailbox;
-        /**
-         * Gets an object that represents the custom settings or state of a mail add-in saved to a user's mailbox.
-         *
-         * The RoamingSettings object lets you store and access data for a mail add-in that is stored in a user's mailbox, so that is available to that add-in when it is running from any host client application used to access that mailbox.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * Minimum permission level: Restricted
-         *
-         * Applicable Outlook mode: Compose or read
-         */
-        roamingSettings: RoamingSettings;
     }
     /**
      * The CustomProperties object represents custom properties that are specific to a particular item and specific to a mail add-in for Outlook. For example, there might be a need for a mail add-in to save some data that is specific to the current email message that activated the add-in. If the user revisits the same message in the future and activates the mail add-in again, the add-in will be able to retrieve the data that had been saved as custom properties.
