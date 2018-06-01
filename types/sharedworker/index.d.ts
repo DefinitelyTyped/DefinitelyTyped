@@ -2,7 +2,6 @@
 // Project: http://www.w3.org/TR/workers/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace SharedWorker {
     interface AbstractWorker extends EventTarget {
         onerror: (ev: ErrorEvent) => any;
@@ -16,6 +15,10 @@ declare namespace SharedWorker {
          */
         port: MessagePort;
     }
+
+    interface SharedWorkerGlobalScope {
+        onconnect: (event: MessageEvent) => void;
+    }
 }
 
 declare var SharedWorker: {
@@ -25,5 +28,5 @@ declare var SharedWorker: {
      * @param {string} stringUrl    Pathname to JavaScript file
      * @param {string} name         Name of the worker to execute
      */
-    new (stringUrl: string, name?: string): SharedWorker.SharedWorker;
+    new(stringUrl: string, name?: string): SharedWorker.SharedWorker;
 };
