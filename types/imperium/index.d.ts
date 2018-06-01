@@ -33,13 +33,13 @@ export class Imperium {
 
     private addRole(roleName: string, getAcl: GetAcl): void;
 
-    private evaluateRouteActions(req: express.Request, action: Action[], context: Context): Actions;
+    evaluateRouteActions(req: express.Request, action: Action[], context: Context): Actions;
 
-    private evaluateRouteAction(req: express.Request, expr: string, key: string, context: Context): string;
+    evaluateRouteAction(req: express.Request, expr: string, key: string, context: Context): string;
 
-    private evaluateUserActions(req: express.Request, roles: Role[]): Promise<Action[]>;
+    evaluateUserActions(req: express.Request, roles: Role[]): Promise<Action[]>;
 
-    private evaluateUserAction(action: RoleParams, context: { [key: string]: string[] }): { [key: string]: string[] };
+    evaluateUserAction(action: RoleParams, context: { [key: string]: string[] }): { [key: string]: string[] };
 }
 
 interface Roles {
