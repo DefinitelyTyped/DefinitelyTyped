@@ -659,8 +659,6 @@ declare namespace Application {
          * Default error handling.
          */
         onerror(err: Error): void;
-
-        [key: string]: any;
     }
 
     interface Request extends BaseRequest {

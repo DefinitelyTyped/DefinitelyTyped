@@ -1,6 +1,7 @@
-// Type definitions for react-rnd 7.3
+// Type definitions for react-rnd 7.4
 // Project: https://github.com/bokuweb/react-rnd
 // Definitions by: Ragg <https://github.com/Ragg->
+//                 fsubal <https://github.com/fsubal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 import React = require('react');
@@ -17,6 +18,17 @@ declare namespace Rnd {
         | 'top'
         | 'topLeft'
         | 'topRight';
+
+    interface Enable {
+        bottom?: boolean;
+        bottomLeft?: boolean;
+        bottomRight?: boolean;
+        left?: boolean;
+        right?: boolean;
+        top?: boolean;
+        topLeft?: boolean;
+        topRight?: boolean;
+    }
 
     interface HandleClasses {
         bottom?: string;
@@ -90,7 +102,8 @@ declare namespace Rnd {
         resizeHandleStyles: HandleStyles;
 
         lockAspectRatio: boolean;
-        enableResizing: boolean;
+        enableResizing?: Enable;
+        disableDragging?: boolean;
 
         onResizeStart: () => void;
         onResize: () => void;

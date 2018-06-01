@@ -169,9 +169,30 @@ export interface TransformOptions {
     wrapPluginVisitorMethod?(pluginAlias: string, visitorType: 'enter' | 'exit', callback: (path: NodePath, state: any) => void): (path: NodePath, state: any) => void ;
 }
 
+export interface BabelFileModulesMetadata {
+    imports: object[];
+    exports: {
+        exported: object[],
+        specifiers: object[]
+    };
+}
+
+export interface BabelFileMetadata {
+    usedHelpers: string[];
+    marked: Array<{
+        type: string;
+        message: string;
+        loc: object;
+    }>;
+    modules: BabelFileModulesMetadata;
+}
+
 export interface BabelFileResult {
     ast?: Node;
     code?: string;
+    ignored?: boolean;
     map?: object;
+    metadata?: BabelFileMetadata;
 }
+
 export as namespace babel;

@@ -813,23 +813,42 @@ namespace TestControlledComponentWithoutDispatchProp {
 }
 
 namespace TestDispatchToPropsAsObject {
-    const onClick: ActionCreator<{}> = () => ({});
-    const mapStateToProps = (state: any) => {
-        return {
-            title: state.app.title as string,
-        };
-    };
-    const dispatchToProps = {
-        onClick,
-    };
+	const onClick: ActionCreator<{}> = () => ({});
+	const mapStateToProps = (state: any) => {
+		return {
+			title: state.app.title as string,
+		};
+	};
+	const dispatchToProps = {
+		onClick,
+	};
 
-    type Props = { title: string; } & typeof dispatchToProps;
-    const HeaderComponent: React.StatelessComponent<Props> = (props) => {
-        return <h1>{props.title}</h1>;
-    }
+	type Props = { title: string; } & typeof dispatchToProps;
+	const HeaderComponent: React.StatelessComponent<Props> = (props) => {
+		return <h1>{props.title}</h1>;
+	}
 
-    const Header = connect(mapStateToProps, dispatchToProps)(HeaderComponent);
-    <Header />
+	const Header = connect(mapStateToProps, dispatchToProps)(HeaderComponent);
+	<Header />
+}
+
+namespace TestInferredFunctionalComponent {
+
+	const Header = connect(
+		(
+			{ app: { title }}: { app: { title: string }},
+			{ extraText }: { extraText: string }
+		) => ({
+			title,
+			extraText
+		}),
+		(dispatch) => ({
+			onClick: () => dispatch({ type: 'test' })
+		})
+	)(({ title, extraText, onClick }) => {
+		return <h1 onClick={onClick}>{title} {extraText}</h1>;
+	});
+	<Header extraText='text'/>
 }
 
 namespace TestWrappedComponent {
@@ -933,7 +952,7 @@ namespace TestWithoutTOwnPropsDecoratedInference {
     // This should compile
     React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
     React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
-    
+
     // This should not compile, it is missing ForwardedProps
     React.createElement(ConnectedWithOwnPropsClass, { own: 'string' }); // $ExpectError
     React.createElement(ConnectedWithOwnPropsStateless, { own: 'string' }); // $ExpectError

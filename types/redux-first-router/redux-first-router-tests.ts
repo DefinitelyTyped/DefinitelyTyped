@@ -6,7 +6,8 @@ import {
     ReceivedAction,
     redirect,
     Action as ReduxFirstRouterAction,
-    QuerySerializer
+    QuerySerializer,
+    pathToAction
 } from 'redux-first-router';
 import {
     createStore,
@@ -23,8 +24,8 @@ import {
 } from 'redux';
 import { History } from 'history';
 
-declare var console: any;
-declare var history: History;
+declare const console: any;
+declare const history: History;
 
 interface Keys {
     role: string;
@@ -97,12 +98,14 @@ const receivedAction: ReceivedAction = {
     payload: {}
 };
 actionToPath(receivedAction, routesMap); // $ExpectType string
+pathToAction('/', routesMap); // $ExpectType ReceivedAction
 
 const querySerializer: QuerySerializer = {
     stringify: (params) => '',
     parse: (queryString) => ({})
 };
 actionToPath(receivedAction, routesMap, querySerializer); // $ExpectType string
+pathToAction('/', routesMap, querySerializer); // $ExpectType ReceivedAction
 
 const action: ReduxFirstRouterAction = {
     type: 'HOME'

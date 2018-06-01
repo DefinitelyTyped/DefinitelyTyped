@@ -1,4 +1,4 @@
-// Type definitions for react-redux 6.0.0
+// Type definitions for react-redux 6.0.1
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Thomas Hasner <https://github.com/thasner>,
@@ -54,7 +54,7 @@ interface AdvancedComponentDecorator<TProps, TOwnProps> {
  * - it is present in both DecorationTargetProps and InjectedProps
  * - DecorationTargetProps[P] extends InjectedProps[P]
  * ie: decorated component can accept more types than decorator is injecting
- * 
+ *
  * For decoration, inject props or ownProps are all optionnaly
  * required by the decorated (right hand side) component.
  * But any property required by the decorated component must extend the injected property
@@ -70,9 +70,12 @@ type Shared<
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
-    <P extends Shared<TInjectedProps, P>>(
-        component: Component<P>
-    ): ComponentClass<Omit<P, keyof Shared<TInjectedProps, P>> & TNeedsProps> & {WrappedComponent: Component<P>}
+	(
+		component: StatelessComponent<TInjectedProps>
+	): ComponentClass<TNeedsProps> & {WrappedComponent: StatelessComponent<TInjectedProps>}
+	<P extends Shared<TInjectedProps, P>>(
+		component: Component<P>
+	): ComponentClass<Omit<P, keyof Shared<TInjectedProps, P>> & TNeedsProps> & {WrappedComponent: Component<P>}
 }
 
 // Injects props and removes them from the prop requirements.
