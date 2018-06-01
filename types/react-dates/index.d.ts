@@ -21,7 +21,8 @@ declare namespace ReactDates {
     type FocusedInputShape = 'startDate' | 'endDate';
     type OrientationShape = 'horizontal' | 'vertical';
     type ScrollableOrientationShape = 'horizontal' | 'vertical' | 'verticalScrollable';
-
+    type CalendarInfoPositionShape = 'top' | 'bottom' | 'before' | 'after';
+    type DayOfWeekShape = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
     interface DateRangePickerShape {
         // REQUIRED props
@@ -61,7 +62,7 @@ declare namespace ReactDates {
         withPortal?: boolean,
         withFullScreenPortal?: boolean,
         initialVisibleMonth?: () => momentPropTypes.momentObj,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek? : DayOfWeekShape,
         numberOfMonths?: number,
         keepOpenOnDateSelect?: boolean,
         reopenPickerOnClearDates?: boolean,
@@ -159,7 +160,7 @@ declare namespace ReactDates {
         withPortal?: boolean,
         withFullScreenPortal?: boolean,
         initialVisibleMonth?: () => momentPropTypes.momentObj,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek? : DayOfWeekShape,
         numberOfMonths?: number,
         keepOpenOnDateSelect?: boolean,
         reopenPickerOnClearDates?: boolean,
@@ -246,7 +247,7 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean;
         noBorder?: boolean,
         verticalBorderSpacing?: number,
-        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
+        firstDayOfWeek? : DayOfWeekShape,
 
         // navigation related props
         navPrev?: string | JSX.Element,
@@ -298,7 +299,63 @@ declare namespace ReactDates {
     type DayPickerRangeController = React.ClassicComponentClass<DayPickerRangeControllerShape>;
     var DayPickerRangeController: React.ClassicComponentClass<DayPickerRangeControllerShape>;
 
+    interface DayPickerSingleDateControllerShape {
+        date: momentPropTypes.momentObj | null,
+        onDateChange: (date: momentPropTypes.momentObj | null) => void,
+        focused: boolean,
+        onFocusChange: (arg: { focused: boolean }) => void,
+        onClose?: Function,
+        
+        keepOpenOnDateSelect?: boolean
+        isOutsideRange?: (day: any) => boolean,
+        isDayBlocked?: (day: any) => boolean,
+        isDayHighlighted?: (day: any) => boolean,
+        
+        // DayPicker props
+        renderMonth?: Function,
+        enableOutsideDays?: boolean,
+        numberOfMonths?: number,
+        orientation?: ScrollableOrientationShape,
+        withPortal?: boolean,
+        initialVisibleMonth?: Function,
+        firstDayOfWeek? : DayOfWeekShape,
+        hideKeyboardShortcutsPanel?: boolean,
+        daySize?: number,
+        verticalHeight?: number,
+        noBorder?: boolean,
+        verticalBorderSpacing?: number,
+        transitionDuration?: number,
+        
+        navPrev?: any,
+        navNext?: any,
+        
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onOutsideClick?: Function,
+        renderCalendarDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderDayContents?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderCalendarInfo?: Function,
+        calendarInfoPosition?: CalendarInfoPositionShape,
+        
+        // accessibility
+        onBlur?: Function,
+        isFocused?: boolean,
+        showKeyboardShortcuts?: boolean,
+        
+        // i18n
+        monthFormat?: string,
+        weekDayFormat?: string,
+        phrases?: {
+            focusStartDate: string,
+            clearDates: string,
+            keyboardNavigationInstructions: string,
+        }
+        
+        isRTL?: boolean,
+    }
 
+    type DayPickerSingleDateController = React.ClassicComponentClass<DayPickerSingleDateControllerShape>;
+    var DayPickerSingleDateController: React.ClassicComponentClass<DayPickerSingleDateControllerShape>;
 
 
     var isInclusivelyAfterDay: (a: moment.Moment, b: moment.Moment) => boolean;
