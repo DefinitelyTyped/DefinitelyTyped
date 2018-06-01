@@ -94,6 +94,9 @@ declare namespace videojs {
 		name(): string;
 		options(obj: any): any;
 		player(): Player;
+		off(eventName?: string, callback?: (eventObject: Event) => void): void;
+		on(eventName: string, callback: (eventObject: Event) => void): void;
+		one(eventName: string, callback: (eventObject: Event) => void): void;
 		ready(callback: (this: this) => void): this;
 		removeAttribute(attribute: string): void;
 		removeChild(component: Component): void;
@@ -125,9 +128,6 @@ declare namespace videojs {
 		languageSwitch(options: any): void;
 		loop(value?: boolean): string;
 		muted(muted?: boolean): boolean;
-		off(eventName?: string, callback?: (eventObject: Event) => void): void;
-		on(eventName: string, callback: (eventObject: Event) => void): void;
-		one(eventName: string, callback: (eventObject: Event) => void): void;
 		pause(): Player;
 		paused(): boolean;
 		play(): Player;
