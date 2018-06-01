@@ -33,6 +33,7 @@ interface HTMLBodyElement extends HTMLElement { }
 interface HTMLBRElement extends HTMLElement { }
 interface HTMLButtonElement extends HTMLElement { }
 interface HTMLCanvasElement extends HTMLElement { }
+interface HTMLDialogElement extends HTMLElement { }
 interface HTMLDivElement extends HTMLElement { }
 interface HTMLDListElement extends HTMLElement { }
 interface HTMLEmbedElement extends HTMLElement { }
@@ -175,3 +176,5 @@ interface SVGTextPathElement extends SVGElement { }
 interface SVGTSpanElement extends SVGElement { }
 interface SVGUseElement extends SVGElement { }
 interface SVGViewElement extends SVGElement { }
+
+interface TouchList { }

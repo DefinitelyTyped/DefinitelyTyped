@@ -99,12 +99,12 @@ declare namespace adone {
         /**
          * Checks whether the given object is not a primitive, i.e. neither `undefined` nor `null` nor number nor string nor boolean nor symbol)
          */
-        export function object(obj: any): boolean;
+        export function object(obj: any): obj is object;
 
         /**
          * Checks whether the given object is a plain object, i.e. created by Object
          */
-        export function plainObject(obj: any): boolean;
+        export function plainObject(obj: any): obj is object;
 
         /**
          * Checks whether the given object is an adone namespace
@@ -120,7 +120,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is empty, i.e. it is an object(not a primitive), and Object.keys returns an empty array
          */
-        export function emptyObject(obj: any): boolean;
+        export function emptyObject(obj: any): obj is object;
 
         /**
          * Checks whether the given object has the given owned property
@@ -140,7 +140,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is like an array, i.e. it is not a primitive, not a function and has length
          */
-        export function arrayLikeObject(obj: any): boolean;
+        export function arrayLikeObject(obj: any): obj is ArrayLike<any>;
 
         /**
          * Checks whether the given array has the given value
@@ -258,7 +258,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is a generator function
          */
-        export function generator(obj: any): boolean;
+        export function generator(obj: any): obj is GeneratorFunction;
 
         /**
          * Checks whether the given object is NaN
@@ -320,12 +320,12 @@ declare namespace adone {
         /**
          * Checks whether the given object is an adone subsystem
          */
-        export function subsystem(obj: any): boolean;
+        export function subsystem(obj: any): obj is adone.app.Subsystem;
 
         /**
          * Checks whether the given object is an adone application
          */
-        export function application(obj: any): boolean;
+        export function application(obj: any): obj is adone.app.Application;
 
         /**
          * Checks whether the given object is an adone logger
@@ -335,22 +335,22 @@ declare namespace adone {
         /**
          * Checks whether the given object is a core stream
          */
-        export function coreStream(obj: any): boolean;
+        export function coreStream(obj: any): obj is adone.stream.core.Stream;
 
         /**
          * Checks whether the given object is a fast local map stream
          */
-        export function fastLocalMapStream(obj: any): boolean;
+        export function fastLocalMapStream(obj: any): obj is adone.fast.I.LocalMapStream<any>;
 
         /**
          * Checks whether the given object is a fast local stream
          */
-        export function fastLocalStream(obj: any): boolean;
+        export function fastLocalStream(obj: any): obj is adone.fast.I.LocalStream<any>;
 
         /**
          * Checks whether the given object is a fast stream
          */
-        export function fastStream(obj: any): boolean;
+        export function fastStream(obj: any): obj is adone.fast.I.Stream<any>;
 
         /**
          * Checks whether the given object is a genesis netron
@@ -430,7 +430,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is iterable, has defined Symbol.iterator property
          */
-        export function iterable(obj: any): boolean;
+        export function iterable(obj: any): obj is Iterable<any>;
 
         /**
          * true if the OS is Windows
@@ -490,12 +490,17 @@ declare namespace adone {
         /**
          * Checks whether the given string is an IPv4 address
          */
-        export function ip4(str: string): boolean;
+        export function ip4(str: string, options?: adone.regex.I.IP.Options): boolean;
 
         /**
          * Checks whether the given string is an IPv6 address
          */
-        export function ip6(str: string): boolean;
+        export function ip6(str: string, options?: adone.regex.I.IP.Options): boolean;
+
+        /**
+         * Checks whether the given string is IPv4 or IPv6 address
+         */
+        export function ip(str: string, options?: adone.regex.I.IP.Options): boolean;
 
         /**
          * Checks whether the given object is an array buffer
@@ -629,21 +634,6 @@ declare namespace adone {
         }): obj is string;
 
         /**
-         * Checks whether the given object is a valid IPv4 address
-         */
-        export function ip(obj: any, version: 4): boolean;
-
-        /**
-         * Checks whether the given object is a valid IPv6 address
-         */
-        export function ip(obj: any, version: 6): boolean;
-
-        /**
-         * Checks whether the given object in a valid IPv4 or IPv6 address
-         */
-        export function ip(obj: any): boolean;
-
-        /**
          * Checks whether the given object is a valid UUIDv1 identifier
          */
         export function uuid(obj: any, version: 1): obj is string;
@@ -676,5 +666,14 @@ declare namespace adone {
         export function emitter(obj: any): obj is event.Emitter;
 
         export function asyncEmitter(obj: any): obj is event.AsyncEmitter;
+
+        export const openbsd: boolean;
+
+        export const aix: boolean;
+
+        /**
+         * Checks whether the given object is adone.multi.address.Multiaddr
+         */
+        export function multiAddress(obj: any): boolean; // TODO: obj is adone.multi.address.Multiaddr
     }
 }

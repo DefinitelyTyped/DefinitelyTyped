@@ -445,7 +445,7 @@ declare namespace grunt {
              * File paths are relative to the Gruntfile unless the current working directory is changed with
              * grunt.file.setBase or the --base command-line option.
              */
-            expand(patterns: string[]): string[];
+            expand(patterns: string | string[]): string[];
             expand(options: IFilesConfig, patterns: string[]): string[];
 
             /**

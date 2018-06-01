@@ -16,7 +16,7 @@ import {
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
-export function findDOMNode(instance: ReactInstance): Element;
+export function findDOMNode(instance: ReactInstance): Element | null | Text;
 export function unmountComponentAtNode(container: Element): boolean;
 
 export function createPortal(children: ReactNode, container: Element): ReactPortal;

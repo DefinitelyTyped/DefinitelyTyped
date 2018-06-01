@@ -7,9 +7,9 @@ const server = new Server({
     port: 8000,
 });
 
-const scheme: ServerAuthScheme = (server: Server, options: ServerAuthSchemeOptions) => {
+const scheme: ServerAuthScheme = (server, options) => {
     return {
-        authenticate: (request: Request, h: ResponseToolkit) => {
+        authenticate(request, h) {
             const req = request.raw.req;
             const authorization = req.headers.authorization;
             if (!authorization) {

@@ -16,8 +16,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
@@ -27,6 +26,7 @@
         "head.d.ts",
         "link.d.ts",
         "router.d.ts",
+        "config.d.ts",
         "test/next-tests.ts",
         "test/next-error-tests.tsx",
         "test/next-head-tests.tsx",

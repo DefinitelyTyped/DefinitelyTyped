@@ -12,7 +12,7 @@ import * as momentRange from "moment-range";
 export default class DateRangePicker extends React.Component<Props> { }
 export as namespace ReactDateRangePicker;
 
-export interface Props extends React.Props<{}> {
+export interface Props<T = DateRangePicker> extends React.Props<T> {
     bemBlock?: string;
     bemNamespace?: string;
     dateStates?: DateState[];
@@ -57,7 +57,7 @@ export interface StateDefinition {
     selectable?: boolean;
 }
 
-export interface PaginationArrowProps extends React.Props<{}> {
+export interface PaginationArrowProps<T = PaginationArrow> extends React.Props<T> {
     disabled?: boolean;
     onTrigger?(): void;
     direction?: 'next' | 'previous';

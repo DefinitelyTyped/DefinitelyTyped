@@ -5,6 +5,14 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "react-navigation": [
+                "react-navigation/v2"
+            ],
+            "react-navigation/*": [
+                "react-navigation/v2/*"
+            ]
+        },
         "module": "commonjs",
         "lib": [
             "es6",
@@ -16,7 +24,6 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "noEmit": true
     },
     "files": [

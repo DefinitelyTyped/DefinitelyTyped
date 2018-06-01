@@ -47,6 +47,9 @@ declare namespace google {
             // ISO 639 language code. If the language is not supported, en-US is used. This method provides an alternative to setting the locale at google.load() time. See the Developer's Guide for a list of supported locales.
             setLocale(locale:string):PickerBuilder;
 
+            // Sets the maximum number of items a user can pick.
+            setMaxItems(max: number):PickerBuilder;
+
             // Sets an OAuth token to use for authenticating the current user. Depending on the scope of the token, only certain views will display data. Valid scopes are Google Docs, Drive, Photos, YouTube.
             setOAuthToken(token:string):PickerBuilder;
 

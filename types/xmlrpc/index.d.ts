@@ -9,7 +9,7 @@ declare module 'xmlrpc' {
     import { EventEmitter } from 'events';
     import { Server as HttpServer } from 'http';
     import { Server as HttpsServer } from 'https';
-    import { TlsServerOptions } from 'tls';
+    import { TlsOptions } from 'tls';
 
     interface ClientOptions {
         host?: string;
@@ -47,7 +47,7 @@ declare module 'xmlrpc' {
         function createSecureClient(options: string | ClientOptions): Client;
 
         function createServer(options: string | ServerOptions, callback: () => void): Server;
-        function createSecureServer(options: string | TlsServerOptions, callback: () => void): Server;
+        function createSecureServer(options: string | TlsOptions, callback: () => void): Server;
 
         interface Client {
             options: ClientOptions;

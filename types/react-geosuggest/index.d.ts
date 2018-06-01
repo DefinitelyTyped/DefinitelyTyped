@@ -13,9 +13,13 @@ export default class Geosuggest extends Component<GeosuggestProps> {
     blur(): void;
     update(value: string): void;
     clear(): void;
+    selectSuggest(value?: Suggest): void;
 }
 
-export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
+// Replace with Exclude once on 2.8+
+export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+
+export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'style'> {
     placeholder?: string;
     initialValue?: string;
     className?: string;
@@ -34,7 +38,7 @@ export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
     queryDelay?: number;
     minLength?: number;
     highlightMatch?: boolean;
-    onFocus?(): void;
+    onFocus?(value: any): void;
     onBlur?(value: any): void;
     onChange?(value: any): void;
     onKeyDown?(event: any): void;
@@ -50,8 +54,8 @@ export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     suggestsClassName?: string;
     suggestsHiddenClassName?: string;
-    suggestsItemClassName?: string;
-    suggestsItemActiveClassName?: string;
+    suggestItemClassName?: string;
+    suggestItemActiveClassName?: string;
     autoComplete?: string;
 }
 

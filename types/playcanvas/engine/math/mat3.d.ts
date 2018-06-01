@@ -15,6 +15,8 @@ declare namespace pc {
     * @param {Number} [v8] The value in row 2, column 2.
     */
     class Mat3 {
+        data: Float32Array;
+
         constructor(v0: number, v1: number, v2: number, v3: number, v4: number, v5: number, v6: number, v7: number, v8: number)
         constructor(v0: [number, number, number, number, number, number, number, number, number])
 

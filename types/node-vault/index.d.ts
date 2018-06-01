@@ -122,7 +122,5 @@ declare namespace NodeVault {
     }
 }
 
-type GetClient = (options?: NodeVault.VaultOptions) => NodeVault.client;
-
-declare const getClient: GetClient;
-export = getClient;
+declare function NodeVault(options?: NodeVault.VaultOptions): NodeVault.client;
+export = NodeVault;

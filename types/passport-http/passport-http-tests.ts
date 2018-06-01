@@ -4,6 +4,7 @@
 
 import passport = require("passport");
 import http = require("passport-http");
+import express = require("express");
 
 interface UserInterface {
     username: string;
@@ -46,7 +47,7 @@ passport.use(new http.BasicStrategy((username, password, done) => {
 passport.use(new http.BasicStrategy({
     realm: "User",
     passReqToCallback: true,
-}, (req, username, password, done) => {
+}, (req: express.Request, username: string, password: string, done: (error: any, user?: any) => void) => {
     // with req when needed
 }));
 

@@ -1,8 +1,9 @@
 declare namespace pc {
 
     interface ResourceHandler {
-        load: (url: 'string', callback: (...args: any[]) => {}) => {};
-        open: (url: 'string', date: any) => {};
+        load(url: 'string', callback: (...args: any[]) => {}): void;
+        open(url: 'string', data: any): any;
+        patch(asset: pc.Asset, assets: pc.AssetRegistry): void;
     }
 
     /**
@@ -24,6 +25,11 @@ declare namespace pc {
         * loader.addHandler("json", new pc.JsonHandler());
         */
         addHandler(type: string, handler: pc.ResourceHandler): void;
+
+        getHandler(type: string): any;
+
+        removeHandler(type: string): void;
+
 
         /**
         * @function

@@ -6,10 +6,12 @@
 
 import * as React from "react";
 
-interface HelmetProps {
+export interface HelmetProps {
+    async?: boolean;
     base?: any;
     bodyAttributes?: Object;
     defaultTitle?: string;
+    defer?: boolean;
     encodeSpecialCharacters?: boolean;
     htmlAttributes?: any;
     onChangeClientState?: (newState: any) => void;

@@ -13,14 +13,8 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "boom": [
-                "boom/v4"
-            ]
-        },
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
@@ -37,6 +31,7 @@
         "test/route/adding-routes.ts",
         "test/route/config.ts",
         "test/route/handler.ts",
+        "test/route/ext.ts",
         "test/route/route-options.ts",
         "test/route/route-options-pre.ts",
         "test/route/validation.ts",

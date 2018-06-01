@@ -1,4 +1,4 @@
-// Type definitions for AWS Lambda
+// Type definitions for AWS Lambda 8.10
 // Project: http://docs.aws.amazon.com/lambda
 // Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>
 //                 Michael Skarum <https://github.com/skarum>
@@ -14,8 +14,13 @@
 //                 Markus Tacker <https://github.com/coderbyheart>
 //                 Palmi Valgeirsson <https://github.com/palmithor>
 //                 Danilo Raisi <https://github.com/daniloraisi>
+//                 Simon Buchan <https://github.com/simonbuchan>
+//                 David Hayden <https://github.com/Haydabase>
+//                 Chris Redekop <https://github.com/repl-chris>
+//                 Aneil Mallavarapu <https://github.com/aneilbaboo>
+//                 Jeremy Nagel <https://github.com/jeznag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // API Gateway "event" request context
 export interface APIGatewayEventRequestContext {
@@ -27,6 +32,7 @@ export interface APIGatewayEventRequestContext {
         accessKey: string | null;
         accountId: string | null;
         apiKey: string | null;
+        apiKeyId: string | null;
         caller: string | null;
         cognitoAuthenticationProvider: string | null;
         cognitoAuthenticationType: string | null;
@@ -37,6 +43,7 @@ export interface APIGatewayEventRequestContext {
         userAgent: string | null;
         userArn: string | null;
     };
+    path: string;
     stage: string;
     requestId: string;
     requestTimeEpoch: number;
@@ -45,7 +52,7 @@ export interface APIGatewayEventRequestContext {
 }
 
 // API Gateway "event"
-export interface APIGatewayEvent {
+export interface APIGatewayProxyEvent {
     body: string | null;
     headers: { [name: string]: string };
     httpMethod: string;
@@ -57,6 +64,7 @@ export interface APIGatewayEvent {
     requestContext: APIGatewayEventRequestContext;
     resource: string;
 }
+export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
 
 // API Gateway CustomAuthorizer "event"
 export interface CustomAuthorizerEvent {
@@ -87,7 +95,7 @@ export interface AttributeValue {
 // Context
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.html
 export interface StreamRecord {
-    ApproximateCreationTime?: number;
+    ApproximateCreationDateTime?: number;
     Keys?: { [key: string]: AttributeValue };
     NewImage?: { [key: string]: AttributeValue };
     OldImage?: { [key: string]: AttributeValue };
@@ -191,15 +199,16 @@ export interface S3EventRecord {
     };
 }
 
-export interface S3CreateEvent {
+export interface S3Event {
     Records: S3EventRecord[];
 }
+export type S3CreateEvent = S3Event; // old name
 
 /**
  * Cognito User Pool event
  * http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
  */
-export interface CognitoUserPoolEvent {
+export interface CognitoUserPoolTriggerEvent {
     version: number;
     triggerSource:
         | "PreSignUp_SignUp"
@@ -259,6 +268,7 @@ export interface CognitoUserPoolEvent {
         answerCorrect?: boolean;
     };
 }
+export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
 
 /**
  * CloudFormation Custom Resource event and response
@@ -414,7 +424,7 @@ export interface ClientContextEnv {
     locale: string;
 }
 
-export interface ProxyResult {
+export interface APIGatewayProxyResult {
     statusCode: number;
     headers?: {
         [header: string]: boolean | number | string;
@@ -422,42 +432,127 @@ export interface ProxyResult {
     body: string;
     isBase64Encoded?: boolean;
 }
+export type ProxyResult = APIGatewayProxyResult; // Old name
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
  */
-export interface AuthResponse {
+export interface CustomAuthorizerResult {
     principalId: string;
     policyDocument: PolicyDocument;
     context?: AuthResponseContext;
+    usageIdentifierKey?: string;
 }
+export type AuthResponse = CustomAuthorizerResult;
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-output.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Condition
  */
 export interface PolicyDocument {
     Version: string;
-    Statement: [Statement];
+    Id?: string;
+    Statement: Statement[];
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Condition.
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html
+ */
+export interface ConditionBlock {
+    [condition: string]: Condition | Condition[];
+}
+
+export interface Condition {
+    [key: string]: string | string[];
 }
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html
  */
-export interface Statement {
-    Action: string | string[];
+export type Statement = BaseStatement & StatementAction & (StatementResource | StatementPrincipal);
+
+export interface BaseStatement {
     Effect: string;
-    Resource: string | string[];
+    Sid?: string;
+    Condition?: ConditionBlock;
 }
 
+export type PrincipalValue = { [key: string]: string | string[]; } | string | string[];
+export interface MaybeStatementPrincipal {
+    Principal?: PrincipalValue;
+    NotPrincipal?: PrincipalValue;
+}
+export interface MaybeStatementResource {
+    Resource?: string | string[];
+    NotResource?: string | string[];
+}
+export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
+export type StatementResource = MaybeStatementPrincipal & ({ Resource: string | string[] } | { NotResource: string | string[] });
+export type StatementPrincipal = MaybeStatementResource & ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
  */
 export interface AuthResponseContext {
     [name: string]: any;
+}
+
+/**
+ * CodePipeline events
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/actions-invoke-lambda-function.html
+ */
+export interface S3ArtifactLocation {
+    bucketName: string;
+    objectKey: string;
+}
+export interface S3ArtifactStore {
+    type: 'S3';
+    s3Location: S3ArtifactLocation;
+}
+
+export type ArtifactLocation = S3ArtifactStore;
+
+export interface Artifact {
+    name: string;
+    revision: string | null;
+    location: ArtifactLocation;
+}
+
+export interface Credentials {
+    accessKeyId: string;
+    secretAccessKey: string;
+    sessionToken?: string;
+}
+
+export interface EncryptionKey {
+    type: string;
+    id: string;
+}
+
+export interface CodePipelineEvent {
+    "CodePipeline.job": {
+        id: string;
+        accountId: string;
+        data: {
+            actionConfiguration: {
+                configuration: {
+                    FunctionName: string;
+                    UserParameters: string;
+                }
+            };
+            inputArtifacts: Artifact[];
+            outputArtifacts: Artifact[];
+            artifactCredentials: Credentials;
+            encryptionKey?: EncryptionKey & {type: 'KMS'};
+            continuationToken?: string;
+        };
+    };
 }
 
 /**
@@ -492,6 +587,15 @@ export interface CloudFrontEvent {
     };
 }
 
+// https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-generating-http-responses.html#lambda-generating-http-responses-object
+export interface CloudFrontResultResponse {
+    status: string;
+    statusDescription?: string;
+    headers?: CloudFrontHeaders;
+    bodyEncoding?: 'text' | 'base64';
+    body?: string;
+}
+
 export interface CloudFrontResponseEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
@@ -501,12 +605,41 @@ export interface CloudFrontResponseEvent {
     }>;
 }
 
+export type CloudFrontRequestResult = undefined | null | CloudFrontResultResponse | CloudFrontRequest;
+
 export interface CloudFrontRequestEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
             request: CloudFrontRequest;
         }
     }>;
+}
+
+export type CloudFrontResponseResult = undefined | null | CloudFrontResultResponse;
+
+// Kinesis Streams
+// https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-streams
+export interface KinesisStreamRecordPayload {
+    approximateArrivalTimestamp: number;
+    data: string;
+    kinesisSchemaVersion: string;
+    partitionKey: string;
+    sequenceNumber: string;
+}
+
+export interface KinesisStreamRecord {
+    awsRegion: string;
+    eventID: string;
+    eventName: string;
+    eventSource: string;
+    eventSourceARN: string;
+    eventVersion: string;
+    invokeIdentityArn: string;
+    kinesis: KinesisStreamRecordPayload;
+}
+
+export interface KinesisStreamEvent {
+    Records: KinesisStreamRecord[];
 }
 
 /**
@@ -516,20 +649,79 @@ export interface CloudFrontRequestEvent {
  * @param event – event data.
  * @param context – runtime information of the Lambda function that is executing.
  * @param callback – optional callback to return information to the caller, otherwise return value is null.
+ * @return In the node8.10 runtime, a promise for the lambda result.
  */
-export type Handler = (event: any, context: Context, callback?: Callback) => Promise<void> | void;
-export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => Promise<void> | void;
-export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback?: CustomAuthorizerCallback) => Promise<void> | void;
+export type Handler<TEvent = any, TResult = any> = (
+    event: TEvent,
+    context: Context,
+    callback: Callback<TResult>,
+) => void | Promise<TResult>;
 
 /**
  * Optional callback parameter.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
  *
  * @param error – an optional parameter that you can use to provide results of the failed Lambda function execution.
+ *                It can be a string for Lambda Proxy Integrations
+ *                https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
  * @param result – an optional parameter that you can use to provide the result of a successful function execution. The result provided must be JSON.stringify compatible.
  */
-export type Callback = (error?: Error | null, result?: object | boolean | number | string) => void;
-export type ProxyCallback = (error?: Error | null, result?: ProxyResult) => void;
-export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
+export type Callback<TResult = any> = (error?: Error | null | string, result?: TResult) => void;
+
+// Begin defining Handler and Callback types for each API trigger type.
+// Ordered by https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html
+// though that list is incomplete.
+
+export type S3Handler = Handler<S3Event, void>;
+
+export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, void>;
+
+export type SNSHandler = Handler<SNSEvent, void>;
+
+// No SESHandler: SES event source is delivered as SNS notifications
+// https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-ses
+
+// Result type is weird: docs and samples say to return the mutated event, but it only requires an object
+// with a "response" field, the type of which is specific to the event.triggerType. Leave as any for now.
+export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolTriggerEvent>;
+// TODO: Different event/handler types for each event trigger so we can type the result?
+
+// TODO: CognitoSync
+
+export type CloudFormationCustomResourceHandler = Handler<CloudFormationCustomResourceEvent, void>;
+
+// TODO: CloudWatchEvents
+
+export type CloudWatchLogsHandler = Handler<CloudWatchLogsEvent, void>;
+
+// TODO: CodeCommit
+
+export type ScheduledHandler = Handler<ScheduledEvent, void>;
+
+// TODO: AWS Config
+
+// TODO: Alexa
+
+export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
+export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
+export type ProxyHandler = APIGatewayProxyHandler; // Old name
+export type ProxyCallback = APIGatewayProxyCallback; // Old name
+
+// TODO: IoT
+
+export type CodePipelineHandler = Handler<CodePipelineEvent, void>;
+
+export type CloudFrontRequestHandler = Handler<CloudFrontRequestEvent, CloudFrontRequestResult>;
+export type CloudFrontRequestCallback = Callback<CloudFrontRequestResult>;
+
+export type CloudFrontResponseHandler = Handler<CloudFrontResponseEvent, CloudFrontResponseResult>;
+export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
+
+export type KinesisStreamHandler = Handler<KinesisStreamEvent, void>;
+
+// TODO: Kinesis Firehose
+
+export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
+export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
 
 export as namespace AWSLambda;

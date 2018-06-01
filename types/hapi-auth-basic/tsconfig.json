@@ -13,13 +13,8 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "boom": ["boom/v4"],
-            "hapi": ["hapi/v16"]
-        },
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

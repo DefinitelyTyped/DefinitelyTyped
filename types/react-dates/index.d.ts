@@ -41,6 +41,7 @@ declare namespace ReactDates {
         endDateId?: string,
         endDatePlaceholderText?: string,
         disabled?: boolean,
+        keepFocusOnInput?: boolean,
         required?: boolean,
         readOnly?: boolean,
         screenReaderInputMessage?: string,
@@ -166,7 +167,7 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean,
         daySize?: number,
         isRTL?: boolean,
-        verticalSpacing?: number,        
+        verticalSpacing?: number,
         verticalHeight?: number| null,
 
         // navigation related props
@@ -242,18 +243,20 @@ declare namespace ReactDates {
         renderCalendarInfo?: () => (string | JSX.Element),
         onOutsideClick?: (e: any) => void,
         keepOpenOnDateSelect?: boolean,
+        hideKeyboardShortcutsPanel?: boolean;
         noBorder?: boolean,
+        verticalBorderSpacing?: number,
         firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
 
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
-        hideKeyboardShortcutsPanel?: boolean;
         onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         transitionDuration?: number,
 
         // day presentation and interaction related props
+        daySize?: number,
         renderCalendarDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
         renderDayContents?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
         minimumNights?: number,
@@ -264,9 +267,31 @@ declare namespace ReactDates {
         // internationalization props
         monthFormat?: string,
         phrases?: {
-            focusStartDate: string,
-            clearDates: string,
-            keyboardNavigationInstructions: string,
+            calendarLabel?: string,
+            jumpToPrevMonth?: string,
+            jumpToNextMonth?: string,
+            keyboardShortcuts?: string,
+            showKeyboardShortcutsPanel?: string,
+            hideKeyboardShortcutsPanel?: string,
+            openThisPanel?: string,
+            enterKey?: string,
+            leftArrowRightArrow?: string,
+            upArrowDownArrow?: string,
+            pageUpPageDown?: string,
+            homeEnd?: string,
+            escape?: string,
+            questionMark?: string,
+            selectFocusedDate?: string,
+            moveFocusByOneDay?: string,
+            moveFocusByOneWeek?: string,
+            moveFocusByOneMonth?: string,
+            moveFocustoStartAndEndOfWeek?: string,
+            returnFocusToInput?: string,
+            chooseAvailableStartDate?: (date: string) => string,
+            chooseAvailableEndDate?: (date: string) => string,
+            chooseAvailableDate?: (date: string) => string,
+            dateIsUnavailable?: (date: string) => string,
+            dateIsSelected?: (date: string) => string,
         }
     }
 

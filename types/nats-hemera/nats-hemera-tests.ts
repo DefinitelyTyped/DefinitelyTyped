@@ -1,4 +1,4 @@
-import * as Hemera from 'nats-hemera';
+import Hemera = require('nats-hemera');
 
 const nats = {};
 const hemera: any = new Hemera(nats, {});

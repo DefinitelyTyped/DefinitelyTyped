@@ -6,12 +6,12 @@ const options: ServerOptions = {
 };
 
 const server = new Server(options);
-server.app!.key = 'value2';
+server.app.key = 'value2';
 
 server.route({
     path: '/',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return h.response("Hello World");
     }
 });

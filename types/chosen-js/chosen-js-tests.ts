@@ -1,5 +1,3 @@
-
-
 // Options
 $(".my_select_box").chosen();
 
@@ -12,14 +10,23 @@ $(".my_select_box").chosen({
     width: "95%"
 });
 
+$(".chosen-select").chosen({
+    rtl: true
+});
+
 // Destroy
 $(".my_select_box").chosen("destroy");
 
 // Triggered Events
-$(".my_select_box").on("change", function(evt, params) {
+$(".my_select_box").on("change", (evt, params) => {
     evt.preventDefault();
-    let s = params.selected;
-    console.log(s);
+    const s: string = params.selected;
+    const d: string = params.deselected;
+    console.log(s, d);
+});
+
+$(".chosen-select").on("chosen:maxselected", () => {
+    alert("Max selected");
 });
 
 // Triggerable Events

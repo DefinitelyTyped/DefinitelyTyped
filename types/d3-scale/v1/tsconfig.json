@@ -14,12 +14,13 @@
             "../../"
         ],
         "paths": {
-            "d3-scale": ["d3-scale/v1"]
+            "d3-scale": [
+                "d3-scale/v1"
+            ]
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

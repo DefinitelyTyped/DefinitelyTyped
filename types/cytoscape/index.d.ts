@@ -4,11 +4,12 @@
 //                  Shenghan Gao <https://github.com/wy193777>
 //                  Yuri Pereira Constante <https://github.com/ypconstante>
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
+//                  Cerberuser <https://github.com/cerberuser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
 // http://js.cytoscape.org/#notation/functions
-//
+// TypeScript Version: 2.2
 
 /**
  * cy   --> Cy.Core
@@ -427,7 +428,7 @@ declare namespace cytoscape {
         /**
          * Get elements in the graph matching the specified selector or filter function.
          */
-        filter(selector: Selector | ((i: number, ele: Singular) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
 
         /**
          * Allow for manipulation of elements without triggering multiple style calculations or multiple redraws.
@@ -2231,7 +2232,7 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((i: number, ele: CollectionElements) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
         /**
          * Get the nodes that match the specified selector.
          *
@@ -3145,7 +3146,7 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends PaddingNode {
+        interface Node extends Partial<Overlay>, PaddingNode {
             "label"?: string;
             /**
              * The width of the node’s body.
@@ -3320,7 +3321,7 @@ declare namespace cytoscape {
             "pie-i-background-opacity": number;
         }
 
-        interface Edge extends EdgeLine, EdgeArror { }
+        interface Edge extends EdgeLine, EdgeArror, Partial<Overlay> { }
 
         /**
          * These properties affect the styling of an edge’s line:
@@ -4527,4 +4528,22 @@ declare namespace cytoscape {
          */
         promise(animationEvent?: "completed" | "complete" | "frame"): Promise<EventObject>;
     }
+
+    /**
+     * Cytoscape extension type
+     * Definition of an extension would be in following form:
+     * @example
+     * declare module 'cytoscape-ext' {
+     *  const ext: cytoscape.Ext;
+     *  export = ext;
+     * }
+     */
+    type Ext = (cytoscape: (options?: CytoscapeOptions) => Core) => void;
+    /**
+     * Register imported extension into cytoscape
+     * @param module Entry point for the extension, got by module = require('cy-ext')
+     * or by import module from 'cy-ext'
+     * http://js.cytoscape.org/#extensions
+     */
+    function use(module: Ext): void;
 }

@@ -27,5 +27,7 @@ declare namespace adone.collection {
          * Removes and returns an element from the beginning
          */
         pop(): T | undefined;
+
+        static from<T>(iterable: Iterable<T>, length?: number): Queue<T>;
     }
 }

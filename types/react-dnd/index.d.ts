@@ -125,6 +125,8 @@ declare module __ReactDnd {
         captureDraggingState?: boolean;
         anchorX?: number;
         anchorY?: number;
+        offsetX?: number;
+        offsetY?: number;
     }
 
     type ConnectDragSource = DragElementWrapper<DragSourceOptions>;

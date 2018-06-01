@@ -10,7 +10,7 @@ const serverRoutes: ServerRoute[] = [
     {
         path: '/test1',
         method: 'GET',
-        handler: (request: Request, h: ResponseToolkit) => {
+        handler(request, h) {
             const response = h.response('success');
             response.type('text/plain');
             response.header('X-Custom', 'some-value');
@@ -21,7 +21,7 @@ const serverRoutes: ServerRoute[] = [
     {
         path: '/test2',
         method: 'GET',
-        handler: (request: Request, h: ResponseToolkit) => {
+        handler(request, h) {
             return h.response('success')
             .type('text/plain')
             .header('X-Custom', 'some-value');

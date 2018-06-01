@@ -12,7 +12,7 @@ const pool = new pg.Pool();
 pool.connect((err, client, done) => {
     const stream = client.query(query);
     stream.on('end', () => {
-        client.end();
+        client.release();
     });
     stream.on('data', (data: any) => {
         console.log(data);

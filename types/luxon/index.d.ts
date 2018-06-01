@@ -1,7 +1,8 @@
-// Type definitions for luxon 0.2
+// Type definitions for luxon 0.5
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
+//                 Jonathan Siebern <https://github.com/jsiebern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -134,8 +135,10 @@ declare module 'luxon' {
                 second?: number,
                 millisecond?: number
             ): DateTime;
-            static max(...dateTimes: DateTime[]): DateTime | undefined;
-            static min(...dateTimes: DateTime[]): DateTime | undefined;
+            static max(): undefined;
+            static max(...dateTimes: DateTime[]): DateTime;
+            static min(): undefined;
+            static min(...dateTimes: DateTime[]): DateTime;
             static utc(
                 year?: number,
                 month?: number,
@@ -165,12 +168,14 @@ declare module 'luxon' {
             offsetNameShort: string;
             ordinal: number;
             outputCalendar: string;
+            quarter: number;
             second: number;
             weekNumber: number;
             weekYear: number;
             weekday: number;
             weekdayLong: string;
             weekdayShort: string;
+            weeksInWeekYear: number;
             year: number;
             zoneName: string;
             diff(
@@ -209,7 +214,7 @@ declare module 'luxon' {
             toSQLTime(options?: Object): string;
             toString(): string;
             toUTC(offset?: number, options?: ZoneOptions): DateTime;
-            until(other: DateTime): Duration;
+            until(other: DateTime): Interval;
             valueOf(): number;
         }
 
@@ -251,6 +256,7 @@ declare module 'luxon' {
             minutes: number;
             months: number;
             numberingSystem: string;
+            quarters: number;
             seconds: number;
             weeks: number;
             years: number;
@@ -335,7 +341,7 @@ declare module 'luxon' {
             abutsStart(other: Interval): boolean;
             contains(dateTime: DateTime): boolean;
             count(unit?: string): number;
-            difference(...intervals: Interval[]): Interval;
+            difference(...intervals: Interval[]): Interval[];
             divideEqually(numberOfParts?: number): Interval[];
             engulfs(other: Interval): boolean;
             equals(other: Interval): boolean;
@@ -372,7 +378,7 @@ declare module 'luxon' {
             let defaultZoneName: string;
             let throwOnInvalid: boolean;
             let now: () => number;
-            function resetCache(): void;
+            function resetCaches(): void;
         }
 
         type ZoneOffsetOptions = {

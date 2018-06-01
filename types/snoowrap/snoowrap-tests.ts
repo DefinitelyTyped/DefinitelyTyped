@@ -50,3 +50,15 @@ export function wiki(subreddit: string, page: string): WikiPage {
 export function getNewComments(subreddit: string): Listing<Comment> {
   return r.getNewComments(subreddit);
 }
+
+export function thenable(): Promise<string> {
+  return r.getMe().then(me => me.name);
+}
+
+export function getConfig(): Snoowrap.ConfigOptions {
+  return r.config();
+}
+
+export function setConfig(options: Snoowrap.ConfigOptions): Snoowrap.ConfigOptions {
+  return r.config(options);
+}

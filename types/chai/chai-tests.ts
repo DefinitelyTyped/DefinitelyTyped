@@ -191,6 +191,18 @@ function within() {
     expect(10).to.be.within(50, 100, 'blah');
     (10).should.be.within(50, 100, 'blah');
 
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.within(new Date('December 17, 1995 03:24:20'), new Date('December 17, 1995 03:24:40'));
+    new Date('December 17, 1995 03:24:30').should.not.be.within(new Date('December 17, 1995 03:24:20'), new Date('December 17, 1995 03:24:40'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.within(new Date('December 17, 1995 03:24:20'), new Date('December 17, 1995 03:24:40'));
+    new Date('December 17, 1995 03:24:30').should.be.within(new Date('December 17, 1995 03:24:20'), new Date('December 17, 1995 03:24:40'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.within(new Date('December 17, 1995 03:24:20'), new Date('December 17, 1995 03:24:40'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.not.be.within(new Date('December 17, 1995 03:24:20'), new Date('December 17, 1995 03:24:40'), 'blah');
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.within(new Date('December 17, 1995 03:24:20'), new Date('December 17, 1995 03:24:40'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.be.within(new Date('December 17, 1995 03:24:20'), new Date('December 17, 1995 03:24:40'), 'blah');
+
     expect('foo').to.have.length.within(5, 7, 'blah');
     'foo'.should.have.length.within(5, 7, 'blah');
 
@@ -218,6 +230,18 @@ function above() {
     expect(10).to.not.be.above(6, 'blah');
     (10).should.not.be.above(6, 'blah');
 
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.above(new Date('December 17, 1995 03:24:20'));
+    new Date('December 17, 1995 03:24:30').should.not.be.above(new Date('December 17, 1995 03:24:20'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.above(new Date('December 17, 1995 03:24:20'));
+    new Date('December 17, 1995 03:24:30').should.be.above(new Date('December 17, 1995 03:24:20'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.above(new Date('December 17, 1995 03:24:20'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.not.be.above(new Date('December 17, 1995 03:24:20'), 'blah');
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.above(new Date('December 17, 1995 03:24:20'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.be.above(new Date('December 17, 1995 03:24:20'), 'blah');
+
     expect('foo').to.have.length.above(4, 'blah');
     'foo'.should.have.length.above(4, 'blah');
 
@@ -242,6 +266,18 @@ function least() {
 
     expect(10).to.not.be.at.least(6, 'blah');
     (10).should.not.be.at.least(6, 'blah');
+
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.least(new Date('December 17, 1995 03:24:20'));
+    new Date('December 17, 1995 03:24:30').should.not.be.least(new Date('December 17, 1995 03:24:20'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.least(new Date('December 17, 1995 03:24:20'));
+    new Date('December 17, 1995 03:24:30').should.be.least(new Date('December 17, 1995 03:24:20'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.least(new Date('December 17, 1995 03:24:20'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.not.be.least(new Date('December 17, 1995 03:24:20'), 'blah');
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.least(new Date('December 17, 1995 03:24:20'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.be.least(new Date('December 17, 1995 03:24:20'), 'blah');
 
     expect('foo').to.have.length.of.at.least(4, 'blah');
     'foo'.should.have.length.of.at.least(4, 'blah');
@@ -273,6 +309,18 @@ function below() {
     expect(6).to.not.be.below(10, 'blah');
     (6).should.not.be.below(10, 'blah');
 
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.below(new Date('December 17, 1995 03:24:20'));
+    new Date('December 17, 1995 03:24:30').should.not.be.below(new Date('December 17, 1995 03:24:20'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.below(new Date('December 17, 1995 03:24:20'));
+    new Date('December 17, 1995 03:24:30').should.be.below(new Date('December 17, 1995 03:24:20'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.below(new Date('December 17, 1995 03:24:20'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.not.be.below(new Date('December 17, 1995 03:24:20'), 'blah');
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.below(new Date('December 17, 1995 03:24:20'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.be.below(new Date('December 17, 1995 03:24:20'), 'blah');
+
     expect('foo').to.have.length.below(2, 'blah');
     'foo'.should.have.length.below(2, 'blah');
 
@@ -299,6 +347,18 @@ function most() {
 
     expect(6).to.not.be.at.most(10, 'blah');
     (6).should.not.be.at.most(10, 'blah');
+
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.most(new Date('December 17, 1995 03:24:20'));
+    new Date('December 17, 1995 03:24:30').should.not.be.most(new Date('December 17, 1995 03:24:20'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.most(new Date('December 17, 1995 03:24:20'));
+    new Date('December 17, 1995 03:24:30').should.be.most(new Date('December 17, 1995 03:24:20'));
+
+    expect(new Date('December 17, 1995 03:24:30')).to.not.be.most(new Date('December 17, 1995 03:24:20'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.not.be.most(new Date('December 17, 1995 03:24:20'), 'blah');
+
+    expect(new Date('December 17, 1995 03:24:30')).to.be.most(new Date('December 17, 1995 03:24:20'), 'blah');
+    new Date('December 17, 1995 03:24:30').should.be.most(new Date('December 17, 1995 03:24:20'), 'blah');
 
     expect('foo').to.have.length.of.at.most(2, 'blah');
     'foo'.should.have.length.of.at.most(2, 'blah');

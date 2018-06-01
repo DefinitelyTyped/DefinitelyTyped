@@ -4,15 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="node" />
-
-/// <reference types="express-session" />
-/// <reference types="socket.io" />
-
-
 import { EventEmitter } from 'events';
 import { Application } from "express";
 import { SessionOptions } from "express-session";
+import SocketIO = require("socket.io");
 
 declare var CONNECTION_EVENTS: string[];
 declare var Middleware: () => (socket: SocketIO.Socket, next: () => any) => void;

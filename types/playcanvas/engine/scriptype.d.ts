@@ -1,5 +1,5 @@
 interface ScriptType {
-    name: string;
+    name?: string;
 
     /**
      * Interface to define public script attributes available in the editor. 
@@ -13,7 +13,7 @@ interface ScriptType {
      * @memberof ScriptType
      */
     initialize?(): void;
-    
+
     /**
      * postInitialize will run after all initialize methods are executed in the  
      * same tick or enabling chain of actions.

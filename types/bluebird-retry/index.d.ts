@@ -20,6 +20,8 @@ declare namespace retry {
         context?: any;
         args?: any;
     }
+
+    class StopError extends Error {}
 }
 
 export = retry;

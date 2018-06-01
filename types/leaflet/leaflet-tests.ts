@@ -510,3 +510,50 @@ lg = new L.LayerGroup([new L.Layer(), new L.Layer()], {
 	pane: 'overlayPane',
 	attribution: 'test'
 });
+
+// adapted from GridLayer documentation
+const CanvasLayer = L.GridLayer.extend({
+	createTile(coords: L.Coords, done: L.DoneCallback) {
+		const tile = (L.DomUtil.create('canvas', 'leaflet-tile') as HTMLCanvasElement);
+		const size = this.getTileSize();
+		tile.width = size.x;
+		tile.height = size.y;
+		return tile;
+	}
+});
+
+// adapted from GridLayer documentation
+const AsyncCanvasLayer = L.GridLayer.extend({
+	createTile(coords: L.Coords, done: L.DoneCallback) {
+		const tile = (L.DomUtil.create('canvas', 'leaflet-tile') as HTMLCanvasElement);
+		const size = this.getTileSize();
+		tile.width = size.x;
+		tile.height = size.y;
+		setTimeout(() => done(undefined, tile), 1000);
+		return tile;
+	}
+});
+
+export class ExtendedTileLayer extends L.TileLayer {
+	options: L.TileLayerOptions;
+	createTile(coords: L.Coords, done: L.DoneCallback) {
+		const newCoords: L.Coords = (new L.Point(coords.x, coords.y) as L.Coords);
+		newCoords.z = coords.z;
+		return super.createTile(newCoords, done);
+	}
+	_abortLoading() {
+		// adapted from TileLayer's implementation
+		for (const i in this._tiles) {
+			if (this._tiles[i].coords.z !== this._tileZoom) {
+				const tile = this._tiles[i].el;
+				tile.onload = L.Util.falseFn;
+				tile.onerror = L.Util.falseFn;
+				if (tile instanceof HTMLImageElement && !tile.complete) {
+					tile.src = L.Util.emptyImageUrl;
+					L.DomUtil.remove(tile);
+					this._tiles[i] = undefined;
+				}
+			}
+		}
+	}
+}

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
-import BigCalendar, { Navigate, View } from "react-big-calendar";
+import BigCalendar, { BigCalendarProps, Navigate, View } from "react-big-calendar";
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const moment: any;
@@ -13,13 +13,13 @@ BigCalendar.momentLocalizer(moment);
 // http://intljusticemission.github.io/react-big-calendar/examples/index.html
 
 class CalendarEvent {
-    public title: string;
-    public allDay: boolean;
-    public start: Date;
-    public end: Date;
-    public desc: string;
+    title: string;
+    allDay: boolean;
+    start: Date;
+    end: Date;
+    desc: string;
 
-    public constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string) {
+    constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string) {
         this.title = _title;
         this.allDay = _allDay || false;
         this.start = _start;
@@ -45,7 +45,7 @@ console.log('Test Results -> BasicExample', basicExampleHtml);
 
 // Full API Example Test - based on API Documentation
 // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
-class FullAPIExample extends React.Component<any, any> {
+class FullAPIExample extends React.Component<BigCalendarProps> {
     render() {
         return (
             <BigCalendar
@@ -53,19 +53,19 @@ class FullAPIExample extends React.Component<any, any> {
                 date={new Date()}
                 view={'day'}
                 events={getEvents()}
-                onNavigate={(action: Navigate, newDate: Date) => { } }
-                onView={(view: View) => { } }
+                onNavigate={(newDate: Date, action: Navigate) => { }}
+                onView={(view: View) => { }}
                 onSelectSlot={(slotInfo) => {
                     const start = slotInfo.start;
                     const end = slotInfo.end;
                     const slots = slotInfo.slots;
-                } }
-                onSelectEvent={(event) => { } }
+                }}
+                onSelectEvent={(event) => { }}
                 onSelecting={(slotInfo) => {
                     const start = slotInfo.start;
                     const end = slotInfo.end;
                     return true;
-                } }
+                }}
                 views={['day']}
                 toolbar={true}
                 popup={true}
@@ -73,7 +73,7 @@ class FullAPIExample extends React.Component<any, any> {
                 selectable={true}
                 step={20}
                 rtl={true}
-                eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' }) }
+                eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' })}
                 titleAccessor={'title'}
                 allDayAccessor={(event: any) => !!event.allDay}
                 startAccessor={'start'}
@@ -86,7 +86,7 @@ class FullAPIExample extends React.Component<any, any> {
                 timeslots={24}
                 defaultView={'month'}
                 className={'my-calendar'}
-                elementProps={{id: 'myCalendar'}}
+                elementProps={{ id: 'myCalendar' }}
                 components={{
                     event: Event,
                     agenda: {
@@ -106,58 +106,58 @@ console.log('Test Results -> FullAPIExample', fullApiExampleHtml);
 
 // Test fixtures
 function getEvents(): CalendarEvent[] {
-    var events: CalendarEvent[] = [
+    const events: CalendarEvent[] = [
         new CalendarEvent('All Day Event', new Date(2015, 3, 0), new Date(2015, 3, 0), true),
         new CalendarEvent('Long Event', new Date(2015, 3, 7), new Date(2015, 3, 10)),
         new CalendarEvent('DTS STARTS', new Date(2016, 2, 13, 0, 0, 0), new Date(2016, 2, 20, 0, 0, 0)),
         new CalendarEvent('DTS ENDS', new Date(2016, 10, 6, 0, 0, 0), new Date(2016, 10, 13, 0, 0, 0)),
         new CalendarEvent('Some Event', new Date(2015, 3, 9, 0, 0, 0), new Date(2015, 3, 9, 0, 0, 0)),
         new CalendarEvent('Conference', new Date(2015, 3, 11), new Date(2015, 3, 13), undefined, 'Big conference for important people'),
-        new CalendarEvent('Meeting', new Date(2015, 3, 12, 10, 30, 0, 0),new Date(2015, 3, 12, 12, 30, 0, 0), undefined, 'Pre-meeting meeting, to prepare for the meeting'),
-        new CalendarEvent('Lunch', new Date(2015, 3, 12, 12, 0, 0, 0),new Date(2015, 3, 12, 13, 0, 0, 0), undefined, 'Power lunch'),
-        new CalendarEvent('Meeting', new Date(2015, 3, 12, 14, 0, 0, 0),new Date(2015, 3, 12, 15, 0, 0, 0)),
-        new CalendarEvent('Happy Hour', new Date(2015, 3, 12, 17, 0, 0, 0),new Date(2015, 3, 12, 17, 30, 0, 0),undefined,'Most important meal of the day'),
-        new CalendarEvent('Dinner', new Date(2015, 3, 12, 20, 0, 0, 0),new Date(2015, 3, 12, 21, 0, 0, 0)),
-        new CalendarEvent('Birthday Party', new Date(2015, 3, 13, 7, 0, 0),new Date(2015, 3, 13, 10, 30, 0)),
+        new CalendarEvent('Meeting', new Date(2015, 3, 12, 10, 30, 0, 0), new Date(2015, 3, 12, 12, 30, 0, 0), undefined, 'Pre-meeting meeting, to prepare for the meeting'),
+        new CalendarEvent('Lunch', new Date(2015, 3, 12, 12, 0, 0, 0), new Date(2015, 3, 12, 13, 0, 0, 0), undefined, 'Power lunch'),
+        new CalendarEvent('Meeting', new Date(2015, 3, 12, 14, 0, 0, 0), new Date(2015, 3, 12, 15, 0, 0, 0)),
+        new CalendarEvent('Happy Hour', new Date(2015, 3, 12, 17, 0, 0, 0), new Date(2015, 3, 12, 17, 30, 0, 0), undefined, 'Most important meal of the day'),
+        new CalendarEvent('Dinner', new Date(2015, 3, 12, 20, 0, 0, 0), new Date(2015, 3, 12, 21, 0, 0, 0)),
+        new CalendarEvent('Birthday Party', new Date(2015, 3, 13, 7, 0, 0), new Date(2015, 3, 13, 10, 30, 0)),
     ];
     return events;
+}
+
+class EventAgenda extends React.Component<any, any> {
+    render() {
+        // const { label } = this.props;
+        return (
+            <div>
+                <div>Calendar Events</div>
+            </div>
+        );
+    }
+}
+
+const customDayPropGetter = (date: Date) => {
+    if (date.getDate() === 7 || date.getDate() === 15)
+        return {
+            className: 'special-day',
+            style: {
+                border: 'solid 3px ' + (date.getDate() === 7 ? '#faa' : '#afa'),
+            },
+        };
+    else return {};
 };
 
-  class EventAgenda extends React.Component<any, any> {
-    render() {
-      // const { label } = this.props;
-      return (
-        <div>
-          <div>Calendar Events</div>
-        </div>
-      );
-    }
-  }
-
-  const customDayPropGetter = (date: Date) => {
+const customSlotPropGetter = (date: Date) => {
     if (date.getDate() === 7 || date.getDate() === 15)
-      return {
-        className: 'special-day',
-        style: {
-          border: 'solid 3px ' + (date.getDate() === 7 ? '#faa' : '#afa'),
-        },
-      }
-    else return {}
-  }
+        return {
+            className: 'special-day',
+        };
+    else return {};
+};
 
-  const customSlotPropGetter = (date: Date) => {
-    if (date.getDate() === 7 || date.getDate() === 15)
-      return {
-        className: 'special-day',
-      }
-    else return {}
-  }
-
-  function Event(event: any) {
+function Event(event: any) {
     return (
-      <span>
-        <strong>{event.title}</strong>
-        {event.desc && ':  ' + event.desc}
-      </span>
-    )
-  }
+        <span>
+            <strong>{event.title}</strong>
+            {event.desc && ':  ' + event.desc}
+        </span>
+    );
+}

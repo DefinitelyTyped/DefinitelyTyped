@@ -8,7 +8,7 @@ const server = new Server({
 server.route({
     path: '/',
     method: 'GET',
-    config: {
+    options: {
         id: 'root',
         handler: () => 'ok'
     }

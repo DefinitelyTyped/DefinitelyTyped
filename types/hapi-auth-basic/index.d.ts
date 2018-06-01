@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as Hapi from 'hapi';
+import { Plugin, Request, ResponseToolkit } from 'hapi';
 
 declare namespace Basic {
     interface ValidateCustomResponse {
@@ -18,10 +18,10 @@ declare namespace Basic {
     }
 
     interface Validate {
-        (request: Hapi.Request, username: string, password: string, h: object): Promise<ValidateResponse | ValidateCustomResponse>;
+        (request: Request, username: string, password: string, h: ResponseToolkit): Promise<ValidateResponse | ValidateCustomResponse>;
     }
 }
 
-declare var Basic: Hapi.PluginFunction<{}>;
+declare var Basic: Plugin<{}>;
 
 export = Basic;

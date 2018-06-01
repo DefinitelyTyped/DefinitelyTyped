@@ -290,6 +290,7 @@ export interface WriteOptions extends WriteFileOptions {
     fs?: object;
     replacer?: any;
     spaces?: number | string;
+    EOL?: string;
 }
 
 export interface ReadResult {

@@ -8,7 +8,7 @@ const options: ServerOptions = {
 const serverRoute: ServerRoute = {
     path: '/test',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return 'ok: ' + request.path;
     }
 };
@@ -16,7 +16,7 @@ const serverRoute: ServerRoute = {
 const server = new Server(options);
 server.route(serverRoute);
 
-server.ext("onRequest", (request: Request, h: ResponseToolkit) => {
+server.ext("onRequest", (request, h) => {
     request.setUrl('/test');
     return h.continue;
 });

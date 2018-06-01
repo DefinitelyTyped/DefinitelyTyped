@@ -54,7 +54,7 @@ window.onload=()=>{
 
         var f = s.filter(Snap.filter.blur(5, 10));
         var shadow = s.filter(Snap.filter.shadow(0, 2, 3));
-        var filterChild = f.node.firstChild;
+        var filterChild = f.node.firstElementChild;
 
         var r = s.rect(100,100,100,100,20,20).attr({ stroke: '#123456', 'strokeWidth': 20, fill: 'red', filter:  f });
         Snap.animate( 0, 10, function( value ) { filterChild.attributes[0].value = value + ',' + value;  }, 1000 );

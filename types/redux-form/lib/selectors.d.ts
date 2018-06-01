@@ -11,6 +11,7 @@ export const getFormMeta: DataSelector;
 export const getFormAsyncErrors: ErrorSelector;
 export const getFormSyncWarnings: ErrorSelector;
 export const getFormSubmitErrors: ErrorSelector;
+export const getFormError: ErrorSelector;
 export function getFormNames(state: any): string[];
 export const isDirty: BooleanSelector;
 export const isPristine: BooleanSelector;

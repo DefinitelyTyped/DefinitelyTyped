@@ -1,4 +1,4 @@
-import * as PromiseQueue from 'promise-queue';
+import PromiseQueue = require('promise-queue');
 
 PromiseQueue.configure(Promise);
 

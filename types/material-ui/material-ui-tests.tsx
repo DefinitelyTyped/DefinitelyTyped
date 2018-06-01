@@ -4503,6 +4503,15 @@ const IconMenuExampleSimple = () => (
     >
             <MenuItem primaryText="Sign out"/>
     </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            {false}
+            {undefined}
+            {null}
+            {true}
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
   </div>
 );
 
@@ -4745,7 +4754,7 @@ class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
   }
 }
 
-const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+const DropDownMenuAnchorExample: React.SFC = () => (
   <DropDownMenu
     value={1}
     targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
@@ -5698,6 +5707,10 @@ const ToggleExampleSimple = () => (
   <div style={styles.block}>
     <Toggle
       label="Simple"
+      style={styles.toggle}
+    />
+    <Toggle
+      label={<span>Element</span>}
       style={styles.toggle}
     />
     <Toggle

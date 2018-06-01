@@ -9,28 +9,28 @@
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
-    import { JSONSchema4 } from "json-schema";
+    import { JSONSchema6 } from "json-schema";
 
-    export interface FormProps {
-        schema: JSONSchema4;
+    export interface FormProps<T> {
+        schema: JSONSchema6;
         uiSchema?: UiSchema;
-        formData?: any;
+        formData?: T;
         formContext?: any;
-        widgets?: {[name: string]: Widget};
-        fields?: {[name: string]: Field};
+        widgets?: { [name: string]: Widget };
+        fields?: { [name: string]: Field };
         noValidate?: boolean;
         noHtml5Validate?: boolean;
         showErrorList?: boolean;
-        validate?: (formData: any, errors: any) => any;
-        onChange?: (e: IChangeEvent) => any;
+        validate?: (formData: T, errors: FormValidation) => FormValidation;
+        onChange?: (e: IChangeEvent<T>) => any;
         onError?: (e: any) => any;
-        onSubmit?: (e: any) => any;
+        onSubmit?: (e: ISubmitEvent<T>) => any;
         liveValidate?: boolean;
         FieldTemplate?: React.StatelessComponent<FieldTemplateProps>;
         ArrayFieldTemplate?: React.StatelessComponent<ArrayFieldTemplateProps>;
         ObjectFieldTemplate?: React.StatelessComponent<ObjectFieldTemplateProps>;
         safeRenderCompletion?: boolean;
-        transformErrors?: (errors: any) => any;
+        transformErrors?: (errors: AjvError[]) => AjvError[];
 
         // HTML Attributes
         id?: string;
@@ -44,7 +44,7 @@ declare module "react-jsonschema-form" {
         acceptcharset?: string;
     }
 
-    export default class Form extends React.Component<FormProps> { }
+    export default class Form<T> extends React.Component<FormProps<T>> { }
 
     export type UiSchema = {
         'ui:field'?: Field | string;
@@ -54,13 +54,17 @@ declare module "react-jsonschema-form" {
         [name: string]: any;
     };
 
-    export type IdSchema = {
+    export type FieldId = {
         $id: string;
-    };
+    }
+
+    export type IdSchema = FieldId & {
+        [key: string]: FieldId;
+    }
 
     export interface WidgetProps extends React.HTMLAttributes<HTMLElement> {
         id: string;
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         value: any;
         required: boolean;
         disabled: boolean;
@@ -74,15 +78,15 @@ declare module "react-jsonschema-form" {
     export type Widget = React.StatelessComponent<WidgetProps> | React.ComponentClass<WidgetProps>;
 
     export interface FieldProps extends React.HTMLAttributes<HTMLElement> {
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         uiSchema: UiSchema;
         idSchema: IdSchema;
         formData: any;
         errorSchema: object;
         onChange: (value: any) => void;
         registry: {
-            fields: {[name: string]: Field};
-            widgets: {[name: string]: Widget};
+            fields: { [name: string]: Field };
+            widgets: { [name: string]: Widget };
             definitions: object;
             formContext: any;
         };
@@ -114,7 +118,7 @@ declare module "react-jsonschema-form" {
         disabled: boolean;
         displayLabel: boolean;
         fields: Field[];
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         uiSchema: UiSchema;
         formContext: any;
     }
@@ -142,7 +146,7 @@ declare module "react-jsonschema-form" {
         onAddClick: (event: any) => (event: any) => void;
         readonly: boolean;
         required: boolean;
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         uiSchema: UiSchema;
         title: string;
         formContext: any;
@@ -161,19 +165,46 @@ declare module "react-jsonschema-form" {
             readonly: boolean;
         }[],
         required: boolean;
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         uiSchema: UiSchema;
         idSchema: IdSchema;
         formData: any;
         formContext: any;
     }
 
-    export interface IChangeEvent {
+    export interface IChangeEvent<T = any> {
         edit: boolean;
-        formData: any;
-        errors: any[];
-        errorSchema: any;
+        formData: T;
+        errors: { stack: string }[];
+        errorSchema: FormValidation;
         idSchema: IdSchema;
-        status: string;
+        schema: JSONSchema6;
+        uiSchema: UiSchema;
+        status?: string;
+    }
+
+    export type ISubmitEvent<T> = IChangeEvent<T>;
+
+    export type AjvError = {
+        message: string;
+        name: string;
+        params: any;
+        property: string;
+        stack: string;
+    }
+
+    export type FieldError = string
+
+    type FieldValidation = {
+        __errors: FieldError[];
+        addError: (message: string) => void;
+    }
+
+    type FormValidation = FieldValidation & {
+        [fieldName: string]: FieldValidation;
+    }
+
+    type FormSubmit<T> = {
+        formData: T;
     }
 }

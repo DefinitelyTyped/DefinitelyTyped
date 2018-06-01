@@ -50,6 +50,7 @@
         "no-unnecessary-type-assertion": false,
         "no-useless-files": false,
         "no-var-keyword": false,
+        "no-var": false,
         "no-var-requires": false,
         "no-void-expression": false,
         "no-trailing-whitespace": false,

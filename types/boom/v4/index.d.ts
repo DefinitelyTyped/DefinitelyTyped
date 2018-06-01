@@ -3,6 +3,7 @@
 // Definitions by: Igor Rogatty <https://github.com/rogatty>
 //                 AJP <https://github.com/AJamesPhillips>
 //                 Jinesh Shah <https://github.com/jineshshah36>
+//                 Daniel Machado <https://github.com/danielmachado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -257,6 +258,14 @@ declare namespace Boom {
      * @see {@link https://github.com/hapijs/boom#boomlockedmessage-data}
      */
     export function locked<Data = null>(message?: string, data?: Data): BoomError<Data>;
+
+    /**
+     * Returns a 424 Failed Dependency error
+     * @param message optional message.
+     * @param data optional additional error data.
+     * @see {@link https://github.com/hapijs/boom#boomfaileddependencymessage-data}
+     */
+    export function failedDependency<Data = null>(message?: string, data?: Data): BoomError<Data>;
 
     /**
      * Returns a 428 Precondition Required error

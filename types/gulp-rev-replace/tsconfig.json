@@ -15,7 +15,11 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "paths": {
+            "uglify-js": [
+                "uglify-js/v2"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

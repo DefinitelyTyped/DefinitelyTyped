@@ -10,7 +10,7 @@ declare namespace pc {
          * The character that separates path segments
          * @name pc.path.delimiter
          */
-        const delimiter = "/",
+        const delimiter = "/";
         /**
          * Join two sections of file path together, insert a delimiter if needed.
          * @param {String} one First part of path to join

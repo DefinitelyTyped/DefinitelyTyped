@@ -5067,7 +5067,7 @@ declare namespace sequelize {
             username?: string;
             password?: string;
             database?: string;
-        };
+        }[];
 
         write?: {
             host?: string;

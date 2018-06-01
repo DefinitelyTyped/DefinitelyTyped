@@ -13,8 +13,37 @@ declare module 'ember-data' {
     export interface ModelRegistry {}
     export interface AdapterRegistry {}
     export interface SerializerRegistry {}
+    export interface TransformRegistry {
+        'string': string;
+        'boolean': boolean;
+        'number': number;
+        'date': Date;
+    }
 
-    namespace DS {
+    type AttributesFor<Model> = keyof Model; // TODO: filter to attr properties only (TS 2.8)
+    type RelationshipsFor<Model> = keyof Model; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
+
+    export interface ChangedAttributes {
+        [key: string]: [any, any] | undefined;
+    }
+    interface AttributeMeta<Model extends DS.Model> {
+        type: keyof TransformRegistry;
+        options: object;
+        name: AttributesFor<Model>;
+        parentType: Model;
+        isAttribute: true;
+    }
+    interface RelationshipMeta<Model extends DS.Model> {
+        key: RelationshipsFor<Model>;
+        kind: 'belongsTo' | 'hasMany';
+        type: keyof ModelRegistry;
+        options: object;
+        name: string;
+        parentType: Model;
+        isRelationship: true;
+    }
+
+    export namespace DS {
         /**
          * Convert an hash of errors into an array with errors in JSON-API format.
          */
@@ -23,46 +52,40 @@ declare module 'ember-data' {
          * Convert an array of errors in JSON-API format into an object.
          */
         function errorsArrayToHash(errors: any[]): {};
+
+        interface RelationshipOptions<Model> {
+            async?: boolean;
+            inverse?: RelationshipsFor<Model> | null;
+            polymorphic?: boolean;
+        }
+
+        interface Sync { async: false; }
+        interface Async { async?: true; }
+
         /**
          * `DS.belongsTo` is used to define One-To-One and One-To-Many
          * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
          */
         function belongsTo<K extends keyof ModelRegistry>(
             modelName: K,
-            options: {
-                async: false;
-                inverse?: string | null;
-                polymorphic?: boolean;
-            }
+            options: RelationshipOptions<ModelRegistry[K]> & Sync
         ): Ember.ComputedProperty<ModelRegistry[K]>;
         function belongsTo<K extends keyof ModelRegistry>(
             modelName: K,
-            options?: {
-                async?: true;
-                inverse?: string | null;
-                polymorphic?: boolean;
-            }
-        ): Ember.ComputedProperty<ModelRegistry[K] & PromiseObject<ModelRegistry[K]>>;
+            options?: RelationshipOptions<ModelRegistry[K]> & Async
+        ): Ember.ComputedProperty<ModelRegistry[K] & PromiseObject<ModelRegistry[K]>, ModelRegistry[K]>;
         /**
          * `DS.hasMany` is used to define One-To-Many and Many-To-Many
          * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
          */
         function hasMany<K extends keyof ModelRegistry>(
             type: K,
-            options: {
-                async: false;
-                inverse?: string | null;
-                polymorphic?: boolean;
-            }
+            options: RelationshipOptions<ModelRegistry[K]> & Sync
         ): Ember.ComputedProperty<ManyArray<ModelRegistry[K]>>;
         function hasMany<K extends keyof ModelRegistry>(
             type: K,
-            options?: {
-                async?: true;
-                inverse?: string | null;
-                polymorphic?: boolean;
-            }
-        ): Ember.ComputedProperty<PromiseManyArray<ModelRegistry[K]>>;
+            options?: RelationshipOptions<ModelRegistry[K]> & Async
+        ): Ember.ComputedProperty<PromiseManyArray<ModelRegistry[K]>, Ember.Array<ModelRegistry[K]>>;
         /**
          * This method normalizes a modelName into the format Ember Data uses
          * internally.
@@ -72,6 +95,7 @@ declare module 'ember-data' {
 
         interface AttrOptions<T = any> {
             defaultValue?: T | (() => T);
+            allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
         }
 
         /**
@@ -82,27 +106,11 @@ declare module 'ember-data' {
          * `boolean` and `date`. You can define your own transforms by subclassing
          * [DS.Transform](/api/data/classes/DS.Transform.html).
          */
-        function attr(
-            type: 'string',
-            options?: AttrOptions<string>
-        ): Ember.ComputedProperty<string>;
-        function attr(
-            type: 'boolean',
-            options?: AttrOptions<boolean>
-        ): Ember.ComputedProperty<boolean>;
-        function attr(
-            type: 'number',
-            options?: AttrOptions<number>
-        ): Ember.ComputedProperty<number>;
-        function attr(
-            type: 'date',
-            options?: AttrOptions<Date>
-        ): Ember.ComputedProperty<Date>;
-        function attr<T>(
-            type: string,
-            options?: AttrOptions<T>
-        ): Ember.ComputedProperty<T>;
-        function attr<T>(options?: AttrOptions<T>): Ember.ComputedProperty<T>;
+        function attr<K extends keyof TransformRegistry>(
+            type: K,
+            options?: AttrOptions<TransformRegistry[K]>
+        ): Ember.ComputedProperty<TransformRegistry[K]>;
+        function attr(options?: AttrOptions): Ember.ComputedProperty<any>;
         /**
          * WARNING: This interface is likely to change in order to accomodate https://github.com/emberjs/rfcs/pull/4
          * ## Using BuildURLMixin
@@ -481,7 +489,7 @@ declare module 'ember-data' {
             /**
              * Same as `deleteRecord`, but saves the record immediately.
              */
-            destroyRecord(options: {}): RSVP.Promise<any>;
+            destroyRecord(options?: {}): RSVP.Promise<any>;
             /**
              * Unloads the record from the store. This will cause the record to be destroyed and freed up for garbage collection.
              */
@@ -490,7 +498,7 @@ declare module 'ember-data' {
              * Returns an object, whose keys are changed properties, and value is
              * an [oldProp, newProp] array.
              */
-            changedAttributes(): {};
+            changedAttributes(): ChangedAttributes;
             /**
              * If the model `hasDirtyAttributes` this function will discard any unsaved
              * changes. If the model `isNew` it will be removed from the store.
@@ -508,11 +516,11 @@ declare module 'ember-data' {
             /**
              * Get the reference for the specified belongsTo relationship.
              */
-            belongsTo(name: keyof ModelRegistry): BelongsToReference;
+            belongsTo(name: RelationshipsFor<this>): BelongsToReference;
             /**
              * Get the reference for the specified hasMany relationship.
              */
-            hasMany(name: keyof ModelRegistry): HasManyReference<any>;
+            hasMany(name: RelationshipsFor<this>): HasManyReference<any>;
             /**
              * Given a callback, iterates over each of the relationships in the model,
              * invoking the callback with the name of each relationship and its relationship
@@ -860,7 +868,7 @@ declare module 'ember-data' {
          */
         interface PromiseArray<T>
             extends Ember.ArrayProxy<T>,
-                Ember.PromiseProxyMixin<PromiseArray<T>> {}
+                Ember.PromiseProxyMixin<Ember.ArrayProxy<T>> {}
         class PromiseArray<T> {}
         /**
          * A `PromiseObject` is an object that acts like both an `Ember.Object`
@@ -871,7 +879,7 @@ declare module 'ember-data' {
          */
         interface PromiseObject<T>
             extends Ember.ObjectProxy,
-                Ember.PromiseProxyMixin<T & PromiseObject<T>> {}
+                Ember.PromiseProxyMixin<T & Ember.ObjectProxy> {}
         class PromiseObject<T> {}
         /**
          * A PromiseManyArray is a PromiseArray that also proxies certain method calls
@@ -942,36 +950,43 @@ declare module 'ember-data' {
             /**
              * Returns the value of an attribute.
              */
-            attr<L extends keyof ModelRegistry[K]>(keyName: L): {};
+            attr<L extends AttributesFor<ModelRegistry[K]>>(keyName: L): ModelRegistry[K][L];
             /**
              * Returns all attributes and their corresponding values.
              */
-            attributes(): {};
+            attributes(): { [L in keyof ModelRegistry[K]]: ModelRegistry[K][L] };
             /**
              * Returns all changed attributes and their old and new values.
              */
-            changedAttributes(): {};
+            changedAttributes(): Partial<{ [L in keyof ModelRegistry[K]]: ModelRegistry[K][L] }>;
             /**
              * Returns the current value of a belongsTo relationship.
              */
-            belongsTo<L extends keyof ModelRegistry[K]>(
+            belongsTo<L extends RelationshipsFor<ModelRegistry[K]>>(
                 keyName: L,
                 options?: {}
-            ): Snapshot<K> | string | null | undefined;
+            ): Snapshot<K>['record'][L] | string | null | undefined;
             /**
              * Returns the current value of a hasMany relationship.
              */
-            hasMany<L extends keyof ModelRegistry[K]>(keyName: L, options?: {}): any[] | undefined;
+            hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
+                keyName: L,
+                options?: { ids: false }
+            ): Array<Snapshot<K>['record'][L]> | undefined;
+            hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
+                keyName: L,
+                options: { ids: true }
+            ): string[] | undefined;
             /**
              * Iterates through all the attributes of the model, calling the passed
              * function on each attribute.
              */
-            eachAttribute(callback: Function, binding: {}): any;
+            eachAttribute<M extends ModelRegistry[K]>(callback: (key: keyof M, meta: AttributeMeta<M>) => void, binding?: {}): any;
             /**
              * Iterates through all the relationships of the model, calling the passed
              * function on each relationship.
              */
-            eachRelationship(callback: Function, binding: {}): any;
+            eachRelationship<M extends ModelRegistry[K]>(callback: (key: keyof M, meta: RelationshipMeta<M>) => void, binding?: {}): any;
             /**
              * Serializes the snapshot using the serializer for the model.
              */
@@ -2098,6 +2113,12 @@ declare module 'ember' {
         interface Registry {
             'store': DS.Store;
         }
+    }
+}
+declare module 'ember-test-helpers' {
+    import DS from 'ember-data';
+    interface TestContext {
+        store: DS.Store;
     }
 }
 declare module 'ember-data/adapter' {

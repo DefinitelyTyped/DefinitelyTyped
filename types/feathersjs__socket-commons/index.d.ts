@@ -28,8 +28,10 @@ declare module '@feathersjs/feathers' {
     interface Application<ServiceTypes> {
         channel(...names: string[]): Channel;
 
-        publish<T>(callback: (data: T, hook: HookContext<T>) => Channel | Channel[]): Application<ServiceTypes>;
+        // tslint:disable-next-line void-return
+        publish<T>(callback: (data: T, hook: HookContext<T>) => Channel | Channel[] | void): Application<ServiceTypes>;
 
-        publish<T>(event: string, callback: (data: T, hook: HookContext<T>) => Channel | Channel[]): Application<ServiceTypes>;
+        // tslint:disable-next-line void-return
+        publish<T>(event: string, callback: (data: T, hook: HookContext<T>) => Channel | Channel[] | void): Application<ServiceTypes>;
     }
 }

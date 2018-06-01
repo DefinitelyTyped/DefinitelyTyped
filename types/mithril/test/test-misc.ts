@@ -1,8 +1,8 @@
 import { trust, parseQueryString, buildQueryString } from 'mithril';
-import * as h from 'mithril/hyperscript';
+import h = require('mithril/hyperscript');
 import { render } from 'mithril/render';
 import { redraw } from 'mithril/redraw';
-import * as withAttr from 'mithril/withAttr';
+import withAttr = require('mithril/withAttr');
 
 const vnode = trust('Some <strong>bold</strong> text.');
 

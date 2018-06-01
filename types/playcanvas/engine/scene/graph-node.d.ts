@@ -8,6 +8,8 @@ declare namespace pc {
      */
     class GraphNode {
         constructor(name?: string)
+        name: string;
+        tags: pc.Tags;
 
         /**
          * @readonly
@@ -64,7 +66,7 @@ declare namespace pc {
          * @type pc.GraphNode[]
          * @description A read-only property to get the children of this graph node.
          */
-        readonly children: pc.GraphNode;
+        readonly children: pc.GraphNode[];
 
         /**
          * @function
@@ -378,6 +380,7 @@ declare namespace pc {
          * this.entity.setLocalEulerAngles(0, 90, 0); // Set rotation of 90 degrees around y-axis.
          */
         setLocalEulerAngles(x: number, y: number, z: number): void;
+        setLocalEulerAngles(...args: number[]): void;
 
         /**
          * @function
@@ -402,6 +405,7 @@ declare namespace pc {
          * this.entity.setLocalPosition(0, 10, 0);
          */
         setLocalPosition(x: number, y: number, z: number): void;
+        setLocalPosition(...args: number[]): void;
 
         /**
          * @function
@@ -437,6 +441,7 @@ declare namespace pc {
          * this.entity.setLocalRotation(0, 0, 0, 1);
          */
         setLocalRotation(x: number, y: number, z: number, w: number): void;
+        setLocalRotation(...args: number[]): void;
 
         /**
          * @function
@@ -449,6 +454,7 @@ declare namespace pc {
          * this.entity.setLocalScale(10, 10, 10);
          */
         setLocalScale(x: number, y: number, z: number): void;
+        setLocalScale(...args: number[]): void;
 
         /**
          * @function
@@ -484,6 +490,7 @@ declare namespace pc {
          * this.entity.setPosition(0, 10, 0);
          */
         setPosition(x: number, y: number, z: number): void;
+        setPosition(...args: number[]): void;
 
         /**
          * @function
@@ -521,6 +528,7 @@ declare namespace pc {
          * this.entity.setRotation(0, 0, 0, 1);
          */
         setRotation(x: number, y: number, z: number, w: number): void;
+        setRotation(...args: number[]): void;
 
         /**
          * @function
@@ -534,6 +542,7 @@ declare namespace pc {
          * this.entity.setEulerAngles(0, 90, 0);
          */
         setEulerAngles(x: number, y: number, z: number): void;
+        setEulerAngles(...args: number[]): void;
 
         /**
          * @function

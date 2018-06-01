@@ -2,12 +2,12 @@
 // Project: https://github.com/gpbl/webpack-cleanup-plugin#readme
 // Definitions by: Luka Maljic <https://github.com/malj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import webpack = require('webpack');
-
+import { Plugin } from 'webpack';
 export = WebpackCleanupPlugin;
 
-declare class WebpackCleanupPlugin extends webpack.Plugin {
+declare class WebpackCleanupPlugin extends Plugin {
     constructor(options?: WebpackCleanupPlugin.Options);
 }
 

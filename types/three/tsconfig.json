@@ -15,13 +15,13 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "detector.d.ts",
         "test/references.ts",
+        "test/docs/scenes/bones_browser.ts",
         "test/math/test_unit_math.ts",
         "test/webgl/webgl_animation_cloth.ts",
         "test/webgl/webgl_animation_skinning_morph.ts",

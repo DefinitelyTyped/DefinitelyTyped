@@ -74,7 +74,11 @@ export interface SMTPServerSession {
     /**
      * the IP address for the connected client
      */
-    remoteAddress: SMTPServerAddress;
+    remoteAddress: string;
+    /**
+     * port number the connected client
+     */
+    remotePort: number;
     /**
      * reverse resolved hostname for remoteAddress
      */
@@ -91,23 +95,28 @@ export interface SMTPServerSession {
      * Envelope Object
      */
     envelope: SMTPServerEnvelope;
+    /**
+     *  If true, then the connection is using TLS
+     */
+    secure: boolean;
+
     transmissionType: string;
 
-    tlsOptions: tls.TlsServerOptions;
+    tlsOptions: tls.TlsOptions;
 }
 
 export interface SMTPServerEnvelope {
     /**
      * includes an address object or is set to false
      */
-    mailFrom: SMTPServerAddress;
+    mailFrom: SMTPServerAddress | false;
     /**
      * includes an array of address objects
      */
     rcptTo: SMTPServerAddress[];
 }
 
-export interface SMTPServerOptions extends tls.TlsServerOptions {
+export interface SMTPServerOptions extends tls.TlsOptions {
     /**
      * if true, the connection will use TLS. The default is false.
      * If the server doesn't start in TLS mode,
@@ -188,7 +197,7 @@ export interface SMTPServerOptions extends tls.TlsServerOptions {
     /**
      * optional Map or an object of TLS options for SNI where servername is the key. Overrided by SNICallback.
      */
-    sniOptions?: { [servername: string]: tls.TlsServerOptions } | Map<string, tls.TlsServerOptions>;
+    sniOptions?: { [servername: string]: tls.TlsOptions } | Map<string, tls.TlsOptions>;
     /**
      * optional boolean, if set to true then upgrade sockets to TLS immediately after connection is established. Works with secure: true
      */
@@ -282,7 +291,7 @@ export class SMTPServer extends EventEmitter {
     /** Closes the server */
     close(callback: (err?: Error | null) => void): void;
 
-    updateSecureContext(options: tls.TlsServerOptions): void;
+    updateSecureContext(options: tls.TlsOptions): void;
 
     /** Authentication handler. Override this */
     onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response: SMTPServerAuthenticationResponse) => void): void;

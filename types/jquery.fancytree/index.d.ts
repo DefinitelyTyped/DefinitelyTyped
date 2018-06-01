@@ -236,7 +236,7 @@ declare namespace Fancytree {
         /** Outer element of single nodes */
         span: HTMLElement;
         /** Outer element of single nodes for table extension */
-        tr: HTMLElement;
+        tr: HTMLTableRowElement;
         //#endregion
 
         //#region Methods

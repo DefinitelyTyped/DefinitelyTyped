@@ -263,6 +263,7 @@ declare namespace chrome.bookmarks {
     export interface BookmarkRemoveInfo {
         index: number;
         parentId: string;
+        node: BookmarkTreeNode;
     }
 
     export interface BookmarkMoveInfo {
@@ -1679,6 +1680,17 @@ declare namespace chrome.devtools.inspectedWindow {
      */
     export function eval<T>(expression: string, callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void): void;
     /**
+     * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the result parameter of the callback is undefined. In the case of a DevTools-side error, the isException parameter is non-null and has isError set to true and code set to an error code. In the case of a JavaScript error, isException is set to true and value is set to the string value of thrown object.
+     * @param expression An expression to evaluate.
+     * @param options The options parameter can contain one or more options.
+     * @param callback A function called when evaluation completes.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(object result, object exceptionInfo) {...};
+     * Parameter result: The result of evaluation.
+     * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
+     */
+    export function eval<T>(expression: string, options: EvalOptions, callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void): void;
+    /**
      * Retrieves the list of resources from the inspected page.
      * @param callback A function that receives the list of resources when the request completes.
      * The callback parameter should be a function that looks like this:
@@ -1690,6 +1702,15 @@ declare namespace chrome.devtools.inspectedWindow {
     export var onResourceAdded: ResourceAddedEvent;
     /** Fired when a new revision of the resource is committed (e.g. user saves an edited version of the resource in the Developer Tools). */
     export var onResourceContentCommitted: ResourceContentCommittedEvent;
+
+    export interface EvalOptions {
+        /** If specified, the expression is evaluated on the iframe whose URL matches the one specified. By default, the expression is evaluated in the top frame of the inspected page. */
+        frameURL?: string;
+        /** Evaluate the expression in the context of the content script of the calling extension, provided that the content script is already injected into the inspected page. If not, the expression is not evaluated and the callback is invoked with the exception parameter set to an object that has the isError field set to true and the code field set to E_NOTFOUND. */
+        useContentScriptContext?: boolean;
+        /** Evaluate the expression in the context of a content script of an extension that matches the specified origin. If given, contextSecurityOrigin overrides the 'true' setting on userContentScriptContext. */
+        contextSecurityOrigin?: string;
+    }
 }
 
 ////////////////////
@@ -1740,7 +1761,7 @@ declare namespace chrome.devtools.network {
  * Availability: Since Chrome 18.
  */
 declare namespace chrome.devtools.panels {
-    export interface PanelShownEvent extends chrome.events.Event<(window: chrome.windows.Window) => void> {}
+    export interface PanelShownEvent extends chrome.events.Event<(window: Window) => void> {}
 
     export interface PanelHiddenEvent extends chrome.events.Event<() => void> {}
 
@@ -5041,7 +5062,7 @@ declare namespace chrome.runtime {
 
     export interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> {}
 
-    export interface PortMessageEvent extends chrome.events.Event<(message: Object, port: Port) => void> {}
+    export interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> {}
 
     export interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response: any) => void) => void> {}
 
@@ -5969,6 +5990,16 @@ declare namespace chrome.tabs {
          */
         audible?: boolean;
         /**
+         * Whether the tab is discarded. A discarded tab is one whose content has been unloaded from memory, but is still visible in the tab strip. Its content gets reloaded the next time it's activated.
+         * @since Chrome 54.
+         */
+        discarded: boolean;
+        /**
+         * Whether the tab can be discarded automatically by the browser when resources are low.
+         * @since Chrome 54.
+         */
+        autoDiscardable: boolean;
+        /**
          * Optional.
          * Current tab muted state and the reason for the last state change.
          * @since Chrome 46. Warning: this is the current Beta channel.
@@ -6132,6 +6163,11 @@ declare namespace chrome.tabs {
          * @since Chrome 45.
          */
         muted?: boolean;
+        /**
+         * Optional. Whether the tab should be discarded automatically by the browser when resources are low.
+         * @since Chrome 54.
+         */
+        autoDiscardable?: boolean;
     }
 
     export interface CaptureVisibleTabOptions {
@@ -6179,7 +6215,7 @@ declare namespace chrome.tabs {
          * Optional. Whether the tabs have completed loading.
          * One of: "loading", or "complete"
          */
-        status?: string;
+        status?: 'loading' | 'complete';
         /**
          * Optional. Whether the tabs are in the last focused window.
          * @since Chrome 19.
@@ -6191,7 +6227,7 @@ declare namespace chrome.tabs {
          * Optional. The type of window the tabs are in.
          * One of: "normal", "popup", "panel", "app", or "devtools"
          */
-        windowType?: string;
+        windowType?: 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
         /** Optional. Whether the tabs are active in their windows. */
         active?: boolean;
         /**
@@ -6210,6 +6246,18 @@ declare namespace chrome.tabs {
         currentWindow?: boolean;
         /** Optional. Whether the tabs are highlighted. */
         highlighted?: boolean;
+        /**
+         * Optional.
+         * Whether the tabs are discarded. A discarded tab is one whose content has been unloaded from memory, but is still visible in the tab strip. Its content gets reloaded the next time it's activated.
+         * @since Chrome 54.
+         */
+        discarded?: boolean;
+        /**
+         * Optional.
+         * Whether the tabs can be discarded automatically by the browser when resources are low.
+         * @since Chrome 54.
+         */
+        autoDiscardable?: boolean;
         /** Optional. Whether the tabs are pinned. */
         pinned?: boolean;
         /**
@@ -6259,6 +6307,16 @@ declare namespace chrome.tabs {
          * @since Chrome 45.
          */
         audible?: boolean;
+        /**
+         * The tab's new discarded state.
+         * @since Chrome 54.
+         */
+        discarded?: boolean;
+        /**
+         * The tab's new auto-discardable
+         * @since Chrome 54.
+         */
+        autoDiscardable?: boolean;
         /**
          * The tab's new muted state and the reason for the change.
          * @since Chrome 46. Warning: this is the current Beta channel.
@@ -6583,6 +6641,13 @@ declare namespace chrome.tabs {
      * Paramater zoomSettings: The tab's current zoom settings.
      */
     export function getZoomSettings(tabId: number, callback: (zoomSettings: ZoomSettings) => void): void;
+    /**
+     * Discards a tab from memory. Discarded tabs are still visible on the tab strip and are reloaded when activated.
+     * @since Chrome 54.
+     * @param tabId Optional. The ID of the tab to be discarded. If specified, the tab will be discarded unless it's active or already discarded. If omitted, the browser will discard the least important tab. This can fail if no discardable tabs exist.
+     * @param callback Called after the operation is completed.
+     */
+    export function discard(tabId: number, callback: (tab: Tab) => void): void;
 
     /**
      * Fired when the highlighted or selected tabs in a window changes.
@@ -7216,6 +7281,9 @@ declare namespace chrome.webNavigation {
  * @since Chrome 17.
  */
 declare namespace chrome.webRequest {
+    /** How the requested resource will be used. */
+    export type ResourceType = "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "other";
+
     export interface AuthCredentials {
         username: string;
         password: string;
@@ -7257,9 +7325,8 @@ declare namespace chrome.webRequest {
         tabId?: number;
         /**
          * A list of request types. Requests that cannot match any of the types will be filtered out.
-         * Each element one of: "main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", or "other"
          */
-        types?: string[];
+        types?: ResourceType[];
         /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
         urls: string[];
 
@@ -7310,9 +7377,8 @@ declare namespace chrome.webRequest {
         tabId: number;
         /**
          * How the requested resource will be used.
-         * One of: "main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", or "other"
          */
-        type: string;
+        type: ResourceType;
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
     }

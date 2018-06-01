@@ -47,7 +47,12 @@ var job = new CronJob({
   start: false,
   timeZone: 'America/Los_Angeles'
 });
+console.log(job.lastDate());
+console.log(job.nextDates(1));
+console.log(job.running);
+job.setTime(new CronTime('00 30 11 * * 1-2'));
 job.start();
+job.stop();
 
 // How to check if a cron pattern is valid:
 try {

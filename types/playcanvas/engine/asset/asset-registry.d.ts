@@ -11,6 +11,8 @@ declare namespace pc {
     class AssetRegistry {
         constructor(loader: pc.ResourceLoader)
 
+        prefix: string;
+
         /**
         * @function
         * @name pc.AssetRegistry#list

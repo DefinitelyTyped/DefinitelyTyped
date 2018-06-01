@@ -9,14 +9,14 @@ import {
 } from "hapi";
 import * as Boom from "boom";
 
-const scheme: ServerAuthScheme = (server: Server, options: ServerAuthSchemeOptions): ServerAuthSchemeObject => {
+const scheme: ServerAuthScheme = (server, options) => {
     return {
         api: {
             settings: {
                 x: 5
             }
         },
-        authenticate: (request: Request, h: ResponseToolkit) => {
+        authenticate(request, h) {
             const authorization = request.headers.authorization;
             if (!authorization) {
                 throw Boom.unauthorized(null, 'Custom');

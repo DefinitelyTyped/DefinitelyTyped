@@ -1,6 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
 // https://github.com/hapijs/hapi/blob/master/API.md#-requestevents
-import { Lifecycle, Request, ResponseToolkit, RouteOptions, Server, ServerOptions, ServerRoute } from "hapi";
+import { Lifecycle, Request, Server, ServerOptions, ServerRoute } from "hapi";
 import * as Crypto from 'crypto';
 
 const options: ServerOptions = {
@@ -10,12 +10,12 @@ const options: ServerOptions = {
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request) {
         return 'ok: ' + request.path;
     }
 };
 
-const onRequest: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
+const onRequest: Lifecycle.Method = (request, h) => {
     /*
      * Server events
      */
@@ -29,11 +29,11 @@ const onRequest: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
         console.log('Response sent for request: ' + request.path);
     });
 
-    request.server.events.on('start', (route: RouteOptions) => {
+    request.server.events.on('start', () => {
         console.log('Server started');
     });
 
-    request.server.events.once('stop', (route: RouteOptions) => {
+    request.server.events.once('stop', () => {
         console.log('Server stoped');
     });
 
@@ -42,7 +42,7 @@ const onRequest: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
      */
     const hash = Crypto.createHash('sha1');
 
-    request.events.on("peek", (chunk: any) => {
+    request.events.on("peek", (chunk) => {
         hash.update(chunk);
     });
 
@@ -59,7 +59,9 @@ const onRequest: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
 
 const server = new Server(options);
 server.route(serverRoute);
-server.ext('onRequest', onRequest);
+server.ext('onRequest', onRequest, {
+    before: 'test',
+});
 
 server.start();
 console.log('Server started at: ' + server.info.uri);

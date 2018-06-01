@@ -46,7 +46,7 @@ export interface Node {
 
 export interface ArrayExpression extends Node {
     type: "ArrayExpression";
-    elements: Array<Expression | SpreadElement>;
+    elements: Array<null | Expression | SpreadElement>;
 }
 
 export interface AssignmentExpression extends Node {
@@ -422,7 +422,7 @@ export interface ExportNamedDeclaration extends Node {
     type: "ExportNamedDeclaration";
     declaration: Declaration;
     specifiers: ExportSpecifier[];
-    source: StringLiteral;
+    source: StringLiteral | null;
 }
 
 export interface ExportSpecifier extends Node {
@@ -1306,7 +1306,7 @@ export type TSEntityName = Identifier | TSQualifiedName;
 export type TSTypeElement = TSCallSignatureDeclaration | TSConstructSignatureDeclaration | TSIndexSignature
     | TSMethodSignature | TSPropertySignature;
 
-export function arrayExpression(elements?: Array<Expression | SpreadElement>): ArrayExpression;
+export function arrayExpression(elements?: Array<null | Expression | SpreadElement>): ArrayExpression;
 export function assignmentExpression(operator?: string, left?: LVal, right?: Expression): AssignmentExpression;
 export function binaryExpression(
     operator?: "+" | "-" | "/" | "%" | "*" | "**" | "&" | "|" | ">>" | ">>>" | "<<" | "^" | "==" | "===" | "!=" | "!==" | "in" | "instanceof" | ">" | "<" | ">=" | "<=",

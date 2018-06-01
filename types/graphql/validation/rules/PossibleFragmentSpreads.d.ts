@@ -1,4 +1,10 @@
-import { ValidationContext } from '../index';
+import ValidationContext from "../ValidationContext";
+import { ASTVisitor } from "../../language/visitor";
+import { GraphQLType } from "../../type/definition";
+
+export function typeIncompatibleSpreadMessage(fragName: string, parentType: GraphQLType, fragType: GraphQLType): string;
+
+export function typeIncompatibleAnonSpreadMessage(parentType: GraphQLType, fragType: GraphQLType): string;
 
 /**
  * Possible fragment spread
@@ -7,4 +13,4 @@ import { ValidationContext } from '../index';
  * be true: if there is a non-empty intersection of the possible parent types,
  * and possible types which pass the type condition.
  */
-export function PossibleFragmentSpreads(context: ValidationContext): any;
+export function PossibleFragmentSpreads(context: ValidationContext): ASTVisitor;

@@ -15,11 +15,13 @@ export interface ActionTypes {
     CLEAR_SUBMIT: string;
     CLEAR_SUBMIT_ERRORS: string;
     CLEAR_ASYNC_ERROR: string;
+    CLEAR_FIELDS: string;
     DESTROY: string;
     FOCUS: string;
     INITIALIZE: string;
     REGISTER_FIELD: string;
     RESET: string;
+    RESET_SECTION: string;
     SET_SUBMIT_FAILED: string;
     SET_SUBMIT_SUCCEEDED: string;
     START_ASYNC_VALIDATION: string;

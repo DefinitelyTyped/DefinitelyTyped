@@ -43,13 +43,13 @@ declare class MemoryFileSystem {
     writeFileSync(_path: string, content: string | Buffer, encoding?: string): void;
 
     createReadStream(
-        path: string, options: {
+        path: string, options?: {
             start: number;
             end: number;
         }
     ): any;
 
-    createWriteStream(path: string, options: any): any;
+    createWriteStream(path: string, options?: any): any;
 
     exists(path: string, callback: (isExist: boolean) => any): any;
 

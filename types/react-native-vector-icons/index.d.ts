@@ -1,4 +1,4 @@
-// Type definitions for react-native-vector-icons 4.4
+// Type definitions for react-native-vector-icons 4.6
 // Project: https://github.com/oblador/react-native-vector-icons
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
@@ -7,7 +7,7 @@
 
 import * as React from 'react';
 import { Icon } from './Icon';
-import { TextProperties } from 'react-native';
+import { TextProps } from 'react-native';
 
 /**
  * Returns your own custom font based on the glyphMap where the key is the icon name

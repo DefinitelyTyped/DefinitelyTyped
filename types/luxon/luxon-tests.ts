@@ -88,6 +88,7 @@ Settings.defaultLocale = 'en';
 Settings.defaultZoneName = 'Europe/Paris';
 Settings.now();
 Settings.now = () => 0;
+Settings.resetCaches();
 
 // $ExpectError
 Settings.defaultZone = Settings.defaultZone;

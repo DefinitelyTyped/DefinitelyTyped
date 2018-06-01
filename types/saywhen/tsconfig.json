@@ -5,7 +5,6 @@
             "es6"
         ],
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "noUnusedParameters": false,

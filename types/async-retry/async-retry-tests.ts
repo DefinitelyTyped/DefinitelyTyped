@@ -1,4 +1,5 @@
-import { Options, RetryFunction, retry } from 'async-retry';
+import { Options, RetryFunction } from 'async-retry';
+import retry = require("async-retry");
 
 const o: Options = {
   retries: 1,

@@ -15,7 +15,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "paths": {
             "@feathersjs/primus-client": [
                 "feathersjs__primus-client"

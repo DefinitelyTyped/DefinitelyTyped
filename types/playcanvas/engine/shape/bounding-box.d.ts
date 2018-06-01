@@ -21,6 +21,10 @@ declare namespace pc {
          */
         add(other: pc.BoundingBox): void;
 
+        copy(src: pc.BoundingBox): void;
+
+        clone(): pc.BoundingBox;
+
         /**
          * @function
          * @name pc.BoundingBox#intersects
@@ -38,7 +42,7 @@ declare namespace pc {
          * @param {pc.Vec3} [point] If there is an intersection, the intersection point will be copied into here.
          * @returns {Boolean} True if there is an intersection.
          */
-        intersectsRay(ray: pc.Ray, point: pc.Vec3): boolean;
+        intersectsRay(ray: pc.Ray, point?: pc.Vec3): boolean;
 
         /**
          * @function

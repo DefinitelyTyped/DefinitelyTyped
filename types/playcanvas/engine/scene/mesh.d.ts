@@ -1,5 +1,12 @@
 declare namespace pc {
 
+    type MeshPrimitive = {
+        type: number;
+        base: number;
+        count: number;
+        indexed?: boolean;
+    }
+
     /**
      * @name pc.Mesh
      * @class A graphical primitive. The mesh is defined by a {@link pc.VertexBuffer} and an optional
@@ -19,8 +26,10 @@ declare namespace pc {
     class Mesh {
         vertexBuffer: pc.VertexBuffer;
         indexBuffer: pc.IndexBuffer;
-        primitive: {}[];
+        primitive: MeshPrimitive[];
         aabb: pc.BoundingBox;
+        skin: pc.Skin;
+        morph: pc.Morph;
     }
 
     /**
@@ -65,11 +74,8 @@ declare namespace pc {
     class MeshInstance {
         constructor(node: pc.GraphNode, mesh: pc.Mesh, material: pc.Material)
 
-        aabb: pc.BoundingBox;
         castShadow: boolean;
         visible: boolean;
-        layer: number;
-        material: pc.Material;
         renderStyle: number;
         cull: boolean;
 
@@ -80,7 +86,21 @@ declare namespace pc {
          * To ignore all dynamic lights, set mask to 0. Defaults to 1.
          */
         mask: number;
+        node: pc.GraphNode;
+        mesh: pc.Mesh;
+        aabb: pc.BoundingBox;
+        material: pc.Material;
+        layer: number;
+        receiveShadow: boolean;
+        skinInstance: pc.SkinInstance;
+        screenSpace: boolean;
+        key: number;
+    }
 
+    class Command {
+        constructor(layer: number, blendType: number, command: Function);
 
+        key: number;
+        conmand: Function;
     }
 }

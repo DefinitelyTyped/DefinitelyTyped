@@ -1,4 +1,4 @@
-type BrowserMouseEvent = typeof MouseEvent;
+type BrowserMouseEvent = MouseEvent;
 
 declare namespace pc {
     /**
@@ -45,16 +45,15 @@ declare namespace pc {
      * @param {Element} [element] The Element that the mouse events are attached to
      */
     class Mouse {
-        constructor(element?: Element)
-
         /**
         * @function
         * @name pc.Mouse.isPointerLocked
         * @description Check if the mouse pointer has been locked, using {@link pc.Mouse#enabledPointerLock}
         * @returns {Boolean} True if locked
         */
-        isPointerLocked(): void;
+        static isPointerLocked(): void;
 
+        constructor(element?: Element)
 
         /**
          * @function

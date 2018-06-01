@@ -13,6 +13,19 @@ interface Plugin3 {
 	three: 3;
 }
 
+interface Plugin4 {
+	four: 4;
+}
+
+declare module 'hapi' {
+	interface PluginProperties {
+		example: {
+			other: string;
+			key: string;
+		};
+	}
+}
+
 const plugin1: Plugin<Plugin1> = {
     name: 'plugin1',
     register: async (server: Server, options: Plugin1) => {
@@ -31,6 +44,11 @@ const plugin2: Plugin<Plugin2> = {
 const plugin3: Plugin<Plugin3> = {
 	name: 'plugin3',
 	register: async (server: Server, options: Plugin3) => {}
+};
+
+const plugin4: Plugin<Plugin4> = {
+	name: 'plugin4',
+	register: (server: Server, options: Plugin4) => {}
 };
 
 const server = new Server({
@@ -81,5 +99,9 @@ server.register([
 	{
 		plugin: plugin1,
 		options: {one: 1}
+	},
+	{
+		plugin: plugin4,
+		options: {four: 4}
 	}
 ]);

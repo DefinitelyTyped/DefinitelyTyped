@@ -16,7 +16,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "paths": {
             "@feathersjs/authentication-client": [
                 "feathersjs__authentication-client"

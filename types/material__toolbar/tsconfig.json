@@ -2,7 +2,6 @@
     "files": [
         "constants.d.ts",
         "adapter.d.ts",
-        "util.d.ts",
         "index.d.ts",
         "foundation.d.ts"
     ],
@@ -23,7 +22,6 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     }
 }
