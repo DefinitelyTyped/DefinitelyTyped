@@ -28,6 +28,4 @@ interface S3rverOptions {
     directory: string;
 }
 
-declare namespace S3rver {}
-
 export = S3rver;
