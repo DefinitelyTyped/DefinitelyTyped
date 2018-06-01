@@ -1,9 +1,6 @@
-// Type definitions for restify 7.2
+// Type definitions for restify 5.0
 // Project: https://github.com/restify/node-restify
-// Definitions by: Bret Little <https://github.com/blittle>
-//                 Steve Hipwell <https://github.com/stevehipwell>
-//                 Leandro Almeida <https://github.com/leanazulyoro>
-//                 Mitchell Bundy <https://github.com/mgebundy>
+// Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>, Leandro Almeida <https://github.com/leanazulyoro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -11,20 +8,15 @@
 
 import http = require('http');
 import https = require('https');
-import http2 = require('http2');
 import Logger = require('bunyan');
 import url = require('url');
 import spdy = require('spdy');
 import stream = require('stream');
-import { Certificate } from 'crypto';
-import { ZlibOptions } from 'zlib';
 
 export interface ServerOptions {
     ca?: string | Buffer | ReadonlyArray<string | Buffer>;
 
     certificate?: string | Buffer | ReadonlyArray<string | Buffer>;
-
-    cert?: string | Buffer | ReadonlyArray<string | Buffer>;
 
     key?: string | Buffer | ReadonlyArray<string | Buffer>;
 
@@ -59,18 +51,6 @@ export interface ServerOptions {
     noWriteContinue?: boolean;
 
     rejectUnauthorized?: boolean;
-
-    secureOptions?: number;
-
-    http2?: http2.SecureServerOptions;
-
-    dtrace?: boolean;
-
-    onceNext?: boolean;
-
-    strictNext?: boolean;
-
-    ignoreTrailingSlash?: boolean;
 }
 
 export interface AddressInterface {
@@ -105,7 +85,7 @@ export interface Server extends http.Server {
      * Wraps node's close().
      * @param     callback optional callback to invoke when done.
      */
-    close(callback?: () => any): any;
+    close(...args: any[]): any;
 
     /**
      * Returns the number of currently inflight requests.
@@ -196,6 +176,26 @@ export interface Server extends http.Server {
     param(name: string, fn: RequestHandler): Server;
 
     /**
+     * Piggy-backs on the `server.use` method. It attaches a new middleware
+     * function that only fires if the specified version matches the request.
+     *
+     * Note that if the client does not request a specific version, the middleware
+     * function always fires. If you don't want this set a default version with a
+     * pre handler on requests where the client omits one.
+     *
+     * Exposes an API:
+     *   server.versionedUse("version", function (req, res, next, ver) {
+     *     // do stuff that only applies to routes of this API version
+     *   });
+     *
+     * @param    versions the version(s) the URL to respond to
+     * @param        fn       the middleware function to execute, the
+     *                                   fourth parameter will be the selected
+     *                                   version
+     */
+    versionedUse(versions: string | string[], fn: RequestHandler): Server;
+
+    /**
      * Removes a route from the server.
      * You pass in the route 'blob' you got from a mount call.
      * @throws   {TypeError} on bad input.
@@ -247,130 +247,39 @@ export interface Server extends http.Server {
     url: string;
 
     /** Node server instance */
-    server: http.Server | https.Server | spdy.Server | http2.Http2SecureServer;
+    server: http.Server;
 
     /** Router instance */
     router: Router;
-
-    /** Handle uncaught exceptions */
-    handleUncaughtExceptions: boolean;
-
-    /** enable DTrace support */
-    dtrace: boolean;
-
-    /** Custom response formatters */
-    formatters: Formatters;
-
-    /** Prevents calling next multiple times */
-    onceNext: boolean;
-
-    /** Throws error when next() is called more than once, enabled onceNext option */
-    strictNext: boolean;
-
-    /** Pre handlers */
-    preChain: Chain;
-
-    useChain: Chain;
-
-    spdy?: boolean;
-
-    http2?: boolean;
-
-    ca: ServerOptions['ca'];
-
-    certificate: ServerOptions['certificate'];
-
-    key: ServerOptions['key'];
-
-    passphrase: ServerOptions['passphrase'] | null;
-
-    secure?: boolean;
-}
-
-export interface ChainOptions {
-    onceNext?: boolean;
-
-    strictNext?: boolean;
-}
-
-export interface Chain {
-    /** Get handlers of a chain instance */
-    getHandlers(): RequestHandler[];
-
-    /** Utilize the given middleware `handler` */
-    add(handler: RequestHandler): void;
-
-    /** Returns the number of handlers */
-    count(): number;
-
-    /** Handle server requests, punting them down the middleware stack. */
-    run(req: Request, res: Response, done: () => any): void;
-
-    /** Prevents calling next multiple times */
-    onceNext: boolean;
-
-    /** Throws error when next() is called more than once, enables onceNext option */
-    strictNext: boolean;
-}
-
-export interface RouterRegistryRadix {
-    /**
-     * Adds a route.
-     */
-    add(route: Route): boolean;
-
-    /**
-     * Removes a route.
-     */
-    remove(name: string): Route | undefined;
-
-    /**
-     * Registry for route.
-     */
-    lookup(method: string, pathname: string): Chain | undefined;
-
-    /**
-     * Get registry.
-     */
-    get(): Route[];
-
-    /**
-     * toString() serialization.
-     */
-    toString(): string;
 }
 
 export interface RouterOptions {
+    contentType?: string | string[];
+
+    strictRouting?: boolean;
+
     log?: Logger;
 
-    onceNext?: boolean;
+    version?: string;
 
-    strictNext?: boolean;
-
-    ignoreTrailingSlash?: boolean;
-
-    registry?: RouterRegistryRadix;
+    versions?: string[];
 }
 
-export class Router {
-    constructor(options: RouterOptions);
-
+export interface Router {
     /**
-     * Lookup for route
+     * takes an object of route params and query params, and 'renders' a URL.
+     * @param    routeName the route name
+     * @param    params    an object of route params
+     * @param    query     an object of query params
      */
-    lookup(req: Request, res: Response): Chain | undefined;
-
-    /**
-     * Lookup by name
-     */
-    lookupByName(name: string, req: Request, res: Response): Chain | undefined;
+    render(routeName: string, params: any, query?: any): string;
 
     /**
      * adds a route.
      * @param    options an options object
      * @returns  returns the route name if creation is successful.
      */
-    mount(options: RouteOptions, ...handlers: RequestHandlerType[]): string;
+    mount(options: RouteOptions): string | boolean;
 
     /**
      * unmounts a route.
@@ -380,14 +289,30 @@ export class Router {
     unmount(name: string): string;
 
     /**
-     * Return mounted routes.
+     * get a route from the router.
+     * @param       name the name of the route to retrieve
+     * @param       req  the request object
+     * @param     cb   callback function
      */
-    getRoutes(): Route[];
+    get(name: string, req: Request, cb: FindRouteCallback): void;
 
     /**
-     * Default route, when no route found
+     * find a route from inside the router, handles versioned routes.
+     * @param      req      the request object
+     * @param      res      the response object
+     * @param    callback callback function
      */
-    defaultRoute(req: Request, res: Response, next: Next): void;
+    find(req: Request, res: Response, callback: FindRouteCallback): void;
+
+    /**
+     * Find a route by path. Scans the route list for a route with the same RegEx.
+     * i.e. /foo/:param1/:param2 would match an existing route with different
+     * parameter names /foo/:id/:name since the compiled RegExs match.
+     * @param       path      a path to find a route for.
+     * @param                options   an options object
+     * @returns              returns the route if a match is found
+     */
+    findByPath(path: string | RegExp): Route;
 
     /**
      * toString() serialization.
@@ -402,11 +327,23 @@ export class Router {
 
     name: string;
 
+    mounts: { [routeName: string]: Route };
+
+    versions: string[];
+
+    contentType: string[];
+
+    routes: {
+        DELETE: Route[];
+        GET: Route[];
+        HEAD: Route[];
+        OPTIONS: Route[];
+        PATCH: Route[];
+        POST: Route[];
+        PUT: Route[];
+    };
+
     log?: Logger;
-
-    onceNext: boolean;
-
-    strictNext: boolean;
 }
 
 export interface RequestFileInterface {
@@ -424,11 +361,6 @@ export interface RequestAuthorization {
 }
 
 export interface Request extends http.IncomingMessage {
-    /**
-     * Builds an absolute URI for the request.
-     */
-    absoluteUri(path: string): string;
-
     /**
      * checks if the accept header is present and has the value requested.
      * e.g., req.accepts('html');
@@ -532,22 +464,20 @@ export interface Request extends http.IncomingMessage {
     matchedVersion(): string;
 
     /**
-     * Get the case-insensitive request header key,
-     * and optionally provide a default value (express-compliant).
-     * Returns any header off the request. also, 'correct' any
+     * returns any header off the request. also, 'correct' any
      * correctly spelled 'referrer' header to the actual spelling used.
-     * @param key - the key of the header
-     * @param defaultValue - default value if header isn't found on the req
+     * @param    name  the name of the header
+     * @param    value default value if header isn't found on the req
      */
-    header(key: string, defaultValue?: string): string;
+    header(name: string, value?: string): string;
 
     /**
      * returns any trailer header off the request. also, 'correct' any
      * correctly spelled 'referrer' header to the actual spelling used.
      * @param    name  the name of the header
-     * @param    defaultValue default value if header isn't found on the req
+     * @param    value default value if header isn't found on the req
      */
-    trailer(name: string, defaultValue?: string): string;
+    trailer(name: string, value?: string): string;
 
     /**
      * Check if the incoming request contains the Content-Type header field, and
@@ -699,37 +629,37 @@ export interface Response extends http.ServerResponse {
 
     /**
      * sets headers on the response.
-     * @param    key  the name of the header
+     * @param    name  the name of the header
      * @param    value the value of the header
      */
-    header(key: string, value?: any): any;
+    header(name: string, value?: any): any;
 
     /**
      * short hand method for:
      *     res.contentType = 'json';
      *     res.send({hello: 'world'});
      * @param    code    http status code
-     * @param    body    value to json.stringify
+     * @param    object    value to json.stringify
      * @param    [headers] headers to set on the response
      */
-    json(code: number, body: any, headers?: { [header: string]: string }): any;
+    json(code: number, object: any, headers?: { [header: string]: string }): any;
 
     /**
      * short hand method for:
      *     res.contentType = 'json';
      *     res.send({hello: 'world'});
-     * @param    body    value to json.stringify
+     * @param    object    value to json.stringify
      * @param    [headers] headers to set on the response
      */
-    json(body: any, headers?: { [header: string]: string }): any;
+    json(object: any, headers?: { [header: string]: string }): any;
 
     /**
      * sets the link heaader.
-     * @param    key   the link key
-     * @param    value the link value
+     * @param    l   the link key
+     * @param    rel the link value
      * @returns      the header value set to res
      */
-    link(key: string, value: string): string;
+    link(l: string, rel: string): string;
 
     /**
      * sends the response object. pass through to internal __send that uses a
@@ -739,16 +669,7 @@ export interface Response extends http.ServerResponse {
      * @param    [headers]  any add'l headers to set
      * @returns  the response object
      */
-    send(code?: number, body?: any, headers?: { [header: string]: string }): any;
-
-    /**
-     * sends the response object. pass through to internal __send that uses a
-     * formatter based on the content-type header.
-     * @param    [body] the content to send
-     * @param    [headers]  any add'l headers to set
-     * @returns  the response object
-     */
-    send(body?: any, headers?: { [header: string]: string }): any;
+    send(code?: any, body?: any, headers?: { [header: string]: string }): any;
 
     /**
      * sends the response object. pass through to internal __send that skips
@@ -758,16 +679,7 @@ export interface Response extends http.ServerResponse {
      * @param    [headers]  any add'l headers to set
      * @returns  the response object
      */
-    sendRaw(code?: number, body?: any, headers?: { [header: string]: string }): any;
-
-    /**
-     * sends the response object. pass through to internal __send that skips
-     * formatters entirely and sends the content as is.
-     * @param    [body] the content to send
-     * @param    [headers]  any add'l headers to set
-     * @returns  the response object
-     */
-    sendRaw(body?: any, headers?: { [header: string]: string }): any;
+    sendRaw(code?: any, body?: any, headers?: { [header: string]: string }): any;
 
     /**
      * sets a header on the response.
@@ -776,13 +688,6 @@ export interface Response extends http.ServerResponse {
      * @returns       self, the response object
      */
     set(name: string, val: string): Response;
-
-    /**
-     * sets a header on the response.
-     * @param    val  object of headers
-     * @returns       self, the response object
-     */
-    set(headers?: { [header: string]: string }): Response;
 
     /**
      * sets the http status code on the response.
@@ -800,9 +705,9 @@ export interface Response extends http.ServerResponse {
      * redirect is sugar method for redirecting.
      * res.redirect(301, 'www.foo.com', next);
      * `next` is mandatory, to complete the response and trigger audit logger.
-     * @param    code the status code
-     * @param    url to redirect to
-     * @param    next - mandatory, to complete the response and trigger audit logger
+     * @param      code the status code
+     * @param      url to redirect to
+     * @param    next fn
      * @emits    redirect
      */
     redirect(code: number, url: string, next: Next): void;
@@ -811,11 +716,11 @@ export interface Response extends http.ServerResponse {
      * redirect is sugar method for redirecting.
      * res.redirect({...}, next);
      * `next` is mandatory, to complete the response and trigger audit logger.
-     * @param    url to redirect to or options object to configure a redirect or
-     * @param    next - mandatory, to complete the response and trigger audit logger
+     * @param      options the options or url to redirect to
+     * @param    next fn
      * @emits    redirect
      */
-    redirect(opts: string | RedirectOptions, next: Next): void;
+    redirect(options: object | string, next: Next): void;
 
     /** HTTP status code. */
     code: number;
@@ -830,65 +735,30 @@ export interface Response extends http.ServerResponse {
     id: string;
 }
 
-export interface RedirectOptions {
-    /**
-     * whether to redirect to http or https
-     */
-    secure?: boolean;
-
-    /**
-     * redirect location's hostname
-     */
-    hostname?: string;
-
-    /**
-     * redirect location's pathname
-     */
-    pathname?: string;
-
-    /**
-     * redirect location's port number
-     */
-    port?: string;
-
-    /**
-     * redirect location's query string parameters
-     */
-    query?: string;
-
-    /**
-     * if true, `options.query`
-     * stomps over any existing query
-     * parameters on current URL.
-     * by default, will merge the two.
-     */
-    overrideQuery?: boolean;
-
-    /**
-     * if true, sets 301. defaults to 302.
-     */
-    permanent?: boolean;
-}
-
 export interface Next {
     (err?: any): void;
 
     ifError(err?: any): void;
 }
 
+export interface RoutePathRegex extends RegExp {
+    restifyParams: string[];
+}
+
 export interface RouteSpec {
     method: string;
-    name?: string;
+    name: string;
     path: string | RegExp;
-    versions?: string[];
+    versions: string[];
 }
 
 export interface Route {
     name: string;
     method: string;
-    path: string | RegExp;
+    path: RoutePathRegex;
     spec: RouteSpec;
-    chain: Chain;
+    types: string[];
+    versions: string[];
 }
 
 export interface RouteOptions {
@@ -929,49 +799,6 @@ export type FindRouteCallback = (err: Error, route?: Route, params?: any) => voi
 
 export type RequestHandler = (req: Request, res: Response, next: Next) => any;
 export type RequestHandlerType = RequestHandler | RequestHandler[];
-
-export interface ServerUpgradeResponse {
-    /**
-     * Set the status code of the response.
-     * @param code - the http status code
-     */
-    status(code: number): number;
-
-    /**
-     * Sends the response.
-     * @param code - the http status code
-     * @param body - the response to send out
-     */
-    send(code: number, body: any): any;
-
-    /**
-     * Sends the response.
-     * @param body - the response to send out
-     */
-    send(body: any): boolean;
-
-    /**
-     * Ends the response
-     */
-    end(): boolean;
-
-    /**
-     * Write to the response.
-     */
-    write(): boolean;
-
-    /**
-     * Write to the head of the response.
-     * @param statusCode - the http status code
-     * @param reason -  a message
-     */
-    writeHead(statusCode: number, reason?: string): void;
-
-    /**
-     * Attempt to upgrade.
-     */
-    claimUpgrade(): any;
-}
 
 export namespace bunyan {
     interface RequestCaptureOptions {
@@ -1030,7 +857,7 @@ export namespace bunyan {
 
 export function createServer(options?: ServerOptions): Server;
 
-export type Formatter = (req: Request, res: Response, body: any) => string | Buffer | null;
+export type Formatter = (req: Request, res: Response, body: any) => string | null;
 
 export interface Formatters {
     [contentType: string]: Formatter;
@@ -1080,8 +907,6 @@ export namespace plugins {
      */
     function acceptParser(accepts: string[]): RequestHandler;
 
-    type AuditLoggerContext = (req: Request, res: Response, route: any, error: any) => any;
-
     interface AuditLoggerOptions {
         /**
          * Bunyan logger
@@ -1093,20 +918,10 @@ export namespace plugins {
          * log, one of 'pre', 'routed', or 'after'
          */
         event: 'pre' | 'routed' | 'after';
-
         /**
          * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
          */
         server?: Server;
-
-        /**
-         * The optional context function of signature
-         * f(req, res, route, err).  Invoked each time an audit log is generated. This
-         * function can return an object that customizes the format of anything off the
-         * req, res, route, and err objects. The output of this function will be
-         * available on the `context` key in the audit object.
-         */
-        context?: AuditLoggerContext;
 
         /**
          * Ringbuffer which is written to if passed in
@@ -1146,18 +961,6 @@ export namespace plugins {
      * Conditional headers (If-*)
      */
     function conditionalRequest(): RequestHandler[];
-
-    interface CpuUsageThrottleOptions {
-        limit?: number;
-        max?: number;
-        interval?: number;
-        halfLife?: number;
-    }
-
-    /**
-     * Cpu Throttle middleware
-     */
-    function cpuUsageThrottle(opts?: CpuUsageThrottleOptions): RequestHandler;
 
     /**
      * Handles disappeared CORS headers
@@ -1245,10 +1048,9 @@ export namespace plugins {
      */
     function bodyReader(options?: { maxBodySize?: number }): RequestHandler;
 
-    interface UrlEncodedBodyParserOptions {
+    interface UrlEncodedBodyParser {
         mapParams?: boolean;
         overrideParams?: boolean;
-        bodyReader?: boolean;
     }
 
     /**
@@ -1257,19 +1059,12 @@ export namespace plugins {
      * If req.params already contains a given key, that key is skipped and an
      * error is logged.
      */
-    function urlEncodedBodyParser(options?: UrlEncodedBodyParserOptions): RequestHandler[];
-
-    interface JsonBodyParserOptions {
-        mapParams?: boolean;
-        overrideParams?: boolean;
-        reviver?: (key: any, value: any) => any;
-        bodyReader?: boolean;
-    }
+    function urlEncodedBodyParser(options?: UrlEncodedBodyParser): RequestHandler[];
 
     /**
      * Parses JSON POST bodies
      */
-    function jsonBodyParser(options?: JsonBodyParserOptions): RequestHandler[];
+    function jsonBodyParser(options?: { mapParams?: boolean, reviver?: any, overrideParams?: boolean }): RequestHandler[];
 
     /**
      * Parses JSONP callback
@@ -1373,15 +1168,7 @@ export namespace plugins {
      * gzips the response if client send `accept-encoding: gzip`
      * @param options options to pass to gzlib
      */
-    function gzipResponse(options?: ZlibOptions): RequestHandler;
-
-    interface InflightRequestThrottleOptions {
-        limit: number;
-        server: Server;
-        err: any;
-    }
-
-    function inflightRequestThrottle(opts: InflightRequestThrottleOptions): RequestHandler;
+    function gzipResponse(options?: any): RequestHandler;
 
     interface ServeStatic {
         appendRequestPath?: boolean;
@@ -1403,7 +1190,6 @@ export namespace plugins {
     interface ThrottleOptions {
         burst?: number;
         rate?: number;
-        setHeaders?: boolean;
         ip?: boolean;
         username?: boolean;
         xff?: boolean;
@@ -1411,11 +1197,6 @@ export namespace plugins {
         maxKeys?: number;
         overrides?: any; // any
     }
-
-    /**
-     *  throttles responses
-     */
-    function throttle(options?: ThrottleOptions): RequestHandler;
 
     interface MetricsCallback {
         /**
@@ -1449,39 +1230,14 @@ export namespace plugins {
         method: string;
 
         /**
-         * latency includes both request is flushed and all handlers finished
-         */
-        totalLatency: number;
-
-        /**
          * Request latency
          */
         latency: number;
 
         /**
-         * pre handlers latency
-         */
-        preLatency: number | null;
-
-        /**
-         * use handlers latency
-         */
-        useLatency: number | null;
-
-        /**
          * req.path() value
          */
         path: string;
-
-        /**
-         * Number of inflight requests pending in restify
-         */
-        inflightRequests: number;
-
-        /**
-         * Same as `inflightRequests`
-         */
-        unfinishedRequests: number;
 
         /**
          * If this value is set, err will be a corresponding `RequestCloseError` or `RequestAbortedError`.
@@ -1514,6 +1270,11 @@ export namespace plugins {
      * ```
      */
     function oauth2TokenParser(): RequestHandler;
+
+    /**
+     *  throttles responses
+     */
+    function throttle(options?: ThrottleOptions): RequestHandler;
 
     interface RequestExpiryOptions {
         /**
