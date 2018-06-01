@@ -40,6 +40,7 @@ function testSandbox() {
 
     const xhr = sb.useFakeXMLHttpRequest();
     xhr.useFilters = true;
+    xhr.restore();
 
     const server = sb.useFakeServer();
     server.respondWith('foo');
@@ -98,7 +99,6 @@ function testXHR() {
     const headers = xhr.getAllResponseHeaders();
     const header = xhr.getResponseHeader('foo');
 
-    xhr.restore();
     xhr.setResponseHeaders({ 'Content-Type': 'text/html' });
     xhr.setResponseBody('foo');
     xhr.respond(200, { 'Content-Type': 'foo' }, 'bar');
@@ -107,6 +107,7 @@ function testXHR() {
     sinon.FakeXMLHttpRequest.useFilters = true;
     sinon.FakeXMLHttpRequest.addFilter((method, url, async, user, pass) => true);
     sinon.FakeXMLHttpRequest.onCreate = (xhr) => {};
+    sinon.FakeXMLHttpRequest.restore();
 }
 
 function testClock() {
