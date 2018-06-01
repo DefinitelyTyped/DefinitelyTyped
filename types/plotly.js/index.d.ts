@@ -397,6 +397,7 @@ export interface ScatterData {
                'z+x' | 'z+x+text' | 'z+x+name' |
                'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
                'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
+	hoverlabel: Partial<Label>;
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
