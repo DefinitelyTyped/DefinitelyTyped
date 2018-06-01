@@ -7,8 +7,11 @@ import {
     describe as importedDescribe,
     it as importedIt,
     xdescribe as importedXdescribe,
-    xit as importedXit
+    xit as importedXit,
 } from 'mocha';
+
+// tslint:disable-next-line
+import * as Mocha from 'mocha';
 
 // Warning!!
 // Don't refer node.d.ts!!
@@ -454,55 +457,55 @@ function test_reporter_function() {
 }
 
 function test_setup_slow_option() {
-    mocha.setup({ slow: 25 });
+    new Mocha({ slow: 25 });
 }
 
 function test_setup_timeout_option() {
-    mocha.setup({ timeout: 25 });
+    new Mocha({ timeout: 25 });
 }
 
 function test_setup_globals_option() {
-    mocha.setup({ globals: ['mocha'] });
+    new Mocha({ globals: ['mocha'] });
 }
 
 function test_setup_ui_option() {
-    mocha.setup({ ui: 'bdd' });
+    new Mocha({ ui: 'bdd' });
 }
 
 function test_setup_reporter_string_option() {
-    mocha.setup({ reporter: 'html' });
+    new Mocha({ reporter: 'html' });
 }
 
 function test_setup_require_stringArray_option() {
-    mocha.setup({ require: ['ts-node/register'] });
+    new Mocha({ require: ['ts-node/register'] });
 }
 
 function test_setup_reporter_function_option() {
-    mocha.setup({ reporter: class { } });
+    new Mocha({ reporter: class { } });
 }
 
 function test_setup_bail_option() {
-    mocha.setup({ bail: false });
+    new Mocha({ bail: false });
 }
 
 function test_setup_ignore_leaks_option() {
-    mocha.setup({ ignoreLeaks: false });
+    new Mocha({ ignoreLeaks: false });
 }
 
 function test_setup_grep_string_option() {
-    mocha.setup({ grep: "describe" });
+    new Mocha({ grep: "describe" });
 }
 
 function test_setup_grep_regex_option() {
-    mocha.setup({ grep: new RegExp('describe') });
+    new Mocha({ grep: new RegExp('describe') });
 }
 
 function test_setup_grep_regex_literal_option() {
-    mocha.setup({ grep: /(expect|should)/i });
+    new Mocha({ grep: /(expect|should)/i });
 }
 
 function test_setup_all_options() {
-    mocha.setup({
+    new Mocha({
         slow: 25,
         timeout: 25,
         ui: 'bdd',
@@ -524,8 +527,7 @@ function test_growl() {
 }
 
 function test_chaining() {
-    mocha
-        .setup({ slow: 25 })
+    new Mocha({ slow: 25 })
         .growl()
         .reporter('html')
         .reporter(class { });
