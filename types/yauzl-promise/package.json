@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/yauzl": "^2.9.0"
-    }
-}

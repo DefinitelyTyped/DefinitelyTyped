@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { Entry as BaseEntry, Options, ZipFileOptions, RandomAccessReader } from 'yauzl';
+import { Entry as BaseEntry, Options, ZipFileOptions, RandomAccessReader } from '../yauzl';
 import { Readable } from 'stream';
 import { EventEmitter } from 'events';
 
