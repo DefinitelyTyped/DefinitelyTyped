@@ -18,6 +18,7 @@
 //                 David Hayden <https://github.com/Haydabase>
 //                 Chris Redekop <https://github.com/repl-chris>
 //                 Aneil Mallavarapu <https://github.com/aneilbaboo>
+//                 Jeremy Nagel <https://github.com/jeznag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -661,9 +662,11 @@ export type Handler<TEvent = any, TResult = any> = (
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
  *
  * @param error – an optional parameter that you can use to provide results of the failed Lambda function execution.
+ *                It can be a string for Lambda Proxy Integrations
+ *                https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
  * @param result – an optional parameter that you can use to provide the result of a successful function execution. The result provided must be JSON.stringify compatible.
  */
-export type Callback<TResult = any> = (error?: Error | null, result?: TResult) => void;
+export type Callback<TResult = any> = (error?: Error | null | string, result?: TResult) => void;
 
 // Begin defining Handler and Callback types for each API trigger type.
 // Ordered by https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html

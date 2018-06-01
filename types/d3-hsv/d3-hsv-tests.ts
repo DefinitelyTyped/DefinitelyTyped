@@ -48,6 +48,7 @@ cHSV = cHSV.darker();
 cHSV = cHSV.darker(0.2);
 displayable = cHSV.displayable();
 cString = cHSV.toString();
+cString = cHSV.hex();
 console.log('Channels = (h : %d, s: %d, v: %d)', cHSV.h, cHSV.s, cHSV.v);
 console.log('Opacity = %d', cHSV.opacity);
 

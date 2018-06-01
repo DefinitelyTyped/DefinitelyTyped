@@ -133,6 +133,7 @@ export interface FormInstance<FormData, P> extends Component<P> {
     pristine: boolean;
     registeredFields: RegisteredFieldState[];
     reset(): void;
+    resetSection(...sections: string[]): void;
     submit(): Promise<any>;
     valid: boolean;
     values: Partial<FormData>;

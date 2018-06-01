@@ -271,7 +271,6 @@ declare namespace Sinon {
         getAllResponseHeaders(): any;
 
         // Methods
-        restore(): void;
         setResponseHeaders(headers: any): void;
         setResponseBody(body: string): void;
         respond(status: number, headers: any, body: string): void;
@@ -285,6 +284,7 @@ declare namespace Sinon {
         useFilters: boolean;
         addFilter(filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean): void;
         onCreate(xhr: SinonFakeXMLHttpRequest): void;
+        restore(): void;
     }
 
     interface SinonFakeServer extends SinonFakeServerOptions {
