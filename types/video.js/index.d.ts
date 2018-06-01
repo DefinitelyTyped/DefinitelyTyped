@@ -92,11 +92,11 @@ declare namespace videojs {
 		initChildren(): void;
 		localize(key: string, tokens?: string[], defaultValue?: string): string;
 		name(): string;
-		options(obj: any): any;
-		player(): Player;
 		off(eventName?: string, callback?: (eventObject: Event) => void): void;
 		on(eventName: string, callback: (eventObject: Event) => void): void;
 		one(eventName: string, callback: (eventObject: Event) => void): void;
+		options(obj: any): any;
+		player(): Player;
 		ready(callback: (this: this) => void): this;
 		removeAttribute(attribute: string): void;
 		removeChild(component: Component): void;
