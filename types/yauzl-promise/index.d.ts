@@ -1,4 +1,13 @@
-import { Entry as BaseEntry, Options, ZipFileOptions, RandomAccessReader} from 'yauzl';
+// Type definitions for yauzl-promise 2.1
+// Project: https://github.com/overlookmotel/yauzl-promise
+// Definitions by: Dave Lee <https://github.com/dlee-nvisia>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// TypeScript Version: 2.1
+
+/// <reference types="node" />
+
+import { Entry as BaseEntry, Options, ZipFileOptions, RandomAccessReader } from 'yauzl';
 import { Readable } from 'stream';
 import { EventEmitter } from 'events';
 
@@ -43,7 +52,6 @@ export class Entry extends BaseEntry {
     openReadStream(options?: ZipFileOptions): Promise<Readable>;
 }
 
-
 export function open(path: string, options?: Options): Promise<ZipFile>;
 // export function open(path: string): Promise<ZipFile>;
 export function fromFd(fd: number, options?: Options): Promise<ZipFile>;
@@ -57,5 +65,4 @@ export function fromRandomAccessReader(reader: RandomAccessReader, totalSize: nu
 export function dosDateTimeToDate(date: number, time: number): Date;
 export function validateFileName(fileName: string): string | null;
 
-
-export { RandomAccessReader, Options, ZipFileOptions }
+export { RandomAccessReader, Options, ZipFileOptions };

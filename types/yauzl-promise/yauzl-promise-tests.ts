@@ -1,8 +1,6 @@
 import * as yauzl from 'yauzl-promise';
 
-class FakeRaR extends yauzl.RandomAccessReader {
-
-}
+class FakeRaR extends yauzl.RandomAccessReader {}
 
 const options: yauzl.Options = {
     autoClose: true
