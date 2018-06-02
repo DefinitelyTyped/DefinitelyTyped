@@ -806,10 +806,6 @@ declare namespace Office {
          */
         id?: string
         /**
-         * The names of the columns involved in the binding.
-         */
-        columns?: Array<string>
-        /**
          * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
