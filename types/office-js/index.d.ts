@@ -1111,6 +1111,44 @@ declare namespace Office {
         ReadWrite
     }
     /**
+     * Specifies the type of the XML node.
+     *
+     * @remarks
+     * Hosts: Word
+     * 
+     * Available in Requirement set: CustomXmlParts
+     */
+    enum CustomXMLNodeType {
+        /**
+         * The node is an attribute.
+         */
+        Attribute,
+        /**
+         * The node is CData.
+         */
+        CData,
+        /**
+         * The node is a comment.
+         */
+        NodeComment,
+        /**
+         * The node is an element.
+         */
+        Element,
+        /**
+         * The node is a Document element.
+         */
+        NodeDocument,
+        /**
+         * The node is a processing instruction.
+         */
+        ProcessingInstruction,
+        /**
+         * The node is text.
+         */
+        Text,
+    }
+    /**
      * Specifies the kind of event that was raised. Returned by the type property of an EventNameEventArgs object.
      *
      * @remarks
