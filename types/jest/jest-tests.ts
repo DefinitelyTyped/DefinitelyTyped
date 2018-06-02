@@ -415,9 +415,10 @@ describe('toMatchSnapshot', () => {
         }).toMatchSnapshot('given name');
     });
 
-    it('can match property with property matchers', () => {
+    it('can handles property matchers with snapshot name', () => {
         expect({type: 'a', props: {href: 'https://www.facebook.com/'}, children: ['Facebook']})
-            .toMatchSnapshot({type: 'a', props: {href: 'https://www.facebook.com/'}, children: ['Facebook']});
+            .toMatchSnapshot({type: 'a', props: {href: 'https://www.facebook.com/'}, children: ['Facebook']},
+                'given name');
     });
 });
 
