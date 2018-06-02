@@ -373,6 +373,26 @@ declare namespace jest {
         rejects: Matchers<Promise<R>>;
         lastCalledWith(...args: any[]): R;
         /**
+         * Ensure that a mock function has returned (as opposed to thrown) at least once.
+         */
+        toReturn(): R;
+        /**
+         * Ensure that a mock function has returned (as opposed to thrown) a specified number of times.
+         */
+        toReturnTimes(count: number): R;
+        /**
+         * Ensure that a mock function has returned a specified value at least once.
+         */
+        toReturnWith(value: any): R;
+        /**
+         * Ensure that the last call to a mock function has returned a specified value.
+         */
+        lastReturnedWith(value: any): R;
+        /**
+         * Ensure that the nth call to a mock function has returned a specified value.
+         */
+        nthReturnedWith(n: number, value: any): R;
+        /**
          * Checks that a value is what you expect. It uses `===` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
          */
@@ -474,6 +494,26 @@ declare namespace jest {
          */
         toHaveBeenLastCalledWith(...params: any[]): R;
         /**
+         * Ensure that a mock function has returned (as opposed to thrown) at least once.
+         */
+        toHaveReturned(): R;
+        /**
+         * Ensure that a mock function has returned (as opposed to thrown) a specified number of times.
+         */
+        toHaveReturnedTimes(count: number): R;
+        /**
+         * Ensure that a mock function has returned a specified value at least once.
+         */
+        toHaveReturnedWith(value: any): R;
+        /**
+         * Ensure that the last call to a mock function has returned a specified value.
+         */
+        toHaveLastReturnedWith(value: any): R;
+        /**
+         * Ensure that the nth call to a mock function has returned a specified value.
+         */
+        toHaveNthReturnedWith(n: number, value: any): R;
+        /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
          */
@@ -550,9 +590,29 @@ declare namespace jest {
         mockRejectedValueOnce(value: any): Mock<T>;
     }
 
+    /**
+     * Represents the result of a single call to a mock function.
+     */
+    interface MockResult {
+        /**
+         * True if the function threw.
+         * False if the function returned.
+         */
+        isThrow: boolean;
+        /**
+         * The value that was either thrown or returned by the function.
+         */
+        value: any;
+    }
+
     interface MockContext<T> {
         calls: any[][];
         instances: T[];
+        invocationCallOrder: number[];
+        /**
+         * List of results of calls to the mock function.
+         */
+        results: MockResult[];
     }
 }
 
