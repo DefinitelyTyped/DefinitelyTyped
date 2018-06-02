@@ -13,7 +13,7 @@ const server = serve({
       },
       host: 'localhost'
     },
-  }.
+  },
 });
 
 server
