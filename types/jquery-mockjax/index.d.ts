@@ -1,4 +1,4 @@
-// Type definitions for jQuery Mockjax 2.3
+// Type definitions for jQuery Mockjax 2.3.0
 // Project: https://github.com/jakerella/jquery-mockjax
 // Definitions by: 
 //                 Laszlo Jakab <https://github.com/laszlojakab>, 
