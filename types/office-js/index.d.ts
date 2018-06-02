@@ -4969,13 +4969,557 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          */
         enum RecurrenceTimeZone {
-
+            /**
+             * Afghanistan Standard Time
+             */
+            AfghanistanStandardTime = "Afghanistan Standard Time",
+            /**
+             * Alaskan Standard Time
+             */
+            AlaskanStandardTime = "Alaskan Standard Time",
+            /**
+             * Aleutian Standard Time
+             */
+            AleutianStandardTime = "Aleutian Standard Time",
+            /**
+             * Altai Standard Time
+             */
+            AltaiStandardTime = "Altai Standard Time",
+            /**
+             * Arab Standard Time
+             */
+            ArabStandardTime = "Arab Standard Time",
+            /**
+             * Arabian Standard Time
+             */
+            ArabianStandardTime = "Arabian Standard Time",
+            /**
+             * Arabic Standard Time
+             */
+            ArabicStandardTime = "Arabic Standard Time",
+            /**
+             * Argentina Standard Time
+             */
+            ArgentinaStandardTime = "Argentina Standard Time",
+            /**
+             * Astrakhan Standard Time
+             */
+            AstrakhanStandardTime = "Astrakhan Standard Time",
+            /**
+             * Atlantic Standard Time
+             */
+            AtlanticStandardTime = "Atlantic Standard Time",
+            /**
+             * Australia Central Standard Time
+             */
+            AUSCentralStandardTime = "AUS Central Standard Time",
+            /**
+             * Australia Central West Standard Time
+             */
+            AusCentralW_StandardTime = "Aus Central W. Standard Time",
+            /**
+             * AUS Eastern Standard Time
+             */
+            AUSEasternStandardTime = "AUS Eastern Standard Time",
+            /**
+             * Azerbaijan Standard Time
+             */
+            AzerbaijanStandardTime = "Azerbaijan Standard Time",
+            /**
+             * Azores Standard Time
+             */
+            AzoresStandardTime = "Azores Standard Time",
+            /**
+             * Bahia Standard Time
+             */
+            BahiaStandardTime = "Bahia Standard Time",
+            /**
+             * Bangladesh Standard Time
+             */
+            BangladeshStandardTime = "Bangladesh Standard Time",
+            /**
+             * Belarus Standard Time
+             */
+            BelarusStandardTime = "Belarus Standard Time",
+            /**
+             * Bougainville Standard Time
+             */
+            BougainvilleStandardTime = "Bougainville Standard Time",
+            /**
+             * Canada Central Standard Time
+             */
+            CanadaCentralStandardTime = "Canada Central Standard Time",
+            /**
+             * Cape Verde Standard Time
+             */
+            CapeVerdeStandardTime = "Cape Verde Standard Time",
+            /**
+             * Caucasus Standard Time
+             */
+            CaucasusStandardTime = "Caucasus Standard Time",
+            /**
+             * Central Australia Standard Time
+             */
+            CenAustraliaStandardTime = "Cen. Australia Standard Time",
+            /**
+             * Central America Standard Time
+             */
+            CentralAmericaStandardTime = "Central America Standard Time",
+            /**
+             * Central Asia Standard Time
+             */
+            CentralAsiaStandardTime = "Central Asia Standard Time",
+            /**
+             * Central Brazilian Standard Time
+             */
+            CentralBrazilianStandardTime = "Central Brazilian Standard Time",
+            /**
+             * Central Europe Standard Time
+             */
+            CentralEuropeStandardTime = "Central Europe Standard Time",
+            /**
+             * Central European Standard Time
+             */
+            CentralEuropeanStandardTime = "Central European Standard Time",
+            /**
+             * Central Pacific Standard Time
+             */
+            CentralPacificStandardTime = "Central Pacific Standard Time",
+            /**
+             * Central Standard Time
+             */
+            CentralStandardTime = "Central Standard Time",
+            /**
+             * Central Standard Time (Mexico)
+             */
+            CentralStandardTime_Mexico = "Central Standard Time (Mexico)",
+            /**
+             * Chatham Islands Standard Time
+             */
+            ChathamIslandsStandardTime = "Chatham Islands Standard Time",
+            /**
+             * China Standard Time
+             */
+            ChinaStandardTime = "China Standard Time",
+            /**
+             * Cuba Standard Time
+             */
+            CubaStandardTime = "Cuba Standard Time",
+            /**
+             * Dateline Standard Time
+             */
+            DatelineStandardTime = "Dateline Standard Time",
+            /**
+             * East Africa Standard Time
+             */
+            E_AfricaStandardTime = "E. Africa Standard Time",
+            /**
+             * East Australia Standard Time
+             */
+            E_AustraliaStandardTime = "E. Australia Standard Time",
+            /**
+             * East Europe Standard Time
+             */
+            E_EuropeStandardTime = "E. Europe Standard Time",
+            /**
+             * East South America Standard Time
+             */
+            E_SouthAmericaStandardTime = "E. South America Standard Time",
+            /**
+             * Easter Island Standard Time
+             */
+            EasterIslandStandardTime = "Easter Island Standard Time",
+            /**
+             * Eastern Standard Time
+             */
+            EasternStandardTime = "Eastern Standard Time",
+            /**
+             * Eastern Standard Time (Mexico)
+             */
+            EasternStandardTime_Mexico = "Eastern Standard Time (Mexico)",
+            /**
+             * Egypt Standard Time
+             */
+            EgyptStandardTime = "Egypt Standard Time",
+            /**
+             * Ekaterinburg Standard Time
+             */
+            EkaterinburgStandardTime = "Ekaterinburg Standard Time",
+            /**
+             * Fiji Standard Time
+             */
+            FijiStandardTime = "Fiji Standard Time",
+            /**
+             * FLE Standard Time
+             */
+            FLEStandardTime = "FLE Standard Time",
+            /**
+             * Georgian Standard Time
+             */
+            GeorgianStandardTime = "Georgian Standard Time",
+            /**
+             * GMT Standard Time
+             */
+            GMTStandardTime = "GMT Standard Time",
+            /**
+             * Greenland Standard Time
+             */
+            GreenlandStandardTime = "Greenland Standard Time",
+            /**
+             * Greenwich Standard Time
+             */
+            GreenwichStandardTime = "Greenwich Standard Time",
+            /**
+             * GTB Standard Time
+             */
+            GTBStandardTime = "GTB Standard Time",
+            /**
+             * Haiti Standard Time
+             */
+            HaitiStandardTime = "Haiti Standard Time",
+            /**
+             * Hawaiian Standard Time
+             */
+            HawaiianStandardTime = "Hawaiian Standard Time",
+            /**
+             * India Standard Time
+             */
+            IndiaStandardTime = "India Standard Time",
+            /**
+             * Iran Standard Time
+             */
+            IranStandardTime = "Iran Standard Time",
+            /**
+             * Israel Standard Time
+             */
+            IsraelStandardTime = "Israel Standard Time",
+            /**
+             * Jordan Standard Time
+             */
+            JordanStandardTime = "Jordan Standard Time",
+            /**
+             * Kaliningrad Standard Time
+             */
+            KaliningradStandardTime = "Kaliningrad Standard Time",
+            /**
+             * Kamchatka Standard Time
+             */
+            KamchatkaStandardTime = "Kamchatka Standard Time",
+            /**
+             * Korea Standard Time
+             */
+            KoreaStandardTime = "Korea Standard Time",
+            /**
+             * Libya Standard Time
+             */
+            LibyaStandardTime = "Libya Standard Time",
+            /**
+             * Line Islands Standard Time
+             */
+            LineIslandsStandardTime = "Line Islands Standard Time",
+            /**
+             * Lord Howe Standard Time
+             */
+            LordHoweStandardTime = "Lord Howe Standard Time",
+            /**
+             * Magadan Standard Time
+             */
+            MagadanStandardTime = "Magadan Standard Time",
+            /**
+             * Magallanes Standard Time
+             */
+            MagallanesStandardTime = "Magallanes Standard Time",
+            /**
+             * Marquesas Standard Time
+             */
+            MarquesasStandardTime = "Marquesas Standard Time",
+            /**
+             * Mauritius Standard Time
+             */
+            MauritiusStandardTime = "Mauritius Standard Time",
+            /**
+             * Mid-Atlantic Standard Time
+             */
+            MidAtlanticStandardTime = "Mid-Atlantic Standard Time",
+            /**
+             * Middle East Standard Time
+             */
+            MiddleEastStandardTime = "Middle East Standard Time",
+            /**
+             * Montevideo Standard Time
+             */
+            MontevideoStandardTime = "Montevideo Standard Time",
+            /**
+             * Morocco Standard Time
+             */
+            MoroccoStandardTime = "Morocco Standard Time",
+            /**
+             * Mountain Standard Time
+             */
+            MountainStandardTime = "Mountain Standard Time",
+            /**
+             * Mountain Standard Time (Mexico)
+             */
+            MountainStandardTime_Mexico = "Mountain Standard Time (Mexico)",
+            /**
+             * Myanmar Standard Time
+             */
+            MyanmarStandardTime = "Myanmar Standard Time",
+            /**
+             * North Central Asia Standard Time
+             */
+            N_CentralAsiaStandardTime = "N. Central Asia Standard Time",
+            /**
+             * Namibia Standard Time
+             */
+            NamibiaStandardTime = "Namibia Standard Time",
+            /**
+             * Nepal Standard Time
+             */
+            NepalStandardTime = "Nepal Standard Time",
+            /**
+             * New Zealand Standard Time
+             */
+            NewZealandStandardTime = "New Zealand Standard Time",
+            /**
+             * Newfoundland Standard Time
+             */
+            NewfoundlandStandardTime = "Newfoundland Standard Time",
+            /**
+             * Norfolk Standard Time
+             */
+            NorfolkStandardTime = "Norfolk Standard Time",
+            /**
+             * North Asia East Standard Time
+             */
+            NorthAsiaEastStandardTime = "North Asia East Standard Time",
+            /**
+             * North Asia Standard Time
+             */
+            NorthAsiaStandardTime = "North Asia Standard Time",
+            /**
+             * North Korea Standard Time
+             */
+            NorthKoreaStandardTime = "North Korea Standard Time",
+            /**
+             * Omsk Standard Time
+             */
+            OmskStandardTime = "Omsk Standard Time",
+            /**
+             * Pacific SA Standard Time
+             */
+            PacificSAStandardTime = "Pacific SA Standard Time",
+            /**
+             * Pacific Standard Time
+             */
+            PacificStandardTime = "Pacific Standard Time",
+            /**
+             * Pacific Standard Time (Mexico)
+             */
+            PacificStandardTimeMexico = "Pacific Standard Time (Mexico)",
+            /**
+             * Pakistan Standard Time
+             */
+            PakistanStandardTime = "Pakistan Standard Time",
+            /**
+             * Paraguay Standard Time
+             */
+            ParaguayStandardTime = "Paraguay Standard Time",
+            /**
+             * Romance Standard Time
+             */
+            RomanceStandardTime = "Romance Standard Time",
+            /**
+             * Russia Time Zone 10
+             */
+            RussiaTimeZone10 = "Russia Time Zone 10",
+            /**
+             * Russia Time Zone 11
+             */
+            RussiaTimeZone11 = "Russia Time Zone 11",
+            /**
+             * Russia Time Zone 3
+             */
+            RussiaTimeZone3 = "Russia Time Zone 3",
+            /**
+             * Russian Standard Time
+             */
+            RussianStandardTime = "Russian Standard Time",
+            /**
+             * SA Eastern Standard Time
+             */
+            SAEasternStandardTime = "SA Eastern Standard Time",
+            /**
+             * SA Pacific Standard Time
+             */
+            SAPacificStandardTime = "SA Pacific Standard Time",
+            /**
+             * SA Western Standard Time
+             */
+            SAWesternStandardTime = "SA Western Standard Time",
+            /**
+             * Saint Pierre Standard Time
+             */
+            SaintPierreStandardTime = "Saint Pierre Standard Time",
+            /**
+             * Sakhalin Standard Time
+             */
+            SakhalinStandardTime = "Sakhalin Standard Time",
+            /**
+             * Samoa Standard Time
+             */
+            SamoaStandardTime = "Samoa Standard Time",
+            /**
+             * Saratov Standard Time
+             */
+            SaratovStandardTime = "Saratov Standard Time",
+            /**
+             * Southeast Asia Standard Time
+             */
+            SEAsiaStandardTime = "SE Asia Standard Time",
+            /**
+             * Singapore Standard Time
+             */
+            SingaporeStandardTime = "Singapore Standard Time",
+            /**
+             * South Africa Standard Time
+             */
+            SouthAfricaStandardTime = "South Africa Standard Time",
+            /**
+             * Sri Lanka Standard Time
+             */
+            SriLankaStandardTime = "Sri Lanka Standard Time",
+            /**
+             * Sudan Standard Time
+             */
+            SudanStandardTime = "Sudan Standard Time",
+            /**
+             * Syria Standard Time
+             */
+            SyriaStandardTime = "Syria Standard Time",
+            /**
+             * Taipei Standard Time
+             */
+            TaipeiStandardTime = "Taipei Standard Time",
+            /**
+             * Tasmania Standard Time
+             */
+            TasmaniaStandardTime = "Tasmania Standard Time",
+            /**
+             * Tocantins Standard Time
+             */
+            TocantinsStandardTime = "Tocantins Standard Time",
+            /**
+             * Tokyo Standard Time
+             */
+            TokyoStandardTime = "Tokyo Standard Time",
+            /**
+             * Tomsk Standard Time
+             */
+            TomskStandardTime = "Tomsk Standard Time",
+            /**
+             * Tonga Standard Time
+             */
+            TongaStandardTime = "Tonga Standard Time",
+            /**
+             * Transbaikal Standard Time
+             */
+            TransbaikalStandardTime = "Transbaikal Standard Time",
+            /**
+             * Turkey Standard Time
+             */
+            TurkeyStandardTime = "Turkey Standard Time",
+            /**
+             * Turks And Caicos Standard Time
+             */
+            TurksAndCaicosStandardTime = "Turks And Caicos Standard Time",
+            /**
+             * Ulaanbaatar Standard Time
+             */
+            UlaanbaatarStandardTime = "Ulaanbaatar Standard Time",
+            /**
+             * United States Eastern Standard Time
+             */
+            USEasternStandardTime = "US Eastern Standard Time",
+            /**
+             * United States Mountain Standard Time
+             */
+            USMountainStandardTime = "US Mountain Standard Time",
+            /**
+             * Coordinated Universal Time (UTC)
+             */
+            UTC = "UTC",
+            /**
+             * Coordinated Universal Time (UTC) + 12 hours
+             */
+            UTCPLUS12 = "UTC+12",
+            /**
+             * Coordinated Universal Time (UTC) + 13 hours
+             */
+            UTCPLUS13 = "UTC+13",
+            /**
+             * Coordinated Universal Time (UTC) - 2 hours
+             */
+            UTCMINUS02 = "UTC-02",
+            /**
+             * Coordinated Universal Time (UTC) - 8 hours
+             */
+            UTCMINUS08 = "UTC-08",
+            /**
+             * Coordinated Universal Time (UTC) - 9 hours
+             */
+            UTCMINUS09 = "UTC-09",
+            /**
+             * Coordinated Universal Time (UTC) - 11 hours
+             */
+            UTCMINUS11 = "UTC-11",
+            /**
+             * Venezuela Standard Time
+             */
+            VenezuelaStandardTime = "Venezuela Standard Time",
+            /**
+             * Vladivostok Standard Time
+             */
+            VladivostokStandardTime = "Vladivostok Standard Time",
+            /**
+             * West Australia Standard Time
+             */
+            W_AustraliaStandardTime = "W. Australia Standard Time",
+            /**
+             * West Central Africa Standard Time
+             */
+            W_CentralAfricaStandardTime = "W. Central Africa Standard Time",
+            /**
+             * West Europe Standard Time
+             */
+            W_EuropeStandardTime = "W. Europe Standard Time",
+            /**
+             * West Mongolia Standard Time
+             */
+            W_MongoliaStandardTime = "W. Mongolia Standard Time",
+            /**
+             * West Asia Standard Time
+             */
+            WestAsiaStandardTime = "West Asia Standard Time",
+            /**
+             * West Bank Standard Time
+             */
+            WestBankStandardTime = "West Bank Standard Time",
+            /**
+             * West Pacific Standard Time
+             */
+            WestPacificStandardTime = "West Pacific Standard Time",
+            /**
+             * Yakutsk Standard Time
+             */
+            YakutskStandardTime = "Yakutsk Standard Time"
+            
         }
 
         enum RecurrenceType {
 
         }
-        /**
+        /**  
          * Specifies the type of response to a meeting invitation.
          *
          * [Api set: Mailbox 1.0]
