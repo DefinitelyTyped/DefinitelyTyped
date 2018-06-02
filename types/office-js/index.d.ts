@@ -1249,12 +1249,6 @@ declare namespace Office {
          */
         Index
     }
-    enum Index {
-        First,
-        Last,
-        Next,
-        Previous
-    }
     /**
      * Specifies whether to select (highlight) the location to navigate to (when using the Document.goToByIdAsync method).
      *
