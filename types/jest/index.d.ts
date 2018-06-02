@@ -10,7 +10,7 @@
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Jamie Mason <https://github.com/JamieMason>
 //                 Douglas Duteil <https://github.com/douglasduteil>
-//                 Ahn <https://github.com/AhnpGit>
+//                 Ahn <https://github.com/ahnpnl>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
