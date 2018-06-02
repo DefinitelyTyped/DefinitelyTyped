@@ -826,7 +826,7 @@ export function createBottomTabNavigator(
   drawConfig?: TabNavigatorConfig
 ): NavigationContainer;
 
-export function createMaterialTopNavigator(
+export function createMaterialTopTabNavigator(
   routeConfigMap: NavigationRouteConfigMap,
   drawConfig?: TabNavigatorConfig
 ): NavigationContainer;
