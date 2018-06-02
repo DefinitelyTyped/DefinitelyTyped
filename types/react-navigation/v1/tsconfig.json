@@ -9,20 +9,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../../",
+        "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
-        "paths": {
-            "react-navigation": [
-                "react-navigation/v2"
-            ],
-            "react-navigation/*": [
-                "react-navigation/v2/*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
