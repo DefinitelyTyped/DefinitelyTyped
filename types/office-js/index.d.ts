@@ -413,11 +413,11 @@ declare namespace Office {
         */
         auth: Auth;
         /**
-         * True, if the current platform allows the add-in to  display a UI for selling or upgrading; otherwise returns False.
-         * 
-         * @remarks
-         * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on the Windows desktop or for Office Online in the browser, do allow such links. If you want the UI of your add-in to provide a link to an external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
-         */
+        * True, if the current platform allows the add-in to display a UI for selling or upgrading; otherwise returns False.
+        * 
+        * @remarks
+        * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on the Windows desktop or for Office Online in the browser, do allow such links. If you want the UI of your add-in to provide a link to an external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
+        */
         commerceAllowed: boolean;
         /**
         * Gets the locale (language) specified by the user for editing the document or item.
@@ -426,20 +426,7 @@ declare namespace Office {
         /**
         * Gets information about the environment in which the add-in is running.
         */
-        diagnostics: {
-            /**
-            * Gets the Office application host in which the add-in is running.
-            */
-            host: HostType;
-            /**
-            * Gets the platform on which the add-in is running.
-            */
-            platform: PlatformType;
-            /**
-            * Gets the version of Office on which the add-in is running.
-            */
-            version: string;
-        };
+        diagnostics: ContextInformation;
         /**
         * Gets the locale (language) specified by the user for the UI of the Office host application.
         * @remarks
@@ -488,14 +475,7 @@ declare namespace Office {
         /**
         * Provides a method for determining what requirement sets are supported on the current host and platform.
         */
-        requirements: {
-            /**
-             * Check if the specified requirement set is supported by the host Office application.
-             * @param name - Set name; e.g., "MatrixBindings".
-             * @param minVersion - The minimum required version; e.g., "1.4".
-             */
-            isSetSupported(name: string, minVersion?: number): boolean;
-        }
+        requirements: RequirmentSetSupport;
         /**
          * Gets an object that represents the custom settings or state of a mail add-in saved to a user's mailbox.
          *
@@ -606,6 +586,17 @@ declare namespace Office {
         closeContainer(): void;
     }
     /**
+     * Provides information about what Requirement Sets are supported in current environment.
+     */
+    interface RequirmentSetSupport {
+        /**
+        * Check if the specified requirement set is supported by the host Office application.
+        * @param name - Set name; e.g., "MatrixBindings".
+        * @param minVersion - The minimum required version; e.g., "1.4".
+        */
+       isSetSupported(name: string, minVersion?: number): boolean;
+}
+    /**
      * Provides options for how a dialog is displayed.
      */
     interface DialogOptions {
@@ -672,6 +663,23 @@ declare namespace Office {
          * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
+    }
+    /**
+     * Provides information about the environment in which the add-in is running.
+     */
+    interface ContextInformation {
+        /**
+        * Gets the Office application host in which the add-in is running.
+        */
+        host: Office.HostType;
+        /**
+        * Gets the platform on which the add-in is running.
+        */
+        platform: Office.PlatformType;
+        /**
+        * Gets the version of Office on which the add-in is running.
+        */
+        version: string;
     }
     /**
      * Provides options for how to get the data in a binding.
@@ -825,7 +833,7 @@ declare namespace Office {
         /**
          * Specifies a table of sample data displayed in the prompt UI as an example of the kinds of fields (columns) that can be bound by your add-in. The headers provided in the TableData object specify the labels used in the field selection UI. Note: This parameter is used only in add-ins for Access. It is ignored if provided when calling the method in an add-in for Excel.
          */
-        sampleData?: TableData
+        sampleData?: Office.TableData
         /**
          * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
          */
@@ -993,7 +1001,6 @@ declare namespace Office {
          * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
          */
         addEventHandler(eventType: Office.EventType, handler: Function): void;
-
     }
 }
 
