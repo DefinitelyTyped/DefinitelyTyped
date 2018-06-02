@@ -413,7 +413,7 @@ declare namespace Office {
         */
         auth: Auth;
         /**
-         * True if developers can display, on the current platform, a UI in the add-in sell or upgrade; otherwise returns False.
+         * True, if the current platform allows the add-in to  display a UI for selling or upgrading; otherwise returns False.
          * 
          * @remarks
          * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on the Windows desktop or for Office Online in the browser, do allow such links. If you want the UI of your add-in to provide a link to an external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
