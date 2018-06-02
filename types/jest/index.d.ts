@@ -10,7 +10,7 @@
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Jamie Mason <https://github.com/JamieMason>
 //                 Douglas Duteil <https://github.com/douglasduteil>
-//                 Ahn <https://github.com/AhnpGit>
+//                 Ahn <https://github.com/ahnpnl>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -474,11 +474,40 @@ declare namespace jest {
          */
         toHaveBeenLastCalledWith(...params: any[]): R;
         /**
+         * Use to test what arguments it was nth called with
+         */
+        toHaveBeenNthCalledWith(expected: number, ...params: any[]): R;
+        /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
          */
         toHaveLength(expected: number): R;
         toHaveProperty(propertyPath: string | any[], value?: any): R;
+        /**
+         * Use to test that the mock function successfully returned (i.e., did not throw an error) at least one time
+         */
+        toHaveReturned(): R;
+        /**
+         * Use to ensure that a mock function returned successfully (i.e., did not throw an error) an exact number of times.
+         * Any calls to the mock function that throw an error are not counted toward the number of times the function returned.
+         */
+        toHaveReturnedTimes(expected: number): R;
+        /**
+         * Use to ensure that a mock function returned a specific value.
+         */
+        toHaveReturnedWith(expected: any): R;
+        /**
+         * Use to test the specific value that a mock function last returned.
+         * If the last call to the mock function threw an error, then this matcher will fail
+         * no matter what value you provided as the expected return value.
+         */
+        toHaveLastReturnedWith(expected: any): R;
+        /**
+         * Use to test the specific value that a mock function returned for the nth call.
+         * If the nth call to the mock function threw an error, then this matcher will fail
+         * no matter what value you provided as the expected return value.
+         */
+        toHaveNthReturnedWith(nthCall: number, expected: any): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -491,7 +520,11 @@ declare namespace jest {
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchSnapshot(snapshotName?: string): R;
+        toMatchSnapshot(propertyMatchers?: any, snapshotName?: string): R;
+        /**
+         * Use to test that objects have the same types as well as structure.
+         */
+        toStrictEqual(expected: {}): R;
         /**
          * Used to test that a function throws when it is called.
          */
