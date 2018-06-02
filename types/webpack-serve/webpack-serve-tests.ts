@@ -5,13 +5,15 @@ const compiler = webpack();
 
 const server = serve({
   config: {
-    http2: true,
-    dev: {
-      publicPath: '/',
-      logLevel: 'info'
+    serve: {
+      http2: true,
+      dev: {
+        publicPath: '/',
+        logLevel: 'info'
+      },
+      host: 'localhost'
     },
-    host: 'localhost'
-  }
+  }.
 });
 
 server
