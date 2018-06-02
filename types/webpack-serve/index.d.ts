@@ -16,7 +16,7 @@ export = WebpackServe;
 
 declare module 'webpack' {
   interface Configuration {
-    serve: WebpackServe.Options;
+    serve?: WebpackServe.Options;
   }
 }
 
