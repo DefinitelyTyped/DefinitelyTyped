@@ -1,23 +1,23 @@
-//cases from documentation
+// cases from documentation
 // 1. Simple mode, it styles document scrollbar:
-$(function() {  
+$(() => {
     $("body").niceScroll();
 });
 
 // 2. Instance with object returned:
 let nice;
-$(function() {  
+$(() => {
     nice = $("body").niceScroll();
 });
 
 // 3. Style a DIV and change cursor color:
-$(function() {  
-    $("#thisdiv").niceScroll({cursorcolor:"#00F"});
+$(() => {
+    $("#thisdiv").niceScroll({cursorcolor: "#00F"});
 });
 
 // 4. DIV with "wrapper", formed by two divs, the first is the vieport, the latter is the content:
-$(function() {
-    $("#viewportdiv").niceScroll("#wrapperdiv",{cursorcolor:"#00F"});
+$(() => {
+    $("#viewportdiv").niceScroll("#wrapperdiv", {cursorcolor: "#00F"});
 });
 
 // 5. Get nicescroll object:
@@ -33,7 +33,7 @@ $("#mydiv").getNiceScroll().resize();
 $("#mydiv").getNiceScroll(0).doScrollLeft(1, 2); // Scroll X Axis
 $("#mydiv").getNiceScroll(0).doScrollTop(1, 14); // Scroll Y Axis
 
-//other cases
+// other cases
 $(".ui-grid-viewport").niceScroll({
     cursorcolor: "#fff",
     cursorwidth: "8px",
