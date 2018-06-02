@@ -39,14 +39,14 @@ describe('fetchCurrentUser', () => {
 
         // Now we emulate the process by which `$.ajax` would execute its own
         // callback
-        $.ajax.mock.calls[ 0 /*first call*/ ][ 0 /*first argument*/ ].success({
+        $.ajax.mock.calls[0 /*first call*/][0 /*first argument*/].success({
             firstName: 'Bobby',
             lastName: '");DROP TABLE Users;--',
         });
 
         // And finally we assert that this emulated call by `$.ajax` incurred a
         // call back into the mock function we provided as a callback
-        expect(callback.mock.calls[ 0/*first call*/ ][ 0/*first arg*/ ]).toEqual({
+        expect(callback.mock.calls[0/*first call*/][0/*first arg*/]).toEqual({
             loggedIn: true,
             fullName: 'Bobby ");DROP TABLE Users;--',
         });
@@ -220,7 +220,7 @@ describe('Assymetric matchers', () => {
         callback(5, 'test');
         expect(callback).toBeCalledWith(expect.any(Number), expect.any(String));
         const obj = {
-            items: [ 1 ],
+            items: [1],
         };
         expect(obj).toEqual(expect.objectContaining({
             items: expect.arrayContaining([
@@ -263,13 +263,13 @@ describe('Extending extend', () => {
                 const pass = received === actual;
                 const message =
                     () => `expected ${received} ${pass ? 'not ' : ''} to be ${actual}`;
-                return { message, pass };
+                return {message, pass};
             },
             toBeVariadicMatcher(received: any, floor: number, ceiling: number) {
                 const pass = received >= floor && received <= ceiling;
                 const message =
                     () => `expected ${received} ${pass ? 'not ' : ''} to be within range ${floor}-${ceiling}`;
-                return { message, pass };
+                return {message, pass};
             },
             toBeTest(received: any, actual: any) {
                 this.utils.ensureNoExpected(received);
@@ -320,14 +320,14 @@ describe('missing tests', () => {
     it('tests all missing Mocks functionality', () => {
         type FruitsGetter = () => string[];
         const mock: jest.Mock<FruitsGetter> = jest.fn<FruitsGetter>();
-        mock.mockImplementationOnce(() => [ 'Orange', 'Apple', 'Plum' ]);
+        mock.mockImplementationOnce(() => ['Orange', 'Apple', 'Plum']);
         jest.setMock('./../tesks/getFruits', mock);
         const getFruits: FruitsGetter = require('./../tesks/getFruits');
         expect(getFruits()).toContain('Orange');
-        mock.mockReturnValueOnce([ 'Apple', 'Plum' ]);
+        mock.mockReturnValueOnce(['Apple', 'Plum']);
         expect(mock()).not.toContain('Orange');
-        const myBeverage: any = { delicious: true, sour: false };
-        expect(myBeverage).toContainEqual({ delicious: true, sour: false });
+        const myBeverage: any = {delicious: true, sour: false};
+        expect(myBeverage).toContainEqual({delicious: true, sour: false});
         mock.mockReturnValue([]); // Deprecated: Use jest.fn(() => value) instead.
         mock.mockClear();
         const thisMock: jest.Mock<any> = jest.fn<any>().mockReturnThis();
@@ -375,7 +375,7 @@ describe('missing tests', () => {
     });
 
     it('creates snapshoter', () => {
-        jest.disableAutomock().mock('./render', () => jest.fn((): string => '{Link to: "facebook"}'), { virtual: true });
+        jest.disableAutomock().mock('./render', () => jest.fn((): string => '{Link to: "facebook"}'), {virtual: true});
         const render: () => string = require('./render');
         expect(render()).toMatch(/Link/);
         jest.enableAutomock();
@@ -404,20 +404,20 @@ describe('missing tests', () => {
 
 describe('toMatchSnapshot', () => {
     it('compares snapshots', () => {
-        expect({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] }).toMatchSnapshot();
+        expect({type: 'a', props: {href: 'https://www.facebook.com/'}, children: ['Facebook']}).toMatchSnapshot();
     });
 
     it('can give name to snapshot', () => {
         expect({
             type: 'a',
-            props: { href: 'https://www.facebook.com/' },
-            children: [ 'Facebook' ],
+            props: {href: 'https://www.facebook.com/'},
+            children: ['Facebook'],
         }).toMatchSnapshot('given name');
     });
 
     it('can match property with property matchers', () => {
-        expect({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] })
-            .toMatchSnapshot({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] });
+        expect({type: 'a', props: {href: 'https://www.facebook.com/'}, children: ['Facebook']})
+            .toMatchSnapshot({type: 'a', props: {href: 'https://www.facebook.com/'}, children: ['Facebook']});
     });
 });
 
@@ -444,10 +444,10 @@ expect.addSnapshotSerializer({
 describe('addSnapshotSerializer', () => {
     it('the plugin does its work', () => {
         testSerializerPluginCallCount = 0;
-        expect({ willOverwrite: { x: 1, y: 2 } }).toMatchSnapshot();
-        expect({ willOverwrite: 'this will get overwritten by testSerializerPlugin' }).toMatchSnapshot();
-        expect({ willOverwrite: 'so will this' }).toMatchSnapshot();
-        expect({ foo: 'this will not' }).toMatchSnapshot();
+        expect({willOverwrite: {x: 1, y: 2}}).toMatchSnapshot();
+        expect({willOverwrite: 'this will get overwritten by testSerializerPlugin'}).toMatchSnapshot();
+        expect({willOverwrite: 'so will this'}).toMatchSnapshot();
+        expect({foo: 'this will not'}).toMatchSnapshot();
         expect(testSerializerPluginCallCount).toBe(3);
     });
 });
@@ -457,8 +457,8 @@ function testInstances() {
     const a = new mockFn();
     const b = new mockFn();
 
-    mockFn.mock.instances[ 0 ] === a; // true
-    mockFn.mock.instances[ 1 ] === b; // true
+    mockFn.mock.instances[0] === a; // true
+    mockFn.mock.instances[1] === b; // true
 }
 
 function testMockImplementation() {
@@ -472,15 +472,15 @@ function testMockImplementation() {
     a === 42; // true
     b === 43; // true
 
-    mockFn.mock.calls[ 0 ][ 0 ] === 0; // true
-    mockFn.mock.calls[ 1 ][ 0 ] === 1; // true
+    mockFn.mock.calls[0][0] === 0; // true
+    mockFn.mock.calls[1][0] === 1; // true
 }
 
 // Test from jest Docs: <http://facebook.github.io/jest/docs/manual-mocks.html#content>
 describe('genMockFromModule', () => {
     // Interfaces:
     interface MockFiles {
-        [ index: string ]: string;
+        [index: string]: string;
     }
 
     interface MockedFS {
@@ -517,15 +517,15 @@ describe('genMockFromModule', () => {
         for (const file in newMockFiles) {
             const dir: string = path.dirname(file);
 
-            if (!mockFiles[ dir ]) {
-                mockFiles[ dir ] = [];
+            if (!mockFiles[dir]) {
+                mockFiles[dir] = [];
             }
-            mockFiles[ dir ].push(path.basename(file));
+            mockFiles[dir].push(path.basename(file));
         }
     }
 
     function readdirSync(directoryPath: string): string[] {
-        return mockFiles[ directoryPath ] || [];
+        return mockFiles[directoryPath] || [];
     }
 
     mockedFS.readdirSync = readdirSync;
@@ -604,13 +604,13 @@ describe('Mocks', () => {
         const test = jest.fn();
         test();
         new test();
-        test.mock.instances[ 0 ];
+        test.mock.instances[0];
         test.mockImplementation(() => {
         });
     });
 
     it('jest.fn() with returned object infers type', () => {
-        const testMock = jest.fn(() => ({ a: 5, test: jest.fn() }));
+        const testMock = jest.fn(() => ({a: 5, test: jest.fn()}));
 
         testMock(5, 5, 'a');
         testMock.mockImplementation(() => {
@@ -705,16 +705,16 @@ describe('rejects', () => {
 // https://facebook.github.io/jest/docs/en/expect.html#tohavepropertykeypath-value
 describe('toHaveProperty', () => {
     it('it accepts a keyPath as string', () => {
-        expect({ a: { b: {} } }).toHaveProperty('a');
+        expect({a: {b: {}}}).toHaveProperty('a');
     });
     it('it accepts a keyPath as string with dot notation', () => {
-        expect({ a: { b: {} } }).toHaveProperty('a.b');
+        expect({a: {b: {}}}).toHaveProperty('a.b');
     });
     it('it accepts a keyPath as an array', () => {
-        expect({ a: { b: {} } }).toHaveProperty([ 'a', 'b' ]);
+        expect({a: {b: {}}}).toHaveProperty(['a', 'b']);
     });
     it('it accepts a keyPath as an array containing non-string values', () => {
-        expect({ a: [ 'b' ] }).toHaveProperty([ 'a', 0 ]);
+        expect({a: ['b']}).toHaveProperty(['a', 0]);
     });
 });
 
@@ -736,7 +736,7 @@ class MyReporter implements jest.Reporter {
 declare const testResult: jest.TestResult;
 const myTestRunner: jest.TestFramework = () => Promise.resolve(testResult);
 
-const testResultsProcessor: jest.TestResultsProcessor = result => ({ ...result, numFailedTests: 1 });
+const testResultsProcessor: jest.TestResultsProcessor = result => ({...result, numFailedTests: 1});
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18826
 test('moduleName 1', () => {
