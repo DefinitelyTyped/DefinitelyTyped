@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "redux": "^3.7.2"
+        "redux": ">= 3.7.2"
     }
 }

@@ -390,7 +390,7 @@ declare module 'ember' {
         An instance of Ember.Application is the starting point for every Ember application. It helps to
         instantiate, initialize and coordinate the many objects that make up your app.
         **/
-        class Application extends Namespace {
+        class Application extends Engine {
             /**
             Call advanceReadiness after any asynchronous setup logic has completed.
             Each call to deferReadiness must be matched by a call to advanceReadiness
@@ -1056,11 +1056,17 @@ declare module 'ember' {
              */
             namespace: Application;
         }
+        interface Initializer<T> {
+            name: string;
+            before?: string[];
+            after?: string[];
+            initialize(application: T): void;
+        }
         /**
          * The `Engine` class contains core functionality for both applications and
          * engines.
          */
-        class Engine extends Namespace {
+        class Engine extends Namespace.extend(_RegistryProxyMixin) {
             /**
              * The goal of initializers should be to register dependencies and injections.
              * This phase runs once. Because these initializers may load code, they are
@@ -1069,14 +1075,14 @@ declare module 'ember' {
              * after all initializers and therefore after all code is loaded and the app is
              * ready.
              */
-            initializer(initializer: {}): any;
+            static initializer(initializer: Initializer<Engine>): void;
             /**
              * Instance initializers run after all initializers have run. Because
              * instance initializers run after the app is fully set up. We have access
              * to the store, container, and other items. However, these initializers run
              * after code has loaded and are not allowed to defer readiness.
              */
-            instanceInitializer(instanceInitializer: any): any;
+            static instanceInitializer(instanceInitializer: Initializer<EngineInstance>): void;
             /**
              * Set this to provide an alternate class to `Ember.DefaultResolver`
              */

@@ -1018,7 +1018,7 @@ declare namespace MathJax {
         * to look for characters not included in the MathJax TeX fonts). IE will stop looking after the first font that
         * exists on the system (even if it doesn’t contain the needed character), so order these carefully.
         */
-        undefinedFamily?: string[];
+        undefinedFamily?: string;
         /*This setting controls whether <mtext> elements will be typeset using the math fonts or the font of the
         * surrounding text. When false, the font for mathvariant="normal" will be used; when true, the font will be
         * inherited from the surrounding paragraph.

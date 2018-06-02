@@ -1,4 +1,4 @@
-// Type definitions for Jest 22.2
+// Type definitions for Jest 23.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -218,7 +218,7 @@ declare namespace jest {
          * @param fn The function for your test
          * @param timeout The timeout for an async function test
          */
-        (name: string, fn?: ProvidesCallback, timeout?: number): void;
+        (name: string, fn: ProvidesCallback, timeout?: number): void;
         /**
          * Only runs this test in the current file.
          */

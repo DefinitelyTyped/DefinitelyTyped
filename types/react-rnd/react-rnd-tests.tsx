@@ -31,7 +31,13 @@ const defaultProp: Rnd.defaultProps = {
     className="class"
     lockAspectRatio
     maxWidth={100}
-    enableResizing={enable}
+    enableResizing={{
+        bottom: true,
+        bottomLeft: true,
+        bottomRight: false,
+        left: false
+    }}
+    disableDragging={false}
     resizeHandleStyles={{
         top: { background: "#000" }
     }}

@@ -20,7 +20,9 @@
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
 //                 Bonggyun Lee <https://github.com/deptno>
+//                 Maciek Blim <https://github.com/blimusiek>
 //                 Marcin Biernat <https://github.com/biern>
+//                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -252,6 +254,16 @@ declare namespace R {
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
          * an empty list is returned.
          */
+        aperture<T>(n: 1, list: T[]): Array<[T]>;
+        aperture<T>(n: 2, list: T[]): Array<[T, T]>;
+        aperture<T>(n: 3, list: T[]): Array<[T, T, T]>;
+        aperture<T>(n: 4, list: T[]): Array<[T, T, T, T]>;
+        aperture<T>(n: 5, list: T[]): Array<[T, T, T, T, T]>;
+        aperture<T>(n: 6, list: T[]): Array<[T, T, T, T, T, T]>;
+        aperture<T>(n: 7, list: T[]): Array<[T, T, T, T, T, T, T]>;
+        aperture<T>(n: 8, list: T[]): Array<[T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 9, list: T[]): Array<[T, T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 10, list: T[]): Array<[T, T, T, T, T, T, T, T, T, T]>;
         aperture<T>(n: number, list: ReadonlyArray<T>): T[][];
         aperture(n: number): <T>(list: ReadonlyArray<T>) => T[][];
 
@@ -521,7 +533,9 @@ declare namespace R {
          * Duplication is determined according to the value returned by applying the supplied predicate to two list
          * elements.
          */
-        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
 
         /*
          * Returns a new object that does not contain a prop property.
@@ -1607,6 +1621,17 @@ declare namespace R {
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult): (acc: TResult, list: ReadonlyArray<T>) => TResult;
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+
+        /**
+         * Like reduce, reduceWhile returns a single item by iterating through the list, successively
+         * calling the iterator function. reduceWhile also takes a predicate that is evaluated before
+         * each step. If the predicate returns false, it "short-circuits" the iteration and returns
+         * the current value of the accumulator.
+         */
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult): CurriedFunction2<TResult, ReadonlyArray<T>, TResult>;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean): CurriedFunction3<(acc: TResult, elem: T) => TResult, TResult, ReadonlyArray<T>, TResult>;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
