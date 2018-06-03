@@ -302,7 +302,7 @@ export interface Request extends http.IncomingMessage, Express.Request {
      * should respond with 4 users when available, not 3.
      *
      */
-    range(size: number, options?: RangeParserOptions): RequestRanges|undefined|-1|-2;
+    range(size: number, options?: RangeParserOptions): RequestRanges | undefined | -1 | -2;
 
     /**
      * Return an array of Accepted media types
@@ -839,7 +839,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      * @since 4.11.0
      */
-    append(field: string, value?: string[]|string): Response;
+    append(field: string, value?: string[] | string): Response;
 
     /**
      * After middleware.init executed, Response will contain req property
@@ -1090,12 +1090,12 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      *  - Not inherit the value of settings that have a default value. You must set the value in the sub-app.
      *  - Inherit the value of settings with no default value.
      */
-    on: (eventName: string, callback: (parent: Application) => void) => void;
+    on: (event: string, callback: (parent: Application) => void) => this;
 
     /**
      * The app.mountpath property contains one or more path patterns on which a sub-app was mounted.
      */
-    mountpath: string|string[];
+    mountpath: string | string[];
 }
 
 export interface Express extends Application {
