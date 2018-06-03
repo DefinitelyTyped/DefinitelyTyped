@@ -1,4 +1,4 @@
-// Type definitions for Express 4.11
+// Type definitions for Express 4.16
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Michał Lytek <https://github.com/19majkel94>
@@ -23,6 +23,7 @@ declare global {
 
 import * as http from "http";
 import { EventEmitter } from "events";
+import { Options as RangeParserOptions } from "range-parser";
 
 export interface NextFunction {
     // tslint:disable-next-line callable-types (In ts2.1 it thinks the type alias has no call signatures)
@@ -283,21 +284,25 @@ export interface Request extends http.IncomingMessage, Express.Request {
     acceptsLanguages(...lang: string[]): string | false;
 
     /**
-     * Parse Range header field,
-     * capping to the given `size`.
+     * Parse Range header field, capping to the given `size`.
      *
-     * Unspecified ranges such as "0-" require
-     * knowledge of your resource length. In
-     * the case of a byte range this is of course
-     * the total number of bytes. If the Range
-     * header field is not given `null` is returned,
-     * `-1` when unsatisfiable, `-2` when syntactically invalid.
+     * Unspecified ranges such as "0-" require knowledge of your resource length. In
+     * the case of a byte range this is of course the total number of bytes. If the
+     * Range header field is not given `undefined` is returned, `-1` when unsatisfiable,
+     * and `-2` when syntactically invalid.
      *
-     * NOTE: remember that ranges are inclusive, so
-     * for example "Range: users=0-3" should respond
-     * with 4 users when available, not 3.
+     * When ranges are returned, the array has a "type" property which is the type of
+     * range that is required (most commonly, "bytes"). Each array element is an object
+     * with a "start" and "end" property for the portion of the range.
+     *
+     * The "combine" option can be set to `true` and overlapping & adjacent ranges
+     * will be combined into a single range.
+     *
+     * NOTE: remember that ranges are inclusive, so for example "Range: users=0-3"
+     * should respond with 4 users when available, not 3.
+     *
      */
-    range(size: number): RequestRanges|null|-1|-2;
+    range(size: number, options?: RangeParserOptions): RequestRanges|undefined|-1|-2;
 
     /**
      * Return an array of Accepted media types

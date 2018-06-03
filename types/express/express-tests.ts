@@ -104,6 +104,9 @@ namespace express_tests {
             req.headers.existingHeader as string;
             req.headers.nonExistingHeader as any as undefined;
 
+            // Since 4.14.0 req.range() has options
+            req.range(2, { combine: true });
+
             res.send(req.query['token']);
         });
 
@@ -139,6 +142,7 @@ namespace express_tests {
  *                         *
  ***************************/
 import * as http from 'http';
+import { RequestRanges } from 'express-serve-static-core';
 
 namespace node_tests {
     {
