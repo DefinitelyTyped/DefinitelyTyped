@@ -1080,6 +1080,22 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
     _router: any;
 
     use: ApplicationRequestHandler<this>;
+
+    /**
+     * The mount event is fired on a sub-app, when it is mounted on a parent app.
+     * The parent app is passed to the callback function.
+     *
+     * NOTE:
+     * Sub-apps will:
+     *  - Not inherit the value of settings that have a default value. You must set the value in the sub-app.
+     *  - Inherit the value of settings with no default value.
+     */
+    on: (eventName: string, callback: (parent: Application) => void) => void;
+
+    /**
+     * The app.mountpath property contains one or more path patterns on which a sub-app was mounted.
+     */
+    mountpath: string|string[];
 }
 
 export interface Express extends Application {

@@ -138,6 +138,12 @@ namespace express_tests {
         res.req;
     });
 
+    // Test on mount event
+    app.on('mount', (parent) => true);
+
+    // Test mountpath
+    const mountPath: string|string[] = app.mountpath;
+
     app.listen(3000);
 
     const next: express.NextFunction = () => { };
