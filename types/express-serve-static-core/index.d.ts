@@ -455,6 +455,13 @@ export interface Request extends http.IncomingMessage, Express.Request {
     baseUrl: string;
 
     app: Application;
+
+    /**
+     * After middleware.init executed, Request will contain res and next properties
+     * See: express/lib/middleware/init.js
+     */
+    res?: Response;
+    next?: NextFunction;
 }
 
 export interface MediaType {
@@ -833,6 +840,12 @@ export interface Response extends http.ServerResponse, Express.Response {
      * @since 4.11.0
      */
     append(field: string, value?: string[]|string): Response;
+
+    /**
+     * After middleware.init executed, Response will contain req property
+     * See: express/lib/middleware/init.js
+     */
+    req?: Request;
 }
 
 export interface Handler extends RequestHandler { }
