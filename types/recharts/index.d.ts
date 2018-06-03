@@ -164,7 +164,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     connectNulls?: boolean;
     activeDot?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
     dot?: boolean | object | React.ReactElement<any> | ContentRenderer<DotProps>;
-    label?: boolean | object | ContentRenderer<any> | React.ReactElement<any> | LabelProps['content'];
+    label?: boolean | object | ContentRenderer<any> | React.ReactElement<any>;
     hide?: boolean;
     layout?: LayoutType;
     baseLine?: number | any[];
@@ -405,7 +405,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     width?: number;
     height?: number;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
-    label?: boolean | object | React.ReactElement<any> | ContentRenderer<any> | LabelProps['content'];
+    label?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
     points?: Point[];
 }
 
@@ -438,8 +438,8 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     labelLine?: object | ContentRenderer<LineProps & any> | React.ReactElement<any> | boolean;
     label?: {
         offsetRadius: number;
-    } | LabelProps['content'] | React.ReactElement<any> | ContentRenderer<any> | boolean;
-    activeShape?: object |ContentRenderer<any> | React.ReactElement<any>;
+    } | React.ReactElement<any> | ContentRenderer<any> | boolean;
+    activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
 }
 
@@ -553,7 +553,7 @@ export interface RadarProps extends EventAttributes, Partial<PresentationAttribu
     shape?: React.ReactElement<any> | ContentRenderer<RadarProps>;
     activeDot?: object | React.ReactElement<any> | ContentRenderer<any> | boolean;
     dot?: object | React.ReactElement<any> | ContentRenderer<DotProps> | boolean;
-    label?: object | React.ReactElement<any> | ContentRenderer<any> | LabelProps['content'] | boolean;
+    label?: object | React.ReactElement<any> | ContentRenderer<any> | boolean;
     legendType?: LegendType;
     hide?: boolean;
 }
@@ -592,7 +592,7 @@ export interface RadialBarProps extends EventAttributes, Partial<PresentationAtt
     maxBarSize?: number;
     data?: RadialBarData[];
     legendType?: LegendType;
-    label?: boolean | React.ReactElement<any> | LabelProps['content'] | object;
+    label?: boolean | React.ReactElement<any> | ContentRenderer<any> | object;
     background?: boolean | React.ReactElement<any> | ContentRenderer<any> | object;
     hide?: boolean;
 }
@@ -839,7 +839,7 @@ export interface LabelProps {
     position?: PositionType;
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
-    content?: React.ReactElement<any> | ContentRenderer<Label>;
+    content?: React.ReactElement<any> | ContentRenderer<any>;
 }
 
 export type AxisDomain = string | number | ContentRenderer<any> | 'auto' | 'dataMin' | 'dataMax';
