@@ -131,6 +131,13 @@ namespace express_tests {
 
     app.use(router);
 
+    // Test req.res, req.next, res.req should exists after middleware.init
+    app.use((req, res) => {
+        req.res;
+        req.next;
+        res.req;
+    });
+
     app.listen(3000);
 
     const next: express.NextFunction = () => { };
