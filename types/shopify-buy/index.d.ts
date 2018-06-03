@@ -21,6 +21,9 @@ declare namespace ShopifyBuy {
         product: ShopifyBuy.ProductAPI;
         collection: ShopifyBuy.CollectionAPI;
         checkout: ShopifyBuy.CheckoutAPI;
+        shop: any;
+        image: Image;
+        fetchNextPage(T: GraphModel[]): GraphModel[];
     }
     export interface Config {
         domain: string;
@@ -38,11 +41,34 @@ declare namespace ShopifyBuy {
         fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type
     }
 
+    /*
+    *   https://shopify.github.io/js-buy-sdk/CheckoutResource.html
+    */
     export interface CheckoutAPI {
+        create(
+            email: string,
+            lineItems: LineItem[],
+            shippingAddress: Address,
+            note: string,
+            customAttributes: AttributeInput[]
+        ): Promise<Cart>;
+
+        fetch(id: string): Promise<Cart>;
+
+
+
+        addLineItems(
+            checkoutId: string,
+            lineItems: LineItem[]
+        ): Promise<Cart>;
+
         /**
          * Remove all line items from cart
          */
-        clearLineItems(): Promise<Cart>;
+        clearLineItems(
+            checkoutId: string,
+            lineItems: LineItem[]
+        ): Promise<Cart>;
 
         /**
          * Add items to cart. Updates cart's lineItems
@@ -50,27 +76,20 @@ declare namespace ShopifyBuy {
         addVariants(item: Item, nextItem?: Array<Item>): Promise<Cart>;
 
         /**
-         * Add items to the cart. Updates cart's lineItems based on variants passed in.
-         */
-        createLineItemsFromVariants(...items: Item[]): Promise<Cart>;
-
-        /**
          * Remove a line item from cart based on line item id
          */
-        removeLineItem(id: string): Promise<Cart>;
+        removeLineItem(
+            checkoutId: string,
+            lineItems: LineItem[]
+        ): Promise<Cart>;
 
         /**
          * Update a line item quantity based on line item id
          */
-        updateLineItem(id: string, quantitiy: number): Promise<Cart>;
-
-        /**
-         * Force update of cart model on server. This function will only be used in advanced
-         * situations and does not need to be called explicitly to update line items.
-         * It is automatically called after createLineItemsFromVariants, updateLineItem,
-         * removeLineItem, and removeLineItem
-         */
-        updateModel(): Promise<Cart>;
+        updateLineItem(
+            checkoutId: string,
+            lineItems: LineItem[]
+        ): Promise<Cart>;
     }
 
     export interface Query {
@@ -83,7 +102,7 @@ declare namespace ShopifyBuy {
         reverse?: boolean;
     }
 
-    export interface Product {
+    export interface Product extends GraphModel {
         /**
          * A product description.
          */
@@ -135,7 +154,7 @@ declare namespace ShopifyBuy {
         title: string;
     }
 
-    export interface ProductVariant {
+    export interface ProductVariant extends GraphModel {
         /**
          * Variant in stock. Always true if inventory tracking is disabled.
          */
@@ -231,7 +250,7 @@ declare namespace ShopifyBuy {
     *   export interface Collection {} 
     */
 
-    export interface Cart {
+    export interface Cart extends GraphModel {
         /**
          * Get checkout URL for current cart
          */
@@ -251,7 +270,7 @@ declare namespace ShopifyBuy {
         /**
          * Get an Array of CartLineItemModel's
          */
-        lineItems: LineItem;
+        lineItems: LineItem[];
 
         /**
          * Get current subtotal price for all line items.
@@ -260,7 +279,7 @@ declare namespace ShopifyBuy {
         subtotal: string;
     }
 
-    export interface LineItem {
+    export interface LineItem extends GraphModel {
         /**
          * Compare at price for variant. The compareAtPrice would be the price of the product
          * previously before the product went on sale.
@@ -328,7 +347,7 @@ declare namespace ShopifyBuy {
     /**
      * Internal Image description
      */
-    export interface Image {
+    export interface Image extends GraphModel {
         id: string | number;
         created_at: string;
         position: number;
@@ -338,7 +357,7 @@ declare namespace ShopifyBuy {
         variant_ids: Array<string>;
     }
 
-    export interface ImageVariant {
+    export interface ImageVariant extends Image {
         name: string;
         dimensions: string;
         src: string;
@@ -348,6 +367,31 @@ declare namespace ShopifyBuy {
         name: string;
         option_id: string;
         value: any;
+    }
+
+    export interface Address {
+        address1: String;
+        address2: String;
+        city: String;
+        company: String;
+        country: String;
+        firstName: String;
+        lastName: String;
+        phone: String;
+        province: String;
+        zip: String;
+    }
+
+    /* 
+    *   https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/attributeinput
+    */
+    export interface AttributeInput {
+        key: string;
+        value: string;
+    }
+
+    export interface GraphModel {
+
     }
 }
 
