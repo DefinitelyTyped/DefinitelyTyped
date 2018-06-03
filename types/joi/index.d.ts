@@ -966,7 +966,7 @@ export interface Rules<P extends object = any> {
     name: string;
     params?: ObjectSchema | {[key in keyof P]: SchemaLike; };
     setup?(this: ExtensionBoundSchema, params: P): Schema | void;
-    validate?<R = any>(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): Err | R;
+    validate?(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): Err | any;
     description?: string | ((params: P) => string);
 }
 

@@ -988,13 +988,13 @@ const Joi3 = Joi.extend({
         {
             name: 'asd',
             params: {
-                allowF: Joi.boolean().default(false),
+                allowFalse: Joi.boolean().default(false),
             },
             setup(params) {
-                const fIsAllowed = params.allowF;
+                const fIsAllowed = params.allowFalse;
             },
-            validate(params, value, state, options) {
-                if (value === 'asd' || params.allowF && value === 'asdf') {
+            validate(params, value: boolean, state, options) {
+                if (value || params.allowFalse && !value) {
                     return value;
                 }
                 return this.createError('asd', { v: value }, state, options);
