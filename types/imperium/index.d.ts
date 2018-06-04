@@ -16,6 +16,26 @@ interface RoleParams {
     [key: string]: string;
 }
 
+export const context: string[];
+export const roles: Roles;
+
+// Add new role with specific ImperiumGetAcl
+export function role(roleName: string, getAcl?: GetAcl): Role;
+
+// Check if user has role(s) act like as an OR
+export function is(roleNames: string | string[]): Promise<express.RequestHandler>;
+
+// Check if current user can do action(s)
+export function can(actionS: string | string[] | Action | Action[]): Promise<express.RequestHandler>;
+
+export function evaluateRouteActions(req: express.Request, action: Action[], context: Context): Actions;
+
+export function evaluateRouteAction(req: express.Request, expr: string, key: string, context: Context): string;
+
+export function evaluateUserActions(req: express.Request, roles: Role[]): Promise<Action[]>;
+
+export function evaluateUserAction(action: RoleParams, context: { [key: string]: string[] }): { [key: string]: string[] };
+
 export class Imperium {
     constructor()
 
@@ -76,6 +96,3 @@ export class Role {
 export class UnauthorizedError extends Error {
     constructor(message: string, status: number, context: any)
 }
-
-declare const init: Imperium;
-export default init;
