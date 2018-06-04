@@ -18,9 +18,9 @@ declare namespace ShopifyBuy {
     export function buildClient(config: Config): Client;
 
     export interface Client {
-        product: ShopifyBuy.ProductAPI;
-        collection: ShopifyBuy.CollectionAPI;
-        checkout: ShopifyBuy.CheckoutAPI;
+        product: ShopifyBuy.ProductResource;
+        collection: ShopifyBuy.CollectionResource;
+        checkout: ShopifyBuy.CheckoutResource;
         shop: any;
         image: Image;
         fetchNextPage<T extends GraphModel>(nextArray: T[]): T[];
@@ -31,13 +31,13 @@ declare namespace ShopifyBuy {
         storefrontAccessToken: string;
     }
 
-    export interface ProductAPI {
+    export interface ProductResource {
         fetch(id: string): Promise<Product[]>;
         fetchQuery(id: Query): Promise<Product[]>;
         fetchAll(): Promise<Product[]>;
     }
 
-    export interface CollectionAPI {
+    export interface CollectionResource {
         fetch(id: string): Promise<Product[]>;
         fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type: Docs: Fetches a single collection by ID on the shop, not including products.
         fetchAll(): Promise<any[]>; // TODO fix to be a type: Docs: Fetches all collections on the shop, not including products.
@@ -50,7 +50,7 @@ declare namespace ShopifyBuy {
     /*
     *   https://shopify.github.io/js-buy-sdk/CheckoutResource.html
     */
-    export interface CheckoutAPI {
+    export interface CheckoutResource {
         create(
             email: string,
             lineItems: LineItem[],
