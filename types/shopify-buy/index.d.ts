@@ -15,7 +15,7 @@
  */
 
 declare namespace ShopifyBuy {
-    export function buildClient(config: ShopifyBuy.Config): Client;
+    export function buildClient(config: Config): Client;
 
     export interface Client {
         product: ShopifyBuy.ProductAPI;
@@ -25,6 +25,7 @@ declare namespace ShopifyBuy {
         image: Image;
         fetchNextPage<T extends GraphModel>(nextArray: T[]): T[];
     }
+
     export interface Config {
         domain: string;
         storefrontAccessToken: string;
