@@ -80,3 +80,17 @@ cy.on('zoom', (event) => {
     cy.nodes('$node > node').style('opacity', 0);
   }
 });
+
+cy.animate({
+  fit: {
+    padding: 10,
+    eles: cy.nodes()
+  },
+  duration: 500
+});
+
+const node = cy.nodes()[0];
+cy.animate({
+  center: {eles: node},
+  duration: 500
+});
