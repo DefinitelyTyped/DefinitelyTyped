@@ -389,6 +389,18 @@ declare namespace ShopifyBuy {
         zip: String;
     }
 
+     /**
+     *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/attributeinput
+     *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/checkoutlineitemupdateinput
+     */
+    export interface AttributeInput {
+        key?: string;
+        value?: string;
+        id?: string | number;
+        quantity?: number;
+        variantId?: string;
+    }
+
     export interface Shop {}
 
     /**
@@ -421,22 +433,9 @@ declare namespace ShopifyBuy {
         maxHeight: number;
     }
 
-    /**
-     *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/attributeinput
-     *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/checkoutlineitemupdateinput
-     */
-    export interface AttributeInput {
-        key?: string;
-        value?: string;
-        id?: string | number;
-        quantity?: number;
-        variantId?: string;
-    }
+    let NO_IMAGE_URI: string;
 
     export interface GraphModel {}
-
-    // still have not figured this one out.
-    //export interface NO_IMAGE_URI extends string;
 }
 
 declare module "shopify-buy" {
