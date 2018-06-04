@@ -35,7 +35,7 @@ declare namespace SimpleMDE {
     }
 
     interface ShortcutsArray {
-        [action: string]: string;
+        [action: string]: string|undefined;
         toggleBlockquote?: string;
         toggleBold?: string;
         cleanBlock?: string;

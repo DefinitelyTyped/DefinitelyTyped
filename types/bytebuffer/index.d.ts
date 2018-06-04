@@ -1,9 +1,10 @@
 // Type definitions for bytebuffer.js 5.0.0
 // Project: https://github.com/dcodeIO/bytebuffer.js
-// Definitions by: Denis Cappellin <http://github.com/cappellin>
+// Definitions by: Denis Cappellin <https://github.com/cappellin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
+// Definitions by: SINTEF-9012 <https://github.com/SINTEF-9012>
 
+/// <reference types="node" />
 import Long = require("long");
 
 declare namespace ByteBuffer {}
@@ -70,7 +71,7 @@ declare class ByteBuffer
     /**
      * Backing buffer.
      */
-    buffer: ArrayBuffer;
+    buffer: Buffer;
 
     /**
      * Absolute limit of the contained data. Set to the backing buffer's capacity upon allocation.
@@ -120,22 +121,27 @@ declare class ByteBuffer
     /**
      * Calculates the number of UTF8 bytes of a string.
      */
-    static calculateUTF8Byte( str: string ): number;
+    static calculateUTF8Bytes( str: string ): number;
 
     /**
      * Calculates the number of UTF8 characters of a string.JavaScript itself uses UTF- 16, so that a string's length property does not reflect its actual UTF8 size if it contains code points larger than 0xFFFF.
      */
-    static calculateUTF8Char( str: string ): number;
+    static calculateUTF8Chars( str: string ): number;
+    
+    /**
+     * Calculates the number of UTF8 bytes of a string. This is an alias of ByteBuffer#calculateUTF8Bytes.
+     */
+    static calculateString( str: string ): number;
 
     /**
      * Calculates the actual number of bytes required to store a 32bit base 128 variable-length integer.
      */
-    static calculateVariant32( value: number ): number;
+    static calculateVarint32( value: number ): number;
 
     /**
      * Calculates the actual number of bytes required to store a 64bit base 128 variable-length integer.
      */
-    static calculateVariant64( value: number | Long ): number;
+    static calculateVarint64( value: number | Long ): number;
 
     /**
      * Concatenates multiple ByteBuffers into one.
@@ -303,6 +309,11 @@ declare class ByteBuffer
     readByte( offset?: number ): number;
 
     /**
+     * Reads the specified number of bytes
+     */
+    readBytes( length: number, offset?: number): ByteBuffer;
+
+    /**
      * Reads a NULL-terminated UTF8 encoded string. For this to work the string read must not contain any NULL characters itself.
      */
     readCString( offset?: number ): string;
@@ -330,7 +341,7 @@ declare class ByteBuffer
     /**
      * Reads a length as uint32 prefixed UTF8 encoded string.
      */
-    readIString( offset?: number ): string;
+    readIString( offset?: number ): string | { string: string; length: number };
 
     /**
      * Reads a 32bit signed integer.This is an alias of ByteBuffer#readInt32.
@@ -375,7 +386,7 @@ declare class ByteBuffer
     /**
      * Reads an UTF8 encoded string.
      */
-    readUTF8String( chars: number, offset?: number ): string;
+    readUTF8String( chars: number, metrics?: number, offset?: number ): string | { string: string; length: number };
 
     /**
      * Reads a 16bit unsigned integer.
@@ -409,7 +420,7 @@ declare class ByteBuffer
     /**
      * Reads a zig-zag encoded 32bit base 128 variable-length integer.
      */
-    readVarint32ZiZag( offset?: number ): number;
+    readVarint32ZigZag( offset?: number ): number;
 
     /**
      * Reads a 64bit base 128 variable-length integer. Requires Long.js.
@@ -502,6 +513,11 @@ declare class ByteBuffer
      * Writes an 8bit signed integer. This is an alias of ByteBuffer#writeInt8.
      */
     writeByte( value: number, offset?: number ): ByteBuffer;
+
+    /**
+     * Writes an array of bytes. This is an alias for append
+     */
+    writeBytes( source: ByteBuffer | ArrayBuffer | Uint8Array | string, encoding?: string | number, offset?: number ): ByteBuffer;
 
     /**
      * Writes a NULL-terminated UTF8 encoded string. For this to work the specified string must not contain any NULL characters itself.

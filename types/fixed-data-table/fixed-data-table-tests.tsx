@@ -1,8 +1,8 @@
 import * as React from "react";
-import {Table, Cell, Column, CellProps} from "fixed-data-table";
+import { Table, Cell, Column, CellProps } from "fixed-data-table";
 
 // create your Table
-class MyTable1 extends React.Component<{}, {}> {
+class MyTable1 extends React.Component {
     render(): React.ReactElement<any> {
         return (
             <Table
@@ -17,7 +17,7 @@ class MyTable1 extends React.Component<{}, {}> {
 }
 
 // create your Columns
-class MyTable2 extends React.Component<{}, {}> {
+class MyTable2 extends React.Component {
     render(): React.ReactElement<any> {
         return (
             <Table
@@ -36,7 +36,7 @@ class MyTable2 extends React.Component<{}, {}> {
 
 // provide Custom Data
 interface MyTable3State {
-    myTableData: [{name: string}];
+    myTableData: {name: string}[];
 }
 
 class MyTable3 extends React.Component<{}, MyTable3State> {
@@ -88,7 +88,7 @@ interface MyCellProps extends CellProps {
     myData: RowData[];
 }
 
-class MyTextCell extends React.Component<MyCellProps, {}> {
+class MyTextCell extends React.Component<MyCellProps> {
     render(): React.ReactElement<any> {
         const {rowIndex, field, myData} = this.props;
 
@@ -104,7 +104,7 @@ class MyTextCell extends React.Component<MyCellProps, {}> {
     }
 }
 
-class MyLinkCell extends React.Component<MyCellProps, {}> {
+class MyLinkCell extends React.Component<MyCellProps> {
     render(): React.ReactElement<any> {
         const {rowIndex, field, myData} = this.props;
         const link: string = myData[rowIndex][field];
@@ -168,7 +168,7 @@ class MyTable4 extends React.Component<{}, MyTable4State> {
 }
 
 // Listen for events
-class MyTable5 extends React.Component<{}, {}> {
+class MyTable5 extends React.Component {
     render(): React.ReactElement<any> {
         return (
             <Table

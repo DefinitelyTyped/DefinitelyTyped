@@ -1,9 +1,9 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Content {
@@ -17,7 +17,7 @@ declare namespace GoogleAppsScript {
      *      }
      */
     export interface ContentService {
-      MimeType: MimeType
+      MimeType: typeof MimeType;
       createTextOutput(): TextOutput;
       createTextOutput(content: string): TextOutput;
     }
@@ -37,7 +37,7 @@ declare namespace GoogleAppsScript {
      *  You can return text content like this:
      *
      *      function doGet() {
-     *        return ContentService.createPlainTextOutput("hello world!");
+     *        return ContentService.createTextOutput("hello world!");
      *      }
      *
      * ContentService

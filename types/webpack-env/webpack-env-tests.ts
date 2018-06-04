@@ -7,6 +7,9 @@ interface SomeModule {
 let someModule = require<SomeModule>('./someModule');
 someModule.someMethod();
 
+let otherModule = require('./otherModule');
+otherModule.otherMethod();
+
 let context = require.context('./somePath', true);
 let contextModule = context<SomeModule>('./someModule');
 

@@ -2,6 +2,7 @@
 // Project: http://xregexp.com
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>,
 //                 Johannes Fahrenkrug <https://github.com/jfahrenkrug>
+//                 Mateusz Jagiełło <https://github.com/sigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -83,7 +84,7 @@ declare namespace OuterXRegExp {
     function uninstall(options: Object): void;
     function uninstall(options: string): void;
 
-    function union(patterns: string[], flags?: string): RegExp;
+    function union(patterns: (string | RegExp)[], flags?: string): RegExp;
     var version: string;
     // end API definitions
 
@@ -126,7 +127,7 @@ declare namespace OuterXRegExp {
         function uninstall(options: Object): void;
         function uninstall(options: string): void;
 
-        function union(patterns: string[], flags?: string): RegExp;
+        function union(patterns: (string | RegExp)[], flags?: string): RegExp;
         var version: string;
         // end API definitions
     }

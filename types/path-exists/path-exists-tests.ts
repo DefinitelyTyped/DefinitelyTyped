@@ -1,7 +1,6 @@
-
 import pathExists = require("path-exists");
 
-pathExists("test/path-exists.d.ts", (error, exists) => {
-  console.log(exists);
+pathExists('foo.js').then(exists => {
+    const bool: boolean = exists;
 });
-console.log(pathExists.sync("test/__path-exists.d.ts"));
+const bool: boolean = pathExists.sync("test/__path-exists.d.ts");

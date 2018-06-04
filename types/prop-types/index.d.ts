@@ -21,9 +21,22 @@ export const object: Requireable<any>;
 export const string: Requireable<any>;
 export const node: Requireable<any>;
 export const element: Requireable<any>;
+export const symbol: Requireable<any>;
 export function instanceOf(expectedClass: {}): Requireable<any>;
 export function oneOf(types: any[]): Requireable<any>;
 export function oneOfType(types: Array<Validator<any>>): Requireable<any>;
 export function arrayOf(type: Validator<any>): Requireable<any>;
 export function objectOf(type: Validator<any>): Requireable<any>;
 export function shape(type: ValidationMap<any>): Requireable<any>;
+
+/**
+ * Assert that the values match with the type specs.
+ * Error messages are memorized and will only be shown once.
+ *
+ * @param typeSpecs Map of name to a ReactPropType
+ * @param values Runtime values that need to be type-checked
+ * @param location e.g. "prop", "context", "child context"
+ * @param componentName Name of the component for error messages.
+ * @param getStack Returns the component stack.
+ */
+export function checkPropTypes(typeSpecs: any, values: any, location: string, componentName: string, getStack?: () => any): void;

@@ -1,9 +1,8 @@
 // Type definitions for Drop v1.4
-// Project: http://github.hubspot.com/drop/
+// Project: https://github.hubspot.com/drop/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-///<reference types="tether" />
+// TypeScript Version: 2.3
 
 import Tether = require("tether");
 

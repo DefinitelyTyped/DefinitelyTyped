@@ -25,7 +25,7 @@ declare class FontFaceObserver {
      * @param testString If your font doesn't contain latin characters you can pass a custom test string.
      * @param timeout The default timeout for giving up on font loading is 3 seconds. You can increase or decrease this by passing a number of milliseconds.
      */
-    load(testString?: string, timeout?: number): Promise<void>;
+    load(testString?: string | null, timeout?: number): Promise<void>;
 }
 
 declare module "fontfaceobserver" {

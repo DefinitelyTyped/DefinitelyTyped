@@ -1,6 +1,6 @@
-// Type definitions for pg 6.1
+// Type definitions for pg 7.4
 // Project: https://github.com/brianc/node-postgres
-// Definitions by: Phips Peter <http://pspeter3.com>
+// Definitions by: Phips Peter <https://github.com/pspeter3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -9,16 +9,14 @@ import events = require("events");
 import stream = require("stream");
 import pgTypes = require("pg-types");
 
-export declare function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-export declare function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-export declare function end(): void;
-
 export interface ConnectionConfig {
     user?: string;
     database?: string;
     password?: string;
     port?: number;
     host?: string;
+    connectionString?: string;
+    keepAlive?: boolean;
 }
 
 export interface Defaults extends ConnectionConfig {
@@ -29,19 +27,21 @@ export interface Defaults extends ConnectionConfig {
     parseInt8?: boolean;
 }
 
+import { TlsOptions } from "tls";
+
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean;
+    ssl?: boolean | TlsOptions;
 }
 
 export interface PoolConfig extends ClientConfig {
-      // properties from module 'node-pool'
-      max?: number;
-      min?: number;
-      refreshIdle?: boolean;
-      idleTimeoutMillis?: number;
-      reapIntervalMillis?: number;
-      returnToHead?: boolean;
-      application_name?: string;
+    // properties from module 'node-pool'
+    max?: number;
+    min?: number;
+    connectionTimeoutMillis?: number;
+    idleTimeoutMillis?: number;
+
+    application_name?: string;
+    Promise?: PromiseConstructorLike;
 }
 
 export interface QueryConfig {
@@ -50,49 +50,84 @@ export interface QueryConfig {
     values?: any[];
 }
 
-export interface QueryResult {
+export interface QueryArrayConfig extends QueryConfig {
+    rowMode: 'array';
+}
+
+export interface FieldDef {
+    name: string;
+    tableID: number;
+    columnID: number;
+    dataTypeID: number;
+    dataTypeSize: number;
+    dataTypeModifier: number;
+    format: string;
+}
+
+export interface QueryResultBase {
     command: string;
     rowCount: number;
     oid: number;
+    fields: FieldDef[];
+}
+
+export interface QueryResult extends QueryResultBase {
     rows: any[];
+}
+
+export interface QueryArrayResult extends QueryResultBase {
+    rows: any[][];
+}
+
+export interface Notification {
+    processId: number;
+    channel: string;
+    payload?: string;
 }
 
 export interface ResultBuilder extends QueryResult {
     addRow(row: any): void;
 }
 
-export declare class Pool extends events.EventEmitter {
+export class Pool extends events.EventEmitter {
     // `new Pool('pg://user@localhost/mydb')` is not allowed.
     // But it passes type check because of issue:
     // https://github.com/Microsoft/TypeScript/issues/7485
     constructor(config?: PoolConfig);
 
-    connect(): Promise<Client>;
-    connect(callback: (err: Error, client: Client, done: () => void) => void): void;
+    readonly totalCount: number;
+    readonly idleCount: number;
+    readonly waitingCount: number;
+
+    connect(): Promise<PoolClient>;
+    connect(callback: (err: Error, client: PoolClient, done: (release?: any) => void) => void): void;
 
     end(): Promise<void>;
-
-    query(queryText: string, values?: any[]): Promise<QueryResult>;
-
-    query(queryText: string, callback: (err: Error, result: QueryResult) => void): void;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): void;
-
-    on(event: "error", listener: (err: Error, client: Client) => void): this;
-    on(event: "connect" | "acquire", listener: (client: Client) => void): this;
-}
-
-export declare class Client extends events.EventEmitter {
-    constructor(connection: string);
-    constructor(config: ClientConfig);
-
-    connect(callback?: (err: Error) => void): void;
-    end(callback?: (err: Error) => void): void;
-    release(err?: Error): void;
+    end(callback: () => void): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
-    query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;
-    query(queryText: string, values: any[]): Promise<QueryResult>;
+    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
+    query(queryConfig: QueryConfig): Promise<QueryResult>;
+    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
+    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
+    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
+    on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
+    on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
+}
+
+export class ClientBase extends events.EventEmitter {
+    constructor(config?: string | ClientConfig);
+
+    connect(): Promise<void>;
+    connect(callback: (err: Error) => void): void;
+
+    query(queryStream: QueryConfig & stream.Readable): stream.Readable;
+    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
+    query(queryConfig: QueryConfig): Promise<QueryResult>;
+    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
@@ -102,22 +137,41 @@ export declare class Client extends events.EventEmitter {
     pauseDrain(): void;
     resumeDrain(): void;
 
+    escapeIdentifier(str: string): string;
+    escapeLiteral(str: string): string;
+
     on(event: "drain", listener: () => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "notification" | "notice", listener: (message: any) => void): this;
+    on(event: "error" | "notice", listener: (err: Error) => void): this;
+    on(event: "notification", listener: (message: Notification) => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: "end", listener: () => void): this;
 }
 
-export declare class Query extends events.EventEmitter {
+export class Client extends ClientBase {
+    constructor(config?: string | ClientConfig);
+
+    end(): Promise<void>;
+    end(callback: (err: Error) => void): void;
+}
+
+export interface PoolClient extends ClientBase {
+    release(err?: Error): void;
+}
+
+export class Query extends events.EventEmitter {
     on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "end", listener: (result: ResultBuilder) => void): this;
 }
 
-export declare class Events extends events.EventEmitter {
+export class Events extends events.EventEmitter {
     on(event: "error", listener: (err: Error, client: Client) => void): this;
 }
 
 export const types: typeof pgTypes;
 
 export const defaults: Defaults & ClientConfig;
+
+import * as Pg from '.';
+
+export const native: typeof Pg | null;

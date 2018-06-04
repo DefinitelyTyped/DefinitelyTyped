@@ -1,7 +1,11 @@
-// Type definitions for DevExpress ASP.NET 16.1
+// Type definitions for DevExpress ASP.NET v172.6
 // Project: http://devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+/// <reference types="knockout"/>
+/// <reference types="jquery"/>
 
 /**
  * A client-side counterpart of the DashboardViewer extension.
@@ -41,7 +45,7 @@ interface ASPxClientDashboardItemUnderlyingData {
 interface ASPxClientDashboardItemRequestUnderlyingDataParameters {
     /**
      * Gets or sets an array of data member identifiers used to obtain underlying data.
-     * Value: An array of String objects that specify data member identifiers.
+     * Value: An array of string values that specify data member identifiers.
      */
     DataMembers: string[];
     /**
@@ -71,23 +75,23 @@ interface ASPxClientDashboardItemRequestUnderlyingDataCompleted {
     (data: ASPxClientDashboardItemUnderlyingData): void;
 }
 /**
- * References a method that will handle the ItemClick event.
+ * References a method that will handle the ItemClick events.
  */
 interface ASPxClientDashboardItemClickEventHandler<S> {
     /**
-     * References a method that will handle the ItemClick event.
+     * References a method that will handle the ItemClick events.
      * @param source The event source.
      * @param e A ASPxClientDashboardItemClickEventArgs object that contains event data.
      */
     (source: S, e: ASPxClientDashboardItemClickEventArgs): void;
 }
 /**
- * Provides data for the ItemClick event.
+ * Provides data for the ItemClick events.
  */
 interface ASPxClientDashboardItemClickEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the name of the dashboard item for which the event has been raised.
-     * Value: A String that is the dashboard item name.
+     * Value: A string value that is the dashboard item name.
      */
     ItemName: string;
     /**
@@ -115,28 +119,28 @@ interface ASPxClientDashboardItemClickEventArgs extends ASPxClientEventArgs {
     /**
      * Requests underlying data corresponding to the clicked visual element.
      * @param onCompleted A ASPxClientDashboardItemRequestUnderlyingDataCompleted object that references a method executed after the request is completed.
-     * @param dataMembers An array of String values that specify data members used to obtain underlying data.
+     * @param dataMembers (Optional) An array of string values that specify data members used to obtain underlying data. If this parameter is not specified, underlying data for all available data members will be requested.
      */
     RequestUnderlyingData(onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted, dataMembers: string[]): void;
 }
 /**
- * References a method that will handle the ItemVisualInteractivity event.
+ * References a method that will handle the ItemVisualInteractivity events.
  */
 interface ASPxClientDashboardItemVisualInteractivityEventHandler<S> {
     /**
-     * References a method that will handle the ItemVisualInteractivity event.
+     * References a method that will handle the ItemVisualInteractivity events.
      * @param source The event source.
      * @param e A ASPxClientDashboardItemVisualInteractivityEventArgs object containing event data.
      */
     (source: S, e: ASPxClientDashboardItemVisualInteractivityEventArgs): void;
 }
 /**
- * Provides data for the ItemVisualInteractivity event.
+ * Provides data for the ItemVisualInteractivity events.
  */
 interface ASPxClientDashboardItemVisualInteractivityEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the component name of the dashboard item for which the event was raised.
-     * Value: A String that is the component name of the dashboard item.
+     * Value: A string value that is the component name of the dashboard item.
      */
     ItemName: string;
     /**
@@ -177,23 +181,23 @@ interface ASPxClientDashboardItemVisualInteractivityEventArgs extends ASPxClient
     SetDefaultSelection(values: ASPxClientDashboardItemDataAxisPointTuple[]): void;
 }
 /**
- * References a method that will handle the ItemSelectionChanged event.
+ * References a method that will handle the ItemSelectionChanged events.
  */
 interface ASPxClientDashboardItemSelectionChangedEventHandler<S> {
     /**
-     * References a method that will handle the ItemSelectionChanged event.
+     * References a method that will handle the ItemSelectionChanged events.
      * @param source The event source.
      * @param e A ASPxClientDashboardItemSelectionChangedEventArgs object containing event data.
      */
     (source: S, e: ASPxClientDashboardItemSelectionChangedEventArgs): void;
 }
 /**
- * Provides data for the ItemSelectionChanged event.
+ * Provides data for the ItemSelectionChanged events.
  */
 interface ASPxClientDashboardItemSelectionChangedEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the component name of the dashboard item for which the event was raised.
-     * Value: A String that is the component name of the dashboard item.
+     * Value: A string that is the component name of the dashboard item.
      */
     ItemName: string;
     /**
@@ -206,19 +210,19 @@ interface ASPxClientDashboardItemSelectionChangedEventArgs extends ASPxClientEve
  */
 interface ASPxClientDashboardItemElementCustomColorEventHandler<S> {
     /**
-     * References a method that will handle the ItemElementCustomColor event.
+     * References a method that will handle the ItemElementCustomColor events.
      * @param source The event source.
      * @param e An ASPxClientDashboardItemElementCustomColorEventArgs object that contains event data.
      */
     (source: S, e: ASPxClientDashboardItemElementCustomColorEventArgs): void;
 }
 /**
- * Provides data for the ItemElementCustomColor event.
+ * Provides data for the ItemElementCustomColor events.
  */
 interface ASPxClientDashboardItemElementCustomColorEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the component name of the dashboard item for which the event was raised.
-     * Value: A String that is the component name of the dashboard item for which the event was raised.
+     * Value: A string value that is the component name of the dashboard item for which the event was raised.
      */
     ItemName: string;
     /**
@@ -240,11 +244,11 @@ interface ASPxClientDashboardItemElementCustomColorEventArgs extends ASPxClientE
     GetMeasures(): ASPxClientDashboardItemDataMeasure[];
 }
 /**
- * References a method that will handle the ItemWidgetCreated event.
+ * References a method that will handle the ItemWidgetCreated events.
  */
 interface ASPxClientDashboardItemWidgetCreatedEventHandler<S> {
     /**
-     * References a method that will handle the ItemWidgetCreated event.
+     * References a method that will handle the ItemWidgetCreated events.
      * @param source The event source.
      * @param e A ASPxClientDashboardItemWidgetEventArgs object that contains event data.
      */
@@ -273,11 +277,11 @@ interface ASPxClientDashboardItemWidgetUpdatedEventHandler<S> {
     (source: S, e: ASPxClientDashboardItemWidgetEventArgs): void;
 }
 /**
- * References a method that will handle the ItemBeforeWidgetDisposed event.
+ * References a method that will handle the ItemBeforeWidgetDisposed events.
  */
 interface ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<S> {
     /**
-     * References a method that will handle the ItemBeforeWidgetDisposed event.
+     * References a method that will handle the ItemBeforeWidgetDisposed events.
      * @param source The event source.
      * @param e A ASPxClientDashboardItemWidgetEventArgs object that contains event data.
      */
@@ -289,7 +293,7 @@ interface ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<S> {
 interface ASPxClientDashboardItemWidgetEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the component name of the dashboard item for which the event was raised.
-     * Value: A String that is the component name of the dashboard item.
+     * Value: A string value that is the component name of the dashboard item.
      */
     ItemName: string;
     /**
@@ -391,27 +395,27 @@ interface ASPxClientDashboardItemDataAxis {
 interface ASPxClientDashboardItemDataDimension {
     /**
      * Gets the dimension identifier.
-     * Value: A String that is the dimension identifier.
+     * Value: A string value that is the dimension identifier.
      */
     Id: string;
     /**
      * Gets or sets the name of the dimension.
-     * Value: A String that is the name of the dimension.
+     * Value: A string value that is the name of the dimension.
      */
     Name: string;
     /**
      * Gets the data member identifier for the current dimension.
-     * Value: A String value that identifies a data member.
+     * Value: A string value that identifies a data member.
      */
     DataMember: string;
     /**
      * Gets the group interval for date-time values for the current dimension.
-     * Value: A String value that represents how date-time values are grouped.
+     * Value: A string value that represents how date-time values are grouped.
      */
     DateTimeGroupInterval: string;
     /**
      * Gets the group interval for string values.
-     * Value: A String value that specifies the group interval for string values.
+     * Value: A string value that specifies the group interval for string values.
      */
     TextGroupInterval: string;
     /**
@@ -426,22 +430,22 @@ interface ASPxClientDashboardItemDataDimension {
 interface ASPxClientDashboardItemDataMeasure {
     /**
      * Gets the measure identifier.
-     * Value: A String that is the measure identifier.
+     * Value: A string value that is the measure identifier.
      */
     Id: string;
     /**
      * Gets the name of the measure.
-     * Value: A String that is the name of the measure.
+     * Value: A string value that is the name of the measure.
      */
     Name: string;
     /**
      * Gets the data member that identifies the data source list used to provide data for the current measure.
-     * Value: A String value that identifies the data source list used to provide data for the current measure.
+     * Value: A string value that identifies the data source list used to provide data for the current measure.
      */
     DataMember: string;
     /**
      * Gets the type of summary function calculated against the current measure.
-     * Value: A String value that identifies the type of summary function calculated against the current measure.
+     * Value: A string value that identifies the type of summary function calculated against the current measure.
      */
     SummaryType: string;
     /**
@@ -456,22 +460,22 @@ interface ASPxClientDashboardItemDataMeasure {
 interface ASPxClientDashboardItemDataDelta {
     /**
      * Gets the data item identifier.
-     * Value: A String that is the data item identifier.
+     * Value: A string that is the data item identifier.
      */
     Id: string;
     /**
      * Gets the name of the data item container.
-     * Value: A String value that is the name of the data item container.
+     * Value: A string value that is the name of the data item container.
      */
     Name: string;
     /**
      * Gets the identifier for the measure that provides actual values.
-     * Value: A String value that is the measure identifier.
+     * Value: A string value that is the measure identifier.
      */
     ActualMeasureId: string;
     /**
      * Gets the identifier for the measure that provides target values.
-     * Value: A String value that is the measure identifier.
+     * Value: A string value that is the measure identifier.
      */
     TargetMeasureId: string;
 }
@@ -551,6 +555,53 @@ interface ASPxClientDashboardItemDataDeltaValue {
     GetIndicatorType(): ASPxClientDashboardItemDataMeasureValue;
 }
 /**
+ * References a method that will handle the ItemCaptionToolbarUpdated event.
+ */
+interface ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<S> {
+    /**
+     * References a method that will handle the ItemCaptionToolbarUpdated event.
+     * @param source The event source.
+     * @param e The ASPxClientDashboardItemCaptionToolbarUpdatedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientDashboardItemCaptionToolbarUpdatedEventArgs): void;
+}
+/**
+ * Provides data for the ItemCaptionToolbarUpdated event.
+ */
+interface ASPxClientDashboardItemCaptionToolbarUpdatedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets a component name of the dashboard item.
+     * Value: A string value that is a component name of the dashboard item.
+     */
+    ItemName: string;
+    /**
+     * Provides access to caption options of the dashboard item.
+     * Value: A <a href="https://documentation.devexpress.com/ClientDashboard/api/DevExpress.Dashboard.DashboardItemCaptionToolbarOptions.html">DashboardItemCaptionToolbarOptions</a> object containing caption options of the dashboard item.
+     */
+    Options: Object;
+}
+/**
+ * References a method that will handle the DashboardTitleToolbarUpdated event.
+ */
+interface ASPxClientDashboardTitleToolbarUpdatedEventHandler<S> {
+    /**
+     * References a method that will handle the DashboardTitleToolbarUpdated event.
+     * @param source The event source.
+     * @param e A ASPxClientDashboardTitleToolbarUpdatedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientDashboardTitleToolbarUpdatedEventArgs): void;
+}
+/**
+ * Provides data for the DashboardTitleToolbarUpdated event.
+ */
+interface ASPxClientDashboardTitleToolbarUpdatedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to dashboard title options.
+     * Value: A <a href="https://documentation.devexpress.com/ClientDashboard/api/DevExpress.Dashboard.DashboardTitleToolbarOptions.html">DashboardTitleToolbarOptions</a> object containing dashboard title options.
+     */
+    Options: Object;
+}
+/**
  * A point on the data axis.
  */
 interface ASPxClientDashboardItemDataAxisPoint {
@@ -611,55 +662,1064 @@ interface ASPxClientDashboardItemDataAxisPointTuple {
     GetAxisPoint(axisName: string): ASPxClientDashboardItemDataAxisPoint;
 }
 /**
- * A client-side equivalent of the ASPxDashboardDesigner control.
+ * A range in the Range Filter dashboard item.
  */
-interface ASPxClientDashboardDesigner extends ASPxClientControl {
+interface ASPxClientDashboardRangeFilterSelection {
     /**
-     * Occurs after the state of the dashboard displayed in the ASPxClientDashboardDesigner is changed.
+     * Gets or sets a maximum value in the range of the Range Filter dashboard item.
+     * Value: A maximum value in the range of the Range Filter dashboard item.
      */
-    DashboardStateChanged: ASPxClientEvent<ASPxClientDashboardStateChangedEventHandler<ASPxClientDashboardDesigner>>;
+    Maximum: Object;
     /**
-     * Occurs after another dashboard is loaded to the ASPxClientDashboardDesigner.
+     * Gets or sets a minimum value in the range of the Range Filter dashboard item.
+     * Value: A minimum value in the range of the Range Filter dashboard item.
      */
-    DashboardChanged: ASPxClientEvent<ASPxClientDashboardChangedEventHandler<ASPxClientDashboardDesigner>>;
+    Minimum: Object;
+}
+/**
+ * A collection of ASPxClientDashboardParameter objects.
+ */
+interface ASPxClientDashboardParameters {
+    /**
+     * Returns an array of dashboard parameters from the ASPxClientDashboardParameters collection.
+     */
+    GetParameterList(): ASPxClientDashboardParameter[];
+    /**
+     * Returns a dashboard parameter by its name.
+     * @param name A String object that specifies the parameter name.
+     */
+    GetParameterByName(name: string): ASPxClientDashboardParameter;
+    /**
+     * Returns a dashboard parameter by its index in the ASPxClientDashboardParameters collection.
+     * @param index An integer value that specifies the parameter index.
+     */
+    GetParameterByIndex(index: number): ASPxClientDashboardParameter;
+}
+/**
+ * A client-side dashboard parameter.
+ */
+interface ASPxClientDashboardParameter {
+    /**
+     * Gets the dashboard parameter name on the client side.
+     * Value: A string value that is the dashboard parameter name on the client side.
+     */
+    Name: string;
+    /**
+     * Gets the dashboard parameter value on the client side.
+     * Value: A string value that specifies the dashboard parameter value on the client side.
+     */
+    Value: Object;
+    /**
+     * Returns a parameter name.
+     */
+    GetName(): string;
+    /**
+     * Returns a current parameter value(s).
+     */
+    GetValue(): Object;
+    /**
+     * Specifies the current parameter value(s).
+     * @param value The current parameter value(s).
+     */
+    SetValue(value: Object): void;
+    /**
+     * Returns a default parameter value.
+     */
+    GetDefaultValue(): Object;
+    /**
+     * Returns the parameter's description displayed to an end-user.
+     */
+    GetDescription(): string;
+    /**
+     * Returns a parameter type.
+     */
+    GetType(): string;
+    /**
+     * Returns possible parameter values.
+     */
+    GetValues(): ASPxClientDashboardParameterValue[];
+}
+/**
+ * Provides access to the parameter value and display text.
+ */
+interface ASPxClientDashboardParameterValue {
+    /**
+     * Returns the parameter display text.
+     */
+    GetDisplayText(): string;
+    /**
+     * Returns a parameter value.
+     */
+    GetValue(): Object;
+}
+/**
+ * Contains settings that specify parameters affecting how the dashboard or dashboard item is exported in Image format.
+ */
+interface ImageFormatOptions {
+    /**
+     * Gets or sets an image format in which the dashboard (dashboard item) is exported.
+     * Value: A value returned by the DashboardExportImageFormat class that specifies an image format in which the dashboard (dashboard item) is exported.
+     */
+    Format: string;
+    /**
+     * Gets or sets the resolution (in dpi) used to export a dashboard (dashboard item) in Image format.
+     * Value: An integer value that specifies the resolution (in dpi) used to export a dashboard (dashboard item) in Image format.
+     */
+    Resolution: number;
+}
+/**
+ * Contains options which define how the dashboard item is exported to Excel format.
+ */
+interface ExcelFormatOptions {
+    /**
+     * Gets or sets the Excel format in which the dashboard item is exported.
+     * Value: A value returned by the DashboardExportExcelFormat class that specifies the Excel format in which the dashboard item is exported.
+     */
+    Format: string;
+    /**
+     * Gets or sets a character used to separate values in a CSV document.
+     * Value: A string value that specifies the character used to separate values in a CSV document.
+     */
+    CsvValueSeparator: string;
+}
+/**
+ * Contains settings that specify parameters affecting how the Grid dashboard item is exported.
+ */
+interface GridExportOptions {
+    /**
+     * Gets or sets whether the size of the Grid dashboard item is changed according to the width of the exported page.
+     * Value: true, to change the size of the Grid dashboard item according to the width of the exported page; otherwise, false.
+     */
+    FitToPageWidth: boolean;
+    /**
+     * Gets or sets whether to print column headers of the Grid dashboard item on every page.
+     * Value: true, to print column headers on every page; otherwise, false.
+     */
+    PrintHeadersOnEveryPage: boolean;
+}
+/**
+ * Contains settings that specify parameters affecting how the Pivot dashboard item is exported.
+ */
+interface PivotExportOptions {
+    /**
+     * Gets or sets whether to print the column headers of the Pivot dashboard item on every page.
+     * Value: true, to print column headers on every page; otherwise, false.
+     */
+    PrintHeadersOnEveryPage: boolean;
+}
+/**
+ * Contains settings that specify parameters affecting how the Pie dashboard item is exported.
+ */
+interface PieExportOptions {
+    /**
+     * Gets or sets whether dashboard item elements are arranged automatically on the exported page.
+     * Value: true, to arrange dashboard item elements automatically on the exported page; otherwise, false.
+     */
+    AutoArrangeContent: boolean;
+}
+/**
+ * Contains settings that specify parameters affecting how the Gauge dashboard item is exported.
+ */
+interface GaugeExportOptions {
+    /**
+     * Gets or sets whether dashboard item elements are arranged automatically on the exported page.
+     * Value: true, to arrange dashboard item elements automatically on the exported page; otherwise, false.
+     */
+    AutoArrangeContent: boolean;
+}
+/**
+ * Contains settings that specify parameters affecting how the Card dashboard item is exported.
+ */
+interface CardExportOptions {
+    /**
+     * Gets or sets whether dashboard item elements are arranged automatically on the exported page.
+     * Value: true, to arrange dashboard item elements automatically on the exported page; otherwise, false.
+     */
+    AutoArrangeContent: boolean;
+}
+/**
+ * Contains settings that specify parameters affecting how the Range Filter dashboard item is exported.
+ */
+interface RangeFilterExportOptions {
+    /**
+     * Gets or sets whether the page orientation used to export a Range Filter dashboard item is selected automatically.
+     * Value: true, to automatically select the page orientation used to export a Range Filter dashboard item; otherwise, false.
+     */
+    AutomaticPageLayout: boolean;
+    /**
+     * Gets or sets the export size mode for the Range Filter dashboard item.
+     * Value: A value returned by the RangeFilterExportSizeMode class that specifies the export size mode for the Range Filter dashboard item.
+     */
+    SizeMode: string;
+}
+/**
+ * Contains settings that specify parameters affecting how Chart dashboard items are exported.
+ */
+interface ChartExportOptions {
+    /**
+     * Gets or sets whether the page orientation used to export a Chart dashboard item is selected automatically.
+     * Value: true, to automatically select the page orientation used to export a Chart dashboard item; otherwise, false.
+     */
+    AutomaticPageLayout: boolean;
+    /**
+     * Gets or sets the export size mode for the Chart dashboard item.
+     * Value: A value returned by the ChartExportSizeMode class that specifies the export size mode for the Chart dashboard item.
+     */
+    SizeMode: string;
+}
+/**
+ * Contains settings that specify parameters affecting how Map dashboard items are exported.
+ */
+interface MapExportOptions {
+    /**
+     * Gets or sets whether the page orientation used to export a map dashboard item is selected automatically.
+     * Value: true, to automatically select the page orientation used to export a map dashboard item; otherwise, false.
+     */
+    AutomaticPageLayout: boolean;
+    /**
+     * Gets or sets the export size mode for the map dashboard item.
+     * Value: A value returned by the MapExportSizeMode class that specifies specifies the export size mode for the map dashboard item.
+     */
+    SizeMode: string;
+}
+/**
+ * Contains settings that specify parameters affecting how the dashboard (dashboard item) is exported.
+ */
+interface ASPxClientDashboardExportOptions {
+    /**
+     * Gets or sets the standard paper size.
+     * Value: A string value returned by the DashboardExportPaperKind class that specifies the standard paper size.
+     */
+    PaperKind: string;
+    /**
+     * Gets or sets the page orientation used to export a dashboard (dashboard item).
+     * Value: A string value returned by the DashboardExportPageLayout class that specifies the page orientation used to export a dashboard (dashboard item).
+     */
+    PageLayout: string;
+    /**
+     * Gets or sets the mode for scaling when exporting a dashboard (dashboard item).
+     * Value: A string value returned by the DashboardExportScaleMode class that specifies the mode for scaling when exporting a dashboard (dashboard item).
+     */
+    ScaleMode: string;
+    /**
+     * Gets or sets the scale factor (in fractions of 1) by which a dashboard (dashboard item) is scaled.
+     * Value: A Single value that specifies the scale factor by which a dashboard (dashboard item) is scaled.
+     */
+    ScaleFactor: number;
+    /**
+     * Gets or sets the number of horizontal/vertical pages spanning the total width/height of a dashboard (dashboard item).
+     * Value: An integer value that specifies the number of horizontal/vertical pages spanning the total width/height of a dashboard (dashboard item).
+     */
+    AutoFitPageCount: number;
+    /**
+     * Gets or sets the title of the exported document.
+     * Value: A string value that specifies the title of the exported document.
+     */
+    Title: string;
+    /**
+     * Gets or sets whether a dashboard title (or dashboard item's caption) is included as the exported document title.
+     * Value: A boolean value that specifies whether a dashboard title (or dashboard item's caption) is included as the exported document title.
+     */
+    ShowTitle: boolean;
+    /**
+     * Gets or sets the filter state's location on the exported document.
+     * Value: A string value returned by the DashboardExportFilterState class that specifies the filter state's location on the exported document.
+     */
+    FilterState: string;
+    /**
+     * Provides access to options for exporting a dashboard or individual items in Image format.
+     * Value: An ImageFormatOptions object containing settings that specify parameters affecting how the dashboard or dashboard item is exported in Image format.
+     */
+    ImageOptions: ImageFormatOptions;
+    /**
+     * Provides access to options for exporting individual dashboard items in Excel format.
+     * Value: An ExcelFormatOptions object containing settings that specify parameters affecting how the dashboard item is exported in Excel format.
+     */
+    ExcelOptions: ExcelFormatOptions;
+    /**
+     * Provides access to options for exporting a Grid dashboard item.
+     * Value: A GridExportOptions object containing settings that specify parameters that affect how Grid dashboard items are exported.
+     */
+    GridOptions: GridExportOptions;
+    /**
+     * Provides access to options for exporting a Pivot dashboard item.
+     * Value: A PivotExportOptions object containing settings that specify parameters that affect how Pivot dashboard items are exported.
+     */
+    PivotOptions: PivotExportOptions;
+    /**
+     * Provides access to options for exporting a Pie dashboard item.
+     * Value: A PieExportOptions object containing settings that specify parameters that affect how Pie dashboard items are exported.
+     */
+    PieOptions: PieExportOptions;
+    /**
+     * Provides access to options for exporting a Gauge dashboard item.
+     * Value: A GaugeExportOptions object containing settings that specify parameters that affect how Gauge dashboard items are exported.
+     */
+    GaugeOptions: GaugeExportOptions;
+    /**
+     * Provides access to options for exporting a Card dashboard item.
+     * Value: A CardExportOptions object containing settings that specify parameters that affect how Card dashboard items are exported.
+     */
+    CardOptions: CardExportOptions;
+    /**
+     * Provides access to options for exporting a Range Filter dashboard item.
+     * Value: A RangeFilterExportOptions object containing settings that specify parameters affecting how the Range Filter dashboard item is exported.
+     */
+    RangeFilterOptions: RangeFilterExportOptions;
+    /**
+     * Provides access to options for exporting a Chart dashboard item.
+     * Value: A ChartExportOptions object containing settings that specify parameters that affect how Chart dashboard items are exported.
+     */
+    ChartOptions: ChartExportOptions;
+    /**
+     * Provides access to options for exporting map dashboard items.
+     * Value: A MapExportOptions object containing settings that specify parameters that affect how map dashboard items are exported.
+     */
+    MapOptions: MapExportOptions;
+}
+/**
+ * Contains options related to exporting a dashboard/dashboard item to the PDF format.
+ */
+interface DashboardPdfExportOptions {
+    /**
+     * Gets or sets the type of paper for the exported document.
+     * Value: A DashboardExportPaperKind value that specifies the type of paper for the exported document.
+     */
+    PaperKind: string;
+    /**
+     * Gets or sets the page orientation used to export a dashboard/dashboard item.
+     * Value: A DashboardExportPageLayout value that specifies the page orientation used to export a dashboard/dashboard item.
+     */
+    PageLayout: string;
+    /**
+     * Gets or sets the mode for scaling a dashboard/dashboard item in the exported document.
+     * Value: A DashboardExportScaleMode value that specifies the mode for scaling a dashboard/dashboard item in the exported document.
+     */
+    ScaleMode: string;
+    /**
+     * Gets or sets the mode for scaling a dashboard/dashboard item in the exported document.
+     * Value: A DashboardExportDocumentScaleMode value that specifies the mode for scaling a dashboard/dashboard item in the exported document.
+     */
+    DocumentScaleMode: string;
+    /**
+     * Gets or sets whether the page orientation used to export a dashboard is selected automatically.
+     * Value: true, to automatically select the page orientation used to export a dashboard; otherwise, false.
+     */
+    DashboardAutomaticPageLayout: boolean;
+    /**
+     * Gets or sets the scale factor (in fractions of 1), by which a dashboard/dashboard item is scaled in the exported document.
+     * Value: A Single value that specifies the scale factor by which a dashboard/dashboard item is scaled in the exported document.
+     */
+    ScaleFactor: number;
+    /**
+     * Gets or sets the number of horizontal/vertical pages spanning the total width/height of a dashboard/dashboard item.
+     * Value: An integer value that specifies the number of horizontal/vertical pages spanning the total width/height of a dashboard/dashboard item.
+     */
+    AutoFitPageCount: number;
+    /**
+     * Gets or sets the title of the exported document.
+     * Value: A string value that specifies the title of the exported document.
+     */
+    Title: string;
+    /**
+     * Gets or sets whether a dashboard title (or dashboard item's caption) is included as the exported document title.
+     * Value: A boolean value that specifies whether a dashboard title (or dashboard item's caption) is included as the exported document title.
+     */
+    ShowTitle: boolean;
+    /**
+     * Gets or sets whether to add the state of master filter items to the exported document.
+     * Value: true, to add the state of master filter items to the exported document; otherwise, false.
+     */
+    ExportFilters: boolean;
+    /**
+     * Gets or sets whether to add current parameter values to the exported document.
+     * Value: true, to add current parameter values to the exported document; otherwise, false.
+     */
+    ExportParameters: boolean;
+    /**
+     * Gets or sets whether to add current values of a hidden parameter to the exported document.
+     * Value: true, to add current values of a hidden parameter to the exported document; otherwise, false.
+     */
+    IncludeHiddenParameters: boolean;
+    /**
+     * Gets or sets a position of the dashboard state (such as master filter or current parameter values) in the exported document.
+     * Value: A DashboardStateExportPosition object that specifies the position of the dashboard state in the exported document.
+     */
+    DashboardStatePosition: string;
+    /**
+     * Gets or sets whether cards within the Card dashboard item are arranged automatically on the exported page.
+     * Value: true, to arrange cards automatically on the exported page; otherwise, false.
+     */
+    CardAutoArrangeContent: boolean;
+    /**
+     * Gets or sets whether the page orientation used to export the Chart dashboard item is selected automatically.
+     * Value: true, to automatically select the page orientation used to export the Chart dashboard item; otherwise, false.
+     */
+    ChartAutomaticPageLayout: boolean;
+    /**
+     * Gets or sets the export size mode for the Chart dashboard item.
+     * Value: A ChartExportSizeMode value that specifies the export size mode for the Chart dashboard item.
+     */
+    ChartSizeMode: string;
+    /**
+     * Gets or sets whether gauges within the Gauge dashboard item are arranged automatically on the exported page.
+     * Value: true, to arrange gauges automatically on the exported page; otherwise, false.
+     */
+    GaugeAutoArrangeContent: boolean;
+    /**
+     * Gets or sets whether the size of the Grid dashboard item is changed according to the width of the exported page.
+     * Value: true, to change the size of the Grid dashboard item according to the width of the exported page; otherwise, false.
+     */
+    GridFitToPageWidth: boolean;
+    /**
+     * Gets or sets whether to add column headers of the Grid dashboard item to every page.
+     * Value: true, to add column headers to every page; otherwise, false.
+     */
+    GridPrintHeadersOnEveryPage: boolean;
+    /**
+     * Gets or sets whether the page orientation used to export the Map dashboard item is selected automatically.
+     * Value: true, to automatically select the page orientation used to export the Map dashboard item; otherwise, false.
+     */
+    MapAutomaticPageLayout: boolean;
+    /**
+     * Gets or sets the export size mode for the Map dashboard item.
+     * Value: A MapExportSizeMode value that specifies the export size mode for the Map dashboard item.
+     */
+    MapSizeMode: string;
+    /**
+     * Gets or sets whether pies within the Pie dashboard item are arranged automatically on the exported page.
+     * Value: true, to arrange pies automatically on the exported page; otherwise, false.
+     */
+    PieAutoArrangeContent: boolean;
+    /**
+     * Gets or sets whether to add column headers of the Pivot dashboard item to every page.
+     * Value: true, to add column headers to every page; otherwise, false.
+     */
+    PivotPrintHeadersOnEveryPage: boolean;
+    /**
+     * Gets or sets whether the page orientation used to export the Range Filter dashboard item is selected automatically.
+     * Value: true, to automatically select the page orientation used to export the Range Filter dashboard item; otherwise, false.
+     */
+    RangeFilterAutomaticPageLayout: boolean;
+    /**
+     * Gets or sets the export size mode for the Range Filter dashboard item.
+     * Value: A RangeFilterExportSizeMode value that specifies the export size mode for the Range Filter dashboard item.
+     */
+    RangeFilterSizeMode: string;
+    /**
+     * Gets or sets whether the page orientation used to export the Treemap dashboard item is selected automatically.
+     * Value: true, to automatically select the page orientation used to export the Treemap dashboard item; otherwise, false.
+     */
+    TreemapAutomaticPageLayout: boolean;
+    /**
+     * Gets or sets the export size mode for the Treemap dashboard item.
+     * Value: A TreemapExportSizeMode value that specifies the export size mode for the Treemap dashboard item.
+     */
+    TreemapSizeMode: string;
+}
+/**
+ * Contains options related to exporting a dashboard/dashboard item to an image.
+ */
+interface DashboardImageExportOptions {
+    /**
+     * Gets or sets a title of the exported document.
+     * Value: A string value that specifies the title of the exported document.
+     */
+    Title: string;
+    /**
+     * Gets or sets whether a dashboard title (or dashboard item's caption) is included as the exported document title.
+     * Value: true, to include a dashboard title (or dashboard item's caption) as the exported document title; otherwise, false.
+     */
+    ShowTitle: boolean;
+    /**
+     * Gets or sets whether to add the state of master filter items to the exported document.
+     * Value: true, to add the state of master filter items to the exported document; otherwise, false.
+     */
+    ExportFilters: boolean;
+    /**
+     * Gets or sets whether to add current parameter values to the exported document.
+     * Value: true, to add current parameter values to the exported document; otherwise, false.
+     */
+    ExportParameters: boolean;
+    /**
+     * Gets or sets whether to add current values of a hidden parameter to the exported document.
+     * Value: true, to add current values of a hidden parameter to the exported document; otherwise, false.
+     */
+    IncludeHiddenParameters: boolean;
+    /**
+     * Gets or sets an image format in which the dashboard/dashboard item is exported.
+     * Value: A DashboardExportImageFormat value that specifies an image format in which the dashboard/dashboard item is exported.
+     */
+    Format: string;
+    /**
+     * Gets or sets the resolution (in dpi) used to export a dashboard/dashboard item to an image.
+     * Value: An integer value that specifies the resolution (in dpi) used to export a dashboard/dashboard item to an image.
+     */
+    Resolution: number;
+    /**
+     * Gets or sets the scale factor (in fractions of 1), by which a dashboard/dashboard item is scaled in the exported document.
+     * Value: A string value that specifies the scale factor by which a dashboard/dashboard item is scaled in the exported document.
+     */
+    ScaleFactor: number;
+}
+/**
+ * Contains options related to exporting a dashboard/dashboard item to the Excel format.
+ */
+interface DashboardExcelExportOptions {
+    /**
+     * Gets or sets the Excel format in which the dashboard item is exported.
+     * Value: A DashboardExportExcelFormat value that specifies the Excel format in which the dashboard item is exported.
+     */
+    Format: string;
+    /**
+     * Gets or sets a character used to separate values in a CSV document.
+     * Value: A string value that specifies the character used to separate values in a CSV document.
+     */
+    CsvValueSeparator: string;
+    /**
+     * Gets or sets whether to add the state of master filter items to the exported document.
+     * Value: true, to add the state of master filter items to the exported document; otherwise, false.
+     */
+    ExportFilters: boolean;
+    /**
+     * Gets or sets whether to add current parameter values to the exported document.
+     * Value: true, to add current parameter values to the exported document; otherwise, false.
+     */
+    ExportParameters: boolean;
+    /**
+     * Gets or sets whether to add current values of a hidden parameter to the exported document.
+     * Value: true, to add current values of a hidden parameter to the exported document; otherwise, false.
+     */
+    IncludeHiddenParameters: boolean;
+    /**
+     * Gets or sets the position of the dashboard state (such as master filter or current parameter values) in the exported document.
+     * Value: A DashboardStateExcelExportPosition object that specifies the position of the dashboard state in the exported document.
+     */
+    DashboardStatePosition: string;
+}
+/**
+ * A client-side equivalent of the ASPxDashboard control.
+ */
+interface ASPxClientDashboard extends ASPxClientControl {
+    /**
+     * Fires when a round trip to the server has been initiated by a call to the client PerformDataCallback method.
+     */
+    CustomDataCallback: ASPxClientEvent<ASPxClientCustomDataCallbackEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs on the client side after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs after the state of the dashboard displayed in the ASPxClientDashboard is changed.
+     */
+    DashboardStateChanged: ASPxClientEvent<ASPxClientDashboardStateChangedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs after a new dashboard is displayed in the ASPxClientDashboard.
+     */
+    DashboardChanged: ASPxClientEvent<ASPxClientDashboardChangedEventHandler<ASPxClientDashboard>>;
     /**
      * For internal use.
      */
-    CustomizeMenuItems: ASPxClientEvent<ASPxClientDashboardDesignerCustomizeMenuItemsEventHandler<ASPxClientDashboardDesigner>>;
-    BeforeRender: ASPxClientEvent<ASPxClientDashboardDesignerBeforeRenderEventHandler<ASPxClientDashboardDesigner>>;
+    CustomizeMenuItems: ASPxClientEvent<ASPxClientDashboardCustomizeMenuItemsEventHandler<ASPxClientDashboard>>;
     /**
-     * Switches the ASPxClientDashboardDesigner to the viewer mode.
+     * Occurs before any element in the Web Dashboard control has been rendered.
+     */
+    BeforeRender: ASPxClientEvent<ASPxClientDashboardBeforeRenderEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs when an end-user clicks a dashboard item.
+     */
+    ItemClick: ASPxClientEvent<ASPxClientDashboardItemClickEventHandler<ASPxClientDashboard>>;
+    /**
+     * Allows you to provide custom visual interactivity for data-bound dashboard items that support element selection and highlighting.
+     */
+    ItemVisualInteractivity: ASPxClientEvent<ASPxClientDashboardItemVisualInteractivityEventHandler<ASPxClientDashboard>>;
+    /**
+     * Allows you to access underlying UI/Data Visualization widgets.
+     */
+    ItemWidgetCreated: ASPxClientEvent<ASPxClientDashboardItemWidgetCreatedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Allows you to access underlying UI/Data Visualization widgets.
+     */
+    ItemWidgetUpdating: ASPxClientEvent<ASPxClientDashboardItemWidgetUpdatingEventHandler<ASPxClientDashboard>>;
+    /**
+     * Allows you to access underlying UI/Data Visualization widgets.
+     */
+    ItemWidgetUpdated: ASPxClientEvent<ASPxClientDashboardItemWidgetUpdatedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Allows you to access underlying UI/Data Visualization widgets.
+     */
+    ItemBeforeWidgetDisposed: ASPxClientEvent<ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs after the selection within the dashboard item is changed.
+     */
+    ItemSelectionChanged: ASPxClientEvent<ASPxClientDashboardItemSelectionChangedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Allows you to color the required dashboard item elements using the specified colors.
+     */
+    ItemElementCustomColor: ASPxClientEvent<ASPxClientDashboardItemElementCustomColorEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs when a master filter state is changed.
+     */
+    ItemMasterFilterStateChanged: ASPxClientEvent<ASPxClientDashboardItemMasterFilterStateChangedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs when a drill-down/drill-up is performed.
+     */
+    ItemDrillDownStateChanged: ASPxClientEvent<ASPxClientDashboardItemDrillDownStateChangedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs after the available interactivity actions have changed for the specific dashboard item.
+     */
+    ActionAvailabilityChanged: ASPxClientEvent<ASPxClientActionAvailabilityChangedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs after parameter values provided using a Dynamic List are loaded.
+     */
+    DynamicLookUpValuesLoaded: ASPxClientEvent<ASPxClientDynamicLookUpValuesLoadedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs when a dashboard item update is initiated.
+     */
+    ItemBeginUpdate: ASPxClientEvent<ASPxClientItemBeginUpdateEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs after the dashboard item update is performed.
+     */
+    ItemEndUpdate: ASPxClientEvent<ASPxClientItemEndUpdateEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs when a dashboard update is initiated.
+     */
+    DashboardBeginUpdate: ASPxClientEvent<ASPxClientDashboardBeginUpdateEventHandler<ASPxClientDashboard>>;
+    /**
+     * Occurs after the dashboard update is performed.
+     */
+    DashboardEndUpdate: ASPxClientEvent<ASPxClientDashboardEndUpdateEventHandler<ASPxClientDashboard>>;
+    /**
+     * Allows you to customize a dashboard item's caption (for instance, add custom buttons, menus, etc.).
+     */
+    ItemCaptionToolbarUpdated: ASPxClientEvent<ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Allows you to customize a dashboard title (for instance, add custom buttons, menus, etc.).
+     */
+    DashboardTitleToolbarUpdated: ASPxClientEvent<ASPxClientDashboardTitleToolbarUpdatedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Returns names of the predefined ranges available for the specified Range Filter.
+     * @param itemName A string value that specifies the component name of the Range Filter dashboard item.
+     */
+    GetAvailablePredefinedRanges(itemName: string): string[];
+    /**
+     * Returns the name of the currently selected predefined range.
+     * @param itemName A string value that specifies the component name of the Range Filter dashboard item.
+     */
+    GetCurrentPredefinedRange(itemName: string): string;
+    /**
+     * 
+     * @param itemName 
+     */
+    UpdateItemCaptionToolbar(itemName: string): void;
+    UpdateDashboardTitleToolbar(): void;
+    /**
+     * Sends a callback to the server and generates the server-side CustomDataCallback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomDataCallback event.
+     * @param onCallback A ASPxClientDataCallback object that represents the JavaScript function which receives the callback data as a parameter.
+     */
+    PerformDataCallback(parameter: string, onCallback: ASPxClientDataCallback): void;
+    /**
+     * Gets the DashboardControl object that is the client-side part of the Web Dashboard.
+     */
+    GetDashboardControl(): DashboardControl;
+    /**
+     * Switches the ASPxClientDashboard to the viewer mode.
      */
     SwitchToViewer(): void;
     /**
-     * Switches the ASPxClientDashboardDesigner to the designer mode.
+     * Switches the ASPxClientDashboard to the designer mode.
      */
     SwitchToDesigner(): void;
     /**
-     * Gets the current working mode of the Web Designer.
+     * Gets the current working mode of the Web Dashboard.
      */
     GetWorkingMode(): string;
     /**
-     * Gets the identifier of the dashboard that is displayed in the ASPxClientDashboardDesigner.
+     * Gets the identifier of the dashboard that is displayed in the ASPxClientDashboard.
      */
     GetDashboardId(): string;
     /**
-     * Gets the name of the dashboard that is displayed in the ASPxClientDashboardDesigner.
+     * Gets the name of the dashboard that is displayed in the ASPxClientDashboard.
      */
     GetDashboardName(): string;
     /**
-     * Gets the state of the dashboard (for instance, the master filtering state) displayed in the ASPxClientDashboardDesigner.
+     * Gets the state of the dashboard displayed in the ASPxClientDashboard.
      */
     GetDashboardState(): string;
     /**
-     * Loads a dashboard with the specified identifier.
-     * @param dashboardId A String value that specifies the dashboard identifier.
+     * Sets the state of the dashboard displayed in the ASPxClientDashboard.
+     * @param dashboardState A JSON object that specifies the dashboard state.
+     */
+    SetDashboardState(dashboardState: Object): void;
+    /**
+     * Sets the state of the dashboard displayed in the ASPxClientDashboard.
+     * @param dashboardStateString A string value that specifies the state of the dashboard displayed in the ASPxClientDashboard.
+     */
+    SetDashboardState(dashboardStateString: string): void;
+    /**
+     * Loads a dashboard with the specified identifier from the dashboard storage.
+     * @param dashboardId A string value that specifies the dashboard identifier.
      */
     LoadDashboard(dashboardId: string): void;
     /**
-     * Saves a dashboard to the dashboard storage.
+     * Saves a current dashboard to the dashboard storage.
      */
     SaveDashboard(): void;
+    /**
+     * Invokes the Dashboard Parameters dialog.
+     */
+    ShowParametersDialog(): void;
+    /**
+     * Closes the Dashboard Parameters dialog.
+     */
+    HideParametersDialog(): void;
+    /**
+     * Returns dashboard parameter settings and metadata.
+     */
+    GetParameters(): ASPxClientDashboardParameters;
+    /**
+     * Invokes the dialog that allows end-users to export the entire dashboard to the specified format.
+     * @param format A string value that specifies the format. For instance, you can use 'PDF', 'Image', or 'Excel'.
+     */
+    ShowExportDashboardDialog(format: string): void;
+    /**
+     * Invokes the dialog that allows end-users to export the dashboard item to the specified format.
+     * @param itemComponentName A string value that specifies the component name of the dashboard item to export.
+     * @param format A string value that specifies the format. For instance, you can use 'PDF, 'Image' or 'Excel'. Note that some items (i.e., ImageDashboardItem) do not support exporting to the 'Excel' format.
+     */
+    ShowExportDashboardItemDialog(itemComponentName: string, format: string): void;
+    /**
+     * Hides the dialog that allows end-users to export the dashboard/dashboard item.
+     */
+    HideExportDialog(): void;
+    /**
+     * Returns settings that specify parameters affecting how the dashboard is exported.
+     */
+    GetExportOptions(): ASPxClientDashboardExportOptions;
+    /**
+     * Allows you to obtain options related to exporting a dashboard/dashboard item to the PDF format.
+     */
+    GetPdfExportOptions(): DashboardPdfExportOptions;
+    /**
+     * Allows you to obtain options related to exporting a dashboard/dashboard item to an image.
+     */
+    GetImageExportOptions(): DashboardImageExportOptions;
+    /**
+     * Allows you to obtain options related to exporting a dashboard/dashboard item to the Excel format.
+     */
+    GetExcelExportOptions(): DashboardExcelExportOptions;
+    /**
+     * Specifies settings that specify parameters affecting how the dashboard is exported.
+     * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
+     */
+    SetExportOptions(options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Allows you to specify options related to exporting a dashboard/dashboard item to the PDF format.
+     * @param options A DashboardPdfExportOptions object containing options related to exporting a dashboard/dashboard item to the PDF format.
+     */
+    SetPdfExportOptions(options: DashboardPdfExportOptions): void;
+    /**
+     * Allows you to specify options related to exporting a dashboard/dashboard item to an image.
+     * @param options A DashboardImageExportOptions object containing options related to exporting a dashboard/dashboard item to an image.
+     */
+    SetImageExportOptions(options: DashboardImageExportOptions): void;
+    /**
+     * Allows you to specify options related to exporting a dashboard/dashboard item to the Excel format.
+     * @param options A DashboardExcelExportOptions object containing options related to exporting a dashboard item to the Excel format.
+     */
+    SetExcelExportOptions(options: DashboardExcelExportOptions): void;
+    /**
+     * Exports a dashboard to a PDF file and writes it to the Response.
+     */
+    ExportToPdf(): void;
+    /**
+     * Exports a dashboard to a PDF file with the specified export options and writes it to the Response.
+     * @param options A DashboardPdfExportOptions object containing PDF-specific export options.
+     */
+    ExportToPdf(options: DashboardPdfExportOptions): void;
+    /**
+     * Exports a dashboard to a PDF file with the specified export options and writes it to the Response.
+     * @param options A DashboardPdfExportOptions object containing PDF-specific export options.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportToPdf(options: DashboardPdfExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard to a PDF file with the specified export options and writes it to the Response.
+     * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
+     */
+    ExportToPdf(options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Exports a dashboard to a PDF file with the specified export options and writes it to the Response.
+     * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportToPdf(options: ASPxClientDashboardExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard to an Image file and writes it to the Response.
+     */
+    ExportToImage(): void;
+    /**
+     * Exports a dashboard to an Image file with the specified export options and writes it to the Response.
+     * @param options A DashboardImageExportOptions object containing image-specific export options.
+     */
+    ExportToImage(options: DashboardImageExportOptions): void;
+    /**
+     * Exports a dashboard to an Image file with the specified export options and writes it to the Response.
+     * @param options A DashboardImageExportOptions object containing image-specific export options.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportToImage(options: DashboardImageExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard to an Image file with the specified export options and writes it to the Response.
+     * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
+     */
+    ExportToImage(options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Exports a dashboard to an Image file with the specified export options and writes it to the Response.
+     * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportToImage(options: ASPxClientDashboardExportOptions, fileName: string): void;
+    /**
+     * Exports dashboard data to the specified file in Excel format.
+     */
+    ExportToExcel(): void;
+    /**
+     * Exports dashboard data to the specified file in Excel format.
+     * @param options A DashboardExcelExportOptions object containing Excel-specific options.
+     */
+    ExportToExcel(options: DashboardExcelExportOptions): void;
+    /**
+     * Exports dashboard data to the specified file in Excel format.
+     * @param options A DashboardExcelExportOptions object containing Excel-specific options.
+     * @param fileName A string value that specifies the name of the exported file.
+     */
+    ExportToExcel(options: DashboardExcelExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard item to a PDF file and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     */
+    ExportDashboardItemToPdf(itemName: string): void;
+    /**
+     * Exports a dashboard item to a PDF file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardPdfExportOptions object containing PDF-specific export options.
+     */
+    ExportDashboardItemToPdf(itemName: string, options: DashboardPdfExportOptions): void;
+    /**
+     * Exports a dashboard item to a PDF file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardPdfExportOptions object containing PDF-specific export options.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportDashboardItemToPdf(itemName: string, options: DashboardPdfExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard item to a PDF file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
+     */
+    ExportDashboardItemToPdf(itemName: string, options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Exports a dashboard item to a PDF file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportDashboardItemToPdf(itemName: string, options: ASPxClientDashboardExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard item to an Image file and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     */
+    ExportDashboardItemToImage(itemName: string): void;
+    /**
+     * Exports a dashboard item to an Image file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardImageExportOptions object containing image-specific export options.
+     */
+    ExportDashboardItemToImage(itemName: string, options: DashboardImageExportOptions): void;
+    /**
+     * Exports a dashboard item to an Image file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardImageExportOptions object containing image-specific export options.
+     * @param fileName A string value that specifies the name of the exported file.
+     */
+    ExportDashboardItemToImage(itemName: string, options: DashboardImageExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard item to an Image file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
+     */
+    ExportDashboardItemToImage(itemName: string, options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Exports a dashboard item to an Image file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
+     * @param fileName A string value that specifies the name of the exported file.
+     */
+    ExportDashboardItemToImage(itemName: string, options: ASPxClientDashboardExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard item to an Excel file and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     */
+    ExportDashboardItemToExcel(itemName: string): void;
+    /**
+     * Exports a dashboard item to an Excel file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardExcelExportOptions object containing Excel export options.
+     */
+    ExportDashboardItemToExcel(itemName: string, options: DashboardExcelExportOptions): void;
+    /**
+     * Exports a dashboard item to an Excel file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardExcelExportOptions object containing Excel export options.
+     * @param fileName A string that specifies the name of the exported Excel file.
+     */
+    ExportDashboardItemToExcel(itemName: string, options: DashboardExcelExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard item to an Excel file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
+     */
+    ExportDashboardItemToExcel(itemName: string, options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Exports a dashboard item to an Excel file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
+     * @param fileName A string that specifies the name of the exported Excel file.
+     */
+    ExportDashboardItemToExcel(itemName: string, options: ASPxClientDashboardExportOptions, fileName: string): void;
+    /**
+     * Returns whether or not master filtering  can be applied in the current state of the specified master filter item.
+     * @param itemName A string that specifies the component name of the master filter item.
+     */
+    CanSetMasterFilter(itemName: string): boolean;
+    /**
+     * Returns whether or not the specified master filter can be cleared in the current state.
+     * @param itemName A string that specifies the component name of the master filter item.
+     */
+    CanClearMasterFilter(itemName: string): boolean;
+    /**
+     * Returns whether or not drill down is possible in the current state of the specified dashboard item.
+     * @param itemName A string that specifies the component name of the dashboard item.
+     */
+    CanPerformDrillDown(itemName: string): boolean;
+    /**
+     * Returns whether or not drill up is possible in the current state of the specified dashboard item.
+     * @param itemName A string that specifies the component name of the dashboard item.
+     */
+    CanPerformDrillUp(itemName: string): boolean;
+    /**
+     * Selects required elements by their values in the specified master filter item.
+     * @param itemName A String that specifies the component name of the master filter item.
+     * @param values Values that will be used to select elements in the master filter item.
+     */
+    SetMasterFilter(itemName: string, values: Object[][]): void;
+    /**
+     * Selects the required elements in the specified master filter item.
+     * @param itemName A String that species the component name of the master filter item.
+     * @param axisPointTuples An array of ASPxClientDashboardItemDataAxisPointTuple objects used to identify master filter elements.
+     */
+    SetMasterFilter(itemName: string, axisPointTuples: ASPxClientDashboardItemDataAxisPointTuple[]): void;
+    /**
+     * Performs a drill-down into the required element by its value.
+     * @param itemName A String that species the component name of the dashboard item.
+     * @param value A value that will be used to perform a drill-down for the required element.
+     */
+    PerformDrillDown(itemName: string, value: Object): void;
+    /**
+     * Performs a drill-down into the required element.
+     * @param itemName A String that specifies the component name of the dashboard item.
+     * @param axisPointTuple A ASPxClientDashboardItemDataAxisPointTuple object representing a set of axis points.
+     */
+    PerformDrillDown(itemName: string, axisPointTuple: ASPxClientDashboardItemDataAxisPointTuple): void;
+    /**
+     * Clears the specified master filter item.
+     * @param itemName A string that specifies the component name of the master filter item.
+     */
+    ClearMasterFilter(itemName: string): void;
+    /**
+     * Performs a drill-up for the specified dashboard item.
+     * @param itemName A String that specifies the component name of the dashboard item.
+     */
+    PerformDrillUp(itemName: string): void;
+    /**
+     * Returns axis point tuples identifying elements that can be used to perform drill-down in the specified dashboard item.
+     * @param itemName A String that is the component name of the dashboard item.
+     */
+    GetAvailableDrillDownValues(itemName: string): ASPxClientDashboardItemDataAxisPointTuple[];
+    /**
+     * Returns the axis point tuple identifying the current drill-down state.
+     * @param itemName A String that is the component name of the dashboard item.
+     */
+    GetCurrentDrillDownValues(itemName: string): ASPxClientDashboardItemDataAxisPointTuple;
+    /**
+     * Returns axis point tuples identifying elements that can be selected in the current state of the master filter item.
+     * @param itemName A String that is the component name of the master filter item.
+     */
+    GetAvailableFilterValues(itemName: string): ASPxClientDashboardItemDataAxisPointTuple[];
+    /**
+     * Returns axis point tuples identifying currently selected elements in the master filter item.
+     * @param itemName A String that is the component name of the master filter item.
+     */
+    GetCurrentFilterValues(itemName: string): ASPxClientDashboardItemDataAxisPointTuple[];
+    /**
+     * Returns currently selected elements in the master filter item.
+     * @param itemName A String that specifies a component name of the master filter item.
+     */
+    GetCurrentSelection(itemName: string): ASPxClientDashboardItemDataAxisPointTuple[];
+    /**
+     * Returns the client data for the specified dashboard item.
+     * @param itemName A string that specifies the component name of the dashboard item.
+     */
+    GetItemData(itemName: string): ASPxClientDashboardItemData;
+    /**
+     * Refreshes an entire dashboard displayed in the Web Dashboard control.
+     */
+    Refresh(): void;
+    /**
+     * Refreshes the specific item from the dashboard displayed in the Web Dashboard control.
+     * @param itemName A string value that specifies the component name of the dashboard item to be refreshed.
+     */
+    Refresh(itemName: string): void;
+    /**
+     * Refreshes specific items from the dashboard displayed in the Web Dashboard control.
+     * @param itemName An array of string values that specify the component names of the dashboard items to be refreshed.
+     */
+    Refresh(itemName: string[]): void;
+    /**
+     * Requests underlying data for the specified dashboard item.
+     * @param itemName A string that specifies the component name of the dashboard item.
+     * @param args A ASPxClientDashboardItemRequestUnderlyingDataParameters object containing parameters used to obtain the underlying data.
+     * @param onCompleted A ASPxClientDashboardItemRequestUnderlyingDataCompleted object that references a method executed after the request is completed.
+     */
+    RequestUnderlyingData(itemName: string, args: ASPxClientDashboardItemRequestUnderlyingDataParameters, onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted): void;
+    /**
+     * Returns the currently selected range in the specified Range Filter dashboard item.
+     * @param itemName A String value that specifies the component name of the Range Filter dashboard item.
+     */
+    GetCurrentRange(itemName: string): ASPxClientDashboardRangeFilterSelection;
+    /**
+     * Returns the visible range for the specified Range Filter dashboard item.
+     * @param itemName A String value that specifies the component name of the Range Filter dashboard item.
+     */
+    GetEntireRange(itemName: string): ASPxClientDashboardRangeFilterSelection;
+    /**
+     * Selects the required range in the specified Range Filter dashboard item.
+     * @param itemName A String that specifies the component name of the Range Filter dashboard item.
+     * @param range A ASPxClientDashboardRangeFilterSelection object that specifies a range to be selected.
+     */
+    SetRange(itemName: string, range: ASPxClientDashboardRangeFilterSelection): void;
+    /**
+     * Selects a predefined range in the Range Filter dashboard item.
+     * @param itemName A String value that specifies the component name of the Range Filter.
+     * @param dateTimePeriodName A String value that specifies the predefined range name.
+     */
+    SetPredefinedRange(itemName: string, dateTimePeriodName: string): void;
 }
 /**
  * References a method that will handle the DashboardStateChanged event.
@@ -678,7 +1738,7 @@ interface ASPxClientDashboardStateChangedEventHandler<S> {
 interface ASPxClientDashboardStateChangedEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the current state of the dashboard.
-     * Value: A String that is the current state of the dashboard.
+     * Value: A string value that is the current state of the dashboard.
      */
     DashboardState: string;
 }
@@ -699,19 +1759,19 @@ interface ASPxClientDashboardChangedEventHandler<S> {
 interface ASPxClientDashboardChangedEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the identifier of a newly opened dashboard.
-     * Value: A String values that is an identifier of newly opened dashboard.
+     * Value: A string value that is an identifier of newly opened dashboard.
      */
     DashboardId: string;
     /**
      * Gets the name of a newly opened dashboard.
-     * Value: A String values that is the name of newly opened dashboard.
+     * Value: A string value that is the name of newly opened dashboard.
      */
     DashboardName: string;
 }
-interface ASPxClientDashboardDesignerCustomizeMenuItemsEventHandler<S> {
-    (source: S, e: ASPxClientDashboardDesignerCustomizeMenuItemsEventArgs): void;
+interface ASPxClientDashboardCustomizeMenuItemsEventHandler<S> {
+    (source: S, e: ASPxClientDashboardCustomizeMenuItemsEventArgs): void;
 }
-interface ASPxClientDashboardDesignerMenuItem {
+interface ASPxClientDashboardMenuItem {
     id: string;
     title: string;
     template: string;
@@ -721,12 +1781,213 @@ interface ASPxClientDashboardDesignerMenuItem {
     click: Function;
     hotKey: number;
 }
-interface ASPxClientDashboardDesignerCustomizeMenuItemsEventArgs extends ASPxClientEventArgs {
-    Items: ASPxClientDashboardDesignerMenuItem[];
-    FindById(itemId: string): ASPxClientDashboardDesignerMenuItem;
+interface ASPxClientDashboardCustomizeMenuItemsEventArgs extends ASPxClientEventArgs {
+    Items: ASPxClientDashboardMenuItem[];
+    FindById(itemId: string): ASPxClientDashboardMenuItem;
 }
-interface ASPxClientDashboardDesignerBeforeRenderEventHandler<S> {
+/**
+ * References a method that will handle the BeforeRender event.
+ */
+interface ASPxClientDashboardBeforeRenderEventHandler<S> {
+    /**
+     * References a method that will handle the BeforeRender event.
+     * @param source The event source.
+     * @param e An ASPxClientEventArgs object that contains event data.
+     */
     (source: S, e: ASPxClientEventArgs): void;
+}
+/**
+ * Serves as the base class for classes that provide data for client-side events related to dashboard items.
+ */
+interface ASPxClientDashboardItemEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the component name of the dashboard item.
+     * Value: A string value that is the component name of the dashboard item.
+     */
+    ItemName: string;
+    /**
+     * Returns whether or not the specified value is null.
+     * @param value The specified value.
+     */
+    IsNullValue(value: Object): boolean;
+    /**
+     * Returns whether or not the specified value is 'others'.
+     * @param value The specified value.
+     */
+    IsOthersValue(value: Object): boolean;
+}
+/**
+ * References a method that will handle the ItemMasterFilterStateChanged event.
+ */
+interface ASPxClientDashboardItemMasterFilterStateChangedEventHandler<S> {
+    /**
+     * References a method that will handle the ItemMasterFilterStateChanged event.
+     * @param source The event source.
+     * @param e An ASPxClientDashboardItemMasterFilterStateChangedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientDashboardItemMasterFilterStateChangedEventArgs): void;
+}
+/**
+ * Provides data for the ItemMasterFilterStateChanged event.
+ */
+interface ASPxClientDashboardItemMasterFilterStateChangedEventArgs extends ASPxClientDashboardItemEventArgs {
+    /**
+     * Gets the currently selected values.
+     * Value: An array of objects that are the currently selected values.
+     */
+    Values: Object[][];
+}
+/**
+ * References a method that will handle the ItemDrillDownStateChanged event.
+ */
+interface ASPxClientDashboardItemDrillDownStateChangedEventHandler<S> {
+    /**
+     * References a method that will handle the ItemDrillDownStateChanged event.
+     * @param source The event source.
+     * @param e An ASPxClientDashboardItemDrillDownStateChangedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientDashboardItemDrillDownStateChangedEventArgs): void;
+}
+/**
+ * Provides data for the ItemDrillDownStateChanged event.
+ */
+interface ASPxClientDashboardItemDrillDownStateChangedEventArgs extends ASPxClientDashboardItemEventArgs {
+    /**
+     * Gets the drill-down action performed in the dashboard item.
+     * Value: A string value that is the drill-down action performed in the dashboard item.
+     */
+    Action: string;
+    /**
+     * Gets values from the current drill-down hierarchy.
+     * Value: An array of values from the current drill-down hierarchy.
+     */
+    Values: Object[];
+}
+/**
+ * References a method that will handle the ActionAvailabilityChanged event.
+ */
+interface ASPxClientActionAvailabilityChangedEventHandler<S> {
+    /**
+     * References a method that will handle the ActionAvailabilityChanged event.
+     * @param source The event source.
+     * @param e A ASPxClientActionAvailabilityChangedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientActionAvailabilityChangedEventArgs): void;
+}
+/**
+ * Provides data for the ActionAvailabilityChanged event.
+ */
+interface ASPxClientActionAvailabilityChangedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the component name of the dashboard item.
+     * Value: A string value that is the component name of the dashboard item.
+     */
+    ItemName: string;
+}
+/**
+ * References a method that will handle the DynamicLookUpValuesLoaded event.
+ */
+interface ASPxClientDynamicLookUpValuesLoadedEventHandler<S> {
+    /**
+     * References a method that will handle the DynamicLookUpValuesLoaded event.
+     * @param source The event source.
+     * @param e A ASPxClientDynamicLookUpValuesLoadedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientDynamicLookUpValuesLoadedEventArgs): void;
+}
+/**
+ * Provides data for the DynamicLookUpValuesLoaded event.
+ */
+interface ASPxClientDynamicLookUpValuesLoadedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the dashboard parameter name whose values have been loaded.
+     * Value: A string value that is the dashboard parameter name whose values have been loaded.
+     */
+    ParameterName: string;
+}
+/**
+ * References a method that will handle the ItemBeginUpdate event.
+ */
+interface ASPxClientItemBeginUpdateEventHandler<S> {
+    /**
+     * References a method that will handle the ItemBeginUpdate event.
+     * @param source The event source.
+     * @param e A ASPxClientItemBeginUpdateEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientItemBeginUpdateEventArgs): void;
+}
+/**
+ * Provides data for the ItemBeginUpdate event.
+ */
+interface ASPxClientItemBeginUpdateEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the component name of the dashboard item.
+     * Value: A string value that is the component name of the dashboard item.
+     */
+    ItemName: string;
+}
+/**
+ * References a method that will handle the ItemEndUpdate event.
+ */
+interface ASPxClientItemEndUpdateEventHandler<S> {
+    /**
+     * References a method that will handle the ItemEndUpdate event.
+     * @param source The event source.
+     * @param e A ASPxClientItemEndUpdateEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientItemEndUpdateEventArgs): void;
+}
+/**
+ * Provides data for the ItemEndUpdate event.
+ */
+interface ASPxClientItemEndUpdateEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the component name of the dashboard item.
+     * Value: A string value that is the component name of the dashboard item.
+     */
+    ItemName: string;
+}
+/**
+ * References a method that will handle the DashboardBeginUpdate event.
+ */
+interface ASPxClientDashboardBeginUpdateEventHandler<S> {
+    /**
+     * References a method that will handle the DashboardBeginUpdate event.
+     * @param source The event source.
+     * @param e A ASPxClientDashboardBeginUpdateEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientDashboardBeginUpdateEventArgs): void;
+}
+/**
+ * Provides data for the DashboardBeginUpdate event.
+ */
+interface ASPxClientDashboardBeginUpdateEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the identifier of the dashboard for which the event was raised.
+     * Value: A string value that is the dashboard identifier.
+     */
+    DashboardId: string;
+}
+/**
+ * References a method that will handle the DashboardEndUpdate event.
+ */
+interface ASPxClientDashboardEndUpdateEventHandler<S> {
+    /**
+     * References a method that will handle the DashboardEndUpdate event.
+     * @param source The event source.
+     * @param e An ASPxClientDashboardEndUpdateEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientDashboardEndUpdateEventArgs): void;
+}
+/**
+ * Provides data for the DashboardEndUpdate event.
+ */
+interface ASPxClientDashboardEndUpdateEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the identifier of the dashboard for which the event was raised.
+     * Value: A string value that is the dashboard identifier.
+     */
+    DashboardId: string;
 }
 /**
  * A client-side equivalent of the ASPxDashboardViewer control.
@@ -773,7 +2034,7 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
      */
     ItemClick: ASPxClientEvent<ASPxClientDashboardItemClickEventHandler<ASPxClientDashboardViewer>>;
     /**
-     * Allows you to provide custom visual interactivity for data-bound dashboard items that support element selection and highlighting
+     * Allows you to provide custom visual interactivity for data-bound dashboard items that support element selection and highlighting.
      */
     ItemVisualInteractivity: ASPxClientEvent<ASPxClientDashboardItemVisualInteractivityEventHandler<ASPxClientDashboardViewer>>;
     /**
@@ -800,6 +2061,14 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
      * Allows you to color the required dashboard item elements using the specified colors.
      */
     ItemElementCustomColor: ASPxClientEvent<ASPxClientDashboardItemElementCustomColorEventHandler<ASPxClientDashboardViewer>>;
+    /**
+     * Allows you to customize a dashboard item's caption (for instance, add custom buttons, menus, etc.).
+     */
+    ItemCaptionToolbarUpdated: ASPxClientEvent<ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<ASPxClientDashboardViewer>>;
+    /**
+     * Allows you to customize a dashboard title (for instance, add custom buttons, menus, etc.).
+     */
+    TitleToolbarUpdated: ASPxClientEvent<ASPxClientDashboardTitleToolbarUpdatedEventHandler<ASPxClientDashboardViewer>>;
     /**
      * Reloads data in the data sources.
      */
@@ -834,15 +2103,25 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
     /**
      * Selects the required range in the specified Range Filter dashboard item.
      * @param itemName A String that specifies the component name of the Range Filter dashboard item.
-     * @param range A String value that specifies the component name of the Range Filter dashboard item.
+     * @param range A ASPxClientDashboardRangeFilterSelection object that specifies a range to be selected.
      */
     SetRange(itemName: string, range: ASPxClientDashboardRangeFilterSelection): void;
     /**
-     * Selects the specified range in the specified Range Filter dashboard item.
-     * @param itemName A String that specifies the component name of the Range Filter dashboard item.
-     * @param dateTimePeriodName A String that specifies the name of the predefined range used to perform a selection.
+     * Selects a predefined range in the Range Filter dashboard item.
+     * @param itemName A String value that specifies the component name of the Range Filter.
+     * @param dateTimePeriodName A String value that specifies the predefined range name.
      */
-    SetRange(itemName: string, dateTimePeriodName: string): void;
+    SetPredefinedRange(itemName: string, dateTimePeriodName: string): void;
+    /**
+     * Returns names of the predefined ranges available for the specified Range Filter.
+     * @param itemName A string value that specifies the component name of the Range Filter dashboard item.
+     */
+    GetAvailablePredefinedRanges(itemName: string): string[];
+    /**
+     * Returns the name of the currently selected predefined range.
+     * @param itemName A string value that specifies the component name of the Range Filter dashboard item.
+     */
+    GetCurrentPredefinedRange(itemName: string): string;
     /**
      * Returns axis point tuples identifying elements that can be used to perform drill-down in the specified dashboard item.
      * @param itemName A String that is the component name of the dashboard item.
@@ -869,8 +2148,14 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
      */
     GetCurrentSelection(itemName: string): ASPxClientDashboardItemDataAxisPointTuple[];
     /**
+     * 
+     * @param itemName 
+     */
+    UpdateItemCaptionToolbar(itemName: string): void;
+    UpdateDashboardTitleToolbar(): void;
+    /**
      * Requests underlying data for the specified dashboard item.
-     * @param itemName A String that specifies the component name of the dashboard item.
+     * @param itemName A string that specifies the component name of the dashboard item.
      * @param args A ASPxClientDashboardItemRequestUnderlyingDataParameters object containing parameters used to obtain the underlying data.
      * @param onCompleted A ASPxClientDashboardItemRequestUnderlyingDataCompleted object that references a method executed after the request is completed.
      */
@@ -884,32 +2169,123 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
      */
     HideParametersDialog(): void;
     /**
+     * Shows the dialog that allows end-users to export the dashboard.
+     * @param format A string value that specifies the format. For instance, you can use 'PDF, 'Image' or 'Excel'.
+     */
+    ShowExportDialog(format: string): void;
+    /**
+     * Shows the dialog that allows end-users to export the dashboard item.
+     * @param itemComponentName A component name of the dashboard item.
+     * @param format A string value that specifies the format. For instance, you can use 'PDF, 'Image' or 'Excel'.
+     */
+    ShowExportDashboardItemDialog(itemComponentName: string, format: string): void;
+    /**
+     * Hides the dialog that allows end-users to export the dashboard/dashboard item.
+     */
+    HideExportDialog(): void;
+    /**
      * Returns settings that specify parameters affecting how the dashboard is exported.
      */
     GetExportOptions(): ASPxClientDashboardExportOptions;
+    /**
+     * Allows you to obtain options related to exporting a dashboard/dashboard item to the PDF format.
+     */
+    GetPdfExportOptions(): DashboardPdfExportOptions;
+    /**
+     * Allows you to obtain options related to exporting a dashboard/dashboard item to an image.
+     */
+    GetImageExportOptions(): DashboardImageExportOptions;
+    /**
+     * Allows you to obtain options related to exporting a dashboard/dashboard item to the Excel format.
+     */
+    GetExcelExportOptions(): DashboardExcelExportOptions;
     /**
      * Specifies settings that specify parameters affecting how the dashboard is exported.
      * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
      */
     SetExportOptions(options: ASPxClientDashboardExportOptions): void;
     /**
+     * Allows you to specify options related to exporting a dashboard/dashboard item to the PDF format.
+     * @param options A DashboardPdfExportOptions object containing options related to exporting a dashboard/dashboard item to the PDF format.
+     */
+    SetPdfExportOptions(options: DashboardPdfExportOptions): void;
+    /**
+     * Allows you to specify options related to exporting a dashboard/dashboard item to an image.
+     * @param options A DashboardImageExportOptions object containing options related to exporting a dashboard/dashboard item to an image.
+     */
+    SetImageExportOptions(options: DashboardImageExportOptions): void;
+    /**
+     * Allows you to specify options related to exporting a dashboard/dashboard item to the Excel format.
+     * @param options A DashboardExcelExportOptions object containing options related to exporting a dashboard item to the Excel format.
+     */
+    SetExcelExportOptions(options: DashboardExcelExportOptions): void;
+    /**
      * Exports a dashboard to a PDF file and writes it to the Response.
      */
     ExportToPdf(): void;
+    /**
+     * Exports a dashboard to a PDF file with the specified export options and writes it to the Response.
+     * @param options A DashboardPdfExportOptions object containing PDF-specific export options.
+     */
+    ExportToPdf(options: DashboardPdfExportOptions): void;
+    /**
+     * Exports a dashboard to a PDF file with the specified export options and writes it to the Response.
+     * @param options A DashboardPdfExportOptions object containing PDF-specific export options.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportToPdf(options: DashboardPdfExportOptions, fileName: string): void;
     /**
      * Exports a dashboard to a PDF file with the specified export options and writes it to the Response.
      * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
      */
     ExportToPdf(options: ASPxClientDashboardExportOptions): void;
     /**
+     * Exports a dashboard to a PDF file with the specified export options and writes it to the Response.
+     * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportToPdf(options: ASPxClientDashboardExportOptions, fileName: string): void;
+    /**
      * Exports a dashboard to an Image file and writes it to the Response.
      */
     ExportToImage(): void;
     /**
      * Exports a dashboard to an Image file with the specified export options and writes it to the Response.
+     * @param options A DashboardImageExportOptions object containing image-specific export options.
+     */
+    ExportToImage(options: DashboardImageExportOptions): void;
+    /**
+     * Exports a dashboard to an Image file with the specified export options and writes it to the Response.
+     * @param options A DashboardImageExportOptions object containing image-specific export options.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportToImage(options: DashboardImageExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard to an Image file with the specified export options and writes it to the Response.
      * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
      */
     ExportToImage(options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Exports a dashboard to an Image file with the specified export options and writes it to the Response.
+     * @param options A ASPxClientDashboardExportOptions object containing settings that specify parameters affecting how the dashboard is exported.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportToImage(options: ASPxClientDashboardExportOptions, fileName: string): void;
+    /**
+     * Exports dashboard data to the specified file in Excel format.
+     */
+    ExportToExcel(): void;
+    /**
+     * Exports dashboard data to the specified file in Excel format.
+     * @param options A DashboardExcelExportOptions object containing Excel-specific options.
+     */
+    ExportToExcel(options: DashboardImageExportOptions): void;
+    /**
+     * Exports dashboard data to the specified file in Excel format.
+     * @param options A DashboardExcelExportOptions object containing Excel-specific options.
+     * @param fileName A string value that specifies the name of the exported file.
+     */
+    ExportToExcel(options: DashboardImageExportOptions, fileName: string): void;
     /**
      * Exports a dashboard item to a PDF file and writes it to the Response.
      * @param itemName A String that is the component name of the dashboard item to be exported.
@@ -917,10 +2293,30 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
     ExportDashboardItemToPdf(itemName: string): void;
     /**
      * Exports a dashboard item to a PDF file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardPdfExportOptions object containing PDF-specific export options.
+     */
+    ExportDashboardItemToPdf(itemName: string, options: DashboardPdfExportOptions): void;
+    /**
+     * Exports a dashboard item to a PDF file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardPdfExportOptions object containing PDF-specific export options.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportDashboardItemToPdf(itemName: string, options: DashboardPdfExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard item to a PDF file with the specified export options and writes it to the Response.
      * @param itemName A String that is the component name of the dashboard item to be exported.
      * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
      */
     ExportDashboardItemToPdf(itemName: string, options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Exports a dashboard item to a PDF file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
+     * @param fileName A string that specifies the name of the exported file.
+     */
+    ExportDashboardItemToPdf(itemName: string, options: ASPxClientDashboardExportOptions, fileName: string): void;
     /**
      * Exports a dashboard item to an Image file and writes it to the Response.
      * @param itemName A String that is the component name of the dashboard item to be exported.
@@ -928,10 +2324,30 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
     ExportDashboardItemToImage(itemName: string): void;
     /**
      * Exports a dashboard item to an Image file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardImageExportOptions object containing image-specific export options.
+     */
+    ExportDashboardItemToImage(itemName: string, options: DashboardImageExportOptions): void;
+    /**
+     * Exports a dashboard item to an Image file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardImageExportOptions object containing image-specific export options.
+     * @param fileName A string value that specifies the name of the exported file.
+     */
+    ExportDashboardItemToImage(itemName: string, options: DashboardImageExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard item to an Image file with the specified export options and writes it to the Response.
      * @param itemName A String that is the component name of the dashboard item to be exported.
      * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
      */
     ExportDashboardItemToImage(itemName: string, options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Exports a dashboard item to an Image file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
+     * @param fileName A string value that specifies the name of the exported file.
+     */
+    ExportDashboardItemToImage(itemName: string, options: ASPxClientDashboardExportOptions, fileName: string): void;
     /**
      * Exports a dashboard item to an Excel file and writes it to the Response.
      * @param itemName A String that is the component name of the dashboard item to be exported.
@@ -939,10 +2355,30 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
     ExportDashboardItemToExcel(itemName: string): void;
     /**
      * Exports a dashboard item to an Excel file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardExcelExportOptions object containing Excel export options.
+     */
+    ExportDashboardItemToExcel(itemName: string, options: DashboardExcelExportOptions): void;
+    /**
+     * Exports a dashboard item to an Excel file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options A DashboardExcelExportOptions object containing Excel export options.
+     * @param fileName A string that specifies the name of the exported Excel file.
+     */
+    ExportDashboardItemToExcel(itemName: string, options: DashboardExcelExportOptions, fileName: string): void;
+    /**
+     * Exports a dashboard item to an Excel file with the specified export options and writes it to the Response.
      * @param itemName A String that is the component name of the dashboard item to be exported.
      * @param options An ASPxClientDashboardExportOptions object containing export options to be applied to the exported dashboard item.
      */
     ExportDashboardItemToExcel(itemName: string, options: ASPxClientDashboardExportOptions): void;
+    /**
+     * Exports a dashboard item to an Excel file with the specified export options and writes it to the Response.
+     * @param itemName A string that is the component name of the dashboard item to be exported.
+     * @param options An ASPxClientDashboardExportOptions object containing export options.
+     * @param fileName A string that specifies the name of the exported Excel file.
+     */
+    ExportDashboardItemToExcel(itemName: string, options: ASPxClientDashboardExportOptions, fileName: string): void;
     /**
      * Returns the dashboard width.
      */
@@ -1023,325 +2459,9 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
     CanPerformDrillUp(itemName: string): boolean;
     /**
      * Returns the client data for the specified dashboard item.
-     * @param itemName A String that specifies the component name of the dashboard item.
+     * @param itemName A string that specifies the component name of the dashboard item.
      */
     GetItemData(itemName: string): ASPxClientDashboardItemData;
-}
-/**
- * A range in the Range Filter dashboard item.
- */
-interface ASPxClientDashboardRangeFilterSelection {
-    /**
-     * Gets or sets a maximum value in the range of the Range Filter dashboard item.
-     * Value: A maximum value in the range of the Range Filter dashboard item.
-     */
-    Maximum: Object;
-    /**
-     * Gets or sets a minimum value in the range of the Range Filter dashboard item.
-     * Value: A minimum value in the range of the Range Filter dashboard item.
-     */
-    Minimum: Object;
-}
-/**
- * A collection of ASPxClientDashboardParameter objects.
- */
-interface ASPxClientDashboardParameters {
-    /**
-     * Returns an array of dashboard parameters from the ASPxClientDashboardParameters collection.
-     */
-    GetParameterList(): ASPxClientDashboardParameter[];
-    /**
-     * Returns a dashboard parameter by its name.
-     * @param name A String object that specifies the parameter name.
-     */
-    GetParameterByName(name: string): ASPxClientDashboardParameter;
-    /**
-     * Returns a dashboard parameter by its index in the ASPxClientDashboardParameters collection.
-     * @param index An integer value that specifies the parameter index.
-     */
-    GetParameterByIndex(index: number): ASPxClientDashboardParameter;
-}
-/**
- * A client-side dashboard parameter.
- */
-interface ASPxClientDashboardParameter {
-    /**
-     * Gets the dashboard parameter name on the client side.
-     * Value: A String that is the dashboard parameter name on the client side.
-     */
-    Name: string;
-    /**
-     * Gets the dashboard parameter value on the client side.
-     * Value: A String that specifies the dashboard parameter value on the client side.
-     */
-    Value: Object;
-    /**
-     * Returns a parameter name.
-     */
-    GetName(): string;
-    /**
-     * Returns a current parameter value.
-     */
-    GetValue(): Object;
-    /**
-     * Specifies the current parameter value.
-     * @param value The current parameter value.
-     */
-    SetValue(value: Object): void;
-    /**
-     * Returns a default parameter value.
-     */
-    GetDefaultValue(): Object;
-    /**
-     * Returns the parameter's description displayed to an end-user.
-     */
-    GetDescription(): string;
-    /**
-     * Returns a parameter type.
-     */
-    GetType(): string;
-    /**
-     * Returns possible parameter values.
-     */
-    GetValues(): ASPxClientDashboardParameterValue[];
-}
-/**
- * Provides access to the parameter value and display text.
- */
-interface ASPxClientDashboardParameterValue {
-    /**
-     * Returns the parameter display text.
-     */
-    GetDisplayText(): string;
-    /**
-     * Returns a parameter value.
-     */
-    GetValue(): Object;
-}
-/**
- * Contains settings that specify parameters affecting how the dashboard or dashboard item is exported in Image format.
- */
-interface ImageFormatOptions {
-    /**
-     * Gets or sets an image format in which the dashboard (dashboard item) is exported.
-     * Value: A value returned by the DashboardExportImageFormat class that specifies an image format in which the dashboard (dashboard item) is exported.
-     */
-    Format: string;
-    /**
-     * Gets or sets the resolution (in dpi) used to export a dashboard (dashboard item) in Image format.
-     * Value: An integer value that specifies the resolution (in dpi) used to export a dashboard (dashboard item) in Image format.
-     */
-    Resolution: number;
-}
-/**
- * Contains options which define how the dashboard item is exported to Excel format.
- */
-interface ExcelFormatOptions {
-    /**
-     * Gets or sets the Excel format in which the dashboard item is exported.
-     * Value: A value returned by the DashboardExportExcelFormat class that specifies the Excel format in which the dashboard item is exported.
-     */
-    Format: string;
-    /**
-     * Gets or sets a character used to separate values in a CSV document.
-     * Value: A String value that specifies the character used to separate values in a CSV document.
-     */
-    CsvValueSeparator: string;
-}
-/**
- * Contains settings that specify parameters affecting how the Grid dashboard item is exported.
- */
-interface GridExportOptions {
-    /**
-     * Gets or sets whether the size of the Grid dashboard item is changed according to the width of the exported page.
-     * Value: true, to change the size of the Grid dashboard item according to the width of the exported page; otherwise, false.
-     */
-    FitToPageWidth: boolean;
-    /**
-     * Gets or sets whether to print column headers of the Grid dashboard item on every page.
-     * Value: true, to print column headers on every page; otherwise, false.
-     */
-    PrintHeadersOnEveryPage: boolean;
-}
-/**
- * Contains settings that specify parameters affecting how the Pivot dashboard item is exported.
- */
-interface PivotExportOptions {
-    /**
-     * Gets or sets whether to print the column headers of the pivot dashboard item on every page.
-     * Value: true, to print column headers on every page; otherwise, false.
-     */
-    PrintHeadersOnEveryPage: boolean;
-}
-/**
- * Contains settings that specify parameters affecting how the Pie dashboard item is exported.
- */
-interface PieExportOptions {
-    /**
-     * Gets or sets whether dashboard item elements are arranged automatically on the exported page.
-     * Value: true, to arrange dashboard item elements automatically on the exported page; otherwise, false.
-     */
-    AutoArrangeContent: boolean;
-}
-/**
- * Contains settings that specify parameters affecting how the Gauge dashboard item is exported.
- */
-interface GaugeExportOptions {
-    /**
-     * Gets or sets whether dashboard item elements are arranged automatically on the exported page.
-     * Value: true, to arrange dashboard item elements automatically on the exported page; otherwise, false.
-     */
-    AutoArrangeContent: boolean;
-}
-/**
- * Contains settings that specify parameters affecting how the Card dashboard item is exported.
- */
-interface CardExportOptions {
-    /**
-     * Gets or sets whether dashboard item elements are arranged automatically on the exported page.
-     * Value: true, to arrange dashboard item elements automatically on the exported page; otherwise, false.
-     */
-    AutoArrangeContent: boolean;
-}
-/**
- * Contains settings that specify parameters affecting how the Range Filter dashboard item is exported.
- */
-interface RangeFilterExportOptions {
-    /**
-     * Gets or sets whether the page orientation used to export a Range Filter dashboard item is selected automatically.
-     * Value: true, to automatically select the page orientation used to export a Range Filter dashboard item; otherwise, false.
-     */
-    AutomaticPageLayout: boolean;
-    /**
-     * Gets or sets the export size mode for the Range Filter dashboard item.
-     * Value: A value returned by the RangeFilterExportSizeMode class that specifies the export size mode for the Range Filter dashboard item.
-     */
-    SizeMode: string;
-}
-/**
- * Contains settings that specify parameters affecting how Chart dashboard items are exported.
- */
-interface ChartExportOptions {
-    /**
-     * Gets or sets whether the page orientation used to export a Chart dashboard item is selected automatically.
-     * Value: true, to automatically select the page orientation used to export a Chart dashboard item; otherwise, false.
-     */
-    AutomaticPageLayout: boolean;
-    /**
-     * Gets or sets the export size mode for the Chart dashboard item.
-     * Value: A value returned by the ChartExportSizeMode class that specifies the export size mode for the Chart dashboard item.
-     */
-    SizeMode: string;
-}
-/**
- * Contains settings that specify parameters affecting how map dashboard items are exported.
- */
-interface MapExportOptions {
-    /**
-     * Gets or sets whether the page orientation used to export a map dashboard item is selected automatically.
-     * Value: true, to automatically select the page orientation used to export a map dashboard item; otherwise, false.
-     */
-    AutomaticPageLayout: boolean;
-    /**
-     * Gets or sets the export size mode for the map dashboard item.
-     * Value: A value returned by the MapExportSizeMode class that specifies specifies the export size mode for the map dashboard item.
-     */
-    SizeMode: string;
-}
-/**
- * Contains settings that specify parameters affecting how the dashboard (dashboard item) is exported.
- */
-interface ASPxClientDashboardExportOptions {
-    /**
-     * Gets or sets the standard paper size.
-     * Value: A string value returned by the DashboardExportPaperKind class that specifies the standard paper size.
-     */
-    PaperKind: string;
-    /**
-     * Gets or sets the page orientation used to export a dashboard (dashboard item).
-     * Value: A string value returned by the DashboardExportPageLayout class that specifies the page orientation used to export a dashboard (dashboard item).
-     */
-    PageLayout: string;
-    /**
-     * Gets or sets the mode for scaling when exporting a dashboard (dashboard item).
-     * Value: A string value returned by the DashboardExportScaleMode class that specifies the mode for scaling when exporting a dashboard (dashboard item).
-     */
-    ScaleMode: string;
-    /**
-     * Gets or sets the scale factor (in fractions of 1) by which a dashboard (dashboard item) is scaled.
-     * Value: A Single value that specifies the scale factor by which a dashboard (dashboard item) is scaled.
-     */
-    ScaleFactor: number;
-    /**
-     * Gets or sets the number of horizontal/vertical pages spanning the total width/height of a dashboard (dashboard item).
-     * Value: An integer value that specifies the number of horizontal/vertical pages spanning the total width/height of a dashboard (dashboard item).
-     */
-    AutoFitPageCount: number;
-    /**
-     * Gets or sets the title of the exported document.
-     * Value: A String value that specifies the title of the exported document.
-     */
-    Title: string;
-    /**
-     * Gets or sets whether a dashboard title (or dashboard item's caption) is included as the exported document title.
-     * Value: A DefaultBoolean value that specifies whether a dashboard title (or dashboard item's caption) is included as the exported document title.
-     */
-    ShowTitle: boolean;
-    /**
-     * Gets or sets the filter state's location on the exported document.
-     * Value: A string value returned by the DashboardExportFilterState class that specifies the filter state's location on the exported document.
-     */
-    FilterState: string;
-    /**
-     * Provides access to options for exporting a dashboard or individual items in Image format.
-     * Value: An ImageFormatOptions object containing settings that specify parameters affecting how the dashboard or dashboard item is exported in Image format.
-     */
-    ImageOptions: ImageFormatOptions;
-    /**
-     * Provides access to options for exporting individual dashboard items in Excel format.
-     * Value: An ExcelFormatOptions object containing settings that specify parameters affecting how the dashboard item is exported in Excel format.
-     */
-    ExcelOptions: ExcelFormatOptions;
-    /**
-     * Provides access to options for exporting a Grid dashboard item.
-     * Value: A GridExportOptions object containing settings that specify parameters that affect how Grid dashboard items are exported.
-     */
-    GridOptions: GridExportOptions;
-    /**
-     * Provides access to options for exporting a Pivot dashboard item.
-     * Value: A PivotExportOptions object containing settings that specify parameters that affect how Pivot dashboard items are exported.
-     */
-    PivotOptions: PivotExportOptions;
-    /**
-     * Provides access to options for exporting a Pie dashboard item.
-     * Value: A PieExportOptions object containing settings that specify parameters that affect how Pie dashboard items are exported.
-     */
-    PieOptions: PieExportOptions;
-    /**
-     * Provides access to options for exporting a Gauge dashboard item.
-     * Value: A GaugeExportOptions object containing settings that specify parameters that affect how Gauge dashboard items are exported.
-     */
-    GaugeOptions: GaugeExportOptions;
-    /**
-     * Provides access to options for exporting a Card dashboard item.
-     * Value: A CardExportOptions object containing settings that specify parameters that affect how Card dashboard items are exported.
-     */
-    CardOptions: CardExportOptions;
-    /**
-     * Provides access to options for exporting a Range Filter dashboard item.
-     * Value: A RangeFilterExportOptions object containing settings that specify parameters affecting how the Range Filter dashboard item is exported.
-     */
-    RangeFilterOptions: RangeFilterExportOptions;
-    /**
-     * Provides access to options for exporting a Chart dashboard item.
-     * Value: A ChartExportOptions object containing settings that specify parameters that affect how Chart dashboard items are exported.
-     */
-    ChartOptions: ChartExportOptions;
-    /**
-     * Provides access to options for exporting map dashboard items.
-     * Value: A MapExportOptions object containing settings that specify parameters that affect how map dashboard items are exported.
-     */
-    MapOptions: MapExportOptions;
 }
 /**
  * References a method that will handle the ActionAvailabilityChanged event.
@@ -1409,7 +2529,7 @@ interface ASPxClientDashboardDataLoadingErrorEventArgs extends ASPxClientEventAr
 interface ASPxClientDashboardItemAction {
     /**
      * Gets the name of the dashboard item.
-     * Value: A String that specifies the name of the dashboard item.
+     * Value: A string that specifies the name of the dashboard item.
      */
     ItemName: string;
     /**
@@ -1441,7 +2561,7 @@ interface ASPxClientDashboardMasterFilterSetEventHandler<S> {
 interface ASPxClientDashboardMasterFilterSetEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the name of the dashboard item.
-     * Value: A String that specifies the name of the dashboard item.
+     * Value: A string value that specifies the component name of the dashboard item.
      */
     ItemName: string;
     /**
@@ -1477,7 +2597,7 @@ interface ASPxClientDashboardMasterFilterClearedEventHandler<S> {
 interface ASPxClientDashboardMasterFilterClearedEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the name of the dashboard item.
-     * Value: A String that is the name of the dashboard item.
+     * Value: A string value that is the component name of the dashboard item.
      */
     ItemName: string;
 }
@@ -1498,14 +2618,14 @@ interface ASPxClientDashboardDrillDownPerformedEventHandler<S> {
 interface ASPxClientDashboardDrillDownPerformedEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the name of the dashboard item.
-     * Value: A String that specifies the name of the dashboard item.
+     * Value: A string that specifies the name of the dashboard item.
      */
     ItemName: string;
     /**
-     * Gets the bottommost value from the current drill-down hierarchy.
-     * Value: The bottommost value from the current drill-down hierarchy.
+     * Gets values from the current drill-down hierarchy.
+     * Value: An array of values from the current drill-down hierarchy.
      */
-    Value: Object[];
+    Values: Object[];
     /**
      * Returns whether or not the specified value is NullValue.
      * @param value The specified value.
@@ -1534,9 +2654,513 @@ interface ASPxClientDashboardDrillUpPerformedEventHandler<S> {
 interface ASPxClientDashboardDrillUpPerformedEventArgs extends ASPxClientEventArgs {
     /**
      * Gets the name of the dashboard item.
-     * Value: A String that is the name of the dashboard item.
+     * Value: A string that is the name of the dashboard item.
      */
     ItemName: string;
+}
+/**
+ * Provides data for the onCustomizeText handler.
+ */
+interface CardWidgetCustomizeTextEventArgs {
+    /**
+     * Gets a dimension/measure value to be displayed within the card.
+     */
+    getValue(): Object;
+    /**
+     * Gets a formatted value displayed within the card.
+     */
+    getDefaultText(): string;
+}
+/**
+ * A Card widget that visualizes a Card dashboard item's data.
+ */
+interface CardWidget {
+    /**
+     * Gets or sets the background color for a card.
+     * Value: A string that specifies the <a href="https://www.w3schools.com/html/html_colors.asp">HTML color</a> used to paint a card's background.
+     */
+    cardBackColor: string;
+    /**
+     * Allows you to customize texts displayed within individual cards.
+     * Value: A handler used customize texts displayed within individual cards.
+     */
+    onCustomizeText: Object;
+    /**
+     * Gets the root element of the widget.
+     */
+    element(): Object;
+}
+/**
+ * When implemented, represents the Web Dashboard extension.
+ */
+interface IExtension {
+    /**
+     * Gets a unique name of a Web Dashboard extension.
+     * Value: A string value that is a unique name of a Web Dashboard extension.
+     */
+    name: string;
+    /**
+     * Contains code that will be invoked when you register the dashboard extension.
+     */
+    start(): void;
+    /**
+     * Contains code that will be invoked when you unregister the dashboard extension.
+     */
+    stop(): void;
+}
+/**
+ * A client-side part of the Web Dashboard.
+ */
+interface DashboardControl {
+    /**
+     * Gets or sets knockout templates that you can use in the Web Dashboard.
+     * Value: A <see cref="KnockoutObservableArray" /> object that is a knockout template collection.
+     */
+    customTemplates: KnockoutObservableArray<any>;
+    /**
+     * Provides an access to the collection of registered dashboard extensions.
+     * Value: An array of IExtension objects that are dashboard extensions.
+     */
+    extensions: IExtension[];
+    /**
+     * Initializes a new dashboard with the specified name and JSON model.
+     * @param id A string value that is a unique name of the created dashboard.
+     * @param dashboardJson A dashboard model encoded in the specified JSON string.
+     */
+    initializeDashboard(id: string, dashboardJson: string): void;
+    /**
+     * Initializes a new dashboard with the specified name, JSON model and initial state.
+     * @param id A string value that is a unique name of the created dashboard.
+     * @param dashboardJson A dashboard model encoded in the specified JSON string.
+     * @param initialState A JSON object that specifies the  dashboard state.
+     */
+    initializeDashboard(id: string, dashboardJson: string, initialState: Object): void;
+    /**
+     * Allows you to register a dashboard extension to add its functionality to the Web Dashboard.
+     * @param extension An IExtension object that is a dashboard extension.
+     */
+    registerExtension(extension: IExtension): void;
+    /**
+     * Allows you to get access to the extension.
+     * @param extensionName A string value that is the dashboard extension name.
+     */
+    findExtension(extensionName: string): IExtension;
+    /**
+     * Allows you to unregister a dashboard extension to disable its functionality in the Web Dashboard.
+     * @param extensionName A string value that is a dashboard extension name.
+     */
+    unregisterExtension(extensionName: string): void;
+}
+interface UrlStateExtension extends IExtension {
+}
+interface Element {
+}
+/**
+ * The content of the Dashboard Parameters dialog.
+ */
+interface ParameterDialogContent {
+    /**
+     * Gets the Dashboard Parameters dialog's grid that displays parameter values.
+     * Value: The Dashboards Parameters dialog's grid that displays parameter values.
+     */
+    grid: Object;
+    /**
+     * Applies changes made in the Dashboard Parameters dialog.
+     */
+    submitParameterValues(): void;
+    /**
+     * Resets changes in the Dashboard Parameters dialog to the default values.
+     */
+    resetParameterValues(): void;
+    valueChanged(): void;
+}
+/**
+ * A Web Dashboard extension that is the Dashboard Parameters dialog.
+ */
+interface DashboardParameterDialogExtension extends IExtension {
+    /**
+     * Gets or sets whether to show the Dashboard Parameters button in the dashboard title.
+     * Value: true, to show the Dashboard Parameters button; otherwise, false.
+     */
+    showDialogButton: KnockoutObservableBoolean;
+    /**
+     * Invokes the Dashboard Parameters dialog.
+     */
+    show(): void;
+    /**
+     * Closes the Dashboard Parameters dialog.
+     */
+    hide(): void;
+    /**
+     * Allows you to be notified about the dashboard parameter settings changes.
+     * @param callback A custom function.
+     */
+    subscribeToContentChanges(callback: Function): Object;
+    /**
+     * Renders the content of the Dashboard Parameters dialog inside the specified JQuery element.
+     * @param element A JQuery element where the Dashboard Parameters dialog content is rendered.
+     */
+    renderContent(element: Element): ParameterDialogContent;
+}
+interface DashboardExportExtension extends IExtension {
+}
+interface ViewerApiExtension extends IExtension {
+}
+interface DashboardCurrencyEditorExtension extends IExtension {
+}
+interface DataSourceBrowserExtension extends IExtension {
+}
+interface DataSourceWizardExtension extends IExtension {
+}
+interface DashboardItemMenuExtension extends IExtension {
+}
+/**
+ * A Web Dashboard extension that allows you to configure color schemes.
+ */
+interface DashboardColorSchemeEditorExtension extends IExtension {
+}
+/**
+ * A Web Dashboard extension that allows you to keep track of all user actions, and cancel or repeat them.
+ */
+interface UndoRedoExtension extends IExtension {
+    /**
+     * Allows you to track whether the Web Dashboard has unsaved changes.
+     */
+    isChanged(): boolean;
+}
+/**
+ * A Web Dashboard extension that is the dashboard item's Binding menu allowing you to create and modify data binding.
+ */
+interface BindingPanelExtension extends IExtension {
+}
+/**
+ * A Web Dashboard extension that is the dashboard item's Convert To menu allowing you to convert or duplicate the current item.
+ */
+interface ConversionPanelExtension extends IExtension {
+}
+/**
+ * A Web Dashboard extension that allows you to save the current dashboard.
+ */
+interface SaveDashboardExtension extends IExtension {
+    /**
+     * Allows you to save the current dashboard with a specified unique name and JSON model.
+     * @param dashboardId A string value that is a unique name of the created dashboard.
+     * @param dashboardJson A dashboard model encoded in the specified JSON string.
+     */
+    performSaveDashboard(dashboardId: string, dashboardJson: string): void;
+    /**
+     * Allows you to invoke a custom function while you save a dashboard.
+     * @param action A custom function that is invoked when the dashboard is about to be saved.
+     */
+    ensureDashboardSaved(action: Function): void;
+    /**
+     * Saves the opened dashboard.
+     */
+    saveDashboard(): void;
+}
+/**
+ * A Web Dashboard extension that allows you to create a new dashboard.
+ */
+interface CreateDashboardExtension extends IExtension {
+    /**
+     * Creates a new dashboard with a specified name and JSON model.
+     * @param dashboardName A string value that is the name of the created dashboard.
+     * @param dashboardJson A dashboard model encoded in the specified JSON string.
+     */
+    performCreateDashboard(dashboardName: string, dashboardJson: string): void;
+}
+/**
+ * A Web Dashboard extension that allows you to open the created dashboards.
+ */
+interface OpenDashboardExtension extends IExtension {
+    /**
+     * Loads a dashboard with the specified identifier from the dashboard storage.
+     * @param id A String value that specifies the unique dashboard name.
+     */
+    loadDashboard(id: string): void;
+}
+/**
+ * A Web Dashboard extension that is the dashboard item's Interactivity menu containing settings that affect on interaction between various dashboard items.
+ */
+interface InteractivityPanelExtension extends IExtension {
+}
+/**
+ * A Web Dashboard extension that is the dashboard item's Options menu containing specific options and settings related to the current dashboard item.
+ */
+interface OptionsPanelExtension extends IExtension {
+}
+/**
+ * A Web Dashboard extension that is the dashboard title editor.
+ */
+interface DashboardTitleEditorExtension extends IExtension {
+}
+/**
+ * The Dashboard Panel extension that allows users to switch between dashboards and enable the Designer mode.
+ */
+interface DashboardPanelExtension extends IExtension {
+    /**
+     * Gets or sets the width of the Dashboard Panel extension.
+     * Value: An integer value that specifies the Dashboard Panel's width.
+     */
+    panelWidth: number;
+    /**
+     * Gets or sets whether the Dashboard Panel is visible.
+     * Value: true, to display the Dashboard Panel; otherwise, false.
+     */
+    visible: KnockoutObservableBoolean;
+    /**
+     * Gets or sets whether you can switch into the designer mode.
+     * Value: true, to display the Edit in Designer button on the dashboard panel; otherwise, false.
+     */
+    allowSwitchToDesigner: KnockoutObservableBoolean;
+}
+/**
+ * An extension that is a list of available data sources used to provide data to the Web Dashboard.
+ */
+interface AvailableDataSourcesExtension extends IExtension {
+}
+/**
+ * A dashboard menu item.
+ */
+interface DashboardMenuItem {
+    /**
+     * Gets or sets a unique identifier of a dashboard menu item.
+     * Value: A string value that is a menu item's unique identifier.
+     */
+    id: string;
+    /**
+     * Gets or sets a dashboard menu item title.
+     * Value: A string value that is a dashboard menu item title.
+     */
+    title: string;
+    /**
+     * Gets or sets a position of the dashboard menu item within the dashboard menu.
+     * Value: A zero-based integer specifying the position of the current dashboard menu item.
+     */
+    index: number;
+    /**
+     * Gets or sets a code of the key used in the keyboard shortcut. This shortcut allows you to invoke the current menu item.
+     * Value: An integer value that specifies a key code.
+     */
+    hotKey: number;
+    /**
+     * Gets or sets a custom function that is invoked when a click occurs.
+     * Value: A custom function that is invoked when a click occurs.
+     */
+    click: Function;
+    /**
+     * Gets or sets a knockout template for the extension.
+     * Value: A string value that is an id of the knockout template.
+     */
+    template: string;
+    /**
+     * Gets or sets whether the dashboard menu item is selected.
+     * Value: true, if the dashboard menu item is selected; otherwise, false;
+     */
+    selected: KnockoutObservableBoolean;
+    /**
+     * Gets whether a dashboard menu item is disabled.
+     * Value: true, if a dashboard menu item should be disabled; otherwise, false.
+     */
+    disabled: KnockoutObservableBoolean;
+    /**
+     * Gets or sets whether a dashboard menu item has a separator.
+     * Value: true, if a dashboard menu item has a separator; otherwise, false.
+     */
+    hasSeparator: boolean;
+    /**
+     * Gets or sets data that is used by a menu item.
+     * Value: An object that contains data used by a menu item.
+     */
+    data: Object;
+}
+/**
+ * A toolbox item of the specified dashboard toolbox group.
+ */
+interface DashboardToolboxItem {
+    /**
+     * Gets or sets a dashboard item type.
+     * Value: A string value that is a dashboard item type.
+     */
+    type: string;
+    /**
+     * Gets or sets an icon of the dashboard toolbox item.
+     * Value: A string value that is the icon id from the SVG definition.
+     */
+    icon: string;
+    /**
+     * Gets or sets a unique name of the dashboard toolbox item.
+     * Value: A string value that is a toolbox item's unique name.
+     */
+    name: string;
+    /**
+     * Gets or sets a dashboard toolbox item title.
+     * Value: A string value that is a dashboard toolbox item title.
+     */
+    title: string;
+    /**
+     * Gets or sets whether a toolbox item should be disabled.
+     * Value: true, if a toolbox item should be disabled; otherwise, false.
+     */
+    disabled: KnockoutObservableBoolean;
+    /**
+     * Gets or sets a custom function that is invoked when a click occurs.
+     * Value: A custom function that is invoked when a click occurs.
+     */
+    click: Function;
+}
+/**
+ * A toolbar item of the specified dashboard toolbar group.
+ */
+interface DashboardToolbarItem {
+    /**
+     * Gets or sets an icon of the dashboard toolbar item.
+     * Value: A string value that is the icon id from the SVG definition.
+     */
+    icon: string;
+    /**
+     * Gets or sets a unique name of the dashboard toolbar item.
+     * Value: A string value that is a unique toolbar item name.
+     */
+    name: string;
+    /**
+     * Gets or sets a dashboard toolbar item title.
+     * Value: A string value that is a dashboard toolbar item title.
+     */
+    title: string;
+    /**
+     * Gets or sets whether a toolbar item should be disabled.
+     * Value: true, if a toolbar item is disabled; otherwise, false.
+     */
+    disabled: KnockoutObservableBoolean;
+    /**
+     * Gets or sets a knockout extension template.
+     * Value: A string value that is an id of the knockout template.
+     */
+    template: string;
+    /**
+     * Gets or sets a custom function that is invoked when a click occurs.
+     * Value: A custom function that is invoked when a click occurs.
+     */
+    click: Function;
+}
+/**
+ * A toolbox group that contains dashboard toolbox items.
+ */
+interface DashboardToolboxGroup {
+    /**
+     * Gets or sets a unique name of the dashboard toolbox group.
+     * Value: A string value that is a unique toolbox group name.
+     */
+    name: string;
+    /**
+     * Gets or sets a dashboard toolbox group title.
+     * Value: A string value that is a dashboard toolbox group title.
+     */
+    title: string;
+    /**
+     * Gets or sets a position of the toolbox group within the Toolbox.
+     * Value: A zero-based integer specifying the position of the current toolbox group.
+     */
+    index: number;
+    /**
+     * Provides access to a collection of toolbox group items.
+     * Value: A DashboardToolboxItem).
+     */
+    items: KnockoutObservableArray<any>;
+}
+/**
+ * A toolbar group that contains dashboard toolbar items.
+ */
+interface DashboardToolbarGroup {
+    /**
+     * Gets or sets a unique name of the dashboard toolbar group.
+     * Value: A string value that is a unique toolbar group name.
+     */
+    name: string;
+    /**
+     * Gets or sets a dashboard toolbar group title.
+     * Value: A string value that is a dashboard toolbar group title.
+     */
+    title: string;
+    /**
+     * Gets or sets a position of the toolbar group within the Toolbox.
+     * Value: A zero-based integer specifying the position of the current toolbar group.
+     */
+    index: number;
+    /**
+     * Provides access to a collection of toolbar group items.
+     * Value: A DashboardToolbarItem).
+     */
+    items: KnockoutObservableArray<any>;
+}
+/**
+ * The Web Dashboard Toolbox extension that provides access to the dashboard menu and allows you to add dashboard items, as well as undo or repeat user actions.
+ */
+interface ToolboxExtension extends IExtension {
+    /**
+     * Provides access to a collection of the dashboard menu items.
+     * Value: A DashboardMenuItem).
+     */
+    menuItems: KnockoutObservableArray<any>;
+    /**
+     * Provides access to a collection of the Toolbox groups.
+     * Value: A DashboardToolboxGroup).
+     */
+    toolboxGroups: KnockoutObservableArray<any>;
+    /**
+     * Provides access to a collection of toolbar groups from the Toolbox.
+     * Value: A DashboardToolbarGroup).
+     */
+    toolbarGroups: KnockoutObservableArray<any>;
+    /**
+     * For internal use.
+     */
+    menuVisible: KnockoutObservableBoolean;
+    /**
+     * Allows you to add a specified menu item to the dashboard menu.
+     * @param menuItem A DashboardMenuItem object that is a dashboard menu item.
+     */
+    addMenuItem(menuItem: DashboardMenuItem): void;
+    /**
+     * Removes the specified dashboard item from the dashboard menu.
+     * @param menuItemId A string value that is a unique dashboard item name.
+     */
+    removeMenuItem(menuItemId: string): void;
+    /**
+     * Simulates a dashboard menu item selection.
+     * @param menuItem A DashboardMenuItem object that is a dashboard menu item.
+     */
+    selectMenuItem(menuItem: DashboardMenuItem): void;
+    /**
+     * Allows you to add a specified toolbox item into a specified toolbox group.
+     * @param groupName A string value that is a toolbox group name. To get a toolbox group name, use the name property.
+     * @param toolboxItem A DashboardToolboxItem object that is a dashboard toolbox item.
+     */
+    addToolboxItem(groupName: string, toolboxItem: DashboardToolboxItem): void;
+    /**
+     * Removes the specified item from the specified toolbox group.
+     * @param groupName A string value that is a unique toolbox group name (name).
+     * @param toolboxItemName A string value that is a unique toolbox item name (name).
+     */
+    removeToolboxItem(groupName: string, toolboxItemName: string): void;
+    /**
+     * Allows you to add a specified toolbar item into a specified toolbar group.
+     * @param groupName A string value that is a toolbar group name. To get a toolbar group name, use the name property.
+     * @param toolbarItem A DashboardToolbarItem object that is a dashboard toolbar item.
+     */
+    addToolbarItem(groupName: string, toolbarItem: DashboardToolbarItem): void;
+    /**
+     * Removes the specified toolbar item from the specified toolbar group.
+     * @param groupName A string value that is a unique toolbar group name.
+     * @param toolbarItemName A string value that is a unique toolbar item name.
+     */
+    removeToolbarItem(groupName: string, toolbarItemName: string): void;
+}
+/**
+ * A Web Dashboard extension that allows you to create and edit dashboard parameters.
+ */
+interface DashboardParameterEditorExtension extends IExtension {
 }
 /**
  * Serves as the base object for all the editors included in the client-side object model.
@@ -1984,6 +3608,10 @@ interface ASPxClientTextEdit extends ASPxClientEdit {
      */
     TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTextEdit>>;
     /**
+     * Fires on the client side when the editor's input value is changed before the focus moves out of the editor by end-user interactions.
+     */
+    UserInput: ASPxClientEvent<ASPxClientEventHandler<ASPxClientTextEdit>>;
+    /**
      * Returns the text displayed within the editor.
      */
     GetText(): string;
@@ -2001,6 +3629,10 @@ interface ASPxClientTextEdit extends ASPxClientEdit {
      * @param position An integer value that specifies the zero-based index of a text character that shall precede the caret.
      */
     SetCaretPosition(position: number): void;
+    /**
+     * Obtains the caret position within the edited text.
+     */
+    GetCaretPosition(): number;
     /**
      * Selects the specified portion of the editor's text.
      * @param startPos A zero-based integer value specifying the selection's starting position.
@@ -2265,6 +3897,58 @@ interface ASPxClientComboBox extends ASPxClientDropDownEditBase {
      * @param callbackFunction An object that is the JavaScript function that receives the callback data as a parameter. The function is performed after the combo box content is loaded.
      */
     EnsureDropDownLoaded(callbackFunction: Object): void;
+    /**
+     * Defines the HTML content for the specified combo box item.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param html A string value that is the HTML code defining the content of the combo box item.
+     */
+    SetItemHtml(index: number, html: string): void;
+    /**
+     * Sets the tooltip text for the combo box editor's item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param tooltip A string value specifying the tooltip text.
+     */
+    SetItemTooltip(index: number, tooltip: string): void;
+    /**
+     * Sets the CSS class for a combo box item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param className A string value specifying the CSS class name.
+     */
+    AddItemCssClass(index: number, className: string): void;
+    /**
+     * Removes the CSS class from a combo box item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param className A string value specifying the CSS class name.
+     */
+    RemoveItemCssClass(index: number, className: string): void;
+    /**
+     * Defines the HTML content for the specified combo box item's text cell.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param html A string value that is the HTML code defining the content of the combo box item.
+     */
+    SetItemTextCellHtml(itemIndex: number, textCellIndex: number, html: string): void;
+    /**
+     * Sets the tooltip text for the text cell of the editor's item specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param tooltip A string value specifying the tooltip text.
+     */
+    SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
+    /**
+     * Sets the CSS class for a combo box item's text cell specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param className A string value specifying the CSS class name.
+     */
+    AddItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
+    /**
+     * Removes the CSS class from a combo box item's text cell specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param className A string value specifying the CSS class name.
+     */
+    RemoveItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
 }
 /**
  * Represents the client-side equivalent of the ASPxDateEdit control.
@@ -2295,10 +3979,13 @@ interface ASPxClientDateEdit extends ASPxClientDropDownEditBase {
      */
     GetTimeEdit(): ASPxClientTimeEdit;
     /**
-     * 
-     * @param date 
+     * Specifies the date for the editor.
+     * @param date A DateTime object that is the date.
      */
     SetDate(date: Date): void;
+    /**
+     * Gets the date that is the editor's value.
+     */
     GetDate(): Date;
     /**
      * Returns the number of days in a range selected within a date edit.
@@ -2735,7 +4422,7 @@ interface ASPxClientListBox extends ASPxClientListEdit {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Adds a new item to the end of the editor's items collection, specifying the item's display text, and returns the index of the added item.
+     * Adds a new item to the editor, specifying the item's display text, and returns the added item's index.
      * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding columns within the editor's Columns collection.
      */
     AddItem(texts: string[]): number;
@@ -2773,6 +4460,58 @@ interface ASPxClientListBox extends ASPxClientListEdit {
      * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding columns within the editor's Columns collection.
      */
     InsertItem(index: number, texts: string[]): void;
+    /**
+     * Defines the HTML content for the specified list box item.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param html A string value that is the HTML code defining the content of the list box item.
+     */
+    SetItemHtml(index: number, html: string): void;
+    /**
+     * Sets the tooltip text for the list box editor's item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param tooltip A string value specifying the tooltip text.
+     */
+    SetItemTooltip(index: number, tooltip: string): void;
+    /**
+     * Sets the CSS class for a list box item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param className A string value specifying the CSS class name.
+     */
+    AddItemCssClass(index: number, className: string): void;
+    /**
+     * Removes the CSS class from a list box item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param className A string value specifying the CSS class name.
+     */
+    RemoveItemCssClass(index: number, className: string): void;
+    /**
+     * Defines the HTML content for the specified list box item's text cell.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param html A string value that is the HTML code defining the content of the list box item.
+     */
+    SetItemTextCellHtml(itemIndex: number, textCellIndex: number, html: string): void;
+    /**
+     * Sets the tooltip text for the text cell of the editor's item specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param tooltip A string value specifying the tooltip text.
+     */
+    SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
+    /**
+     * Sets the CSS class for a list box item's text cell specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param className A string value specifying the CSS class name.
+     */
+    AddItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
+    /**
+     * Removes the CSS class from a list box item's text cell specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param className A string value specifying the CSS class name.
+     */
+    RemoveItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
 }
 /**
  * Serves as the base type for the ASPxClientRadioButtonList objects.
@@ -2997,10 +4736,13 @@ interface ASPxClientTimeEdit extends ASPxClientSpinEditBase {
      */
     DateChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTimeEdit>>;
     /**
-     * 
-     * @param date 
+     * Specifies the date for the editor.
+     * @param date A DateTime object that is the date.
      */
     SetDate(date: Date): void;
+    /**
+     * Gets the date that is the editor's value.
+     */
     GetDate(): Date;
 }
 /**
@@ -3408,14 +5150,90 @@ interface ASPxClientGaugeControl extends ASPxClientControl {
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
+ * Lists values that specify the position relative to the target column in which a moved column should be placed.
+ */
+interface ASPxClientGridColumnMovingTargetPosition {
+    /**
+     * A moved column should be placed to the right of the target column.
+     */
+    Right: number;
+    /**
+     * A moved column should be placed to the left of the target column.
+     */
+    Left: number;
+    /**
+     * A moved column should be placed at the top of the target column.
+     */
+    Top: number;
+    /**
+     * A moved column should be placed at the bottom of the target column.
+     */
+    Bottom: number;
+}
+/**
  * Represents the client ASPxGridView.
  */
 interface ASPxClientGridBase extends ASPxClientControl {
+    /**
+     * Fires after a toolbar item has been clicked.
+     */
+    ToolbarItemClick: ASPxClientEvent<ASPxClientGridToolbarItemClickEventHandler<ASPxClientGridBase>>;
+    /**
+     * Returns a toolbar specified by its name.
+     * @param name A string value specifying the toolbar name.
+     */
+    GetToolbarByName(name: string): ASPxClientMenu;
+    /**
+     * Returns a grid's toolbar specified by its index.
+     * @param index An integer value specifying the zero-based index of the toolbar object to retrieve.
+     */
+    GetToolbar(index: number): ASPxClientMenu;
 }
 /**
  * Serves as a base object implementing the client column functionality.
  */
 interface ASPxClientGridColumnBase {
+}
+/**
+ * Lists values that specify the document formats available for export from the grid.
+ */
+interface ASPxClientGridExportFormat {
+}
+/**
+ * A method that will handle the ToolbarItemClick event.
+ */
+interface ASPxClientGridToolbarItemClickEventHandler<S> {
+    /**
+     * A method that will handle the ToolbarItemClick event.
+     * @param source The event source.
+     * @param e An ASPxClientGridToolbarItemClickEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientGridToolbarItemClickEventArgs): void;
+}
+/**
+ * Provides data for the ToolbarItemClick event.
+ */
+interface ASPxClientGridToolbarItemClickEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Gets the toolbar index.
+     * Value: An integer value that is the toolbar index.
+     */
+    toolbarIndex: number;
+    /**
+     * Gets the toolbar name.
+     * Value: A string value that is the toolbar name.
+     */
+    toolbarName: string;
+    /**
+     * Gets the clicked menu item
+     * Value: An ASPxClientMenu value that is the menu item.
+     */
+    item: ASPxClientMenuItem;
+    /**
+     * Specifies whether a postback or a callback is used to finally process the event on the server side.
+     * Value: true to perform the round trip to the server side via postback; false to perform the round trip to the server side via callback.
+     */
+    usePostBack: boolean;
 }
 /**
  * The client-side equivalent of the ASPxGridLookup control.
@@ -3504,6 +5322,10 @@ interface ASPxClientCardView extends ASPxClientGridBase {
      */
     BatchEditCardDeleting: ASPxClientEvent<ASPxClientCardViewBatchEditCardDeletingEventHandler<ASPxClientCardView>>;
     /**
+     * Occurs on the client side when the focused cell is about to be changed.
+     */
+    FocusedCellChanging: ASPxClientEvent<ASPxClientCardViewFocusedCellChangingEventHandler<ASPxClientCardView>>;
+    /**
      * Fires on the client when a card is clicked.
      */
     CardClick: ASPxClientEvent<ASPxClientCardViewCardClickEventHandler<ASPxClientCardView>>;
@@ -3514,7 +5336,11 @@ interface ASPxClientCardView extends ASPxClientGridBase {
     /**
      * Fires in response to changing card focus.
      */
-    FocusedCardChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientCardView>>;
+    FocusedCardChanged: ASPxClientEvent<ASPxClientCardViewFocusEventHandler<ASPxClientCardView>>;
+    /**
+     * Fires before a card has been focused.
+     */
+    CardFocusing: ASPxClientEvent<ASPxClientCardViewCardFocusingEventHandler<ASPxClientCardView>>;
     /**
      * Occurs when a callback for server-side processing is initiated.
      */
@@ -3531,6 +5357,36 @@ interface ASPxClientCardView extends ASPxClientGridBase {
      * Fires after the customization window has been closed.
      */
     CustomizationWindowCloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientCardView>>;
+    /**
+     * Returns the editor used to edit the specified column's values.
+     * @param column An ASPxClientCardViewColumn object that specifies the required column within the client grid.
+     */
+    GetEditor(column: ASPxClientCardViewColumn): ASPxClientEdit;
+    /**
+     * Returns the editor used to edit the specified column's values.
+     * @param columnIndex An integer value that specifies the column's position within the column collection.
+     */
+    GetEditor(columnIndex: number): ASPxClientEdit;
+    /**
+     * Returns the editor used to edit the specified column's values.
+     * @param columnFieldNameOrId A string value that specifies the column's field name or unique identifier (the column's Name property value).
+     */
+    GetEditor(columnFieldNameOrId: string): ASPxClientEdit;
+    /**
+     * Returns the value of the specified edit cell.
+     * @param column An ASPxClientCardViewColumn object that represents the data column within the client grid.
+     */
+    GetEditValue(column: ASPxClientCardViewColumn): string;
+    /**
+     * Returns the value of the specified edit cell.
+     * @param columnIndex An integer value that identifies the data column within the grid's column collection.
+     */
+    GetEditValue(columnIndex: number): string;
+    /**
+     * Returns the value of the specified edit cell.
+     * @param columnFieldNameOrId A string value that specifies the column's field name or unique identifier (the column's Name property value).
+     */
+    GetEditValue(columnFieldNameOrId: string): string;
     /**
      * Moves focus to the specified edit cell within the edited card.
      * @param column An ASPxClientCardViewColumn object that represents the data column within the client grid.
@@ -3596,6 +5452,11 @@ interface ASPxClientCardView extends ASPxClientGridBase {
      * @param columnIndex A zero-based index that identifies the column in the column collection (the column's Index property value).
      */
     SetFocusedCell(cardVisibleIndex: number, columnIndex: number): void;
+    /**
+     * Specifies a custom editor for the search panel on the client side.
+     * @param editor An ASPxClientEdit object representing a custom editor.
+     */
+    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
     /**
      * Sorts data by the specified data column's values.
      * @param column An ASPxClientCardViewColumn object that represents the data column.
@@ -3748,7 +5609,7 @@ interface ASPxClientCardView extends ASPxClientGridBase {
      */
     IsNewCardEditing(): boolean;
     /**
-     * Adds a new record.
+     * Adds a new card.
      */
     AddNewCard(): void;
     /**
@@ -3885,6 +5746,11 @@ interface ASPxClientCardView extends ASPxClientGridBase {
      */
     IsCardSelectedOnPage(visibleIndex: number): boolean;
     /**
+     * Exports a grid data to a file in the specified format.
+     * @param format An ASPxClientCardViewExportFormat object specifying the export format.
+     */
+    ExportTo(format: ASPxClientCardViewExportFormat): void;
+    /**
      * Applies the specified search panel filter criterion to grid data.
      * @param value A string value that specifies the filter criterion.
      */
@@ -3911,6 +5777,12 @@ interface ASPxClientCardView extends ASPxClientGridBase {
      * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
      */
     PerformCallback(args: string): void;
+    /**
+     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
      * Selects the specified page.
      * @param pageIndex An integer value that specifies the active page's index.
@@ -4017,40 +5889,10 @@ interface ASPxClientCardView extends ASPxClientGridBase {
      */
     GetColumnById(columnId: string): ASPxClientCardViewColumn;
     /**
-     * Returns the client column which is bound to the specified data source field.
+     * Returns the client column to which the specified data source field is bound.
      * @param columnFieldName A string value that specifies the name of the data source field to which the column is bound (the column's FieldName property value).
      */
     GetColumnByField(columnFieldName: string): ASPxClientCardViewColumn;
-    /**
-     * Returns the editor used to edit the specified column's values.
-     * @param column An ASPxClientCardViewColumn object that specifies the required column within the client grid.
-     */
-    GetEditor(column: ASPxClientCardViewColumn): ASPxClientEdit;
-    /**
-     * Returns the editor used to edit the specified column's values.
-     * @param columnIndex An integer value that specifies the column's position within the column collection.
-     */
-    GetEditor(columnIndex: number): ASPxClientEdit;
-    /**
-     * Returns the editor used to edit the specified column's values.
-     * @param columnFieldNameOrId A string value that specifies the column's field name or unique identifier (the column's Name property value).
-     */
-    GetEditor(columnFieldNameOrId: string): ASPxClientEdit;
-    /**
-     * Returns the value of the specified edit cell.
-     * @param column An ASPxClientCardViewColumn object that represents the data column within the client grid.
-     */
-    GetEditValue(column: ASPxClientCardViewColumn): string;
-    /**
-     * Returns the value of the specified edit cell.
-     * @param columnIndex An integer value that identifies the data column within the grid's column collection.
-     */
-    GetEditValue(columnIndex: number): string;
-    /**
-     * Returns the value of the specified edit cell.
-     * @param columnFieldNameOrId A string value that specifies the column's field name or unique identifier (the column's Name property value).
-     */
-    GetEditValue(columnFieldNameOrId: string): string;
 }
 /**
  * Represents a client column.
@@ -4107,6 +5949,32 @@ interface ASPxClientCardViewColumnCancelEventArgs extends ASPxClientCancelEventA
      * Value: An ASPxClientCardViewColumn object that represents the processed column.
      */
     column: ASPxClientCardViewColumn;
+}
+/**
+ * A method that will handle the client CardFocusing event.
+ */
+interface ASPxClientCardViewCardFocusingEventHandler<S> {
+    /**
+     * Represents a method that will handle the CardFocusing event.
+     * @param source The event source.
+     * @param e An ASPxClientCardViewCardFocusingEventArgs object which contains event data.
+     */
+    (source: S, e: ASPxClientCardViewCardFocusingEventArgs): void;
+}
+/**
+ * Provides data for the CardFocusing event.
+ */
+interface ASPxClientCardViewCardFocusingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Gets the card visible index.
+     * Value: An integer value specifying the visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Provides access to the parameters associated with the CardFocusing event.
+     * Value: An object that contains parameters associated with the event.
+     */
+    htmlEvent: Object;
 }
 /**
  * A method that will handle the CardClick event.
@@ -4193,6 +6061,27 @@ interface ASPxClientCardViewSelectionEventArgs extends ASPxClientProcessingModeE
     /**
      * Gets whether a selection has been changed on the server.
      * Value: true  if a selection has been changed on the server; otherwise, false.
+     */
+    isChangedOnServer: boolean;
+}
+/**
+ * A method that will handle the client FocusedCardChanged event.
+ */
+interface ASPxClientCardViewFocusEventHandler<S> {
+    /**
+     * Represents a method that will handle the FocusedCardChanged event.
+     * @param source The event source.
+     * @param e An ASPxClientCardViewFocusEventArgs object which contains event data.
+     */
+    (source: S, e: ASPxClientCardViewFocusEventArgs): void;
+}
+/**
+ * Provides data for the corresponding event.
+ */
+interface ASPxClientCardViewFocusEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Gets whether card focusing has been changed on the server.
+     * Value: true , if the card focusing has been changed on the server; otherwise, false.
      */
     isChangedOnServer: boolean;
 }
@@ -4436,6 +6325,27 @@ interface ASPxClientCardViewBatchEditCardDeletingEventArgs extends ASPxClientCan
     cardValues: Object;
 }
 /**
+ * A method that will handle the FocusedCellChanging event.
+ */
+interface ASPxClientCardViewFocusedCellChangingEventHandler<S> {
+    /**
+     * A method that will handle the FocusedCellChanging event.
+     * @param source The event source.
+     * @param e An ASPxClientCardViewFocusedCellChangingEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientCardViewFocusedCellChangingEventArgs): void;
+}
+/**
+ * Provides data for the FocusedCellChanging event.
+ */
+interface ASPxClientCardViewFocusedCellChangingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Provides information of a card's cell currently being focused.
+     * Value: A ASPxClientCardViewCellInfo object that provides information about the card's cell.
+     */
+    cellInfo: ASPxClientCardViewCellInfo;
+}
+/**
  * Provides members related to Batch Edit Mode
  */
 interface ASPxClientCardViewBatchEditApi {
@@ -4473,6 +6383,30 @@ interface ASPxClientCardViewBatchEditApi {
      */
     IsNewCard(visibleIndex: number): boolean;
     /**
+     * Adds a new card when ASPxCardView is in Batch Edit mode.
+     */
+    AddNewCard(): void;
+    /**
+     * Deletes the specified card when ASPxCardView is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the card index.
+     */
+    DeleteCard(visibleIndex: number): void;
+    /**
+     * Deletes a card with a specified key value when ASPxCardView is in Batch Edit mode.
+     * @param key An object that uniquely identifies the card.
+     */
+    DeleteCardByKey(key: Object): void;
+    /**
+     * Recovers the specified card when ASPxCardView is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the card index.
+     */
+    RecoverCard(visibleIndex: number): void;
+    /**
+     * Recovers a card with a specified key value when ASPxCardView is in Batch Edit mode.
+     * @param key An object that uniquely identifies the card.
+     */
+    RecoverCardByKey(key: Object): void;
+    /**
      * Programmatically moves the focus to the previous cell in the card
      */
     MoveFocusBackward(): boolean;
@@ -4503,6 +6437,12 @@ interface ASPxClientCardViewBatchEditApi {
      * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
      */
     GetCellValue(visibleIndex: number, columnFieldNameOrId: string, initial?: boolean): Object;
+    /**
+     * Gets a container holding a data cell content.
+     * @param visibleIndex An integer value that is the visible index.
+     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
+     */
+    GetCellTextContainer(visibleIndex: number, columnFieldNameOrId: string): Object;
     /**
      * Gets information about the cell currently being edited.
      */
@@ -4543,6 +6483,12 @@ interface ASPxClientCardViewBatchEditApi {
      * Ends cell or card editing.
      */
     EndEdit(): void;
+    /**
+     * Provides the text displayed within the cell according to the specified display format rule.
+     * @param columnFieldNameOrId A string value representing the column's unique identifier or field name.
+     * @param value An object representing a value.
+     */
+    GetColumnDisplayText(columnFieldNameOrId: string, value: Object): string;
 }
 /**
  * Contains information on a grid cell.
@@ -4558,6 +6504,11 @@ interface ASPxClientCardViewCellInfo {
      * Value: An <see cref="ASPxClientCardViewColumn" /> object that is the data column which contains the processed cell.
      */
     column: ASPxClientCardViewColumn;
+}
+/**
+ * Lists values that specify the document formats available for export from the grid.
+ */
+interface ASPxClientCardViewExportFormat extends ASPxClientGridExportFormat {
 }
 /**
  * A client-side equivalent of the ASPxGridView object.
@@ -4583,7 +6534,11 @@ interface ASPxClientGridView extends ASPxClientGridBase {
     /**
      * Fires in response to changing row focus.
      */
-    FocusedRowChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientGridView>>;
+    FocusedRowChanged: ASPxClientEvent<ASPxClientGridViewFocusEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires before a row has been focused.
+     */
+    RowFocusing: ASPxClientEvent<ASPxClientGridViewRowFocusingEventHandler<ASPxClientGridView>>;
     /**
      * Enables you to cancel data grouping.
      */
@@ -4673,6 +6628,10 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      */
     BatchEditRowDeleting: ASPxClientEvent<ASPxClientGridViewBatchEditRowDeletingEventHandler<ASPxClientGridView>>;
     /**
+     * Occurs on the client side when the focused cell is about to be changed.
+     */
+    FocusedCellChanging: ASPxClientEvent<ASPxClientGridViewFocusedCellChangingEventHandler<ASPxClientGridView>>;
+    /**
      * Occurs when a callback for server-side processing is initiated.
      */
     BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientGridView>>;
@@ -4688,6 +6647,78 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * Fires after the Customization Window has been closed.
      */
     CustomizationWindowCloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientGridView>>;
+    /**
+     * Selects the specified rows within the grid.
+     * @param visibleIndices An array of zero-based indices that identify data rows within the grid.
+     */
+    SelectRows(visibleIndices: number[]): void;
+    /**
+     * Selects or deselects the specified rows within the grid.
+     * @param visibleIndices An array of zero-based indices that identify data rows within the grid.
+     * @param selected true to select the specified rows; false to deselect the rows.
+     */
+    SelectRows(visibleIndices: number[], selected: boolean): void;
+    /**
+     * Selects or deselects the specified row within the grid.
+     * @param visibleIndex An integer zero-based index that identifies the data row within the grid.
+     * @param selected true to select the specified row; false to deselect the row.
+     */
+    SelectRows(visibleIndex: number, selected?: boolean): void;
+    /**
+     * Selects or deselects the specified rows displayed within the grid.
+     * @param keys An array of objects that uniquely identify the rows.
+     * @param selected true to select the specified rows; false to deselect the rows.
+     */
+    SelectRowsByKey(keys: Object[], selected?: boolean): void;
+    /**
+     * Selects or deselects the specified row displayed within the grid.
+     * @param key An object that uniquely identifies the row.
+     * @param selected true to select the specified row; false to deselect the row.
+     */
+    SelectRowsByKey(key: Object, selected?: boolean): void;
+    /**
+     * Selects the specified rows displayed within the grid.
+     * @param keys An array of objects that uniquely identify the rows.
+     */
+    SelectRowsByKey(keys: Object[]): void;
+    /**
+     * Selects a grid row by its key.
+     * @param key An object that uniquely identifies the row.
+     */
+    SelectRowsByKey(key: Object): void;
+    /**
+     * Deselects the specified rows displayed within the grid.
+     * @param keys An array of objects that uniquely identify the rows.
+     */
+    UnselectRowsByKey(keys: Object[]): void;
+    /**
+     * Deselects the specified row displayed within the grid.
+     * @param key An object that uniquely identifies the row.
+     */
+    UnselectRowsByKey(key: Object): void;
+    /**
+     * Deselects all the selected rows within the grid.
+     */
+    UnselectRows(): void;
+    /**
+     * Deselects the specified rows (if selected) within the grid.
+     * @param visibleIndices An array of zero-based indices that identify data rows within the grid.
+     */
+    UnselectRows(visibleIndices: number[]): void;
+    /**
+     * Deselects the specified row (if selected) within the grid.
+     * @param visibleIndex A zero-based integer value that specifies the row's visible index.
+     */
+    UnselectRows(visibleIndex: number): void;
+    /**
+     * Deselects all grid rows that match the filter criteria currently applied to the grid.
+     */
+    UnselectFilteredRows(): void;
+    /**
+     * Selects the specified row displayed on the current page.
+     * @param visibleIndex A zero-based integer value that specifies the row's visible index.
+     */
+    SelectRowOnPage(visibleIndex: number): void;
     /**
      * Selects or deselects the specified row displayed on the current page.
      * @param visibleIndex A zero-based integer value that specifies the row's visible index.
@@ -4764,6 +6795,21 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      */
     SetHorizontalScrollPosition(position: number): void;
     /**
+     * Sets the scrollability of various types of grid rows when the grid displays fixed columns.
+     * @param scrollableRowSettings An object specifying which types of grid rows should or should not be scrollable.
+     */
+    SetFixedColumnScrollableRows(scrollableRowSettings: Object): void;
+    /**
+     * Exports a grid data to a file in the specified format.
+     * @param format An ASPxClientGridViewExportFormat object specifying the export format.
+     */
+    ExportTo(format: ASPxClientGridViewExportFormat): void;
+    /**
+     * Returns a value specifying the indices of the rows visible in the browser's view port.
+     * @param includePartiallyVisible true, to include partially visible rows, otherwise, false.
+     */
+    GetRowIndicesVisibleInViewPort(includePartiallyVisible: boolean): number[];
+    /**
      * Applies a filter specified in the filter row to the GridView.
      */
     ApplyOnClickRowFilter(): void;
@@ -4827,6 +6873,12 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
      */
     PerformCallback(args: string): void;
+    /**
+     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
      * Selects the specified page.
      * @param pageIndex An integer value that specifies the active page's index.
@@ -5037,6 +7089,15 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      */
     SetFocusedCell(rowVisibleIndex: number, columnIndex: number): void;
     /**
+     * Specifies a custom editor for the search panel on the client side.
+     * @param editor An ASPxClientEdit object representing a custom editor.
+     */
+    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
+    /**
+     * Invokes the Customization Dialog and displays it over the grid.
+     */
+    ShowCustomizationDialog(): void;
+    /**
      * Sorts data by the specified data column's values.
      * @param column An ASPxClientGridViewColumn object that represents the data column.
      */
@@ -5220,6 +7281,47 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      */
     MoveColumn(columnFieldNameOrId: string, moveToColumnVisibleIndex: number, moveBefore: boolean, moveToGroup: boolean, moveFromGroup: boolean): void;
     /**
+     * Moves the specified column to the specified visual position within the grid.
+     * @param columnIndex An integer value that specifies the absolute index of the column to move.
+     * @param moveToColumnVisibleIndex An integer value that specifies the column's position among the visible columns within the grid.
+     * @param targetPosition An ASPxClientGridColumnMovingTargetPosition enumeration value specifying the position relative to the target column in which to place the moved column.
+     */
+    MoveColumn(columnIndex: number, moveToColumnVisibleIndex: number, targetPosition: ASPxClientGridColumnMovingTargetPosition): void;
+    /**
+     * Moves the specified column to the specified visual position within the grid.
+     * @param columnFieldNameOrId A String value that identifies the column to be moved by the name of the data source field to which the column is bound or by the column's name.
+     * @param moveToColumnVisibleIndex An integer value that specifies the column's position among the visible columns within the grid.
+     * @param targetPosition An ASPxClientGridColumnMovingTargetPosition enumeration value specifying the position relative to the target column in which to place the moved column.
+     */
+    MoveColumn(columnFieldNameOrId: string, moveToColumnVisibleIndex: number, targetPosition: ASPxClientGridColumnMovingTargetPosition): void;
+    /**
+     * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
+     * @param columnIndex An integer value that specifies the absolute index of the column to move.
+     * @param moveToColumnVisibleIndex An integer value that identifies the target column displayed within the grid.
+     * @param targetPosition An ASPxClientGridColumnMovingTargetPosition enumeration value specifying the position relative to the target column in which to place the moved column.
+     * @param moveToGroup true, to group the ASPxGridView's data by the column; otherwise, false.
+     * @param moveFromGroup true, to ungroup the grid's data by the column; otherwise, false.
+     */
+    MoveColumn(columnIndex: number, moveToColumnVisibleIndex: number, targetPosition: ASPxClientGridColumnMovingTargetPosition, moveToGroup: boolean, moveFromGroup: boolean): void;
+    /**
+     * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
+     * @param columnFieldNameOrId A string value that identifies the column to be moved by the name of the data source field to which the column is bound or by the column's name.
+     * @param moveToColumnVisibleIndex An integer value that identifies the target column displayed within the grid.
+     * @param targetPosition An ASPxClientGridColumnMovingTargetPosition enumeration value specifying the position relative to the target column in which to place the moved column.
+     * @param moveToGroup true, to group the grid's data by the column; otherwise, false.
+     * @param moveFromGroup true, to ungroup the grid's data by the column; otherwise, false.
+     */
+    MoveColumn(columnFieldNameOrId: string, moveToColumnVisibleIndex: number, targetPosition: ASPxClientGridColumnMovingTargetPosition, moveToGroup: boolean, moveFromGroup: boolean): void;
+    /**
+     * Returns an object specifying the grid column's layout.
+     */
+    GetColumnLayout(): Object;
+    /**
+     * Specifies the grid column's layout.
+     * @param columnLayout An object specifying the grid column's layout.
+     */
+    SetColumnLayout(columnLayout: Object): void;
+    /**
      * Groups data by the values of the specified column.
      * @param column An ASPxClientGridViewColumn object that represents the data column by whose values data is grouped.
      */
@@ -5288,6 +7390,21 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param columnFieldNameOrId A string value that specifies the column's field name or unique identifier (the column's Name property value).
      */
     UnGroup(columnFieldNameOrId: string): void;
+    /**
+     * Ungroups data by the values of a specified column.
+     * @param column A ASPxClientGridViewColumn object that is the grid column.
+     */
+    Ungroup(column: ASPxClientGridViewColumn): void;
+    /**
+     * Ungroups data by the values of a specified column.
+     * @param columnIndex An integer value that is the column index.
+     */
+    Ungroup(columnIndex: number): void;
+    /**
+     * Ungroups data by the values of a specified column.
+     * @param columnFieldNameOrId A string value that is the column's FieldName or ID.
+     */
+    Ungroup(columnFieldNameOrId: string): void;
     /**
      * Expands all group rows.
      */
@@ -5392,78 +7509,6 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param visibleIndex A zero-based integer value that specifies the row's visible index.
      */
     SelectRows(visibleIndex: number): void;
-    /**
-     * Selects the specified rows within the grid.
-     * @param visibleIndices An array of zero-based indices that identify data rows within the grid.
-     */
-    SelectRows(visibleIndices: number[]): void;
-    /**
-     * Selects or deselects the specified rows within the grid.
-     * @param visibleIndices An array of zero-based indices that identify data rows within the grid.
-     * @param selected true to select the specified rows; false to deselect the rows.
-     */
-    SelectRows(visibleIndices: number[], selected: boolean): void;
-    /**
-     * Selects or deselects the specified row within the grid.
-     * @param visibleIndex An integer zero-based index that identifies the data row within the grid.
-     * @param selected true to select the specified row; false to deselect the row.
-     */
-    SelectRows(visibleIndex: number, selected?: boolean): void;
-    /**
-     * Selects or deselects the specified rows displayed within the grid.
-     * @param keys An array of objects that uniquely identify the rows.
-     * @param selected true to select the specified rows; false to deselect the rows.
-     */
-    SelectRowsByKey(keys: Object[], selected?: boolean): void;
-    /**
-     * Selects or deselects the specified row displayed within the grid.
-     * @param key An object that uniquely identifies the row.
-     * @param selected true to select the specified row; false to deselect the row.
-     */
-    SelectRowsByKey(key: Object, selected?: boolean): void;
-    /**
-     * Selects the specified rows displayed within the grid.
-     * @param keys An array of objects that uniquely identify the rows.
-     */
-    SelectRowsByKey(keys: Object[]): void;
-    /**
-     * Selects a grid row by its key.
-     * @param key An object that uniquely identifies the row.
-     */
-    SelectRowsByKey(key: Object): void;
-    /**
-     * Deselects the specified rows displayed within the grid.
-     * @param keys An array of objects that uniquely identify the rows.
-     */
-    UnselectRowsByKey(keys: Object[]): void;
-    /**
-     * Deselects the specified row displayed within the grid.
-     * @param key An object that uniquely identifies the row.
-     */
-    UnselectRowsByKey(key: Object): void;
-    /**
-     * Deselects all the selected rows within the grid.
-     */
-    UnselectRows(): void;
-    /**
-     * Deselects the specified rows (if selected) within the grid.
-     * @param visibleIndices An array of zero-based indices that identify data rows within the grid.
-     */
-    UnselectRows(visibleIndices: number[]): void;
-    /**
-     * Deselects the specified row (if selected) within the grid.
-     * @param visibleIndex A zero-based integer value that specifies the row's visible index.
-     */
-    UnselectRows(visibleIndex: number): void;
-    /**
-     * Deselects all grid rows that match the filter criteria currently applied to the grid.
-     */
-    UnselectFilteredRows(): void;
-    /**
-     * Selects the specified row displayed on the current page.
-     * @param visibleIndex A zero-based integer value that specifies the row's visible index.
-     */
-    SelectRowOnPage(visibleIndex: number): void;
 }
 /**
  * A client grid column.
@@ -5603,6 +7648,48 @@ interface ASPxClientGridViewSelectionEventArgs extends ASPxClientProcessingModeE
      * Value: true  if a selection has been changed on the server; otherwise, false.
      */
     isChangedOnServer: boolean;
+}
+/**
+ * A method that will handle the client FocusedRowChanged event.
+ */
+interface ASPxClientGridViewFocusEventHandler<S> {
+    /**
+     * Represents a method that will handle the FocusedRowChanged event.
+     * @param source The event source.
+     * @param e An ASPxClientGridViewFocusEventArgs object which contains event data.
+     */
+    (source: S, e: ASPxClientGridViewFocusEventArgs): void;
+}
+/**
+ * Provides data for the corresponding event.
+ */
+interface ASPxClientGridViewFocusEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Gets whether the row focusing has been changed on the server.
+     * Value: true , if the row focusing has been changed on the server; otherwise, false.
+     */
+    isChangedOnServer: boolean;
+}
+/**
+ * A method that will handle the client RowFocusing event.
+ */
+interface ASPxClientGridViewRowFocusingEventHandler<S> {
+    /**
+     * Represents a method that will handle the RowFocusing event.
+     * @param source The event source.
+     * @param e An ASPxClientGridViewRowFocusingEventArgs object which contains event data.
+     */
+    (source: S, e: ASPxClientGridViewRowFocusingEventArgs): void;
+}
+/**
+ * Provides data for the RowFocusing event.
+ */
+interface ASPxClientGridViewRowFocusingEventArgs extends ASPxClientGridViewRowCancelEventArgs {
+    /**
+     * Provides access to the parameters associated with the RowFocusing event.
+     * Value: An object that contains parameters associated with the event.
+     */
+    htmlEvent: Object;
 }
 /**
  * A method that will handle the RowClick events.
@@ -6014,6 +8101,27 @@ interface ASPxClientGridViewBatchEditRowDeletingEventArgs extends ASPxClientCanc
     rowValues: Object;
 }
 /**
+ * A method that will handle the FocusedCellChanging event.
+ */
+interface ASPxClientGridViewFocusedCellChangingEventHandler<S> {
+    /**
+     * A method that will handle the FocusedCellChanging event.
+     * @param source The event source.
+     * @param e An ASPxClientGridViewFocusedCellChangingEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientGridViewFocusedCellChangingEventArgs): void;
+}
+/**
+ * Provides data for the FocusedCellChanging event.
+ */
+interface ASPxClientGridViewFocusedCellChangingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Provides information on a cell currently being focused.
+     * Value: A ASPxClientGridViewCellInfo object that is the cell information.
+     */
+    cellInfo: ASPxClientGridViewCellInfo;
+}
+/**
  * Contains information on a grid cell.
  */
 interface ASPxClientGridViewCellInfo {
@@ -6066,6 +8174,30 @@ interface ASPxClientGridViewBatchEditApi {
      */
     IsNewRow(visibleIndex: number): boolean;
     /**
+     * Adds a new row when ASPxGridView is in Batch Edit mode.
+     */
+    AddNewRow(): void;
+    /**
+     * Deletes the specified row when ASPxGridView is in Batch Edit.
+     * @param visibleIndex An integer value that identifies the row index.
+     */
+    DeleteRow(visibleIndex: number): void;
+    /**
+     * Deletes a row with a specified key value when ASPxGridView is in Batch Edit mode.
+     * @param key An object that uniquely identifies the row.
+     */
+    DeleteRowByKey(key: Object): void;
+    /**
+     * Recovers the specified row when ASPxGridView is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the row index.
+     */
+    RecoverRow(visibleIndex: number): void;
+    /**
+     * Recovers a row with a specified key value when ASPxGridView is in Batch Edit mode.
+     * @param key An object that uniquely identifies the row.
+     */
+    RecoverRowByKey(key: Object): void;
+    /**
      * Programmatically moves the focus to the previous cell in the row.
      */
     MoveFocusBackward(): boolean;
@@ -6096,6 +8228,12 @@ interface ASPxClientGridViewBatchEditApi {
      * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
      */
     GetCellValue(visibleIndex: number, columnFieldNameOrId: string, initial?: boolean): Object;
+    /**
+     * Gets a container holding a data cell content.
+     * @param visibleIndex An integer value that is the visible index.
+     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
+     */
+    GetCellTextContainer(visibleIndex: number, columnFieldNameOrId: string): Object;
     /**
      * Gets information about the cell currently being edited.
      */
@@ -6136,6 +8274,17 @@ interface ASPxClientGridViewBatchEditApi {
      * Ends cell or row editing.
      */
     EndEdit(): void;
+    /**
+     * Provides the text displayed within the cell according to the specified display format rule.
+     * @param columnFieldNameOrId A string value representing the column's unique identifier or field name.
+     * @param value An object representing a value.
+     */
+    GetColumnDisplayText(columnFieldNameOrId: string, value: Object): string;
+}
+/**
+ * Lists values that specify the document formats available for export from the grid.
+ */
+interface ASPxClientGridViewExportFormat extends ASPxClientGridExportFormat {
 }
 /**
  * A client-side equivalent of the ASPxVerticalGrid object.
@@ -6190,6 +8339,10 @@ interface ASPxClientVerticalGrid extends ASPxClientGridBase {
      * Enables you to specify whether record data is valid and provide an error text.
      */
     BatchEditRecordValidating: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs on the client side when the focused cell is about to be changed.
+     */
+    FocusedCellChanging: ASPxClientEvent<ASPxClientVerticalGridFocusedCellChangingEventHandler<ASPxClientVerticalGrid>>;
     /**
      * Enables you to prevent rows from being sorted.
      */
@@ -6434,6 +8587,11 @@ interface ASPxClientVerticalGrid extends ASPxClientGridBase {
      */
     IsRecordSelectedOnPage(visibleIndex: number): boolean;
     /**
+     * Exports a grid data to a file in the specified format.
+     * @param format An ASPxClientVerticalGridExportFormat object specifying the export format.
+     */
+    ExportTo(format: ASPxClientVerticalGridExportFormat): void;
+    /**
      * Returns the values of the specified data source fields within the specified record.
      * @param visibleIndex An integer value that identifies the record.
      * @param fieldNames The names of data source fields separated using a semicolon, whose values within the specified record are returned.
@@ -6447,7 +8605,7 @@ interface ASPxClientVerticalGrid extends ASPxClientGridBase {
      */
     GetPageRecordValues(fieldNames: string, onCallback: ASPxClientVerticalGridValuesCallback): void;
     /**
-     * Returns the number of records actually displayed within the active page.
+     * Returns the number of records actually displayed on the active page.
      */
     GetVisibleRecordsOnPage(): number;
     /**
@@ -6477,6 +8635,12 @@ interface ASPxClientVerticalGrid extends ASPxClientGridBase {
      * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
      */
     PerformCallback(args: string): void;
+    /**
+     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
      * Selects the specified page.
      * @param pageIndex An integer value that specifies the active page's index.
@@ -6558,6 +8722,11 @@ interface ASPxClientVerticalGrid extends ASPxClientGridBase {
      * @param isFilterEnabled true to enable the current filter; otherwise, false.
      */
     SetFilterEnabled(isFilterEnabled: boolean): void;
+    /**
+     * Specifies a custom editor for the search panel on the client side.
+     * @param editor An ASPxClientEdit object representing a custom editor.
+     */
+    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
     /**
      * Returns the client row that resides at the specified position within the row collection.
      * @param rowIndex A zero-based index that identifies the row within the row collection (the row's Index property value).
@@ -7051,6 +9220,27 @@ interface ASPxClientVerticalGridBatchEditRecordDeletingEventArgs extends ASPxCli
     recordValues: Object;
 }
 /**
+ * A method that will handle the FocusedCellChanging event.
+ */
+interface ASPxClientVerticalGridFocusedCellChangingEventHandler<S> {
+    /**
+     * A method that will handle the FocusedCellChanging event.
+     * @param source The event source.
+     * @param e An ASPxClientVerticalGridFocusedCellChangingEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientVerticalGridFocusedCellChangingEventArgs): void;
+}
+/**
+ * Provides data for the FocusedCellChanging event.
+ */
+interface ASPxClientVerticalGridFocusedCellChangingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Provides information on a cell currently being focused.
+     * Value: A ASPxClientVerticalGridCellInfo object that is the cell information.
+     */
+    cellInfo: ASPxClientVerticalGridCellInfo;
+}
+/**
  * Contains information on a cell that is being edited.
  */
 interface ASPxClientVerticalGridCellInfo {
@@ -7103,6 +9293,30 @@ interface ASPxClientVerticalGridBatchEditApi {
      */
     IsNewRecord(visibleIndex: number): boolean;
     /**
+     * Adds a new record when ASPxVerticalGrid is in Batch Edit mode.
+     */
+    AddNewRecord(): void;
+    /**
+     * Deletes the specified record when ASPxVerticalGrid is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the record index.
+     */
+    DeleteRecord(visibleIndex: number): void;
+    /**
+     * Deletes a record with a specified key value when ASPxVerticalGrid is in Batch Edit mode.
+     * @param key An object that uniquely identifies the record.
+     */
+    DeleteRecordByKey(key: Object): void;
+    /**
+     * Recovers the specified record when ASPxVerticalGrid is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the record index.
+     */
+    RecoverRecord(visibleIndex: number): void;
+    /**
+     * Recovers a record with a specified key value when ASPxVerticalGrid is in Batch Edit mode.
+     * @param key An object that uniquely identifies the record.
+     */
+    RecoverRecordByKey(key: Object): void;
+    /**
      * Programmatically moves the focus to the previous cell in the record.
      */
     MoveFocusBackward(): boolean;
@@ -7133,6 +9347,12 @@ interface ASPxClientVerticalGridBatchEditApi {
      * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
      */
     GetCellValue(visibleIndex: number, rowFieldNameOrId: string, initial?: boolean): Object;
+    /**
+     * Gets a container holding the data cell content.
+     * @param visibleIndex An integer value that is the visible index.
+     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
+     */
+    GetCellTextContainer(visibleIndex: number, columnFieldNameOrId: string): Object;
     /**
      * Gets information about the cell currently being edited.
      */
@@ -7173,6 +9393,17 @@ interface ASPxClientVerticalGridBatchEditApi {
      * Ends the cell(s) editing.
      */
     EndEdit(): void;
+    /**
+     * Provides the text displayed within the cell according to the specified display format rule.
+     * @param columnFieldNameOrId A string value representing the row's unique identifier or field name.
+     * @param value An object representing a value.
+     */
+    GetColumnDisplayText(columnFieldNameOrId: string, value: Object): string;
+}
+/**
+ * Lists values that specify the document formats available for export from the grid.
+ */
+interface ASPxClientVerticalGridExportFormat extends ASPxClientGridExportFormat {
 }
 /**
  * Contains style settings related to media elements in ASPxHtmlEditor.
@@ -7228,6 +9459,21 @@ interface ASPxClientHtmlEditorCommandStyleSettings {
      * Value: A string that specifies an element's left margin <a href="http://www.w3schools.com/cssref/pr_margin.asp">in any correct format</a>.
      */
     marginLeft: string;
+    /**
+     * Gets or sets a media element's background color.
+     * Value: A string that specifies a background color <a href="http://www.w3schools.com/cssref/css_colors_legal.asp">in any correct format</a>.
+     */
+    backgroundColor: string;
+    /**
+     * Gets or sets the element's text alignment.
+     * Value: A string value that specifies the element's text alignment <a href="http://www.w3schools.com/cssref/css_colors_legal.asp">in any correct format</a>.
+     */
+    textAlign: string;
+    /**
+     * Gets or sets the element's vertical alignment.
+     * Value: A string value that specifies the element's vertical alignment <a href="http://www.w3schools.com/cssref/css_colors_legal.asp">in any correct format</a>.
+     */
+    verticalAlign: string;
 }
 /**
  * The base class for parameters used in the ASPxHtmlEditor's client-side commands.
@@ -7298,6 +9544,11 @@ interface ASPxClientHtmlEditorInsertLinkCommandArguments extends ASPxClientHtmlE
      * Value: A string value defining the title of the target link.
      */
     title: string;
+    /**
+     * Contains the style settings defining the appearance of the target link element.
+     * Value: An <see cref="ASPxClientHtmlEditorCommandStyleSettings" /> object that contains the style settings defining the appearance of the target link element.
+     */
+    styleSettings: ASPxClientHtmlEditorCommandStyleSettings;
 }
 /**
  * The base class for parameters related to inserting or changing media elements in the ASPxHtmlEditor.
@@ -7444,6 +9695,101 @@ interface ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments extends ASPxCli
 interface ASPxClientHtmlEditorChangeYouTubeVideoCommandArguments extends ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments {
 }
 /**
+ * Contains settings related to the TABLEPROPERTIES_DIALOG_COMMAND command parameter.
+ */
+interface ASPxClientHtmlEditorTablePropertiesCommandArguments extends ASPxClientHtmlEditorCommandArguments {
+    /**
+     * Contains the style settings defining the appearance of the target table element.
+     * Value: An <see cref="ASPxClientHtmlEditorCommandStyleSettings" /> object that contains the style settings defining the appearance of the target table element.
+     */
+    styleSettings: ASPxClientHtmlEditorCommandStyleSettings;
+    /**
+     * Determines the position of the target table element.
+     * Value: A string value indicating the position of the target table element.
+     */
+    align: string;
+    /**
+     * Gets or sets a table cell padding.
+     * Value: An integer value that is the cell padding.
+     */
+    cellPadding: number;
+    /**
+     * Gets or sets the table cell spacing.
+     * Value: An integer value that is the table cell spacing.
+     */
+    cellSpacing: number;
+    /**
+     * Gets or sets a value that is the table caption.
+     * Value: A string value that is the caption.
+     */
+    caption: string;
+    /**
+     * Gets or sets a value indicating whether the first row/column serves as the table's header.
+     * Value: A string value that specifies whether the first row/column serves as the table's header.
+     */
+    headers: string;
+    /**
+     * Gets or sets the table's summary.
+     * Value: A string value that is the table's summary.
+     */
+    summary: string;
+}
+/**
+ * Contains settings related to the INSERTTABLE_COMMAND command parameter.
+ */
+interface ASPxClientHtmlEditorInsertTableCommandArguments extends ASPxClientHtmlEditorTablePropertiesCommandArguments {
+    /**
+     * Gets or sets the count of columns in the table.
+     * Value: An integer value that is the count of columns.
+     */
+    columns: number;
+    /**
+     * Gets or sets the count of rows in the table.
+     * Value: An integer value that is the count of rows.
+     */
+    rows: number;
+    /**
+     * Gets or sets a value indicating whether all table columns should have equal width.
+     * Value: true, to create equal widths for all columns; otherwise, false.
+     */
+    isEqualColumnWidth: boolean;
+}
+/**
+ * Contains settings related to the TABLECELLPROPERTIES_DIALOG_COMMAND command parameter.
+ */
+interface ASPxClientHtmlEditorTableCellPropertiesCommandArguments extends ASPxClientHtmlEditorCommandArguments {
+    /**
+     * Contains the style settings defining the appearance of the target cell element.
+     * Value: An <see cref="ASPxClientHtmlEditorCommandStyleSettings" /> object that contains the style settings defining the appearance of the target cell element.
+     */
+    styleSettings: ASPxClientHtmlEditorCommandStyleSettings;
+    /**
+     * Gets or sets a value that indicates whether the cell settings should be applied to all cells in the table.
+     * Value: true, if the cell settings should be applied to all cells in the table; otherwise, false.
+     */
+    applyForAll: boolean;
+}
+/**
+ * Contains settings related to the TABLEROWPROPERTIES_DIALOG_COMMAND command parameter.
+ */
+interface ASPxClientHtmlEditorTableRowPropertiesCommandArguments extends ASPxClientHtmlEditorCommandArguments {
+    /**
+     * Contains the style settings specifying the appearance of the specified table row.
+     * Value: An <see cref="ASPxClientHtmlEditorCommandStyleSettings" /> object that contains the style settings specifying the appearance of the specified table row.
+     */
+    styleSettings: ASPxClientHtmlEditorCommandStyleSettings;
+}
+/**
+ * Contains settings related to the TABLECOLUMNPROPERTIES_DIALOG_COMMAND command parameter.
+ */
+interface ASPxClientHtmlEditorTableColumnPropertiesCommandArguments extends ASPxClientHtmlEditorCommandArguments {
+    /**
+     * Contains the style settings defining the appearance of the target column element.
+     * Value: An <see cref="ASPxClientHtmlEditorCommandStyleSettings" /> object that contains the style settings defining the appearance of the target column element.
+     */
+    styleSettings: ASPxClientHtmlEditorCommandStyleSettings;
+}
+/**
  * A method that will handle the DialogInitialized client event.
  */
 interface ASPxClientHtmlEditorDialogInitializedEventHandler<S> {
@@ -7463,6 +9809,68 @@ interface ASPxClientHtmlEditorDialogInitializedEventArgs extends ASPxClientEvent
      * Value: A string value that is the name of the initialized dialog.
      */
     dialogName: string;
+    /**
+     * Gets a dialog object related to the event.
+     * Value: A ASPxClientHtmlEditorDialogBase object that is the dialog.
+     */
+    dialog: ASPxClientHtmlEditorDialogBase;
+}
+/**
+ * Provides data for the event that fires when the HTML Editor dialogs are closed or are going to be closed.
+ */
+interface ASPxClientHtmlEditorDialogCloseEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the dialog name related to the event.
+     * Value: A string value that is the dialog name.
+     */
+    dialogName: string;
+    /**
+     * Gets the dialog object related to the event.
+     * Value: An ASPxClientHtmlEditorDialogBase object that is the dialog.
+     */
+    dialog: ASPxClientHtmlEditorDialogBase;
+    /**
+     * Gets a string that contains specific information (if any) passed from the client side for server-side processing.
+     * Value: A string value representing specific information passed from the client to the server side.
+     */
+    parameter: Object;
+}
+/**
+ * A method that will handle the DialogClosing event.
+ */
+interface ASPxClientHtmlEditorDialogClosingEventHandler<S> {
+    /**
+     * A method that will handle the DialogClosing event.
+     * @param source The event source.
+     * @param e An ASPxClientHtmlEditorDialogClosingEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientHtmlEditorDialogClosingEventArgs): void;
+}
+/**
+ * Provides data for the DialogClosing event.
+ */
+interface ASPxClientHtmlEditorDialogClosingEventArgs extends ASPxClientHtmlEditorDialogCloseEventArgs {
+    /**
+     * Gets or sets a value indicating whether the action which raised the event should be canceled.
+     * Value: true, if the action that raised the event should be canceled; otherwise, false.
+     */
+    cancel: boolean;
+}
+/**
+ * A method that will handle the DialogClosed event.
+ */
+interface ASPxClientHtmlEditorDialogClosedEventHandler<S> {
+    /**
+     * A method that will handle the DialogClosed event.
+     * @param source The event source.
+     * @param e An ASPxClientHtmlEditorDialogClosedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientHtmlEditorDialogClosedEventArgs): void;
+}
+/**
+ * Provides data for the DialogClosed event.
+ */
+interface ASPxClientHtmlEditorDialogClosedEventArgs extends ASPxClientHtmlEditorDialogCloseEventArgs {
 }
 /**
  * A method that will handle the CommandExecuting event.
@@ -7697,6 +10105,14 @@ interface ASPxClientHtmlEditor extends ASPxClientControl {
      */
     DialogInitialized: ASPxClientEvent<ASPxClientHtmlEditorDialogInitializedEventHandler<ASPxClientHtmlEditor>>;
     /**
+     * Fires on the client side before a dialog is going to be closed.
+     */
+    DialogClosing: ASPxClientEvent<ASPxClientHtmlEditorDialogClosingEventHandler<ASPxClientHtmlEditor>>;
+    /**
+     * Occurs on the client side after a dialog is closed.
+     */
+    DialogClosed: ASPxClientEvent<ASPxClientHtmlEditorDialogClosedEventHandler<ASPxClientHtmlEditor>>;
+    /**
      * Occurs before a default or custom command has been executed and allows you to cancel the action.
      */
     CommandExecuting: ASPxClientEvent<ASPxClientHtmlEditorCommandExecutingEventHandler<ASPxClientHtmlEditor>>;
@@ -7780,6 +10196,10 @@ interface ASPxClientHtmlEditor extends ASPxClientControl {
      * Returns the document object generated by an iframe element within a design view area.
      */
     GetDesignViewDocument(): Object;
+    /**
+     * Provides access to the client ASPxPopupControl object that is a Html Editor's dialog.
+     */
+    GetDialogPopupControl(): ASPxClientPopupControl;
     /**
      * Returns the document object generated by an iframe element within a preview area.
      */
@@ -7891,6 +10311,11 @@ interface ASPxClientHtmlEditor extends ASPxClientControl {
      */
     Validate(): void;
     /**
+     * Returns a toolbar specified by its name.
+     * @param name A string value specifying the toolbar name.
+     */
+    GetToolbarByName(name: string): ASPxClientMenu;
+    /**
      * Set an active tab specified by its name.
      * @param name A string value that is the name of the tab.
      */
@@ -7909,6 +10334,513 @@ interface ASPxClientHtmlEditor extends ASPxClientControl {
      * @param onCallback A ASPxClientDataCallback object that represents the JavaScript function which receives the callback data as a parameter.
      */
     PerformDataCallback(parameter: string, onCallback: ASPxClientDataCallback): void;
+}
+/**
+ * Provides client functionality for dialogs within the  ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorDialogBase {
+    /**
+     * Provides access to the client ASPxFormLayout object that arranges all editors in the Html Editor's dialogs.
+     */
+    GetFormLayout(): ASPxClientFormLayout;
+    /**
+     * Provides access to the client object of the "OK" button in the Html Editor's dialogs.
+     */
+    GetOkButton(): ASPxClientButton;
+    /**
+     * Provides access to the client object of the "Cancel" button in the Html Editor's dialogs.
+     */
+    GetCancelButton(): ASPxClientButton;
+}
+/**
+ * Provides client functionality for Html Editor dialogs operated with its elements.
+ */
+interface ASPxClientHtmlEditorEditElementDialog extends ASPxClientHtmlEditorDialogBase {
+    /**
+     * Provides access to the client object of the "Border style" combo box in the Html Editor's dialogs (Style Settings).
+     */
+    GetBorderStyleComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Border width" spin editor in the Html Editor's dialogs (Style Settings).
+     */
+    GetBorderWidthSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the "Border color" color editor in the Html Editor's dialogs (Style Settings).
+     */
+    GetBorderColorColorEdit(): ASPxClientColorEdit;
+    /**
+     * Provides access to the client object of the "Top margin" text box in the Html Editor's dialogs (Style Settings).
+     */
+    GetTopMarginTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Bottom margin" text box in the Html Editor's dialogs (Style Settings).
+     */
+    GetBottomMarginTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Left margin" text box in the Html Editor's dialogs (Style Settings).
+     */
+    GetLeftMarginTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Right margin" text box in the Html Editor's dialogs (Style Settings).
+     */
+    GetRightMarginTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "CSS class" combo box in the Html Editor's dialogs (Style Settings).
+     */
+    GetCssClassNameComboBox(): ASPxClientComboBox;
+}
+/**
+ * Provides client functionality for the Change Element Properties dialog within the  ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorChangeElementPropertiesDialog extends ASPxClientHtmlEditorEditElementDialog {
+    /**
+     * Provides access to the client object of the "ID" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetIdTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Title" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetTitleTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Direction" combo box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetDirectionComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Value" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetValueTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Tab index" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetTabIndexTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Disabled" check box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetDisabledCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Input type" combo box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetInputTypeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "For" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetForTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Name" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetNameTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Method" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetMethodTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Action" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetActionTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Checked" check box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetCheckedCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Max length" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetMaxLengthTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Size" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetSizeTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Readonly" check box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetReadonlyCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Src" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetSrcTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Accept" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetAcceptTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Alt" text box in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetAltTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Start" spin editor in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetStartSpinEdit(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Width" spin editor in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetWidthValueSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client ASPxComboBox object that allows you to specify the element width measurement unit in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetWidthValueTypeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Height" spin editor in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetHeightValueSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client ASPxComboBox object that allows to specify the element height measurement unit in the Html Editor's "Change Element Properties" dialog.
+     */
+    GetHeightValueTypeComboBox(): ASPxClientComboBox;
+}
+/**
+ * Provides client functionality for the Link dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorLinkDialog extends ASPxClientHtmlEditorDialogBase {
+    /**
+     * Provides access to the client object of the "E-mail to" text box in the Html Editor's Link dialog.
+     */
+    GetEmailTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Text" text box in the Html Editor's Link dialog.
+     */
+    GetTextTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "ToolTip" text box in the Html Editor's Link dialog.
+     */
+    GetTooltipTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Subject" text box in the Html Editor's Link dialog.
+     */
+    GetSubjectTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "URL" text box in the Html Editor's Link dialog.
+     */
+    GetUrlTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the file manager used in the Link dialog's "Select Document" popup window.
+     */
+    GetFileManager(): ASPxClientFileManager;
+    /**
+     * Provides access to the client object of the "Cancel" button in the Link dialog's "Select Document" popup window.
+     */
+    GetSelectDocumentPopupCancelButton(): ASPxClientButton;
+    /**
+     * Provides access to the client object of the "Select" button in the Link dialog's "Select Document" popup window.
+     */
+    GetSelectDocumentPopupSelectButton(): ASPxClientButton;
+    /**
+     * Provides access to the client popup control object that is the "Select Document" popup window in the Html Editor's Link dialog.
+     */
+    GetSelectDocumentPopupControl(): ASPxClientPopupControl;
+    /**
+     * Provides access to the client object of the "Open in new window" check box in the Html Editor's Link dialog.
+     */
+    GetOpenInNewWindowCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client radio button list object used to specify the link type in the Html Editor's Link dialog.
+     */
+    GetLinkTypeRadioButtonList(): ASPxClientRadioButtonList;
+}
+/**
+ * Provides client functionality for the Placeholder dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorPlaceholderDialog extends ASPxClientHtmlEditorDialogBase {
+    /**
+     * Provides access to the ASPxListBox client object that lists placeholder names in the Html Editor's Placeholder dialog.
+     */
+    GetPlaceholderNameListBox(): ASPxClientListBox;
+}
+/**
+ * Provides client functionality for the Paste From Word dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorPasteFromWordDialog extends ASPxClientHtmlEditorDialogBase {
+    /**
+     * Provides access to the client object of the "Remove font family" check box in the Html Editor's Flash dialog.
+     */
+    GetRemoveFontFamilyCheckBox(): ASPxClientCheckBox;
+}
+/**
+ * Provides client functionality for the media dialogs within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorMediaDialogBase extends ASPxClientHtmlEditorEditElementDialog {
+    /**
+     * Provides access to the client object of the media file selector that allows you to insert/change media files in the Html Editor's Audio/Video/Flash dialogs.
+     */
+    GetMediaFileSelector(): ASPxClientMediaFileSelector;
+    /**
+     * Provides access to the client object of the "More options" check box in the Html Editor's Audio/Video/Flash/Image dialogs.
+     */
+    GetMoreOptionsCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Width" spin editor in the Html Editor's Audio/Video/Flash dialogs.
+     */
+    GetWidthSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the "Height" spin editor in the Html Editor's Audio/Video/Flash dialogs.
+     */
+    GetHeightSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the "Position" combo box in the Html Editor's Audio/Video/Flash/Image dialogs.
+     */
+    GetPositionComboBox(): ASPxClientComboBox;
+}
+/**
+ * Provides client functionality for the Image dialog within the  ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorImageDialog extends ASPxClientHtmlEditorMediaDialogBase {
+    /**
+     * Provides access to the client object of the "Size" combo box in the Html Editor's Image dialog.
+     */
+    GetSizeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Create thumbnail" check box in the Html Editor's Image dialog.
+     */
+    GetCreateThumbnailCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "New image name" text box in the Html Editor's Image dialog.
+     */
+    GetThumbnailNameTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Wrap text around image" check box in the Html Editor's Image dialog.
+     */
+    GetWrapTextCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Description" text box in the Html Editor's Image dialog.
+     */
+    GetDescriptionTextBox(): ASPxClientTextBox;
+}
+/**
+ * Provides client functionality for the Flash dialog within the  ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorFlashDialog extends ASPxClientHtmlEditorMediaDialogBase {
+    /**
+     * Provides access to the client object of the "Quality" combo box in the Html Editor's Flash dialog.
+     */
+    GetQualityComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Auto play" check box in the Html Editor's Flash dialog.
+     */
+    GetAutoPlayCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Enable flash menu" check box in the Html Editor's Flash dialog.
+     */
+    GetEnableFlashMenuCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Loop" check box in the Html Editor's Flash dialog.
+     */
+    GetLoopCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Allow fullscreen" check box in the Html Editor's Flash dialog.
+     */
+    GetAllowFullscreenCheckBox(): ASPxClientCheckBox;
+}
+/**
+ * Provides client functionality for the Audio dialog within the  ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorAudioDialog extends ASPxClientHtmlEditorMediaDialogBase {
+    /**
+     * Provides access to the client object of the "Auto play" check box in the Html Editor's Audio dialogs.
+     */
+    GetAutoPlayCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Preload mode" combo box in the Html Editor's Audio dialogs.
+     */
+    GetPreloadModeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Loop" check box in the Html Editor's Audio dialogs.
+     */
+    GetLoopCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Show player controls" check box in the Html Editor's Audio dialogs.
+     */
+    GetShowPlayerControlsCheckBox(): ASPxClientCheckBox;
+}
+/**
+ * Provides client functionality for the Video dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorVideoDialog extends ASPxClientHtmlEditorMediaDialogBase {
+    /**
+     * Provides access to the client object of the "Auto play" check box in the Html Editor's Video dialog.
+     */
+    GetAutoPlayCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Preload mode" combo box in the Html Editor's Video dialog.
+     */
+    GetPreloadModeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Loop" check box in the Html Editor's Video dialog.
+     */
+    GetLoopCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Show player controls" check box in the Html Editor's Video dialog.
+     */
+    GetShowPlayerControlsCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Poster URL" text box in the Html Editor's Video dialog.
+     */
+    GetPosterTextBox(): ASPxClientTextBox;
+}
+/**
+ * Provides client functionality for the YouTube Video dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorYouTubeDialog extends ASPxClientHtmlEditorEditElementDialog {
+    /**
+     * Provides access to the client object of the "Enable privacy-enhanced mode" check box in the Html Editor's YouTube Video dialog.
+     */
+    GetConfidentModeCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Show suggested videos when the video finishes" check box in the Html Editor's YouTube Video dialog.
+     */
+    GetShowSameVideosCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Show video title and player actions" check box in the Html Editor's YouTube Video dialog.
+     */
+    GetShowVideoNameCheckBox(): ASPxClientCheckBox;
+    /**
+     * Provides access to the client object of the "Show player controls" check box in the Html Editor's YouTube Video dialog.
+     */
+    GetShowPlayerControlsCheckBox(): ASPxClientCheckBox;
+}
+/**
+ * Provides base client functionality for the Table dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorTableDialogBase extends ASPxClientHtmlEditorDialogBase {
+    /**
+     * Provides access to the client object of the "Background color" color editor in the Html Editor's Table dialogs.
+     */
+    GetBackgroundColorColorEdit(): ASPxClientColorEdit;
+}
+/**
+ * Provides client functionality for the Table dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorTableDialog extends ASPxClientHtmlEditorTableDialogBase {
+    /**
+     * Provides access to the client object of the "Width" combo box in the Html Editor's Table dialogs.
+     */
+    GetWidthTypeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the spin editor in the Html Editor's Table dialogs that allows you to specify the table width value.
+     */
+    GetWidthValueSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the combo box in the Html Editor's Table dialogs that allows you to specify the table width measurement unit.
+     */
+    GetWidthValueTypeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Height" combo box in the Html Editor's Table dialogs.
+     */
+    GetHeightTypeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the spin editor in the Html Editor's Table dialogs that allows you specify the table height value.
+     */
+    GetHeightValueSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the combo box in the Html Editor's Table dialogs that allows you to specify the table height measurement unit.
+     */
+    GetHeightValueTypeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Cell padding" spin editor in the Html Editor's Table dialogs.
+     */
+    GetCellPaddingSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the "Cell spacing" spin editor in the Html Editor's Table dialogs.
+     */
+    GetCellSpacingSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the "Alignment" combo box in the Html Editor's Table dialogs.
+     */
+    GetAlignmentComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Border Color" color editor in the Html Editor's Table dialogs.
+     */
+    GetBorderColorColorEdit(): ASPxClientColorEdit;
+    /**
+     * Provides access to the client object of the "Border size" spin editor in the Html Editor's Table dialogs.
+     */
+    GetBorderWidthSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the "Headers" combo box in the Html Editor's Table dialogs.
+     */
+    GetHeadersComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Caption" text box in the Html Editor's Table dialogs.
+     */
+    GetCaptionTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Summary" text box in the Html Editor's Table dialogs.
+     */
+    GetSummaryTextBox(): ASPxClientTextBox;
+    /**
+     * Provides access to the client object of the "Accessibility" check box related to the Html Editor's Table dialogs.
+     */
+    GetAccessibilityCheckBox(): ASPxClientCheckBox;
+}
+/**
+ * Provides client functionality for the Insert Table dialog within the  ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorInsertTableDialog extends ASPxClientHtmlEditorTableDialog {
+    /**
+     * Provides access to the client object of the "Columns" spin editor in the Html Editor's Table dialogs.
+     */
+    GetColumnCountSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the "Rows" spin editor in the Html Editor's Table dialogs.
+     */
+    GetRowCountSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the "Equal column widths" check box in the Html Editor's Table dialogs.
+     */
+    GetEqualWidthCheckBox(): ASPxClientCheckBox;
+}
+/**
+ * Provides client functionality for Table dialogs within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorTableElementPropertiesDialog extends ASPxClientHtmlEditorTableDialogBase {
+    /**
+     * Provides access to the client object of the "Horizontal" combo box in the Html Editor's Row/Column/Cell Properties dialog's Alignment group.
+     */
+    GetHorizontalAlignmentComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the "Vertical" combo box in the Html Editor's Row/Column/Cell Properties dialog's Alignment group.
+     */
+    GetVerticalAlignmentComboBox(): ASPxClientComboBox;
+}
+/**
+ * Provides client functionality for the Cell Properties dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorTableCellPropertiesDialog extends ASPxClientHtmlEditorTableElementPropertiesDialog {
+    /**
+     * Provides access to the client object of the "Apply to all cells in the table" check box in the Html Editor's Cell Properties dialog.
+     */
+    GetApplyToAllCellsCheckBox(): ASPxClientCheckBox;
+}
+/**
+ * Provides client functionality for the Row Properties dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorTableRowPropertiesDialog extends ASPxClientHtmlEditorTableElementPropertiesDialog {
+    /**
+     * Provides access to the client object of the "Height" combo box in the Html Editor's "Row Properties" dialog.
+     */
+    GetHeightTypeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client ASPxSpinEdit object that allows you to specify the row height in the Html Editor's "Row Properties" dialog.
+     */
+    GetHeightValueSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client ASPxComboBox object that allows you to specify the row height measurement unit in the Html Editor's "Row Properties" dialog.
+     */
+    GetHeightValueTypeComboBox(): ASPxClientComboBox;
+}
+/**
+ * Provides client functionality for the Column Properties dialog within the ASPxHtmlEditor.
+ */
+interface ASPxClientHtmlEditorTableColumnPropertiesDialog extends ASPxClientHtmlEditorTableElementPropertiesDialog {
+    /**
+     * Provides access to the client object of the "Width" combo box in the Html Editor's "Column Properties" dialog.
+     */
+    GetWidthTypeComboBox(): ASPxClientComboBox;
+    /**
+     * Provides access to the client object of the spin editor that allows you to set the column width value in the Html Editor's "Column Properties" dialog.
+     */
+    GetWidthValueSpinEdit(): ASPxClientSpinEdit;
+    /**
+     * Provides access to the client object of the combo box that allows you to specify the column width measurement unit in the Html Editor's "Column Properties" dialog.
+     */
+    GetWidthValueTypeComboBox(): ASPxClientComboBox;
 }
 /**
  * A selection in the ASPxHtmlEditor.
@@ -7938,7 +10870,7 @@ interface ASPxClientHtmlEditorSelection {
     SetHtml(html: string, addToHistory: boolean): void;
 }
 /**
- * A client-side equivalent of the ASPxPivotGrid control.
+ * The client-side equivalent of the ASPxPivotGrid control.
  */
 interface ASPxClientPivotGrid extends ASPxClientControl {
     /**
@@ -8228,24 +11160,252 @@ interface ASPxClientRichEditHyperlinkClickEventArgs extends ASPxClientEventArgs 
     targetUri: string;
 }
 /**
+ * A method that will handle the KeyDown event.
+ */
+interface ASPxClientRichEditKeyDownEventHandler<S> {
+    /**
+     * A method that will handle the KeyDown event.
+     * @param source The event source.
+     * @param e An ASPxClientRichEditKeyDownEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientRichEditKeyDownEventArgs): void;
+}
+/**
+ * Provides data for the KeyDown event.
+ */
+interface ASPxClientRichEditKeyDownEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets or sets whether the event is handled manually, so no default processing is required.
+     * Value: true if the event is handled and no default processing is required; otherwise false.
+     */
+    handled: boolean;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     * Value: An object that maintains DHTML event-specific information.
+     */
+    htmlEvent: Object;
+}
+/**
+ * A method that will handle the KeyUp event.
+ */
+interface ASPxClientRichEditKeyUpEventHandler<S> {
+    /**
+     * A method that will handle the KeyUp event.
+     * @param source The event source.
+     * @param e An ASPxClientRichEditKeyUpEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientRichEditKeyUpEventArgs): void;
+}
+/**
+ * Provides data for the KeyUp event.
+ */
+interface ASPxClientRichEditKeyUpEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     * Value: An object that maintains DHTML event-specific information.
+     */
+    htmlEvent: Object;
+}
+/**
+ * A method that will handle the PointerDown event.
+ */
+interface ASPxClientRichEditPointerDownEventHandler<S> {
+    /**
+     * A method that will handle the PointerDown event.
+     * @param source The event source.
+     * @param e An ASPxClientRichEditPointerDownEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientRichEditPointerDownEventArgs): void;
+}
+/**
+ * Provides data for the PointerDown event.
+ */
+interface ASPxClientRichEditPointerDownEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets or sets whether the event is handled manually, so no default processing is required.
+     * Value: true if the event is handled and no default processing is required; otherwise false.
+     */
+    handled: boolean;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     * Value: An object that maintains DHTML event-specific information.
+     */
+    htmlEvent: Object;
+}
+/**
+ * A method that will handle the PointerUp event.
+ */
+interface ASPxClientRichEditPointerUpEventHandler<S> {
+    /**
+     * A method that will handle the PointerUp event.
+     * @param source The event source.
+     * @param e An ASPxClientRichEditPointerUpEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientRichEditPointerUpEventArgs): void;
+}
+/**
+ * Provides data for the PointerUp event.
+ */
+interface ASPxClientRichEditPointerUpEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets or sets whether the event is handled manually, so no default processing is required.
+     * Value: true if the event is handled and no default processing is required; otherwise false.
+     */
+    handled: boolean;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     * Value: An object that maintains DHTML event-specific information.
+     */
+    htmlEvent: Object;
+}
+/**
+ * A method that will handle the ContentInserted event.
+ */
+interface ASPxClientRichEditContentInsertedEventHandler<S> {
+    /**
+     * A method that will handle the ContentInserted event.
+     * @param source The event source
+     * @param e An ASPxClientRichEditContentInsertedEventArgs that contains event data.
+     */
+    (source: S, e: ASPxClientRichEditContentInsertedEventArgs): void;
+}
+/**
+ * Provides data for the ContentInserted event.
+ */
+interface ASPxClientRichEditContentInsertedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the active sub-document's identifier.
+     * Value: An integer value specifying the sub-document's identifier.
+     */
+    subDocumentId: number;
+    /**
+     * Gets the text buffer interval related to the inserted content.
+     * Value: An object that stores the inserted content's length and position.
+     */
+    interval: Interval;
+}
+/**
+ * A method that will handle the ContentRemoved event.
+ */
+interface ASPxClientRichEditContentRemovedEventHandler<S> {
+    /**
+     * A method that will handle the ContentRemoved event.
+     * @param source The event source
+     * @param e An ASPxClientRichEditContentRemovedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientRichEditContentRemovedEventArgs): void;
+}
+/**
+ * Provides data for the ContentRemoved event.
+ */
+interface ASPxClientRichEditContentRemovedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the active sub-document's identifier.
+     * Value: An integer value specifying the sub-document's identifier
+     */
+    subDocumentId: number;
+    /**
+     * Gets the text buffer interval related to the removed content.
+     * Value: An object that stores the removed content's length and position.
+     */
+    interval: Interval;
+}
+/**
+ * A method that will handle the CharacterPropertiesChanged event.
+ */
+interface ASPxClientRichEditCharacterPropertiesChangedEventHandler<S> {
+    /**
+     * A method that will handle the CharacterPropertiesChanged event.
+     * @param source The event source
+     * @param e An ASPxClientRichEditCharacterPropertiesChangedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientRichEditCharacterPropertiesChangedEventArgs): void;
+}
+/**
+ * Provides data for the CharacterPropertiesChanged event.
+ */
+interface ASPxClientRichEditCharacterPropertiesChangedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the active sub-document's identifier.
+     * Value: An integer value specifying the sub-document's identifier.
+     */
+    subDocumentId: number;
+    /**
+     * Gets the text buffer interval related to the changed characters.
+     * Value: An object that stores the changed character length and position.
+     */
+    interval: Interval;
+}
+/**
+ * A method that will handle the ParagraphPropertiesChanged event.
+ */
+interface ASPxClientRichEditParagraphPropertiesChangedEventHandler<S> {
+    /**
+     * A method that will handle the ParagraphPropertiesChanged event.
+     * @param source The event source.
+     * @param e An ASPxClientRichEditParagraphPropertiesChangedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientRichEditParagraphPropertiesChangedEventArgs): void;
+}
+/**
+ * Provides data for the ParagraphPropertiesChanged event.
+ */
+interface ASPxClientRichEditParagraphPropertiesChangedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the active sub-document's identifier.
+     * Value: An integer value specifying the sub-document's identifier
+     */
+    subDocumentId: number;
+    /**
+     * Gets the changed paragraph's index.
+     * Value: An integer value specifying the changed paragraph's identifier.
+     */
+    paragraphIndex: number;
+}
+/**
+ * A method that will handle the PopupMenuShowing event.
+ */
+interface ASPxClientRichEditPopupMenuShowingEventHandler<S> {
+    /**
+     * A method that will handle the PopupMenuShowing event.
+     * @param source The event source.
+     * @param e An ASPxClientRichEditPopupMenuShowingEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientRichEditPopupMenuShowingEventArgs): void;
+}
+/**
+ * Provides data for the PopupMenuShowing event.
+ */
+interface ASPxClientRichEditPopupMenuShowingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Provides access to a collection of menu items in the context menu being invoked.
+     * Value: A <see cref="ASPxClientRichEditPopupMenuItemCollection" /> object representing the context menu's item collection.
+     */
+    menuItems: ASPxClientRichEditPopupMenuItemCollection;
+}
+/**
  * A client-side equivalent of the ASPxRichEdit object.
  */
 interface ASPxClientRichEdit extends ASPxClientControl {
     /**
      * Provides access to document structural elements.
-     * Value: A <see cref="RichEditDocument" /> object that lists RichEdit's document structural elements.
+     * Value: A <see cref="RichEditDocument" /> object that lists a RichEdit document's structural elements.
      */
     document: RichEditDocument;
     /**
-     * Provides access to RichEdit's client-side commands.
-     * Value: A <see cref="RichEditCommands" /> object that lists RichEdit's client-side commands.
+     * Provides access to the RichEdit's client-side commands.
+     * Value: A <see cref="RichEditCommands" /> object that lists the RichEdit's client-side commands.
      */
     commands: RichEditCommands;
     /**
-     * Provides access to the client methods that changes the selection.
+     * Provides access to the client methods that change the selection.
      * Value: A <see cref="RichEditSelection" /> object that lists methods to work with the selection.
      */
     selection: RichEditSelection;
+    /**
+     * Gets a unit converter.
+     * Value: A <see cref="RichEditUnitConverter" /> object representing a unit converter.
+     */
     unitConverter: RichEditUnitConverter;
     /**
      * Occurs after a custom command has been executed on the client side.
@@ -8272,17 +11432,69 @@ interface ASPxClientRichEdit extends ASPxClientControl {
      */
     CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientRichEdit>>;
     /**
+     * Occurs on the client side when a document model is loaded into the control.
+     */
+    DocumentLoaded: ASPxClientEvent<ASPxClientEventHandler<ASPxClientRichEdit>>;
+    /**
      * Fires if any change is made to the RichEdit's document on the client.
      */
     DocumentChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientRichEdit>>;
     /**
-     * Occurs when a hyperlink is clicked within the document.
+     * Occurs when the active sub-document is substituted with another sub-document.
+     */
+    ActiveSubDocumentChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when the control receives focus.
+     */
+    GotFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when the control loses focus.
+     */
+    LostFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when the mouse pointer is over the RichEdit's document and a mouse button is pressed.
+     */
+    PointerDown: ASPxClientEvent<ASPxClientRichEditPointerDownEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when the mouse button is released if it was pressed within the RichEdit's document.
+     */
+    PointerUp: ASPxClientEvent<ASPxClientRichEditPointerUpEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when a key is pressed while the ASPxRichEdit's document has focus.
+     */
+    KeyDown: ASPxClientEvent<ASPxClientRichEditKeyDownEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when a key is released while the ASPxRichEdit's document has focus.
+     */
+    KeyUp: ASPxClientEvent<ASPxClientRichEditKeyUpEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when a pop-up menu is about to be shown.
+     */
+    PopupMenuShowing: ASPxClientEvent<ASPxClientRichEditPopupMenuShowingEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when a hyperlink is activated within the document.
      */
     HyperlinkClick: ASPxClientEvent<ASPxClientRichEditHyperlinkClickEventHandler<ASPxClientRichEdit>>;
     /**
      * Occurs when the selection is changed within the document.
      */
     SelectionChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when content is inserted into the document.
+     */
+    ContentInserted: ASPxClientEvent<ASPxClientRichEditContentInsertedEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when content is removed from the document
+     */
+    ContentRemoved: ASPxClientEvent<ASPxClientRichEditContentRemovedEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when the characters' formatting is changed.
+     */
+    CharacterPropertiesChanged: ASPxClientEvent<ASPxClientRichEditCharacterPropertiesChangedEventHandler<ASPxClientRichEdit>>;
+    /**
+     * Occurs when a paragraph's formatting is changed.
+     */
+    ParagraphPropertiesChanged: ASPxClientEvent<ASPxClientRichEditParagraphPropertiesChangedEventHandler<ASPxClientRichEdit>>;
     /**
      * Enables you to switch the full-screen mode of the Rich Text Editor.
      * @param fullscreen true to activate full-screen mode; false to deactivate full-screen mode.
@@ -8317,6 +11529,123 @@ interface ASPxClientRichEdit extends ASPxClientControl {
     ReconnectToExternalRibbon(): void;
 }
 /**
+ * Represents an individual item of the Rich Edit's context menu.
+ */
+interface ASPxClientRichEditPopupMenuItem {
+    /**
+     * Gets the immediate parent menu item to which the current menu item belongs.
+     * Value: A ASPxClientRichEditPopupMenuItem object representing the menu item's immediate parent.
+     */
+    parent: ASPxClientRichEditPopupMenuItem;
+    /**
+     * Gets or sets the unique identifier name for the current menu item.
+     * Value: A string value that specifies the item's unique identifier name.
+     */
+    name: string;
+    /**
+     * Gets or sets the text content of the current menu item.
+     * Value: A string value that specifies the text content of the menu item.
+     */
+    text: string;
+    /**
+     * Gets or sets a value that indicates whether the menu item is enabled, allowing the item to respond to end-user interactions.
+     * Value: true if the item is enabled; otherwise, false.
+     */
+    enabled: boolean;
+    /**
+     * Gets or sets the CSS class name defining the menu item's image.
+     * Value: A string value specifying the class name.
+     */
+    imageClassName: string;
+    /**
+     * Gets or sets a URL which defines the navigation location.
+     * Value: A string value which represents a URL where the client web browser will navigate.
+     */
+    navigateUrl: string;
+    /**
+     * Gets or sets the URL of the menu item's image.
+     * Value: A string value that specifies the location of an image.
+     */
+    imageUrl: string;
+    /**
+     * Gets or sets a value that specifies whether the current menu item starts a group.
+     * Value: true if the current menu item starts a group; otherwise, false.
+     */
+    beginGroup: boolean;
+    /**
+     * Gets or sets the current menu item's tooltip text.
+     * Value: A string which specifies the text content of the current menu item's tooltip.
+     */
+    tooltip: string;
+    /**
+     * Gets or sets the window or frame at which to target the contents of the URL associated with the current menu item.
+     * Value: A string which identifies the window or frame at which to target the URL content.
+     */
+    target: string;
+    /**
+     * Gets a collection that contains the submenu items of the current menu item.
+     */
+    GetSubItems(): ASPxClientRichEditPopupMenuItemCollection;
+    /**
+     * Returns the menu item's sub-item with the specified index.
+     * @param index An integer value specifying the index of the sub-item within a collection of the current menu item's submenu items.
+     */
+    GetItem(index: number): ASPxClientRichEditPopupMenuItem;
+    /**
+     * Returns the menu item's sub-item with the specified name property value.
+     * @param name A string value specifying the name property value of the sub-item to find.
+     */
+    GetItemByName(name: string): ASPxClientRichEditPopupMenuItem;
+    /**
+     * Returns the total number of the menu item's child items (submenu items).
+     */
+    GetItemCount(): number;
+}
+/**
+ * Represents a collection of items in the Rich Edit's context menu.
+ */
+interface ASPxClientRichEditPopupMenuItemCollection {
+    /**
+     * Adds the specified menu item to the end of the collection.
+     * @param item An ASPxClientRichEditPopupMenuItem object specifying the item to be added to the collection.
+     */
+    Add(item: ASPxClientRichEditPopupMenuItem): void;
+    /**
+     * Removes a menu item specified by its index within the collection.
+     * @param index An integer value specifying the index of the menu item to remove.
+     */
+    Remove(index: number): void;
+    /**
+     * Removes a menu item specified by its name.
+     * @param name A string value specifying the name property value of a menu item to remove from the collection.
+     */
+    RemoveByName(name: string): void;
+    /**
+     * Adds the specified item to the specified position within the collection.
+     * @param index An integer value that specifies the zero-based index at which the specified item should be inserted.
+     * @param item An ASPxClientRichEditPopupMenuItem object to insert.
+     */
+    Insert(index: number, item: ASPxClientRichEditPopupMenuItem): void;
+    /**
+     * Returns the total number of menu items in the collection.
+     */
+    GetCount(): number;
+    /**
+     * Returns an item object with the specified name property value.
+     * @param name A string value representing the name property value of the required item.
+     */
+    GetByName(name: string): ASPxClientRichEditPopupMenuItem;
+    /**
+     * Returns a menu item specified by its index in the collection.
+     * @param index An integer value that is the zero-based index of the <see cref="ASPxClientRichEditPopupMenuItem" /> to retrieve from the ASPxClientRichEditPopupMenuItemCollection.
+     */
+    Get(index: number): ASPxClientRichEditPopupMenuItem;
+    /**
+     * Removes all menu items from the collection.
+     */
+    Clear(): void;
+}
+/**
  * Contains a set of the available client commands.
  */
 interface RichEditCommands {
@@ -8326,7 +11655,7 @@ interface RichEditCommands {
      */
     fileNew: FileNewCommand;
     /**
-     * Gets a command to open the file, specifying its path.
+     * Gets a command to open a document stored in the specified file.
      * Value: A <see cref="FileOpenCommand" /> object that provides methods for executing the command and checking its state.
      */
     fileOpen: FileOpenCommand;
@@ -8336,20 +11665,25 @@ interface RichEditCommands {
      */
     fileOpenDialog: FileOpenDialogCommand;
     /**
-     * Gets a command to save the document to a file.
+     * Gets a command to save the document at its original location on the server.
      * Value: A <see cref="FileSaveCommand" /> object that provides methods for executing the command and checking its state.
      */
     fileSave: FileSaveCommand;
     /**
-     * Gets a command to download the document file, specifying its extension.
+     * Gets a command to download the document specifying the file's extension.
      * Value: A <see cref="FileDownloadCommand" /> object that provides methods for executing the command and checking its state.
      */
     fileDownload: FileDownloadCommand;
     /**
-     * Gets a command to invoke the Save As dialog that prompts for a file name and saves the current document in a file with the specified path.
+     * Gets a command to save a document in a file with the specified path.
      * Value: A <see cref="FileSaveAsCommand" /> object that provides methods for executing the command and checking its state.
      */
     fileSaveAs: FileSaveAsCommand;
+    /**
+     * Gets a command to invoke the Save As dialog that prompts for a file name and saves the current document in a file with the specified path.
+     * Value: A <see cref="FileSaveAsDialogCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    fileSaveAsDialog: FileSaveAsDialogCommand;
     /**
      * Gets a command to invoke a browser-specific Print dialog allowing one to print the current document.
      * Value: A <see cref="FilePrintCommand" /> object that provides methods for executing the command and checking its state.
@@ -8386,17 +11720,17 @@ interface RichEditCommands {
      */
     changeFontName: ChangeFontNameCommand;
     /**
-     * Gets a command to change the font size of characters in a selected range.
+     * Gets a command to change the font size (in points) of characters in a selected range.
      * Value: A <see cref="ChangeFontSizeCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeFontSize: ChangeFontSizeCommand;
     /**
-     * Gets a command to increase the font size of characters in a selected range to the closest larger predefined value.
+     * Gets a command to increase the font size of characters in a selected range to the closest larger predefined value (in points).
      * Value: A <see cref="IncreaseFontSizeCommand" /> object that provides methods for executing the command and checking its state.
      */
     increaseFontSize: IncreaseFontSizeCommand;
     /**
-     * Gets a command to decrease the selected range's font size to the closest smaller predefined value.
+     * Gets a command to decrease the selected range's font size to the closest smaller predefined value (in points).
      * Value: A <see cref="DecreaseFontSizeCommand" /> object that provides methods for executing the command and checking its state.
      */
     decreaseFontSize: DecreaseFontSizeCommand;
@@ -8446,7 +11780,7 @@ interface RichEditCommands {
      */
     changeFontSuperscript: ChangeFontSuperscriptCommand;
     /**
-     * Gets a command to change the subscript formatting of characters in the selected range.
+     * Gets a command to change the subscript formatting of characters in a selected range.
      * Value: A <see cref="ChangeFontSubscriptCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeFontSubscript: ChangeFontSubscriptCommand;
@@ -8461,12 +11795,12 @@ interface RichEditCommands {
      */
     changeFontBackColor: ChangeFontBackColorCommand;
     /**
-     * Gets a command to reset the selected text's formatting to default.
+     * Gets a command to reset textual and paragraph formatting in the selected range to default values.
      * Value: A <see cref="ClearFormattingCommand" /> object that provides methods for executing the command and checking its state.
      */
     clearFormatting: ClearFormattingCommand;
     /**
-     * Gets a command to change the selected range's style.
+     * Gets a command to apply a character or paragraph style settings to text in a selected range.
      * Value: A <see cref="ChangeStyleCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeStyle: ChangeStyleCommand;
@@ -8491,7 +11825,7 @@ interface RichEditCommands {
      */
     increaseIndent: IncreaseIndentCommand;
     /**
-     * Gets a command to decrement the indent level of paragraphs in a selected range.
+     * Gets a command to decrease the indent level of paragraphs in a selected range.
      * Value: A <see cref="DecreaseIndentCommand" /> object that provides methods for executing the command and checking its state.
      */
     decreaseIndent: DecreaseIndentCommand;
@@ -8576,7 +11910,7 @@ interface RichEditCommands {
      */
     openParagraphFormattingDialog: OpenParagraphFormattingDialogCommand;
     /**
-     * Gets a command to change the formatting of paragraphs in a selected range.
+     * Gets a command to apply formatting settings to paragraphs within a selected range.
      * Value: A <see cref="ChangeParagraphFormattingCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeParagraphFormatting: ChangeParagraphFormattingCommand;
@@ -8591,7 +11925,7 @@ interface RichEditCommands {
      */
     openInsertTableDialog: OpenInsertTableDialogCommand;
     /**
-     * Gets a command to invoke the Insert Table dialog window.
+     * Gets a command to insert a rectangular table of the specified size.
      * Value: A <see cref="InsertTableCommand" /> object that provides methods for executing the command and checking its state.
      */
     insertTable: InsertTableCommand;
@@ -8601,7 +11935,7 @@ interface RichEditCommands {
      */
     openInsertPictureDialog: OpenInsertPictureDialogCommand;
     /**
-     * Gets a command to insert a picture from a file.
+     * Gets a command to insert an inline picture stored by the specified web address.
      * Value: A <see cref="InsertPictureCommand" /> object that provides methods for executing the command and checking its state.
      */
     insertPicture: InsertPictureCommand;
@@ -8620,6 +11954,10 @@ interface RichEditCommands {
      * Value: A <see cref="DeleteBookmarkCommand" /> object that provides methods for executing the command and checking its state.
      */
     deleteBookmark: DeleteBookmarkCommand;
+    /**
+     * Gets a command to navigate to the specified bookmark.
+     * Value: A <see cref="GoToBookmarkCommand" /> object that provides methods for executing the command and checking its state.
+     */
     goToBookmark: GoToBookmarkCommand;
     /**
      * Gets a command to invoke the Hyperlink dialog window.
@@ -8627,7 +11965,7 @@ interface RichEditCommands {
      */
     openInsertHyperlinkDialog: OpenInsertHyperlinkDialogCommand;
     /**
-     * Gets a command to insert a hyperlink at the current position in the document.
+     * Gets a command to insert and update a hyperlink field in place of a selected range.
      * Value: A <see cref="InsertHyperlinkCommand" /> object that provides methods for executing the command and checking its state.
      */
     insertHyperlink: InsertHyperlinkCommand;
@@ -8642,7 +11980,7 @@ interface RichEditCommands {
      */
     deleteHyperlinks: DeleteHyperlinksCommand;
     /**
-     * Gets a command to navigate to the document bookmark or URI (uniform resource identifier) specified for the hyperlink.
+     * Gets a command to go to a bookmark or URI contained within the selected hyperlink.
      * Value: A <see cref="OpenHyperlinkCommand" /> object that provides methods for executing the command and checking its state.
      */
     openHyperlink: OpenHyperlinkCommand;
@@ -8652,12 +11990,12 @@ interface RichEditCommands {
      */
     openInsertSymbolDialog: OpenInsertSymbolDialogCommand;
     /**
-     * Gets a command to insert a character into a document.
+     * Gets a command to insert characters into a document instead of a selected range.
      * Value: A <see cref="InsertSymbolCommand" /> object that provides methods for executing the command and checking its state.
      */
     insertSymbol: InsertSymbolCommand;
     /**
-     * Gets a command to change page margin settings.
+     * Gets a command to apply page margins settings to sections located within a selected range.
      * Value: A <see cref="ChangePageMarginsCommand" /> object that provides methods for executing the command and checking its state.
      */
     changePageMargins: ChangePageMarginsCommand;
@@ -8667,10 +12005,14 @@ interface RichEditCommands {
      */
     openPageMarginsDialog: OpenPageMarginsDialogCommand;
     /**
-     * Gets a command to change the page orientation.
+     * Gets a command to apply page orientation settings to sections located within a selected range.
      * Value: A <see cref="ChangePageOrientationCommand" /> object that provides methods for executing the command and checking its state.
      */
     changePageOrientation: ChangePageOrientationCommand;
+    /**
+     * Gets a command to invoke the Page Setup dialog.
+     * Value: A <see cref="SetPageSizeDialogCommand" /> object that provides methods for executing the command and checking its state.
+     */
     setPageSizeDialog: SetPageSizeDialogCommand;
     /**
      * Gets a command to invoke the Paper tab of the Page Setup dialog window.
@@ -8678,12 +12020,12 @@ interface RichEditCommands {
      */
     openPagePaperSizeDialog: OpenPagePaperSizeDialogCommand;
     /**
-     * Gets a command to change the page size.
+     * Gets a command to apply page size settings to sections located within a selected range.
      * Value: A <see cref="ChangePageSizeCommand" /> object that provides methods for executing the command and checking its state.
      */
     changePageSize: ChangePageSizeCommand;
     /**
-     * Gets a command to change the number of section columns having the same width.
+     * Gets a command to change the number of columns having the same width in a section.
      * Value: A <see cref="ChangeSectionEqualColumnCountCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeSectionEqualColumnCount: ChangeSectionEqualColumnCountCommand;
@@ -8693,7 +12035,7 @@ interface RichEditCommands {
      */
     openSectionColumnsDialog: OpenSectionColumnsDialogCommand;
     /**
-     * Gets a command to change the settings of individual section columns.
+     * Gets a command to apply column layout settings to a section.
      * Value: A <see cref="ChangeSectionColumnsCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeSectionColumns: ChangeSectionColumnsCommand;
@@ -8718,7 +12060,7 @@ interface RichEditCommands {
      */
     insertSectionBreakOddPage: InsertSectionBreakOddPageCommand;
     /**
-     * Gets a command to set the background color of the page.
+     * Gets a command to set the background color of all pages contained in the document.
      * Value: A <see cref="ChangePageColorCommand" /> object that provides methods for executing the command and checking its state.
      */
     changePageColor: ChangePageColorCommand;
@@ -8743,17 +12085,27 @@ interface RichEditCommands {
      */
     insertParagraph: InsertParagraphCommand;
     /**
-     * Gets a command to insert text at the current position in a document.
+     * Gets a command to insert text in place of a selected range.
      * Value: A <see cref="InsertTextCommand" /> object that provides methods for executing the command and checking its state.
      */
     insertText: InsertTextCommand;
     /**
-     * Gets a command to delete the text in a selected range.
+     * Gets a command to delete text and in-line objects in a selected range.
      * Value: A <see cref="DeleteCommand" /> object that provides methods for executing the command and checking its state.
      */
     delete: DeleteCommand;
     /**
-     * Gets a command to move the cursor backwards and erase the character in that space.
+     * Gets a command to remove the previous word.
+     * Value: A <see cref="RemovePrevWordCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    removePrevWord: RemovePrevWordCommand;
+    /**
+     * Gets a command to remove the next word.
+     * Value: A <see cref="RemoveNextWordCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    removeNextWord: RemoveNextWordCommand;
+    /**
+     * Gets a command to move the cursor backwards and erase characters in a selected range.
      * Value: A <see cref="BackspaceCommand" /> object that provides methods for executing the command and checking its state.
      */
     backspace: BackspaceCommand;
@@ -8763,12 +12115,12 @@ interface RichEditCommands {
      */
     insertLineBreak: InsertLineBreakCommand;
     /**
-     * Gets a command to scale pictures in a selected range.
+     * Gets a command to scale a selected in-line picture.
      * Value: A <see cref="ChangePictureScaleCommand" /> object that provides methods for executing the command and checking its state.
      */
     changePictureScale: ChangePictureScaleCommand;
     /**
-     * Gets a command to increment the left indentation of paragraphs in a selected range.
+     * Gets a command to increment the left indent of paragraphs in a selected range.
      * Value: A <see cref="IncrementParagraphLeftIndentCommand" /> object that provides methods for executing the command and checking its state.
      */
     incrementParagraphLeftIndent: IncrementParagraphLeftIndentCommand;
@@ -8793,12 +12145,17 @@ interface RichEditCommands {
      */
     insertTab: InsertTabCommand;
     /**
+     * Gets a command to add a non-breaking space in place of a selected range
+     * Value: A <see cref="InsertNonBreakingSpaceCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    insertNonBreakingSpace: InsertNonBreakingSpaceCommand;
+    /**
      * Gets a command to invoke the Tabs dialog window.
      * Value: A <see cref="OpenTabsDialogCommand" /> object that provides methods for executing the command and checking its state.
      */
     openTabsDialog: OpenTabsDialogCommand;
     /**
-     * Gets a command to change paragraph tab stops.
+     * Gets a command to change the default tab stop value of a document and apply custom tab settings to the selected paragraphs.
      * Value: A <see cref="ChangeTabsCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeTabs: ChangeTabsCommand;
@@ -8828,12 +12185,12 @@ interface RichEditCommands {
      */
     decrementNumberingIndent: DecrementNumberingIndentCommand;
     /**
-     * Gets a command to create an empty field in the document.
+     * Gets a command to create a field with an empty code and populate it with the characters in the selected range (if it is not collapsed).
      * Value: A <see cref="CreateFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createField: CreateFieldCommand;
     /**
-     * Gets a command to update the field's result.
+     * Gets a command to update each field's result in the selection.
      * Value: A <see cref="UpdateFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     updateField: UpdateFieldCommand;
@@ -8858,37 +12215,37 @@ interface RichEditCommands {
      */
     insertNumeration: InsertNumerationCommand;
     /**
-     * Gets a command to remove the selected numeration.
+     * Gets a command to exclude the selected paragraphs from the numbered list.
      * Value: A <see cref="RemoveNumerationCommand" /> object that provides methods for executing the command and checking its state.
      */
     removeNumeration: RemoveNumerationCommand;
     /**
-     * Gets a command to update all fields in the selected range.
+     * Gets a command to update all fields in the document.
      * Value: A <see cref="UpdateAllFieldsCommand" /> object that provides methods for executing the command and checking its state.
      */
     updateAllFields: UpdateAllFieldsCommand;
     /**
-     * Gets a command to insert a DATE field displaying the current date.
+     * Gets a command to insert and update a field with a DATE code.
      * Value: A <see cref="CreateDateFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createDateField: CreateDateFieldCommand;
     /**
-     * Gets a command to insert a TIME field displaying the current time.
+     * Gets a command to replace the selection with a TIME field displaying the current time.
      * Value: A <see cref="CreateTimeFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createTimeField: CreateTimeFieldCommand;
     /**
-     * A command to insert a PAGE field displaying the current page number.
+     * A command to replace the selection with a PAGE field displaying the current page number.
      * Value: A <see cref="CreatePageFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createPageField: CreatePageFieldCommand;
     /**
-     * Gets a command to convert the text of all selected sentences to sentence case.
+     * Gets a command changing all selected text to the sentence case capitalization.
      * Value: A <see cref="MakeTextSentenceCaseCommand" /> object that provides methods for executing the command and checking its state.
      */
     makeTextSentenceCase: MakeTextSentenceCaseCommand;
     /**
-     * Gets a command to switch the text case at the current position in the document.
+     * Gets a command to switch the text capitalization in the selection.
      * Value: A <see cref="SwitchTextCaseCommand" /> object that provides methods for executing the command and checking its state.
      */
     switchTextCase: SwitchTextCaseCommand;
@@ -8908,7 +12265,7 @@ interface RichEditCommands {
      */
     goToNextDataRecord: GoToNextDataRecordCommand;
     /**
-     * Gets a command to navigate to the next data record.
+     * Gets a command to open the specified data record.
      * Value: A <see cref="GoToDataRecordCommand" /> object that provides methods for executing the command and checking its state.
      */
     goToDataRecord: GoToDataRecordCommand;
@@ -8928,7 +12285,7 @@ interface RichEditCommands {
      */
     mergeFieldDialog: MergeFieldDialogCommand;
     /**
-     * Gets a command to insert a MERGEFIELD field (with a data source column name) at the current position in the document.
+     * Gets a command to replace the selection with a MERGEFIELD (a data source column name is passed with a parameter).
      * Value: A <see cref="CreateMergeFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createMergeField: CreateMergeFieldCommand;
@@ -8948,12 +12305,12 @@ interface RichEditCommands {
      */
     mailMergeAndSaveAs: MailMergeAndSaveAsCommand;
     /**
-     * Gets a command to activate the page header and begin editing.
+     * Gets a command to create a header sub-document (if it is not yet created) and set it as an active sub-document instead of the main sub-document.
      * Value: A <see cref="InsertHeaderCommand" /> object that provides methods for executing the command and checking its state.
      */
     insertHeader: InsertHeaderCommand;
     /**
-     * Gets a command to activate the page footer and begin editing.
+     * Gets a command to create a footer sub-document (if it is not yet created) and set it as an active sub-document instead of the main sub-document.
      * Value: A <see cref="InsertFooterCommand" /> object that provides methods for executing the command and checking its state.
      */
     insertFooter: InsertFooterCommand;
@@ -8963,42 +12320,42 @@ interface RichEditCommands {
      */
     linkHeaderFooterToPrevious: LinkHeaderFooterToPreviousCommand;
     /**
-     * Gets a command to navigate to the page footer from the page header in the header/footer editing mode.
+     * Gets a command to substitute a header sub-document with a footer sub-document of the same page as an active sub-document.
      * Value: A <see cref="GoToFooterCommand" /> object that provides methods for executing the command and checking its state.
      */
     goToFooter: GoToFooterCommand;
     /**
-     * Gets a command to navigate to the page header from the page footer in the header/footer editing mode.
+     * Gets a command to substitute a footer sub-document with a header sub-document of the same page as an active sub-document.
      * Value: A <see cref="GoToHeaderCommand" /> object that provides methods for executing the command and checking its state.
      */
     goToHeader: GoToHeaderCommand;
     /**
-     * Gets a command to navigate to the next page header or footer in the header/footer editing mode.
+     * Gets a command to substitute a current header/footer with a header/footer of the next section as an active sub-document.
      * Value: A <see cref="GoToNextHeaderFooterCommand" /> object that provides methods for executing the command and checking its state.
      */
     goToNextHeaderFooter: GoToNextHeaderFooterCommand;
     /**
-     * Gets a command to navigate to the previous page header or footer in the header/footer editing mode.
+     * Gets a command to substitute a current header/footer with a header/footer of the previous section as an active sub-document.
      * Value: A <see cref="GoToPreviousHeaderFooterCommand" /> object that provides methods for executing the command and checking its state.
      */
     goToPreviousHeaderFooter: GoToPreviousHeaderFooterCommand;
     /**
-     * Gets a command to change the header/footer edit mode, so it allows creation of a different header or footer for the first page of a document or section.
+     * Gets a command to enable (or disable if it is enabled) a different page header and footer for the first page of the current section.
      * Value: A <see cref="SetDifferentFirstPageHeaderFooterCommand" /> object that provides methods for executing the command and checking its state.
      */
     setDifferentFirstPageHeaderFooter: SetDifferentFirstPageHeaderFooterCommand;
     /**
-     * Gets a command to change the header/footer edit mode so it allows creation of a different header or footer for odd and even pages of a document or section.
+     * Gets a command to enable (or disable if it is enabled) a different page header and footer for odd and even pages of the current section.
      * Value: A <see cref="SetDifferentOddAndEvenPagesHeaderFooterCommand" /> object that provides methods for executing the command and checking its state.
      */
     setDifferentOddAndEvenPagesHeaderFooter: SetDifferentOddAndEvenPagesHeaderFooterCommand;
     /**
-     * Gets a command to finish header/footer editing.
+     * Gets a command to substitute a header/footer sub-document with the main sub-document as an active sub-document.
      * Value: A <see cref="CloseHeaderFooterCommand" /> object that provides methods for executing the command and checking its state.
      */
     closeHeaderFooter: CloseHeaderFooterCommand;
     /**
-     * Gets a command to insert a NUMPAGES field displaying the total number of pages.
+     * Gets a command to replace the selection with a NUMPAGES field displaying the total number of pages.
      * Value: A <see cref="CreatePageCountFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createPageCountField: CreatePageCountFieldCommand;
@@ -9022,6 +12379,10 @@ interface RichEditCommands {
      * Value: A <see cref="ChangeTableCellPreferredWidthCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeTableCellPreferredWidth: ChangeTableCellPreferredWidthCommand;
+    /**
+     * Gets a command to apply (or cancel) border settings of the inside borders for the selected cells.
+     * Value: A <see cref="ToggleTableCellInsideBordersCommand" /> object that provides methods for executing the command and checking its state.
+     */
     toggleTableCellInsideBorders: ToggleTableCellInsideBordersCommand;
     /**
      * Gets a command to change the selected table columns' preferred width.
@@ -9174,22 +12535,22 @@ interface RichEditCommands {
      */
     changeTableStyle: ChangeTableStyleCommand;
     /**
-     * Gets a command to toggle top borders for selected cells on/off.
+     * Gets a command to apply (or cancel) border settings of the top border for the selected cells.
      * Value: A <see cref="ToggleTableCellTopBorderCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellTopBorder: ToggleTableCellTopBorderCommand;
     /**
-     * Gets a command to toggle right borders for selected cells on/off.
+     * Gets a command to apply (or cancel) border settings of the right border for the selected cells.
      * Value: A <see cref="ToggleTableCellRightBorderCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellRightBorder: ToggleTableCellRightBorderCommand;
     /**
-     * Gets a command to toggle bottom borders for selected cells on/off.
+     * Gets a command to apply (or cancel) border settings of the bottom border for the selected cells.
      * Value: A <see cref="ToggleTableCellBottomBorderCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellBottomBorder: ToggleTableCellBottomBorderCommand;
     /**
-     * Gets a command to toggle left borders for selected cells on/off.
+     * Gets a command to apply (or cancel) border settings of the left border for the selected cells.
      * Value: A <see cref="ToggleTableCellLeftBorderCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellLeftBorder: ToggleTableCellLeftBorderCommand;
@@ -9199,22 +12560,22 @@ interface RichEditCommands {
      */
     removeTableCellBorders: RemoveTableCellBordersCommand;
     /**
-     * Gets a command to toggle all borders for selected cells on/off.
+     * Gets a command to apply (or cancel) border settings to all borders of the selected cells.
      * Value: A <see cref="ToggleTableCellAllBordersCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellAllBorders: ToggleTableCellAllBordersCommand;
     /**
-     * Gets a command to toggle inner horizontal borders for selected cells on/off.
+     * Gets a command to apply (or cancel) border settings of the inside horizontal borders for the selected cells.
      * Value: A <see cref="ToggleTableCellInsideHorizontalBordersCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellInsideHorizontalBorders: ToggleTableCellInsideHorizontalBordersCommand;
     /**
-     * Gets a command to toggle inner vertical borders for selected cells on/off.
+     * Gets a command to apply (or cancel) border settings of the inside vertical borders for the selected cells.
      * Value: A <see cref="ToggleTableCellInsideVerticalBordersCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellInsideVerticalBorders: ToggleTableCellInsideVerticalBordersCommand;
     /**
-     * Gets a command to toggle outer borders for selected cells on/off.
+     * Gets a command to apply (or cancel) border settings of the outside borders for the selected cells.
      * Value: A <see cref="ToggleTableCellOutsideBordersCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellOutsideBorders: ToggleTableCellOutsideBordersCommand;
@@ -9224,12 +12585,12 @@ interface RichEditCommands {
      */
     changeTableLook: ChangeTableLookCommand;
     /**
-     * Gets a command to change the repository item's table border style.
+     * Gets a command to apply borders' drawing settings.
      * Value: A <see cref="ChangeTableBorderRepositoryItemCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeTableBorderRepositoryItem: ChangeTableBorderRepositoryItemCommand;
     /**
-     * Gets a command to change cell shading in the selected table elements.
+     * Gets a command to change cell shading in selected table cells.
      * Value: A <see cref="ChangeTableCellShadingCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeTableCellShading: ChangeTableCellShadingCommand;
@@ -9254,17 +12615,17 @@ interface RichEditCommands {
      */
     findAll: FindAllCommand;
     /**
-     * Gets a command to hide the results of the search.
+     * Gets a command to hide the search results.
      * Value: A <see cref="HideFindResultsCommand" /> object that provides methods for executing the command and checking its state.
      */
     hideFindResults: HideFindResultsCommand;
     /**
-     * Gets a command to search for a specific text and replace all matches in the document with the specified string.
+     * Gets a command to replace all matches of the specified text with new characters.
      * Value: A <see cref="ReplaceAllCommand" /> object that provides methods for executing the command and checking its state.
      */
     replaceAll: ReplaceAllCommand;
     /**
-     * Gets a command to search for a specific text and replace the next match in the document with the specified string.
+     * Gets a command to find and replace a next match of the specified text after the cursor position with new characters.
      * Value: A <see cref="ReplaceNextCommand" /> object that provides methods for executing the command and checking its state.
      */
     replaceNext: ReplaceNextCommand;
@@ -9273,7 +12634,96 @@ interface RichEditCommands {
      * Value: A <see cref="OpenSpellingDialogCommand" /> object that provides methods for executing the command and checking its state.
      */
     openSpellingDialog: OpenSpellingDialogCommand;
+    /**
+     * Gets a command to assign a shortcut to the specified client command.
+     * Value: A <see cref="AssignShortcutCommand" /> object that provides methods for executing the command and checking its state.
+     */
     assignShortcut: AssignShortcutCommand;
+    /**
+     * Gets a command to invoke the Layout dialog window to customize the settings of a floating object.
+     * Value: A <see cref="OpenLayoutOptionsDialogCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    openLayoutOptionsDialog: OpenLayoutOptionsDialogCommand;
+    /**
+     * Gets a command to insert a floating text box.
+     * Value: A <see cref="InsertFloatingTextBoxCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    insertFloatingTextBox: InsertFloatingTextBoxCommand;
+    /**
+     * Gets a command to modify a floating object's alignment position.
+     * Value: A <see cref="ChangeFloatingObjectAlignmentPositionCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectAlignmentPosition: ChangeFloatingObjectAlignmentPositionCommand;
+    /**
+     * Gets a command to change a floating object's absolute position.
+     * Value: A <see cref="ChangeFloatingObjectAbsolutePositionCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectAbsolutePosition: ChangeFloatingObjectAbsolutePositionCommand;
+    /**
+     * Gets a command to modify a floating object's relative position.
+     * Value: A <see cref="ChangeFloatingObjectRelativePositionCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectRelativePosition: ChangeFloatingObjectRelativePositionCommand;
+    /**
+     * Gets a command to lock a floating object's anchor.
+     * Value: A <see cref="ChangeFloatingObjectLockAnchorCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectLockAnchor: ChangeFloatingObjectLockAnchorCommand;
+    /**
+     * Gets a command to modify a floating object's text wrapping settings.
+     * Value: A <see cref="ChangeFloatingObjectTextWrappingCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectTextWrapping: ChangeFloatingObjectTextWrappingCommand;
+    /**
+     * Gets a command to change a floating object's absolute size.
+     * Value: A <see cref="ChangeFloatingObjectAbsoluteSizeCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectAbsoluteSize: ChangeFloatingObjectAbsoluteSizeCommand;
+    /**
+     * Gets a command to modify a text box's relative size settings.
+     * Value: A <see cref="ChangeTextBoxRelativeSizeCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeTextBoxRelativeSize: ChangeTextBoxRelativeSizeCommand;
+    /**
+     * Gets a command to rotate a floating object.
+     * Value: A <see cref="ChangeFloatingObjectRotationCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectRotation: ChangeFloatingObjectRotationCommand;
+    /**
+     * Gets a command to lock a floating object's aspect ratio.
+     * Value: A <see cref="ChangeFloatingObjectLockAspectRatioCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectLockAspectRatio: ChangeFloatingObjectLockAspectRatioCommand;
+    /**
+     * Gets a command to modify a floating object's background fill color.
+     * Value: A <see cref="ChangeFloatingObjectFillColorCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectFillColor: ChangeFloatingObjectFillColorCommand;
+    /**
+     * Gets a command to modify a floating object's outline color.
+     * Value: A <see cref="ChangeFloatingObjectOutlineColorCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectOutlineColor: ChangeFloatingObjectOutlineColorCommand;
+    /**
+     * Gets a command to modify a floating object's outline width.
+     * Value: A <see cref="ChangeFloatingObjectOutlineWidthCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeFloatingObjectOutlineWidth: ChangeFloatingObjectOutlineWidthCommand;
+    /**
+     * Gets a command to modify a text box's content margins.
+     * Value: A <see cref="ChangeTextBoxContentMarginsCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeTextBoxContentMargins: ChangeTextBoxContentMarginsCommand;
+    /**
+     * Gets a command to resize the shape to fit the text in the text box.
+     * Value: A <see cref="ChangeTextBoxResizeShapeToFitTextCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    changeTextBoxResizeShapeToFitText: ChangeTextBoxResizeShapeToFitTextCommand;
+    /**
+     * Gets a command to add an HTML formatted content in place of a selected range.
+     * Value: A <see cref="InsertHtmlCommand" /> object that provides methods for executing the command and checking its state.
+     */
+    insertHtml: InsertHtmlCommand;
 }
 /**
  * Serves as a base for objects that implement different client command functionalities.
@@ -9303,7 +12753,7 @@ interface CommandWithBooleanStateBase extends CommandBase {
  */
 interface SimpleCommandState {
     /**
-     * Gets a value indicating whether the command's UI element is enabled.
+     * Gets a value indicating whether the command's UI element is enabled (within the ribbon and context menu).
      * Value: true, if the command's related UI element is enabled; otherwise, false.
      */
     enabled: boolean;
@@ -9357,12 +12807,20 @@ interface RichEditDocument {
      * Value: An array of TableStyle objects storing information about table styles.
      */
     tableStylesInfo: TableStyle[];
+    /**
+     * Provides information about spell checking in the current document.
+     * Value: A <see cref="SpellingInfo" /> object.
+     */
     spellingInfo: SpellingInfo;
 }
 /**
  * An abstract numbering list definition that defines the appearance and behavior of numbered paragraphs in a document.
  */
 interface AbstractNumberingList {
+    /**
+     * Gets or sets a value indicating whether an abstract numbering list is deleted.
+     * Value: true, if the abstract numbering list is deleted; otherwise, false.
+     */
     deleted: boolean;
 }
 /**
@@ -9379,6 +12837,10 @@ interface Paragraph {
      * Value: An integer value specifying the start position.
      */
     start: number;
+    /**
+     * Gets the text buffer interval occupied by the current paragraph element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
     interval: Interval;
     /**
      * Gets the name of the paragraph style applied to the current paragraph (see name).
@@ -9391,7 +12853,7 @@ interface Paragraph {
      */
     listIndex: number;
     /**
-     * Gets or sets the index of the list level applied to the current paragraph in the numbering list.
+     * Gets the index of the list level applied to the current paragraph in the numbering list.
      * Value: An integer that is the index of the list level of the current paragraph.
      */
     listLevelIndex: number;
@@ -9410,6 +12872,20 @@ interface Field {
      * Value: An integer value specifying the field length.
      */
     length: number;
+    /**
+     * Gets the text buffer interval occupied by the field code element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
+    codeInterval: Interval;
+    /**
+     * Gets the text buffer interval occupied by the field result element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
+    resultInterval: Interval;
+    /**
+     * Gets the text buffer interval occupied by the current field element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
     interval: Interval;
     /**
      * Gets or sets a URI to navigate to when the hyperlink (represented by the current field) is activated.
@@ -9426,7 +12902,16 @@ interface Field {
      * Value: A string representing the bookmark's name.
      */
     hyperlinkAnchor: string;
+    /**
+     * Gets a value specifying whether a field's code or result is dispalyed.
+     * Value: true, if the field code is displayed; false, if the field result is displayed.
+     */
     showCode: boolean;
+    /**
+     * Gets the index of the field
+     * Value: An integer value specifying the field's index
+     */
+    index: number;
 }
 /**
  * Defines a bookmark in the document.
@@ -9442,6 +12927,10 @@ interface Bookmark {
      * Value: An integer value specifying the length of the bookmark.
      */
     length: number;
+    /**
+     * Gets the text buffer interval occupied by the current bookmark element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
     interval: Interval;
     /**
      * Gets the name of a bookmark in the document.
@@ -9463,6 +12952,10 @@ interface Section {
      * Value: An integer value specifying the element length in characters.
      */
     length: number;
+    /**
+     * Gets the text buffer interval occupied by the current section element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
     interval: Interval;
     /**
      * Provides access to the section's headers.
@@ -9490,21 +12983,76 @@ interface HeaderFooter {
      */
     subDocument: SubDocument;
 }
+/**
+ * Contains in-line picture settings.
+ */
 interface InlinePictureInfo {
+    /**
+     * Gets the image identifier.
+     * Value: An integer value specifying the image identifier.
+     */
     id: number;
+    /**
+     * Gets the image position.
+     * Value: An integer value specifying the image position.
+     */
     position: number;
+    /**
+     * Gets the initial image width.
+     * Value: An integer value specifying the image width.
+     */
     initialWidth: number;
+    /**
+     * Gets the initial image height.
+     * Value: An integer value specifying the image height.
+     */
     initialHeight: number;
+    /**
+     * Gets the X-scaling factor of the inline image.
+     * Value: An integer value specifying the scaling factor for the X-axis.
+     */
     scaleX: number;
+    /**
+     * Gets the Y-scaling factor of the inline image.
+     * Value: An integer value specifying the scaling factor for the Y-axis.
+     */
     scaleY: number;
+    /**
+     * Gets the actual image width.
+     * Value: An integer value specifying the image width.
+     */
     actualWidth: number;
-    actualHeigth: number;
+    /**
+     * Gets the actual image height.
+     * Value: An integer value specifying the image height.
+     */
+    actualHeight: number;
 }
 declare enum HeaderFooterType {
     First=0,
     Odd=1,
     Primary=1,
     Even=2
+}
+/**
+ * Contains the settings defining a file to save to.
+ */
+interface RichEditFileInfo {
+    /**
+     * Gets or sets the file's folder name.
+     * Value: A string value specifying the folder name.
+     */
+    folderPath: string;
+    /**
+     * Gets or sets the file name.
+     * Value: A string value specifying the file name.
+     */
+    fileName: string;
+    /**
+     * Gets or sets the file's document format.
+     * Value: A DocumentFormat enumeration value.
+     */
+    documentFormat: any;
 }
 declare enum DocumentFormat {
     Undefined=0,
@@ -9523,11 +13071,19 @@ declare enum DocumentFormat {
  */
 interface RichEditSelection {
     /**
-     * Gets or sets an array of document interval in the selection.
+     * Gets or sets an array of document intervals in the selection.
      * Value: An array of Interval objects.
      */
     intervals: Interval[];
+    /**
+     * Gets or sets a value specifying whether the current selection is collapsed (and represents the cursor position).
+     * Value: true, if the selection is collapsed; otherwise, false.
+     */
     collapsed: boolean;
+    /**
+     * Gets the maximum position of a document interval in the selection.
+     */
+    getIntervalMaxPosition(): number;
     /**
      * Moves the cursor to the next line.
      */
@@ -9668,6 +13224,24 @@ interface RichEditSelection {
      */
     selectParagraph(): void;
     /**
+     * Moves the cursor to the next page break mark.
+     */
+    goToStartNextPageCommand(): void;
+    /**
+     * Moves the cursor to the next page break mark and extends the selection.
+     * @param extendSelection true to extend the selection; otherwise, false.
+     */
+    goToStartNextPageCommand(extendSelection: boolean): void;
+    /**
+     * Moves the cursor to the previous page break mark.
+     */
+    goToStartPrevPageCommand(): void;
+    /**
+     * Moves the cursor to the previous page break mark and extends the selection.
+     * @param extendSelection true to extend the selection; otherwise, false.
+     */
+    goToStartPrevPageCommand(extendSelection: boolean): void;
+    /**
      * Selects the table cell in which the cursor is located.
      */
     selectTableCell(): void;
@@ -9699,17 +13273,17 @@ interface RichEditSelection {
      */
     selectAll(): void;
     /**
-     * Moves the cursor to the main sub-document.
+     * Makes the main sub-document active and moves the cursor to its beginning.
      */
     setMainSubDocumentAsActive(): void;
     /**
-     * Moves the cursor to the footer of the specified document page.
-     * @param pageIndex An integer value specifying the page index.
+     * Creates a footer sub-document (if it was not created before) and sets the footer as the active sub-document. Moves the cursor to the footer's start position.
+     * @param pageIndex An integer value specifying the active page's index.
      */
     setFooterSubDocumentAsActiveByPageIndex(pageIndex: number): void;
     /**
-     * Moves the cursor to the header of the specified document page.
-     * @param pageIndex An integer value specifying the page index.
+     * Creates a header sub-document (if it was not created before) and sets the header as the active sub-document. Moves the cursor to the header's start position.
+     * @param pageIndex An integer value specifying the active page's index.
      */
     setHeaderSubDocumentAsActiveByPageIndex(pageIndex: number): void;
 }
@@ -9728,8 +13302,19 @@ interface Interval {
      */
     length: number;
 }
+/**
+ * Contains spell checking related settings.
+ */
 interface SpellingInfo {
+    /**
+     * Gets a value specifying the spell checking state.
+     * Value: One of the <see cref="SpellCheckerState" /> enumeration values.
+     */
     spellCheckerState: any;
+    /**
+     * Provides access to an array containing misspelled intervals.
+     * Value: An array of MisspelledInterval objects.
+     */
     misspelledIntervals: MisspelledInterval[];
 }
 declare enum SpellCheckerState {
@@ -9737,12 +13322,39 @@ declare enum SpellCheckerState {
     InProgress=1,
     Done=2
 }
+/**
+ * Contains the settings defining a misspelled interval.
+ */
 interface MisspelledInterval {
+    /**
+     * Gets the start position of the misspelled word in the interval.
+     * Value: An integer value specifying the misspelled word's start position.
+     */
     start: number;
+    /**
+     * Gets the length of the misspelled interval.
+     * Value: An integer value specifying the misspelled interval's length.
+     */
     length: number;
+    /**
+     * Gets the text buffer interval occupied by the current element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
     interval: Interval;
+    /**
+     * Gets the spelling error type.
+     * Value: One of the <see cref="SpellingErrorType" /> enumeration values.
+     */
     errorType: any;
+    /**
+     * Gets an erroneous word found during spell check.
+     * Value: A string that is the erroneous or misspelled word.
+     */
     word: string;
+    /**
+     * Gets a list of suggested words to replace the misspelled word.
+     * Value: A string array containing suggested words.
+     */
     suggestions: string[];
 }
 declare enum SpellingErrorType {
@@ -9823,7 +13435,15 @@ interface TableStyle extends StyleBase {
  * Exposes the settings providing the information about the essential document functionality.
  */
 interface SubDocument {
+    /**
+     * Gets the sub-document identifier.
+     * Value: An integer value specifying the sub-document identifier.
+     */
     id: number;
+    /**
+     * Gets a value specifying the sub-document type.
+     * Value: One of the <see cref="SubDocumentType" /> enumeration values.
+     */
     type: any;
     /**
      * Provides information about paragraphs contained in the document.
@@ -9845,6 +13465,10 @@ interface SubDocument {
      * Value: An array of Bookmark objects storing information about document bookmarks.
      */
     bookmarksInfo: Bookmark[];
+    /**
+     * Provides access to an array of objects containing in-line picture settings.
+     * Value: An array of <see cref="InlinePictureInfo[]" /> objects.
+     */
     inlinePicturesInfo: InlinePictureInfo[];
     /**
      * Gets the document's textual representation.
@@ -9856,6 +13480,26 @@ interface SubDocument {
      * Value: An integer that is the number of character positions in the document.
      */
     length: number;
+    /**
+     * Returns a field if its interval includes the specified position.
+     * @param position An integer value specifying the target field's position.
+     */
+    findFields(position: number): Field[];
+    /**
+     * Returns all fields contained in the specified interval.
+     * @param interval A text buffer interval that contains the target fields.
+     */
+    findFields(interval: Interval): Field[];
+    /**
+     * Returns a table if its interval includes the specified position.
+     * @param position An integer value specifying the target table's position.
+     */
+    findTables(position: number): Field[];
+    /**
+     * Returns all tables contained in the specified interval.
+     * @param interval A text buffer interval that contains the target tables.
+     */
+    findTables(interval: Interval): Field[];
 }
 declare enum SubDocumentType {
     Main=0,
@@ -9877,6 +13521,15 @@ interface Table {
      * Value: A integer value specifying the character length of the table.
      */
     length: number;
+    /**
+     * Gets an index of the table.
+     * Value: An integer value specifying the table's index.
+     */
+    index: number;
+    /**
+     * Gets the text buffer interval occupied by the current table element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
     interval: Interval;
     /**
      * Provides access to a collection of table rows.
@@ -9903,6 +13556,10 @@ interface TableRow {
      * Value: An integer value specifying the element length in characters.
      */
     length: number;
+    /**
+     * Gets the text buffer interval occupied by the current table row element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
     interval: Interval;
     /**
      * Provides information about the table row's cells.
@@ -9924,18 +13581,65 @@ interface TableCell {
      * Value: An integer value specifying the element length in characters.
      */
     length: number;
+    /**
+     * Gets the text buffer interval occupied by the current table cell element.
+     * Value: An <see cref="Interval" /> object specifying the interval settings.
+     */
     interval: Interval;
 }
+/**
+ * Contains the method to convert different units of measurement.
+ */
 interface RichEditUnitConverter {
+    /**
+     * Converts a measurement from pixels to twips.
+     * @param value The pixels value to be converted.
+     */
     pixelsToTwips(value: number): number;
+    /**
+     * Converts a measurement from inches to twips.
+     * @param value The inches value (floating) to be converted.
+     */
     inchesToTwips(value: number): number;
+    /**
+     * Converts a measurement from points to twips.
+     * @param value The points value to be converted.
+     */
     pointsToTwips(value: number): number;
+    /**
+     * Converts a value in centimeters to twips.
+     * @param value A floating value specifying the value in centimeters to convert.
+     */
     centimetersToTwips(value: number): number;
+    /**
+     * Converts a measurement from twips to centimeters.
+     * @param value The twips value to be converted.
+     */
     twipsToCentimeters(value: number): number;
+    /**
+     * Converts a measurement from pixels to centimeters.
+     * @param value The pixels value to be converted.
+     */
     pixelsToCentimeters(value: number): number;
+    /**
+     * Converts a measurement from twips to inches.
+     * @param value The twips value to be converted.
+     */
     twipsToInches(value: number): number;
+    /**
+     * Converts a measurement from pixels to inches.
+     * @param value The pixels value to be converted.
+     */
     pixelsToInches(value: number): number;
+    /**
+     * Converts a measurement from pixels to points.
+     * @param value The pixels value to be converted.
+     */
     pixelsToPoints(value: number): number;
+    /**
+     * Converts a measurement from twips to points.
+     * @param value The twips value to be converted.
+     */
     twipsToPoints(value: number): number;
 }
 /**
@@ -9953,9 +13657,9 @@ interface OpenInsertBookmarkDialogCommand extends CommandWithSimpleStateBase {
 interface InsertBookmarkCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the InsertBookmarkCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param name A string value specifying name of creating bookmark.
-     * @param start An integer value specifying the start position of bookmark's range.
-     * @param length An integer value specifying the length of bookmark's range.
+     * @param name A string value specifying a name of the created bookmark.
+     * @param start An integer value specifying the start position of the bookmark's range.
+     * @param length An integer value specifying the length of the bookmark's range.
      */
     execute(name: string, start: number, length: number): boolean;
 }
@@ -9965,7 +13669,7 @@ interface InsertBookmarkCommand extends CommandWithSimpleStateBase {
 interface DeleteBookmarkCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the DeleteBookmarkCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param name A string value specifying name of the deleted bookmark.
+     * @param name A string value specifying a name of the deleted bookmark.
      */
     execute(name: string): boolean;
 }
@@ -9975,7 +13679,7 @@ interface DeleteBookmarkCommand extends CommandWithSimpleStateBase {
 interface GoToBookmarkCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the GoToBookmarkCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param name 
+     * @param name A string value specifying the bookmark's name
      */
     execute(name: string): boolean;
 }
@@ -10023,6 +13727,11 @@ interface UpdateFieldCommand extends CommandWithSimpleStateBase {
      * Executes the UpdateFieldCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      */
     execute(): boolean;
+    /**
+     * Executes the UpdateFieldCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param callback A callback function that is performed when updating of all fields in the selection is completed.
+     */
+    execute(callback: Function): boolean;
 }
 /**
  * A command to display the selected field's field codes.
@@ -10060,6 +13769,11 @@ interface UpdateAllFieldsCommand extends CommandWithSimpleStateBase {
      * Executes the UpdateAllFieldsCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      */
     execute(): boolean;
+    /**
+     * Executes the UpdateAllFieldsCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param callback A callback function that is performed when updating of all fields in the document is completed.
+     */
+    execute(callback: Function): boolean;
 }
 /**
  * A command to insert a DATE field displaying the current date.
@@ -10097,10 +13811,24 @@ interface GoToDataRecordCommand extends CommandBase {
      * @param activeRecordIndex An integer value specifying index of the next data record.
      */
     execute(activeRecordIndex: number): boolean;
+    /**
+     * Gets information about the command state.
+     */
     getState(): any;
 }
+/**
+ * Contains the settings defining a data record.
+ */
 interface DataRecordOptions {
+    /**
+     * Gets or sets the index of the active data record.
+     * Value: An integer value specifying the data record index.
+     */
     activeRecordIndex: number;
+    /**
+     * Gets or sets the count of data source records.
+     * Value: An integer value specifying the count of data source records.
+     */
     recordCount: number;
 }
 /**
@@ -10191,11 +13919,22 @@ interface MailMergeAndDownloadCommand extends CommandBase {
      */
     execute(fileExtension: string): boolean;
     /**
+     * Executes the MailMergeAndDownloadCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param documentFormat One of the DocumentFormat enumeration values.
+     */
+    execute(documentFormat: any): boolean;
+    /**
      * Executes the MailMergeAndDownloadCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      * @param fileExtension A string value specifying the file extension of the resulting document.
      * @param settings A MailMergeSettings object containing settings to set up mail merge operations.
      */
     execute(fileExtension: string, settings: MailMergeSettings): boolean;
+    /**
+     * Executes the MailMergeAndDownloadCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param documentFormat One of the DocumentFormat enumeration values.
+     * @param settings A MailMergeSettings object specifying the mail merge settings.
+     */
+    execute(documentFormat: any, settings: MailMergeSettings): boolean;
     /**
      * Gets information about the command state.
      */
@@ -10212,10 +13951,10 @@ interface MailMergeAndSaveAsCommand extends CommandBase {
     execute(filePath: string): boolean;
     /**
      * Executes the MailMergeAndSaveAsCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param filePath A string value specifying path to the saving file.
-     * @param settings A MailMergeSettings object specifying hyperlink settings.
+     * @param fileInfo A RichEditFileInfo object specifying a file to save to.
+     * @param settings A MailMergeSettings object specifying the mail merge settings.
      */
-    execute(filePath: string, settings: MailMergeSettings): boolean;
+    execute(fileInfo: RichEditFileInfo, settings: MailMergeSettings): boolean;
     /**
      * Gets information about the command state.
      */
@@ -10308,9 +14047,14 @@ interface FileSaveCommand extends CommandWithSimpleStateBase {
 interface FileSaveAsCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the FileSaveAsCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param path A string value specifying path to the saving file.
+     * @param path A string value specifying path to the saving file. Note that the path should be relative to the work directory.
      */
     execute(path: string): boolean;
+    /**
+     * Executes the FileSaveAsCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param fileInfo A <see cref="Boolean" /> object specifying a file to save to.
+     */
+    execute(fileInfo: RichEditFileInfo): boolean;
 }
 /**
  * A command to download the document file, specifying its extension.
@@ -10321,6 +14065,20 @@ interface FileDownloadCommand extends CommandWithSimpleStateBase {
      * @param fileExtension A string value specifying the extension of the downloading file.
      */
     execute(fileExtension: string): boolean;
+    /**
+     * Executes the FileDownloadCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param documentFormat A DocumentFormat enumeration value.
+     */
+    execute(documentFormat: any): boolean;
+}
+/**
+ * A command to open the file's Save As dialog.
+ */
+interface FileSaveAsDialogCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the FileSaveAsDialogCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     */
+    execute(): boolean;
 }
 /**
  * A command to invoke a browser-specific Print dialog allowing one to print the current document.
@@ -10357,15 +14115,15 @@ interface FindAllCommand extends CommandWithSimpleStateBase {
      * Executes the FindAllCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      * @param text A string value specifying finding text.
      * @param matchCase true, to perform a case-sensitive search; otherwise, false.
-     * @param highlightResults true, to highlight result of search; otherwise, false.
+     * @param highlightResults true, to highlight the search results; otherwise, false.
      */
     execute(text: string, matchCase: boolean, highlightResults: boolean): boolean;
     /**
      * Executes the FindAllCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      * @param text A string value specifying text to find.
      * @param matchCase true, to perform a case-sensitive search; otherwise, false.
-     * @param highlightResults true, to highlight result of search; otherwise, false.
-     * @param results An array of Interval objects containing the results of search.
+     * @param highlightResults true, to highlight the search results; otherwise, false.
+     * @param results An array of Interval objects containing the search results.
      */
     execute(text: string, matchCase: boolean, highlightResults: boolean, results: Interval[]): boolean;
 }
@@ -10384,8 +14142,8 @@ interface HideFindResultsCommand extends CommandWithSimpleStateBase {
 interface ReplaceAllCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the ReplaceAllCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param text A string value specifying text to replace.
-     * @param replaceText A string value specifying replacing text.
+     * @param text A string value specifying a text to replace.
+     * @param replaceText A string value specifying the inserted text.
      * @param matchCase true, to perform a case-sensitive search; otherwise, false.
      */
     execute(text: string, replaceText: string, matchCase: boolean): boolean;
@@ -10396,11 +14154,437 @@ interface ReplaceAllCommand extends CommandWithSimpleStateBase {
 interface ReplaceNextCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the ReplaceNextCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param text A string value specifying text to replace.
-     * @param replaceText A string value specifying replacing text.
+     * @param text A string value specifying a text to replace.
+     * @param replaceText A string value specifying the inserted text.
      * @param matchCase true, to perform a case-sensitive search; otherwise, false.
      */
     execute(text: string, replaceText: string, matchCase: boolean): boolean;
+}
+interface OpenLayoutOptionsDialogCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the OpenLayoutOptionsDialogCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     */
+    execute(): boolean;
+}
+/**
+ * A command to insert a floating text box.
+ */
+interface InsertFloatingTextBoxCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertFloatingTextBoxCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     */
+    execute(): boolean;
+}
+/**
+ * A command to lock a floating object's anchor.
+ */
+interface ChangeFloatingObjectLockAnchorCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectLockAnchorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param lockAnchor true to lock the anchor; false, otherwise.
+     */
+    execute(lockAnchor: boolean): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to modify a floating object's alignment position.
+ */
+interface ChangeFloatingObjectAlignmentPositionCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectAlignmentPositionCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param settings A FloatingObjectAlignmentPositionSettings object specifying alignment position settings.
+     */
+    execute(settings: FloatingObjectAlignmentPositionSettings): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to change a floating object's absolute position.
+ */
+interface ChangeFloatingObjectAbsolutePositionCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectAbsolutePositionCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param settings A FloatingObjectAbsolutePositionSettings object specifying object position settings.
+     */
+    execute(settings: FloatingObjectAbsolutePositionSettings): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to modify a floating object's relative position.
+ */
+interface ChangeFloatingObjectRelativePositionCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectRelativePositionCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param settings A FloatingObjectRelativePositionSettings object specifying relative positioin settings.
+     */
+    execute(settings: FloatingObjectRelativePositionSettings): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to modify a floating object's text wrapping settings.
+ */
+interface ChangeFloatingObjectTextWrappingCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectTextWrappingCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param settings A FloatingObjectTextWrappingSettings object specifying text wrapping settings.
+     */
+    execute(settings: FloatingObjectTextWrappingSettings): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to change a floating object's absolute size.
+ */
+interface ChangeFloatingObjectAbsoluteSizeCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectAbsoluteSizeCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param settings A FloatingObjectAbsoluteSizeSettings object specifying absolute size settings.
+     */
+    execute(settings: FloatingObjectAbsoluteSizeSettings): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to modify a text box' relative size settings.
+ */
+interface ChangeTextBoxRelativeSizeCommand extends CommandBase {
+    /**
+     * Executes the ChangeTextBoxRelativeSizeCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param settings A TextBoxRelativeSizeSettings object specifying relative size settings.
+     */
+    execute(settings: TextBoxRelativeSizeSettings): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to rotate a floating object.
+ */
+interface ChangeFloatingObjectRotationCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectRotationCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param rotation An integer value specifying the angle of rotation.
+     */
+    execute(rotation: number): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to lock a floating object's aspect ratio.
+ */
+interface ChangeFloatingObjectLockAspectRatioCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectLockAspectRatioCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param lockAspectRatio true to lock the aspect ratio and maintain the proportions; otherwise, false.
+     */
+    execute(lockAspectRatio: boolean): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to modify a floating object's background fill color.
+ */
+interface ChangeFloatingObjectFillColorCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectFillColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param color A string value specifying the color.
+     */
+    execute(color: string): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to modify a floating object's outline color.
+ */
+interface ChangeFloatingObjectOutlineColorCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectOutlineColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param color A string value specifying the color.
+     */
+    execute(color: string): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to modify a floating object's outline width.
+ */
+interface ChangeFloatingObjectOutlineWidthCommand extends CommandBase {
+    /**
+     * Executes the ChangeFloatingObjectOutlineWidthCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param width An integer value specifying the outline width.
+     */
+    execute(width: number): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to modify a text box' content margins.
+ */
+interface ChangeTextBoxContentMarginsCommand extends CommandBase {
+    /**
+     * Executes the ChangeTextBoxContentMarginsCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param settings A Margins object specifying margin settings.
+     */
+    execute(settings: Margins): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * A command to resize the shape to fit the text in the text box.
+ */
+interface ChangeTextBoxResizeShapeToFitTextCommand extends CommandBase {
+    /**
+     * Executes the ChangeTextBoxResizeShapeToFitTextCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param resizeShapeToFitText true, to resize the shape to fit the text; otherwise, false.
+     */
+    execute(resizeShapeToFitText: boolean): boolean;
+    /**
+     * Gets information about the command state.
+     */
+    getState(): any;
+}
+/**
+ * Contains alignment position settings for floating objects.
+ */
+interface FloatingObjectAlignmentPositionSettings {
+    /**
+     * Gets or sets a value specifying how a floating object is horizontally aligned relative to an element specified by the horizontalPositionAlignment property.
+     * Value: One of the <see cref="FloatingObjectHorizontalPositionAlignment" /> enumeration values.
+     */
+    horizontalPositionAlignment: any;
+    /**
+     * Gets or sets a value specifying to what element the horizontal alignment of a floating object is relative.
+     * Value: One of the <see cref="FloatingObjectHorizontalPositionType" /> enumeration values.
+     */
+    horizontalPositionType: any;
+    /**
+     * Gets or sets a value specifying how a floating object is vertically aligned relative to an element specified by the verticalPositionAlignment property.
+     * Value: One of the <see cref="FloatingObjectVerticalPositionAlignment" /> enumeration values.
+     */
+    verticalPositionAlignment: any;
+    /**
+     * Gets or sets a value specifying to what element the vertical alignment of a floating object is relative.
+     * Value: One of the <see cref="FloatingObjectVerticalPositionType" /> enumeration values.
+     */
+    verticalPositionType: any;
+}
+/**
+ * Contains page margin settings.
+ */
+interface FloatingObjectAbsolutePositionSettings {
+    /**
+     * Gets or sets a floating object's horizontal position relative to an element specified by the horizontalPositionType property.
+     * Value: An integer value specifying the position in twips.
+     */
+    horizontalAbsolutePosition: number;
+    /**
+     * Gets or sets a value specifying to what element the horizontal position of a floating object is relative.
+     * Value: One of the <see cref="FloatingObjectHorizontalPositionType" /> enumeration values.
+     */
+    horizontalPositionType: any;
+    /**
+     * Gets or sets a floating object's vertical position relative to an element specified by the verticalPositionType property.
+     * Value: An integer value specifying the position in twips.
+     */
+    verticalAbsolutePosition: number;
+    /**
+     * Gets or sets a value specifying to what element the vertical position of a floating object is relative.
+     * Value: One of the <see cref="FloatingObjectVerticalPositionType" /> enumeration values.
+     */
+    verticalPositionType: any;
+}
+/**
+ * Contains relative position settings for floating objects.
+ */
+interface FloatingObjectRelativePositionSettings {
+    /**
+     * Gets or sets the horizontal distance between the edge of a floating object and the element specified by the horizontalRelativePosition property
+     * Value: An integer value specifying the horizontal position in twips.
+     */
+    horizontalRelativePosition: number;
+    /**
+     * Gets or sets a value specifying to what element the horizontal position of a floating object is relative.
+     * Value: One of the <see cref="FloatingObjectHorizontalPositionType" /> enumeration values.
+     */
+    horizontalPositionType: any;
+    /**
+     * Gets or sets the horizontal distance between the edge of a floating object and the element specified by the verticalRelativePosition property
+     * Value: An integer value specifying the vertical position in twips.
+     */
+    verticalRelativePosition: number;
+    /**
+     * Gets or sets a value specifying to what element the vertical position of a floating object is relative.
+     * Value: One of the <see cref="FloatingObjectVerticalPositionType" /> enumeration values.
+     */
+    verticalPositionType: any;
+}
+/**
+ * Contains text wrapping settings for floating objects.
+ */
+interface FloatingObjectTextWrappingSettings {
+    /**
+     * Gets or sets a value specifying how text is wrapped around a floating object.
+     * Value: One of the <see cref="FloatingObjectTextWrapType" /> enumeration values.
+     */
+    floatingObjectTextWrapType: any;
+    /**
+     * Gets or sets a value specifying how text can wrap around a floating object's left and right sides.
+     * Value: One of the <see cref="FloatingObjectTextWrapSide" /> enumeration values.
+     */
+    floatingObjectTextWrapSide: any;
+    /**
+     * Gets or sets the left offset of text wrapping.
+     * Value: An integer value specifying the left offset in twips.
+     */
+    leftDistance: number;
+    /**
+     * Gets or sets the right offset of text wrapping.
+     * Value: An integer value specifying the right offset in twips.
+     */
+    rightDistance: number;
+    /**
+     * Gets or sets the top offset of text wrapping.
+     * Value: An integer value specifying the top offset in twips.
+     */
+    topDistance: number;
+    /**
+     * Gets or sets the bottom offset of text wrapping.
+     * Value: An integer value specifying the bottom offset in twips.
+     */
+    bottomDistance: number;
+}
+/**
+ * Contains absolute size settings for floating objects.
+ */
+interface FloatingObjectAbsoluteSizeSettings {
+    /**
+     * Gets or sets a floating object's absolute width.
+     * Value: An integer value specifying the width in twips.
+     */
+    absoluteWidth: number;
+    /**
+     * Gets or sets a floating object's absolute height.
+     * Value: An integer value specifying the height in twips.
+     */
+    absoluteHeight: number;
+}
+/**
+ * Contains relative size settings for floating objects.
+ */
+interface TextBoxRelativeSizeSettings {
+    /**
+     * Gets or sets the percentage specifying a floating object's width relative to the element defined by the relativeWidthType property.
+     * Value: An integer value specifying the relative width, as a percentage.
+     */
+    relativeWidth: number;
+    /**
+     * Gets or sets a value specifying to what element the floating object width is relative.
+     * Value: One of the <see cref="FloatingObjectRelativeWidthType" /> enumeration values.
+     */
+    relativeWidthType: any;
+    /**
+     * Gets or sets the percentage specifying a floating object's height relative to the element defined by the relativeHeightType property.
+     * Value: An integer value specifying the relative height, as a percentage.
+     */
+    relativeHeight: number;
+    /**
+     * Gets or sets a value specifying to what element the floating object height is relative.
+     * Value: One of the <see cref="FloatingObjectRelativeHeightType" /> enumeration values.
+     */
+    relativeHeightType: any;
+}
+declare enum FloatingObjectRelativeWidthType {
+    Margin=0,
+    Page=1,
+    LeftMargin=2,
+    RightMargin=3,
+    InsideMargin=4,
+    OutsideMargin=5
+}
+declare enum FloatingObjectRelativeHeightType {
+    Margin=0,
+    Page=1,
+    TopMargin=2,
+    BottomMargin=3,
+    InsideMargin=4,
+    OutsideMargin=5
+}
+declare enum FloatingObjectTextWrapType {
+    None=0,
+    TopAndBottom=1,
+    Tight=2,
+    Through=3,
+    Square=4
+}
+declare enum FloatingObjectTextWrapSide {
+    Both=0,
+    Left=1,
+    Right=2,
+    Largest=3
+}
+declare enum FloatingObjectHorizontalPositionType {
+    Page=0,
+    Character=1,
+    Column=2,
+    Margin=3,
+    LeftMargin=4,
+    RightMargin=5,
+    InsideMargin=6,
+    OutsideMargin=7
+}
+declare enum FloatingObjectHorizontalPositionAlignment {
+    None=0,
+    Left=1,
+    Center=2,
+    Right=3,
+    Inside=4,
+    Outside=5
+}
+declare enum FloatingObjectVerticalPositionType {
+    Page=0,
+    Line=1,
+    Paragraph=2,
+    Margin=3,
+    TopMargin=4,
+    BottomMargin=5,
+    InsideMargin=6,
+    OutsideMargin=7
+}
+declare enum FloatingObjectVerticalPositionAlignment {
+    None=0,
+    Top=1,
+    Center=2,
+    Bottom=3,
+    Inside=4,
+    Outside=5
 }
 /**
  * A command to cancel changes caused by the previous command.
@@ -10421,6 +14605,16 @@ interface RedoCommand extends CommandWithSimpleStateBase {
     execute(): boolean;
 }
 /**
+ * A command to add an HTML formatted content in place of a selected range.
+ */
+interface InsertHtmlCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertHtmlCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param html A string that specifies the inserted HTML code.
+     */
+    execute(html: string): boolean;
+}
+/**
  * A command to invoke the Hyperlink dialog.
  */
 interface OpenInsertHyperlinkDialogCommand extends CommandWithSimpleStateBase {
@@ -10435,7 +14629,7 @@ interface OpenInsertHyperlinkDialogCommand extends CommandWithSimpleStateBase {
 interface InsertHyperlinkCommand extends CommandBase {
     /**
      * Executes the InsertHyperlinkCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param settings A HyperLinkSettings object specifying hyperlink settings.
+     * @param settings A HyperlinkSettings object specifying hyperlink settings.
      */
     execute(settings: HyperlinkSettings): boolean;
     /**
@@ -10658,7 +14852,7 @@ interface InsertNumerationCommand extends CommandWithSimpleStateBase {
     execute(abstractNumberingListIndex: number): boolean;
     /**
      * Executes the InsertNumerationCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param numberingListIndex An integer value specifying index of numbering list.
+     * @param numberingListIndex An integer value specifying an index of the numbering list.
      * @param isAbstractNumberingList true, to insert an abstract numbering list; otherwise, false.
      */
     execute(numberingListIndex: number, isAbstractNumberingList: boolean): boolean;
@@ -10696,6 +14890,10 @@ interface ListLevelSettings {
      * Value: One of the <see cref="ListLevelNumberAlignment" /> values.
      */
     alignment: any;
+    /**
+     * Gets or sets the character inserted after the number for a numbered list item.
+     * Value: A string value that is the trailing character for the list level.
+     */
     separator: string;
     /**
      * Gets or sets the left indent for text within the current list level's paragraph.
@@ -10840,7 +15038,7 @@ interface InsertSymbolCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the InsertSymbolCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      * @param symbol A string value specifying symbols to insert.
-     * @param fontName A string value specifying font of symbols to insert.
+     * @param fontName A string value specifying the font of symbols to insert.
      */
     execute(symbol: string, fontName: string): boolean;
 }
@@ -10859,7 +15057,7 @@ interface InsertParagraphCommand extends CommandWithSimpleStateBase {
 interface InsertTextCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the InsertTextCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param text A string value specifying text to insert.
+     * @param text A string value specifying a text to insert.
      */
     execute(text: string): boolean;
 }
@@ -10869,6 +15067,24 @@ interface InsertTextCommand extends CommandWithSimpleStateBase {
 interface DeleteCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the DeleteCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     */
+    execute(): boolean;
+}
+/**
+ * A command to remove the previous word.
+ */
+interface RemovePrevWordCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the RemovePrevWordCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     */
+    execute(): boolean;
+}
+/**
+ * A command to remove the next word.
+ */
+interface RemoveNextWordCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the RemoveNextWordCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      */
     execute(): boolean;
 }
@@ -10892,8 +15108,8 @@ interface ChangePictureScaleCommand extends CommandBase {
     execute(scale: Scale): boolean;
     /**
      * Executes the ChangePictureScaleCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param x An interger number specifying width of the picture
-     * @param y An interger number specifying height of the picture
+     * @param x An integer number specifying the scaling value for the width of the picture as a percentage.
+     * @param y An integer number specifying the scaling value for the height of the picture as a percentage.
      */
     execute(x: number, y: number): boolean;
     /**
@@ -10917,7 +15133,7 @@ interface MoveContentCommand extends CommandWithSimpleStateBase {
 interface CopyContentCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the CopyContentCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param position An integer number value specifying position for pasting selected text.
+     * @param position An integer value specifying a position of the inserted text.
      */
     execute(position: number): boolean;
 }
@@ -10931,10 +15147,27 @@ interface InsertTabCommand extends CommandWithSimpleStateBase {
     execute(): boolean;
 }
 /**
+ * A command to add a non-breaking space in place of a selected range.
+ */
+interface InsertNonBreakingSpaceCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertNonBreakingSpaceCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     */
+    execute(): boolean;
+}
+/**
  * Defines the scaling settings.
  */
 interface Scale {
+    /**
+     * Gets or sets the image's y-scale factor as a percent.
+     * Value: An integer value that is the y-scale factor as a percent.
+     */
     x: number;
+    /**
+     * Gets or sets the image's x-scale factor as a percent.
+     * Value: An integer value that is the x-scale factor as a percent.
+     */
     y: number;
 }
 /**
@@ -10943,10 +15176,10 @@ interface Scale {
 interface ChangePageMarginsCommand extends CommandBase {
     /**
      * Executes the ChangePageMarginsCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param left An integer number specifying left margin of the page.
-     * @param top An integer number specifying top margin of the page.
-     * @param right An integer number specifying right margin of the page.
-     * @param bottom An integer number specifying bottom margin of the page.
+     * @param left An integer number specifying left margin of the page in twips.
+     * @param top An integer number specifying top margin of the page in twips.
+     * @param right An integer number specifying right margin of the page in twips.
+     * @param bottom An integer number specifying bottom margin of the page in twips.
      */
     execute(left: number, top: number, right: number, bottom: number): boolean;
     /**
@@ -10973,8 +15206,8 @@ interface OpenPageMarginsDialogCommand extends CommandWithSimpleStateBase {
  */
 interface ChangePageOrientationCommand extends CommandBase {
     /**
-     * 
-     * @param isPortrait 
+     * Executes the ChangePageOrientationCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param isPortrait One of the Orientation enumeration values.
      */
     execute(isPortrait: any): boolean;
     /**
@@ -11006,8 +15239,8 @@ interface SetPageSizeDialogCommand extends CommandWithSimpleStateBase {
 interface ChangePageSizeCommand extends CommandBase {
     /**
      * Executes the ChangePageSizeCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param width An integer number specifying width of the page.
-     * @param height An integer number specifying height of the page.
+     * @param width An integer number specifying width of the page in twips.
+     * @param height An integer number specifying height of the page in twips.
      */
     execute(width: number, height: number): boolean;
     /**
@@ -11048,8 +15281,8 @@ interface OpenSectionColumnsDialogCommand extends CommandWithSimpleStateBase {
  */
 interface ChangeSectionColumnsCommand extends CommandBase {
     /**
-     * 
-     * @param columns 
+     * Executes the ChangeSectionColumnsCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param columns An array of SectionColumn objects.
      */
     execute(columns: SectionColumn[]): boolean;
     /**
@@ -11063,7 +15296,7 @@ interface ChangeSectionColumnsCommand extends CommandBase {
 interface ChangePageColorCommand extends CommandBase {
     /**
      * Executes the ChangePageColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying background color of the page. May be specified as color name or hex color value.
+     * @param color A string specifying a background color of all pages contained in the document. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -11144,7 +15377,7 @@ interface SetDifferentFirstPageHeaderFooterCommand extends CommandWithBooleanSta
     execute(): boolean;
     /**
      * Executes the SetDifferentFirstPageHeaderFooterCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param differentFirstPage true to apply different text for first page's header and footer, false to remove difference.
+     * @param differentFirstPage true to apply a different text for the first page's header and footer, false to remove the difference.
      */
     execute(differentFirstPage: boolean): boolean;
 }
@@ -11158,7 +15391,7 @@ interface SetDifferentOddAndEvenPagesHeaderFooterCommand extends CommandWithBool
     execute(): boolean;
     /**
      * Executes the SetDifferentOddAndEvenPagesHeaderFooterCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param differentOddAndEvenPages true to apply different text for odd and even pages' header and footer, false to remove difference.
+     * @param differentOddAndEvenPages true to apply a different text for the header and footer of the odd and even pages , false to remove the difference.
      */
     execute(differentOddAndEvenPages: boolean): boolean;
 }
@@ -11177,12 +15410,12 @@ interface CloseHeaderFooterCommand extends CommandWithSimpleStateBase {
 interface SectionColumn {
     /**
      * Gets or sets the width of the section column.
-     * Value: An integer value specifying the section column width.
+     * Value: An integer value specifying the section column width in twips.
      */
     width: number;
     /**
      * Gets or sets the amount of space between adjacent section columns.
-     * Value: An integer value specifying the spacing between section columns.
+     * Value: An integer value specifying the spacing after a column in twips.
      */
     spacing: number;
 }
@@ -11191,12 +15424,12 @@ interface SectionColumn {
  */
 interface Size {
     /**
-     * Gets or sets the width value.
+     * Gets or sets the width value in twips.
      * Value: An integer value specifying the width.
      */
     width: number;
     /**
-     * Gets or sets the height value.
+     * Gets or sets the height value in twips.
      * Value: An integer value specifying the height.
      */
     height: number;
@@ -11207,22 +15440,22 @@ interface Size {
 interface Margins {
     /**
      * Gets or sets the left margin.
-     * Value: An integer value specifying the left margin.
+     * Value: An integer value specifying the left margin in twips.
      */
     left: number;
     /**
      * Gets or sets the top margin.
-     * Value: An integer value specifying the top margin.
+     * Value: An integer value specifying the top margin in twips.
      */
     top: number;
     /**
      * Gets or sets the right margin.
-     * Value: An integer value specifying the right margin.
+     * Value: An integer value specifying the right margin in twips.
      */
     right: number;
     /**
      * Gets or sets the bottom margin.
-     * Value: An integer value specifying the bottom margin.
+     * Value: An integer value specifying the bottom margin in twips.
      */
     bottom: number;
 }
@@ -11367,7 +15600,7 @@ interface RemoveSpacingAfterParagraphCommand extends CommandWithSimpleStateBase 
 interface ChangeParagraphBackColorCommand extends CommandBase {
     /**
      * Executes the ChangeParagraphBackColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying highlighting color of the paragraphs in a selected range. May be specified as color name or hex color value.
+     * @param color A string specifying a background color of the paragraphs in a selected range. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -11509,17 +15742,17 @@ interface ParagraphFormattingSettings {
      */
     outlineLevel: number;
     /**
-     * Gets or sets the right indent value for the specified paragraph.
+     * Gets or sets the right indent value for the specified paragraph (in twips).
      * Value: An integer value specifying the right indent.
      */
     rightIndent: number;
     /**
-     * Gets or sets the spacing before the current paragraph.
+     * Gets or sets the spacing before each selected paragraph (in twips).
      * Value: An integer value specifying the spacing before the paragraph.
      */
     spacingBefore: number;
     /**
-     * Gets or sets the spacing after the current paragraph.
+     * Gets or sets the spacing after each selected paragraph (in twips).
      * Value: An integer value specifying the spacing after the paragraph.
      */
     spacingAfter: number;
@@ -11534,7 +15767,7 @@ interface ParagraphFormattingSettings {
      */
     firstLineIndentType: any;
     /**
-     * Gets or sets a value specifying the indent of the first line of a paragraph.
+     * Gets or sets a value specifying the indent of the first line of a paragraph (in twips).
      * Value: An integer value specifying the indent of the first line.
      */
     firstLineIndent: number;
@@ -11554,12 +15787,12 @@ interface ParagraphFormattingSettings {
      */
     pageBreakBefore: boolean;
     /**
-     * Gets or sets the left indent for text within a paragraph.
+     * Gets or sets the left indent for text within a paragraph (in twips).
      * Value: An integer value specifying the left indent.
      */
     leftIndent: number;
     /**
-     * Gets or sets a line spacing value.
+     * Gets or sets a line spacing value (in twips).
      * Value: An integer value specifying the line spacing.
      */
     lineSpacing: number;
@@ -11588,10 +15821,24 @@ declare enum ParagraphFirstLineIndent {
     Indented=1,
     Hanging=2
 }
+/**
+ * A command to assign a shortcut to the specified client command.
+ */
 interface AssignShortcutCommand extends CommandWithSimpleStateBase {
-    execute(keyCode: number, callback: (arg1: string) => void): boolean;
+    /**
+     * Executes the AssignShortcutCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * @param keyCode A specifically generated code that uniquely identifies the combination of keys specified for a shortcut. This code is specified using the GetShortcutCode method.
+     * @param callback A callback function to execute when a shortcut is activated.
+     */
+    execute(keyCode: number, callback: Function): boolean;
 }
+/**
+ * A command to invoke the Spelling dialog window.
+ */
 interface OpenSpellingDialogCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the OpenSpellingDialogCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     */
     execute(): boolean;
 }
 /**
@@ -11609,8 +15856,8 @@ interface OpenInsertTableDialogCommand extends CommandWithSimpleStateBase {
 interface InsertTableCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the InsertTableCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param columnCount An integer value specifying number of columns in a generated table.
-     * @param rowCount An integer value specifying number of rows in a generated table.
+     * @param columnCount An integer value specifying a number of columns in a generated table.
+     * @param rowCount An integer value specifying a number of rows in a generated table.
      */
     execute(columnCount: number, rowCount: number): boolean;
 }
@@ -11825,9 +16072,9 @@ interface SplitTableCellsDialogCommand extends CommandWithSimpleStateBase {
 interface SplitTableCellsCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the SplitTableCellsCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param rowCount An integer value specifying number of rows in the splitted table cells.
-     * @param columnCount An integer value specifying number of columns in the splitted table cells.
-     * @param mergeBeforeSplit true to merge the selected cells before splitting; otherwise, false.
+     * @param rowCount An integer value specifying a number of rows in the split table cells.
+     * @param columnCount An integer value specifying a number of columns in the split table cells.
+     * @param mergeBeforeSplit true to merge the selected cells before the splitting; otherwise, false.
      */
     execute(rowCount: number, columnCount: number, mergeBeforeSplit: boolean): boolean;
 }
@@ -11991,7 +16238,13 @@ interface ToggleTableCellBottomBorderCommand extends CommandWithBooleanStateBase
      */
     execute(): boolean;
 }
+/**
+ * A command to toggle left borders for selected cells on/off.
+ */
 interface ToggleTableCellLeftBorderCommand extends CommandWithBooleanStateBase {
+    /**
+     * Executes the ToggleTableCellLeftBorderCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     */
     execute(): boolean;
 }
 /**
@@ -12082,7 +16335,7 @@ interface ChangeTableBorderRepositoryItemCommand extends CommandBase {
 interface ChangeTableCellShadingCommand extends CommandBase {
     /**
      * Executes the ChangeTableCellShadingCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying color of the selected cells' shading. May be specified as color name or hex color value.
+     * @param color A string specifying the color of the selected cells' shading. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -12189,7 +16442,7 @@ interface TableBorderSettings {
      */
     color: string;
     /**
-     * Gets or sets the border line width.
+     * Gets or sets the border line width in twips.
      * Value: An integer value defining the border line width.
      */
     width: number;
@@ -12412,22 +16665,22 @@ interface TableCellFormattingSettings {
      */
     noWrap: boolean;
     /**
-     * Gets or sets a table cell's left margin.
+     * Gets or sets a table cell's left margin in twips.
      * Value: An integer value specifying the left margin.
      */
     marginLeft: number;
     /**
-     * Gets or sets a table cell's right margin.
+     * Gets or sets a table cell's right margin in twips.
      * Value: An integer value specifying the right margin.
      */
     marginRight: number;
     /**
-     * Gets or sets a table cell's top margin.
+     * Gets or sets a table cell's top margin in twips.
      * Value: An integer value specifying the top margin.
      */
     marginTop: number;
     /**
-     * Gets or sets a table cell's bottom margin.
+     * Gets or sets a table cell's bottom margin in twips.
      * Value: An integer value specifying the bottom margin.
      */
     marginBottom: number;
@@ -12458,12 +16711,12 @@ interface TableFormattingSettings {
      */
     alignment: any;
     /**
-     * Gets or sets the table's left indent.
+     * Gets or sets the table's left indent in twips.
      * Value: An integer value specifying the indent.
      */
     indent: number;
     /**
-     * Gets or sets the spacing between table cells.
+     * Gets or sets the spacing between table cells in twips.
      * Value: An integer value specifying the spacing.
      */
     spacingBetweenCells: number;
@@ -12478,22 +16731,22 @@ interface TableFormattingSettings {
      */
     resizeToFitContent: boolean;
     /**
-     * Gets or sets the default left margin for cells in the table.
+     * Gets or sets the default left margin for cells in the table in twips.
      * Value: An integer value specifying the margin value.
      */
     defaultCellMarginLeft: number;
     /**
-     * Gets or sets the default right margin for cells in the table.
+     * Gets or sets the default right margin for cells in the table in twips.
      * Value: An integer value specifying the margin value.
      */
     defaultCellMarginRight: number;
     /**
-     * Gets or sets the default top margin for cells in the table.
+     * Gets or sets the default top margin for cells in the table in twips.
      * Value: An integer value specifying the margin value.
      */
     defaultCellMarginTop: number;
     /**
-     * Gets or sets the default bottom margin for cells in the table.
+     * Gets or sets the default bottom margin for cells in the table in twips.
      * Value: An integer value specifying the margin value.
      */
     defaultCellMarginBottom: number;
@@ -12503,7 +16756,7 @@ interface TableFormattingSettings {
  */
 interface TableWidthUnit {
     /**
-     * Gets or sets the table width value.
+     * Gets or sets the table width value in twips.
      * Value: An integer value specifying the table width.
      */
     value: number;
@@ -12518,10 +16771,14 @@ interface TableWidthUnit {
  */
 interface TableHeightUnit {
     /**
-     * Gets or sets the table height value.
+     * Gets or sets the table height value in twips.
      * Value: An integer value specifying the table height.
      */
     value: number;
+    /**
+     * Gets or sets the unit type for the table height.
+     * Value: One of the <see cref="TableHeightUnitType" /> enumeration values.
+     */
     type: any;
 }
 declare enum TableHeightUnitType {
@@ -12549,7 +16806,7 @@ declare enum TableWidthUnitType {
 interface ChangeFontNameCommand extends CommandBase {
     /**
      * Executes the ChangeFontNameCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param fontName A string specifying font name.
+     * @param fontName A string specifying the font name.
      */
     execute(fontName: string): boolean;
     /**
@@ -12563,7 +16820,7 @@ interface ChangeFontNameCommand extends CommandBase {
 interface ChangeFontSizeCommand extends CommandBase {
     /**
      * Executes the ChangeFontSizeCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param fontSize An integer number specifying font size.
+     * @param fontSize An integer number specifying the font size in points.
      */
     execute(fontSize: number): boolean;
     /**
@@ -12715,7 +16972,7 @@ interface ChangeFontSubscriptCommand extends CommandWithBooleanStateBase {
 interface ChangeFontForeColorCommand extends CommandBase {
     /**
      * Executes the ChangeFontForeColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying font color. May be specified as color name or hex color value.
+     * @param color A string specifying the font color. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -12729,7 +16986,7 @@ interface ChangeFontForeColorCommand extends CommandBase {
 interface ChangeFontBackColorCommand extends CommandBase {
     /**
      * Executes the ChangeFontBackColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying highlighting color. May be specified as color name or hex color value.
+     * @param color A string specifying the background font color. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -12757,8 +17014,8 @@ interface ChangeStyleCommand extends CommandBase {
     execute(style: StyleBase): boolean;
     /**
      * Executes the ChangeStyleCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param styleName A string specifying the name of applying style.
-     * @param isParagraphStyle true to apply style to paragraph, false to apply style to character.
+     * @param styleName A string specifying the applying style's name.
+     * @param isParagraphStyle true to apply the style to a paragraph, false to apply the style to a character.
      */
     execute(styleName: string, isParagraphStyle: boolean): boolean;
     /**
@@ -12817,7 +17074,7 @@ interface FontFormattingSettings {
      */
     fontName: string;
     /**
-     * Gets or sets the character(s) font size.
+     * Gets or sets the character(s) font size (in points).
      * Value: An integer value specifying the font size.
      */
     size: number;
@@ -12851,6 +17108,10 @@ interface FontFormattingSettings {
      * Value: true, if characters are italicized; otherwise, false.
      */
     italic: boolean;
+    /**
+     * Gets or sets a value specifying whether the strikeout formatting is applied to a character(s).
+     * Value: true, if the strikeout formatting is applied; otherwise, false.
+     */
     strikeout: boolean;
     /**
      * Gets or sets whether only word characters are underlined.
@@ -12902,7 +17163,7 @@ interface SetFullscreenCommand extends CommandWithBooleanStateBase {
     execute(): boolean;
     /**
      * Executes the SetFullscreenCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param fullscreen true to apply fullscreen mode, false to remove fullscreen mode.
+     * @param fullscreen true to apply the fullscreen mode, false to disable the fullscreen mode.
      */
     execute(fullscreen: boolean): boolean;
 }
@@ -13239,9 +17500,9 @@ interface ASPxClientRecurrenceInfo {
     GetPeriodicity(): number;
     /**
      * Sets the ordinal number of a day within a defined month.
-     * @param dayNubmer A positive integer value that specifies the day number within a month.
+     * @param dayNumber A positive integer value that specifies the day number within a month.
      */
-    SetDayNumber(dayNubmer: number): void;
+    SetDayNumber(dayNumber: number): void;
     /**
      * Gets the ordinal number of a day within a defined month.
      */
@@ -13547,7 +17808,7 @@ interface DefaultRecurrenceRuleValuesAccessor {
      */
     GetMonth(): number;
     /**
-     * Gets the days of the week to which a weekly recurrent appointment is scheduled.
+     * Gets the days of the week on which a weekly recurrent appointment is scheduled.
      */
     GetWeekDays(): ASPxClientWeekDays;
     /**
@@ -13577,7 +17838,7 @@ interface WeeklyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAcce
      */
     GetPeriodicity(): number;
     /**
-     * Gets the days of the week to which a weekly recurrent appointment is scheduled.
+     * Gets the days of the week on which a weekly recurrent appointment is scheduled.
      */
     GetWeekDays(): ASPxClientWeekDays;
 }
@@ -13586,7 +17847,7 @@ interface WeeklyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAcce
  */
 interface MonthlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
     /**
-     * Gets the number of the month's day in which the appointment is scheduled.
+     * Gets the day of the month on which the appointment is scheduled.
      */
     GetDayNumber(): number;
     /**
@@ -13594,7 +17855,7 @@ interface MonthlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAcc
      */
     GetPeriodicity(): number;
     /**
-     * Gets the days of the week to which a monthly recurrent appointment is scheduled.
+     * Gets the days of the week on which a monthly recurrent appointment is scheduled.
      */
     GetWeekDays(): ASPxClientWeekDays;
     /**
@@ -13607,7 +17868,7 @@ interface MonthlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAcc
  */
 interface YearlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
     /**
-     * Gets the number of the month's day in which the appointment is scheduled.
+     * Gets the day of the month on which the appointment is scheduled.
      */
     GetDayNumber(): number;
     /**
@@ -13615,7 +17876,7 @@ interface YearlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAcce
      */
     GetMonth(): number;
     /**
-     * Gets the days of the week to which a yearly recurrent appointment is scheduled.
+     * Gets the days of the week on which a yearly recurrent appointment is scheduled.
      */
     GetWeekDays(): ASPxClientWeekDays;
     /**
@@ -13624,7 +17885,7 @@ interface YearlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAcce
     GetWeekOfMonth(): ASPxClientWeekOfMonth;
 }
 /**
- * Provides base functionality for ASPxClientScheduler's forms.
+ * Provides base functionality for the ASPxClientScheduler's forms.
  */
 interface ASPxClientFormBase {
     /**
@@ -13790,6 +18051,10 @@ interface ASPxClientScheduler extends ASPxClientControl {
      */
     ActiveViewChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientScheduler>>;
     /**
+     * Occurs when an end-user presses a keyboard shortcut.
+     */
+    Shortcut: ASPxClientEvent<ShortcutEventHandler<ASPxClientScheduler>>;
+    /**
      * Occurs when the end-user clicks an appointment.
      */
     AppointmentClick: ASPxClientEvent<AppointmentClickEventHandler<ASPxClientScheduler>>;
@@ -13797,6 +18062,14 @@ interface ASPxClientScheduler extends ASPxClientControl {
      * Occurs when the end-user double clicks on an appointment.
      */
     AppointmentDoubleClick: ASPxClientEvent<AppointmentClickEventHandler<ASPxClientScheduler>>;
+    /**
+     * Occurs when an end-user clicks a time cell.
+     */
+    CellClick: ASPxClientEvent<CellClickEventHandler<ASPxClientScheduler>>;
+    /**
+     * Occurs when and end-user double-clicks a time cell.
+     */
+    CellDoubleClick: ASPxClientEvent<CellClickEventHandler<ASPxClientScheduler>>;
     /**
      * Occurs on the client side when the user selects an appointment.
      */
@@ -13826,6 +18099,14 @@ interface ASPxClientScheduler extends ASPxClientControl {
      */
     AppointmentDrop: ASPxClientEvent<AppointmentDropEventHandler<ASPxClientScheduler>>;
     /**
+     * A client-side event that occurs when an appointment is being dragged.
+     */
+    AppointmentDrag: ASPxClientEvent<AppointmentDragEventHandler<ASPxClientScheduler>>;
+    /**
+     * A client-side event that occurs when an appointment is being resized.
+     */
+    AppointmentResizing: ASPxClientEvent<AppointmentResizingEventHandler<ASPxClientScheduler>>;
+    /**
      * Client-side event that occurs when an appointment is resized.
      */
     AppointmentResize: ASPxClientEvent<AppointmentResizeEventHandler<ASPxClientScheduler>>;
@@ -13833,6 +18114,10 @@ interface ASPxClientScheduler extends ASPxClientControl {
      * Client-side event that fires before an appointment is deleted.
      */
     AppointmentDeleting: ASPxClientEvent<ASPxClientAppointmentDeletingEventHandler<ASPxClientScheduler>>;
+    /**
+     * Fires on the client side before the appointment tooltip is shown.
+     */
+    AppointmentToolTipShowing: ASPxClientEvent<ASPxClientAppointmentToolTipShowingEventHandler<ASPxClientScheduler>>;
     /**
      * Client-side scripting  method that gets the active View.
      */
@@ -13898,9 +18183,31 @@ interface ASPxClientScheduler extends ASPxClientControl {
      */
     GetSelectedInterval(): ASPxClientTimeInterval;
     /**
+     * Selects time cells which encompass the specified time interval on the client side.
+     * @param interval An ASPxClientTimeInterval object that specifies the time interval to select.
+     */
+    SetSelection(interval: ASPxClientTimeInterval): void;
+    /**
+     * Selects time cells which encompass the specified time interval on the client side.
+     * @param interval An ASPxClientTimeInterval object that specifies the time interval to select.
+     * @param resourceId An integer value specifying the ID of the resource to which the specified time interval belongs.
+     */
+    SetSelection(interval: ASPxClientTimeInterval, resourceId: string): void;
+    /**
+     * Selects time cells which encompass the specified time interval on the client side.
+     * @param interval An ASPxClientTimeInterval object that specifies the time interval to select.
+     * @param resourceId An integer value specifying the ID of the resource to which the specified time interval belongs.
+     * @param scrollToSelection true, to scroll the scheduler's contents to make the selection visible; otherwise, false.
+     */
+    SetSelection(interval: ASPxClientTimeInterval, resourceId: string, scrollToSelection: boolean): void;
+    /**
      * Client-side function that returns the ResourceId of selected time cell's resource.
      */
     GetSelectedResource(): string;
+    /**
+     * Gets a collection of visible appointments.
+     */
+    GetVisibleAppointments(): ASPxClientAppointment[];
     /**
      * Client-side function that returns an appointment with the specified ID.
      * @param id An appointment's identifier.
@@ -13920,6 +18227,12 @@ interface ASPxClientScheduler extends ASPxClientControl {
      * @param aptId An appointment's identifier.
      */
     SelectAppointmentById(aptId: Object): void;
+    /**
+     * Selects the appointment with the specified ID.
+     * @param aptId An integer value specifying the appointment ID.
+     * @param scrollToSelection true, to scroll to the selected appointment; otherwise, false.
+     */
+    SelectAppointmentById(aptId: Object, scrollToSelection: boolean): void;
     /**
      * Enables obtaining appointment property values in a client-side script. Executes the callback command with the AppointmentData identifier.
      * @param aptId An integer, representing the appointment ID.
@@ -14067,6 +18380,42 @@ interface ASPxClientScheduler extends ASPxClientControl {
      * Client-side scripting method that changes the alert time for the selected reminder to the specified interval.
      */
     ReminderFormSnooze(): void;
+    /**
+     * Specifies whether the toolbar is visible.
+     * @param visible true, to make the toolbar visible; otherwise, false.
+     */
+    SetToolbarVisible(visible: boolean): void;
+    /**
+     * Returns a value specifying whether a toolbar is displayed.
+     */
+    GetToolbarVisible(): boolean;
+    /**
+     * Specifies whether the Resource Navigator is visible.
+     * @param visible true, to make the Resource Navigator visible; otherwise, false.
+     */
+    SetResourceNavigatorVisible(visible: boolean): void;
+    /**
+     * Returns a value specifying whether the Resource Navigator is displayed.
+     */
+    GetResourceNavigatorVisible(): boolean;
+    /**
+     * Returns the value specifying the Scheduler's scrollable area height.
+     */
+    GetScrollAreaHeight(): number;
+    /**
+     * Specifies the All-Day Area area height.
+     * @param height An integer value specifying the all-day area height.
+     */
+    SetAllDayAreaHeight(height: number): void;
+    /**
+     * Gets the All-Day Area area height.
+     */
+    GetAllDayAreaHeight(): number;
+    /**
+     * Sets the Scheduler's height.
+     * @param height An integer value specifying the scheduler's height.
+     */
+    SetHeight(height: number): void;
 }
 /**
  * Represents a client-side equivalent of the SchedulerViewType object.
@@ -14102,6 +18451,11 @@ interface ASPxSchedulerViewType {
      * Value: A string "FullWeek", indicating the FullWeekView.
      */
     FullWeek: string;
+    /**
+     * Gets a string representation equivalent to the Agenda enumeration for use in client scripts.
+     * Value: A string "Agenda", indicating the AgendaView.
+     */
+    Agenda: string;
 }
 /**
  * Represents a client-side equivalent of the SchedulerGroupType enumeration.
@@ -14221,6 +18575,37 @@ interface AppointmentsSelectionEventArgs extends ASPxClientEventArgs {
     appointmentIds: string[];
 }
 /**
+ * A method that will handle the Shortcut event.
+ */
+interface ShortcutEventHandler<S> {
+    /**
+     * A method that will handle the Shortcut event.
+     * @param source The event sender (typically an ASPxClientScheduler control).
+     * @param e A ShortcutEventArgs object that contains event data.
+     */
+    (source: S, e: ShortcutEventArgs): void;
+}
+/**
+ * Provides data for the client-side Shortcut event.
+ */
+interface ShortcutEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the name of a command associated with the keyboard shortcut.
+     * Value: A string containing a command name.
+     */
+    commandName: string;
+    /**
+     * Gets an object containing information about a keyboard shortcut event.
+     * Value: An object containing event data.
+     */
+    htmlEvent: Object;
+    /**
+     * Gets or sets whether an event is handled, and that default actions are not required.
+     * Value: true, if no default processing is required; otherwise, false.
+     */
+    handled: boolean;
+}
+/**
  * A method that will handle the ActiveViewChanging event.
  */
 interface ActiveViewChangingEventHandler<S> {
@@ -14313,21 +18698,55 @@ interface MenuItemClickedEventArgs extends ASPxClientEventArgs {
      */
     handled: boolean;
 }
-interface AppointmentDropEventHandler<S> {
+/**
+ * A method that will handle the AppointmentDrag event.
+ */
+interface AppointmentDragEventHandler<S> {
     /**
-     * A method that will handle the AppointmentDrop event.
-     * @param source The event sender (typically an ASPxClientScheduler control).
+     * A method that will handle the AppointmentDrag event.
+     * @param source The event sender (typically an ASPxClientScheduler object).
      * @param e A ASPxClientAppointmentDragEventArgs object that contains event data.
      */
     (source: S, e: ASPxClientAppointmentDragEventArgs): void;
 }
 /**
- * Provides data for the AppointmentDrop event.
+ * Provides data for the AppointmentDrag event.
  */
 interface ASPxClientAppointmentDragEventArgs extends ASPxClientEventArgs {
     /**
-     * Gets or sets whether default event processing is required.
-     * Value: true to process an event using only custom code; otherwise, false.
+     * Specifies whether or not appointments can be dropped into the intervals over which they are currently dragged.
+     * Value: true to allow dropping appointments; otherwise, false.
+     */
+    allow: boolean;
+    /**
+     * Gets a mouse event object related to the current drag operation.
+     * Value: An object providing event properties specific to mouse events.
+     */
+    mouseEvent: Object;
+    /**
+     * Provides information about dragged appointments.
+     * Value: An array of ASPxClientAppointmentDragInfo objects storing information about dragged appointments.
+     */
+    dragInformation: ASPxClientAppointmentDragInfo[];
+}
+/**
+ * A method that will handle the AppointmentDrop event.
+ */
+interface AppointmentDropEventHandler<S> {
+    /**
+     * A method that will handle the AppointmentDrop event.
+     * @param source The event sender (typically an ASPxClientScheduler object).
+     * @param e A ASPxClientAppointmentDropEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientAppointmentDropEventArgs): void;
+}
+/**
+ * Provides data for the AppointmentDrop event.
+ */
+interface ASPxClientAppointmentDropEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets or sets a value that specifies whether the event is handled, and the default processing is not required.
+     * Value: true, if if the event is completely handled by custom code and no default processing is required; otherwise, false.
      */
     handled: boolean;
     /**
@@ -14336,8 +18755,8 @@ interface ASPxClientAppointmentDragEventArgs extends ASPxClientEventArgs {
      */
     operation: ASPxClientAppointmentOperation;
     /**
-     * Provides information about dragged appointments.
-     * Value: An array of ASPxClientAppointmentDragInfo objects storing information about dragged appointments.
+     * Provides information about dropped appointments.
+     * Value: An array of ASPxClientAppointmentDragInfo objects storing information about dropped appointments.
      */
     dragInformation: ASPxClientAppointmentDragInfo[];
 }
@@ -14363,6 +18782,47 @@ interface ASPxClientAppointmentResizeEventArgs extends ASPxClientEventArgs {
      * Value: An ASPxClientAppointmentOperation object providing methods to perform the required operation.
      */
     operation: ASPxClientAppointmentOperation;
+    /**
+     * Gets the resized appointment's identifier.
+     * Value: A string containing an appointment identifier.
+     */
+    appointmentId: string;
+    /**
+     * Gets the appointment's interval before resizing.
+     * Value: An <see cref="ASPxClientTimeInterval" /> object representing the interval assigned to the appointment.
+     */
+    oldInterval: ASPxClientTimeInterval;
+    /**
+     * Gets the appointment's interval after resizing.
+     * Value: An <see cref="ASPxClientTimeInterval" /> object representing the interval assigned to the appointment.
+     */
+    newInterval: ASPxClientTimeInterval;
+}
+/**
+ * A method that will handle the AppointmentResizing event.
+ */
+interface AppointmentResizingEventHandler<S> {
+    /**
+     * A method that will handle the AppointmentResizing event.
+     * @param source The event sender (typically an ASPxClientScheduler object).
+     * @param e A ASPxClientAppointmentResizingEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientAppointmentResizingEventArgs): void;
+}
+/**
+ * Provides data for the AppointmentResizing event.
+ */
+interface ASPxClientAppointmentResizingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Specifies whether or not an appointment can be resized to the new time interval.
+     * Value: true to allow resizing the appointment; otherwise, false.
+     */
+    allow: boolean;
+    /**
+     * Gets a mouse event object related to the current appointment resizing operation.
+     * Value: An object providing event properties specific to mouse events.
+     */
+    mouseEvent: Object;
     /**
      * Gets the resized appointment's identifier.
      * Value: A string containing an appointment identifier.
@@ -14410,6 +18870,58 @@ interface ASPxClientAppointmentDragInfo {
     newResources: string[];
 }
 /**
+ * A method that will handle the CellDoubleClick events.
+ */
+interface CellClickEventHandler<S> {
+    /**
+     * A method that will handle the CellClick event.
+     * @param source The event sender (typically an ASPxClientScheduler control).
+     * @param e A CellClickEventArgs object that contains event data.
+     */
+    (source: S, e: CellClickEventArgs): void;
+}
+/**
+ * Provides data for the CellDoubleClick events.
+ */
+interface CellClickEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to an object containing information about an HTML element representing the clicked time cell.
+     * Value: An object containing information about an HTML element.
+     */
+    htmlElement: Object;
+    /**
+     * Provides access to a time interval occupied by the clicked time cell.
+     * Value: An <see cref="ASPxClientTimeInterval" /> object.
+     */
+    interval: ASPxClientTimeInterval;
+    /**
+     * Gets the name of a resource to which the clicked time cell belongs.
+     * Value: A string containing the name of a resource.
+     */
+    resource: string;
+}
+/**
+ * A method that will handle the client AppointmentToolTipShowing event.
+ */
+interface ASPxClientAppointmentToolTipShowingEventHandler<S> {
+    /**
+     * A method that will handle the corresponding client event.
+     * @param source The event source.
+     * @param e An ASPxClientAppointmentToolTipShowingEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientAppointmentToolTipShowingEventArgs): void;
+}
+/**
+ * Provides data for the AppointmentToolTipShowing event.
+ */
+interface ASPxClientAppointmentToolTipShowingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Gets the appointment.
+     * Value: An ASPxClientAppointment object representing the appointment.
+     */
+    appointment: ASPxClientAppointment;
+}
+/**
  * Contains information about a client tooltip.
  */
 interface ASPxClientSchedulerToolTipData {
@@ -14449,18 +18961,18 @@ interface ASPxClientToolTipBase {
      */
     Close(): void;
     /**
-     * 
-     * @param bounds 
+     * Gets the tooltip position.
+     * @param bounds An object that represents the tooltip bounds.
      */
     CalculatePosition(bounds: Object): ASPxClientPoint;
     /**
-     * Displays the Appointment Menu in the position of the tooltip.
-     * @param eventObject An object containing information about the event on which the menu is displayed.
+     * Displays the Appointment Menu at the position of the tooltip.
+     * @param eventObject An object containing information about the event in which the menu is displayed.
      */
     ShowAppointmentMenu(eventObject: Object): void;
     /**
-     * Displays the View Menu in the position of the tooltip.
-     * @param eventObject An object containing information about the event on which the menu is displayed.
+     * Displays the View Menu at the position of the tooltip.
+     * @param eventObject An object containing information about the event in which the menu is displayed.
      */
     ShowViewMenu(eventObject: Object): void;
     /**
@@ -14560,6 +19072,11 @@ interface ASPxClientSpellCheckerAfterCheckEventArgs extends ASPxClientEventArgs 
      * Value: A string, containing checked text.
      */
     checkedText: string;
+    /**
+     * Gets a value specifying whether spell checking is finished or stopped by the user.
+     * Value: A string value identifying the reason ("Default" or "User").
+     */
+    reason: string;
 }
 /**
  * Represents an object that will handle the client-side WordChanged event.
@@ -14571,6 +19088,15 @@ interface ASPxClientWordChangedEventHandler<S> {
      * @param e An ASPxClientSpellCheckerAfterCheckEventArgs object which contains event data.
      */
     (source: S, e: ASPxClientSpellCheckerAfterCheckEventArgs): void;
+}
+declare enum ASPxClientSpreadsheetPopupMenuType {
+    ColumnHeading=0,
+    RowHeading=1,
+    SheetTab=3,
+    Picture=4,
+    Chart=5,
+    Cell=7,
+    AutoFilter=8
 }
 /**
  * A method that will handle the CustomCommandExecuted event.
@@ -14597,6 +19123,9 @@ interface ASPxClientSpreadsheetCustomCommandExecutedEventArgs extends ASPxClient
      * Value: A string value containing additional information about the processed command.
      */
     parameter: string;
+    /**
+     * This property is now obsolete. Use the commandName property instead.
+     */
     item: ASPxClientRibbonItem;
 }
 /**
@@ -14668,6 +19197,32 @@ interface ASPxClientSpreadsheetHyperlinkClickEventArgs extends ASPxClientEventAr
     targetUri: string;
 }
 /**
+ * A method that will handle the PopupMenuShowing event.
+ */
+interface ASPxClientSpreadsheetPopupMenuShowingEventHandler<S> {
+    /**
+     * A method that will handle the PopupMenuShowing event.
+     * @param source The event sender (typically an ASPxClientSpreadsheet object).
+     * @param e A ASPxClientSpreadsheetPopupMenuShowingEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientSpreadsheetPopupMenuShowingEventArgs): void;
+}
+/**
+ * Provides data for the PopupMenuShowing event.
+ */
+interface ASPxClientSpreadsheetPopupMenuShowingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Provides access to a collection of menu items in the context menu being invoked.
+     * Value: A <see cref="ASPxClientSpreadsheetPopupMenuItemCollection" /> object representing the context menu's item collection.
+     */
+    menuItems: ASPxClientSpreadsheetPopupMenuItemCollection;
+    /**
+     * Gets the currently displayed context menu's type.
+     * Value: One of the <see cref="ASPxClientSpreadsheetPopupMenuType" /> enumeration values.
+     */
+    menuType: any;
+}
+/**
  * A client-side equivalent of the ASPxSpreadsheet object.
  */
 interface ASPxClientSpreadsheet extends ASPxClientControl {
@@ -14708,6 +19263,10 @@ interface ASPxClientSpreadsheet extends ASPxClientControl {
      */
     HyperlinkClick: ASPxClientEvent<ASPxClientSpreadsheetHyperlinkClickEventHandler<ASPxClientSpreadsheet>>;
     /**
+     * Occurs before the context menu is displayed and allows menu customization.
+     */
+    PopupMenuShowing: ASPxClientEvent<ASPxClientSpreadsheetPopupMenuShowingEventHandler<ASPxClientSpreadsheet>>;
+    /**
      * Sets input focus to the Spreadsheet.
      */
     Focus(): void;
@@ -14734,6 +19293,12 @@ interface ASPxClientSpreadsheet extends ASPxClientControl {
      * @param rowModelIndex An integer value specifying the cell's row index.
      */
     GetCellValue(colModelIndex: number, rowModelIndex: number): Object;
+    /**
+     * Returns the comment associated with the specified data cell.
+     * @param colModelIndex An integer value specifying the data cell's column index.
+     * @param rowModelIndex An integer value specifying the data cell's row index.
+     */
+    GetCellComment(colModelIndex: number, rowModelIndex: number): Object;
     /**
      * Gets the value of the currently active cell.
      */
@@ -14816,6 +19381,123 @@ interface ASPxClientSpreadsheetSelection {
     bottomRowIndex: number;
 }
 /**
+ * Represents an individual item of the Spreadsheet's context menu.
+ */
+interface ASPxClientSpreadsheetPopupMenuItem {
+    /**
+     * Gets the immediate parent menu item to which the current menu item belongs.
+     * Value: A ASPxClientSpreadsheetPopupMenuItem object representing the menu item's immediate parent.
+     */
+    parent: ASPxClientSpreadsheetPopupMenuItem;
+    /**
+     * Gets or sets the unique identifier name for the current menu item.
+     * Value: A string value that specifies the item's unique identifier name.
+     */
+    name: string;
+    /**
+     * Gets or sets the text content of the current menu item.
+     * Value: A string value that specifies the text content of the menu item.
+     */
+    text: string;
+    /**
+     * Gets or sets a value that indicates whether the menu item is enabled, allowing the item to respond to end-user interactions.
+     * Value: true if the item is enabled; otherwise, false.
+     */
+    enabled: boolean;
+    /**
+     * Gets or sets the CSS class name defining the menu item's image.
+     * Value: A string value specifying the class name.
+     */
+    imageClassName: string;
+    /**
+     * Gets or sets an URL which defines the navigation location.
+     * Value: A string value which represents an URL where the client web browser will navigate.
+     */
+    navigateUrl: string;
+    /**
+     * Gets or sets the URL of the menu item's image.
+     * Value: A string value that specifies the location of an image.
+     */
+    imageUrl: string;
+    /**
+     * Gets or sets a value that specifies whether the current menu item starts a group.
+     * Value: true if the current menu item starts a group; otherwise, false.
+     */
+    beginGroup: boolean;
+    /**
+     * Gets or sets the current menu item's tooltip text.
+     * Value: A string which specifies the text content of the current menu item's tooltip.
+     */
+    tooltip: string;
+    /**
+     * Gets or sets the window or frame at which to target the contents of the URL associated with the current menu item.
+     * Value: A string which identifies the window or frame at which to target the URL content.
+     */
+    target: string;
+    /**
+     * Gets a collection that contains the submenu items of the current menu item.
+     */
+    GetSubItems(): ASPxClientSpreadsheetPopupMenuItemCollection;
+    /**
+     * Returns the menu item's sub-item with the specified index.
+     * @param index An integer value specifying the index of the sub-item within a collection of the current menu item's submenu items.
+     */
+    GetItem(index: number): ASPxClientSpreadsheetPopupMenuItem;
+    /**
+     * Returns the menu item's sub-item with the specified name property value.
+     * @param name A string value specifying the name property value of the sub-item to find.
+     */
+    GetItemByName(name: string): ASPxClientSpreadsheetPopupMenuItem;
+    /**
+     * Returns the total number of the menu item's child items (submenu items).
+     */
+    GetItemCount(): number;
+}
+/**
+ * Represents a collection of items in the Spreadhseet's context menu.
+ */
+interface ASPxClientSpreadsheetPopupMenuItemCollection {
+    /**
+     * Adds the specified menu item to the end of the collection.
+     * @param item An ASPxClientSpreadsheetPopupMenuItem object specifying the item to be added to the collection.
+     */
+    Add(item: ASPxClientSpreadsheetPopupMenuItem): void;
+    /**
+     * Removes a menu item specified by its index within the collection.
+     * @param index An integer value specifying the index of the menu item to remove.
+     */
+    Remove(index: number): void;
+    /**
+     * Removes a menu item specified by its name.
+     * @param name A string value specifying the name property value of a menu item to remove from the collection.
+     */
+    RemoveByName(name: string): void;
+    /**
+     * Adds the specified item to the specified position within the collection.
+     * @param index An integer value that specifies the zero-based index at which the specified item should be inserted.
+     * @param item An ASPxClientSpreadsheetPopupMenuItem object to insert.
+     */
+    Insert(index: number, item: ASPxClientSpreadsheetPopupMenuItem): void;
+    /**
+     * Returns the total number of menu items in the collection.
+     */
+    GetCount(): number;
+    /**
+     * Returns an item object with the specified name property value.
+     * @param name A string value representing the name property value of the required item.
+     */
+    GetByName(name: string): ASPxClientSpreadsheetPopupMenuItem;
+    /**
+     * Returns a menu item specified by its index in the collection.
+     * @param index An integer value that is the zero-based index of the <see cref="ASPxClientSpreadsheetPopupMenuItem" /> to retrieve from the ASPxClientSpreadsheetPopupMenuItemCollection.
+     */
+    Get(index: number): ASPxClientSpreadsheetPopupMenuItem;
+    /**
+     * Removes all menu items from the collection.
+     */
+    Clear(): void;
+}
+/**
  * Represents the client ASPxTreeList.
  */
 interface ASPxClientTreeList extends ASPxClientControl {
@@ -14839,6 +19521,10 @@ interface ASPxClientTreeList extends ASPxClientControl {
      * Occurs when a custom command button has been clicked.
      */
     CustomButtonClick: ASPxClientEvent<ASPxClientTreeListCustomButtonEventHandler<ASPxClientTreeList>>;
+    /**
+     * Fires after a toolbar item has been clicked.
+     */
+    ToolbarItemClick: ASPxClientEvent<ASPxClientTreeListToolbarItemClickEventHandler<ASPxClientTreeList>>;
     /**
      * Fires before the focused node has been changed.
      */
@@ -14892,6 +19578,20 @@ interface ASPxClientTreeList extends ASPxClientControl {
      */
     ColumnResized: ASPxClientEvent<ASPxClientTreeListColumnResizedEventHandler<ASPxClientTreeList>>;
     /**
+     * Hides the Filter Control.
+     */
+    CloseFilterControl(): void;
+    /**
+     * Enables or disables the current filter.
+     * @param isFilterEnabled true to enable the current filter; otherwise, false.
+     */
+    SetFilterEnabled(isFilterEnabled: boolean): void;
+    /**
+     * Specifies a custom editor for the search panel on the client side.
+     * @param editor An ASPxClientEdit object representing a custom editor.
+     */
+    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
+    /**
      * Sets input focus to the ASPxTreeList.
      */
     Focus(): void;
@@ -14899,6 +19599,16 @@ interface ASPxClientTreeList extends ASPxClientControl {
      * Gets the Popup Edit Form.
      */
     GetPopupEditForm(): ASPxClientPopupControl;
+    /**
+     * Returns a toolbar specified by its name.
+     * @param name A string value specifying the toolbar name.
+     */
+    GetToolbarByName(name: string): ASPxClientMenu;
+    /**
+     * Returns a toolbar specified by its index.
+     * @param index An integer value specifying the zero-based index of the toolbar object to retrieve.
+     */
+    GetToolbar(index: number): ASPxClientMenu;
     /**
      * Returns the focused node's key value.
      */
@@ -15275,6 +19985,66 @@ interface ASPxClientTreeList extends ASPxClientControl {
      * @param position An integer value specifying the horizontal scroll position.
      */
     SetHorizontalScrollPosition(position: number): void;
+    /**
+     * Exports tree list data to a file in the specified format.
+     * @param format An ASPxClientTreeListExportFormat object specifying the export format.
+     */
+    ExportTo(format: ASPxClientTreeListExportFormat): void;
+    /**
+     * Applies the specified filter expression to the tree list.
+     * @param filterExpression A string value that specifies the filter expression.
+     */
+    ApplyFilter(filterExpression: string): void;
+    /**
+     * Clears the filter expression applied to a client Tree List.
+     */
+    ClearFilter(): void;
+    /**
+     * Applies a filter specified in the filter row to the ASPxTreeList.
+     */
+    ApplyOnClickRowFilter(): void;
+    /**
+     * Applies the specified search panel filter criterion to tree list data.
+     * @param value A string value that specifies the filter criterion.
+     */
+    ApplySearchPanelFilter(value: string): void;
+    /**
+     * Returns the editor used to edit the value in the auto filter row for the specified data column.
+     * @param column An ASPxClientTreeListColumn object that represents the data column within the ASPxTreeList.
+     */
+    GetAutoFilterEditor(column: ASPxClientTreeListColumn): Object;
+    /**
+     * Returns the editor used to edit the value in the auto filter row for the specified data column.
+     * @param columnIndex An integer value that identifies the data column by its index.
+     */
+    GetAutoFilterEditor(columnIndex: number): Object;
+    /**
+     * Returns the editor used to edit the value in the auto filter row for the specified data column.
+     * @param columnFieldNameOrId A string value that specifies the column's name or its data base field name.
+     */
+    GetAutoFilterEditor(columnFieldNameOrId: string): Object;
+    /**
+     * Applies a filter to the specified data column.
+     * @param column An ASPxClientTreeListColumn object that represents the data column within the client Tree List.
+     * @param val A string value that specifies the filter expression.
+     */
+    AutoFilterByColumn(column: ASPxClientTreeListColumn, val: string): void;
+    /**
+     * Applies a filter to the specified data column.
+     * @param columnIndex An integer value that specifies the column's position within the column collection.
+     * @param val A string value that specifies the filter expression.
+     */
+    AutoFilterByColumn(columnIndex: number, val: string): void;
+    /**
+     * Applies a filter to the specified data column.
+     * @param columnFieldNameOrId A string value that specifies the column's field name or unique identifier (the column's Name property value).
+     * @param val A string value that specifies the filter expression.
+     */
+    AutoFilterByColumn(columnFieldNameOrId: string, val: string): void;
+    /**
+     * Displays the Filter Control.
+     */
+    ShowFilterControl(): void;
 }
 /**
  * Represents a client column.
@@ -15295,6 +20065,11 @@ interface ASPxClientTreeListColumn {
      * Value: A String value that specifies the name of a data field.
      */
     fieldName: string;
+}
+/**
+ * Lists values that specify the document formats available for export from the tree list.
+ */
+interface ASPxClientTreeListExportFormat {
 }
 /**
  * Provides data for the CustomDataCallback event.
@@ -15515,6 +20290,2223 @@ interface ASPxClientTreeListColumnResizedEventHandler<S> {
     (source: S, e: ASPxClientTreeListColumnResizedEventArgs): void;
 }
 /**
+ * Provides data for the ToolbarItemClick event.
+ */
+interface ASPxClientTreeListToolbarItemClickEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Gets the toolbar index related to the event.
+     * Value: An integer value that is the toolbar index.
+     */
+    toolbarIndex: number;
+    /**
+     * Gets the toolbar name.
+     * Value: A string object that is the toolbar name.
+     */
+    toolbarName: string;
+    /**
+     * Gets the clicked menu item
+     * Value: An ASPxClientMenu value that is the menu item.
+     */
+    item: ASPxClientMenuItem;
+    /**
+     * Specifies whether a postback or a callback is used to finally process the event on the server side.
+     * Value: true to perform the round trip to the server side via postback; false to perform the round trip to the server side via callback.
+     */
+    usePostBack: boolean;
+}
+/**
+ * A method that will handle the ToolbarItemClick event.
+ */
+interface ASPxClientTreeListToolbarItemClickEventHandler<S> {
+    /**
+     * A method that will handle the ToolbarItemClick event.
+     * @param source The event source.
+     * @param e An ASPxClientTreeListToolbarItemClickEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientTreeListToolbarItemClickEventArgs): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapAccordion control.
+ */
+interface BootstrapClientAccordion extends ASPxClientNavBar {
+    /**
+     * Returns a group specified by its index.
+     * @param index An integer value specifying the zero-based index of the group object to retrieve.
+     */
+    GetGroup(index: number): BootstrapClientAccordionGroup;
+    /**
+     * Returns a group specified by its name.
+     * @param name A string value specifying the name of the group.
+     */
+    GetGroupByName(name: string): BootstrapClientAccordionGroup;
+    /**
+     * Returns the Accordion control's active group.
+     */
+    GetActiveGroup(): BootstrapClientAccordionGroup;
+    /**
+     * Makes the specified group active.
+     * @param group A BootstrapClientAccordionGroup object that specifies the active group.
+     */
+    SetActiveGroup(group: BootstrapClientAccordionGroup): void;
+    /**
+     * Returns an item specified by its name.
+     * @param name A string value specifying the name of the item.
+     */
+    GetItemByName(name: string): BootstrapClientAccordionItem;
+    /**
+     * Returns the selected item within the Accordion control.
+     */
+    GetSelectedItem(): BootstrapClientAccordionItem;
+    /**
+     * Selects the specified item within the Accordion control on the client side.
+     * @param item A BootstrapClientAccordionItem object specifying the item to select.
+     */
+    SetSelectedItem(item: BootstrapClientAccordionItem): void;
+    /**
+     * Makes the specified group active.
+     * @param group A ASPxClientNavBarGroup object that specifies the active group.
+     */
+    SetActiveGroup(group: ASPxClientNavBarGroup): void;
+    /**
+     * Selects the specified item within the navbar control on the client side.
+     * @param item An ASPxClientNavBarItem object specifying the item to select.
+     */
+    SetSelectedItem(item: ASPxClientNavBarItem): void;
+}
+/**
+ * Represents a client-side equivalent of the Accordion's BootstrapAccordionGroup object.
+ */
+interface BootstrapClientAccordionGroup extends ASPxClientNavBarGroup {
+    /**
+     * Gets the BootstrapClientAccordion object to which the current group belongs.
+     * Value: A <see cref="BootstrapClientAccordion" /> object that is the group's owner.
+     */
+    navBar: BootstrapClientAccordion;
+    /**
+     * Returns the group's item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item to be retrieved.
+     */
+    GetItem(index: number): BootstrapClientAccordionItem;
+    /**
+     * Returns a group item specified by its name.
+     * @param name A string value specifying the name of the item.
+     */
+    GetItemByName(name: string): BootstrapClientAccordionItem;
+    /**
+     * Gets the text displayed within an accordion group header badge.
+     */
+    GetHeaderBadgeText(): string;
+    /**
+     * Sets the text displayed within an accordion group header badge.
+     * @param text A String specifying the badge text.
+     */
+    SetHeaderBadgeText(text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within an accordion group header badge.
+     */
+    GetHeaderBadgeIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed within an accordion group header badge.
+     * @param cssClass A String containing the name of a CSS class.
+     */
+    SetHeaderBadgeIconCssClass(cssClass: string): void;
+}
+/**
+ * Represents a client-side equivalent of the Accordion's BootstrapAccordionItem object.
+ */
+interface BootstrapClientAccordionItem extends ASPxClientNavBarItem {
+    /**
+     * Gets the BootstrapClientAccordion object to which the current item belongs.
+     * Value: A <see cref="BootstrapClientAccordion" /> object that is the item's owner.
+     */
+    navBar: BootstrapClientAccordion;
+    /**
+     * Gets the group to which the current item belongs.
+     * Value: A <see cref="BootstrapClientAccordionGroup" /> object representing the group to which the item belongs.
+     */
+    group: BootstrapClientAccordionGroup;
+    /**
+     * Gets the text displayed within the accordion item badge.
+     */
+    GetBadgeText(): string;
+    /**
+     * Sets the text displayed within the accordion item badge.
+     * @param text A String specifying the badge text.
+     */
+    SetBadgeText(text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within the accordion item badge.
+     */
+    GetBadgeIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed within the accordion item badge.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetBadgeIconCssClass(cssClass: string): void;
+    /**
+     * Specifies the URL which points to the image displayed within the item.
+     */
+    GetImageUrl(): string;
+    /**
+     * Specifies the URL which points to the image displayed within the item.
+     * @param value 
+     */
+    SetImageUrl(value: string): void;
+    /**
+     * Gets the CSS class of the icon displayed by the Accordion item.
+     */
+    GetIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed by the Accordion item.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetIconCssClass(cssClass: string): void;
+}
+/**
+ * A method that will handle the Accordion control's client events concerning manipulations with an item.
+ */
+interface BootstrapClientAccordionItemEventHandler<S> {
+    /**
+     * A method that will handle the Accordion control's client events concerning manipulations with an item.
+     * @param source An object representing the event source. Identifies the BootstrapClientAccordion control that raised the event.
+     * @param e An BootstrapClientAccordionItemEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientAccordionItemEventArgs): void;
+}
+/**
+ * Provides data for events related to manipulations on items.
+ */
+interface BootstrapClientAccordionItemEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Gets the item object related to the event.
+     * Value: A BootstrapClientAccordionItem object, manipulations on which forced the event to be raised.
+     */
+    item: BootstrapClientAccordionItem;
+    /**
+     * Gets an HTML object that contains the processed Accordion item.
+     * Value: An HTML object.
+     */
+    htmlElement: Object;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     * Value: A DHTML event object.
+     */
+    htmlEvent: Object;
+}
+/**
+ * A method that will handle the Accordion control's client events concerning manipulations with a group.
+ */
+interface BootstrapClientAccordionGroupEventHandler<S> {
+    /**
+     * A method that will handle the Accordion control's client events concerning manipulations with a group.
+     * @param source An object representing the event source. Identifies the BootstrapClientAccordion control that raised the event.
+     * @param e An BootstrapClientAccordionGroupEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientAccordionGroupEventArgs): void;
+}
+/**
+ * Provides data for events related to manipulations on groups.
+ */
+interface BootstrapClientAccordionGroupEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the group object related to the event.
+     * Value: A BootstrapClientAccordionGroup object, manipulations on which forced the event to be raised.
+     */
+    group: BootstrapClientAccordionGroup;
+}
+/**
+ * A method that will handle the Accordion control's cancelable client events concerning manipulations with a group.
+ */
+interface BootstrapClientAccordionGroupCancelEventHandler<S> {
+    /**
+     * A method that will handle the Accordion control's cancelable client events concerning manipulations with a group.
+     * @param source An object representing the event source. Identifies the BootstrapClientAccordion control that raised the event.
+     * @param e An BootstrapClientAccordionGroupCancelEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientAccordionGroupCancelEventArgs): void;
+}
+/**
+ * Provides data for events related to manipulations on accordion groups.
+ */
+interface BootstrapClientAccordionGroupCancelEventArgs extends ASPxClientProcessingModeCancelEventArgs {
+    /**
+     * Gets the group object related to the event.
+     * Value: A BootstrapClientAccordionGroup object, manipulations on which forced the event to be raised.
+     */
+    group: BootstrapClientAccordionGroup;
+}
+/**
+ * A method that will handle the Accordion control's client events concerning clicks on groups.
+ */
+interface BootstrapClientAccordionGroupClickEventHandler<S> {
+    /**
+     * A method that will handle the Accordion control's client events concerning clicks on groups.
+     * @param source An object representing the event source. Identifies the BootstrapClientAccordion control that raised the event.
+     * @param e An BootstrapClientAccordionGroupClickEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientAccordionGroupClickEventArgs): void;
+}
+/**
+ * Provides data for events related to clicking on the control's group headers.
+ */
+interface BootstrapClientAccordionGroupClickEventArgs extends BootstrapClientAccordionGroupCancelEventArgs {
+    /**
+     * Gets an HTML object that contains the processed Accordion group.
+     * Value: An HTML object.
+     */
+    htmlElement: Object;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     * Value: A DHTML event object.
+     */
+    htmlEvent: Object;
+}
+/**
+ * Represents the client-side equivalent of the BootstrapBinaryImage control.
+ */
+interface BootstrapClientBinaryImage extends ASPxClientHyperLink {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapButton control.
+ */
+interface BootstrapClientButton extends ASPxClientButton {
+    /**
+     * Returns the text displayed within the button.
+     */
+    GetText(): string;
+    /**
+     * Sets the text to be displayed within the button.
+     * @param value A string value specifying the text to be displayed within the button.
+     */
+    SetText(value: string): void;
+    /**
+     * Gets the text displayed within the button badge.
+     */
+    GetBadgeText(): string;
+    /**
+     * Sets the text displayed within the button badge.
+     * @param text A String specifying the badge text.
+     */
+    SetBadgeText(text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within the button badge.
+     */
+    GetBadgeIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed within the button badge.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetBadgeIconCssClass(cssClass: string): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapCalendar control.
+ */
+interface BootstrapClientCalendar extends ASPxClientCalendar {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapCallbackPanel control.
+ */
+interface BootstrapClientCallbackPanel extends ASPxClientControl {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<BootstrapClientCallbackPanel>>;
+    /**
+     * Occurs on the client side after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<BootstrapClientCallbackPanel>>;
+    /**
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by the BootstrapClientCallbackPanel.
+     */
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<BootstrapClientCallbackPanel>>;
+    /**
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
+     */
+    PerformCallback(parameter: string): void;
+    /**
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
+    /**
+     * Returns the HTML code that specifies the contents of the control's window.
+     */
+    GetContentHtml(): string;
+    /**
+     * Sets the HTML markup specifying the contents of the control's window.
+     * @param html A string value that specifies the HTML markup.
+     */
+    SetContentHtml(html: string): void;
+    /**
+     * Sets a value specifying whether the callback panel is enabled.
+     * @param enabled true, to enable the callback panel; false to disable it.
+     */
+    SetEnabled(enabled: boolean): void;
+    /**
+     * Returns a value specifying whether a callback panel is enabled.
+     */
+    GetEnabled(): boolean;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapCheckBox control.
+ */
+interface BootstrapClientCheckBox extends ASPxClientEdit {
+    /**
+     * Occurs on the client side when the editor's checked state has been changed.
+     */
+    CheckedChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<BootstrapClientCheckBox>>;
+    /**
+     * Returns a value indicating whether the check box editor is checked.
+     */
+    GetChecked(): boolean;
+    /**
+     * Sets a value which specifies the checked status of the check box editor.
+     * @param isChecked true if the check box editor is checked; otherwise, false.
+     */
+    SetChecked(isChecked: boolean): void;
+    /**
+     * Returns the text displayed within the editor.
+     */
+    GetText(): string;
+    /**
+     * Returns a value which specifies a check box checked state.
+     */
+    GetCheckState(): string;
+    /**
+     * Sets a value specifying the state of a check box.
+     * @param checkState A string value matches one of the CheckState enumeration values.
+     */
+    SetCheckState(checkState: string): void;
+    /**
+     * Sets the text to be displayed within the editor.
+     * @param text A string value specifying the text to be displayed within the editor.
+     */
+    SetText(text: string): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapRadioButton control.
+ */
+interface BootstrapClientRadioButton extends BootstrapClientCheckBox {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapComboBox control.
+ */
+interface BootstrapClientComboBox extends ASPxClientComboBox {
+    /**
+     * Returns the combo box editor's selected item.
+     */
+    GetSelectedItem(): BootstrapClientListBoxItem;
+    /**
+     * Sets the list editor's selected item.
+     * @param item A BootstrapClientListBoxItem object that specifies the item to select.
+     */
+    SetSelectedItem(item: BootstrapClientListBoxItem): void;
+    /**
+     * Returns an item specified by its index within the combo box editor's item collection.
+     * @param index An integer value specifying the zero-based index of the item to search for.
+     */
+    GetItem(index: number): BootstrapClientListBoxItem;
+    /**
+     * Returns a combo box item by its text.
+     * @param text A string that specifies the item's text.
+     */
+    FindItemByText(text: string): BootstrapClientListBoxItem;
+    /**
+     * Returns a combo box item by its value.
+     * @param value An object that specifies the item's value.
+     */
+    FindItemByValue(value: Object): BootstrapClientListBoxItem;
+    /**
+     * Adds a new item to the end of the editor's items collection, specifying the item's display text, and returns the index of the added item.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     */
+    AddItem(texts: string[]): number;
+    /**
+     * Adds a new item to the end of the control's items collection.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     * @param value An object that represents the item's associated value.
+     */
+    AddItem(texts: string[], value: Object): number;
+    /**
+     * Adds a new item to the end of the control's items collection.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    AddItem(texts: string[], value: Object, iconCssClass: string): number;
+    /**
+     * Adds a new item to the editor, specifying the item's display text, and returns the index of the added item.
+     * @param text A string value specifying the item's display text.
+     */
+    AddItem(text: string): number;
+    /**
+     * Adds a new item to the editor, specifying the item's display text and associated value, and returns the index of the added item.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     */
+    AddItem(text: string, value: Object): number;
+    /**
+     * Adds a new item to the editor, specifying the item's display text, associated value and displayed image, and returns the index of the added item.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    AddItem(text: string, value: Object, iconCssClass: string): number;
+    /**
+     * Inserts a new item into the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding field within the editor's Fields collection.
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    InsertItem(index: number, texts: string[], value: Object, iconCssClass: string): void;
+    /**
+     * Inserts a new item into the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     * @param value An object that represents the item's associated value.
+     */
+    InsertItem(index: number, texts: string[], value: Object): void;
+    /**
+     * Inserts a new item into the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     */
+    InsertItem(index: number, texts: string[]): void;
+    /**
+     * Inserts a new item specified by its display text, associated value and displayed image into the editor's item collection, at the position specified.
+     * @param index An integer value that represents the index position.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    InsertItem(index: number, text: string, value: Object, iconCssClass: string): void;
+    /**
+     * Inserts a new item specified by its display text, associated value and displayed image into the editor's item collection, at the position specified.
+     * @param index An integer value that represents the index position.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     */
+    InsertItem(index: number, text: string, value: Object): void;
+    /**
+     * Inserts a new item into the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param text A string value specifying the item's display text.
+     */
+    InsertItem(index: number, text: string): void;
+    /**
+     * Gets the text displayed within a Combo Box item badge.
+     * @param index The index of a Combo Box item.
+     */
+    GetItemBadgeText(index: number): string;
+    /**
+     * Sets the text displayed within a Combo Box item badge.
+     * @param index The index of a Combo Box item.
+     * @param text A String specifying the badge text.
+     */
+    SetItemBadgeText(index: number, text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within a Combo Box item badge.
+     * @param index The index of a Combo Box item.
+     */
+    GetItemBadgeIconCssClass(index: number): string;
+    /**
+     * Sets the CSS class of the icon displayed within a Combo Box item badge.
+     * @param index The index of a Combo Box item.
+     * @param cssClass A String containing the name of a CSS class.
+     */
+    SetItemBadgeIconCssClass(index: number, cssClass: string): void;
+    /**
+     * Sets the list editor's selected item.
+     * @param item An ASPxClientListEditItem object that specifies the item to select.
+     */
+    SetSelectedItem(item: ASPxClientListEditItem): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapDateEdit control.
+ */
+interface BootstrapClientDateEdit extends ASPxClientDateEdit {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapDropDownEdit control.
+ */
+interface BootstrapClientDropDownEdit extends ASPxClientDropDownEdit {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapFormLayout control.
+ */
+interface BootstrapClientFormLayout extends ASPxClientFormLayout {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapHyperLink control.
+ */
+interface BootstrapClientHyperLink extends ASPxClientHyperLink {
+    /**
+     * Gets the text displayed within the hyperlink badge.
+     */
+    GetBadgeText(): string;
+    /**
+     * Sets the text displayed within the hyperlink badge.
+     * @param text A String specifying the badge text.
+     */
+    SetBadgeText(text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within the hyperlink badge.
+     */
+    GetBadgeIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed within the hyperlink badge.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetBadgeIconCssClass(cssClass: string): void;
+}
+/**
+ * Represents the client-side equivalent of the BootstrapImage control.
+ */
+interface BootstrapClientImage extends ASPxClientImage {
+}
+/**
+ * Represents the client-side equivalent of the BootstrapListEditItem object.
+ */
+interface BootstrapClientListBoxItem extends ASPxClientListEditItem {
+    /**
+     * This member is not in effect for this class. It is overridden only for the purpose of preventing it from appearing in Microsoft Visual Studio designer tools.
+     */
+    imageUrl: string;
+    /**
+     * Gets the CSS class of the icon displayed by the list box item.
+     * Value: A string containing the name of a CSS class.
+     */
+    iconCssClass: string;
+    /**
+     * 
+     * @param columnIndex 
+     */
+    GetColumnText(columnIndex: number): string;
+    /**
+     * 
+     * @param columnName 
+     */
+    GetColumnText(columnName: string): string;
+    /**
+     * Returns the list item's text value that corresponds to a data field specified by its index.
+     * @param fieldIndex An integer value that specifies the field's index within the editor's Fields collection.
+     */
+    GetFieldText(fieldIndex: number): string;
+    /**
+     * Returns the list item's text value that corresponds to a data field specified by its name.
+     * @param fieldName A string value that specifies the data field's name defined via a FieldName property.
+     */
+    GetFieldText(fieldName: string): string;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapListBox control.
+ */
+interface BootstrapClientListBox extends ASPxClientListBox {
+    /**
+     * Returns the list editor's selected item.
+     */
+    GetSelectedItem(): BootstrapClientListBoxItem;
+    /**
+     * Sets the list editor's selected item.
+     * @param item A BootstrapClientListBoxItem object that specifies the item to select.
+     */
+    SetSelectedItem(item: BootstrapClientListBoxItem): void;
+    /**
+     * Returns an item specified by its index within the list box editor's item collection.
+     * @param index An integer value specifying the zero-based index of the item to search for.
+     */
+    GetItem(index: number): BootstrapClientListBoxItem;
+    /**
+     * Returns an array of the list editor's selected items.
+     */
+    GetSelectedItems(): BootstrapClientListBoxItem[];
+    /**
+     * Selects the specified items within a list box.
+     * @param items An array of BootstrapClientListBoxItem objects that represent the items.
+     */
+    SelectItems(items: BootstrapClientListBoxItem[]): void;
+    /**
+     * Unselects an array of the specified list box items.
+     * @param items An array of BootstrapClientListBoxItem objects that represent the items.
+     */
+    UnselectItems(items: BootstrapClientListBoxItem[]): void;
+    /**
+     * Returns a list box item by its text.
+     * @param text A string that specifies the item's text.
+     */
+    FindItemByText(text: string): BootstrapClientListBoxItem;
+    /**
+     * Returns a list box item by its value.
+     * @param value An object that specifies the item's value.
+     */
+    FindItemByValue(value: Object): BootstrapClientListBoxItem;
+    /**
+     * Adds a new item to the end of the editor's items collection, specifying the item's display text, and returns the index of the added item.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     */
+    AddItem(texts: string[]): number;
+    /**
+     * Adds a new item to the end of the control's items collection.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     * @param value An object that represents the item's associated value.
+     */
+    AddItem(texts: string[], value: Object): number;
+    /**
+     * Adds a new item to the end of the control's items collection.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    AddItem(texts: string[], value: Object, iconCssClass: string): number;
+    /**
+     * Adds a new item to the editor, specifying the item's display text, and returns the index of the added item.
+     * @param text A string value specifying the item's display text.
+     */
+    AddItem(text: string): number;
+    /**
+     * Adds a new item to the editor, specifying the item's display text and associated value, and returns the index of the added item.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     */
+    AddItem(text: string, value: Object): number;
+    /**
+     * Adds a new item to the editor, specifying the item's display text, associated value and displayed image, and returns the index of the added item.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    AddItem(text: string, value: Object, iconCssClass: string): number;
+    /**
+     * Inserts a new item into the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding field within the editor's Fields collection.
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    InsertItem(index: number, texts: string[], value: Object, iconCssClass: string): void;
+    /**
+     * Inserts a new item into the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     * @param value An object that represents the item's associated value.
+     */
+    InsertItem(index: number, texts: string[], value: Object): void;
+    /**
+     * Inserts a new item into the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param texts An array of strings that specifies the item's display text. Array element positions relate to the positions of the corresponding fields within the editor's Fields collection.
+     */
+    InsertItem(index: number, texts: string[]): void;
+    /**
+     * Inserts a new item specified by its display text, associated value and displayed image into the editor's item collection, at the position specified.
+     * @param index An integer value that represents the index position.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    InsertItem(index: number, text: string, value: Object, iconCssClass: string): void;
+    /**
+     * Inserts a new item specified by its display text and associated value into the editor's item collection, at the position specified.
+     * @param index An integer value representing the zero-based index of the position where the item should be inserted.
+     * @param text A string value specifying the item's display text.
+     * @param value An object specifying the value associated with the item.
+     */
+    InsertItem(index: number, text: string, value: Object): void;
+    /**
+     * Inserts a new item specified by its display text into the editor's item collection, at the position specified.
+     * @param index An integer value representing the zero-based index of the position where the item should be inserted.
+     * @param text A string value specifying the item's display text.
+     */
+    InsertItem(index: number, text: string): void;
+    /**
+     * Gets the text displayed within a List Box item badge.
+     * @param index The index of a List Box item.
+     */
+    GetItemBadgeText(index: number): string;
+    /**
+     * Sets the text displayed within a List Box item badge.
+     * @param index The index of a List Box item.
+     * @param text A String specifying the badge text.
+     */
+    SetItemBadgeText(index: number, text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within a List Box item badge.
+     * @param index The index of a List Box item.
+     */
+    GetItemBadgeIconCssClass(index: number): string;
+    /**
+     * Sets the CSS class of the icon displayed within a List Box item badge.
+     * @param index The index of a List Box item.
+     * @param cssClass A String containing the name of a CSS class.
+     */
+    SetItemBadgeIconCssClass(index: number, cssClass: string): void;
+    /**
+     * Selects the specified items within a list box.
+     * @param items An array of ASPxClientListEditItem objects that represent the items.
+     */
+    SelectItems(items: ASPxClientListEditItem[]): void;
+    /**
+     * Unselects an array of the specified list box items.
+     * @param items An array of ASPxClientListEditItem objects that represent the items.
+     */
+    UnselectItems(items: ASPxClientListEditItem[]): void;
+    /**
+     * Sets the list editor's selected item.
+     * @param item An ASPxClientListEditItem object that specifies the item to select.
+     */
+    SetSelectedItem(item: ASPxClientListEditItem): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapCheckBoxList control.
+ */
+interface BootstrapClientCheckBoxList extends ASPxClientCheckBoxList {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapRadioButtonList control.
+ */
+interface BootstrapClientRadioButtonList extends ASPxClientRadioButtonList {
+}
+/**
+ * Represents a client-side equivalent of the menu's BootstrapMenuItem object.
+ */
+interface BootstrapClientMenuItem extends ASPxClientMenuItem {
+    /**
+     * Gets the immediate parent item to which the current item belongs.
+     * Value: A BootstrapClientMenuItem object representing the item's immediate parent.
+     */
+    parent: BootstrapClientMenuItem;
+    /**
+     * Returns the current menu item's immediate subitem specified by its index.
+     * @param index An integer value specifying the zero-based index of the submenu item to be retrieved.
+     */
+    GetItem(index: number): BootstrapClientMenuItem;
+    /**
+     * Returns the current menu item's subitem specified by its name.
+     * @param name A string value specifying the name of the menu item.
+     */
+    GetItemByName(name: string): BootstrapClientMenuItem;
+    /**
+     * Gets the text displayed within the menu item badge.
+     */
+    GetBadgeText(): string;
+    /**
+     * Sets the text displayed within the menu item badge.
+     * @param text A String specifying the badge text.
+     */
+    SetBadgeText(text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within the menu item badge.
+     */
+    GetBadgeIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed within the menu item badge.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetBadgeIconCssClass(cssClass: string): void;
+    /**
+     * Returns the URL pointing to the image displayed within the menu item.
+     */
+    GetImageUrl(): string;
+    /**
+     * Sets the URL which points to the image displayed within the menu item.
+     * @param value 
+     */
+    SetImageUrl(value: string): void;
+    /**
+     * Gets the CSS class of the icon displayed by the menu item.
+     */
+    GetIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed by the menu item.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetIconCssClass(cssClass: string): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapMenu control.
+ */
+interface BootstrapClientMenu extends ASPxClientMenu {
+    /**
+     * Returns the menu's root menu item specified by its index.
+     * @param index An integer value specifying the zero-based index of the root menu item to be retrieved.
+     */
+    GetItem(index: number): BootstrapClientMenuItem;
+    /**
+     * Returns a menu item specified by its name.
+     * @param name A string value specifying the name of the menu item.
+     */
+    GetItemByName(name: string): BootstrapClientMenuItem;
+    /**
+     * Returns the selected item within the menu control.
+     */
+    GetSelectedItem(): BootstrapClientMenuItem;
+    /**
+     * Selects the specified menu item within the Menu control on the client side.
+     * @param item A BootstrapClientMenuItem object specifying the menu item to select.
+     */
+    SetSelectedItem(item: BootstrapClientMenuItem): void;
+    /**
+     * Returns a root menu item.
+     */
+    GetRootItem(): BootstrapClientMenuItem;
+    /**
+     * Selects the specified menu item within a menu control on the client side.
+     * @param item An ASPxClientMenuItem object specifying the menu item to select.
+     */
+    SetSelectedItem(item: ASPxClientMenuItem): void;
+}
+/**
+ * A method that will handle the menu's client events concerning manipulations with an item.
+ */
+interface BootstrapClientMenuItemEventHandler<S> {
+    /**
+     * A method that will handle the menu's client events concerning manipulations with an item.
+     * @param source An object representing the event source. Identifies the BootstrapMenu control that raised the event.
+     * @param e An BootstrapClientMenuItemEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientMenuItemEventArgs): void;
+}
+/**
+ * Provides data for events related to manipulations on menu items.
+ */
+interface BootstrapClientMenuItemEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the menu item object related to the event.
+     * Value: A BootstrapClientMenuItem object, manipulations on which forced the event to be raised.
+     */
+    item: BootstrapClientMenuItem;
+}
+/**
+ * A method that will handle the ItemMouseOver events.
+ */
+interface BootstrapClientMenuItemMouseEventHandler<S> {
+    /**
+     * A method that will handle the ItemMouseOver events.
+     * @param source An object representing the event source. Identifies the BootstrapMenu control that raised the event.
+     * @param e An BootstrapClientMenuItemMouseEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientMenuItemMouseEventArgs): void;
+}
+/**
+ * Provides data for client events related to mouse hovering over menu items.
+ */
+interface BootstrapClientMenuItemMouseEventArgs extends BootstrapClientMenuItemEventArgs {
+}
+/**
+ * A method that will handle client ItemClick events.
+ */
+interface BootstrapClientMenuItemClickEventHandler<S> {
+    /**
+     * A method that will handle client ItemClick events.
+     * @param source An object representing the event source. Identifies the BootstrapMenu control that raised the event.
+     * @param e An BootstrapClientMenuItemClickEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientMenuItemClickEventArgs): void;
+}
+/**
+ * Provides data for events related to clicking on the control's items.
+ */
+interface BootstrapClientMenuItemClickEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Gets the menu item object related to the event.
+     * Value: A BootstrapClientMenuItem object, manipulations on which forced the event to be raised.
+     */
+    item: BootstrapClientMenuItem;
+    /**
+     * Gets an HTML object that contains the processed Menu item.
+     * Value: An HTML object.
+     */
+    htmlElement: Object;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     * Value: A DHTML event object.
+     */
+    htmlEvent: Object;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapPager control.
+ */
+interface BootstrapClientPager extends ASPxClientPager {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapPopupControl control.
+ */
+interface BootstrapClientPopupControl extends ASPxClientPopupControl {
+    /**
+     * Sets the CSS selector of a web control or HTML element with which the current popup window is associated.
+     * @param selector A string value specifying the CSS selector of the web control or HTML element with which the popup window is associated.
+     */
+    SetPopupElementCssSelector(selector: string): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapPopupMenu control.
+ */
+interface BootstrapClientPopupMenu extends ASPxClientPopupMenu {
+    /**
+     * Returns the popup menu's root menu item specified by its index.
+     * @param index An integer value specifying the zero-based index of the root menu item to be retrieved.
+     */
+    GetItem(index: number): BootstrapClientMenuItem;
+    /**
+     * Returns a menu item specified by its name.
+     * @param name A string value specifying the name of the menu item.
+     */
+    GetItemByName(name: string): BootstrapClientMenuItem;
+    /**
+     * Returns the selected item within the menu control.
+     */
+    GetSelectedItem(): BootstrapClientMenuItem;
+    /**
+     * Selects the specified menu item within a the Popup Menu control on the client side.
+     * @param item A BootstrapClientMenuItem object specifying the menu item to select.
+     */
+    SetSelectedItem(item: BootstrapClientMenuItem): void;
+    /**
+     * Returns a root menu item.
+     */
+    GetRootItem(): BootstrapClientMenuItem;
+    /**
+     * Sets the CSS selector of a web control or HTML element with which the current popup menu is associated.
+     * @param selector A string value specifying the CSS selector of the web control or HTML element with which the popup menu is associated.
+     */
+    SetPopupElementCssSelector(selector: string): void;
+    /**
+     * Selects the specified menu item within a menu control on the client side.
+     * @param item An ASPxClientMenuItem object specifying the menu item to select.
+     */
+    SetSelectedItem(item: ASPxClientMenuItem): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapProgressBar control.
+ */
+interface BootstrapClientProgressBar extends ASPxClientProgressBar {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapSpinEdit control.
+ */
+interface BootstrapClientSpinEdit extends ASPxClientSpinEdit {
+}
+/**
+ * Represents the client-side equivalent of the BootstrapClientTimeEdit control.
+ */
+interface BootstrapClientTimeEdit extends ASPxClientTimeEdit {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapTabControl control.
+ */
+interface BootstrapClientTabControl extends ASPxClientTabControl {
+    /**
+     * Returns the active tab within the Tab Control.
+     */
+    GetActiveTab(): BootstrapClientTab;
+    /**
+     * Makes the specified tab active within the Tab Control on the client side.
+     * @param tab A BootstrapClientTab object specifying the tab to select.
+     */
+    SetActiveTab(tab: BootstrapClientTab): void;
+    /**
+     * Returns a tab specified by its index.
+     * @param index An integer value specifying the zero-based index of the tab object to retrieve.
+     */
+    GetTab(index: number): BootstrapClientTab;
+    /**
+     * Returns a tab specified by its name.
+     * @param name A string value specifying the name of the tab.
+     */
+    GetTabByName(name: string): BootstrapClientTab;
+    /**
+     * Makes the specified tab active within the tab control on the client side.
+     * @param tab An ASPxClientTab object specifying the tab to select.
+     */
+    SetActiveTab(tab: ASPxClientTab): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapPageControl control.
+ */
+interface BootstrapClientPageControl extends ASPxClientPageControl {
+    /**
+     * Returns the active tab within the Page Control.
+     */
+    GetActiveTab(): BootstrapClientTab;
+    /**
+     * Makes the specified tab active within the Page Control on the client side.
+     * @param tab A BootstrapClientTab object specifying the tab to select.
+     */
+    SetActiveTab(tab: BootstrapClientTab): void;
+    /**
+     * Returns a tab specified by its index.
+     * @param index An integer value specifying the zero-based index of the tab object to retrieve.
+     */
+    GetTab(index: number): BootstrapClientTab;
+    /**
+     * Returns a tab specified by its name.
+     * @param name A string value specifying the name of the tab.
+     */
+    GetTabByName(name: string): BootstrapClientTab;
+    /**
+     * Returns the HTML code that represents the contents of the specified page within the page control.
+     * @param tab An BootstrapClientTab object that specifies the required page.
+     */
+    GetTabContentHTML(tab: BootstrapClientTab): string;
+    /**
+     * Defines the HTML content for a specific tab page within the page control.
+     * @param tab A BootstrapClientTab object that specifies the required tab page.
+     * @param html A string value that represents the HTML code defining the content of the specified page.
+     */
+    SetTabContentHTML(tab: BootstrapClientTab, html: string): void;
+    /**
+     * Returns the HTML code that represents the contents of the specified page within the page control.
+     * @param tab An ASPxClientTab object that specifies the required page.
+     */
+    GetTabContentHTML(tab: ASPxClientTab): string;
+    /**
+     * Defines the HTML content for a specific tab page within the page control.
+     * @param tab An ASPxClientTab object that specifies the required tab page.
+     * @param html A string value that represents the HTML code defining the content of the specified page.
+     */
+    SetTabContentHTML(tab: ASPxClientTab, html: string): void;
+    /**
+     * Makes the specified tab active within the tab control on the client side.
+     * @param tab An ASPxClientTab object specifying the tab to select.
+     */
+    SetActiveTab(tab: ASPxClientTab): void;
+}
+/**
+ * Represents a client-side equivalent of a tab control's BootstrapTabPage object.
+ */
+interface BootstrapClientTab extends ASPxClientTab {
+    /**
+     * Gets the text displayed within the tab badge.
+     */
+    GetBadgeText(): string;
+    /**
+     * Sets the text displayed within the tab badge.
+     * @param text A String specifying the badge text.
+     */
+    SetBadgeText(text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within the tab badge.
+     */
+    GetBadgeIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed within the tab badge.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetBadgeIconCssClass(cssClass: string): void;
+    /**
+     * Returns the URL pointing to the image displayed within the tab.
+     */
+    GetImageUrl(): string;
+    /**
+     * Specifies the URL which points to the image displayed within the tab.
+     * @param value 
+     */
+    SetImageUrl(value: string): void;
+    /**
+     * Returns the URL pointing to the image displayed within the active tab.
+     */
+    GetActiveImageUrl(): string;
+    /**
+     * Specifies the URL which points to the image displayed within the active tab.
+     * @param value 
+     */
+    SetActiveImageUrl(value: string): void;
+    /**
+     * Gets the CSS class of the icon displayed by the tab.
+     */
+    GetIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed by the tab.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetIconCssClass(cssClass: string): void;
+    /**
+     * Gets the CSS class of an icon displayed by the tab when it is active.
+     */
+    GetActiveIconCssClass(): string;
+    /**
+     * Sets the CSS class of an icon displayed by the tab when it is active.
+     * @param cssClass A String containing the name of a CSS class.
+     */
+    SetActiveIconCssClass(cssClass: string): void;
+}
+/**
+ * A method that will handle a tab control's client events concerning manipulations with a tab.
+ */
+interface BootstrapClientTabControlTabEventHandler<S> {
+    /**
+     * A method that will handle a tab control's client events concerning manipulations with a tab.
+     * @param source An object representing the event source. Identifies the BootstrapClientTabControl that raised the event.
+     * @param e An BootstrapClientTabControlTabEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientTabControlTabEventArgs): void;
+}
+/**
+ * Provides data for events related to manipulations on tabs.
+ */
+interface BootstrapClientTabControlTabEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the tab object related to the event.
+     * Value: A BootstrapClientTab object, manipulations on which forced the event to be raised.
+     */
+    tab: BootstrapClientTab;
+}
+/**
+ * A method that will handle a tab control's cancelable client events concerning manipulations with a tab.
+ */
+interface BootstrapClientTabControlTabCancelEventHandler<S> {
+    /**
+     * A method that will handle a tab control's cancelable client events concerning manipulations with a tab.
+     * @param source An object representing the event source. Identifies the BootstrapTabControl that raised the event.
+     * @param e An BootstrapClientTabControlTabCancelEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientTabControlTabCancelEventArgs): void;
+}
+/**
+ * Provides data for cancellable events related to manipulations on tabs.
+ */
+interface BootstrapClientTabControlTabCancelEventArgs extends ASPxClientProcessingModeCancelEventArgs {
+    /**
+     * Gets the tab object related to the event.
+     * Value: A BootstrapClientTab object representing the tab manipulations on which forced the tab control to raise the event.
+     */
+    tab: BootstrapClientTab;
+    /**
+     * Gets or sets a value specifying whether a callback should be sent to the server to reload the content of the page being activated.
+     * Value: true, to reload the page's content; otherwise, false.
+     */
+    reloadContentOnCallback: boolean;
+}
+/**
+ * A method that will handle client events concerning clicks on tabs.
+ */
+interface BootstrapClientTabControlTabClickEventHandler<S> {
+    /**
+     * A method that will handle client events concerning clicks on tabs.
+     * @param source An object representing the event source. Identifies the BootstrapTabControl that raised the event.
+     * @param e An BootstrapClientTabControlTabClickEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientTabControlTabClickEventArgs): void;
+}
+/**
+ * Provides data for events related to clicking on the control's tabs.
+ */
+interface BootstrapClientTabControlTabClickEventArgs extends BootstrapClientTabControlTabCancelEventArgs {
+    /**
+     * Gets an HTML object that contains the processed tab.
+     * Value: An HTML object.
+     */
+    htmlElement: Object;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     * Value: A DHTML event object.
+     */
+    htmlEvent: Object;
+}
+/**
+ * A client-side equivalent of the BootstrapTagBox object.
+ */
+interface BootstrapClientTagBox extends ASPxClientTokenBox {
+    /**
+     * Use the TagsChanged event instead.
+     */
+    TokensChanged: ASPxClientEvent<ASPxClientEventHandler<BootstrapClientTagBox>>;
+    /**
+     * Fires on the client side after the tag collection has been changed.
+     */
+    TagsChanged: ASPxClientEvent<ASPxClientEventHandler<BootstrapClientTagBox>>;
+    /**
+     * Adds a new token with the specified text to the end of the control's token collection.
+     * @param text 
+     */
+    AddToken(text: string): void;
+    /**
+     * Adds a new tag with the specified text to the end of the control's tag collection.
+     * @param text A string value specifying the tag's text.
+     */
+    AddTag(text: string): void;
+    /**
+     * Use the RemoveTagByText method instead.
+     * @param text 
+     */
+    RemoveTokenByText(text: string): void;
+    /**
+     * Removes a tag specified by its text from the tag box on the client.
+     * @param text A string value that is the text of the tag to be removed.
+     */
+    RemoveTagByText(text: string): void;
+    /**
+     * Use the RemoveTag method instead.
+     * @param index 
+     */
+    RemoveToken(index: number): void;
+    /**
+     * Removes a tag specified by its index from the tag box on the client.
+     * @param index An integer value that is the index of the tag to be removed.
+     */
+    RemoveTag(index: number): void;
+    /**
+     * Returns an HTML span element that corresponds to the specified token.
+     * @param index 
+     */
+    GetTokenHtmlElement(index: number): Object;
+    /**
+     * Returns an HTML span element that corresponds to the specified tag.
+     * @param index An integer value that is the tag index.
+     */
+    GetTagHtmlElement(index: number): Object;
+    /**
+     * Returns an HTML span element that corresponds to the specified token's text.
+     * @param index 
+     */
+    GetTokenTextHtmlElement(index: number): Object;
+    /**
+     * Returns an HTML span element that corresponds to the specified tag's text.
+     * @param index An integer value that is the tag index.
+     */
+    GetTagTextHtmlElement(index: number): Object;
+    /**
+     * Returns an HTML span element that corresponds to the specified token's remove button.
+     * @param index 
+     */
+    GetTokenRemoveButtonHtmlElement(index: number): Object;
+    /**
+     * Returns an HTML span element that corresponds to the specified tag's remove button.
+     * @param index An integer value that is the tag index.
+     */
+    GetTagRemoveButtonHtmlElement(index: number): Object;
+    /**
+     * Returns a collection of tokens.
+     */
+    GetTokenCollection(): string[];
+    /**
+     * Returns a collection of tags.
+     */
+    GetTagCollection(): string[];
+    /**
+     * Returns a collection of tokens.
+     * @param collection 
+     */
+    SetTokenCollection(collection: string[]): void;
+    /**
+     * Sets a collection of tags.
+     * @param collection An  object that is the collection of tags.
+     */
+    SetTagCollection(collection: string[]): void;
+    /**
+     * Use the ClearTagCollection method instead.
+     */
+    ClearTokenCollection(): void;
+    /**
+     * Removes all tags contained in the tag box.
+     */
+    ClearTagCollection(): void;
+    /**
+     * Returns the index of a token specified by its text.
+     * @param text 
+     */
+    GetTokenIndexByText(text: string): number;
+    /**
+     * Returns the index of a tag specified by its text.
+     * @param text A string value that specifies the text of the tag.
+     */
+    GetTagIndexByText(text: string): number;
+    /**
+     * Use the IsCustomTag method instead.
+     * @param text 
+     * @param caseSensitive 
+     */
+    IsCustomToken(text: string, caseSensitive: boolean): boolean;
+    /**
+     * Returns a value that indicates if the specified tag (string) is a custom tag.
+     * @param text A string value that is a tag.
+     * @param caseSensitive true, if tags are case sensitive; otherwise, false.
+     */
+    IsCustomTag(text: string, caseSensitive: boolean): boolean;
+    /**
+     * Returns the editor's selected item.
+     */
+    GetSelectedItem(): BootstrapClientListBoxItem;
+    /**
+     * Sets the list editor's selected item.
+     * @param item A BootstrapClientListBoxItem object that specifies the item to select.
+     */
+    SetSelectedItem(item: BootstrapClientListBoxItem): void;
+    /**
+     * Returns an item specified by its index within the tag box editor's item collection.
+     * @param index An integer value specifying the zero-based index of the item to search for.
+     */
+    GetItem(index: number): BootstrapClientListBoxItem;
+    /**
+     * Returns an item by its text.
+     * @param text A string that specifies the item's text.
+     */
+    FindItemByText(text: string): BootstrapClientListBoxItem;
+    /**
+     * Returns a list item by its value.
+     * @param value An object that specifies the item's value.
+     */
+    FindItemByValue(value: Object): BootstrapClientListBoxItem;
+    /**
+     * This method is not in effect for the BootstrapClientTagBox class.
+     * @param texts 
+     */
+    AddItem(texts: string[]): number;
+    /**
+     * This method is not in effect for the BootstrapClientTagBox class.
+     * @param texts 
+     * @param value 
+     */
+    AddItem(texts: string[], value: Object): number;
+    /**
+     * This method is not in effect for the BootstrapClientTagBox class.
+     * @param texts 
+     * @param value 
+     * @param iconCssClass 
+     */
+    AddItem(texts: string[], value: Object, iconCssClass: string): number;
+    /**
+     * Adds a new item to the editor, specifying the item's display text, and returns the index of the added item.
+     * @param text A string value specifying the item's display text.
+     */
+    AddItem(text: string): number;
+    /**
+     * Adds a new item to the editor, specifying the item's display text and associated value, and returns the index of the added item.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     */
+    AddItem(text: string, value: Object): number;
+    /**
+     * Adds a new item to the editor, specifying the item's display text, associated value and displayed image, and returns the index of the added item.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    AddItem(text: string, value: Object, iconCssClass: string): number;
+    /**
+     * This method is not in effect for the BootstrapClientTagBox class.
+     * @param index 
+     * @param texts 
+     * @param value 
+     * @param iconCssClass 
+     */
+    InsertItem(index: number, texts: string[], value: Object, iconCssClass: string): void;
+    /**
+     * This method is not in effect for the BootstrapClientTagBox class.
+     * @param index 
+     * @param texts 
+     * @param value 
+     */
+    InsertItem(index: number, texts: string[], value: Object): void;
+    /**
+     * This method is not in effect for the BootstrapClientTagBox class.
+     * @param index 
+     * @param texts 
+     */
+    InsertItem(index: number, texts: string[]): void;
+    /**
+     * Inserts a new item specified by its display text, associated value and displayed image into the editor's item collection, at the position specified.
+     * @param index An integer value that represents the index position.
+     * @param text A string value specifying the item's display text.
+     * @param value An object specifying the value associated with the item.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
+     */
+    InsertItem(index: number, text: string, value: Object, iconCssClass: string): void;
+    /**
+     * Inserts a new item specified by its display text, associated value and displayed image into the editor's item collection, at the position specified.
+     * @param index An integer value that represents the index position.
+     * @param text A string value specifying the item's display text.
+     * @param value An object that represents the item's associated value.
+     */
+    InsertItem(index: number, text: string, value: Object): void;
+    /**
+     * Inserts a new item into the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param text A string value specifying the item's display text.
+     */
+    InsertItem(index: number, text: string): void;
+    /**
+     * Gets the text displayed within a Tag Box item badge.
+     * @param index The index of a Tag Box item.
+     */
+    GetItemBadgeText(index: number): string;
+    /**
+     * Sets the text displayed within a Tag Box item badge.
+     * @param index The index of a Tag Box item.
+     * @param text A String specifying the badge text.
+     */
+    SetItemBadgeText(index: number, text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within a Tag Box item badge.
+     * @param index The index of a Tag Box item.
+     */
+    GetItemBadgeIconCssClass(index: number): string;
+    /**
+     * Sets the CSS class of the icon displayed within a Tag Box item badge.
+     * @param index The index of a Tag Box item.
+     * @param cssClass A String containing the name of a CSS class.
+     */
+    SetItemBadgeIconCssClass(index: number, cssClass: string): void;
+    /**
+     * Sets the list editor's selected item.
+     * @param item An ASPxClientListEditItem object that specifies the item to select.
+     */
+    SetSelectedItem(item: ASPxClientListEditItem): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapTextBox control.
+ */
+interface BootstrapClientTextBox extends ASPxClientTextBox {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapMemo control.
+ */
+interface BootstrapClientMemo extends ASPxClientMemo {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapButtonEdit control.
+ */
+interface BootstrapClientButtonEdit extends ASPxClientButtonEdit {
+}
+/**
+ * Represents the client-side equivalent of the BootstrapToolbar control.
+ */
+interface BootstrapClientToolbar extends BootstrapClientMenu {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapTreeView control.
+ */
+interface BootstrapClientTreeView extends ASPxClientTreeView {
+    /**
+     * Returns a node specified by its index within the Tree View's node collection.
+     * @param index An integer value specifying the zero-based index of the node to be retrieved.
+     */
+    GetNode(index: number): BootstrapClientTreeViewNode;
+    /**
+     * Returns a node specified by its name.
+     * @param name A string value specifying the name of the node.
+     */
+    GetNodeByName(name: string): BootstrapClientTreeViewNode;
+    /**
+     * Returns a node specified by its text.
+     * @param text A string value specifying the text content of the node.
+     */
+    GetNodeByText(text: string): BootstrapClientTreeViewNode;
+    /**
+     * Returns the selected node within the Tree View control on the client side.
+     */
+    GetSelectedNode(): BootstrapClientTreeViewNode;
+    /**
+     * Selects the specified node within the Tree View control on the client side.
+     * @param node A BootstrapClientTreeViewNode object specifying the node to select.
+     */
+    SetSelectedNode(node: BootstrapClientTreeViewNode): void;
+    /**
+     * Gets the root node of the Tree View control.
+     */
+    GetRootNode(): BootstrapClientTreeViewNode;
+    /**
+     * Selects the specified node within the ASPxTreeView control on the client side.
+     * @param node An ASPxClientTreeViewNode object specifying the node to select.
+     */
+    SetSelectedNode(node: ASPxClientTreeViewNode): void;
+}
+/**
+ * Represents a client-side equivalent of the TreeView's BootstrapTreeViewNode object.
+ */
+interface BootstrapClientTreeViewNode extends ASPxClientTreeViewNode {
+    /**
+     * Gets the BootstrapClientTreeView object to which the current node belongs.
+     * Value: A <see cref="BootstrapClientTreeView" /> object that is the node's owner.
+     */
+    treeView: BootstrapClientTreeView;
+    /**
+     * Gets the current node's parent node.
+     * Value: A BootstrapClientTreeViewNode object representing the node's immediate parent.
+     */
+    parent: BootstrapClientTreeViewNode;
+    /**
+     * Returns the current node's immediate child node specified by its index.
+     * @param index An integer value specifying the zero-based index of the node to be retrieved.
+     */
+    GetNode(index: number): BootstrapClientTreeViewNode;
+    /**
+     * Returns the current node's child node specified by its name.
+     * @param name A string value specifying the name of the node.
+     */
+    GetNodeByName(name: string): BootstrapClientTreeViewNode;
+    /**
+     * Returns the current node's child node specified by its text.
+     * @param text A string value specifying the text content of the node.
+     */
+    GetNodeByText(text: string): BootstrapClientTreeViewNode;
+    /**
+     * Gets the text displayed within the node badge.
+     */
+    GetBadgeText(): string;
+    /**
+     * Sets the text displayed within the node badge.
+     * @param text A String specifying the badge text.
+     */
+    SetBadgeText(text: string): void;
+    /**
+     * Gets the CSS class of the icon displayed within the node badge.
+     */
+    GetBadgeIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed within the node badge.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetBadgeIconCssClass(cssClass: string): void;
+    /**
+     * Returns the URL pointing to the image displayed within the node.
+     */
+    GetImageUrl(): string;
+    /**
+     * Sets the URL which points to the image displayed within the node.
+     * @param value 
+     */
+    SetImageUrl(value: string): void;
+    /**
+     * Gets the CSS class of the icon displayed by the node.
+     */
+    GetIconCssClass(): string;
+    /**
+     * Sets the CSS class of the icon displayed by the node.
+     * @param cssClass A string containing the name of a CSS class.
+     */
+    SetIconCssClass(cssClass: string): void;
+}
+/**
+ * A method that will handle the client events concerned with node processing.
+ */
+interface BootstrapClientTreeViewNodeProcessingModeEventHandler<S> {
+    /**
+     * A method that will handle the client events concerned with node processing.
+     * @param source An object representing the event source. Identifies the BootstrapClientTreeView control that raised the event.
+     * @param e An BootstrapClientTreeViewNodeProcessingModeEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientTreeViewNodeProcessingModeEventArgs): void;
+}
+/**
+ * Provides data for the client events related to node processing, and allowing the event's processing to be passed to the server side.
+ */
+interface BootstrapClientTreeViewNodeProcessingModeEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Gets a node object related to the event.
+     * Value: A BootstrapClientTreeViewNode object, manipulations on which forced the event to be raised.
+     */
+    node: BootstrapClientTreeViewNode;
+}
+/**
+ * A method that will handle the NodeClick event.
+ */
+interface BootstrapClientTreeViewNodeClickEventHandler<S> {
+    /**
+     * A method that will handle the NodeClick event.
+     * @param source An object representing the event source. Identifies the BootstrapClientTreeView control that raised the event.
+     * @param e An BootstrapClientTreeViewNodeClickEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientTreeViewNodeClickEventArgs): void;
+}
+/**
+ * Provides data for the NodeClick event.
+ */
+interface BootstrapClientTreeViewNodeClickEventArgs extends BootstrapClientTreeViewNodeProcessingModeEventArgs {
+    /**
+     * Gets an HTML object that contains the processed Tree View node.
+     * Value: An HTML object.
+     */
+    htmlElement: Object;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     * Value: A DHTML event object.
+     */
+    htmlEvent: Object;
+}
+/**
+ * A method that will handle the Tree View control's client events, concerning manipulations with a node.
+ */
+interface BootstrapClientTreeViewNodeEventHandler<S> {
+    /**
+     * A method that will handle the Tree View control's client events, concerning manipulations with a node.
+     * @param source An object representing the event source. Identifies the BootstrapClientTreeView control that raised the event.
+     * @param e An BootstrapClientTreeViewNodeEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientTreeViewNodeEventArgs): void;
+}
+/**
+ * Provides data for the ExpandedChanged events.
+ */
+interface BootstrapClientTreeViewNodeEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets a node object related to the event.
+     * Value: A BootstrapClientTreeViewNode object, manipulations on which forced the event to be raised.
+     */
+    node: BootstrapClientTreeViewNode;
+}
+/**
+ * A method that will handle the Tree View's cancelable client events, concerning manipulations with nodes.
+ */
+interface BootstrapClientTreeViewNodeCancelEventHandler<S> {
+    /**
+     * A method that will handle the Tree View's cancelable client events, concerning manipulations with nodes.
+     * @param source An object representing the event source. Identifies the BootstrapClientTreeView control that raised the event.
+     * @param e An BootstrapClientTreeViewNodeCancelEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientTreeViewNodeCancelEventArgs): void;
+}
+/**
+ * Provides data for the ExpandedChanging event.
+ */
+interface BootstrapClientTreeViewNodeCancelEventArgs extends ASPxClientProcessingModeCancelEventArgs {
+    /**
+     * Gets a node object related to the event.
+     * Value: A BootstrapClientTreeViewNode object, manipulations on which forced the event to be raised.
+     */
+    node: BootstrapClientTreeViewNode;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapUploadControl.
+ */
+interface BootstrapClientUploadControl extends ASPxClientUploadControl {
+}
+/**
+ * Represents the client BootstrapGridView.
+ */
+interface BootstrapClientGridView extends ASPxClientGridView {
+}
+/**
+ * Represents the client BootstrapCardView.
+ */
+interface BootstrapClientCardView extends ASPxClientGridView {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapWebClientUIWidget class.
+ */
+interface BootstrapUIWidgetBase extends ASPxClientControl {
+    /**
+     * Fires once, after the widget is initialized.
+     */
+    Init: ASPxClientEvent<BootstrapUIWidgetInitializedEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires when the widget has finished drawing itself.
+     */
+    Drawn: ASPxClientEvent<BootstrapUIWidgetDrawnEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires when the widget is removed from the DOM using the remove(), empty(), or html() jQuery methods only.
+     */
+    Disposing: ASPxClientEvent<BootstrapUIWidgetDisposingEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires after an option of the widget has been changed.
+     */
+    OptionChanged: ASPxClientEvent<BootstrapUIWidgetOptionChangedEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires before data from the widget is exported.
+     */
+    Exporting: ASPxClientEvent<BootstrapUIWidgetExportingEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires after data from the widget is exported.
+     */
+    Exported: ASPxClientEvent<BootstrapUIWidgetExportedEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Raised before a file with exported data is saved on the user's local storage.
+     */
+    FileSaving: ASPxClientEvent<BootstrapUIWidgetFileSavingEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires when an error or warning appears in the widget.
+     */
+    IncidentOccurred: ASPxClientEvent<BootstrapUIWidgetErrorEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Gets an instance of the widget.
+     */
+    GetInstance(): Object;
+    /**
+     * Sets the widget's options to values specified in the passed object.
+     * @param options An object containing key-value pairs specifying new option values.
+     */
+    SetOptions(options: Object): void;
+    /**
+     * Gets the client data source instance.
+     * @param dataSource A DevExtreme <a href="https://js.devexpress.com/Documentation/ApiReference/Data_Layer/DataSource/">DataSource</a> object.
+     */
+    SetDataSource(dataSource: Object): void;
+    /**
+     * Gets the client data source instance.
+     */
+    GetDataSource(): Object;
+    /**
+     * Exports the widget.
+     * @param format A string specifying the target file format.
+     * @param fileName A string specifying the file name.
+     */
+    ExportTo(format: string, fileName: string): void;
+    /**
+     * Invokes the browser's Print window to print the widget's contents.
+     */
+    Print(): void;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapChartBase class.
+ */
+interface BootstrapClientChartBase extends BootstrapUIWidgetBase {
+    /**
+     * Fires when the Series and Points chart elements are ready to be accessed.
+     */
+    Done: ASPxClientEvent<BootstrapClientChartBaseDoneEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when an item on the chart legend is clicked.
+     */
+    LegendClick: ASPxClientEvent<BootstrapClientChartBaseLegendClickEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a user clicks a series point.
+     */
+    PointClick: ASPxClientEvent<BootstrapClientChartBasePointClickEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when the hover state of a series point has been changed.
+     */
+    PointHoverChanged: ASPxClientEvent<BootstrapClientChartBasePointHoverChangedEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when the selection state of a series point has been changed.
+     */
+    PointSelectionChanged: ASPxClientEvent<BootstrapClientChartBasePointSelectionChangedEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a point's tooltip becomes hidden.
+     */
+    TooltipHidden: ASPxClientEvent<BootstrapClientChartBaseTooltipHiddenEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a point's tooltip appears.
+     */
+    TooltipShown: ASPxClientEvent<BootstrapClientChartBaseTooltipShownEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a user clicks a label on the argument axis.
+     */
+    ArgumentAxisClick: ASPxClientEvent<BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a user clicks a series.
+     */
+    SeriesClick: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesClickEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when the hover state of a series has been changed.
+     */
+    SeriesHoverChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when the selection state of a series has been changed.
+     */
+    SeriesSelectionChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<BootstrapClientChartBase>>;
+}
+/**
+ * Represents a client-side equivalent of the Chart control.
+ */
+interface BootstrapClientChart extends BootstrapClientChartBase {
+    /**
+     * Fires when a chart zooming or scrolling begins.
+     */
+    ZoomStart: ASPxClientEvent<BootstrapClientChartZoomStartEventHandler<BootstrapClientChart>>;
+    /**
+     * Fires when a chart zooming or scrolling ends.
+     */
+    ZoomEnd: ASPxClientEvent<BootstrapClientChartZoomEndEventHandler<BootstrapClientChart>>;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapPolarChart control.
+ */
+interface BootstrapClientPolarChart extends BootstrapClientChartBase {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapPieChart control.
+ */
+interface BootstrapClientPieChart extends BootstrapClientChartBase {
+}
+/**
+ * A method that will handle the Done event.
+ */
+interface BootstrapClientChartBaseDoneEventHandler<S> {
+    /**
+     * A method that will handle the Done event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetEventArgsBase): void;
+}
+/**
+ * A method that will handle the LegendClick event.
+ */
+interface BootstrapClientChartBaseLegendClickEventHandler<S> {
+    /**
+     * A method that will handle the LegendClick event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementClickEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementClickEventArgs): void;
+}
+/**
+ * A method that will handle the Invoke event.
+ */
+interface BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<S> {
+    /**
+     * A method that will handle the Invoke event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementClickEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementClickEventArgs): void;
+}
+/**
+ * A method that will handle the PointClick event.
+ */
+interface BootstrapClientChartBasePointClickEventHandler<S> {
+    /**
+     * A method that will handle the PointClick event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementClickEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementClickEventArgs): void;
+}
+/**
+ * A method that will handle the PointHoverChanged event.
+ */
+interface BootstrapClientChartBasePointHoverChangedEventHandler<S> {
+    /**
+     * A method that will handle the PointHoverChanged event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementActionEventArgs): void;
+}
+/**
+ * A method that will handle the PointSelectionChanged event.
+ */
+interface BootstrapClientChartBasePointSelectionChangedEventHandler<S> {
+    /**
+     * A method that will handle the PointSelectionChanged event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementActionEventArgs): void;
+}
+/**
+ * A method that will handle the TooltipHidden event.
+ */
+interface BootstrapClientChartBaseTooltipHiddenEventHandler<S> {
+    /**
+     * A method that will handle the TooltipHidden event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementActionEventArgs): void;
+}
+/**
+ * A method that will handle the TooltipShown event.
+ */
+interface BootstrapClientChartBaseTooltipShownEventHandler<S> {
+    /**
+     * A method that will handle the TooltipShown event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementActionEventArgs): void;
+}
+/**
+ * A method that will handle the SeriesClick event.
+ */
+interface BootstrapClientCoordinateSystemChartSeriesClickEventHandler<S> {
+    /**
+     * A method that will handle the SeriesClick event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementClickEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementClickEventArgs): void;
+}
+/**
+ * A method that will handle the SeriesHoverChanged event.
+ */
+interface BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<S> {
+    /**
+     * A method that will handle the SeriesHoverChanged event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementActionEventArgs): void;
+}
+/**
+ * A method that will handle the SeriesSelectionChanged event.
+ */
+interface BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<S> {
+    /**
+     * A method that will handle the SeriesSelectionChanged event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetElementActionEventArgs): void;
+}
+/**
+ * A method that will handle the ZoomStart event.
+ */
+interface BootstrapClientChartZoomStartEventHandler<S> {
+    /**
+     * A method that will handle the ZoomStart event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetEventArgsBase): void;
+}
+/**
+ * A method that will handle the ZoomEnd event.
+ */
+interface BootstrapClientChartZoomEndEventHandler<S> {
+    /**
+     * A method that will handle the ZoomEnd event.
+     * @param source The event source.
+     * @param e A BootstrapClientChartZoomEndEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientChartZoomEndEventArgs): void;
+}
+/**
+ * Provides base data for the client-side events.
+ */
+interface BootstrapUIWidgetEventArgsBase extends ASPxClientEventArgs {
+    /**
+     * The widget instance.
+     * Value: An object specifying the widget instance.
+     */
+    component: Object;
+    /**
+     * The widget's container.
+     * Value: An object specifying the widget's container.
+     */
+    element: Object;
+}
+/**
+ * Provides data for the ZoomEnd event.
+ */
+interface BootstrapClientChartZoomEndEventArgs extends BootstrapUIWidgetEventArgsBase {
+    /**
+     * The value that became the start of the argument axis after zooming or scrolling ended.
+     * Value: An object specifying the start of the argument axis.
+     */
+    rangeStart: Object;
+    /**
+     * The value that became the end of the argument axis after zooming or scrolling ended.
+     * Value: An object specifying the end of the argument axis.
+     */
+    rangeEnd: Object;
+}
+/**
+ * Represents a client-side equivalent of the Range Selector control.
+ */
+interface BootstrapClientRangeSelector extends BootstrapUIWidgetBase {
+    /**
+     * Fires after the selected range has been changed by moving one of the sliders.
+     */
+    ValueChanged: ASPxClientEvent<BootstrapClientRangeSelectorValueChangedEventHandler<BootstrapClientRangeSelector>>;
+    /**
+     * Gets the Range Selector's selected value range.
+     */
+    GetValue(): Object[];
+    /**
+     * Gets the Range Selector's selected value range.
+     * @param value An array containing the value range.
+     */
+    SetValue(value: Object[]): void;
+}
+/**
+ * Provides data for events which concern manipulations on the selected range.
+ */
+interface BootstrapClientRangeSelectorValueChangedEventArgs extends BootstrapUIWidgetEventArgsBase {
+    /**
+     * The value currently specified for the RangeSelector control.
+     * Value: A System.Object instance defining the current value specified for a RangeSelector control.
+     */
+    value: Object;
+    /**
+     * The previous value of a RangeSelector control.
+     * Value: A System.Object type defining the previous value specified for a RangeSelector control.
+     */
+    previousValue: Object;
+}
+/**
+ * A method that will handle the ValueChanged event.
+ */
+interface BootstrapClientRangeSelectorValueChangedEventHandler<S> {
+    /**
+     * A method that will handle the ValueChanged event.
+     * @param source The event source.
+     * @param e A BootstrapClientRangeSelectorValueChangedEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapClientRangeSelectorValueChangedEventArgs): void;
+}
+/**
+ * A method that will handle the Init event.
+ */
+interface BootstrapUIWidgetInitializedEventHandler<S> {
+    /**
+     * A method that will handle the Init event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetEventArgsBase): void;
+}
+/**
+ * A method that will handle the Drawn event.
+ */
+interface BootstrapUIWidgetDrawnEventHandler<S> {
+    /**
+     * A method that will handle the Drawn event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetEventArgsBase): void;
+}
+/**
+ * A method that will handle the Disposing event.
+ */
+interface BootstrapUIWidgetDisposingEventHandler<S> {
+    /**
+     * A method that will handle the Disposing event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetEventArgsBase): void;
+}
+/**
+ * A method that will handle the Exported event.
+ */
+interface BootstrapUIWidgetExportedEventHandler<S> {
+    /**
+     * A method that will handle the Exported event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetEventArgsBase): void;
+}
+/**
+ * A method that will handle the OptionChanged event.
+ */
+interface BootstrapUIWidgetOptionChangedEventHandler<S> {
+    /**
+     * A method that will handle the OptionChanged event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetOptionChangedEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetOptionChangedEventArgs): void;
+}
+/**
+ * Provides data for client events raised in response to changing the widget's options.
+ */
+interface BootstrapUIWidgetOptionChangedEventArgs extends BootstrapUIWidgetEventArgsBase {
+    /**
+     * The option's full name.
+     * Value: A string value specifying the option's full name.
+     */
+    fullName: string;
+    /**
+     * The option's short name.
+     * Value: A string value specifying the option's short name.
+     */
+    name: string;
+    /**
+     * The option's old value.
+     * Value: An object that is the option's old value.
+     */
+    previousValue: Object;
+    /**
+     * The option's new value.
+     * Value: An object that is the option's new value.
+     */
+    value: Object;
+}
+/**
+ * A method that will handle the Exporting event.
+ */
+interface BootstrapUIWidgetExportingEventHandler<S> {
+    /**
+     * A method that will handle the Exporting event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetExportEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetExportEventArgs): void;
+}
+/**
+ * A method that will handle the FileSaving event.
+ */
+interface BootstrapUIWidgetFileSavingEventHandler<S> {
+    /**
+     * A method that will handle the FileSaving event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetExportEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetExportEventArgs): void;
+}
+/**
+ * Provides data for events related to saving files in the built-in dialogs.
+ */
+interface BootstrapUIWidgetExportEventArgs extends BootstrapUIWidgetEventArgsBase {
+    /**
+     * Allows you to cancel file saving.
+     * Value: true, to cancel the file saving; otherwise, false.
+     */
+    cancel: boolean;
+    /**
+     * Gets the saved data as a BLOB object.
+     * Value: A <a href="https://msdn.microsoft.com/en-us/library/dd301120.aspx" target="_blank">BLOB</a> object containing saved data.
+     */
+    data: Object;
+    /**
+     * Gets a name of a saved file.
+     * Value: A string value specifying the saved file's name.
+     */
+    fileName: string;
+    /**
+     * Gets the saved file's format.
+     * Value: A string value specifying the saved file's format.
+     */
+    format: string;
+}
+/**
+ * A method that will handle the IncidentOccurred event.
+ */
+interface BootstrapUIWidgetErrorEventHandler<S> {
+    /**
+     * A method that will handle the IncidentOccurred event.
+     * @param source The event source.
+     * @param e A BootstrapUIWidgetErrorEventArgs object that contains event data.
+     */
+    (source: S, e: BootstrapUIWidgetErrorEventArgs): void;
+}
+/**
+ * Provides data for client events raised in response to widget errors.
+ */
+interface BootstrapUIWidgetErrorEventArgs extends BootstrapUIWidgetEventArgsBase {
+    /**
+     * Contains information on the error that occurred.
+     * Value: An object containing information on the error that occurred.
+     */
+    target: Object;
+}
+/**
+ * Provides data for client events related to actions performed on the widget's visual elements.
+ */
+interface BootstrapUIWidgetElementActionEventArgs extends BootstrapUIWidgetEventArgsBase {
+    /**
+     * The DOM element that initiated the event.
+     * Value: An object that initiated the event.
+     */
+    target: Object;
+}
+/**
+ * Provides data for the client-side clicking events.
+ */
+interface BootstrapUIWidgetElementClickEventArgs extends BootstrapUIWidgetElementActionEventArgs {
+    /**
+     * The jQuery event that caused the handler execution.
+     * Value: An object of the <a href="http://api.jquery.com/Types/#Event" target="_blank">jQuery.Event</a> type.
+     */
+    jQueryEvent: Object;
+}
+/**
  * A client-side counterpart of the Calendar and CalendarFor extensions.
  */
 interface MVCxClientCalendar extends ASPxClientCalendar {
@@ -15584,6 +22576,12 @@ interface MVCxClientCardView extends ASPxClientCardView {
      * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
      */
     PerformCallback(args: string): void;
+    /**
+     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side CustomDataCallback event.
      * @param args A string value that is any information that needs to be sent to the server-side CustomDataCallback event.
@@ -15797,6 +22795,12 @@ interface MVCxClientGridView extends ASPxClientGridView {
      */
     PerformCallback(args: string): void;
     /**
+     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
+    /**
      * Sends a callback to the server and generates the server-side CustomDataCallback event.
      * @param args A string value that is any information that needs to be sent to the server-side CustomDataCallback event.
      * @param onCallback A ASPxClientGridViewValuesCallback object that is the JavaScript function which receives the information on the client side.
@@ -15956,7 +22960,7 @@ interface MVCxClientPopupControl extends ASPxClientPopupControl {
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, data: Object): void;
     /**
-     * 
+     * Sends a callback with parameters to update the popup window by processing the related popup window.
      * @param window 
      * @param parameter 
      */
@@ -16143,6 +23147,9 @@ interface MVCxClientRoundPanel extends ASPxClientRoundPanel {
  * A client-side counterpart of the Scheduler extension.
  */
 interface MVCxClientScheduler extends ASPxClientScheduler {
+    /**
+     * Occurs on the client side when the tooltip is about to be displayed.
+     */
     ToolTipDisplaying: ASPxClientEvent<MVCxClientSchedulerToolTipDisplayingEventHandler<MVCxClientScheduler>>;
     /**
      * Occurs when a callback for server-side processing is initiated.
@@ -16169,6 +23176,10 @@ interface MVCxClientScheduler extends ASPxClientScheduler {
  * A template that is rendered to display a tooltip.
  */
 interface MVCxClientSchedulerTemplateToolTip extends ASPxClientToolTipBase {
+    /**
+     * Gets the tooltip type.
+     * Value: A MVCxSchedulerToolTipType object that specifies the tooltip type.
+     */
     type: MVCxSchedulerToolTipType;
 }
 /**
@@ -16176,9 +23187,9 @@ interface MVCxClientSchedulerTemplateToolTip extends ASPxClientToolTipBase {
  */
 interface MVCxClientSchedulerToolTipDisplayingEventHandler<S> {
     /**
-     * 
-     * @param source 
-     * @param e 
+     * A method that will handle the ToolTipDisplaying event.
+     * @param source An object which is the event source. Identifies the client object that raised the event.
+     * @param e A MVCxClientSchedulerToolTipDisplayingEventArgs object that contains the related arguments.
      */
     (source: S, e: MVCxClientSchedulerToolTipDisplayingEventArgs): void;
 }
@@ -16186,7 +23197,15 @@ interface MVCxClientSchedulerToolTipDisplayingEventHandler<S> {
  * Provides data for the ToolTipDisplaying event.
  */
 interface MVCxClientSchedulerToolTipDisplayingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the tooltip related to the event.
+     * Value: A MVCxClientSchedulerTemplateToolTip object that specifies the tooltip.
+     */
     toolTip: MVCxClientSchedulerTemplateToolTip;
+    /**
+     * Gets information about the tooltip related to the event.
+     * Value: A ASPxClientSchedulerToolTipData object that specifies information about the tooltip.
+     */
     data: ASPxClientSchedulerToolTipData;
 }
 /**
@@ -16430,6 +23449,12 @@ interface MVCxClientVerticalGrid extends ASPxClientVerticalGrid {
      */
     PerformCallback(args: string): void;
     /**
+     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
+    /**
      * Sends a callback to the server and generates the server-side CustomDataCallback event.
      * @param args A string value that is any information that needs to be sent to the server-side CustomDataCallback event.
      * @param onCallback A ASPxClientVerticalGridValuesCallback object that is the JavaScript function which receives the information on the client side.
@@ -16440,6 +23465,27 @@ interface MVCxClientVerticalGrid extends ASPxClientVerticalGrid {
  * A client-side equivalent of the MVCxWebDocumentViewer class.
  */
 interface MVCxClientWebDocumentViewer extends ASPxClientWebDocumentViewer {
+}
+interface ANCxClientBeginCallbackEventHandler<S> {
+    (source: S, e: ANCxClientBeginCallbackEventArgs): void;
+}
+/**
+ * Serves as the base class for arguments of the web controls' client-side events.
+ */
+interface ASPxClientEventArgs {
+}
+/**
+ * Provides data for client events related to the beginning of a callback processing round trip.
+ */
+interface ASPxClientBeginCallbackEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets a command name that identifies which client action forced a callback to be occurred.
+     * Value: A string value that represents the name of the command which initiated a callback.
+     */
+    command: string;
+}
+interface ANCxClientBeginCallbackEventArgs extends ASPxClientBeginCallbackEventArgs {
+    customArgs: Object;
 }
 /**
  * Serves as the base type for all the objects included in the client-side object model.
@@ -16458,6 +23504,15 @@ interface ASPxClientControlBase {
      * Returns an HTML element that is the root of the control's hierarchy.
      */
     GetMainElement(): Object;
+    /**
+     * Specifies the text that Assistive Technologies (screen readers or braille display, for example) will provide to a user.
+     * @param message A String value that specifies a text.
+     */
+    SendMessageToAssistiveTechnology(message: string): void;
+    /**
+     * Returns a client instance of the control that is the parent for a specified control.
+     */
+    GetParentControl(): Object;
     /**
      * Returns a value specifying whether a control is displayed.
      */
@@ -16557,11 +23612,6 @@ interface ASPxClientCallbackCompleteEventHandler<S> {
     (source: S, e: ASPxClientCallbackCompleteEventArgs): void;
 }
 /**
- * Serves as the base class for arguments of the web controls' client-side events.
- */
-interface ASPxClientEventArgs {
-}
-/**
  * Provides data for events concerning the final processing of a callback.
  */
 interface ASPxClientCallbackCompleteEventArgs extends ASPxClientEventArgs {
@@ -16577,9 +23627,65 @@ interface ASPxClientCallbackCompleteEventArgs extends ASPxClientEventArgs {
     result: string;
 }
 /**
+ * Serves as the base class for controls that implement panel functionality.
+ */
+interface ASPxClientPanelBase extends ASPxClientControl {
+    /**
+     * Returns the HTML code that is the content of the panel.
+     */
+    GetContentHtml(): string;
+    /**
+     * Sets the HTML content for the panel.
+     * @param html A string value that is the HTML code defining the content of the panel.
+     */
+    SetContentHtml(html: string): void;
+    /**
+     * Sets a value specifying whether the panel is enabled.
+     * @param enabled true to enable the panel; false to disable it.
+     */
+    SetEnabled(enabled: boolean): void;
+    /**
+     * Returns a value specifying whether a panel is enabled.
+     */
+    GetEnabled(): boolean;
+}
+/**
+ * Represents a client-side equivalent of the ASPxPanel control.
+ */
+interface ASPxClientPanel extends ASPxClientPanelBase {
+    /**
+     * Occurs when the expanded panel is closed.
+     */
+    Collapsed: ASPxClientEvent<ASPxClientEventHandler<ASPxClientPanel>>;
+    /**
+     * Occurs when an end-user opens the expand panel.
+     */
+    Expanded: ASPxClientEvent<ASPxClientEventHandler<ASPxClientPanel>>;
+    /**
+     * Expands or collapses the client panel.
+     */
+    Toggle(): void;
+    /**
+     * Returns a value specifying whether the panel can be expanded.
+     */
+    IsExpandable(): boolean;
+    /**
+     * Returns a value specifying whether the panel is expanded.
+     */
+    IsExpanded(): boolean;
+    /**
+     * Expands the collapsed panel.
+     */
+    Expand(): void;
+    /**
+     * Collapses the expanded panel.
+     */
+    Collapse(): void;
+}
+/**
  * Represents a client-side equivalent of the ASPxCallbackPanel control.
  */
-interface ASPxClientCallbackPanel extends ASPxClientControl {
+interface ASPxClientCallbackPanel extends ASPxClientPanel {
     /**
      * Occurs when a callback for server-side processing is initiated.
      */
@@ -16722,6 +23828,11 @@ interface ASPxClientProcessingModeCancelEventArgs extends ASPxClientProcessingMo
     cancel: boolean;
 }
 /**
+ * Provides access to an observable boolean, that allows you to detect and respond to changes.
+ */
+interface KnockoutObservableBoolean {
+}
+/**
  * Represents a JavaScript function which receives callback data obtained via a call to a specific client method (such as the PerformDataCallback).
  */
 interface ASPxClientDataCallback {
@@ -16782,16 +23893,6 @@ interface ASPxClientBeginCallbackEventHandler<S> {
      * @param e An ASPxClientBeginCallbackEventArgs object that contains event data.
      */
     (source: S, e: ASPxClientBeginCallbackEventArgs): void;
-}
-/**
- * Provides data for client events related to the beginning of a callback processing round trip.
- */
-interface ASPxClientBeginCallbackEventArgs extends ASPxClientEventArgs {
-    /**
-     * Gets a command name that identifies which client action forced a callback to be occurred.
-     * Value: A string value that represents the name of the command which initiated a callback.
-     */
-    command: string;
 }
 /**
  * A method that will handle the BeginCallback event.
@@ -16986,17 +24087,23 @@ interface ASPxClientControlsInitializedEventArgs extends ASPxClientEventArgs {
      */
     isCallback: boolean;
 }
+/**
+ * A JavaScript function which returns a value specifying whether an object meets the criteria defined within the method specified by this delegate.
+ */
 interface ASPxClientControlPredicate {
     /**
-     * 
-     * @param control 
+     * A JavaScript function which returns a value specifying whether an object meets the criteria defined within the method specified by this delegate.
+     * @param control An object to compare against the criteria defined within the method.
      */
     (control: Object): boolean;
 }
+/**
+ * Represents a JavaScript function which receives the action to perform for a control when the client ForEachControl method is called.
+ */
 interface ASPxClientControlAction {
     /**
-     * 
-     * @param control 
+     * Represents a JavaScript function which receives the action to perform for a control when the client ForEachControl method is called.
+     * @param control An object that specifies a control.
      */
     (control: Object): void;
 }
@@ -17585,7 +24692,7 @@ interface ASPxClientDockPanel extends ASPxClientPopupControlBase {
      */
     MakeFloat(x: number, y: number): void;
     /**
-     * Gets or sets a value specifying the position of the current panel, amongst the visible panels within a zone.
+     * Gets a value specifying the position of the current panel, amongst the visible panels within a zone.
      */
     GetVisibleIndex(): number;
     /**
@@ -17856,6 +24963,10 @@ interface ASPxClientFileManager extends ASPxClientControl {
      */
     FilesUploaded: ASPxClientEvent<ASPxClientFileManagerFilesUploadedEventHandler<ASPxClientFileManager>>;
     /**
+     * Enables you to specify whether the selected file(s) are valid and provide an error text.
+     */
+    FileUploadValidationErrorOccurred: ASPxClientEvent<ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientFileManager>>;
+    /**
      * Fires on the client side before a file download starts, and allows you to cancel the action.
      */
     FileDownloading: ASPxClientEvent<ASPxClientFileManagerFileDownloadingEventHandler<ASPxClientFileManager>>;
@@ -17989,6 +25100,10 @@ interface ASPxClientFileManagerItem {
      * @param skipRootFolder true, to skip the root folder; otherwise, false.
      */
     GetFullName(separator: string, skipRootFolder: boolean): string;
+    /**
+     * Gets the current item's metadata.
+     */
+    GetMetadata(): Object;
 }
 /**
  * Represents the client-side equivalent of the FileManagerFile object.
@@ -18893,6 +26008,239 @@ interface ASPxClientHiddenField extends ASPxClientControl {
     Contains(propertyName: string): boolean;
 }
 /**
+ * Represents the client-side equivalent of the ASPxHint control.
+ */
+interface ASPxClientHint extends ASPxClientControl {
+    /**
+     * Occurs on the client side when a hint is about to be shown.
+     */
+    Showing: ASPxClientEvent<ASPxClientHintShowingEventHandler>;
+    /**
+     * Occurs on the client side when a hint is about to be hidden.
+     */
+    Hiding: ASPxClientEvent<ASPxClientHintHidingEventHandler>;
+    /**
+     * This method is not in effect for a ASPxClientHint object.
+     */
+    GetMainElement(): Object;
+    /**
+     * Invokes a hint.
+     * @param targetElement A HTML DOM element near to which the hint is displayed in response to user interaction.
+     */
+    Show(targetElement: Object): ASPxClientHintWindow;
+    /**
+     * Invokes a hint.
+     * @param targetSelector A string value that is the CSS selector used to specify for which UI elements on a web page a hint is displayed.
+     */
+    Show(targetSelector: string): ASPxClientHintWindow;
+}
+/**
+ * Represents the client-side equivalent of the ASPxHint's window.
+ */
+interface ASPxClientHintWindow {
+    /**
+     * Forces the ASPxClientHint's window to recalculate its position.
+     */
+    UpdatePosition(): void;
+}
+/**
+ * A method that will handle the Showing event.
+ */
+interface ASPxClientHintShowingEventHandler {
+    /**
+     * A method that will handle the Showing event.
+     * @param sender The event source.
+     * @param e A ASPxClientHintShowingEventArgs object that contains the required data.
+     */
+    (sender: ASPxClientHintWindow, e: ASPxClientHintShowingEventArgs): void;
+}
+/**
+ * Provides data for the Showing event.
+ */
+interface ASPxClientHintShowingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the object that is the hint's target element.
+     * Value: An object representing the hint's target element related to the event.
+     */
+    targetElement: Object;
+    /**
+     * Gets the object that is the hint.
+     * Value: An object representing the hint related to the event.
+     */
+    hintElement: Object;
+    /**
+     * Gets the object that is the hint's content.
+     * Value: An object representing the hint's content element related to the event.
+     */
+    contentElement: Object;
+    /**
+     * Gets the object that is the hint's title.
+     * Value: An object representing the hint's title element related to the event.
+     */
+    titleElement: Object;
+    /**
+     * Gets or sets a value indicating whether the event should be canceled.
+     * Value: true, if the event should be canceled; otherwise, false.
+     */
+    cancel: boolean;
+}
+/**
+ * A method that will handle the Hiding event.
+ */
+interface ASPxClientHintHidingEventHandler {
+    /**
+     * A method that will handle the Hiding event.
+     * @param sender The event source.
+     * @param e A ASPxClientHintHidingEventArgs object that contains the required data.
+     */
+    (sender: ASPxClientHintWindow, e: ASPxClientHintHidingEventArgs): void;
+}
+/**
+ * Provides data for the Hiding event.
+ */
+interface ASPxClientHintHidingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the object that is the hint's target element.
+     * Value: An object representing the hint's target element.
+     */
+    targetElement: Object;
+    /**
+     * Gets the object that is the hint element.
+     * Value: An object representing the hint related to the event.
+     */
+    hintElement: Object;
+    /**
+     * Gets the object that is the hint's content.
+     * Value: An object representing the hint's content element related to the event.
+     */
+    contentElement: Object;
+    /**
+     * Gets the object that is the hint's title.
+     * Value: An object representing the hint's title element related to the event.
+     */
+    titleElement: Object;
+    /**
+     * Gets or sets a value indicating whether the event should be canceled.
+     * Value: true, if the event should be canceled; otherwise, false.
+     */
+    cancel: boolean;
+}
+/**
+ * The hint control's options.
+ */
+interface ASPxClientHintOptions {
+    /**
+     * Gets or sets which user action triggers a hint.
+     * Value: A string value that is a user action.
+     */
+    triggerAction: string;
+    /**
+     * Gets or sets the delay in displaying the hint.
+     * Value: An integer value that specifies the time interval, in milliseconds, after which a hint is displayed.
+     */
+    appearAfter: number;
+    /**
+     * Gets or sets the duration after which a hint disappears when the mouse pointer is no longer positioned over the target element.
+     * Value: The length of time (in milliseconds) a hint is displayed after the mouse pointer is no longer positioned over the target element.
+     */
+    disappearAfter: number;
+    /**
+     * Gets or sets a value that specifies whether a hint is displayed in a callout box.
+     * Value: true, to display a hint in a callout box; otherwise, false.
+     */
+    showCallout: boolean;
+    /**
+     * Gets or sets a value that specifies whether a hint's title is displayed.
+     * Value: true, to display the hint's title; otherwise, false.
+     */
+    showTitle: boolean;
+    /**
+     * Gets or sets where a hint should be positioned.
+     * Value: A string value that specifies a hint position.
+     */
+    position: string;
+    /**
+     * Gets or sets a custom CSS class name that will be assigned to the root ASPxHint element.
+     * Value: A string value that is the CSS class name.
+     */
+    className: string;
+    /**
+     * Gets or sets the attribute name.
+     * Value: A string value that is the attribute name.
+     */
+    contentAttribute: string;
+    /**
+     * Gets or sets the attribute name.
+     * Value: A string value that is the attribute name.
+     */
+    titleAttribute: string;
+    /**
+     * Gets or sets the hint's content.
+     * Value: A string value that is the hint's content.
+     */
+    content: string;
+    /**
+     * Gets or sets a value that is the hint's title.
+     * Value: A string value that is the title text.
+     */
+    title: string;
+    /**
+     * Gets or sets a value that is the HTML DOM-element.
+     * Value: A string that is the DOM-element.
+     */
+    container: string;
+    /**
+     * A handler for the Showing event.
+     * Value: An <see cref="ASPxClientHintShowingEventHandler" /> delegate method allowing you to implement custom processing.
+     */
+    onShowing: ASPxClientHintShowingEventHandler;
+    /**
+     * A handler for the Hiding event.
+     * Value: An <see cref="ASPxClientHintHidingEventHandler" /> delegate method allowing you to implement custom processing.
+     */
+    onHiding: ASPxClientHintHidingEventHandler;
+    /**
+     * Gets or sets a value that is the hint's width.
+     * Value: A string value that is the hint's width.
+     */
+    width: string;
+    /**
+     * Gets or sets a value that is the hint's height.
+     * Value: A string value that is the hint's height.
+     */
+    height: string;
+    /**
+     * Gets or sets the X coordinate.
+     * Value: An integer value that is the X coordinate.
+     */
+    x: number;
+    /**
+     * Gets or sets the Y coordinate.
+     * Value: An integer value that is the Y coordinate.
+     */
+    y: number;
+    /**
+     * Gets or sets a value that specifies whether to flip the hint to the opposite position relative to the target element.
+     * Value: true, to flip the hint; otherwise, false.
+     */
+    allowFlip: boolean;
+    /**
+     * Gets or sets a value that specifies whether to shift a hint if its content and title are hidden outside of the client area.
+     * Value: true, to shift the hint; otherwise, false.
+     */
+    allowShift: boolean;
+    /**
+     * Gets or sets whether it should use animation effects when a hint appears.
+     * Value: true if animation is enabled; otherwise false.
+     */
+    animation: any;
+    /**
+     * Gets the offset of a hint.
+     * Value: An integer value.
+     */
+    offset: number;
+}
+/**
  * The client-side equivalent of the ASPxImageGallery control.
  */
 interface ASPxClientImageGallery extends ASPxClientDataView {
@@ -19162,6 +26510,20 @@ interface ASPxClientLoadingPanel extends ASPxClientControl {
      * Hides the loading panel.
      */
     Hide(): void;
+}
+/**
+ * Represents the client-side equivalent of the area that is used within the Html Editor's media dialogs.
+ */
+interface ASPxClientMediaFileSelector extends ASPxClientControl {
+    /**
+     * Returns a URL text from the URL text box in Html Editor's media dialogs.
+     */
+    GetUrl(): string;
+    /**
+     * Sets a URL text in the Html Editor's media dialogs.
+     * @param url A string value that is the Url text.
+     */
+    SetUrl(url: string): void;
 }
 /**
  * Serves as the base type for the ASPxClientPopupMenu objects.
@@ -19839,60 +27201,9 @@ interface ASPxClientFlashScriptCommandEventArgs extends ASPxClientEventArgs {
 interface ASPxClientOfficeDocumentLinkType {
 }
 /**
- * Serves as the base class for controls that implement panel functionality.
+ * Represents the client-side equivalent of the ASPxPager control.
  */
-interface ASPxClientPanelBase extends ASPxClientControl {
-    /**
-     * Returns the HTML code that is the content of the panel.
-     */
-    GetContentHtml(): string;
-    /**
-     * Sets the HTML content for the panel.
-     * @param html A string value that is the HTML code defining the content of the panel.
-     */
-    SetContentHtml(html: string): void;
-    /**
-     * Sets a value specifying whether the panel is enabled.
-     * @param enabled true to enable the panel; false to disable it.
-     */
-    SetEnabled(enabled: boolean): void;
-    /**
-     * Returns a value specifying whether a panel is enabled.
-     */
-    GetEnabled(): boolean;
-}
-/**
- * Represents a client-side equivalent of the ASPxPanel control.
- */
-interface ASPxClientPanel extends ASPxClientPanelBase {
-    /**
-     * Occurs when the expanded panel is closed.
-     */
-    Collapsed: ASPxClientEvent<ASPxClientEventHandler<ASPxClientPanel>>;
-    /**
-     * Occurs when an end-user opens the expand panel.
-     */
-    Expanded: ASPxClientEvent<ASPxClientEventHandler<ASPxClientPanel>>;
-    /**
-     * Expands or collapses the client panel.
-     */
-    Toggle(): void;
-    /**
-     * Returns a value specifying whether the panel can be expanded.
-     */
-    IsExpandable(): boolean;
-    /**
-     * Returns a value specifying whether the panel is expanded.
-     */
-    IsExpanded(): boolean;
-    /**
-     * Expands the collapsed panel.
-     */
-    Expand(): void;
-    /**
-     * Collapses the expanded panel.
-     */
-    Collapse(): void;
+interface ASPxClientPager extends ASPxClientControl {
 }
 /**
  * Represents a client-side equivalent of the ASPxPopupControl control.
@@ -19916,7 +27227,7 @@ interface ASPxClientPopupControl extends ASPxClientPopupControlBase {
      */
     GetWindowPopUpReasonMouseEvent(window: ASPxClientPopupWindow): Object;
     /**
-     * 
+     * Sends a callback with parameters to update the popup window by processing the related popup window.
      * @param window 
      * @param parameter 
      */
@@ -20069,6 +27380,103 @@ interface ASPxClientPopupControl extends ASPxClientPopupControlBase {
      * @param html A string value that represents the HTML code defining the content of the specified popup window.
      */
     SetWindowContentHtml(window: ASPxClientPopupWindow, html: string): void;
+    /**
+     * Stretches the popup window in adaptive mode vertically to the full height of the browser window.
+     */
+    StretchVertically(): void;
+    /**
+     * Stretches the specified popup window in adaptive mode vertically to the full height of the browser window.
+     * @param window A ASPxClientPopupWindow object representing the required popup window.
+     */
+    WindowStretchVertically(window: ASPxClientPopupWindow): void;
+    /**
+     * Sets the minimum width of the popup window in adaptive mode.
+     * @param minWidth An integer value specifying the minimum width of the popup window in adaptive mode.
+     */
+    SetAdaptiveMinWidth(minWidth: number): void;
+    /**
+     * Sets the minimum width of the popup window in adaptive mode.
+     * @param minWidth A string value specifying the minimum width of the popup window in adaptive mode as a percentage of the browser window inner width value.
+     */
+    SetAdaptiveMinWidth(minWidth: string): void;
+    /**
+     * Sets the minimum width of the specified popup window in adaptive mode.
+     * @param window A ASPxClientPopupWindow object representing the required popup window.
+     * @param minWidth An integer value specifying the minimum width of the popup window in adaptive mode.
+     */
+    SetWindowAdaptiveMinWidth(window: ASPxClientPopupWindow, minWidth: number): void;
+    /**
+     * Sets the minimum width of the specified popup window in adaptive mode.
+     * @param window A ASPxClientPopupWindow object representing the required popup window.
+     * @param minWidth An integer value specifying the minimum width of the popup window in adaptive mode as a percentage of the browser window inner width value.
+     */
+    SetWindowAdaptiveMinWidth(window: ASPxClientPopupWindow, minWidth: string): void;
+    /**
+     * Sets the maximum width of the popup window in adaptive mode.
+     * @param maxWidth An integer value specifying the maximum width of the popup window in adaptive mode.
+     */
+    SetAdaptiveMaxWidth(maxWidth: number): void;
+    /**
+     * Sets the maximum width of the popup window in adaptive mode.
+     * @param maxWidth A string value specifying the maximum width of the popup window in adaptive mode as a percentage of the browser window inner width value.
+     */
+    SetAdaptiveMaxWidth(maxWidth: string): void;
+    /**
+     * Sets the maximum width of the specified popup window in adaptive mode.
+     * @param window A ASPxClientPopupWindow object representing the required popup window.
+     * @param maxWidth An integer value specifying the maximum width of the popup window in adaptive mode.
+     */
+    SetWindowAdaptiveMaxWidth(window: ASPxClientPopupWindow, maxWidth: number): void;
+    /**
+     * Sets the maximum width of the specified popup window in adaptive mode.
+     * @param window A ASPxClientPopupWindow object representing the required popup window.
+     * @param maxWidth An integer value specifying the maximum width of the popup window in adaptive mode as a percentage of the browser window inner width value.
+     */
+    SetWindowAdaptiveMaxWidth(window: ASPxClientPopupWindow, maxWidth: string): void;
+    /**
+     * Sets the minimum height of the popup window in adaptive mode.
+     * @param minHeight An integer value specifying the minimum height of the popup window in adaptive mode.
+     */
+    SetAdaptiveMinHeight(minHeight: number): void;
+    /**
+     * Sets the minimum height of the popup window in adaptive mode.
+     * @param minHeight A string value specifying the minimum height of the popup window in adaptive mode as a percentage of the browser window inner height value.
+     */
+    SetAdaptiveMinHeight(minHeight: string): void;
+    /**
+     * Sets the minimum height of the specified popup window in adaptive mode.
+     * @param window A ASPxClientPopupWindow object representing the required popup window.
+     * @param minHeight An integer value specifying the minimum height of the popup window in adaptive mode.
+     */
+    SetWindowAdaptiveMinHeight(window: ASPxClientPopupWindow, minHeight: number): void;
+    /**
+     * Sets the minimum height of the specified popup window in adaptive mode.
+     * @param window A ASPxClientPopupWindow object representing the required popup window.
+     * @param minHeight An integer value specifying the minimum height of the popup window in adaptive mode as a percentage of the browser window inner height value.
+     */
+    SetWindowAdaptiveMinHeight(window: ASPxClientPopupWindow, minHeight: string): void;
+    /**
+     * Sets the maximum height of the popup window in adaptive mode.
+     * @param maxHeight An integer value specifying the maximum height of the popup window in adaptive mode.
+     */
+    SetAdaptiveMaxHeight(maxHeight: number): void;
+    /**
+     * Sets the maximum height of the popup window in adaptive mode.
+     * @param maxHeight A string value specifying the maximum height of the popup window in adaptive mode as a percentage of the browser window inner height value.
+     */
+    SetAdaptiveMaxHeight(maxHeight: string): void;
+    /**
+     * Sets the maximum height of the specified popup window in adaptive mode.
+     * @param window A ASPxClientPopupWindow object representing the required popup window.
+     * @param maxHeight An integer value specifying the maximum height of the popup window in adaptive mode.
+     */
+    SetWindowAdaptiveMaxHeight(window: ASPxClientPopupWindow, maxHeight: number): void;
+    /**
+     * Sets the maximum height of the specified popup window in adaptive mode.
+     * @param window A ASPxClientPopupWindow object representing the required popup window.
+     * @param maxHeight An integer value specifying the maximum height of the popup window in adaptive mode as a percentage of the browser window inner height value.
+     */
+    SetWindowAdaptiveMaxHeight(window: ASPxClientPopupWindow, maxHeight: string): void;
     /**
      * Returns an iframe object containing a web page specified via the specified popup window's SetWindowContentUrl client method).
      * @param window A ASPxClientPopupWindow object representing the required popup window.
@@ -21729,6 +29137,10 @@ interface ASPxClientUploadControl extends ASPxClientControl {
      */
     FileInputCountChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientUploadControl>>;
     /**
+     * Enables you to specify whether the selected file(s) are valid and provide an error text.
+     */
+    ValidationErrorOccurred: ASPxClientEvent<ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientUploadControl>>;
+    /**
      * Fires when the mouse enters a drop zone or an external drop zone element while dragging a file.
      */
     DropZoneEnter: ASPxClientEvent<ASPxClientUploadControlDropZoneEnterEventHandler<ASPxClientUploadControl>>;
@@ -21736,6 +29148,10 @@ interface ASPxClientUploadControl extends ASPxClientControl {
      * Fires when the mouse leaves a drop zone or an external drop zone element while dragging a file.
      */
     DropZoneLeave: ASPxClientEvent<ASPxClientUploadControlDropZoneLeaveEventHandler<ASPxClientUploadControl>>;
+    /**
+     * Specifies whether the upload control's Advanced mode is enabled.
+     */
+    IsAdvancedModeEnabled(): boolean;
     /**
      * Initiates uploading of the specified file to the web server's memory.
      */
@@ -21754,6 +29170,16 @@ interface ASPxClientUploadControl extends ASPxClientControl {
      * @param fileIndex An integer value that is the zero-based index of an item in the file list.
      */
     RemoveFileFromSelection(fileIndex: number): void;
+    /**
+     * Removes the specified file from the list of files selected for uploading in the upload control.
+     * @param file An ASPxClientUploadControl object that is the file to be removed from the list of files.
+     */
+    RemoveFileFromSelection(file: ASPxClientUploadControlFile): void;
+    /**
+     * Returns files selected for uploading within the specified file input.
+     * @param inputIndex An integer value that specifies the index of a file input. Default value is "0".
+     */
+    GetSelectedFiles(inputIndex: number): ASPxClientUploadControlFile[];
     /**
      * Gets the text displayed within the edit box of the specified file input element.
      * @param index An integer value that specifies the required file input element's index.
@@ -21972,6 +29398,112 @@ interface ASPxClientUploadControlUploadingProgressChangedEventArgs extends ASPxC
      * Value: An <see cref="Int32" /> value specifying the total upload progress position.
      */
     progress: number;
+}
+/**
+ * A method that will handle the ValidationErrorOccurred client event.
+ */
+interface ASPxClientUploadControlValidationErrorOccurredEventHandler<S> {
+    /**
+     * A method that will handle the ValidationErrorOccurred event.
+     * @param source The event source.
+     * @param e An ASPxClientUploadControlValidationErrorOccurredEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientUploadControlValidationErrorOccurredEventArgs): void;
+}
+/**
+ * Provides data for the ValidationErrorOccurred event.
+ */
+interface ASPxClientUploadControlValidationErrorOccurredEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets or sets the error text.
+     * Value: A string value that represents the error text.
+     */
+    errorText: string;
+    /**
+     * Gets or sets a value specifying whether an alert message is displayed when the ValidationErrorOccurred event fires.
+     * Value: true, to display an alert message; otherwise, false.
+     */
+    showAlert: boolean;
+    /**
+     * Gets the validation settings for the selected files.
+     * Value: An ASPxClientUploadControlValidationSettings object that provides validation settings.
+     */
+    validationSettings: ASPxClientUploadControlValidationSettings;
+    /**
+     * Returns an array of invalid files.
+     * Value: An array of the ASPxClientUploadControlInvalidFileInfo objects.
+     */
+    invalidFiles: ASPxClientUploadControlInvalidFileInfo[];
+}
+/**
+ * Contains settings that relate to the ValidationErrorOccurred client event.
+ */
+interface ASPxClientUploadControlValidationSettings {
+    /**
+     * Gets the maximum file size.
+     * Value: An <see cref="Int64" /> value that specifies the maximum file size, in bytes.
+     */
+    maxFileSize: any;
+    /**
+     * Gets the maximum count of files that can be selected for uploading at once.
+     * Value: An integer value that specifies the maximum count of files.
+     */
+    maxFileCount: number;
+    /**
+     * Gets the allowed file extensions.
+     * Value: An array of string values that contains file extensions that are allowed.
+     */
+    allowedFileExtensions: string[];
+    /**
+     * Gets which characters in a file name are not allowed.
+     * Value: An array of string values that contains characters that are not allowed.
+     */
+    invalidFileNameCharacters: string[];
+}
+/**
+ * Contains settings of the file that hasn't passed validation.
+ */
+interface ASPxClientUploadControlInvalidFileInfo {
+    /**
+     * Gets the name of the invalid file.
+     * Value: A string value that specifies the file name.
+     */
+    fileName: string;
+    /**
+     * Gets the size of the invalid file.
+     * Value: An integer value that specifies the file size.
+     */
+    fileSize: number;
+    /**
+     * Gets the error type.
+     * Value: An ASPxClientUploadControlValidationErrorTypeConsts object that provides possible types of errors.
+     */
+    errorType: ASPxClientUploadControlValidationErrorTypeConsts;
+}
+/**
+ * Declares client constants containing codes of validation errors that can occur while selecting files for uploading.
+ */
+interface ASPxClientUploadControlValidationErrorTypeConsts {
+}
+/**
+ * Represents a client file that corresponds to a particular file selected for uploading in the upload control.
+ */
+interface ASPxClientUploadControlFile {
+    /**
+     * Gets the name of the file selected for uploading.
+     * Value: A string value that specifies the file's name.
+     */
+    name: string;
+    /**
+     * Gets the size of the file selected for uploading.
+     * Value: An Int64 value specifying the file's size, in bytes.
+     */
+    size: any;
+    /**
+     * Provides access to the file as a native Javascript object.
+     * Value: A JavaScript object that is the file selected for uploading.
+     */
+    sourceFileObject: any;
 }
 /**
  * A method that will handle the DropZoneEnter event.
@@ -22919,6 +30451,12 @@ interface ASPxClientXYDiagram2D extends ASPxClientXYDiagramBase {
      * @param pane An ASPxClientXYDiagramPane object, representing the pane.
      */
     DiagramToPoint(argument: Object, value: Object, axisX: ASPxClientAxis2D, axisY: ASPxClientAxis2D, pane: ASPxClientXYDiagramPane): ASPxClientControlCoordinates;
+    /**
+     * Shows the Crosshair Cursor at the point with the specified coordinates.
+     * @param screenX The horizontal coordinate that is related to the top-left angle of the chart.
+     * @param screenY The vertical coordinate that is related to the top-left angle of the chart.
+     */
+    ShowCrosshair(screenX: number, screenY: number): void;
 }
 /**
  * Represents the client-side equivalent of the XYDiagram class.
@@ -23942,6 +31480,16 @@ interface ASPxClientCrosshairOptions extends ASPxClientWebChartEmptyElement {
      */
     groupHeaderPattern: string;
     /**
+     * Gets a value that specifies whether the Crosshair cursor should show points that are out of visual range.
+     * Value: true if the out of visual range points should be shown in the Crosshair label; otherwise false.
+     */
+    showOutOfRangePoints: boolean;
+    /**
+     * Gets the identifier specifying the behavior of the selection of points shown in the crosshair label.
+     * Value: The selection behavior identifier.
+     */
+    valueSelectionMode: string;
+    /**
      * Gets the color of a crosshair argument line.
      * Value: A String value, specifying the color of a crosshair argument line.
      */
@@ -24070,7 +31618,7 @@ interface ASPxClientDocumentViewer extends ASPxClientControl {
      */
     EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientDocumentViewer>>;
     /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientDocumentViewer.
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by ASPxClientDocumentViewer.
      */
     CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientDocumentViewer>>;
     /**
@@ -24191,13 +31739,17 @@ interface ASPxClientQueryBuilder extends ASPxClientControl {
      */
     EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientQueryBuilder>>;
     /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientQueryBuilder.
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by ASPxClientQueryBuilder.
      */
     CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientQueryBuilder>>;
     /**
      * Enables you to customize the menu actions of a Query Builder.
      */
     CustomizeToolbarActions: ASPxClientEvent<ASPxClientQueryBuilderCustomizeToolbarActionsEventHandler<ASPxClientQueryBuilder>>;
+    /**
+     * Enables you to customize the Query Builder's localization strings.
+     */
+    CustomizeLocalization: ASPxClientEvent<ASPxClientQueryBuilderCustomizeLocalizationEventHandler<ASPxClientQueryBuilder>>;
     /**
      * Occurs when executing the Save command on the client.
      */
@@ -24214,7 +31766,7 @@ interface ASPxClientQueryBuilder extends ASPxClientControl {
      */
     PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
     /**
-     * Updates the localization settings of the ASPxClientQueryBuilder properties.
+     * Updates the ASPxClientQueryBuilder properties' localization settings.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
     UpdateLocalization(localization: { [key: string]: string; }): void;
@@ -24267,69 +31819,19 @@ interface ASPxClientQueryBuilderCustomizeToolbarActionsEventHandler<S> {
     /**
      * A method that will handle the CustomizeToolbarActions event.
      * @param source The event sender.
-     * @param e An ASPxClientQueryBuilderCustomizeToolbarActionsEventArgs object that contains data related to the event.
+     * @param e An ASPxClientCustomizeMenuActionsEventArgs object that contains data related to the event.
      */
-    (source: S, e: ASPxClientQueryBuilderCustomizeToolbarActionsEventArgs): void;
+    (source: S, e: ASPxClientCustomizeMenuActionsEventArgs): void;
 }
 /**
- * Provides settings to the actions listed in a Query Builder menu.
+ * A method that will handle the CustomizeLocalization event.
  */
-interface ASPxClientQueryBuilderMenuAction {
+interface ASPxClientQueryBuilderCustomizeLocalizationEventHandler<S> {
     /**
-     * Provides access to the text for the command.
-     * Value: A String value.
+     * A method that will handle the CustomizeLocalization event.
+     * @param source The event sender.
      */
-    text: string;
-    /**
-     * Provides access to the CSS class of the command's glyph.
-     * Value: A String value.
-     */
-    imageClassName: string;
-    /**
-     * Provides access to the action performed when a Query Builder's button is clicked.
-     * Value: The specific action implementation.
-     */
-    clickAction: Function;
-    /**
-     * Provides access to the value that specifies whether or not the command is disabled by default.
-     * Value: true, if the command is disabled by default; otherwise, false.
-     */
-    disabled: boolean;
-    /**
-     * Provides access to the value that specifies whether or not the command is visible in the Query Builder user interface.
-     * Value: true if the command is visible; otherwise false.
-     */
-    visible: boolean;
-    /**
-     * Provides access to the keyboard shortcut used to invoke the command.
-     * Value: A String value.
-     */
-    hotKey: string;
-    /**
-     * Provides access to the value that specifies whether or not the command has a visual separator.
-     * Value: true, if the command has a visual separator; otherwise, false.
-     */
-    hasSeparator: string;
-    /**
-     * Provides access to the location of the displayed command.
-     * Value: A String value.
-     */
-    container: string;
-}
-/**
- * Provides data for the CustomizeToolbarActions event.
- */
-interface ASPxClientQueryBuilderCustomizeToolbarActionsEventArgs extends ASPxClientEventArgs {
-    /**
-     * Returns the collection of customized menu actions.
-     * Value: An ASPxClientQueryBuilderMenuAction array.
-     */
-    Actions: ASPxClientQueryBuilderMenuAction[];
-    /**
-     * Returns a menu action with the specified ID.
-     * @param actionId A String value, specifying the action ID.
-     */
-    GetById(actionId: string): ASPxClientQueryBuilderMenuAction;
+    (source: S): void;
 }
 /**
  * The client-side equivalent of the Web Report Designer control.
@@ -24344,7 +31846,7 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
      */
     EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientReportDesigner>>;
     /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientReportDesigner.
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by ASPxClientReportDesigner.
      */
     CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientReportDesigner>>;
     /**
@@ -24352,7 +31854,7 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
      */
     SaveCommandExecute: ASPxClientEvent<ASPxClientReportDesignerSaveCommandExecuteEventHandler<ASPxClientReportDesigner>>;
     /**
-     * Enables you to customize the menu actions of a Web Report Designer.
+     * Enables you to customize the Web Report Designer's menu actions.
      */
     CustomizeMenuActions: ASPxClientEvent<ASPxClientReportDesignerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>>;
     /**
@@ -24368,6 +31870,94 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
      */
     ExitDesigner: ASPxClientEvent<ASPxClientReportDesignerExitDesignerEventHandler<ASPxClientReportDesigner>>;
     /**
+     * Occurs when a report is about to be saved in the Web Report Designer.
+     */
+    ReportSaving: ASPxClientEvent<ASPxClientReportDesignerReportSavingEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs when a report has been saved in the Web Report Designer.
+     */
+    ReportSaved: ASPxClientEvent<ASPxClientReportDesignerReportSavedEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs when a report is about to be opened in the Web Report Designer.
+     */
+    ReportOpening: ASPxClientEvent<ASPxClientReportDesignerReportOpeningEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs when a report has been opened in the Web Report Designer.
+     */
+    ReportOpened: ASPxClientEvent<ASPxClientReportDesignerReportOpenedEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs when a report tab is about to be closed in the Web Report Designer.
+     */
+    ReportTabClosing: ASPxClientEvent<ASPxClientReportDesignerReportTabClosingEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs when a report tab was closed in the Web Report Designer.
+     */
+    ReportTabClosed: ASPxClientEvent<ASPxClientReportDesignerReportTabClosedEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs on the client each time a server-side error raises.
+     */
+    OnServerError: ASPxClientEvent<ASPxClientReportDesignerErrorEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs after a component has been added to the report currently being edited in the Web Report Designer.
+     */
+    ComponentAdded: ASPxClientEvent<ASPxClientReportDesignerComponentAddedEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Enables you to customize the Web Report Designer's UI elements.
+     */
+    CustomizeElements: ASPxClientEvent<ASPxClientReportDesignerCustomizeElementsEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Enables you to customize the Save dialog of the Web Report Designer.
+     */
+    CustomizeSaveDialog: ASPxClientEvent<ASPxClientReportDesignerCustomizeSaveDialogEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Enables you to customize the Save Report dialog of the Web Report Designer.
+     */
+    CustomizeSaveAsDialog: ASPxClientEvent<ASPxClientReportDesignerCustomizeSaveAsDialogEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Enables you to customize the Open Report dialog of the Web Report Designer.
+     */
+    CustomizeOpenDialog: ASPxClientEvent<ASPxClientReportDesignerCustomizeOpenDialogEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Enables you to customize the Toolbox of the Web Report Designer.
+     */
+    CustomizeToolbox: ASPxClientEvent<ASPxClientReportDesignerCustomizeToolboxEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs after a report has been switched to Print Preview.
+     */
+    PreviewDocumentReady: ASPxClientEvent<ASPxClientWebDocumentViewerDocumentReadyEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs each time an editing field's value changes in Print Preview.
+     */
+    PreviewEditingFieldChanged: ASPxClientEvent<ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Enables you to customize UI elements of a Document Viewer built into a Web Report Designer.
+     */
+    PreviewCustomizeElements: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Enables you to customize the actions of a Document Viewer built into a Web Report Designer.
+     */
+    PreviewCustomizeMenuActions: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs when the left mouse button is clicked on a report document in Print Preview.
+     */
+    PreviewClick: ASPxClientEvent<ASPxClientWebDocumentViewerPreviewClickEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs after report parameter values are reset to their default values in Print Preview.
+     */
+    PreviewParametersReset: ASPxClientEvent<ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs after report parameter values are submitted in Print Preview.
+     */
+    PreviewParametersSubmitted: ASPxClientEvent<ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Enables you to customize the Web Report Designer's localization strings.
+     */
+    CustomizeLocalization: ASPxClientEvent<ASPxClientReportDesignerCustomizeLocalizationEventHandler<ASPxClientReportDesigner>>;
+    /**
+     * Occurs before the Web Report Designer UI is initialized.
+     */
+    BeforeRender: ASPxClientEvent<ASPxClientReportDesignerBeforeRenderEventHandler<ASPxClientReportDesigner>>;
+    /**
      * Sends a callback to the server with the specified argument.
      * @param arg A String value, specifying the callback argument.
      */
@@ -24379,24 +31969,38 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
      */
     PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
     /**
-     * Updates the localization settings of the ASPxClientReportDesigner properties.
+     * Updates the Report Designer properties' localization settings.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
     UpdateLocalization(localization: { [key: string]: string; }): void;
     /**
-     * Returns the object model of a Web Report Designer.
+     * Provides access to a client-side model of a Web Report Designer.
      */
     GetDesignerModel(): Object;
+    /**
+     * Provides access to the Document Viewer's client-side model.
+     */
+    GetPreviewModel(): ASPxClientSidePreviewModel;
+    /**
+     * Returns information about the specified property of the specified control.
+     * @param controlType A string that specifies the control type.
+     * @param path A string that specifies the path to the property.
+     */
+    GetPropertyInfo(controlType: string, path: string): ASPxDesignerElementSerializationInfo;
+    /**
+     * Returns information about the specified properties of the specified control.
+     * @param controlType A string that specifies the control type.
+     * @param path An array of strings that specify paths to properties.
+     */
+    GetPropertyInfo(controlType: string, path: string[]): ASPxDesignerElementSerializationInfo;
+    /**
+     * Returns actions performed by buttons available in the menu and toolbar of the Web Report Designer.
+     */
+    GetButtonStorage(): Object;
     /**
      * Gets a client-side model of the currently opened report serialized to Json.
      */
     GetJsonReportModel(): string;
-    /**
-     * Returns serialization information for the specific property of the specific control type.
-     * @param controlType A string that identifies the name of the control type for which serialization information is to be returned.
-     * @param propertyDisplayName A string that identifies the name of the property for which serialization information is to be returned.
-     */
-    GetPropertyInfo(controlType: string, propertyDisplayName: string): ASPxDesignerElementSerializationInfo;
     /**
      * Indicates whether or not the current ASPxClientReportDesigner instance has been modified.
      */
@@ -24405,6 +32009,76 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
      * Resets the value returned by the IsModified method.
      */
     ResetIsModified(): void;
+    /**
+     * Adds a custom property to the Properties Panel.
+     * @param groupName A string that specifies the name of group to which a property should be added.
+     * @param property An object that provides information required to serialize a property.
+     */
+    AddToPropertyGrid(groupName: string, property: ASPxDesignerElementSerializationInfo): void;
+    /**
+     * Adds a custom parameter type to the Web End-User Report Designer.
+     * @param parameterInfo An object that provides information about a parameter type to be added.
+     * @param editorOptions An object that provides information about an editor used to specify parameter values in design mode.
+     */
+    AddParameterType(parameterInfo: ASPxDesignerParameterType, editorOptions: ASPxDesignerEditorOptions): void;
+    /**
+     * Removes the specified parameter type from the Web End-User Report Designer.
+     * @param parameterType A string that specifies a parameter type to be deleted.
+     */
+    RemoveParameterType(parameterType: string): void;
+    /**
+     * Returns an object that contains information on the specified parameter type.
+     * @param parameterType A string that specifies a parameter type.
+     */
+    GetParameterInfo(parameterType: string): ASPxDesignerParameterType;
+    /**
+     * Returns a value editor associated with the specified parameter type.
+     * @param parameterType A string that specifies a parameter type.
+     */
+    GetParameterEditor(parameterType: string): ASPxDesignerEditorOptions;
+    /**
+     * Returns the report layout stored in a report storage under the specified URL.
+     * @param url A string that specifies the report URL.
+     */
+    ReportStorageGetData(url: string): any;
+    /**
+     * Stores the specified report to a report storage using the specified URL.
+     * @param reportLayout A string that specifies the report layout to be saved.
+     * @param url A string that specifies the URL used to save a report.
+     */
+    ReportStorageSetData(reportLayout: string, url: string): any;
+    /**
+     * Stores the specified report to a report storage using a new URL.
+     * @param reportLayout A string that specifies the report layout to be saved.
+     * @param url A string that specifies the default report URL.
+     */
+    ReportStorageSetNewData(reportLayout: string, url: string): any;
+    /**
+     * Saves the current report.
+     */
+    SaveReport(): any;
+    /**
+     * Closes the report tab currently being opened in the Web Report Designer.
+     */
+    CloseCurrentTab(): void;
+    /**
+     * Saves the current report under a new name.
+     * @param reportName A string that specifies the report name.
+     */
+    SaveNewReport(reportName: string): any;
+    /**
+     * Returns the report URLs and display names existing in a report storage.
+     */
+    ReportStorageGetUrls(): any;
+    /**
+     * Opens the specified report on the Web Report Designer's client side.
+     * @param url A string that specifies the URL of a report to be opened.
+     */
+    OpenReport(url: string): void;
+    /**
+     * Switches the Web Report Designer to the preview mode.
+     */
+    ShowPreview(): void;
 }
 /**
  * A method that will handle the SaveCommandExecute event.
@@ -24428,82 +32102,163 @@ interface ASPxClientReportDesignerSaveCommandExecuteEventArgs extends ASPxClient
     handled: boolean;
 }
 /**
+ * Provides data for the ExitDesigner event.
+ */
+interface ASPxClientReportDesignerExitDesignerEventArgs extends ASPxClientEventArgs {
+}
+/**
+ * Provides data for the events related to opening and saving reports in the Web Report Designer.
+ */
+interface ASPxClientReportDesignerDialogEventArgs extends ASPxClientEventArgs {
+    /**
+     * Specifies the URL of the report currently being processed.
+     * Value: A string that specifies the URL of the report currently being processed.
+     */
+    Url: string;
+    /**
+     * Specifies the report currently being processed.
+     * Value: An object that specifies the report currently being processed.
+     */
+    Report: Object;
+}
+/**
+ * Provides data for the events related to opening and saving reports in the Web Report Designer.
+ */
+interface ASPxClientReportDesignerDialogCancelEventArgs extends ASPxClientReportDesignerDialogEventArgs {
+    /**
+     * Specifies whether or not the operation performed with a report should be canceled.
+     * Value: true, if the operation should be canceled; otherwise, false.
+     */
+    Cancel: boolean;
+}
+/**
+ * Provides data for the ReportTabClosed event.
+ */
+interface ASPxClientReportDesignerTabEventArgs extends ASPxClientEventArgs {
+    /**
+     * Specifies the report tab currently being processed.
+     * Value: An object that specifies the report tab currently being processed.
+     */
+    Tab: ASPxDesignerNavigateTab;
+}
+/**
+ * Provides data for the ReportTabClosing event.
+ */
+interface ASPxClientReportDesignerTabClosingEventArgs extends ASPxClientReportDesignerTabEventArgs {
+    /**
+     * Specifies whether or not the event was handled.
+     * Value: true, if the event was handled and no other processing should occur; otherwise, false.
+     */
+    Handled: boolean;
+    /**
+     * Specifies the JQueryDeferred object, which when resolved, forces the report tab to be closed.
+     * Value: A JQueryDeferred object.
+     */
+    ReadyToClose: JQueryDeferred<any>;
+}
+/**
+ * Provides data for the OnServerError event.
+ */
+interface ASPxClientReportDesignerErrorEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to information about a server-side error.
+     * Value: An object that provides information about an error.
+     */
+    Error: Object;
+}
+/**
+ * Provides data for the ComponentAdded event.
+ */
+interface ASPxClientReportDesignerComponentAddedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the model of a component that has been added to a report.
+     * Value: An object that specifies the component model.
+     */
+    Model: Object;
+    /**
+     * Gets the parent of a component that has been added to a report.
+     * Value: An object that specifies the component parent.
+     */
+    Parent: Object;
+}
+/**
+ * Provides data for the CustomizeSaveDialog event.
+ */
+interface ASPxClientReportDesignerCustomizeSaveDialogEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to the Save dialog.
+     * Value: An object that specifies the Save dialog.
+     */
+    Popup: ASPxDesignerSaveDialog;
+    /**
+     * Customizes the Save dialog based on the specified template and model.
+     * @param template A string that specifies the name of an HTML template for the dialog.
+     * @param model A model of the Save dialog.
+     */
+    Customize(template: string, model: ASPxDesignerDialogModel): void;
+}
+/**
+ * Provides data for the CustomizeSaveAsDialog event.
+ */
+interface ASPxClientReportDesignerCustomizeSaveAsDialogEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to the Save Report dialog.
+     * Value: An object that specifies the  Save Report dialog.
+     */
+    Popup: ASPxDesignerSaveAsDialog;
+    /**
+     * Customizes the Save Report dialog based on the specified template and model.
+     * @param template A string that specifies the name of an HTML template for the dialog.
+     * @param model A model of the Save Report dialog.
+     */
+    Customize(template: string, model: ASPxDesignerDialogModel): void;
+}
+/**
+ * Provides data for the CustomizeOpenDialog event.
+ */
+interface ASPxClientReportDesignerCustomizeOpenDialogEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to the Open Report dialog.
+     * Value: An object that specifies the Open Report dialog.
+     */
+    Popup: ASPxDesignerOpenDialog;
+    /**
+     * Customizes the Open Report dialog based on the specified template and model.
+     * @param template A string that specifies the name of an HTML template for the dialog.
+     * @param model A model of the Open Report dialog.
+     */
+    Customize(template: string, model: ASPxDesignerDialogModel): void;
+}
+/**
+ * Provides data for the CustomizeToolbox event.
+ */
+interface ASPxClientReportDesignerCustomizeToolboxEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides information about all controls available in the Toolbox.
+     * Value: An ASPxDesignerControlsFactory object that provides information about toolbox controls.
+     */
+    ControlsFactory: ASPxDesignerControlsFactory;
+}
+/**
  * A method that will handle the CustomizeMenuActions event.
  */
 interface ASPxClientReportDesignerCustomizeMenuActionsEventHandler<S> {
     /**
      * A method that will handle the CustomizeMenuActions event.
      * @param source The event sender.
-     * @param e An ASPxClientReportDesignerCustomizeMenuActionsEventArgs object that contains data related to the event.
+     * @param e An ASPxClientCustomizeMenuActionsEventArgs object that contains data related to the event.
      */
-    (source: S, e: ASPxClientReportDesignerCustomizeMenuActionsEventArgs): void;
+    (source: S, e: ASPxClientCustomizeMenuActionsEventArgs): void;
 }
 /**
- * Provides settings to the actions listed in a Web Report Designer menu.
+ * A method that will handle the CustomizeParameterLookUpSource event.
  */
-interface ASPxClientReportDesignerMenuAction {
-    /**
-     * Provides access to the text for the command.
-     * Value: A String value.
-     */
-    text: string;
-    /**
-     * Provides access to the CSS class of the command's glyph.
-     * Value: A String value.
-     */
-    imageClassName: string;
-    /**
-     * Provides access to the action performed when a Web Report Designer's button is clicked.
-     * Value: The specific action implementation.
-     */
-    clickAction: Function;
-    /**
-     * Provides access to the value that specifies whether or not the command is disabled by default.
-     * Value: true, if the command is disabled by default; otherwise, false.
-     */
-    disabled: boolean;
-    /**
-     * Provides access to the value that specifies whether or not the command is visible in the designer user interface.
-     * Value: true if the command is visible; otherwise false.
-     */
-    visible: boolean;
-    /**
-     * Provides access to the keyboard shortcut used to invoke the command.
-     * Value: A String value.
-     */
-    hotKey: string;
-    /**
-     * Provides access to the value that specifies whether or not the command has a visual separator.
-     * Value: true, if the command has a visual separator; otherwise, false.
-     */
-    hasSeparator: string;
-    /**
-     * Provides access to the location of the displayed command.
-     * Value: A String value.
-     */
-    container: string;
-}
-/**
- * Provides data for the CustomizeMenuActions event.
- */
-interface ASPxClientReportDesignerCustomizeMenuActionsEventArgs extends ASPxClientEventArgs {
-    /**
-     * Returns the collection of customized menu actions.
-     * Value: An ASPxClientReportDesignerMenuAction array.
-     */
-    Actions: ASPxClientReportDesignerMenuAction[];
-    /**
-     * Returns a menu action with the specified ID.
-     * @param actionId A String value, specifying the action ID.
-     */
-    GetById(actionId: string): ASPxClientReportDesignerMenuAction;
-}
-/**
- * Provides data for the ExitDesigner event.
- */
-interface ASPxClientReportDesignerExitDesignerEventArgs extends ASPxClientEventArgs {
-}
 interface ASPxClientReportDesignerCustomizeParameterLookUpSourceEventHandler<S> {
+    /**
+     * A method that will handle the CustomizeParameterLookUpSource event.
+     * @param source The event sender.
+     * @param e An ASPxClientCustomizeParameterLookUpSourceEventArgs object that contains data related to the event.
+     */
     (source: S, e: ASPxClientCustomizeParameterLookUpSourceEventArgs): void;
 }
 /**
@@ -24518,6 +32273,17 @@ interface ASPxClientReportDesignerCustomizeParameterEditorsEventHandler<S> {
     (source: S, e: ASPxClientCustomizeParameterEditorsEventArgs): void;
 }
 /**
+ * A method that will handle the CustomizeElements event.
+ */
+interface ASPxClientReportDesignerCustomizeElementsEventHandler<S> {
+    /**
+     * A method that will handle the CustomizeElements event.
+     * @param source The event sender.
+     * @param e An ASPxClientCustomizeElementsEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientCustomizeElementsEventArgs): void;
+}
+/**
  * A method that will handle the ExitDesigner event.
  */
 interface ASPxClientReportDesignerExitDesignerEventHandler<S> {
@@ -24527,6 +32293,465 @@ interface ASPxClientReportDesignerExitDesignerEventHandler<S> {
      * @param e An ASPxClientReportDesignerExitDesignerEventArgs object that contains data related to the event.
      */
     (source: S, e: ASPxClientReportDesignerExitDesignerEventArgs): void;
+}
+/**
+ * A method that will handle the ReportSaving event.
+ */
+interface ASPxClientReportDesignerReportSavingEventHandler<S> {
+    /**
+     * A method that will handle the ReportSaving event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerDialogCancelEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerDialogCancelEventArgs): void;
+}
+/**
+ * A method that will handle the ReportSaved event.
+ */
+interface ASPxClientReportDesignerReportSavedEventHandler<S> {
+    /**
+     * A method that will handle the ReportSaved event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerDialogEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerDialogEventArgs): void;
+}
+/**
+ * A method that will handle the ReportOpening event.
+ */
+interface ASPxClientReportDesignerReportOpeningEventHandler<S> {
+    /**
+     * A method that will handle the ReportOpening event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerDialogCancelEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerDialogCancelEventArgs): void;
+}
+/**
+ * A method that will handle the ReportOpened event.
+ */
+interface ASPxClientReportDesignerReportOpenedEventHandler<S> {
+    /**
+     * A method that will handle the ReportOpened event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerDialogEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerDialogEventArgs): void;
+}
+/**
+ * A method that will handle the ReportTabClosing event.
+ */
+interface ASPxClientReportDesignerReportTabClosingEventHandler<S> {
+    /**
+     * A method that will handle the ReportTabClosing event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerTabClosingEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerTabClosingEventArgs): void;
+}
+/**
+ * A method that will handle the ReportTabClosed event.
+ */
+interface ASPxClientReportDesignerReportTabClosedEventHandler<S> {
+    /**
+     * A method that will handle the ReportTabClosed event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerTabEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerTabEventArgs): void;
+}
+/**
+ * A method that will handle the OnServerError event.
+ */
+interface ASPxClientReportDesignerErrorEventHandler<S> {
+    /**
+     * A method that will handle the OnServerError event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerErrorEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerErrorEventArgs): void;
+}
+/**
+ * A method that will handle the ComponentAdded event.
+ */
+interface ASPxClientReportDesignerComponentAddedEventHandler<S> {
+    /**
+     * A method that will handle the ComponentAdded event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerComponentAddedEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerComponentAddedEventArgs): void;
+}
+/**
+ * A method that will handle the CustomizeSaveDialog event.
+ */
+interface ASPxClientReportDesignerCustomizeSaveDialogEventHandler<S> {
+    /**
+     * A method that will handle the CustomizeSaveDialog event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerCustomizeSaveDialogEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerCustomizeSaveDialogEventArgs): void;
+}
+/**
+ * A method that will handle the CustomizeSaveAsDialog event.
+ */
+interface ASPxClientReportDesignerCustomizeSaveAsDialogEventHandler<S> {
+    /**
+     * A method that will handle the CustomizeSaveAsDialog event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerCustomizeSaveAsDialogEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerCustomizeSaveAsDialogEventArgs): void;
+}
+/**
+ * A method that will handle the CustomizeOpenDialog event.
+ */
+interface ASPxClientReportDesignerCustomizeOpenDialogEventHandler<S> {
+    /**
+     * A method that will handle the CustomizeOpenDialog event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerCustomizeOpenDialogEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerCustomizeOpenDialogEventArgs): void;
+}
+/**
+ * A method that will handle the CustomizeToolbox event.
+ */
+interface ASPxClientReportDesignerCustomizeToolboxEventHandler<S> {
+    /**
+     * A method that will handle the CustomizeToolbox event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportDesignerCustomizeToolboxEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientReportDesignerCustomizeToolboxEventArgs): void;
+}
+/**
+ * A method that will handle the CustomizeLocalization event.
+ */
+interface ASPxClientReportDesignerCustomizeLocalizationEventHandler<S> {
+    /**
+     * A method that will handle the CustomizeLocalization event.
+     * @param source The event sender.
+     */
+    (source: S): void;
+}
+/**
+ * A method that will handle the BeforeRender event.
+ */
+interface ASPxClientReportDesignerBeforeRenderEventHandler<S> {
+    /**
+     * A method that will handle the BeforeRender event.
+     * @param source The event sender.
+     * @param designerModel A client-side Report Designer model.
+     */
+    (source: S, designerModel: Object): void;
+}
+/**
+ * Provides information about a value editor used in the Property Grid.
+ */
+interface ASPxDesignerEditorOptions {
+    /**
+     * Provides access to the name of an HTML template specifying the editor and header of a complex object.
+     * Value: A string that specifies the HTML template.
+     */
+    header: string;
+    /**
+     * Provides access to the name of an HTML template used by a complex object's editor.
+     * Value: A string that specifies the name of an HTML template.
+     */
+    content: string;
+    /**
+     * Provides access to the type of the editor model.
+     * Value: An object that specifies the editor type.
+     */
+    editorType: Object;
+}
+/**
+ * Provides functionality to an undo/redo engine in the Web Report Designer.
+ */
+interface ASPxDesignerUndoEngine {
+    /**
+     * Provides access to a value that specifies whether or not the redo action can currently be performed.
+     * Value: A knockout observable boolean object, whose value is true if the redo action can be performed, and false otherwise.
+     */
+    redoEnabled: any;
+    /**
+     * Provides access to a value that specifies whether or not the undo action can currently be performed.
+     * Value: A knockout observable boolean object, whose value is true if the undo action can be performed, and false otherwise.
+     */
+    undoEnabled: any;
+    /**
+     * Provides access to a value that specifies whether or not a report has been changed.
+     * Value: A knockout observable boolean object, whose value is true if the report has been modified, and false otherwise.
+     */
+    isDirty: any;
+    /**
+     * Undoes all changes made to a report.
+     */
+    undoAll(): void;
+    /**
+     * Clears information about edit operations made to a report, so they cannot not be undone.
+     */
+    clearHistory(): void;
+    /**
+     * Undoes the last edit action in a report.
+     */
+    undo(): void;
+    /**
+     * Reverses the results of the last undo action.
+     */
+    redo(): void;
+}
+/**
+ * Provides functionality for a tab displayed a report in the Web Report Designer.
+ */
+interface ASPxDesignerNavigateTab {
+    /**
+     * Provides access to a value that specifies the display name of the current tab.
+     * Value: A knockout computed string that specifies the tab's display name.
+     */
+    displayName: any;
+    /**
+     * Provides access to a value that specifies whether or not the report in the current tab has been changed.
+     * Value: A knockout computed boolean object, whose value is true if the report has been modified, and false otherwise.
+     */
+    isDirty: any;
+    /**
+     * Provides access to a report opened in the current tab.
+     * Value: A knockout observable object that specifies a report opened in the current tab.
+     */
+    report: any;
+    /**
+     * Provides access to an engine that manages undo and redo operations in the Web Report Designer.
+     * Value: An object that specifies an undo/redo engine.
+     */
+    undoEngine: ASPxDesignerUndoEngine;
+    /**
+     * Provides access to the URL of a report opened in the current tab.
+     * Value: A knockout observable string that specifies the report URL.
+     */
+    url: any;
+}
+/**
+ * A model of dialogs used to save and open reports in the Web Report Designer.
+ */
+interface ASPxDesignerDialogModel {
+    /**
+     * Provides access to the collection of buttons displayed in a dialog.
+     * Value: An array of objects that specify buttons displayed in a dialog.
+     */
+    popupButtons: Object[];
+    /**
+     * Specifies a function that gets the report URL.
+     */
+    getUrl(): string;
+    /**
+     * Specifies a function that sets the report URL.
+     * @param url A string that specifies the report URL.
+     */
+    setUrl(url: string): void;
+    /**
+     * Specifies a function to be executed when showing a dialog.
+     * @param tab An object that specifies the report tab for which a dialog is invoked.
+     */
+    onShow(tab: ASPxDesignerNavigateTab): void;
+}
+/**
+ * Provides the base functionality for dialogs used to open and save reports on the client side of the Web Report Designer.
+ */
+interface ASPxDesignerReportDialogBase {
+    /**
+     * Provides access to a dialog's width.
+     * Value: A knockout observable object that specifies a dialog's width.
+     */
+    width: any;
+    /**
+     * Provides access to a dialog's height.
+     * Value: A knockout observable object that specifies a dialog's height.
+     */
+    height: any;
+    /**
+     * Provides access to the name of an HTML template used by a dialog.
+     * Value: A knockout observable string that specifies the name of the HTML template used by a dialog.
+     */
+    template: any;
+    /**
+     * Provides access to buttons displayed in a dialog.
+     * Value: An array of objects that specify buttons displayed in the dialog.
+     */
+    buttons: Object[];
+    /**
+     * Provides access to a dialog's model.
+     * Value: A knockout observable object of the ASPxDesignerDialogModel type.
+     */
+    model: any;
+    /**
+     * Provides access to a report tab for which a dialog appears.
+     * Value: A knockout observable object of the ASPxDesignerNavigateTab type.
+     */
+    tab: any;
+    /**
+     * Provides access to a value that specifies a dialog's visibility state.
+     * Value: true, if the dialog is visible; otherwise, false;
+     */
+    visible: any;
+    /**
+     * Provides access to a dialog's title.
+     * Value: A string that specifies a dialog's title.
+     */
+    title: string;
+    /**
+     * Shows the dialog for the specified report tab.
+     * @param tab A report tab for which the dialog should be shown.
+     */
+    show(tab: ASPxDesignerNavigateTab): void;
+    /**
+     * Customizes the dialog based on the specified template and model.
+     * @param template A string that specifies the name of an HTML template for the dialog.
+     * @param model An object that specifies the dialog model.
+     */
+    customize(template: string, model: ASPxDesignerDialogModel): void;
+    /**
+     * Cancels the dialog.
+     */
+    cancel(): void;
+}
+/**
+ * Provides functionality for the Save dialog on the client side of the Web Report Designer.
+ */
+interface ASPxDesignerSaveDialog extends ASPxDesignerReportDialogBase {
+    /**
+     * Provides access to the Save Report dialog that appears if a user selected to save changes in the Save dialog.
+     * Value: An object that specifies the Save As dialog.
+     */
+    saveReportDialog: ASPxDesignerSaveAsDialog;
+    /**
+     * Saves the report with the specified URL.
+     * @param url A string that specifies an URL of the report to be saved.
+     */
+    save(url: string): void;
+    /**
+     * Closes the dialog without saving the current report.
+     */
+    notSave(): void;
+}
+/**
+ * Provides functionality for the Save Report dialog on the client side of the Web Report Designer.
+ */
+interface ASPxDesignerSaveAsDialog extends ASPxDesignerReportDialogBase {
+    /**
+     * Saves the report with the specified URL.
+     * @param url A string that specifies a URL of the report to be saved.
+     */
+    save(url: string): void;
+}
+/**
+ * Provides functionality for the Open Report dialog on the client side of the Web Report Designer.
+ */
+interface ASPxDesignerOpenDialog extends ASPxDesignerReportDialogBase {
+    /**
+     * Opens the report with the specified URL.
+     * @param url A string that specifies an URL of the report to be opened.
+     */
+    open(url: string): void;
+}
+/**
+ * Provides information about a toolbox control item.
+ */
+interface ASPxDesignerToolboxItem {
+    /**
+     * Provides access to information required to serialize a toolbox control.
+     * Value: An array of ASPxDesignerElementSerializationInfo objects that provide information required to serialize an element.
+     */
+    info: ASPxDesignerElementSerializationInfo[];
+    /**
+     * Provides access to a surface type of toolbox control.
+     * Value: A surface type of toolbox control.
+     */
+    surfaceType: any;
+    /**
+     * Provides access to a toolbox control type.
+     * Value: A toolbox control type.
+     */
+    type: any;
+    /**
+     * Provides access to a zero-based index of a control in the toolbox.
+     * Value: An integer value that specifies a control index in the toolbox.
+     */
+    toolboxIndex: number;
+    /**
+     * Provides access to the default property values used for a toolbox control.
+     * Value: An object that specifies default propery values.
+     */
+    defaultVal: Object;
+    /**
+     * Provides access to popular properties of a toolbox control.
+     * Value: An array of strings that specify names of popular properties.
+     */
+    popularProperties: string[];
+    /**
+     * Gets whether a control item is displayed in a toolbox.
+     * Value: true, if the control is available in the toolbox; otherwise, false.
+     */
+    isToolboxItem: boolean;
+}
+/**
+ * Enables you to customize controls available in the Toolbox of the Web Report Designer.
+ */
+interface ASPxDesignerControlsFactory {
+    /**
+     * Returns information about the specified toolbox control.
+     * @param controlType A string that specifies the control type.
+     */
+    getControlInfo(controlType: string): ASPxDesignerToolboxItem;
+    /**
+     * Returns a control type by the specified model.
+     * @param model An object that specifies the control model.
+     */
+    getControlType(model: Object): string;
+    /**
+     * Registers the specified control in the Toolbox of the Web Report Designer.
+     * @param typeName A string that specifies the name of a custom control.
+     * @param metadata An ASPxDesignerToolboxItem object that provides information about a toolbox item.
+     */
+    registerControl(typeName: string, metadata: ASPxDesignerToolboxItem): void;
+    /**
+     * Returns information about the specified property of the specified control.
+     * @param controlType A string that specifies the control type.
+     * @param propertyDisplayName A string that specifies the property display name.
+     */
+    getPropertyInfo(controlType: string, propertyDisplayName: string): ASPxDesignerElementSerializationInfo;
+}
+/**
+ * Provides information about a report parameter type.
+ */
+interface ASPxDesignerParameterType {
+    /**
+     * Provides access to an actual parameter type.
+     * Value: A string that specifies the parameter type.
+     */
+    value: string;
+    /**
+     * Provides access to a text displayed to end-users when creating parameters of the current type.
+     * Value: A string displayed to end-users.
+     */
+    displayValue: string;
+    /**
+     * Provides access to the default value for parameters of the current type.
+     * Value: An object that specifies the default value.
+     */
+    defaultVal: Object;
+    /**
+     * Provides access to the specifics of a current parameter type.
+     * Value: Parameter type specifics.
+     */
+    specifics: string;
+    /**
+     * Converts the specified parameter value to the current parameter type.
+     * @param val An object that specifies the parameter value to be converted.
+     */
+    valueConverter(val: Object): Object;
 }
 /**
  * The client-side equivalent of the ASPxClientDocumentViewer control's Document Map.
@@ -24562,8 +32787,19 @@ interface ASPxClientReportParametersPanel extends ASPxClientControl {
      */
     GetEditorByParameterName(parameterName: string): ASPxClientControl;
 }
+/**
+ * Provides information about a report parameter on the client side.
+ */
 interface ASPxClientReportParameterInfo {
+    /**
+     * Specifies the parameter path, relative to its parent container (e.g., "subreport1.subreportParameter1" for a subreport's parameter, or "parameter1" for a report's parameter).
+     * Value: A String value, specifying the parameter path (e.g., "subreport1.subreportParameter1").
+     */
     Path: string;
+    /**
+     * Provides access to a parameter value on the client.
+     * Value: A Object value.
+     */
     Value: Object;
 }
 /**
@@ -24589,7 +32825,7 @@ interface ASPxClientReportViewer extends ASPxClientControl {
      */
     EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientReportViewer>>;
     /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientReportViewer.
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by ASPxClientReportViewer.
      */
     CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientReportViewer>>;
     /**
@@ -24638,11 +32874,19 @@ interface ASPxClientReportViewer extends ASPxClientControl {
      */
     IsSearchAllowed(): boolean;
 }
+/**
+ * A method that will handle the PageLoad events.
+ */
 interface ASPxClientReportViewerPageLoadEventHandler<S> {
+    /**
+     * A method that will handle the PageLoad event.
+     * @param source The event sender.
+     * @param e An ASPxClientReportViewerPageLoadEventArgs object that contains data related to the event.
+     */
     (source: S, e: ASPxClientReportViewerPageLoadEventArgs): void;
 }
 /**
- * Provides data for a Report Viewer's PageLoad event on the client side.
+ * Provides data for the PageLoad events on the client side.
  */
 interface ASPxClientReportViewerPageLoadEventArgs extends ASPxClientEventArgs {
     /**
@@ -24679,10 +32923,115 @@ interface ASPxClientCustomizeParameterEditorsEventArgs extends ASPxClientEventAr
      */
     info: ASPxDesignerElementSerializationInfo;
 }
+/**
+ * Provides data for the CustomizeParameterLookUpSource events.
+ */
 interface ASPxClientCustomizeParameterLookUpSourceEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to an object that stores information about a parameter.
+     * Value: An ASPxDesignerElementParameterDescriptor object that stores information about the parameter.
+     */
     parameter: ASPxDesignerElementParameterDescriptor;
+    /**
+     * Provides access to the collection of look-up parameter values.
+     * Value: An array of ASPxDesignerElementEditorItem objects that store information about look-up parameter values.
+     */
     items: ASPxDesignerElementEditorItem[];
+    /**
+     * Specifies the data source that provides look-up values for the parameter editor.
+     * Value: An Object specifying the data source that provides look-up values to the parameter editor.
+     */
     dataSource: Object;
+}
+/**
+ * Provides information about a command available in the toolbar or menu.
+ */
+interface ASPxClientMenuAction {
+    /**
+     * Provides access to the text for the command.
+     * Value: A string that is the command text.
+     */
+    text: string;
+    /**
+     * Provides access to the CSS class of the command's glyph.
+     * Value: A string that specifies the name of the CSS class.
+     */
+    imageClassName: string;
+    /**
+     * Provides access to the action performed when a button is clicked.
+     * Value: The specific action implementation.
+     */
+    clickAction: Function;
+    /**
+     * Provides access to the value that specifies whether or not the command is disabled by default.
+     * Value: true, if the command is disabled by default; otherwise, false.
+     */
+    disabled: boolean;
+    /**
+     * Provides access to the value that specifies whether or not the command is visible in the user interface.
+     * Value: true if the command is visible; otherwise false.
+     */
+    visible: boolean;
+    /**
+     * Provides access to the keyboard shortcut used to invoke the command.
+     * Value: An ASPxClientMenuActionHotKey object that specifies the keyboard shortcut.
+     */
+    hotKey: ASPxClientMenuActionHotKey;
+    /**
+     * Specifies whether or not the command has a visual separator.
+     * Value: true, if the command has a visual separator; otherwise, false.
+     */
+    hasSeparator: boolean;
+    /**
+     * Provides access to a value that specifies the command location.
+     * Value: A string that specifies the command location.
+     */
+    container: string;
+}
+/**
+ * Provides information about a hot key used to perform an action assigned to a menu item.
+ */
+interface ASPxClientMenuActionHotKey {
+    /**
+     * Provides access to a hot key code.
+     * Value: An integer value that specifies the hot key code.
+     */
+    keyCode: number;
+    /**
+     * Provides access to a value that specifies whether the CTRL key is used in combination with a hot key.
+     * Value: true, if the CTRL key is included into the key combination; otherwise, false.
+     */
+    ctrlKey: boolean;
+}
+/**
+ * Provides data for the CustomizeMenuActions.
+ */
+interface ASPxClientCustomizeMenuActionsEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to the collection of actions available in the toolbar and menu.
+     * Value: An array of ASPxClientMenuAction objects.
+     */
+    Actions: ASPxClientMenuAction[];
+    /**
+     * Returns a menu action with the specified ID.
+     * @param actionId A String value that specifies the action ID.
+     */
+    GetById(actionId: string): ASPxClientMenuAction;
+}
+/**
+ * Provides data for the CustomizeElements events.
+ */
+interface ASPxClientCustomizeElementsEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to the collection of UI elements.
+     * Value: An array of the ASPxReportUIElement objects.
+     */
+    Elements: ASPxReportUIElement[];
+    /**
+     * Returns UI elements with the specified ID.
+     * @param templateId A string that specifies the element ID.
+     */
+    GetById(templateId: string): ASPxReportUIElement[];
 }
 /**
  * Provides general information about a report parameter.
@@ -24794,6 +33143,11 @@ interface ASPxDesignerElementEditor {
      */
     content: string;
     /**
+     * Gets additional options for <a href="https://js.devexpress.com/Documentation/Overview/">DevExtreme</a> UI widgets.
+     * Value: An object that provides editor options.
+     */
+    extendedOptions: Object;
+    /**
      * Gets a nullable value, specifying the type of the editor's model.
      * Value: A Object value.
      */
@@ -24815,11 +33169,257 @@ interface ASPxDesignerElementEditorItem {
     displayValue: string;
 }
 /**
+ * Provides information about a UI element of the Web Report Designer or Web Document Viewer.
+ */
+interface ASPxReportUIElement {
+    /**
+     * Provides access to an element model.
+     * Value: An object that specifies the element model.
+     */
+    model: Object;
+    /**
+     * Provides access to the name of an HTML template used by an element.
+     * Value: A string that specifies the name of the HTML template.
+     */
+    templateName: string;
+}
+/**
+ * Provides data for the PreviewDocumentReady events.
+ */
+interface ASPxClientWebDocumentViewerDocumentReadyEventArgs extends ASPxClientEventArgs {
+    /**
+     * Specifies the report ID.
+     */
+    ReportId: string;
+    /**
+     * Specifies the report document ID.
+     */
+    DocumentId: string;
+    /**
+     * Specifies the total number of pages in a report document.
+     */
+    PageCount: number;
+}
+/**
+ * Provides data for the PreviewEditingFieldChanged events.
+ */
+interface ASPxClientWebDocumentViewerEditingFieldChangedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets an editing field whose value has been changed.
+     * Value: An object that specifies an editing field whose content has been changed.
+     */
+    Field: ASPxClientWebDocumentViewerEditingField;
+    /**
+     * Provides access to a previous value of an editing field.
+     * Value: An object that specifies an editing field's previous value.
+     */
+    OldValue: Object;
+    /**
+     * Provides access to a new value of an editing field.
+     * Value: An object that specifies an editing field's new value.
+     */
+    NewValue: Object;
+}
+/**
+ * Provides functionality for a field whose content can be edited in the Web Document Viewer.
+ */
+interface ASPxClientWebDocumentViewerEditingField {
+    /**
+     * Provides access to a value that specifies whether or not an editing field's content can be customized in Print Preview.
+     * Returns: true, if a field cannot be edited in Print Preview; otherwise, false.
+     */
+    readOnly: any;
+    /**
+     * Provides access to the current value of an editing field.
+     * Returns: An object that specifies the current field value.
+     */
+    editValue: any;
+    /**
+     * Returns the unique identifier of an editing field.
+     */
+    id(): string;
+    /**
+     * Returns the ID of a logical group to which an editing field for a check box belongs.
+     */
+    groupID(): string;
+    /**
+     * Returns the name of an editor used to change a field value in Print Preview.
+     */
+    editorName(): string;
+    /**
+     * Returns the index of the page on which an editing field is located.
+     */
+    pageIndex(): number;
+}
+/**
+ * Provides data for the PreviewParametersSubmitted events.
+ */
+interface ASPxClientParametersSubmittedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to a View Model for report parameters.
+     * Value: A View Model object.
+     */
+    ParametersViewModel: Object;
+    /**
+     * Provides access to report parameters and their submitted values.
+     * Value: A dictionary containing the parameter names along with their values.
+     */
+    Parameters: { [key: string]: Object; };
+}
+/**
+ * Provides data for the PreviewParametersReset events.
+ */
+interface ASPxClientParametersResetEventArgs extends ASPxClientEventArgs {
+    /**
+     * Provides access to a View Model for report parameters.
+     * Value: A View Model object.
+     */
+    ParametersViewModel: Object;
+    /**
+     * Provides access to report parameters whose values have been reset.
+     * Value: An ASPxClientWebDocumentViewerParameter array.
+     */
+    Parameters: ASPxClientWebDocumentViewerParameter[];
+}
+/**
+ * Provides general information about a report parameter on the client-side of the Web Document Viewer.
+ */
+interface ASPxClientWebDocumentViewerParameter {
+    /**
+     * Provides access to the current value of a report parameter.
+     * Value: An object that specifies the report parameter's current value.
+     */
+    value: Object;
+    /**
+     * Provides access to a report parameter's value type.
+     * Value: An object that specifies the report parameter type.
+     */
+    type: Object;
+    /**
+     * Provides access to a value that specifies whether or not a parameter can have multiple values.
+     * Value: true, if a parameter can have multiple values; otherwise, false.
+     */
+    isMultiValue: boolean;
+    /**
+     * Returns an object that provides general information about a report parameter.
+     */
+    getParameterDescriptor(): ASPxDesignerElementParameterDescriptor;
+}
+/**
+ * Provides data for the PreviewClick events.
+ */
+interface ASPxClientPreviewClickEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets a value specifying the zero-based index of the page that has been clicked.
+     * Value: An integer value that specifies a page index.
+     */
+    PageIndex: number;
+    /**
+     * Provides information on a visual brick representing content of a report control that has been clicked.
+     * Value: An object that provides information on a visual brick.
+     */
+    Brick: ASPxClientWebDocumentViewerBrick;
+    /**
+     * Specifies whether or not the event was handled and no default processing is required.
+     * Value: true, if the event is completely handled by custom code and no default processing is required; otherwise, false.
+     */
+    Handled: boolean;
+    /**
+     * Specifies the default function used to handle the PreviewClick event.
+     */
+    DefaultHandler(): void;
+    /**
+     * Returns the text displayed by the Brick.
+     */
+    GetBrickText(): string;
+    /**
+     * Returns a string providing additional information on the Brick.
+     */
+    GetBrickValue(): string;
+    /**
+     * Returns a string providing additional information about the current Brick by the specified key.
+     * @param key A string that specifies a unique key.
+     */
+    GetBrickValue(key: string): string;
+}
+/**
+ * Provides information about a visual brick used to render a report control to construct a document in the Web Document Viewer.
+ */
+interface ASPxClientWebDocumentViewerBrick {
+    /**
+     * Provides access to a brick's content.
+     * Value: A dictionary that stores content keys along with the corresponding contents.
+     */
+    content: { [key: string]: string; };
+    /**
+     * Provides access to navigation settings of the current brick.
+     * Value: An object that provides a brick's navigation settings.
+     */
+    navigation: ASPxClientWebDocumentViewerBrickNavigation;
+    /**
+     * Provides access to a brick's top vertical coordinate.
+     * Value: An integer value that specifies the brick's top coordinate.
+     */
+    top: number;
+    /**
+     * Provides access to a brick's left horizontal coordinate.
+     * Value: An integer value that specifies the brick's left coordinate.
+     */
+    left: number;
+    /**
+     * Provides access to a brick's width.
+     * Value: An integer value that specifies the brick width.
+     */
+    width: number;
+    /**
+     * Provides access to a brick's height.
+     * Value: An integer value that specifies the brick height.
+     */
+    height: number;
+    /**
+     * Provides access to a value that specifies whether or not the right-to-left feature is enabled for a brick.
+     * Value: true, if the right-to-left feature is enabled; otherwise, false.
+     */
+    rtl: boolean;
+}
+/**
+ * Provides navigation settings for a brick used to construct a document in the Web Document Viewer.
+ */
+interface ASPxClientWebDocumentViewerBrickNavigation {
+    /**
+     * Provides access to the URL to navigate to when a brick is a clicked.
+     * Value: A string that specifies the URL.
+     */
+    url: string;
+    /**
+     * Provides access to a value that specifies the target window or frame in which to display the linked Web page's content when the brick is clicked.
+     * Value: A string that specifies the window or frame to which to target the URL's content.
+     */
+    target: string;
+    /**
+     * Provides access to a drill-down key.
+     * Value: A string that specifies a drill-down key.
+     */
+    drillDownKey: string;
+}
+/**
  * A client-side equivalent of the ASPxWebDocumentViewer class.
  */
 interface ASPxClientWebDocumentViewer extends ASPxClientControl {
     /**
-     * Enables you to customize the menu actions of a Web Document Viewer.
+     * Occurs after the Web Document Viewer loads a report document.
+     */
+    DocumentReady: ASPxClientEvent<ASPxClientWebDocumentViewerDocumentReadyEventHandler<ASPxClientWebDocumentViewer>>;
+    /**
+     * Occurs each time an editing field's value changes.
+     */
+    EditingFieldChanged: ASPxClientEvent<ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientWebDocumentViewer>>;
+    /**
+     * Allows you to customize the Web Document Viewer's UI elements.
+     */
+    CustomizeElements: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientWebDocumentViewer>>;
+    /**
+     * Enables you to customize the Web Document Viewer's menu actions.
      */
     CustomizeMenuActions: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientWebDocumentViewer>>;
     /**
@@ -24831,13 +33431,47 @@ interface ASPxClientWebDocumentViewer extends ASPxClientControl {
      */
     CustomizeParameterLookUpSource: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<ASPxClientWebDocumentViewer>>;
     /**
-     * Provides access to the preview model of the ASPxClientWebDocumentViewer.
+     * Occurs when the left mouse button is clicked on a report document.
      */
-    GetPreviewModel(): Object;
+    PreviewClick: ASPxClientEvent<ASPxClientWebDocumentViewerPreviewClickEventHandler<ASPxClientWebDocumentViewer>>;
     /**
-     * Opens the specified report in the HTML5 Document Viewer.
+     * Occurs after report parameter values are reset to their default values.
      */
-    OpenReport(): Object;
+    ParametersReset: ASPxClientEvent<ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientWebDocumentViewer>>;
+    /**
+     * Occurs after report parameter values are submitted.
+     */
+    ParametersSubmitted: ASPxClientEvent<ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientWebDocumentViewer>>;
+    /**
+     * Enables you to customize the Web Document Viewer's localization strings.
+     */
+    CustomizeLocalization: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeLocalizationEventHandler<ASPxClientWebDocumentViewer>>;
+    /**
+     * Occurs before the Web Document Viewer UI is initialized.
+     */
+    BeforeRender: ASPxClientEvent<ASPxClientWebDocumentViewerBeforeRenderEventHandler<ASPxClientWebDocumentViewer>>;
+    /**
+     * Provides access to the Document Viewer's client-side model.
+     */
+    GetPreviewModel(): ASPxClientSidePreviewModel;
+    /**
+     * Provides access to the report preview.
+     */
+    GetReportPreview(): ASPxClientReportPreview;
+    /**
+     * Provide access to the report parameters' client-side model.
+     */
+    GetParametersModel(): ASPxClientSideParametersModel;
+    /**
+     * Enables navigation between drill-through reports on the client-side.
+     * @param customData Provides access to custom client data associated with a currently previewed report.
+     */
+    DrillThrough(customData: string): any;
+    /**
+     * Opens the specified report on the Web Document Viewer's client side.
+     * @param url A string that specifies the URL of a report to be opened.
+     */
+    OpenReport(url: string): any;
     /**
      * Prints the current document.
      */
@@ -24853,74 +33487,89 @@ interface ASPxClientWebDocumentViewer extends ASPxClientControl {
     ExportTo(): void;
     /**
      * Exports the document to a specified file format.
-     * @param format A String value, specifying the export format. The following formats are currently supported: 'csv', 'html', 'image', 'mht', 'pdf', 'rtf', 'txt', 'xls', and 'xlsx'.
+     * @param format A String value, specifying the export format. The following formats are currently supported: 'csv', 'html', 'image', 'mht', 'pdf', 'rtf', 'docx', 'txt', 'xls', and 'xlsx'.
      */
     ExportTo(format: string): void;
     /**
-     * Updates the localization settings of the ASPxClientWebDocumentViewer properties.
+     * Exports the document to a specified file format.
+     * @param format A String value that specifies the export format. The following formats are currently supported: 'csv', 'html', 'image', 'mht', 'pdf', 'rtf', 'docx', 'txt', 'xls', and 'xlsx'.
+     * @param inlineResult true, to try opening the result file in a new browser tab without a download; otherwise, false.
+     */
+    ExportTo(format: string, inlineResult: boolean): void;
+    /**
+     * Returns the current page's zero-based index.
+     */
+    GetCurrentPageIndex(): number;
+    /**
+     * Displays the report page with the specified page index.
+     * @param pageIndex A zero-based integer value that specifies the index of a page to be displayed.
+     */
+    GoToPage(pageIndex: number): void;
+    /**
+     * Closes the document which is currently opened in the Web Document Viewer.
+     */
+    Close(): void;
+    /**
+     * Resets the report parameter values to the default values.
+     */
+    ResetParameters(): void;
+    /**
+     * Starts building a report document.
+     */
+    StartBuild(): void;
+    /**
+     * Performs a custom operation with a currently opened document on the client side.
+     */
+    PerformCustomDocumentOperation(): any;
+    /**
+     * Performs a custom operation with a currently opened document on the client-side.
+     * @param customData Provides access to custom client data associated with a target document operation.
+     */
+    PerformCustomDocumentOperation(customData: string): any;
+    /**
+     * Performs a custom operation with a currently opened document on the client-side.
+     * @param customData Provides access to custom client data associated with a target document operation.
+     * @param hideMessageFromUser true, to hide a message with the operation result from a user; otherwise, false.
+     */
+    PerformCustomDocumentOperation(customData: string, hideMessageFromUser: boolean): any;
+    /**
+     * Updates the Web Document Viewer properties' localization settings.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
     UpdateLocalization(localization: { [key: string]: string; }): void;
 }
 /**
- * Provides settings to the actions listed in a Web Document Viewer menu.
+ * A method that will handle the EditingFieldChanged event.
  */
-interface ASPxClientWebDocumentViewerMenuAction {
+interface ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<S> {
     /**
-     * Provides access to the text for the command.
-     * Value: A String value.
+     * A method that will handle the PreviewEditingFieldChanged event.
+     * @param source The event sender.
+     * @param e An ASPxClientWebDocumentViewerEditingFieldChangedEventArgs object that contains data related to the event.
      */
-    text: string;
-    /**
-     * Provides access to the CSS class of the command's glyph.
-     * Value: A String value.
-     */
-    imageClassName: string;
-    /**
-     * Provides access to the action performed when a Document Viewer's button is clicked.
-     * Value: The specific action implementation.
-     */
-    clickAction: Function;
-    /**
-     * Provides access to the value that specifies whether or not the command is disabled by default.
-     * Value: true, if the command is disabled by default; otherwise, false.
-     */
-    disabled: boolean;
-    /**
-     * Provides access to the value that specifies whether or not the command is visible in the Document Viewer user interface.
-     * Value: true if the command is visible; otherwise false.
-     */
-    visible: boolean;
-    /**
-     * Provides access to the keyboard shortcut used to invoke the command.
-     * Value: A String value.
-     */
-    hotKey: string;
-    /**
-     * Provides access to the value that specifies whether or not the command has a visual separator.
-     * Value: true, if the command has a visual separator; otherwise, false.
-     */
-    hasSeparator: string;
-    /**
-     * Provides access to the location of the displayed command.
-     * Value: A String value.
-     */
-    container: string;
+    (source: S, e: ASPxClientWebDocumentViewerEditingFieldChangedEventArgs): void;
 }
 /**
- * Provides data for the CustomizeMenuActions event.
+ * A method that will handle the DocumentReady event.
  */
-interface ASPxClientWebDocumentViewerCustomizeMenuActionsEventArgs extends ASPxClientEventArgs {
+interface ASPxClientWebDocumentViewerDocumentReadyEventHandler<S> {
     /**
-     * Returns the collection of customized menu actions.
-     * Value: An ASPxClientWebDocumentViewerMenuAction array.
+     * A method that will handle the PreviewDocumentReady event.
+     * @param source The event sender.
+     * @param e An ASPxClientWebDocumentViewerDocumentReadyEventArgs object that contains data related to the event.
      */
-    Actions: ASPxClientWebDocumentViewerMenuAction[];
+    (source: S, e: ASPxClientWebDocumentViewerDocumentReadyEventArgs): void;
+}
+/**
+ * A method that will handle the CustomizeElements event.
+ */
+interface ASPxClientWebDocumentViewerCustomizeElementsEventHandler<S> {
     /**
-     * Returns a menu action with the specified ID.
-     * @param actionId A String value, specifying the action ID.
+     * A method that will handle the PreviewCustomizeElements event.
+     * @param source The event sender.
+     * @param e An ASPxClientCustomizeElementsEventArgs object that contains data related to the event.
      */
-    GetById(actionId: string): ASPxClientWebDocumentViewerMenuAction;
+    (source: S, e: ASPxClientCustomizeElementsEventArgs): void;
 }
 /**
  * A method that will handle the CustomizeMenuActions event.
@@ -24929,9 +33578,9 @@ interface ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<S> {
     /**
      * A method that will handle the CustomizeMenuActions event.
      * @param source The event sender.
-     * @param e An ASPxClientWebDocumentViewerCustomizeMenuActionsEventArgs object that contains data related to the event.
+     * @param e An ASPxClientCustomizeMenuActionsEventArgs object that contains data related to the event.
      */
-    (source: S, e: ASPxClientWebDocumentViewerCustomizeMenuActionsEventArgs): void;
+    (source: S, e: ASPxClientCustomizeMenuActionsEventArgs): void;
 }
 /**
  * A method that will handle the CustomizeParameterEditors event.
@@ -24944,8 +33593,262 @@ interface ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<S> {
      */
     (source: S, e: ASPxClientCustomizeParameterEditorsEventArgs): void;
 }
+/**
+ * A method that will handle the CustomizeParameterLookUpSource event.
+ */
 interface ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<S> {
-    (source: S, e: ASPxClientCustomizeParameterEditorsEventArgs): void;
+    /**
+     * A method that will handle the CustomizeParameterLookUpSource event.
+     * @param source The event sender.
+     * @param e An ASPxClientCustomizeParameterLookUpSourceEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientCustomizeParameterLookUpSourceEventArgs): void;
+}
+/**
+ * A method that will handle the PreviewClick event.
+ */
+interface ASPxClientWebDocumentViewerPreviewClickEventHandler<S> {
+    /**
+     * A method that will handle the PreviewClick event.
+     * @param source The event sender.
+     * @param e An ASPxClientPreviewClickEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientPreviewClickEventArgs): void;
+}
+/**
+ * A method that will handle the ParametersReset event.
+ */
+interface ASPxClientWebDocumentViewerParametersResetEventHandler<S> {
+    /**
+     * A method that will handle the PreviewParametersReset event.
+     * @param source The event sender.
+     * @param e An ASPxClientParametersResetEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientParametersResetEventArgs): void;
+}
+/**
+ * A method that will handle the ParametersSubmitted event.
+ */
+interface ASPxClientWebDocumentViewerParametersSubmittedEventHandler<S> {
+    /**
+     * A method that will handle the PreviewParametersSubmitted event.
+     * @param source The event sender.
+     * @param e An ASPxClientParametersSubmittedEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientParametersSubmittedEventArgs): void;
+}
+/**
+ * A method that will handle the CustomizeLocalization event.
+ */
+interface ASPxClientWebDocumentViewerCustomizeLocalizationEventHandler<S> {
+    /**
+     * A method that will handle the CustomizeLocalization event.
+     * @param source The event sender.
+     */
+    (source: S): void;
+}
+/**
+ * A method that will handle the BeforeRender event.
+ */
+interface ASPxClientWebDocumentViewerBeforeRenderEventHandler<S> {
+    /**
+     * A method that will handle the BeforeRender event.
+     * @param source The event sender.
+     * @param previewModel A client-side Document Viewer model.
+     */
+    (source: S, previewModel: Object): void;
+}
+/**
+ * Provides information about the result of preforming a custom document operation on the client side.
+ */
+interface ASPxClientWebDocumentViewerDocumentOperationResponse {
+    /**
+     * Specifies whether a document operation has been successfully performed.
+     * Value: true, if the document operation has been successfully performed; otherwise, false.
+     */
+    succeeded: boolean;
+    /**
+     * Specifies the error message to display if performing a document operation fails.
+     * Value: A string specifying the text of the error message.
+     */
+    message: string;
+    /**
+     * Specifies custom data associated with the performed document operation.
+     * Value: A string containing information associated with the document operation.
+     */
+    customData: string;
+    /**
+     * Specifies the document ID.
+     * Value: A string that specifies the document ID.
+     */
+    documentId: string;
+}
+/**
+ * Provides information a client-side Document Preview model.
+ */
+interface ASPxClientSidePreviewModel {
+    /**
+     * Provides access to the report preview.
+     * Value: An object that specifies the report preview.
+     */
+    reportPreview: ASPxClientReportPreview;
+    /**
+     * Provides access to a panel at the right of the Document Viewer.
+     * Value: An object that specifies the panel at the right of the Document Viewer.
+     */
+    tabPanel: ASPxClientDocumentPreviewTabPanel;
+    /**
+     * Opens the specified report on the Web Document Viewer's client side.
+     * @param url A string that specifies the URL of a report to be opened.
+     */
+    OpenReport(url: string): any;
+    /**
+     * Prints the current document.
+     */
+    Print(): void;
+    /**
+     * Prints the document's page with the specified index.
+     * @param pageIndex An index of the page to be printed.
+     */
+    Print(pageIndex: number): void;
+    /**
+     * Exports the document to a PDF file.
+     */
+    ExportTo(): void;
+    /**
+     * Exports the document to a specified file format.
+     * @param format A String value, specifying the export format. The following formats are currently supported: 'csv', 'html', 'image', 'mht', 'pdf', 'rtf', 'docx', 'txt', 'xls', and 'xlsx'.
+     */
+    ExportTo(format: string): void;
+    /**
+     * Exports the document to a specified file format.
+     * @param format A String value that specifies the export format. The following formats are currently supported: 'csv', 'html', 'image', 'mht', 'pdf', 'rtf', 'docx', 'txt', 'xls', and 'xlsx'.
+     * @param inlineResult true, to try opening the result file in a new browser tab without a download; otherwise, false.
+     */
+    ExportTo(format: string, inlineResult: boolean): void;
+    /**
+     * Returns the current page's zero-based index.
+     */
+    GetCurrentPageIndex(): number;
+    /**
+     * Displays the report page with the specified page index.
+     * @param pageIndex A zero-based integer value that specifies the index of a page to be displayed.
+     */
+    GoToPage(pageIndex: number): void;
+    /**
+     * Closes the document which is currently opened in the Web Document Viewer.
+     */
+    Close(): void;
+    /**
+     * Resets the report parameter values to the default values.
+     */
+    ResetParameters(): void;
+    /**
+     * Starts building a report document.
+     */
+    StartBuild(): void;
+    /**
+     * Provide access to the report parameters' client-side model.
+     */
+    GetParametersModel(): ASPxClientSideParametersModel;
+}
+/**
+ * Provides information about the Document Viewer's tab panel.
+ */
+interface ASPxClientDocumentPreviewTabPanel {
+    /**
+     * Specifies the width of the panel at the right of the Document Viewer.
+     * Value: A knockout observable object that specifies the tab panel width.
+     */
+    width: any;
+    /**
+     * Specifies whether the panel at the right of the Document Viewer is collapsed.
+     * Value: A knockout observable object that specifies whether the tab panel is collapsed.
+     */
+    collapsed: any;
+    /**
+     * Provides access to the tabs of the panel at the right of the Document Viewer.
+     * Value: A collection of ASPxClientDocumentPreviewTab objects.
+     */
+    tabs: ASPxClientDocumentPreviewTab[];
+}
+/**
+ * Provides information about a tab available in the Document Viewer.
+ */
+interface ASPxClientDocumentPreviewTab {
+    /**
+     * Provides access to the name of an HTML template used by a tab.
+     * Value: A knockout observable string that specifies the name of the HTML template used by the tab.
+     */
+    template: string;
+    /**
+     * Provides access to the tab text.
+     * Value: A string that specifies the tab text.
+     */
+    text: string;
+    /**
+     * Provides access to a tab model.
+     * Value: An object that specifies the tab model.
+     */
+    model: Object;
+    /**
+     * Provides access to the value that specifies whether a tab is active.
+     * Value: A knockout observable object that specifies whether the tab is active.
+     */
+    active: any;
+    /**
+     * Provides access to the value that specifies whether a tab is visible.
+     * Value: A knockout observable object that specifies whether the tab is visible.
+     */
+    visible: any;
+}
+/**
+ * Provides information about the report parameters' client-side model.
+ */
+interface ASPxClientSideParametersModel {
+    /**
+     * Provides information about the tab for specifying parameter values.
+     * Value: An object that provides information about the Parameters tab.
+     */
+    tabInfo: ASPxClientDocumentPreviewTab;
+    /**
+     * Initiates passing parameter values and generating the report document.
+     */
+    submit(): void;
+    /**
+     * Serializes report parameters before passing them to the server.
+     */
+    serializeParameters(): void;
+}
+/**
+ * Provides information about a report preview.
+ */
+interface ASPxClientReportPreview {
+    /**
+     * Zooms the Document Viewer's current document.
+     * Value: A knockout observable object that specifies the zoom factor.
+     */
+    zoom: any;
+    /**
+     * Enables the Document Viewer's multi-page mode.
+     * Value: A knockout observable object that specifies whether the multi-page mode is enabled.
+     */
+    showMultipagePreview: any;
+    /**
+     * Provides access to the current document page's index.
+     * Value: A knockout observable object that specifies the zero-based index of the current page.
+     */
+    pageIndex: any;
+    /**
+     * Provides access to document pages.
+     * Value: An array of objects that specify document pages.
+     */
+    pages: any;
+    /**
+     * Provides access to a value that specifies whether the document is currently building.
+     * Value: A knockout observable object that specifies whether the document is building.
+     */
+    documentBuilding: any;
 }
 
 interface MVCxClientDashboardViewerStatic extends ASPxClientDashboardViewerStatic {
@@ -24990,7 +33893,7 @@ interface DashboardSpecialValuesStatic {
      */
     OthersValue: string;
     /**
-     * Represents an error value for calculated fields.
+     * Represents an error value (for instance, this can be a calculated field value that cannot be evaluated).
      */
     ErrorValue: string;
     /**
@@ -25013,15 +33916,6 @@ interface DashboardSpecialValuesStatic {
      * @param value The specified value.
      */
     IsErrorValue(value: Object): boolean;
-}
-interface ASPxClientDashboardDesignerStatic extends ASPxClientControlStatic {
-}
-interface ASPxClientDashboardViewerStatic extends ASPxClientControlStatic {
-    /**
-     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
-     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
-     */
-    Cast(obj: Object): ASPxClientDashboardViewer;
 }
 interface DashboardExportPageLayoutStatic {
     /**
@@ -25077,6 +33971,20 @@ interface DashboardExportScaleModeStatic {
      */
     AutoFitWithinOnePage: string;
 }
+interface DashboardExportDocumentScaleModeStatic {
+    /**
+     * The dashboard / dashboard item on the exported page retains its original size.
+     */
+    None: string;
+    /**
+     * The size of the dashboard / dashboard item on the exported page is changed according to the scale factor value (ScaleFactor).
+     */
+    UseScaleFactor: string;
+    /**
+     * The size of the dashboard / dashboard item is changed according to the width of the exported pages.
+     */
+    AutoFitToPagesWidth: string;
+}
 interface DashboardExportFilterStateStatic {
     /**
      * The filter state is not included in the exported document.
@@ -25091,6 +33999,26 @@ interface DashboardExportFilterStateStatic {
      */
     SeparatePage: string;
 }
+interface DashboardStateExportPositionStatic {
+    /**
+     * The dashboard state is placed below the exported dashboard/dashboard item.
+     */
+    Below: string;
+    /**
+     * The dashboard state is placed on a separate page.
+     */
+    SeparatePage: string;
+}
+interface DashboardStateExcelExportPositionStatic {
+    /**
+     * The dashboard state is placed below the exported data.
+     */
+    Below: string;
+    /**
+     * The dashboard state is placed on a separate sheet.
+     */
+    SeparateSheet: string;
+}
 interface DashboardExportImageFormatStatic {
     /**
      * The PNG image format.
@@ -25104,6 +34032,11 @@ interface DashboardExportImageFormatStatic {
      * The JPG image format.
      */
     Jpg: string;
+}
+interface ExcelExportFilterStateStatic {
+    none: string;
+    below: string;
+    separatePage: string;
 }
 interface DashboardExportExcelFormatStatic {
     /**
@@ -25143,6 +34076,16 @@ interface MapExportSizeModeStatic {
      */
     Zoom: string;
 }
+interface TreemapExportSizeModeStatic {
+    /**
+     * For internal use.
+     */
+    none: string;
+    /**
+     * For internal use.
+     */
+    zoom: string;
+}
 interface RangeFilterExportSizeModeStatic {
     /**
      * A Range Filter dashboard item is exported in a size identical to that shown on the dashboard.
@@ -25161,6 +34104,15 @@ interface DashboardSelectionModeStatic {
     None: string;
     Single: string;
     Multiple: string;
+}
+interface ASPxClientDashboardStatic extends ASPxClientControlStatic {
+}
+interface ASPxClientDashboardViewerStatic extends ASPxClientControlStatic {
+    /**
+     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
+     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
+     */
+    Cast(obj: Object): ASPxClientDashboardViewer;
 }
 interface ASPxClientEditBaseStatic extends ASPxClientControlStatic {
 }
@@ -25299,6 +34251,18 @@ interface ASPxClientEditStatic extends ASPxClientEditBaseStatic {
      * Verifies whether visible editors on a page are valid.
      */
     AreEditorsValid(): boolean;
+    /**
+     * Attaches a handler to the ASPxClientEdit's event indicating whether the editor has been changed since the previous state.
+     * @param handler An object representing a handler.
+     * @param predicate An ASPxClientControlPredicate object representing the predicate criteria.
+     */
+    AttachEditorModificationListener(handler: Object, predicate: ASPxClientControlPredicate): void;
+    /**
+     * Detaches a handler from the editor's event if the editor meets the predicate criteria.
+     * @param handler An object representing a handler.
+     * @param predicate An ASPxClientControlPredicate object representing a predicate criteria.
+     */
+    DetachEditorModificationListener(handler: Object, predicate: ASPxClientControlPredicate): void;
 }
 interface ASPxClientBinaryImageStatic extends ASPxClientEditStatic {
     /**
@@ -25606,6 +34570,10 @@ interface ASPxClientGridViewCallbackCommandStatic {
      */
     ApplySearchPanelFilter: string;
     /**
+     * Default value: "APPLYCUSTOMIZATIONDIALOGCHANGES"
+     */
+    ApplyCustomizationDialogChanges: string;
+    /**
      * Default value: "FILTERROWMENU"
      */
     FilterRowMenu: string;
@@ -25674,9 +34642,43 @@ interface ASPxClientGridViewCallbackCommandStatic {
      */
     ContextMenu: string;
     /**
+     * Default value: "TOOLBAR"
+     */
+    Toolbar: string;
+    /**
+     * Default value: "EXPORT"
+     */
+    Export: string;
+    /**
      * Default value: "CUSTOMVALUES"
      */
     CustomValues: string;
+}
+interface ASPxClientGridExportFormatStatic {
+    /**
+     * Identifies Portable Document Format (.pdf).
+     */
+    Pdf: string;
+    /**
+     * Identifies DOCX format (.docx).
+     */
+    Docx: string;
+    /**
+     * Identifies Rich Text Format (.rtf).
+     */
+    Rtf: string;
+    /**
+     * Identifies Comma Separated Values format (.csv).
+     */
+    Csv: string;
+    /**
+     * Identifies Excel Binary File format (.xls).
+     */
+    Xls: string;
+    /**
+     * Identifies XML spreadsheet file format (.xlsx).
+     */
+    Xlsx: string;
 }
 interface ASPxClientGridLookupStatic extends ASPxClientDropDownEditBaseStatic {
     /**
@@ -25692,12 +34694,16 @@ interface ASPxClientCardViewStatic extends ASPxClientGridBaseStatic {
      */
     Cast(obj: Object): ASPxClientCardView;
 }
+interface ASPxClientCardViewExportFormatStatic extends ASPxClientGridExportFormatStatic {
+}
 interface ASPxClientGridViewStatic extends ASPxClientGridBaseStatic {
     /**
      * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
      * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
      */
     Cast(obj: Object): ASPxClientGridView;
+}
+interface ASPxClientGridViewExportFormatStatic extends ASPxClientGridExportFormatStatic {
 }
 interface ASPxClientVerticalGridStatic extends ASPxClientGridBaseStatic {
     /**
@@ -25711,6 +34717,8 @@ interface ASPxClientVerticalGridCallbackCommandStatic {
      * Default value: "EXPANDROW"
      */
     ExpandRow: string;
+}
+interface ASPxClientVerticalGridExportFormatStatic extends ASPxClientGridExportFormatStatic {
 }
 interface ASPxClientCommandConstsStatic {
     /**
@@ -26241,6 +35249,27 @@ interface ASPxClientHtmlEditorStatic extends ASPxClientControlStatic {
      * @param data An object representing custom data associated with a custom dialog.
      */
     CustomDialogComplete(status: Object, data: Object): void;
+    /**
+     * Highlights the text.
+     * @param text A string value specifying the text to be highlighted.
+     * @param searchContainer An object specifying the container where the specified text should be searched.
+     */
+    HighlightText(text: string, searchContainer: Object): void;
+    /**
+     * Highlights the text with the specified settings.
+     * @param text A string value specifying the text to be highlighted.
+     * @param searchContainer An object specifying the container where the specified text should be searched.
+     * @param className A string value specifying the text color.
+     */
+    HighlightText(text: string, searchContainer: Object, className: string): void;
+    /**
+     * Highlights the text with the specified text color and background color.
+     * @param text A string value specifying the text to be highlighted.
+     * @param searchContainer An object specifying the container where the specified text should be searched.
+     * @param color A string value specifying the text color.
+     * @param backgroundColor A string value specifying the background color.
+     */
+    HighlightText(text: string, searchContainer: Object, color: string, backgroundColor: string): void;
 }
 interface ASPxClientHtmlEditorMediaPreloadModeStatic {
     /**
@@ -26284,9 +35313,9 @@ interface ASPxSchedulerDateTimeHelperStatic {
      */
     ToDayTime(date: Date): any;
     /**
-     * 
-     * @param date 
-     * @param dayCount 
+     * Adds the specified number of days to a DateTime object and returns the result.
+     * @param date A DateTime object to which to add days.
+     * @param dayCount The number of days to add.
      */
     AddDays(date: Date, dayCount: number): Date;
     /**
@@ -26340,6 +35369,16 @@ interface ASPxClientSpellCheckerStatic extends ASPxClientControlStatic {
      */
     Cast(obj: Object): ASPxClientSpellChecker;
 }
+interface ASPxClientSpellCheckerStopCheckingReasonStatic {
+    /**
+     * Spell checking is finished normally.
+     */
+    Default: string;
+    /**
+     * The user stopped spell checking.
+     */
+    User: string;
+}
 interface ASPxClientSpreadsheetStatic extends ASPxClientControlStatic {
     /**
      * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
@@ -26353,6 +35392,111 @@ interface ASPxClientTreeListStatic extends ASPxClientControlStatic {
      * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
      */
     Cast(obj: Object): ASPxClientTreeList;
+}
+interface ASPxClientTreeListExportFormatStatic {
+    /**
+     * Identifies Portable Document Format (.pdf).
+     */
+    Pdf: string;
+    /**
+     * Identifies DOCX format (.docx).
+     */
+    Docx: string;
+    /**
+     * Identifies Rich Text Format (.rtf).
+     */
+    Rtf: string;
+    /**
+     * Identifies Excel Binary File format (.xls).
+     */
+    Xls: string;
+    /**
+     * Identifies XML spreadsheet file format (.xlsx).
+     */
+    Xlsx: string;
+}
+interface BootstrapClientAccordionStatic extends ASPxClientNavBarStatic {
+}
+interface BootstrapClientBinaryImageStatic extends ASPxClientHyperLinkStatic {
+}
+interface BootstrapClientButtonStatic extends ASPxClientButtonStatic {
+}
+interface BootstrapClientCalendarStatic extends ASPxClientCalendarStatic {
+}
+interface BootstrapClientCallbackPanelStatic extends ASPxClientControlStatic {
+}
+interface BootstrapClientCheckBoxStatic extends ASPxClientEditStatic {
+}
+interface BootstrapClientRadioButtonStatic extends BootstrapClientCheckBoxStatic {
+}
+interface BootstrapClientComboBoxStatic extends ASPxClientComboBoxStatic {
+}
+interface BootstrapClientDateEditStatic extends ASPxClientDateEditStatic {
+}
+interface BootstrapClientDropDownEditStatic extends ASPxClientDropDownEditStatic {
+}
+interface BootstrapClientFormLayoutStatic extends ASPxClientFormLayoutStatic {
+}
+interface BootstrapClientHyperLinkStatic extends ASPxClientHyperLinkStatic {
+}
+interface BootstrapClientImageStatic extends ASPxClientImageStatic {
+}
+interface BootstrapClientListBoxStatic extends ASPxClientListBoxStatic {
+}
+interface BootstrapClientCheckBoxListStatic extends ASPxClientCheckBoxListStatic {
+}
+interface BootstrapClientRadioButtonListStatic extends ASPxClientRadioButtonListStatic {
+}
+interface BootstrapClientMenuStatic extends ASPxClientMenuStatic {
+}
+interface BootstrapClientPagerStatic extends ASPxClientPagerStatic {
+}
+interface BootstrapClientPopupControlStatic extends ASPxClientPopupControlStatic {
+}
+interface BootstrapClientPopupMenuStatic extends ASPxClientPopupMenuStatic {
+}
+interface BootstrapClientProgressBarStatic extends ASPxClientProgressBarStatic {
+}
+interface BootstrapClientSpinEditStatic extends ASPxClientSpinEditStatic {
+}
+interface BootstrapClientTimeEditStatic extends ASPxClientTimeEditStatic {
+}
+interface BootstrapClientTabControlStatic extends ASPxClientTabControlStatic {
+}
+interface BootstrapClientPageControlStatic extends ASPxClientPageControlStatic {
+}
+interface BootstrapClientTagBoxStatic extends ASPxClientTokenBoxStatic {
+}
+interface BootstrapClientTextBoxStatic extends ASPxClientTextBoxStatic {
+}
+interface BootstrapClientMemoStatic extends ASPxClientMemoStatic {
+}
+interface BootstrapClientButtonEditStatic extends ASPxClientButtonEditStatic {
+}
+interface BootstrapClientToolbarStatic extends BootstrapClientMenuStatic {
+}
+interface BootstrapClientTreeViewStatic extends ASPxClientTreeViewStatic {
+}
+interface BootstrapClientUploadControlStatic extends ASPxClientUploadControlStatic {
+}
+interface BootstrapClientUtilsStatic {
+    UpdateDefaultStyles(): void;
+}
+interface BootstrapClientGridViewStatic extends ASPxClientGridViewStatic {
+}
+interface BootstrapClientCardViewStatic extends ASPxClientGridViewStatic {
+}
+interface BootstrapUIWidgetBaseStatic extends ASPxClientControlStatic {
+}
+interface BootstrapClientChartBaseStatic extends BootstrapUIWidgetBaseStatic {
+}
+interface BootstrapClientChartStatic extends BootstrapClientChartBaseStatic {
+}
+interface BootstrapClientPolarChartStatic extends BootstrapClientChartBaseStatic {
+}
+interface BootstrapClientPieChartStatic extends BootstrapClientChartBaseStatic {
+}
+interface BootstrapClientRangeSelectorStatic extends BootstrapUIWidgetBaseStatic {
 }
 interface MVCxClientCalendarStatic extends ASPxClientCalendarStatic {
     /**
@@ -26501,8 +35645,17 @@ interface MVCxClientSchedulerStatic extends ASPxClientSchedulerStatic {
     Cast(obj: Object): MVCxClientScheduler;
 }
 interface MVCxSchedulerToolTipTypeStatic {
+    /**
+     * The tooltip is displayed for a selected appointment.
+     */
     Appointment: number;
+    /**
+     * The tooltip is displayed for a dragged appointment.
+     */
     AppointmentDrag: number;
+    /**
+     * The tooltip is displayed for a selected time interval.
+     */
     Selection: number;
 }
 interface MVCxClientSpreadsheetStatic extends ASPxClientSpreadsheetStatic {
@@ -26629,7 +35782,21 @@ interface ASPxClientCallbackStatic extends ASPxClientControlStatic {
      */
     Cast(obj: Object): ASPxClientCallback;
 }
-interface ASPxClientCallbackPanelStatic extends ASPxClientControlStatic {
+interface ASPxClientPanelBaseStatic extends ASPxClientControlStatic {
+    /**
+     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
+     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
+     */
+    Cast(obj: Object): ASPxClientPanelBase;
+}
+interface ASPxClientPanelStatic extends ASPxClientPanelBaseStatic {
+    /**
+     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
+     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
+     */
+    Cast(obj: Object): ASPxClientPanel;
+}
+interface ASPxClientCallbackPanelStatic extends ASPxClientPanelStatic {
     /**
      * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
      * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
@@ -26760,6 +35927,28 @@ interface ASPxClientFileManagerErrorConstsStatic {
      */
     AlreadyExists: number;
 }
+interface ASPxClientFileManagerCallbackCommandStatic {
+    GetAllItems: string;
+    GetFileList: string;
+    Refresh: string;
+    DeleteItems: string;
+    MoveItems: string;
+    CopyItems: string;
+    RenameItem: string;
+    Download: string;
+    ShowFolderBrowserDialog: string;
+    ShowCreateFolderEditorInTreeView: string;
+    CreateFolder: string;
+    SelectedFileOpened: string;
+    FoldersTreeView: string;
+    FolderBrowserTreeView: string;
+    GridView: string;
+    ChangeFolder: string;
+    ChangeFolderInTreeView: string;
+    CustomCallback: string;
+    VirtualScrolling: string;
+    GridViewVirtualScrolling: string;
+}
 interface ASPxClientFormLayoutStatic extends ASPxClientControlStatic {
     /**
      * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
@@ -26773,6 +35962,82 @@ interface ASPxClientHiddenFieldStatic extends ASPxClientControlStatic {
      * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
      */
     Cast(obj: Object): ASPxClientHiddenField;
+}
+interface ASPxClientHintStatic extends ASPxClientControlStatic {
+    /**
+     * Forces the hint to reselect target UI elements according to the specified CSS selector.
+     */
+    Update(): void;
+    /**
+     * Forces the hint to recalculate its position.
+     */
+    UpdatePosition(): void;
+    /**
+     * Forces the hint to recalculate its position.
+     * @param hintElementOrTargetElement An object that is the hint element or the target element.
+     */
+    UpdatePosition(hintElementOrTargetElement: Object): void;
+    /**
+     * Registers a hint's functionality with the specified settings.
+     * @param targetSelector A string value that is the CSS selector. Specifies to which UI elements the hint is displayed.
+     * @param options An ASPxClientHintOptions object that is the hint's options.
+     */
+    Register(targetSelector: string, options: ASPxClientHintOptions): ASPxClientHint;
+    /**
+     * Registers a hint's functionality with the specified settings.
+     * @param targetSelector A string value that is the CSS selector. Specifies to which UI elements the hint is displayed.
+     * @param contentAttribute A string value that is the attribute name. Specifies from which target element's attribute a hint obtains its content.
+     */
+    Register(targetSelector: string, contentAttribute: string): ASPxClientHint;
+    /**
+     * Registers a hint's functionality with the specified settings.
+     * @param targetSelector A string value that is the CSS selector. Specifies for which UI elements the hint is displayed.
+     * @param onShowing An ASPxClientHintShowingEventHandler object that is a handler for the displayed event.
+     */
+    Register(targetSelector: string, onShowing: ASPxClientHintShowingEventHandler): ASPxClientHint;
+    /**
+     * Invokes a hint.
+     * @param targetSelector A string value that is the CSS selector.
+     * @param options An ASPxClientHintOptions object that is the hint's options.
+     */
+    Show(targetSelector: string, options: ASPxClientHintOptions): void;
+    /**
+     * Invokes a hint.
+     * @param targetSelector A string value that is the CSS selector used to specify for which UI elements on a web page a hint is displayed.
+     * @param content A string value that is the hint's content.
+     */
+    Show(targetSelector: string, content: string): void;
+    /**
+     * Invokes a hint.
+     * @param targetElement An object that is the target element.
+     * @param options An ASPxClientHintOptions object that is the hint's options.
+     */
+    Show(targetElement: Object, options: ASPxClientHintOptions): void;
+    /**
+     * Invokes a hint.
+     * @param targetElement A HTML DOM element near to which the hint is displayed in response to user interaction.
+     * @param content A string value that is the hint's content.
+     */
+    Show(targetElement: Object, content: string): void;
+    /**
+     * Invokes a hint.
+     * @param options An ASPxClientHintOptions object that is the hint's options.
+     */
+    Show(options: ASPxClientHintOptions): void;
+    /**
+     * Hides a hint window.
+     * @param targetSelector A string value that is the CSS selector.
+     */
+    Hide(targetSelector: string): void;
+    /**
+     * Hides a hint window.
+     * @param targetElementOrHintElement An object that is the target element or hint element.
+     */
+    Hide(targetElementOrHintElement: Object): void;
+    /**
+     * Hides all hints.
+     */
+    HideAll(): void;
 }
 interface ASPxClientImageGalleryStatic extends ASPxClientDataViewStatic {
     /**
@@ -26798,6 +36063,8 @@ interface ASPxClientLoadingPanelStatic extends ASPxClientControlStatic {
      * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
      */
     Cast(obj: Object): ASPxClientLoadingPanel;
+}
+interface ASPxClientMediaFileSelectorStatic extends ASPxClientControlStatic {
 }
 interface ASPxClientMenuBaseStatic extends ASPxClientControlStatic {
     /**
@@ -26857,19 +36124,7 @@ interface ASPxClientObjectContainerStatic extends ASPxClientControlStatic {
      */
     Cast(obj: Object): ASPxClientObjectContainer;
 }
-interface ASPxClientPanelBaseStatic extends ASPxClientControlStatic {
-    /**
-     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
-     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
-     */
-    Cast(obj: Object): ASPxClientPanelBase;
-}
-interface ASPxClientPanelStatic extends ASPxClientPanelBaseStatic {
-    /**
-     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
-     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
-     */
-    Cast(obj: Object): ASPxClientPanel;
+interface ASPxClientPagerStatic extends ASPxClientControlStatic {
 }
 interface ASPxClientPopupControlStatic extends ASPxClientPopupControlBaseStatic {
     /**
@@ -27018,6 +36273,24 @@ interface ASPxClientUploadControlStatic extends ASPxClientControlStatic {
      * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
      */
     Cast(obj: Object): ASPxClientUploadControl;
+}
+interface ASPxClientUploadControlValidationErrorTypeConstsStatic {
+    /**
+     * The allowed maximum file size is exceeded.  Return Value: 1
+     */
+    MaxFileSizeExceeded: number;
+    /**
+     * The file's extension is not allowed.  Return Value: 2
+     */
+    NotAllowedFileExtension: number;
+    /**
+     * The allowed maximum count of the files is exceeded.  Return Value: 3
+     */
+    MaxFileCountExceeded: number;
+    /**
+     * A file name contains invalid character.Return Value: 4
+     */
+    FileNameContainsInvalidCharacter: number;
 }
 interface ASPxClientUtilsStatic {
     /**
@@ -27332,10 +36605,10 @@ interface ASPxClientUtilsStatic {
     DeleteCookie(name: string): void;
     /**
      * Returns a specifically generated code that uniquely identifies the combination of keys specified via the parameters.
-     * @param keyCode An integer value that specifies the code of the key.
-     * @param isCtrlKey true if the CTRL key should be included into the key combination; otherwise, false.
-     * @param isShiftKey true if the SHIFT key should be included into the key combination; otherwise, false.
-     * @param isAltKey true if the ALT key should be included into the key combination; otherwise, false.
+     * @param keyCode An integer value that specifies the code of the key. Codes are available via the ASPx.KeyCode client object's members.
+     * @param isCtrlKey true, if the CTRL key should be included into the key combination; otherwise, false.
+     * @param isShiftKey true, if the SHIFT key should be included into the key combination; otherwise, false.
+     * @param isAltKey true, if the ALT key should be included into the key combination; otherwise, false.
      */
     GetShortcutCode(keyCode: number, isCtrlKey: boolean, isShiftKey: boolean, isAltKey: boolean): number;
     /**
@@ -27363,6 +36636,22 @@ interface ASPxClientUtilsStatic {
      * @param str A string value representing the string for trimming.
      */
     TrimEnd(str: string): string;
+    /**
+     * Returns values of editors located in the specified container.
+     * @param containerOrId A container of editors, or its ID.
+     */
+    GetEditorValuesInContainer(containerOrId: Object): Object;
+    /**
+     * Returns values of editors located in the specified container.
+     * @param containerOrId A container of editors, or its ID.
+     * @param processInvisibleEditors true to process both visible and invisible editors that belong to the specified container; false to process only visible editors.
+     */
+    GetEditorValuesInContainer(containerOrId: Object, processInvisibleEditors: boolean): Object;
+    /**
+     * Specifies the text that Assistive Technologies (screen readers or braille display, for example) will provide to a user.
+     * @param message A String value that specifies a text.
+     */
+    SendMessageToAssistiveTechnology(message: string): void;
 }
 interface ASPxClientChartDesignerStatic extends ASPxClientControlStatic {
     /**
@@ -27428,18 +36717,23 @@ interface ASPxClientWebDocumentViewerStatic extends ASPxClientControlStatic {
 declare var MVCxClientDashboardViewer: MVCxClientDashboardViewerStatic;
 declare var DashboardDataAxisNames: DashboardDataAxisNamesStatic;
 declare var DashboardSpecialValues: DashboardSpecialValuesStatic;
-declare var ASPxClientDashboardDesigner: ASPxClientDashboardDesignerStatic;
-declare var ASPxClientDashboardViewer: ASPxClientDashboardViewerStatic;
 declare var DashboardExportPageLayout: DashboardExportPageLayoutStatic;
 declare var DashboardExportPaperKind: DashboardExportPaperKindStatic;
 declare var DashboardExportScaleMode: DashboardExportScaleModeStatic;
+declare var DashboardExportDocumentScaleMode: DashboardExportDocumentScaleModeStatic;
 declare var DashboardExportFilterState: DashboardExportFilterStateStatic;
+declare var DashboardStateExportPosition: DashboardStateExportPositionStatic;
+declare var DashboardStateExcelExportPosition: DashboardStateExcelExportPositionStatic;
 declare var DashboardExportImageFormat: DashboardExportImageFormatStatic;
+declare var ExcelExportFilterState: ExcelExportFilterStateStatic;
 declare var DashboardExportExcelFormat: DashboardExportExcelFormatStatic;
 declare var ChartExportSizeMode: ChartExportSizeModeStatic;
 declare var MapExportSizeMode: MapExportSizeModeStatic;
+declare var TreemapExportSizeMode: TreemapExportSizeModeStatic;
 declare var RangeFilterExportSizeMode: RangeFilterExportSizeModeStatic;
 declare var DashboardSelectionMode: DashboardSelectionModeStatic;
+declare var ASPxClientDashboard: ASPxClientDashboardStatic;
+declare var ASPxClientDashboardViewer: ASPxClientDashboardViewerStatic;
 declare var ASPxClientEditBase: ASPxClientEditBaseStatic;
 declare var ASPxClientEdit: ASPxClientEditStatic;
 declare var ASPxClientBinaryImage: ASPxClientBinaryImageStatic;
@@ -27480,11 +36774,15 @@ declare var ASPxClientValidationSummary: ASPxClientValidationSummaryStatic;
 declare var ASPxClientGaugeControl: ASPxClientGaugeControlStatic;
 declare var ASPxClientGridBase: ASPxClientGridBaseStatic;
 declare var ASPxClientGridViewCallbackCommand: ASPxClientGridViewCallbackCommandStatic;
+declare var ASPxClientGridExportFormat: ASPxClientGridExportFormatStatic;
 declare var ASPxClientGridLookup: ASPxClientGridLookupStatic;
 declare var ASPxClientCardView: ASPxClientCardViewStatic;
+declare var ASPxClientCardViewExportFormat: ASPxClientCardViewExportFormatStatic;
 declare var ASPxClientGridView: ASPxClientGridViewStatic;
+declare var ASPxClientGridViewExportFormat: ASPxClientGridViewExportFormatStatic;
 declare var ASPxClientVerticalGrid: ASPxClientVerticalGridStatic;
 declare var ASPxClientVerticalGridCallbackCommand: ASPxClientVerticalGridCallbackCommandStatic;
+declare var ASPxClientVerticalGridExportFormat: ASPxClientVerticalGridExportFormatStatic;
 declare var ASPxClientCommandConsts: ASPxClientCommandConstsStatic;
 declare var ASPxClientHtmlEditor: ASPxClientHtmlEditorStatic;
 declare var ASPxClientHtmlEditorMediaPreloadMode: ASPxClientHtmlEditorMediaPreloadModeStatic;
@@ -27503,8 +36801,51 @@ declare var ASPxClientRecurrenceTypeEdit: ASPxClientRecurrenceTypeEditStatic;
 declare var ASPxClientTimeInterval: ASPxClientTimeIntervalStatic;
 declare var ASPxClientScheduler: ASPxClientSchedulerStatic;
 declare var ASPxClientSpellChecker: ASPxClientSpellCheckerStatic;
+declare var ASPxClientSpellCheckerStopCheckingReason: ASPxClientSpellCheckerStopCheckingReasonStatic;
 declare var ASPxClientSpreadsheet: ASPxClientSpreadsheetStatic;
 declare var ASPxClientTreeList: ASPxClientTreeListStatic;
+declare var ASPxClientTreeListExportFormat: ASPxClientTreeListExportFormatStatic;
+declare var BootstrapClientAccordion: BootstrapClientAccordionStatic;
+declare var BootstrapClientBinaryImage: BootstrapClientBinaryImageStatic;
+declare var BootstrapClientButton: BootstrapClientButtonStatic;
+declare var BootstrapClientCalendar: BootstrapClientCalendarStatic;
+declare var BootstrapClientCallbackPanel: BootstrapClientCallbackPanelStatic;
+declare var BootstrapClientCheckBox: BootstrapClientCheckBoxStatic;
+declare var BootstrapClientRadioButton: BootstrapClientRadioButtonStatic;
+declare var BootstrapClientComboBox: BootstrapClientComboBoxStatic;
+declare var BootstrapClientDateEdit: BootstrapClientDateEditStatic;
+declare var BootstrapClientDropDownEdit: BootstrapClientDropDownEditStatic;
+declare var BootstrapClientFormLayout: BootstrapClientFormLayoutStatic;
+declare var BootstrapClientHyperLink: BootstrapClientHyperLinkStatic;
+declare var BootstrapClientImage: BootstrapClientImageStatic;
+declare var BootstrapClientListBox: BootstrapClientListBoxStatic;
+declare var BootstrapClientCheckBoxList: BootstrapClientCheckBoxListStatic;
+declare var BootstrapClientRadioButtonList: BootstrapClientRadioButtonListStatic;
+declare var BootstrapClientMenu: BootstrapClientMenuStatic;
+declare var BootstrapClientPager: BootstrapClientPagerStatic;
+declare var BootstrapClientPopupControl: BootstrapClientPopupControlStatic;
+declare var BootstrapClientPopupMenu: BootstrapClientPopupMenuStatic;
+declare var BootstrapClientProgressBar: BootstrapClientProgressBarStatic;
+declare var BootstrapClientSpinEdit: BootstrapClientSpinEditStatic;
+declare var BootstrapClientTimeEdit: BootstrapClientTimeEditStatic;
+declare var BootstrapClientTabControl: BootstrapClientTabControlStatic;
+declare var BootstrapClientPageControl: BootstrapClientPageControlStatic;
+declare var BootstrapClientTagBox: BootstrapClientTagBoxStatic;
+declare var BootstrapClientTextBox: BootstrapClientTextBoxStatic;
+declare var BootstrapClientMemo: BootstrapClientMemoStatic;
+declare var BootstrapClientButtonEdit: BootstrapClientButtonEditStatic;
+declare var BootstrapClientToolbar: BootstrapClientToolbarStatic;
+declare var BootstrapClientTreeView: BootstrapClientTreeViewStatic;
+declare var BootstrapClientUploadControl: BootstrapClientUploadControlStatic;
+declare var BootstrapClientUtils: BootstrapClientUtilsStatic;
+declare var BootstrapClientGridView: BootstrapClientGridViewStatic;
+declare var BootstrapClientCardView: BootstrapClientCardViewStatic;
+declare var BootstrapUIWidgetBase: BootstrapUIWidgetBaseStatic;
+declare var BootstrapClientChartBase: BootstrapClientChartBaseStatic;
+declare var BootstrapClientChart: BootstrapClientChartStatic;
+declare var BootstrapClientPolarChart: BootstrapClientPolarChartStatic;
+declare var BootstrapClientPieChart: BootstrapClientPieChartStatic;
+declare var BootstrapClientRangeSelector: BootstrapClientRangeSelectorStatic;
 declare var MVCxClientCalendar: MVCxClientCalendarStatic;
 declare var MVCxClientCallbackPanel: MVCxClientCallbackPanelStatic;
 declare var MVCxClientCardView: MVCxClientCardViewStatic;
@@ -27542,6 +36883,8 @@ declare var MVCxClientWebDocumentViewer: MVCxClientWebDocumentViewerStatic;
 declare var ASPxClientControlBase: ASPxClientControlBaseStatic;
 declare var ASPxClientControl: ASPxClientControlStatic;
 declare var ASPxClientCallback: ASPxClientCallbackStatic;
+declare var ASPxClientPanelBase: ASPxClientPanelBaseStatic;
+declare var ASPxClientPanel: ASPxClientPanelStatic;
 declare var ASPxClientCallbackPanel: ASPxClientCallbackPanelStatic;
 declare var ASPxClientCloudControl: ASPxClientCloudControlStatic;
 declare var ASPxClientDataView: ASPxClientDataViewStatic;
@@ -27552,21 +36895,23 @@ declare var ASPxClientDockZone: ASPxClientDockZoneStatic;
 declare var ASPxClientFileManager: ASPxClientFileManagerStatic;
 declare var ASPxClientFileManagerCommandConsts: ASPxClientFileManagerCommandConstsStatic;
 declare var ASPxClientFileManagerErrorConsts: ASPxClientFileManagerErrorConstsStatic;
+declare var ASPxClientFileManagerCallbackCommand: ASPxClientFileManagerCallbackCommandStatic;
 declare var ASPxClientFormLayout: ASPxClientFormLayoutStatic;
 declare var ASPxClientHiddenField: ASPxClientHiddenFieldStatic;
+declare var ASPxClientHint: ASPxClientHintStatic;
 declare var ASPxClientImageGallery: ASPxClientImageGalleryStatic;
 declare var ASPxClientImageSlider: ASPxClientImageSliderStatic;
 declare var ASPxClientImageZoomNavigator: ASPxClientImageZoomNavigatorStatic;
 declare var ASPxClientImageZoom: ASPxClientImageZoomStatic;
 declare var ASPxClientLoadingPanel: ASPxClientLoadingPanelStatic;
+declare var ASPxClientMediaFileSelector: ASPxClientMediaFileSelectorStatic;
 declare var ASPxClientMenuBase: ASPxClientMenuBaseStatic;
 declare var ASPxClientMenu: ASPxClientMenuStatic;
 declare var ASPxClientTouchUI: ASPxClientTouchUIStatic;
 declare var ASPxClientNavBar: ASPxClientNavBarStatic;
 declare var ASPxClientNewsControl: ASPxClientNewsControlStatic;
 declare var ASPxClientObjectContainer: ASPxClientObjectContainerStatic;
-declare var ASPxClientPanelBase: ASPxClientPanelBaseStatic;
-declare var ASPxClientPanel: ASPxClientPanelStatic;
+declare var ASPxClientPager: ASPxClientPagerStatic;
 declare var ASPxClientPopupControl: ASPxClientPopupControlStatic;
 declare var ASPxClientPopupControlResizeState: ASPxClientPopupControlResizeStateStatic;
 declare var ASPxClientPopupControlCloseReason: ASPxClientPopupControlCloseReasonStatic;
@@ -27583,6 +36928,7 @@ declare var ASPxClientTimer: ASPxClientTimerStatic;
 declare var ASPxClientTitleIndex: ASPxClientTitleIndexStatic;
 declare var ASPxClientTreeView: ASPxClientTreeViewStatic;
 declare var ASPxClientUploadControl: ASPxClientUploadControlStatic;
+declare var ASPxClientUploadControlValidationErrorTypeConsts: ASPxClientUploadControlValidationErrorTypeConstsStatic;
 declare var ASPxClientUtils: ASPxClientUtilsStatic;
 declare var ASPxClientChartDesigner: ASPxClientChartDesignerStatic;
 declare var ASPxClientWebChartControl: ASPxClientWebChartControlStatic;

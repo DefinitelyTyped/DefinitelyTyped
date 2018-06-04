@@ -14,6 +14,7 @@ ipc.config.interfaces = {
 };
 ipc.config.logDepth = 6;
 ipc.config.logInColor = true;
+ipc.config.logger = console.log;
 ipc.config.maxConnections = 200;
 ipc.config.maxRetries = false;
 ipc.config.networkHost = "127.0.0.1";
@@ -24,6 +25,7 @@ ipc.config.silent = true;
 ipc.config.socketRoot = "";
 ipc.config.stopRetrying = false;
 ipc.config.sync = true;
+ipc.config.unlink = false;
 ipc.config.tls = {
     rejectUnauthorized: false,
     public: "",
@@ -57,7 +59,7 @@ ipc.of.world.on("socket.disconnected", (socket: Socket, id: string) => { id.toLo
 ipc.of.world.on("message", (data: any, data2: any) => { });
 ipc.server.emit("event", [1, 2, 3]);
 const myBuffer = new Buffer(6).fill(0);
-let socket: Socket = {} as any;
+declare const socket: Socket;
 ipc.server.emit(socket, myBuffer);
 ipc.server.emit([10, 20, 30]);
 ipc.server.emit({ address: 'localhost', port: 8000 }, "message", { id: ipc.config.id, message: 'Goodbye' });

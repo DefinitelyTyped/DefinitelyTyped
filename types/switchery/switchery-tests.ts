@@ -1,7 +1,7 @@
 //
 // Examples from https://github.com/abpetkov/switchery
 //
-import {default as Switchery} from "switchery";
+import { default as Switchery } from "switchery";
 
 function multipleSwitches() {
 

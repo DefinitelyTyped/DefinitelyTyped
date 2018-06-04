@@ -7,11 +7,17 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
+        "paths": {
+            "@xmpp/jid": [
+                "xmpp__jid"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

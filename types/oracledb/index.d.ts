@@ -481,7 +481,6 @@ declare namespace oracledb {
 		terminate(): IPromise<void>;
 	}
 
-	/* tslint:disable no-unused-variable */
 	const DEFAULT: number;
 	/** Metadata return type */
 	const DB_TYPE_VARCHAR: number;
@@ -539,7 +538,6 @@ declare namespace oracledb {
 	 */
 	function newLob(iLob: ILob): Lob;
 
-	/* tslint:disable no-var-keyword */
 	/** Default transaction behaviour of auto commit for each statement. */
 	var autoCommit: boolean;
 	/**

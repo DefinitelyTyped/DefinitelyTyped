@@ -1,6 +1,8 @@
-// Type definitions for Highstock 2.1.5
+// Type definitions for Highstock 2.1.6
 // Project: http://www.highcharts.com/
+
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
+// Definitions by: Dave Baumann <https://github.com/route2Dev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Highcharts from "highcharts";
@@ -81,10 +83,43 @@ declare namespace Highstock {
         trackBorderWidth?: number;
     }
 
+    interface AxisOptions extends Highcharts.AxisOptions {
+        scrollbar?: ScrollbarOptions;
+    }
+
+    interface XAxisOptions extends AxisOptions {
+        ordinal?: boolean;
+        overscroll?: number;
+    }
+
+    interface YAxisOptions extends AxisOptions {
+        height?: number | string;
+        maxLength?: number | string;
+        minLength?: number | string;
+        resize?: {
+            controlledAxis?: {
+                next?: Array<number | string>;
+                prev?: Array<number | string>;
+            },
+            cursor?: string;
+            enabled?: boolean;
+            lineColor?: string;
+            lineDashStyle?: string;
+            lineWidth?: number;
+            x?: number;
+            y?: number;
+        };
+        reversedStacks?: boolean;
+        tooltipValueFormat?: string;
+        top?: number | string;
+    }
+
     interface Options extends Highcharts.Options {
         navigator?: NavigatorOptions;
         rangeSelector?: RangeSelectorOptions;
         scrollbar?: ScrollbarOptions;
+        xAxis?: XAxisOptions[] |XAxisOptions;
+        yAxis?: YAxisOptions[] | YAxisOptions;
     }
 
     interface Chart {
@@ -94,6 +129,7 @@ declare namespace Highstock {
 
     interface Static extends Highcharts.Static {
         StockChart: Chart;
+        stockChart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
     }
 }
 
@@ -103,16 +139,16 @@ declare global {
         /**
          * Creates a new Highcharts.Chart for the current JQuery selector; usually
          * a div selected by $('#container')
-         * @param {Highcharts.Options} options Options for this chart
-         * @return current {JQuery} selector the current JQuery selector
+         * @param options Options for this chart
+         * @return current selector the current JQuery selector
          */
         highcharts(type: "StockChart", options: Highstock.Options): JQuery;
         /**
          * Creates a new Highcharts.Chart for the current JQuery selector; usually
          * a div selected by $('#container')
-         * @param {Highcharts.Options} options Options for this chart
+         * @param options Options for this chart
          * @param callback Callback function used to manipulate the constructed chart instance
-         * @return current {JQuery} selector the current JQuery selector
+         * @return current selector the current JQuery selector
          */
         highcharts(type: "StockChart", options: Highstock.Options, callback: (chart: Highstock.ChartObject) => void): JQuery;
 

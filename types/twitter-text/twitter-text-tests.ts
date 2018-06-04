@@ -42,6 +42,7 @@ result = twitter.autoLinkUsernamesOrLists(text);
 result = twitter.autoLinkHashtags(text);
 result = twitter.autoLinkCashtags(text);
 result = twitter.autoLinkUrlsCustom(text, {targetBlank: true, suppressNoFollow: true});
+result = twitter.autoLinkUrlsCustom(text, {usernameIncludeSymbol: true, linkTextBlock: (entity, text) => {}});
 
 const len: number = twitter.getTweetLength(text);
 
@@ -59,3 +60,6 @@ const linked: string = twitter.autoLink("link @user, and expand url... http://t.
     ]});
 
 const usernames: string[] = twitter.extractMentions("Mentioning @twitter and @jack");
+
+const tweet = twitter.parseTweet('foo');
+const tweetWithOptions = twitter.parseTweet('foo', {maxWeightedTweetLength: 140});

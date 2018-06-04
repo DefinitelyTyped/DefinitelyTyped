@@ -26,3 +26,6 @@ interface MainLoop {
 }
 
 declare var MainLoop: MainLoop;
+
+export = MainLoop;
+export as namespace MainLoop;

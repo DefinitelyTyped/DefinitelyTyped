@@ -1,6 +1,5 @@
-
-import * as express from 'express';
-import * as errorhandler from 'errorhandler';
+import express = require('express');
+import errorhandler = require('errorhandler');
 
 var app = express();
 

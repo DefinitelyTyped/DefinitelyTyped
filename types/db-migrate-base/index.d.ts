@@ -2,6 +2,7 @@
 // Project: https://github.com/db-migrate/db-migrate-base
 // Definitions by: nickiannone <https://github.com/nickiannone>
 // Definitions: https://github.com/nickiannone/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node"/>
 

@@ -8,13 +8,18 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-          "jest": ["jest/v16"],
-          "jest/*": ["jest/v16/*"]
+            "jest": [
+                "jest/v16"
+            ],
+            "jest/*": [
+                "jest/v16/*"
+            ]
         },
         "types": [],
         "noEmit": true,

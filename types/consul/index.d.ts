@@ -7,7 +7,7 @@
 
 
 
-import {IncomingMessage as HttpIncomingMessage} from "http";
+import { IncomingMessage as HttpIncomingMessage } from "http";
 
 declare namespace Consul {
 

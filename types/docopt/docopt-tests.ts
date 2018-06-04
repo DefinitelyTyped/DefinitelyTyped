@@ -1,5 +1,4 @@
-
-/// <reference types="node" />
+import { docopt } from "docopt";
 
 var doc = `
 Usage:
@@ -7,5 +6,4 @@ Usage:
   quick_example.coffee serial <port> [--baud=9600] [--timeout=<seconds>]
   quick_example.coffee -h | --help | --version
 `;
-var {docopt} = require('docopt');
-console.log(docopt(doc, { version: '0.1.1rc' }));
+docopt(doc, { version: '0.1.1rc' });

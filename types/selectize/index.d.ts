@@ -1,9 +1,8 @@
-// Type definitions for Selectize 0.12.13
+// Type definitions for Selectize 0.12.14
 // Project: https://github.com/brianreavis/selectize.js
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>, Natalie Bausch <https://github.com/naBausch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="jquery"/>
+// TypeScript Version: 2.3
 
 declare namespace Selectize {
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md
@@ -12,6 +11,11 @@ declare namespace Selectize {
 
         // General
         // ------------------------------------------------------------------------------------------------------------
+
+        /**
+         * An array of the initial selected values. By default this is populated from the original input element.
+         */
+        items?: T[];
 
         /**
          * The string to separate items by. This option is only used when Selectize is instantiated from a
@@ -97,6 +101,13 @@ declare namespace Selectize {
         hideSelected?: boolean;
 
         /**
+         * If true, the dropdown will be closed after a selection is made.
+         *
+         * Default: false
+         */
+        closeAfterSelect?: boolean;
+
+        /**
          * If true, Selectize will treat any options with a "" value like normal. This defaults to false to
          * accomodate the common <select> practice of having the first empty option act as a placeholder.
          *
@@ -126,7 +137,7 @@ declare namespace Selectize {
          *
          * Default: false
          */
-        preload?: any;
+        preload?: boolean | 'focus';
 
         /**
          * The element the dropdown menu is appended to. This should be "body" or null.
@@ -151,11 +162,11 @@ declare namespace Selectize {
         selectOnTab?: boolean;
 
         /**
-         * An array of plugins to use
+         * Plugins to use
          *
          * Default: null
          */
-        plugins?: string[];
+        plugins?: string[] | IPluginOption[] | { [name: string]: any };
 
         // Data / Searching
         // ------------------------------------------------------------------------------------------------------------
@@ -221,6 +232,13 @@ declare namespace Selectize {
         optgroupField?: string;
 
         /**
+         * The name of the property to disabled option and optgroup.
+         *
+         * Default: 'disabled'
+         */
+        disabledField?: string;
+
+        /**
          * A single field or an array of fields to sort by. Each item in the array should be an object containing at
          * least a "field" property. Optionally, "direction" can be set to "asc" or "desc". The order of the array
          * defines the sort precedence.
@@ -230,14 +248,14 @@ declare namespace Selectize {
          *
          * Default: "$order"
          */
-        sortField?: any;
+        sortField?: string | { field: string, direction?: 'asc' | 'desc' }[];
 
         /**
          * An array of property names to analyze when filtering options.
          *
          * Default: ["text"]
          */
-        searchField?: any;
+        searchField?: string | string[];
 
         /**
          * When searching for multiple terms (separated by a space), this is the operator used. Can be "and" or "or".
@@ -245,6 +263,14 @@ declare namespace Selectize {
          * Default: "and"
          */
         searchConjunction?: string;
+
+        /**
+         * If truthy, Selectize will make all optgroups be in the same order as they were added (by the `$order`
+         * property). Otherwise, it will order based on the score of the results in each.
+         *
+         * Default: false
+         */
+        lockOptgroupOrder?: boolean;
 
         /**
          * An array of optgroup values that indicates the order they should be listed in in the dropdown.
@@ -280,6 +306,16 @@ declare namespace Selectize {
          * Invoked once the control is completely initialized.
          */
         onInitialize?(): any;
+
+        /**
+         * Invoked when the control gains focus.
+         */
+        onFocus?(): any;
+
+        /**
+         * Invoked when the control loses focus.
+         */
+        onBlur?(): any;
 
         /**
          * Invoked when the value of the control changes.
@@ -371,6 +407,15 @@ declare namespace Selectize {
 
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/api.md
     interface IApi<T, U> {
+        /**
+         * An array of selected values.
+         */
+        items: T[];
+
+        /**
+         * An object containing the entire pool of options. The object is keyed by each object's value.
+         */
+        options: { [value: string]: U };
 
         // Dropdown Options
         // ------------------------------------------------------------------------------------------------------------
@@ -400,7 +445,7 @@ declare namespace Selectize {
         /**
          * Retrieves the jQuery element for the option identified by the given value.
          */
-        getOption(value: T): any;
+        getOption(value: T): JQuery;
 
         /**
          * Retrieves the jQuery element for the previous or next option, relative to the currently highlighted option.
@@ -419,7 +464,7 @@ declare namespace Selectize {
         /**
          * Resets / clears all selected items from the control.
          */
-        clear(): void;
+        clear(silent?: boolean): void;
 
         /**
          * Returns the jQuery element of the item matching the given value.
@@ -429,18 +474,18 @@ declare namespace Selectize {
         /**
          * "Selects" an item. Adds it to the list at the current caret position.
          */
-        addItem(value: T): void;
+        addItem(value: T, silent?: boolean): void;
 
         /**
          * Removes the selected item matching the provided value.
          */
-        removeItem(value: T): void;
+        removeItem(value: T, silent?: boolean): void;
 
         /**
          * Invokes the "create" method provided in the selectize options that should provide the data for the
          * new item, given the user input. Once this completes, it will be added to the item list.
          */
-        createItem(value: T): void;
+        createItem(value: T, triggerDropdown?: boolean, callback?: (data?: any) => void): void;
 
         /**
          * Re-renders the selected item lists.
@@ -545,8 +590,8 @@ declare namespace Selectize {
         /**
          * Resets the selected items to the given value(s).
          */
-        setValue(value: T): void;
-        setValue(value: T[]): void;
+        setValue(value: T, silent?: boolean): void;
+        setValue(value: T[], silent?: boolean): void;
 
         /**
          * Moves the caret to the specified position ("index" being the index in the list of selected items).
@@ -604,6 +649,12 @@ declare namespace Selectize {
          * A list of matched results. Each result is an object containing two properties: "score" and "id".
          */
         items: ISearchResult[];
+    }
+
+    // see https://github.com/selectize/selectize.js/blob/master/docs/plugins.md
+    interface IPluginOption {
+        name: string;
+        options: any;
     }
 }
 

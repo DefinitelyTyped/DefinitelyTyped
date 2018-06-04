@@ -85,7 +85,6 @@ brush = brush.on('end', null);
 
 // re-apply
 brush.on('end', function(d, i, g) {
-    const that: SVGGElement = this;
     const datum: BrushDatum = d;
     const index: number = i;
     const group: SVGGElement[] | ArrayLike<SVGGElement> = g;

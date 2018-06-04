@@ -1,4 +1,7 @@
-let map: L.Map;
+import * as L from 'leaflet';
+import 'leaflet-label';
+
+const map: L.Map = L.map('map-container');
 let label: L.Label;
 
 // Icon

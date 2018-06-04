@@ -1,6 +1,3 @@
-
-/// <reference types="knockout.mapping" />
-
 declare var $;
 
 function test_creatingVMs() {
@@ -90,13 +87,26 @@ function test_computed() {
 }
 
 class GetterViewModel {
-    private _selectedRange: KnockoutObservable<any>;
+    private readonly _selectedRange: KnockoutObservable<any>;
 
     constructor() {
         this._selectedRange = ko.observable();
     }
 
     public range: KnockoutObservable<any>;
+}
+
+function testToJs() {
+    var objKo = {
+        prop: ko.observable("prop"),
+        subKo: ko.observable({
+            prop: ko.observable("prop")
+        })
+    };
+
+    var objJs = ko.toJS(objKo);
+    objJs.prop; // $ExpectType any
+    objJs.subKo.prop; // $ExpectType any
 }
 
 function testGetter() {
@@ -182,7 +192,7 @@ function test_bindings() {
             var value = ko.utils.unwrapObservable(valueAccessor());
             $(element).toggle(value);
         }
-    };
+    } as KnockoutBindingHandler<HTMLElement, KnockoutObservable<boolean> | boolean>;
     ko.bindingHandlers.hasFocus = {
         init: function (element, valueAccessor) {
             $(element).focus(function () {
@@ -201,7 +211,7 @@ function test_bindings() {
             else
                 element.blur();
         }
-    };
+    } as KnockoutBindingHandler<HTMLElement, KnockoutObservable<boolean>>;
     ko.bindingHandlers.allowBindings = {
         init: function (elem, valueAccessor) {
             var shouldAllowBindings = ko.utils.unwrapObservable(valueAccessor());
@@ -484,8 +494,8 @@ function test_mappingplugin() {
     ko.mapping.fromJS(data, {}, this);
 
     var alice, aliceMappingOptions, bob, bobMappingOptions;
-    var viewModel = ko.mapping.fromJS(alice, aliceMappingOptions);
-    ko.mapping.fromJS(bob, bobMappingOptions, viewModel);
+    var aliceViewModel = ko.mapping.fromJS(alice, aliceMappingOptions);
+    ko.mapping.fromJS(bob, bobMappingOptions, aliceViewModel);
 
     var obj;
     var result = ko.mapping.fromJS(obj, {
@@ -723,4 +733,20 @@ function observableArrayEventsTests() {
                 count--;
         });
     }, null, "arrayChange");
+}
+
+interface MySubscribable extends KnockoutSubscribable<any> {
+    isBeautiful?: boolean;
+}
+
+interface MyObservable extends KnockoutObservable<any> {
+    isBeautiful?: boolean;
+}
+
+interface MyObservableArray extends KnockoutObservableArray<any> {
+    isBeautiful?: boolean;
+}
+
+interface MyComputed extends KnockoutComputed<any> {
+    isBeautiful?: boolean;
 }

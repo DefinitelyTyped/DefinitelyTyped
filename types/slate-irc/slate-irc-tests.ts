@@ -1,6 +1,5 @@
-
 import * as net from "net";
-import * as SlateIRC from "slate-irc";
+import SlateIRC = require("slate-irc");
 
 let socket: net.Socket;
 const client = SlateIRC(socket);

@@ -1,19 +1,17 @@
-// Type definitions for mime
+// Type definitions for mime 2.0
 // Project: https://github.com/broofa/node-mime
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
+//                 Daniel Hritzkiv <https://github.com/dhritzkiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Imported from: https://github.com/soywiz/typescript-node-definitions/mime.d.ts
+// Originally imported from: https://github.com/soywiz/typescript-node-definitions/mime.d.ts
 
+export as namespace mime;
 
-export declare function lookup(path: string): string;
-export declare function extension(mime: string): string;
-export declare function load(filepath: string): void;
-export declare function define(mimes: Object): void;
+export interface TypeMap { [key: string]: string[]; }
 
-interface Charsets {
-    lookup(mime: string): string;
-}
+export function getType(path: string): string | null;
+export function getExtension(mime: string): string | null;
+export function define(mimes: TypeMap, force?: boolean): void;
 
-export declare var charsets: Charsets;
-export declare var default_type: string;
+export const default_type: string;

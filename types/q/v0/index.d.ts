@@ -2,6 +2,7 @@
 // Project: https://github.com/kriskowal/q
 // Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 export = Q;
 export as namespace Q;
@@ -165,6 +166,28 @@ declare namespace Q {
          * - { state: "rejected", reason: <rejection reason> }
          */
         inspect(): PromiseState<T>;
+
+        all<A, B, C, D, E, F>(this: Promise<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>, IWhenable<F>]>): Promise<[A, B, C, D, E, F]>;
+        /**
+         * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+         */
+        all<A, B, C, D, E>(this: Promise<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>]>): Promise<[A, B, C, D, E]>;
+        /**
+         * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+         */
+        all<A, B, C, D>(this: Promise<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>]>): Promise<[A, B, C, D]>;
+        /**
+         * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+         */
+        all<A, B, C>(this: Promise<[IWhenable<A>, IWhenable<B>, IWhenable<C>]>): Promise<[A, B, C]>;
+        /**
+         * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+         */
+        all<A, B>(this: Promise<[IWhenable<A>, IWhenable<B>]>): Promise<[A, B]>;
+        /**
+         * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+         */
+        all<T>(this: Promise<IWhenable<T>[]>): Promise<T[]>;
     }
 
     interface PromiseState<T> {
@@ -226,7 +249,10 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B>(promises: IWhenable<[IWhenable<A>, IWhenable<B>]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[IPromise<A>, IPromise<B>]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[A, IPromise<B>]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[IPromise<A>, B]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[A, B]>): Promise<[A, B]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */

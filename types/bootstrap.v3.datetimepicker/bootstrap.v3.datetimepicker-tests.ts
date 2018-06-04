@@ -118,7 +118,7 @@ function test_timeZone() {
 
 function test_widgetParent() {
     let nullW: null = null;
-    let str: string = "myId";
+    let str = "myId";
     let jquery = $("#element");
 
     $("#picker").datetimepicker({

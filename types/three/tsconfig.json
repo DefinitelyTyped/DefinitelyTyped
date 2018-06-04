@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -20,6 +21,7 @@
         "index.d.ts",
         "detector.d.ts",
         "test/references.ts",
+        "test/docs/scenes/bones_browser.ts",
         "test/math/test_unit_math.ts",
         "test/webgl/webgl_animation_cloth.ts",
         "test/webgl/webgl_animation_skinning_morph.ts",
@@ -52,6 +54,8 @@
         "test/examples/effects/vreffect.ts",
         "test/examples/controls/vrcontrols.ts",
         "test/examples/ctm/ctmloader.ts",
-        "test/examples/octree.ts"
+        "test/examples/octree.ts",
+        "test/examples/loaders/webgl_loader_obj_mtl.ts",
+        "test/webvr/webvr.ts"
     ]
 }

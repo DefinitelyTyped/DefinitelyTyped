@@ -2,11 +2,12 @@
 // Project: https://github.com/js-dxtools/webpack-validator
 // Definitions by: Simon Hartcher <https://github.com/deevus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 ///<reference types="webpack" />
 
 declare module "webpack-validator" {
-    import {Configuration} from "webpack";
+    import { Configuration } from "webpack";
 
     interface ValidationOptions {
         "no-root-files-node-modules-nameclash"?: boolean;

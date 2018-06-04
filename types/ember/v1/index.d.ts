@@ -2,6 +2,7 @@
 // Project: http://emberjs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 /// <reference types="handlebars"/>
@@ -726,9 +727,9 @@ declare namespace Ember {
         lastObject: any;
         length: number;
         addObject(object: any): any;
-        addObjects(objects: Enumerable): MutableEnumberable;
+        addObjects(objects: Enumerable): MutableEnumerable;
         removeObject(object: any): any;
-        removeObjects(objects: Enumerable): MutableEnumberable;
+        removeObjects(objects: Enumerable): MutableEnumerable;
     }
     var BOOTED: boolean;
     /**
@@ -1424,7 +1425,7 @@ declare namespace Ember {
         detect(obj: any): boolean;
         reopen<T extends Mixin>(args?: {}): T;
     }
-    class MutableArray implements Array, MutableEnumberable {
+    class MutableArray implements Array, MutableEnumerable {
         addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         any(callback: Function, target?: any): boolean;
@@ -1494,14 +1495,14 @@ declare namespace Ember {
         lastObject: any;
         length: number;
         addObject(object: any): any;
-        addObjects(objects: Enumerable): MutableEnumberable;
+        addObjects(objects: Enumerable): MutableEnumerable;
         removeObject(object: any): any;
-        removeObjects(objects: Enumerable): MutableEnumberable;
+        removeObjects(objects: Enumerable): MutableEnumerable;
     }
-    class MutableEnumberable implements Enumerable {
+    class MutableEnumerable implements Enumerable {
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         addObject(object: any): any;
-        addObjects(objects: Enumerable): MutableEnumberable;
+        addObjects(objects: Enumerable): MutableEnumerable;
         any(callback: Function, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
         someProperty(key: string, value?: string): boolean;
@@ -1537,7 +1538,7 @@ declare namespace Ember {
         rejectBy(key: string, value?: string): any[];
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         removeObject(object: any): any;
-        removeObjects(objects: Enumerable): MutableEnumberable;
+        removeObjects(objects: Enumerable): MutableEnumerable;
         setEach(key: string, value?: any): any;
         some(callback: Function, target?: any): boolean;
         toArray(): any[];
@@ -1637,9 +1638,9 @@ declare namespace Ember {
         lastObject: any;
         length: number;
         addObject(object: any): any;
-        addObjects(objects: Enumerable): MutableEnumberable;
+        addObjects(objects: Enumerable): MutableEnumerable;
         removeObject(object: any): any;
-        removeObjects(objects: Enumerable): MutableEnumberable;
+        removeObjects(objects: Enumerable): MutableEnumerable;
         addObserver: ModifyObserver;
         beginPropertyChanges(): Observable;
         cacheFor(keyName: string): any;
@@ -2456,7 +2457,7 @@ declare namespace Ember {
         static isClass: boolean;
         static isMethod: boolean;
     }
-    class Set extends CoreObject implements MutableEnumberable, Copyable, Freezable {
+    class Set extends CoreObject implements MutableEnumerable, Copyable, Freezable {
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Set;
         addObject(object: any): any;
         addObjects(objects: Enumerable): Set;
@@ -2521,10 +2522,10 @@ declare namespace Ember {
         unshift(obj: any): Set;
         length: number;
     }
-    class SortableMixin implements MutableEnumberable {
+    class SortableMixin implements MutableEnumerable {
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         addObject(object: any): any;
-        addObjects(objects: Enumerable): MutableEnumberable;
+        addObjects(objects: Enumerable): MutableEnumerable;
         any(callback: Function, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
         someProperty(key: string, value?: string): boolean;
@@ -2560,7 +2561,7 @@ declare namespace Ember {
         rejectBy(key: string, value?: string): any[];
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         removeObject(object: any): any;
-        removeObjects(objects: Enumerable): MutableEnumberable;
+        removeObjects(objects: Enumerable): MutableEnumerable;
         setEach(key: string, value?: any): any;
         some(callback: Function, target?: any): boolean;
         toArray(): any[];
@@ -3085,7 +3086,7 @@ declare namespace Em {
     class MapWithDefault extends Ember.MapWithDefault { }
     class Mixin extends Ember.Mixin { }
     class MutableArray extends Ember.MutableArray { }
-    class MutableEnumerable extends Ember.MutableEnumberable { }
+    class MutableEnumerable extends Ember.MutableEnumerable { }
     var NAME_KEY: typeof Ember.NAME_KEY;
     class Namespace extends Ember.Namespace { }
     class NativeArray extends Ember.NativeArray { }
@@ -3329,7 +3330,7 @@ declare module "Ember" {
     class MapWithDefault extends Ember.MapWithDefault { }
     class Mixin extends Ember.Mixin { }
     class MutableArray extends Ember.MutableArray { }
-    class MutableEnumerable extends Ember.MutableEnumberable { }
+    class MutableEnumerable extends Ember.MutableEnumerable { }
     var NAME_KEY: typeof Ember.NAME_KEY;
     class Namespace extends Ember.Namespace { }
     class NativeArray extends Ember.NativeArray { }

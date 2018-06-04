@@ -1,7 +1,11 @@
-interface Props {
-  className?: string;
-  size?: string;
-}
+import * as React from 'react';
+import { CSSModule } from '../index';
 
-declare var Pagination: React.StatelessComponent<Props>;
+export type PaginationProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+  className?: string;
+  cssModule?: CSSModule;
+  size?: string;
+} & T;
+
+declare class Pagination<T = {[key: string]: any}> extends React.Component<PaginationProps<T>> {}
 export default Pagination;

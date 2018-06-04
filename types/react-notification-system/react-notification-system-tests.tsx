@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as NotificationSystem from 'react-notification-system';
+import NotificationSystem = require('react-notification-system');
 
-class MyComponent extends React.Component<any, any> {
+class MyComponent extends React.Component {
     private notificationSystem: NotificationSystem.System = null;
 
     private notification: NotificationSystem.Notification = {

@@ -1,6 +1,6 @@
 
 
-import {app, BrowserWindow} from 'electron';
+import { app, BrowserWindow } from 'electron';
 import windowStateKeeper = require('electron-window-state');
 
 let win: Electron.BrowserWindow = null;

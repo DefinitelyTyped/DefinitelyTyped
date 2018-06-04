@@ -2,11 +2,12 @@
 // Project: https://github.com/leongersen/noUiSlider
 // Definitions by: Corey Jepperson <https://github.com/acoreyj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 /// <reference types="jquery"/>
 /// <reference types="wnumb"/>
 
 
-interface noUiSliderInstance extends JQuery{
+interface JQuery{
     /**
      * For one-handle sliders, calling .val() will return the value. 
      * For two-handle sliders, an array[value, value] will be returned.
@@ -145,6 +146,6 @@ interface noUiSliderPipsOptions {
 
 
 interface JQuery {
-    noUiSlider(options?: noUiSliderOptions): noUiSliderInstance;
-    noUiSlider_pips(options?: noUiSliderPipsOptions): noUiSliderInstance;
+    noUiSlider(options?: noUiSliderOptions): JQuery;
+    noUiSlider_pips(options?: noUiSliderPipsOptions): JQuery;
 }

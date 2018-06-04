@@ -1,69 +1,62 @@
-let dummySocket: ng.websocket.IWebSocket;
-let dummyPromise: ng.IPromise<void>;
-let dummyScope: ng.IScope;
+import * as ng from 'angular';
 
-let provider: ng.websocket.IWebSocketProvider = (url: string, protocols?:string[] | ng.websocket.IWebSocketConfigOptions, options?: ng.websocket.IWebSocketConfigOptions) => {
-    return dummySocket;
-}
+(promise: angular.IPromise<void>, scope: ng.IScope, provider: ng.websocket.IWebSocketProvider) => {
+    const socket = provider("wss://localhost");
+    const socketWithProtocols = provider("wss://localhost", ["protocol-a", "protocol-b"]);
 
-let socketWithProtocol = provider("wss://localhost", "protocol");
-let socketWithProtocols = provider("wss://localhost", ["protocol-a", "protocol-b"]);
+    const socketWithOptions = provider("wss://localhost", {
+        scope,
+        rootScopeFailOver: true,
+        useApplyAsync: true,
+        initialTimeout: 100,
+        maxTimeout: 300000,
+        reconnectIfNotNormalClose: true,
+        binaryType: "blob"
+    });
 
-let socketWithOptions = provider("wss://localhost", {
-  scope: dummyScope,
-  rootScopeFailOver: true,
-  useApplyAsync: true,
-  initialTimeout: 100,
-  maxTimeout: 300000,
-  reconnectIfNotNormalClose: true,
-  binaryType: "blob"
-});
+    const socketWithProtocolAndOptions = provider("wss://localhost", "protocol", {
+        scope,
+        rootScopeFailOver: true,
+        useApplyAsync: true,
+        initialTimeout: 100,
+        maxTimeout: 300000,
+        reconnectIfNotNormalClose: true,
+        binaryType: "blob"
+    });
 
-let socketWithProtocolAndOptions = provider("wss://localhost", "protocol", {
-  scope: dummyScope,
-  rootScopeFailOver: true,
-  useApplyAsync: true,
-  initialTimeout: 100,
-  maxTimeout: 300000,
-  reconnectIfNotNormalClose: true,
-  binaryType: "blob"
-});
+    socket.onOpen((event: Event) => {})
+        .onClose((event: Event) => {})
+        .onError((event: Event) => {})
+        .onMessage((event: Event) => {});
 
-let socket = provider("wss://localhost");
+    socket.onMessage((event: Event) => {}, { filter: /Some Filter/ })
+        .onMessage((event: Event) => {}, { filter: 'Some Filter' })
+        .onMessage((event: Event) => {}, { filter: 'Some Filter', autoApply: true })
+        .onMessage((event: Event) => {}, { autoApply: false });
 
-socket.onOpen((event) => {})
-      .onClose((event) => {})
-      .onError((event) => {})
-      .onMessage((event) => {});
+    socket.close(true);
+    socket.close();
 
-socket.onMessage((event) => {}, { filter: /Some Filter/ })
-      .onMessage((event) => {}, { filter: 'Some Filter' })
-      .onMessage((event) => {}, { filter: 'Some Filter', autoApply: true })
-      .onMessage((event) => {}, { autoApply: false });
+    socket.send("Some great data here!").finally(() => {});
+    socket.send({ list: [1, 2, 3, 4] });
 
-socket.close(true);
-socket.close();
+    socket.socket.send("data");
+    socket.socket.close();
+    socket.socket.close(1);
+    socket.socket.close(1, "reason");
 
-socket.send("Some great data here!").finally(() => {});
-socket.send({ list: [1, 2, 3, 4] });
+    socket.sendQueue.push({ message: "msg", defered: promise });
 
-socket.socket.send("data");
-socket.socket.close();
-socket.socket.close(1);
-socket.socket.close(1, "reason");
+    socket.onOpenCallbacks.push((event: Event) => {});
+    socket.onCloseCallbacks.push((event: CloseEvent) => {});
+    socket.onErrorCallbacks.push((event: Event) => {});
+    socket.onMessageCallbacks.push({ fn: (event: MessageEvent) => {}, pattern: 'Some Filter', autoApply: true });
+    socket.onMessageCallbacks.push({ fn: (event: MessageEvent) => {}, pattern: /Some Filter/, autoApply: true });
+    socket.onMessageCallbacks.push({ fn: (event: MessageEvent) => {}, autoApply: true });
 
-socket.sendQueue.push({ message: "msg", defered: dummyPromise });
+    socket.readyState = 0;
 
-socket.onOpenCallbacks.push((event: Event) => {});
-socket.onCloseCallbacks.push((event: CloseEvent) => {});
-socket.onErrorCallbacks.push((event: Event) => {});
-socket.onMessageCallbacks.push({ fn: (event: MessageEvent) => {}, pattern: 'Some Filter', autoApply: true });
-socket.onMessageCallbacks.push({ fn: (event: MessageEvent) => {}, pattern: /Some Filter/, autoApply: true });
-socket.onMessageCallbacks.push({ fn: (event: MessageEvent) => {}, pattern: undefined, autoApply: true });
+    socket.initialTimeout = 10;
 
-socket.readyState = 0;
-
-socket.initialTimeout = 10;
-
-socket.maxTimeout = 5000;
-
+    socket.maxTimeout = 5000;
+};

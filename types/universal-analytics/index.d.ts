@@ -1,92 +1,183 @@
-// Type definitions for universal-analytics v0.3.2
+// Type definitions for universal-analytics 0.4
 // Project: https://github.com/peaksandpies/universal-analytics
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Iker Pérez Brunelli <https://github.com/DarkerTV>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-interface UniversalAnalytics {
-    (accountID:string, uuid?:string, opts?:Object):UniversalAnalytics.Client;
-}
+declare namespace ua {
+    type Callback = (error: Error | null, count: number) => void;
 
-export = UniversalAnalytics;
-
-declare namespace UniversalAnalytics {
-
-    interface Client {
-        debug():UniversalAnalytics.Client;
-
-        send():void;
-
-        pageview(path:string):Client;
-        pageview(path:string, callback?:(err:any) => void):void;
-        pageview(params:Object):Client;
-        pageview(params:Object, callback?:(err:any) => void):void;
-        pageview(path:string, hostname:string):Client;
-        pageview(path:string, hostname:string, callback?:(err:any) => void):void;
-        pageview(path:string, title:string, hostname:string):Client;
-        pageview(path:string, title:string, hostname:string, callback?:(err:any) => void):void;
-
-
-        event(category:string, action:string):Client;
-        event(category:string, action:string, callback?:(err:any) => void):void;
-        event(category:string, action:string, label:string):Client;
-        event(category:string, action:string, label:string, callback?:(err:any) => void):void;
-        event(category:string, action:string, label:string, value:any):Client;
-        event(category:string, action:string, label:string, value:any, callback?:(err:any) => void):void;
-        event(category:string, action:string, label:string, value:any, params:Object, callback?:(err:any) => void):void;
-        event(params:Object):Client;
-        event(params:Object, callback:(err:any) => void):void;
-
-
-        transaction(id:string):Client;
-        transaction(id:string, callback:(err:any) => void):void;
-        transaction(id:string, revenue:number):Client;
-        transaction(id:string, revenue:number, callback:(err:any) => void):void;
-        transaction(id:string, revenue:number, shipping:number):Client;
-        transaction(id:string, revenue:number, shipping:number, callback:(err:any) => void):void;
-        transaction(id:string, revenue:number, shipping:number, taxping:number):Client;
-        transaction(id:string, revenue:number, shipping:number, taxping:number, callback:(err:any) => void):void;
-        transaction(id:string, revenue:number, shipping:number, taxping:number, affiliation:string):Client;
-        transaction(id:string, revenue:number, shipping:number, taxping:number, affiliation:string, callback:(err:any) => void):void;
-        transaction(params:Object):Client;
-        transaction(params:Object, callback:(err:any) => void):void;
-
-
-        item(price:number):Client;
-        item(price:number, callback:(err:any) => void):void;
-        item(price:number, quantity:number):Client;
-        item(price:number, quantity:number, callback:(err:any) => void):void;
-        item(price:number, quantity:number, sku:number):Client;
-        item(price:number, quantity:number, sku:number, callback:(err:any) => void):void;
-        item(price:number, quantity:number, sku:number, name:string):Client;
-        item(price:number, quantity:number, sku:number, name:string, callback:(err:any) => void):void;
-        item(price:number, quantity:number, sku:number, name:string, variation:string):Client;
-        item(price:number, quantity:number, sku:number, name:string, variation:string, callback:(err:any) => void):void;
-        item(price:number, quantity:number, sku:number, name:string, variation:string, params:Object):Client;
-        item(price:number, quantity:number, sku:number, name:string, variation:string, params:Object, callback:(err:any) => void):void;
-        item(params:Object):Client;
-        item(params:Object, callback:(err:any) => void):void;
-
-
-        exception(description:string):Client;
-        exception(description:string, callback:(err:any) => void):void;
-        exception(description:string, fatal:boolean):Client;
-        exception(description:string, fatal:boolean, callback:(err:any) => void):void;
-        exception(params:Object):Client;
-        exception(params:Object, callback:(err:any) => void):void;
-
-
-        timing(category:string):Client;
-        timing(category:string, callback:(err:any) => void):void;
-        timing(category:string, variable:string):Client;
-        timing(category:string, variable:string, callback:(err:any) => void):void;
-        timing(category:string, variable:string, time:number):Client;
-        timing(category:string, variable:string, time:number, callback:(err:any) => void):void;
-        timing(category:string, variable:string, time:number, label:string):Client;
-        timing(category:string, variable:string, time:number, label:string, callback:(err:any) => void):void;
-        timing(params:Object):Client;
-        timing(params:Object, callback:(err:any) => void):void;
-
-
-        middleware(accountID:string, options?:any):any;
+    interface VisitorOptions {
+        hostname?: string;
+        path?: string;
+        https?: boolean;
+        enableBatching?: boolean;
+        batchSize?: number;
+        tid?: string;
+        cid?: string;
+        uid?: string;
+        debug?: boolean;
+        strictCidFormat?: boolean;
+        requestOptions?: { [key: string]: any };
+        headers?: { [key: string]: string };
     }
+
+    interface MiddlewareOptions extends VisitorOptions {
+        cookieName?: string;
+    }
+
+    interface PageviewParams {
+        dp?: string;
+        dh?: string;
+        dt?: string;
+        dl?: string;
+        [key: string]: any;
+    }
+
+    interface ScreenviewParams {
+        cd?: string;
+        an?: string;
+        av?: string;
+        aid?: string;
+        aiid?: string;
+        [key: string]: any;
+    }
+
+    interface EventParams {
+        ec?: string;
+        ea?: string;
+        el?: string;
+        ev?: string | number;
+        p?: string;
+        dp?: string;
+        [key: string]: any;
+    }
+
+    interface TransactionParams {
+        ti?: string;
+        tr?: string | number;
+        ts?: string | number;
+        tt?: string | number;
+        ta?: string;
+        p?: string;
+        [key: string]: any;
+    }
+
+    interface ItemParams {
+        ip?: string | number;
+        iq?: string | number;
+        ic?: string;
+        in?: string;
+        iv?: string;
+        p?: string;
+        ti?: string;
+        [key: string]: any;
+    }
+
+    interface ExceptionParams {
+        exd?: string;
+        exf?: boolean;
+        [key: string]: any;
+    }
+
+    interface TimingParams {
+        utc?: string;
+        utv?: string;
+        utt?: string | number;
+        utl?: string;
+        [key: string]: any;
+    }
+
+    interface Session {
+        cid?: string;
+    }
+
+    class Visitor {
+        constructor(accountID: VisitorOptions | string);
+        constructor(accountID: string, uuid: VisitorOptions | string, context?: { [key: string]: any }, persistentParams?: { [key: string]: any });
+
+        debug(debug?: boolean): Visitor;
+
+        reset(): Visitor;
+
+        set(key: string | number, value: any): void;
+
+        pageview(path: PageviewParams | string, callback?: Callback): Visitor;
+        pageview(path: string, hostname: string, callback?: Callback): Visitor;
+        pageview(path: string, hostname: string, title: string, callback?: Callback): Visitor;
+        pageview(path: string, hostname: string, title: string, params: PageviewParams, callback?: Callback): Visitor;
+
+        pv(path: PageviewParams | string, callback?: Callback): Visitor;
+        pv(path: string, hostname: string, callback?: Callback): Visitor;
+        pv(path: string, hostname: string, title: string, callback?: Callback): Visitor;
+        pv(path: string, hostname: string, title: string, params: PageviewParams, callback?: Callback): Visitor;
+
+        screenview(params: ScreenviewParams, callback?: Callback): Visitor;
+        screenview(screenName: string, appName: string, callback?: Callback): Visitor;
+        screenview(screenName: string, appName: string, appVersion: string, callback?: Callback): Visitor;
+        screenview(screenName: string, appName: string, appVersion: string, appId: string, callback?: Callback): Visitor;
+        screenview(screenName: string, appName: string, appVersion: string, appId: string, appInstallerId: string, callback?: Callback): Visitor;
+        screenview(screenName: string, appName: string, appVersion: string, appId: string, appInstallerId: string, params: ScreenviewParams, callback?: Callback): Visitor;
+
+        event(params: EventParams, callback?: Callback): Visitor;
+        event(category: string, action: string, callback?: Callback): Visitor;
+        event(category: string, action: string, label: string, callback?: Callback): Visitor;
+        event(category: string, action: string, label: string, value: string | number, callback?: Callback): Visitor;
+        event(category: string, action: string, label: string, value: string | number, params: EventParams, callback?: Callback): Visitor;
+
+        e(params: EventParams, callback?: Callback): Visitor;
+        e(category: string, action: string, callback?: Callback): Visitor;
+        e(category: string, action: string, label: string, callback?: Callback): Visitor;
+        e(category: string, action: string, label: string, value: string | number, callback?: Callback): Visitor;
+        e(category: string, action: string, label: string, value: string | number, params: EventParams, callback?: Callback): Visitor;
+
+        transaction(id: TransactionParams | string, callback?: Callback): Visitor;
+        transaction(id: string, revenue: string | number, callback?: Callback): Visitor;
+        transaction(id: string, revenue: string | number, shipping: string | number, callback?: Callback): Visitor;
+        transaction(id: string, revenue: string | number, shipping: string | number, tax: string | number, callback?: Callback): Visitor;
+        transaction(id: string, revenue: string | number, shipping: string | number, tax: string | number, affiliation: string, callback?: Callback): Visitor;
+        transaction(id: string, revenue: string | number, shipping: string | number, tax: string | number, affiliation: string, params: TransactionParams, callback?: Callback): Visitor;
+
+        t(id: TransactionParams | string, callback?: Callback): Visitor;
+        t(id: string, revenue: string | number, callback?: Callback): Visitor;
+        t(id: string, revenue: string | number, shipping: string | number, callback?: Callback): Visitor;
+        t(id: string, revenue: string | number, shipping: string | number, tax: string | number, callback?: Callback): Visitor;
+        t(id: string, revenue: string | number, shipping: string | number, tax: string | number, affiliation: string, callback?: Callback): Visitor;
+        t(id: string, revenue: string | number, shipping: string | number, tax: string | number, affiliation: string, params: TransactionParams, callback?: Callback): Visitor;
+
+        item(price: ItemParams | string | number, callback?: Callback): Visitor;
+        item(price: string | number, quantity: string | number, callback?: Callback): Visitor;
+        item(price: string | number, quantity: string | number, sku: string, callback?: Callback): Visitor;
+        item(price: string | number, quantity: string | number, sku: string, name: string, callback?: Callback): Visitor;
+        item(price: string | number, quantity: string | number, sku: string, name: string, variation: string, callback?: Callback): Visitor;
+        item(price: string | number, quantity: string | number, sku: string, name: string, variation: string, params: ItemParams, callback?: Callback): Visitor;
+
+        i(price: ItemParams | string | number, callback?: Callback): Visitor;
+        i(price: string | number, quantity: string | number, callback?: Callback): Visitor;
+        i(price: string | number, quantity: string | number, sku: string, callback?: Callback): Visitor;
+        i(price: string | number, quantity: string | number, sku: string, name: string, callback?: Callback): Visitor;
+        i(price: string | number, quantity: string | number, sku: string, name: string, variation: string, callback?: Callback): Visitor;
+        i(price: string | number, quantity: string | number, sku: string, name: string, variation: string, params: ItemParams, callback?: Callback): Visitor;
+
+        exception(description: ExceptionParams | string, callback?: Callback): Visitor;
+        exception(description: string, fatal: boolean, callback?: Callback): Visitor;
+        exception(description: string, fatal: boolean, params: ExceptionParams, callback?: Callback): Visitor;
+
+        timing(category: TimingParams | string, callback?: Callback): Visitor;
+        timing(category: string, variable: string, callback?: Callback): Visitor;
+        timing(category: string, variable: string, time: string | number, callback?: Callback): Visitor;
+        timing(category: string, variable: string, time: string | number, label: string, callback?: Callback): Visitor;
+        timing(category: string, variable: string, time: string | number, label: string, params: TimingParams, callback?: Callback): Visitor;
+
+        send(fn?: (error: any, response: any, body: any) => void): void;
+    }
+
+    function createFromSession(session?: Session): Visitor;
+
+    function middleware(tid: string, options?: MiddlewareOptions): (req: any, res: any, next: (err: any) => void) => void;
 }
+
+declare function ua(accountID: ua.VisitorOptions | string): ua.Visitor;
+declare function ua(accountID: string, uuid: ua.VisitorOptions | string): ua.Visitor;
+declare function ua(accountID: string, uuid: string, options: ua.VisitorOptions): ua.Visitor;
+export = ua;

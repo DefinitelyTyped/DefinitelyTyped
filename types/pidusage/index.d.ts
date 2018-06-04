@@ -1,6 +1,6 @@
 // Type definitions for pidusage 1.1
 // Project: https://github.com/soyuka/pidusage
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Stat {

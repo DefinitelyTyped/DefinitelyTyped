@@ -13,7 +13,6 @@ const device = new awsIot.device({
   clientId: "",
   region: "",
   baseReconnectTimeMs: 1000,
-  keepalive: 10,
   protocol: "wss",
   port: 443,
   host: "",
@@ -39,7 +38,7 @@ device
          console.log("offline");
       });
    device
-      .on("error", function(error) {
+      .on("error", function(error: Error | string) {
          console.log("error", error);
       });
    device
@@ -55,7 +54,6 @@ const thingShadows = new awsIot.thingShadow({
     clientId: "",
     region: "",
     baseReconnectTimeMs: 1000,
-    keepalive: 10,
     protocol: "mqtts",
     port: 0,
     host: "",
@@ -65,8 +63,10 @@ const thingShadows = new awsIot.thingShadow({
  thingShadows.register(
    "thingName",
    { ignoreDeltas: false },
-   (err: Error, failedTopics: mqtt.Granted[]) => { }
+   (err: Error, failedTopics: mqtt.ISubscriptionGrant[]) => { }
  );
+
+ thingShadows.subscribe("topic", { qos: 1 }, (error: any, granted: mqtt.ISubscriptionGrant[]) => {});
 
  thingShadows.on("connect", function() {
      console.log("connected to AWS IoT");
@@ -85,7 +85,7 @@ const thingShadows = new awsIot.thingShadow({
      console.log("offline");
   });
 
-  thingShadows.on("error", function(error) {
+  thingShadows.on("error", function(error: Error) {
      console.log("error", error);
   });
 
@@ -96,8 +96,8 @@ const thingShadows = new awsIot.thingShadow({
   thingShadows.on("status", function(thingName: string, stat: "accepted" | "rejected", clientToken: string, stateObject: any) {
   });
 
-  thingShadows.on("delta", function(thingName, stateObject) {
+  thingShadows.on("delta", function(thingName: string, stateObject: any) {
   });
 
-  thingShadows.on("timeout", function(thingName, clientToken) {
+  thingShadows.on("timeout", function(thingName: string, clientToken: string) {
   });

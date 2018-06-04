@@ -1,5 +1,4 @@
-
-import * as sanitize from 'sanitize-html';
+import sanitize = require('sanitize-html');
 
 let options: sanitize.IOptions = {
   allowedTags: sanitize.defaults.allowedTags.concat('h1', 'h2', 'img'),
@@ -7,7 +6,7 @@ let options: sanitize.IOptions = {
     'a': sanitize.defaults.allowedAttributes['a'].concat('rel'),
     'img': ['src', 'height', 'width', 'alt']
   },
-	transformTags: { 
+	transformTags: {
     'a': sanitize.simpleTransform('a', { 'rel': 'nofollow' }),
     'img': (tagName: string, attribs: sanitize.Attributes) => {
       let img = { tagName, attribs };
@@ -17,7 +16,11 @@ let options: sanitize.IOptions = {
   },
   exclusiveFilter: function(frame: sanitize.IFrame) {
     return frame.tag === 'a' && !frame.text.trim();
-  }
+  },
+  allowedSchemesByTag: {
+    'a': ['http', 'https']
+  },
+  allowProtocolRelative: false
 };
 
 let unsafe = '<div><script>alert("hello");</script></div>';

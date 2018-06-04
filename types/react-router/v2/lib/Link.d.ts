@@ -7,7 +7,7 @@ type Link = Link.Link;
 export default Link;
 
 declare namespace Link {
-    interface LinkProps extends React.HTMLAttributes<Link> {
+    interface LinkProps extends React.LinkHTMLAttributes<Link> {
         activeStyle?: React.CSSProperties;
         activeClassName?: string;
         onlyActiveOnIndex?: boolean;

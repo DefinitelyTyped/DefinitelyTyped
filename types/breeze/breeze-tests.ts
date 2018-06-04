@@ -7,6 +7,11 @@ function test_dataType() {
     var typ = breeze.DataType.DateTime;
     var nm = typ.getName();
     var dv = typ.defaultValue;
+    var isDate = typ.isDate;
+    var isFloat = typ.isFloat;
+    var isInteger = typ.isInteger;
+    var isNumeric = typ.isNumeric;
+    var qjod = typ.quoteJsonOData;
     var symbs = breeze.DataType.getSymbols();
     var x = typ.parentEnum === <breeze.core.IEnum> breeze.DataType;
     var isFalse = breeze.DataType.contains(breeze.DataType.Double);

@@ -1,14 +1,11 @@
-// Type definitions for prism 1.6
+// Type definitions for prism 1.9
 // Project: http://prismjs.com/
-// Definitions by: Erik Lieben <https://github.com/eriklieben>, Andre Wiggins <https://github.com/andrewiggins>
+// Definitions by: Erik Lieben <https://github.com/eriklieben>
+//                 Andre Wiggins <https://github.com/andrewiggins>
+//                 Michał Miszczyszyn <https://github.com/mmiszy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace Prism;
-
-/**
- * @deprecated Use the Prism namespace directly directly
- */
-export as namespace PrismJS;
 
 export const util: Util;
 export const languages: Languages;
@@ -16,39 +13,50 @@ export const plugins: any;
 export const hooks: Hooks;
 
 /**
- * This is the most high-level function in Prism’s API. It fetches all the elements that have a .language-xxxx class and
- * then calls Prism.highlightElement() on each one of them.
+ * Used to highlight all elements on current website. Calls Prism.highlightAllUnder on `document`.
  *
- * @param {boolean} async Whether to use Web Workers to improve performance and avoid blocking the UI when highlighting
+ * @see highlightAllUnder
+ * @param async Whether to use Web Workers to improve performance and avoid blocking the UI when highlighting
  * very large chunks of code. False by default.
- * @param {Function} callback An optional callback to be invoked after the highlighting is done. Mostly useful when async
+ * @param callback An optional callback to be invoked after the highlighting is done. Mostly useful when async
  * is true, since in that case, the highlighting is done asynchronously.
  */
-export function highlightAll(async: boolean, callback?: (element: Element) => void): void;
+export function highlightAll(async?: boolean, callback?: (element: Element) => void): void;
+
+/**
+ * This is the most high-level function in Prism’s API. It fetches all the elements inside `container` that
+ * have a .language-xxxx class and then calls Prism.highlightElement() on each one of them.
+ *
+ * @param container The element which contains elements containing code.
+ * @param async Whether to use Web Workers to improve performance and avoid blocking the UI when highlighting
+ * very large chunks of code. False by default.
+ * @param callback An optional callback to be invoked after the highlighting is done. Mostly useful when async
+ * is true, since in that case, the highlighting is done asynchronously.
+ */
+export function highlightAllUnder(container: Element, async?: boolean, callback?: (element: Element) => void): void;
 
 /**
  * Highlights the code inside a single element.
  *
- * @param {Elment} element The element containing the code. It must have a class of language-xxxx to be processed,
+ * @param element The element containing the code. It must have a class of language-xxxx to be processed,
  * where xxxx is a valid language identifier.
- * @param {boolean} async Whether to use Web Workers to improve performance and avoid blocking the UI when
+ * @param async Whether to use Web Workers to improve performance and avoid blocking the UI when
  * highlighting very large chunks of code. False by default.
- * @param {Function} callback An optional callback to be invoked after the highlighting is done.
+ * @param callback An optional callback to be invoked after the highlighting is done.
  * Mostly useful when async is true, since in that case, the highlighting is done asynchronously.
  */
-export function highlightElement(element: Element, async: boolean, callback?: (element: Element) => void): void;
+export function highlightElement(element: Element, async?: boolean, callback?: (element: Element) => void): void;
 
 /**
  * Low-level function, only use if you know what you’re doing. It accepts a string of text as input and the language
  * definitions to use, and returns a string with the HTML produced.
  *
- * @param {string} text A string with the code to be highlighted.
- * @param {LanguageDefinition} grammer - An object containing the tokens to use. Usually a language definition like
+ * @param text A string with the code to be highlighted.
+ * @param grammar - An object containing the tokens to use. Usually a language definition like
  * Prism.languages.markup
- * @param {LanguageDefinition} language
- * @returns {string} The highlighted HTML
+ * @returns The highlighted HTML
  */
-export function highlight(text: string, grammer: LanguageDefinition, language?: LanguageDefinition): string;
+export function highlight(text: string, grammar: LanguageDefinition, language?: LanguageDefinition): string;
 
 /**
  * This is the heart of Prism, and the most low-level function you can use. It accepts a string of text as input and the
@@ -56,10 +64,10 @@ export function highlight(text: string, grammer: LanguageDefinition, language?: 
  * nested tokens, the function is called recursively on each of these tokens. This method could be useful in other
  * contexts as well, as a very crude parser.
  *
- * @param  {string} text A string with the code to be highlighted.
- * @param  {LanguageDefinition} grammar An object containing the tokens to use. Usually a language definition like
+ * @param text A string with the code to be highlighted.
+ * @param grammar An object containing the tokens to use. Usually a language definition like
  * Prism.languages.markup
- * @returns {Array} An array of strings, tokens (class Prism.Token) and other arrays.
+ * @returns An array of strings, tokens (class Prism.Token) and other arrays.
  */
 export function tokenize(text: string, grammar: LanguageDefinition): Array<Token | string>;
 
@@ -142,10 +150,14 @@ export interface LanguageDefinition {
     rest?: Token[];
 }
 
-export interface Languages {
+export type Languages
+    = LanguageMap
+    & LanguageMapProtocol;
+export interface LanguageMap {
     /** Get a defined language's definition */
     [key: string]: LanguageDefinition;
-
+}
+export interface LanguageMapProtocol {
     /**
      * Extend a language definition
      * @param id The language definition to extend
@@ -162,17 +174,18 @@ export interface Languages {
      * @param insert Object with the key/value pairs to insert
      * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
      */
-    insertBefore(inside: string, before: string, insert: LanguageDefinition, root: LanguageDefinition): any;
+    insertBefore(inside: string, before: string, insert: LanguageDefinition, root: LanguageDefinition): LanguageDefinition;
 }
 
 export type HookCallback = (env: Environment) => void;
-export type AvailableHooks = "before-highlightall"
-                    | "before-sanity-check"
-                    | "before-highlight"
-                    | "before-insert"
-                    | "after-highlight"
-                    | "complete"
-                    | "wrap";
+export type AvailableHooks
+    = "before-highlightall"
+    | "before-sanity-check"
+    | "before-highlight"
+    | "before-insert"
+    | "after-highlight"
+    | "complete"
+    | "wrap";
 
 export interface Hooks {
     all: Array<Array<(env: Environment) => void>>;

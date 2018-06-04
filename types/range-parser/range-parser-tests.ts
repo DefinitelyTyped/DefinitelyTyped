@@ -1,4 +1,4 @@
-import * as RangeParser from 'range-parser';
+import RangeParser = require('range-parser');
 
 declare var console: { assert(b: boolean): void };
 

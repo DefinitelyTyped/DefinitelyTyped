@@ -1,12 +1,12 @@
-// Type definitions for Lovefield v2.0.62
+// Type definitions for Lovefield 2.1
 // Project: http://google.github.io/lovefield/
 // Definitions by: freshp86 <https://github.com/freshp86>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace lf {
-  export enum Order { ASC, DESC }
+  enum Order { ASC, DESC }
 
-  export enum Type {
+  enum Type {
     ARRAY_BUFFER,
     BOOLEAN,
     DATE_TIME,
@@ -16,199 +16,204 @@ declare namespace lf {
     STRING
   }
 
-  export enum ConstraintAction {
+  enum ConstraintAction {
     RESTRICT,
     CASCADE
   }
 
-  export enum ConstraintTiming {
+  enum ConstraintTiming {
     IMMEDIATE,
     DEFERRABLE
   }
 
-  export interface Binder {
-    getIndex(): number
+  interface Binder {
+    getIndex(): number;
   }
 
-  export interface Predicate {}
-  export interface Row {}
+  interface Predicate {}
+  interface Row {}
   type ValueLiteral = string|number|boolean|Date;
 
-  export interface PredicateProvider {
-    eq(operand: ValueLiteral|schema.Column|Binder): Predicate
-    neq(operand: ValueLiteral|schema.Column|Binder): Predicate
-    lt(operand: ValueLiteral|schema.Column|Binder): Predicate
-    lte(operand: ValueLiteral|schema.Column|Binder): Predicate
-    gt(operand: ValueLiteral|schema.Column|Binder): Predicate
-    gte(operand: ValueLiteral|schema.Column|Binder): Predicate
-    match(operand: RegExp|Binder): Predicate
-    between(from: ValueLiteral|Binder, to: ValueLiteral|Binder): Predicate
-    in(values: Binder|Array<ValueLiteral>): Predicate
-    isNull(): Predicate
-    isNotNull(): Predicate
+  interface PredicateProvider {
+    eq(operand: ValueLiteral|schema.Column|Binder): Predicate;
+    neq(operand: ValueLiteral|schema.Column|Binder): Predicate;
+    lt(operand: ValueLiteral|schema.Column|Binder): Predicate;
+    lte(operand: ValueLiteral|schema.Column|Binder): Predicate;
+    gt(operand: ValueLiteral|schema.Column|Binder): Predicate;
+    gte(operand: ValueLiteral|schema.Column|Binder): Predicate;
+    match(operand: RegExp|Binder): Predicate;
+    between(from: ValueLiteral|Binder, to: ValueLiteral|Binder): Predicate;
+    in(values: Binder|ValueLiteral[]): Predicate;
+    isNull(): Predicate;
+    isNotNull(): Predicate;
   }
 
   function bind(index: number): Binder;
 
-  export interface Transaction {
-    attach(query: query.Builder): Promise<Array<Object>>
-    begin(scope: Array<schema.Table>): Promise<void>
-    commit(): Promise<void>
-    exec(queries: Array<query.Builder>): Promise<Array<Array<Object>>>
-    rollback(): Promise<void>
+  interface TransactionStats {
+    success(): boolean;
+    insertedRowCount(): number;
+    updatedRowCount(): number;
+    deletedRowCount(): number;
+    changedTableCount(): number;
   }
 
-  export enum TransactionType { READ_ONLY, READ_WRITE }
+  interface Transaction {
+    attach(query: query.Builder): Promise<Object[]>;
+    begin(scope: schema.Table[]): Promise<void>;
+    commit(): Promise<void>;
+    exec(queries: query.Builder[]): Promise<Object[][]>;
+    rollback(): Promise<void>;
+    stats(): TransactionStats;
+  }
 
-  export interface Database {
-    close(): void
-    createTransaction(type?: TransactionType): Transaction
-    delete(): query.Delete
-    export(): Promise<Object>
-    getSchema(): schema.Database
-    import(data: Object): Promise<void>
-    insertOrReplace(): query.Insert
-    insert(): query.Insert
-    observe(query: query.Select, callback: Function): void
-    select(...columns: schema.Column[]): query.Select
-    unobserve(query: query.Select, callback: Function): void
-    update(table: schema.Table): query.Update
+  enum TransactionType { READ_ONLY, READ_WRITE }
+
+  interface Database {
+    close(): void;
+    createTransaction(type?: TransactionType): Transaction;
+    delete(): query.Delete;
+    export(): Promise<Object>;
+    getSchema(): schema.Database;
+    import(data: Object): Promise<void>;
+    insertOrReplace(): query.Insert;
+    insert(): query.Insert;
+    observe(query: query.Select, callback: Function): void;
+    select(...columns: schema.Column[]): query.Select;
+    unobserve(query: query.Select, callback: Function): void;
+    update(table: schema.Table): query.Update;
   }
 
   namespace query {
-    export interface Builder {
-      bind(...values: any[]): Builder
-      exec(): Promise<Array<Object>>
-      explain(): string
-      toSql(): string
+    interface Builder {
+      bind(...values: any[]): Builder;
+      exec(): Promise<Object[]>;
+      explain(): string;
+      toSql(): string;
     }
 
-    export interface Delete extends Builder {
-      from(table: schema.Table): Delete
-      where(predicate: Predicate): Delete
+    interface Delete extends Builder {
+      from(table: schema.Table): Delete;
+      where(predicate: Predicate): Delete;
     }
 
-    export interface Insert extends Builder {
-      into(table: schema.Table): Insert
-      values(rows: Array<Row>|Binder|Array<Binder>): Insert
+    interface Insert extends Builder {
+      into(table: schema.Table): Insert;
+      values(rows: Row[]|Binder|Binder[]): Insert;
     }
 
-    export interface Select extends Builder {
-      from(...tables: schema.Table[]): Select
-      groupBy(...columns: schema.Column[]): Select
-      innerJoin(table: schema.Table, predicate: Predicate): Select
-      leftOuterJoin(table: schema.Table, predicate: Predicate): Select
-      limit(numberOfRows: Binder|number): Select
-      orderBy(column: schema.Column, order?: Order): Select
-      skip(numberOfRows: Binder|number): Select
-      where(predicate: Predicate): Select
+    interface Select extends Builder {
+      from(...tables: schema.Table[]): Select;
+      groupBy(...columns: schema.Column[]): Select;
+      innerJoin(table: schema.Table, predicate: Predicate): Select;
+      leftOuterJoin(table: schema.Table, predicate: Predicate): Select;
+      limit(numberOfRows: Binder|number): Select;
+      orderBy(column: schema.Column, order?: Order): Select;
+      skip(numberOfRows: Binder|number): Select;
+      where(predicate: Predicate): Select;
     }
 
-    export interface Update extends Builder {
-      set(column: schema.Column, value: any): Update
-      where(predicate: Predicate): Update
+    interface Update extends Builder {
+      set(column: schema.Column, value: any): Update;
+      where(predicate: Predicate): Update;
     }
-
   }  // module query
 
-
   namespace raw {
-    export interface BackStore {
-      getRawDBInstance(): any
-      getRawTransaction(): any
-      dropTable(tableName: string): Promise<void>
+    interface BackStore {
+      getRawDBInstance(): any;
+      getRawTransaction(): any;
+      dropTable(tableName: string): Promise<void>;
       addTableColumn(
           tableName: string, columnName: string,
-          defaultValue: string|boolean|number|Date|ArrayBuffer): Promise<void>
-      dropTableColumn(tableName: string, columnName:string): Promise<void>
+          defaultValue: string|boolean|number|Date|ArrayBuffer): Promise<void>;
+      dropTableColumn(tableName: string, columnName: string): Promise<void>;
       renameTableColumn(
           tableName: string, oldColumnName: string,
-          newColumnName:string) : Promise<void>
-      createRow(payload: Object): Row
-      getVersion(): number
-      dump(): Array<Object>
+          newColumnName: string): Promise<void>;
+      createRow(payload: Object): Row;
+      getVersion(): number;
+      dump(): Object[];
     }
   }  // module raw
 
-
   namespace schema {
-    export enum DataStoreType {
-      FIREBASE,
+    enum DataStoreType {
       INDEXED_DB,
-      LOCAL_STORAGE,
       MEMORY,
+      LOCAL_STORAGE,
+      FIREBASE,
       WEB_SQL
     }
 
-    export interface DatabasePragma {
-      enableBundledMode: boolean
+    interface DatabasePragma {
+      enableBundledMode: boolean;
     }
 
-    export interface Database {
-      name(): string
-      pragma(): DatabasePragma
-      tables(): Array<schema.Table>
-      table(tableName: string): schema.Table
-      version(): number
+    interface Database {
+      name(): string;
+      pragma(): DatabasePragma;
+      tables(): Table[];
+      table(tableName: string): Table;
+      version(): number;
     }
 
-    export interface Column extends PredicateProvider {
-      as(name: string): Column
-      getName(): string
-      getNormalizedName(): string
+    interface Column extends PredicateProvider {
+      as(name: string): Column;
+      getName(): string;
+      getNormalizedName(): string;
     }
 
     interface ITable {
-      as(name: string): Table
-      createRow(value: Object): Row
-      getName(): string
+      as(name: string): Table;
+      createRow(value: Object): Row;
+      getName(): string;
     }
 
-    export type Table = ITable & { [index: string]: Column }
+    type Table = ITable & { [index: string]: Column };
 
-    export interface ConnectOptions {
-      onUpgrade?: (rawDb: raw.BackStore) => Promise<void>
-      storeType?: DataStoreType
-      webSqlDbSize?: number
+    interface ConnectOptions {
+      onUpgrade?: (rawDb: raw.BackStore) => Promise<void>;
+      storeType?: DataStoreType;
+      webSqlDbSize?: number;
       // TODO(dpapad): firebase?
     }
 
-    export interface Builder {
-      connect(options: ConnectOptions): Promise<lf.Database>
-      createTable(tableName: string): TableBuilder
-      getSchema(): Database
-      setPragma(pragma: DatabasePragma): void
+    interface Builder {
+      connect(options?: ConnectOptions): Promise<lf.Database>;
+      createTable(tableName: string): TableBuilder;
+      getSchema(): Database;
+      setPragma(pragma: DatabasePragma): void;
     }
 
-    export interface IndexedColumn {
-      autoIncrement: boolean
-      name: string
-      order: Order
+    interface IndexedColumn {
+      autoIncrement: boolean;
+      name: string;
+      order: Order;
     }
 
     type RawForeignKeySpec = {
       local: string
       ref: string
-      action: lf.ConstraintAction
-      timing: lf.ConstraintTiming
-    }
+      action?: ConstraintAction
+      timing?: ConstraintTiming
+    };
 
-    export interface TableBuilder {
-      addColumn(name: string, type: lf.Type): TableBuilder
-      addForeignKey(name: string, spec: RawForeignKeySpec): TableBuilder
+    interface TableBuilder {
+      addColumn(name: string, type: Type): TableBuilder;
+      addForeignKey(name: string, spec: RawForeignKeySpec): TableBuilder;
       addIndex(
-          name: string, columns: Array<string>|Array<IndexedColumn>,
-          unique?: boolean, order?: Order): TableBuilder
-      addNullable(columns: Array<string>): TableBuilder
+          name: string, columns: string[]|IndexedColumn[],
+          unique?: boolean, order?: Order): TableBuilder;
+      addNullable(columns: string[]): TableBuilder;
       addPrimaryKey(
-          columns: Array<string>|Array<IndexedColumn>,
-          autoInc?: boolean): TableBuilder
-      addUnique(name: string, columns: Array<string>): TableBuilder
+          columns: string[]|IndexedColumn[],
+          autoInc?: boolean): TableBuilder;
+      addUnique(name: string, columns: string[]): TableBuilder;
     }
 
-    function create(dbName: string, dbVersion: number): Builder
+    function create(dbName: string, dbVersion: number): Builder;
   }  // module schema
-
 
   namespace op {
     function and(...args: Predicate[]): Predicate;
@@ -216,18 +221,16 @@ declare namespace lf {
     function or(...args: Predicate[]): Predicate;
   }  // module op
 
-
   namespace fn {
-    function avg(column: schema.Column): schema.Column
-    function count(column?: schema.Column): schema.Column
-    function distinct(column: schema.Column): schema.Column
-    function geomean(column: schema.Column): schema.Column
-    function max(column: schema.Column): schema.Column
-    function min(column: schema.Column): schema.Column
-    function stddev(column: schema.Column): schema.Column
-    function sum(column: schema.Column): schema.Column
+    function avg(column: schema.Column): schema.Column;
+    function count(column?: schema.Column): schema.Column;
+    function distinct(column: schema.Column): schema.Column;
+    function geomean(column: schema.Column): schema.Column;
+    function max(column: schema.Column): schema.Column;
+    function min(column: schema.Column): schema.Column;
+    function stddev(column: schema.Column): schema.Column;
+    function sum(column: schema.Column): schema.Column;
   }  // module fn
-
 }  // module lf
 
 export = lf;

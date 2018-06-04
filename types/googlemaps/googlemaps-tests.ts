@@ -1,8 +1,6 @@
 // Test file for Google Maps JavaScript API Definition file
 
-/***** Create map *****/
-let map = new google.maps.Map(
-    document.getElementById('map'), {
+let mapOptions: google.maps.MapOptions = {
     backgroundColor: "#fff",
     center: { lat: -25.363, lng: 131.044 },
     clickableIcons: true,
@@ -13,7 +11,53 @@ let map = new google.maps.Map(
     },
     gestureHandling: "cooperative",
     scrollwheel: true,
+    styles: [
+        {
+            elementType: 'geometry',
+            featureType: 'water',
+            stylers: [
+                {
+                    color: '#00bdbd'
+                }
+            ]
+        },
+        {
+            elementType: 'geometry',
+            featureType: 'landscape.man_made',
+            stylers: [
+                {
+                    color: '#f7f1df'
+                }
+            ]
+        }
+    ],
     zoom: 4
+};
+
+/***** Create map *****/
+let map: google.maps.Map = new google.maps.Map(
+    document.getElementById('map'),
+    mapOptions
+);
+
+/***** Fitting map to bounds *****/
+map.fitBounds({
+    north: 10,
+    east: 10,
+    west: 10,
+    south: 10
+}, 50);
+
+map.fitBounds({
+    east: 10,
+    north: 10,
+    south: 10,
+    west: 10
+}, {
+    bottom: 100,
+    left: 150,
+    right: 150,
+    top: 50
 });
 
 
@@ -129,6 +173,14 @@ var removePropertyEvent: google.maps.Data.RemovePropertyEvent = {
     oldValue: {}
 };
 
+var lineString = new google.maps.Data.LineString([ { lat: 52.201203, lng: -1.724370 }, { lat: 52.201203, lng: -2.724370 }]);
+lineString.forEachLatLng(latLng => console.log(`${latLng.lat} ${latLng.lng}`));
+
+data.setDrawingMode('LineString');
+data.setDrawingMode(null);
+
+data.setControls(['Point', 'Polygon']);
+data.setControls(null);
 
 /***** Overlays *****/
 
@@ -280,6 +332,9 @@ var panoramaOptions: google.maps.StreetViewPanoramaOptions = {
     motionTrackingControl: true
 };
 var panorama = new google.maps.StreetViewPanorama(document.createElement("div"), panoramaOptions);
+
+// MVCObject method on StreetViewPanorama
+var panoramaEvent = panorama.addListener("pano_changed", () => {});
 
 
 /***** MVCArray *****/

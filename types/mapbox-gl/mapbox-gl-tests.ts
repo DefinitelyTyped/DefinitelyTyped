@@ -51,7 +51,7 @@ map.on('load', function(){
 		}
 	});
 
-	var layers = [
+        var layers: [number, string][] = [
 		[150, '#f28cb1'],
 		[20, '#f1f075'],
 		[0, '#51bbd6']
@@ -150,7 +150,8 @@ map.flyTo({
 	screenSpeed: 1,
 	easing: function(t: any) {
 		return t;
-	}
+	},
+	maxDuration: 1
 });
 
 /**
@@ -204,6 +205,22 @@ var videoSourceObj = new mapboxgl.VideoSource({
 });
 map.addSource('some id', videoSourceObj); // add
 map.removeSource('some id');  // remove
+
+/**
+ * Add Raster Source /// made URL optional to allow only tiles.
+ */
+map.addSource('radar', {
+	type: 'raster',
+	tiles: ['https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WmsServer?bbox={bbox-epsg-3857}&service=WMS&request=GetMap&version=1.3.0&layers=1&styles=&format=image/png&transparent=true&height=256&width=256&crs=EPSG:3857'],
+	tileSize: 256
+})
+
+map.addLayer({
+	id: 'radar',
+	type: 'raster',
+	source: 'radar',
+	paint: {}
+})
 
 /**
  * Popup
@@ -303,16 +320,6 @@ var mapStyle = {
 	]
 };
 
-map = new mapboxgl.Map({
-	container: 'map',
-	minZoom: 14,
-	zoom: 17,
-	center: [-122.514426, 37.562984],
-	bearing: -96,
-	style: videoStyle,
-	hash: false
-});
-
 /**
  * Add video
  */
@@ -362,11 +369,24 @@ map = new mapboxgl.Map({
 	hash: false
 });
 
+map = new mapboxgl.Map({
+	container: 'map',
+	minZoom: 14,
+	zoom: 17,
+	center: [-122.514426, 37.562984],
+	bearing: -96,
+	style: videoStyle,
+	hash: false
+});
+
 /**
  * Marker
  */
-let marker = new mapboxgl.Marker(null,{offset: [10, 0]})
+let marker = new mapboxgl.Marker(undefined, {offset: [10, 0]})
 	.setLngLat([-50,50])
 	.addTo(map);
 
 marker.remove();
+let bool:boolean
+let bounds = new mapboxgl.LngLatBounds()
+bool = bounds.isEmpty()

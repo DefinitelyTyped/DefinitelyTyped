@@ -2,7 +2,7 @@ import socketIO = require('socket.io');
 
 function testUsingWithNodeHTTPServer() {
     var app = require('http').createServer(handler);
-    var io = socketIO(app);
+    var io: socketIO.Server = socketIO(app);
     var fs = require('fs');
 
     app.listen(80);
@@ -169,4 +169,23 @@ function testClosingServerWithCallback() {
 function testClosingServerWithoutCallback() {
     var io = socketIO.listen(80);
     io.close();
+}
+
+function testLocalServerMessages() {
+    var io = socketIO.listen(80);
+    io.local.emit('local', 'Local data');
+}
+
+function testVolatileServerMessages() {
+    var io = socketIO.listen(80);
+    io.volatile.emit('volatile', 'Lost data');
+}
+
+function testSocketUse() {
+    var io = socketIO.listen(80);
+    io.on('connection', (socket) => {
+        socket.use((packet, next) => {
+            console.log(packet);
+        });
+    });
 }

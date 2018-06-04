@@ -70,6 +70,17 @@ export class Options {
     addArguments(...var_args: string[]): Options;
 
     /**
+     * Configures the chromedriver to start Chrome in headless mode.
+     *
+     * > __NOTE:__ Resizing the browser window in headless mode is only supported
+     * > in Chrome 60. Users are encouraged to set an initial window size with
+     * > the {@link #windowSize windowSize({width, height})} option.
+     *
+     * @return {!Options} A self reference.
+     */
+    headless(): Options;
+
+    /**
      * List of Chrome command line switches to exclude that ChromeDriver by default
      * passes when starting Chrome.  Do not prefix switches with '--'.
      *

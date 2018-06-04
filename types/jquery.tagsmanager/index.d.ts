@@ -2,6 +2,7 @@
 // Project: http://welldonethings.com/tags/manager
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

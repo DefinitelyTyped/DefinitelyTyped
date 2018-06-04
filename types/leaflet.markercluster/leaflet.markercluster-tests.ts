@@ -1,4 +1,5 @@
-import L = require("leaflet.markercluster");
+import * as L from 'leaflet';
+import 'leaflet.markercluster';
 
 const polylineOptions: L.PolylineOptions = {};
 const icon: L.Icon = L.icon({ iconUrl: 'foo' });
@@ -80,3 +81,34 @@ markerClusterGroup.zoomToShowLayer(marker, () => {});
 let hasLayer: boolean;
 hasLayer = markerClusterGroup.hasLayer(layer);
 hasLayer = markerClusterGroup.hasLayer(marker);
+
+// inheritance
+const Subclass1 = L.MarkerClusterGroup.extend({
+    myFunction() {}
+});
+class Subclass2 extends L.MarkerClusterGroup {
+    myFunction() {}
+}
+const Subclass3 = L.MarkerCluster.extend({
+    myFunction() {}
+});
+class Subclass4 extends L.MarkerCluster {
+    myFunction() {}
+}
+
+const s1 = new Subclass1(); // any
+const s2 = new Subclass2();
+const s3 = new Subclass3(); // any
+const s4 = new Subclass4([1, 2]);
+
+// call subclass function
+s1.myFunction();
+s2.myFunction();
+s3.myFunction();
+s4.myFunction();
+
+// call base class function
+s1.refreshClusters();
+s2.refreshClusters();
+s3.getAllChildMarkers();
+s4.getAllChildMarkers();

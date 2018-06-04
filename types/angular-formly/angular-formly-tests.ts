@@ -14,6 +14,19 @@ class FormConfig {
 			templateUrl: 'my-messages.html'
 		});
 
+        formlyConfig.setWrapper([
+            {
+                name: 'validation-0',
+                types: ['input-0', 'customInput-0'],
+                templateUrl: 'my-messages-0.html'
+            },
+            {
+                name: 'validation-1',
+                types: ['input-1', 'customInput-1'],
+                templateUrl: 'my-messages-1.html'
+            }
+        ]);
+
 		formlyValidationMessages.addStringMessage('required', 'This field is required');
 
 		formlyConfig.setType({
@@ -21,14 +34,14 @@ class FormConfig {
 			extends: 'input'
 		});
 
-		formlyConfig.disableWarnings = true;		
+		formlyConfig.disableWarnings = true;
 		formlyConfig.templateManipulators = undefined;
 
 		formlyConfig.extras.apiCheckInstance = null;
 		formlyConfig.extras.defaultHideDirective = 'ng-if';
 		formlyConfig.extras.disableNgModelAttrsManipulator = true;
 		formlyConfig.extras.errorExistsAndShouldBeVisibleExpression = angular.noop;
-		formlyConfig.extras.explicitAsync = true;		
+		formlyConfig.extras.explicitAsync = true;
 		formlyConfig.extras.fieldTransform = angular.noop;
 		formlyConfig.extras.fieldTransform = [angular.noop];
 		formlyConfig.extras.getFieldId = angular.noop;

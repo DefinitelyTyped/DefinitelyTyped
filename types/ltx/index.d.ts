@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export {Element} from './lib/Element';
+export {Element } from './lib/Element';
 export {nameEqual, attrsEqual, childrenEqual, equal} from './lib/equal';
 export {isNode, isElement, isText} from './lib/is';
 export {clone} from './lib/clone';

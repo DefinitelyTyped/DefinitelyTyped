@@ -1,4 +1,4 @@
-import { FusionChartStatic } from "fusioncharts";
+import { FusionChartStatic } from ".";
 
 declare function treemap(H: FusionChartStatic): FusionChartStatic;
 export = treemap;

@@ -1,7 +1,8 @@
-// Type definitions for pouchdb-node v6.1.2
+// Type definitions for pouchdb-node 6.1
 // Project: https://pouchdb.com/
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
 /// <reference types="pouchdb-adapter-leveldb" />

@@ -1,6 +1,7 @@
-// Type definitions for accounting.js 0.3
-// Project: http://josscrowcroft.github.io/accounting.js/
-// Definitions by: Sergey Gerasimov <https://github.com/gerich-home/>
+// Type definitions for accounting.js 0.4
+// Project: http://openexchangerates.github.io/accounting.js/
+// Definitions by: Sergey Gerasimov <https://github.com/gerich-home>
+//                 Christopher Eck <https://github.com/chrisleck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace accounting {
@@ -30,9 +31,9 @@ declare namespace accounting {
     }
 
     interface Static {
-        // format any number into currency
-        formatMoney(number: number, symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string;
-        formatMoney(number: number, options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): string;
+        // format any number or stringified number into currency
+        formatMoney(number: number | string, symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string;
+        formatMoney(number: number | string, options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): string;
 
         formatMoney(numbers: number[], symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string[];
         formatMoney(numbers: number[], options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): string[];

@@ -1,13 +1,13 @@
 // Type definitions for Restangular v1.5.0
 // Project: https://github.com/mgonto/restangular
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
 // Support AMD require (copying angular.d.ts approach)
-// allows for import {IRequestConfig} from 'restangular' ES6 approach
+// allows for import { IRequestConfig } from 'restangular' ES6 approach
 import * as angular from 'angular';
 export = restangular;
 export as namespace Restangular;
@@ -67,7 +67,10 @@ declare namespace restangular {
     setUseCannonicalId(useCannonicalId: boolean): IProvider;
     setEncodeIds(encode: boolean): IProvider;
     setSelfLinkAbsoluteUrl(value: boolean): IProvider;
-    setParentless(value: any) : IProvider;
+    setParentless(value: any): IProvider;
+    setPlainByDefault(isPlain: boolean): IProvider;
+    extendModel(route: string, extender: (model: IElement) => any): IProvider;
+    extendCollection(route: string, extender: (collection: ICollection) => any): IProvider;
   }
 
   interface ICustom {
@@ -76,6 +79,7 @@ declare namespace restangular {
     customDELETE(path: string, params?: any, headers?: any): IPromise<any>;
     customPOST(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
     customPUT(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
+    customPATCH(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
     customOperation(operation: string, path: string, params?: any, headers?: any, elem?: any): IPromise<any>;
     addRestangularMethod(name: string, operation: string, path?: string, params?: any, headers?: any, elem?: any): IPromise<any>;
   }
@@ -92,17 +96,6 @@ declare namespace restangular {
     restangularizeCollection(parent: any, element: any, route: string): ICollection;
     service(route: string, parent?: any): IScopedService;
     stripRestangular(element: any): any;
-    extendModel(route: string, extender: (model: IElement) => any): void;
-    extendCollection(route: string, extender: (collection: ICollection) => any): void;
-  }
-
-  interface IScopedService extends IService {
-    one(id: number): IElement;
-    one(id: string): IElement;
-    post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
-    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
-    getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
-    getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
   }
 
   interface IScopedService extends IService {
@@ -120,7 +113,7 @@ declare namespace restangular {
     getList(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<any>;
     getList<T>(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<T>;
     put(queryParams?: any, headers?: any): IPromise<any>;
-    post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post(subElement: any, elementToPost?: any, queryParams?: any, headers?: any): IPromise<any>;
     post<T>(subElement: any, elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     remove(queryParams?: any, headers?: any): IPromise<any>;
     head(queryParams?: any, headers?: any): IPromise<any>;
@@ -133,8 +126,9 @@ declare namespace restangular {
     withHttpConfig(httpConfig: angular.IRequestShortcutConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
+    getRequestedUrl(): string;
     route?: string;
-    id?: string;
+    id?: number | string;
     reqParams?: any;
   }
 
@@ -153,5 +147,6 @@ declare namespace restangular {
     plain(): any;
     plain<T>(): T[];
     getRestangularUrl(): string;
+    getRequestedUrl(): string;
   }
 }

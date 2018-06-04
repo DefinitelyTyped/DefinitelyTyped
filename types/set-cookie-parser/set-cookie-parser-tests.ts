@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as http from "http";
-import * as setCookie from "set-cookie-parser";
+import setCookie = require("set-cookie-parser");
 
 // Call parse function on imported object
 var input = "foo=bar;";

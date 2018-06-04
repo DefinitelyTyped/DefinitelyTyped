@@ -1,4 +1,4 @@
-import {redditHot, hackerHot, wilsonScore} from 'decay';
+import { redditHot, hackerHot, wilsonScore } from 'decay';
 
 const upvotes = 42;
 const downvotes = 12;

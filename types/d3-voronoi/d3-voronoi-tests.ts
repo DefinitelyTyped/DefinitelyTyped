@@ -8,7 +8,6 @@
 
 import * as d3Voronoi from 'd3-voronoi';
 
-
 // ---------------------------------------------------------------------
 // Preparatory Steps
 // ---------------------------------------------------------------------
@@ -18,15 +17,14 @@ let size: [number, number];
 let coordinates: [number, number];
 
 let num: number;
-let numArray: Array<number>;
-
+let numArray: number[];
 
 interface VoronoiTestDatum {
     x: number;
     y: number;
 }
 
-let testData: Array<VoronoiTestDatum> = [
+const testData: VoronoiTestDatum[] = [
     { x: 10, y: 10 },
     { x: 20, y: 10 },
     { x: 10, y: 20 },
@@ -43,7 +41,6 @@ let edge: d3Voronoi.VoronoiEdge<VoronoiTestDatum>;
 let cells: Array<d3Voronoi.VoronoiCell<VoronoiTestDatum>>;
 let cell: d3Voronoi.VoronoiCell<VoronoiTestDatum>;
 let site: d3Voronoi.VoronoiSite<VoronoiTestDatum>;
-
 
 let polygons: Array<d3Voronoi.VoronoiPolygon<VoronoiTestDatum>>;
 let polygon: d3Voronoi.VoronoiPolygon<VoronoiTestDatum>;
@@ -87,7 +84,7 @@ pointPair = [[10, 10], [50, 50]];
 
 // VoronoiPolygon -------------------------------------------------------
 
-let voronoiPolygon: d3Voronoi.VoronoiPolygon<VoronoiTestDatum>;
+declare const voronoiPolygon: d3Voronoi.VoronoiPolygon<VoronoiTestDatum>;
 
 voronoiPolygon[0][0] = 10; // x-coordinate of first point
 voronoiPolygon[0][1] = 10; // y-coordinate of first point
@@ -116,17 +113,13 @@ voronoiLayout = d3Voronoi.voronoi<VoronoiTestDatum>();
 
 //  x(...) -------------------------------------------------------------
 
-voronoiLayout = voronoiLayout.x(function (d) {
-    return d.x; // data type of d is VoronoiTestDatum
-});
+voronoiLayout = voronoiLayout.x(d => d.x); // data type of d is VoronoiTestDatum
 
 numberAccessor = voronoiLayout.x();
 
 //  y(...) -------------------------------------------------------------
 
-voronoiLayout = voronoiLayout.y(function (d) {
-    return d.y; // data type of d is VoronoiTestDatum
-});
+voronoiLayout = voronoiLayout.y(d => d.y); // data type of d is VoronoiTestDatum
 
 numberAccessor = voronoiLayout.y();
 
@@ -161,12 +154,10 @@ polygons = voronoiLayout.polygons(testData);
 // generated from Layout
 triangles = voronoiLayout.triangles(testData);
 
-
 // Links ---------------------------------------------------------------
 
 // generated from Layout
 links = voronoiLayout.links(testData);
-
 
 // ---------------------------------------------------------------------
 // Use VoronoiDiagram
@@ -192,7 +183,7 @@ cell = cells[0];
 
 site = cell.site;
 
-numArray = cell.halfEdges;
+numArray = cell.halfedges;
 
 // VoronoiSite interface ===============================================
 
@@ -235,11 +226,9 @@ link = links[0];
 testDatum = link.source;
 testDatum = link.target;
 
-
 // find() ===============================================================
 
 let nearestSite: d3Voronoi.VoronoiSite<VoronoiTestDatum> | null;
-let wrongSiteDataType: d3Voronoi.VoronoiSite<[number, number]> | null;
 
 // Without search radius
 nearestSite = voronoiDiagram.find(10, 50);
@@ -248,4 +237,4 @@ nearestSite = voronoiDiagram.find(10, 50);
 nearestSite = voronoiDiagram.find(10, 50, 20);
 
 // wrong data type
-// wrongSiteDataType = voronoiDiagram.find(10, 50); // fails, due to data type mismatch
+// const wrongSiteDataType: d3Voronoi.VoronoiSite<[number, number]> | null; = voronoiDiagram.find(10, 50); // fails, due to data type mismatch

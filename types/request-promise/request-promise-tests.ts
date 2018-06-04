@@ -1,12 +1,12 @@
-
 import rp = require('request-promise');
 import errors = require('request-promise/errors');
+import * as path from "path";
 
 rp('http://www.google.com')
     .then(console.dir)
     .catch(console.error);
 
-var options: rp.Options = {
+let options: rp.Options = {
     uri : 'http://posttestserver.com/post.php',
     method : 'POST',
     json: true,
@@ -23,6 +23,8 @@ rp('http://google.com').finally(() => {});
 rp('http://google.com').then(console.dir);
 rp('http://google.com').catch(console.error);
 rp('http://google.com').then(console.dir, console.error);
+rp('http://google.com').cancel();
+rp('http://google.com').promise().then(console.dir);
 
 // This works as well since additional methods are only used AFTER the FIRST call in the chain:
 
@@ -56,7 +58,6 @@ rp({ uri: 'http://google.com', simple: false }).catch((reason) => {});
     // reason.response is the original response for which the transform operation failed
 }); */
 
-
 //Defaults tests
 (() => {
   const githubUrl = 'https://github.com';
@@ -79,18 +80,18 @@ options = {
 };
 
 rp(options)
-    .then(function (response: http.IncomingMessage) {
+    .then((response: http.IncomingMessage) => {
         console.log("DELETE succeeded with status %d", response.statusCode);
     })
     .catch(console.error);
-    
+
 //The following examples from https://github.com/request/request
 import fs = require('fs');
 import http = require('http');
-var request = rp;
+const request = rp;
 
-request('http://www.google.com', function (error, response, body) {
-  if (!error && response.statusCode == 200) {
+request('http://www.google.com', (error, response, body) => {
+  if (!error && response.statusCode === 200) {
     console.log(body); // Show the HTML for the Google homepage.
   }
 });
@@ -103,55 +104,59 @@ request.get('http://google.com/img.png').pipe(request.put('http://mysite.com/img
 
 request
   .get('http://google.com/img.png')
-  .on('response', function(response: any) {
+  .on('response', (response: any) => {
     console.log(response.statusCode); // 200
     console.log(response.headers['content-type']); // 'image/png'
   })
   .pipe(request.put('http://mysite.com/img.png'));
-  
+
 request
   .get('http://mysite.com/doodle.png')
-  .on('error', function(err: any) {
+  .on('error', (err: any) => {
     console.log(err);
   })
   .pipe(fs.createWriteStream('doodle.png'));
-  
-http.createServer(function (req, resp) {
+
+http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    if (req.method === 'PUT') {
-      req.pipe(request.put('http://mysite.com/doodle.png'));
-    } else if (req.method === 'GET' || req.method === 'HEAD') {
-      request.get('http://mysite.com/doodle.png').pipe(resp);
+    switch (req.method) {
+      case 'Put':
+        req.pipe(request.put('http://mysite.com/doodle.png'));
+        break;
+      case 'GET':
+      case 'HEAD':
+       request.get('http://mysite.com/doodle.png').pipe(resp);
+       break;
     }
   }
 });
 
-http.createServer(function (req, resp) {
+http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    var x = request('http://mysite.com/doodle.png');
+    const x = request('http://mysite.com/doodle.png');
     req.pipe(x);
     x.pipe(resp);
   }
 });
 
-var resp: http.ServerResponse;
-var req: rp.RequestPromise;
+declare const resp: http.ServerResponse;
+declare const req: rp.RequestPromise;
 req.pipe(request('http://mysite.com/doodle.png')).pipe(resp);
 
-var r = request;
-http.createServer(function (req, resp) {
+const r = request;
+http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
     r.get('http://google.com/doodle.png').pipe(resp);
   }
 });
 
-request.post('http://service.com/upload', {form:{key:'value'}});
+request.post('http://service.com/upload', { form: { key: 'value' } });
 // or
-request.post('http://service.com/upload').form({key:'value'});
+request.post('http://service.com/upload').form({ key: 'value' });
 // or
-request.post({url:'http://service.com/upload', form: {key:'value'}}, function(err,httpResponse,body){ /* ... */ });
+request.post({ url: 'http://service.com/upload', form: { key: 'value' } }, (err, httpResponse, body) => { /* ... */ });
 
-var data = {
+const data = {
   // Pass a simple key-value pair
   my_field: 'my_value',
   // Pass data via Buffers
@@ -167,22 +172,23 @@ var data = {
   // Use case: for some types of streams, you'll need to provide "file"-related information manually.
   // See the `form-data` README for more information about options: https://github.com/felixge/node-form-data
   custom_file: {
-    value:  fs.createReadStream('/dev/urandom'),
+    value: fs.createReadStream('/dev/urandom'),
     options: {
       filename: 'topsecret.jpg',
       contentType: 'image/jpg'
     }
   }
 };
-request.post({url:'http://service.com/upload', formData: data}, function optionalCallback(err, httpResponse, body) {
+request.post({ url: 'http://service.com/upload', formData: data }, (err, httpResponse, body) => {
   if (err) {
-    return console.error('upload failed:', err);
+    console.error('upload failed:', err);
+    return;
   }
   console.log('Upload successful!  Server responded with:', body);
 });
 
-var requestMultipart = request.post('http://service.com/upload', function optionalCallback(err, httpResponse, body) {});
-var form = requestMultipart.form();
+const requestMultipart = request.post('http://service.com/upload', (err, httpResponse, body) =>  {});
+const form = requestMultipart.form();
 form.append('my_field', 'my_value');
 form.append('my_buffer', new Buffer([1, 2, 3]));
 form.append('custom_file', fs.createReadStream(__dirname + '/unicycle.jpg'), {filename: 'unicycle.jpg'});
@@ -197,15 +203,16 @@ request({
       data: [
         {
           'content-type': 'application/json',
-          body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, 'content_type': 'text/plain' }}})
+          body: JSON.stringify({ foo: 'bar', _attachments: { 'message.txt': {follows: true, length: 18, content_type: 'text/plain' } } })
         },
         { body: 'I am an attachment' }
       ]
     }
   },
-  function (error, response, body) {
+  (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -216,43 +223,44 @@ request({
     uri: 'http://service.com/upload',
     multipart: [
       {
-        'content-type': 'application/json',
-        body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, 'content_type': 'text/plain' }}})
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
       },
       { body: 'I am an attachment' },
       { body: fs.createReadStream('image.png') }
     ]
   },
-  function (error, response, body) {
+  (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
-  
+
 request.get('http://some.server.com/').auth('username', 'password', false);
 // or
 request.get('http://some.server.com/', {
-  'auth': {
-    'user': 'username',
-    'pass': 'password',
-    'sendImmediately': false
+  auth: {
+    user: 'username',
+    pass: 'password',
+    sendImmediately: false
   }
 });
 // or
 request.get('http://some.server.com/').auth(null, null, true, 'bearerToken');
 // or
 request.get('http://some.server.com/', {
-  'auth': {
-    'bearer': 'bearerToken'
+  auth: {
+    bearer: 'bearerToken'
   }
 });
 
-var username = 'username',
-    password = 'password',
-    url = 'http://' + username + ':' + password + '@some.server.com';
+const username = 'username';
+const password = 'password';
+let url = `http://${username}:${password}@some.server.com`;
 
-request({url: url}, function (error, response, body) {
+request({ url }, (error, response, body) => {
    // Do more stuff with 'body' here
 });
 
@@ -264,8 +272,8 @@ options = {
 };
 
 function callback(error: any, response: http.IncomingMessage, body: string) {
-  if (!error && response.statusCode == 200) {
-    var info = JSON.parse(body);
+  if (!error && response.statusCode === 200) {
+    const info = JSON.parse(body);
     console.log(info.stargazers_count + " Stars");
     console.log(info.forks_count + " Forks");
   }
@@ -278,61 +286,53 @@ request(options, callback);
 import qs = require('querystring');
 const CONSUMER_KEY = 'key';
 const CONSUMER_SECRET = 'secret';
-var oauth =
-    { callback: 'http://mysite.com/callback/'
-    , consumer_key: CONSUMER_KEY
-    , consumer_secret: CONSUMER_SECRET
-    }
-  , url = 'https://api.twitter.com/oauth/request_token'
-  ;
-request.post({url:url, oauth:oauth}, function (e, r, body) {
+const oauth = { callback: 'http://mysite.com/callback/', consumer_key: CONSUMER_KEY, consumer_secret: CONSUMER_SECRET };
+url = 'https://api.twitter.com/oauth/request_token';
+request.post({ url, oauth }, (e, r, body) => {
   // Ideally, you would take the body in the response
   // and construct a URL that a user clicks on (like a sign in button).
   // The verifier is only available in the response after a user has
   // verified with twitter that they are authorizing your app.
 
   // step 2
-  var req_data = qs.parse(body);
-  var uri = 'https://api.twitter.com/oauth/authenticate'
-    + '?' + qs.stringify({oauth_token: req_data.oauth_token});
+  const req_data = qs.parse(body);
+  const uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({oauth_token: req_data.oauth_token})}`;
   // redirect the user to the authorize uri
 
   // step 3
   // after the user is redirected back to your server
-  var auth_data: any = qs.parse(body)
-    , oauth =
-      { consumer_key: CONSUMER_KEY
-      , consumer_secret: CONSUMER_SECRET
-      , token: auth_data.oauth_token
-      , token_secret: req_data.oauth_token_secret
-      , verifier: auth_data.oauth_verifier
-      }
-    , url = 'https://api.twitter.com/oauth/access_token'
-    ;
-  request.post({url:url, oauth:oauth}, function (e, r, body) {
+  const auth_data: any = qs.parse(body);
+  const oauth = {
+    consumer_key: CONSUMER_KEY,
+    consumer_secret: CONSUMER_SECRET,
+    token: auth_data.oauth_token,
+    token_secret: req_data.oauth_token_secret as string,
+    verifier: auth_data.oauth_verifier,
+  };
+  const url = 'https://api.twitter.com/oauth/access_token';
+  request.post({ url, oauth }, (e, r, body) => {
     // ready to make signed requests on behalf of the user
-    var perm_data: any = qs.parse(body);
-    var oauth =
-        { consumer_key: CONSUMER_KEY
-        , consumer_secret: CONSUMER_SECRET
-        , token: perm_data.oauth_token
-        , token_secret: perm_data.oauth_token_secret
-        };
-    var url = 'https://api.twitter.com/1.1/users/show.json';
-    var query = { 
-      screen_name: perm_data.screen_name, 
+    const perm_data: any = qs.parse(body);
+    const oauth = {
+      consumer_key: CONSUMER_KEY,
+      consumer_secret: CONSUMER_SECRET,
+      token: perm_data.oauth_token,
+      token_secret: perm_data.oauth_token_secret,
+    };
+    const url = 'https://api.twitter.com/1.1/users/show.json';
+    const query = {
+      screen_name: perm_data.screen_name,
       user_id: perm_data.user_id
     };
-    request.get({url:url, oauth:oauth, qs:query, json:true}, function (e, r, user) {
+    request.get({ url, oauth, qs: query, json: true }, (e, r, user) => {
       console.log(user);
     });
   });
 });
 
-var path = require('path')
-    , certFile = path.resolve(__dirname, 'ssl/client.crt')
-    , keyFile = path.resolve(__dirname, 'ssl/client.key')
-    , caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
+let certFile = path.resolve(__dirname, 'ssl/client.crt');
+let keyFile = path.resolve(__dirname, 'ssl/client.key');
+const caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
 
 options = {
     url: 'https://api.some-server.com/',
@@ -344,9 +344,8 @@ options = {
 
 request.get(options);
 
-var path = require('path')
-    , certFile = path.resolve(__dirname, 'ssl/client.crt')
-    , keyFile = path.resolve(__dirname, 'ssl/client.key');
+certFile = path.resolve(__dirname, 'ssl/client.crt');
+keyFile = path.resolve(__dirname, 'ssl/client.key');
 
 options = {
     url: 'https://api.some-server.com/',
@@ -375,7 +374,6 @@ request.get({
         ca: fs.readFileSync('ca.cert.pem')
     }
 });
-
 
 request({
     // will be ignored
@@ -407,15 +405,15 @@ request({
       }
     }
   });
-  
+
 //requests using baseRequest() will set the 'x-token' header
-var baseRequest = request.defaults({
+const baseRequest = request.defaults({
   headers: {'x-token': 'my-token'}
 });
 
 //requests using specialRequest() will include the 'x-token' header set in
 //baseRequest and will also include the 'special' header
-var specialRequest = baseRequest.defaults({
+const specialRequest = baseRequest.defaults({
   headers: {special: 'special value'}
 });
 
@@ -429,7 +427,7 @@ request.cookie('key1=value1');
 request.jar();
 request.debug = true;
 
-request.get('http://10.255.255.1', {timeout: 1500}, function(err) {
+request.get('http://10.255.255.1', {timeout: 1500}, err => {
     console.log(err.code === 'ETIMEDOUT');
     // Set to `true` if the timeout was a connection timeout, `false` or
     // `undefined` otherwise.
@@ -437,80 +435,81 @@ request.get('http://10.255.255.1', {timeout: 1500}, function(err) {
     process.exit(0);
 });
 
-var rand = Math.floor(Math.random()*100000000).toString();
-  request(
-    { method: 'PUT'
-    , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
-    , multipart:
-      [ { 'content-type': 'application/json'
-        ,  body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, 'content_type': 'text/plain' }}})
-        }
-      , { body: 'I am an attachment' }
-      ]
-    }
-  , function (error, response, body) {
-      if(response.statusCode == 201){
-        console.log('document saved as: http://mikeal.iriscouch.com/testjs/'+ rand)
-      } else {
-        console.log('error: '+ response.statusCode)
-        console.log(body)
-      }
-    }
-  );
-  
+const rand = Math.floor(Math.random() * 100000000).toString();
 request(
-    { method: 'GET'
-    , uri: 'http://www.google.com'
-    , gzip: true
+  {
+    method: 'PUT',
+    uri: 'http://mikeal.iriscouch.com/testjs/' + rand,
+    multipart: [
+      {
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ foo: 'bar', _attachments: { 'message.txt': { follows: true, length: 18, content_type: 'text/plain' } } })
+      },
+      { body: 'I am an attachment' }
+    ]
+  }, (error, response, body) => {
+    if (response.statusCode === 201) {
+      console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
+    } else {
+      console.log('error: ' + response.statusCode);
+      console.log(body);
     }
-  , function (error, response, body) {
-      // body is the decompressed response body
-      console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'))
-      console.log('the decoded data is: ' + body)
-    }
-  ).on('data', function(data: any) {
-    // decompressed data as it is received
-    console.log('decoded chunk: ' + data)
-  })
-  .on('response', function(response: http.IncomingMessage) {
-    // unmodified http.IncomingMessage object
-    response.on('data', function(data: any[]) {
-      // compressed data as it is received
-      console.log('received ' + data.length + ' bytes of compressed data')
-    })
   });
-  
-var requestWithJar = request.defaults({jar: true})
-requestWithJar('http://www.google.com', function () {
+
+request(
+  {
+    method: 'GET',
+    uri: 'http://www.google.com',
+    gzip: true
+  },
+  (error, response, body) => {
+    // body is the decompressed response body
+    console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'));
+    console.log('the decoded data is: ' + body);
+  })
+  .on('data', (data: any) => {
+    // decompressed data as it is received
+    console.log('decoded chunk: ' + data);
+  })
+  .on('response', (response: http.IncomingMessage) => {
+    // unmodified http.IncomingMessage object
+    response.on('data', (data: any[]) => {
+      // compressed data as it is received
+      console.log(`received ${data.length} bytes of compressed data`);
+    });
+  });
+
+let requestWithJar = request.defaults({ jar: true });
+requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
 
-var j = request.jar()
-requestWithJar = request.defaults({jar:j})
-requestWithJar('http://www.google.com', function () {
+let jar = request.jar();
+requestWithJar = request.defaults({ jar });
+requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
 
-var j = request.jar();
-var cookie = request.cookie('key1=value1');
-var url = 'http://www.google.com';
-j.setCookie(cookie, url);
-request({url: url, jar: j}, function () {
+jar = request.jar();
+const cookie = request.cookie('key1=value1');
+url = 'http://www.google.com';
+jar.setCookie(cookie, url);
+request({ url, jar }, () => {
   request('http://images.google.com');
 });
 
 //TODO: add definitions for tough-cookie-filestore
-//var FileCookieStore = require('tough-cookie-filestore');
+//const FileCookieStore = require('tough-cookie-filestore');
 // NOTE - currently the 'cookies.json' file must already exist!
-//var j = request.jar(new FileCookieStore('cookies.json'));
-requestWithJar = request.defaults({ jar : j })
-request('http://www.google.com', function() {
+//const j = request.jar(new FileCookieStore('cookies.json'));
+requestWithJar = request.defaults({ jar });
+request('http://www.google.com', () => {
   request('http://images.google.com');
 });
 
-var j = request.jar()
-request({url: 'http://www.google.com', jar: j}, function () {
-  var cookie_string = j.getCookieString(url); // "key1=value1; key2=value2; ..."
-  var cookies = j.getCookies(url);
+jar = request.jar();
+request({ url: 'http://www.google.com', jar }, () => {
+  const cookie_string = jar.getCookieString(url); // "key1=value1; key2=value2; ..."
+  const cookies = jar.getCookies(url);
   // [{key: 'key1', value: 'value1', domain: "www.google.com", ...}, ...]
 });

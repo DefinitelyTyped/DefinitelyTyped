@@ -11,7 +11,7 @@ import events = require('events');
 
 export declare function parseXml(source: string): XMLDocument;
 export declare function parseHtml(source: string): HTMLDocument;
-export declare function parseXmlString(source: string): XMLDocument;
+export declare function parseXmlString(source: string, options?: { [key: string]: string }): XMLDocument;
 export declare function parseHtmlString(source: string): HTMLDocument;
 
 

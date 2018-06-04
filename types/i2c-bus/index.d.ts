@@ -2,6 +2,7 @@
 // Project: https://github.com/fivdi/i2c-bus
 // Definitions by: Jason Heard <https://github.com/101100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -318,6 +319,8 @@ export interface I2cBus {
      *
      * @param {number} address
      *     I2C device address.
+     * @param {number} command
+     *     The command code.
      * @param {number} bit
      *     The data bit to write (0 or 1).
      * @param {CompletionCallback} callback
@@ -330,6 +333,8 @@ export interface I2cBus {
      *
      * @param {number} address
      *     I2C device address.
+     * @param {number} command
+     *     The command code.
      * @param {number} bit
      *     The data bit to write (0 or 1).
      */
@@ -383,7 +388,7 @@ export interface I2cBus {
  * @return {I2cBus}
  *     A new I2cBus object.
  */
-export function open(busNumber: number, calback: CompletionCallback): I2cBus;
+export function open(busNumber: number, callback: CompletionCallback): I2cBus;
 
 /**
  * Synchronous open.

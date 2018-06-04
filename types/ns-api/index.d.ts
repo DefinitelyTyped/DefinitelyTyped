@@ -11,9 +11,8 @@ interface nsApi {
      * Vertrektijden - departure times
      *
      * @callback callback
-     * @param station {string} - Station ID
-     * @param callback {function} - `function (err, data) {}`
-     * @returns {void}
+     * @param station - Station ID
+     * @param callback - `function (err, data) {}`
      */
     vertrektijden(station: string, callback: (err: string, data: {}) => void): void;
 
@@ -21,9 +20,8 @@ interface nsApi {
      * Reisadvies - travel advise
      *
      * @callback callback
-     * @param params {object} - Parameters
-     * @param callback {function} - `function (err, data) {}`
-     * @returns {void}
+     * @param params - Parameters
+     * @param callback - `function (err, data) {}`
      */
     reisadvies(params: {}, callback: (err: string, data: {}) => void): void;
 
@@ -31,9 +29,8 @@ interface nsApi {
      * Prijzen - tariffs
      *
      * @callback callback
-     * @param params {object} - Parameters
-     * @param callback {function} - `function (err, data) {}`
-     * @returns {void}
+     * @param params - Parameters
+     * @param callback - `function (err, data) {}`
      */
     prijzen(params: {}, callback: (err: any, data: {}) => void): void;
 
@@ -41,8 +38,8 @@ interface nsApi {
      * List available stations
      *
      * @callback callback
-     * @param [treeKey] {string} - Group by this key
-     * @param callback {function} - `function (err, data) {}`
+     * @param [treeKey] - Group by this key
+     * @param callback - `function (err, data) {}`
      */
     stations(treeKey: string, callback: (err: string, data: {}) => void): void;
     stations(callback: (err: string, data: {}) => void): void;
@@ -51,8 +48,8 @@ interface nsApi {
      * List disruptions
      *
      * @callback callback
-     * @param params {object} - Parameters
-     * @param callback {function} - `function (err, data) {}`
+     * @param params - Parameters
+     * @param callback - `function (err, data) {}`
      */
     storingen(params: {}, callback: (err: string, data: {}) => void): void;
 }

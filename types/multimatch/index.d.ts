@@ -6,10 +6,8 @@
 /**
  * Match utility function which supports multiple pattern globbing.
  *
- * @param {string[]} paths list to match against.
- * @param {string[]} patterns globbing patterns to use. e.g. `[*, "!cake"]`.
- * @param {multimatch.MultimatchOptions} [options]
- * @returns {string[]}
+ * @param paths list to match against.
+ * @param patterns globbing patterns to use. e.g. `[*, "!cake"]`.
  */
 declare function multimatch(paths: string[], patterns: string | string[], options?: multimatch.MultimatchOptions): string[];
 
@@ -61,7 +59,8 @@ declare namespace multimatch {
 		/** Suppress the behavior of treating a leading `!` character as negation. */
 		nonegate?: boolean;
 
-		/** Returns from negate expressions the same as if they were not negated.
+		/**
+		 * Returns from negate expressions the same as if they were not negated.
 		 * (Ie, true on a hit, false on a miss.)
 		 */
 		flipNegate?: boolean;

@@ -1,42 +1,48 @@
-// Type definitions for react-dropzone
+// Type definitions for react-dropzone 4.2.3
 // Project: https://github.com/okonet/react-dropzone
-// Definitions by: Mathieu Larouche Dube <https://github.com/matdube>, Ivo Jesus <https://github.com/LynxEyes>, Luís Rodrigues <https://github.com/goblindegook>
-// Definitions: https://github.com/Vooban/DefinitelyTyped
-// TypeScript Version: 2.1
-/// <reference types="react"/>
+// Definitions by: Mathieu Larouche Dube <https://github.com/matdube>,
+//                 Ivo Jesus <https://github.com/LynxEyes>,
+//                 Luís Rodrigues <https://github.com/goblindegook>,
+//                 Ben Bayard <https://github.com/benbayard>,
+//                 Karol Janyst <https://github.com/LKay>,
+//                 Andris Causs <https://github.com/codeaid>,
+//                 Juraj Husar <https://github.com/jurosh>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
 
-declare module "react-dropzone" {
-    interface DropzoneProps {
-        // Drop behavior
-        onDrop?: Function,
-        onDropAccepted?: Function,
-        onDropRejected?: Function,
+import { CSSProperties, Component, DragEvent, InputHTMLAttributes } from "react";
 
-        // Drag behavior
-        onDragStart?: Function,
-        onDragEnter?: Function,
-        onDragLeave?: Function,
+export interface ImageFile extends File {
+    preview?: string;
+}
 
-        style?: Object, // CSS styles to apply
-        activeStyle?: Object, // CSS styles to apply when drop will be accepted
-        rejectStyle?: Object, // CSS styles to apply when drop will be rejected
-        className?: string, // Optional className
-        activeClassName?: string, // className for accepted state
-        rejectClassName?: string, // className for rejected state
+export type DropFileEventHandler = (acceptedOrRejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
+export type DropFilesEventHandler = (accepted: ImageFile[], rejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
 
-        disablePreview?: boolean, // Enable/disable preview generation
-        disableClick?: boolean, // Disallow clicking on the dropzone container to open file dialog
+type PickedAttributes = "accept" | "className" | "multiple" | "name" | "onClick" | "onDragStart" | "onDragEnter" | "onDragOver" | "onDragLeave" | "style";
 
-        inputProps?: Object, // Pass additional attributes to the <input type="file"/> tag
-        multiple?: boolean, // Allow dropping multiple files
-        accept?: string, // Allow specific types of files. See https://github.com/okonet/attr-accept for more information
-        name?: string, // name attribute for the input tag
-        maxSize?: number,
-        minSize?: number
+export interface DropzoneProps extends Pick<InputHTMLAttributes<HTMLDivElement>, PickedAttributes> {
+    disableClick?: boolean;
+    disabled?: boolean;
+    disablePreview?: boolean;
+    preventDropOnDocument?: boolean;
+    inputProps?: InputHTMLAttributes<HTMLInputElement>;
+    maxSize?: number;
+    minSize?: number;
+    activeClassName?: string;
+    acceptClassName?: string;
+    rejectClassName?: string;
+    disabledClassName?: string;
+    activeStyle?: CSSProperties;
+    acceptStyle?: CSSProperties;
+    rejectStyle?: CSSProperties;
+    disabledStyle?: CSSProperties;
+    onDrop?: DropFilesEventHandler;
+    onDropAccepted?: DropFileEventHandler;
+    onDropRejected?: DropFileEventHandler;
+    onFileDialogCancel?: () => void;
+}
 
-        onFileDialogCancel?: () => void;
-    }
-
-    let Dropzone: React.ClassicComponentClass<DropzoneProps>;
-    export = Dropzone;
+export default class Dropzone extends Component<DropzoneProps> {
+    open(): void;
 }

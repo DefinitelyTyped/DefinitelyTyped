@@ -1,12 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es2015",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

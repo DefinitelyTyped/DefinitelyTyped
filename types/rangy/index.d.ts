@@ -31,6 +31,7 @@ interface RangyRange extends Range {
     equals(range:RangyRange):boolean;
     refresh():any;
     select():any;
+    toCharacterRange(containerNode:Node, opts?: any):{start:number, end:number};
 }
 
 interface RangySelection extends Selection {
@@ -39,6 +40,7 @@ interface RangySelection extends Selection {
     refresh(checkForChanges?:boolean):any;
     toHtml():string;
     getAllRanges():RangyRange[];
+    getRangeAt(idx:number):RangyRange;
     getNativeTextRange():any;
     setSingleRange(range:RangyRange):any;
     setRanges(ranges:RangyRange[]):any;
@@ -46,8 +48,11 @@ interface RangySelection extends Selection {
     moveToBookmark(bookmark:Object):any;
     saveRanges():Object;
     restoreRanges(saved:Object):any;
+    saveCharacterRanges(containerNode:Node, opts?: any):Object;
+    restoreCharacterRanges(containerNode:Node, characterRanges:Object, opts?: any):any;
     detach():any;
-    inspect():string;
+    inspect(): string;
+    move(units: string, count: number, opts?: any): number;
 }
 
 interface RangyStatic {
@@ -55,12 +60,14 @@ interface RangyStatic {
     createRange(doc?:Document|Window|HTMLIFrameElement):RangyRange;
     createRangyRange(doc?:Document|Window|HTMLIFrameElement):RangyRange;
     getNativeSelection(win?:Window):Selection;
-    getSelection():RangySelection;
+    getSelection(doc?:Document|Window|HTMLIFrameElement):RangySelection;
     addInitListener(listener:(rangy:RangyStatic) => void):any;
     shim():any;
     createMissingNativeApi():any;
     initialized:boolean;
     supported:boolean;
 }
-
+declare module 'rangy' {
+    export = rangy;
+}
 declare var rangy:RangyStatic;

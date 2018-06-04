@@ -76,7 +76,7 @@ interface State {
 }
 const reducer = ReduxAction.createReducer<State>({ name: 'name' }, {
   'get items': () => {
-    return 'new name';
+    return { name: 'new name' };
   }
 });
 

@@ -1,15 +1,13 @@
-
-
-declare var require:any;
-
 import Insight = require('insight');
-var pkg:any = require('./package.json');
+var dummyPackage = {
+    name: 'dummy',
+    version: '1.0.0',
+};
 
 var insight = new Insight({
     // Google Analytics tracking code
     trackingCode: 'UA-XXXXXXXX-X',
-    packageName: pkg.name,
-    packageVersion: pkg.version
+    pkg: dummyPackage,
 });
 
 (()=> {

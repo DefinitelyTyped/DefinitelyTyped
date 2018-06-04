@@ -1,9 +1,10 @@
 // Type definitions for Hopscotch v0.2.5
 // Project: http://linkedin.github.io/hopscotch/
-// Definitions by: Tim Perry <https://github.com/pimterry>
+// Definitions by: Tim Perry <https://github.com/pimterry>, Aurimas <https://github.com/Aurimas1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare type CallbackNameNamesOrDefinition = string | string[] | (() => void);
+declare type placementTypes = 'top' | 'bottom' | 'right' | 'left';
 
 interface HopscotchConfiguration {
   bubbleWidth?: number;
@@ -27,6 +28,7 @@ interface HopscotchConfiguration {
   onEnd?:   CallbackNameNamesOrDefinition;
   onClose?: CallbackNameNamesOrDefinition;
   onError?: CallbackNameNamesOrDefinition;
+  onShow?:  CallbackNameNamesOrDefinition;
                
   i18n?: {
     nextBtn?: string;
@@ -44,7 +46,7 @@ interface TourDefinition extends HopscotchConfiguration {
 }
 
 interface StepDefinition {
-  placement: string;
+  placement: placementTypes;
   target: string | HTMLElement | Array<string | HTMLElement>
 
   title?: string;
@@ -53,9 +55,9 @@ interface StepDefinition {
   width?: number;
   padding?: number;
 
-  xOffset?: number;
-  yOffset?: number;
-  arrowOffset?: number;
+  xOffset?: number | 'center';
+  yOffset?: number | 'center';
+  arrowOffset?: number | 'center';
 
   delay?: number;
   zIndex?: number;

@@ -1,13 +1,30 @@
-/// <reference types="mocha" />
-/// <reference types="should" />
-
-
-
 import File = require('vinyl');
 import Stream = require('stream');
 import fs = require('fs');
 
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
+
 declare var fakeStream: NodeJS.ReadWriteStream;
+
+// TODO: These aren't useful as types tests since they take `any`.
+declare const should: ShouldStatic;
+interface ShouldStatic {
+	exist(obj: any, desc?: string): void;
+	not: this;
+};
+interface Should {
+	be: { true: undefined; false: undefined; };
+	equal(obj: any, desc?: string): void;
+	not: this;
+}
+declare global {
+	interface Object {
+		should: Should;
+	}
+}
 
 describe('File', () => {
 
@@ -72,9 +89,9 @@ describe('File', () => {
 		});
 
 		it('should set stat to given value', done => {
-			var val = {};
-			var file = new File(<fs.Stats><any>{stat: val});
-			file.stat.should.equal(val);
+			var stat = {} as fs.Stats;
+			var file = new File({ stat });
+			file.stat.should.equal(stat);
 			done();
 		});
 

@@ -1,40 +1,43 @@
-import * as Color from "color"
+import Color = require('color');
 
-var color: Color.Color = Color("white")
-var colorOther: Color.Color = Color("black")
-var colorRGB: Color.Color = Color({ r : 0, g : 0, b : 0 }, "rgb")
+const color: Color = new Color("white");
+const colorOther: Color = new Color("black");
+const colorRGB: Color = new Color({ r: 0, g: 0, b: 0 }, "rgb");
+const colorInt: Color = new Color(0x000000);
+const colorWithoutNew: Color = Color(0x000000);
+const colorByStaticMethod: Color = Color.rgb({ r: 0, g: 0, b: 0 });
 
-var hex: string = color.hex()
-var percent: string = color.percentString()
-var keyword: string | void = color.keyword()
-var alpha: number = color.alpha()
-var red: number = color.red()
-var green: number = color.green()
-var blue: number = color.blue()
-var hue: number = color.hue()
-var saturationl: number = color.saturationl()
-var lightness: number = color.lightness()
-var saturationv: number = color.saturationv()
-var value: number = color.value()
-var cyan: number = color.cyan()
-var magenta: number = color.magenta()
-var yellow: number = color.yellow()
-var black: number = color.black()
-var luminosity: number = color.luminosity()
-var contrast: number = color.contrast(colorOther)
-var dark: boolean = color.dark()
-var light: boolean = color.light()
-var level: string = color.level(colorOther)
+const hex: string = color.hex();
+const percent: string = color.percentString();
+const keyword: string = color.keyword();
+const alpha: number = color.alpha();
+const red: number = color.red();
+const green: number = color.green();
+const blue: number = color.blue();
+const hue: number = color.hue();
+const saturationl: number = color.saturationl();
+const lightness: number = color.lightness();
+const saturationv: number = color.saturationv();
+const value: number = color.value();
+const cyan: number = color.cyan();
+const magenta: number = color.magenta();
+const yellow: number = color.yellow();
+const black: number = color.black();
+const luminosity: number = color.luminosity();
+const contrast: number = color.contrast(colorOther);
+const isDark: boolean = color.isDark();
+const isLight: boolean = color.isLight();
+const level: string = color.level(colorOther);
 
-var x: number = color.x()
-var y: number = color.y()
-var z: number = color.z()
-var l: number = color.l()
-var a: number = color.a()
-var b: number = color.b()
-var rgbNumber: number = color.rgbNumber()
+const x: number = color.x();
+const y: number = color.y();
+const z: number = color.z();
+const l: number = color.l();
+const a: number = color.a();
+const b: number = color.b();
+const rgbNumber: number = color.rgbNumber();
 
-var chain: Color.Color = color
+const chain: Color = color
     .alpha(0)
     .red(0)
     .green(0)
@@ -53,9 +56,10 @@ var chain: Color.Color = color
     .darken(0)
     .saturate(0)
     .desaturate(0)
-    .greyscale()
+    .grayscale()
     .whiten(0)
     .blacken(0)
     .opaquer(0)
     .rotate(0)
     .mix(colorOther, 0)
+    .hsl();

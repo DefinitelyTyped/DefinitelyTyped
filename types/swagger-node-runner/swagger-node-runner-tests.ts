@@ -1,6 +1,6 @@
 import * as SwaggerNodeRunner from "swagger-node-runner";
-import * as express from "express";
-import * as connect from "connect";
+import express = require("express");
+import connect = require("connect");
 import * as Hapi from "hapi";
 import * as restify from "restify";
 import * as sails from "sails.io.js";
@@ -63,7 +63,10 @@ SwaggerNodeRunner.create(config, (err, runner) => {
   const pluginAttributes = hapiMiddleware.plugin.register.attributes.name + hapiMiddleware.plugin.register.attributes.version;
 
   hapiapp.register(hapiMiddleware.plugin, err => {
-    if (err) { return console.error("Failed to load plugin:", err); }
+    if (err) {
+        console.error("Failed to load plugin:", err);
+        return;
+    }
     // stat app etc..
   });
 });

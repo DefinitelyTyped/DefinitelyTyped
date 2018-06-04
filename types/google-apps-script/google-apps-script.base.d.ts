@@ -1,9 +1,9 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Base {
@@ -58,6 +58,8 @@ declare namespace GoogleAppsScript {
      *
      * JdbcClobA JDBC Clob.
      *
+     * PositionedImageFixed position image anchored to a Paragraph.
+     *
      * SpreadsheetThis class allows users to access and modify Google Sheets files.
      *
      * StaticMapAllows for the creation and decoration of static map images.
@@ -68,7 +70,7 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * This class provides access to Google Apps specific dialog boxes.
+     * This class provides access to G Suite specific dialog boxes.
      *
      *  The methods in this class are only available for use in the context of a Google Spreadsheet.
      * See also
@@ -76,7 +78,7 @@ declare namespace GoogleAppsScript {
      * ButtonSet
      */
     export interface Browser {
-      Buttons: ButtonSet
+      Buttons: typeof ButtonSet;
       inputBox(prompt: string): string;
       inputBox(prompt: string, buttons: ButtonSet): string;
       inputBox(title: string, prompt: string, buttons: ButtonSet): string;
@@ -219,6 +221,7 @@ declare namespace GoogleAppsScript {
       getActiveUserLocale(): string;
       getEffectiveUser(): User;
       getScriptTimeZone(): string;
+      getTemporaryActiveUserKey(): string;
       getTimeZone(): string;
       getUser(): User;
     }
@@ -244,8 +247,8 @@ declare namespace GoogleAppsScript {
      *      }
      */
     export interface Ui {
-      Button: Button
-      ButtonSet: ButtonSet
+      Button: typeof Button;
+      ButtonSet: typeof ButtonSet;
       alert(prompt: string): Button;
       alert(prompt: string, buttons: ButtonSet): Button;
       alert(title: string, prompt: string, buttons: ButtonSet): Button;

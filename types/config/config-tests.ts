@@ -34,3 +34,5 @@ var configSources: config.IConfigSource[] = config.util.getConfigSources();
 var configSource: config.IConfigSource = configSources[0];
 var configSourceName: string = configSource.name;
 var configSourceOriginal: string | undefined = configSource.original;
+
+var moduleDefaults: any = config.util.setModuleDefaults("moduleName", {});

@@ -1,20 +1,22 @@
+import MediumEditor = require('medium-editor');
+
 /**
  * Test document usage
  */
 
 // Init Example
-var editor = new MediumEditor('.editable');
+const editor1 = new MediumEditor('.editable');
 
-var elements = document.querySelectorAll('.editable');
-var editor = new MediumEditor(elements);
+const elements = document.querySelectorAll('.editable');
+const editor2 = new MediumEditor(elements);
 
-var editor = new MediumEditor(elements,{});
+const editor3 = new MediumEditor(elements, {});
 
-var editor = new MediumEditor('.editable', {
+const editor4 = new MediumEditor('.editable', {
     delay: 1000,
     targetBlank: true,
     toolbar: {
-        buttons: ['bold', 'italic', 'quote'],
+        buttons: ['bold', 'italic', 'quote', { name: 'underline', classList: ['icon-strike'] }],
         diffLeft: 25,
         diffTop: 10,
     },
@@ -37,8 +39,7 @@ var editor = new MediumEditor('.editable', {
     }
 });
 
-
 // API Example
 
-var editor = new MediumEditor('.editable');
-editor.subscribe('editableInput', function (event, editable) {});
+const editor = new MediumEditor('.editable');
+editor.subscribe('editableInput', (event: any, editable: HTMLElement) => {});

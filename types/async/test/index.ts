@@ -1,5 +1,7 @@
 /// <reference types="node" />
 
+import async = require("async");
+import { ErrorCallback, AsyncResultCallback, AsyncBooleanResultCallback, Dictionary } from "async";
 import fs = require("fs");
 import process = require("process");
 
@@ -237,16 +239,16 @@ async.parallelLimit({
 
 
 function whileFn(callback: any) {
-    count++;
-    setTimeout(callback, 1000);
+    setTimeout(() => callback(null, ++count), 1000);
 }
 
 function whileTest() { return count < 5; }
+function doWhileTest(count: number) { return count < 5; }
 var count = 0;
 async.whilst(whileTest, whileFn, function (err) { });
 async.until(whileTest, whileFn, function (err) { });
-async.doWhilst(whileFn, whileTest, function (err) { });
-async.doUntil(whileFn, whileTest, function (err) { });
+async.doWhilst(whileFn, doWhileTest, function (err) { });
+async.doUntil(whileFn, doWhileTest, function (err) { });
 
 async.during(function (testCallback) { testCallback(new Error(), false); }, function (callback) { callback() }, function (error) { console.log(error) });
 async.doDuring(function (callback) { callback() }, function (testCallback) { testCallback(new Error(), false); }, function (error) { console.log(error) });
@@ -271,9 +273,9 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue<any,Error>(function (task: any, callback: () => void) {
+var q = async.queue<any,Error>(function (task: any, callback: (err?:Error,msg?:string) => void) {
     console.log('hello ' + task.name);
-    callback();
+    callback(undefined,'a message.');
 }, 2);
 
 
@@ -289,6 +291,10 @@ q.push({ name: 'bar' }, function (err) {
 
 q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
     console.log('finished processing bar');
+});
+
+q.push<string,Error>({name: 'foo'}, function (err,msg) {
+  console.log('foo finished with a message "'+ msg! + '"');
 });
 
 q.unshift({ name: 'foo' });

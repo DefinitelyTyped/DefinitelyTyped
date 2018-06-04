@@ -10,6 +10,7 @@ interface Options {
     modValueSeparator?: string;
     classSeparator?: string;
     isFullModifier?: boolean;
+    isFullBoolValue?: boolean;
 }
 
 interface Mods {

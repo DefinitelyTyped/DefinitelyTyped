@@ -1,6 +1,6 @@
 // Type definitions for the Facebook Javascript SDK 2.8
 // Project: https://developers.facebook.com/docs/javascript
-// Definitions by: Amrit Kahlon <https://github.com/amritk/>
+// Definitions by: Amrit Kahlon <https://github.com/amritk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import fb = facebook;
@@ -66,6 +66,11 @@ declare namespace facebook {
          */
         ui(params: PayDialogParams, callback: (response: PayDialogResponse) => void): void;
 
+		/**
+         * @see https://developers.facebook.com/docs/games_payments/payments_lite
+         */
+        ui(params: PaymentsLiteDialogParams, callback: (response: PaymentsLiteDialogResponse) => void): void;
+		
         /**
          * @see https://developers.facebook.com/docs/videos/live-video/exploring-live
          */
@@ -113,6 +118,7 @@ declare namespace facebook {
     interface ShareDialogParams extends DialogParams {
         method: 'share';
         href: string;
+        picture?: string;
         hashtag?: string;
         quote?: string;
         mobile_iframe?: boolean;
@@ -153,6 +159,14 @@ declare namespace facebook {
         request_id?: string;
         test_currency?: string;
     }
+	
+	interface PaymentsLiteDialogParams extends DialogParams {
+        method: 'pay';
+        action: 'purchaseiap';
+        product_id: string;
+        developer_payload?: string;
+		quantity?: number;
+    }
 
     interface LiveDialogParams extends DialogParams {
         method: 'live_broadcast';
@@ -172,7 +186,7 @@ declare namespace facebook {
         authResponse: {
             accessToken: string;
             expiresIn: number;
-	    grantedScopes: string;
+	        grantedScopes: string;
             signedRequest: string;
             userID: string;
         };
@@ -198,6 +212,17 @@ declare namespace facebook {
         signed_request: string;
     }
 
+	interface PaymentsLiteDialogResponse {
+        developer_payload?: string;
+        payment_id: number;
+        product_id?: string;
+        purchase_time?: number;
+        purchase_token?: string;
+        signed_request?: string;
+		error_code?: number;
+		error_message?: string;
+    }
+	
     interface LiveDialogResponse {
         id: string;
         stream_url: string;

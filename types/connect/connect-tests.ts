@@ -1,21 +1,35 @@
-
 import * as http from "http";
-import * as connect from "connect";
+import connect = require("connect");
 
 const app = connect();
 
 // log all requests
-app.use((req: http.IncomingMessage, res: http.ServerResponse, next: Function) => {
+app.use((req: http.IncomingMessage, res: http.ServerResponse, next: connect.NextFunction) => {
     console.log(req, res);
     next();
 });
 
+// "Throw" an Error
+app.use((req: http.IncomingMessage, res: http.ServerResponse, next: connect.NextFunction) => {
+    next(new Error("Something went wrong!"));
+});
+
+// "Throw" a number
+app.use((req: http.IncomingMessage, res: http.ServerResponse, next: connect.NextFunction) => {
+    next(404);
+});
+
 // Stop on errors
-app.use((err: Error, req: http.IncomingMessage, res: http.ServerResponse, next: Function) => {
+app.use((err: any, req: http.IncomingMessage, res: http.ServerResponse, next: connect.NextFunction) => {
     if (err) {
         return res.end(`Error: ${err}`);
     }
-    
+
+    next();
+});
+
+// Use legacy `Function` for `next` parameter.
+app.use((req: http.IncomingMessage, res: http.ServerResponse, next: Function) => {
     next();
 });
 

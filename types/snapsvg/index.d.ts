@@ -1,53 +1,11 @@
 // Type definitions for Snap-SVG 0.4.1
 // Project: https://github.com/adobe-webplatform/Snap.svg
-// Definitions by: Lars Klein <https://github.com/lhk>, Mattanja Kern <https://github.com/mattanja>
+// Definitions by: Lars Klein <https://github.com/lhk>, Mattanja Kern <https://github.com/mattanja>, Andrey Kurdyumov <https://github.com/kant2002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="mina" />
 
-declare function mina(a:number, A:number, b:number, B:number, get:Function, set:Function, easing?:(num:number)=>number):mina.AnimationDescriptor;
-declare namespace mina {
-    export interface MinaAnimation {
-        id: string;
-        duration: Function;
-        easing: Function;
-        speed: Function;
-        status: Function;
-        stop: Function;
-    }
-
-    export interface AnimationDescriptor {
-        id: string;
-        start: number;
-        end: number;
-        b: number;
-        s: number;
-        dur: number;
-        spd: number;
-        get(): number;
-        set(slave: number): number;
-        easing(input: number): number;
-        status(): number;
-        status(newStatus: number): void;
-        speed(): number;
-        speed(newSpeed: number): void;
-        duration(): number;
-        duration(newDuration: number): void;
-        stop(): void;
-        pause(): void;
-        resume(): void;
-        update(): void;
-    }
-
-    export function backin(n:number):number;
-    export function backout(n:number):number;
-    export function bounce(n:number):number;
-    export function easein(n:number):number;
-    export function easeinout(n:number):number;
-    export function easeout(n:number):number;
-    export function elastic(n:number):number;
-    export function getById(id:string):AnimationDescriptor;
-    export function linear(n:number):number;
-    export function time():number;
-}
+export = Snap;
+export as namespace Snap;
 
 declare function Snap(width:number|string,height:number|string):Snap.Paper;
 declare function Snap(query:string):Snap.Paper;
@@ -178,16 +136,19 @@ declare namespace Snap {
 
     export interface Element {
         add(el:Snap.Element):Snap.Element;
+        add(el:Snap.Set):Snap.Element;
         addClass(value:string):Snap.Element;
         after(el:Snap.Element):Snap.Element;
         align(el: Snap.Element, way: string):Snap.Element;
         animate(animation:any):Snap.Element;
         animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num: number)=> number,callback?:()=>void):Snap.Element;
         append(el:Snap.Element):Snap.Element;
+        append(el:Snap.Set):Snap.Element;
         appendTo(el:Snap.Element):Snap.Element;
         asPX(attr:string,value?:string):number;            //TODO: check what is really returned
-        attr(param:string):string;
-        attr(params:{[attr:string]:string|number|boolean|any}):Snap.Element;
+        attr(param: "viewBox"): BBox;
+        attr(param: string): string;
+        attr(params:{[attr:string]:string|number|boolean|BBox|any}):Snap.Element;
         before(el:Snap.Element):Snap.Element;
         children(): Snap.Element[];
         clone():Snap.Element;
@@ -205,6 +166,8 @@ declare namespace Snap {
         marker(x:number,y:number,width:number,height:number,refX:number,refY:number):Snap.Element;
         node:HTMLElement;
         outerSVG():string;
+        /** The top level element will included an reference to its Paper after it is rendered. */
+        paper?: Snap.Paper;
         parent():Snap.Element;
         pattern(x:any,y:any,width:any,height:any):Snap.Element;
         prepend(el:Snap.Element):Snap.Element;
@@ -268,6 +231,12 @@ declare namespace Snap {
                onEnd:   (event: MouseEvent) => void): Snap.Element;
         undrag(): Snap.Element;
     }
+    
+    interface Gradient extends Element {
+        stops: () => Snap.Element[];
+        addStop: (color: string, offset: number) => Gradient;
+        setStops:(str: string) => Gradient;
+    }
 
     export interface Fragment {
         //TODO: The documentation says that selectAll returns a set, but the getting started guide
@@ -305,7 +274,7 @@ declare namespace Snap {
         clear():void;
         el(name:string, attr:Object):Snap.Element;
         filter(filstr:string):Snap.Element;
-        gradient(gradient:string):any;
+        gradient(gradient:string):Snap.Gradient;
         g(varargs?:any):Snap.Paper;
         group(...els:any[]):Snap.Paper;
         mask(varargs:any):Object;
@@ -320,18 +289,20 @@ declare namespace Snap {
         ellipse(x:number,y:number,rx:number,ry:number):Snap.Element;
         image(src:string,x:number,y:number,width:number,height:number):Snap.Element;
         line(x1:number,y1:number,x2:number,y2:number):Snap.Element;
-        path(pathString?:string):Snap.Element;
+        path(pathSpec: string | (string | number)[][]): Snap.Element;
         polygon(varargs:any[]):Snap.Element;
         polyline(varargs:any[]):Snap.Element;
         rect(x:number,y:number,width:number,height:number,rx?:number,ry?:number):Snap.Element;
         text(x:number,y:number,text:string|number):Snap.Element;
         text(x:number,y:number,text:Array<string|number>):Snap.Element;
+        symbol(vbx:number,vby:number,vbw:number,vbh:number):Snap.Element;
     }
 
     export interface Set {
         animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Element;
         animate(...params:Array<{attrs:any,duration:number,easing:(num:number)=>number,callback?:()=>void}>):Snap.Element;
-        attr(params: {[attr:string]:string|number|boolean|any}): Snap.Element;
+        attr(params: {[attr:string]:string|number|boolean|BBox|any}): Snap.Element;
+        attr(param: "viewBox"): BBox;
         attr(param: string): string;
         bind(attr: string, callback: Function): Snap.Set;
         bind(attr:string,element:Snap.Element):Snap.Set;
@@ -342,6 +313,7 @@ declare namespace Snap {
         pop():Snap.Element;
         push(el:Snap.Element):Snap.Element;
         push(els:Snap.Element[]):Snap.Element;
+        remove(): Snap.Set;
         splice(index:number,count:number,insertion?:Object[]):Snap.Element[];
     }
 

@@ -23,11 +23,6 @@ export interface ResolveContext {
     issuer?: string;
 }
 
-export interface ResolveResult {
-    path: boolean | string;
-    query: string;
-}
-
 export interface ResolverRequest {
     context: ResolveContext;
     descriptionFileData?: DescriptionFileData;

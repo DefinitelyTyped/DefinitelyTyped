@@ -16,7 +16,7 @@ new PlugAPI({
             if (data.type === "emote") {
                 console.log(data.from + data.message);
             } else {
-                console.log(data.from + "> " + data.message);
+                console.log(`${data.from}> ${data.message}`);
             }
         });
 

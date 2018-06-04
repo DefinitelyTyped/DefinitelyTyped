@@ -1,6 +1,3 @@
-
-
-
 import shell = require('gulp-shell');
 import gulp = require('gulp');
 
@@ -29,14 +26,14 @@ var paths: any = {
 
 gulp.task('test', shell.task('mocha -R spec'));
 
-gulp.task('coverage', ['test'], shell.task('istanbul cover _mocha -- -R spec'));
-
-gulp.task('coveralls', ['coverage'], shell.task('cat coverage/lcov.info | coveralls'));
+gulp.task('coverage', gulp.parallel('test', shell.task('istanbul cover _mocha -- -R spec')));
+ 		
+gulp.task('coveralls', gulp.parallel('coverage', shell.task('cat coverage/lcov.info | coveralls')));
 
 gulp.task('lint', shell.task('eslint ' + paths.js.join(' ')));
 
-gulp.task('default', ['coverage', 'lint']);
+gulp.task('default', gulp.parallel('coverage', 'lint'));
 
 gulp.task('watch', function () {
-    gulp.watch(paths.js, ['default'])
+    gulp.watch(paths.js)
 });

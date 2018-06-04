@@ -81,7 +81,7 @@ declare namespace BittorrentProtocol {
 
         // TODO: bitfield is a bitfield instance
         on(event: 'bitfield', listener: (bitfield: any) => void): this;
-        on(event: string | 'keep-alive' | 'choke' | 'unchoke' | 'interested' | 'uninterested' | 'timeout', listener: () => void): this;
+        on(event: 'keep-alive' | 'choke' | 'unchoke' | 'interested' | 'uninterested' | 'timeout', listener: () => void): this;
         on(event: 'upload' | 'have' | 'download' | 'port', listener: (length: number) => void): this;
         on(event: 'handshake', listener: (infoHash: string, peerId: string, extensions: Extension[]) => void): this;
         on(event: 'request', listener: (index: number, offset: number, length: number, respond: () => void) => void): this;
@@ -89,6 +89,7 @@ declare namespace BittorrentProtocol {
         on(event: 'cancel', listener: (index: number, offset: number, length: number) => void): this;
         on(event: 'extended', listener: (ext: 'handshake' | string, buf: any) => void): void;
         on(event: 'unknownmessage', listener: (buffer: Buffer) => void): this;
+        on(event: string, listener: (...args: any[]) => void): this;
     }
 }
 

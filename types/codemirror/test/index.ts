@@ -28,13 +28,21 @@ var lintStateOptions: CodeMirror.LintStateOptions = {
     hasGutters: true
 };
 
-var lintOptions: CodeMirror.LintOptions = {
+var asyncLintOptions: CodeMirror.LintOptions = {
     async: true,
     hasGutters: true,
     getAnnotations: (content: string,
                      updateLintingCallback: CodeMirror.UpdateLintingCallback,
                      options: CodeMirror.LintStateOptions,
                      codeMirror: CodeMirror.Editor) => {}
+};
+
+var syncLintOptions: CodeMirror.LintOptions = {
+    async: false,
+    hasGutters: true,
+    getAnnotations: (content: string,
+                     options: CodeMirror.LintStateOptions,
+                     codeMirror: CodeMirror.Editor): CodeMirror.Annotation[] => { return []; }
 };
 
 var updateLintingCallback: CodeMirror.UpdateLintingCallback = (codeMirror: CodeMirror.Editor,
@@ -60,3 +68,6 @@ myCodeMirror.on(
 );
 
 CodeMirror.registerHelper("lint", "javascript", {});
+
+myCodeMirror.isReadOnly();
+myCodeMirror.execCommand('selectAll');

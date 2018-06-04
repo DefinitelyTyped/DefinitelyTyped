@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 /// <reference types="node" />
-import {Element} from 'ltx';
-import {EventEmitter} from 'events';
+import { Element } from 'ltx';
+import { EventEmitter } from 'events';
 
 // fixme: not ideal
 export {createElement, Element, escapeXML, escapeXMLText} from 'ltx';
@@ -35,9 +35,8 @@ export class Stanza extends Element {
  * https://facebook.github.io/jsx/
  * Returns a Stanza if name is presence, message or iq an ltx Element otherwise.
  *
- * @param  {string} name  name of the element
- * @param  {any} attrs attribute key/value pairs
- * @return {Element}      Stanza or Element
+ * @param name  name of the element
+ * @param attrs attribute key/value pairs
  */
 export function createStanza(name: string, attrs?: any): Element;
 

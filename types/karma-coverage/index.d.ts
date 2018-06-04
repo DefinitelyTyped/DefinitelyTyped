@@ -2,6 +2,7 @@
 // Project: https://github.com/karma-runner/karma-coverage
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as karma from 'karma';
 import * as istanbul from 'istanbul';

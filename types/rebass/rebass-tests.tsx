@@ -42,6 +42,7 @@ import {
   , PanelHeader
   , Pre
   , Progress
+  , Provider
   , Radio
   , Rating
   , Section
@@ -67,13 +68,13 @@ interface IconProps extends React.Props<Icon> {
   width: string;
 }
 
-class Icon extends React.Component<IconProps, {}> {
+class Icon extends React.Component<IconProps> {
   render() {
     return <div></div>;
   }
 }
 
-class RebassTest extends React.Component<{}, {}> {
+class RebassTest extends React.Component {
   render() {
     return <div>
       <Button
@@ -155,6 +156,12 @@ class RebassTest extends React.Component<{}, {}> {
           </Heading>
           <Text>
             Generic box for containing things
+          </Text>
+          <Text fontSize={32}>
+            This is a large font
+          </Text>
+          <Text fontSize={[14, 18, 24]}>
+            A set of fonts!
           </Text>
         </Media>
       </Block>
@@ -618,6 +625,9 @@ class RebassTest extends React.Component<{}, {}> {
           Tooltip
         </Heading>
       </Tooltip>
+      <Tooltip text="Whoa There!" />
+
+      <Provider />
     </div>;
   }
 }

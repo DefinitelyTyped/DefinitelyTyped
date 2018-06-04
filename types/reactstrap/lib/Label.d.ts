@@ -1,6 +1,12 @@
+import * as React from 'react';
+import { CSSModule } from '../index';
 import { ColumnProps } from './Col';
 
-interface Props {
+type Intermediate = React.LabelHTMLAttributes<HTMLLabelElement> & {
+  size?: any;
+};
+
+export type LabelProps<T = {}> = Intermediate & {
   hidden?: boolean;
   check?: boolean;
   inline?: boolean;
@@ -9,12 +15,13 @@ interface Props {
   for?: string;
   tag?: string;
   className?: string;
+  cssModule?: CSSModule;
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;
   lg?: ColumnProps;
   xl?: ColumnProps;
-}
+} & T;
 
-declare var Label: React.StatelessComponent<Props>;
+declare class Label<T = {[key: string]: any}> extends React.Component<LabelProps<T>> {}
 export default Label;

@@ -1,6 +1,6 @@
 // Type definitions for KeyboardJS v2.2.0
 // Project: https://github.com/RobertWHurst/KeyboardJS
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>,
+// Definitions by: Vincent Bortone <https://github.com/vbortone>,
 //                 David Asmuth <https://github.com/piranha771>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

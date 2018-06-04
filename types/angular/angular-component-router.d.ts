@@ -1,7 +1,7 @@
 /* tslint:disable:dt-header variable-name */
 // Type definitions for Angular JS 1.5 component router
 // Project: http://angularjs.org
-// Definitions by: David Reher <http://github.com/davidreher>
+// Definitions by: David Reher <https://github.com/davidreher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace angular {
@@ -15,7 +15,7 @@ declare namespace angular {
      * ### Example
      *
      * ```
-     * import {Component} from 'angular2/core';
+     * import { Component } from 'angular2/core';
      * import {bootstrap} from 'angular2/platform/browser';
      * import {Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, RouteConfig} from 'angular2/router';
      *

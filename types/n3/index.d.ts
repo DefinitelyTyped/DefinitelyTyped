@@ -66,7 +66,7 @@ declare namespace N3 {
     }
 
     interface N3StreamParser extends N3Parser, fs.WriteStream {
-        pipe(consumer: stream.Writable | N3StreamWriter): void;
+        pipe<T extends NodeJS.WritableStream | N3StreamWriter>(consumer: T): T;
     }
 
 

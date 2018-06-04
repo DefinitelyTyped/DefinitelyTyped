@@ -1,7 +1,6 @@
-
 import * as url from "url";
 import * as http from "http";
-import * as sizeOf from "image-size";
+import sizeOf = require("image-size");
 
 // Synchronous
 const dimensions = sizeOf("images/funny-cats.png");

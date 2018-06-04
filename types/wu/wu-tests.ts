@@ -222,15 +222,13 @@ describe("wu.has", () => {
 });
 describe("wu.invoke", () => {
   it("should yield the method invokation on each item", () => {
-    function Greeter(name: string) {
-      this.name = name;
+    class Greeter {
+      constructor(readonly name: string) {}
+      greet(tail: string) { return `hello ${this.name}${tail}`; }
     }
-    Greeter.prototype.greet = function(tail: string) {
-      return "hello " + this.name + tail;
-    };
     assert.eqArray(["hello world!", "hello test!"],
                    wu.invoke("greet", "!",
-                             [Greeter("world"), Greeter("test")]));
+                             [new Greeter("world"), new Greeter("test")]));
   });
 });
 describe("wu.keys", () => {

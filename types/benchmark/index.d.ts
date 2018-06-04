@@ -170,10 +170,10 @@ declare namespace Benchmark {
         join(separator?: string): string;
         listeners(type: string): Function[];
         map(callback: Function): any[];
-        off(type?: string, callback?: Function): Benchmark;
-        off(types: string[]): Benchmark;
-        on(type?: string, callback?: Function): Benchmark;
-        on(types: string[]): Benchmark;
+        off(type?: string, callback?: Function): Suite;
+        off(types: string[]): Suite;
+        on(type?: string, callback?: Function): Suite;
+        on(types: string[]): Suite;
         pluck(property: string): any[];
         pop(): Function;
         push(benchmark: Benchmark): number;

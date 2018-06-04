@@ -29,6 +29,7 @@ const options: StackTrace.StackTraceOptions = {
 const error = new Error('BOOM!');
 
 StackTrace.get(options).then(logger);
+logger(StackTrace.getSync(options))
 StackTrace.fromError(error, options).then(logger);
 StackTrace.generateArtificially(options).then(logger);
 

@@ -80,8 +80,8 @@ class MySimple extends jspb.Message {
   };
 
   static deserializeBinary(bytes: Uint8Array): MySimple {
-    var reader = new jspb.BinaryReader(bytes);
-    var msg = new MySimple;
+    const reader = new jspb.BinaryReader(bytes);
+    const msg = new MySimple;
     return MySimple.deserializeBinaryFromReader(msg, reader);
   }
 
@@ -90,77 +90,77 @@ class MySimple extends jspb.Message {
       if (reader.isEndGroup()) {
         break;
       }
-      var field = reader.getFieldNumber();
+      const field = reader.getFieldNumber();
       switch (field) {
         case 1:
-          var value1 = /** @type {string} */ (reader.readString());
+          const value1 = reader.readString();
           msg.setMyString(value1);
           break;
         case 2:
-          var value2 = /** @type {boolean} */ (reader.readBool());
+          const value2 = reader.readBool();
           msg.setMyBool(value2);
           break;
         case 3:
-          var value3 = /** @type {string} */ (reader.readString());
+          const value3 = reader.readString();
           msg.addSomeLabels(value3);
           break;
         case 4:
-          var value4 = new google_protobuf_compiler_plugin_pb.CodeGeneratorRequest;
+          const value4 = new google_protobuf_compiler_plugin_pb.CodeGeneratorRequest;
           reader.readMessage(value4, google_protobuf_compiler_plugin_pb.CodeGeneratorRequest.deserializeBinaryFromReader);
           msg.setSomeCodeGeneratorRequest(value4);
           break;
         case 5:
-          var value5 = new google_protobuf_any_pb.Any;
+          const value5 = new google_protobuf_any_pb.Any;
           reader.readMessage(value5, google_protobuf_any_pb.Any.deserializeBinaryFromReader);
           msg.setSomeAny(value5);
           break;
         case 6:
-          var value6 = new google_protobuf_api_pb.Method;
+          const value6 = new google_protobuf_api_pb.Method;
           reader.readMessage(value6, google_protobuf_api_pb.Method.deserializeBinaryFromReader);
           msg.setSomeMethod(value6);
           break;
         case 7:
-          var value7 = new google_protobuf_descriptor_pb.GeneratedCodeInfo;
+          const value7 = new google_protobuf_descriptor_pb.GeneratedCodeInfo;
           reader.readMessage(value7, google_protobuf_descriptor_pb.GeneratedCodeInfo.deserializeBinaryFromReader);
           msg.setSomeGeneratedCodeInfo(value7);
           break;
         case 8:
-          var value8 = new google_protobuf_duration_pb.Duration;
+          const value8 = new google_protobuf_duration_pb.Duration;
           reader.readMessage(value8, google_protobuf_duration_pb.Duration.deserializeBinaryFromReader);
           msg.setSomeDuration(value8);
           break;
         case 9:
-          var value9 = new google_protobuf_empty_pb.Empty;
+          const value9 = new google_protobuf_empty_pb.Empty;
           reader.readMessage(value9, google_protobuf_empty_pb.Empty.deserializeBinaryFromReader);
           msg.setSomeEmpty(value9);
           break;
         case 10:
-          var value10 = new google_protobuf_field_mask_pb.FieldMask;
+          const value10 = new google_protobuf_field_mask_pb.FieldMask;
           reader.readMessage(value10, google_protobuf_field_mask_pb.FieldMask.deserializeBinaryFromReader);
           msg.setSomeFieldMask(value10);
           break;
         case 11:
-          var value11 = new google_protobuf_source_context_pb.SourceContext;
+          const value11 = new google_protobuf_source_context_pb.SourceContext;
           reader.readMessage(value11, google_protobuf_source_context_pb.SourceContext.deserializeBinaryFromReader);
           msg.setSomeSourceContext(value11);
           break;
         case 12:
-          var value12 = new google_protobuf_struct_pb.Struct;
+          const value12 = new google_protobuf_struct_pb.Struct;
           reader.readMessage(value12, google_protobuf_struct_pb.Struct.deserializeBinaryFromReader);
           msg.setSomeStruct(value12);
           break;
         case 13:
-          var value13 = new google_protobuf_timestamp_pb.Timestamp;
+          const value13 = new google_protobuf_timestamp_pb.Timestamp;
           reader.readMessage(value13, google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
           msg.setSomeTimestamp(value13);
           break;
         case 14:
-          var value14 = new google_protobuf_type_pb.Type;
+          const value14 = new google_protobuf_type_pb.Type;
           reader.readMessage(value14, google_protobuf_type_pb.Type.deserializeBinaryFromReader);
           msg.setSomeType(value14);
           break;
         case 15:
-          var value15 = new google_protobuf_wrappers_pb.DoubleValue;
+          const value15 = new google_protobuf_wrappers_pb.DoubleValue;
           reader.readMessage(value15, google_protobuf_wrappers_pb.DoubleValue.deserializeBinaryFromReader);
           msg.setSomeDoubleValue(value15);
           break;
@@ -173,7 +173,7 @@ class MySimple extends jspb.Message {
   }
 
   serializeBinary(): Uint8Array {
-    var writer = new jspb.BinaryWriter();
+    const writer = new jspb.BinaryWriter();
     MySimple.serializeBinaryToWriter(this, writer);
     return writer.getResultBuffer();
   }

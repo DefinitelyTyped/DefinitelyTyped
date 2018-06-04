@@ -1,8 +1,9 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
-// Definitions by: Daz Wilkin <https://github.com/DazWilkin/>,
+// Definitions by: Daz Wilkin <https://github.com/DazWilkin>,
 //                 Ian Obermiller <http://ianobermiller.com>,
-//                 Josh Goldberg <https://gitub.com/JoshuaKGoldberg>
+//                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
+//                 Eliot Fallon <https://github.com/eliotfallon213>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -250,6 +251,22 @@ declare namespace YT
 		 */
 		Modest = 1
 	}
+	
+	/**
+	 * Whether to playback video inline or full-screen in an HTML5 player on iOS
+	 */
+	export const enum PlaysInline
+	{
+		/**
+		 * Playback in fullscreen.
+		 */
+		Fullscreen = 0,
+
+		/**
+		 * Playback inline
+		 */
+		Inline = 1
+	}
 
 	/**
 	 * Whether to show related videos after the video finishes.
@@ -266,7 +283,7 @@ declare namespace YT
 		 */
 		Show = 1
 	}
-
+	
 	/**
 	 * Whether to show video information before playing.
 	 */
@@ -366,7 +383,7 @@ declare namespace YT
 		/**
 		 * ID of the video to load.
 		 */
-		videoId: string;
+		videoId?: string;
 
 		/**
 		 * Player parameters.
@@ -518,6 +535,11 @@ declare namespace YT
 		 * Comma separated list of video IDs to play after the URL path's video.
 		 */
 		playlist?: string;
+		
+		/**
+		 * Whether videos play inline or fullscreen in an HTML5 player on iOS. (currently by default, Fullscreen).
+		 */
+		playsinline?: PlaysInline;
 
 		/**
 		 * Whether to show related videos after the video finishes (by default, Show).

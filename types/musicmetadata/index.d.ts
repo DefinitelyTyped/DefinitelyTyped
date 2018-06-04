@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 declare module "musicmetadata" {
-    import {Readable} from "stream";
+    import { Readable } from "stream";
     import {EventEmitter} from "events";
 
     function mm(readStream: Readable, callback: (err: Error, metadata: MM.Metadata) => void): EventEmitter;

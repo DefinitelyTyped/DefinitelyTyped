@@ -4,7 +4,7 @@ import * as React from 'react';
 var someMixin: React.Mixin<any, any>;
 var someOtherMixin: React.Mixin<any, any>;
 
-class Foo extends React.Component<any, any> {
+class Foo extends React.Component {
     render(): JSX.Element { return <div />; }
 }
 
@@ -18,7 +18,7 @@ var mixin: React.Mixin<any, any> = {
     }
 };
 
-class Foo2 extends React.Component<any, any> {
+class Foo2 extends React.Component {
     static defaultProps = {
         a: 1
     };
@@ -31,7 +31,7 @@ class Foo2 extends React.Component<any, any> {
 reactMixin.onClass(Foo2, mixin);
 
 @reactMixin.decorate(mixin)
-class Foo3 extends React.Component<any, any> {
+class Foo3 extends React.Component {
 }
 
 function autobind(methodNames: string[]): React.Mixin<any, any> {
@@ -46,7 +46,7 @@ function autobind(methodNames: string[]): React.Mixin<any, any> {
 
 @reactMixin.decorate(mixin)
 @reactMixin.decorate(autobind(Object.keys(mixin)))
-class Foo4 extends React.Component<any, any> {
+class Foo4 extends React.Component {
 }
 
 

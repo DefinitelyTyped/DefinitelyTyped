@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {ReactWidgetsCommonDropdownProps} from './CommonProps';
+import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
-interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownListClass> {
+interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownListClass>, AutoFocus {
     /**
      * The current value of the DropdownList. This can be an object (such as a member of the
      * data array) or a primitive value, hinted to by the valueField. The widget value does not
@@ -22,11 +22,24 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      */
     onSelect?: (value: any) => void;
     /**
+     * The native onKeyDown event, called preventDefault will prevent any custom behavior, included keyboard shortcuts.
+     */
+    onKeyDown?: (event: KeyboardEvent) => void;
+    /**
+     * The native onKeyPress event, called preventDefault will stop any custom behavior.
+     */
+    onKeyPress?: (event: KeyboardEvent) => void;
+    /**
      * Provide an array of possible values for the DropdownList. If an array of objects is
      * provided you should use the valueField and textField props, to specify which object
      * properties comprise the value field (such as an id) and the field used to label the item.
      */
     data?: any[];
+    /**
+     * Delay
+     * @default 250
+     */
+    delay?: number;
     /**
      * A dataItem field name for uniquely identifying items in the data list. A valueField is
      * required when the value prop is not itself a dataItem. A valueField is useful when
@@ -50,7 +63,7 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * This component is used to render each possible item in the DropdownList. The default
      * component renders the text of the selected item (specified by textfield)
      */
-    itemComponent?: React.ReactType;
+    itemComponent?: React.ReactType | string;
     /**
      * Determines how to group the DropdownList. Providing a string will group the data array by
      * that property. You can also provide a function which should return the group value.
@@ -79,7 +92,7 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
     onSearch?: (searchTerm: string) => void;
     /**
      * Whether or not the DropdownList is open. When unset (undefined) the DropdownList will
-     * handle the opening and closing internally. 
+     * handle the opening and closing internally.
      */
     open?: boolean;
     /**
@@ -128,6 +141,20 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * object to localize widget text and increase accessibility.
      */
     messages?: DropdownListMessages;
+    listComponent?: React.ReactType | string;
+    /**
+     * An object of props that is passed directly to the underlying List component.
+     */
+    listProps?: object;
+    /**
+     * The HTML name attribute used to group checkboxes and radio buttons together.
+     */
+    name?: string;
+    /**
+     * Whether or not the SelectList allows multiple selection or not.
+     * when false the SelectList will render as a list of radio buttons, and checkboxes when true.
+     */
+    multiple?: boolean;
 }
 
 interface DropdownListMessages {

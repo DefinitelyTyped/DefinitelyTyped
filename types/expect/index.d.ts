@@ -1,6 +1,6 @@
 // Type definitions for Expect 1.20
 // Project: https://github.com/mjackson/expect
-// Definitions by: Justin Reidy <https://github.com/jmreidy/>, Risto Keravuori <https://github.com/merrywhether/>
+// Definitions by: Justin Reidy <https://github.com/jmreidy>, Risto Keravuori <https://github.com/merrywhether>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace expect {
@@ -14,6 +14,9 @@ declare namespace expect {
         toBeTruthy(message?: string): Expectation<T>;
         toNotExist(message?: string): Expectation<T>;
         toBeFalsy(message?: string): Expectation<T>;
+        toBeNull(message?: string): Expectation<T>;
+        toBeDefined(message?: string): Expectation<T>;
+        toBeUndefined(message?: string): Expectation<T>;
 
         toBe(value: T, message?: string): Expectation<T>;
         toNotBe(value: any, message?: string): Expectation<T>;
@@ -28,6 +31,7 @@ declare namespace expect {
         toNotBeAn(value: string | {}, message?: string): Expectation<T>;
         toMatch(value: string | RegExp | {}, message?: string): Expectation<T>;
         toNotMatch(value: string | RegExp | {}, message?: string): Expectation<T>;
+        toMatchObject(value: {}, message?: string): Expectation<T>;
 
         toBeLessThan(value: number, message?: string): Expectation<T>;
         toBeLessThanOrEqualTo(value: number, messasge?: string): Expectation<T>;
@@ -55,6 +59,9 @@ declare namespace expect {
         toHaveBeenCalled(message?: string): Expectation<T>;
         toNotHaveBeenCalled(message?: string): Expectation<T>;
         toHaveBeenCalledWith(...args: any[]): Expectation<T>;
+        toHaveBeenLastCalledWith(...args: any[]): Expectation<T>;
+
+        not: Expectation<T>;
 
         // deprecated
         withContext(context: any): Expectation<T>;
@@ -90,6 +97,7 @@ declare namespace expect {
     function restoreSpies(): void;
     function assert(condition: boolean, messageFormat: string, ...extraArgs: any[]): void;
     function extend(extension: Extension): void;
+    function any<T>(ctor: { new (): T }): T;
 }
 
 declare function expect<T>(actual: T): expect.Expectation<T>;

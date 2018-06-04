@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "semicolon": [true, "never"],
+        "eofline": false,
+        "indent": [true, "spaces", 4]
+    }
+}

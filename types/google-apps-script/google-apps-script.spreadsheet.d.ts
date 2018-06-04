@@ -1,15 +1,47 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2018-05-23
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
+//                 linlex <https://github.com/linlex/>
+//                 agektmr <https://github.com/agektmr/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.charts.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
+/// <reference path="google-apps-script.drive.d.ts" />
 
 declare namespace GoogleAppsScript {
+  /**
+   * This service allows scripts to create, access, and modify Google Sheets files. See also the guide to storing data in spreadsheets.
+   *
+   * https://developers.google.com/apps-script/guides/sheets
+   */
   export module Spreadsheet {
+    /**
+     * Styles that can be set on a range using
+     *  Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
+     */
+    export enum BorderStyle { DOTTED, DASHED, SOLID }
+
+    /**
+     * Access boolean conditions in `ConditionalFormatRules`. Each conditional
+     * format rule may contain a single boolean condition. The boolean condition
+     * itself contains a boolean criteria (with values) and formatting settings.
+     * The criteria is evaluated against the content of a cell resulting in
+     * either a `true` or `false` value. If the criteria evaluates to `true`,
+     * the condition's formatting settings are applied to the cell.
+     */
+    export interface BooleanCondition {
+      getBackground(): string;
+      getBold(): boolean;
+      getCriteriaType(): BooleanCriteria;
+      getCriteriaValue(): Object[];
+      getFontColor(): string,
+      getItalic(): boolean;
+      getStrikethrough(): boolean;
+      getUnderline(): boolean;
+    }
+
     /**
      * The chart's position within a sheet.  Can be updated using the EmbeddedChart.modify()
      *  function.
@@ -18,9 +50,25 @@ declare namespace GoogleAppsScript {
      *      sheet.updateChart(chart);
      */
     export interface ContainerInfo {
+      /**
+       * The chart's left side will be anchored to this column.
+       * @returns {Integer}  1-indexed column (i.e. column C will be 3)
+       */
       getAnchorColumn(): Integer;
+      /**
+       * The chart's top side will be anchored to this row.
+       * @returns {Integer}  1-indexed row (i.e. row 5 will return 5)
+       */
       getAnchorRow(): Integer;
+      /**
+       * The chart's upper left hand corner will be offset from the anchor column by this many pixels.
+       * @returns {Integer} the horizontal offset in pixels for the upper left hand corner of the chart
+       */
       getOffsetX(): Integer;
+      /**
+       * Chart's upper left hand corner will be offset from the anchor row by this many pixels.
+       * @returns {Integer} the vertical offset in pixels for the upper left hand corner of the chart
+       */
       getOffsetY(): Integer;
     }
 
@@ -86,8 +134,8 @@ declare namespace GoogleAppsScript {
       requireTextEqualTo(text: string): DataValidationBuilder;
       requireTextIsEmail(): DataValidationBuilder;
       requireTextIsUrl(): DataValidationBuilder;
-      requireValueInList(values: String[]): DataValidationBuilder;
-      requireValueInList(values: String[], showDropdown: boolean): DataValidationBuilder;
+      requireValueInList(values: string[]): DataValidationBuilder;
+      requireValueInList(values: string[], showDropdown: boolean): DataValidationBuilder;
       requireValueInRange(range: Range): DataValidationBuilder;
       requireValueInRange(range: Range, showDropdown: boolean): DataValidationBuilder;
       setAllowInvalid(allowInvalidData: boolean): DataValidationBuilder;
@@ -135,6 +183,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -147,7 +197,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): EmbeddedAreaChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedAreaChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedAreaChartBuilder;
+      setColors(cssValues: string[]): EmbeddedAreaChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedAreaChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedAreaChartBuilder;
       setOption(option: string, value: Object): EmbeddedChartBuilder;
@@ -175,6 +225,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -188,7 +240,7 @@ declare namespace GoogleAppsScript {
       reverseDirection(): EmbeddedBarChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedBarChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedBarChartBuilder;
+      setColors(cssValues: string[]): EmbeddedBarChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedBarChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedBarChartBuilder;
       setOption(option: string, value: Object): EmbeddedChartBuilder;
@@ -265,6 +317,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -288,6 +342,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -300,7 +356,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): EmbeddedColumnChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedColumnChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedColumnChartBuilder;
+      setColors(cssValues: string[]): EmbeddedColumnChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedColumnChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedColumnChartBuilder;
       setOption(option: string, value: Object): EmbeddedChartBuilder;
@@ -319,6 +375,88 @@ declare namespace GoogleAppsScript {
     }
 
     /**
+     * Builder for combo charts. For more details, see the Gviz
+     *  documentation.
+     */
+    export interface EmbeddedComboChartBuilder {
+      addRange(range: Range): EmbeddedChartBuilder;
+      asAreaChart(): EmbeddedAreaChartBuilder;
+      asBarChart(): EmbeddedBarChartBuilder;
+      asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
+      asLineChart(): EmbeddedLineChartBuilder;
+      asPieChart(): EmbeddedPieChartBuilder;
+      asScatterChart(): EmbeddedScatterChartBuilder;
+      asTableChart(): EmbeddedTableChartBuilder;
+      build(): EmbeddedChart;
+      getChartType(): Charts.ChartType;
+      getContainer(): ContainerInfo;
+      getRanges(): Range[];
+      removeRange(range: Range): EmbeddedChartBuilder;
+      reverseCategories(): EmbeddedComboChartBuilder;
+      setBackgroundColor(cssValue: string): EmbeddedComboChartBuilder;
+      setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
+      setColors(cssValues: string[]): EmbeddedComboChartBuilder;
+      setLegendPosition(position: Charts.Position): EmbeddedComboChartBuilder;
+      setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
+      setRange(start: Number, end: Number): EmbeddedComboChartBuilder;
+      setStacked(): EmbeddedComboChartBuilder;
+      setTitle(chartTitle: string): EmbeddedComboChartBuilder;
+      setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setXAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setXAxisTitle(title: string): EmbeddedComboChartBuilder;
+      setXAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setYAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setYAxisTitle(title: string): EmbeddedComboChartBuilder;
+      setYAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      useLogScale(): EmbeddedComboChartBuilder;
+    }
+
+    /**
+     * Builder for histogram charts. For more details, see the Gviz
+     *  documentation.
+     */
+    export interface EmbeddedHistogramChartBuilder {
+      addRange(range: Range): EmbeddedChartBuilder;
+      asAreaChart(): EmbeddedAreaChartBuilder;
+      asBarChart(): EmbeddedBarChartBuilder;
+      asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
+      asLineChart(): EmbeddedLineChartBuilder;
+      asPieChart(): EmbeddedPieChartBuilder;
+      asScatterChart(): EmbeddedScatterChartBuilder;
+      asTableChart(): EmbeddedTableChartBuilder;
+      build(): EmbeddedChart;
+      getChartType(): Charts.ChartType;
+      getContainer(): ContainerInfo;
+      getRanges(): Range[];
+      removeRange(range: Range): EmbeddedChartBuilder;
+      reverseCategories(): EmbeddedHistogramChartBuilder;
+      setBackgroundColor(cssValue: string): EmbeddedHistogramChartBuilder;
+      setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
+      setColors(cssValues: string[]): EmbeddedHistogramChartBuilder;
+      setLegendPosition(position: Charts.Position): EmbeddedHistogramChartBuilder;
+      setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
+      setRange(start: Number, end: Number): EmbeddedHistogramChartBuilder;
+      setStacked(): EmbeddedHistogramChartBuilder;
+      setTitle(chartTitle: string): EmbeddedHistogramChartBuilder;
+      setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setXAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setXAxisTitle(title: string): EmbeddedHistogramChartBuilder;
+      setXAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setYAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setYAxisTitle(title: string): EmbeddedHistogramChartBuilder;
+      setYAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      useLogScale(): EmbeddedHistogramChartBuilder;
+    }
+
+    /**
      * Builder for line charts. For more details, see the Gviz
      *  documentation.
      */
@@ -327,6 +465,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -339,7 +479,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): EmbeddedLineChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedLineChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedLineChartBuilder;
+      setColors(cssValues: string[]): EmbeddedLineChartBuilder;
       setCurveStyle(style: Charts.CurveStyle): EmbeddedLineChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedLineChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedLineChartBuilder;
@@ -367,6 +507,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -380,7 +522,7 @@ declare namespace GoogleAppsScript {
       set3D(): EmbeddedPieChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedPieChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedPieChartBuilder;
+      setColors(cssValues: string[]): EmbeddedPieChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedPieChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedPieChartBuilder;
       setOption(option: string, value: Object): EmbeddedChartBuilder;
@@ -398,6 +540,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -409,7 +553,7 @@ declare namespace GoogleAppsScript {
       removeRange(range: Range): EmbeddedChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedScatterChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedScatterChartBuilder;
+      setColors(cssValues: string[]): EmbeddedScatterChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedScatterChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setOption(option: string, value: Object): EmbeddedChartBuilder;
@@ -438,6 +582,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -463,15 +609,80 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     *
-     * Deprecated. For spreadsheets created in the newer version of Google Sheets, use the more powerful
+     * Access gradient (color) conditions in `ConditionalFormatRuleApis`. Each
+     * conditional format rule may contain a single gradient condition. A
+     * gradient condition is defined by three points along a number scale (min,
+     * mid, and max), each of which has a color, a value, and a
+     * `InterpolationType`. The content of a cell is compared to the values in
+     * the number scale and the color applied to the cell is interpolated based
+     * on the cell content's proximity to the gradient condition min, mid, and
+     * max points.
+     * 
+     * // Logs all the information inside gradient conditional format rules on * a sheet.
+     * var sheet = SpreadsheetApp.getActiveSheet();
+     * var rules = sheet.getConditionalFormatRules();
+     * for (int i = 0; i < rules.length; i++) {
+     *   var gradient = rules[i].getGradientCondition();
+     *   Logger.log("The conditional format gradient information for rule %d:\n
+     *     MinColor %s, MinType %s, MinValue %s, \n
+     *     MidColor %s, MidType %s, MidValue %s, \n
+     *     MaxColor %s, MaxType %s, MaxValue %s \n", i,
+     *     gradient.getMinColor(), gradient.getMinType(), gradient.getMinValue(),
+     *     gradient.getMidColor(), gradient.getMidType(), gradient.getMidValue(),
+     *     gradient.getMaxColor(), gradient.getMaxType(), gradient.getMaxValue());
+     * }
+     **/
+    export interface GradientCondition {
+      getMaxColor(): string;
+      getMaxType(): InterpolationType;
+      getMaxValue(): string;
+      getMidColor(): string;
+      getMidType(): InterpolationType;
+      getMidValue(): string;
+      getMinColor(): string;
+      getMinType(): InterpolationType;
+      getMinValue(): string;
+    }
+
+    /**
+     * Create, access and modify named ranges in a spreadsheet.
+     *  Named ranges are ranges that have associated string aliases.
+     *  They can be viewed and edited via the Sheets UI under the
+     *  Data > Named ranges... menu.
+     */
+    export interface NamedRange {
+      /**
+       * Gets the name of this named range.
+       */
+      getName(): string;
+      /**
+       * Gets teh range referenced by this named range.
+       */
+      getRange(): Range;
+      /**
+       * Deletes this named range.
+       */
+      remove(): void;
+      /**
+       * Sets/updates the name of this named range.
+       */
+      setName(name: string): NamedRange;
+      /**
+       * Sets/updates the range for this named range.
+       */
+      setRange(range: Range): NamedRange;
+    }
+
+    /**
+     * @deprecated
+     * For spreadsheets created in the newer version of Google Sheets, use the more powerful
      *      Protection class instead. Although this class is deprecated, it will remain
      *      available for compatibility with the older version of Sheets.
      * Access and modify protected sheets in the older version of Google Sheets.
      */
     export interface PageProtection {
       addUser(email: string): void;
-      getUsers(): String[];
+      getUsers(): string[];
       isProtected(): boolean;
       removeUser(user: string): void;
       setProtected(protection: boolean): void;
@@ -523,7 +734,7 @@ declare namespace GoogleAppsScript {
     export interface Protection {
       addEditor(emailAddress: string): Protection;
       addEditor(user: Base.User): Protection;
-      addEditors(emailAddresses: String[]): Protection;
+      addEditors(emailAddresses: string[]): Protection;
       canDomainEdit(): boolean;
       canEdit(): boolean;
       getDescription(): string;
@@ -536,9 +747,10 @@ declare namespace GoogleAppsScript {
       remove(): void;
       removeEditor(emailAddress: string): Protection;
       removeEditor(user: Base.User): Protection;
-      removeEditors(emailAddresses: String[]): Protection;
+      removeEditors(emailAddresses: string[]): Protection;
       setDescription(description: string): Protection;
       setDomainEdit(editable: boolean): Protection;
+      setNamedRange(namedRange: NamedRange): Protection;
       setRange(range: Range): Protection;
       setRangeName(rangeName: string): Protection;
       setUnprotectedRanges(ranges: Range[]): Protection;
@@ -591,55 +803,60 @@ declare namespace GoogleAppsScript {
       copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       getA1Notation(): string;
       getBackground(): string;
-      getBackgrounds(): String[][];
+      getBackgrounds(): string[][];
       getCell(row: Integer, column: Integer): Range;
       getColumn(): Integer;
+      getColumnIndex(): Integer;
       getDataSourceUrl(): string;
       getDataTable(): Charts.DataTable;
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
       getDataValidation(): DataValidation;
       getDataValidations(): DataValidation[][];
+      getDisplayValue(): string;
+      getDisplayValues(): string[][];
       getFontColor(): string;
-      getFontColors(): String[][];
-      getFontFamilies(): String[][];
+      getFontColors(): string[][];
+      getFontFamilies(): string[][];
       getFontFamily(): string;
       getFontLine(): string;
-      getFontLines(): String[][];
+      getFontLines(): string[][];
       getFontSize(): Integer;
       getFontSizes(): Integer[][];
       getFontStyle(): string;
-      getFontStyles(): String[][];
+      getFontStyles(): string[][];
       getFontWeight(): string;
-      getFontWeights(): String[][];
+      getFontWeights(): string[][];
       getFormula(): string;
       getFormulaR1C1(): string;
-      getFormulas(): String[][];
-      getFormulasR1C1(): String[][];
+      getFormulas(): string[][];
+      getFormulasR1C1(): string[][];
       getGridId(): Integer;
       getHeight(): Integer;
       getHorizontalAlignment(): string;
-      getHorizontalAlignments(): String[][];
+      getHorizontalAlignments(): string[][];
       getLastColumn(): Integer;
       getLastRow(): Integer;
+      getMergedRanges(): Range[];
       getNote(): string;
-      getNotes(): String[][];
+      getNotes(): string[][];
       getNumColumns(): Integer;
       getNumRows(): Integer;
       getNumberFormat(): string;
-      getNumberFormats(): String[][];
+      getNumberFormats(): string[][];
       getRow(): Integer;
       getRowIndex(): Integer;
       getSheet(): Sheet;
       getValue(): Object;
       getValues(): Object[][];
       getVerticalAlignment(): string;
-      getVerticalAlignments(): String[][];
+      getVerticalAlignments(): string[][];
       getWidth(): Integer;
       getWrap(): boolean;
       getWraps(): Boolean[][];
       isBlank(): boolean;
       isEndColumnBounded(): boolean;
       isEndRowBounded(): boolean;
+      isPartOfMerge(): boolean;
       isStartColumnBounded(): boolean;
       isStartRowBounded(): boolean;
       merge(): Range;
@@ -652,8 +869,9 @@ declare namespace GoogleAppsScript {
       protect(): Protection;
       setBackground(color: string): Range;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
-      setBackgrounds(color: String[][]): Range;
+      setBackgrounds(color: string[][]): Range;
       setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): Range;
+      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean, color: string, style: BorderStyle): Range;
       setDataValidation(rule: DataValidation): Range;
       setDataValidations(rules: DataValidation[][]): Range;
       setFontColor(color: string): Range;
@@ -670,8 +888,8 @@ declare namespace GoogleAppsScript {
       setFontWeights(fontWeights: Object[][]): Range;
       setFormula(formula: string): Range;
       setFormulaR1C1(formula: string): Range;
-      setFormulas(formulas: String[][]): Range;
-      setFormulasR1C1(formulas: String[][]): Range;
+      setFormulas(formulas: string[][]): Range;
+      setFormulasR1C1(formulas: string[][]): Range;
       setHorizontalAlignment(alignment: string): Range;
       setHorizontalAlignments(alignments: Object[][]): Range;
       setNote(note: string): Range;
@@ -697,6 +915,7 @@ declare namespace GoogleAppsScript {
       autoResizeColumn(columnPosition: Integer): Sheet;
       clear(): Sheet;
       clear(options: Object): Sheet;
+      clearConditionalFormatRules(): void;
       clearContents(): Sheet;
       clearFormats(): Sheet;
       clearNotes(): Sheet;
@@ -709,6 +928,7 @@ declare namespace GoogleAppsScript {
       getActiveRange(): Range;
       getCharts(): EmbeddedChart[];
       getColumnWidth(columnPosition: Integer): Integer;
+      getConditionalFormatRules(): ConditionalFormatRule[];
       getDataRange(): Range;
       getFrozenColumns(): Integer;
       getFrozenRows(): Integer;
@@ -718,6 +938,7 @@ declare namespace GoogleAppsScript {
       getMaxColumns(): Integer;
       getMaxRows(): Integer;
       getName(): string;
+      getNamedRanges(): NamedRange[];
       getParent(): Spreadsheet;
       getProtections(type: ProtectionType): Protection[];
       getRange(row: Integer, column: Integer): Range;
@@ -728,6 +949,7 @@ declare namespace GoogleAppsScript {
       getSheetId(): Integer;
       getSheetName(): string;
       getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): Object[][];
+      getTabColor(): string;
       hideColumn(column: Range): void;
       hideColumns(columnIndex: Integer): void;
       hideColumns(columnIndex: Integer, numColumns: Integer): void;
@@ -760,10 +982,13 @@ declare namespace GoogleAppsScript {
       setActiveSelection(range: Range): Range;
       setActiveSelection(a1Notation: string): Range;
       setColumnWidth(columnPosition: Integer, width: Integer): Sheet;
+      setConditionalFormatRules(rules: ReadonlyArray<ConditionalFormatRule>): void;
+      setCurrentCell(cell: Range): void;
       setFrozenColumns(columns: Integer): void;
       setFrozenRows(rows: Integer): void;
       setName(name: string): Sheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
+      setTabColor(color: string): Sheet;
       showColumns(columnIndex: Integer): void;
       showColumns(columnIndex: Integer, numColumns: Integer): void;
       showRows(rowIndex: Integer): void;
@@ -785,11 +1010,11 @@ declare namespace GoogleAppsScript {
     export interface Spreadsheet {
       addEditor(emailAddress: string): Spreadsheet;
       addEditor(user: Base.User): Spreadsheet;
-      addEditors(emailAddresses: String[]): Spreadsheet;
+      addEditors(emailAddresses: string[]): Spreadsheet;
       addMenu(name: string, subMenus: Object[]): void;
       addViewer(emailAddress: string): Spreadsheet;
       addViewer(user: Base.User): Spreadsheet;
-      addViewers(emailAddresses: String[]): Spreadsheet;
+      addViewers(emailAddresses: string[]): Spreadsheet;
       appendRow(rowContents: Object[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       copy(name: string): Spreadsheet;
@@ -815,6 +1040,7 @@ declare namespace GoogleAppsScript {
       getLastColumn(): Integer;
       getLastRow(): Integer;
       getName(): string;
+      getNamedRanges(): NamedRange[];
       getNumSheets(): Integer;
       getOwner(): Base.User;
       getProtections(type: ProtectionType): Protection[];
@@ -893,26 +1119,474 @@ declare namespace GoogleAppsScript {
      *  the parent class for the Spreadsheet service.
      */
     export interface SpreadsheetApp {
-      DataValidationCriteria: DataValidationCriteria
-      ProtectionType: ProtectionType
+      /**
+       * An enumeration of the valid styles for setting borders on a Range.
+       */
+      BorderStyle: typeof BorderStyle;
+      /**
+       * An enumeration representing the data-validation criteria that can be set on a range.
+       */
+      DataValidationCriteria: typeof DataValidationCriteria;
+      /**
+       * An enumeration representing the interpolation options for calculating a value to be used in a GradientCondition in a ConditionalFormatRule.
+       */
+      InterpolationType: typeof InterpolationType;
+      /**
+       * An enumeration representing the boolean criteria that can be used in conditional format or filter.
+       */
+      BooleanCriteria: typeof BooleanCriteria;
+      /**
+       * An enumeration representing the parts of a spreadsheet that can be protected from edits.
+       */
+      ProtectionType: typeof ProtectionType;
+      /**
+       * Creates a new spreadsheet with the given name.
+       */
       create(name: string): Spreadsheet;
+      /**
+       * Creates a new spreadsheet with the given name and the specified number of rows and columns.
+       */
       create(name: string, rows: Integer, columns: Integer): Spreadsheet;
+      /**
+       * Applies all pending Spreadsheet changes.
+       */
       flush(): void;
-      getActive(): Spreadsheet;
+      /**
+       * Returns the currently active spreadsheet, or null if there is none.
+       */
+      getActive(): Spreadsheet | null;
+      /**
+       * Returns the range of cells that is currently considered active.
+       */
       getActiveRange(): Range;
+      /**
+       * Gets the active sheet in a spreadsheet.
+       */
       getActiveSheet(): Sheet;
-      getActiveSpreadsheet(): Spreadsheet;
+      /**
+       * Returns the currently active spreadsheet, or null if there is none.
+       */
+      getActiveSpreadsheet(): Spreadsheet | null;
+      /**
+       * Returns an instance of the spreadsheet's user-interface environment that allows the script to add features like menus, dialogs, and sidebars.
+       */
       getUi(): Base.Ui;
+      /**
+       * Creates a builder for a data-validation rule.
+       */
       newDataValidation(): DataValidationBuilder;
+      /**
+       * Opens the spreadsheet that corresponds to the given File object.
+       */
       open(file: Drive.File): Spreadsheet;
+      /**
+       * Opens the spreadsheet with the given ID.
+       */
       openById(id: string): Spreadsheet;
+      /**
+       * Opens the spreadsheet with the given url.
+       */
       openByUrl(url: string): Spreadsheet;
+      /**
+       * Sets the active range for the application.
+       */
       setActiveRange(range: Range): Range;
+      /**
+       * Sets the active sheet in a spreadsheet.
+       */
       setActiveSheet(sheet: Sheet): Sheet;
+      /**
+       * Sets the active spreadsheet.
+       */
       setActiveSpreadsheet(newActiveSpreadsheet: Spreadsheet): void;
+      /**
+       * Creates a builder for a conditional formatting rule.
+       */
+      newConditionalFormatRule(): ConditionalFormatRuleBuilder;
     }
 
+    /**
+     * Access conditional formatting rules. To create a new rule, use SpreadsheetApp.newConditionalFormatRule() and
+     * ConditionalFormatRuleBuilder. You can use Sheet.setConditionalFormatRules(rules) to set the rules for a given
+     * sheet.
+     */
+    export interface ConditionalFormatRule {
+      /**
+       * Returns a rule builder preset with this rule's settings.
+       */
+      copy(): ConditionalFormatRuleBuilder;
+
+      /**
+       * Retrieves the rule's BooleanCondition information if this rule uses boolean condition criteria.
+       */
+      getBooleanCondition(): BooleanCondition;
+
+      /**
+       * Retrieves the rule's GradientCondition information, if this rule uses gradient condition criteria.
+       */
+      getGradientCondition(): GradientCondition;
+
+      /**
+       * Retrieves the ranges to which this conditional format rule is applied.
+       */
+      getRanges(): Range[];
+    }
+
+    /**
+     * Builder for conditional format rules.
+     */
+    export interface ConditionalFormatRuleBuilder {
+
+      /**
+       * Constructs a conditional format rule from the settings applied to the builder.
+       */
+      build(): ConditionalFormatRule;
+
+      /**
+       * Returns a rule builder preset with this rule's settings.
+       */
+      copy(): ConditionalFormatRuleBuilder;
+
+      /**
+       * Retrieves the rule's BooleanCondition information if this rule uses boolean condition criteria.
+       */
+      getBooleanCondition(): BooleanCondition;
+
+      /**
+       * Retrieves the rule's GradientCondition information, if this rule uses gradient condition criteria.
+       */
+      getGradientCondition(): GradientCondition;
+
+      /**
+       * Retrieves the ranges to which this conditional format rule is applied.
+       */
+      getRanges(): Range[];
+
+      /**
+       * Sets the background color for the conditional format rule's format.
+       */
+      setBackground(color: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets text bolding for the conditional format rule's format.
+       */
+      setBold(bold: boolean): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the font color for the conditional format rule's format.
+       */
+      setFontColor(color: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Clears the conditional format rule's gradient maxpoint value, and instead uses the maximum value in the rule's ranges.
+       */
+      setGradientMaxpoint(color: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule's gradient maxpoint fields.
+       */
+      setGradientMaxpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule's gradient midpoint fields.
+       */
+      setGradientMidpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Clears the conditional format rule's gradient minpoint value, and instead uses the minimum value in the rule's ranges.
+       */
+      setGradientMinpoint(color: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule's gradient minpoint fields.
+       */
+      setGradientMinpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets text italics for the conditional format rule's format.
+       */
+      setItalic(italic: boolean): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets one or more ranges to which this conditional format rule is applied.
+       */
+      setRanges(ranges: ReadonlyArray<Range>): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets text strikethrough for the conditional format rule's format.
+       */
+      setStrikethrough(strikethrough: boolean): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets text underlining for the conditional format rule's format.
+       */
+      setUnderline(underline: boolean): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when the cell is empty.
+       */
+      whenCellEmpty(): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when the cell is not empty.
+       */
+      whenCellNotEmpty(): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a date is after the given value.
+       */
+      whenDateAfter(date: Date): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a date is after the given relative date.
+       */
+      whenDateAfter(date: Date): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a date is before the given date.
+       */
+      whenDateBefore(date: Date): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a date is before the given relative date.
+       */
+      whenDateBefore(date: Date): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a date is equal to the given date.
+       */
+      whenDateEqualTo(date: Date): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a date is equal to the given relative date.
+       */
+      whenDateEqualTo(date: Date): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when that the given formula evaluates to true.
+       */
+      whenFormulaSatisfied(formula: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a number falls between, or is either of, two specified values.
+       */
+      whenNumberBetween(start: number, end: number): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a number is equal to the given value.
+       */
+      whenNumberEqualTo(number: number): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a number is greater than the given value.
+       */
+      whenNumberGreaterThan(number: number): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a number is greater than or equal to the given value.
+       */
+      whenNumberGreaterThanOrEqualTo(number: number): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional conditional format rule to trigger when a number less than the given value.
+       */
+      whenNumberLessThan(number: number): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a number less than or equal to the given value.
+       */
+      whenNumberLessThanOrEqualTo(number: number): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a number does not fall between, and is neither of, two specified values.
+       */
+      whenNumberNotBetween(start: number, end: number): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when a number is not equal to the given value.
+       */
+      whenNumberNotEqualTo(number: number): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when that the input contains the given value.
+       */
+      whenTextContains(text: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when that the input does not contain the given value.
+       */
+      whenTextDoesNotContain(text: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when that the input ends with the given value.
+       */
+      whenTextEndsWith(text: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when that the input is equal to the given value.
+       */
+      whenTextEqualTo(text: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to trigger when that the input starts with the given value.
+       */
+      whenTextStartsWith(text: string): ConditionalFormatRuleBuilder;
+
+      /**
+       * Sets the conditional format rule to criteria defined by BooleanCriteria values, typically taken from the criteria and arguments of an existing rule.
+       */
+      withCriteria(criteria: BooleanCriteria, args: ReadonlyArray<number|string|Date>): ConditionalFormatRuleBuilder;
+    }
+
+    /**
+     * An enumeration representing the boolean criteria that can be used in conditional format or filter.
+     */
+    export enum BooleanCriteria {
+      /**
+       * The criteria is met when a cell is empty.
+       */
+      CELL_EMPTY,
+
+      /**
+       * The criteria is met when a cell is not empty.
+       */
+      CELL_NOT_EMPTY,
+
+      /**
+       * The criteria is met when a date is after the given value.
+       */
+      DATE_AFTER,
+
+      /**
+       * The criteria is met when a date is before the given value.
+       */
+      DATE_BEFORE,
+
+      /**
+       * The criteria is met when a date is equal to the given value.
+       */
+      DATE_EQUAL_TO,
+
+      /**
+       * The criteria is met when a date is after the relative date value.
+       */
+      DATE_AFTER_RELATIVE,
+
+      /**
+       * The criteria is met when a date is before the relative date value.
+       */
+      DATE_BEFORE_RELATIVE,
+
+      /**
+       * The criteria is met when a date is equal to the relative date value.
+       */
+      DATE_EQUAL_TO_RELATIVE,
+
+      /**
+       * The criteria is met when a number that is between the given values.
+       */
+      NUMBER_BETWEEN,
+
+      /**
+       * The criteria is met when a number that is equal to the given value.
+       */
+      NUMBER_EQUAL_TO,
+
+      /**
+       * The criteria is met when a number that is greater than the given value.
+       */
+      NUMBER_GREATER_THAN,
+
+      /**
+       * The criteria is met when a number that is greater than or equal to the given value.
+       */
+      NUMBER_GREATER_THAN_OR_EQUAL_TO,
+
+      /**
+       * The criteria is met when a number that is less than the given value.
+       */
+      NUMBER_LESS_THAN,
+
+      /**
+       * The criteria is met when a number that is less than or equal to the given value.
+       */
+      NUMBER_LESS_THAN_OR_EQUAL_TO,
+
+      /**
+       * The criteria is met when a number that is not between the given values.
+       */
+      NUMBER_NOT_BETWEEN,
+
+      /**
+       * The criteria is met when a number that is not equal to the given value.
+       */
+      NUMBER_NOT_EQUAL_TO,
+
+      /**
+       * The criteria is met when the input contains the given value.
+       */
+      TEXT_CONTAINS,
+
+      /**
+       * The criteria is met when the input does not contain the given value.
+       */
+      TEXT_DOES_NOT_CONTAIN,
+
+      /**
+       * The criteria is met when the input is equal to the given value.
+       */
+      TEXT_EQUAL_TO,
+
+      /**
+       * The criteria is met when the input begins with the given value.
+       */
+      TEXT_STARTS_WITH,
+
+      /**
+       * The criteria is met when the input ends with the given value.
+       */
+      TEXT_ENDS_WITH,
+
+      /**
+       * The criteria is met when the input makes the given formula evaluate to true.
+       */
+      CUSTOM_FORMULA
+    }
+
+    /**
+     * An enumeration representing the interpolation options for calculating a value to be used in a GradientCondition in a ConditionalFormatRule.
+     */
+    export enum InterpolationType {
+      /**
+       * Use the number as as specific interpolation point for a gradient condition.
+       */
+      NUMBER,
+
+      /**
+       * Use the number as a percentage interpolation point for a gradient condition.
+       */
+      PERCENT,
+
+      /**
+       * Use the number as a percentile interpolation point for a gradient condition.
+       */
+      PERCENTILE,
+
+      /**
+       * Infer the minimum number as a specific interpolation point for a gradient condition.
+       */
+      MIN,
+
+      /**
+       * Infer the maximum number as a specific interpolation point for a gradient condition.
+       */
+      MAX
+    }
   }
 }
 
+/**
+ * This class allows users to open Google Sheets files and to create new ones. This class is
+ *  the parent class for the Spreadsheet service.
+ */
 declare var SpreadsheetApp: GoogleAppsScript.Spreadsheet.SpreadsheetApp;

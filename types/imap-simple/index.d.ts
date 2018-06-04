@@ -1,7 +1,9 @@
-// Type definitions for imap-simple v1.6.3
+// Type definitions for imap-simple v3.1.0
 // Project: https://github.com/chadxz/imap-simple
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay/>
+// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/psnider/DefinitelyTyped/imap-simple
+
+/// <reference types="node" />
 
 import Imap = require("imap");
 
@@ -11,6 +13,15 @@ export interface ImapSimpleOptions {
 
     /** Time in milliseconds to wait before giving up on a connection attempt. (Deprecated: please use options.imap.authTimeout instead) */
     connectTimeout?: number;
+
+    /** Server event emitted when new mail arrives in the currently open mailbox. */
+    onmail?: (numNewMail: number) => void;
+
+    /** Server event emitted when a message was expunged externally. seqno is the sequence number (instead of the unique UID) of the message that was expunged. If you are caching sequence numbers, all sequence numbers higher than this value MUST be decremented by 1 in order to stay synchronized with the server and to keep correct continuity. */
+    onexpunge?: (seqno: number) => void;
+
+    /** Server event emitted when message metadata (e.g. flags) changes externally. */
+    onupdate?: (seqno: number, info: any) => void;
 }
 
 export interface MessageBodyPart extends Imap.ImapMessageBodyInfo {
@@ -21,9 +32,10 @@ export interface MessageBodyPart extends Imap.ImapMessageBodyInfo {
 export interface Message {
     attributes: Imap.ImapMessageAttributes;
     parts: MessageBodyPart[];
+    seqno: number;
 }
 
-export class ImapSimple {
+export class ImapSimple extends NodeJS.EventEmitter {
     constructor(imap: Imap);
 
     /** Open a mailbox, calling the provided callback with signature (err, boxName), or resolves the returned promise with boxName. */
@@ -48,6 +60,14 @@ export class ImapSimple {
     /** Moves the specified message(s) in the currently open mailbox to another mailbox. source corresponds to a node-imap MessageSource which specifies the messages to be moved. When completed, either calls the provided callback with signature (err), or resolves the returned promise. */
     moveMessage(source: string | string[], boxName: string, callback: (err: Error) => void): void;
     moveMessage(source: string | string[], boxName: string): Promise<void>;
+
+    /** Adds the provided flag(s) to the specified message(s). uid is the uid of the message you want to add the flag to or an array of uids. flag is either a string or array of strings indicating the flags to add. */
+    addFlags(source: string | string[], flag: string | string[], callback: (err: Error) => void): void;
+    addFlags(source: string | string[], flag: string | string[]): Promise<void>;
+
+    /** Removes the provided flag(s) from the specified message(s). uid is the uid of the message you want to remove the flag from or an array of uids. flag is either a string or array of strings indicating the flags to remove. */
+    delFlags(source: string | string[], flag: string | string[], callback: (err: Error) => void): void;
+    delFlags(source: string | string[], flag: string | string[]): Promise<void>;
 }
 
 export namespace errors {
@@ -57,7 +77,6 @@ export namespace errors {
         constructor(timeout: number);
     }
 }
-
 
 /** Main entry point. Connect to an Imap server. */
 export function connect(options: ImapSimpleOptions, callback: (err: Error, connection: ImapSimple) => void): void;

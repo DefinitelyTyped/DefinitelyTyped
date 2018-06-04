@@ -1,15 +1,14 @@
 // Type definitions for socket.io 1.4.4
 // Project: http://socket.io/
-// Definitions by: PROGRE <https://github.com/progre/>, Damian Connolly <https://github.com/divillysausages/>, Florent Poujol <https://github.com/florentpoujol/>, KentarouTakeda <https://github.com/KentarouTakeda/>
+// Definitions by: PROGRE <https://github.com/progre>, Damian Connolly <https://github.com/divillysausages>, Florent Poujol <https://github.com/florentpoujol>, KentarouTakeda <https://github.com/KentarouTakeda>, Alexey Snigirev <https://github.com/gigi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
 
-declare module 'socket.io' {
-	var server: SocketIOStatic;
-
-	export = server;
-}
+declare const SocketIO: SocketIOStatic;
+export = SocketIO;
+/** @deprecated Available as a global for backwards-compatibility. */
+export as namespace SocketIO;
 
 interface SocketIOStatic {
 	/**
@@ -45,7 +44,6 @@ interface SocketIOStatic {
 }
 
 declare namespace SocketIO {
-
 	interface Server {
 		engine: { ws: any };
 
@@ -63,6 +61,16 @@ declare namespace SocketIO {
 		 * Sets the 'json' flag when emitting an event
 		 */
 		json: Server;
+
+		/**
+		 * Sets a modifier for a subsequent event emission that the event data may be lost if the clients are not ready to receive messages
+		 */
+		volatile: Server;
+
+		/**
+		 * Sets a modifier for a subsequent event emission that the event data will only be broadcast to the current node
+		 */
+		local: Server;
 
 		/**
 		 * Server request verification function, that checks for allowed origins
@@ -466,6 +474,21 @@ declare namespace SocketIO {
 		compress( compress: boolean ): Namespace;
 	}
 
+	interface Packet extends Array<any> {
+		/**
+		 * Event name
+		 */
+		[0]: string;
+		/**
+		 * Packet data
+		 */
+		[1]: any;
+		/**
+		 * Ack function
+		 */
+		[2]: (...args: any[]) => void;
+	}
+
 	/**
 	 * The socket, which handles our connection for a namespace. NOTE: while
 	 * we technically extend NodeJS.EventEmitter, we're not putting it here
@@ -603,6 +626,13 @@ declare namespace SocketIO {
 		 * @see to( room )
 		 */
 		in( room: string ): Socket;
+
+		/**
+		 * Registers a middleware, which is a function that gets executed for every incoming Packet and receives as parameter the packet and a function to optionally defer execution to the next registered middleware.
+		 * 
+		 * Errors passed to middleware callbacks are sent as special error packets to clients.
+		 */
+		use( fn: ( packet: Packet, next: (err?: any) => void ) => void ): Socket;
 
 		/**
 		 * Sends a 'message' event

@@ -1,7 +1,5 @@
-/// <reference types="node"/>
-
-import assert = require('assert');
 import parse = require('xml-parser');
+declare var assert: { equal<T>(a: T, b: T): void };
 
 var doc: parse.Document = parse(
   '<?xml version="1.0" encoding="utf-8"?>' +

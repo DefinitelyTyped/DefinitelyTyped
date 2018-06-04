@@ -1,6 +1,6 @@
 // Type definitions for deep-diff
 // Project: https://github.com/flitbit/diff/
-// Definitions by: ZauberNerd <https://github.com/ZauberNerd/>
+// Definitions by: ZauberNerd <https://github.com/ZauberNerd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace deepDiff {

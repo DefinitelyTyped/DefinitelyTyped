@@ -1,7 +1,7 @@
 function testDocument() {
-    document.query(".container-a").classList;
-    document.queryAll(".container-b")[0].className;
-    document.queryAll(".container-c").childElementCount;
+    document.querySelector(".container-a").classList;
+    document.querySelectorAll(".container-b")[0].className;
+    document.querySelector(".container-c").append("foo", document.createElement("button"));
 }
 
 function testElement(el: Element) {

@@ -251,3 +251,12 @@ const client = zookeeper.createClient(
         console.log('Node: %s is created.', path);
     });
 }
+
+{
+    new zookeeper.Event(zookeeper.Event.NODE_CREATED, 'test', '/test');
+}
+
+{
+    new zookeeper.Exception(zookeeper.Exception.NO_NODE, 'test', zookeeper.Exception);
+    new zookeeper.Exception(zookeeper.Exception.NO_NODE, 'test', '/test', zookeeper.Exception);
+}

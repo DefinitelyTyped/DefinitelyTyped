@@ -1,5 +1,5 @@
 import * as WebSocket from 'uws';
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 import * as http from'http';
 import * as https from'https';
 import * as fs from'fs';

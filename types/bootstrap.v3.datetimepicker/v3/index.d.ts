@@ -2,6 +2,7 @@
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Jesica N. Fera <https://github.com/bayitajesi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /**
  * bootstrap-datetimepicker.js 3.0.0 Copyright (c) 2014 Jonathan Peterson

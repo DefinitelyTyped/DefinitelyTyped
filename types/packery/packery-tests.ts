@@ -1,7 +1,4 @@
-
-/// <reference types="jquery" />
-
-import Packery = require('packery');
+import { Packery, PackeryOptions } from 'packery';
 
 // TODO Add Draggabilly to bind Draggabilly Events
 var container = document.querySelector('#container');

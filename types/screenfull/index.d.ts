@@ -1,8 +1,9 @@
-// Type definitions for screenfull.js 3.2.0
+// Type definitions for screenfull.js 3.3.0
 // Project: https://github.com/sindresorhus/screenfull.js
-// Definitions by: Ilia Choly <http://github.com/icholy>, lionelb <https://github.com/lionelb>
+// Definitions by: Ilia Choly <https://github.com/icholy>
+//                 lionelb <https://github.com/lionelb>
+//                 Joel Shepherd <https://github.com/joelshepherd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 
 declare var screenfull: IScreenfull;
 
@@ -25,6 +26,10 @@ interface IScreenfull {
   exit(): void;
   onchange(handler: () => void): void;
   onerror(handler: (event: Event) => void): void;
+  on(name: EventNameMap, handler: (event: Event) => void): void;
+  off(name: EventNameMap, handler: (event: Event) => void): void;
 }
+
+type EventNameMap = 'change' | 'error';
 
 export = screenfull;

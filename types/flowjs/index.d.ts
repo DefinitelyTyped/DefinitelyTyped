@@ -7,7 +7,7 @@ declare namespace flowjs {
     interface IFlow {
         support: boolean;
         supportDirectory: boolean;
-        opts: Object;
+        opts: IFlowOptions;
         files: IFlowFile[];
 
         assignBrowse(domNodes: HTMLElement[], isDirectory: boolean, singleFile: boolean, attributes: Object): void;
@@ -83,3 +83,6 @@ declare namespace flowjs {
         getType(): string;
     }
 }
+
+export = flowjs;
+export as namespace flowjs;

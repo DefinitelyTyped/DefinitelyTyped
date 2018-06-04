@@ -2,6 +2,7 @@
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: d-ph <https://github.com/d-ph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /*
  * 1. Why use `bluebird-global` instead of `bluebird`?
@@ -30,6 +31,22 @@
  *    in the runtime. Do this by either importing bluebird.js via a `<script />` tag in your html or
  *    via importing it in your js entry file AND assigning it to the global Promise symbol.
  *
+ * c) if you're `--target`ing "es5", then you'll need to include the "es2015.iterable" lib typings to
+ *    let the bluebird.d.ts compile (requirement for Map, Iterable & friends). This is only for the
+ *    compile-time, since bluebird doesn't require these es6 features to be present in the runtime.
+ *    To summarise: when targeting "es5", make sure you have the follwing "lib" config in your tsconfig.json:
+ *
+ *    {
+ *      "compilerOptions": {
+ *        "lib": [
+ *          "es5",
+ *          "es2015.iterable",
+ *          "dom"
+ *          (more, if you need...)
+ *        ],
+ *      }
+ *    }
+ *
  * 3. Why so much effort?
  *
  * If a promise-polyfilling library wants to play nicely with TypeScript, it needs to augment
@@ -37,13 +54,13 @@
  * For various reasons this couldn't be done in The `bluebird` typings.
  *
  * 4. Contributors: After changing this file please manually test these cases (via altering ./tsconfig.json ):
- *   a. target es5, no `lib` key
+ *   a. target es5, with the following `lib` keys: "es5", "es2015.iterable", "dom"
  *   b. target es6, no `lib` key
  *   c. target es5, latest "es20xx", e.g. "es2017"
  *   d. target es6, latest "es20xx", e.g. "es2017"
  */
 
-import * as Bluebird from "bluebird";
+import Bluebird = require("bluebird");
 
 declare global {
     /*
@@ -64,7 +81,7 @@ declare global {
         each: typeof Bluebird.prototype.each;
         error: typeof Bluebird.prototype.error;
         filter: typeof Bluebird.prototype.filter;
-        finally: typeof Bluebird.prototype.finally;
+        // finally: typeof Bluebird.prototype.finally;
         get: typeof Bluebird.prototype.get;
         isCancelled: typeof Bluebird.prototype.isCancelled;
         isFulfilled: typeof Bluebird.prototype.isFulfilled;
@@ -117,19 +134,24 @@ declare global {
          *
          * @todo Duplication of code is never ideal. See whether there's a better way of achieving this.
          */
-        catch(predicate: (error: any) => boolean, onReject: (error: any) => T | Bluebird.Thenable<T> | void | Bluebird.Thenable<void>): Bluebird<T>;
-        catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | T>;
-        catch<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => T | Bluebird.Thenable<T> | void | Bluebird.Thenable<void>): Bluebird<T>;
-        catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | T>;
-        catch(predicate: Object, onReject: (error: any) => T | Bluebird.Thenable<T> | void | Bluebird.Thenable<void>): Bluebird<T>;
-        catch<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | T>;
+        catch(predicate: (error: any) => boolean, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
+        catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
+        catch<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
+        catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | PromiseLike<U>): Bluebird<U | T>;
+        catch(predicate: Object, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
+        catch<U>(predicate: Object, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
+
+        /*
+         * See comments above `then` for the reason why this is needed. Taken from esnext.promise.d.ts.
+         */
+        finally(onfinally?: (() => void) | undefined | null): Promise<T>;
     }
 
     /*
      * Patch all static methods and the constructor
      */
     interface PromiseConstructor {
-        new <T>(callback: (resolve: (thenableOrResult?: T | Bluebird.Thenable<T>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void): Promise<T>;
+        new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void): Promise<T>;
 
         // all: typeof Bluebird.all;
         any: typeof Bluebird.any;

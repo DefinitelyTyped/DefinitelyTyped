@@ -1,9 +1,9 @@
 import { Component } from "react";
-import { ColorPickerProps } from "react-color";
+import { ColorPickerProps } from "../../..";
 
 export interface HuePickerProps extends ColorPickerProps<HuePicker> {
     height?: string;
     width?: string;
 }
 
-export default class HuePicker extends Component<HuePickerProps, any> {}
+export default class HuePicker extends Component<HuePickerProps> {}

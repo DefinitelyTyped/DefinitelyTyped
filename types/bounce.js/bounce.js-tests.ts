@@ -2,7 +2,6 @@
 
 
 import Bounce from 'bounce.js';
-import * as $ from 'jquery';
 
 function test_chaining_transformations() {
     var bounce = new Bounce();

@@ -1,7 +1,8 @@
 // Type definitions for pty.js 0.2
 // Project: https://github.com/chjj/pty.js
-// Definitions by: Vadim Macagon <https://github.com/enlight/>
+// Definitions by: Vadim Macagon <https://github.com/enlight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -17,10 +18,9 @@ interface TerminalOptions {
     gid?: number;
 }
 
-import stream = require('stream');
 import net = require('net');
 
-export declare class Terminal implements stream.Stream {
+export declare class Terminal {
     /** Read-only name of the terminal. */
     name: string;
     /** Read-only number of columns in the terminal. */
@@ -68,9 +68,9 @@ export declare class Terminal implements stream.Stream {
     resume(): void;
     setEncoding(encoding: string): void;
     /**
- * Closes the master end of the pseudo-terminal, and attempts to kill the spawned process
- * associated with the slave end of the pseudo-terminal (but only if [[pid]] is not null).
- */
+     * Closes the master end of the pseudo-terminal, and attempts to kill the spawned process
+     * associated with the slave end of the pseudo-terminal (but only if [[pid]] is not null).
+     */
     destroy(): void;
 
     // NodeJS Stream interface
@@ -84,21 +84,15 @@ export declare class Terminal implements stream.Stream {
     once(event: string, listener: Function): this;
     removeListener(event: string, listener: Function): this;
     removeAllListeners(event?: string): this;
-    // NOTE: this method is not actually defined in pty.js
-    setMaxListeners(n: number): this;
-    getMaxListeners(): number;
     listeners(event: string): Function[];
     emit(event: string, ...args: any[]): boolean;
-    listenerCount(type: string): number;
-    prependListener(event: string, listener: Function): this;
-    prependOnceListener(event: string, listener: Function): this;
     eventNames(): string[];
 }
 
 /**
  * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave
-* end of the pseudo-terminal.
-*/
+ * end of the pseudo-terminal.
+ */
 export declare function createTerminal(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
 /** Alias for [[createTerminal]]. */
 export declare function fork(file?: string, args?: string[], opt?: TerminalOptions): Terminal;

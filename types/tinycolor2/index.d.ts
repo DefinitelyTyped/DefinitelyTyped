@@ -1,6 +1,6 @@
-// Type definitions for tinycolor v1.1.1
+// Type definitions for tinycolor v1.4.1
 // Project: https://github.com/bgrins/TinyColor
-// Definitions by: Mordechai Zuber <https://github.com/M-Zuber>, Geert Jansen <https://github.com/geertjansen>
+// Definitions by: Mordechai Zuber <https://github.com/M-Zuber>, Geert Jansen <https://github.com/geertjansen>, Niels van Hoorn <https://github.com/nvh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var tinycolor: tinycolor;
@@ -70,27 +70,34 @@ interface tinycolor {
      * @param firstColor - the first color to be used in the comparison.
      * @param secondColor - the second color to be used in the comparison.
      */
-    readability(firstColor: tinycolorInstance, secondColor: tinycolorInstance): Readable.Readable;
+    readability(firstColor: ColorInput, secondColor: ColorInput): Readable.Readable;
 
     /**
-     * Ensure that foreground and background color combinations provide sufficient contrast.
+     * Ensure that foreground and background color combinations meet WCAG2 guidelines.
      *
      * @param foreColor - the fore color wanted.
-     * @param backCOlor - the back color wanted.
+     * @param backColor - the back color wanted.
+	 * @param wcag2 - The 'level' property states 'AA' or 'AAA' - if missing or invalid, it defaults to 'AA'; the 'size' property states 'large' or 'small' - if missing or invalid, it defaults to 'small'. If the entire object is absent, isReadable defaults to {level:"AA",size:"small"}.
      */
-    isReadable(foreColor: tinycolorInstance, backColor: tinycolorInstance): boolean;
+    isReadable(foreColor: ColorInput, backColor: ColorInput, wcag2?: {level?: string, size?: string}): boolean;
 
     /**
      * Given a base color and a list of possible foreground or background colors for that base,
-     *  returns the most readable color.
+     *  returns the most readable color. Optionally returns Black or White if the most readable color is unreadable.
      *
      * @param color - the base color.
      * @param colorsToCompare - array of colors to pick the most readable one from.
+	 * @param args - and object with extra arguments
      */
-    mostReadable(color: tinycolorInstance, colorsToCompare: tinycolorInstance[]): tinycolorInstance;
+    mostReadable(color: ColorInput, colorsToCompare: ColorInput[], args?: {includeFallbackColors?: boolean, level?: string, size?: string}): tinycolorInstance;
 
     /**/
-    mix(color1: tinycolorInstance, color2: tinycolorInstance, amount?: number): tinycolorInstance;
+    mix(color1: ColorInput, color2: ColorInput, amount?: number): tinycolorInstance;
+
+    /**
+     * Can be called with any tinycolor input
+     */
+    equals(color1: ColorInput, color2: ColorInput): boolean;
 
     /**
      * Returns a random color
@@ -265,7 +272,6 @@ interface tinycolorInstance {
      *  Default value: 10.
      */
     darken(amount?: number): tinycolorInstance;
-
     /**
      * Desaturate the color a given amount.
      *  Providing 100 will is the same as calling greyscale.
@@ -379,6 +385,8 @@ declare namespace ColorFormats {
         a: number;
     }
 }
+
+type ColorInput = string | ColorFormats.RGB | ColorFormats.RGBA | ColorFormats.HSL | ColorFormats.HSLA | ColorFormats.HSV | ColorFormats.HSVA | tinycolorInstance
 
 declare module 'tinycolor2' {
     export = tinycolor;

@@ -1,14 +1,15 @@
 
 
-import mongoose = require('mongoose');
+// import mongoose = require('mongoose');
 import express = require('express');
 import jSend = require('easy-jsend');
 
-var schema = new mongoose.Schema({
-    name: {type: String}
-});
+// var schema = new mongoose.Schema({
+//     name: {type: String}
+// });
 
-var Model = mongoose.model('model', schema);
+// var Model = mongoose.model('model', schema);
+var Model = {};
 
 jSend.init({partial: true});
 

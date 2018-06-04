@@ -1,4 +1,4 @@
-// Type definitions for polymer v1.1.6
+// Type definitions for polymer v1.2.6
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -53,7 +53,7 @@ declare global {
 
       // Debouncer
 
-      debounce?(jobName: string, callback: Function, wait: number): void;
+      debounce?(jobName: string, callback: Function, wait?: number): void;
 
       isDebouncerActive?(jobName: string): boolean;
 
@@ -120,7 +120,7 @@ declare global {
 
       notifyPath?(path: string, value: any, fromAbove: any): void;
 
-      set?(path: string|(string|number)[], value: any, root?: Object): void;
+      set?<Value>(path: string|(string|number)[], value: Value, root?: Object): void;
 
       get?(path: string|(string|number)[], root?: Object): any;
 
@@ -138,6 +138,8 @@ declare global {
       shift?(path: string): any;
 
       unshift?(path: string, ...item: any[]): number;
+
+      notifySplices?(path: string, splices: ReadonlyArray<polymer.PolymerSplice>): void;
 
       // ResolveUrl
 
@@ -185,7 +187,7 @@ declare global {
 
       // XStyling
 
-      updateStyles?(): void;
+      updateStyles?(styles?: {[prop: string]: string;}): void;
 
       /* common api */
 
@@ -230,6 +232,12 @@ declare global {
       flush():void;
     }
 
+    interface ObservedNodeInfo {
+      target: Node;
+      addedNodes: Node[];
+      removedNode: Node[];
+    }
+
     interface DomApi {
 
       appendChild(node: Node): Node;
@@ -255,6 +263,10 @@ declare global {
       setAttribute(name: string, value: any):void;
 
       removeAttribute(name: string):void;
+        
+      observeNodes(callback: (info: ObservedNodeInfo) => void): {};
+
+      unobserveNodes(observer: {}): void;
 
       childNodes:Node[];
 
@@ -312,6 +324,18 @@ declare global {
       whenReady(cb: Function): void;
     }
 
+    interface PolymerSplice {
+      index: number;
+      removed: Array<{}>;
+      addedCount: number;
+      object: Array<{}>;
+      type: string;
+    }
+
+    interface ArraySplice {
+      calculateSplices<T>(current: ReadonlyArray<T>, previous: ReadonlyArray<T>): PolymerSplice[];
+    }
+
     interface ImportStatus extends RenderStatus {
       whenLoaded(cb: Function): void;
     }
@@ -328,6 +352,8 @@ declare global {
       Class(prototype: Base | { new (): Base }): CustomElementConstructor;
 
       RenderStatus: RenderStatus
+
+      ArraySplice: ArraySplice;
 
       /** @deprecated */
       ImportStatus: ImportStatus
