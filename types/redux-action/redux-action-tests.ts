@@ -11,7 +11,7 @@ const dispatch: Redux.Dispatch<any> = (...args: any[]): any => { };
 const actionCreator0 = ReduxAction.createAction<Payload>('get items');
 
 dispatch(actionCreator0(1))
-  .then(action => {
+  .then((action: any) => {
     const type: string = action.type;
     const payload: Payload = action.payload;
   });
@@ -19,7 +19,7 @@ dispatch(actionCreator0(1))
 const actionCreator1 = ReduxAction.createAction<Payload>();
 
 dispatch(actionCreator1(1))
-  .then(action => {
+  .then((action: any) => {
     const type: string = action.type;
     const payload: Payload = action.payload;
   });
@@ -27,7 +27,7 @@ dispatch(actionCreator1(1))
 const actionCreator2 = ReduxAction.createAction('get items', (name: string) => name);
 
 dispatch(actionCreator2(1))
-  .then(action => {
+  .then((action: any) => {
     const type: string = action.type;
     const payload: string = action.payload;
   });
@@ -35,7 +35,7 @@ dispatch(actionCreator2(1))
 const actionCreator3 = ReduxAction.createAction('get items', (name: string) => Promise.resolve(name));
 
 dispatch(actionCreator3(1))
-  .then(action => {
+  .then((action: any) => {
     const type: string = action.type;
     const payload: string = action.payload;
   });
@@ -43,7 +43,7 @@ dispatch(actionCreator3(1))
 const actionCreator4 = ReduxAction.createAction((name: string) => name);
 
 dispatch(actionCreator4(1))
-  .then(action => {
+  .then((action: any) => {
     const type: string = action.type;
     const payload: string = action.payload;
   });
@@ -51,7 +51,7 @@ dispatch(actionCreator4(1))
 const actionCreator5 = ReduxAction.createAction<number, string>((name: string) => 1);
 
 dispatch(actionCreator5('items'))
-  .then(action => {
+  .then((action: any) => {
     const type: string = action.type;
     const payload: number = action.payload;
   });
@@ -59,7 +59,7 @@ dispatch(actionCreator5('items'))
 const actionCreator6 = ReduxAction.createAction<number, string, boolean>((name: string) => 1);
 
 dispatch(actionCreator6('items', false))
-  .then(action => {
+  .then((action: any) => {
     const type: string = action.type;
     const payload: number = action.payload;
   });
