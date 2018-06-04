@@ -38,9 +38,9 @@ declare namespace ShopifyBuy {
         fetchMultiple(ids: string[]): Promise<Product[]>;
         fetchQuery(query: Query): Promise<Product[]>;
 
-        /*
+        /**
         *   Product Helper Namespace
-        *   @see {@link https://shopify.github.io/js-buy-sdk/ProductResource.html}
+        *   @link https://shopify.github.io/js-buy-sdk/ProductResource.html
         */
         variantForOptions(product: Product, options: Option): ProductVariant;
     }
@@ -55,9 +55,6 @@ declare namespace ShopifyBuy {
         fetchQuery(query: Query): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
     }
 
-    /*
-    *   https://shopify.github.io/js-buy-sdk/CheckoutResource.html
-    */
     export interface CheckoutResource {
         create(
             email: string,
@@ -102,12 +99,12 @@ declare namespace ShopifyBuy {
     }
 
     export interface ShopResource {
-        fetchInfo():Promise<Shop>;
+        fetchInfo(): Promise<Shop>;
         fetchPolicies(): Promise<Shop>;
     }
 
     export interface Query {
-      /*
+     /**
       * query: title, collection_type, updated_at
       * TODO probably will remove before Defintely Typed PR, 
       * as their  community guidelines
@@ -279,7 +276,7 @@ declare namespace ShopifyBuy {
         published: boolean;
         published_at: string;
         published_scope: string;
-        sort_order:  string;
+        sort_order: string;
         template_suffix: string;
         title: string;
         updated_at: string;
@@ -392,9 +389,7 @@ declare namespace ShopifyBuy {
         zip: String;
     }
 
-    export interface Shop {
-
-    }
+    export interface Shop {}
 
     /**
      * Internal Image description
@@ -413,13 +408,12 @@ declare namespace ShopifyBuy {
         name: string;
         dimensions: string;
         src: string;
-        /*
+        /**
         * Returns src URL for new image size/variant
         * @param image The image you would like a different size for.
         * @param options Image Max width and height configuration.
         */
         imageForSize(image: Image, options: ImageOptions): string;
-
     }
 
     export interface ImageOptions {
@@ -427,8 +421,8 @@ declare namespace ShopifyBuy {
         maxHeight: number;
     }
 
-    /* 
-    *   https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/attributeinput
+    /**
+    *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/attributeinput
     */
     export interface AttributeInput {
         key: string;
