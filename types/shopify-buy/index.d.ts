@@ -401,7 +401,25 @@ declare namespace ShopifyBuy {
         variantId?: string;
     }
 
-    export interface Shop {}
+    /**
+     * TODO Validate schema matches js-buy
+     * Derived from REST API Docs: https://help.shopify.com/api/custom-storefronts/storefront-api/reference/object/shop#fields
+     */
+    export interface Shop {
+
+        description: string;
+        moneyFormat: string;
+        name: string;
+        /**
+         * TODO Add types for the Shop properties below
+         * PaymentSettings, ShopPolicy etc
+         */
+        paymentSettings: any;
+        primaryDomain: any;
+        privacyPolicy: any;
+        refundPolicy: any;
+        termsOfService: any;
+    }
 
     /**
      * Internal Image description
@@ -435,7 +453,13 @@ declare namespace ShopifyBuy {
 
     let NO_IMAGE_URI: string;
 
-    export interface GraphModel {}
+    /*
+    *   Base Model for the higher level returned objects from the API using GraphQL
+    */
+    export interface GraphModel {
+        attrs?: any
+        onlineStoreUrl?: string
+    }
 }
 
 declare module "shopify-buy" {
