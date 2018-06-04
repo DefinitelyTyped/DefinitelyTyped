@@ -270,10 +270,20 @@ declare namespace ShopifyBuy {
         value: any;
     }
 
-    /* 
-    *   TODO this should be solved during TDD
-    *   export interface Collection {} 
-    */
+    export interface Collection {
+        handle: string;
+        body_html: string;
+        image: Image;
+        id: string;
+        metafields: any[];
+        published: boolean;
+        published_at: string;
+        published_scope: string;
+        sort_order:  string;
+        template_suffix: string;
+        title: string;
+        updated_at: string;
+    }
 
     export interface Cart extends GraphModel {
         /**
