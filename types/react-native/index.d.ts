@@ -479,6 +479,8 @@ export namespace AppRegistry {
     function runApplication(appKey: string, appParameters: any): void;
 
     function registerHeadlessTask(appKey: string, task: TaskProvider): void;
+
+    function getRunnable(appKey: string): Runnable | undefined;
 }
 
 export interface LayoutAnimationTypes {
