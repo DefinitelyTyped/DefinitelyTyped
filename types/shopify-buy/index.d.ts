@@ -38,7 +38,12 @@ declare namespace ShopifyBuy {
 
     export interface CollectionAPI {
         fetch(id: string): Promise<Product[]>;
-        fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type
+        fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type: Docs: Fetches a single collection by ID on the shop, not including products.
+        fetchAll(): Promise<any[]>; // TODO fix to be a type: Docs: Fetches all collections on the shop, not including products.
+        fetchAllWithProducts(): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
+        fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
+        fetchByHandle(handle: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
+        fetchQuery(query: Query): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
     }
 
     /*
@@ -55,12 +60,7 @@ declare namespace ShopifyBuy {
 
         fetch(id: string): Promise<Cart>;
 
-
-
-        addLineItems(
-            checkoutId: string,
-            lineItems: LineItem[]
-        ): Promise<Cart>;
+        addLineItems(checkoutId: string, lineItems: LineItem[]): Promise<Cart>;
 
         /**
          * Remove all line items from cart
@@ -93,6 +93,11 @@ declare namespace ShopifyBuy {
     }
 
     export interface Query {
+      /*
+      * query: title, collection_type, updated_at
+      * TODO probably will remove before Defintely Typed PR, 
+      * as their  community guidelines
+      */
         query: string;
         sortBy: string;
         after?: string;
@@ -390,9 +395,7 @@ declare namespace ShopifyBuy {
         value: string;
     }
 
-    export interface GraphModel {
-
-    }
+    export interface GraphModel {}
 }
 
 declare module "shopify-buy" {
