@@ -18,7 +18,7 @@
 //                 Rahul Raina <https://github.com/rraina>
 //                 Maksim Sharipov <https://github.com/pret-a-porter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as H from 'history';
@@ -106,8 +106,8 @@ export interface match<P> {
   url: string;
 }
 
-// Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+// Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
 

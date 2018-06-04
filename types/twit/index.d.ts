@@ -192,12 +192,14 @@ declare module 'twit' {
         retweeted: boolean,
         retweeted_status?: Status,
         source?: string,
-        text: string,
+        text?: string,
+        full_text?: string,
         truncated: boolean,
         user: User,
         withheld_copyright?: boolean,
         withheld_in_countries?: string[],
         withheld_scope?: string,
+        display_text_range?: [number, number],
       }
       export interface Metadata {
         max_id?: number,
@@ -261,6 +263,7 @@ declare module 'twit' {
       follow?: boolean,
       include_email?: boolean,
       cursor?: number,
+      tweet_mode? :string,
     }
     export interface PromiseResponse {
       data: Response,

@@ -7,7 +7,7 @@ const { tiferr, throwerr, printerr } = iferr;
 
 const { readFile } = fs;
 
-const errcb = (err: Error | undefined) => { throw err; };
+const errcb = (err: Error) => { throw err; };
 
 readFile("test.txt", iferr(errcb, result => {
     Buffer.from("test", "utf8") === result;

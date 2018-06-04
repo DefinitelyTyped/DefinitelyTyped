@@ -1127,8 +1127,7 @@ declare namespace cytoscape {
     /**
      * The output is a collection of node and edge elements OR single element.
      */
-    interface CollectionElements extends
-        EdgeCollection, NodeCollection, SingularElement { }
+    type CollectionElements = EdgeCollection | NodeCollection | SingularElement;
 
     /**
      * edges -> Cy.EdgeCollection
