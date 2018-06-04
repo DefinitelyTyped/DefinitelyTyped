@@ -23,7 +23,7 @@ declare global {
 
 import * as http from "http";
 import { EventEmitter } from "events";
-import { Options as RangeParserOptions } from "range-parser";
+import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from "range-parser";
 
 export interface NextFunction {
     // tslint:disable-next-line callable-types (In ts2.1 it thinks the type alias has no call signatures)
@@ -175,7 +175,7 @@ export interface CookieOptions {
 
 export interface ByteRange { start: number; end: number; }
 
-export interface RequestRanges extends Array<ByteRange> { type: string; }
+export interface RequestRanges extends RangeParserRanges { }
 
 export type Errback = (err: Error) => void;
 
@@ -287,22 +287,16 @@ export interface Request extends http.IncomingMessage, Express.Request {
      * Parse Range header field, capping to the given `size`.
      *
      * Unspecified ranges such as "0-" require knowledge of your resource length. In
-     * the case of a byte range this is of course the total number of bytes. If the
-     * Range header field is not given `undefined` is returned, `-1` when unsatisfiable,
-     * and `-2` when syntactically invalid.
-     *
-     * When ranges are returned, the array has a "type" property which is the type of
-     * range that is required (most commonly, "bytes"). Each array element is an object
-     * with a "start" and "end" property for the portion of the range.
-     *
-     * The "combine" option can be set to `true` and overlapping & adjacent ranges
-     * will be combined into a single range.
+     * the case of a byte range this is of course the total number of bytes.
+     * If the Range header field is not given `undefined` is returned.
+     * If the Range header field is given, return value is a result of range-parser.
+     * See more ./types/range-parser/index.d.ts
      *
      * NOTE: remember that ranges are inclusive, so for example "Range: users=0-3"
      * should respond with 4 users when available, not 3.
      *
      */
-    range(size: number, options?: RangeParserOptions): RequestRanges | undefined | -1 | -2;
+    range(size: number, options?: RangeParserOptions): RangeParserRanges | RangeParserResult | undefined;
 
     /**
      * Return an array of Accepted media types
