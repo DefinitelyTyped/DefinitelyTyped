@@ -23,7 +23,7 @@ declare namespace ShopifyBuy {
         checkout: ShopifyBuy.CheckoutAPI;
         shop: any;
         image: Image;
-        fetchNextPage(T: GraphModel[]): GraphModel[];
+        fetchNextPage<T extends GraphModel>(nextArray: T[]): T[];
     }
     export interface Config {
         domain: string;
