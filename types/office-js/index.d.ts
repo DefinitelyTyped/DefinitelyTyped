@@ -487,9 +487,42 @@ declare namespace Office {
         name: string;
     }
     export namespace AddinCommands {
+        /**
+         * The event object is passed as a parameter to add-in functions invoked by UI-less command buttons. The object allows the add-in to identify which button was clicked and to signal the host that it has completed its processing.
+         * 
+         * [Api set: Mailbox 1.3]
+         * 
+         * @remarks
+         * 
+         * Hosts: Excel, Outlook, PowerPoint, Word
+         * 
+         * Add-in type: Content, task pane, Outlook
+         * 
+         * Minimum permission level: Restricted
+         *
+         * Applicable Outlook mode: Compose or Read
+         */
         export interface Event {
             
-            completed(): void;
+            /**
+             * Indicates that the add-in has completed processing that was triggered by an add-in command button or event handler.
+             * 
+             * This method must be called at the end of a function which was invoked by an add-in command defined with an Action element with an xsi:type attribute set to ExecuteFunction. Calling this method signals the host client that the function is complete and that it can clean up any state involved with invoking the function. For example, if the user closes Outlook before this method is called, Outlook will warn that a function is still executing.
+             * 
+             * This method must be called in an event handler added via Office.context.mailbox.addHandlerAsync after completing processing of the event.
+             * 
+             * [Api set: Mailbox 1.3]
+             *
+             * @remarks
+             * 
+             * Minimum permission level: Restricted
+             *
+             * Applicable Outlook mode: Compose or read
+             * 
+             * @param options Optional. An object literal that contains one or more of the following properties.
+             *        allowEvent: A boolean value. When the completed method is used to signal completion of an event handler, this value indicates of the handled event should continue execution or be canceled. For example, an add-in that handles the ItemSend event can set allowEvent = false to cancel sending of the message.
+             */
+            completed(options?: any): void;
         }
     }
     /**
@@ -575,9 +608,12 @@ declare namespace Office {
          */
         asyncContext?: any
     }
+    /**
+     * The Office Auth namespace, Office.context.auth, provides a method that allows the Office host to obtain and access the add-in token. Indirectly, enable the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
+     */
     interface Auth {
         /**
-        * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
+        * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Allows add-ins to identify users. Server side code can use this token to access Microsoft Graph for the add-in's web application by using the ["on behalf of" OAuth flow](https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of).
         *
         * @remarks
         * Hosts: Excel, OneNote, Outlook, PowerPoint, Word
@@ -1121,6 +1157,14 @@ declare namespace Office {
          */
         NodeReplaced,
         /**
+         * The recurrence pattern of the selected series has changed.
+         */
+        RecurrencePatternChanged,
+        /**
+         * Triggers when a Resource selection happens in Project.
+         */
+        ResourceSelectionChanged,
+        /**
          * A Settings.settingsChanged event was raised.
          */
         SettingsChanged,
@@ -1128,10 +1172,6 @@ declare namespace Office {
          * Triggers when a Task selection happens in Project.
          */
         TaskSelectionChanged,
-        /**
-         * Triggers when a Resource selection happens in Project.
-         */
-        ResourceSelectionChanged,
         /**
          * Triggers when a View selection happens in Project.
          */
@@ -5516,8 +5556,35 @@ declare namespace Office {
             
         }
 
+        /**
+         * Specifies the type of recurrence.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
         enum RecurrenceType {
-
+            /**
+             * Daily.
+             */
+            Daily = "daily",
+            /**
+             * Weekday.
+             */
+            Weekday = "weekday",
+            /**
+             * Weekly.
+             */
+            Weekly = "weekly",
+            /**
+             * Monthly.
+             */
+            Monthly = "monthly",
+            /**
+             * Yearly.
+             */
+            Yearly = "yearly"
         }
         /**  
          * Specifies the type of response to a meeting invitation.
@@ -6355,6 +6422,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          * 
          * @remarks
+         * 
          * Minimum permission level: ReadItem
          * 
          * Applicable Outlook mode: Compose
@@ -6365,6 +6433,43 @@ declare namespace Office {
     }
 
     interface Appointment extends Item {
+        /**
+         * Gets or sets the recurrence pattern of an appointment. Gets the recurrence pattern of a meeting request. Read and compose modes for appointment items. Read mode for meeting request items.
+         * 
+         * The recurrence property returns a recurrence object for recurring appointments or meetings requests if an item is a series or an instance in a series. null is returned for single appointments and meeting requests of single appointments. undefined is returned for messages that are not meeting requests.
+         * 
+         * Note: Meeting requests have an itemClass value of IPM.Schedule.Meeting.Request.
+         * 
+         * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment and NOT a part of a series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        recurrence: Recurrence;
+
+        /**
+         * Gets the id of the series that an instance belongs to.
+         * 
+         * In OWA and Outlook, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * 
+         * Note: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. For more details, see [Use the Outlook REST APIs from an Outlook add-in](https://docs.microsoft.com/outlook/add-ins/use-rest-api).
+         * 
+         * The seriesId property returns null for items that do not have parent items such as single appointments, series items, or meeting requests and returns undefined for any other items that are not meeting requests.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        seriesId: string;
     }
     interface AppointmentCompose extends Appointment, ItemCompose {
         /**
@@ -6795,6 +6900,47 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          */
         notificationMessages: NotificationMessages;
+
+        /**
+         * Adds an event handler for a supported event.
+         * 
+         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param eventType The event that should invoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        addHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
+
+        /**
+         * Adds an event handler for a supported event.
+         * 
+         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param eventType The event that should invoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        addHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
+
        /**
         * Asynchronously loads custom properties for this add-in on the selected item.
         *
@@ -6814,6 +6960,46 @@ declare namespace Office {
         * @param userContext Optional. Developers can provide any object they wish to access in the callback function. This object can be accessed by the asyncResult.asyncContext property in the callback function.
         */
        loadCustomPropertiesAsync(callback: (result: AsyncResult) => void, userContext?: any): void;
+
+       /**
+        * Removes an event handler for a supported event.
+        * 
+        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param eventType The event that should invoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        */
+       removeHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
+
+       /**
+        * Removes an event handler for a supported event.
+        * 
+        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param eventType The event that should invoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        */
+       removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
     }
     interface ItemCompose extends Item {
         /**
@@ -7563,6 +7749,40 @@ declare namespace Office {
          */
         displayReplyForm(formData: string | ReplyFormData): void;
         /**
+         * Gets initialization data passed when the add-in is [activated by an actionable message](https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message).
+         * 
+         * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Read
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         */
+        getInitializationContextAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Gets initialization data passed when the add-in is [activated by an actionable message](https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message).
+         * 
+         * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Read
+         * 
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         */
+        getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
+        /**
          * Gets the entities found in the selected item.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
@@ -7758,6 +7978,22 @@ declare namespace Office {
          */
         cc: Recipients;
         /**
+         * Gets the email address of the sender of a message.
+         *
+         * The from and sender properties represent the same person unless the message is sent by a delegate. In that case, the from property represents the delegator, and the sender property represents the delegate.
+         *
+         * The from property returns a From object that provides a method to get the from value.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Read
+         */
+        from: From;
+        /**
          * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the current item.
          *
          * *Read mode*
@@ -7800,12 +8036,14 @@ declare namespace Office {
          */
         cc: EmailAddressDetails[];
         /**
-         * Gets the email address of the sender of a message. Read mode only.
+         * Gets the email address of the sender of a message.
          *
          * The from and sender properties represent the same person unless the message is sent by a delegate. In that case, the from property represents the delegator, and the sender property represents the delegate.
          *
          * Note: The recipientType property of the EmailAddressDetails object in the from property is undefined.
-         *
+         * 
+         * The from property returns an EmailAddressDetails object.
+         * 
          * [Api set: Mailbox 1.0]
          *
          * @remarks
@@ -8073,7 +8311,7 @@ declare namespace Office {
          * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
          * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentCompose`, `AppointmentRead`
          */
-        item: Item & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
+        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
         /**
          * Gets the URL of the REST endpoint for this email account.
          *
@@ -9055,7 +9293,111 @@ declare namespace Office {
          * 
          * Applicable Outlook mode: Compose or read
          */
-        recurrenceTimeZone: RecurrenceTimeZone;
+        recurrenceTimeZone: MailboxEnums.RecurrenceTimeZone;
+
+        /**
+         * Gets or sets the type of the recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        recurrenceType: MailboxEnums.RecurrenceType;
+
+        /**
+         * This object enables you to manage the start and end dates of the recurring appointment series and the usual start and end times of instances. **This object is not in UTC time.** Instead, it is set in the time zone specified by the recurrenceTimeZone value or defaulted to the item's time zone.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        seriesTime: SeriesTime;
+
+        /**
+         * Returns the current recurrence object of an appointment series.
+         * 
+         * This method returns the entire recurrence object for the appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+
+        /**
+         * Returns the current recurrence object of an appointment series.
+         * 
+         * This method returns the entire recurrence object for the appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        getAsync(callback?: (result: AsyncResult) => void): void;
+
+        /**
+         * Sets the recurrence pattern of an appointment series.
+         * 
+         * Note: setAsync should only be available for series items and not instance items.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadWriteItem
+         * 
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: InvalidEndTime - The appointment end time is before its start time.
+         * 
+         * @param recurrencePattern A recurrence object.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        setAsync(recurrencePattern: Recurrence, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+
+        /**
+         * Sets the recurrence pattern of an appointment series.
+         * 
+         * Note: setAsync should only be available for series items and not instance items.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadWriteItem
+         * 
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: InvalidEndTime - The appointment end time is before its start time.
+         * 
+         * @param recurrencePattern A recurrence object.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        setAsync(recurrencePattern: Recurrence, callback?: (result: AsyncResult) => void): void;
     }
 
     /**
@@ -9098,23 +9440,6 @@ declare namespace Office {
          * Represents your chosen first day of the week otherwise the default is the value in the current user's settings. Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
          */
         firstDayOfWeek: MailboxEnums.Days;
-    }
-
-    /**
-     * Represents the time zone applied to the recurrence.
-     * 
-     * Note: If you include the offset but it is not valid given the name, then the offset is ignored.
-     * 
-     * [Api set: Mailbox Preview]
-     * 
-     * @remarks
-     * 
-     * Minimum permission level: ReadItem
-     * 
-     * Applicable Outlook mode: Compose or read
-     */
-    export interface RecurrenceTimeZone {
-        name: 
     }
 
     export interface ReplyFormAttachment {
@@ -9209,6 +9534,193 @@ declare namespace Office {
          * @param value Specifies the value to be stored.
          */
         set(name: string, value: any): void;
+    }
+
+    /**
+     * The SeriesTime object provides methods to get and set the dates and times of appointments in a recurring series and get the dates and times of meeting requests in a recurring series.
+     * 
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * Minimum permission level: ReadItem
+     *
+     * Applicable Outlook mode: Compose or read
+     */
+    interface SeriesTime {
+        /**
+         * Gets the duration in minutes of a usual instance in a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getDuration(): number;
+
+        /**
+         * Gets the end date of a recurrence pattern in the following [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date format: "YYYY-MM-DD"
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getEndDate(): string;
+
+        /**
+         * Gets the end time of a usual appointment or meeting request instance of a recurrence pattern in whichever time zone that the user or add-in set the recurrence pattern using the following [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format: "THH:mm:ss:mmm"
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getEndTime(): string;
+
+        /**
+         * Gets the start date of a recurrence pattern in the following [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date format: "YYYY-MM-DD"
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getStartDate(): string;
+
+        /**
+         * Gets the start time of a usual appointment instance of a recurrence pattern in whichever time zone that the user/add-in set the recurrence pattern using the following [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format: "THH:mm:ss:mmm"
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getStartTime(): string;
+
+        /**
+         * Sets the duration of all appointments in a recurrence pattern. This will also change the end time of the recurrence pattern.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * @param minutes The length of the appointment in minutes.
+         */
+        setDuration(minutes: number): void;
+
+        /**
+         * Sets the end date of a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid date format - The date is not in an acceptable format.
+         * 
+         * @param year The year value of the end date.
+         * @param month The month value of the end date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
+         * @param day The day value of the end date.
+         */
+        setEndDate(year: number, month: number, day: number): void;
+
+        /**
+         * Sets the end date of a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid date format - The date is not in an acceptable format.
+         * 
+         * @param date End date of the recurring appointment series represented in the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date format: "YYYY-MM-DD".
+         */
+        setEndDate(date: string): void;
+
+        /**
+         * Sets the start date of a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid date format - The date is not in an acceptable format.
+         * 
+         * @param year The year value of the start date.
+         * @param month The month value of the start date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
+         * @param day The day value of the start date.
+         */
+        setStartDate(year:number, month:number, day:number): void;
+
+        /**
+         * Sets the start date of a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid date format - The date is not in an acceptable format.
+         * 
+         * @param date Start date of the recurring appointment series represented in the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date format: "YYYY-MM-DD".
+         */
+        setStartDate(date:string): void;
+
+        /**
+         * Sets the start time of all instances of a recurring appointment series in whichever time zone the recurrence pattern is set (the item's time zone is used by default).
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid time format - The time is not in an acceptable format.
+         * 
+         * @param hours The hour value of the start time. Valid range: 0-24.
+         * @param minutes The minute value of the start time. Valid range: 0-59.
+         */
+        setStartTime(hours: number, minutes: number): void;
+
+        /**
+         * Sets the start time of all instances of a recurring appointment series in whichever time zone the recurrence pattern is set (the item's time zone is used by default).
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid time format - The time is not in an acceptable format.
+         * 
+         * @param time Start time of all instances represented by standard datetime string format: "THH:mm:ss:mmm".
+         */
+        setStartTime(time: string): void;
     }
 
     /**
