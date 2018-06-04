@@ -57,11 +57,11 @@ declare namespace ShopifyBuy {
 
     export interface CheckoutResource {
         create(
-            email: string,
-            lineItems: LineItem[],
-            shippingAddress: Address,
-            note: string,
-            customAttributes: AttributeInput[]
+            email?: string,
+            lineItems?: LineItem[],
+            shippingAddress?: Address,
+            note?: string,
+            customAttributes?: AttributeInput[]
         ): Promise<Cart>;
 
         fetch(id: string): Promise<Cart>;
@@ -86,15 +86,15 @@ declare namespace ShopifyBuy {
          */
         removeLineItem(
             checkoutId: string,
-            lineItems: LineItem[]
+            lineItemIds: string[]
         ): Promise<Cart>;
 
         /**
          * Update a line item quantity based on line item id
          */
         updateLineItem(
-            checkoutId: string,
-            lineItems: LineItem[]
+            checkoutId:  string | number,
+            lineItems: AttributeInput[]
         ): Promise<Cart>;
     }
 
@@ -422,14 +422,21 @@ declare namespace ShopifyBuy {
     }
 
     /**
-    *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/attributeinput
-    */
+     *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/attributeinput
+     *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/checkoutlineitemupdateinput
+     */
     export interface AttributeInput {
         key: string;
         value: string;
+        id?: string;
+        quantity?: number;
+        variantId?: string;
     }
 
     export interface GraphModel {}
+
+    // still have not figured this one out.
+    //export interface NO_IMAGE_URI extends string;
 }
 
 declare module "shopify-buy" {
