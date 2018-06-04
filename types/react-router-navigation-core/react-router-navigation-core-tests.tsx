@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import { TabStack, renderSubView } from 'react-router-navigation-core';
-import { TabBarProps, TabProps } from 'react-router-navigation';
-import { TabView } from 'react-native-tab-view';
+import * as React from "react";
+import { View } from "react-native";
+import { TabStack, renderSubView } from "react-router-navigation-core";
+import { TabBarProps, TabProps } from "react-router-navigation";
+import { TabView } from "react-native-tab-view";
 
 type Props = TabBarProps & {
     children?: Array<React.ReactElement<TabProps>>;
