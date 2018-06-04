@@ -1848,7 +1848,7 @@ declare namespace kendo.ui {
         dates?: any;
         depth?: string;
         disableDates?: any|Function;
-        footer?: boolean|string|Function;
+        footer?: false | string | Function;
         format?: string;
         max?: Date;
         messages?: CalendarMessages;
