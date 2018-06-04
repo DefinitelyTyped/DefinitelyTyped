@@ -26,6 +26,7 @@ export class ScopedClient {
     constructor(url: string, options: Options);
     fullPath(p: string): string;
     scope(options: Options, callback?: ScopeCallback): ScopedClient;
+    // tslint:disable-next-line unified-signatures
     scope(url: string, callback?: ScopeCallback): ScopedClient;
     scope(url: string, options: Options, callback?: ScopeCallback): ScopedClient;
     join(suffix: string): string;
