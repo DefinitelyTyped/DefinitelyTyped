@@ -475,7 +475,7 @@ declare namespace Office {
         /**
         * Provides a method for determining what requirement sets are supported on the current host and platform.
         */
-        requirements: RequirmentSetSupport;
+        requirements: RequirementSetSupport;
         /**
          * Gets an object that represents the custom settings or state of a mail add-in saved to a user's mailbox.
          *
@@ -588,7 +588,7 @@ declare namespace Office {
     /**
      * Provides information about what Requirement Sets are supported in current environment.
      */
-    interface RequirmentSetSupport {
+    interface RequirementSetSupport {
         /**
         * Check if the specified requirement set is supported by the host Office application.
         * @param name - Set name; e.g., "MatrixBindings".
