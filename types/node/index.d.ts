@@ -2178,6 +2178,7 @@ declare module "child_process" {
     }
 
     export interface SpawnOptions {
+        argv0?: string;
         cwd?: string;
         env?: any;
         stdio?: any;
@@ -2320,6 +2321,7 @@ declare module "child_process" {
     export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {
+        argv0?: string;
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
