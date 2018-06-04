@@ -66,13 +66,13 @@ declare namespace ShopifyBuy {
 
         fetch(id: string): Promise<Cart>;
 
-        addLineItems(checkoutId: string, lineItems: LineItem[]): Promise<Cart>;
+        addLineItems(checkoutId: string | number, lineItems: LineItem[]): Promise<Cart>;
 
         /**
          * Remove all line items from cart
          */
         clearLineItems(
-            checkoutId: string,
+            checkoutId: string | number,
             lineItems: LineItem[]
         ): Promise<Cart>;
 
@@ -85,7 +85,7 @@ declare namespace ShopifyBuy {
          * Remove a line item from cart based on line item id
          */
         removeLineItem(
-            checkoutId: string,
+            checkoutId: string | number,
             lineItemIds: string[]
         ): Promise<Cart>;
 
@@ -426,9 +426,9 @@ declare namespace ShopifyBuy {
      *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/checkoutlineitemupdateinput
      */
     export interface AttributeInput {
-        key: string;
-        value: string;
-        id?: string;
+        key?: string;
+        value?: string;
+        id?: string | number;
         quantity?: number;
         variantId?: string;
     }
