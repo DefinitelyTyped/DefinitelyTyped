@@ -21,6 +21,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
+//                 Holger Jeromin <https://github.com/HolgerJeromin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -123,7 +124,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    (html: JQuery.htmlString, ownerDocument_attributes: Document | JQuery.PlainObject): JQuery<TElement>;
+    <TElement extends Node = HTMLElement>(html: JQuery.htmlString, ownerDocument_attributes: Document | JQuery.PlainObject): JQuery<TElement>;
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
      *
@@ -132,7 +133,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery/}
      * @since 1.0
      */
-    (selector: JQuery.Selector, context: Element | Document | JQuery | undefined): JQuery<TElement>;
+    <TElement extends Node = HTMLElement>(selector: JQuery.Selector, context: Element | Document | JQuery | undefined): JQuery<TElement>;
     // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
     // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
     <FElement extends Node = HTMLElement>(window: Window, discriminator: boolean): JQueryStatic<FElement>;
@@ -151,7 +152,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
+    <TElement extends Node = HTMLElement>(selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
         JQuery.PlainObject | Window |
         ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>;
     /**

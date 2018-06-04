@@ -1,4 +1,5 @@
 import jq = require('jquery');
+// TypeScript Version: 2.4
 
 const $window = jq(window);
 // $ExpectType JQuery<HTMLElement>
