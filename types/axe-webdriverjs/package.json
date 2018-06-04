@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/selenium-webdriver": "^3.0.0",
+        "axe-core": "^2.6.1"
+    }
+}
