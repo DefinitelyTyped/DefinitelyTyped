@@ -397,6 +397,18 @@ declare namespace ShopifyBuy {
         name: string;
         dimensions: string;
         src: string;
+        /*
+        * Returns src URL for new image size/variant
+        * @param image The image you would like a different size for.
+        * @param options Image Max width and height configuration.
+        */
+        imageForSize(image: Image, options: ImageOptions): string;
+
+    }
+
+    export interface ImageOptions {
+        maxWidth: number;
+        maxHeight: number;
     }
 
     /* 
