@@ -8,9 +8,8 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
-        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -20,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "react-navigation-tests.tsx"
+        "test/cesium-global.test.ts",
+        "test/cesium-module.test.ts"
     ]
 }

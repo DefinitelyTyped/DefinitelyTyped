@@ -2,15 +2,13 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
-        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -20,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-navigation-tests.tsx"
+        "bin-pack-tests.ts"
     ]
 }

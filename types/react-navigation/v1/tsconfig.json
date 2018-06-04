@@ -17,10 +17,10 @@
         "types": [],
         "paths": {
             "react-navigation": [
-                "react-navigation/v2"
+                "react-navigation/v1"
             ],
             "react-navigation/*": [
-                "react-navigation/v2/*"
+                "react-navigation/v1/*"
             ]
         },
         "noEmit": true,

@@ -8,18 +8,18 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
-        "jsx": "react",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "react-navigation-tests.tsx"
+        "react-native-svg-charts-tests.tsx"
     ]
 }
