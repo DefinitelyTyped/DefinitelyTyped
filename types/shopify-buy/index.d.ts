@@ -37,6 +37,12 @@ declare namespace ShopifyBuy {
         fetchByHandle(handle: string): Promise<Product>;
         fetchMultiple(ids: string[]): Promise<Product[]>;
         fetchQuery(query: Query): Promise<Product[]>;
+
+        /*
+        *   Product Helper Namespace
+        *   @see {@link https://shopify.github.io/js-buy-sdk/ProductResource.html}
+        */
+        variantForOptions(product: Product, options: Option): ProductVariant;
     }
 
     export interface CollectionResource {
@@ -255,7 +261,7 @@ declare namespace ShopifyBuy {
          * an Array possible values for option. For instance if this option
          * is a "Size" option an example value for values could be: ["Large", "Medium", "Small"]
          */
-        values: Array<any>;
+        values: Array<OptionValue>;
     }
 
     export interface OptionValue {
