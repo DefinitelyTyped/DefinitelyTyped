@@ -4,14 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode, ReactElement, ComponentClass } from "react";
-import { StyleProp, ViewProps, ViewStyle, TextStyle } from "react-native";
-import { TabViewAnimated, TabViewPagerPan } from "react-native-tab-view";
-import { RouteProps } from "react-router-navigation-core";
+import { Component, ReactNode, ReactElement, ComponentClass } from 'react';
+import { StyleProp, ViewProps, ViewStyle, TextStyle } from 'react-native';
+import { RouteProps } from 'react-router-navigation-core';
 import {
     NavigationTransitionProps,
     NavigationTransitionSpec
-} from "react-navigation";
+} from 'react-navigation';
 
 /**
  * Navigation
@@ -80,7 +79,7 @@ export interface TabBarProps {
     // <BottomNavigation /> only:
     renderTabIcon?: (props: TabSubViewProps) => ReactNode;
     // <Tabs /> only:
-    tabBarPosition?: "top" | "bottom";
+    tabBarPosition?: 'top' | 'bottom';
     tabBarIndicatorStyle?: StyleProp<ViewStyle>;
 }
 
