@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.12
+// Type definitions for prettier 1.13
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -288,6 +288,23 @@ export type SupportOptionValue = number | boolean | string;
 export interface SupportInfo {
     languages: SupportLanguage[];
     options: SupportOption[];
+}
+
+export interface FileInfoOptions {
+    ignorePath?: string;
+    withNodeModules?: boolean;
+    plugins?: string[];
+}
+
+export interface FileInfoResult {
+    ignored: boolean;
+    inferredParser: string | null;
+}
+
+export function getFileInfo(filePath: string, options?: FileInfoOptions): Promise<FileInfoResult>;
+
+export namespace getFileInfo {
+    function sync(filePath: string, options?: FileInfoOptions): FileInfoResult;
 }
 
 /**
