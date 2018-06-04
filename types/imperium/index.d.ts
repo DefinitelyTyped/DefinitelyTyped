@@ -8,11 +8,11 @@
 
 import express = require('express');
 
-type GetAcl = (req: express.Request) => Promise<boolean> | Promise<object>;
-type Actions = string[] | string;
-type Context = Array<'params' | 'query' | 'headers' | 'body'>;
+export type GetAcl = (req: express.Request) => Promise<boolean> | Promise<object>;
+export type Actions = string[] | string;
+export type Context = Array<'params' | 'query' | 'headers' | 'body'>;
 // Can contain when key that is evaluated during route action
-interface RoleParams {
+export interface RoleParams {
     [key: string]: string;
 }
 
@@ -62,16 +62,16 @@ export class Imperium {
     evaluateUserAction(action: RoleParams, context: { [key: string]: string[] }): { [key: string]: string[] };
 }
 
-interface Roles {
+export interface Roles {
     [key: string]: RoleActions;
 }
 
-interface RoleActions {
+export interface RoleActions {
     actions: Action[];
     getAcl?: GetAcl;
 }
 
-interface Action {
+export interface Action {
     action: string;
     [key: string]: string;
 }
