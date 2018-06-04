@@ -7,6 +7,7 @@
 /// <reference types="node" />
 
 import { Agent } from "http";
+import { URLSearchParams } from "url";
 
 export class Request extends Body {
     constructor(input: string | { href: string } | Request, init?: RequestInit);
@@ -164,7 +165,7 @@ export interface ResponseInit {
 }
 
 export type HeaderInit = Headers | string[];
-export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string;
+export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
 export type RequestInfo = string | Request;
 
 export default function fetch(

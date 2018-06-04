@@ -2306,6 +2306,12 @@ declare namespace Stripe {
              * currency) representing the total amount for the order.
              */
             amount: number;
+            
+            /**
+             * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a 0-decimal
+             * currency) representing the total amount returned for the order thus far.
+             */
+            amount_returned: number;
 
             /**
              * ID of the Connect Application that created the order.

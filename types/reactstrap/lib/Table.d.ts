@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface TableProps extends React.HTMLAttributes<HTMLElement> {
+export type TableProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   size?: string;
@@ -12,7 +13,7 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
   responsive?: boolean;
   tag?: React.ReactType;
   responsiveTag?: React.ReactType;
-}
+} & T;
 
-declare const Table: React.StatelessComponent<TableProps>;
+declare class Table<T = {[key: string]: any}> extends React.Component<TableProps<T>> {}
 export default Table;

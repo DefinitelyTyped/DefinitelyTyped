@@ -5,6 +5,7 @@ import {
         SingleDatePicker,
         DateRangePicker,
         DayPickerRangeController,
+        DayPickerSingleDateController,
         isInclusivelyAfterDay,
         isInclusivelyBeforeDay,
         isNextDay,
@@ -137,16 +138,16 @@ class DayPickerRangeControllerMinimumTest extends React.Component {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
+class DayPickerSingleDateControllerMinimumTest extends React.Component {
+    render() {
+         return <DayPickerSingleDateController
+                date={moment()}
+                onDateChange={(arg)=> {}}
+                focused={true}
+                onFocusChange={(arg) => {}}
+            />
+    }
+}
 
 const isInclusivelyAfterDayResult: boolean = isInclusivelyAfterDay(moment(),moment());
 const isInclusivelyBeforeDayResult: boolean = isInclusivelyBeforeDay(moment(),moment());

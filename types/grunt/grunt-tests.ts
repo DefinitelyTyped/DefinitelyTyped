@@ -1,6 +1,6 @@
 
 
-// Official code sample from 
+// Official code sample from
 // http://gruntjs.com/getting-started#an-example-gruntfile
 
 interface MyTaskData {
@@ -12,7 +12,7 @@ interface MyOptions {
     repeat: number;
 }
 
-// exports should work same as module.exports 
+// exports should work same as module.exports
 exports = (grunt: IGrunt) => {
 
     // Project configuration.
@@ -127,3 +127,9 @@ exports.exports = function(grunt: IGrunt) {
     });
 
 };
+
+
+let myTest = function (grunt: IGrunt) {
+    grunt.file.expand(['*.ts']);
+    grunt.file.expand('*.ts');
+}
