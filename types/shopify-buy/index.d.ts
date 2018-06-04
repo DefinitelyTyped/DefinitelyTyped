@@ -21,7 +21,7 @@ declare namespace ShopifyBuy {
         product: ShopifyBuy.ProductResource;
         collection: ShopifyBuy.CollectionResource;
         checkout: ShopifyBuy.CheckoutResource;
-        shop: any;
+        shop: ShopResource;
         image: Image;
         fetchNextPage<T extends GraphModel>(nextArray: T[]): T[];
     }
@@ -32,9 +32,11 @@ declare namespace ShopifyBuy {
     }
 
     export interface ProductResource {
-        fetch(id: string): Promise<Product[]>;
-        fetchQuery(id: Query): Promise<Product[]>;
-        fetchAll(): Promise<Product[]>;
+        fetch(id: string): Promise<Product>;
+        fetchAll(pageSizeopt: number): Promise<Product[]>;
+        fetchByHandle(handle: string): Promise<Product>;
+        fetchMultiple(ids: string[]): Promise<Product[]>;
+        fetchQuery(query: Query): Promise<Product[]>;
     }
 
     export interface CollectionResource {
@@ -91,6 +93,11 @@ declare namespace ShopifyBuy {
             checkoutId: string,
             lineItems: LineItem[]
         ): Promise<Cart>;
+    }
+
+    export interface ShopResource {
+        fetchInfo():Promise<Shop>;
+        fetchPolicies(): Promise<Shop>;
     }
 
     export interface Query {
@@ -251,6 +258,12 @@ declare namespace ShopifyBuy {
         values: Array<any>;
     }
 
+    export interface OptionValue {
+        name: string;
+        option_id: string;
+        value: any;
+    }
+
     /* 
     *   TODO this should be solved during TDD
     *   export interface Collection {} 
@@ -350,6 +363,23 @@ declare namespace ShopifyBuy {
         quantity: number;
     }
 
+    export interface Address {
+        address1: String;
+        address2: String;
+        city: String;
+        company: String;
+        country: String;
+        firstName: String;
+        lastName: String;
+        phone: String;
+        province: String;
+        zip: String;
+    }
+
+    export interface Shop {
+
+    }
+
     /**
      * Internal Image description
      */
@@ -367,25 +397,6 @@ declare namespace ShopifyBuy {
         name: string;
         dimensions: string;
         src: string;
-    }
-
-    export interface OptionValue {
-        name: string;
-        option_id: string;
-        value: any;
-    }
-
-    export interface Address {
-        address1: String;
-        address2: String;
-        city: String;
-        company: String;
-        country: String;
-        firstName: String;
-        lastName: String;
-        phone: String;
-        province: String;
-        zip: String;
     }
 
     /* 
