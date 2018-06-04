@@ -2,6 +2,7 @@
 // Project: https://github.com/dequelabs/axe-webdriverjs#readme
 // Definitions by: My Self <https://github.com/JoshuaKGoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Result, RunOptions, Spec } from "axe-core";
 import { WebDriver } from "selenium-webdriver";
