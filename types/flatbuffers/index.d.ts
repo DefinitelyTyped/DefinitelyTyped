@@ -1,4 +1,4 @@
-// Type definitions for flatbuffers 1.6
+// Type definitions for flatbuffers 1.9
 // Project: http://google.github.io/flatbuffers/index.html
 // Definitions by: Kamil Rojewski <kamil.rojewski@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,7 +16,7 @@ declare namespace flatbuffers {
    * }}
    */
   interface Table {
-    bb: ByteBuffer;
+    bb: ByteBuffer|null;
     bb_pos: number;
   }
 
@@ -551,6 +551,11 @@ declare namespace flatbuffers {
      * @param {number} value
      */
     writeFloat64(offset: number, value: number): void;
+
+    /**
+     * @returns {string}
+     */
+    getBufferIdentifier(): string;
 
     /**
      * Look up a field in the vtable, return an offset into the object, or 0 if the
