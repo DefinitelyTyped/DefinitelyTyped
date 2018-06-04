@@ -3,8 +3,8 @@
 /* Build new ShopifyBuy client
 ============================================================ */
 let client = ShopifyBuy.buildClient({
-    domain: 'embeds',
-    storefrontAccessToken: ''
+    domain: 'buyapitypestest.myshopify.com',
+    storefrontAccessToken: '9f30a6806b613e0cb551b7db59c5ca02'
 });
 
 var product : ShopifyBuy.Product;
