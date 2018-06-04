@@ -5,12 +5,11 @@
 // TypeScript Version: 2.2
 
 import { Express } from 'express';
-import { EventEmitter } from 'events';
 
 declare function k(options?: k.Options | string): Express;
 
 declare namespace k {
-    interface Kraken extends Express, EventEmitter {
+    interface Kraken extends Express {
         kraken: Kraken;
     }
 
