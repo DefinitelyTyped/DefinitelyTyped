@@ -147,7 +147,7 @@ function updateProductTitle(title : string) {
 /* Update product image based on selected variant
 ============================================================ */
 function updateVariantImage(image : any) {
-    var src = (image) ? image.src : ShopifyBuy.NO_IMAGE_URI; // TODO
+    var src = (image) ? image.src : ShopifyBuy.NO_IMAGE_URI;
 
     $('#buy-button-1 .variant-image').attr('src', src);
 }
