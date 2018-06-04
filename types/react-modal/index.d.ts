@@ -58,7 +58,7 @@ declare namespace ReactModal {
         appElement?: HTMLElement | {};
 
         /* Function that will be run after the modal has opened. */
-        onAfterOpen?(): void;
+        onAfterOpen?(): void | Promise<void>;
 
         /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
         onRequestClose?(event: (MouseEvent | KeyboardEvent)): void;
