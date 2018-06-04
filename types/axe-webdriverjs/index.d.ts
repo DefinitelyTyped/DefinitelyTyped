@@ -16,9 +16,6 @@ export interface IAxeAnalysis {
 }
 
 export interface AxeBuilder {
-    (driver: WebDriver): AxeBuilder;
-    new (driver: WebDriver): AxeBuilder;
-
     /**
      * Includes a selector in analysis.
      *
@@ -76,4 +73,9 @@ export interface AxeBuilder {
     * @param callback   Function to execute when analysis completes.
     */
     analyze(callback: (results: IAxeAnalysis) => void): Promise<IAxeAnalysis>;
+}
+
+export declare const AxeBuilder: {
+    (driver: WebDriver): AxeBuilder;
+    new (driver: WebDriver): AxeBuilder;
 }
