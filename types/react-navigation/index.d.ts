@@ -97,6 +97,10 @@ export interface NavigationLeafRoute<Params = NavigationParams> {
    */
   key: string;
   /**
+   * Index that represents the depth of the stack
+   */
+  index: number;
+  /**
    * For example 'Home'.
    * This is used as a key in a route config when creating a navigator.
    */
