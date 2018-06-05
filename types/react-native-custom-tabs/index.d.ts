@@ -19,4 +19,6 @@ export interface CustomTabsOptions {
   headers?: any;
 }
 
-export function openURL(url: string, options?: CustomTabsOptions): Promise<boolean>;
+declare namespace CustomTabs {
+    function openURL(url: string, options?: CustomTabsOptions): Promise<boolean>;
+}
