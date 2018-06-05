@@ -110,9 +110,9 @@ declare class Snekfetch extends Readable {
     static unlock(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static unsubscribe(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
 
-    query(name: string | object, value?: string): Snekfetch;
+    query(name: string | { [key: string]: any }, value?: string): Snekfetch;
 
-    set(name: string | object, value?: string): Snekfetch;
+    set(name: string | { [key: string]: any }, value?: string): Snekfetch;
 
     attach(name: string, data: string | object | Buffer, filename?: string): Snekfetch;
 
