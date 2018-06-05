@@ -1147,7 +1147,7 @@ export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> i
     /**
      * Get a named UI element
      */
-    getUi(name: string): JQuery;
+    getUI(name: string): JQuery;
 }
 
 export interface CollectionViewOptions<
