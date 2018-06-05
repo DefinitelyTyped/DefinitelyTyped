@@ -1,6 +1,6 @@
 // Type definitions for Office.js
 // Project: http://dev.office.com
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Lance Austin <https://github.com/LanceEA>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Kim Brandl <https://github.com/kbrandl>, Ricky Kirkham <https://github.com/Rick-Kirkham>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>, Lance Austin <https://github.com/LanceEA>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Kim Brandl <https://github.com/kbrandl>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -523,6 +523,45 @@ declare namespace Office {
          */
         name: string;
     }
+    export namespace AddinCommands {
+        /**
+         * The event object is passed as a parameter to add-in functions invoked by UI-less command buttons. The object allows the add-in to identify which button was clicked and to signal the host that it has completed its processing.
+         * 
+         * [Api set: Mailbox 1.3]
+         * 
+         * @remarks
+         * 
+         * Hosts: Excel, Outlook, PowerPoint, Word
+         * 
+         * Add-in type: Content, task pane, Outlook
+         * 
+         * Minimum permission level: Restricted
+         *
+         * Applicable Outlook mode: Compose or Read
+         */
+        export interface Event {
+            
+            /**
+             * Indicates that the add-in has completed processing that was triggered by an add-in command button or event handler.
+             * 
+             * This method must be called at the end of a function which was invoked by an add-in command defined with an Action element with an xsi:type attribute set to ExecuteFunction. Calling this method signals the host client that the function is complete and that it can clean up any state involved with invoking the function. For example, if the user closes Outlook before this method is called, Outlook will warn that a function is still executing.
+             * 
+             * This method must be called in an event handler added via Office.context.mailbox.addHandlerAsync after completing processing of the event.
+             * 
+             * [Api set: Mailbox 1.3]
+             *
+             * @remarks
+             * 
+             * Minimum permission level: Restricted
+             *
+             * Applicable Outlook mode: Compose or read
+             * 
+             * @param options Optional. An object literal that contains one or more of the following properties.
+             *        allowEvent: A boolean value. When the completed method is used to signal completion of an event handler, this value indicates of the handled event should continue execution or be canceled. For example, an add-in that handles the ItemSend event can set allowEvent = false to cancel sending of the message.
+             */
+            completed(options?: any): void;
+        }
+    }
     /**
      * Provides objects and methods that you can use to create and manipulate UI components, such as dialog boxes, in your Office Add-ins.
      */
@@ -617,9 +656,12 @@ declare namespace Office {
          */
         asyncContext?: any
     }
+    /**
+     * The Office Auth namespace, Office.context.auth, provides a method that allows the Office host to obtain and access the add-in token. Indirectly, enable the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
+     */
     interface Auth {
         /**
-        * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
+        * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Allows add-ins to identify users. Server side code can use this token to access Microsoft Graph for the add-in's web application by using the ["on behalf of" OAuth flow](https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of).
         *
         * @remarks
         * Hosts: Excel, OneNote, Outlook, PowerPoint, Word
@@ -1213,6 +1255,14 @@ declare namespace Office {
          */
         NodeReplaced,
         /**
+         * The recurrence pattern of the selected series has changed.
+         */
+        RecurrencePatternChanged,
+        /**
+         * Triggers when a Resource selection happens in Project.
+         */
+        ResourceSelectionChanged,
+        /**
          * A Settings.settingsChanged event was raised.
          */
         SettingsChanged,
@@ -1220,10 +1270,6 @@ declare namespace Office {
          * Triggers when a Task selection happens in Project.
          */
         TaskSelectionChanged,
-        /**
-         * Triggers when a Resource selection happens in Project.
-         */
-        ResourceSelectionChanged,
         /**
          * Triggers when a View selection happens in Project.
          */
@@ -4797,6 +4843,56 @@ declare namespace Office {
             Cloud
         }
         /**
+         * Specifies the day of week or type of day.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
+        enum Days {
+            /**
+             * Monday
+             */
+            Mon = "mon",
+            /**
+             * Tuesday
+             */
+            Tue = "tue",
+            /**
+             * Wednesday
+             */
+            Wed = "wed",
+            /**
+             * Thursday
+             */
+            Thu = "thu",
+            /**
+             * Friday
+             */
+            Fri = "fri",
+            /**
+             * Saturday
+             */
+            Sat = "sat",
+            /**
+             * Sunday
+             */
+            Sun = "sun",
+            /**
+             * Week day (excludes weekend days): 'Mon', 'Tue', 'Wed', 'Thu', and 'Fri'.
+             */
+            Weekday = "weekday",
+            /**
+             * Weekend day: 'Sat' and 'Sun'.
+             */
+            WeekendDay = "weekendDay",
+            /**
+             * Day of week.
+             */
+            Day = "day"
+        }
+        /**
          * Specifies an entity's type.
          *
          * [Api set: Mailbox 1.0]
@@ -4875,6 +4971,64 @@ declare namespace Office {
             Appointment
         }
         /**
+         * Specifies the month.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
+        enum Month {
+            /**
+             * January
+             */
+            Jan = "jan",
+            /**
+             * February
+             */
+            Feb = "feb",
+            /**
+             * March
+             */
+            Mar = "mar",
+            /**
+             * April
+             */
+            Apr = "apr",
+            /**
+             * May
+             */
+            May = "may",
+            /**
+             * June
+             */
+            Jun = "jun",
+            /**
+             * July
+             */
+            Jul = "jul",
+            /**
+             * August
+             */
+            Aug = "aug",
+            /**
+             * September
+             */
+            Sep = "sep",
+            /**
+             * October
+             */
+            Oct = "oct",
+            /**
+             * November
+             */
+            Nov = "nov",
+            /**
+             * December
+             */
+            Dec = "dec"
+        }
+        /**
          * Specifies the type of recipient for an appointment.
          *
          * [Api set: Mailbox 1.1]
@@ -4901,6 +5055,592 @@ declare namespace Office {
             Other
         }
         /**
+         * Specifies the time zone applied to the recurrence.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
+        enum RecurrenceTimeZone {
+            /**
+             * Afghanistan Standard Time
+             */
+            AfghanistanStandardTime = "Afghanistan Standard Time",
+            /**
+             * Alaskan Standard Time
+             */
+            AlaskanStandardTime = "Alaskan Standard Time",
+            /**
+             * Aleutian Standard Time
+             */
+            AleutianStandardTime = "Aleutian Standard Time",
+            /**
+             * Altai Standard Time
+             */
+            AltaiStandardTime = "Altai Standard Time",
+            /**
+             * Arab Standard Time
+             */
+            ArabStandardTime = "Arab Standard Time",
+            /**
+             * Arabian Standard Time
+             */
+            ArabianStandardTime = "Arabian Standard Time",
+            /**
+             * Arabic Standard Time
+             */
+            ArabicStandardTime = "Arabic Standard Time",
+            /**
+             * Argentina Standard Time
+             */
+            ArgentinaStandardTime = "Argentina Standard Time",
+            /**
+             * Astrakhan Standard Time
+             */
+            AstrakhanStandardTime = "Astrakhan Standard Time",
+            /**
+             * Atlantic Standard Time
+             */
+            AtlanticStandardTime = "Atlantic Standard Time",
+            /**
+             * Australia Central Standard Time
+             */
+            AUSCentralStandardTime = "AUS Central Standard Time",
+            /**
+             * Australia Central West Standard Time
+             */
+            AusCentralW_StandardTime = "Aus Central W. Standard Time",
+            /**
+             * AUS Eastern Standard Time
+             */
+            AUSEasternStandardTime = "AUS Eastern Standard Time",
+            /**
+             * Azerbaijan Standard Time
+             */
+            AzerbaijanStandardTime = "Azerbaijan Standard Time",
+            /**
+             * Azores Standard Time
+             */
+            AzoresStandardTime = "Azores Standard Time",
+            /**
+             * Bahia Standard Time
+             */
+            BahiaStandardTime = "Bahia Standard Time",
+            /**
+             * Bangladesh Standard Time
+             */
+            BangladeshStandardTime = "Bangladesh Standard Time",
+            /**
+             * Belarus Standard Time
+             */
+            BelarusStandardTime = "Belarus Standard Time",
+            /**
+             * Bougainville Standard Time
+             */
+            BougainvilleStandardTime = "Bougainville Standard Time",
+            /**
+             * Canada Central Standard Time
+             */
+            CanadaCentralStandardTime = "Canada Central Standard Time",
+            /**
+             * Cape Verde Standard Time
+             */
+            CapeVerdeStandardTime = "Cape Verde Standard Time",
+            /**
+             * Caucasus Standard Time
+             */
+            CaucasusStandardTime = "Caucasus Standard Time",
+            /**
+             * Central Australia Standard Time
+             */
+            CenAustraliaStandardTime = "Cen. Australia Standard Time",
+            /**
+             * Central America Standard Time
+             */
+            CentralAmericaStandardTime = "Central America Standard Time",
+            /**
+             * Central Asia Standard Time
+             */
+            CentralAsiaStandardTime = "Central Asia Standard Time",
+            /**
+             * Central Brazilian Standard Time
+             */
+            CentralBrazilianStandardTime = "Central Brazilian Standard Time",
+            /**
+             * Central Europe Standard Time
+             */
+            CentralEuropeStandardTime = "Central Europe Standard Time",
+            /**
+             * Central European Standard Time
+             */
+            CentralEuropeanStandardTime = "Central European Standard Time",
+            /**
+             * Central Pacific Standard Time
+             */
+            CentralPacificStandardTime = "Central Pacific Standard Time",
+            /**
+             * Central Standard Time
+             */
+            CentralStandardTime = "Central Standard Time",
+            /**
+             * Central Standard Time (Mexico)
+             */
+            CentralStandardTime_Mexico = "Central Standard Time (Mexico)",
+            /**
+             * Chatham Islands Standard Time
+             */
+            ChathamIslandsStandardTime = "Chatham Islands Standard Time",
+            /**
+             * China Standard Time
+             */
+            ChinaStandardTime = "China Standard Time",
+            /**
+             * Cuba Standard Time
+             */
+            CubaStandardTime = "Cuba Standard Time",
+            /**
+             * Dateline Standard Time
+             */
+            DatelineStandardTime = "Dateline Standard Time",
+            /**
+             * East Africa Standard Time
+             */
+            E_AfricaStandardTime = "E. Africa Standard Time",
+            /**
+             * East Australia Standard Time
+             */
+            E_AustraliaStandardTime = "E. Australia Standard Time",
+            /**
+             * East Europe Standard Time
+             */
+            E_EuropeStandardTime = "E. Europe Standard Time",
+            /**
+             * East South America Standard Time
+             */
+            E_SouthAmericaStandardTime = "E. South America Standard Time",
+            /**
+             * Easter Island Standard Time
+             */
+            EasterIslandStandardTime = "Easter Island Standard Time",
+            /**
+             * Eastern Standard Time
+             */
+            EasternStandardTime = "Eastern Standard Time",
+            /**
+             * Eastern Standard Time (Mexico)
+             */
+            EasternStandardTime_Mexico = "Eastern Standard Time (Mexico)",
+            /**
+             * Egypt Standard Time
+             */
+            EgyptStandardTime = "Egypt Standard Time",
+            /**
+             * Ekaterinburg Standard Time
+             */
+            EkaterinburgStandardTime = "Ekaterinburg Standard Time",
+            /**
+             * Fiji Standard Time
+             */
+            FijiStandardTime = "Fiji Standard Time",
+            /**
+             * FLE Standard Time
+             */
+            FLEStandardTime = "FLE Standard Time",
+            /**
+             * Georgian Standard Time
+             */
+            GeorgianStandardTime = "Georgian Standard Time",
+            /**
+             * GMT Standard Time
+             */
+            GMTStandardTime = "GMT Standard Time",
+            /**
+             * Greenland Standard Time
+             */
+            GreenlandStandardTime = "Greenland Standard Time",
+            /**
+             * Greenwich Standard Time
+             */
+            GreenwichStandardTime = "Greenwich Standard Time",
+            /**
+             * GTB Standard Time
+             */
+            GTBStandardTime = "GTB Standard Time",
+            /**
+             * Haiti Standard Time
+             */
+            HaitiStandardTime = "Haiti Standard Time",
+            /**
+             * Hawaiian Standard Time
+             */
+            HawaiianStandardTime = "Hawaiian Standard Time",
+            /**
+             * India Standard Time
+             */
+            IndiaStandardTime = "India Standard Time",
+            /**
+             * Iran Standard Time
+             */
+            IranStandardTime = "Iran Standard Time",
+            /**
+             * Israel Standard Time
+             */
+            IsraelStandardTime = "Israel Standard Time",
+            /**
+             * Jordan Standard Time
+             */
+            JordanStandardTime = "Jordan Standard Time",
+            /**
+             * Kaliningrad Standard Time
+             */
+            KaliningradStandardTime = "Kaliningrad Standard Time",
+            /**
+             * Kamchatka Standard Time
+             */
+            KamchatkaStandardTime = "Kamchatka Standard Time",
+            /**
+             * Korea Standard Time
+             */
+            KoreaStandardTime = "Korea Standard Time",
+            /**
+             * Libya Standard Time
+             */
+            LibyaStandardTime = "Libya Standard Time",
+            /**
+             * Line Islands Standard Time
+             */
+            LineIslandsStandardTime = "Line Islands Standard Time",
+            /**
+             * Lord Howe Standard Time
+             */
+            LordHoweStandardTime = "Lord Howe Standard Time",
+            /**
+             * Magadan Standard Time
+             */
+            MagadanStandardTime = "Magadan Standard Time",
+            /**
+             * Magallanes Standard Time
+             */
+            MagallanesStandardTime = "Magallanes Standard Time",
+            /**
+             * Marquesas Standard Time
+             */
+            MarquesasStandardTime = "Marquesas Standard Time",
+            /**
+             * Mauritius Standard Time
+             */
+            MauritiusStandardTime = "Mauritius Standard Time",
+            /**
+             * Mid-Atlantic Standard Time
+             */
+            MidAtlanticStandardTime = "Mid-Atlantic Standard Time",
+            /**
+             * Middle East Standard Time
+             */
+            MiddleEastStandardTime = "Middle East Standard Time",
+            /**
+             * Montevideo Standard Time
+             */
+            MontevideoStandardTime = "Montevideo Standard Time",
+            /**
+             * Morocco Standard Time
+             */
+            MoroccoStandardTime = "Morocco Standard Time",
+            /**
+             * Mountain Standard Time
+             */
+            MountainStandardTime = "Mountain Standard Time",
+            /**
+             * Mountain Standard Time (Mexico)
+             */
+            MountainStandardTime_Mexico = "Mountain Standard Time (Mexico)",
+            /**
+             * Myanmar Standard Time
+             */
+            MyanmarStandardTime = "Myanmar Standard Time",
+            /**
+             * North Central Asia Standard Time
+             */
+            N_CentralAsiaStandardTime = "N. Central Asia Standard Time",
+            /**
+             * Namibia Standard Time
+             */
+            NamibiaStandardTime = "Namibia Standard Time",
+            /**
+             * Nepal Standard Time
+             */
+            NepalStandardTime = "Nepal Standard Time",
+            /**
+             * New Zealand Standard Time
+             */
+            NewZealandStandardTime = "New Zealand Standard Time",
+            /**
+             * Newfoundland Standard Time
+             */
+            NewfoundlandStandardTime = "Newfoundland Standard Time",
+            /**
+             * Norfolk Standard Time
+             */
+            NorfolkStandardTime = "Norfolk Standard Time",
+            /**
+             * North Asia East Standard Time
+             */
+            NorthAsiaEastStandardTime = "North Asia East Standard Time",
+            /**
+             * North Asia Standard Time
+             */
+            NorthAsiaStandardTime = "North Asia Standard Time",
+            /**
+             * North Korea Standard Time
+             */
+            NorthKoreaStandardTime = "North Korea Standard Time",
+            /**
+             * Omsk Standard Time
+             */
+            OmskStandardTime = "Omsk Standard Time",
+            /**
+             * Pacific SA Standard Time
+             */
+            PacificSAStandardTime = "Pacific SA Standard Time",
+            /**
+             * Pacific Standard Time
+             */
+            PacificStandardTime = "Pacific Standard Time",
+            /**
+             * Pacific Standard Time (Mexico)
+             */
+            PacificStandardTimeMexico = "Pacific Standard Time (Mexico)",
+            /**
+             * Pakistan Standard Time
+             */
+            PakistanStandardTime = "Pakistan Standard Time",
+            /**
+             * Paraguay Standard Time
+             */
+            ParaguayStandardTime = "Paraguay Standard Time",
+            /**
+             * Romance Standard Time
+             */
+            RomanceStandardTime = "Romance Standard Time",
+            /**
+             * Russia Time Zone 10
+             */
+            RussiaTimeZone10 = "Russia Time Zone 10",
+            /**
+             * Russia Time Zone 11
+             */
+            RussiaTimeZone11 = "Russia Time Zone 11",
+            /**
+             * Russia Time Zone 3
+             */
+            RussiaTimeZone3 = "Russia Time Zone 3",
+            /**
+             * Russian Standard Time
+             */
+            RussianStandardTime = "Russian Standard Time",
+            /**
+             * SA Eastern Standard Time
+             */
+            SAEasternStandardTime = "SA Eastern Standard Time",
+            /**
+             * SA Pacific Standard Time
+             */
+            SAPacificStandardTime = "SA Pacific Standard Time",
+            /**
+             * SA Western Standard Time
+             */
+            SAWesternStandardTime = "SA Western Standard Time",
+            /**
+             * Saint Pierre Standard Time
+             */
+            SaintPierreStandardTime = "Saint Pierre Standard Time",
+            /**
+             * Sakhalin Standard Time
+             */
+            SakhalinStandardTime = "Sakhalin Standard Time",
+            /**
+             * Samoa Standard Time
+             */
+            SamoaStandardTime = "Samoa Standard Time",
+            /**
+             * Saratov Standard Time
+             */
+            SaratovStandardTime = "Saratov Standard Time",
+            /**
+             * Southeast Asia Standard Time
+             */
+            SEAsiaStandardTime = "SE Asia Standard Time",
+            /**
+             * Singapore Standard Time
+             */
+            SingaporeStandardTime = "Singapore Standard Time",
+            /**
+             * South Africa Standard Time
+             */
+            SouthAfricaStandardTime = "South Africa Standard Time",
+            /**
+             * Sri Lanka Standard Time
+             */
+            SriLankaStandardTime = "Sri Lanka Standard Time",
+            /**
+             * Sudan Standard Time
+             */
+            SudanStandardTime = "Sudan Standard Time",
+            /**
+             * Syria Standard Time
+             */
+            SyriaStandardTime = "Syria Standard Time",
+            /**
+             * Taipei Standard Time
+             */
+            TaipeiStandardTime = "Taipei Standard Time",
+            /**
+             * Tasmania Standard Time
+             */
+            TasmaniaStandardTime = "Tasmania Standard Time",
+            /**
+             * Tocantins Standard Time
+             */
+            TocantinsStandardTime = "Tocantins Standard Time",
+            /**
+             * Tokyo Standard Time
+             */
+            TokyoStandardTime = "Tokyo Standard Time",
+            /**
+             * Tomsk Standard Time
+             */
+            TomskStandardTime = "Tomsk Standard Time",
+            /**
+             * Tonga Standard Time
+             */
+            TongaStandardTime = "Tonga Standard Time",
+            /**
+             * Transbaikal Standard Time
+             */
+            TransbaikalStandardTime = "Transbaikal Standard Time",
+            /**
+             * Turkey Standard Time
+             */
+            TurkeyStandardTime = "Turkey Standard Time",
+            /**
+             * Turks And Caicos Standard Time
+             */
+            TurksAndCaicosStandardTime = "Turks And Caicos Standard Time",
+            /**
+             * Ulaanbaatar Standard Time
+             */
+            UlaanbaatarStandardTime = "Ulaanbaatar Standard Time",
+            /**
+             * United States Eastern Standard Time
+             */
+            USEasternStandardTime = "US Eastern Standard Time",
+            /**
+             * United States Mountain Standard Time
+             */
+            USMountainStandardTime = "US Mountain Standard Time",
+            /**
+             * Coordinated Universal Time (UTC)
+             */
+            UTC = "UTC",
+            /**
+             * Coordinated Universal Time (UTC) + 12 hours
+             */
+            UTCPLUS12 = "UTC+12",
+            /**
+             * Coordinated Universal Time (UTC) + 13 hours
+             */
+            UTCPLUS13 = "UTC+13",
+            /**
+             * Coordinated Universal Time (UTC) - 2 hours
+             */
+            UTCMINUS02 = "UTC-02",
+            /**
+             * Coordinated Universal Time (UTC) - 8 hours
+             */
+            UTCMINUS08 = "UTC-08",
+            /**
+             * Coordinated Universal Time (UTC) - 9 hours
+             */
+            UTCMINUS09 = "UTC-09",
+            /**
+             * Coordinated Universal Time (UTC) - 11 hours
+             */
+            UTCMINUS11 = "UTC-11",
+            /**
+             * Venezuela Standard Time
+             */
+            VenezuelaStandardTime = "Venezuela Standard Time",
+            /**
+             * Vladivostok Standard Time
+             */
+            VladivostokStandardTime = "Vladivostok Standard Time",
+            /**
+             * West Australia Standard Time
+             */
+            W_AustraliaStandardTime = "W. Australia Standard Time",
+            /**
+             * West Central Africa Standard Time
+             */
+            W_CentralAfricaStandardTime = "W. Central Africa Standard Time",
+            /**
+             * West Europe Standard Time
+             */
+            W_EuropeStandardTime = "W. Europe Standard Time",
+            /**
+             * West Mongolia Standard Time
+             */
+            W_MongoliaStandardTime = "W. Mongolia Standard Time",
+            /**
+             * West Asia Standard Time
+             */
+            WestAsiaStandardTime = "West Asia Standard Time",
+            /**
+             * West Bank Standard Time
+             */
+            WestBankStandardTime = "West Bank Standard Time",
+            /**
+             * West Pacific Standard Time
+             */
+            WestPacificStandardTime = "West Pacific Standard Time",
+            /**
+             * Yakutsk Standard Time
+             */
+            YakutskStandardTime = "Yakutsk Standard Time"
+            
+        }
+
+        /**
+         * Specifies the type of recurrence.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
+        enum RecurrenceType {
+            /**
+             * Daily.
+             */
+            Daily = "daily",
+            /**
+             * Weekday.
+             */
+            Weekday = "weekday",
+            /**
+             * Weekly.
+             */
+            Weekly = "weekly",
+            /**
+             * Monthly.
+             */
+            Monthly = "monthly",
+            /**
+             * Yearly.
+             */
+            Yearly = "yearly"
+        }
+        /**  
          * Specifies the type of response to a meeting invitation.
          *
          * [Api set: Mailbox 1.0]
@@ -4951,6 +5691,36 @@ declare namespace Office {
              * Beta.
              */
             Beta
+        }
+        /**
+         * Specifies the week of the month.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Applicable Outlook mode: Compose or read
+         */
+        enum WeekNumber {
+            /**
+             * First week of the month.
+             */
+            First = "first",
+            /**
+             * Second week of the month.
+             */
+            Second = "second",
+            /**
+             * Third week of the month.
+             */
+            Third = "third",
+            /**
+             * Fourth week of the month.
+             */
+            Fourth = "fourth",
+            /**
+             * Last week of the month.
+             */
+            Last = "last"
         }
     }
     interface AsyncContextOptions {
@@ -5611,18 +6381,106 @@ declare namespace Office {
         urls: string[];
     }
 
-
-    interface Appointment extends Item {
+    /**
+     * Provides a method to get the from value of a message in an Outlook add-in.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @remarks
+     * Minimum permission level: ReadItem
+     * 
+     * Applicable Outlook mode: Compose
+     */
+    export interface From {
+        /**
+         * Gets the from value of a message.
+         * 
+         * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
+         * 
+         * The from value of the item is provided as an EmailAddressDetails in the asyncResult.value property.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose
+         * 
+         * @param options An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+        /**
+         * Gets the from value of a message.
+         * 
+         * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
+         * 
+         * The from value of the item is provided as an EmailAddressDetails in the asyncResult.value property.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose
+         * 
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        getAsync(callback?: (result: AsyncResult) => void): void;
     }
+
+    /**
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
+     */
+    interface Appointment extends Item {
+        /**
+         * Gets or sets the recurrence pattern of an appointment. Gets the recurrence pattern of a meeting request. Read and compose modes for appointment items. Read mode for meeting request items.
+         * 
+         * The recurrence property returns a recurrence object for recurring appointments or meetings requests if an item is a series or an instance in a series. null is returned for single appointments and meeting requests of single appointments. undefined is returned for messages that are not meeting requests.
+         * 
+         * Note: Meeting requests have an itemClass value of IPM.Schedule.Meeting.Request.
+         * 
+         * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment and NOT a part of a series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        recurrence: Recurrence;
+
+        /**
+         * Gets the id of the series that an instance belongs to.
+         * 
+         * In OWA and Outlook, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * 
+         * Note: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. For more details, see [Use the Outlook REST APIs from an Outlook add-in](https://docs.microsoft.com/outlook/add-ins/use-rest-api).
+         * 
+         * The seriesId property returns null for items that do not have parent items such as single appointments, series items, or meeting requests and returns undefined for any other items that are not meeting requests.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        seriesId: string;
+    }
+    /**
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
+     */
     interface AppointmentCompose extends Appointment, ItemCompose {
         /**
          * Gets or sets the date and time that the appointment is to end.
          *
          * The end property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
-         *
-         * *Read mode*
-         *
-         * The end property returns a Date object.
          *
          * *Compose mode*
          *
@@ -5642,10 +6500,6 @@ declare namespace Office {
         /**
          * Gets or sets the location of an appointment.
          *
-         * *Read mode*
-         *
-         * The location property returns a string that contains the location of the appointment.
-         *
          * *Compose mode*
          *
          * The location property returns a Location object that provides methods that are used to get and set the location of the appointment.
@@ -5662,10 +6516,6 @@ declare namespace Office {
         /**
          * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
          *
-         * *Read mode*
-         *
-         * The optionalAttendees property returns an array that contains an EmailAddressDetails object for each optional attendee to the meeting.
-         *
          * *Compose mode*
          *
          * The optionalAttendees property returns a Recipients object that provides methods to get or update the optional attendees for a meeting.
@@ -5681,10 +6531,6 @@ declare namespace Office {
         optionalAttendees: Recipients;
         /**
          * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
-         *
-         * *Read mode*
-         *
-         * The requiredAttendees property returns an array that contains an EmailAddressDetails object for each required attendee to the meeting.
          *
          * *Compose mode*
          *
@@ -5704,10 +6550,6 @@ declare namespace Office {
          *
          * The start property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
          *
-         * *Read mode*
-         *
-         * The start property returns a Date object.
-         *
          * *Compose mode*
          *
          * The start property returns a Time object.
@@ -5724,6 +6566,9 @@ declare namespace Office {
          */
         start: Time;
     }
+    /**
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
+     */
     interface AppointmentRead extends Appointment, ItemRead {
         end: Date;
         /**
@@ -5732,10 +6577,6 @@ declare namespace Office {
          * *Read mode*
          *
          * The location property returns a string that contains the location of the appointment.
-         *
-         * *Compose mode*
-         *
-         * The location property returns a Location object that provides methods that are used to get and set the location of the appointment.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -5752,10 +6593,6 @@ declare namespace Office {
          * *Read mode*
          *
          * The optionalAttendees property returns an array that contains an EmailAddressDetails object for each optional attendee to the meeting.
-         *
-         * *Compose mode*
-         *
-         * The optionalAttendees property returns a Recipients object that provides methods to get or update the optional attendees for a meeting.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -5785,10 +6622,6 @@ declare namespace Office {
          *
          * The requiredAttendees property returns an array that contains an EmailAddressDetails object for each required attendee to the meeting.
          *
-         * *Compose mode*
-         *
-         * The requiredAttendees property returns a Recipients object that provides methods to get or update the required attendees for a meeting.
-         *
          * [Api set: Mailbox 1.0]
          *
          * @remarks
@@ -5806,12 +6639,6 @@ declare namespace Office {
          * *Read mode*
          *
          * The start property returns a Date object.
-         *
-         * *Compose mode*
-         *
-         * The start property returns a Time object.
-         *
-         * When you use the Time.setAsync method to set the start time, you should use the convertToUtcClientTime method to convert the local time on the client to UTC for the server.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -6043,6 +6870,47 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          */
         notificationMessages: NotificationMessages;
+
+        /**
+         * Adds an event handler for a supported event.
+         * 
+         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param eventType The event that should invoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        addHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
+
+        /**
+         * Adds an event handler for a supported event.
+         * 
+         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param eventType The event that should invoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        addHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
+
        /**
         * Asynchronously loads custom properties for this add-in on the selected item.
         *
@@ -6062,16 +6930,55 @@ declare namespace Office {
         * @param userContext Optional. Developers can provide any object they wish to access in the callback function. This object can be accessed by the asyncResult.asyncContext property in the callback function.
         */
        loadCustomPropertiesAsync(callback: (result: AsyncResult) => void, userContext?: any): void;
+
+       /**
+        * Removes an event handler for a supported event.
+        * 
+        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param eventType The event that should invoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        */
+       removeHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
+
+       /**
+        * Removes an event handler for a supported event.
+        * 
+        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param eventType The event that should invoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        */
+       removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
     }
+    /**
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
+     */
     interface ItemCompose extends Item {
         /**
          * Gets or sets the description that appears in the subject field of an item.
          *
          * The subject property gets or sets the entire subject of the item, as sent by the email server.
-         *
-         * *Read mode*
-         *
-         * The subject property returns a string. Use the normalizedSubject property to get the subject minus any leading prefixes such as RE: and FW:.
          *
          * *Compose mode*
          *
@@ -6660,6 +7567,9 @@ declare namespace Office {
          */
         setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
     }
+    /**
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
+     */
     interface ItemRead extends Item {
         /**
          * Gets an array of attachments for the item. Read mode only.
@@ -6736,10 +7646,6 @@ declare namespace Office {
          *
          * The subject property returns a string. Use the normalizedSubject property to get the subject minus any leading prefixes such as RE: and FW:.
          *
-         * *Compose mode*
-         *
-         * The subject property returns a Subject object that provides methods to get and set the subject.
-         *
          * [Api set: Mailbox 1.0]
          *
          * @remarks
@@ -6810,6 +7716,40 @@ declare namespace Office {
          *        attachments.itemId: Only used if type is set to item. The EWS item id of the attachment. This is a string up to 100 characters.
          */
         displayReplyForm(formData: string | ReplyFormData): void;
+        /**
+         * Gets initialization data passed when the add-in is [activated by an actionable message](https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message).
+         * 
+         * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Read
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         */
+        getInitializationContextAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Gets initialization data passed when the add-in is [activated by an actionable message](https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message).
+         * 
+         * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Read
+         * 
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         */
+        getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
          * Gets the entities found in the selected item.
          *
@@ -6954,6 +7894,9 @@ declare namespace Office {
          */
         getSelectedRegExMatches(): any;
     }
+    /**
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
+     */
     interface Message extends Item {
         /**
          * Gets an identifier for the email conversation that contains a particular message.
@@ -6972,6 +7915,9 @@ declare namespace Office {
          */
         conversationId: string;
     }
+    /**
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
+     */
     interface MessageCompose extends Message, ItemCompose {
         /**
          * Gets an object that provides methods to get or update the recipients on the Bcc (blind carbon copy) line of a message. Compose mode only.
@@ -6988,10 +7934,6 @@ declare namespace Office {
         /**
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the current item.
          *
-         * *Read mode*
-         *
-         * The cc property returns an array that contains an EmailAddressDetails object for each recipient listed on the Cc line of the message. The collection is limited to a maximum of 100 members.
-         *
          * *Compose mode*
          *
          * The cc property returns a Recipients object that provides methods to get or update the recipients on the Cc line of the message.
@@ -7006,11 +7948,23 @@ declare namespace Office {
          */
         cc: Recipients;
         /**
+         * Gets the email address of the sender of a message.
+         *
+         * The from and sender properties represent the same person unless the message is sent by a delegate. In that case, the from property represents the delegator, and the sender property represents the delegate.
+         *
+         * The from property returns a From object that provides a method to get the from value.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Read
+         */
+        from: From;
+        /**
          * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the current item.
-         *
-         * *Read mode*
-         *
-         * The to property returns an array that contains an EmailAddressDetails object for each recipient listed on the To line of the message. The collection is limited to a maximum of 100 members.
          *
          * *Compose mode*
          *
@@ -7026,6 +7980,9 @@ declare namespace Office {
          */
         to: Recipients;
     }
+    /**
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
+     */
     interface MessageRead extends Message, ItemRead {
         /**
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the current item.
@@ -7033,10 +7990,6 @@ declare namespace Office {
          * *Read mode*
          *
          * The cc property returns an array that contains an EmailAddressDetails object for each recipient listed on the Cc line of the message. The collection is limited to a maximum of 100 members.
-         *
-         * *Compose mode*
-         *
-         * The cc property returns a Recipients object that provides methods to get or update the recipients on the Cc line of the message.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -7048,12 +8001,14 @@ declare namespace Office {
          */
         cc: EmailAddressDetails[];
         /**
-         * Gets the email address of the sender of a message. Read mode only.
+         * Gets the email address of the sender of a message.
          *
          * The from and sender properties represent the same person unless the message is sent by a delegate. In that case, the from property represents the delegator, and the sender property represents the delegate.
          *
          * Note: The recipientType property of the EmailAddressDetails object in the from property is undefined.
-         *
+         * 
+         * The from property returns an EmailAddressDetails object.
+         * 
          * [Api set: Mailbox 1.0]
          *
          * @remarks
@@ -7097,10 +8052,6 @@ declare namespace Office {
          * *Read mode*
          *
          * The to property returns an array that contains an EmailAddressDetails object for each recipient listed on the To line of the message. The collection is limited to a maximum of 100 members.
-         *
-         * *Compose mode*
-         *
-         * The to property returns a Recipients object that provides methods to get or update the recipients on the To line of the message.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -7321,7 +8272,7 @@ declare namespace Office {
          * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
          * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentCompose`, `AppointmentRead`
          */
-        item: Item & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
+        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
         /**
          * Gets the URL of the REST endpoint for this email account.
          *
@@ -8256,7 +9207,202 @@ declare namespace Office {
         setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (result: AsyncResult) => void): void;
 
     }
-    interface ReplyFormAttachment {
+
+    /**
+     * The recurrence object provides methods to get and set the recurrence pattern of appointments but only get the recurrence pattern of meeting requests. It will have a dictionary with the following keys: seriesTime, recurrenceType, recurrenceProperties, and recurrenceTimeZone (optional).
+     * 
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @remarks
+     * 
+     * |State|Editable?|Viewable?|
+     * |-----|---------|---------|
+     * |Appointment Organizer - Compose Series|Yes (setAsync)|Yes (getAsync)|
+     * |Appointment Organizer - Compose Instance|No (setAsync returns error)|Yes (getAsync)|
+     * |Appointment Attendee - Read Series|No (setAsync not available)|Yes (item.recurrence)|
+     * |Appointment Attendee - Read Instance|No (setAsync not available)|Yes (item.recurrence)|
+     * |Meeting Request - Read Series|No (setAsync not available)|Yes (item.recurrence)|
+     * |Meeting Request - Read Instance|No (setAsync not available)|Yes (item.recurrence)|
+     * 
+     * Minimum permission level: ReadItem
+     * 
+     * Applicable Outlook mode: Compose or read
+     */
+    export interface Recurrence {
+        /**
+         * Gets or sets the properties of the recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        recurrenceProperties: RecurrenceProperties;
+        /**
+         * Gets or sets the properties of the recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        recurrenceTimeZone: MailboxEnums.RecurrenceTimeZone;
+
+        /**
+         * Gets or sets the type of the recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        recurrenceType: MailboxEnums.RecurrenceType;
+
+        /**
+         * This object enables you to manage the start and end dates of the recurring appointment series and the usual start and end times of instances. **This object is not in UTC time.** Instead, it is set in the time zone specified by the recurrenceTimeZone value or defaulted to the item's time zone.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        seriesTime: SeriesTime;
+
+        /**
+         * Returns the current recurrence object of an appointment series.
+         * 
+         * This method returns the entire recurrence object for the appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+
+        /**
+         * Returns the current recurrence object of an appointment series.
+         * 
+         * This method returns the entire recurrence object for the appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         * 
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        getAsync(callback?: (result: AsyncResult) => void): void;
+
+        /**
+         * Sets the recurrence pattern of an appointment series.
+         * 
+         * Note: setAsync should only be available for series items and not instance items.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadWriteItem
+         * 
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: InvalidEndTime - The appointment end time is before its start time.
+         * 
+         * @param recurrencePattern A recurrence object.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        setAsync(recurrencePattern: Recurrence, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+
+        /**
+         * Sets the recurrence pattern of an appointment series.
+         * 
+         * Note: setAsync should only be available for series items and not instance items.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadWriteItem
+         * 
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: InvalidEndTime - The appointment end time is before its start time.
+         * 
+         * @param recurrencePattern A recurrence object.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        setAsync(recurrencePattern: Recurrence, callback?: (result: AsyncResult) => void): void;
+    }
+
+    /**
+     * Gets or sets the properties of the recurrence.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @remarks
+     * 
+     * Minimum permission level: ReadItem
+     * 
+     * Applicable Outlook mode: Compose or read
+     */
+    export interface RecurrenceProperties {
+        /**
+         * Represents the period between instances of the same recurring series.
+         */
+        interval: number;
+        /**
+         * Represents the day of the month.
+         */
+        dayOfMonth: number;
+        /**
+         * Represents the day of the week or type of day, for example, weekend day vs weekday.
+         */
+        dayOfWeek: MailboxEnums.Days;
+        /**
+         * Represents the set of days for this recurrence. Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
+         */
+        days: MailboxEnums.Days[];
+        /**
+         * Represents the number of the week in the selected month e.g. 'first' for first week of the month.
+         */
+        weekNumber: MailboxEnums.WeekNumber;
+        /**
+         * Represents the month.
+         */
+        month: MailboxEnums.Month;
+        /**
+         * Represents your chosen first day of the week otherwise the default is the value in the current user's settings. Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
+         */
+        firstDayOfWeek: MailboxEnums.Days;
+    }
+
+    export interface ReplyFormAttachment {
         type: string;
         name: string;
         url?: string;
@@ -8348,6 +9494,193 @@ declare namespace Office {
          * @param value Specifies the value to be stored.
          */
         set(name: string, value: any): void;
+    }
+
+    /**
+     * The SeriesTime object provides methods to get and set the dates and times of appointments in a recurring series and get the dates and times of meeting requests in a recurring series.
+     * 
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * Minimum permission level: ReadItem
+     *
+     * Applicable Outlook mode: Compose or read
+     */
+    interface SeriesTime {
+        /**
+         * Gets the duration in minutes of a usual instance in a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getDuration(): number;
+
+        /**
+         * Gets the end date of a recurrence pattern in the following [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date format: "YYYY-MM-DD"
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getEndDate(): string;
+
+        /**
+         * Gets the end time of a usual appointment or meeting request instance of a recurrence pattern in whichever time zone that the user or add-in set the recurrence pattern using the following [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format: "THH:mm:ss:mmm"
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getEndTime(): string;
+
+        /**
+         * Gets the start date of a recurrence pattern in the following [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date format: "YYYY-MM-DD"
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getStartDate(): string;
+
+        /**
+         * Gets the start time of a usual appointment instance of a recurrence pattern in whichever time zone that the user/add-in set the recurrence pattern using the following [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format: "THH:mm:ss:mmm"
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        getStartTime(): string;
+
+        /**
+         * Sets the duration of all appointments in a recurrence pattern. This will also change the end time of the recurrence pattern.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * @param minutes The length of the appointment in minutes.
+         */
+        setDuration(minutes: number): void;
+
+        /**
+         * Sets the end date of a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid date format - The date is not in an acceptable format.
+         * 
+         * @param year The year value of the end date.
+         * @param month The month value of the end date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
+         * @param day The day value of the end date.
+         */
+        setEndDate(year: number, month: number, day: number): void;
+
+        /**
+         * Sets the end date of a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid date format - The date is not in an acceptable format.
+         * 
+         * @param date End date of the recurring appointment series represented in the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date format: "YYYY-MM-DD".
+         */
+        setEndDate(date: string): void;
+
+        /**
+         * Sets the start date of a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid date format - The date is not in an acceptable format.
+         * 
+         * @param year The year value of the start date.
+         * @param month The month value of the start date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
+         * @param day The day value of the start date.
+         */
+        setStartDate(year:number, month:number, day:number): void;
+
+        /**
+         * Sets the start date of a recurring appointment series.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid date format - The date is not in an acceptable format.
+         * 
+         * @param date Start date of the recurring appointment series represented in the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date format: "YYYY-MM-DD".
+         */
+        setStartDate(date:string): void;
+
+        /**
+         * Sets the start time of all instances of a recurring appointment series in whichever time zone the recurrence pattern is set (the item's time zone is used by default).
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid time format - The time is not in an acceptable format.
+         * 
+         * @param hours The hour value of the start time. Valid range: 0-24.
+         * @param minutes The minute value of the start time. Valid range: 0-59.
+         */
+        setStartTime(hours: number, minutes: number): void;
+
+        /**
+         * Sets the start time of all instances of a recurring appointment series in whichever time zone the recurrence pattern is set (the item's time zone is used by default).
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * Errors: Invalid time format - The time is not in an acceptable format.
+         * 
+         * @param time Start time of all instances represented by standard datetime string format: "THH:mm:ss:mmm".
+         */
+        setStartTime(time: string): void;
     }
 
     /**
