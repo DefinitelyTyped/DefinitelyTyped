@@ -581,28 +581,28 @@ declare namespace Bull {
     /**
      * A job has started. You can use `jobPromise.cancel()` to abort it
      */
-    on(event: 'active', callback: ActiveEventCallback): this;
+    on(event: 'active', callback: ActiveEventCallback<T>): this;
 
     /**
      * A job has been marked as stalled.
      * This is useful for debugging job workers that crash or pause the event loop.
      */
-    on(event: 'stalled', callback: StalledEventCallback): this;
+    on(event: 'stalled', callback: StalledEventCallback<T>): this;
 
     /**
      * A job's progress was updated
      */
-    on(event: 'progress', callback: ProgressEventCallback): this;
+    on(event: 'progress', callback: ProgressEventCallback<T>): this;
 
     /**
      * A job successfully completed with a `result`
      */
-    on(event: 'completed', callback: CompletedEventCallback): this;
+    on(event: 'completed', callback: CompletedEventCallback<T>): this;
 
     /**
      * A job failed with `err` as the reason
      */
-    on(event: 'failed', callback: FailedEventCallback): this;
+    on(event: 'failed', callback: FailedEventCallback<T>): this;
 
     /**
      * The queue has been paused
@@ -620,7 +620,7 @@ declare namespace Bull {
      *
      * @see Queue#clean() for details
      */
-    on(event: 'cleaned', callback: CleanedEventCallback): this;
+    on(event: 'cleaned', callback: CleanedEventCallback<T>): this;
   }
 
   type EventCallback = () => void;
@@ -634,17 +634,17 @@ declare namespace Bull {
     cancel(): void;
   }
 
-  type ActiveEventCallback = (job: Job, jobPromise?: JobPromise) => void;
+  type ActiveEventCallback<T = any> = (job: Job<T>, jobPromise?: JobPromise) => void;
 
-  type StalledEventCallback = (job: Job) => void;
+  type StalledEventCallback<T = any> = (job: Job<T>) => void;
 
-  type ProgressEventCallback = (job: Job, progress: any) => void;
+  type ProgressEventCallback<T = any> = (job: Job<T>, progress: any) => void;
 
-  type CompletedEventCallback = (job: Job, result: any) => void;
+  type CompletedEventCallback<T = any> = (job: Job<T>, result: any) => void;
 
-  type FailedEventCallback = (job: Job, error: Error) => void;
+  type FailedEventCallback<T = any> = (job: Job<T>, error: Error) => void;
 
-  type CleanedEventCallback = (jobs: Job[], status: JobStatus) => void;
+  type CleanedEventCallback<T = any> = (jobs: Array<Job<T>>, status: JobStatus) => void;
 }
 
 export = Bull;
