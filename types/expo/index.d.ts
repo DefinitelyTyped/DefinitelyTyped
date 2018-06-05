@@ -1379,11 +1379,11 @@ export namespace Fingerprint {
 /**
  * Font
  */
-export namespace Font {
-    interface FontMap {
-        [name: string]: RequireSource;
-    }
+export interface FontMap {
+    [name: string]: RequireSource;
+}
 
+export namespace Font {
     function loadAsync(name: string, url: string): Promise<void>;
     function loadAsync(map: FontMap): Promise<void>;
 }
