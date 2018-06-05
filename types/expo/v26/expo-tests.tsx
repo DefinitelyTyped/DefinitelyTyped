@@ -37,8 +37,7 @@ import {
     Calendar,
     MailComposer,
     Location,
-    Updates,
-    MediaLibrary
+    Updates
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({

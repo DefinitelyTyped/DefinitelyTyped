@@ -2729,7 +2729,7 @@ export namespace Calendar {
 }
 // #endregion
 
-// #region MailComposer
+// #region Calendar
 /**
  * An API to compose mails using OS specific UI.
  */
@@ -2852,101 +2852,3 @@ export namespace Updates {
      */
     function reloadFromCache(): void;
 }
-
-// #region MediaLibrary
-/**
- * Provides access to user's media library
- * Requires Permissions.CAMERA_ROLL permissions.
- */
-
-
-export namespace MediaLibrary {
-  function createAssetAsync(localUri: string): Promise<Asset>;
-  function getAssetsAsync(options: GetAssetsOptions): Promise<GetAssetsResult>;
-  function getAssetInfoAsync(asset: string | Asset): Promise<Asset>;
-  function deleteAssetsAsync(asset: string | Asset[]): Promise<boolean>;
-  function getAlbumsAsync(): Promise<Album[]>;
-  function getAlbumAsync(albumName: string): Promise<Album|null>;
-  function createAlbumAsync(albumName: string, asset: string | Asset): Promise<Album>;
-  function addAssetsToAlbumAsync(assets: Asset[], album: string | Album, copyAssets?: boolean /* default true */): Promise<boolean>;
-  function removeAssetsFromAlbumAsync(assets: Asset[], album: string | Album): Promise<boolean>;
-  // ios only
-  function getMomentsAsync(): Promise<Album[]>;
-
-  enum MediaType {
-    audio = 'audio',
-    photo = 'photo',
-    video = 'video',
-    unknow = 'unknow'
-  }
-
-  enum SortBy {
-    default = 'default',
-    id = 'id',
-    creationTime = 'creationTime',
-    modificationTime = 'modificationTime',
-    mediaType = 'mediaType',
-    width = 'width',
-    height = 'height',
-    duration = 'duration'
-  }
-
-  // region Asset
-  interface AssetAndroid {
-    albumId: string;
-  }
-
-  interface AssetIos {
-    mediaSubtypes: MediaType[];
-    orientation: number;
-    isFavorite: boolean;
-  }
-
-  interface Asset extends AssetAndroid, AssetIos {
-    id: string;
-    filename: string;
-    uri: string;
-    mediaType: string;
-    width: number;
-    height: number;
-    creationTime: number;
-    modificationTime: number;
-    duration: number;
-    localUri: string;
-    location: object;
-    exif: object;
-  }
-  //#endregion
-
-  // #region Album
-  interface AlbumIos {
-    type: string;
-    startTime: number;
-    endTime: number;
-    approximateLocation: Location.LocationProps;
-    locationNames: string[];
-  }
-
-  interface Album extends AlbumIos {
-    id: string;
-    title: string;
-    assetCount: number;
-  }
-  // #endregion
-
-  interface GetAssetsOptions {
-    first?: number;
-    after?: string;
-    album?: string | Album;
-    sortBy?: SortBy;
-    mediaType?: MediaType;
-  }
-
-  interface GetAssetsResult {
-    assets: Asset[];
-    endCursor: string;
-    hasNextPage: boolean;
-    totalCount: number;
-  }
-}
-// #endregion
