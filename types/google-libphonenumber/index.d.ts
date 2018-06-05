@@ -112,6 +112,7 @@ declare namespace libphonenumber {
 
     export class PhoneNumberUtil {
         static getInstance(): PhoneNumberUtil
+        extractCountryCode(fullNumber: any, nationalNumber: any): number;
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
         formatOutOfCountryCallingNumber(phoneNumber: PhoneNumber, regionDialingFrom?: string): string;
         getNddPrefixForRegion(regionCode?: string, stripNonDigits?: boolean): string | undefined;
