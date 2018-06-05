@@ -8,10 +8,10 @@ const compiler = webpack(config);
 
 // Using the middleware
 
-const middleware = koaWebpack({
+koaWebpack({
     compiler,
     config,
-    dev: {
+    devMiddleware: {
         lazy: true,
         watchOptions: {
             aggregateTimeout: 300,
@@ -28,18 +28,24 @@ const middleware = koaWebpack({
         reporter: null,
         serverSideRender: false
     },
-    hot: {
+    hotClient: {
         log: console.log.bind(console),
         path: '/__what',
         heartbeat: 2000
     }
+}).then((middleware) => {
+    app.use(middleware);
+
+    // Accessing the underlying middleware
+
+    middleware.devMiddleware.close();
+    middleware.devMiddleware.invalidate();
+    middleware.devMiddleware.waitUntilValid();
+    middleware.hotClient.publish(null);
+
+    return middleware;
+}).then((middleware) => {
+    // close the middleware
+
+    middleware.close();
 });
-
-app.use(middleware);
-
-// Accessing the underlying middleware
-
-middleware.dev.close();
-middleware.dev.invalidate();
-middleware.dev.waitUntilValid();
-middleware.hot.publish(null);

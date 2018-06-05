@@ -1,6 +1,7 @@
-// Type definitions for koa-webpack 1.0
-// Project: https://github.com/shellscape/koa-webpack#readme
+// Type definitions for koa-webpack 5.0
+// Project: https://github.com/shellscape/koa-webpack
 // Definitions by: Luka Maljic <https://github.com/malj>
+//                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,19 +13,20 @@ import connect = require('connect');
 
 declare function koaWebpack(
     options?: koaWebpack.Options
-): Koa.Middleware & koaWebpack.CombinedWebpackMiddleware;
+): Promise<Koa.Middleware & koaWebpack.CombinedWebpackMiddleware>;
 
 declare namespace koaWebpack {
     interface Options {
         compiler?: webpack.Compiler;
         config?: webpack.Configuration;
-        dev?: webpackDevMiddleware.Options;
-        hot?: webpackHotMiddleware.Options | boolean;
+        devMiddleware?: webpackDevMiddleware.Options;
+        hotClient?: webpackHotMiddleware.Options | boolean;
     }
 
     interface CombinedWebpackMiddleware {
-        dev: connect.NextHandleFunction & webpackDevMiddleware.WebpackDevMiddleware;
-        hot: connect.NextHandleFunction & webpackHotMiddleware.EventStream;
+        devMiddleware: connect.NextHandleFunction & webpackDevMiddleware.WebpackDevMiddleware;
+        hotClient: connect.NextHandleFunction & webpackHotMiddleware.EventStream;
+        close(callback?: () => any): void;
     }
 }
 
