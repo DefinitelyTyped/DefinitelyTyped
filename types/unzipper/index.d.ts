@@ -97,8 +97,8 @@ export interface CentralDirectory {
             offsetToLocalFileHeader: number;
             path: string;
             comment: string;
-            stream: Entry;
-            buffer: () => Promise<Buffer>;
+            stream: (password?: string) => Entry;
+            buffer: (password?: string) => Promise<Buffer>;
         }
     ];
 }

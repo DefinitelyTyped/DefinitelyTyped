@@ -32,7 +32,7 @@ MyTelegramBot.sendSticker(1234, 'sticker/path', { reply_to_message_id: 5678 });
 MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo' });
 MyTelegramBot.sendVideoNote(1234, 'video/path', { disable_notification: true });
 MyTelegramBot.sendVoice(1234, 'voice/path', { caption: 'Foo' });
-MyTelegramBot.sendChatAction(1234, 'ACTION!');
+MyTelegramBot.sendChatAction(1234, 'typing');
 MyTelegramBot.kickChatMember(1234, 'myUserID');
 MyTelegramBot.unbanChatMember(1234, 'myUserID');
 MyTelegramBot.restrictChatMember(1234, 'myUserID', { can_add_web_page_previews: true });
