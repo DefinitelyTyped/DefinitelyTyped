@@ -66,4 +66,4 @@ declare namespace InfiniteScroll {
     namespace InfiniteScroll {}
 }
 
-export = InfiniteScroll;
+export = InfiniteScroll.InfiniteScroll;
