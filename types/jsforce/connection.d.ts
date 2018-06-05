@@ -114,13 +114,13 @@ export abstract class BaseConnection extends EventEmitter {
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     describe$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
-        <T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+        (type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
         clear(): void;
     }
-    describe<T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    describe(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
     describeGlobal$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
-        <T>(callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
+        (callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
         clear(): void;
     }
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
