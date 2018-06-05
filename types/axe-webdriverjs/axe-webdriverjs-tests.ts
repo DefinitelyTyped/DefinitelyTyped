@@ -4,7 +4,7 @@ import { WebDriver } from "selenium-webdriver";
 
 const inTest = async (webDriver: WebDriver) => {
     const builderCalled: AxeBuilder = AxeBuilder(webDriver);
-    const builderNewed: AxeBuilder = new AxeBuilder(webDriver)
+    const builderNewed: AxeBuilder = new AxeBuilder(webDriver);
 
     const options: RunOptions = {};
     const spec: Spec = {};
@@ -29,4 +29,3 @@ const inTest = async (webDriver: WebDriver) => {
     const url: string = analysis.url;
     const violations: Result[] = analysis.violations;
 };
-
