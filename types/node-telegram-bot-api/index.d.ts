@@ -918,7 +918,7 @@ declare class TelegramBot extends EventEmitter {
 
     sendMessage(chatId: number | string, text: string, options?: TelegramBot.SendMessageOptions): Promise<TelegramBot.Message | Error>;
 
-    answerInlineQuery(inlineQueryId: string, results: TelegramBot.InlineQueryResult[], options?: TelegramBot.AnswerInlineQueryOptions): Promise<boolean | Error>;
+    answerInlineQuery(inlineQueryId: string, results: ReadonlyArray<TelegramBot.InlineQueryResult>, options?: TelegramBot.AnswerInlineQueryOptions): Promise<boolean | Error>;
 
     forwardMessage(chatId: number | string, fromChatId: number | string, messageId: number | string, options?: TelegramBot.ForwardMessageOptions): Promise<TelegramBot.Message | Error>;
 
@@ -928,7 +928,7 @@ declare class TelegramBot extends EventEmitter {
 
     sendDocument(chatId: number | string, doc: string | Stream | Buffer, options?: TelegramBot.SendDocumentOptions, fileOpts?: any): Promise<TelegramBot.Message | Error>;
 
-    sendMediaGroup(chatId: number | string, media: TelegramBot.InputMedia[], options?: TelegramBot.SendMediaGroupOptions): Promise<TelegramBot.Message | Error>;
+    sendMediaGroup(chatId: number | string, media: ReadonlyArray<TelegramBot.InputMedia>, options?: TelegramBot.SendMediaGroupOptions): Promise<TelegramBot.Message | Error>;
 
     sendSticker(chatId: number | string, sticker: string | Stream | Buffer, options?: TelegramBot.SendStickerOptions): Promise<TelegramBot.Message | Error>;
 
@@ -1025,8 +1025,8 @@ declare class TelegramBot extends EventEmitter {
 
     deleteMessage(chatId: number | string, messageId: string, options?: any): Promise<boolean | Error>;
 
-    sendInvoice(chatId: number | string, title: string, description: string, payload: string, providerToken: string, startParameter: string, currency: string, prices: TelegramBot.LabeledPrice[],
-                options?: TelegramBot.SendInvoiceOptions): Promise<TelegramBot.Message | Error>;
+    sendInvoice(chatId: number | string, title: string, description: string, payload: string, providerToken: string, startParameter: string, currency: string,
+                prices: ReadonlyArray<TelegramBot.LabeledPrice>, options?: TelegramBot.SendInvoiceOptions): Promise<TelegramBot.Message | Error>;
 
     answerShippingQuery(shippingQueryId: string, ok: boolean, options?: TelegramBot.AnswerShippingQueryOptions): Promise<boolean | Error>;
 
