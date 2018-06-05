@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-/// <reference types="react" />
+import * as React from 'react';
 
-declare module InfiniteScroll {
+declare namespace InfiniteScroll {
     interface InfiniteScrollProps {
         /**
          * Set the length of the data.This will unlock the subsequent calls to next.
@@ -28,7 +28,7 @@ declare module InfiniteScroll {
         /**
          * This message is shown to the user when he has seen all the records which means he's at the bottom and hasMore is false
          */
-        endMessage: React.ReactNode
+        endMessage: React.ReactNode;
 
         /**
          * You can send a loader component to show while the component waits for the next load of data. e.g. <h3>Loading...</h3> or any fancy loader element
@@ -99,9 +99,5 @@ declare module InfiniteScroll {
     }
 }
 
-declare class InfiniteScroll extends React.Component<InfiniteScrollProps, any> {}
-
-declare module 'react-infinite-scroll-component' {
-    export = InfiniteScroll;
-    export as namespace InfiniteScroll;
-}
+declare class InfiniteScroll extends React.Component<InfiniteScroll.InfiniteScrollProps, any> {}
+export = InfiniteScroll;

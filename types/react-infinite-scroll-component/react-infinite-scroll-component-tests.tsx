@@ -1,3 +1,4 @@
+import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroll-component';
 
 const options: JSX.Element[] = [
@@ -8,7 +9,8 @@ const options: JSX.Element[] = [
 const props: InfiniteScroll.InfiniteScrollProps = {
     dataLength: 4,
     hasMore: true,
-    endMessage: 'The end.'
+    endMessage: 'The end.',
+    next: () => null,
 };
 
-<InfiniteScroll {...props}>{options}</InfiniteScroll>
+<InfiniteScroll {...props}>{options}</InfiniteScroll>;
