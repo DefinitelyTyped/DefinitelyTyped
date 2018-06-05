@@ -2950,3 +2950,28 @@ export namespace MediaLibrary {
   }
 }
 // #endregion
+
+// #region Haptic
+/**
+ * https://docs.expo.io/versions/latest/sdk/haptic
+ * Provides haptic feedback for iOS 10+ devices using the Taptic Engine.
+ */
+export namespace Haptic {
+  function selection(): void;
+  function notification(type: NotificationFeedbackType): void;
+  function impact(style: ImpactFeedbackStyle): void;
+
+  enum ImpactFeedbackStyle {
+    Light = 'light',
+    Medium = 'medium',
+    Heavy = 'heavy'
+  }
+
+  enum NotificationFeedbackType {
+    Success = 'success',
+    Warning = 'warning',
+    Error = 'error'
+  }
+}
+
+// #endregion
