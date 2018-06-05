@@ -96,6 +96,11 @@ declare namespace Bull {
     data: any;
 
     /**
+     * How many attempts where made to run this job
+     */
+    attemptsMade: number;
+
+    /**
      * Report progress on a job
      */
     progress(value: any): Promise<void>;

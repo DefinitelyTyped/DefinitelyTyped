@@ -336,7 +336,7 @@ export declare class Request extends events.EventEmitter {
 
     /**
      * Add an input parameter to the request.
-     * @param name The parameter name. This should correspond to a parameter in the SQL, or a parameter that a called procedure expects. The name should not start '@'.
+     * @param name The parameter name. This should correspond to a parameter in the SQL, or a parameter that a called procedure expects. The name should not start with '@'.
      * @param type One of the supported data types.
      * @param value The value that the parameter is to be given. The Javascript type of the argument should match that documented for data types.
      * @param options Additional type options. Optional.

@@ -18,7 +18,13 @@ declare namespace CodeMirror {
 
     function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
+    /** It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch", 
+    where patch is zero for releases, and something else (usually one) for dev snapshots. */
     var version: string;
+
+    /** An object containing default values for all options. 
+    You can assign to its properties to modify defaults (though this won't affect editors that have already been created). */
+    var defaults: any;
 
     /** If you want to define extra methods in terms of the CodeMirror API, it is possible to use defineExtension.
     This will cause the given value(usually a method) to be added to all CodeMirror instances created from then on. */
@@ -314,6 +320,11 @@ declare namespace CodeMirror {
 
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
         getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
+
+        /** This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position, 
+        and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple 
+        space-separated style names, otherwise. */
+        getTokenTypeAt(pos: CodeMirror.Position): string;
 
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
         getLineTokens(line: number, precise?: boolean): Token[];

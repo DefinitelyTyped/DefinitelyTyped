@@ -13,7 +13,13 @@ const onResize: Rnd.ResizeHandler = (e, direction, ref, delta, position) => {
     className="class"
     lockAspectRatio
     maxWidth={100}
-    enableResizing={false}
+    enableResizing={{
+        bottom: true,
+        bottomLeft: true,
+        bottomRight: false,
+        left: false
+    }}
+    disableDragging={false}
     resizeHandleStyles={{
         top: { background: '#000' }
     }}

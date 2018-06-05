@@ -40,6 +40,26 @@ let map: google.maps.Map = new google.maps.Map(
     mapOptions
 );
 
+/***** Fitting map to bounds *****/
+map.fitBounds({
+    north: 10,
+    east: 10,
+    west: 10,
+    south: 10
+}, 50);
+
+map.fitBounds({
+    east: 10,
+    north: 10,
+    south: 10,
+    west: 10
+}, {
+    bottom: 100,
+    left: 150,
+    right: 150,
+    top: 50
+});
+
 
 /***** Data *****/
 

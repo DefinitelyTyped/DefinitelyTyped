@@ -1,7 +1,8 @@
-// Type definitions for react-bootstrap-typeahead 2.3
+// Type definitions for react-bootstrap-typeahead 3.1
 // Project: https://github.com/ericgio/react-bootstrap-typeahead
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
+//                 Paito Anderson <https://github.com/PaitoAnderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 // TODO: <Highlighter>, <Menu>, <MenuItem>, <Token> components
@@ -75,8 +76,8 @@ export interface TypeaheadProps<T> {
     /* Specify which option key to use for display or a render function. By default, the selector will use the label key. */
     labelKey?: string | ((option: T | string) => string);
 
-    /* Maximum height of the dropdown menu, in px. */
-    maxHeight?: number;
+    /* Maximum height of the dropdown menu. */
+    maxHeight?: string;
 
     /* Maximum number of results to display by default. Mostly done for performance reasons
        so as not to render too many DOM nodes in the case of large data sets. */
@@ -100,8 +101,8 @@ export interface TypeaheadProps<T> {
     /* Invoked when the input is focused. Receives an event. */
     onFocus?: (e: Event) => any;
 
-    /* Invoked when the input value changes. Receives the string value of the input. */
-    onInputChange?: (input: string) => any;
+    /* Invoked when the input value changes. Receives the string value of the input, as well as the original event. */
+    onInputChange?: (input: string, e: Event) => any;
 
     /* Invoked when a key is pressed. Receives an event. */
     onKeyDown?: (e: Event) => any;
@@ -141,9 +142,6 @@ export interface TypeaheadProps<T> {
 
     /* Allows selecting the hinted result by pressing enter. */
     selectHintOnEnter?: boolean;
-
-    /* Propagate event to parent form. */
-    submitFormOnEnter?: boolean;
 }
 
 export const Typeahead: React.ClassicComponentClass<TypeaheadProps<any>>;

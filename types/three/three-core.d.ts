@@ -218,6 +218,9 @@ export function warn(message?: any, ...optionalParams: any[]): void;
 export function error(message?: any, ...optionalParams: any[]): void;
 export function log(message?: any, ...optionalParams: any[]): void;
 
+// typed array parameters
+type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+
 // Animation ////////////////////////////////////////////////////////////////////////////////////////
 
 export class AnimationAction {
@@ -870,7 +873,7 @@ export class BufferGeometry extends EventDispatcher {
     center(): BufferGeometry;
 
     setFromObject(object: Object3D): BufferGeometry;
-    setFromPoints(points: Vector3[]): BufferGeometry;
+    setFromPoints(points: Vector3[]|Vector2[]): BufferGeometry;
     updateFromObject(object: Object3D): void;
 
     fromGeometry(geometry: Geometry, settings?: any): BufferGeometry;
@@ -1908,7 +1911,7 @@ export class Layers {
 }
 
 export class Font {
-    constructor(jsondata: string);
+    constructor(jsondata: any);
 
     data: string;
 
@@ -2198,7 +2201,7 @@ export class FileLoader {
     responseType: string;
     withCredentials: string;
 
-    load(url: string, onLoad?: (responseText: string) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
+    load(url: string, onLoad?: (response: string | ArrayBuffer) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
     setMimeType(mimeType: MimeType): FileLoader;
     setPath(path: string) : FileLoader;
     setResponseType(responseType: string) : FileLoader;
@@ -2211,7 +2214,7 @@ export class FontLoader {
     manager: LoadingManager;
 
     load(url: string, onLoad?: (responseFont: Font) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
-    parse(json: string): Font;
+    parse(json: any): Font;
 }
 
 /**
@@ -2256,7 +2259,7 @@ export class JSONLoader extends Loader {
 export class LoadingManager {
     constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: () => void);
 
-    onStart: () => void;
+    onStart?: (url: string, loaded: number, total: number) => void;
 
     /**
      * Will be called when load starts.
@@ -2274,7 +2277,9 @@ export class LoadingManager {
      * Will be called when each element in the scene completes loading.
      * The default is a function with empty body.
      */
-    onError: () => void;
+    onError: (url: string) => void;
+
+    setURLModifier(callback?: (url: string) => string): void;
 
     itemStart(url: string): void;
     itemEnd(url: string): void;
@@ -2395,6 +2400,11 @@ export namespace Cache {
     export function get(key: string): any;
     export function remove(key: string): void;
     export function clear(): void;
+}
+
+export class LoaderUtils {
+    static decodeText(array: TypedArray): string;
+    static extractUrlBase(url: string): string;
 }
 
 // Materials //////////////////////////////////////////////////////////////////////////////////
@@ -2947,24 +2957,24 @@ export class MeshPhongMaterial extends Material {
     color: Color;
     specular: Color;
     shininess: number;
-    map: Texture;
-    lightMap: Texture;
+    map: Texture | null;
+    lightMap: Texture | null;
     lightMapIntensity: number;
-    aoMap: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture;
-    bumpMap: Texture;
+    emissiveMap: Texture | null;
+    bumpMap: Texture | null;
     bumpScale: number;
-    normalMap: Texture;
+    normalMap: Texture | null;
     normalScale: Vector2;
-    displacementMap: Texture;
+    displacementMap: Texture | null;
     displacementScale: number;
     displacementBias: number;
-    specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -5405,21 +5415,7 @@ export class WebGLRenderer implements Renderer {
      */
     maxMorphNormals: number;
 
-    /**
-     * An object with a series of statistical information about the graphics board memory and the rendering process. Useful for debugging or just for the sake of curiosity. The object contains the following fields:
-     */
-    info: {
-        memory: {
-            geometries: number;
-            textures: number;
-        };
-        render: {
-            calls: number;
-            faces: number;
-            points: number;
-        };
-        programs: number;
-    };
+    info: WebGLInfo;
 
     shadowMap: WebGLShadowMap;
 
@@ -6065,6 +6061,26 @@ export class WebGLLights {
     get(light: any): any;
 }
 
+/** 
+ * An object with a series of statistical information about the graphics board memory and the rendering process. 
+ */ 
+export class WebGLInfo {
+    autoReset: boolean;
+    memory: { 
+        geometries: number;
+        textures: number;
+    };
+    programs: WebGLProgram[] | null;
+    render: {
+        calls: number;
+        frame: number;
+        lines: number;
+        points: number;
+        triangles: number;
+    };
+    reset(): void;
+}
+
 export class WebGLIndexedBufferRenderer {
     constructor(gl: WebGLRenderingContext, properties: any, info: any);
 
@@ -6108,7 +6124,7 @@ export class WebGLProgram {
 export class WebGLPrograms {
     constructor(renderer: WebGLRenderer, capabilities: any);
 
-    programs: any[];
+    programs: WebGLProgram[];
 
     getParameters(material: ShaderMaterial, lights: any, fog: any, nClipPlanes: number, object: any): any;
     getProgramCode(material: ShaderMaterial, parameters: any): string;
@@ -6186,7 +6202,7 @@ export class WebGLState {
     enable(id: string): void;
     disable(id: string): void;
     getCompressedTextureFormats(): any[];
-    setBlending(blending: number, blendEquation: number, blendSrc: number, blendDst: number, blendEquationAlpha: number, blendSrcAlpha: number, blendDstAlpha: number): void;
+    setBlending(blending: number, blendEquation?: number, blendSrc?: number, blendDst?: number, blendEquationAlpha?: number, blendSrcAlpha?: number, blendDstAlpha?: number, premultiplyAlpha?: boolean): void;
     setColorWrite(colorWrite: number): void;
     setDepthTest(depthTest: number): void;
     setDepthWrite(depthWrite: number): void;
@@ -6203,7 +6219,9 @@ export class WebGLState {
     getScissorTest(): boolean;
     activeTexture(webglSlot: any): void;
     bindTexture(webglType: any, webglTexture: any): void;
+    // Same interface as https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/compressedTexImage2D
     compressedTexImage2D(): void;
+    // Same interface as https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
     texImage2D(): void;
     clearColor(r: number, g: number, b: number, a: number): void;
     clearDepth(depth: number): void;
@@ -6226,8 +6244,8 @@ export class WebGLDepthBuffer {
     constructor(gl: any, state: any);
 
     setTest(depthTest: boolean): void;
-    sertMask(depthMask: number): void;
-    setFunc(depthFunc: Function): void;
+    setMask(depthMask: number): void;
+    setFunc(depthFunc: number): void;
     setLocked(lock: boolean): void;
     setClear(depth: any): void;
     reset(): void;
@@ -6237,8 +6255,8 @@ export class WebGLStencilBuffer {
     constructor(gl: any, state: any);
 
     setTest(stencilTest: boolean): void;
-    sertMask(stencilMask: number): void;
-    setFunc(stencilFunc: Function, stencilRef: any, stencilMask: number): void;
+    setMask(stencilMask: number): void;
+    setFunc(stencilFunc: number, stencilRef: any, stencilMask: number): void;
     setOp(stencilFail: any, stencilZFail: any, stencilZPass: any): void;
     setLocked(lock: boolean): void;
     setClear(stencil: any): void;
@@ -6456,7 +6474,7 @@ export class CompressedTexture extends Texture {
 
 export class DataTexture extends Texture {
     constructor(
-        data: ArrayBuffer | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array,
+        data: ArrayBuffer | TypedArray,
         width: number,
         height: number,
         format?: PixelFormat,

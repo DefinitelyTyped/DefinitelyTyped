@@ -2,6 +2,7 @@
 // Project: https://github.com/davidtheclark/cosmiconfig
 // Definitions by: ozum <https://github.com/ozum>
 //                 szeck87 <https://github.com/szeck87>
+//                 saadq <https://github.com/saadq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -35,8 +36,8 @@ export interface Loaders {
 }
 
 export interface Explorer {
-  search(searchFrom: string): Promise<null | CosmiconfigResult>;
-  searchSync(searchFrom: string): null | CosmiconfigResult;
+  search(searchFrom?: string): Promise<null | CosmiconfigResult>;
+  searchSync(searchFrom?: string): null | CosmiconfigResult;
   load(loadPath: string): Promise<CosmiconfigResult>;
   loadSync(loadPath: string): CosmiconfigResult;
   clearLoadCache(): void;
@@ -55,4 +56,4 @@ export interface ExplorerOptions {
   ignoreEmptySearchPlaces?: boolean;
 }
 
-export default function cosmiconfig(moduleName: string, options: ExplorerOptions): Explorer;
+export default function cosmiconfig(moduleName: string, options?: ExplorerOptions): Explorer;

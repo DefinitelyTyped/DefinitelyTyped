@@ -1,7 +1,8 @@
-// Type definitions for pino 4.7
+// Type definitions for pino 4.16
 // Project: https://github.com/pinojs/pino.git
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
+//                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -192,6 +193,10 @@ declare namespace P {
                 trace?: WriteFn;
             } & { [logLevel: string]: WriteFn });
         };
+        /**
+         * key-value object added as child logger to each log line. If set to null the base child logger is not added
+         */
+        base?: { [key: string]: any } | null;
     }
 
     interface PrettyOptions {
