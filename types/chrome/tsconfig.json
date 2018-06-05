@@ -20,11 +20,6 @@
     "files": [
         "index.d.ts",
         "chrome-cast/index.d.ts",
-<<<<<<< HEAD
         "test/index.ts"
-=======
-        "test/index.ts",
-        "test/chrome-app.ts"
->>>>>>> 3880e40c72fd987cfb539c75e9798cee27a7255b
     ]
 }
