@@ -1,5 +1,5 @@
-import * as Koa from 'koa';
-import * as staticCache from 'koa-static-cache';
+import Koa = require('koa');
+import staticCache = require('koa-static-cache');
 
 const app = new Koa();
 
