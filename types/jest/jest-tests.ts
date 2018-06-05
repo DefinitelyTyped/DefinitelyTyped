@@ -731,3 +731,24 @@ test('moduleName 2', () => {
     const moduleName = require('../moduleName');
     expect(moduleName()).toEqual(2);
 });
+
+// Jest config
+{
+// tslint:disable-next-line:no-var-requires
+const {defaults} = require('jest-config') as {defaults: jest.ProjectConfig};
+
+const config: Partial<jest.ProjectConfig> = {
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest'
+  },
+  testMatch: [
+    ...defaults.testMatch,
+    '**/__tests__/**/*.ts?(x)',
+    '**/?(*.)+(spec|test).ts?(x)'
+  ],
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
+  globals: {
+    'ts-jest': {}
+  }
+};
+}

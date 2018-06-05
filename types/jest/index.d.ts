@@ -13,6 +13,7 @@
 //                 Ahn <https://github.com/AhnpGit>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Bradley Ayers <https://github.com/bradleyayers>
+//                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -795,6 +796,7 @@ declare namespace jest {
 
     type SnapshotUpdateState = 'all' | 'new' | 'none';
 
+    // https://facebook.github.io/jest/docs/en/cli.html#options
     interface GlobalConfig {
         bail: boolean;
         collectCoverage: boolean;
@@ -824,6 +826,7 @@ declare namespace jest {
         watchman: boolean;
     }
 
+    // https://facebook.github.io/jest/docs/en/configuration.html#options
     interface ProjectConfig {
         automock: boolean;
         browser: boolean;
@@ -863,7 +866,7 @@ declare namespace jest {
         testRunner: string;
         testURL: string;
         timers: 'real' | 'fake';
-        transform: Array<[string, Path]>;
+        transform: {[regexpGlob: string]: string};
         transformIgnorePatterns: Glob[];
         unmockedModulePathPatterns: Maybe<string[]>;
         watchPathIgnorePatterns: string[];
