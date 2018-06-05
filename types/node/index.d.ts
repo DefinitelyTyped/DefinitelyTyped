@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.1.x
+// Type definitions for Node.js 10.3.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -164,6 +164,7 @@ interface Iterator<T> {
 interface IteratorResult<T> { }
 interface AsyncIterableIterator<T> {}
 interface SymbolConstructor {
+    readonly observable: symbol;
     readonly iterator: symbol;
     readonly asyncIterator: symbol;
 }
@@ -2051,6 +2052,9 @@ declare module "readline" {
         completer?: Completer | AsyncCompleter;
         terminal?: boolean;
         historySize?: number;
+        prompt?: string;
+        crlfDelay?: number;
+        removeHistoryDuplicates?: boolean;
     }
 
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
@@ -2174,6 +2178,7 @@ declare module "child_process" {
     }
 
     export interface SpawnOptions {
+        argv0?: string;
         cwd?: string;
         env?: any;
         stdio?: any;
@@ -2316,6 +2321,7 @@ declare module "child_process" {
     export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {
+        argv0?: string;
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
@@ -2822,6 +2828,8 @@ declare module "net" {
         backlog?: number;
         path?: string;
         exclusive?: boolean;
+        readableAll?: boolean;
+        writableAll?: boolean;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js

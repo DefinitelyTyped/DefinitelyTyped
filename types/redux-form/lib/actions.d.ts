@@ -26,11 +26,14 @@ export declare function focus(form: string, field: string): FormAction;
 export interface InitializeOptions {
     keepDirty: boolean;
     keepSubmitSucceeded: boolean;
+    updateUnregisteredFields: boolean;
+    keepValues: boolean;
 }
 
 export declare function initialize(form: string, data: any, keepDirty?: boolean | InitializeOptions, options?: InitializeOptions): FormAction;
 export declare function registerField(form: string, name: string, type: FieldType): FormAction;
 export declare function reset(form: string): FormAction;
+export declare function resetSection(form: string, ...sections: string[]): FormAction;
 export declare function startAsyncValidation(form: string): FormAction;
 export declare function stopAsyncValidation(form: string, errors?: any): FormAction;
 export declare function setSubmitFailed(form: string, ...fields: string[]): FormAction;

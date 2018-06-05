@@ -1855,7 +1855,7 @@ declare namespace kendo.ui {
         dates?: any;
         depth?: string;
         disableDates?: any|Function;
-        footer?: string|Function;
+        footer?: false | string | Function;
         format?: string;
         max?: Date;
         messages?: CalendarMessages;
@@ -4293,7 +4293,7 @@ declare namespace kendo.ui {
         columnMenu?: boolean | GridColumnMenu;
         dataSource?: any|any|kendo.data.DataSource;
         detailTemplate?: string|Function;
-        editable?: boolean | GridEditable;
+        editable?: boolean | "inline" | "incell" | "popup" | GridEditable;
         excel?: GridExcel;
         filterable?: boolean | GridFilterable;
         groupable?: boolean | GridGroupable;

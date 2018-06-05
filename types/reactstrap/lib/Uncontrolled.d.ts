@@ -5,10 +5,10 @@ import { UncontrolledButtonDropdownProps } from './ButtonDropdown';
 import { UncontrolledDropdownProps       } from './Dropdown';
 import { UncontrolledTooltipProps        } from './Tooltip';
 
-export class UncontrolledAlert extends React.Component<UncontrolledAlertProps> {}
-export class UncontrolledButtonDropdown extends React.Component<UncontrolledButtonDropdownProps> {}
-export class UncontrolledDropdown extends React.Component<UncontrolledDropdownProps> {}
-export class UncontrolledTooltip extends React.Component<UncontrolledTooltipProps> {}
+export class UncontrolledAlert<T = {}> extends React.Component<UncontrolledAlertProps<T>> {}
+export class UncontrolledButtonDropdown<T = {}> extends React.Component<UncontrolledButtonDropdownProps<T>> {}
+export class UncontrolledDropdown<T = {}> extends React.Component<UncontrolledDropdownProps<T>> {}
+export class UncontrolledTooltip<T = {}> extends React.Component<UncontrolledTooltipProps<T>> {}
 
 export { UncontrolledAlertProps          } from './Alert';
 export { UncontrolledButtonDropdownProps } from './ButtonDropdown';

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface TabContentProps extends React.HTMLAttributes<HTMLElement> {
+export type TabContentProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   activeTab?: number | string;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare class TabContent extends React.Component<TabContentProps> {}
+declare class TabContent<T> extends React.Component<TabContentProps<T>> {}
 export default TabContent;

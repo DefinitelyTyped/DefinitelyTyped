@@ -2254,6 +2254,11 @@ interface IObjectOptions {
 	 * Not used by fabric, just for convenience
 	 */
 	data?: any;
+
+    /**
+     * Describes the object's corner position in canvas object absolute properties.
+     */
+    aCoords?: {bl: Point, br: Point, tl: Point, tr: Point};
 }
 export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> { }
 export class Object {

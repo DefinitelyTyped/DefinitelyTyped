@@ -24,6 +24,8 @@ class BasicExample extends React.Component {
                     labelKey="name"
                     multiple={multiple}
                     options={options}
+                    maxHeight='300px'
+                    onInputChange={(value, e) => {}}
                     placeholder="Choose a state..."
                 />
             </div>

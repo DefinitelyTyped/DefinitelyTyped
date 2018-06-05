@@ -519,7 +519,7 @@ declare namespace Chartist {
 
 
     interface ChartistSvgStatic {
-        new (name: HTMLElement | string, attributes: Object, className?: string, parent?: Object, insertFirst?: boolean): IChartistSvg;
+        new (name?: HTMLElement | string, attributes?: Object, className?: string, parent?: Object, insertFirst?: boolean): IChartistSvg;
 
         Easing: ChartistEasingStatic;
 
