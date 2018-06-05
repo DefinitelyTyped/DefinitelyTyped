@@ -1075,14 +1075,14 @@ declare module 'ember' {
              * after all initializers and therefore after all code is loaded and the app is
              * ready.
              */
-            initializer(initializer: Initializer<Engine>): void;
+            static initializer(initializer: Initializer<Engine>): void;
             /**
              * Instance initializers run after all initializers have run. Because
              * instance initializers run after the app is fully set up. We have access
              * to the store, container, and other items. However, these initializers run
              * after code has loaded and are not allowed to defer readiness.
              */
-            instanceInitializer(instanceInitializer: Initializer<EngineInstance>): void;
+            static instanceInitializer(instanceInitializer: Initializer<EngineInstance>): void;
             /**
              * Set this to provide an alternate class to `Ember.DefaultResolver`
              */

@@ -25,6 +25,8 @@ export interface ResponsiveObject {
 
 export type SwipeDirection = "left" | "down" | "right" | "up" | string;
 
+export type LazyLoadTypes = "ondemand" | "progressive";
+
 export interface Settings {
   accessibility?: boolean;
   adaptiveHeight?: boolean;
@@ -49,7 +51,7 @@ export interface Settings {
   focusOnSelect?: boolean;
   infinite?: boolean;
   initialSlide?: number;
-  lazyLoad?: "ondemand" | "progressive";
+  lazyLoad?: LazyLoadTypes;
   nextArrow?: JSX.Element;
   onEdge?(swipeDirection: SwipeDirection): void;
   onInit?(): void;
