@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 import * as webpack from 'webpack';
-import * as http from 'http';
+import * as net from 'net';
 
 export = WebpackHotClient;
 
@@ -44,7 +44,7 @@ declare namespace WebpackHotClient {
     /** Reload the page if a patch cannot be applied by webpack */
     reload?: boolean;
     /** Server instance for webpack-hot-client to connect to */
-    server?: http.Server;
+    server?: net.Server;
     /** Webpack stats configuration */
     stats?: webpack.Options.Stats;
   }

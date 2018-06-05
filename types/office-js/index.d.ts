@@ -413,11 +413,11 @@ declare namespace Office {
         */
         auth: Auth;
         /**
-         * True if developers can display, on the current platform, a UI in the add-in sell or upgrade; otherwise returns False.
-         * 
-         * @remarks
-         * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on the Windows desktop or for Office Online in the browser, do allow such links. If you want the UI of your add-in to provide a link to an external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
-         */
+        * True, if the current platform allows the add-in to display a UI for selling or upgrading; otherwise returns False.
+        * 
+        * @remarks
+        * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on the Windows desktop or for Office Online in the browser, do allow such links. If you want the UI of your add-in to provide a link to an external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
+        */
         commerceAllowed: boolean;
         /**
         * Gets the locale (language) specified by the user for editing the document or item.
@@ -426,20 +426,7 @@ declare namespace Office {
         /**
         * Gets information about the environment in which the add-in is running.
         */
-        diagnostics: {
-            /**
-            * Gets the Office application host in which the add-in is running.
-            */
-            host: HostType;
-            /**
-            * Gets the platform on which the add-in is running.
-            */
-            platform: PlatformType;
-            /**
-            * Gets the version of Office on which the add-in is running.
-            */
-            version: string;
-        };
+        diagnostics: ContextInformation;
         /**
         * Gets the locale (language) specified by the user for the UI of the Office host application.
         * @remarks
@@ -488,14 +475,7 @@ declare namespace Office {
         /**
         * Provides a method for determining what requirement sets are supported on the current host and platform.
         */
-        requirements: {
-            /**
-             * Check if the specified requirement set is supported by the host Office application.
-             * @param name - Set name; e.g., "MatrixBindings".
-             * @param minVersion - The minimum required version; e.g., "1.4".
-             */
-            isSetSupported(name: string, minVersion?: number): boolean;
-        }
+        requirements: RequirementSetSupport;
         /**
          * Gets an object that represents the custom settings or state of a mail add-in saved to a user's mailbox.
          *
@@ -606,6 +586,17 @@ declare namespace Office {
         closeContainer(): void;
     }
     /**
+     * Provides information about what Requirement Sets are supported in current environment.
+     */
+    interface RequirementSetSupport {
+        /**
+        * Check if the specified requirement set is supported by the host Office application.
+        * @param name - Set name; e.g., "MatrixBindings".
+        * @param minVersion - The minimum required version; e.g., "1.4".
+        */
+       isSetSupported(name: string, minVersion?: number): boolean;
+}
+    /**
      * Provides options for how a dialog is displayed.
      */
     interface DialogOptions {
@@ -672,6 +663,23 @@ declare namespace Office {
          * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
+    }
+    /**
+     * Provides information about the environment in which the add-in is running.
+     */
+    interface ContextInformation {
+        /**
+        * Gets the Office application host in which the add-in is running.
+        */
+        host: Office.HostType;
+        /**
+        * Gets the platform on which the add-in is running.
+        */
+        platform: Office.PlatformType;
+        /**
+        * Gets the version of Office on which the add-in is running.
+        */
+        version: string;
     }
     /**
      * Provides options for how to get the data in a binding.
@@ -772,7 +780,7 @@ declare namespace Office {
          format: object
     }
     /**
-     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: {row: 4, column: 3} specifies the cell in the 3rd (zero-based) row in the 4th (zero-based) column.
+     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: {row: 3, column: 4} specifies the cell in the 3rd (zero-based) row in the 4th (zero-based) column.
      */
     interface RangeCoordinates {
         /**
@@ -806,10 +814,6 @@ declare namespace Office {
          */
         id?: string
         /**
-         * The names of the columns involved in the binding.
-         */
-        columns?: Array<string>
-        /**
          * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
@@ -829,7 +833,7 @@ declare namespace Office {
         /**
          * Specifies a table of sample data displayed in the prompt UI as an example of the kinds of fields (columns) that can be bound by your add-in. The headers provided in the TableData object specify the labels used in the field selection UI. Note: This parameter is used only in add-ins for Access. It is ignored if provided when calling the method in an add-in for Excel.
          */
-        sampleData?: TableData
+        sampleData?: Office.TableData
         /**
          * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
          */
@@ -997,7 +1001,6 @@ declare namespace Office {
          * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
          */
         addEventHandler(eventType: Office.EventType, handler: Function): void;
-
     }
 }
 
@@ -1109,6 +1112,44 @@ declare namespace Office {
          * The document can be read and written to.
          */
         ReadWrite
+    }
+    /**
+     * Specifies the type of the XML node.
+     *
+     * @remarks
+     * Hosts: Word
+     * 
+     * Available in Requirement set: CustomXmlParts
+     */
+    enum CustomXMLNodeType {
+        /**
+         * The node is an attribute.
+         */
+        Attribute,
+        /**
+         * The node is CData.
+         */
+        CData,
+        /**
+         * The node is a comment.
+         */
+        NodeComment,
+        /**
+         * The node is an element.
+         */
+        Element,
+        /**
+         * The node is a Document element.
+         */
+        NodeDocument,
+        /**
+         * The node is a processing instruction.
+         */
+        ProcessingInstruction,
+        /**
+         * The node is text.
+         */
+        Text,
     }
     /**
      * Specifies the kind of event that was raised. Returned by the type property of an EventNameEventArgs object.
@@ -1248,12 +1289,6 @@ declare namespace Office {
          * Goes to the specified index by slide number or Office.Index
          */
         Index
-    }
-    enum Index {
-        First,
-        Last,
-        Next,
-        Previous
     }
     /**
      * Specifies whether to select (highlight) the location to navigate to (when using the Document.goToByIdAsync method).
@@ -2038,6 +2073,60 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         setSelectedDataAsync(data: string | TableData | any[][], options?: SetSelectedDataOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Project documents only. Get Project field (Ex. ProjectWebAccessURL).
+         * @param fieldId Project level fields.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
+        getProjectFieldAsync(fieldId: number, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Project documents only. Get resource field for provided resource Id. (Ex.ResourceName)
+         * @param resourceId Either a string or value of the Resource Id.
+         * @param fieldId Resource Fields.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
+        getResourceFieldAsync(resourceId: string, fieldId: number, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Project documents only. Get the current selected Resource's Id.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
+        getSelectedResourceAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Project documents only. Get the current selected Task's Id.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
+        getSelectedTaskAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Project documents only. Get the current selected View Type (Ex. Gantt) and View Name.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
+        getSelectedViewAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Project documents only. Get the Task Name, WSS Task Id, and ResourceNames for given taskId.
+         * @param taskId Either a string or value of the Task Id.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
+        getTaskAsync(taskId: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Project documents only. Get task field for provided task Id. (Ex. StartDate).
+         * @param taskId Either a string or value of the Task Id.
+         * @param fieldId Task Fields.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
+        getTaskFieldAsync(taskId: string, fieldId: number, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Project documents only. Get the WSS Url and list name for the Tasks List, the MPP is synced too.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         */
+        getWSSUrlAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     /**
      * Provides information about the document that raised the SelectionChanged event.
@@ -4667,63 +4756,6 @@ declare namespace Office {
          * The Timeline view.
          */
         Timeline
-    }
-    // Objects
-    interface Document {
-        /**
-         * Get Project field (Ex. ProjectWebAccessURL).
-         * @param fieldId Project level fields.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
-        getProjectFieldAsync(fieldId: number, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Get resource field for provided resource Id. (Ex.ResourceName)
-         * @param resourceId Either a string or value of the Resource Id.
-         * @param fieldId Resource Fields.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
-        getResourceFieldAsync(resourceId: string, fieldId: number, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Get the current selected Resource's Id.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
-        getSelectedResourceAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Get the current selected Task's Id.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
-        getSelectedTaskAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Get the current selected View Type (Ex. Gantt) and View Name.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
-        getSelectedViewAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Get the Task Name, WSS Task Id, and ResourceNames for given taskId.
-         * @param taskId Either a string or value of the Task Id.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
-        getTaskAsync(taskId: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Get task field for provided task Id. (Ex. StartDate).
-         * @param taskId Either a string or value of the Task Id.
-         * @param fieldId Task Fields.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
-        getTaskFieldAsync(taskId: string, fieldId: number, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Get the WSS Url and list name for the Tasks List, the MPP is synced too.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         */
-        getWSSUrlAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
 }
 
@@ -9907,15 +9939,11 @@ declare namespace Excel {
          * Copy a worksheet and place it at the specified position. Return the copied worksheet.
          *
          * [Api set: ExcelApi 1.7]
+         * 
+         * @param positionType Specifies where to put the copy relative to the worksheet specified in relativeTo param. Can be Excel.WorksheetPositionType or string equivalent. Must not be Excel.WorksheetPositionType.none or "None".
+         * @param relativeTo Specifies the worksheet that is the basis for intepreting the positionType param. If not specified, the worksheet on which the copy() is called is assumed.
          */
-        copy(positionType?: Excel.WorksheetPositionType, relativeTo?: Excel.Worksheet): Excel.Worksheet;
-        /**
-         *
-         * Copy a worksheet and place it at the specified position. Return the copied worksheet.
-         *
-         * [Api set: ExcelApi 1.7]
-         */
-        copy(positionType?: "None" | "Before" | "After" | "Beginning" | "End", relativeTo?: Excel.Worksheet): Excel.Worksheet;
+        copy(positionType?: Excel.WorksheetPositionType | string, relativeTo?: Excel.Worksheet): Excel.Worksheet;
         /**
          *
          * Deletes the worksheet from the workbook.

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "jsforce-tests.ts"
+        "yauzl-promise-tests.ts"
     ]
 }

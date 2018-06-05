@@ -7,45 +7,56 @@ const config: webpack.Configuration = {};
 const compiler = webpack(config);
 
 // Using the middleware
-
 koaWebpack({
     compiler,
     config,
+    // Reference: https://github.com/webpack/webpack-dev-middleware#options
     devMiddleware: {
-        lazy: true,
-        watchOptions: {
-            aggregateTimeout: 300,
-            poll: true,
-        },
-        publicPath: '/assets/',
+        headers: { 'X-Custom-Header': 'yes' },
         index: 'index.html',
-        headers: {
-            'X-Custom-Header': 'yes'
-        },
-        stats: {
-            colors: true,
-        },
+        lazy: false,
+        logger: undefined,
+        logLevel: 'info',
+        // logTime: false,
+        // mimeTypes: null,
+        publicPath: '/assets/',
         reporter: null,
-        serverSideRender: false
+        serverSideRender: false,
+        stats: { context: process.cwd() },
+        watchOptions: { aggregateTimeout: 200 },
+        // writeToDisk: false
     },
+    // Reference: https://github.com/webpack-contrib/webpack-hot-client#api
     hotClient: {
-        log: console.log.bind(console),
-        path: '/__what',
-        heartbeat: 2000
+        allEntries: false,
+        autoConfigure: true,
+        host: 'localhost',
+        hmr: true,
+        https: false,
+        logLevel: 'info',
+        logTime: false,
+        port: 0,
+        reload: true,
+        server: undefined,
+        stats: { context: process.cwd() }
     }
-}).then((middleware) => {
-    app.use(middleware);
+})
+    .then((middleware) => {
+        app.use(middleware);
 
-    // Accessing the underlying middleware
+        // Accessing the underlying middleware
+        middleware.devMiddleware.close();
+        middleware.devMiddleware.invalidate();
+        middleware.devMiddleware.waitUntilValid();
+        middleware.devMiddleware.getFilenameFromUrl('/public/index.html');
+        middleware.devMiddleware.fileSystem;
+        middleware.hotClient.close();
+        middleware.hotClient.options;
+        middleware.hotClient.server;
 
-    middleware.devMiddleware.close();
-    middleware.devMiddleware.invalidate();
-    middleware.devMiddleware.waitUntilValid();
-    middleware.hotClient.publish(null);
 
-    return middleware;
-}).then((middleware) => {
-    // close the middleware
-
-    middleware.close();
-});
+        // close the middleware
+        middleware.close(() => {
+            console.log('closed');
+        });
+    });

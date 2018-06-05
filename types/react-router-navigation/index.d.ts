@@ -6,7 +6,6 @@
 
 import { Component, ReactNode, ReactElement, ComponentClass } from "react";
 import { StyleProp, ViewProps, ViewStyle, TextStyle } from "react-native";
-import { TabViewAnimated, TabViewPagerPan } from "react-native-tab-view";
 import { RouteProps } from "react-router-navigation-core";
 import {
     NavigationTransitionProps,
