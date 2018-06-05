@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.37
+// Type definitions for plotly.js 1.38
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 // 				Martin Duparc <https://github.com/martinduparc>
@@ -397,6 +397,7 @@ export interface ScatterData {
                'z+x' | 'z+x+text' | 'z+x+name' |
                'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
                'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
+	hoverlabel: Partial<Label>;
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
@@ -412,10 +413,10 @@ export interface ScatterData {
 export interface ScatterMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | number[];
-	colorscale: string | string[];
+	colorscale: string | string[] | Array<Array<(string | number)>>;
 	cauto: boolean;
-	cmax: boolean;
-	cmin: boolean;
+	cmax: number;
+	cmin: number;
 	autocolorscale: boolean;
 	reversescale: boolean;
 	opacity: number | number[];
@@ -427,8 +428,67 @@ export interface ScatterMarker {
 	sizemode: 'diameter' | 'area';
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
-	colorbar: {}; // TODO
-	gradient: {}; // TODO
+	colorbar: {
+        thicknessmode: 'fraction' | 'pixels',
+        thickness: number,
+        lenmode: 'fraction' | 'pixels',
+        len: number,
+        x: number,
+        xanchor: 'left' | 'center' | 'right',
+        xpad: number,
+        y: number,
+        yanchor: 'top' | 'middle' | 'bottom',
+        ypad: number,
+        outlinecolor: Color,
+        outlinewidth: number,
+        bordercolor: Color,
+        borderwidth: Color,
+        bgcolor: Color,
+        tickmode: 'auto' | 'linear' | 'array',
+        nticks: number,
+        tick0: number | string,
+        dtick: number | string,
+        tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray,
+        ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray,
+        ticks: 'outside' | 'inside' | '',
+        ticklen: number,
+        tickwidth: number,
+        tickcolor: Color,
+        showticklabels: boolean,
+        tickfont: {
+            family: string,
+            size: number,
+            color: Color,
+        },
+        tickangle: number,
+        tickformat: string,
+        tickformatstops: {
+            dtickrange: any[],
+            value: string,
+        },
+        tickprefix: string,
+        showtickprefix: 'all' | 'first' | 'last' | 'none',
+        ticksuffix: string,
+        showticksuffix: 'all' | 'first' | 'last' | 'none',
+        separatethousands: boolean,
+        exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B',
+        showexponent: 'all' | 'first' | 'last' | 'none',
+        title: string,
+        titlefont: {
+            family: string,
+            size: number,
+            color: Color,
+        },
+        titleside: 'right' | 'top' | 'bottom',
+        tickvalssrc: any,
+        ticktextsrc: any,
+    };
+	gradient: {
+        type: 'radial' | 'horizontal' | 'vertical' | 'none',
+        color: Color,
+        typesrc: any,
+        colorsrc: any,
+    };
 }
 
 export interface ScatterMarkerLine {

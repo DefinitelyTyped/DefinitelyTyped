@@ -204,6 +204,14 @@ declare namespace fetchMock {
         mock(options: MockOptions): this;
 
         /**
+         * Returns a drop-in mock for fetch which can be passed to other mocking
+         * libraries. It implements the full fetch-mock api and maintains its
+         * own state independent of other instances, so tests can be run in
+         * parallel.
+         */
+        sandbox(): FetchMockSandbox;
+
+        /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
          *  call through to fetch(). Shorthand for mock() limited to being
@@ -449,6 +457,14 @@ declare namespace fetchMock {
          * lot of array buffers, it can be useful to default to `false`
          */
         configure(opts: {}): void;
+    }
+
+    interface FetchMockSandbox extends FetchMockStatic {
+        /**
+         * Also callable as fetch(). Use `typeof fetch` in your code to define
+         * a field that accepts both `fetch()` and a fetch-mock sandbox.
+         */
+        (input?: string | Request , init?: RequestInit): Promise<Response>;
     }
 }
 

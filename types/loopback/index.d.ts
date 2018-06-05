@@ -1416,17 +1416,6 @@ declare namespace l {
             /**
              * Find all model instances that match `filter` specification.
              * See [Querying models](docs.strongloop.com/display/LB/Querying+models)
-             * @callback {() => void} callback Callback function called with `(err, returned-instances)` arguments.    Required.
-             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
-             * @param {Array} models Model instances matching the filter, or null if none found
-             */
-            static find<T = any>(
-                  callback: CallbackWithResult<T[]>
-            ): void;
-
-            /**
-             * Find all model instances that match `filter` specification.
-             * See [Querying models](docs.strongloop.com/display/LB/Querying+models)
              * @options {any} [filter] Optional Filter JSON object; see below.
              * @property {string|any|Array} fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
@@ -1490,7 +1479,7 @@ declare namespace l {
                         skip?: number;
                         where?: any;
                   }
-            ): Promise<T[]>;
+            ): Promise<T[] | null>;
 
             /**
              * Find object by ID with an optional filter for include/fields
@@ -1540,7 +1529,7 @@ declare namespace l {
                         fields?: string|any|any[];
                         include?: string|any|any[];
                   },
-            ): Promise<T>;
+            ): Promise<T | null>;
 
             /**
              * Find one model instance that matches `filter` specification.
@@ -1616,7 +1605,7 @@ declare namespace l {
                         skip?: number;
                         where?: any;
                   }
-            ): Promise<T>;
+            ): Promise<T | null>;
 
             /**
              * Finds one record matching the optional filter object. If not found, creates
@@ -1715,7 +1704,7 @@ declare namespace l {
                         skip?: number;
                         where?: any;
                   }
-            ): Promise<{instance: T, created: boolean}>;
+            ): Promise<{instance: T, created: boolean} | null>;
 
             /**
              * Get the `Change` model.

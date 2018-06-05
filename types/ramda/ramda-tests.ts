@@ -475,6 +475,9 @@ R.times(i, 5);
     R.aperture(3, [1, 2, 3, 4, 5]); // => [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
     R.aperture(7, [1, 2, 3, 4, 5]); // => []
     R.aperture(7)([1, 2, 3, 4, 5]); // => []
+
+    const res1: Array<[number, number]> = R.aperture(2, [1, 2, 3, 4, 5]);
+    const res2: number[][] = R.aperture(11, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
 };
 
 () => {
@@ -1950,13 +1953,23 @@ class Rectangle {
 };
 
 () => {
-    function cmp(x: any, y: any) {
+    function cmp1(x: any, y: any) {
         return x.a === y.a;
+    }
+
+    function cmp2(x: any, y: any) {
+        return x.a === y.b;
     }
 
     const l1 = [{a: 1}, {a: 2}, {a: 3}];
     const l2 = [{a: 3}, {a: 4}];
-    R.differenceWith(cmp, l1, l2); // => [{a: 1}, {a: 2}]
+    const l3 = [{b: 3}, {b: 4}];
+    R.differenceWith(cmp1, l1, l2); // => [{a: 1}, {a: 2}]
+
+    const differenceWithCurried1 = R.differenceWith(cmp1);
+    differenceWithCurried1(l1, l2); // =>[{a: 1}, {a: 2}]
+
+    R.differenceWith(cmp2, l1, l3); // => [{a: 1}, {a: 2}]
 };
 
 () => {

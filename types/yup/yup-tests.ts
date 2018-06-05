@@ -232,6 +232,7 @@ yup.object({
 
 objSchema.from('prop', 'myProp');
 objSchema.from('prop', 'myProp', true);
+objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, 'message');
 objSchema.transformKeys(key => key.toUpperCase());
@@ -306,7 +307,7 @@ const testObject: MyInterface = {
     arrayField: ["hi"],
 };
 
-typedSchema.validateSync(testObject); // $ExpectType ValidationError | MyInterface
+typedSchema.validateSync(testObject); // $ExpectType MyInterface
 
 // $ExpectError
 yup.object<MyInterface>({

@@ -504,6 +504,7 @@ function callback(cb: AWSLambda.Callback) {
     cb();
     cb(null);
     cb(error);
+    cb(str); // https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
     cb(null, anyObj);
     cb(null, bool);
     cb(null, str);

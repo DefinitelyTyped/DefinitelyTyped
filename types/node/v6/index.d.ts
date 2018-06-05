@@ -1681,6 +1681,9 @@ declare module "readline" {
         completer?: Completer;
         terminal?: boolean;
         historySize?: number;
+        prompt?: string;
+        crlfDelay?: number;
+        removeHistoryDuplicates?: boolean;
     }
 
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean): ReadLine;
