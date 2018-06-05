@@ -92,7 +92,11 @@ export interface NavigateOptions<TState> {
     replace?: boolean;
 }
 
-export class Location extends React.Component<LocationContext> {}
+export interface LocationProps {
+    children: LocationProviderRenderFn;
+}
+
+export class Location extends React.Component<LocationProps> {}
 
 export interface LocationProviderProps {
     history: History;
