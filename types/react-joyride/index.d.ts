@@ -156,7 +156,7 @@ export interface Props {
 export interface Step {
     title?: string;
     text?: React.ReactNode;
-    selector: string;
+    target: string;
     position?: "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right" | "right" | "left";
     type?: "click" | "hover";
     isFixed?: boolean;
