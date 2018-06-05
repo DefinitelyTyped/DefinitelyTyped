@@ -110,13 +110,13 @@ declare class Snekfetch extends Readable {
     static unlock(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static unsubscribe(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
 
-    query(name: string | { [key: string]: string | string[] }, value?: string): Snekfetch;
+    query(name: string | object, value?: string): Snekfetch;
 
-    set(name: string | { [key: string]: string | string[] }, value?: string | string[]): Snekfetch;
+    set(name: string | object, value?: string): Snekfetch;
 
     attach(name: string, data: string | object | Buffer, filename?: string): Snekfetch;
 
-    send(data?: string|Buffer|object): Snekfetch;
+    send(data?: string | Buffer | object): Snekfetch;
 
     then(): Promise<Snekfetch.SnekfetchResponse>;
     then<T>(resolver: (res: Snekfetch.SnekfetchResponse) => T, rejector?: (err: Error) => any): Promise<T>;
