@@ -155,11 +155,6 @@ export function handleAction<State, Payload, Meta>(
     initialState: State
 ): Reducer<State, Payload>;
 
-export function handleActions<StateAndPayload>(
-    reducerMap: ReducerMap<StateAndPayload, StateAndPayload>,
-    initialState: StateAndPayload
-): Reducer<StateAndPayload, StateAndPayload>;
-
 export function handleActions<State, Payload>(
     reducerMap: ReducerMap<State, Payload>,
     initialState: State
