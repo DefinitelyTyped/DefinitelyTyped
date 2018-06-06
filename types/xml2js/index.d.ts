@@ -35,7 +35,7 @@ export interface Options {
     async?: boolean;
     attrkey?: string;
     attrNameProcessors?: Array<(name: string) => any>;
-    attrValueProcessors?: Array<(value: string, name?: string) => any>;
+    attrValueProcessors?: Array<(value: string, name: string) => any>;
     charkey?: string;
     charsAsChildren?: boolean;
     childkey?: string;
@@ -53,7 +53,7 @@ export interface Options {
     tagNameProcessors?: Array<(name: string) => any>;
     trim?: boolean;
     validator?: Function;
-    valueProcessors?: Array<(value: string, name?: string) => any>;
+    valueProcessors?: Array<(value: string, name: string) => any>;
     xmlns?: boolean;
 }
 
