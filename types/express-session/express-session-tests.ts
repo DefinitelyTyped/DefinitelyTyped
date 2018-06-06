@@ -11,14 +11,13 @@ app.use(session({
   secret: 'keyboard cat',
   name: 'connect.sid',
   store: new session.MemoryStore(),
-  cookie: { path: '/', httpOnly: true, secure: false },
+  cookie: { path: '/', httpOnly: true, secure: false, sameSite: true },
   genid: (req: express.Request): string => '',
   rolling: false,
   resave: true,
   proxy: true,
   saveUninitialized: true,
-  unset: 'keep',
-  sameSite: true
+  unset: 'keep'
 }));
 
 interface MySession extends Express.Session {
