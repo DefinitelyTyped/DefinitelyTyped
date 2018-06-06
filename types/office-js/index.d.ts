@@ -376,14 +376,14 @@ declare namespace Office {
         */
         asyncContext: any;
         /**
-        * Gets the [AsyncResultStatus](office.asyncresultstatus.md) of the asynchronous operation.
+        * Gets the {@link Office.AsyncResultStatus} of the asynchronous operation.
         *
         * @remarks
         * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
         */
         status: AsyncResultStatus;
         /**
-        * Gets an [Error](office.error.md) object that provides a description of the error, if any error occurred.
+        * Gets an {@link Office.Error} object that provides a description of the error, if any error occurred.
         *
         * @remarks
         * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
@@ -1459,7 +1459,7 @@ declare namespace Office {
          *
          *        array of arrays: Excel and Word only
          *
-         *        [TableData](office.tabledata.md): Access, Excel, and Word only
+         *        {@link Office.TableData}: Access, Excel, and Word only
          *
          *        HTML: Word and Word Online only
          *
@@ -2692,7 +2692,7 @@ declare namespace Office {
         rows: any[][];
     }
     /**
-     * Specifies enumerated values for the cells: property in the cellFormat parameter of {@link https://dev.office.com/reference/docs/excel/format-tables-in-add-ins-for-excel.htm | table formatting methods}.
+     * Specifies enumerated values for the cells: property in the cellFormat parameter of {@link https://docs.microsoft.com/en-us/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | table formatting methods}.
      *
      * @remarks
      * Hosts: Excel
