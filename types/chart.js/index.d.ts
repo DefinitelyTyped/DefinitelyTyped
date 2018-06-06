@@ -514,6 +514,7 @@ declare namespace Chart {
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
         barThickness?: number;
+        maxBarThickness?: number;
         scaleLabel?: ScaleTitleOptions;
         offset?: boolean;
         beforeUpdate?(scale?: any): void;
