@@ -1143,6 +1143,11 @@ export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> i
      * throughout the view with the ui attribute.
      */
     ui: any;
+
+    /**
+     * Get handle on UI element defined in ui hash
+     */
+    getUI(ui: string): JQuery;
 }
 
 export interface CollectionViewOptions<
@@ -1560,6 +1565,11 @@ export class Behavior extends Object {
      * Behavior methods as this.ui.
      */
     ui: any;
+
+    /**
+     * Get handle on UI element defined in ui hash
+     */
+    getUI(ui: string): JQuery;
 
     /**
      * Any triggers you define on the Behavior will be triggered in response to the appropriate event on the view.
