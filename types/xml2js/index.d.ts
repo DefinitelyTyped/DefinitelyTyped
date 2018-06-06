@@ -1,4 +1,4 @@
-// Type definitions for node-xml2js 0.4.6
+// Type definitions for node-xml2js 0.4
 // Project: https://github.com/Leonidas-from-XIV/node-xml2js
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 //                 Jason McNeil <https://github.com/jasonrm>
