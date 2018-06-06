@@ -2855,22 +2855,67 @@ export namespace Updates {
 
 // #region MediaLibrary
 /**
+ * https://docs.expo.io/versions/latest/sdk/media-library
  * Provides access to user's media library
  * Requires Permissions.CAMERA_ROLL permissions.
  */
 
 
 export namespace MediaLibrary {
+
+  /**
+   * Creates an asset from existing file. The most common use case is to save a picture taken by Camera.
+   */
   function createAssetAsync(localUri: string): Promise<Asset>;
+
+  /**
+   * Fetches a page of assets matching the provided criteria.
+   */
   function getAssetsAsync(options: GetAssetsOptions): Promise<GetAssetsResult>;
+
+  /**
+   * Provides more informations about an asset, including GPS location, local URI and EXIF metadata.
+   */
   function getAssetInfoAsync(asset: string | Asset): Promise<Asset>;
+
+  /**
+   * Deletes assets from the library. On iOS it deletes assets from all albums they belong to, while on Android it keeps all copies of them
+   * (album is strictly connected to the asset). Also, there is additional dialog on iOS that requires user to confirm this action.
+   */
   function deleteAssetsAsync(asset: string | Asset[]): Promise<boolean>;
+
+  /**
+   * Queries for user-created albums in media gallery.
+   */
   function getAlbumsAsync(): Promise<Album[]>;
+
+  /**
+   * Queries for an album with a specific name.
+   */
   function getAlbumAsync(albumName: string): Promise<Album|null>;
+
+  /**
+   * Creates an album with given name and initial asset.
+   * The asset parameter is required on Android, since it's not possible to create empty album on this platform.
+   */
   function createAlbumAsync(albumName: string, asset: string | Asset): Promise<Album>;
+
+  /**
+   * Adds array of assets to the album.
+   * On Android, by default it copies assets from the current album to provided one, however it's also possible to move them by passing false as copyAssets argument.
+   * In case they're copied you should keep in mind that getAssetsAsync will return duplicated assets.
+   */
   function addAssetsToAlbumAsync(assets: Asset[], album: string | Album, copyAssets?: boolean /* default true */): Promise<boolean>;
+
+  /**
+   * Removes given assets from album.
+   * On Android, album will be automatically deleted if there are no more assets inside.
+   */
   function removeAssetsFromAlbumAsync(assets: Asset[], album: string | Album): Promise<boolean>;
-  // ios only
+
+  /**
+   * Available on iOS only. Fetches a list of moments, which is a group of assets taken around the same place and time.
+   */
   function getMomentsAsync(): Promise<Album[]>;
 
   enum MediaType {
@@ -2898,7 +2943,9 @@ export namespace MediaLibrary {
 
   interface AssetIos {
     mediaSubtypes: MediaType[];
+    // *
     orientation: number;
+    // *
     isFavorite: boolean;
   }
 
@@ -2912,20 +2959,35 @@ export namespace MediaLibrary {
     creationTime: number;
     modificationTime: number;
     duration: number;
+    // *
     localUri: string;
+    // *
     location: object;
+    // *
     exif: object;
   }
+
+  /**
+   * These fields can be obtained only by calling getAssetInfoAsync method
+   */
   //#endregion
 
   // #region Album
   interface AlbumIos {
     type: string;
+    // *
     startTime: number;
+    // *
     endTime: number;
+    // *
     approximateLocation: Location.LocationProps;
+    // *
     locationNames: string[];
   }
+
+  /**
+   * These fields apply only to albums whose type is moment
+   */
 
   interface Album extends AlbumIos {
     id: string;
@@ -2955,9 +3017,15 @@ export namespace MediaLibrary {
 /**
  * https://docs.expo.io/versions/latest/sdk/haptic
  * Provides haptic feedback for iOS 10+ devices using the Taptic Engine.
+ * If this is used in Android the device will use ReactNative.Vibrate instead, it's best to just avoid this.
  */
 export namespace Haptic {
+  /**
+   * Used to let a user know when a selection change has been registered
+   */
   function selection(): void;
+
+
   function notification(type: NotificationFeedbackType): void;
   function impact(style: ImpactFeedbackStyle): void;
 
