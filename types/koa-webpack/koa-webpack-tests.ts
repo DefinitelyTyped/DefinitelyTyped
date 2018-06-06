@@ -53,4 +53,9 @@ koaWebpack({
         middleware.hotClient.close();
         middleware.hotClient.options;
         middleware.hotClient.server;
+
+        // close the middleware
+        middleware.close(() => {
+            console.log('closed');
+        });
     });
