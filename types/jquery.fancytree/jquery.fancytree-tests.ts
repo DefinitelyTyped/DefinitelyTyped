@@ -22,6 +22,10 @@ $("#tree").fancytree(<Fancytree.FancytreeOptions>{
 			]
 		}
 	],
+	extensions: ['dnd5'],
+	dnd5: {
+		dragDrag: (node, data) => { }
+	},
 	click: (ev: JQueryEventObject, node: Fancytree.EventData) => {
 		return true;
 	},
