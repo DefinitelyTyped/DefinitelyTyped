@@ -193,7 +193,7 @@ class Tests {
             });
         });
 
-        t('Custom logger gets called', (assert) => {
+        t('Standard logger type gets called', (assert) => {
             let done = assert.async();
             let wasLoggerCalled = false;
 
@@ -209,6 +209,33 @@ class Tests {
                     log: logFunction,
                     debug: logFunction
                 }
+            };
+
+            $.mockjax(settings);
+
+            $.ajax({
+                url: '/custom-logging-function',
+                error: self._noErrorCallbackExpected,
+                complete: (xhr) => {
+                    assert.equal(wasLoggerCalled, true, 'Standard logger was called');
+                    done();
+                }
+            });
+        });
+
+        t('Custom logger object gets called', (assert) => {
+            let done = assert.async();
+            let wasLoggerCalled = false;
+
+            let logFunction = () => wasLoggerCalled = true;
+
+            let settings: MockJaxSettings = {
+                url: '/custom-logging-function',
+                logging: true,
+                logger: {
+                    customName: logFunction
+                },
+                logLevelMethods: ['customName', 'customName', 'customName', 'customName', 'customName']
             };
 
             $.mockjax(settings);

@@ -9,6 +9,20 @@
 
 /// <reference types="jquery" />
 
+type MockJaxLoggingFunction = (message?: any, ...additionalParameters: any[]) => void;
+
+interface MockJaxStandardLogger {
+    error?: MockJaxLoggingFunction;
+    warn?: MockJaxLoggingFunction;
+    info?: MockJaxLoggingFunction;
+    log?: MockJaxLoggingFunction;
+    debug?: MockJaxLoggingFunction;
+}
+
+interface MockJaxCustomLogger {
+    [key: string]: MockJaxLoggingFunction;
+}
+
 interface MockJaxSettingsHeaders {
     [key: string]: string;
 }
@@ -36,7 +50,7 @@ interface MockJaxSettings {
     onAfterSuccess?: Function;
     onAfterError?: Function;
     onAfterComplete?: Function;
-    logger?: any;
+    logger?: MockJaxStandardLogger | MockJaxCustomLogger;
     logLevelMethods?: string[];
     namespace?: string;
     throwUnmocked?: boolean;
