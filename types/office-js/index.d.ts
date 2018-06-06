@@ -9388,7 +9388,7 @@ declare namespace Office {
     }
 
     /**
-     * A file or item attachment. Used when displaying a reply form
+     * A file or item attachment. Used when displaying a reply form.
      */
     export interface ReplyFormAttachment {
         /**
@@ -9426,7 +9426,7 @@ declare namespace Office {
          */
         attachments?: ReplyFormAttachment[];
         /**
-         * When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * When the reply display call completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
          */
         callback?: (result: AsyncResult) => void;
     }
