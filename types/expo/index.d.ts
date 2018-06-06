@@ -1520,6 +1520,9 @@ export namespace ImagePicker {
         mediaTypes?: keyof _MediaTypeOptions;
     }
 
+    /**
+     * require Permissions.CAMERA_ROLL
+     */
     function launchImageLibraryAsync(options?: ImageLibraryOptions): Promise<ImageResult>;
 
     interface CameraOptions {
@@ -1528,6 +1531,9 @@ export namespace ImagePicker {
         quality?: number;
     }
 
+    /**
+     * require Permissions.CAMERA_ROLL
+     */
     function launchCameraAsync(options?: CameraOptions): Promise<ImageResult>;
 }
 
