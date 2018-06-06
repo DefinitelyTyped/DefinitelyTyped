@@ -298,7 +298,6 @@ declare namespace Chart {
     }
 
     type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
-    type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
 
     interface ChartHoverOptions {
         mode?: string;
