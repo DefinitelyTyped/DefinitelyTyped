@@ -799,7 +799,7 @@ async () => {
   const areAddedToAlbum: boolean = await MediaLibrary.addAssetsToAlbumAsync([mlAsset, mlAsset1], 'album');
   const areDeletedFromAlbum: boolean = await MediaLibrary.removeAssetsFromAlbumAsync([mlAsset, mlAsset1], 'album');
   const momuents: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
-}
+};
 //#endregion
 
 // #region Haptic

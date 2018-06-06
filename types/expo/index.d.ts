@@ -1,4 +1,4 @@
-// Type definitions for expo 26.0
+// Type definitions for expo 27.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -6,6 +6,7 @@
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
 //                 Umidbek Karimov <https://github.com/umidbekkarimov>
+//                 Moshe Feuchtwanger <https://github.com/moshfeu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -2866,9 +2867,7 @@ export namespace Updates {
  * Requires Permissions.CAMERA_ROLL permissions.
  */
 
-
 export namespace MediaLibrary {
-
   /**
    * Creates an asset from existing file. The most common use case is to save a picture taken by Camera.
    */
@@ -3030,8 +3029,6 @@ export namespace Haptic {
    * Used to let a user know when a selection change has been registered
    */
   function selection(): void;
-
-
   function notification(type: NotificationFeedbackType): void;
   function impact(style: ImpactFeedbackStyle): void;
 
@@ -3047,5 +3044,4 @@ export namespace Haptic {
     Error = 'error'
   }
 }
-
 // #endregion
