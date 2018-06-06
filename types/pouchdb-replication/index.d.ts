@@ -1,13 +1,11 @@
-// Type definitions for pouchdb-replication 6.1
+// Type definitions for pouchdb-replication 6.4
 // Project: https://pouchdb.com/
-// Definitions by: Jakub Navratil <https://github.com/trubit>
+// Definitions by: Jakub Navratil <https://github.com/trubit>, Sebastián Ramírez <https://github.com/tiangolo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
-
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
+/// <reference types="pouchdb-find" />
 
 declare namespace PouchDB {
     namespace Replication {
@@ -45,6 +43,11 @@ declare namespace PouchDB {
              * Note: options.filter must be set to '_view' for this option to work.
              */
             view?: string;
+
+            /**
+             * Filter using a query/pouchdb-find selector. Note: Selectors are not supported in CouchDB 1.x.
+             */
+            selector?: Find.Selector;
 
             /** Replicate changes after the given sequence number. */
             since?: any;

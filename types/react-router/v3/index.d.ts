@@ -11,7 +11,7 @@
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Ross Allen <https://github.com/ssorallen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 export {
     ChangeHook,

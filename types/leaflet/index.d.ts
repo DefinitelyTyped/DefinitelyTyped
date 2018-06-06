@@ -2,6 +2,7 @@
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
+//                 Michael Auer <https://github.com/mcauer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,18 +19,15 @@ export class Class {
 
 export class Transformation {
     constructor(a: number, b: number, c: number, d: number);
-
     transform(point: Point, scale?: number): Point;
-
     untransform(point: Point, scale?: number): Point;
 }
 
 export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[];
-
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
-
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
+    function isFlat(latlngs: LatLngExpression[]): boolean;
 }
 
 export namespace PolyUtil {
@@ -185,6 +183,10 @@ export class Point {
     y: number;
 }
 
+export interface Coords extends Point {
+    z: number;
+}
+
 export type PointExpression = Point | PointTuple;
 
 export function point(x: number, y: number, round?: boolean): Point;
@@ -241,20 +243,22 @@ export abstract class Evented extends Class {
      */
     on(eventMap: LeafletEventHandlerFnMap): this;
 
-    /* tslint:disable:unified-signatures */ // With an eventMap there are no additional arguments allowed
     /**
      * Removes a previously added listener function. If no function is specified,
      * it will remove all the listeners of that particular event from the object.
      * Note that if you passed a custom context to on, you must pass the same context
      * to off in order to remove the listener.
      */
+     // With an eventMap there are no additional arguments allowed
+    // tslint:disable-next-line:unified-signatures
     off(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Removes a set of type/listener pairs.
      */
+     // With an eventMap there are no additional arguments allowed
+    // tslint:disable-next-line:unified-signatures
     off(eventMap: LeafletEventHandlerFnMap): this;
-    /* tslint:enable */
     /**
      * Removes all listeners to all events on the object.
      */
@@ -421,6 +425,8 @@ export class Layer extends Evented {
     getEvents?(): {[name: string]: (event: LeafletEvent) => void};
     getAttribution?(): string | null;
     beforeAdd?(map: Map): this;
+
+    protected _map: Map;
 }
 
 export interface GridLayerOptions {
@@ -440,6 +446,19 @@ export interface GridLayerOptions {
     keepBuffer?: number;
 }
 
+export type DoneCallback = (error?: Error, tile?: HTMLElement) => void;
+
+export interface InternalTiles {
+    [key: string]: {
+        active?: boolean,
+        coords: Coords,
+        current: boolean,
+        el: HTMLElement,
+        loaded?: Date,
+        retain?: boolean,
+    };
+}
+
 export class GridLayer extends Layer {
     constructor(options?: GridLayerOptions);
     bringToFront(): this;
@@ -450,6 +469,12 @@ export class GridLayer extends Layer {
     isLoading(): boolean;
     redraw(): this;
     getTileSize(): Point;
+
+    protected createTile(coords: Coords, done: DoneCallback): HTMLElement;
+    protected _tileCoordsToKey(coords: Coords): string;
+
+    protected _tiles: InternalTiles;
+    protected _tileZoom?: number;
 }
 
 export function gridLayer(options?: GridLayerOptions): GridLayer;
@@ -472,6 +497,9 @@ export interface TileLayerOptions extends GridLayerOptions {
 export class TileLayer extends GridLayer {
     constructor(urlTemplate: string, options?: TileLayerOptions);
     setUrl(url: string, noRedraw?: boolean): this;
+
+    protected _abortLoading(): void;
+    protected _getZoomForUrl(): number;
 
     options: TileLayerOptions;
 }
@@ -584,7 +612,7 @@ export interface PolylineOptions extends PathOptions {
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
     constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
     toGeoJSON(): geojson.Feature<T, P>;
-    getLatLngs(): LatLng[];
+    getLatLngs(): LatLng[] | LatLng[][] | LatLng[][][];
     setLatLngs(latlngs: LatLngExpression[]): this;
     isEmpty(): boolean;
     getCenter(): LatLng;
@@ -667,7 +695,8 @@ export function canvas(options?: RendererOptions): Canvas;
  * added/removed on the map as well. Extends Layer.
  */
 export class LayerGroup<P = any> extends Layer {
-    constructor(layers?: Layer[]);
+    constructor(layers?: Layer[], options?: LayerOptions);
+
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
      */
@@ -729,9 +758,9 @@ export class LayerGroup<P = any> extends Layer {
 }
 
 /**
- * Create a layer group, optionally given an initial set of layers.
+ * Create a layer group, optionally given an initial set of layers and an `options` object.
  */
-export function layerGroup(layers: Layer[]): LayerGroup;
+export function layerGroup(layers?: Layer[], options?: LayerOptions): LayerGroup;
 
 /**
  * Extended LayerGroup that also has mouse events (propagated from
@@ -1128,9 +1157,8 @@ export interface PanOptions {
     noMoveStart?: boolean;
 }
 
-/* tslint:disable:no-empty-interface */ // This is not empty, it extends two interfaces into one...
+// This is not empty, it extends two interfaces into one...
 export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
-/* tslint:enable */
 
 export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     paddingTopLeft?: PointExpression;
@@ -1323,7 +1351,7 @@ export class Map extends Evented {
     flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
 
     // Other methods
-    addHandler(name: string, HandlerClass: () => Handler): this; // HandlerClass is actually a constructor function, is this the right way?
+    addHandler(name: string, HandlerClass: typeof Handler): this; // Alternatively, HandlerClass: new(map: Map) => Handler
     remove(): this;
     createPane(name: string, container?: HTMLElement): HTMLElement;
     /**

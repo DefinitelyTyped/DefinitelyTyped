@@ -1,17 +1,20 @@
 // Type definitions for waypoints 4.x
 // Project: https://github.com/imakewebthings/waypoints
-// Definitions by: Dominik Bułaj <https://github.com/dominikbulaj>, Alexey Kolotovchenkov <https://github.com/Koloto>
+// Definitions by: Dominik Bułaj <https://github.com/dominikbulaj>, Alexey Kolotovchenkov <https://github.com/Koloto>, Sergei Dorogin <https://github.com/evil-shrike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-interface WaypointOptions {
-    element: HTMLElement;
-    handler: (this: Waypoint, direction?: string) => void;
+interface WaypointOptionsBase {
     offset?: string|number|(() => number);
-    context?: HTMLElement;
     continuous?: boolean;
     enabled?: boolean;
     group?: string;
     horizontal?: boolean;
+}
+interface WaypointOptions extends WaypointOptionsBase {
+    element: HTMLElement;
+    handler: (this: Waypoint, direction?: string) => void;
+    context?: HTMLElement;
 }
 
 declare class WaypointGroup {

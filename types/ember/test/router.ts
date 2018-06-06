@@ -20,4 +20,23 @@ AppRouter.map(function() {
     });
     this.route('not-found', { path: '/*path' });
     this.mount('my-engine');
+    this.mount('my-engine', { as: 'some-other-engine', path: '/some-other-engine'});
+});
+
+const RouterServiceConsumer = Ember.Service.extend({
+    router: Ember.inject.service('router'),
+    transitionWithoutModel() {
+        Ember.get(this, 'router')
+        .transitionTo('some-route');
+    },
+    transitionWithModel() {
+        const model = Ember.Object.create();
+        Ember.get(this, 'router')
+        .transitionTo('some.other.route', model);
+    },
+    transitionWithModelAndOptions() {
+        const model = Ember.Object.create();
+        Ember.get(this, 'router')
+        .transitionTo('index', model, { queryParams: { search: 'ember' }});
+    }
 });

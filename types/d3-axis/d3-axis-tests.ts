@@ -47,6 +47,7 @@ axisScaleNumber = scaleBand<number>();
 axisScaleNumber = scalePoint<number>();
 axisScaleString = scaleBand();
 axisScaleString = scalePoint();
+
 // --------------------------------------------------------------------------
 // Test AxisContainerElement
 // --------------------------------------------------------------------------
@@ -58,7 +59,8 @@ const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node(
 
 containerElement = svg;
 containerElement = g;
-// containerElement = canvas; // fails, incompatible type
+// $ExpectError
+containerElement = canvas; // fails, incompatible type
 
 // --------------------------------------------------------------------------
 // Test Axis Generators
@@ -77,14 +79,13 @@ let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scal
 
 leftAxis = leftAxis.scale(scalePow());
 const powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, number>>();
-// powerScale = leftAxis.scale(); // fails, without casting as AxisScale is purposely  generic
 
 bottomAxis = bottomAxis.scale(scaleOrdinal<number>());
-// bottomAxis = bottomAxis.scale(scalePow()) // fails, domain of scale incompatible with domain of axis
+// $ExpectError
+bottomAxis = bottomAxis.scale(scalePow()); // fails, domain of scale incompatible with domain of axis
 
 const axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
 const ordinalScale: ScaleOrdinal<string, number> = bottomAxis.scale<ScaleOrdinal<string, number>>();
-// ordinalScale = bottomAxis.scale(); // fails, without casting as AxisScale is purposely  generic
 
 // ticks(...) ----------------------------------------------------------------
 
@@ -119,6 +120,7 @@ const formatFn: ((domainValue: string, index: number) => string) | null = bottom
 
 bottomAxis.tickFormat((d, i) => '#' + i);
 bottomAxis.tickFormat(d => d + '!');
+
 // tickSize(...) ----------------------------------------------------------------
 
 rightAxis = rightAxis.tickSize(5);
@@ -149,14 +151,24 @@ const gTransition = gSelection.transition();
 gSelection.call(topAxis);
 gTransition.call(topAxis);
 
-const svgSelection: Selection<SVGSVGElement, any, any, any> = select<SVGSVGElement, any>('g');
+const svgSelection: Selection<SVGSVGElement, any, any, any> = select<SVGSVGElement, any>('svg');
 const svgTransition = svgSelection.transition();
 
 svgSelection.call(leftAxis);
 svgTransition.call(leftAxis);
 
+const pathSelection: Selection<SVGPathElement, any, any, any> = select<SVGPathElement, any>('path');
+const pathTransition = svgSelection.transition();
+
+// // $ExpectError
+// pathSelection.call(bottomAxis);
+// // $ExpectError
+// pathSelection.call(bottomAxis);
+
 const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
 const canvasTransition = canvasSelection.transition();
 
-// canvasSelection.call(rightAxis); // fails, incompatible context container element
-// canvasTransition.call(rightAxis); // fails, incompatible context container element
+// $ExpectError
+canvasSelection.call(rightAxis); // fails, incompatible context container element
+// $ExpectError
+canvasTransition.call(rightAxis); // fails, incompatible context container element

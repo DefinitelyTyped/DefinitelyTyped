@@ -15,6 +15,9 @@
         "paths": {
             "gulp": [
                 "gulp/v3"
+            ],
+            "micromatch": [
+                "micromatch/v2"
             ]
         },
         "types": [],

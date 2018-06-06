@@ -6,14 +6,23 @@ interface MyDatePickerState {
 }
 
 export default class MyDatePicker extends React.Component<{}, MyDatePickerState> {
+    datepicker: DatePicker | null;
+
     constructor(props: {}) {
         super(props);
         this.state = {date: "2016-05-15"};
     }
 
+    componentDidMount() {
+        if (this.datepicker) {
+            this.datepicker.onPressDate();
+        }
+    }
+
     render() {
         return (
             <DatePicker
+                ref={datepicker => this.datepicker = datepicker}
                 style={{width: 200}}
                 date={this.state.date}
                 mode="date"

@@ -7,7 +7,7 @@ import * as es6styleimport from 'nedb';
 import nedb = require('nedb');
 
 class BaseCollection<T> {
-    private dataStore: nedb;
+    private readonly dataStore: nedb;
 
     constructor(dataStore: nedb) {
         this.dataStore = dataStore;

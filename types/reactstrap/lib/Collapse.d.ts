@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLElement> {
+export type CollapseProps<T = {}> = React.HTMLProps<HTMLElement> & {
   isOpen?: boolean;
   classNames?: string;
   cssModule?: CSSModule;
@@ -12,7 +13,12 @@ interface Props extends React.HTMLProps<HTMLElement> {
   };
   onOpened?: () => void;
   onClosed?: () => void;
-}
+  onEntering?: () => void;
+  onEntered?: () => void;
+  onExit?: () => void;
+  onExiting?: () => void;
+  onExited?: () => void;
+} & T;
 
-declare var Collapse: React.StatelessComponent<Props>;
+declare class Collapse<T = {[key: string]: any}> extends React.Component<CollapseProps<T>> {}
 export default Collapse;

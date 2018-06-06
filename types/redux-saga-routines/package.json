@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "redux": "^3.7.2",
-        "redux-saga": "^0.15.6"
-    }
-}

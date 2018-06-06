@@ -1,8 +1,12 @@
-// Type definitions for Express 4.x
+// Type definitions for Express 4.16
 // Project: http://expressjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Michał Lytek <https://github.com/19majkel94>, Kacper Polak <https://github.com/kacepe>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Michał Lytek <https://github.com/19majkel94>
+//                 Kacper Polak <https://github.com/kacepe>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
+//                 Sami Jaber <https://github.com/samijaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -18,6 +22,8 @@ declare global {
 }
 
 import * as http from "http";
+import { EventEmitter } from "events";
+import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from "range-parser";
 
 export interface NextFunction {
     // tslint:disable-next-line callable-types (In ts2.1 it thinks the type alias has no call signatures)
@@ -73,8 +79,12 @@ export interface IRouter extends RequestHandler {
      *      });
      */
     param(name: string, handler: RequestParamHandler): this;
-    // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
-    // deprecated since express 4.11.0
+
+    /**
+     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
+     *
+     * @deprecated since version 4.11
+     */
     param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
     /**
@@ -165,7 +175,7 @@ export interface CookieOptions {
 
 export interface ByteRange { start: number; end: number; }
 
-export interface RequestRanges extends Array<ByteRange> { type: string; }
+export interface RequestRanges extends RangeParserRanges { }
 
 export type Errback = (err: Error) => void;
 
@@ -274,21 +284,19 @@ export interface Request extends http.IncomingMessage, Express.Request {
     acceptsLanguages(...lang: string[]): string | false;
 
     /**
-     * Parse Range header field,
-     * capping to the given `size`.
+     * Parse Range header field, capping to the given `size`.
      *
-     * Unspecified ranges such as "0-" require
-     * knowledge of your resource length. In
-     * the case of a byte range this is of course
-     * the total number of bytes. If the Range
-     * header field is not given `null` is returned,
-     * `-1` when unsatisfiable, `-2` when syntactically invalid.
+     * Unspecified ranges such as "0-" require knowledge of your resource length. In
+     * the case of a byte range this is of course the total number of bytes.
+     * If the Range header field is not given `undefined` is returned.
+     * If the Range header field is given, return value is a result of range-parser.
+     * See more ./types/range-parser/index.d.ts
      *
-     * NOTE: remember that ranges are inclusive, so
-     * for example "Range: users=0-3" should respond
-     * with 4 users when available, not 3.
+     * NOTE: remember that ranges are inclusive, so for example "Range: users=0-3"
+     * should respond with 4 users when available, not 3.
+     *
      */
-    range(size: number): RequestRanges|null|-1|-2;
+    range(size: number, options?: RangeParserOptions): RangeParserRanges | RangeParserResult | undefined;
 
     /**
      * Return an array of Accepted media types
@@ -297,7 +305,7 @@ export interface Request extends http.IncomingMessage, Express.Request {
     accepted: MediaType[];
 
     /**
-     * @deprecated Use either req.params, req.body or req.query, as applicable.
+     * @deprecated since 4.11 Use either req.params, req.body or req.query, as applicable.
      *
      * Return the value of param `name` when present or `defaultValue`.
      *
@@ -441,6 +449,13 @@ export interface Request extends http.IncomingMessage, Express.Request {
     baseUrl: string;
 
     app: Application;
+
+    /**
+     * After middleware.init executed, Request will contain res and next properties
+     * See: express/lib/middleware/init.js
+     */
+    res?: Response;
+    next?: NextFunction;
 }
 
 export interface MediaType {
@@ -698,6 +713,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      */
     set(field: any): Response;
     set(field: string, value?: string): Response;
+    set(field: string, value?: string[]): Response;
 
     header(field: any): Response;
     header(field: string, value?: string): Response;
@@ -807,6 +823,23 @@ export interface Response extends http.ServerResponse, Express.Response {
     vary(field: string): Response;
 
     app: Application;
+
+    /**
+     * Appends the specified value to the HTTP response header field.
+     * If the header is not already set, it creates the header with the specified value.
+     * The value parameter can be a string or an array.
+     *
+     * Note: calling res.set() after res.append() will reset the previously-set header value.
+     *
+     * @since 4.11.0
+     */
+    append(field: string, value?: string[] | string): Response;
+
+    /**
+     * After middleware.init executed, Response will contain req property
+     * See: express/lib/middleware/init.js
+     */
+    req?: Request;
 }
 
 export interface Handler extends RequestHandler { }
@@ -815,12 +848,12 @@ export type RequestParamHandler = (req: Request, res: Response, next: NextFuncti
 
 export type ApplicationRequestHandler<T> = IRouterHandler<T> & IRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
 
-export interface Application extends IRouter, Express.Application {
+export interface Application extends EventEmitter, IRouter, Express.Application {
     /**
      * Express instance itself is a request handler, which could be invoked without
      * third argument.
      */
-    (req: Request, res: Response): any;
+    (req: Request | http.IncomingMessage, res: Response | http.ServerResponse): any;
 
     /**
      * Initialize the server.
@@ -882,7 +915,12 @@ export interface Application extends IRouter, Express.Application {
     get: ((name: string) => any) & IRouterMatcher<this>;
 
     param(name: string | string[], handler: RequestParamHandler): this;
-    // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
+
+    /**
+     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
+     *
+     * @deprecated since version 4.11
+     */
     param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
     /**
@@ -1036,6 +1074,22 @@ export interface Application extends IRouter, Express.Application {
     _router: any;
 
     use: ApplicationRequestHandler<this>;
+
+    /**
+     * The mount event is fired on a sub-app, when it is mounted on a parent app.
+     * The parent app is passed to the callback function.
+     *
+     * NOTE:
+     * Sub-apps will:
+     *  - Not inherit the value of settings that have a default value. You must set the value in the sub-app.
+     *  - Inherit the value of settings with no default value.
+     */
+    on: (event: string, callback: (parent: Application) => void) => this;
+
+    /**
+     * The app.mountpath property contains one or more path patterns on which a sub-app was mounted.
+     */
+    mountpath: string | string[];
 }
 
 export interface Express extends Application {

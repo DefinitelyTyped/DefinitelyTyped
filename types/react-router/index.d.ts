@@ -14,8 +14,11 @@
 //                 Jérémy Fauvel <https://github.com/grmiade>
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Egor Shulga <https://github.com/egorshulga>
+//                 Youen Toupin <https://github.com/neuoy>
+//                 Rahul Raina <https://github.com/rraina>
+//                 Maksim Sharipov <https://github.com/pret-a-porter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as H from 'history';
@@ -34,14 +37,14 @@ export interface RouterChildContext<P> {
 export interface MemoryRouterProps {
   initialEntries?: H.LocationDescriptor[];
   initialIndex?: number;
-  getUserConfirmation?: (() => void);
+  getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
   keyLength?: number;
 }
 
 export class MemoryRouter extends React.Component<MemoryRouterProps, any> { }
 
 export interface PromptProps {
-  message: string | ((location: H.Location) => void);
+  message: string | ((location: H.Location) => string | boolean);
   when?: boolean;
 }
 export class Prompt extends React.Component<PromptProps, any> { }
@@ -56,11 +59,15 @@ export interface RedirectProps {
 }
 export class Redirect extends React.Component<RedirectProps, any> { }
 
-export interface RouteComponentProps<P> {
-  match: match<P>;
-  location: H.Location;
+export interface StaticContext {
+  statusCode?: number;
+}
+
+export interface RouteComponentProps<P, C extends StaticContext = StaticContext> {
   history: H.History;
-  staticContext?: any;
+  location: H.Location;
+  match: match<P>;
+  staticContext: C | undefined;
 }
 
 export interface RouteProps {
@@ -75,7 +82,7 @@ export interface RouteProps {
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
 
 export interface RouterProps {
-  history: any;
+  history: H.History;
 }
 export class Router extends React.Component<RouterProps, any> { }
 
@@ -99,7 +106,13 @@ export interface match<P> {
   url: string;
 }
 
+// Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
-export function withRouter<P>(component: React.ComponentType<RouteComponentProps<any> & P>): React.ComponentClass<P>;
-// decorator signature
-export function withRouter<P, TFunction extends React.ComponentClass<P>>(target: TFunction): TFunction;
+
+// There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
+// they are decorating. Due to this, if you are using @withRouter decorator in your code,
+// you will see a bunch of errors from TypeScript. The current workaround is to use withRouter() as a function call
+// on a separate line instead of as a decorator.
+export function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;

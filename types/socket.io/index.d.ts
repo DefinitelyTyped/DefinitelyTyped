@@ -5,11 +5,10 @@
 
 ///<reference types="node" />
 
-declare module 'socket.io' {
-	var server: SocketIOStatic;
-
-	export = server;
-}
+declare const SocketIO: SocketIOStatic;
+export = SocketIO;
+/** @deprecated Available as a global for backwards-compatibility. */
+export as namespace SocketIO;
 
 interface SocketIOStatic {
 	/**
@@ -45,7 +44,6 @@ interface SocketIOStatic {
 }
 
 declare namespace SocketIO {
-
 	interface Server {
 		engine: { ws: any };
 
@@ -476,6 +474,21 @@ declare namespace SocketIO {
 		compress( compress: boolean ): Namespace;
 	}
 
+	interface Packet extends Array<any> {
+		/**
+		 * Event name
+		 */
+		[0]: string;
+		/**
+		 * Packet data
+		 */
+		[1]: any;
+		/**
+		 * Ack function
+		 */
+		[2]: (...args: any[]) => void;
+	}
+
 	/**
 	 * The socket, which handles our connection for a namespace. NOTE: while
 	 * we technically extend NodeJS.EventEmitter, we're not putting it here
@@ -613,6 +626,13 @@ declare namespace SocketIO {
 		 * @see to( room )
 		 */
 		in( room: string ): Socket;
+
+		/**
+		 * Registers a middleware, which is a function that gets executed for every incoming Packet and receives as parameter the packet and a function to optionally defer execution to the next registered middleware.
+		 * 
+		 * Errors passed to middleware callbacks are sent as special error packets to clients.
+		 */
+		use( fn: ( packet: Packet, next: (err?: any) => void ) => void ): Socket;
 
 		/**
 		 * Sends a 'message' event

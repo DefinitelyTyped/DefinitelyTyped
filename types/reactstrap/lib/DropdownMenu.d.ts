@@ -1,11 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export type DropdownMenuProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   right?: boolean;
   className?: string;
   cssModule?: CSSModule;
-}
+  flip?: boolean;
+} & T;
 
-declare var DropdownMenu: React.StatelessComponent<Props>;
+declare class DropdownMenu<T = {[key: string]: any}> extends React.Component<DropdownMenuProps<T>> {}
 export default DropdownMenu;

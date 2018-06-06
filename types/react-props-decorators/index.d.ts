@@ -2,7 +2,7 @@
 // Project: https://github.com/popkirby/react-props-decorators
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="react" />
 

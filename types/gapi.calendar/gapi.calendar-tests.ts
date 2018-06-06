@@ -149,4 +149,24 @@
   request.execute(function(event) {
     appendPre('Event created: ' + event.htmlLink);
   });
+
+
+  
+  function deleteEvent(calendarEventId: any) {
+    var request = gapi.client.calendar.events.delete({
+      calendarId: 'primary',
+      eventId: calendarEventId,
+      sendNotifications: true
+    });
+
+    request.then(
+      (response) => {
+        appendPre('Successfully deleted event ' + calendarEventId);
+      },
+      (error) => {
+        appendPre('Unable to delete event from your calendar' + calendarEventId);
+      }
+    );
+  }
+
 }

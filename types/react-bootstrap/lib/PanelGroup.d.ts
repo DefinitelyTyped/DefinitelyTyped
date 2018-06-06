@@ -5,10 +5,10 @@ declare namespace PanelGroup {
     export interface PanelGroupProps extends React.HTMLProps<PanelGroup> {
         accordion?: boolean;
         activeKey?: any;
-        bsSize?: Sizes;
-        bsStyle?: string;
         defaultActiveKey?: any;
         onSelect?: SelectCallback;
+        role?: string;
+        generateChildId?: Function;
     }
 }
 declare class PanelGroup extends React.Component<PanelGroup.PanelGroupProps> { }

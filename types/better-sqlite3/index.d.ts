@@ -4,9 +4,7 @@
 //                 Mathew Rumsey <https://github.com/matrumz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
-import * as Integer from 'integer';
+import Integer = require('integer');
 
 interface RunResult {
 	changes: number;

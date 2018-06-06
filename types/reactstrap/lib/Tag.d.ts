@@ -1,12 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export type TagProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   color?: string;
   pill?: boolean;
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare var Tag: React.StatelessComponent<Props>;
+declare class Tag<T = {[key: string]: any}> extends React.Component<TagProps<T>> {}
 export default Tag;

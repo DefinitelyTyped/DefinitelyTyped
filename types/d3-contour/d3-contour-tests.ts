@@ -63,6 +63,8 @@ let contGen: d3Contour.Contours = d3Contour.contours();
 
 // size(...) -------------------------------------------------------------------
 
+const multiPolygon: d3Contour.ContourMultiPolygon = contGen.contour(values, 5);
+
 // set with chainability
 contGen = contGen.size([n, m]);
 
@@ -111,7 +113,11 @@ interface CustomDatum {
 
 // Get contour generator -------------------------------------------------------
 
-const contDensDefault: d3Contour.ContourDensity<[number, number]> = d3Contour.contourDensity();
+// test generic parameter defaults for ContourDensity and contourDensity
+const contDensDefault: d3Contour.ContourDensity = d3Contour.contourDensity();
+// tslint:disable-next-line: use-default-type-parameter
+const contDensDefaultCopy: d3Contour.ContourDensity<[number, number]> = contDensDefault;
+// test with explicit generic parameter
 let contDensCustom: d3Contour.ContourDensity<CustomDatum> = d3Contour.contourDensity<CustomDatum>();
 
 // Configure contour generator =================================================

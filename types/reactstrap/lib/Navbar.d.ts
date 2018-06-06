@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export type NavbarProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   light?: boolean;
   dark?: boolean;
   inverse?: boolean;
@@ -14,7 +15,7 @@ interface Props {
   cssModule?: CSSModule;
   toggleable?: boolean | string;
   expand?: boolean | string;
-}
+} & T;
 
-declare var Navbar: React.StatelessComponent<Props>;
+declare class Navbar<T = {[key: string]: any}> extends React.Component<NavbarProps<T>> {}
 export default Navbar;

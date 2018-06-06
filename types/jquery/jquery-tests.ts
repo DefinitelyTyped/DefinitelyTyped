@@ -1,5 +1,3 @@
-// tslint:disable:interface-name
-
 function JQueryStatic() {
     function type_assertion() {
         const $Canvas = $ as JQueryStatic<HTMLCanvasElement>;
@@ -269,6 +267,11 @@ function JQueryStatic() {
             // $ExpectType jqXHR<any>
             jqXHR;
         });
+    }
+
+    function camelCase() {
+        // $ExpectType string
+        $.camelCase('foo-bar');
     }
 
     function contains() {
@@ -652,9 +655,9 @@ function JQueryStatic() {
     }
 
     function isNumeric() {
-        function type_guard(obj: boolean) {
+        function type_guard(obj: boolean | number) {
             if ($.isNumeric(obj)) {
-                // $ExpectType (true & number) | (false & number)
+                // $ExpectType number
                 obj;
             } else {
                 // $ExpectType boolean
@@ -2653,6 +2656,9 @@ function JQuery() {
             $('p').addClass('className');
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').addClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').addClass(function(index, currentClassName) {
                 // $ExpectType HTMLElement
                 this;
@@ -2675,6 +2681,9 @@ function JQuery() {
             $('p').removeClass('className');
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').removeClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').removeClass(function(index, currentClassName) {
                 // $ExpectType HTMLElement
                 this;
@@ -2693,6 +2702,15 @@ function JQuery() {
         function toggleClass() {
             // $ExpectType JQuery<HTMLElement>
             $('p').toggleClass('className', true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass('className');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy'], false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').toggleClass(function(index, className, state) {
@@ -3617,6 +3635,14 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', 'myData', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 'td', 'myData', function(this: I1, event) {
                 // $ExpectType I1
                 this;
@@ -3633,6 +3659,14 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', null, 'myData', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', null, 'myData', function(this: I1, event) {
                 // $ExpectType I1
                 this;
@@ -3645,6 +3679,14 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
                 event;
             });
 
@@ -3668,6 +3710,14 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 3, function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 3, function(this: I1, event) {
                 // $ExpectType I1
                 this;
@@ -3680,6 +3730,38 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryInputEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryInputEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryMouseEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryMouseEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryKeyEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryKeyEventObject
                 event;
             });
 
@@ -5135,7 +5217,7 @@ function JQuery() {
     function manipulation() {
         function after() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
+            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').after(function(index, html) {
@@ -5200,7 +5282,7 @@ function JQuery() {
 
         function append() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
+            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').append(function(index, html) {
@@ -5268,7 +5350,7 @@ function JQuery() {
 
         function before() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
+            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').before(function(index, html) {
@@ -5333,7 +5415,7 @@ function JQuery() {
 
         function prepend() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()], [new Element(), $('p').contents()]);
+            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()], [new Element(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').prepend(function(index, html) {
@@ -6195,7 +6277,7 @@ function JQuery_AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType AjaxSettingsBase<any>
+            // $ExpectType AjaxSettings<any>
             settings;
         },
         cache: false,
@@ -6305,7 +6387,7 @@ function JQuery_AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType AjaxSettingsBase<any>
+            // $ExpectType AjaxSettings<any>
             settings;
 
             return false;

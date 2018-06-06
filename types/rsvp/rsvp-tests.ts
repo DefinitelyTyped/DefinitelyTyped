@@ -324,3 +324,7 @@ function testOnAndOff() {
         );
     });
 }
+
+function testAssignableToPromise() {
+    const promise: Promise<number> = RSVP.resolve(0);
+}

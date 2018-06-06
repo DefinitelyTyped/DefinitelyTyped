@@ -2,7 +2,7 @@
 // Project: https://github.com/atom/first-mate/
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Disposable } from "event-kit";
 

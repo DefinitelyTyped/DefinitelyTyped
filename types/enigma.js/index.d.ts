@@ -38,7 +38,7 @@ declare namespace enigmaJS {
         /**
          * mixin.extend is an object containing methods to extend the generated API with. These method names cannot already exist or enigma.js will throw an error.
          */
-        extend?: [any];
+        extend?: any;
 
         /**
          * mixin.override is an object containing methods that overrides existing API methods.
@@ -46,7 +46,35 @@ declare namespace enigmaJS {
          * Be careful when overriding, you may break expected behaviors in other mixins or your application.
          * base is a reference to the previous mixin method, can be used to invoke the mixin chain before this mixin method.
          */
-        override?: [any];
+        override?: any;
+    }
+
+    interface IResponseInterceptors {
+        /**
+         * This method is invoked when a previous interceptor has rejected the promise, use this to handle for example errors before they are sent into mixins.
+         * @param session refers to the session executing the interceptor.
+         * @param request is the JSON-RPC request resulting in this error. You may use .retry() to retry sending it to QIX Engine.
+         * @param error is whatever the previous interceptor rejected with.
+         */
+        onRejected?(session: ISession, request: any, error: any): Promise<any>;
+
+        /**
+         * This method is invoked when a promise has been successfully resolved, use this to modify the result or reject the promise chain before it is sent to mixins.
+         * @param session refers to the session executing the interceptor.
+         * @param request is the JSON-RPC request resulting in this error. You may use .retry() to retry sending it to QIX Engine.
+         * @param error is whatever the previous interceptor resolved with.
+         */
+        onFulfilled?(session: ISession, request: any, result: any): Promise<any>;
+    }
+
+    interface IRequestInterceptors {
+        /**
+         * This method is invoked when a request is about to be sent to QIX Engine.
+         * @param session refers to the session executing the interceptor.
+         * @param request is the JSON-RPC request resulting in this error. You may use .retry() to retry sending it to QIX Engine.
+         * @returns request the new request
+         */
+        onFulfilled?(session: ISession, request: any, result: any): any;
     }
 
     interface IProtocol {
@@ -83,13 +111,19 @@ declare namespace enigmaJS {
          * See Mixins section for more information how each entry in this array should look like.
          * Mixins are applied in the array order.
          */
-        mixins?: [any];
+        mixins?: IMixin[];
         /**
-         * Interceptors for augmenting responses before they are passed into mixins and end-users.
+         * Interceptors for augmenting requests before they are sent to QIX Engine.
          * See Interceptors section for more information how each entry in this array should look like.
          * Interceptors are applied in the array order.
          */
-        interceptors?: [any];
+        requestInterceptors?: IRequestInterceptors[];
+        /**
+         * Interceptors for augmenting responses before they are sent to QIX Engine.
+         * See Interceptors section for more information how each entry in this array should look like.
+         * Interceptors are applied in the array order.
+         */
+        responseInterceptors?: IResponseInterceptors[];
         /**
          * An object containing additional JSON-RPC request parameters.
          * protocol.delta :  Set to false to disable the use of the bandwidth-reducing delta protocol.
@@ -148,7 +182,7 @@ declare namespace enigmaJS {
          * @param event - Event that triggers the function
          * @param func - Called function
          */
-        on(event: "opened" | "close" | "suspended" | "resumed" | string, func: any): void;
+        on(event: "opened" | "closed" | "suspended" | "resumed" | string, func: any): void;
     }
 
     interface IGeneratedAPI {

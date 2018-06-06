@@ -3,6 +3,7 @@
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>
 //                 Christian Rackerseder <https://github.com/screendriver>
 //                 BendingBender <https://github.com/BendingBender>
+//                 Aleh Zasypkin <https://github.com/azasypkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -82,6 +83,7 @@ interface Options {
     interval?: number;
     stream?: NodeJS.WritableStream;
     enabled?: boolean;
+    hideCursor?: boolean;
 }
 
 interface PersistOptions {
@@ -119,13 +121,15 @@ declare class Ora {
 
     color: Color;
 
-    promise(action: PromiseLike<any>, options?: Options | string): Ora;
+    frameIndex: number;
 }
 
 interface oraFactory {
     (options?: Options | string): Ora;
 
     new (options?: Options | string): Ora;
+
+    promise(action: PromiseLike<any>, options?: Options | string): Ora;
 }
 
 declare const ora: oraFactory;

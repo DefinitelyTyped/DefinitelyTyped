@@ -30,7 +30,7 @@ class RouteOne extends React.Component<RouteComponentProps<{}>> {
 }
 
 class RouteTwo extends React.Component<RouteComponentProps<{}>> {
-    private onUpdate: OnUpdateCall = (location) => { console.log("update"); };
+    private readonly onUpdate: OnUpdateCall = (location) => { console.log("update"); };
 
     render() {
         return <div>
@@ -65,11 +65,11 @@ interface Params {
 }
 
 class RouteFour extends React.Component<RouteComponentProps<{}>> {
-    private routes: RouteConfiguration[] = [
+    private readonly routes: RouteConfiguration[] = [
         { path: "/four/something/:page", component: RouteTwo }
     ];
 
-    private getKey: GetKeyFunction<Params> = (match, route, location) => {
+    private readonly getKey: GetKeyFunction<Params> = (match, route, location) => {
         return "my-key-" + match.url;
     }
 

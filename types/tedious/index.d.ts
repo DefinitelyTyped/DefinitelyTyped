@@ -336,7 +336,7 @@ export declare class Request extends events.EventEmitter {
 
     /**
      * Add an input parameter to the request.
-     * @param name The parameter name. This should correspond to a parameter in the SQL, or a parameter that a called procedure expects. The name should not start '@'.
+     * @param name The parameter name. This should correspond to a parameter in the SQL, or a parameter that a called procedure expects. The name should not start with '@'.
      * @param type One of the supported data types.
      * @param value The value that the parameter is to be given. The Javascript type of the argument should match that documented for data types.
      * @param options Additional type options. Optional.
@@ -481,7 +481,7 @@ export declare class Connection extends events.EventEmitter {
      * @param name A string representing a name to associate with the transaction. Optional, and defaults to an empty string. In case of a nested transaction, naming the transaction name has no effect.
      * @param isolationLevel The isolation level that the transaction is to be run with.
      */
-    transaction(callback: (error: Error, done: (error?: Error) => void) => void, name?: string, isolationLevel?: ISOLATION_LEVEL): void;
+    transaction(callback: (error: Error, done: (error?: Error, doneCallback?: (error?: Error, ...args: any[]) => void, ...args: any[]) => void) => void, name?: string, isolationLevel?: ISOLATION_LEVEL): void;
 
     /**
      * Prepare the SQL represented by the request. The request can then be used in subsequent calls to execute and unprepare

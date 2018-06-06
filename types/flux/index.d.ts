@@ -3,9 +3,9 @@
 // Definitions by: Steve Baker <https://github.com/stkb>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
-import * as Dispatcher from "./lib/Dispatcher";
+import Dispatcher = require("./lib/Dispatcher");
 
 export {
     Dispatcher

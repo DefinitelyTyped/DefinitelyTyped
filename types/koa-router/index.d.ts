@@ -87,12 +87,23 @@ declare module Router {
 
 }
 
+declare class ParamName {
+    asterisk: boolean;
+    delimiter: string;
+    name: string;
+    optional: boolean;
+    partial: boolean;
+    pattern: string;
+    prefix: string;
+    repeat: string;
+}
+
 declare class Layer {
 
     opts: Layer.ILayerOptions;
     name: string;
     methods: string[];
-    paramNames: string[];
+    paramNames: ParamName[];
     stack: Router.IMiddleware[];
     regexp: RegExp;
     path: string;
@@ -150,7 +161,7 @@ declare class Router {
      * "down" the middleware stack.
      */
     use(...middleware: Array<Router.IMiddleware>): Router;
-    use(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    use(path: string | string[] | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP get method
@@ -219,7 +230,7 @@ declare class Router {
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    middlewares(): Router.IMiddleware;
+    middleware(): Router.IMiddleware;
 
     /**
      * Returns separate middleware for responding to `OPTIONS` requests with

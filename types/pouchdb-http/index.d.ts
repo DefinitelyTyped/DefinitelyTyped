@@ -7,10 +7,5 @@
 /// <reference types="pouchdb-core" />
 /// <reference types="pouchdb-adapter-http" />
 
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
-
-declare module 'pouchdb-http' {
-    const PouchDb: PouchDB.Static;
-    export = PouchDb;
-}
+declare const PouchDb: PouchDB.Static;
+export = PouchDb;

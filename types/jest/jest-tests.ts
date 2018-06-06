@@ -10,6 +10,10 @@ declare const $: any;
 // Tests based on the Jest website
 jest.unmock('../sum');
 
+class TestClass { }
+
+describe(TestClass, () => { });
+
 describe('sum', () => {
     it('adds 1 + 2 to equal 3', () => {
         const sum: (a: number, b: number) => number = require('../sum');
@@ -288,7 +292,7 @@ describe('missing tests', () => {
        class Closure<T> {
            private arg: T;
 
-           constructor(private fn: (arg: T) => void) {
+           constructor(private readonly fn: (arg: T) => void) {
                this.fn = fn;
            }
 
@@ -309,9 +313,9 @@ describe('missing tests', () => {
        expect(spy).lastCalledWith('jest');
        expect(spy).toBeCalledWith('jest');
        expect(jest.isMockFunction(spy)).toBeTruthy();
-   });
+    });
 
-    it('tests all mising Mocks functionality', () => {
+    it('tests all missing Mocks functionality', () => {
        type FruitsGetter = () => string[];
        const mock: jest.Mock<FruitsGetter> = jest.fn<FruitsGetter>();
        mock.mockImplementationOnce(() => ['Orange', 'Apple', 'Plum']);
@@ -328,32 +332,72 @@ describe('missing tests', () => {
        expect(thisMock()).toBe(this);
    });
 
+    it('async test with mockResolvedValue and mockResolvedValueOnce', async () => {
+      const asyncMock = jest
+        .fn()
+        .mockResolvedValue('default')
+        .mockResolvedValueOnce('first call')
+        .mockResolvedValueOnce('second call');
+
+      await asyncMock(); // first call
+      await asyncMock(); // second call
+      await asyncMock(); // default
+      await asyncMock(); // default
+    });
+
+    it('async test with mockRejectedValue', async () => {
+      const asyncMock = jest.fn().mockRejectedValue(new Error('Async error'));
+
+      await asyncMock(); // throws "Async error"
+    });
+
+    it('async test with mockResolvedValueOnce and mockRejectedValueOnce', async () => {
+      const asyncMock = jest
+        .fn()
+        .mockResolvedValueOnce('first call')
+        .mockRejectedValueOnce(new Error('Async error'));
+
+      await asyncMock(); // first call
+      await asyncMock(); // throws "Async error"
+    });
+
+    it('tests mock name functionality', () => {
+        const mock: jest.Mock = jest.fn();
+        mock.mockName('Carrot');
+        expect(mock.getMockName()).toBe('Carrot');
+    });
+
+    it('tests mock name functionality', () => {
+        const mock = spyOn(console, 'warn');
+        expect(mock).toHaveBeenCalled();
+    });
+
     it('creates snapshoter', () => {
        jest.disableAutomock().mock('./render', () => jest.fn((): string => "{Link to: \"facebook\"}"), { virtual: true });
        const render: () => string = require('./render');
        expect(render()).toMatch(/Link/);
        jest.enableAutomock();
-   });
+    });
 
     it('runs only pending timers', () => {
         jest.useRealTimers();
         setTimeout(() => expect(1).not.toEqual(0), 3000);
         jest.runOnlyPendingTimers().runTimersToTime(300);
-   });
+    });
 
     it('runs all timers', () => {
         jest.clearAllTimers();
         jest.useFakeTimers();
         setTimeout(() => expect(0).not.toEqual(1), 3000);
         jest.runAllTimers();
-   });
+    });
 
     it('cleares cache', () => {
        const sum1 = require('../sum');
        jest.resetModules();
        const sum2 = require('../sum');
        expect(sum1).not.toBe(sum2);
-   });
+    });
 });
 
 describe('toMatchSnapshot', () => {
@@ -516,7 +560,7 @@ describe('beforeEach with timeout', () => {
 class TestApi {
     constructor() { }
     testProp: boolean;
-    private anotherProp: string;
+    private readonly anotherProp: string;
     testMethod(a: number): string { return ""; }
 }
 
@@ -633,6 +677,22 @@ describe('rejects', () => {
         const expectation = expect(Promise.reject(new Error('error'))).rejects.toMatch('error');
         expect(expectation instanceof Promise).toBeTruthy();
         return expectation;
+    });
+});
+
+// https://facebook.github.io/jest/docs/en/expect.html#tohavepropertykeypath-value
+describe('toHaveProperty', () => {
+    it('it accepts a keyPath as string', () => {
+        expect({ a: { b: {}}}).toHaveProperty('a');
+    });
+    it('it accepts a keyPath as string with dot notation', () => {
+        expect({ a: { b: {}}}).toHaveProperty('a.b');
+    });
+    it('it accepts a keyPath as an array', () => {
+      expect({ a: { b: {}}}).toHaveProperty(['a', 'b']);
+    });
+    it('it accepts a keyPath as an array containing non-string values', () => {
+      expect({ a: ['b']}).toHaveProperty(['a', 0]);
     });
 });
 

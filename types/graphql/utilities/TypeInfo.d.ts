@@ -1,4 +1,5 @@
-import { GraphQLSchema } from '../type/schema';
+import Maybe from "../tsutils/Maybe";
+import { GraphQLSchema } from "../type/schema";
 import {
     GraphQLOutputType,
     GraphQLCompositeType,
@@ -7,9 +8,9 @@ import {
     GraphQLArgument,
     GraphQLEnumValue,
     GraphQLType,
-} from '../type/definition';
-import { GraphQLDirective } from '../type/directives';
-import { ASTNode, FieldNode } from '../language/ast';
+} from "../type/definition";
+import { GraphQLDirective } from "../type/directives";
+import { ASTNode, FieldNode } from "../language/ast";
 
 /**
  * TypeInfo is a utility class which, given a GraphQL schema, can keep track
@@ -22,22 +23,27 @@ export class TypeInfo {
         // NOTE: this experimental optional second parameter is only needed in order
         // to support non-spec-compliant codebases. You should never need to use it.
         // It may disappear in the future.
-        getFieldDefFn?: getFieldDef
+        getFieldDefFn?: getFieldDef,
+        // Initial type may be provided in rare cases to facilitate traversals
+        // beginning somewhere other than documents.
+        initialType?: GraphQLType
     );
 
-    getType(): GraphQLOutputType;
-    getParentType(): GraphQLCompositeType;
-    getInputType(): GraphQLInputType;
-    getFieldDef(): GraphQLField<any, any>;
-    getDirective(): GraphQLDirective;
-    getArgument(): GraphQLArgument;
-    getEnumValue(): GraphQLEnumValue;
+    getType(): Maybe<GraphQLOutputType>;
+    getParentType(): Maybe<GraphQLCompositeType>;
+    getInputType(): Maybe<GraphQLInputType>;
+    getParentInputType(): Maybe<GraphQLInputType>;
+    getFieldDef(): GraphQLField<any, Maybe<any>>;
+    getDefaultValue(): Maybe<any>;
+    getDirective(): Maybe<GraphQLDirective>;
+    getArgument(): Maybe<GraphQLArgument>;
+    getEnumValue(): Maybe<GraphQLEnumValue>;
     enter(node: ASTNode): any;
     leave(node: ASTNode): any;
 }
 
-export type getFieldDef = (
+type getFieldDef = (
     schema: GraphQLSchema,
     parentType: GraphQLType,
-    fieldNode: FieldNode,
-) => GraphQLField<any, any>;
+    fieldNode: FieldNode
+) => Maybe<GraphQLField<any, any>>;

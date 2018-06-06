@@ -1,4 +1,4 @@
-import Croppie from 'croppie';
+import * as Croppie from 'croppie';
 
 const c = new Croppie(document.getElementById('item'), {
     boundary: { width: 300, height: 300 },
@@ -21,5 +21,7 @@ c.result({ type: 'blob' }).then(blob => {
     let x: Blob;
     x = blob;
 });
+
+c.get();
 
 c.destroy();

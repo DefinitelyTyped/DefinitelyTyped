@@ -36,7 +36,8 @@ export interface DialogflowAppOptions {
 }
 
 /**
- * This is the class that handles the communication with Dialogflow's fulfillment API.
+ * This is the class that handles the communication with Dialogflow's fulfillment API v1.
+ * Doesn't currently support Dialogflow's fulfillment API v2.
  */
 export class DialogflowApp extends AssistantApp {
     /**

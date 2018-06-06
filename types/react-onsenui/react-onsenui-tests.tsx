@@ -28,14 +28,15 @@ export class App extends React.Component<AppProps, AppState> {
         return (
             <Splitter>
                 <SplitterSide
+                    className='left'
                     side='left'
                     collapse={true}
                     isOpen={this.state.isOpen}
                     onClose={() => this.hide()}
-                    isSwipeable={true}>
+                    swipeable>
                     <Page>
                         Menu content
-					</Page>
+                    </Page>
                 </SplitterSide>
                 <SplitterContent>
                     <Page>

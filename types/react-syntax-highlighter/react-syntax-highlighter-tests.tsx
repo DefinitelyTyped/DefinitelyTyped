@@ -1,10 +1,9 @@
-import * as React from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/styles';
+import * as React from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { docco } from "react-syntax-highlighter/styles/hljs";
 
 function highlighter(): JSX.Element {
-  const codeString: string =
-`class CPP {
+    const codeString: string = `class CPP {
     private year: number;
     public constructor(private version: string) {
         this.year = Number(version.match(/.+\d+$/));
@@ -14,5 +13,9 @@ function highlighter(): JSX.Element {
     }
 }
 `;
-  return <SyntaxHighlighter language='javascript' style={docco}>{codeString}</SyntaxHighlighter>;
+    return (
+        <SyntaxHighlighter language="javascript" style={docco}>
+            {codeString}
+        </SyntaxHighlighter>
+    );
 }

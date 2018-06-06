@@ -2355,7 +2355,7 @@ namespace App {
 
         static $inject: string[] = ["$SharePoint", "$spnotify"];
 
-        constructor(private $SharePoint: App.SharePoint, private $n: App.SpNotify) {
+        constructor(private readonly $SharePoint: App.SharePoint, private readonly $n: App.SpNotify) {
             this.activate();
         }
 

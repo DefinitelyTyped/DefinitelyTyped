@@ -1,6 +1,9 @@
 // Type definitions for JQuery DataTables 1.10
 // Project: http://www.datatables.net
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix>
+// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
+//                 Omid Rad <https://github.com/omidkrad>
+//                 Armin Sander <https://github.com/pragmatrix>
+//                 Craig Boland <https://github.com/CNBoland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -25,6 +28,10 @@ declare namespace DataTables {
     }
 
     interface Api extends CoreMethods {
+        /**
+         * API should be array-like
+         */
+        [key: number]: any;
         /**
          * Returns DataTables API instance
          *
@@ -218,7 +225,7 @@ declare namespace DataTables {
          * @param event Event name to remove.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        off(event: string, callback?: ((e: Event, settings: Settings, json: any) => void)): Api;
+        off(event: string, callback?: ((e: Event, ...args: any[]) => void)): Api;
 
         /**
          * Table events listener.
@@ -226,7 +233,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        on(event: string, callback: ((e: Event, settings: Settings, json: any) => void)): Api;
+        on(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
 
         /**
          * Listen for a table event once and then remove the listener.
@@ -234,7 +241,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        one(event: string, callback: ((e: Event, settings: Settings, json: any) => void)): Api;
+        one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
 
         /**
          * Page Methods / object
@@ -328,6 +335,16 @@ declare namespace DataTables {
          */
         (order?: Array<(string | number)> | Array<Array<(string | number)>>): Api;
         (order: Array<(string | number)>, ...args: any[]): Api;
+
+        /**
+         * Get the fixed ordering that is applied to the table. If there is more than one table in the API's context,
+         * the ordering of the first table will be returned only (use table() if you require the ordering of a different table in the API's context).
+         */
+        fixed(): ObjectOrderFixed;
+        /**
+         * Set the table's fixed ordering. Note this doesn't actually perform the order, but rather queues it up - use draw() to perform the ordering.
+         */
+        fixed(order: ObjectOrderFixed): Api;
 
         /**
          * Add an ordering listener to an element, for a given column.
@@ -667,7 +684,7 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every cell selected.
          */
-        every(fn: (cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api;
+        every(fn: (this: CellMethods, cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api;
 
         /**
          * Get index information about the selected cells
@@ -795,7 +812,7 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every column selected.
          */
-        every(fn: (colIdx: number, tableLoop: number, colLoop: number) => void): Api;
+        every(fn: (this: ColumnMethods, colIdx: number, tableLoop: number, colLoop: number) => void): Api;
 
         /**
          * Get the column indexes of the selected columns.
@@ -978,7 +995,7 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every row selected.
          */
-        every(fn: (rowIdx: number, tableLoop: number, rowLoop: number) => void): Api;
+        every(fn: (this: RowMethods, rowIdx: number, tableLoop: number, rowLoop: number) => void): Api;
 
         /**
          * Get the ids of the selected rows. Since: 1.10.8
@@ -1086,6 +1103,14 @@ declare namespace DataTables {
         isDataTable(table: string): boolean;
 
         /**
+         * Helpers for `columns.render`.
+         *
+         * The options defined here can be used with the `columns.render` initialisation
+         * option to provide a display renderer.
+         */
+        render: StaticRenderFunctions;
+
+        /**
          * Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables and / or retrieve the tables as API instances.
          *
          * @param visible As a boolean value this options is used to indicate if you want all tables on the page should be returned (false), or visible tables only (true).
@@ -1123,6 +1148,42 @@ declare namespace DataTables {
          * Default Settings
          */
         ext: ExtSettings;
+    }
+
+    interface ObjectColumnRender {
+        display(d?: number | string | object): string | object;
+    }
+
+    interface ObjectOrderFixed {
+        /**
+         * Two-element array:
+         * 0: Column index to order upon.
+         * 1: Direction so order to apply ("asc" for ascending order or "desc" for descending order).
+         */
+        pre?: any[];
+        /**
+         * Two-element array:
+         * 0: Column index to order upon.
+         * 1: Direction so order to apply ("asc" for ascending order or "desc" for descending order).
+         */
+        post?: any[];
+    }
+
+    interface StaticRenderFunctions {
+        /**
+         * Will format numeric data (defined by `columns.data`) for display, retaining the original unformatted data for sorting and filtering.
+         *
+         * @param thousands Thousands grouping separator.
+         * @param decimal Decimal point indicator.
+         * @param precision Integer number of decimal points to show.
+         * @param prefix Prefix (optional).
+         * @param postfix Postfix (/suffix) (optional).
+         */
+        number(thousands: string, decimal: string, precision: number, prefix?: string, postfix?: string): ObjectColumnRender;
+        /**
+         * Escape HTML to help prevent XSS attacks. It has no optional parameters.
+         */
+        text(): ObjectColumnRender;
     }
 
     interface StaticUtilFunctions {
@@ -1240,7 +1301,7 @@ declare namespace DataTables {
         /**
          * Data to use as the display data for the table. Since: 1.10
          */
-        data?: object;
+        data?: any[];
 
         //#endregion "Data"
 
@@ -1564,6 +1625,15 @@ declare namespace DataTables {
         orderDataType?: string;
 
         /**
+         * Ordering to always be applied to the table. Since 1.10
+         *
+         * Array type is prefix ordering only and is a two-element array:
+         * 0: Column index to order upon.
+         * 1: Direction so order to apply ("asc" for ascending order or "desc" for descending order).
+         */
+        orderFixed?: any[] | ObjectOrderFixed;
+
+        /**
          * Order direction application sequence. Since: 1.10
          */
         orderSequence?: string[];
@@ -1571,7 +1641,7 @@ declare namespace DataTables {
         /**
          * Render (process) the data for use in the table. Since: 1.10
          */
-        render?: number | string | ObjectColumnData | FunctionColumnRender;
+        render?: number | string | ObjectColumnData | FunctionColumnRender | ObjectColumnRender;
 
         /**
          * Enable or disable filtering on the data in this column. Since: 1.10
@@ -1727,6 +1797,7 @@ declare namespace DataTables {
     interface LanguageAriaSettings {
         sortAscending: string;
         sortDescending: string;
+        paginate?: LanguagePaginateSettings;
     }
 
     //#endregion "language-settings"
@@ -1864,6 +1935,7 @@ declare namespace DataTables {
     }
 
     interface ColumnLegacy {
+        idx: number;
         aDataSort: any;
         asSorting: string[];
         bSearchable: boolean;

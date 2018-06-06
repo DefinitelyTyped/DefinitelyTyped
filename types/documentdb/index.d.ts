@@ -133,7 +133,7 @@ export interface AbstractMeta extends UniqueId {
     _self: string;
 
     /** The time the object was created. */
-    _ts: string;
+    _ts: number;
 
     _rid?: string;
     _etag?: string;

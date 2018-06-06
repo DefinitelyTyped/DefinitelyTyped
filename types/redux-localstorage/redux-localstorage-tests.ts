@@ -2,11 +2,12 @@ import { Reducer, compose, combineReducers, createStore } from "redux";
 import {
     default as persistState,
     mergePersistedState,
+    transformState,
     actionTypes
 } from "redux-localstorage";
-import * as adapterAsyncStorage from "redux-localstorage/lib/adapters/AsyncStorage";
-import * as adapterLocalStorage from "redux-localstorage/lib/adapters/localStorage";
-import * as adapterSessionStorage from "redux-localstorage/lib/adapters/sessionStorage";
+import adapterAsyncStorage = require("redux-localstorage/lib/adapters/AsyncStorage");
+import adapterLocalStorage = require("redux-localstorage/lib/adapters/localStorage");
+import adapterSessionStorage = require("redux-localstorage/lib/adapters/sessionStorage");
 
 const AsyncStorage: any = {};
 
@@ -31,3 +32,7 @@ const createStoreLocalStorage = compose(
 const createStoreSessionStorage = compose(
     persistState(storageSessionStorage, "foo")
 )(createStore)(reducer);
+
+const storage = compose(
+    transformState([JSON.stringify, btoa], [atob, JSON.parse])
+)(storageLocalStorage);

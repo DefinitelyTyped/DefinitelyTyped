@@ -8,32 +8,42 @@ import { NextHandleFunction } from 'connect';
 import { IncomingMessage, ServerResponse } from 'http';
 
 export interface SwaggerParameterSchema {
+    allowMultiple?: boolean;
+    description?: string;
+    format?: string;
+    in?: string;
+    maximum?: string;
+    minimum?: string;
     name: string;
-    in: string;
+    paramType?: string;
+    required?: boolean;
+    type: string;
 }
 
-export interface SwaggerRequestParameter {
-    path: string;
+export interface SwaggerRequestParameter<T> {
+    path: string[];
     schema: SwaggerParameterSchema;
     originalValue: any;
-    value: any;
+    value: T;
 }
 
 export interface SwaggerRequestParameters {
-    [paramName: string]: SwaggerRequestParameter;
+    [paramName: string]: SwaggerRequestParameter<any> | undefined;
 }
 
 export interface Swagger12Request extends IncomingMessage {
     swagger: {
-        api: string;
+        api: any;
         apiDeclaration: any;
         apiIndex: number;
-        authorizations?: any[];
-        operation?: string;
-        operationPath?: string;
+        authorizations?: any;
+        operation?: any;
+        operationPath?: string[];
         params: SwaggerRequestParameters;
         resourceIndex: number;
         resourceListing: any;
+        swaggerVersion: string;
+        useStubs?: boolean;
     };
 }
 
@@ -50,24 +60,44 @@ export interface SwaggerRouter12Options {
 }
 
 export interface OperationParameter {
-    path: string;
+    path: string[];
     schema: SwaggerParameterSchema;
 }
 
-export interface Swagger20Request extends IncomingMessage {
+export interface Swagger20Security {
+    [name: string]: any;
+}
+
+export interface Swagger20Response {
+    description?: string;
+    schema?: any;
+}
+
+export interface Swagger20Operation {
+    operationId?: string;
+    parameters?: SwaggerParameterSchema[];
+    responses: { [code: string]: Swagger20Response };
+    security?: Swagger20Security[];
+    summary?: string;
+    tags?: string[];
+}
+
+export interface Swagger20Request<P extends SwaggerRequestParameters> extends IncomingMessage {
     swagger: {
         apiPath: string;
-        operation?: string;
-        operationPath?: string;
+        operation?: Swagger20Operation;
+        operationPath?: string[];
         operationParameters?: OperationParameter[];
-        path: string;
-        params: SwaggerRequestParameters;
+        path: any;
+        params: P;
         security: any[];
         swaggerObject: any;
+        swaggerVersion: string;
+        useStubs?: boolean;
     };
 }
 
-export type SwaggerRouter20HandlerFunction = (req: Swagger20Request, res: ServerResponse, next: (arg?: any) => void) => void;
+export type SwaggerRouter20HandlerFunction = (req: Swagger20Request<any>, res: ServerResponse, next: (arg?: any) => void) => void;
 
 export interface SwaggerRouter20OptionsControllers {
     [handlerName: string]: SwaggerRouter20HandlerFunction;

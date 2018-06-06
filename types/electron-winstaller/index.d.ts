@@ -1,6 +1,6 @@
 // Type definitions for electron-winstaller 2.6
 // Project: https://github.com/electron/windows-installer
-// Definitions by: Brendan Forster <https://github.com/shiftkey>
+// Definitions by: Brendan Forster <https://github.com/shiftkey>, Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function convertVersion(version: string): string;
@@ -27,13 +27,19 @@ export interface Options {
      *
      * Defaults to the `author` field from your app's package.json file when unspecified.
      */
-    authors: string;
+    authors?: string;
     /**
      * The owners value for the nuget package metadata.
      *
      * Defaults to the `authors` field when unspecified.
      */
     owners?: string;
+    /**
+     * The copyright value for the nuget package metadata.
+     *
+     * Defaults to a generated copyright with `authors` or `owners`.
+     */
+    copyright?: string;
     /**
      * The name of your app's main `.exe` file.
      *

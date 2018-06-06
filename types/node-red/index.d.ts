@@ -1,6 +1,7 @@
 // Type definitions for node-red 0.17
 // Project: http://nodered.org
 // Definitions by: Anders E. Andersen <https://github.com/andersea>
+//                 Thomas B. Mørch <https://github.com/tbowmo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -18,6 +19,12 @@ export interface Red {
     settings: any;
     events: any;
     util: any;
+    httpAdmin: any;
+    auth: any;
+    comms: any;
+    library: any;
+    httpNode: any;
+    server: any;
     /** Returns the version of the running Node-RED environment. */
     version(): string;
 }
@@ -169,7 +176,13 @@ export interface Nodes {
      * @return - the node matching the given id.
      */
     getNode(id: NodeId): Node;
-    eachNode(callback: (node: Node) => any): void;
+    /**
+     * Cycle through all node definition objects.
+     *
+     * To get the actual node, use getNode() with the id
+     * from the definition object.
+     */
+    eachNode(callback: (node: NodeProperties) => any): void;
     /**
      * Adds a set of credentials for the given node id.
      * @param id the node id for the credentials
@@ -202,5 +215,6 @@ export interface Nodes {
      * @param constructor - the constructor function for this node type
      * @param opts - optional additional options for the node
      */
-    registerType(type: string, constructor: (props: NodeProperties) => any, opts?: any): void;
+    // tslint:disable-next-line no-unnecessary-generics
+    registerType<T extends NodeProperties>(type: string, constructor: (props: T) => any, opts?: any): void;
 }

@@ -41,7 +41,7 @@ export namespace graphlib {
         predecessors(name: string): Node[]|undefined;
         removeNode(name: string): Graph;
         setDefaultNodeLabel(callback: string|((nodeId: string) => string|Label)): Graph;
-        setNode(id: string, node: NodeConfig): Graph;
+        setNode(name: string, label: string|Label): Graph;
         setParent(childName: string, parentName: string): void;
         sinks(): Node[];
         sources(): Node[];
@@ -95,15 +95,15 @@ export interface NodeConfig {
 }
 
 export interface EdgeConfig {
-    minlen: number;
-    weight: number;
-    width: number;
-    height: number;
-    lablepos: 'l'|'c'|'r';
-    labeloffest: number;
+    minlen?: number;
+    weight?: number;
+    width?: number;
+    height?: number;
+    lablepos?: 'l'|'c'|'r';
+    labeloffest?: number;
 }
 
-export function layout(graph: graphlib.Graph, layout?: GraphLabel&NodeConfig&EdgeConfig): void;
+export function layout(graph: graphlib.Graph, layout?: GraphLabel & NodeConfig & EdgeConfig): void;
 
 export interface Edge {
     v: string;

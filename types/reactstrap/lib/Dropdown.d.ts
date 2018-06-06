@@ -1,22 +1,31 @@
-/// <reference types='tether' />
-
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface UncontrolledProps {
+export type Direction =
+  | "up"
+  | "down"
+  | "left"
+  | "right"
+
+export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
   toggle?: () => void;
   className?: string;
   cssModule?: CSSModule;
-}
+  nav?: boolean;
+  inNavbar?: boolean;
+} & T;
+export type UncontrolledDropdownProps<T = {}> = UncontrolledProps<T>;
 
-export interface Props extends UncontrolledProps {
+export type Props<T = {}> = UncontrolledProps<T> & {
   disabled?: boolean;
-  dropup?: boolean;
+  direction?: Direction;
   group?: boolean;
   size?: string;
   tag?: React.ReactType;
-  tether?: boolean | Tether.ITetherOptions;
-}
+  addonType?: boolean | 'prepend' | 'append';
+};
+export type DropdownProps<T = {}> = Props<T>;
 
-declare var Dropdown: React.StatelessComponent<Props>;
+declare class Dropdown<T = {[key: string]: any}> extends React.Component<DropdownProps<T>> {}
 export default Dropdown;

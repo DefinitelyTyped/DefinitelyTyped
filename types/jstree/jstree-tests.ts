@@ -1,5 +1,3 @@
-
-
 // gets version of lib
 var version: string = $.jstree.version;
 
@@ -126,3 +124,9 @@ var treeWithNewCoreProperties = $('#treeWithNewEllipsisProperties').jstree({
         themes: coreThemes
     }
 });
+
+var vakata: VakataStatic = $.vakata;
+
+var testArray: Array<any> = [];
+vakata.attributes(tree.get_node(null), true);
+var storage = vakata.storage;

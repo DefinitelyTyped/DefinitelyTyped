@@ -15,7 +15,9 @@
             "../../"
         ],
         "paths": {
-            "reactstrap": ["reactstrap/v4"]
+            "reactstrap": [
+                "reactstrap/v4"
+            ]
         },
         "types": [],
         "noEmit": true,

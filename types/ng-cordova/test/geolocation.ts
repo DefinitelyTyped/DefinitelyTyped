@@ -10,7 +10,7 @@ namespace demo.geolocation {
 		position:ngCordova.IGeoPosition;
 
 		static $inject:Array<string> = ["$ionicPlatform", "$cordovaGeolocation"];
-		constructor($ionicPlatform:ionic.platform.IonicPlatformService, private $cordovaGeolocation:ngCordova.IGeolocationService) {
+		constructor($ionicPlatform:ionic.platform.IonicPlatformService, private readonly $cordovaGeolocation:ngCordova.IGeolocationService) {
 
 		}
 

@@ -1,9 +1,10 @@
-// Type definitions for fs-extra 4.0
+// Type definitions for fs-extra 5.0
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: Alan Agius <https://github.com/alan-agius4>,
 //                 midknight41 <https://github.com/midknight41>,
 //                 Brendan Forster <https://github.com/shiftkey>,
-//                 Mees van Dijk <https://github.com/mees->
+//                 Mees van Dijk <https://github.com/mees->,
+//                 Justin Rockwood <https://github.com/jrockwood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -16,7 +17,7 @@ export * from "fs";
 export function copy(src: string, dest: string, options?: CopyOptions): Promise<void>;
 export function copy(src: string, dest: string, callback: (err: Error) => void): void;
 export function copy(src: string, dest: string, options: CopyOptions, callback: (err: Error) => void): void;
-export function copySync(src: string, dest: string, options?: CopyOptions): void;
+export function copySync(src: string, dest: string, options?: CopyOptionsSync): void;
 
 export function move(src: string, dest: string, options?: MoveOptions): Promise<void>;
 export function move(src: string, dest: string, callback: (err: Error) => void): void;
@@ -254,7 +255,8 @@ export interface PathEntryStream {
     read(): PathEntry | null;
 }
 
-export type CopyFilter = ((src: string, dest: string) => boolean) | RegExp;
+export type CopyFilterSync = (src: string, dest: string) => boolean;
+export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
 export type SymlinkType = "dir" | "file";
 
@@ -263,8 +265,12 @@ export interface CopyOptions {
     overwrite?: boolean;
     preserveTimestamps?: boolean;
     errorOnExist?: boolean;
-    filter?: CopyFilter;
+    filter?: CopyFilterSync | CopyFilterAsync;
     recursive?: boolean;
+}
+
+export interface CopyOptionsSync extends CopyOptions {
+    filter?: CopyFilterSync;
 }
 
 export interface MoveOptions {
@@ -289,7 +295,8 @@ export interface WriteFileOptions {
 export interface WriteOptions extends WriteFileOptions {
     fs?: object;
     replacer?: any;
-    spaces?: number;
+    spaces?: number | string;
+    EOL?: string;
 }
 
 export interface ReadResult {

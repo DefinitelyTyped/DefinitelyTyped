@@ -1,10 +1,11 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export type ModalFooterProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare var ModalFooter: React.StatelessComponent<Props>;
+declare class ModalFooter<T = {[key: string]: any}> extends React.Component<ModalFooterProps<T>> {}
 export default ModalFooter;

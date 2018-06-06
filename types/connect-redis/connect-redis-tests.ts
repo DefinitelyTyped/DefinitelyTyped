@@ -1,5 +1,5 @@
-import * as connectRedis from "connect-redis";
-import * as session from "express-session";
+import connectRedis = require("connect-redis");
+import session = require("express-session");
 
 let RedisStore = connectRedis(session);
 const store = new RedisStore({

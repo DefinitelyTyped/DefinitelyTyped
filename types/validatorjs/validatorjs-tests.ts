@@ -1,4 +1,4 @@
-import * as Validator from "validatorjs"
+import Validator = require("validatorjs");
 
 var rules: any = {
     foo: "required"

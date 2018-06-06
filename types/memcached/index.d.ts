@@ -280,5 +280,9 @@ declare namespace Memcached {
          * 5000, the idle timeout for the connections.
          */
         idle ?: number;
+        /**
+         * '', sentinel to prepend to all memcache keys for namespacing the entries.
+         */
+        namespace ?: string;
     }
 }

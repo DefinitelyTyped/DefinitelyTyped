@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export type CardImgProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   top?: boolean;
   bottom?: boolean;
@@ -10,7 +11,7 @@ interface Props {
   width?: string;
   height?: string;
   alt?: string;
-}
+} & T;
 
-declare var CardImg: React.StatelessComponent<Props>;
+declare class CardImg<T = {[key: string]: any}> extends React.Component<CardImgProps<T>> {}
 export default CardImg;

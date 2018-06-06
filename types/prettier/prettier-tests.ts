@@ -24,6 +24,16 @@ prettier.resolveConfig('path/to/somewhere').then(options => {
     }
 });
 
+if (prettier.getFileInfo.sync('./tsconfig.json').inferredParser !== 'json') {
+    throw new Error('Bad parser');
+}
+
+prettier.getFileInfo('./tsconfig.json').then((result) => {
+  if (result.inferredParser !== 'json') {
+      throw new Error('Bad parser');
+  }
+});
+
 // $ExpectError
 prettier.resolveConfig();
 
@@ -33,3 +43,6 @@ if (options !== null) {
 }
 
 prettier.clearConfigCache();
+
+const currentSupportInfo = prettier.getSupportInfo();
+const specificSupportInfo = prettier.getSupportInfo("1.8.0");

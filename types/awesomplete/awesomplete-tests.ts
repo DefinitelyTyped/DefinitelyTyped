@@ -11,6 +11,7 @@ new Awesomplete(input, {
 
 const awesomplete = new Awesomplete(input);
 awesomplete.list = ["Ada", "Java", "JavaScript", "LOLCODE", "Node.js", "Ruby on Rails"];
+awesomplete.destroy();
 
 new Awesomplete(input, {
     list: [

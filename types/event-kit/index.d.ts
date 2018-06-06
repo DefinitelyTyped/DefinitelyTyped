@@ -1,8 +1,8 @@
-// Type definitions for event-kit 2.x
+// Type definitions for event-kit 2.4
 // Project: https://github.com/atom/event-kit
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export interface DisposableLike {
     dispose(): void;
@@ -65,20 +65,12 @@ export class CompositeDisposable implements DisposableLike {
 }
 
 /**
- *  Allows you to strongly type event emissions across your codebase. Additional
- *  key:value pairings merged into this interface will result in emissions under
- *  the value of each key being templated by the type of the associated value.
- */
-export interface Emissions {
-    // tslint:disable-next-line:no-any
-    [key: string]: any;
-}
-
-/**
  *  Utility class to be used when implementing event-based APIs that allows
  *  for handlers registered via ::on to be invoked with calls to ::emit.
  */
-export class Emitter implements DisposableLike {
+// tslint:disable-next-line:no-any
+export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissions = {}>
+        implements DisposableLike {
     disposed: boolean;
 
     /** Construct an emitter. */
@@ -92,31 +84,58 @@ export class Emitter implements DisposableLike {
 
     // Event Subscription
     /** Registers a handler to be invoked whenever the given event is emitted. */
-    on<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
-        Disposable;
+    on<T extends keyof OptionalEmissions>(eventName: T, handler: (value?:
+        OptionalEmissions[T]) => void): Disposable;
+    /** Registers a handler to be invoked whenever the given event is emitted. */
+    on<T extends keyof RequiredEmissions>(eventName: T, handler: (value:
+        RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
-        Disposable;
+    once<T extends keyof OptionalEmissions>(eventName: T, handler: (value?:
+        OptionalEmissions[T]) => void): Disposable;
+    /**
+     *  Register the given handler function to be invoked the next time an event
+     *  with the given name is emitted via ::emit.
+     */
+    once<T extends keyof RequiredEmissions>(eventName: T, handler: (value:
+        RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked before all other
      *  handlers existing at the time of subscription whenever events by the
      *  given name are emitted via ::emit.
      */
-    preempt<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
-        Disposable;
+    preempt<T extends keyof OptionalEmissions>(eventName: T, handler: (value?:
+        OptionalEmissions[T]) => void): Disposable;
+    /**
+     *  Register the given handler function to be invoked before all other
+     *  handlers existing at the time of subscription whenever events by the
+     *  given name are emitted via ::emit.
+     */
+    preempt<T extends keyof RequiredEmissions>(eventName: T, handler: (value:
+        RequiredEmissions[T]) => void): Disposable;
 
     // Event Emission
     /** Invoke the handlers registered via ::on for the given event name. */
-    emit<T extends keyof Emissions>(eventName: T, value?: Emissions[T]): void;
+    emit<T extends keyof OptionalEmissions>(eventName: T, value?:
+        OptionalEmissions[T]): void;
+    /** Invoke the handlers registered via ::on for the given event name. */
+    emit<T extends keyof RequiredEmissions>(eventName: T, value:
+        RequiredEmissions[T]): void;
 
     /**
      *  Asynchronously invoke the handlers registered via ::on for the given event name.
      *  @return A promise that will be fulfilled once all handlers have been invoked.
      */
-    emitAsync<T extends keyof Emissions>(eventName: T, value?: Emissions[T]): Promise<void>;
+    emitAsync<T extends keyof OptionalEmissions>(eventName: T, value?:
+        OptionalEmissions[T]): Promise<void>;
+    /**
+     *  Asynchronously invoke the handlers registered via ::on for the given event name.
+     *  @return A promise that will be fulfilled once all handlers have been invoked.
+     */
+    emitAsync<T extends keyof RequiredEmissions>(eventName: T, value:
+        RequiredEmissions[T]): Promise<void>;
 }

@@ -1,6 +1,14 @@
 // Type definitions for Google Maps JavaScript API 3.30
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>, Martin Costello <https://github.com/martincostello>, Sven Kreiss <https://github.com/svenkreiss>
+// Definitions by:  Folia A/S <http://www.folia.dk>, 
+//                  Chris Wrench <https://github.com/cgwrench>, 
+//                  Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  
+//                  Grant Hutchins <https://github.com/nertzy>, 
+//                  Denis Atyasov <https://github.com/xaolas>, 
+//                  Michael McMullin <https://github.com/mrmcnerd>, 
+//                  Martin Costello <https://github.com/martincostello>, 
+//                  Sven Kreiss <https://github.com/svenkreiss>
+//                  Umar Bolatov <https://github.com/bolatovumar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -31,7 +39,7 @@ declare namespace google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
         constructor(mapDiv: Element|null, opts?: MapOptions);
-        fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
+        fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral, padding?: number|Padding): void;
         getBounds(): LatLngBounds|null|undefined;
         getCenter(): LatLng;
         getDiv(): Element;
@@ -55,6 +63,14 @@ declare namespace google.maps {
         data: Data;
         mapTypes: MapTypeRegistry;
         overlayMapTypes: MVCArray<MapType>;
+        setClickableIcons(clickable: boolean): void;
+    }
+
+    export interface Padding {
+        bottom: number;
+        left: number;
+        right: number;
+        top: number;
     }
 
     export interface MapOptions {
@@ -391,8 +407,8 @@ declare namespace google.maps {
     export module Data {
         export interface DataOptions {
             controlPosition?: ControlPosition;
-            controls?: string[];
-            drawingMode?: string;
+            controls?: DrawingMode[] | null;
+            drawingMode?: DrawingMode | null;
             featureFactory?: (geometry: Data.Geometry) => Data.Feature;
             map?: Map;
             style?: Data.StylingFunction|Data.StyleOptions;
@@ -1862,7 +1878,8 @@ declare namespace google.maps {
         getZIndex(): number;
         setMap(map: Map | null): void;
         setUrl(url: string): void;
-        setZIndez(zIndex: number): void;
+        setZIndex(zIndex: number): void;
+        setOptions(options: KmlLayerOptions): void;
     }
 
     export interface KmlLayerOptions {
@@ -2471,8 +2488,16 @@ declare namespace google.maps {
             description: string;
             matched_substrings: PredictionSubstring[];
             place_id: string;
+            reference: string;
+            structured_formatting: AutocompleteStructuredFormatting;
             terms: PredictionTerm[];
             types: string[];
+        }
+
+        export interface AutocompleteStructuredFormatting {
+            main_text: string;
+            main_text_matched_substrings: PredictionSubstring[];
+            secondary_text: string;
         }
 
         export interface OpeningHours {
@@ -2607,7 +2632,7 @@ declare namespace google.maps {
             getDetails(request: PlaceDetailsRequest, callback: (result: PlaceResult, status: PlacesServiceStatus) => void): void;
             nearbySearch(request: PlaceSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
             radarSearch(request: RadarSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
-            textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
+            textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
         }
 
         export enum PlacesServiceStatus {
@@ -2676,7 +2701,7 @@ declare namespace google.maps {
             constructor(options?: DrawingManagerOptions);
             getDrawingMode(): OverlayType;
             getMap(): Map;
-            setDrawingMode(drawingMode: OverlayType): void;
+            setDrawingMode(drawingMode: OverlayType | null): void;
             setMap(map: Map | null): void;
             setOptions(options: DrawingManagerOptions): void;
         }

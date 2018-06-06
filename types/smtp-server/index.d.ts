@@ -1,4 +1,4 @@
-// Type definitions for smtp-server 3.3
+// Type definitions for smtp-server 3.4
 // Project: https://github.com/nodemailer/smtp-server
 // Definitions by: markisme <https://github.com/markisme>
 //                 taisiias <https://github.com/Taisiias>
@@ -72,9 +72,21 @@ export interface SMTPServerSession {
      */
     id: string;
     /**
-     * the IP address for the connected client
+     * local IP address for the connected client
      */
-    remoteAddress: SMTPServerAddress;
+    localAddress: string;
+    /**
+     * local port number for the connected client
+     */
+    localPort: number;
+    /**
+     * remote IP address for the connected client
+     */
+    remoteAddress: string;
+    /**
+     * remote port number for the connected client
+     */
+    remotePort: number;
     /**
      * reverse resolved hostname for remoteAddress
      */
@@ -91,6 +103,11 @@ export interface SMTPServerSession {
      * Envelope Object
      */
     envelope: SMTPServerEnvelope;
+    /**
+     *  If true, then the connection is using TLS
+     */
+    secure: boolean;
+
     transmissionType: string;
 
     tlsOptions: tls.TlsOptions;
@@ -100,7 +117,7 @@ export interface SMTPServerEnvelope {
     /**
      * includes an address object or is set to false
      */
-    mailFrom: SMTPServerAddress;
+    mailFrom: SMTPServerAddress | false;
     /**
      * includes an array of address objects
      */
@@ -117,6 +134,8 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      * createServer can be added directly onto this options object.
      */
     secure?: boolean;
+    /** indicate an TLS server where TLS is handled upstream */
+    secured?: boolean;
     /** optional private keys in PEM format */
     key?: string | string[] | Buffer | Buffer[] | Array<{ pem: string | Buffer, passphrase: string }>;
     /** optional cert chains in PEM format */
@@ -269,17 +288,15 @@ export class SMTPServer extends EventEmitter {
     constructor(options?: SMTPServerOptions);
 
     /** Start listening on selected port and interface */
-    /* tslint:disable:unified-signatures */
     listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): net.Server;
     listen(port?: number, hostname?: string, listeningListener?: () => void): net.Server;
-    listen(port?: number, backlog?: number, listeningListener?: () => void): net.Server;
+    listen(port?: number, backlog?: number, listeningListener?: () => void): net.Server; // tslint:disable-line unified-signatures
     listen(port?: number, listeningListener?: () => void): net.Server;
     listen(path: string, backlog?: number, listeningListener?: () => void): net.Server;
     listen(path: string, listeningListener?: () => void): void;
     listen(options: net.ListenOptions, listeningListener?: () => void): net.Server;
-    listen(handle: any, backlog?: number, listeningListener?: () => void): net.Server;
-    listen(handle: any, listeningListener?: () => void): net.Server;
-    /* tslint:enable:unified-signatures */
+    listen(handle: any, backlog?: number, listeningListener?: () => void): net.Server; // tslint:disable-line unified-signatures
+    listen(handle: any, listeningListener?: () => void): net.Server; // tslint:disable-line unified-signatures
 
     /** Closes the server */
     close(callback: (err?: Error | null) => void): void;

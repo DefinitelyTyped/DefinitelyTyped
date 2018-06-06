@@ -39,7 +39,7 @@ export interface ConnectAppOptions {
     host?: string;
 
     /** Don't log any messages. Defaults to false. */
-    slient?: boolean;
+    silent?: boolean;
 
     /**
      * Options to pass to http.createServer (or false to disable https).

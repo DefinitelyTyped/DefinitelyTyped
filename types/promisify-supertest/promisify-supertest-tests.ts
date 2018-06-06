@@ -1,6 +1,5 @@
-
-import * as request from 'promisify-supertest';
-import * as express from 'express';
+import request = require('promisify-supertest');
+import express = require('express');
 
 let app = express();
 

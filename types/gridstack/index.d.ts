@@ -321,7 +321,7 @@ interface IGridstackOptions {
     /**
      * if true widgets could be removed by dragging outside of the grid. It could also be a jQuery selector string, 
      */
-    removable?: boolean;
+    removable?: boolean | string;
     /**
      * time in milliseconds before widget is being removed while dragging outside of the grid. (default: 2000)
      */

@@ -117,7 +117,7 @@ export class DefaultNetworkLayer implements RelayNetworkLayer {
 }
 
 export function createContainer<T>(
-    component: React.ComponentClass<T> | React.StatelessComponent<T>,
+    component: React.ComponentType<T>,
     params?: CreateContainerOpts
 ): RelayContainerClass<T>;
 export function injectNetworkLayer(networkLayer: RelayNetworkLayer): any;
@@ -209,13 +209,17 @@ export type OnReadyStateChange = (
     }
 ) => void;
 
-export interface RelayProp {
+export interface RelayProp<V = any> {
     readonly route: { name: string }; // incomplete, also has params and queries
-    readonly variables: any;
-    readonly pendingVariables?: any;
-    setVariables(variables: any, onReadyStateChange?: OnReadyStateChange): void;
-    forceFetch(variables: any, onReadyStateChange?: OnReadyStateChange): void;
+    readonly variables: V;
+    readonly pendingVariables?: V;
+    setVariables(variables: V, onReadyStateChange?: OnReadyStateChange): void;
+    forceFetch(variables: V, onReadyStateChange?: OnReadyStateChange): void;
     hasOptimisticUpdate(record: any): boolean;
     getPendingTransactions(record: any): RelayMutationTransaction[];
     commitUpdate(mutation: Mutation<any, any>, callbacks?: StoreUpdateCallbacks<any>): any;
+}
+
+export interface RelayProps<V> {
+    readonly relay: RelayProp<V>;
 }

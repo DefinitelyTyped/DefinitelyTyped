@@ -1,4 +1,4 @@
-import * as WebSocket from 'ws';
+import WebSocket = require('ws');
 import * as http from 'http';
 import * as https from 'https';
 
@@ -24,9 +24,8 @@ import * as https from 'https';
         ws.send('something');
     });
 
-    wss.on('headers', (headers, req) => {
-        console.log(`received headers: ${headers}`);
-        console.log(`received request: ${Object.keys(req)}`);
+    wss.on('upgrade', (res) => {
+        console.log(`response: ${Object.keys(res)}`);
     });
 }
 

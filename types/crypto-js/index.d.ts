@@ -8,16 +8,27 @@ export as namespace CryptoJS;
 
 declare var CryptoJS: CryptoJS.Hashes;
 declare namespace CryptoJS {
-	type Hash = (message: string | LibWordArray, key?: string, ...options: any[]) => WordArray;
-	interface Cipher {
+
+	interface Base {}
+
+	interface BufferedBlockAlgorithm extends Base {}
+
+	interface Hasher extends BufferedBlockAlgorithm {}
+
+	interface Cipher extends BufferedBlockAlgorithm {
+		createEncryptor(secretPassphrase: string, option?: CipherOption): Encryptor;
+		createDecryptor(secretPassphrase: string, option?: CipherOption): Decryptor;
+	}
+
+	interface BlockCipher extends Cipher {}
+
+	interface StreamCipher extends Cipher {}
+
+	interface CipherHelper {
 		encrypt(message: string, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
 		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
 	}
-	interface CipherAlgorythm {
-		createEncryptor(secretPassphrase: string, option?: CipherOption): Encriptor;
-		createDecryptor(secretPassphrase: string, option?: CipherOption): Decryptor;
-	}
-	interface Encriptor {
+	interface Encryptor {
 		process(messagePart: string): string;
 		finalize(): string;
 	}
@@ -54,40 +65,66 @@ declare namespace CryptoJS {
 	interface Padding {}
 
 	export interface Hashes {
-		MD5: Hash;
-		SHA1: Hash;
-		SHA256: Hash;
-		SHA224: Hash;
-		SHA512: Hash;
-		SHA384: Hash;
-		SHA3: Hash;
-		RIPEMD160: Hash;
-		HmacMD5: Hash;
-		HmacSHA1: Hash;
-		HmacSHA256: Hash;
-		HmacSHA224: Hash;
-		HmacSHA512: Hash;
-		HmacSHA384: Hash;
-		HmacSHA3: Hash;
-		HmacRIPEMD160: Hash;
-		PBKDF2: Hash;
-		AES: Cipher;
-		DES: Cipher;
-		TripleDES: Cipher;
-		RC4: Cipher;
-		RC4Drop: Cipher;
-		Rabbit: Cipher;
-		RabbitLegacy: Cipher;
-		EvpKDF: Cipher;
+		MD5(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		MD5(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA1(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA1(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA256(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA256(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA224(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA224(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA512(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA512(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA384(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA384(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA3(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA3(message: string | LibWordArray, ...options: any[]): WordArray;
+		RIPEMD160(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		RIPEMD160(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacMD5(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacMD5(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA1(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA1(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA256(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA256(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA224(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA224(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA512(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA512(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA384(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA384(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA3(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA3(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacRIPEMD160(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacRIPEMD160(message: string | LibWordArray, ...options: any[]): WordArray;
+		PBKDF2(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		PBKDF2(message: string | LibWordArray, ...options: any[]): WordArray;
+		AES: CipherHelper;
+		DES: CipherHelper;
+		TripleDES: CipherHelper;
+		RC4: CipherHelper;
+		RC4Drop: CipherHelper;
+		Rabbit: CipherHelper;
+		RabbitLegacy: CipherHelper;
+		EvpKDF: CipherHelper;
 		algo: {
-			AES: CipherAlgorythm;
-			DES: CipherAlgorythm;
-			TrippleDES: CipherAlgorythm;
-			RC4: CipherAlgorythm;
-			RC4Drop: CipherAlgorythm;
-			Rabbit: CipherAlgorythm;
-			RabbitLegacy: CipherAlgorythm;
-			EvpKDF: CipherAlgorythm;
+			AES: BlockCipher;
+			DES: BlockCipher;
+			TripleDES: BlockCipher;
+			RC4: StreamCipher;
+			RC4Drop: StreamCipher;
+			Rabbit: StreamCipher;
+			RabbitLegacy: StreamCipher;
+			EvpKDF: Base;
+			HMAC: Base;
+			PBKDF2: Base;
+			SHA1: Hasher;
+			SHA3: Hasher;
+			SHA256: Hasher;
+			SHA384: Hasher;
+			SHA512: Hasher;
+			MD5: Hasher;
+			RIPEMD160: Hasher;
 		};
 		format: {
 			OpenSSL: any;

@@ -1,46 +1,38 @@
-import * as assert from 'assert';
-import * as execa from 'execa';
-import { PassThrough } from "stream";
+import assert = require('assert');
+import execa = require('execa');
+import { PassThrough } from 'stream';
 
-execa('unicorns')
-    .then(result => {
-        assert(result.cmd === 'unicorns');
-        assert(result.code === 0);
-        assert(result.failed === false);
-        assert(result.killed === false);
-        assert(result.signal === null);
-        assert(result.stderr === 'bad unicorns');
-        assert(result.stdout === 'good unicorns');
-        assert(result.timedOut === false);
-    });
+execa('unicorns').then(result => {
+    assert(result.cmd === 'unicorns');
+    assert(result.code === 0);
+    assert(result.failed === false);
+    assert(result.killed === false);
+    assert(result.signal === null);
+    assert(result.stderr === 'bad unicorns');
+    assert(result.stdout === 'good unicorns');
+    assert(result.timedOut === false);
+});
 
-execa('foo')
-    .catch(error => {
-        assert(error.cmd === 'foo');
-        assert(error.code === 128);
-        assert(error.failed === true);
-        assert(error.killed === false);
-        assert(error.signal === 'SIGINT');
-        assert(error.stderr === 'stderr');
-        assert(error.stdout === 'stdout');
-        assert(error.timedOut === false);
-    });
+execa('foo').catch(error => {
+    assert(error.cmd === 'foo');
+    assert(error.code === 128);
+    assert(error.failed === true);
+    assert(error.killed === false);
+    assert(error.signal === 'SIGINT');
+    assert(error.stderr === 'stderr');
+    assert(error.stdout === 'stdout');
+    assert(error.timedOut === false);
+});
 
-execa('noop', ['foo'])
-    .then(result => result.stderr.toLocaleLowerCase());
+execa('noop', ['foo']).then(result => result.stderr.toLocaleLowerCase());
 
-execa.stdout('unicorns')
-    .then(stdout => stdout.toLocaleLowerCase());
-execa.stdout('echo', ['unicorns'])
-    .then(stdout => stdout.toLocaleLowerCase());
+execa.stdout('unicorns').then(stdout => stdout.toLocaleLowerCase());
+execa.stdout('echo', ['unicorns']).then(stdout => stdout.toLocaleLowerCase());
 
-execa.stderr('unicorns')
-    .then(stderr => stderr.toLocaleLowerCase());
-execa.stderr('echo', ['unicorns'])
-    .then(stderr => stderr.toLocaleLowerCase());
+execa.stderr('unicorns').then(stderr => stderr.toLocaleLowerCase());
+execa.stderr('echo', ['unicorns']).then(stderr => stderr.toLocaleLowerCase());
 
-execa.shell('echo unicorns')
-    .then(result => result.stdout.toLocaleLowerCase());
+execa.shell('echo unicorns').then(result => result.stdout.toLocaleLowerCase());
 
 {
     let result: string;
@@ -54,14 +46,14 @@ execa.shell('echo unicorns')
 execa('echo', ['unicorns']).stdout.pipe(process.stdout);
 execa('echo', ['unicorns']).stderr.pipe(process.stderr);
 
-execa('forever', {extendEnv: false}).pid;
-execa('forever', {argv0: 'hi'}).pid;
-execa('forever', {localDir: '~'}).pid;
-execa('forever', {reject: false}).pid;
-execa('forever', {cleanup: false}).pid;
-execa('forever', {stdin: 1}).pid;
-execa('forever', {stdout: 'ignore'}).pid;
-execa('forever', {stderr: undefined}).pid;
+execa('forever', { extendEnv: false }).pid;
+execa('forever', { argv0: 'hi' }).pid;
+execa('forever', { localDir: '~' }).pid;
+execa('forever', { reject: false }).pid;
+execa('forever', { cleanup: false }).pid;
+execa('forever', { stdin: 1 }).pid;
+execa('forever', { stdout: 'ignore' }).pid;
+execa('forever', { stderr: undefined }).pid;
 
 async () => {
     const { stdout } = await execa('noop', ['foo'], { stripEof: false });
@@ -119,7 +111,9 @@ async () => {
 }
 
 async () => {
-    const { timedOut, code } = await execa('delay', ['3000', '22'], { timeout: 9000 });
+    const { timedOut, code } = await execa('delay', ['3000', '22'], {
+        timeout: 9000
+    });
     assert(timedOut === true);
     assert(code === 22);
 };
@@ -131,3 +125,10 @@ async () => {
 
     assert(stdout === 'foo');
 };
+
+const args: ReadonlyArray<string> = ['bar'];
+const stdio: ReadonlyArray<'ignore'> = ['ignore'];
+execa('foo', args);
+execa('foo', args, {
+    stdio
+});

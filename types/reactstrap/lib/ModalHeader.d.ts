@@ -1,12 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export type ModalHeaderProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
   wrapTag?: React.ReactType;
   toggle?: () => void;
-}
+} & T;
 
-declare var ModalHeader: React.StatelessComponent<Props>;
+declare class ModalHeader<T = {[key: string]: any}> extends React.Component<ModalHeaderProps<T>> {}
 export default ModalHeader;

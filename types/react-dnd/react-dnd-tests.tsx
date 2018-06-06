@@ -167,7 +167,7 @@ namespace BoardSquare {
     export class BoardSquare extends React.Component<BoardSquareP> {
         static defaultProps: BoardSquareP;
 
-        private _renderOverlay = (color: string) => {
+        private readonly _renderOverlay = (color: string) => {
             return r.div({
                 style: {
                     position: 'absolute',
@@ -247,7 +247,7 @@ namespace Board {
     }
 
     export class Board extends React.Component<BoardP> {
-        private _renderPiece = (x: number, y: number) => {
+        private readonly _renderPiece = (x: number, y: number) => {
             var knightX = this.props.knightPosition[0];
             var knightY = this.props.knightPosition[1];
             return x === knightX && y === knightY ?
@@ -255,7 +255,7 @@ namespace Board {
                     null;
         };
 
-        private _renderSquare = (i: number) => {
+        private readonly _renderSquare = (i: number) => {
             var x = i % 8;
             var y = Math.floor(i / 8);
 

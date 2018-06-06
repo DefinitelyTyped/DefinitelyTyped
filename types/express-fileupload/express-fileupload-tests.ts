@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express = require('express');
 import { RequestHandler, Request, Response, NextFunction } from 'express-serve-static-core';
 import fileUpload = require('express-fileupload');
 

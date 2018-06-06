@@ -6,7 +6,7 @@
 /// <reference types="google.visualization" />
 
 declare namespace dygraphs {
-    type DataArray = number[][];
+    type DataArray = (number|Date)[][];
 
     type Data = string | DataArray | google.visualization.DataTable;
 
@@ -525,6 +525,12 @@ declare namespace dygraphs {
          * fading), 0=hiddden background (show highlighted series only).
          */
         highlightSeriesBackgroundAlpha?: number;
+
+        /**
+         * Sets the background color used to fade out the series in conjunction with 'highlightSeriesBackgroundAlpha'.
+         * Default: rgb(255, 255, 255)
+         */
+        highlightSeriesBackgroundColor?: string;
 
         /**
          * When set, the options from this object are applied to the timeseries closest to the mouse

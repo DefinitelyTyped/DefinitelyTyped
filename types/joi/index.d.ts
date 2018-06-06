@@ -8,6 +8,10 @@
 //                 Rytis Alekna <https://github.com/ralekna>
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 Youngrok Kim <https://github.com/rokoroku>
+//                 Dan Kraus <https://github.com/dankraus>
+//                 Anjun Wang <https://github.com/wanganjun>
+//                 Rafael Kallis <https://github.com/rafaelkallis>
+//                 Conan Lai <https://github.com/aconanlai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -15,7 +19,7 @@
 
 export type Types = 'any' | 'alternatives' | 'array' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy' | 'number' | 'object' | 'string';
 
-export type LanguageOptions = string | false | null | {
+export type LanguageOptions = string | boolean | null | {
     [key: string]: LanguageOptions;
 };
 
@@ -127,11 +131,29 @@ export interface UriOptions {
     scheme?: string | RegExp | Array<string | RegExp>;
 }
 
+export interface Base64Options {
+    /**
+     * optional parameter defaulting to true which will require = padding if true or make padding optional if false
+     */
+    paddingRequired?: boolean;
+}
+
 export interface WhenOptions {
     /**
      * the required condition joi type.
      */
     is: SchemaLike;
+    /**
+     * the alternative schema type if the condition is true. Required if otherwise is missing.
+     */
+    then?: SchemaLike;
+    /**
+     * the alternative schema type if the condition is false. Required if then is missing
+     */
+    otherwise?: SchemaLike;
+}
+
+export interface WhenSchemaOptions {
     /**
      * the alternative schema type if the condition is true. Required if otherwise is missing.
      */
@@ -153,6 +175,11 @@ export interface ReferenceOptions {
 export interface IPOptions {
     version?: Array<string>;
     cidr?: string
+}
+
+export interface StringRegexOptions {
+    name?: string;
+    invert?: boolean;
 }
 
 export interface JoiObject {
@@ -177,7 +204,7 @@ export interface ValidationErrorFunction {
     (errors: ValidationErrorItem[]): string | ValidationErrorItem | ValidationErrorItem[] | Error;
 }
 
-export interface ValidationResult<T> {
+export interface ValidationResult<T> extends Pick<Promise<T>, 'then' | 'catch'> {
     error: ValidationError;
     value: T;
 }
@@ -332,6 +359,7 @@ export interface AnySchema extends JoiObject {
      */
     when(ref: string, options: WhenOptions): AlternativesSchema;
     when(ref: Reference, options: WhenOptions): AlternativesSchema;
+    when(ref: Schema, options: WhenSchemaOptions): AlternativesSchema;
 
     /**
      * Overrides the key name in error messages.
@@ -367,7 +395,7 @@ export interface AnySchema extends JoiObject {
      * override, that error will be returned and the override will be ignored (unless the `abortEarly`
      * option has been set to `false`).
      */
-    error?(err: Error | ValidationErrorFunction): this;
+    error(err: Error | ValidationErrorFunction): this;
 
     /**
      * Returns a plain object representing the schema's rules and properties
@@ -521,6 +549,12 @@ export interface StringSchema extends AnySchema {
     normalize(form?: 'NFC' | 'NFD' | 'NFKC' | 'NFKD'): this;
 
     /**
+     * Requires the string value to be a valid base64 string; does not check the decoded value.
+     * @param options - optional settings: The unicode normalization options to use. Valid values: NFC [default], NFD, NFKC, NFKD
+     */
+    base64(options?: Base64Options): this;
+
+    /**
      * Requires the number to be a credit card number (Using Lunh Algorithm).
      */
     creditCard(): this;
@@ -536,9 +570,13 @@ export interface StringSchema extends AnySchema {
     /**
      * Defines a regular expression rule.
      * @param pattern - a regular expression object the string value must match against.
-     * @param name - optional name for patterns (useful with multiple patterns). Defaults to 'required'.
+     * @param options - optional, can be:
+     *   Name for patterns (useful with multiple patterns). Defaults to 'required'.
+     *   An optional configuration object with the following supported properties:
+     *     name - optional pattern name.
+     *     invert - optional boolean flag. Defaults to false behavior. If specified as true, the provided pattern will be disallowed instead of required.
      */
-    regex(pattern: RegExp, name?: string): this;
+    regex(pattern: RegExp, options?: string | StringRegexOptions): this;
 
     /**
      * Replace characters matching the given pattern with the specified replacement string where:
@@ -786,6 +824,19 @@ export interface ObjectSchema extends AnySchema {
      */
     optionalKeys(children: string[]): this;
     optionalKeys(...children: string[]): this;
+
+    /**
+     * Sets the specified children to forbidden.
+     *
+     * @param children - can be a single string value, an array of string values, or each child provided as an argument.
+     *
+     *   const schema = Joi.object().keys({ a: { b: Joi.number().required() }, c: { d: Joi.string().required() } });
+     *   const optionalSchema = schema.forbiddenKeys('a.b', 'c.d');
+     *
+     * The behavior is exactly the same as requiredKeys.
+     */
+    forbiddenKeys(children: string[]): this;
+    forbiddenKeys(...children: string[]): this;
 }
 
 export interface BinarySchema extends AnySchema {
@@ -884,6 +935,7 @@ export interface AlternativesSchema extends AnySchema {
     try(...types: SchemaLike[]): this;
     when(ref: string, options: WhenOptions): this;
     when(ref: Reference, options: WhenOptions): this;
+    when(ref: Schema, options: WhenSchemaOptions): this;
 }
 
 export interface LazySchema extends AnySchema {
@@ -1057,7 +1109,7 @@ export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.
  */
-export function extend(extention: Extension): any;
+export function extend(extension: Extension|Extension[], ...extensions: (Extension|Extension[])[]): any;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -1180,6 +1232,7 @@ export function concat<T>(schema: T): T;
  */
 export function when(ref: string, options: WhenOptions): AlternativesSchema;
 export function when(ref: Reference, options: WhenOptions): AlternativesSchema;
+export function when(ref: Schema, options: WhenSchemaOptions): AlternativesSchema;
 
 /**
  * Overrides the key name in error messages.

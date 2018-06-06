@@ -215,7 +215,7 @@
         //
 
         var sphereGeometry = new THREE.SphereGeometry(0.1, 32, 32);
-        var sphereMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, shading: THREE.FlatShading});
+        var sphereMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, flatShading: true});
 
         for (var i = 0; i < 40; i++) {
 

@@ -1,4 +1,4 @@
-// Type definitions for Node.js 4.2
+// Type definitions for Node.js 4.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -34,8 +34,18 @@ interface Error {
     stack?: string;
 }
 
+// Declare "static" methods in Error
 interface ErrorConstructor {
+    /** Create .stack property on a target object */
     captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+
+    /**
+     * Optional override for formatting stack traces
+     *
+     * @see https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
+     */
+    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
+
     stackTraceLimit: number;
 }
 
@@ -155,10 +165,6 @@ declare var Buffer: {
     new (buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
-     * Allocates a new Buffer using an {array} of octets.
-     */
-    from(array: any[]): Buffer;
-    /**
      * When passed a reference to the .buffer property of a TypedArray instance,
      * the newly created Buffer will share the same allocated memory as the TypedArray.
      * The optional {byteOffset} and {length} arguments specify a memory range
@@ -168,9 +174,10 @@ declare var Buffer: {
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?:number): Buffer;
     /**
-     * Copies the passed {buffer} data onto a new Buffer instance.
+     * Creates a new Buffer using the passed {data}
+     * @param data data to create a new Buffer
      */
-    from(buffer: Buffer): Buffer;
+    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -214,6 +221,29 @@ declare var Buffer: {
      * The same as buf1.compare(buf2).
      */
     compare(buf1: Buffer, buf2: Buffer): number;
+    /**
+     * Allocates a new buffer of {size} octets.
+     *
+     * @param size count of octets to allocate.
+     * @param fill if specified, buffer will be initialized by calling buf.fill(fill).
+     *    If parameter is omitted, buffer will be filled with zeros.
+     * @param encoding encoding used for call to buf.fill while initalizing
+     */
+    alloc(size: number, fill?: string | Buffer | number, encoding?: string): Buffer;
+    /**
+     * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
+     * of the newly created Buffer are unknown and may contain sensitive data.
+     *
+     * @param size count of octets to allocate
+     */
+    allocUnsafe(size: number): Buffer;
+    /**
+     * Allocates a new non-pooled buffer of {size} octets, leaving memory not initialized, so the contents
+     * of the newly created Buffer are unknown and may contain sensitive data.
+     *
+     * @param size count of octets to allocate
+     */
+    allocUnsafeSlow(size: number): Buffer;
 };
 
 /************************************************
@@ -227,6 +257,80 @@ declare namespace NodeJS {
         depth?: number | null;
         colors?: boolean;
         customInspect?: boolean;
+    }
+
+    export interface CallSite {
+        /**
+         * Value of "this"
+         */
+        getThis(): any;
+
+        /**
+         * Type of "this" as a string.
+         * This is the name of the function stored in the constructor field of
+         * "this", if available.  Otherwise the object's [[Class]] internal
+         * property.
+         */
+        getTypeName(): string | null;
+
+        /**
+         * Current function
+         */
+        getFunction(): Function | undefined;
+
+        /**
+         * Name of the current function, typically its name property.
+         * If a name property is not available an attempt will be made to try
+         * to infer a name from the function's context.
+         */
+        getFunctionName(): string | null;
+
+        /**
+         * Name of the property [of "this" or one of its prototypes] that holds
+         * the current function
+         */
+        getMethodName(): string | null;
+
+        /**
+         * Name of the script [if this function was defined in a script]
+         */
+        getFileName(): string | null;
+
+        /**
+         * Current line number [if this function was defined in a script]
+         */
+        getLineNumber(): number | null;
+
+        /**
+         * Current column number [if this function was defined in a script]
+         */
+        getColumnNumber(): number | null;
+
+        /**
+         * A call site object representing the location where eval was called
+         * [if this function was created using a call to eval]
+         */
+        getEvalOrigin(): string | undefined;
+
+        /**
+         * Is this a toplevel invocation, that is, is "this" the global object?
+         */
+        isToplevel(): boolean;
+
+        /**
+         * Does this call take place in code defined by a call to eval?
+         */
+        isEval(): boolean;
+
+        /**
+         * Is this call in native V8 code?
+         */
+        isNative(): boolean;
+
+        /**
+         * Is this a constructor call?
+         */
+        isConstructor(): boolean;
     }
 
     export interface ErrnoException extends Error {
@@ -268,7 +372,7 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Buffer|string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
+        end(cb?: Function): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
@@ -313,6 +417,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        debugPort: number;
         env: any;
         exit(code?: number): void;
         exitCode: number;
@@ -789,7 +894,7 @@ declare module "cluster" {
     }
 
     export class Worker extends events.EventEmitter {
-        id: string;
+        id: number;
         process: child.ChildProcess;
         suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): void;
@@ -974,7 +1079,9 @@ declare module "https" {
         secureProtocol?: string;
     }
 
-    export interface Agent extends http.Agent { }
+    export interface Agent extends http.Agent {
+        options?: AgentOptions;
+    }
 
     export interface AgentOptions extends http.AgentOptions {
         pfx?: any;
@@ -1134,7 +1241,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
-    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
         cwd?: string;
@@ -1442,9 +1549,9 @@ declare module "net" {
         destroy(): void;
         pause(): void;
         resume(): void;
-        setTimeout(timeout: number, callback?: Function): void;
-        setNoDelay(noDelay?: boolean): void;
-        setKeepAlive(enable?: boolean, initialDelay?: number): void;
+        setTimeout(timeout: number, callback?: Function): this;
+        setNoDelay(noDelay?: boolean): this;
+        setKeepAlive(enable?: boolean, initialDelay?: number): this;
         address(): { port: number; family: string; address: string; };
         unref(): void;
         ref(): void;
@@ -1886,6 +1993,28 @@ declare module "path" {
          */
         name: string;
     }
+    export interface FormatInputPathObject {
+        /**
+         * The root of the path such as '/' or 'c:\'
+         */
+        root?: string;
+        /**
+         * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+         */
+        dir?: string;
+        /**
+         * The file name including extension (if any) such as 'index.html'
+         */
+        base?: string;
+        /**
+         * The file extension (if any) such as '.html'
+         */
+        ext?: string;
+        /**
+         * The file name without extension (if any) such as 'index'
+         */
+        name?: string;
+    }
 
     /**
      * Normalize a string path, reducing '..' and '.' parts.
@@ -1917,7 +2046,7 @@ declare module "path" {
      *
      * @param pathSegments string paths to join.  Non-string arguments are ignored.
      */
-    export function resolve(...pathSegments: any[]): string;
+    export function resolve(...pathSegments: string[]): string;
     /**
      * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
      *
@@ -1969,7 +2098,7 @@ declare module "path" {
      *
      * @param pathString path to evaluate.
      */
-    export function format(pathObject: ParsedPath): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
     export module posix {
       export function normalize(p: string): string;
@@ -1983,7 +2112,7 @@ declare module "path" {
       export var sep: string;
       export var delimiter: string;
       export function parse(p: string): ParsedPath;
-      export function format(pP: ParsedPath): string;
+      export function format(pP: FormatInputPathObject): string;
     }
 
     export module win32 {
@@ -1998,7 +2127,7 @@ declare module "path" {
       export var sep: string;
       export var delimiter: string;
       export function parse(p: string): ParsedPath;
-      export function format(pP: ParsedPath): string;
+      export function format(pP: FormatInputPathObject): string;
     }
 }
 
@@ -2237,8 +2366,8 @@ declare module "stream" {
         highWaterMark?: number;
         decodeStrings?: boolean;
         objectMode?: boolean;
-        write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-        writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
+        write?: (chunk: any, encoding: string, callback: Function) => any;
+        writev?: (chunks: { chunk: any, encoding: string }[], callback: Function) => any;
     }
 
     export class Writable extends Stream implements NodeJS.WritableStream {
@@ -2248,7 +2377,7 @@ declare module "stream" {
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         setDefaultEncoding(encoding: string): this;
-        end(): void;
+        end(cb?: Function): void;
         end(chunk: any, cb?: Function): void;
         end(chunk: any, encoding?: string, cb?: Function): void;
     }
@@ -2267,7 +2396,7 @@ declare module "stream" {
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         setDefaultEncoding(encoding: string): this;
-        end(): void;
+        end(cb?: Function): void;
         end(chunk: any, cb?: Function): void;
         end(chunk: any, encoding?: string, cb?: Function): void;
     }
@@ -2317,7 +2446,7 @@ declare module "assert" {
                                   operator?: string; stackStartFunction?: Function});
         }
 
-        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
@@ -2348,12 +2477,12 @@ declare module "tty" {
     import * as net from "net";
 
     export function isatty(fd: number): boolean;
-    export interface ReadStream extends net.Socket {
+    export class ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode: boolean): void;
         isTTY: boolean;
     }
-    export interface WriteStream extends net.Socket {
+    export class WriteStream extends net.Socket {
         columns: number;
         rows: number;
         isTTY: boolean;

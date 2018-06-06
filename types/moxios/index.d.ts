@@ -3,7 +3,7 @@
 // Definitions by: Asuka Ito <https://github.com/itoasuka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosRequestConfig } from "axios";
 
 interface Item {
     response?: any;
@@ -75,7 +75,14 @@ declare class Request {
      * @param reject The function to call when Promise is rejected
      * @param config The config object to be used for the request
      */
-    constructor(resolve: (arg: any) => void, reject: (arg: any) => void, config: any);
+    constructor(resolve: (arg: any) => void, reject: (arg: any) => void, config: AxiosRequestConfig);
+
+    config: AxiosRequestConfig;
+    headers: any;
+    url: string;
+    timeout: number;
+    withCredentials: boolean;
+    responseType: string;
 
     /**
      * Respond to this request with a timeout result
@@ -102,12 +109,13 @@ declare class Response {
      */
     constructor(req: Request, res: any);
 
-    config: any;
+    config: AxiosRequestConfig;
     data?: any;
     status?: number;
     statusText?: string;
     headers: any;
     request: Request;
+    code?: string;
 }
 
 declare let moxios: {

@@ -20,5 +20,8 @@ namespace BMapTests {
             map.addOverlay(marker);
             marker.setAnimation(BMAP_ANIMATION_BOUNCE);
         }
+        public create_map(map: BMap.Map, city: string) {
+            map.centerAndZoom(city);
+        }
     }
 }

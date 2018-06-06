@@ -60,7 +60,7 @@ interface RangyStatic {
     createRange(doc?:Document|Window|HTMLIFrameElement):RangyRange;
     createRangyRange(doc?:Document|Window|HTMLIFrameElement):RangyRange;
     getNativeSelection(win?:Window):Selection;
-    getSelection():RangySelection;
+    getSelection(doc?:Document|Window|HTMLIFrameElement):RangySelection;
     addInitListener(listener:(rangy:RangyStatic) => void):any;
     shim():any;
     createMissingNativeApi():any;

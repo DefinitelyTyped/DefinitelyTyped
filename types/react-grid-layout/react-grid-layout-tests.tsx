@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactGridLayout from 'react-grid-layout';
+import ReactGridLayout = require('react-grid-layout');
 import { Responsive, WidthProvider } from 'react-grid-layout';
 
 const ResponsiveWidth = WidthProvider(Responsive);

@@ -111,7 +111,7 @@ declare namespace PubSub {
     interface Publisher {
         publish(data: Buffer, callback: Publisher.PublishCallback): void;
         publish(data: Buffer, attributes: object, callback: Publisher.PublishCallback): void;
-        publish(data: Buffer, attributes?: object): Promise<any[]>;
+        publish(data: Buffer, attributes?: object): Promise<string>;
     }
     namespace Publisher {
         type PublishCallback = (error: Error | null, messageId: string) => void;

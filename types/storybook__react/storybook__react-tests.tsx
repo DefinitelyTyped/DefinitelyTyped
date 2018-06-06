@@ -6,7 +6,8 @@ const Decorator = (story: RenderFunction) => <div>{story()}</div>;
 storiesOf('Welcome', module)
     // local addDecorator
     .addDecorator(Decorator)
-    .add('to Storybook', () => <div/>);
+    .add('to Storybook', () => <div/>)
+    .add('to Storybook as Array', () => [<div />, <div />]);
 
 // global addDecorator
 addDecorator(Decorator);
@@ -26,6 +27,7 @@ storiesOf<AnyAddon>('withAnyAddon', module)
     .addWithSideEffect('custom story', () => <div/>)
     .addWithSideEffect('more', () => <div/>)
     .add('another story', () => <div/>)
+    .add('to Storybook as Array', () => [<div />, <div />])
     .addWithSideEffect('even more', () => <div/>);
 
 // configure

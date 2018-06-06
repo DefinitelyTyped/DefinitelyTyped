@@ -21,7 +21,13 @@ const lang: DataTables.LanguageSettings = {
     },
     aria: {
         sortAscending: ": activate to sort column ascending",
-        sortDescending: ": activate to sort column descending"
+        sortDescending: ": activate to sort column descending",
+        paginate: {
+            first: "First",
+            last: "Last",
+            next: "Next",
+            previous: "Previous"
+        }
     }
 };
 
@@ -98,6 +104,7 @@ let col: DataTables.ColumnSettings = {
     orderable: true,
     orderData: 10,
     orderDataType: "dom-checkbox",
+    orderFixed: [[0, 'asc'], [1, 'desc']],
     orderSequence: ['asc', 'desc'],
     render: 1,
     searchable: true,
@@ -118,6 +125,20 @@ col = {
     data: colDataFunc,
     render: colRenderFunc,
 };
+col = {
+    data: "salary",
+    render: $.fn.dataTable.render.number('\'', '.', 0, '$'),
+};
+col = {
+    data: "url",
+    render: $.fn.dataTable.render.text(),
+};
+col = {
+    orderFixed: {
+        pre: [[0, 'asc'], [1, 'desc']],
+        post: [[0, 'asc'], [1, 'desc']]
+    }
+};
 
 //#endregion "Column"
 
@@ -135,6 +156,7 @@ let colDef: DataTables.ColumnDefsSettings = {
         orderable: true,
         orderData: 10,
         orderDataType: "dom-checkbox",
+        orderFixed: [[0, 'asc'], [1, 'desc']],
         orderSequence: ['asc', 'desc'],
         render: 1,
         searchable: true,
@@ -203,7 +225,7 @@ let config: DataTables.Settings = {
         ],
         // Data
         ajax: "url",
-        data: {},
+        data: [],
         // Features
         autoWidth: true,
         deferRender: true,
@@ -352,6 +374,9 @@ const order_get = dt.order();
 let order_set = dt.order([0, "asc"]);
 order_set = dt.order([0, "asc"], [1, "desc"]);  // TODO: Fíx that
 order_set = dt.order([[0, "asc"], [1, "desc"]]);
+
+const fixed_get: DataTables.ObjectOrderFixed = dt.order.fixed();
+const fixed_set: DataTables.Api = dt.order.fixed({pre: [0, "asc"], post: [1, "desc"]});
 
 const orderListerner = order_set.order.listener("node", 1, () => { });
 
@@ -508,6 +533,9 @@ $('#example').on('click', 'tbody td', () => {
 
 cells.every(() => { });
 cells.every((cellRowIdx, cellColIdx, tableLoop, cellLoop) => { });
+cells.every(function(cellRowIdx, cellColIdx, tableLoop, cellLoop) {
+    const cell: DataTables.CellMethods = this;
+});
 
 let cell = dt.cell(":contains('Not shipped')");
 cell = dt.cell(() => { });
@@ -790,6 +818,14 @@ dt.columns.adjust().draw(false); // adjust column sizing and redraw
 
 dt.columns().every(() => { });
 dt.columns().every((colIdx, tableLoop, colLoop) => { });
+dt.columns().every(function(colIdx, tableLoop, colLoop) {
+    const col: DataTables.ColumnMethods = this;
+});
+
+$('#example').on('column-visibility.dt', (e: object, settings: DataTables.Settings, column: number, state: boolean, recalc: boolean | undefined) => {
+    const widthRecalced = (recalc || recalc === undefined);
+    console.log(`Column ${column} has changed to ${(state ? 'visible' : 'hidden')} and width ${(widthRecalced) ? 'was' : 'was not'} recalculated.`);
+});
 
 //#endregion "Methods-Column"
 
@@ -834,6 +870,9 @@ const rows_12 = dt.rows("selector").nodes();
 const rows_13 = dt.rows.add([{}, {}]);
 dt.rows().every(() => { });
 dt.rows().every((rowIdx, tableLoop, rowLoop) => { });
+dt.rows().every(function(rowIdx, tableLoop, rowLoop) {
+    const row: DataTables.RowMethods = this;
+});
 const rows_14: DataTables.Api = dt.rows("selector").ids();
 const rows_15: DataTables.Api = dt.rows("selector").ids(false);
 

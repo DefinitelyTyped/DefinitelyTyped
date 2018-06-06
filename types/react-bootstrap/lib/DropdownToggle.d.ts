@@ -8,7 +8,7 @@ declare namespace DropdownToggle {
         title?: string;
         useAnchor?: boolean;
         bsClass?:string; // Added since v0.30.0
-        bsStyle?:string;
+        bsStyle?:string | null;
         bsSize?:string;
     }
 }

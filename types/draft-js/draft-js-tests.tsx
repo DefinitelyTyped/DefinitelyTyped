@@ -12,7 +12,18 @@ import {
   SelectionState,
   getDefaultKeyBinding,
   ContentState,
-  convertFromHTML
+  RawDraftInlineStyleRange,
+  RawDraftEntityRange,
+  RawDraftEntity,
+  RawDraftContentBlock,
+  RawDraftContentState,
+  DraftBlockType,
+  DraftInlineStyleType,
+  DraftEntityMutability,
+  DraftEntityType,
+  convertFromHTML,
+  convertToRaw,
+  CompositeDecorator,
 } from 'draft-js';
 
 const SPLIT_HEADER_BLOCK = 'split-header-block';
@@ -28,6 +39,14 @@ export const KEYCODES: Record<KeyName, KeyCode> = {
 
 type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 
+const HANDLE_REGEX = /\@[\w]+/g;
+
+class HandleSpan extends React.Component {
+  render() {
+    return <span>{this.props.children}</span>
+  }
+}
+
 class RichEditorExample extends React.Component<{}, { editorState: EditorState }> {
   constructor() {
     super({});
@@ -41,8 +60,22 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
       blocksFromHTML.contentBlocks,
       blocksFromHTML.entityMap,
     );
-
-    this.state = { editorState: EditorState.createWithContent(state) };
+    const decorator = new CompositeDecorator([{
+      strategy: (
+        block: ContentBlock,
+        callback: (start: number, end: number) => void,
+        contentState: ContentState
+      ) => {
+        const text = block.getText();
+        let matchArr, start;
+        while ((matchArr = HANDLE_REGEX.exec(text)) !== null) {
+          start = matchArr.index;
+          callback(start, start + matchArr[0].length);
+        }
+      },
+      component: HandleSpan,
+    }]);
+    this.state = { editorState: EditorState.createWithContent(state, decorator) };
   }
 
   onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
@@ -274,7 +307,7 @@ var INLINE_STYLES = [
 
 const InlineStyleControls = (props: {editorState: EditorState, onToggle: (blockType: string) => void}) => {
   var currentStyle = props.editorState.getCurrentInlineStyle();
-        return (
+  return (
     <div className="RichEditor-controls">
       {INLINE_STYLES.map(type =>
         <StyleButton
@@ -293,3 +326,23 @@ ReactDOM.render(
   <RichEditorExample />,
   document.getElementById('target')
 );
+
+const editorState = EditorState.createEmpty();
+const contentState = editorState.getCurrentContent();
+const rawContentState: RawDraftContentState = convertToRaw(contentState);
+
+rawContentState.blocks.forEach((block: RawDraftContentBlock) => {
+  block.entityRanges.forEach((entityRange: RawDraftEntityRange) => {
+    const { key, offset, length } = entityRange;
+    const entity: RawDraftEntity = rawContentState.entityMap[key];
+    const entityType: DraftEntityType = entity.type;
+    const entityMutability: DraftEntityMutability = entity.mutability;
+    console.log(entityType, entityMutability, offset, length);
+  });
+
+  block.inlineStyleRanges.forEach((inlineStyleRange: RawDraftInlineStyleRange) => {
+    const { offset, length } = inlineStyleRange
+    const inlineStyle: DraftInlineStyleType = inlineStyleRange.style;
+    console.log(inlineStyle, offset, length);
+  });
+});

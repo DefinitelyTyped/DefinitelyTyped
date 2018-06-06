@@ -8,7 +8,10 @@ const element: VanillaTilt = new VanillaTilt(document.createElement('a'), {
     reset: true,
     reverse: true,
     scale: 2,
-    speed: 200
+    speed: 200,
+    glare: true,
+    "max-glare": 1,
+    "glare-prerender": true,
 });
 
 VanillaTilt.init(document.createElement('a'), {
