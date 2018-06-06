@@ -2,11 +2,12 @@
 // Project: https://github.com/dequelabs/axe-webdriverjs#readme
 // Definitions by: My Self <https://github.com/JoshuaKGoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Result, RunOptions, Spec } from "axe-core";
 import { WebDriver } from "selenium-webdriver";
 
-export interface IAxeAnalysis {
+export interface AxeAnalysis {
     inapplicable: Result[];
     incomplete: Result[];
     passes: Result[];
@@ -16,9 +17,6 @@ export interface IAxeAnalysis {
 }
 
 export interface AxeBuilder {
-    (driver: WebDriver): AxeBuilder;
-    new (driver: WebDriver): AxeBuilder;
-
     /**
      * Includes a selector in analysis.
      *
@@ -38,21 +36,22 @@ export interface AxeBuilder {
      *
      * @param options   aXe options object.
      * @remarks Will override any other configured options, including calls to `withRules` and `withTags`.
+     * @see https://github.com/dequelabs/axe-core/issues/937
      */
     options(options: RunOptions): this;
 
     /**
      * Limits analysis to only the specified rules.
-     * 
+     *
      * @param rules   Array of rule IDs, or a single rule ID as a string.
      * @remarks Cannot be used with `withTags`.
      */
     withRules(rules: string | string[]): this;
 
     /**
-     * Limist analysis to only the specified tags.  
+     * Limist analysis to only the specified tags.
      *
-     * @param rules   Array of tags, or a single tag as a string
+     * @param rules   Array of tags, or a single tag as a string.
      * @remarks Cannot be used with `withRules`.
      */
     withTags(tags: string | string[]): this;
@@ -60,7 +59,7 @@ export interface AxeBuilder {
     /**
      * Set the list of rules to skip when running an analysis
      *
-     * @param rules   Array of rule IDs, or a single rule ID as a string
+     * @param rules   Array of rule IDs, or a single rule ID as a string.
      */
     disableRules(rules: string | string[]): this;
 
@@ -72,8 +71,13 @@ export interface AxeBuilder {
     configure(config: Spec): this;
 
     /**
-    * Perform analysis and retrieve results.
-    * @param callback   Function to execute when analysis completes.
-    */
-    analyze(callback: (results: IAxeAnalysis) => void): Promise<IAxeAnalysis>;
+     * Perform analysis and retrieve results.
+     * @param callback   Function to execute when analysis completes.
+     */
+    analyze(callback: (results: AxeAnalysis) => void): Promise<AxeAnalysis>;
 }
+
+export const AxeBuilder: {
+    (driver: WebDriver): AxeBuilder;
+    new (driver: WebDriver): AxeBuilder;
+};
