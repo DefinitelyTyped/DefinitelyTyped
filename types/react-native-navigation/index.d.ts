@@ -1,6 +1,7 @@
 // Type definitions for react-native-navigation 1.1
 // Project: https://github.com/wix/react-native-navigation
 // Definitions by: Egor Shulga <https://github.com/egorshulga>
+//                 Jason Merino <https://github.com/jasonmerino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 

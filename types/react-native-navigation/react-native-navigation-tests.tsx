@@ -20,6 +20,8 @@ class Screen1 extends React.Component<Props> {
     onNavigatorEvent = (event: NavigatorEvent) => {
         if (event.id === 'willAppear') {
             console.log('will appear');
+        } else if (event.type === 'NavBarButtonPress' && event.id === 'sideMenu') {
+            console.log('side menu pressed');
         }
     }
 
