@@ -17,6 +17,7 @@ opt1.replace = {a: 'foo', b: 'bar', c: 'baz'};
 opt1.replace = undefined;
 opt1.unknown = '***?***';
 opt1.unknown = undefined;
+opt1.trim = true;
 
 slugify('你好，世界'); // ni-hao-shi-jie
 slugify('你好，世界', { lowercase: false, separator: '_' }); // Ni_Hao_Shi_Jie

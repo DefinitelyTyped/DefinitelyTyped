@@ -29,6 +29,12 @@ export namespace transliterate {
          * Strings in the ignore list will be bypassed from transliteration
          */
         ignore?: string[];
+
+        /**
+         * Trim spaces at the begining and ending of the string
+         * default: true
+         */
+        trim?: boolean;
     }
 }
 
