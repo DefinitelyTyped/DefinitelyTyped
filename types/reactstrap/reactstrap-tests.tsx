@@ -4178,7 +4178,7 @@ class Example120 extends React.Component<any, any> {
   }
 }
 
-class Example120 extends React.Component<any, any> {
+class Example121 extends React.Component<any, any> {
   render() {
     return (
       <UncontrolledDropdown className="some-class" setActiveFromChild>
@@ -4197,7 +4197,7 @@ class Example120 extends React.Component<any, any> {
   }
 }
 
-class Example121 extends React.Component<any, any> {
+class Example122 extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
