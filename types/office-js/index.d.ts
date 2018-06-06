@@ -523,7 +523,7 @@ declare namespace Office {
          */
         name: string;
     }
-    export namespace AddinCommands {
+    namespace AddinCommands {
         /**
          * The event object is passed as a parameter to add-in functions invoked by UI-less command buttons. The object allows the add-in to identify which button was clicked and to signal the host that it has completed its processing.
          * 
@@ -539,8 +539,13 @@ declare namespace Office {
          *
          * Applicable Outlook mode: Compose or Read
          */
-        export interface Event {
+        interface Event {
             
+            /**
+             * Information about the control that triggered calling this function
+             */
+            source:Source;
+
             /**
              * Indicates that the add-in has completed processing that was triggered by an add-in command button or event handler.
              * 
@@ -560,6 +565,17 @@ declare namespace Office {
              *        allowEvent: A boolean value. When the completed method is used to signal completion of an event handler, this value indicates of the handled event should continue execution or be canceled. For example, an add-in that handles the ItemSend event can set allowEvent = false to cancel sending of the message.
              */
             completed(options?: any): void;
+        }
+
+        /**
+         * Encapsulates source data for add-in events.
+         */
+        interface Source {
+
+            /**
+             * The id of the control that triggered calling this function. The id comes from the manifest and is the unique ID of your Office Add-in as a GUID.
+             */
+            id: string;
         }
     }
     /**
