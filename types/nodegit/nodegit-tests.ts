@@ -11,6 +11,7 @@ Git.Repository.init("path", 0).then((repository) => {
 const repo = new Git.Repository();
 const id = new Git.Oid();
 const ref = new Git.Reference();
+const tree = new Git.Tree();
 
 // AnnotatedCommit Tests
 
@@ -50,6 +51,11 @@ const blameOptions = new Git.BlameOptions();
 
 Git.Branch.lookup(repo, "branch_name", Git.Branch.BRANCH.LOCAL).then((reference) => {
     // Use reference
+});
+
+repo.getCommit("0123456789abcdef0123456789abcdef").then((commit) => {
+  const sig = Git.Signature.now('John Doe', 'jd@example.com');
+  const newCommit: Promise<Git.Oid> = commit.amend('ref', sig, sig, 'utf8', 'message', tree);
 });
 
 const signature = Git.Signature.now("name", "email");
