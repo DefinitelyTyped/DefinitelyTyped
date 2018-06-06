@@ -38,7 +38,8 @@ import {
     MailComposer,
     Location,
     Updates,
-    MediaLibrary
+    MediaLibrary,
+    Haptic
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
@@ -779,3 +780,36 @@ async () => {
         console.log(bundleFetchResult.manifest);
     }
 };
+
+// #region MediaLibrary
+async () => {
+  const mlAsset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('localUri');
+  const mlAssetResult: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync({
+    first: 0,
+    after: '',
+    album: 'Album',
+    sortBy: MediaLibrary.SortBy.creationTime,
+    mediaType: MediaLibrary.MediaType.photo
+  });
+  const mlAsset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(mlAsset);
+  const areDeleted: boolean = await MediaLibrary.deleteAssetsAsync([mlAsset]);
+  const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
+  const album: MediaLibrary.Album = await MediaLibrary.getAlbumAsync('album');
+  const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('album', mlAsset);
+  const areAddedToAlbum: boolean = await MediaLibrary.addAssetsToAlbumAsync([mlAsset, mlAsset1], 'album');
+  const areDeletedFromAlbum: boolean = await MediaLibrary.removeAssetsFromAlbumAsync([mlAsset, mlAsset1], 'album');
+  const momuents: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
+}
+//#endregion
+
+// #region Haptic
+Haptic.impact(Haptic.ImpactFeedbackStyle.Heavy);
+Haptic.impact(Haptic.ImpactFeedbackStyle.Light);
+Haptic.impact(Haptic.ImpactFeedbackStyle.Medium);
+
+Haptic.notification(Haptic.NotificationFeedbackType.Error);
+Haptic.notification(Haptic.NotificationFeedbackType.Success);
+Haptic.notification(Haptic.NotificationFeedbackType.Error);
+
+Haptic.selection();
+// #endregion

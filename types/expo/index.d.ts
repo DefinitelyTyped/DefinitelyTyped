@@ -2882,7 +2882,7 @@ export namespace MediaLibrary {
    * Deletes assets from the library. On iOS it deletes assets from all albums they belong to, while on Android it keeps all copies of them
    * (album is strictly connected to the asset). Also, there is additional dialog on iOS that requires user to confirm this action.
    */
-  function deleteAssetsAsync(asset: string | Asset[]): Promise<boolean>;
+  function deleteAssetsAsync(asset: string[] | Asset[]): Promise<boolean>;
 
   /**
    * Queries for user-created albums in media gallery.
@@ -2892,7 +2892,7 @@ export namespace MediaLibrary {
   /**
    * Queries for an album with a specific name.
    */
-  function getAlbumAsync(albumName: string): Promise<Album|null>;
+  function getAlbumAsync(albumName: string): Promise<Album>;
 
   /**
    * Creates an album with given name and initial asset.
