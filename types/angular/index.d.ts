@@ -484,6 +484,9 @@ declare namespace angular {
         $broadcast(name: string, ...args: any[]): IAngularEvent;
         $destroy(): void;
         $digest(): void;
+        $suspend(): void;
+        $isSuspended(): boolean;
+        $resume(): void;
         /**
          * Dispatches an event name upwards through the scope hierarchy notifying the registered $rootScope.Scope listeners.
          *
