@@ -119,7 +119,8 @@ export interface LightBox {
 }
 
 export interface NavigatorEvent {
-    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress';
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress' | 'bottomTabSelected' | 'bottomTabReselected' | string;
+    type: 'NavBarButtonPress' | 'DeepLink';
 }
 
 export class Navigator {
