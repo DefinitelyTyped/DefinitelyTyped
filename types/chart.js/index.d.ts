@@ -195,7 +195,7 @@ declare namespace Chart {
         events?: string[];
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
         onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
-		legendCallback?(chart: any): any;
+	legendCallback?(chart: any): any;
         title?: ChartTitleOptions;
         legend?: ChartLegendOptions;
         tooltips?: ChartTooltipOptions;
@@ -297,6 +297,7 @@ declare namespace Chart {
         positioners: {[mode: string]: ChartTooltipPositioner};
     }
 
+    type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
     type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
 
     interface ChartHoverOptions {
