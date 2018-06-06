@@ -5,6 +5,7 @@
 //                 Christopher Currens <https://github.com/ccurrens>
 //                 Edward Hinkle <https://github.com/edwardhinkle>
 //                 Behind The Math <https://github.com/BehindTheMath>
+//                 Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
