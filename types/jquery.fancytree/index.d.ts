@@ -303,7 +303,7 @@ declare namespace Fancytree {
          * @param map callback function(NodeData) that could modify the new node
          * @returns new node.
          */
-        copyTo(node: FancytreeNode, mode?: string, map?: (node: NodeData) => void) : FancytreeNode;
+        copyTo(node: FancytreeNode, mode?: string, map?: (node: NodeData) => void): FancytreeNode;
 
         /** Count direct and indirect children.
          *
@@ -528,7 +528,7 @@ declare namespace Fancytree {
         resetLazy(): void;
 
         /** Schedule activity for delayed execution (cancel any pending request). scheduleAction('cancel') will only cancel a pending request (if any). */
-        scheduleAction(mode: string, ms: number) : void;
+        scheduleAction(mode: string, ms: number): void;
 
         /**
          * @param effects animation options.
@@ -757,7 +757,7 @@ declare namespace Fancytree {
         /** Accept passing ajax data in a property named `d` (default: true). */
         enableAspx?: boolean;
         /** List of active extensions (default: []) */
-        extensions?: string[];
+        extensions?: Array<keyof Extensions | string>;
         /** Set focus when node is checked by a mouse click (default: false) */
         focusOnSelect?: boolean;
         /** Add `id="..."` to node markup (default: true). */
@@ -792,91 +792,201 @@ declare namespace Fancytree {
         titlesTabbable?: boolean;
         /** Animation options, false:off (default: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 }) */
         toggleEffect?: JQueryUI.EffectOptions;
+
+        ////////////////
+        // EXTENSIONS //
+        ////////////////
+        dnd5?: ExtensionDragAndDrop5;
+        filter?: ExtensionFilter;
+        table?: ExtensionTable;
+
+        /** Options for misc extensions - see docs for typings */
+        [extension: string]: any;
     }
-
-    /** Data object passed to FancytreeNode() constructor. Note: typically these attributes are accessed by meber methods, e.g. `node.isExpanded()` and `node.setSelected(false)`.  */
-    interface NodeData {
-        /** node text (may contain HTML tags) */
-        title: string;
-        icon?: string;
-        /** unique key for this node (auto-generated if omitted) */
-        key?: string;
-        /** (reserved) */
-        refKey?: string;
-        expanded?: boolean;
-        /** (initialization only, but will not be stored with the node). */
-        active?: boolean;
-        /** (initialization only, but will not be stored with the node). */
-        focus?: boolean;
-        folder?: boolean;
-        hideCheckbox?: boolean;
-        lazy?: boolean;
-        selected?: boolean;
-        unselectable?: boolean;
-        /** optional array of child nodes */
-        children?: NodeData[];
-        tooltip?: string;
-        /** class names added to the node markup (separate with space) */
-        extraClasses?: string;
-        /** all properties from will be copied to `node.data` */
-        data?: Object;
+    interface Extensions {
+        dnd5?: ExtensionDragAndDrop5;
+        filter?: ExtensionFilter;
+        table?: ExtensionTable;
+        [extension: string]: any;
     }
-
-    /** Data object similar to NodeData, but with additional options.
-      * May be passed to FancytreeNode#applyPatch (Every property that is omitted (or set to undefined) will be ignored)  */
-    interface NodePatch {
-        /** (not yet implemented) */
-        appendChildren?: NodeData;
-        /** (not yet implemented) */
-        replaceChildren?: NodeData;
-        /** (not yet implemented) */
-        insertChildren?: NodeData;
+    interface ExtensionDragAndDrop5 {
+        /**
+         * Expand nodes after n milliseconds of hovering.
+         */
+        autoExpandMS?: number;
+        /**
+         * Absolute position offset for .fancytree-drop-marker
+         */
+        dropMarkerOffsetX?: number;
+        /**
+         * Additional offset for drop-marker with hitMode = "before"/"after"
+         */
+        dropMarkerInsertOffsetX?: number;
+        /**
+         * true: Drag multiple (i.e. selected) nodes.
+         */
+        multiSource?: boolean;
+        /**
+         * Prevent dropping nodes from different Fancytrees
+         */
+        preventForeignNodes?: boolean;
+        /**
+         * Prevent dropping items other than Fancytree nodes
+         */
+        preventNonNodes?: boolean;
+        /**
+         * Prevent dropping nodes on own descendants
+         */
+        preventRecursiveMoves?: boolean;
+        /**
+         * Prevent dropping nodes 'before self', etc.
+         */
+        preventVoidMoves?: boolean;
+        /**
+         * Enable auto-scrolling while dragging
+         */
+        scroll?: boolean;
+        /**
+         * Active top/bottom margin in pixel
+         */
+        scrollSensitivity?: number;
+        /**
+         * Pixel per event
+         */
+        scrollSpeed?: number;
+        /**
+         * Core options
+         */
+        source: {
+            url: string;
+        }
+        /**
+         * Events (drag support)
+         */
+        dragStart?: (sourceNode: FancytreeNode, data: any) => void;
+        /**
+         * Events (drop support)
+         */
+        dragEnter: (targetNode: FancytreeNode, data: any) => void;
+        /**
+         * Events (drag over)
+         */
+        dragOver: (targetNode: FancytreeNode, data: any) => void;
+        /**
+         * Events (drag drop)
+         */
+        dragDrop: (node: FancytreeNode, data: any) => void;
+        /**
+         * Support misc options
+         */
+        [key: string]: any;
     }
-
-    /** May be passed to Fancytree#applyPatch. */
-    interface TreePatch {
-        [key: string]: NodePatch;
+    /**
+     * Define filter-extension options
+     */
+    interface ExtensionFilter {
+        mode: string;
+        /**
+         * Support misc options
+         */
+        [key: string]: any;
     }
-
-    interface FancytreeStatic {
-        buildType: string;
-        debugLevel: number;
-        version: string;
-
-        /** Throw an error if condition fails (debug method).  */
-        assert(cond: boolean, msg: string): void;
-
-        /** Return a function that executes *fn* at most every *timeout* ms. */
-        debounce<T extends (...args: any[]) => void>(timeout: number, fn: T, invokeAsap?: boolean, ctx?: any): T;
-
-        debug(msg: string): void;
-
-        error(msg: string): void;
-
-        escapeHtml(s: string): string;
-
-        getEventTarget(event: Event): Object;
-
-        getEventTargetType(event: Event): string;
-
-        getNode(el: JQuery): FancytreeNode;
-        getNode(el: Event): FancytreeNode;
-        getNode(el: Element): FancytreeNode;
-
-        info(msg: string): void;
-
-        /** Convert a keydown event to a string like 'ctrl+a', 'ctrl+shift+f2'.  */
-        keyEventToString(event: Event): string;
-
-        /** Parse tree data from HTML markup */
-        parseHtml($ul: JQuery): NodeData[];
-
-        /** Add Fancytree extension definition to the list of globally available extensions. */
-        registerExtension(definition: Object): void;
-
-        unescapeHtml(s: string): string;
-
-        warn(msg: string): void;
+    /**
+     * Define table-extension options
+     */
+    interface ExtensionTable {
+        indentation: number;
+        nodeColumnIdx: number;
+        /**
+         * Support misc options
+         */
+        [key: string]: any;
     }
+}
+
+/** Data object passed to FancytreeNode() constructor. Note: typically these attributes are accessed by meber methods, e.g. `node.isExpanded()` and `node.setSelected(false)`.  */
+interface NodeData {
+    /** node text (may contain HTML tags) */
+    title: string;
+    icon?: string;
+    /** unique key for this node (auto-generated if omitted) */
+    key?: string;
+    /** (reserved) */
+    refKey?: string;
+    expanded?: boolean;
+    /** (initialization only, but will not be stored with the node). */
+    active?: boolean;
+    /** (initialization only, but will not be stored with the node). */
+    focus?: boolean;
+    folder?: boolean;
+    hideCheckbox?: boolean;
+    lazy?: boolean;
+    selected?: boolean;
+    unselectable?: boolean;
+    /** optional array of child nodes */
+    children?: NodeData[];
+    tooltip?: string;
+    /** class names added to the node markup (separate with space) */
+    extraClasses?: string;
+    /** all properties from will be copied to `node.data` */
+    data?: Object;
+}
+
+/** Data object similar to NodeData, but with additional options.
+  * May be passed to FancytreeNode#applyPatch (Every property that is omitted (or set to undefined) will be ignored)  */
+interface NodePatch {
+    /** (not yet implemented) */
+    appendChildren?: NodeData;
+    /** (not yet implemented) */
+    replaceChildren?: NodeData;
+    /** (not yet implemented) */
+    insertChildren?: NodeData;
+}
+
+/** May be passed to Fancytree#applyPatch. */
+interface TreePatch {
+    [key: string]: NodePatch;
+}
+
+interface FancytreeStatic {
+    buildType: string;
+    debugLevel: number;
+    version: string;
+
+    /** Throw an error if condition fails (debug method).  */
+    assert(cond: boolean, msg: string): void;
+
+    /** Return a function that executes *fn* at most every *timeout* ms. */
+    debounce<T extends (...args: any[]) => void>(timeout: number, fn: T, invokeAsap?: boolean, ctx?: any): T;
+
+    debug(msg: string): void;
+
+    error(msg: string): void;
+
+    escapeHtml(s: string): string;
+
+    getEventTarget(event: Event): Object;
+
+    getEventTargetType(event: Event): string;
+
+    getNode(el: JQuery): FancytreeNode;
+    getNode(el: Event): FancytreeNode;
+    getNode(el: Element): FancytreeNode;
+
+    info(msg: string): void;
+
+    /** Convert a keydown event to a string like 'ctrl+a', 'ctrl+shift+f2'.  */
+    keyEventToString(event: Event): string;
+
+    /** Parse tree data from HTML markup */
+    parseHtml($ul: JQuery): NodeData[];
+
+    /** Add Fancytree extension definition to the list of globally available extensions. */
+    registerExtension(definition: Object): void;
+
+    unescapeHtml(s: string): string;
+
+    warn(msg: string): void;
+}
 }
 
