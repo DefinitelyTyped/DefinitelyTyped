@@ -32,6 +32,7 @@ declare global {
       httpOnly: boolean;
       domain?: string;
       expires: Date | boolean;
+      sameSite?: boolean | string;
     }
 
     interface SessionCookie extends SessionCookieData {
@@ -64,7 +65,6 @@ declare namespace session {
     proxy?: boolean;
     saveUninitialized?: boolean;
     unset?: string;
-    sameSite?: boolean | string;
   }
 
   interface BaseMemoryStore {
