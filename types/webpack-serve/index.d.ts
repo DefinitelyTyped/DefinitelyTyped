@@ -21,7 +21,7 @@ declare module 'webpack' {
 }
 
 declare function WebpackServe(
-  { config }: { config: webpack.Configuration }
+  config: webpack.Configuration
 ): Promise<WebpackServe.Instance>;
 
 declare namespace WebpackServe {
