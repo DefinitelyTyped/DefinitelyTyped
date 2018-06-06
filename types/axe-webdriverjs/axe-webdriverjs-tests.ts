@@ -1,4 +1,4 @@
-import { Result, Spec } from "axe-core";
+import { Result, RunOptions, Spec } from "axe-core";
 import { AxeBuilder, AxeAnalysis } from "axe-webdriverjs";
 import { WebDriver } from "selenium-webdriver";
 
@@ -6,12 +6,13 @@ const inTest = async (webDriver: WebDriver) => {
     const builderCalled: AxeBuilder = AxeBuilder(webDriver);
     const builderNewed: AxeBuilder = new AxeBuilder(webDriver);
 
+    const runOptions: RunOptions = {};
     const spec: Spec = {};
 
     const analysis: AxeAnalysis = await AxeBuilder(webDriver)
         .include("include")
         .exclude("exclude")
-        .options({})
+        .options(runOptions)
         .withRules("rule")
         .withRules(["rule", "rule"])
         .withTags("tag")

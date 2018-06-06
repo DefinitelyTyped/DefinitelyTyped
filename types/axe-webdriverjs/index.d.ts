@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Result, Spec } from "axe-core";
+import { Result, RunOptions, Spec } from "axe-core";
 import { WebDriver } from "selenium-webdriver";
 
 export interface AxeAnalysis {
@@ -38,7 +38,7 @@ export interface AxeBuilder {
      * @remarks Will override any other configured options, including calls to `withRules` and `withTags`.
      * @see https://github.com/dequelabs/axe-core/issues/937
      */
-    options(options: Object): this;
+    options(options: RunOptions): this;
 
     /**
      * Limits analysis to only the specified rules.
