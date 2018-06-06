@@ -6435,43 +6435,6 @@ declare namespace Office {
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
      */
     interface Appointment extends Item {
-        /**
-         * Gets or sets the recurrence pattern of an appointment. Gets the recurrence pattern of a meeting request. Read and compose modes for appointment items. Read mode for meeting request items.
-         * 
-         * The recurrence property returns a recurrence object for recurring appointments or meetings requests if an item is a series or an instance in a series. null is returned for single appointments and meeting requests of single appointments. undefined is returned for messages that are not meeting requests.
-         * 
-         * Note: Meeting requests have an itemClass value of IPM.Schedule.Meeting.Request.
-         * 
-         * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment and NOT a part of a series.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * Minimum permission level: ReadItem
-         * 
-         * Applicable Outlook mode: Compose or read
-         */
-        recurrence: Recurrence;
-
-        /**
-         * Gets the id of the series that an instance belongs to.
-         * 
-         * In OWA and Outlook, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. However, in iOS and Android, the seriesId returns the REST ID of the parent item.
-         * 
-         * Note: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. For more details, see [Use the Outlook REST APIs from an Outlook add-in](https://docs.microsoft.com/outlook/add-ins/use-rest-api).
-         * 
-         * The seriesId property returns null for items that do not have parent items such as single appointments, series items, or meeting requests and returns undefined for any other items that are not meeting requests.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * Minimum permission level: ReadItem
-         * 
-         * Applicable Outlook mode: Compose or read
-         */
-        seriesId: string;
     }
     /**
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
@@ -6570,11 +6533,26 @@ declare namespace Office {
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
      */
     interface AppointmentRead extends Appointment, ItemRead {
+        /**
+         * Gets the date and time that the appointment is to end.
+         *
+         * The end property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
+         *
+         * The end property returns a Date object.
+         *
+         * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on the client to UTC for the server.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
         end: Date;
         /**
-         * Gets or sets the location of an appointment.
-         *
-         * *Read mode*
+         * Gets the location of an appointment.
          *
          * The location property returns a string that contains the location of the appointment.
          *
@@ -6589,8 +6567,6 @@ declare namespace Office {
         location: string;
         /**
          * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
-         *
-         * *Read mode*
          *
          * The optionalAttendees property returns an array that contains an EmailAddressDetails object for each optional attendee to the meeting.
          *
@@ -6618,8 +6594,6 @@ declare namespace Office {
         /**
          * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
          *
-         * *Read mode*
-         *
          * The requiredAttendees property returns an array that contains an EmailAddressDetails object for each required attendee to the meeting.
          *
          * [Api set: Mailbox 1.0]
@@ -6632,11 +6606,9 @@ declare namespace Office {
          */
         requiredAttendees: EmailAddressDetails[];
         /**
-         * Gets or sets the date and time that the appointment is to begin.
+         * Gets the date and time that the appointment is to begin.
          *
          * The start property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
-         *
-         * *Read mode*
          *
          * The start property returns a Date object.
          *
@@ -6650,6 +6622,7 @@ declare namespace Office {
          */
         start: Date;
     }
+
     interface AppointmentForm {
         /**
          * Gets an object that provides methods for manipulating the body of an item.
@@ -6872,6 +6845,44 @@ declare namespace Office {
         notificationMessages: NotificationMessages;
 
         /**
+         * Gets or sets the recurrence pattern of an appointment. Gets the recurrence pattern of a meeting request. Read and compose modes for appointment items. Read mode for meeting request items.
+         * 
+         * The recurrence property returns a recurrence object for recurring appointments or meetings requests if an item is a series or an instance in a series. null is returned for single appointments and meeting requests of single appointments. undefined is returned for messages that are not meeting requests.
+         * 
+         * Note: Meeting requests have an itemClass value of IPM.Schedule.Meeting.Request.
+         * 
+         * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment and NOT a part of a series.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        recurrence: Recurrence;
+
+        /**
+         * Gets the id of the series that an instance belongs to.
+         * 
+         * In OWA and Outlook, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * 
+         * Note: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. For more details, see [Use the Outlook REST APIs from an Outlook add-in](https://docs.microsoft.com/outlook/add-ins/use-rest-api).
+         * 
+         * The seriesId property returns null for items that do not have parent items such as single appointments, series items, or meeting requests and returns undefined for any other items that are not meeting requests.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * Minimum permission level: ReadItem
+         * 
+         * Applicable Outlook mode: Compose or read
+         */
+        seriesId: string;
+
+        /**
          * Adds an event handler for a supported event.
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
@@ -6979,8 +6990,6 @@ declare namespace Office {
          * Gets or sets the description that appears in the subject field of an item.
          *
          * The subject property gets or sets the entire subject of the item, as sent by the email server.
-         *
-         * *Compose mode*
          *
          * The subject property returns a Subject object that provides methods to get and set the subject.
          *
@@ -7638,11 +7647,9 @@ declare namespace Office {
          */
         normalizedSubject: string;
         /**
-         * Gets or sets the description that appears in the subject field of an item.
+         * Gets the description that appears in the subject field of an item.
          *
          * The subject property gets or sets the entire subject of the item, as sent by the email server.
-         *
-         * *Read mode*
          *
          * The subject property returns a string. Use the normalizedSubject property to get the subject minus any leading prefixes such as RE: and FW:.
          *
@@ -7915,9 +7922,7 @@ declare namespace Office {
          */
         conversationId: string;
     }
-    /**
-     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the [Object Model pages for more information](https://review.docs.microsoft.com/en-us/javascript/office/objectmodel/preview-requirement-set/office-item?branch=AlexJ-OMPreservation).
-     */
+
     interface MessageCompose extends Message, ItemCompose {
         /**
          * Gets an object that provides methods to get or update the recipients on the Bcc (blind carbon copy) line of a message. Compose mode only.
@@ -7966,8 +7971,6 @@ declare namespace Office {
         /**
          * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the current item.
          *
-         * *Compose mode*
-         *
          * The to property returns a Recipients object that provides methods to get or update the recipients on the To line of the message.
          *
          * [Api set: Mailbox 1.0]
@@ -7986,8 +7989,6 @@ declare namespace Office {
     interface MessageRead extends Message, ItemRead {
         /**
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the current item.
-         *
-         * *Read mode*
          *
          * The cc property returns an array that contains an EmailAddressDetails object for each recipient listed on the Cc line of the message. The collection is limited to a maximum of 100 members.
          *
@@ -8048,8 +8049,6 @@ declare namespace Office {
         sender: EmailAddressDetails;
         /**
          * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the current item.
-         *
-         * *Read mode*
          *
          * The to property returns an array that contains an EmailAddressDetails object for each recipient listed on the To line of the message. The collection is limited to a maximum of 100 members.
          *
