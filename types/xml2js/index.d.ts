@@ -1,4 +1,4 @@
-// Type definitions for node-xml2js 0.4
+// Type definitions for node-xml2js 0.4.6
 // Project: https://github.com/Leonidas-from-XIV/node-xml2js
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 //                 Jason McNeil <https://github.com/jasonrm>
@@ -35,7 +35,7 @@ export interface Options {
     async?: boolean;
     attrkey?: string;
     attrNameProcessors?: Array<(name: string) => any>;
-    attrValueProcessors?: Array<(value: string, name: string) => any>;
+    attrValueProcessors?: Array<(value: string, name?: string) => any>;
     charkey?: string;
     charsAsChildren?: boolean;
     childkey?: string;
@@ -53,7 +53,7 @@ export interface Options {
     tagNameProcessors?: Array<(name: string) => any>;
     trim?: boolean;
     validator?: Function;
-    valueProcessors?: Array<(value: string, name: string) => any>;
+    valueProcessors?: Array<(value: string, name?: string) => any>;
     xmlns?: boolean;
 }
 
