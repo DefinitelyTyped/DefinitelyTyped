@@ -91,7 +91,7 @@ declare class ReadableStreamBYOBRequest<R = ArrayBufferView> {
     readonly view: R;
 
     respond(bytesWritten: number): void;
-    respondWithNewView(view: R): void;
+    respondWithNewView(view: ArrayBufferView): void;
 }
 
 interface WritableStreamSink<W = ArrayBufferView> {
