@@ -371,10 +371,12 @@ declare class Request {
     readonly url: string;
 }
 declare class Response {
-    constructor(body?: ReadableStream<any>);
-    readonly body: ReadableStream<ArrayBufferView>;
+    constructor(body?: ReadableStream);
+    readonly body: ReadableStream;
 }
 declare class TextDecoderStream extends TransformStream<string, ArrayBufferView> {
+}
+declare class TextEncoderStream extends TransformStream<Uint8Array, string> {
 }
 
 class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
@@ -439,7 +441,9 @@ class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
                 // Decode the binary-encoded response to string
                 .pipeThrough(new TextDecoderStream())
                 // Apply the LipFuzzTransformer
-                .pipeThrough(ts);
+                .pipeThrough(ts)
+                // Encode the transformed string
+                .pipeThrough(new TextEncoderStream());
             return new Response(transformedBody);
         })
     );
