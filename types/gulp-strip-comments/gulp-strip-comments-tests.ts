@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as stripComments from 'gulp-strip-comments';
+import stripComments = require('gulp-strip-comments');
 
 gulp.task('default', () => {
 	return gulp.src('src/app.js')
