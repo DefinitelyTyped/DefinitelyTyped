@@ -40,7 +40,7 @@ declare class ReadableStream<R = ArrayBufferView> {
     constructor(underlyingSource?: ReadableStreamSource<R>, strategy?: QueuingStrategy<R>);
     constructor(underlyingSource?: ReadableByteStreamSource<R>, strategy?: QueuingStrategy<R>);
 
-    locked: boolean;
+    readonly locked: boolean;
 
     cancel(reason: string): Promise<void>;
     getReader(): ReadableStreamDefaultReader<R>;
@@ -53,7 +53,7 @@ declare class ReadableStream<R = ArrayBufferView> {
 declare class ReadableStreamDefaultReader<R = ArrayBufferView> {
     constructor(stream: ReadableStream<R>);
 
-    closed: Promise<void>;
+    readonly closed: Promise<void>;
 
     cancel(reason: string): Promise<void>;
     read(): Promise<IteratorResult<R>>;
@@ -63,7 +63,7 @@ declare class ReadableStreamDefaultReader<R = ArrayBufferView> {
 declare class ReadableStreamBYOBReader<R = ArrayBufferView> {
     constructor(stream: ReadableStream);
 
-    closed: Promise<void>;
+    readonly closed: Promise<void>;
 
     cancel(reason: string): Promise<void>;
     read(view: R): Promise<IteratorResult<R>>;
@@ -73,7 +73,7 @@ declare class ReadableStreamBYOBReader<R = ArrayBufferView> {
 declare class ReadableStreamDefaultController<R = ArrayBufferView> {
     constructor(stream: ReadableStream, underlyingSource: ReadableStreamSource<R>, size: number, highWaterMark: number);
 
-    desiredSize: number;
+    readonly desiredSize: number;
 
     close(): void;
     enqueue(chunk: R): number;
@@ -83,8 +83,8 @@ declare class ReadableStreamDefaultController<R = ArrayBufferView> {
 declare class ReadableByteStreamController<R = ArrayBufferView> {
     constructor(stream: ReadableStream<R>, underlyingSource: ReadableStreamSource<R>, highWaterMark: number);
 
-    byobRequest: ReadableStreamBYOBRequest<R>;
-    desiredSize: number;
+    readonly byobRequest: ReadableStreamBYOBRequest<R>;
+    readonly desiredSize: number;
 
     close(): void;
     enqueue(chunk: R): number;
@@ -94,7 +94,7 @@ declare class ReadableByteStreamController<R = ArrayBufferView> {
 declare class ReadableStreamBYOBRequest<R = ArrayBufferView> {
     constructor(controller: ReadableByteStreamController<R>, view: R);
 
-    view: R;
+    readonly view: R;
 
     respond(bytesWritten: number): void;
     respondWithNewView(view: R): void;
@@ -110,7 +110,7 @@ interface WritableStreamSink<W = ArrayBufferView> {
 declare class WritableStream<W = ArrayBufferView> {
     constructor(underlyingSink?: WritableStreamSink<W>, strategy?: QueuingStrategy<W>);
 
-    locked: boolean;
+    readonly locked: boolean;
 
     abort(reason: string): Promise<void>;
     getWriter(): WritableStreamDefaultWriter<W>;
@@ -119,9 +119,9 @@ declare class WritableStream<W = ArrayBufferView> {
 declare class WritableStreamDefaultWriter<W = ArrayBufferView> {
     constructor(stream: WritableStream<W>);
 
-    closed: Promise<void>;
-    desiredSize: number | null;
-    ready: Promise<void>;
+    readonly closed: Promise<void>;
+    readonly desiredSize: number | null;
+    readonly ready: Promise<void>;
 
     abort(reason: string): Promise<void>;
     close(): Promise<void>;
