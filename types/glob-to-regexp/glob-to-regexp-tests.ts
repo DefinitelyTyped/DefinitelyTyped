@@ -1,4 +1,4 @@
-import * as globToRegExp from 'glob-to-regexp';
+import globToRegExp = require('glob-to-regexp');
 let re = globToRegExp("p*uck");
 re.test("pot luck"); // true
 re.test("pluck"); // true
