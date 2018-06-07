@@ -1,6 +1,6 @@
 import * as React from 'react';
+import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
-import { Popper } from './Popper';
 
 export type DropdownMenuProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
