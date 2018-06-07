@@ -61,4 +61,5 @@ export function withRouter<T extends {}>(
 ): React.ComponentType<T>;
 
 export const Singleton: SingletonRouter;
+export type ImperativeRouter = RouterProps;
 export default Singleton;
