@@ -148,9 +148,9 @@ declare class CountQueuingStrategy {
 }
 
 declare interface TransformStreamTransformer<R, W> {
-  start?(controller: TransformStreamDefaultController<W>): void | Promise<void>;
-  transform?(chunk: R, controller: TransformStreamDefaultController<W>): void | Promise<void>;
-  flush?(controller: TransformStreamDefaultController<W>): void | Promise<void>;
+  start?(controller: TransformStreamDefaultController<R>): void | Promise<void>;
+  transform?(chunk: W, controller: TransformStreamDefaultController<R>): void | Promise<void>;
+  flush?(controller: TransformStreamDefaultController<R>): void | Promise<void>;
 }
 
 declare class TransformStream<R, W> implements WritableReadablePair<WritableStream<W>, ReadableStream<R>> {
@@ -160,8 +160,8 @@ declare class TransformStream<R, W> implements WritableReadablePair<WritableStre
   readonly writable: WritableStream<W>;
 }
 
-declare class TransformStreamDefaultController<W> {
-  enqueue(chunk: W): void;
+declare class TransformStreamDefaultController<R> {
+  enqueue(chunk: R): void;
   error(reason: any): void;
   terminate(): void;
 
