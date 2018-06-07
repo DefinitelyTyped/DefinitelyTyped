@@ -803,13 +803,13 @@ async () => {
 //#endregion
 
 // #region Haptic
-Haptic.impact(Haptic.ImpactFeedbackStyle.Heavy);
-Haptic.impact(Haptic.ImpactFeedbackStyle.Light);
-Haptic.impact(Haptic.ImpactFeedbackStyle.Medium);
+Haptic.impact(Haptic.ImpactStyles.Heavy);
+Haptic.impact(Haptic.ImpactStyles.Light);
+Haptic.impact(Haptic.ImpactStyles.Medium);
 
-Haptic.notification(Haptic.NotificationFeedbackType.Error);
-Haptic.notification(Haptic.NotificationFeedbackType.Success);
-Haptic.notification(Haptic.NotificationFeedbackType.Error);
+Haptic.notification(Haptic.NotificationType.Error);
+Haptic.notification(Haptic.NotificationType.Success);
+Haptic.notification(Haptic.NotificationType.Error);
 
 Haptic.selection();
 // #endregion

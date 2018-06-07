@@ -2943,11 +2943,11 @@ export namespace MediaLibrary {
 
   // region Asset
   interface AssetAndroid {
-    albumId: string;
+    albumId?: string;
   }
 
   interface AssetIos {
-    mediaSubtypes: MediaType[];
+    mediaSubtypes?: MediaType[];
     // *
     orientation: number;
     // *
@@ -2965,11 +2965,11 @@ export namespace MediaLibrary {
     modificationTime: number;
     duration: number;
     // *
-    localUri: string;
+    localUri?: string;
     // *
-    location: object;
+    location?: Location.LocationProps;
     // *
-    exif: object;
+    exif?: object;
   }
 
   /**
@@ -2979,15 +2979,15 @@ export namespace MediaLibrary {
 
   // #region Album
   interface AlbumIos {
-    type: string;
+    type?: string;
     // *
     startTime: number;
     // *
     endTime: number;
     // *
-    approximateLocation: Location.LocationProps;
+    approximateLocation?: Location.LocationProps;
     // *
-    locationNames: string[];
+    locationNames?: string[];
   }
 
   /**
@@ -3029,16 +3029,16 @@ export namespace Haptic {
    * Used to let a user know when a selection change has been registered
    */
   function selection(): void;
-  function notification(type: NotificationFeedbackType): void;
-  function impact(style: ImpactFeedbackStyle): void;
+  function notification(notificationType?: NotificationType): void;
+  function impact(impactStyles?: ImpactStyles): void;
 
-  enum ImpactFeedbackStyle {
+  enum ImpactStyles {
     Light = 'light',
     Medium = 'medium',
     Heavy = 'heavy'
   }
 
-  enum NotificationFeedbackType {
+  enum NotificationType {
     Success = 'success',
     Warning = 'warning',
     Error = 'error'
