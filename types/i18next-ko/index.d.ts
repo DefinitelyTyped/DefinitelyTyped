@@ -6,7 +6,7 @@
 /// <reference types="knockout"/>
 
 declare module 'i18nextko' {
-    import i18next = require('i18next');
+    import * as i18next from 'i18next';
 
     const i18n: i18next.i18n;
 

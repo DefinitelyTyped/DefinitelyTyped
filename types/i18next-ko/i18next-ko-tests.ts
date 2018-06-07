@@ -1,5 +1,5 @@
 import * as i18next from 'i18next';
-import i18nextko = require('i18nextko');
+import * as i18nextko from 'i18nextko';
 import * as ko from 'knockout';
 
 const resourceStore = {
