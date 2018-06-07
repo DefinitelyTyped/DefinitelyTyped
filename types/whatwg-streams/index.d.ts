@@ -46,7 +46,7 @@ declare class ReadableStream<R = ArrayBufferView> {
     getReader(): ReadableStreamDefaultReader<R>;
     getReader({ mode }: { mode: "byob" }): ReadableStreamBYOBReader<R>;
     pipeThrough<T extends ReadableStream<any>>({ writable, readable }: WritableReadablePair<WritableStream<R>, T>, options?: PipeOptions): T;
-    pipeTo(dest: WritableStream, options?: PipeOptions): Promise<void>;
+    pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>;
     tee(): [ReadableStream<R>, ReadableStream<R>];
 }
 
