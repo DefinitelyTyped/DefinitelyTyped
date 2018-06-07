@@ -485,13 +485,8 @@ declare namespace angular {
         $broadcast(name: string, ...args: any[]): IAngularEvent;
         $destroy(): void;
         $digest(): void;
-                
+
         /**
-         * @ngdoc method
-         * @name $rootScope.Scope#$suspend
-         * @kind function
-         *
-         * @description
          * Suspend watchers of this scope subtree so that they will not be invoked during digest.
          *
          * This can be used to optimize your application when you know that running those watchers
@@ -530,13 +525,8 @@ declare namespace angular {
          *   initiated by a component that lives on a suspended scope.
          */
         $suspend(): void;
-                
+
         /**
-         * @ngdoc method
-         * @name $rootScope.Scope#$isSuspended
-         * @kind function
-         *
-         * @description
          * Call this method to determine if this scope has been explicitly suspended. It will not
          * tell you whether an ancestor has been suspended.
          * To determine if this scope will be excluded from a digest triggered at the $rootScope,
@@ -557,19 +547,14 @@ declare namespace angular {
          * @returns true if the current scope has been suspended.
          */
         $isSuspended(): boolean;
-                
+
         /**
-         * @ngdoc method
-         * @name $rootScope.Scope#$resume
-         * @kind function
-         *
-         * @description
          * Resume watchers of this scope subtree in case it was suspended.
          *
-         * See {@link $rootScope.Scope#$suspend} for information about the dangers of using this approach.
+         * See {$rootScope.Scope#$suspend} for information about the dangers of using this approach.
          */
         $resume(): void;
-                
+
         /**
          * Dispatches an event name upwards through the scope hierarchy notifying the registered $rootScope.Scope listeners.
          *
