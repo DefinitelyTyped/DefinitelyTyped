@@ -3753,6 +3753,7 @@ import { default as CarouselCaption_ } from './lib/CarouselCaption'; /* tslint:d
 import { default as Col_ } from './lib/Col'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Collapse_ } from './lib/Collapse'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Container_ } from './lib/Container'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CustomInput_ } from './lib/CustomInput'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Dropdown_ } from './lib/Dropdown'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as DropdownItem_ } from './lib/DropdownItem'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as DropdownMenu_ } from './lib/DropdownMenu'; /* tslint:disable-line: no-relative-import-in-test */
@@ -3834,6 +3835,7 @@ function AnyPropExample() {
       <Col_ foo={1} bar={false} foobar="example" />
       <Collapse_ foo={1} bar={false} foobar="example" />
       <Container_ foo={1} bar={false} foobar="example" />
+      <CustomInput_ foo={1} bar={false} foobar="example" type="file" />
       <Dropdown_ foo={1} bar={false} foobar="example" />
       <DropdownItem_ foo={1} bar={false} foobar="example" />
       <DropdownMenu_ foo={1} bar={false} foobar="example" />
@@ -3920,6 +3922,7 @@ class CarouselCaptionGeneric extends CarouselCaption<GenericInterface> {}
 class ColGeneric extends Col<GenericInterface> {}
 class CollapseGeneric extends Collapse<GenericInterface> {}
 class ContainerGeneric extends Container<GenericInterface> {}
+class CustomInputGeneric extends CustomInput<GenericInterface> {}
 class DropdownGeneric extends Dropdown<GenericInterface> {}
 class DropdownItemGeneric extends DropdownItem<GenericInterface> {}
 class DropdownMenuGeneric extends DropdownMenu<GenericInterface> {}
@@ -4001,6 +4004,7 @@ function GenericPropExample() {
       <ColGeneric foo={1} bar={false} foobar="example" />
       <CollapseGeneric foo={1} bar={false} foobar="example" />
       <ContainerGeneric foo={1} bar={false} foobar="example" />
+      <CustomInputGeneric foo={1} bar={false} foobar="example" type="file" />
       <DropdownGeneric foo={1} bar={false} foobar="example" />
       <DropdownItemGeneric foo={1} bar={false} foobar="example" />
       <DropdownMenuGeneric foo={1} bar={false} foobar="example" />
