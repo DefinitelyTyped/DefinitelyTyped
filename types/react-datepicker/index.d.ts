@@ -6,6 +6,7 @@
 //                 Platon Pronko <https://github.com/Rogach>
 //                 Roy Xue <https://github.com/royxue>
 // 				   Koala Human <https://github.com/KoalaHuman>
+//				   Drew Schneider <https://github.com/drewgolas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -88,6 +89,7 @@ export interface ReactDatePickerProps {
 	yearDropdownItemNumber?: number;
 	shouldCloseOnSelect?: boolean;
 	showTimeSelect?: boolean;
+	showTimeSelectOnly?: boolean;
 	timeFormat?: string;
 	timeIntervals?: number;
 	minTime?: moment.Moment;
