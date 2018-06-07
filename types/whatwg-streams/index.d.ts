@@ -61,12 +61,12 @@ declare class ReadableStreamDefaultReader<R = ArrayBufferView> {
 }
 
 declare class ReadableStreamBYOBReader<R = ArrayBufferView> {
-    constructor(stream: ReadableStream);
+    constructor(stream: ReadableStream<R>);
 
     readonly closed: Promise<void>;
 
     cancel(reason: any): Promise<void>;
-    read(view: R): Promise<IteratorResult<R>>;
+    read<T extends ArrayBufferView>(view: T): Promise<IteratorResult<T>>;
     releaseLock(): void;
 }
 
