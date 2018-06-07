@@ -36,6 +36,7 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		version: string;
 
 		expression: MathNode;
+		json: MathJsJson;
 
 		config: (options: any) => void;
 
@@ -2248,5 +2249,12 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		done(): any;
 		valueOf(): any;
 		toString(): string;
+	}
+
+	interface MathJsJson {
+		/**
+		 * Returns reviver function that can be used as reviver in JSON.parse function.
+		 */
+		reviver(): (key: any, value: any) => any;
 	}
 }
