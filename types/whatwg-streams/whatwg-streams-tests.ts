@@ -444,3 +444,38 @@ class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
         })
     );
 }
+
+
+// 8.10. A transform stream created from a sync mapper function
+
+function mapperTransformStream<R, W>(mapperFunction: (chunk: W) => R) {
+    return new TransformStream<R, W>({
+        transform(chunk, controller) {
+            controller.enqueue(mapperFunction(chunk));
+        }
+    });
+}
+
+{
+    const ts = mapperTransformStream((chunk: string) => chunk.toUpperCase());
+    const writer = ts.writable.getWriter();
+    const reader = ts.readable.getReader();
+
+    writer.write("No need to shout");
+
+    // Logs "NO NEED TO SHOUT":
+    reader.read().then(({ value }) => console.log(value));
+
+}
+
+{
+    const ts = mapperTransformStream((chunk: string) => JSON.parse(chunk));
+    const writer = ts.writable.getWriter();
+    const reader = ts.readable.getReader();
+
+    writer.write("[1, ");
+
+    // Logs a SyntaxError, twice:
+    reader.read().catch(e => console.error(e));
+    writer.write("{}").catch(e => console.error(e));
+}
