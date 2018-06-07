@@ -71,7 +71,7 @@ declare class ReadableStreamBYOBReader<R = ArrayBufferView> {
 }
 
 declare class ReadableStreamDefaultController<R = ArrayBufferView> {
-    readonly desiredSize: number;
+    readonly desiredSize: number | null;
 
     close(): void;
     enqueue(chunk: R): void;
@@ -80,7 +80,7 @@ declare class ReadableStreamDefaultController<R = ArrayBufferView> {
 
 declare class ReadableByteStreamController<R = ArrayBufferView> {
     readonly byobRequest: ReadableStreamBYOBRequest<R>;
-    readonly desiredSize: number;
+    readonly desiredSize: number | null;
 
     close(): void;
     enqueue(chunk: R): void;
@@ -157,5 +157,5 @@ declare class TransformStreamDefaultController<R> {
     error(reason: any): void;
     terminate(): void;
 
-    readonly desiredSize: number;
+    readonly desiredSize: number | null;
 }

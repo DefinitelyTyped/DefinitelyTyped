@@ -48,7 +48,7 @@ function makeReadableBackpressureSocketStream(host: string, port: number) {
             socket.ondata = (event: any) => {
                 controller.enqueue(event.data);
 
-                if (controller.desiredSize <= 0) {
+                if (controller.desiredSize! <= 0) {
                     // The internal queue is full, so propagate
                     // the backpressure signal to the underlying source.
                     socket.readStop();
