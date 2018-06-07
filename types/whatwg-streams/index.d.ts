@@ -32,8 +32,8 @@ export interface PipeOptions {
 }
 
 export interface WritableReadablePair<T extends WritableStream<any>, U extends ReadableStream<any>> {
-  writable: T;
-  readable: U;
+    writable: T;
+    readable: U;
 }
 
 declare class ReadableStream<R = ArrayBufferView> {
@@ -148,22 +148,22 @@ declare class CountQueuingStrategy {
 }
 
 declare interface TransformStreamTransformer<R, W> {
-  start?(controller: TransformStreamDefaultController<R>): void | Promise<void>;
-  transform?(chunk: W, controller: TransformStreamDefaultController<R>): void | Promise<void>;
-  flush?(controller: TransformStreamDefaultController<R>): void | Promise<void>;
+    start?(controller: TransformStreamDefaultController<R>): void | Promise<void>;
+    transform?(chunk: W, controller: TransformStreamDefaultController<R>): void | Promise<void>;
+    flush?(controller: TransformStreamDefaultController<R>): void | Promise<void>;
 }
 
 declare class TransformStream<R, W> implements WritableReadablePair<WritableStream<W>, ReadableStream<R>> {
-  constructor(transformer?: TransformStreamTransformer<R, W>, writableStrategy?: QueuingStrategy<W>, readableStrategy?: QueuingStrategy<R>);
+    constructor(transformer?: TransformStreamTransformer<R, W>, writableStrategy?: QueuingStrategy<W>, readableStrategy?: QueuingStrategy<R>);
 
-  readonly readable: ReadableStream<R>;
-  readonly writable: WritableStream<W>;
+    readonly readable: ReadableStream<R>;
+    readonly writable: WritableStream<W>;
 }
 
 declare class TransformStreamDefaultController<R> {
-  enqueue(chunk: R): void;
-  error(reason: any): void;
-  terminate(): void;
+    enqueue(chunk: R): void;
+    error(reason: any): void;
+    terminate(): void;
 
-  readonly desiredSize: number;
+    readonly desiredSize: number;
 }
