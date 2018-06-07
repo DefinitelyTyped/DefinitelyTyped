@@ -76,7 +76,7 @@ declare class ReadableStreamDefaultController<R = ArrayBufferView> {
     readonly desiredSize: number;
 
     close(): void;
-    enqueue(chunk: R): number;
+    enqueue(chunk: R): void;
     error(e: any): void;
 }
 
@@ -87,7 +87,7 @@ declare class ReadableByteStreamController<R = ArrayBufferView> {
     readonly desiredSize: number;
 
     close(): void;
-    enqueue(chunk: R): number;
+    enqueue(chunk: R): void;
     error(e: any): void;
 }
 
