@@ -362,8 +362,19 @@ class WebSocketSink implements WritableStreamSink {
 
 type Dictionary<T> = { [key: string]: T }
 
+declare function fetch(input?: Request | string): Promise<Response>;
 declare interface FetchEvent {
-    respondWith(promise: Promise<any>): void;
+    readonly request: Request;
+    respondWith(promise: Promise<Response>): void;
+}
+declare class Request {
+    readonly url: string;
+}
+declare class Response {
+    constructor(body?: ReadableStream<any>);
+    readonly body: ReadableStream<ArrayBufferView>;
+}
+declare class TextDecoderStream extends TransformStream<string, ArrayBufferView> {
 }
 
 class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
@@ -410,4 +421,26 @@ class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
         this.lastIndex = offset + replacement.length;
         return replacement;
     }
+}
+
+{
+    const userName = "";
+    const displayName = "";
+    const icon = "";
+    const date = "";
+    const fetchEvent = {} as FetchEvent;
+
+    const data = { userName, displayName, icon, date };
+    const ts = new TransformStream(new LipFuzzTransformer(data));
+
+    fetchEvent.respondWith(
+        fetch(fetchEvent.request.url).then(response => {
+            const transformedBody = response.body
+                // Decode the binary-encoded response to string
+                .pipeThrough(new TextDecoderStream())
+                // Apply the LipFuzzTransformer
+                .pipeThrough(ts);
+            return new Response(transformedBody);
+        })
+    );
 }
