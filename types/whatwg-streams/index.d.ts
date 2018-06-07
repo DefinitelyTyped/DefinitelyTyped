@@ -71,8 +71,6 @@ declare class ReadableStreamBYOBReader<R = ArrayBufferView> {
 }
 
 declare class ReadableStreamDefaultController<R = ArrayBufferView> {
-    constructor(stream: ReadableStream, underlyingSource: ReadableStreamSource<R>, size: number, highWaterMark: number);
-
     readonly desiredSize: number;
 
     close(): void;
@@ -81,8 +79,6 @@ declare class ReadableStreamDefaultController<R = ArrayBufferView> {
 }
 
 declare class ReadableByteStreamController<R = ArrayBufferView> {
-    constructor(stream: ReadableStream<R>, underlyingSource: ReadableStreamSource<R>, highWaterMark: number);
-
     readonly byobRequest: ReadableStreamBYOBRequest<R>;
     readonly desiredSize: number;
 
@@ -92,8 +88,6 @@ declare class ReadableByteStreamController<R = ArrayBufferView> {
 }
 
 declare class ReadableStreamBYOBRequest<R = ArrayBufferView> {
-    constructor(controller: ReadableByteStreamController<R>, view: R);
-
     readonly view: R;
 
     respond(bytesWritten: number): void;
@@ -130,8 +124,6 @@ declare class WritableStreamDefaultWriter<W = ArrayBufferView> {
 }
 
 declare class WritableStreamDefaultController<W = ArrayBufferView> {
-    constructor(stream: WritableStream<W>, underlyingSink: WritableStreamSink<W>, size: number, highWaterMark: number);
-
     error(e: any): void;
 }
 
