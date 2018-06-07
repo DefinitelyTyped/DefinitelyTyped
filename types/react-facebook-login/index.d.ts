@@ -40,7 +40,9 @@ export interface ReactFacebookFailureResponse {
 
 export interface ReactFacebookLoginInfo {
     id: string;
-    name: string;
+    accessToken: string;
+    name?: string;
+    email?: string;
 }
 
 interface ReactFacebookLoginState {
