@@ -85,13 +85,13 @@ export interface ModalScreen extends Screen {
     animationType?: 'slide-up' | 'none';
 }
 
-export interface ResetScreen extends Screen {
-    passProps?: object;
+export interface ResetScreen<P> extends Screen {
+    passProps?: P;
     animated?: boolean;
     animationType?: 'fade' | 'slide-horizontal';
 }
 
-export interface PushedScreen extends ResetScreen {
+export interface PushedScreen<P> extends ResetScreen<P> {
     titleImage?: any;
     backButtonTitle?: string;
     backButtonHidden?: boolean;
@@ -123,10 +123,10 @@ export interface NavigatorEvent {
 }
 
 export class Navigator {
-    push(params: PushedScreen): void;
+    push<P>(params: PushedScreen<P>): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
     popToRoot(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
-    resetTo(params: PushedScreen): void;
+    resetTo<P>(params: PushedScreen<P>): void;
     showModal(params: ModalScreen): void;
     dismissModal(params?: { animationType?: 'none' | 'slide-down' }): void;
     dismissAllModals(params?: { animationType?: 'none' | 'slide-down' }): void;
