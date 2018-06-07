@@ -21,7 +21,7 @@ interface ReactFacebookLoginProps {
     icon?: string | React.ReactNode;
     isDisabled?: boolean;
     language?: string;
-    onClick?(): void;
+    onClick?(event: React.MouseEvent<HTMLDivElement>): void;
     reAuthenticate?: boolean;
     redirectUri?: string;
     scope?: string;
