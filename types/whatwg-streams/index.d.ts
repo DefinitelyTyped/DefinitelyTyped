@@ -8,13 +8,13 @@
 export interface ReadableStreamSource<R = ArrayBufferView> {
     start?(controller: ReadableStreamDefaultController<R>): void | Promise<void>;
     pull?(controller: ReadableStreamDefaultController<R>): void | Promise<void>;
-    cancel?(reason: string): void | Promise<void>;
+    cancel?(reason: any): void | Promise<void>;
 }
 
 export interface ReadableByteStreamSource<R = ArrayBufferView> {
     start?(controller: ReadableByteStreamController<R>): void | Promise<void>;
     pull?(controller: ReadableByteStreamController<R>): void | Promise<void>;
-    cancel?(reason: string): void | Promise<void>;
+    cancel?(reason: any): void | Promise<void>;
 
     type: "bytes";
     autoAllocateChunkSize?: number;
@@ -42,7 +42,7 @@ declare class ReadableStream<R = ArrayBufferView> {
 
     readonly locked: boolean;
 
-    cancel(reason: string): Promise<void>;
+    cancel(reason: any): Promise<void>;
     getReader(): ReadableStreamDefaultReader<R>;
     getReader({ mode }: { mode: "byob" }): ReadableStreamBYOBReader<R>;
     pipeThrough<T extends ReadableStream<any>>({ writable, readable }: WritableReadablePair<WritableStream<R>, T>, options?: PipeOptions): T;
@@ -55,7 +55,7 @@ declare class ReadableStreamDefaultReader<R = ArrayBufferView> {
 
     readonly closed: Promise<void>;
 
-    cancel(reason: string): Promise<void>;
+    cancel(reason: any): Promise<void>;
     read(): Promise<IteratorResult<R>>;
     releaseLock(): void;
 }
@@ -65,7 +65,7 @@ declare class ReadableStreamBYOBReader<R = ArrayBufferView> {
 
     readonly closed: Promise<void>;
 
-    cancel(reason: string): Promise<void>;
+    cancel(reason: any): Promise<void>;
     read(view: R): Promise<IteratorResult<R>>;
     releaseLock(): void;
 }
@@ -104,7 +104,7 @@ interface WritableStreamSink<W = ArrayBufferView> {
     start?(controller: WritableStreamDefaultController<W>): void | Promise<void>;
     write?(chunk: W, controller?: WritableStreamDefaultController<W>): any;
     close?(controller: WritableStreamDefaultController<W>): void | Promise<void>;
-    abort?(reason: string): void | Promise<void>;
+    abort?(reason: any): void | Promise<void>;
 }
 
 declare class WritableStream<W = ArrayBufferView> {
@@ -112,7 +112,7 @@ declare class WritableStream<W = ArrayBufferView> {
 
     readonly locked: boolean;
 
-    abort(reason: string): Promise<void>;
+    abort(reason: any): Promise<void>;
     getWriter(): WritableStreamDefaultWriter<W>;
 }
 
@@ -123,7 +123,7 @@ declare class WritableStreamDefaultWriter<W = ArrayBufferView> {
     readonly desiredSize: number | null;
     readonly ready: Promise<void>;
 
-    abort(reason: string): Promise<void>;
+    abort(reason: any): Promise<void>;
     close(): Promise<void>;
     releaseLock(): void;
     write(chunk: W): Promise<void>;
