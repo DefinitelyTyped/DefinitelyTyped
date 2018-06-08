@@ -6,8 +6,18 @@
 /// <reference types="node" />
 
 import * as events from 'events';
+import * as dgram from 'dgram';
 
 export interface SsdpHeaders {
+	/**
+	 * Available while handling an SSDP response. A URL where the service description can be found.
+	 */
+	LOCATION?: string;
+	ST?: string;
+	/**
+	 * Available while handling an SSDP response. The Unique Service Name (USN) of the responding device.
+	 */
+	USN?: string;
 	[key: string]: string | number | boolean | null | undefined | symbol;
 }
 
@@ -122,6 +132,10 @@ export class Client extends Base {
 	 */
 	stop(): void;
 	search(serviceType: string): void | Promise<void>;
+
+	on(event: 'response', listener: (headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo) => void): this;
+	once(event: 'response', listener: (headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo) => void): this;
+	emit(event: 'response', headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo): boolean;
 }
 
 export class Server extends Base {
@@ -138,4 +152,8 @@ export class Server extends Base {
 	 */
 	stop(): void;
 	advertise(alive?: boolean): void;
+
+	on(event: 'advertise-alive' | 'advertise-bye', listener: (headers: SsdpHeaders) => void): this;
+	once(event: 'advertise-alive' | 'advertise-bye', listener: (headers: SsdpHeaders) => void): this;
+	emit(event: 'advertise-alive' | 'advertise-bye', headers: SsdpHeaders): boolean;
 }
