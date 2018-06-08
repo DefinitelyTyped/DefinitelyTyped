@@ -27,7 +27,7 @@ declare module 'leaflet' {
             drawMarker?: boolean;
             markerClass?: any;
             circleStyle?: PathOptions;
-            markerStyle?: any;
+            markerStyle?: PathOptions | MarkerOptions;
             followCircleStyle?: PathOptions;
             followMarkerStyle?: PathOptions;
             icon?: string;
