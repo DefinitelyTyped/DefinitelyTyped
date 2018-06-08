@@ -240,9 +240,9 @@ export interface TooltipProps {
 }
 
 export namespace Decorators {
-    class HorizontalLine extends React.Component<HorizontalLineProps> {}
-    class Point extends React.Component<PointProps> {}
-    class Tooltip extends React.Component<TooltipProps> {}
+    export class HorizontalLine extends React.Component<HorizontalLineProps> {}
+    export class Point extends React.Component<PointProps> {}
+    export class Tooltip extends React.Component<TooltipProps> {}
 }
 
 export type GridDirection = 'VERTICAL' | 'HORIZONTAL' | 'BOTH';
