@@ -7,6 +7,7 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
+//                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
