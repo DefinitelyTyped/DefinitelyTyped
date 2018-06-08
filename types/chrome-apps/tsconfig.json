@@ -2,11 +2,11 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
+            "es2017",
             "dom"
         ],
-        "noImplicitAny": false,
-        "noImplicitThis": false,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "chrome-cast/index.d.ts",
         "test/index.ts"
     ]
 }
