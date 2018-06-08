@@ -5723,9 +5723,6 @@ declare namespace Office {
             Last = "last"
         }
     }
-    interface AsyncContextOptions {
-        asyncContext?: any;
-    }
     interface CoercionTypeOptions {
         coercionType?: CoercionType;
     }
@@ -6439,7 +6436,7 @@ declare namespace Office {
     /**
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
-    interface AppointmentCompose extends Appointment, ItemCompose {
+    interface AppointmentOrganizer extends Appointment, ItemCompose {
         /**
          * Gets or sets the date and time that the appointment is to end.
          *
@@ -6532,7 +6529,7 @@ declare namespace Office {
     /**
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
-    interface AppointmentRead extends Appointment, ItemRead {
+    interface AppointmentAttendee extends Appointment, ItemRead {
         /**
          * Gets the date and time that the appointment is to end.
          *
@@ -8236,6 +8233,31 @@ declare namespace Office {
      */
     interface Mailbox {
         /**
+         * Provides diagnostic information to an Outlook add-in.
+         * 
+         * Contains the following members:
+         * 
+         *  - hostName (string): A string that represents the name of the host application. It be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
+         * 
+         *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server. If the mail add-in is running on the Outlook desktop client or Outlook for iOS, the hostVersion property returns the version of the host application, Outlook. In Outlook Web App, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
+         * 
+         *  - OWAView (string): A string that represents the current view of Outlook Web App. If the host application is not Outlook Web App, then accessing this property results in undefined. Outlook Web App has three views (represent by the following string values) that correspond to the width of the screen and the window, and the number of columns that can be displayed:
+         *
+         *      - OneColumn, which is displayed when the screen is narrow. Outlook Web App uses this single-column layout on the entire screen of a smartphone.
+         *
+         *      - TwoColumns, which is displayed when the screen is wider. Outlook Web App uses this view on most tablets.
+         *
+         *      - ThreeColumns, which is displayed when the screen is wide. For example, Outlook Web App uses this view in a full screen window on a desktop computer.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose or read
+         */
+        diagnostics: Diagnostics;
+        /**
          * Gets the URL of the Exchange Web Services (EWS) endpoint for this email account. Read mode only.
          *
          * Your app must have the ReadItem permission specified in its manifest to call the ewsUrl member in read mode.
@@ -8260,7 +8282,7 @@ declare namespace Office {
          * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
          * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentCompose`, `AppointmentRead`
          */
-        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
+        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentAttendee & AppointmentOrganizer;
         /**
          * Gets the URL of the REST endpoint for this email account.
          *
@@ -8279,6 +8301,10 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          */
         restUrl: string;
+        /**
+         * Information about the user associated with the mailbox. This includes their account type, display name, email adddress, and time zone.
+         */
+        userProfile: UserProfile;
         /**
          * Adds an event handler for a supported event.
          *
@@ -9971,6 +9997,8 @@ declare namespace Office {
 
     }
     /**
+     * Information about the user associated with the mailbox. This includes their account type, display name, email adddress, and time zone.
+     * 
      * [Api set: Mailbox 1.0]
      *
      * @remarks
