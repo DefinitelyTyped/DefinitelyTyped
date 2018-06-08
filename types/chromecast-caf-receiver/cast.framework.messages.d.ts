@@ -224,19 +224,10 @@ declare namespace cast.framework.messages {
     class VideoInformation {
         constructor(width: number, height: number, hdrType: HdrType);
 
-        /**
-         *
-         */
         width: number;
 
-        /**
-         *
-         */
         height: number;
 
-        /**
-         *
-         */
         hdrType: HdrType;
     }
 
@@ -245,7 +236,10 @@ declare namespace cast.framework.messages {
      */
     interface VastAdsRequest {
         /**
-         * Specifies a VAST document to be used as the ads response instead of making a request via an ad tag url. This can be useful for debugging and other situations where a VAST response is already available.
+         * Specifies a VAST document to be used as the ads response instead of making a
+         * request via an ad tag url.
+         * This can be useful for debugging and other situations where a VAST response is
+         * already available.
          */
         adsResponse?: string;
 
@@ -260,7 +254,8 @@ declare namespace cast.framework.messages {
      */
     interface UserActionRequestData {
         /**
-         * Optional request source. It contain the assistent query that initiate the request.
+         * Optional request source.
+         * It contain the assistent query that initiate the request.
          */
         source?: string;
 
@@ -295,7 +290,8 @@ declare namespace cast.framework.messages {
         episodeTitle?: string;
 
         /**
-         * Content images. Examples would include cover art or a thumbnail of the currently playing media.
+         * Content images. Examples would include cover art or a thumbnail of
+         * the currently playing media.
          */
         images?: Image[];
 
@@ -356,12 +352,19 @@ declare namespace cast.framework.messages {
         subtype?: string;
 
         /**
-         * It can be the url of the track or any other identifier that allows the receiver to find the content (when the track is not inband or included in the manifest). For example it can be the url of a vtt file.
+         * It can be the url of the track or any other identifier that allows the receiver
+         * to find the content (when the track is not inband or included in the manifest).
+         * For example it can be the url of a vtt file.
          */
         trackContentId?: string;
 
         /**
-         * It represents the MIME type of the track content. For example if the track is a vtt file it will be ‘text/vtt’. This field is needed for out of band tracks; so it is usually provided if a trackContentId has also been provided. It is not mandatory if the receiver has a way to identify the content from the trackContentId; but recommended. The track content type; if provided; must be consistent with the track type.
+         * It represents the MIME type of the track content. For example if the track
+         * is a vtt file it will be ‘text/vtt’. This field is needed for out of band tracks;
+         *  so it is usually provided if a trackContentId has also been provided.
+         * It is not mandatory if the receiver has a way to identify the content from
+         * the trackContentId; but recommended.
+         * The track content type; if provided; must be consistent with the track type.
          */
         trackContentType?: string;
 
@@ -394,9 +397,6 @@ declare namespace cast.framework.messages {
          */
         edgeColor?: string;
 
-        /**
-         *
-         */
         edgeType?: TextTrackEdgeType;
 
         /**
@@ -430,7 +430,8 @@ declare namespace cast.framework.messages {
         windowColor?: string;
 
         /**
-         * Rounded corner radius absolute value in pixels (px). This value will be ignored if windowType is not ROUNDED_CORNERS.
+         * Rounded corner radius absolute value in pixels (px). This value will be ignored
+         * if windowType is not ROUNDED_CORNERS.
          */
         windowRoundedCornerRadius?: number;
 
@@ -450,7 +451,10 @@ declare namespace cast.framework.messages {
         playbackRate?: number;
 
         /**
-         * New playback rate relative to current playback rate. New rate will be the result of multiplying the current rate with the value. For example a value of 1.1 will increase rate by 10%. (Only used if the playbackRate value is not provided).
+         * New playback rate relative to current playback rate.
+         * New rate will be the result of multiplying the current rate with the value.
+         * For example a value of 1.1 will increase rate by 10%.
+         * (Only used if the playbackRate value is not provided).
          */
         relativePlaybackRate?: number;
     }
@@ -465,7 +469,8 @@ declare namespace cast.framework.messages {
         credentials?: string;
 
         /**
-         * If it is a response for refresh credentials; it will indicate the request id of the refresh credentials request.
+         * If it is a response for refresh credentials; it will indicate the request id
+         * of the refresh credentials request.
          */
         forRequestId?: number;
 
@@ -485,7 +490,8 @@ declare namespace cast.framework.messages {
         currentTime?: number;
 
         /**
-         * Seconds relative to the current playback position. If this field is defined; the currentTime field will be ignored.
+         * Seconds relative to the current playback position. If this field is defined;
+         * the currentTime field will be ignored.
          */
         relativeTime?: number;
 
@@ -519,7 +525,9 @@ declare namespace cast.framework.messages {
         constructor(type: MessageType);
 
         /**
-         * Application-specific data for this request. It enables the sender and receiver to easily extend the media protocol without having to use a new namespace with custom messages.
+         * Application-specific data for this request.
+         * It enables the sender and receiver to easily extend the media protocol
+         * without having to use a new namespace with custom messages.
          */
         customData?: any;
 
@@ -539,22 +547,35 @@ declare namespace cast.framework.messages {
      */
     interface QueueUpdateRequestData {
         /**
-         * ID of the current media Item after the deletion (if not provided; the currentItem value will be the same as before the deletion; if it does not exist because it has been deleted; the currentItem will point to the next logical item in the list).
+         * ID of the current media Item after the deletion
+         * (if not provided; the currentItem value will be the same as before the deletion;
+         *  if it does not exist because it has been deleted; the currentItem will point to
+         * the next logical item in the list).
          */
         currentItemId?: number;
 
         /**
-         * Seconds since the beginning of content to start playback of the current item. If provided; this value will take precedence over the startTime value provided at the QueueItem level but only the first time the item is played. This is to cover the common case where the user jumps to the middle of an item so the currentTime does not apply to the item permanently like the QueueItem startTime does. It avoids having to reset the startTime dynamically (that may not be possible if the phone has gone to sleep).
+         * Seconds since the beginning of content to start playback of the current item.
+         *  If provided; this value will take precedence over the startTime value provided
+         * at the QueueItem level but only the first time the item is played.
+         *  This is to cover the common case where the user jumps to the middle of an
+         * item so the currentTime does not apply to the item permanently like the
+         * QueueItem startTime does. It avoids having to reset the startTime dynamically
+         *  (that may not be possible if the phone has gone to sleep).
          */
         currentTime?: number;
 
         /**
-         * List of queue items to be updated. No reordering will happen; the items will retain the existing order.
+         * List of queue items to be updated. No reordering will happen; the items will
+         * retain the existing order.
          */
         items?: QueueItem[];
 
         /**
-         * Skip/Go back number of items with respect to the position of currentItem (it can be negative). If it is out of boundaries; the currentItem will be the next logical item in the queue wrapping around the boundaries. The new currentItem position will follow the rules of the queue repeat behavior.
+         * Skip/Go back number of items with respect to the position of currentItem
+         * (it can be negative). If it is out of boundaries; the currentItem will be the
+         * next logical item in the queue wrapping around the boundaries.
+         * The new currentItem position will follow the rules of the queue repeat behavior.
          */
         jump?: number;
 
@@ -564,7 +585,9 @@ declare namespace cast.framework.messages {
         repeatMode?: RepeatMode;
 
         /**
-         * Shuffle the queue items when the update is processed. After the queue items are shuffled; the item at the currentItem position will be loaded.
+         * Shuffle the queue items when the update is processed.
+         * After the queue items are shuffled; the item at the currentItem position will
+         *  be loaded.
          */
         shuffle?: boolean;
     }
@@ -576,29 +599,43 @@ declare namespace cast.framework.messages {
         constructor(itemIds: number[]);
 
         /**
-         * ID of the current media Item after the deletion (if not provided; the currentItem value will be the same as before the deletion; if it does not exist because it has been deleted; the currentItem will point to the next logical item in the list).
+         * ID of the current media Item after the deletion (if not provided;
+         * the currentItem value will be the same as before the deletion;
+         * if it does not exist because it has been deleted;
+         * the currentItem will point to the next logical item in the list).
          */
         currentItemId?: number;
 
         /**
-         * Seconds since the beginning of content to start playback of the current item. If provided; this value will take precedence over the startTime value provided at the QueueItem level but only the first time the item is played. This is to cover the common case where the user jumps to the middle of an item so the currentTime does not apply to the item permanently like the QueueItem startTime does. It avoids having to reset the startTime dynamically (that may not be possible if the phone has gone to sleep).
+         * Seconds since the beginning of content to start playback of the current item.
+         * If provided; this value will take precedence over the startTime value provided
+         * at the QueueItem level but only the first time the item is played.
+         * This is to cover the common case where the user jumps to the middle of an
+         * item so the currentTime does not apply to the item permanently like
+         * the QueueItem startTime does. It avoids having to reset the startTime dynamically
+         * (that may not be possible if the phone has gone to sleep).
          */
         currentTime?: number;
 
         /**
-         * ID of the item that will be located immediately after the reordered list. If the ID is not found or it is not provided; the reordered list will be appended at the end of the existing list.
+         * ID of the item that will be located immediately after the reordered list.
+         * If the ID is not found or it is not provided;
+         * the reordered list will be appended at the end of the existing list.
          */
         insertBefore?: number;
 
         /**
-           * IDs of the items to be reordered; in the new order. Items not provided will keep their existing order. The provided list will be inserted at the position determined by insertBefore. For example:
-
-              If insertBefore is not specified Existing queue: “A”;”D”;”G”;”H”;”B”;”E” itemIds: “D”;”H”;”B” New Order: “A”;”G”;”E”;“D”;”H”;”B”
-
-              If insertBefore is “A” Existing queue: “A”;”D”;”G”;”H”;”B” itemIds: “D”;”H”;”B” New Order: “D”;”H”;”B”;“A”;”G”;”E”
-
-              If insertBefore is “G” Existing queue: “A”;”D”;”G”;”H”;”B” itemIds: “D”;”H”;”B” New Order: “A”;“D”;”H”;”B”;”G”;”E”
-           */
+         * IDs of the items to be reordered; in the new order.
+         * Items not provided will keep their existing order.
+         * The provided list will be inserted at the position determined by insertBefore.
+         * For example:
+         *  If insertBefore is not specified Existing queue: “A”;”D”;”G”;”H”;”B”;”E” itemIds:
+         * “D”;”H”;”B” New Order: “A”;”G”;”E”;“D”;”H”;”B”
+         *   If insertBefore is “A” Existing queue: “A”;”D”;”G”;”H”;”B” itemIds:
+         *   “D”;”H”;”B” New Order: “D”;”H”;”B”;“A”;”G”;”E”
+         *   If insertBefore is “G” Existing queue: “A”;”D”;”G”;”H”;”B” itemIds:
+         *   “D”;”H”;”B” New Order: “A”;“D”;”H”;”B”;”G”;”E”
+         */
         itemIds: number[];
     }
 
@@ -609,12 +646,21 @@ declare namespace cast.framework.messages {
         constructor(itemIds: number[]);
 
         /**
-         * ID of the current media Item after the deletion (if not provided; the currentItem value will be the same as before the deletion; if it does not exist because it has been deleted; the currentItem will point to the next logical item in the list).
+         * ID of the current media Item after the deletion
+         * (if not provided; the currentItem value will be the same as before the deletion;
+         * if it does not exist because it has been deleted;
+         * the currentItem will point to the next logical item in the list).
          */
         currentItemId?: number;
 
         /**
-         * Seconds since the beginning of content to start playback of the current item. If provided; this value will take precedence over the startTime value provided at the QueueItem level but only the first time the item is played. This is to cover the common case where the user jumps to the middle of an item so the currentTime does not apply to the item permanently like the QueueItem startTime does. It avoids having to reset the startTime dynamically (that may not be possible if the phone has gone to sleep).
+         * Seconds since the beginning of content to start playback of the current item.
+         *  If provided; this value will take precedence over the startTime value provided
+         * at the QueueItem level but only the first time the item is played.
+         * This is to cover the common case where the user jumps to the middle of an
+         * item so the currentTime does not apply to the item permanently like the
+         *  QueueItem startTime does. It avoids having to reset the startTime dynamically
+         * (that may not be possible if the phone has gone to sleep).
          */
         currentTime?: number;
 
@@ -630,7 +676,14 @@ declare namespace cast.framework.messages {
         constructor(items: QueueItem[]);
 
         /**
-         * Seconds (since the beginning of content) to start playback of the first item to be played. If provided; this value will take precedence over the startTime value provided at the QueueItem level but only the first time the item is played. This is to cover the common case where the user casts the item that was playing locally so the currentTime does not apply to the item permanently like the QueueItem startTime does. It avoids having to reset the startTime dynamically (that may not be possible if the phone has gone to sleep).
+         * Seconds (since the beginning of content) to start playback of the first item to
+         *  be played. If provided; this value will take precedence over the
+         * startTime value provided at the QueueItem level but only the first
+         * time the item is played. This is to cover the common case where the user
+         * casts the item that was playing locally so the currentTime does not apply
+         * to the item permanently like the QueueItem startTime does.
+         * It avoids having to reset the startTime dynamically
+         * (that may not be possible if the phone has gone to sleep).
          */
         currentTime?: number;
 
@@ -645,24 +698,37 @@ declare namespace cast.framework.messages {
         repeatMode?: RepeatMode;
 
         /**
-         * The index of the item in the items array that must be the first currentItem (the item that will be played first). Note this is the index of the array (starts at 0) and not the itemId (as it is not known until the queue is created). If repeatMode is REPEAT_OFF playback will end when the last item in the array is played (elements before the startIndex will not be played). This may be useful for continuation scenarios where the user was already using the sender app and in the middle decides to cast. In this way the sender app does not need to map between the local and remote queue positions or saves one extra QUEUE_UPDATE request.
+         * The index of the item in the items array that must be the first currentItem
+         * (the item that will be played first). Note this is the index of the array
+         *  (starts at 0) and not the itemId (as it is not known until the queue is created).
+         * If repeatMode is REPEAT_OFF playback will end when the last item in the array is
+         * played (elements before the startIndex will not be played).
+         * This may be useful for continuation scenarios where the user was already
+         * using the sender app and in the middle decides to cast.
+         * In this way the sender app does not need to map between the local and remote queue
+         * positions or saves one extra QUEUE_UPDATE request.
          */
         startIndex?: number;
     }
 
     /**
-     * Queue item information. Application developers may need to create a QueueItem to insert a queue element using InsertQueueItems. In this case they should not provide an itemId (as the actual itemId will be assigned when the item is inserted in the queue). This prevents ID collisions with items added from a sender app.
+     * Queue item information. Application developers may need to create a QueueItem to
+     * insert a queue element using InsertQueueItems. In this case they should not
+     * provide an itemId (as the actual itemId will be assigned when the item is inserted
+     * in the queue). This prevents ID collisions with items added from a sender app.
      */
     class QueueItem {
         constructor(opt_itemId?: number);
 
         /**
-         * Array of Track trackIds that are active. If the array is not provided; the default tracks will be active.
+         * Array of Track trackIds that are active. If the array is not provided;
+         * the default tracks will be active.
          */
         activeTrackIds?: number[];
 
         /**
-         * If the autoplay parameter is not specified or is true; the media player will begin playing the element in the queue when the item becomes the currentItem.
+         * If the autoplay parameter is not specified or is true; the media player
+         *  will begin playing the element in the queue when the item becomes the currentItem.
          */
         autoplay?: boolean;
 
@@ -672,7 +738,9 @@ declare namespace cast.framework.messages {
         customData?: any;
 
         /**
-         * Unique identifier of the item in the queue. The attribute is optional because for LOAD or INSERT should not be provided (as it will be assigned by the receiver when an item is first created/inserted).
+         * Unique identifier of the item in the queue.
+         * The attribute is optional because for LOAD or INSERT should not be provided
+         * (as it will be assigned by the receiver when an item is first created/inserted).
          */
         itemId?: number;
 
@@ -682,17 +750,36 @@ declare namespace cast.framework.messages {
         media?: MediaInformation;
 
         /**
-         * Playback duration of the item; if it is larger than the actual duration - startTime it will be ignored (default behavior). It can be negative; in such case the duration will be the actual asset duration minus the duration provided. It can be used for photo slideshows to control the duration the item should be presented or for live events to control the duration that the program should be played. It may be useful for autoplay scenarios to avoid displaying all the credits after an episode has ended.
+         * Playback duration of the item; if it is larger than the actual duration -
+         * startTime it will be ignored (default behavior).
+         * It can be negative; in such case the duration will be the actual asset
+         * duration minus the duration provided.
+         * It can be used for photo slideshows to control the duration the item should
+         * be presented or for live events to control the duration that the program
+         * should be played. It may be useful for autoplay scenarios to avoid displaying all
+         *  the credits after an episode has ended.
          */
         playbackDuration?: number;
 
         /**
-         * This parameter is a hint for the receiver to preload this media item before it is played. It allows for a smooth transition between items played from the queue. The time is expressed in seconds; relative to the beginning of this item playback (usually the end of the previous item playback). Only positive values are valid. For example; if the value is 10 seconds; this item will be preloaded 10 seconds before the previous item has finished. The receiver will try to honor this value but will not guarantee it; for example if the value is larger than the previous item duration the receiver may just preload this item shortly after the previous item has started playing (there will never be two items being preloaded in parallel). Also; if an item is inserted in the queue just after the currentItem and the time to preload is higher than the time left on the currentItem; the preload will just happen as soon as possible.
+         * This parameter is a hint for the receiver to preload this media
+         * item before it is played. It allows for a smooth transition between items
+         * played from the queue. The time is expressed in seconds; relative to
+         * the beginning of this item playback (usually the end of the previous item playback).
+         *  Only positive values are valid. For example; if the value is 10 seconds; this item
+         * will be preloaded 10 seconds before the previous item has finished.
+         * The receiver will try to honor this value but will not guarantee it;
+         * for example if the value is larger than the previous item duration the
+         * receiver may just preload this item shortly after the previous item has started playing
+         * (there will never be two items being preloaded in parallel).
+         * Also; if an item is inserted in the queue just after the currentItem and the time to preload is higher than the
+         * time left on the currentItem; the preload will just happen as soon as possible.
          */
         preloadTime?: number;
 
         /**
-         * Seconds since beginning of content. If the content is live content; and startTime is not specified; the stream will start at the live position.
+         * Seconds since beginning of content. If the content is live content;
+         * and startTime is not specified; the stream will start at the live position.
          */
         startTime?: number;
     }
@@ -704,27 +791,42 @@ declare namespace cast.framework.messages {
         constructor(items: QueueItem[]);
 
         /**
-         * ID of the current media Item after the insertion (if not provided; the currentItem value will be the same as before the insertion).
+         * ID of the current media Item after the insertion (if not provided;
+         * the currentItem value will be the same as before the insertion).
          */
         currentItemId?: number;
 
         /**
-         * Index (relative to the items array; starting with 0) of the new current media Item. For inserted items we use the index (similar to startIndex in QUEUE_LOAD) and not currentItemId; because the itemId is unknown until the items are inserted. If not provided; the currentItem value will be the same as before the insertion (unless currentItemId is provided). This param allows to make atomic the common use case of insert and play an item.
+         * Index (relative to the items array; starting with 0) of the new current media Item.
+         *  For inserted items we use the index (similar to startIndex in QUEUE_LOAD) and not
+         * currentItemId; because the itemId is unknown until the items are inserted.
+         * If not provided; the currentItem value will be the same as before the insertion
+         * (unless currentItemId is provided). This param allows to make atomic the common use
+         * case of insert and play an item.
          */
         currentItemIndex?: number;
 
         /**
-         * Seconds since the beginning of content to start playback of the current item. If provided; this value will take precedence over the startTime value provided at the QueueItem level but only the first time the item is played. This is to cover the common case where the user jumps to the middle of an item so the currentTime does not apply to the item permanently like the QueueItem startTime does. It avoids having to reset the startTime dynamically (that may not be possible if the phone has gone to sleep).
+         * Seconds since the beginning of content to start playback of the current item.
+         * If provided; this value will take precedence over the startTime value provided
+         * at the QueueItem level but only the first time the item is played.
+         * This is to cover the common case where the user jumps to the middle of an
+         * item so the currentTime does not apply to the item permanently like the
+         * QueueItem startTime does. It avoids having to reset the startTime dynamically
+         * (that may not be possible if the phone has gone to sleep).
          */
         currentTime?: number;
 
         /**
-         * ID of the item that will be located immediately after the inserted list. If the ID is not found or it is not provided; the list will be appended at the end of the existing list.
+         * ID of the item that will be located immediately after the inserted list.
+         *  If the ID is not found or it is not provided; the list will be appended at
+         *  the end of the existing list.
          */
         insertBefore?: number;
 
         /**
-         * List of queue items. The itemId field of the items should be empty. It is sorted (first element will be played first).
+         * List of queue items. The itemId field of the items should be empty.
+         *  It is sorted (first element will be played first).
          */
         items: QueueItem[];
     }
@@ -743,9 +845,6 @@ declare namespace cast.framework.messages {
          */
         requestId?: number;
 
-        /**
-         *
-         */
         type: MessageType;
     }
 
@@ -834,13 +933,11 @@ declare namespace cast.framework.messages {
         requestId?: number;
 
         /**
-         * The queue change sequence ID. Used to coordinate state sync between various senders and the receiver.
+         * The queue change sequence ID. Used to coordinate state sync between various
+         * senders and the receiver.
          */
         sequenceNumber?: number;
 
-        /**
-         *
-         */
         type: MessageType;
     }
 
@@ -849,11 +946,14 @@ declare namespace cast.framework.messages {
      */
     class PreloadRequestData implements LoadRequestData {
         /**
-         * Array of trackIds that are active. If the array is not provided; the default tracks will be active.
+         * Array of trackIds that are active. If the array is not provided;
+         *  the default tracks will be active.
          */
         activeTrackIds: number[];
         /**
-         * If the autoplay parameter is specified; the media player will begin playing the content when it is loaded. Even if autoplay is not specified;the media player implementation may choose to begin playback immediately.
+         * If the autoplay parameter is specified; the media player will begin playing
+         * the content when it is loaded. Even if autoplay is not specified;the media player
+         *  implementation may choose to begin playback immediately.
          */
         autoplay?: boolean;
         /**
@@ -861,15 +961,19 @@ declare namespace cast.framework.messages {
          */
         credentials?: string;
         /**
-         * Optional credentials type. The type 'cloud' is a reserved type used by load requests that were originated by voice assistant commands.
+         * Optional credentials type. The type 'cloud' is a reserved type used by load
+         * requests that were originated by voice assistant commands.
          */
         credentialsType?: string;
         /**
-         * Seconds since beginning of content. If the content is live content; and currentTime is not specified; the stream will start at the live position.
+         * Seconds since beginning of content. If the content is live content;
+         * and currentTime is not specified; the stream will start at the live position.
          */
         currentTime?: number;
         /**
-         * If the autoplay parameter is specified; the media player will begin playing the content when it is loaded. Even if autoplay is not specified; the media player implementation may choose to begin playback immediately.
+         * If the autoplay parameter is specified; the media player will begin playing
+         * the content when it is loaded. Even if autoplay is not specified; the media
+         *  player implementation may choose to begin playback immediately.
          */
         media: MediaInformation;
         /**
@@ -881,7 +985,9 @@ declare namespace cast.framework.messages {
          */
         queueData: QueueData;
         /**
-         * Application-specific data for this request. It enables the sender and receiver to easily extend the media protocol without having to use a new namespace with custom messages.
+         * Application-specific data for this request.
+         * It enables the sender and receiver to easily extend the media protocol
+         * without having to use a new namespace with custom messages.
          */
         customData?: any;
         /**
@@ -901,15 +1007,19 @@ declare namespace cast.framework.messages {
     }
 
     /**
-     * Media event PRECACHE request data. (Some fields of the load request; like autoplay and queueData; are ignored).
+     * Media event PRECACHE request data. (Some fields of the load request;
+     * like autoplay and queueData; are ignored).
      */
     class PrecacheRequestData implements LoadRequestData {
         /**
-         * Array of trackIds that are active. If the array is not provided; the default tracks will be active.
+         * Array of trackIds that are active. If the array is not provided;
+         * the default tracks will be active.
          */
         activeTrackIds: number[];
         /**
-         * If the autoplay parameter is specified; the media player will begin playing the content when it is loaded. Even if autoplay is not specified;the media player implementation may choose to begin playback immediately.
+         * If the autoplay parameter is specified; the media player will begin playing
+         * the content when it is loaded. Even if autoplay is not specified;the media player
+         * implementation may choose to begin playback immediately.
          */
         autoplay?: boolean;
         /**
@@ -917,15 +1027,19 @@ declare namespace cast.framework.messages {
          */
         credentials?: string;
         /**
-         * Optional credentials type. The type 'cloud' is a reserved type used by load requests that were originated by voice assistant commands.
+         * Optional credentials type. The type 'cloud' is a reserved type used by load
+         * requests that were originated by voice assistant commands.
          */
         credentialsType?: string;
         /**
-         * Seconds since beginning of content. If the content is live content; and currentTime is not specified; the stream will start at the live position.
+         * Seconds since beginning of content. If the content is live content; and
+         * currentTime is not specified; the stream will start at the live position.
          */
         currentTime?: number;
         /**
-         * If the autoplay parameter is specified; the media player will begin playing the content when it is loaded. Even if autoplay is not specified; the media player implementation may choose to begin playback immediately.
+         * If the autoplay parameter is specified; the media player will begin playing
+         * the content when it is loaded. Even if autoplay is not specified;
+         * the media player implementation may choose to begin playback immediately.
          */
         media: MediaInformation;
         /**
@@ -937,7 +1051,9 @@ declare namespace cast.framework.messages {
          */
         queueData: QueueData;
         /**
-         * Application-specific data for this request. It enables the sender and receiver to easily extend the media protocol without having to use a new namespace with custom messages.
+         * Application-specific data for this request.
+         * It enables the sender and receiver to easily extend the media protocol
+         * without having to use a new namespace with custom messages.
          */
         customData?: any;
         /**
@@ -1058,7 +1174,8 @@ declare namespace cast.framework.messages {
         discNumber?: number;
 
         /**
-         * Content images. Examples would include cover art or a thumbnail of the currently playing media.
+         * Content images. Examples would include cover art or a thumbnail of the
+         * currently playing media.
          */
         images: Image[];
 
@@ -1093,7 +1210,8 @@ declare namespace cast.framework.messages {
      */
     interface MovieMediaMetadata {
         /**
-         * Content images. Examples would include cover art or a thumbnail of the currently playing media.
+         * Content images. Examples would include cover art or a thumbnail of the
+         * currently playing media.
          */
         images: Image[];
 
@@ -1132,7 +1250,8 @@ declare namespace cast.framework.messages {
         activeTrackIds: number[];
 
         /**
-         * Status of break; if receiver is playing break. This field will be defined only when receiver is playing break.
+         * Status of break; if receiver is playing break.
+         * This field will be defined only when receiver is playing break.
          */
         breakStatus: BreakStatus;
 
@@ -1167,12 +1286,14 @@ declare namespace cast.framework.messages {
         items: QueueItem[];
 
         /**
-         * Seekable range of a live or event stream. It uses relative media time in seconds. It will be undefined for VOD streams.
+         * Seekable range of a live or event stream. It uses relative media time in seconds.
+         * It will be undefined for VOD streams.
          */
         liveSeekableRange: LiveSeekableRange;
 
         /**
-         * ID of the media Item currently loading. If there is no item being loaded; it will be undefined.
+         * ID of the media Item currently loading. If there is no item being loaded;
+         * it will be undefined.
          */
         loadingItemId?: number;
 
@@ -1197,7 +1318,10 @@ declare namespace cast.framework.messages {
         playerState: PlayerState;
 
         /**
-         * ID of the next Item; only available if it has been preloaded. Media items can be preloaded and cached temporarily in memory; so when they are loaded later on; the process is faster (as the media does not have to be fetched from the network).
+         * ID of the next Item; only available if it has been preloaded.
+         * Media items can be preloaded and cached temporarily in memory;
+         * so when they are loaded later on; the process is faster
+         * (as the media does not have to be fetched from the network).
          */
         preloadedItemId?: number;
 
@@ -1216,9 +1340,6 @@ declare namespace cast.framework.messages {
          */
         supportedMediaCommands: number;
 
-        /**
-         *
-         */
         type: MessageType;
 
         /**
@@ -1248,7 +1369,9 @@ declare namespace cast.framework.messages {
      */
     interface MediaInformation {
         /**
-         * Partial list of break clips that includes current break clip that receiver is playing or ones that receiver will play shortly after; instead of sending whole list of clips. This is to avoid overflow of MediaStatus message.
+         * Partial list of break clips that includes current break clip that receiver
+         * is playing or ones that receiver will play shortly after; instead of sending
+         * whole list of clips. This is to avoid overflow of MediaStatus message.
          */
         breakClips: BreakClip[];
 
@@ -1268,7 +1391,9 @@ declare namespace cast.framework.messages {
         contentType: string;
 
         /**
-         * Optional media url; to allow using contentId for real id. If contentUrl is provided; it will be used as media url; otherwise the contentId will be used as the media url.
+         * Optional media url; to allow using contentId for real id. If contentUrl
+         * is provided; it will be used as media url; otherwise the contentId will
+         * be used as the media url.
          */
         contentUrl?: string;
 
@@ -1318,12 +1443,16 @@ declare namespace cast.framework.messages {
      */
     interface LoadRequestData extends RequestData {
         /**
-         * Array of trackIds that are active. If the array is not provided; the default tracks will be active.
+         * Array of trackIds that are active. If the array is not provided; the
+         * default tracks will be active.
          */
         activeTrackIds: number[];
 
         /**
-         * If the autoplay parameter is specified; the media player will begin playing the content when it is loaded. Even if autoplay is not specified;the media player implementation may choose to begin playback immediately.
+         * If the autoplay parameter is specified; the media player will begin
+         * playing the content when it is loaded. Even if autoplay is not
+         * specified;the media player implementation may choose to begin playback
+         * immediately.
          */
         autoplay?: boolean;
 
@@ -1333,17 +1462,21 @@ declare namespace cast.framework.messages {
         credentials?: string;
 
         /**
-         * Optional credentials type. The type 'cloud' is a reserved type used by load requests that were originated by voice assistant commands.
+         * Optional credentials type. The type 'cloud' is a reserved type used by
+         * load requests that were originated by voice assistant commands.
          */
         credentialsType?: string;
 
         /**
-         * Seconds since beginning of content. If the content is live content; and currentTime is not specified; the stream will start at the live position.
+         * Seconds since beginning of content. If the content is live content;
+         * and currentTime is not specified; the stream will start at the live position.
          */
         currentTime?: number;
 
         /**
-         * If the autoplay parameter is specified; the media player will begin playing the content when it is loaded. Even if autoplay is not specified; the media player implementation may choose to begin playback immediately.
+         * If the autoplay parameter is specified; the media player will begin playing
+         * the content when it is loaded. Even if autoplay is not specified; the media
+         * player implementation may choose to begin playback immediately.
          */
         media: MediaInformation;
 
@@ -1379,7 +1512,8 @@ declare namespace cast.framework.messages {
     }
 
     /**
-     * Provides live seekable range with start and end time in seconds and two more attributes.
+     * Provides live seekable range with start and end time in seconds and two more
+     * attributes.
      */
     class LiveSeekableRange {
         constructor(
@@ -1390,12 +1524,15 @@ declare namespace cast.framework.messages {
         );
 
         /**
-         * A boolean value indicates whether a live stream is ended. If it is done; the end of live seekable range should stop updating.
+         * A boolean value indicates whether a live stream is ended. If it is done;
+         * the end of live seekable range should stop updating.
          */
         isLiveDone?: boolean;
 
         /**
-         * A boolean value indicates whether the live seekable range is a moving window. If false; it will be either a expanding range or a fixed range meaning live has ended.
+         * A boolean value indicates whether the live seekable range is a moving window.
+         * If false; it will be either a expanding range or a fixed range meaning live
+         * has ended.
          */
         isMovingWindow?: boolean;
     }
@@ -1414,9 +1551,6 @@ declare namespace cast.framework.messages {
          */
         requestId?: number;
 
-        /**
-         *
-         */
         type: MessageType;
     }
 
@@ -1466,7 +1600,8 @@ declare namespace cast.framework.messages {
      */
     interface GenericMediaMetadata extends MediaMetadata {
         /**
-         * Content images. Examples would include cover art or a thumbnail of the currently playing media.
+         * Content images. Examples would include cover art or a thumbnail of the
+         * currently playing media.
          */
         images: Image[];
 
@@ -1476,7 +1611,7 @@ declare namespace cast.framework.messages {
         releaseDate?: string;
 
         /**
-         *@deprecated - use @see{@link releaseDate} instead
+         * @deprecated - use @see{@link releaseDate} instead
          */
         releaseYear?: number;
 
@@ -1530,20 +1665,15 @@ declare namespace cast.framework.messages {
             opt_media?: MediaInformation
         );
 
-        /**
-         *
-         */
         media: MediaInformation;
 
-        /**
-         *
-         */
         playerState: ExtendedPlayerState;
     }
 
     /** Event data for @see{@link EventType.ERROR} event. */
     class ErrorEvent extends Event {
         constructor(detailedErrorCode?: DetailedErrorCode, error?: any);
+
         /**
          * An error code representing the cause of the error.
          */
@@ -1552,7 +1682,8 @@ declare namespace cast.framework.messages {
         /**
          * The error object.
          * This could be an Error object (e.g.; if an Error was thrown in an event handler)
-         * or an object with error information (e.g.; if the receiver received an invalid command).
+         * or an object with error information (e.g.; if the receiver received an invalid
+         * command).
          */
         error?: any;
     }
@@ -1562,13 +1693,14 @@ declare namespace cast.framework.messages {
 
         /**
          * Application-specific data for this request.
-         * It enables the sender and receiver to easily extend the media protocol without having to use a new namespace with custom messages.
+         * It enables the sender and receiver to easily extend the media protocol
+         * without having to use a new namespace with custom messages.
          */
         customData?: any;
 
         /**
-            Id of the request; used to correlate request/response.
-           */
+         * Id of the request; used to correlate request/response.
+         */
         requestId?: number;
     }
 
@@ -1590,35 +1722,33 @@ declare namespace cast.framework.messages {
         enableTextTracks?: boolean;
 
         /**
-         * Indicates that the provided language was not explicit user request; but rather inferred from used language in voice query.
+         * Indicates that the provided language was not explicit user request; but rather
+         * inferred from used language in voice query.
          * It allows receiver apps to use user saved preference instead of spoken language.
          */
         isSuggestedLanguage?: boolean;
 
         /**
-         * Language for the tracks that should be active. The language field will take precedence over activeTrackIds if both are specified.
+         * Language for the tracks that should be active. The language field will take
+         * precedence over activeTrackIds if both are specified.
          */
         language?: string;
 
-        /**
-         *
-         */
         textTrackStyle?: TextTrackStyle;
     }
 
     /**
-     * Media event EDIT_AUDIO_TRACKS request data. If language is not provided; the default audio track for the media will be enabled.
+     * Media event EDIT_AUDIO_TRACKS request data. If language is not provided;
+     * the default audio track for the media will be enabled.
      */
     interface EditAudioTracksRequestData extends RequestData {
         /**
-         * Indicates that the provided language was not explicit user request; but rather inferred from used language in voice query.
+         * Indicates that the provided language was not explicit user request;
+         * but rather inferred from used language in voice query.
          * It allows receiver apps to use user saved preference instead of spoken language.
          */
         isSuggestedLanguage?: boolean;
 
-        /**
-         *
-         */
         language?: string;
     }
 
@@ -1694,7 +1824,8 @@ declare namespace cast.framework.messages {
         contentType?: string;
         /**
          * Optional break media url; to allow using contentId for real id.
-         * If contentUrl is provided; it will be used as media url; otherwise the contentId will be used as the media url.
+         * If contentUrl is provided; it will be used as media url;
+         * otherwise the contentId will be used as the media url.
          */
         contentUrl?: string;
         /**
@@ -1751,13 +1882,16 @@ declare namespace cast.framework.messages {
         /**
          * If true; indicates this is embedded break in main stream.
          */
+
         isEmbedded?: boolean;
         /**
          * Whether break is watched.
-         * Sender can change color of progress bar marker corresponding to this break once this field changes from false to true;
+         * Sender can change color of progress bar marker corresponding to this break once
+         *  this field changes from false to true;
          *  denoting that the end-user already watched this break.
          */
         isWatched: boolean;
+
         /**
          * Where the break is located inside main video. -1 represents the end of main video.
          */

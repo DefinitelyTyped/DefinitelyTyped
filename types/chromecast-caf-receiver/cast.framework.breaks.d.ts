@@ -36,13 +36,11 @@ declare namespace cast.framework.breaks {
     interface BreakManager {
         /**
          * Get current media break by id.
-         * @param {*} id
          */
         getBreakById(id: string): Break;
 
         /**
          * Get current media break clip by id
-         * @param {*} id
          */
         getBreakClipById(id: string): BreakClip;
 
@@ -61,7 +59,6 @@ declare namespace cast.framework.breaks {
          * By default VAST fetching and parsing logic in default interceptor.
          * So if customized interceptor is set by developer;
          * the VAST logic will be overridden and developers should implement their own VAST fetching and parsing logic in the provided interceptor.
-         * @param {*} interceptor
          */
         setBreakClipLoadInterceptor(
             interceptor: (
@@ -72,7 +69,6 @@ declare namespace cast.framework.breaks {
 
         /**
          * Provide an interceptor for developer to specify what breaks they want to play after seek.
-         * @param {*} seekInterceptor
          */
         setBreakSeekInterceptor(
             seekInterceptor: (breakSeekData: BreakSeekData) => void
@@ -80,7 +76,6 @@ declare namespace cast.framework.breaks {
 
         /**
          * Set a flag to control if the watched client stitching break should be played.
-         * @param {*} playWatchedBreak
          */
         setPlayWatchedBreak(playWatchedBreak: boolean): void;
 
@@ -89,7 +84,6 @@ declare namespace cast.framework.breaks {
          * The input of the interceptor is a string of the tracking URL.
          * The interceptor can either return a modified string of URL or a Promise of modified string of URL.
          * The interceptor can also return null if you want to send the tracking URL by your own code instead of by CAF.
-         * @param {*} interceptor
          */
         setVastTrackingInterceptor(
             interceptor?: (trackingUrl: string) => void

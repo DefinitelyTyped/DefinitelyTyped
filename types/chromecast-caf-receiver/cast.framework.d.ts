@@ -149,7 +149,9 @@ declare namespace cast.framework {
      */
     class QueueBase {
         /**
-         * Fetches a window of items using the specified item id as reference; called by the receiver MediaManager when it needs more queue items; often as a request from senders. If only one of nextCount and prevCount is non-zero; fetchItems should only return items after or before the reference item; if both nextCount and prevCount are non-zero; a window of items including the reference item should be returned.
+         * Fetches a window of items using the specified item id as reference; called by the receiver MediaManager when it needs more queue items;
+         *  often as a request from senders. If only one of nextCount and prevCount is non-zero; fetchItems should only return items after or before
+         *  the reference item; if both nextCount and prevCount are non-zero; a window of items including the reference item should be returned.
          */
         fetchItems(
             itemId: number,
@@ -158,7 +160,9 @@ declare namespace cast.framework {
         ): QueueItem[] | Promise<QueueItem[]>;
 
         /**
-         * Initializes the queue with the requestData. This is called when a new LOAD request comes in to the receiver. If this returns or resolves to null; our default queueing implementation will create a queue based on queueData.items or the single media in the load request data.
+         * Initializes the queue with the requestData. This is called when a new LOAD request comes in to the receiver.
+         * If this returns or resolves to null; our default queueing implementation will create a queue based on queueData.items or the single media
+         *  in the load request data.
          */
         initialize(
             requestData: LoadRequestData
@@ -175,12 +179,14 @@ declare namespace cast.framework {
         onCurrentItemIdChanged(itemId: number): void;
 
         /**
-         * A callback for informing the following items have been inserted into the receiver queue in this session. A cloud based implementation can optionally choose to update its queue based on the new information.
+         * A callback for informing the following items have been inserted into the receiver queue in this session.
+         *  A cloud based implementation can optionally choose to update its queue based on the new information.
          */
         onItemsInserted(items: QueueItem[], insertBefore?: number): void;
 
         /**
-         * A callback for informing the following items have been removed from the receiver queue in this session. A cloud based implementation can optionally choose to update its queue based on the new information.
+         * A callback for informing the following items have been removed from the receiver queue in this session.
+         * A cloud based implementation can optionally choose to update its queue based on the new information.
          */
         onItemsRemoved(itemIds: number[]): void;
 
@@ -219,9 +225,6 @@ declare namespace cast.framework {
             includeQueueItems?: boolean
         ): void;
 
-        /**
-         *
-         */
         getAudioTracksManager(): AudioTracksManager;
 
         /**
@@ -280,7 +283,8 @@ declare namespace cast.framework {
         getPlayerState(): PlayerState;
 
         /**
-         * Get the preferred playback rate. (Can be used on shutdown event to save latest preferred playback rate to a persistent storage; so it can be used in next session in the cast options).
+         * Get the preferred playback rate. (Can be used on shutdown event to save latest preferred playback rate to a persistent storage;
+         *  so it can be used in next session in the cast options).
          */
         getPreferredPlaybackRate(): number;
 
@@ -294,9 +298,6 @@ declare namespace cast.framework {
          */
         getQueueManager(): QueueManager;
 
-        /**
-         *
-         */
         getTextTracksManager(): TextTracksManager;
 
         /**
@@ -365,7 +366,10 @@ declare namespace cast.framework {
         ): void;
 
         /**
-         * Sets the IDLE reason. This allows applications that want to force the IDLE state to indicate the reason that made the player going to IDLE state (a custom error; for example). The idle reason will be sent in the next status message. NOTE: Most applications do not need to set this value; it is only needed if they want to make the player go to IDLE in special circumstances and the default idleReason does not reflect their intended behavior.
+         * Sets the IDLE reason. This allows applications that want to force the IDLE state to indicate the reason that made the player going to IDLE state
+         * (a custom error; for example). The idle reason will be sent in the next status message. NOTE: Most applications do not need to set this value;
+         * it is only needed if they want to make the player go to IDLE in special circumstances and the default idleReason does not reflect their intended
+         * behavior.
          */
         setIdleReason(idleReason: IdleReason): void;
 
@@ -383,7 +387,9 @@ declare namespace cast.framework {
         ): void;
 
         /**
-         * Sets a handler to return or modify PlaybackConfig; for a specific load request. The handler paramaters are the load request data and default playback config for the receiver (provided in the context options). The handler should returns a modified playback config; or null to prevent the media from playing. The return value can be a promise to allow waiting for data from the server.
+         * Sets a handler to return or modify PlaybackConfig; for a specific load request. The handler paramaters are the load request data
+         * and default playback config for the receiver (provided in the context options). The handler should returns a modified playback config;
+         *  or null to prevent the media from playing. The return value can be a promise to allow waiting for data from the server.
          */
         setMediaPlaybackInfoHandler(
             handler: (
@@ -393,14 +399,19 @@ declare namespace cast.framework {
         ): void;
 
         /**
-         * Sets a handler to return the media url for a load request. This handler can be used to avoid having the media content url published as part of the media status. By default the media contentId is used as the content url.
+         * Sets a handler to return the media url for a load request. This handler can be used to avoid having the media content url published as part
+         * of the media status. By default the media contentId is used as the content url.
          */
         setMediaUrlResolver(
             resolver: (loadRequestData: LoadRequestData) => void
         ): void;
 
         /**
-         * Provide an interceptor of incoming and outgoing messages. The interceptor can update the request data; and return updated data; a promise of updated data if need to get more data from the server; or null if the request should not be handled. Note that if load message interceptor is provided; and no interceptor is provided for preload - the load interceptor will be called for preload messages.
+         * Provide an interceptor of incoming and outgoing messages.
+         * The interceptor can update the request data; and return updated data; a promise of
+         * updated data if need to get more data from the server; or null if the request should not be handled.
+         * Note that if load message interceptor is provided; and no interceptor is provided for preload -
+         * the load interceptor will be called for preload messages.
          */
         setMessageInterceptor(
             type: MessageType,
@@ -413,12 +424,14 @@ declare namespace cast.framework {
         setPlaybackConfig(playbackConfig: PlaybackConfig): void;
 
         /**
-         * Set the preferred playback rate for follow up load or media items. The preferred playback rate will be updated automatically to the latest playback rate that was provided by a load request or explicit set of playback rate.
+         * Set the preferred playback rate for follow up load or media items. The preferred playback rate will be updated automatically to the latest
+         * playback rate that was provided by a load request or explicit set of playback rate.
          */
         setPreferredPlaybackRate(preferredPlaybackRate: number): void;
 
         /**
-         * Set the preferred text track language. The preferred text track language will be updated automatically to the latest enabled language by a load request or explicit change to text tracks. (Should be called only in idle state; and Will only apply to next loaded media).
+         * Set the preferred text track language. The preferred text track language will be updated automatically to the latest enabled language
+         * by a load request or explicit change to text tracks. (Should be called only in idle state; and Will only apply to next loaded media).
          */
         setPreferredTextLanguage(preferredTextLanguage: string): void;
 

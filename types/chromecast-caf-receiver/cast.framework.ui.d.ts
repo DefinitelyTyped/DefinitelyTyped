@@ -50,9 +50,6 @@ declare namespace cast.framework.ui {
          */
         field: string;
 
-        /**
-         *
-         */
         type: PlayerDataEventType;
 
         /**
@@ -61,7 +58,8 @@ declare namespace cast.framework.ui {
         value: any;
     }
     /**
-     * Player data binder. Bind a player data object to the player state. The player data will be updated to reflect correctly the current player state without firing any change event.
+     * Player data binder. Bind a player data object to the player state.
+     * The player data will be updated to reflect correctly the current player state without firing any change event.
      */
     class PlayerDataBinder {
         constructor(playerData: PlayerData);
@@ -107,7 +105,17 @@ declare namespace cast.framework.ui {
         currentTime: number;
 
         /**
-         * Whether the player metadata (ie: title; currentTime) should be displayed. This will be true if at least one field in the metadata should be displayed. In some cases; displayStatus will be true; but parts of the metadata should be hidden (ie: the media title while media is seeking). In these cases; additional css can be applied to hide those elements. For cases where the media is audio-only; this will almost always be true. In cases where the media is video; this will be true when: (1) the video is loading; buffering; or seeking (2) a play request was made in the last five seconds while media is already playing; (3) there is a request made to show the status in the last five seconds; or (4) the media was paused in the last five seconds.
+         * Whether the player metadata (ie: title; currentTime) should be displayed.
+         *  This will be true if at least one field in the metadata should be displayed.
+         *  In some cases; displayStatus will be true; but parts of the metadata should be hidden
+         * (ie: the media title while media is seeking).
+         * In these cases; additional css can be applied to hide those elements.
+         * For cases where the media is audio-only; this will almost always be true.
+         * In cases where the media is video; this will be true when:
+         *   (1) the video is loading; buffering; or seeking
+         *   (2) a play request was made in the last five seconds while media is already playing;
+         *   (3) there is a request made to show the status in the last five seconds; or
+         *   (4) the media was paused in the last five seconds.
          */
         displayStatus: boolean;
 
