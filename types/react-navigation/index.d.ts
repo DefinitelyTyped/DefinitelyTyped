@@ -607,6 +607,7 @@ export interface NavigationScene {
   isStale: boolean;
   key: string;
   route: NavigationRoute;
+  descriptor: NavigationDescriptor;
 }
 
 export interface NavigationTransitionProps {
@@ -1058,6 +1059,7 @@ export interface NavigationDescriptor<Params = NavigationParams> {
   key: string;
   state: NavigationLeafRoute<Params> | NavigationStateRoute<Params>;
   navigation: NavigationScreenProp<any>;
+  options: NavigationScreenOptions;
   getComponent: () => React.ComponentType;
 }
 
