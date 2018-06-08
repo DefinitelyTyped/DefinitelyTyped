@@ -54,7 +54,7 @@ export function statAsync(path: string): Promise<Stats>;
 export function lstatAsync(path: string): Promise<Stats>;
 export function fstatAsync(fd: number): Promise<Stats>;
 export function linkAsync(srcpath: string, dstpath: string): Promise<void>;
-export function symlinkAsync(srcpath: string, dstpath: string, type?: fs.symlink.Type): Promise<void>;
+export function symlinkAsync(srcpath: string, dstpath: string, type?: "file" | "dir" | "junction"): Promise<void>;
 export function readlinkAsync(path: string): Promise<string>;
 export function realpathAsync(path: string, cache?: { [path: string]: string }): Promise<string>;
 export function unlinkAsync(path: string): Promise<void>;
