@@ -1,4 +1,4 @@
-// Type definitions for react-pointable 1.1.2
+// Type definitions for react-pointable 1.2
 // Project: https://github.com/MilllerTime/react-pointable
 // Definitions by: Stefan Fochler <https://github.com/istefo>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
