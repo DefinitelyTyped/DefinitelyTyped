@@ -6429,12 +6429,14 @@ declare namespace Office {
     }
 
     /**
+     * The subclass of {@link Office.Item} dealing with apppointments.
+     * 
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
     interface Appointment extends Item {
     }
     /**
-     * The compose mode of {@link Office.Appointment}
+     * The compose mode of {@link Office.Appointment}.
      * 
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
@@ -6529,7 +6531,7 @@ declare namespace Office {
         start: Time;
     }
     /**
-     * The read mode of {@link Office.Appointment}
+     * The read mode of {@link Office.Appointment}.
      * 
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
@@ -6984,7 +6986,7 @@ declare namespace Office {
        removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
     }
     /**
-     * The compose mode of {@link Office.Item}
+     * The compose mode of {@link Office.Item}.
      * 
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
@@ -7580,7 +7582,7 @@ declare namespace Office {
         setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
     }
     /**
-     * The read mode of {@link Office.Appointment}
+     * The read mode of {@link Office.Appointment}.
      * 
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
@@ -7917,7 +7919,7 @@ declare namespace Office {
     }
 
      /**
-     * The compose mode of {@link Office.Message}
+     * The compose mode of {@link Office.Message}.
      * 
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
@@ -7982,7 +7984,7 @@ declare namespace Office {
         to: Recipients;
     }
     /**
-     * The read mode of {@link Office.Message}
+     * The read mode of {@link Office.Message}. 
      * 
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
@@ -8255,9 +8257,9 @@ declare namespace Office {
          * 
          *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server. If the mail add-in is running on the Outlook desktop client or Outlook for iOS, the hostVersion property returns the version of the host application, Outlook. In Outlook Web App, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
          * 
-         *  - OWAView (string): A string that represents the current view of Outlook Web App. If the host application is not Outlook Web App, then accessing this property results in undefined. Outlook Web App has three views (represent by the following string values) that correspond to the width of the screen and the window, and the number of columns that can be displayed:
+         *  - OWAView (string): A string that represents the current view of Outlook Web App. If the host application is not Outlook Web App, then accessing this property results in undefined. Outlook Web App has three views (OneColumn - displayed when the screen is narrow, TwoColumns - displayed when the screen is wider, and ThreeColumns - displayed when the screen is wide.) that correspond to the width of the screen and the window, and the number of columns that can be displayed.
          *
-         *  More information is under {@link Office.Diagnostics}
+         *  More information is under {@link Office.Diagnostics}. 
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9463,7 +9465,7 @@ declare namespace Office {
          */
         htmlBody?: string;
         /**
-         * An array of {@link Office.ReplyFormAttachments} that are either file or item attachments.
+         * An array of {@link Office.ReplyFormAttachment} that are either file or item attachments.
          */
         attachments?: ReplyFormAttachment[];
         /**
