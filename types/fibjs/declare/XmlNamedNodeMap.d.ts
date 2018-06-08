@@ -18,7 +18,8 @@
 	* @brief XmlNamedNodeMap 对象表示一个无顺序的属性列表
 	* @detail 
 	*/
-declare class XmlNamedNodeMap extends _object {
+
+declare class Class_XmlNamedNodeMap extends Class__object {
 	
 	/**
 		* 
@@ -29,7 +30,7 @@ declare class XmlNamedNodeMap extends _object {
 		* 
 		* 
 		*/
-	item(index: number): XmlAttr;
+	item(index: number): Class_XmlAttr;
 
 	/**
 		* 
@@ -40,7 +41,7 @@ declare class XmlNamedNodeMap extends _object {
 		* 
 		* 
 		*/
-	getNamedItem(name: string): XmlAttr;
+	getNamedItem(name: string): Class_XmlAttr;
 
 } /** endof class */
 

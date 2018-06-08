@@ -18,7 +18,8 @@
 	* @brief LRU(least recently used) 缓存对象
 	* @detail LruCache 用以维护一个 LRU 缓存，创建方法：,```JavaScript,var util = require("util");,var c = new util.LruCache(10, 100);,```
 	*/
-declare class LruCache extends EventEmitter {
+/// <reference path="EventEmitter.d.ts" />
+declare class Class_LruCache extends Class_EventEmitter {
 	
 	/**
 		* 

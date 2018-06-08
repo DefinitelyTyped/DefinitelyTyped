@@ -20,7 +20,8 @@ import zmq = require('zmq')
 	* @brief ZeroMQ 套接口对象
 	* @detail 
 	*/
-declare class ZmqSocket extends _object {
+
+declare class Class_ZmqSocket extends Class__object {
 	
 	/**
 		* 
@@ -60,7 +61,7 @@ declare class ZmqSocket extends _object {
 		* 
 		* @async
 		*/
-	recv(): Buffer;
+	recv(): Class_Buffer;
 
 	/**
 		* 
@@ -70,7 +71,7 @@ declare class ZmqSocket extends _object {
 		* 
 		* 
 		*/
-	send(data: Buffer): void;
+	send(data: Class_Buffer): void;
 
 	/**
 		* 

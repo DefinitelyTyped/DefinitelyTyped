@@ -211,7 +211,8 @@ declare module "dgram" {
 			* 
 			* 
 			*/
-		export const Socket: DgramSocket;
+		
+		export class DgramSocket extends Class_DgramSocket {}
 		
 		
 		
@@ -234,7 +235,7 @@ declare module "dgram" {
 			* 
 			* 
 			*/
-		export function createSocket(opts: Object): DgramSocket;
+		export function createSocket(opts: Object): Class_DgramSocket;
 	
 		/**
 			* 
@@ -256,7 +257,7 @@ declare module "dgram" {
 			* 
 			* 
 			*/
-		export function createSocket(opts: Object, callback: Function): DgramSocket;
+		export function createSocket(opts: Object, callback: Function): Class_DgramSocket;
 	
 		/**
 			* 
@@ -267,7 +268,7 @@ declare module "dgram" {
 			* 
 			* 
 			*/
-		export function createSocket(type: string): DgramSocket;
+		export function createSocket(type: string): Class_DgramSocket;
 	
 		/**
 			* 
@@ -279,7 +280,7 @@ declare module "dgram" {
 			* 
 			* 
 			*/
-		export function createSocket(type: string, callback: Function): DgramSocket;
+		export function createSocket(type: string, callback: Function): Class_DgramSocket;
 	
 	} /** end of `module dgram` */
 	export = dgram

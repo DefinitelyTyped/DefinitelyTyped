@@ -18,7 +18,8 @@
 	* @brief 数据库连接对象，用于建立和维护一个数据库连接会话。
 	* @detail 
 	*/
-declare class DbConnection extends _object {
+
+declare class Class_DbConnection extends Class__object {
 	
 	/**
 		* 

@@ -18,7 +18,8 @@
 	* @brief 文件的基础信息对象
 	* @detail Stat 对象通过 fs.stat, File.stat, fs.readdir 查询，不可独立创建
 	*/
-declare class Stat extends _object {
+
+declare class Class_Stat extends Class__object {
 	
 	/**
 		* 

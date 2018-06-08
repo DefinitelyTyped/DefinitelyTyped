@@ -18,7 +18,8 @@
 	* @brief XmlDocument 对象代表整个 XML 文档
 	* @detail XmlDocument 对象是一棵文档树的根，可为我们提供对文档数据的最初（或最顶层）的访问入口。,用于元素节点、文本节点、注释、处理指令等均无法存在于 XmlDocument 之外， XmlDocument 对象同样提供了创建这些对象的方法。 XmlNode 对象提供了一个 ownerDocument 属性，此属性可把它们与在其中创建它们的 XmlDocument 关联起来。
 	*/
-declare class XmlDocument extends XmlNode {
+/// <reference path="XmlNode.d.ts" />
+declare class Class_XmlDocument extends Class_XmlNode {
 	
 	/**
 		* 
@@ -48,7 +49,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	load(source: Buffer): void;
+	load(source: Class_Buffer): void;
 
 	/**
 		* 
@@ -61,7 +62,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	getElementsByTagName(tagName: string): XmlNodeList;
+	getElementsByTagName(tagName: string): Class_XmlNodeList;
 
 	/**
 		* 
@@ -75,7 +76,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	getElementsByTagNameNS(namespaceURI: string, localName: string): XmlNodeList;
+	getElementsByTagNameNS(namespaceURI: string, localName: string): Class_XmlNodeList;
 
 	/**
 		* 
@@ -88,7 +89,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	getElementById(id: string): XmlElement;
+	getElementById(id: string): Class_XmlElement;
 
 	/**
 		* 
@@ -101,7 +102,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	getElementsByClassName(className: string): XmlNodeList;
+	getElementsByClassName(className: string): Class_XmlNodeList;
 
 	/**
 		* 
@@ -112,7 +113,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	createElement(tagName: string): XmlElement;
+	createElement(tagName: string): Class_XmlElement;
 
 	/**
 		* 
@@ -124,7 +125,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	createElementNS(namespaceURI: string, qualifiedName: string): XmlElement;
+	createElementNS(namespaceURI: string, qualifiedName: string): Class_XmlElement;
 
 	/**
 		* 
@@ -135,7 +136,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	createTextNode(data: string): XmlText;
+	createTextNode(data: string): Class_XmlText;
 
 	/**
 		* 
@@ -146,7 +147,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	createComment(data: string): XmlComment;
+	createComment(data: string): Class_XmlComment;
 
 	/**
 		* 
@@ -157,7 +158,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	createCDATASection(data: string): XmlCDATASection;
+	createCDATASection(data: string): Class_XmlCDATASection;
 
 	/**
 		* 
@@ -169,7 +170,7 @@ declare class XmlDocument extends XmlNode {
 		* 
 		* 
 		*/
-	createProcessingInstruction(target: string, data: string): XmlProcessingInstruction;
+	createProcessingInstruction(target: string, data: string): Class_XmlProcessingInstruction;
 
 } /** endof class */
 

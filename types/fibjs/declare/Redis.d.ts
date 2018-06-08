@@ -18,7 +18,8 @@
 	* @brief Redis 数据库客户端对象
 	* @detail 用以创建和管理 Redis 数据库，创建方法：,```JavaScript,var db = require("db");,var test = new db.openRedis("redis-server");,```
 	*/
-declare class Redis extends _object {
+
+declare class Class_Redis extends Class__object {
 	
 	/**
 		* 
@@ -40,7 +41,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	set(key: Buffer, value: Buffer, ttl?: number/** = 0*/): void;
+	set(key: Class_Buffer, value: Class_Buffer, ttl?: number/** = 0*/): void;
 
 	/**
 		* 
@@ -51,7 +52,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	setNX(key: Buffer, value: Buffer, ttl?: number/** = 0*/): void;
+	setNX(key: Class_Buffer, value: Class_Buffer, ttl?: number/** = 0*/): void;
 
 	/**
 		* 
@@ -62,7 +63,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	setXX(key: Buffer, value: Buffer, ttl?: number/** = 0*/): void;
+	setXX(key: Class_Buffer, value: Class_Buffer, ttl?: number/** = 0*/): void;
 
 	/**
 		* 
@@ -109,7 +110,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	append(key: Buffer, value: Buffer): number;
+	append(key: Class_Buffer, value: Class_Buffer): number;
 
 	/**
 		* 
@@ -121,7 +122,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	setRange(key: Buffer, offset: number, value: Buffer): number;
+	setRange(key: Class_Buffer, offset: number, value: Class_Buffer): number;
 
 	/**
 		* 
@@ -133,7 +134,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	getRange(key: Buffer, start: number, end: number): Buffer;
+	getRange(key: Class_Buffer, start: number, end: number): Class_Buffer;
 
 	/**
 		* 
@@ -143,7 +144,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	strlen(key: Buffer): number;
+	strlen(key: Class_Buffer): number;
 
 	/**
 		* 
@@ -155,7 +156,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	bitcount(key: Buffer, start?: number/** = 0*/, end?: number/** = -1*/): number;
+	bitcount(key: Class_Buffer, start?: number/** = 0*/, end?: number/** = -1*/): number;
 
 	/**
 		* 
@@ -165,7 +166,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	get(key: Buffer): Buffer;
+	get(key: Class_Buffer): Class_Buffer;
 
 	/**
 		* 
@@ -196,7 +197,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	getset(key: Buffer, value: Buffer): Buffer;
+	getset(key: Class_Buffer, value: Class_Buffer): Class_Buffer;
 
 	/**
 		* 
@@ -207,7 +208,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	decr(key: Buffer, num?: number/** = 1*/): number;
+	decr(key: Class_Buffer, num?: number/** = 1*/): number;
 
 	/**
 		* 
@@ -218,7 +219,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	incr(key: Buffer, num?: number/** = 1*/): number;
+	incr(key: Class_Buffer, num?: number/** = 1*/): number;
 
 	/**
 		* 
@@ -230,7 +231,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	setBit(key: Buffer, offset: number, value: number): number;
+	setBit(key: Class_Buffer, offset: number, value: number): number;
 
 	/**
 		* 
@@ -241,7 +242,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	getBit(key: Buffer, offset: number): number;
+	getBit(key: Class_Buffer, offset: number): number;
 
 	/**
 		* 
@@ -251,7 +252,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	exists(key: Buffer): boolean;
+	exists(key: Class_Buffer): boolean;
 
 	/**
 		* 
@@ -261,7 +262,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	type(key: Buffer): string;
+	type(key: Class_Buffer): string;
 
 	/**
 		* 
@@ -302,7 +303,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	expire(key: Buffer, ttl: number): boolean;
+	expire(key: Class_Buffer, ttl: number): boolean;
 
 	/**
 		* 
@@ -312,7 +313,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	ttl(key: Buffer): number;
+	ttl(key: Class_Buffer): number;
 
 	/**
 		* 
@@ -322,7 +323,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	persist(key: Buffer): boolean;
+	persist(key: Class_Buffer): boolean;
 
 	/**
 		* 
@@ -332,7 +333,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	rename(key: Buffer, newkey: Buffer): void;
+	rename(key: Class_Buffer, newkey: Class_Buffer): void;
 
 	/**
 		* 
@@ -343,7 +344,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	renameNX(key: Buffer, newkey: Buffer): boolean;
+	renameNX(key: Class_Buffer, newkey: Class_Buffer): boolean;
 
 	/**
 		* 
@@ -354,7 +355,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	sub(channel: Buffer, func: Function): void;
+	sub(channel: Class_Buffer, func: Function): void;
 
 	/**
 		* 
@@ -374,7 +375,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	unsub(channel: Buffer): void;
+	unsub(channel: Class_Buffer): void;
 
 	/**
 		* 
@@ -385,7 +386,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	unsub(channel: Buffer, func: Function): void;
+	unsub(channel: Class_Buffer, func: Function): void;
 
 	/**
 		* 
@@ -479,7 +480,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	pub(channel: Buffer, message: Buffer): number;
+	pub(channel: Class_Buffer, message: Class_Buffer): number;
 
 	/**
 		* 
@@ -489,7 +490,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	getHash(key: Buffer): RedisHash;
+	getHash(key: Class_Buffer): Class_RedisHash;
 
 	/**
 		* 
@@ -499,7 +500,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	getList(key: Buffer): RedisList;
+	getList(key: Class_Buffer): Class_RedisList;
 
 	/**
 		* 
@@ -509,7 +510,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	getSet(key: Buffer): RedisSet;
+	getSet(key: Class_Buffer): Class_RedisSet;
 
 	/**
 		* 
@@ -519,7 +520,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	getSortedSet(key: Buffer): RedisSortedSet;
+	getSortedSet(key: Class_Buffer): Class_RedisSortedSet;
 
 	/**
 		* 
@@ -529,7 +530,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	dump(key: Buffer): Buffer;
+	dump(key: Class_Buffer): Class_Buffer;
 
 	/**
 		* 
@@ -540,7 +541,7 @@ declare class Redis extends _object {
 		* 
 		* 
 		*/
-	restore(key: Buffer, data: Buffer, ttl?: number/** = 0*/): void;
+	restore(key: Class_Buffer, data: Class_Buffer, ttl?: number/** = 0*/): void;
 
 	/**
 		* 

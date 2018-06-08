@@ -287,7 +287,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function digest(algo: number, data: Buffer): Digest;
+		export function digest(algo: number, data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -298,7 +298,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function digest(algo: number): Digest;
+		export function digest(algo: number): Class_Digest;
 	
 		/**
 			* 
@@ -309,7 +309,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function md2(data: Buffer): Digest;
+		export function md2(data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -320,7 +320,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function md4(data: Buffer): Digest;
+		export function md4(data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -331,7 +331,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function md5(data: Buffer): Digest;
+		export function md5(data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -342,7 +342,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function sha1(data: Buffer): Digest;
+		export function sha1(data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -353,7 +353,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function sha224(data: Buffer): Digest;
+		export function sha224(data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -364,7 +364,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function sha256(data: Buffer): Digest;
+		export function sha256(data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -375,7 +375,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function sha384(data: Buffer): Digest;
+		export function sha384(data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -386,7 +386,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function sha512(data: Buffer): Digest;
+		export function sha512(data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -397,7 +397,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function ripemd160(data: Buffer): Digest;
+		export function ripemd160(data: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -409,7 +409,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac(algo: number, key: Buffer): Digest;
+		export function hmac(algo: number, key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -420,7 +420,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac_md2(key: Buffer): Digest;
+		export function hmac_md2(key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -431,7 +431,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac_md4(key: Buffer): Digest;
+		export function hmac_md4(key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -442,7 +442,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac_md5(key: Buffer): Digest;
+		export function hmac_md5(key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -453,7 +453,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac_sha1(key: Buffer): Digest;
+		export function hmac_sha1(key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -464,7 +464,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac_sha224(key: Buffer): Digest;
+		export function hmac_sha224(key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -475,7 +475,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac_sha256(key: Buffer): Digest;
+		export function hmac_sha256(key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -486,7 +486,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac_sha384(key: Buffer): Digest;
+		export function hmac_sha384(key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -497,7 +497,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac_sha512(key: Buffer): Digest;
+		export function hmac_sha512(key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -508,7 +508,7 @@ declare module "hash" {
 			* 
 			* 
 			*/
-		export function hmac_ripemd160(key: Buffer): Digest;
+		export function hmac_ripemd160(key: Class_Buffer): Class_Digest;
 	
 	} /** end of `module hash` */
 	export = hash

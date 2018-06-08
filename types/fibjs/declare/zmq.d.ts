@@ -297,7 +297,8 @@ declare module "zmq" {
 			* 
 			* 
 			*/
-		export const Socket: ZmqSocket;
+		
+		export class ZmqSocket extends Class_ZmqSocket {}
 		
 		
 		

@@ -18,7 +18,8 @@
 	* @brief HeapGraphEdge表示两个HeapGraphNode节点间的关联，从上游节点到下游节点
 	* @detail 
 	*/
-declare class HeapGraphEdge extends _object {
+
+declare class Class_HeapGraphEdge extends Class__object {
 	
 	/**
 		* 
@@ -28,7 +29,7 @@ declare class HeapGraphEdge extends _object {
 		* 
 		* 
 		*/
-	getFromNode(): HeapGraphNode;
+	getFromNode(): Class_HeapGraphNode;
 
 	/**
 		* 
@@ -38,7 +39,7 @@ declare class HeapGraphEdge extends _object {
 		* 
 		* 
 		*/
-	getToNode(): HeapGraphNode;
+	getToNode(): Class_HeapGraphNode;
 
 } /** endof class */
 

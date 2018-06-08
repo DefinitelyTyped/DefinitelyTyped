@@ -18,7 +18,8 @@
 	* @brief http 响应消息对象
 	* @detail 
 	*/
-declare class HttpResponse extends HttpMessage {
+/// <reference path="HttpMessage.d.ts" />
+declare class Class_HttpResponse extends Class_HttpMessage {
 	
 	/**
 		* 
@@ -59,7 +60,7 @@ declare class HttpResponse extends HttpMessage {
 		* 
 		* 
 		*/
-	addCookie(cookie: HttpCookie): void;
+	addCookie(cookie: Class_HttpCookie): void;
 
 	/**
 		* 
@@ -79,7 +80,7 @@ declare class HttpResponse extends HttpMessage {
 		* 
 		* @async
 		*/
-	sendHeader(stm: Stream): void;
+	sendHeader(stm: Class_Stream): void;
 
 } /** endof class */
 

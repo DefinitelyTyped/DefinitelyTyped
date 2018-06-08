@@ -18,7 +18,8 @@
 	* @brief XmlAttr 对象表示 XmlElement 对象的属性
 	* @detail 
 	*/
-declare class XmlAttr extends _object {
+
+declare class Class_XmlAttr extends Class__object {
 	
 } /** endof class */
 

@@ -18,7 +18,8 @@
 	* @brief 64位整数对象
 	* @detail 创建方法：,```JavaScript,var n = new Int64(123);,```
 	*/
-declare class Int64 extends _object {
+
+declare class Class_Int64 extends Class__object {
 	
 	/**
 		* 
@@ -49,7 +50,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	constructor(num: Int64);
+	constructor(num: Class_Int64);
 
 	/**
 		* 
@@ -71,7 +72,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	compare(num: Int64): number;
+	compare(num: Class_Int64): number;
 
 	/**
 		* 
@@ -82,7 +83,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	shiftLeft(bits: number): Int64;
+	shiftLeft(bits: number): Class_Int64;
 
 	/**
 		* 
@@ -93,7 +94,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	shiftRight(bits: number): Int64;
+	shiftRight(bits: number): Class_Int64;
 
 	/**
 		* 
@@ -104,7 +105,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	and(num: Int64): Int64;
+	and(num: Class_Int64): Class_Int64;
 
 	/**
 		* 
@@ -115,7 +116,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	or(num: Int64): Int64;
+	or(num: Class_Int64): Class_Int64;
 
 	/**
 		* 
@@ -126,7 +127,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	xor(num: Int64): Int64;
+	xor(num: Class_Int64): Class_Int64;
 
 	/**
 		* 
@@ -137,7 +138,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	add(num: Int64): Int64;
+	add(num: Class_Int64): Class_Int64;
 
 	/**
 		* 
@@ -148,7 +149,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	sub(num: Int64): Int64;
+	sub(num: Class_Int64): Class_Int64;
 
 	/**
 		* 
@@ -159,7 +160,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	multi(num: Int64): Int64;
+	multi(num: Class_Int64): Class_Int64;
 
 	/**
 		* 
@@ -170,7 +171,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	div(num: Int64): Int64;
+	div(num: Class_Int64): Class_Int64;
 
 	/**
 		* 
@@ -181,7 +182,7 @@ declare class Int64 extends _object {
 		* 
 		* 
 		*/
-	equals(expected: object): boolean;
+	equals(expected: Class_object): boolean;
 
 	/**
 		* 

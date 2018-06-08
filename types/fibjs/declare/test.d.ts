@@ -215,7 +215,8 @@ declare module "test" {
 			* 
 			* 
 			*/
-		export const assert: typeof assertNS;
+		
+		export class assert extends Class_assert {}
 		
 		
 		

@@ -18,7 +18,8 @@
 	* @brief http 请求消息对象
 	* @detail 
 	*/
-declare class HttpRequest extends HttpMessage {
+/// <reference path="HttpMessage.d.ts" />
+declare class Class_HttpRequest extends Class_HttpMessage {
 	
 	/**
 		* 

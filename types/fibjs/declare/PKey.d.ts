@@ -18,7 +18,8 @@
 	* @brief 不对称加密算法对象
 	* @detail PKey 对象属于 crypto 模块，创建：,```JavaScript,var k = new crypto.PKey();,```
 	*/
-declare class PKey extends _object {
+
+declare class Class_PKey extends Class__object {
 	
 	/**
 		* 
@@ -37,7 +38,7 @@ declare class PKey extends _object {
 		* 
 		* 
 		*/
-	constructor(DerKey: Buffer, password?: string/** = ""*/);
+	constructor(DerKey: Class_Buffer, password?: string/** = ""*/);
 
 	/**
 		* 
@@ -140,7 +141,7 @@ declare class PKey extends _object {
 		* 
 		* 
 		*/
-	clone(): PKey;
+	clone(): Class_PKey;
 
 	/**
 		* 
@@ -151,7 +152,7 @@ declare class PKey extends _object {
 		* 
 		* 
 		*/
-	importKey(DerKey: Buffer, password?: string/** = ""*/): void;
+	importKey(DerKey: Class_Buffer, password?: string/** = ""*/): void;
 
 	/**
 		* 
@@ -245,7 +246,7 @@ declare class PKey extends _object {
 		* 
 		* 
 		*/
-	exportDer(): Buffer;
+	exportDer(): Class_Buffer;
 
 	/**
 		* 
@@ -266,7 +267,7 @@ declare class PKey extends _object {
 		* 
 		* @async
 		*/
-	encrypt(data: Buffer): Buffer;
+	encrypt(data: Class_Buffer): Class_Buffer;
 
 	/**
 		* 
@@ -277,7 +278,7 @@ declare class PKey extends _object {
 		* 
 		* @async
 		*/
-	decrypt(data: Buffer): Buffer;
+	decrypt(data: Class_Buffer): Class_Buffer;
 
 	/**
 		* 
@@ -289,7 +290,7 @@ declare class PKey extends _object {
 		* 
 		* @async
 		*/
-	sign(data: Buffer, alg?: number/** = 0*/): Buffer;
+	sign(data: Class_Buffer, alg?: number/** = 0*/): Class_Buffer;
 
 	/**
 		* 
@@ -302,7 +303,7 @@ declare class PKey extends _object {
 		* 
 		* @async
 		*/
-	verify(data: Buffer, sign: Buffer, alg?: number/** = 0*/): boolean;
+	verify(data: Class_Buffer, sign: Class_Buffer, alg?: number/** = 0*/): boolean;
 
 } /** endof class */
 

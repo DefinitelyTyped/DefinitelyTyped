@@ -18,7 +18,8 @@
 	* @brief 数据统计对象，用以构建应用运行时数据收集
 	* @detail 创建方法：,```JavaScript,var util = require("util");,var stats = new util.Stats(["begin", "end", "error"]);,```,一些内部对象会提供预先定义的的统计对象
 	*/
-declare class Stats extends _object {
+
+declare class Class_Stats extends Class__object {
 	
 	/**
 		* 

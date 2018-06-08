@@ -216,7 +216,7 @@ declare module "timers" {
 			* 
 			* 
 			*/
-		export function setTimeout(callback: Function, timeout: number, ...args: any[]): Timer;
+		export function setTimeout(callback: Function, timeout: number, ...args: any[]): Class_Timer;
 	
 		/**
 			* 
@@ -239,7 +239,7 @@ declare module "timers" {
 			* 
 			* 
 			*/
-		export function setInterval(callback: Function, timeout: number, ...args: any[]): Timer;
+		export function setInterval(callback: Function, timeout: number, ...args: any[]): Class_Timer;
 	
 		/**
 			* 
@@ -276,7 +276,7 @@ declare module "timers" {
 			* 
 			* 
 			*/
-		export function setHrInterval(callback: Function, timeout: number, ...args: any[]): Timer;
+		export function setHrInterval(callback: Function, timeout: number, ...args: any[]): Class_Timer;
 	
 		/**
 			* 
@@ -298,7 +298,7 @@ declare module "timers" {
 			* 
 			* 
 			*/
-		export function setImmediate(callback: Function, ...args: any[]): Timer;
+		export function setImmediate(callback: Function, ...args: any[]): Class_Timer;
 	
 		/**
 			* 

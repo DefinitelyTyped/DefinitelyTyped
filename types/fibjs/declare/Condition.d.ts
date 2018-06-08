@@ -18,7 +18,8 @@
 	* @brief 条件变量对象
 	* @detail 条件变量是利用纤程间共享的全局变量来进行同步的一种机制，主要包括两个动作：,1）一个线程等待某个条件成立，而将自己挂起；,2）另一个线程使条件成立，并通知等待的纤程向下执行。,,为了防止竞争，每个条件变量都需要一个Lock的配合（Lock可自行显式创建并传递进来，也可交由fibjs为您创建）,,通过使用条件变量，可以利用一个条件变量控制一批纤程的开关；,,以下是两个纤程调度的实例：,```JavaScript,var coroutine = require("coroutine");,var cond = new coroutine.Condition();,var ready = false;,var state = "ready";,,function funcwait() {,   cond.acquire();,   while (!ready),       cond.wait();,   state = "go",   cond.release();,},,coroutine.start(funcwait);,,cond.acquire();,console.log(state),ready = true;,cond.notify();,coroutine.sleep();,console.log(state);,```,will output:,```sh,ready,go,```
 	*/
-declare class Condition extends Lock {
+/// <reference path="Lock.d.ts" />
+declare class Class_Condition extends Class_Lock {
 	
 	/**
 		* 
@@ -36,7 +37,7 @@ declare class Condition extends Lock {
 		* 
 		* 
 		*/
-	constructor(lock: Lock);
+	constructor(lock: Class_Lock);
 
 	/**
 		* 

@@ -18,7 +18,8 @@
 	* @brief Smtp对象
 	* @detail 
 	*/
-declare class Smtp extends _object {
+
+declare class Class_Smtp extends Class__object {
 	
 	/**
 		* 

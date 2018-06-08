@@ -18,7 +18,8 @@
 	* @brief XmlText 对象表示元素或属性的文本内容
 	* @detail XmlText 节点表示 XML 文档中的一系列纯文本。因为纯文本出现在 XML 的元素和属性中，所以 XmlText 节点通常作为 XmlElement 节点和 XmlAttr 节点的子节点出现。,,XmlText 节点继承了 XmlCharacterData 接口，通过从 XmlCharacterData 接口继承的 data 属性或从 XmlNode 接口继承的 nadevalue 属性，可以访问 XmlText 节点的文本内容。,,用从 XmlCharacterData 继承的方法或 XmlText 接口自身定义的 splitText() 方法可以操作 XmlText 节点。使用 XmlDocument 的 createTextNode 来创建一个新的 XmlText 节点。,,XmlText 节点没有子节点。,,关于从文档的子树中删除空 XmlText 节点与合并相邻的 XmlText 节点的方法，请参阅 XmlNode.normalize 方法。
 	*/
-declare class XmlText extends XmlCharacterData {
+/// <reference path="XmlCharacterData.d.ts" />
+declare class Class_XmlText extends Class_XmlCharacterData {
 	
 	/**
 		* 
@@ -33,7 +34,7 @@ declare class XmlText extends XmlCharacterData {
 		* 
 		* 
 		*/
-	splitText(offset: number): XmlText;
+	splitText(offset: number): Class_XmlText;
 
 } /** endof class */
 

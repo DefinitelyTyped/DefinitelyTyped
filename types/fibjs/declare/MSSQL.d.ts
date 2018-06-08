@@ -18,7 +18,8 @@
 	* @brief SQL Server 数据库连接对象
 	* @detail 使用 db.open 或 db.openMySQL 创建，创建方式：,```JavaScript,var sql = db.openMSSQL("mssql://user:pass@host/db");,```
 	*/
-declare class MSSQL extends DbConnection {
+/// <reference path="DbConnection.d.ts" />
+declare class Class_MSSQL extends Class_DbConnection {
 	
 	/**
 		* 

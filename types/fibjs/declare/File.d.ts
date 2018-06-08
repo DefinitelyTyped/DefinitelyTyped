@@ -18,7 +18,8 @@
 	* @brief 文件操作对象，用于二进制文件读写
 	* @detail 文件操作对象用于对二进制文件进行操作，可使用 fs 模块打开和创建文件：,```JavaScript,var f = fs.openFile('test.txt');,```
 	*/
-declare class File extends SeekableStream {
+/// <reference path="SeekableStream.d.ts" />
+declare class Class_File extends Class_SeekableStream {
 	
 	/**
 		* 

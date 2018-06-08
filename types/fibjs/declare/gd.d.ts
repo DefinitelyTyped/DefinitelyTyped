@@ -448,7 +448,7 @@ declare module "gd" {
 			* 
 			* @async
 			*/
-		export function create(width: number, height: number, color?: number/** = undefined*/): Image;
+		export function create(width: number, height: number, color?: number/** = undefined*/): Class_Image;
 	
 		/**
 			* 
@@ -459,7 +459,7 @@ declare module "gd" {
 			* 
 			* @async
 			*/
-		export function load(data: Buffer): Image;
+		export function load(data: Class_Buffer): Class_Image;
 	
 		/**
 			* 
@@ -470,7 +470,7 @@ declare module "gd" {
 			* 
 			* @async
 			*/
-		export function load(stm: SeekableStream): Image;
+		export function load(stm: Class_SeekableStream): Class_Image;
 	
 		/**
 			* 
@@ -481,7 +481,7 @@ declare module "gd" {
 			* 
 			* @async
 			*/
-		export function load(fname: string): Image;
+		export function load(fname: string): Class_Image;
 	
 		/**
 			* 

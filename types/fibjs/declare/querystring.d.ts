@@ -239,7 +239,7 @@ declare module "querystring" {
 			* 
 			* 
 			*/
-		export function parse(str: string, sep?: string/** = "&"*/, eq?: string/** = "="*/, opt?: Object/** = v8::Object::New(isolate)*/): HttpCollection;
+		export function parse(str: string, sep?: string/** = "&"*/, eq?: string/** = "="*/, opt?: Object/** = v8::Object::New(isolate)*/): Class_HttpCollection;
 	
 		/**
 			* 

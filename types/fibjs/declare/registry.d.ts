@@ -361,7 +361,7 @@ declare module "registry" {
 			* 
 			* 
 			*/
-		export function set(root: number, key: string, value: Buffer): void;
+		export function set(root: number, key: string, value: Class_Buffer): void;
 	
 		/**
 			* 

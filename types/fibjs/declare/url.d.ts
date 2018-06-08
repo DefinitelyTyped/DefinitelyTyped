@@ -227,7 +227,7 @@ declare module "url" {
 			* 
 			* 
 			*/
-		export function parse(url: string, parseQueryString?: boolean/** = false*/, slashesDenoteHost?: boolean/** = false*/): UrlObject;
+		export function parse(url: string, parseQueryString?: boolean/** = false*/, slashesDenoteHost?: boolean/** = false*/): Class_UrlObject;
 	
 	} /** end of `module url` */
 	export = url

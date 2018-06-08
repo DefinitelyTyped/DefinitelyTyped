@@ -18,7 +18,8 @@
 	* @brief Redis 数据库客户端 Hash 对象，此对象为包含指定 key 的客户端，只有调用其方法才会操作数据库
 	* @detail 用以操作 Redis 的 Hash 对象，创建方法：,```JavaScript,var db = require("db");,var rdb = new db.openRedis("redis-server");,var hash = rdb.getHash("test");,```
 	*/
-declare class RedisHash extends _object {
+
+declare class Class_RedisHash extends Class__object {
 	
 	/**
 		* 
@@ -28,7 +29,7 @@ declare class RedisHash extends _object {
 		* 
 		* 
 		*/
-	set(field: Buffer, value: Buffer): void;
+	set(field: Class_Buffer, value: Class_Buffer): void;
 
 	/**
 		* 
@@ -38,7 +39,7 @@ declare class RedisHash extends _object {
 		* 
 		* 
 		*/
-	setNX(field: Buffer, value: Buffer): void;
+	setNX(field: Class_Buffer, value: Class_Buffer): void;
 
 	/**
 		* 
@@ -66,7 +67,7 @@ declare class RedisHash extends _object {
 		* 
 		* 
 		*/
-	get(field: Buffer): Buffer;
+	get(field: Class_Buffer): Class_Buffer;
 
 	/**
 		* 
@@ -97,7 +98,7 @@ declare class RedisHash extends _object {
 		* 
 		* 
 		*/
-	incr(field: Buffer, num?: number/** = 1*/): number;
+	incr(field: Class_Buffer, num?: number/** = 1*/): number;
 
 	/**
 		* 
@@ -134,7 +135,7 @@ declare class RedisHash extends _object {
 		* 
 		* 
 		*/
-	exists(field: Buffer): boolean;
+	exists(field: Class_Buffer): boolean;
 
 	/**
 		* 

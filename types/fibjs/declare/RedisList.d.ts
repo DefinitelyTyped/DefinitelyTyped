@@ -18,7 +18,8 @@
 	* @brief Redis 数据库客户端 List 对象，此对象为包含指定 key 的客户端，只有调用其方法才会操作数据库
 	* @detail 用以操作 Redis 的 List 对象，创建方法：,```JavaScript,var db = require("db");,var rdb = new db.openRedis("redis-server");,var list = rdb.getList("test");,```
 	*/
-declare class RedisList extends _object {
+
+declare class Class_RedisList extends Class__object {
 	
 	/**
 		* 
@@ -47,7 +48,7 @@ declare class RedisList extends _object {
 		* 
 		* 
 		*/
-	pop(): Buffer;
+	pop(): Class_Buffer;
 
 	/**
 		* 
@@ -76,7 +77,7 @@ declare class RedisList extends _object {
 		* 
 		* 
 		*/
-	rpop(): Buffer;
+	rpop(): Class_Buffer;
 
 	/**
 		* 
@@ -86,7 +87,7 @@ declare class RedisList extends _object {
 		* 
 		* 
 		*/
-	set(index: number, value: Buffer): void;
+	set(index: number, value: Class_Buffer): void;
 
 	/**
 		* 
@@ -96,7 +97,7 @@ declare class RedisList extends _object {
 		* 
 		* 
 		*/
-	get(index: number): Buffer;
+	get(index: number): Class_Buffer;
 
 	/**
 		* 
@@ -107,7 +108,7 @@ declare class RedisList extends _object {
 		* 
 		* 
 		*/
-	insertBefore(pivot: Buffer, value: Buffer): number;
+	insertBefore(pivot: Class_Buffer, value: Class_Buffer): number;
 
 	/**
 		* 
@@ -118,7 +119,7 @@ declare class RedisList extends _object {
 		* 
 		* 
 		*/
-	insertAfter(pivot: Buffer, value: Buffer): number;
+	insertAfter(pivot: Class_Buffer, value: Class_Buffer): number;
 
 	/**
 		* 
@@ -129,7 +130,7 @@ declare class RedisList extends _object {
 		* 
 		* 
 		*/
-	remove(count: number, value: Buffer): number;
+	remove(count: number, value: Class_Buffer): number;
 
 	/**
 		* 

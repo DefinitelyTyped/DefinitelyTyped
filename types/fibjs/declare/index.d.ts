@@ -67,10 +67,16 @@ declare const process: typeof _Process;
 declare const global: typeof _Global;
 declare const __filename: string;
 declare const __dirname: string;
-declare const module: string;
-declare const requrie: typeof _Global.require;
+declare const require: typeof _Global.require;
+
+type GlobalExportsType = any;
+interface ModuleType {
+	exports: GlobalExportsType;
+}
 
 declare global {
+	var exports: GlobalExportsType;
+	const module: ModuleType;
 
 	/** const Buffer: Buffer; */
 	/** const Int64: Int64; */

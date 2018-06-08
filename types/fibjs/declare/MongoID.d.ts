@@ -18,7 +18,8 @@
 	* @brief mongodb 数据库数据唯一标识对象，用于存储传递 oid
 	* @detail 
 	*/
-declare class MongoID extends _object {
+
+declare class Class_MongoID extends Class__object {
 	
 } /** endof class */
 

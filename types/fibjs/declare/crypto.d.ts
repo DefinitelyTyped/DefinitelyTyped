@@ -377,7 +377,8 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export const Cipher: Cipher;
+		
+		export class Cipher extends Class_Cipher {}
 		
 		/**
 			* 
@@ -385,7 +386,8 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export const PKey: PKey;
+		
+		export class PKey extends Class_PKey {}
 		
 		/**
 			* 
@@ -393,7 +395,8 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export const X509Cert: X509Cert;
+		
+		export class X509Cert extends Class_X509Cert {}
 		
 		/**
 			* 
@@ -401,7 +404,8 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export const X509Crl: X509Crl;
+		
+		export class X509Crl extends Class_X509Crl {}
 		
 		/**
 			* 
@@ -409,7 +413,8 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export const X509Req: X509Req;
+		
+		export class X509Req extends Class_X509Req {}
 		
 		
 		
@@ -422,7 +427,7 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export function createHash(algo: string): Digest;
+		export function createHash(algo: string): Class_Digest;
 	
 		/**
 			* 
@@ -434,7 +439,7 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export function createHmac(algo: string, key: Buffer): Digest;
+		export function createHmac(algo: string, key: Class_Buffer): Class_Digest;
 	
 		/**
 			* 
@@ -446,7 +451,7 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export function loadPKey(filename: string, password?: string/** = ""*/): PKey;
+		export function loadPKey(filename: string, password?: string/** = ""*/): Class_PKey;
 	
 		/**
 			* 
@@ -459,7 +464,7 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export function loadCert(filename: string): X509Cert;
+		export function loadCert(filename: string): Class_X509Cert;
 	
 		/**
 			* 
@@ -470,7 +475,7 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export function loadCrl(filename: string): X509Crl;
+		export function loadCrl(filename: string): Class_X509Crl;
 	
 		/**
 			* 
@@ -481,7 +486,7 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export function loadReq(filename: string): X509Req;
+		export function loadReq(filename: string): Class_X509Req;
 	
 		/**
 			* 
@@ -492,7 +497,7 @@ declare module "crypto" {
 			* 
 			* @async
 			*/
-		export function randomBytes(size: number): Buffer;
+		export function randomBytes(size: number): Class_Buffer;
 	
 		/**
 			* 
@@ -503,7 +508,7 @@ declare module "crypto" {
 			* 
 			* @async
 			*/
-		export function simpleRandomBytes(size: number): Buffer;
+		export function simpleRandomBytes(size: number): Class_Buffer;
 	
 		/**
 			* 
@@ -514,7 +519,7 @@ declare module "crypto" {
 			* 
 			* @async
 			*/
-		export function pseudoRandomBytes(size: number): Buffer;
+		export function pseudoRandomBytes(size: number): Class_Buffer;
 	
 		/**
 			* 
@@ -527,7 +532,7 @@ declare module "crypto" {
 			* 
 			* 
 			*/
-		export function randomArt(data: Buffer, title: string, size?: number/** = 8*/): string;
+		export function randomArt(data: Class_Buffer, title: string, size?: number/** = 8*/): string;
 	
 		/**
 			* 
@@ -542,7 +547,7 @@ declare module "crypto" {
 			* 
 			* @async
 			*/
-		export function pbkdf1(password: Buffer, salt: Buffer, iterations: number, size: number, algo: number): Buffer;
+		export function pbkdf1(password: Class_Buffer, salt: Class_Buffer, iterations: number, size: number, algo: number): Class_Buffer;
 	
 		/**
 			* 
@@ -557,7 +562,7 @@ declare module "crypto" {
 			* 
 			* @async
 			*/
-		export function pbkdf1(password: Buffer, salt: Buffer, iterations: number, size: number, algoName: string): Buffer;
+		export function pbkdf1(password: Class_Buffer, salt: Class_Buffer, iterations: number, size: number, algoName: string): Class_Buffer;
 	
 		/**
 			* 
@@ -572,7 +577,7 @@ declare module "crypto" {
 			* 
 			* @async
 			*/
-		export function pbkdf2(password: Buffer, salt: Buffer, iterations: number, size: number, algo: number): Buffer;
+		export function pbkdf2(password: Class_Buffer, salt: Class_Buffer, iterations: number, size: number, algo: number): Class_Buffer;
 	
 		/**
 			* 
@@ -587,7 +592,7 @@ declare module "crypto" {
 			* 
 			* @async
 			*/
-		export function pbkdf2(password: Buffer, salt: Buffer, iterations: number, size: number, algoName: string): Buffer;
+		export function pbkdf2(password: Class_Buffer, salt: Class_Buffer, iterations: number, size: number, algoName: string): Class_Buffer;
 	
 	} /** end of `module crypto` */
 	export = crypto

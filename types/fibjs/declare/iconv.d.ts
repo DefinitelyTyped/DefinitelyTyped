@@ -215,7 +215,7 @@ declare module "iconv" {
 			* 
 			* 
 			*/
-		export function encode(charset: string, data: string): Buffer;
+		export function encode(charset: string, data: string): Class_Buffer;
 	
 		/**
 			* 
@@ -227,7 +227,7 @@ declare module "iconv" {
 			* 
 			* 
 			*/
-		export function decode(charset: string, data: Buffer): string;
+		export function decode(charset: string, data: Class_Buffer): string;
 	
 		/**
 			* 

@@ -209,7 +209,8 @@ declare module "mq" {
 			* 
 			* 
 			*/
-		export const Message: Message;
+		
+		export class Message extends Class_Message {}
 		
 		/**
 			* 
@@ -217,7 +218,8 @@ declare module "mq" {
 			* 
 			* 
 			*/
-		export const HttpHandler: HttpHandler;
+		
+		export class HttpHandler extends Class_HttpHandler {}
 		
 		/**
 			* 
@@ -247,7 +249,8 @@ declare module "mq" {
 			* 
 			* 
 			*/
-		export const Handler: Handler;
+		
+		export class Handler extends Class_Handler {}
 		
 		/**
 			* 
@@ -255,7 +258,8 @@ declare module "mq" {
 			* 
 			* 
 			*/
-		export const Chain: Chain;
+		
+		export class Chain extends Class_Chain {}
 		
 		/**
 			* 
@@ -263,7 +267,8 @@ declare module "mq" {
 			* 
 			* 
 			*/
-		export const Routing: Routing;
+		
+		export class Routing extends Class_Routing {}
 		
 		
 		
@@ -275,7 +280,7 @@ declare module "mq" {
 			* 
 			* 
 			*/
-		export function nullHandler(): Handler;
+		export function nullHandler(): Class_Handler;
 	
 		/**
 			* 
@@ -288,7 +293,7 @@ declare module "mq" {
 			* 
 			* @async
 			*/
-		export function invoke(hdlr: Handler, v: object): void;
+		export function invoke(hdlr: Class_Handler, v: Class_object): void;
 	
 	} /** end of `module mq` */
 	export = mq

@@ -18,7 +18,8 @@
 	* @brief mongodb 数据库连接对象
 	* @detail 使用 db.open 或 db.openMongoDB 创建，创建方式：,```JavaScript,var mdb = db.openMongoDB("mongodb://host/db");,```
 	*/
-declare class MongoDB extends _object {
+
+declare class Class_MongoDB extends Class__object {
 	
 	/**
 		* 
@@ -29,7 +30,7 @@ declare class MongoDB extends _object {
 		* 
 		* 
 		*/
-	getCollection(name: string): MongoCollection;
+	getCollection(name: string): Class_MongoCollection;
 
 	/**
 		* 
@@ -63,7 +64,7 @@ declare class MongoDB extends _object {
 		* 
 		* 
 		*/
-	oid(hexStr?: string/** = ""*/): MongoID;
+	oid(hexStr?: string/** = ""*/): Class_MongoID;
 
 	/**
 		* 

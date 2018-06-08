@@ -18,7 +18,8 @@
 	* @brief 系统服务管理对象
 	* @detail 
 	*/
-declare class Service extends EventEmitter {
+/// <reference path="EventEmitter.d.ts" />
+declare class Class_Service extends Class_EventEmitter {
 	
 	/**
 		* 

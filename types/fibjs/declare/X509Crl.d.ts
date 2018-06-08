@@ -18,7 +18,8 @@
 	* @brief x509 撤销证书对象
 	* @detail X509Crl 对象属于 crypto 模块，创建：,```JavaScript,var k = new crypto.X509Crl();,```
 	*/
-declare class X509Crl extends _object {
+
+declare class Class_X509Crl extends Class__object {
 	
 	/**
 		* 
@@ -36,7 +37,7 @@ declare class X509Crl extends _object {
 		* 
 		* 
 		*/
-	load(derCrl: Buffer): void;
+	load(derCrl: Class_Buffer): void;
 
 	/**
 		* 

@@ -20,7 +20,8 @@ import net = require('net')
 	* @brief 网络套接口对象
 	* @detail Socket 属于 net 模块，创建方法,```JavaScript,var s = new net.Socket();,```
 	*/
-declare class Socket extends Stream {
+/// <reference path="Stream.d.ts" />
+declare class Class_Socket extends Class_Stream {
 	
 	/**
 		* 
@@ -85,7 +86,7 @@ declare class Socket extends Stream {
 		* 
 		* @async
 		*/
-	accept(): Socket;
+	accept(): Class_Socket;
 
 	/**
 		* 
@@ -96,7 +97,7 @@ declare class Socket extends Stream {
 		* 
 		* @async
 		*/
-	recv(bytes?: number/** = -1*/): Buffer;
+	recv(bytes?: number/** = -1*/): Class_Buffer;
 
 	/**
 		* 
@@ -121,7 +122,7 @@ declare class Socket extends Stream {
 		* 
 		* @async
 		*/
-	send(data: Buffer): void;
+	send(data: Class_Buffer): void;
 
 	/**
 		* 
@@ -133,7 +134,7 @@ declare class Socket extends Stream {
 		* 
 		* @async
 		*/
-	sendto(data: Buffer, host: string, port: number): void;
+	sendto(data: Class_Buffer, host: string, port: number): void;
 
 } /** endof class */
 

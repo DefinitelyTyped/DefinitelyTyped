@@ -18,7 +18,8 @@
 	* @brief 流操作对象，用于二进制数据流读写
 	* @detail Stream 为基础对象，用于为流处理定义标准借口，不能独立创建
 	*/
-declare class Stream extends _object {
+
+declare class Class_Stream extends Class__object {
 	
 	/**
 		* 
@@ -29,7 +30,7 @@ declare class Stream extends _object {
 		* 
 		* @async
 		*/
-	read(bytes?: number/** = -1*/): Buffer;
+	read(bytes?: number/** = -1*/): Class_Buffer;
 
 	/**
 		* 
@@ -39,7 +40,7 @@ declare class Stream extends _object {
 		* 
 		* @async
 		*/
-	write(data: Buffer): void;
+	write(data: Class_Buffer): void;
 
 	/**
 		* 
@@ -67,7 +68,7 @@ declare class Stream extends _object {
 		* 
 		* @async
 		*/
-	copyTo(stm: Stream, bytes?: number/** = -1*/): number;
+	copyTo(stm: Class_Stream, bytes?: number/** = -1*/): number;
 
 } /** endof class */
 

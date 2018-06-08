@@ -214,7 +214,7 @@ declare module "hex" {
 			* 
 			* 
 			*/
-		export function encode(data: Buffer): string;
+		export function encode(data: Class_Buffer): string;
 	
 		/**
 			* 
@@ -225,7 +225,7 @@ declare module "hex" {
 			* 
 			* 
 			*/
-		export function decode(data: string): Buffer;
+		export function decode(data: string): Class_Buffer;
 	
 	} /** end of `module hex` */
 	export = hex

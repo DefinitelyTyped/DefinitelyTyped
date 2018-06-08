@@ -18,7 +18,8 @@
 	* @brief 二进制数据缓存对象，用于 io 读写的数据处理
 	* @detail Buffer 对象为全局基础类，在任何时候都可以直接以 new Buffer(...) 创建：,```JavaScript,var buf = new Buffer();,```
 	*/
-declare class Buffer extends _object {
+
+declare class Class_Buffer extends Class__object {
 	
 	/**
 		* 
@@ -68,7 +69,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	constructor(buffer: Buffer);
+	constructor(buffer: Class_Buffer);
 
 	/**
 		* 
@@ -113,7 +114,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static from(buffer: Buffer, byteOffset?: number/** = 0*/, length?: number/** = -1*/): Buffer;
+	static from(buffer: Class_Buffer, byteOffset?: number/** = 0*/, length?: number/** = -1*/): Class_Buffer;
 
 	/**
 		* 
@@ -126,7 +127,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static from(str: string, byteOffset?: number/** = 0*/, length?: number/** = -1*/): Buffer;
+	static from(str: string, byteOffset?: number/** = 0*/, length?: number/** = -1*/): Class_Buffer;
 
 	/**
 		* 
@@ -138,7 +139,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static from(str: string, codec?: string/** = "utf8"*/): Buffer;
+	static from(str: string, codec?: string/** = "utf8"*/): Class_Buffer;
 
 	/**
 		* 
@@ -150,7 +151,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static concat(buflist: any[], cutLength?: number/** = -1*/): Buffer;
+	static concat(buflist: any[], cutLength?: number/** = -1*/): Class_Buffer;
 
 	/**
 		* 
@@ -163,7 +164,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static alloc(size: number, fill?: number/** = 0*/, codec?: string/** = "utf8"*/): Buffer;
+	static alloc(size: number, fill?: number/** = 0*/, codec?: string/** = "utf8"*/): Class_Buffer;
 
 	/**
 		* 
@@ -176,7 +177,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static alloc(size: number, fill?: string/** = ""*/, codec?: string/** = "utf8"*/): Buffer;
+	static alloc(size: number, fill?: string/** = ""*/, codec?: string/** = "utf8"*/): Class_Buffer;
 
 	/**
 		* 
@@ -189,7 +190,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static alloc(size: number, fill: Buffer, codec?: string/** = "utf8"*/): Buffer;
+	static alloc(size: number, fill: Class_Buffer, codec?: string/** = "utf8"*/): Class_Buffer;
 
 	/**
 		* 
@@ -200,7 +201,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static allocUnsafe(size: number): Buffer;
+	static allocUnsafe(size: number): Class_Buffer;
 
 	/**
 		* 
@@ -211,7 +212,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static allocUnsafeSlow(size: number): Buffer;
+	static allocUnsafeSlow(size: number): Class_Buffer;
 
 	/**
 		* 
@@ -259,7 +260,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	static byteLength(str: Buffer, codec?: string/** = "utf8"*/): number;
+	static byteLength(str: Class_Buffer, codec?: string/** = "utf8"*/): number;
 
 	/**
 		* 
@@ -290,7 +291,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	append(data: Buffer): void;
+	append(data: Class_Buffer): void;
 
 	/**
 		* 
@@ -353,7 +354,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	fill(v: number, offset?: number/** = 0*/, end?: number/** = -1*/): Buffer;
+	fill(v: number, offset?: number/** = 0*/, end?: number/** = -1*/): Class_Buffer;
 
 	/**
 		* 
@@ -366,7 +367,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	fill(v: Buffer, offset?: number/** = 0*/, end?: number/** = -1*/): Buffer;
+	fill(v: Class_Buffer, offset?: number/** = 0*/, end?: number/** = -1*/): Class_Buffer;
 
 	/**
 		* 
@@ -379,7 +380,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	fill(v: string, offset?: number/** = 0*/, end?: number/** = -1*/): Buffer;
+	fill(v: string, offset?: number/** = 0*/, end?: number/** = -1*/): Class_Buffer;
 
 	/**
 		* 
@@ -403,7 +404,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	indexOf(v: Buffer, offset?: number/** = 0*/): number;
+	indexOf(v: Class_Buffer, offset?: number/** = 0*/): number;
 
 	/**
 		* 
@@ -426,7 +427,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	compare(buf: Buffer): number;
+	compare(buf: Class_Buffer): number;
 
 	/**
 		* 
@@ -440,7 +441,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	copy(targetBuffer: Buffer, targetStart?: number/** = 0*/, sourceStart?: number/** = 0*/, sourceEnd?: number/** = -1*/): number;
+	copy(targetBuffer: Class_Buffer, targetStart?: number/** = 0*/, sourceStart?: number/** = 0*/, sourceEnd?: number/** = -1*/): number;
 
 	/**
 		* 
@@ -620,7 +621,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	readInt64LE(offset?: number/** = 0*/, noAssert?: boolean/** = false*/): Int64;
+	readInt64LE(offset?: number/** = 0*/, noAssert?: boolean/** = false*/): Class_Int64;
 
 	/**
 		* 
@@ -632,7 +633,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	readInt64BE(offset?: number/** = 0*/, noAssert?: boolean/** = false*/): Int64;
+	readInt64BE(offset?: number/** = 0*/, noAssert?: boolean/** = false*/): Class_Int64;
 
 	/**
 		* 
@@ -875,7 +876,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	writeInt64LE(value: Int64, offset?: number/** = 0*/, noAssert?: boolean/** = false*/): number;
+	writeInt64LE(value: Class_Int64, offset?: number/** = 0*/, noAssert?: boolean/** = false*/): number;
 
 	/**
 		* 
@@ -888,7 +889,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	writeInt64BE(value: Int64, offset?: number/** = 0*/, noAssert?: boolean/** = false*/): number;
+	writeInt64BE(value: Class_Int64, offset?: number/** = 0*/, noAssert?: boolean/** = false*/): number;
 
 	/**
 		* 
@@ -951,7 +952,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	slice(start?: number/** = 0*/): Buffer;
+	slice(start?: number/** = 0*/): Class_Buffer;
 
 	/**
 		* 
@@ -963,7 +964,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	slice(start: number, end: number): Buffer;
+	slice(start: number, end: number): Class_Buffer;
 
 	/**
 		* 
@@ -984,7 +985,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	reverse(): Buffer;
+	reverse(): Class_Buffer;
 
 	/**
 		* 
@@ -995,7 +996,7 @@ declare class Buffer extends _object {
 		* 
 		* 
 		*/
-	equals(expected: object): boolean;
+	equals(expected: Class_object): boolean;
 
 	/**
 		* 

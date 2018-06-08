@@ -209,7 +209,8 @@ declare module "os" {
 			* 
 			* 
 			*/
-		export const Service: Service;
+		
+		export class Service extends Class_Service {}
 		
 		
 		
@@ -383,7 +384,7 @@ declare module "os" {
 			* 
 			* @async
 			*/
-		export function openPrinter(name: string): BufferedStream;
+		export function openPrinter(name: string): Class_BufferedStream;
 	
 		/**
 			* 

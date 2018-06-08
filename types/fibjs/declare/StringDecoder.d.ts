@@ -18,7 +18,8 @@
 	* @brief 流解码对象
 	* @detail 
 	*/
-declare class StringDecoder extends _object {
+
+declare class Class_StringDecoder extends Class__object {
 	
 	/**
 		* 
@@ -49,7 +50,7 @@ declare class StringDecoder extends _object {
 		* 
 		* 
 		*/
-	end(buf: Buffer): string;
+	end(buf: Class_Buffer): string;
 
 	/**
 		* 
@@ -60,7 +61,7 @@ declare class StringDecoder extends _object {
 		* 
 		* 
 		*/
-	write(buf: Buffer): string;
+	write(buf: Class_Buffer): string;
 
 	/**
 		* 
@@ -72,7 +73,7 @@ declare class StringDecoder extends _object {
 		* 
 		* 
 		*/
-	text(buf: Buffer, offset: number): string;
+	text(buf: Class_Buffer, offset: number): string;
 
 	/**
 		* 
@@ -83,7 +84,7 @@ declare class StringDecoder extends _object {
 		* 
 		* 
 		*/
-	fillLast(buf: Buffer): string;
+	fillLast(buf: Class_Buffer): string;
 
 } /** endof class */
 

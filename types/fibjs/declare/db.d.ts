@@ -214,7 +214,7 @@ declare module "db" {
 			* 
 			* @async
 			*/
-		export function open(connString: string): object;
+		export function open(connString: string): Class_object;
 	
 		/**
 			* 
@@ -225,7 +225,7 @@ declare module "db" {
 			* 
 			* @async
 			*/
-		export function openMySQL(connString: string): MySQL;
+		export function openMySQL(connString: string): Class_MySQL;
 	
 		/**
 			* 
@@ -236,7 +236,7 @@ declare module "db" {
 			* 
 			* @async
 			*/
-		export function openMSSQL(connString: string): MSSQL;
+		export function openMSSQL(connString: string): Class_MSSQL;
 	
 		/**
 			* 
@@ -247,7 +247,7 @@ declare module "db" {
 			* 
 			* @async
 			*/
-		export function openSQLite(connString: string): SQLite;
+		export function openSQLite(connString: string): Class_SQLite;
 	
 		/**
 			* 
@@ -258,7 +258,7 @@ declare module "db" {
 			* 
 			* @async
 			*/
-		export function openMongoDB(connString: string): MongoDB;
+		export function openMongoDB(connString: string): Class_MongoDB;
 	
 		/**
 			* 
@@ -269,7 +269,7 @@ declare module "db" {
 			* 
 			* @async
 			*/
-		export function openLevelDB(connString: string): LevelDB;
+		export function openLevelDB(connString: string): Class_LevelDB;
 	
 		/**
 			* 
@@ -280,7 +280,7 @@ declare module "db" {
 			* 
 			* @async
 			*/
-		export function openRedis(connString: string): Redis;
+		export function openRedis(connString: string): Class_Redis;
 	
 		/**
 			* 

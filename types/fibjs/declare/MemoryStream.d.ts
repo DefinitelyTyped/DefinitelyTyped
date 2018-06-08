@@ -18,7 +18,8 @@
 	* @brief 内存流对象
 	* @detail MemoryStream 对象创建一个基于内存的流对象，创建方法：,```JavaScript,var ms = new io.MemoryStream();,```
 	*/
-declare class MemoryStream extends SeekableStream {
+/// <reference path="SeekableStream.d.ts" />
+declare class Class_MemoryStream extends Class_SeekableStream {
 	
 	/**
 		* 
@@ -46,7 +47,7 @@ declare class MemoryStream extends SeekableStream {
 		* 
 		* 
 		*/
-	clone(): MemoryStream;
+	clone(): Class_MemoryStream;
 
 	/**
 		* 

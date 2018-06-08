@@ -18,7 +18,8 @@
 	* @brief HeapGraphNode表示堆视图中的一个节点
 	* @detail 
 	*/
-declare class HeapGraphNode extends _object {
+
+declare class Class_HeapGraphNode extends Class__object {
 	
 } /** endof class */
 

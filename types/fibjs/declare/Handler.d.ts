@@ -18,7 +18,8 @@
 	* @brief 消息处理器接口
 	* @detail 
 	*/
-declare class Handler extends _object {
+
+declare class Class_Handler extends Class__object {
 	
 	/**
 		* 
@@ -59,7 +60,7 @@ declare class Handler extends _object {
 		* 
 		* @async
 		*/
-	invoke(v: object): Handler;
+	invoke(v: Class_object): Class_Handler;
 
 } /** endof class */
 

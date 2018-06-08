@@ -18,7 +18,8 @@
 	* @brief WebSocket 包协议转换处理器
 	* @detail 用以将 Http 协议转换为 WebSocket 包协议消息。创建方式：,```JavaScript,var ws = require('ws');,var http = require('http');,,var serv = new http.Server(8811, ws.upgrade((conn) => {,conn.onmessage = msg => {,    conn.send(new Date());,};,}));,,serv.run(r => 0);,,var sock = new ws.Socket('ws://127.0.0.1:8811');,sock.on('open', () => {,    setInterval(() => {,        sock.send('get date');,    }, 1000);,});,,sock.onmessage = evt => {,  console.log(evt.data);,},```
 	*/
-declare class WebSocket extends EventEmitter {
+/// <reference path="EventEmitter.d.ts" />
+declare class Class_WebSocket extends Class_EventEmitter {
 	
 	/**
 		* 
@@ -61,7 +62,7 @@ declare class WebSocket extends EventEmitter {
 		* 
 		* 
 		*/
-	send(data: Buffer): void;
+	send(data: Class_Buffer): void;
 
 	/**
 		* 
@@ -71,7 +72,7 @@ declare class WebSocket extends EventEmitter {
 		* 
 		* 
 		*/
-	ref(): WebSocket;
+	ref(): Class_WebSocket;
 
 	/**
 		* 
@@ -81,7 +82,7 @@ declare class WebSocket extends EventEmitter {
 		* 
 		* 
 		*/
-	unref(): WebSocket;
+	unref(): Class_WebSocket;
 
 } /** endof class */
 

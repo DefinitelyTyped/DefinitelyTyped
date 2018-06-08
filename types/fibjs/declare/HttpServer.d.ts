@@ -18,7 +18,8 @@
 	* @brief http 服务器对象
 	* @detail http 服务器对象是将 TcpServer 和 HttpHandler 组合封装的对象，方便快速搭建服务器，逻辑上相当于：,```JavaScript,var svr = new net.TcpServer(addr, port, new http.Handler(function(req){,   ...,}));,```,,创建方法：,```JavaScript,var http = require("http");,var svr = new http.Server(80, function(req){,    ...,});,```
 	*/
-declare class HttpServer extends TcpServer {
+/// <reference path="TcpServer.d.ts" />
+declare class Class_HttpServer extends Class_TcpServer {
 	
 	/**
 		* 
@@ -29,7 +30,7 @@ declare class HttpServer extends TcpServer {
 		* 
 		* 
 		*/
-	constructor(port: number, hdlr: Handler);
+	constructor(port: number, hdlr: Class_Handler);
 
 	/**
 		* 
@@ -41,7 +42,7 @@ declare class HttpServer extends TcpServer {
 		* 
 		* 
 		*/
-	constructor(addr: string, port: number, hdlr: Handler);
+	constructor(addr: string, port: number, hdlr: Class_Handler);
 
 	/**
 		* 

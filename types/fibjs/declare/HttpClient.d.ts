@@ -18,7 +18,8 @@
 	* @brief http客户端对象
 	* @detail http客户端对象模拟浏览器环境缓存cookie，并在访问url的时候携带对应的cookie，不同的http客户端对象是相互隔离的，提供http的request、get、post等方法。,用法如下：,,```JavaScript,var http = require('http');,var httpClient = new http.Client();,httpClient.request('GET', 'http://fibjs.org');,```
 	*/
-declare class HttpClient extends _object {
+
+declare class Class_HttpClient extends Class__object {
 	
 	/**
 		* 
@@ -38,7 +39,7 @@ declare class HttpClient extends _object {
 		* 
 		* @async
 		*/
-	request(conn: Stream, req: HttpRequest): HttpResponse;
+	request(conn: Class_Stream, req: Class_HttpRequest): Class_HttpResponse;
 
 	/**
 		* 
@@ -61,7 +62,7 @@ declare class HttpClient extends _object {
 		* 
 		* @async
 		*/
-	request(method: string, url: string, opts?: Object/** = v8::Object::New(isolate)*/): HttpResponse;
+	request(method: string, url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 		* 
@@ -83,7 +84,7 @@ declare class HttpClient extends _object {
 		* 
 		* @async
 		*/
-	get(url: string, opts?: Object/** = v8::Object::New(isolate)*/): HttpResponse;
+	get(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 		* 
@@ -105,7 +106,7 @@ declare class HttpClient extends _object {
 		* 
 		* @async
 		*/
-	post(url: string, opts?: Object/** = v8::Object::New(isolate)*/): HttpResponse;
+	post(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 		* 
@@ -127,7 +128,7 @@ declare class HttpClient extends _object {
 		* 
 		* @async
 		*/
-	del(url: string, opts?: Object/** = v8::Object::New(isolate)*/): HttpResponse;
+	del(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 		* 
@@ -149,7 +150,7 @@ declare class HttpClient extends _object {
 		* 
 		* @async
 		*/
-	put(url: string, opts?: Object/** = v8::Object::New(isolate)*/): HttpResponse;
+	put(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 		* 
@@ -171,7 +172,7 @@ declare class HttpClient extends _object {
 		* 
 		* @async
 		*/
-	patch(url: string, opts?: Object/** = v8::Object::New(isolate)*/): HttpResponse;
+	patch(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 } /** endof class */
 

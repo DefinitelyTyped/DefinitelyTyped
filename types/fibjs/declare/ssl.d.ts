@@ -297,7 +297,8 @@ declare module "ssl" {
 			* 
 			* 
 			*/
-		export const Socket: SslSocket;
+		
+		export class SslSocket extends Class_SslSocket {}
 		
 		/**
 			* 
@@ -305,7 +306,8 @@ declare module "ssl" {
 			* 
 			* 
 			*/
-		export const Handler: SslHandler;
+		
+		export class SslHandler extends Class_SslHandler {}
 		
 		/**
 			* 
@@ -313,7 +315,8 @@ declare module "ssl" {
 			* 
 			* 
 			*/
-		export const Server: SslServer;
+		
+		export class SslServer extends Class_SslServer {}
 		
 		
 		
@@ -327,7 +330,7 @@ declare module "ssl" {
 			* 
 			* @async
 			*/
-		export function connect(url: string, timeout?: number/** = 0*/): Stream;
+		export function connect(url: string, timeout?: number/** = 0*/): Class_Stream;
 	
 		/**
 			* 
@@ -338,7 +341,7 @@ declare module "ssl" {
 			* 
 			* 
 			*/
-		export function setClientCert(crt: X509Cert, key: PKey): void;
+		export function setClientCert(crt: Class_X509Cert, key: Class_PKey): void;
 	
 		/**
 			* 

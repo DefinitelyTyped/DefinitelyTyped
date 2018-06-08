@@ -18,7 +18,8 @@
 	* @brief http 容器对象，用于 http header，cookie，query，form，等数据的存储与组织
 	* @detail 
 	*/
-declare class HttpCollection extends _object {
+
+declare class Class_HttpCollection extends Class__object {
 	
 	/**
 		* 

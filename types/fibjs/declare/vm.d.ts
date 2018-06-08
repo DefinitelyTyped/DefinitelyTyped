@@ -209,7 +209,8 @@ declare module "vm" {
 			* 
 			* 
 			*/
-		export const SandBox: SandBox;
+		
+		export class SandBox extends Class_SandBox {}
 		
 		
 		

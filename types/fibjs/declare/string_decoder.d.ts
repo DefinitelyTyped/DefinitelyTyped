@@ -209,7 +209,8 @@ declare module "string_decoder" {
 			* 
 			* 
 			*/
-		export const StringDecoder: StringDecoder;
+		
+		export class StringDecoder extends Class_StringDecoder {}
 		
 		
 		

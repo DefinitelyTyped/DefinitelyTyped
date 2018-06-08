@@ -18,7 +18,8 @@
 	* @brief 定时器处理器对象
 	* @detail 
 	*/
-declare class Timer extends _object {
+
+declare class Class_Timer extends Class__object {
 	
 	/**
 		* 
@@ -28,7 +29,7 @@ declare class Timer extends _object {
 		* 
 		* 
 		*/
-	ref(): Timer;
+	ref(): Class_Timer;
 
 	/**
 		* 
@@ -38,7 +39,7 @@ declare class Timer extends _object {
 		* 
 		* 
 		*/
-	unref(): Timer;
+	unref(): Class_Timer;
 
 	/**
 		* 

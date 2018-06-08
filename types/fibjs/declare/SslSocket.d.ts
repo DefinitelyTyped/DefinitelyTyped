@@ -18,7 +18,8 @@
 	* @brief ssl 网络套接口对象
 	* @detail SslSocket 属于 ssl 模块，创建方法,```JavaScript,var s = new ssl.Socket();,```
 	*/
-declare class SslSocket extends Stream {
+/// <reference path="Stream.d.ts" />
+declare class Class_SslSocket extends Class_Stream {
 	
 	/**
 		* 
@@ -53,7 +54,7 @@ declare class SslSocket extends Stream {
 		* 
 		* 
 		*/
-	constructor(crt: X509Cert, key: PKey);
+	constructor(crt: Class_X509Cert, key: Class_PKey);
 
 	/**
 		* 
@@ -65,7 +66,7 @@ declare class SslSocket extends Stream {
 		* 
 		* @async
 		*/
-	connect(s: Stream, server_name?: string/** = ""*/): number;
+	connect(s: Class_Stream, server_name?: string/** = ""*/): number;
 
 	/**
 		* 
@@ -76,7 +77,7 @@ declare class SslSocket extends Stream {
 		* 
 		* @async
 		*/
-	accept(s: Stream): SslSocket;
+	accept(s: Class_Stream): Class_SslSocket;
 
 } /** endof class */
 

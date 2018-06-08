@@ -209,7 +209,8 @@ declare module "io" {
 			* 
 			* 
 			*/
-		export const MemoryStream: MemoryStream;
+		
+		export class MemoryStream extends Class_MemoryStream {}
 		
 		/**
 			* 
@@ -217,7 +218,8 @@ declare module "io" {
 			* 
 			* 
 			*/
-		export const BufferedStream: BufferedStream;
+		
+		export class BufferedStream extends Class_BufferedStream {}
 		
 		
 		
@@ -232,7 +234,7 @@ declare module "io" {
 			* 
 			* @async
 			*/
-		export function copyStream(from: Stream, to: Stream, bytes?: number/** = -1*/): number;
+		export function copyStream(from: Class_Stream, to: Class_Stream, bytes?: number/** = -1*/): number;
 	
 		/**
 			* 
@@ -243,7 +245,7 @@ declare module "io" {
 			* 
 			* @async
 			*/
-		export function bridge(stm1: Stream, stm2: Stream): void;
+		export function bridge(stm1: Class_Stream, stm2: Class_Stream): void;
 	
 	} /** end of `module io` */
 	export = io

@@ -18,7 +18,8 @@
 	* @brief http 协议转换处理器
 	* @detail 用以将数据流转换为 http 协议消息，创建方式：,```JavaScript,var hdlr = new mq.HttpHandler(...);,```,或者：,```JavaScript,var hdlr = new http.Handler(...);,```
 	*/
-declare class HttpHandler extends HandlerEx {
+/// <reference path="HandlerEx.d.ts" />
+declare class Class_HttpHandler extends Class_HandlerEx {
 	
 	/**
 		* 
@@ -28,7 +29,7 @@ declare class HttpHandler extends HandlerEx {
 		* 
 		* 
 		*/
-	constructor(hdlr: Handler);
+	constructor(hdlr: Class_Handler);
 
 	/**
 		* 

@@ -18,7 +18,8 @@
 	* @brief mysql 数据库连接对象
 	* @detail 使用 db.open 或 db.openMySQL 创建，创建方式：,```JavaScript,var msql = db.openMySQL("mysql://user:pass@host/db");,```
 	*/
-declare class MySQL extends DbConnection {
+/// <reference path="DbConnection.d.ts" />
+declare class Class_MySQL extends Class_DbConnection {
 	
 	/**
 		* 

@@ -18,7 +18,8 @@
 	* @brief 子进程对象
 	* @detail ```JavaScript,var process = require("process");,var sub = process.open("ls");,```
 	*/
-declare class SubProcess extends BufferedStream {
+/// <reference path="BufferedStream.d.ts" />
+declare class Class_SubProcess extends Class_BufferedStream {
 	
 	/**
 		* 

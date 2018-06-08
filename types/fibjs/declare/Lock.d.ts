@@ -18,7 +18,8 @@
 	* @brief 纤程锁对象
 	* @detail 不同于操作系统的锁，纤程锁是纯逻辑实现，加锁与解锁负荷很小,```JavaScript,var l = new coroutine.Lock();,l.acquire();,.....,l.release();,```
 	*/
-declare class Lock extends _object {
+
+declare class Class_Lock extends Class__object {
 	
 	/**
 		* 

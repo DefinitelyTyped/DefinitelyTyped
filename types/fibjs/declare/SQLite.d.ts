@@ -18,7 +18,8 @@
 	* @brief sqlite 数据库连接对象
 	* @detail 使用 db.open 或 db.openSQLite 创建，创建方式：,```JavaScript,var slite = db.openSQLite("sqlite:/path/to/db");,```
 	*/
-declare class SQLite extends DbConnection {
+/// <reference path="DbConnection.d.ts" />
+declare class Class_SQLite extends Class_DbConnection {
 	
 	/**
 		* 

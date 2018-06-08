@@ -281,7 +281,8 @@ declare module "xml" {
 			* 
 			* 
 			*/
-		export const Document: XmlDocument;
+		
+		export class XmlDocument extends Class_XmlDocument {}
 		
 		
 		
@@ -295,7 +296,7 @@ declare module "xml" {
 			* 
 			* 
 			*/
-		export function parse(source: string, type?: string/** = "text/xml"*/): XmlDocument;
+		export function parse(source: string, type?: string/** = "text/xml"*/): Class_XmlDocument;
 	
 		/**
 			* 
@@ -307,7 +308,7 @@ declare module "xml" {
 			* 
 			* 
 			*/
-		export function parse(source: Buffer, type?: string/** = "text/xml"*/): XmlDocument;
+		export function parse(source: Class_Buffer, type?: string/** = "text/xml"*/): Class_XmlDocument;
 	
 		/**
 			* 
@@ -318,7 +319,7 @@ declare module "xml" {
 			* 
 			* 
 			*/
-		export function serialize(node: XmlNode): string;
+		export function serialize(node: Class_XmlNode): string;
 	
 	} /** end of `module xml` */
 	export = xml

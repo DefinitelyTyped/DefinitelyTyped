@@ -18,7 +18,8 @@
 	* @brief 浏览器窗口对象
 	* @detail WebView 是一个嵌入浏览器的窗口组件，目前仅支持 windows ie。,,由于 WebView 内的 JavaScript 程序与 fibjs 并不在同一个引擎内，所以如果需要与宿主程序进行通讯，需要通过消息进行。,,WebView 用于通讯的对象是 external，external 支持一个方法 postMessage 和两个事件 onmessage、onclose。,,一个简单的通讯示例代码如下：,```JavaScript,// index.js,var gui = require('gui');,var webview = gui.open('fs:index.html');,,webview.onmessage = msg => console.log(msg);,,webview.onload = evt => webview.postMessage("hello from fibjs");,,webview.wait();,```,,index.html 的内容如下：,```html,<script>,    external.onclose = function() {,    },,    external.onmessage = function(msg){,        external.postMessage("send back: " + msg);,    };,</script>,```, 在用户窗口关闭之前，会触发 external.onclose 事件，external.onclose 可以决定是否关闭。如果 external.onclose 返回 false，则此次操作取消，否则将关闭窗口。,,以下的例子，会在用户点关闭后等待 5 秒后再关闭窗口。,```html,<script lang="JavaScript">,    var bClose = false;,    external.onclose = function () {,        if (!bClose) {,            setTimeout(function () {,                bClose = true;,                window.close();,            }, 5000);,            return false;,        },    },</script>,```,上面的代码中，因为 window.close 本身也会触发 onclose 事件，所以需要增加一个开关变量，用于识别是否需要处理此次事件。
 	*/
-declare class WebView extends EventEmitter {
+/// <reference path="EventEmitter.d.ts" />
+declare class Class_WebView extends Class_EventEmitter {
 	
 	/**
 		* 

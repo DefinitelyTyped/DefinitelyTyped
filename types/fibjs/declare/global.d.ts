@@ -215,7 +215,8 @@ declare module "global" {
 			* 
 			* 
 			*/
-		export const Buffer: Buffer;
+		
+		export class Buffer extends Class_Buffer {}
 		
 		/**
 			* 
@@ -223,7 +224,8 @@ declare module "global" {
 			* 
 			* 
 			*/
-		export const Int64: Int64;
+		
+		export class Int64 extends Class_Int64 {}
 		
 		/**
 			* 
@@ -231,7 +233,8 @@ declare module "global" {
 			* 
 			* 
 			*/
-		export const console: typeof consoleNS;
+		
+		export class console extends Class_console {}
 		
 		/**
 			* 
@@ -239,7 +242,8 @@ declare module "global" {
 			* 
 			* 
 			*/
-		export const process: typeof processNS;
+		
+		export class process extends Class_process {}
 		
 		
 		
@@ -332,7 +336,7 @@ declare module "global" {
 			* 
 			* 
 			*/
-		export function setTimeout(callback: Function, timeout: number, ...args: any[]): Timer;
+		export function setTimeout(callback: Function, timeout: number, ...args: any[]): Class_Timer;
 	
 		/**
 			* 
@@ -355,7 +359,7 @@ declare module "global" {
 			* 
 			* 
 			*/
-		export function setInterval(callback: Function, timeout: number, ...args: any[]): Timer;
+		export function setInterval(callback: Function, timeout: number, ...args: any[]): Class_Timer;
 	
 		/**
 			* 
@@ -392,7 +396,7 @@ declare module "global" {
 			* 
 			* 
 			*/
-		export function setHrInterval(callback: Function, timeout: number, ...args: any[]): Timer;
+		export function setHrInterval(callback: Function, timeout: number, ...args: any[]): Class_Timer;
 	
 		/**
 			* 
@@ -414,7 +418,7 @@ declare module "global" {
 			* 
 			* 
 			*/
-		export function setImmediate(callback: Function, ...args: any[]): Timer;
+		export function setImmediate(callback: Function, ...args: any[]): Class_Timer;
 	
 		/**
 			* 
@@ -495,7 +499,7 @@ declare module "global" {
 			* 
 			* 
 			*/
-		export function repl(out: Stream, cmds?: any[]/** = v8::Array::New(isolate)*/): void;
+		export function repl(out: Class_Stream, cmds?: any[]/** = v8::Array::New(isolate)*/): void;
 	
 	} /** end of `module global` */
 	export = global

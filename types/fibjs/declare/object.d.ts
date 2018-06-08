@@ -18,7 +18,8 @@
 	* @brief 基础对象，所有对象均继承于此
 	* @detail 
 	*/
-declare class _object  {
+
+declare class Class__object  {
 	
 	/**
 		* 

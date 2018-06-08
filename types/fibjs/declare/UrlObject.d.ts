@@ -18,7 +18,8 @@
 	* @brief Url 处理对象
 	* @detail 基础模块。提供 url 的格式化，解析与拼装,```JavaScript,var url = new net.Url('http://www.xici.net/');,var url = new net.Url({protocol: 'http:', hostname:'www.xici.net', pathname:'/'});,```
 	*/
-declare class UrlObject extends _object {
+
+declare class Class_UrlObject extends Class__object {
 	
 	/**
 		* 
@@ -73,7 +74,7 @@ declare class UrlObject extends _object {
 		* 
 		* 
 		*/
-	resolve(url: string): UrlObject;
+	resolve(url: string): Class_UrlObject;
 
 	/**
 		* 

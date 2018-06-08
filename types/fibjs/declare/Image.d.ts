@@ -20,7 +20,8 @@ import gd = require('gd')
 	* @brief 图像处理对象，用以对图像进行转换，绘制，存储等操作
 	* @detail Image 对象属于 gd 模块，创建：,```JavaScript,var img = gd.create(640, 480);,var img1 = gd.load(data);,```
 	*/
-declare class Image extends _object {
+
+declare class Class_Image extends Class__object {
 	
 	/**
 		* 
@@ -32,7 +33,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	getData(format?: number/** = undefined*/, quality?: number/** = 85*/): Buffer;
+	getData(format?: number/** = undefined*/, quality?: number/** = 85*/): Class_Buffer;
 
 	/**
 		* 
@@ -44,7 +45,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	save(stm: Stream, format?: number/** = undefined*/, quality?: number/** = 85*/): void;
+	save(stm: Class_Stream, format?: number/** = undefined*/, quality?: number/** = 85*/): void;
 
 	/**
 		* 
@@ -527,7 +528,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	clone(): Image;
+	clone(): Class_Image;
 
 	/**
 		* 
@@ -539,7 +540,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	resample(width: number, height: number): Image;
+	resample(width: number, height: number): Class_Image;
 
 	/**
 		* 
@@ -553,7 +554,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	crop(x: number, y: number, width: number, height: number): Image;
+	crop(x: number, y: number, width: number, height: number): Class_Image;
 
 	/**
 		* 
@@ -599,7 +600,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	copy(source: Image, dstX: number, dstY: number, srcX: number, srcY: number, width: number, height: number): void;
+	copy(source: Class_Image, dstX: number, dstY: number, srcX: number, srcY: number, width: number, height: number): void;
 
 	/**
 		* 
@@ -616,7 +617,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	copyMerge(source: Image, dstX: number, dstY: number, srcX: number, srcY: number, width: number, height: number, percent: number): void;
+	copyMerge(source: Class_Image, dstX: number, dstY: number, srcX: number, srcY: number, width: number, height: number, percent: number): void;
 
 	/**
 		* 
@@ -633,7 +634,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	copyMergeGray(source: Image, dstX: number, dstY: number, srcX: number, srcY: number, width: number, height: number, percent: number): void;
+	copyMergeGray(source: Class_Image, dstX: number, dstY: number, srcX: number, srcY: number, width: number, height: number, percent: number): void;
 
 	/**
 		* 
@@ -651,7 +652,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	copyResized(source: Image, dstX: number, dstY: number, srcX: number, srcY: number, dstW: number, dstH: number, srcW: number, srcH: number): void;
+	copyResized(source: Class_Image, dstX: number, dstY: number, srcX: number, srcY: number, dstW: number, dstH: number, srcW: number, srcH: number): void;
 
 	/**
 		* 
@@ -669,7 +670,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	copyResampled(source: Image, dstX: number, dstY: number, srcX: number, srcY: number, dstW: number, dstH: number, srcW: number, srcH: number): void;
+	copyResampled(source: Class_Image, dstX: number, dstY: number, srcX: number, srcY: number, dstW: number, dstH: number, srcW: number, srcH: number): void;
 
 	/**
 		* 
@@ -686,7 +687,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	copyRotated(source: Image, dstX: number, dstY: number, srcX: number, srcY: number, width: number, height: number, angle: number): void;
+	copyRotated(source: Class_Image, dstX: number, dstY: number, srcX: number, srcY: number, width: number, height: number, angle: number): void;
 
 	/**
 		* 
@@ -735,7 +736,7 @@ declare class Image extends _object {
 		* 
 		* @async
 		*/
-	affine(affine: any[], x?: number/** = -1*/, y?: number/** = -1*/, width?: number/** = -1*/, height?: number/** = -1*/): Image;
+	affine(affine: any[], x?: number/** = -1*/, y?: number/** = -1*/, width?: number/** = -1*/, height?: number/** = -1*/): Class_Image;
 
 	/**
 		* 
