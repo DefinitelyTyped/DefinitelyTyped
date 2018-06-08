@@ -8243,11 +8243,7 @@ declare namespace Office {
          * 
          *  - OWAView (string): A string that represents the current view of Outlook Web App. If the host application is not Outlook Web App, then accessing this property results in undefined. Outlook Web App has three views (represent by the following string values) that correspond to the width of the screen and the window, and the number of columns that can be displayed:
          *
-         *      - OneColumn, which is displayed when the screen is narrow. Outlook Web App uses this single-column layout on the entire screen of a smartphone.
-         *
-         *      - TwoColumns, which is displayed when the screen is wider. Outlook Web App uses this view on most tablets.
-         *
-         *      - ThreeColumns, which is displayed when the screen is wide. For example, Outlook Web App uses this view in a full screen window on a desktop computer.
+         *  More information is under {@link Office.Diagnostics}
          *
          * [Api set: Mailbox 1.0]
          *
@@ -8303,6 +8299,8 @@ declare namespace Office {
         restUrl: string;
         /**
          * Information about the user associated with the mailbox. This includes their account type, display name, email adddress, and time zone.
+         * 
+         * More information is under {@link Office.UserProfile}
          */
         userProfile: UserProfile;
         /**
