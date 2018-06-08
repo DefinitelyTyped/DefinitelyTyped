@@ -17,7 +17,7 @@ const client = new Client({
 	ssdpTtl: 0
 });
 
-client.on('response', function (headers, statusCode, rinfo) {
+client.on('response', (headers, statusCode, rinfo) => {
 	console.log('Got a response to an m-search.');
 });
 
@@ -32,7 +32,7 @@ const server = new Server({
 	interfaces: [],
 	customLogger: format => {},
 	explicitSocketBind: true,
-	reuseAddr:true,
+	reuseAddr: true,
 	ssdpPort: 0,
 	location: {
 		protocol: 'http://',
@@ -60,12 +60,12 @@ server.addUSN('urn:schemas-upnp-org:device:MediaServer:1');
 server.addUSN('urn:schemas-upnp-org:service:ContentDirectory:1');
 server.addUSN('urn:schemas-upnp-org:service:ConnectionManager:1');
 
-server.on('advertise-alive', function (headers) {
+server.on('advertise-alive', (headers) => {
 	// Expire old devices from your cache.
 	// Register advertising device somewhere (as designated in http headers heads)
 });
 
-server.on('advertise-bye', function (headers) {
+server.on('advertise-bye', (headers) => {
 	// Remove specified device from cache.
 });
 

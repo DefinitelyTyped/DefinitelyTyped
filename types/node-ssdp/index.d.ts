@@ -1,4 +1,4 @@
-// Type definitions for node-ssdp v3.3.0
+// Type definitions for node-ssdp 3.3
 // Project: https://github.com/diversario/node-ssdp
 // Definitions by: Olivia Trewin <https://github.com/OrionNebula>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 import * as events from 'events';
 
 export interface SsdpHeaders {
-	[key: string]: string | number | boolean | null | undefined | symbol
+	[key: string]: string | number | boolean | null | undefined | symbol;
 }
 
 export interface SsdpOptions {
@@ -71,7 +71,8 @@ export interface ServiceDescriptionLocation {
 export interface ServerOptions extends ClientOptions {
 	/**
 	 * URL pointing to description of your service, or a function that returns that URL.
-	 * For cases where there are multiple network interfaces or the IP of the host isn't known in advance, it's possible to specify location as an object. Host will be set to the IP of the responding interface.
+	 * For cases where there are multiple network interfaces or the IP of the host isn't known in advance,
+	 * it's possible to specify location as an object. Host will be set to the IP of the responding interface.
 	 */
 	location?: string | ServiceDescriptionLocation;
 	/**
@@ -92,7 +93,7 @@ export interface ServerOptions extends ClientOptions {
 	/**
 	 * Interval at which to send out advertisement (ms)
 	 * @default 10000
-	*/
+	 */
 	adInterval?: number;
 	/**
 	 * Packet TTL
@@ -102,39 +103,39 @@ export interface ServerOptions extends ClientOptions {
 }
 
 export abstract class Base extends events.EventEmitter {
-	constructor (opts: SsdpOptions);
+	constructor(opts: SsdpOptions);
 
-	addUSN (device: string): void;
+	addUSN(device: string): void;
 }
 
 export class Client extends Base {
-	constructor (opts: ClientOptions);
+	constructor(opts: ClientOptions);
 
 	/**
 	 * Start the listener for multicast notifications from SSDP devices
-	 * @param {(error: any) => void?} cb callback to socket.bind
-	 * @returns {Promise<void>} promise when socket.bind is ready
+	 * @param cb callback to socket.bind
+	 * @returns promise when socket.bind is ready
 	 */
-	start (cb?: (error: any) => void): Promise<void>;
+	start(cb?: (error: any) => void): Promise<void>;
 	/**
 	 * Close UDP socket.
 	 */
-	stop (): void;
-	search (serviceType: string): void | Promise<void>;
+	stop(): void;
+	search(serviceType: string): void | Promise<void>;
 }
 
 export class Server extends Base {
-	constructor (opts: ServerOptions);
+	constructor(opts: ServerOptions);
 
 	/**
 	 * Binds UDP socket to an interface/port and starts advertising.
-	 * @param {(error: any) => void?} cb callback to socket.bind
-	 * @returns {void | Proimse<void>} promise when socket.bind is ready
+	 * @param cb callback to socket.bind
+	 * @returns promise when socket.bind is ready
 	 */
-	start (cb?: (error: any) => void): void | Promise<void>;
+	start(cb?: (error: any) => void): void | Promise<void>;
 	/**
 	 * Advertise shutdown and close UDP socket.
 	 */
-	stop (): void;
-	advertise (alive?: boolean): void;
+	stop(): void;
+	advertise(alive?: boolean): void;
 }
