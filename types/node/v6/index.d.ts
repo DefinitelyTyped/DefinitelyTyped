@@ -460,6 +460,10 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
+    export interface ProcessEnv {
+        [key: string]: string | undefined;
+    }
+
     export interface WriteStream extends Socket {
         columns?: number;
         rows?: number;
