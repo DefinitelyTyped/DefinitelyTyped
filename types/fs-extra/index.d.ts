@@ -212,7 +212,7 @@ export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, call
 export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: symlink.Type): Promise<void>;
 
 export namespace symlink {
-    export type Type = "dir" | "file" | "junction";
+    type Type = "dir" | "file" | "junction";
 }
 
 export function truncate(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
