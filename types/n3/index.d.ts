@@ -13,7 +13,7 @@ import * as RDF from "rdf-js";
 import { EventEmitter } from "events";
 
 export interface Prefixes {
-    [key: string]: string;
+    [key: string]: RDF.NamedNode;
 }
 
 export class Term implements RDF.Term {
@@ -24,8 +24,6 @@ export class Term implements RDF.Term {
     toJSON(): string;
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
-    static fromId(id: string): NamedNode | BlankNode | Variable | Literal;
-    static toId(term: string | null | RDF.Term): string;
 }
 
 export class NamedNode extends Term implements RDF.NamedNode {
@@ -107,6 +105,8 @@ export const Parser: ParserConstructor;
 export interface ParserOptions {
     format?: string;
     prefixes?: string[];
+    factory?: RDF.DataFactory;
+    baseIRI?: string;
 }
 
 export type ParseCallback = (error: Error, quad: Quad, prefixes: Prefixes) => void;
@@ -121,8 +121,20 @@ export interface StreamParserConstructor {
 }
 export const StreamParser: StreamParserConstructor;
 
-export interface N3StreamParser extends N3Parser, fs.WriteStream {
-    pipe<T extends NodeJS.WritableStream | N3StreamWriter>(consumer: T): T;
+export interface N3StreamParser extends RDF.Stream, NodeJS.WritableStream, RDF.Sink {
+    // Below are the NodeJS.ReadableStream methods,
+    // we can not extend the interface directly,
+    // as `read` clashes with RDF.Sink.
+    readable: boolean;
+    // read(size?: number): string | Buffer; // Overwritten by RDF.Stream
+    setEncoding(encoding: string | null): void;
+    pause(): this;
+    resume(): this;
+    isPaused(): boolean;
+    pipe<T extends NodeJS.WritableStream | RDF.Stream>(destination: T, options?: { end?: boolean; }): T;
+    unpipe(destination?: NodeJS.WritableStream | RDF.Stream): void;
+    unshift(chunk: string | Buffer): void;
+    wrap(oldStream: NodeJS.ReadableStream | RDF.Stream): NodeJS.ReadableStream;
 }
 
 export interface WriterOptions {
@@ -144,17 +156,21 @@ export interface N3Writer {
     addQuad(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term | RDF.Term[], graph?: RDF.Term, done?: () => void): void;
     addQuad(quad: RDF.Quad): void;
     addQuads(quads: RDF.Quad[]): void;
-    end(err?: ErrorCallback, result?: any): void;
+    end(err?: ErrorCallback, result?: string): void;
     blank(predicate: RDF.Term, object: RDF.Term): RDF.Term;
     blank(triple: BlankTriple | RDF.Quad | BlankTriple[] | RDF.Quad[]): RDF.Term;
     list(triple: RDF.Term[]): RDF.Term[];
 }
 
-export function StreamWriter(options: WriterOptions): N3StreamWriter;
-
-export interface N3StreamWriter extends N3Writer {
-    pipe(consumer: NodeJS.WritableStream | stream.Writable): void;
+export interface StreamWriterConstructor {
+  new (options?: WriterOptions): N3StreamWriter;
+  new (fd: any, options?: WriterOptions): N3StreamWriter;
+  (options?: WriterOptions): N3StreamWriter;
+  (fd: any, options?: WriterOptions): N3StreamWriter;
 }
+export const StreamWriter: StreamWriterConstructor;
+
+export interface N3StreamWriter extends NodeJS.ReadWriteStream, RDF.Source {}
 
 export interface N3Store extends RDF.Sink {
     readonly size: number;
@@ -177,15 +193,19 @@ export interface N3Store extends RDF.Sink {
     forObjects(callback: QuadCallback, subject: OTerm, predicate: OTerm, graph: OTerm): void;
     getGraphs(subject: OTerm, predicate: OTerm, object: OTerm): RDF.Term[];
     forGraphs(callback: QuadCallback, subject: OTerm, predicate: OTerm, object: OTerm): void;
-    createBlankNode(suggestedName: string): BlankNode;
+    createBlankNode(suggestedName?: string): BlankNode;
 
     // match, removeMatches and deleteGraph are missing for full RDF.Store adherence
     remove(stream: stream.Stream): EventEmitter;
 }
-export function Store(triples?: RDF.Quad[], options?: StoreOptions): N3Store;
+export interface StoreConstructor {
+  new (triples?: RDF.Quad[], options?: StoreOptions): N3Store;
+  (triples?: RDF.Quad[], options?: StoreOptions): N3Store;
+}
+export const Store: StoreConstructor;
 
 export interface StoreOptions {
-    prefixes?: Prefixes;
+    factory?: RDF.DataFactory;
 }
 
 export namespace Util {
@@ -195,6 +215,6 @@ export namespace Util {
     function isVariable(value: RDF.Term | null): boolean;
     function isDefaultGraph(value: RDF.Term | null): boolean;
     function inDefaultGraph(value: RDF.Quad): boolean;
-    function prefix(iri: string): (suffix: string) => RDF.NamedNode;
-    function prefixes(defaultPrefixes: Prefixes): (iri: string) => (suffix: string) => RDF.NamedNode;
+    function prefix(iri: string, factory?: RDF.DataFactory): (suffix: string) => RDF.NamedNode;
+    function prefixes(defaultPrefixes: Prefixes, factory?: RDF.DataFactory): (iri: string) => (suffix: string) => RDF.NamedNode;
 }
