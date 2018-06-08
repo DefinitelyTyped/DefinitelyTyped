@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 import {
-    TextInputProperties,
+    TextInputProps,
     ReturnKeyType,
     ReturnKeyTypeAndroid,
     TextStyle,
@@ -28,7 +28,7 @@ export interface SearchBarProps {
     placeholderColor?: string;
     iconColor?: string;
     textStyle?: TextStyle;
-    inputProps?: TextInputProperties;
+    inputProps?: TextInputProps;
     alwaysShowBackButton?: boolean;
     onSearchChange?(text: string): void;
     onClose?(): void;

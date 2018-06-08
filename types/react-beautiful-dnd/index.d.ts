@@ -1,7 +1,8 @@
-// Type definitions for react-beautiful-dnd 4.0
+// Type definitions for react-beautiful-dnd 6.0
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
+//                 Austin Turner <https://github.com/paustint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -11,11 +12,17 @@ export type Id = string;
 export type DraggableId = Id;
 export type DroppableId = Id;
 export type TypeId = Id;
-export type ZIndex = number | string;
+export type ZIndex = React.CSSProperties['zIndex'];
+export type DropReason = 'DROP' | 'CANCEL';
+export type Announce = (message: string) => void;
 
 export interface DraggableLocation {
     droppableId: DroppableId;
     index: number;
+}
+
+export interface HookProvided {
+    announce: Announce;
 }
 
 /**
@@ -28,16 +35,18 @@ export interface DragStart {
     source: DraggableLocation;
 }
 
-export interface DropResult {
-    draggableId: DraggableId;
-    type: TypeId;
-    source: DraggableLocation;
+export interface DragUpdate extends DragStart {
     destination?: DraggableLocation | null;
 }
 
+export interface DropResult extends DragUpdate {
+    reason: DropReason;
+}
+
 export interface DragDropContextProps {
-    onDragStart?(initial: DragStart): void;
-    onDragEnd(result: DropResult): void;
+    onDragStart?(initial: DragStart, provided: HookProvided): void;
+    onDragUpdate?(initial: DragUpdate, provided: HookProvided): void;
+    onDragEnd(result: DropResult, provided: HookProvided): void;
 }
 
 export class DragDropContext extends React.Component<DragDropContextProps> {}
@@ -46,9 +55,14 @@ export class DragDropContext extends React.Component<DragDropContextProps> {}
  *  Droppable
  */
 
+export interface DroppableProvidedProps {
+    // used for shared global styles
+    'data-react-beautiful-dnd-droppable': string;
+}
 export interface DroppableProvided {
     innerRef(element: HTMLElement | null): any;
     placeholder?: React.ReactElement<any> | null;
+    droppableProps: DroppableProvidedProps;
 }
 
 export interface DroppableStateSnapshot {
@@ -98,12 +112,14 @@ export interface DraggableProvidedDraggableProps {
 export interface DraggableProvidedDragHandleProps {
     onMouseDown: React.MouseEventHandler<any>;
     onKeyDown: React.KeyboardEventHandler<any>;
-    onClick: React.MouseEventHandler<any>;
+    onTouchStart: React.TouchEventHandler<any>;
+    onTouchMove: React.TouchEventHandler<any>;
+    'data-react-beautiful-dnd-drag-handle': string;
+    'aria-roledescription': string;
     tabIndex: number;
     'aria-grabbed': boolean;
     draggable: boolean;
-    onDragStart(): void;
-    onDrop(): void;
+    onDragStart: React.DragEventHandler<any>;
 }
 
 export interface DraggableProvided {
@@ -125,6 +141,7 @@ export interface DraggableProps {
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<any>;
+    type?: TypeId;
 }
 
 export class Draggable extends React.Component<DraggableProps> {}

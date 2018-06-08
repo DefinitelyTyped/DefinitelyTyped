@@ -79,7 +79,7 @@ declare class ReactImageGallery extends React.Component<ReactImageGalleryProps> 
     fullScreen: () => void;
     exitFullScreen: () => void;
     slideToIndex: (index: number) => void;
-    getCurrentIndex: () => void;
+    getCurrentIndex: () => number;
 }
 
 export default ReactImageGallery;

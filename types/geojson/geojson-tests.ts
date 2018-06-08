@@ -306,6 +306,11 @@ const collectionNoNull: FeatureCollection<Point, TestProperty> = {
     features: [featureNoNull],
 };
 
+const collectionDefault: FeatureCollection = {
+    type: "FeatureCollection",
+    features: []
+};
+
 isNull = featureAllNull.geometry;
 isPoint = featurePropertyNull.geometry;
 isNull = featureAllNull.properties;
@@ -322,3 +327,18 @@ isPropertyOrNull = collectionMaybeNull.features[0].properties;
 isPropertyOrNull = collectionPropertyMaybeNull.features[0].properties;
 isProperty = collectionGeometryMaybeNull.features[0].properties;
 isProperty = collectionNoNull.features[0].properties;
+
+for (const { geometry } of collectionDefault.features) {
+    switch (geometry.type) {
+        case "Point":
+            isPoint = geometry;
+            break;
+        case "GeometryCollection":
+            for (const child of geometry.geometries) {
+                if (child.type === "Point") {
+                    isPoint = child;
+                }
+            }
+            break;
+    }
+}

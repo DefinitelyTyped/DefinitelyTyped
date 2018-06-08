@@ -10,7 +10,7 @@ Please fill in this template.
 Select one of these and delete the others:
 
 If adding a new definition:
-- [ ] The package does not provide its own types, and you can not add them.
+- [ ] The package does not already provide its own types, or cannot have its `.d.ts` files generated via `--declaration`
 - [ ] If this is for an NPM package, match the name. If not, do not conflict with the name of an NPM package.
 - [ ] Create it with `dts-gen --dt`, not by basing it on an existing project.
 - [ ] `tslint.json` should be present, and `tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.

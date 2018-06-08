@@ -577,20 +577,10 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates a slice of array excluding elements dropped from the end. Elements are dropped until predicate
-         * returns falsey. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * match the properties of the given object, else false.
+         * returns falsey. The predicate is invoked with three arguments: (value, index, array).
          *
          * @param array The array to query.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns the slice of array.
          */
         dropRightWhile<T>(
@@ -624,20 +614,10 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate
-         * returns falsey. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * returns falsey. The predicate is invoked with three arguments: (value, index, array).
          *
          * @param array The array to query.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns the slice of array.
          */
         dropWhile<T>(
@@ -797,15 +777,6 @@ declare module "../index" {
          * This method is like _.find except that it returns the index of the first element predicate returns truthy
          * for instead of the element itself.
          *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
-         *
          * @param array The array to search.
          * @param predicate The function invoked per iteration.
          * @param fromIndex The index to search from.
@@ -845,15 +816,6 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * This method is like _.findIndex except that it iterates over elements of collection from right to left.
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
          *
          * @param array The array to search.
          * @param predicate The function invoked per iteration.
@@ -916,17 +878,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it’s only
-         * flattened a single level.
+         * Flattens `array` a single level deep.
          *
          * @param array The array to flatten.
-         * @param isDeep Specify a deep flatten.
          * @return Returns the new flattened array.
-         */
-        flatten<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, isDeep: boolean): T[];
-
-        /**
-         * @see _.flatten
          */
         flatten<T>(array: List<Many<T>> | null | undefined): T[];
     }
@@ -935,20 +890,10 @@ declare module "../index" {
         /**
          * @see _.flatten
          */
-        flatten<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, isDeep: boolean): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.flatten
-         */
         flatten<T>(this: LoDashImplicitWrapper<List<Many<T>> | null | undefined>): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
-        /**
-         * @see _.flatten
-         */
-        flatten<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, isDeep: boolean): LoDashExplicitWrapper<T[]>;
-
         /**
          * @see _.flatten
          */
@@ -984,28 +929,28 @@ declare module "../index" {
     // flattenDepth
 
     interface LoDashStatic {
-       /**
-       * Recursively flatten array up to depth times.
-       *
-       * @param array The array to recursively flatten.
-       * @param number The maximum recursion depth.
-       * @return Returns the new flattened array.
-       */
-       flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
+        /**
+         * Recursively flatten array up to depth times.
+         *
+         * @param array The array to recursively flatten.
+         * @param number The maximum recursion depth.
+         * @return Returns the new flattened array.
+         */
+        flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
-       /**
-        * @see _.flattenDeep
-        */
-       flattenDepth<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashImplicitWrapper<T[]>;
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDepth<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
-       /**
-        * @see _.flattenDeep
-        */
-       flattenDepth<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitWrapper<T[]>;
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDepth<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitWrapper<T[]>;
     }
 
     // fromPairs
@@ -1102,8 +1047,7 @@ declare module "../index" {
          * Gets the index at which the first occurrence of `value` is found in `array`
          * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
          * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-         * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-         * performs a faster binary search.
+         * from the end of `array`.
          *
          * @category Array
          * @param array The array to search.
@@ -1122,7 +1066,7 @@ declare module "../index" {
         indexOf<T>(
             array: List<T> | null | undefined,
             value: T,
-            fromIndex?: boolean|number
+            fromIndex?: number
         ): number;
     }
 
@@ -1133,7 +1077,7 @@ declare module "../index" {
         indexOf<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             value: T,
-            fromIndex?: boolean|number
+            fromIndex?: number
         ): number;
     }
 
@@ -1144,7 +1088,7 @@ declare module "../index" {
         indexOf<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T,
-            fromIndex?: boolean|number
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -1423,7 +1367,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -1462,7 +1406,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -1899,22 +1843,12 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * Removes all elements from array that predicate returns truthy for and returns an array of the removed
-         * elements. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * elements. The predicate is invoked with three arguments: (value, index, array).
          *
          * Note: Unlike _.filter, this method mutates array.
          *
          * @param array The array to modify.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns the new array of removed elements.
          */
         remove<T>(
@@ -2377,17 +2311,9 @@ declare module "../index" {
          * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
          * // => [1.1, 2.2]
          */
-        sortedUniqBy(
-            array: string | null | undefined,
-            iteratee: StringIterator<NotVoid>
-        ): string[];
-
-        /**
-         * @see _.sortedUniqBy
-         */
         sortedUniqBy<T>(
             array: List<T> | null | undefined,
-            iteratee: ListIteratee<T>
+            iteratee: ValueIteratee<T>
         ): T[];
     }
 
@@ -2395,17 +2321,9 @@ declare module "../index" {
         /**
          * @see _.sortedUniqBy
          */
-        sortedUniqBy(
-            this: LoDashImplicitWrapper<string | null | undefined>,
-            iteratee: StringIterator<NotVoid>
-        ): LoDashImplicitWrapper<string[]>;
-
-        /**
-         * @see _.sortedUniqBy
-         */
         sortedUniqBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIteratee<T>
+            iteratee: ValueIteratee<T>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -2413,17 +2331,9 @@ declare module "../index" {
         /**
          * @see _.sortedUniqBy
          */
-        sortedUniqBy(
-            this: LoDashExplicitWrapper<string | null | undefined>,
-            iteratee: StringIterator<NotVoid>
-        ): LoDashExplicitWrapper<string[]>;
-
-        /**
-         * @see _.sortedUniqBy
-         */
         sortedUniqBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIteratee<T>
+            iteratee: ValueIteratee<T>
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -2530,20 +2440,10 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates a slice of array with elements taken from the end. Elements are taken until predicate returns
-         * falsey. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * falsey. The predicate is invoked with three arguments: (value, index, array).
          *
          * @param array The array to query.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns the slice of array.
          */
         takeRightWhile<T>(
@@ -2577,20 +2477,10 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates a slice of array with elements taken from the beginning. Elements are taken until predicate returns
-         * falsey. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * falsey. The predicate is invoked with three arguments: (value, index, array).
          *
          * @param array The array to query.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns the slice of array.
          */
         takeWhile<T>(
@@ -2976,17 +2866,9 @@ declare module "../index" {
          * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }, { 'x': 2 }]
          */
-        uniqBy(
-            array: string | null | undefined,
-            iteratee: StringIterator<NotVoid>
-        ): string[];
-
-        /**
-         * @see _.uniqBy
-         */
         uniqBy<T>(
             array: List<T> | null | undefined,
-            iteratee: ListIteratee<T>
+            iteratee: ValueIteratee<T>
         ): T[];
     }
 
@@ -2994,17 +2876,9 @@ declare module "../index" {
         /**
          * @see _.uniqBy
          */
-        uniqBy(
-            this: LoDashImplicitWrapper<string | null | undefined>,
-            iteratee: StringIterator<NotVoid>
-        ): LoDashImplicitWrapper<string[]>;
-
-        /**
-         * @see _.uniqBy
-         */
         uniqBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIteratee<T>
+            iteratee: ValueIteratee<T>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -3012,17 +2886,9 @@ declare module "../index" {
         /**
          * @see _.uniqBy
          */
-        uniqBy(
-            this: LoDashExplicitWrapper<string | null | undefined>,
-            iteratee: StringIterator<NotVoid>
-        ): LoDashExplicitWrapper<string[]>;
-
-        /**
-         * @see _.uniqBy
-         */
         uniqBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIteratee<T>
+            iteratee: ValueIteratee<T>
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -3103,12 +2969,10 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * This method is like _.unzip except that it accepts an iteratee to specify how regrouped values should be
-         * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
-         * group).
+         * combined. The iteratee is invoked with four arguments: (accumulator, value, index, group).
          *
          * @param array The array of grouped elements to process.
          * @param iteratee The function to combine regrouped values.
-         * @param thisArg The this binding of iteratee.
          * @return Returns the new array of regrouped elements.
          */
         unzipWith<T, TResult>(
@@ -3463,7 +3327,7 @@ declare module "../index" {
         /**
          * @see _.zip
          */
-        zip<T>(...arrays: Array<List<T> | null | undefined>): (T | undefined)[][];
+        zip<T>(...arrays: Array<List<T> | null | undefined>): Array<Array<T | undefined>>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -3661,11 +3525,10 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be
-         * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
+         * combined. The iteratee is invoked with four arguments: (accumulator, value, index,
          * group).
-         * @param [arrays] The arrays to process.
-         * @param [iteratee] The function to combine grouped values.
-         * @param [thisArg] The `this` binding of `iteratee`.
+         * @param arrays The arrays to process.
+         * @param iteratee The function to combine grouped values.
          * @return Returns the new array of grouped elements.
          */
         zipWith<T, TResult>(

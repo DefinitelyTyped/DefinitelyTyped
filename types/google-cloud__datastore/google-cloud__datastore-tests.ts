@@ -14,8 +14,7 @@ interface TestEntity {
     name?: string;
     location?: string;
     symbol?: string;
-
-    [keySymbol: string]: any;
+    [Datastore.KEY]?: any;
 }
 
 const kind = 'Company';

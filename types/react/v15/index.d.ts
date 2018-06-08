@@ -183,8 +183,8 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement<any> | ReactText;
 
-    // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
+    interface ReactNodeArray extends Array<ReactNode> {}
+    type ReactFragment = {} | ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
 
     //
@@ -2481,6 +2481,11 @@ declare namespace React {
          * @see aria-colindex @see aria-rowspan.
          */
         'aria-colspan'?: number;
+        /**
+         * Identifies the element (or elements) whose contents or presence are controlled by the current element.
+         * @see aria-owns.
+         */
+        'aria-controls'?: string;
         /** Indicates the element that represents the current item within a container or set of related elements. */
         'aria-current'?: boolean | 'false' | 'true' | 'page' | 'step' | 'location' | 'date' | 'time';
         /**

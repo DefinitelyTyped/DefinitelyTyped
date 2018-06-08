@@ -120,8 +120,13 @@ export function contours(): Contours;
 
 /**
  * A contour generator for density estimates.
+ *
+ * The generic refers to the data type of an element in the data array
+ * used with the density contour generator. If omitted, the default setting assumes that,
+ * the elements of the data array used with the density contour generator are two-element arrays.
+ * The first element corresponds to the x-dimension, the second to the y-dimension.
  */
-export interface ContourDensity<Datum> {
+export interface ContourDensity<Datum = [number, number]> {
     /**
      * Estimates the density contours for the given array of data, returning an array of GeoJSON MultiPolygon geometry objects.
      * Each geometry object represents the area where the estimated number of points per square pixel is greater than or equal to
@@ -239,20 +244,14 @@ export interface ContourDensity<Datum> {
 }
 
 /**
- * Construct a new contour generator for density estimates with the default settings.
- *
- * The default settings assume that, the elements of the data array used
- * with the density contour generator are two-element arrays. The first element
- * corresponds to the x-dimension, the second to the y-dimension.
- */
-export function contourDensity(): ContourDensity<[number, number]>;
-/**
  * Construct a new contour generator for density estimates.
  *
  * The generic refers to the data type of an element in the data array
- * used with the density contour generator.
+ * used with the density contour generator. If omitted, the default setting assumes that,
+ * the elements of the data array used with the density contour generator are two-element arrays.
+ * The first element corresponds to the x-dimension, the second to the y-dimension.
  *
  * Important: ensure that the x- and y-accessor functions are configured to
  * match the data type used for the generic Datum.
  */
-export function contourDensity<Datum>(): ContourDensity<Datum>;
+export function contourDensity<Datum = [number, number]>(): ContourDensity<Datum>;

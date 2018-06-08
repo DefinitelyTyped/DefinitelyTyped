@@ -223,7 +223,8 @@ boolean = memberExpression.computed;
 
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
-identifier = functionDeclaration.id;
+var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
+functionDeclaration.id = null;
 var params: Array<ESTree.Pattern> = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
 booleanMaybe = functionDeclaration.generator;
@@ -236,6 +237,10 @@ string = variableDeclaration.kind; // "var" | "let" | "const"
 var variableDeclarator: ESTree.VariableDeclarator;
 pattern = variableDeclarator.id; // Pattern
 expressionMaybe = variableDeclarator.init;
+
+var classDeclaration: ESTree.ClassDeclaration;
+identifierOrNull = classDeclaration.id;
+classDeclaration.id = null;
 
 // Clauses
 // SwitchCase

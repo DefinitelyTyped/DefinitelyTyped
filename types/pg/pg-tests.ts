@@ -9,6 +9,7 @@ const client = new Client({
   port: 5334,
   user: 'database-user',
   password: 'secretpassword!!',
+  keepAlive: true,
 });
 client.connect(err => {
     if (err) {
@@ -59,6 +60,14 @@ client.query(query, (err, res) => {
   }
 });
 client.query(query)
+  .then(res => {
+    console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
+  })
+  .catch(e => {
+    console.error(e.stack);
+  });
+client.query(query, ['brianc'])
   .then(res => {
     console.log(res.rows);
     console.log(res.fields.map(f => f.name));
@@ -117,6 +126,7 @@ const pool = new Pool({
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
+  keepAlive: false,
 });
 console.log(pool.totalCount);
 pool.connect((err, client, done) => {
@@ -156,6 +166,9 @@ pool.query('SELECT $1::text as name', ['brianc'], (err, result) => {
 pool.query('SELECT $1::text as name', ['brianc'])
   .then((res) => console.log(res.rows[0].name))
   .catch(err => console.error('Error executing query', err.stack));
+pool.query({ text: 'SELECT $1::text as name' }, ['brianc'])
+  .then((res) => console.log(res.rows[0].name))
+  .catch(err => console.error('Error executing query', err.stack));
 
 pool.end(() => {
   console.log('pool has ended');
@@ -168,3 +181,8 @@ pool.end().then(() => console.log('pool has ended'));
   await client.query('SELECT NOW()');
   client.release();
 })();
+
+// client constructor tests
+// client config object tested above
+let c = new Client(); // empty constructor allowed
+c = new Client('connectionString'); // connection string allowed

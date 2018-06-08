@@ -32,7 +32,7 @@ server.register({
 .then(() => {
     const opts: hapiAuthJwt2.Options = {
         key: 'NeverShareYourSecret',
-        async validate(decoded: { id: number }, request) {
+        async validate(decoded: { id: number }) {
             return {
                 isValid: !!users[decoded.id],
             };
@@ -42,5 +42,14 @@ server.register({
             issuer: 'test',
         }
     };
+    const opts2: hapiAuthJwt2.Options = {
+        key: 'NeverShareYourSecret2',
+        validate(decoded: { id: number }) {
+            return {
+                isValid: !!users[decoded.id],
+            };
+        }
+    };
     server.auth.strategy('jwt', 'jwt', opts);
+    server.auth.strategy('jwt2', 'jwt', opts2);
 });

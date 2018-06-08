@@ -175,8 +175,4 @@ declare module "../index" {
             floating?: boolean
         ): LoDashExplicitWrapper<number>;
     }
-
-    /**********
-     * Object *
-     **********/
 }

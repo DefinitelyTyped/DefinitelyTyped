@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.8
+// Type definitions for Sequelize 4.27.10
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -12,6 +12,7 @@
 //                 Nikola Vidic <https://github.com/nidzov>
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
+//                 Nick Schultz <https://github.com/nrschultz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1199,7 +1200,7 @@ declare namespace sequelize {
          *  Attribute name for the relation
          */
         name?: string;
-
+        unique?: boolean | string;
     }
 
     /**
@@ -1517,8 +1518,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): void;
+        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): IncludeAssociation;
 
         /**
          * Creates an association between this (the source) and the provided target. The foreign key is added on the
@@ -1528,8 +1530,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): void;
+        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): IncludeAssociation;
 
         /**
          * Create an association that is either 1:m or n:m.
@@ -1582,8 +1585,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): void;
+        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): IncludeAssociation;
 
         /**
          * Create an N:M association with a join table
@@ -1631,9 +1635,10 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          *
          */
-        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): void;
+        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): IncludeAssociation;
 
     }
 
@@ -2814,12 +2819,15 @@ declare namespace sequelize {
         /**
          * Get the value of the underlying data value
          */
-        getDataValue(key: string): any;
+        getDataValue(key: keyof TAttributes): any;
 
         /**
          * Update the underlying data value
          */
-        setDataValue(key: string, value: any): void;
+        setDataValue<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K]
+        ): void;
 
         /**
          * If no key is given, returns all values of the instance, also invoking virtual getters.
@@ -2829,7 +2837,7 @@ declare namespace sequelize {
          *
          * @param options.plain If set to true, included instances will be returned as plain objects
          */
-        get(key: string, options?: { plain?: boolean, clone?: boolean }): any;
+        get(key: keyof TAttributes, options?: { plain?: boolean, clone?: boolean }): any;
         get(options?: { plain?: boolean, clone?: boolean }): TAttributes;
 
         /**
@@ -2856,9 +2864,17 @@ declare namespace sequelize {
          * @param options.raw If set to true, field and virtual setters will be ignored
          * @param options.reset Clear all previously set data values
          */
-        set(key: string, value: any, options?: InstanceSetOptions): this;
+        set<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceSetOptions
+        ): this;
         set(keys: Object, options?: InstanceSetOptions): this;
-        setAttributes(key: string, value: any, options?: InstanceSetOptions): this;
+        setAttributes<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceSetOptions
+        ): this;
         setAttributes(keys: Object, options?: InstanceSetOptions): this;
 
         /**
@@ -2869,13 +2885,13 @@ declare namespace sequelize {
          *
          * If changed is called without an argument and no keys have changed, it will return `false`.
          */
-        changed(key: string): boolean;
+        changed(key: keyof TAttributes): boolean;
         changed(): boolean | string[];
 
         /**
          * Returns the previous value for key from `_previousDataValues`.
          */
-        previous(key: string): any;
+        previous(key: keyof TAttributes): any;
 
         /**
          * Validate this instance, and if the validation passes, persist it to the database.
@@ -2907,9 +2923,17 @@ declare namespace sequelize {
         /**
          * This is the same as calling `set` and then calling `save`.
          */
-        update(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
+        update<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceUpdateOptions
+        ): Promise<this>;
         update(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
-        updateAttributes(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
+        updateAttributes<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceUpdateOptions
+        ): Promise<this>;
         updateAttributes(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
 
         /**
@@ -2943,7 +2967,7 @@ declare namespace sequelize {
          *               If an array is provided, the same is true for each column.
          *               If and object is provided, each column is incremented by the value given.
          */
-        increment(fields: string | string[] | Object,
+        increment(fields: Partial<TAttributes> | Array<keyof TAttributes> | keyof TAttributes,
             options?: InstanceIncrementDecrementOptions): Promise<this>;
 
         /**
@@ -2966,7 +2990,7 @@ declare namespace sequelize {
          *               If an array is provided, the same is true for each column.
          *               If and object is provided, each column is decremented by the value given
          */
-        decrement(fields: string | string[] | Object,
+        decrement(fields: Partial<TAttributes> | Array<keyof TAttributes> | keyof TAttributes,
             options?: InstanceIncrementDecrementOptions): Promise<this>;
 
         /**
@@ -3342,6 +3366,13 @@ declare namespace sequelize {
          * Throw EmptyResultError if a record is not found
          */
         rejectOnEmpty?: boolean;
+
+       /**
+         * Force the query to use the write pool
+         *
+         * Defaults to false
+         */
+        useMaster?: boolean;
     }
 
     type AnyFindOptions = FindOptions<any>;
@@ -3793,7 +3824,7 @@ declare namespace sequelize {
          * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
          *     model will clear the previous scope.
          */
-        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
 
         /**
          * Search for multiple instances.
@@ -3864,8 +3895,8 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
-        findByPrimary<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -4005,10 +4036,10 @@ declare namespace sequelize {
          * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
          * whether the row was inserted or not.
          */
-        upsert(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning?: false | undefined }): Promise<boolean>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
 
         /**
          * Create and insert multiple instances in bulk.
@@ -4045,7 +4076,7 @@ declare namespace sequelize {
          * elements. The first element is always the number of affected rows, while the second element is the actual
          * affected rows (only supported in postgres with `options.returning` true.)
          */
-        update(values: TAttributes, options: UpdateOptions): Promise<[number, TInstance[]]>;
+        update(values: Partial<TAttributes>, options?: UpdateOptions): Promise<[number, TInstance[]]>;
 
         /**
          * Run a describe query on the table. The result will be return to the listener as a hash of attributes and
@@ -4060,6 +4091,15 @@ declare namespace sequelize {
 
         /**
          * Set associations with other models
+         *
+         * Not part of the sequelize API, used as convention to associate models after creation. e.g.:
+         * ```js
+         * Object.keys(models).forEach(modelName => {
+         *   if (models[modelName].associate) {
+         *     models[modelName].associate(models);
+         *   }
+         * });
+         * ```
          *
          * @param models
          */
@@ -5319,7 +5359,7 @@ declare namespace sequelize {
             username?: string;
             password?: string;
             database?: string;
-        };
+        }[];
 
         write?: {
             host?: string;
@@ -6148,6 +6188,10 @@ declare namespace sequelize {
          */
         databaseVersion(): Promise<string>;
 
+        /**
+         * Get the fn for random based on the dialect
+         */
+        random(): fn;
     }
 
     //

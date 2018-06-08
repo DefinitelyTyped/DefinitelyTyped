@@ -20,7 +20,7 @@ export class Reset {
     /**
      * Look up a refs's commit.
      */
-    static default(repo: Repository, target: Object, pathspecs: Strarray): Promise<number>;
+    static default(repo: Repository, target: Object, pathspecs: Strarray | string | string[]): Promise<number>;
     /**
      * Sets the current head to the specified commit oid and optionally resets the index and working tree to match.
      * This behaves like reset but takes an annotated commit, which lets you specify which extended sha syntax string was specified by a user, allowing for more exact reflog messages.

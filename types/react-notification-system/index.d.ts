@@ -12,6 +12,7 @@ declare namespace NotificationSystem {
         addNotification(notification: Notification): Notification;
         removeNotification(uidOrNotification: number | string | Notification): void;
         clearNotifications(): void;
+        editNotification(uidOrNotification: number | string | Notification, newNotification: Notification): void;
     }
 
     export type CallBackFunction = (notification: Notification) => void;

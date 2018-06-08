@@ -21,6 +21,12 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         hover: {
             intersect: true
         },
+        onHover(ev: MouseEvent, points: any[]) {
+          return;
+        },
+        title: {
+            text: ["foo", "bar"]
+        },
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
@@ -52,6 +58,7 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                 padding: 40
             }
         },
+        devicePixelRatio: 2,
     }
 });
 chart.update();

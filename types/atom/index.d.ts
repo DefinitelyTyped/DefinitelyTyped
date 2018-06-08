@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.24
+// Type definitions for Atom 1.27
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.24.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.27.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -39,58 +39,58 @@ export function watchPath(rootPath: string, options: {}, eventCallback: (events:
 export interface AtomEnvironment {
     // Properties
     /** A CommandRegistry instance. */
-    commands: CommandRegistry;
+    readonly commands: CommandRegistry;
 
     /** A Config instance. */
-    config: Config;
+    readonly config: Config;
 
     /** A Clipboard instance. */
-    clipboard: Clipboard;
+    readonly clipboard: Clipboard;
 
     /** A ContextMenuManager instance. */
-    contextMenu: ContextMenuManager;
+    readonly contextMenu: ContextMenuManager;
 
     /** A MenuManager instance. */
-    menu: MenuManager;
+    readonly menu: MenuManager;
 
     /** A KeymapManager instance. */
-    keymaps: KeymapManager;
+    readonly keymaps: KeymapManager;
 
     /** A TooltipManager instance. */
-    tooltips: TooltipManager;
+    readonly tooltips: TooltipManager;
 
     /** A NotificationManager instance. */
-    notifications: NotificationManager;
+    readonly notifications: NotificationManager;
 
     /** A Project instance. */
-    project: Project;
+    readonly project: Project;
 
     /** A GrammarRegistry instance. */
-    grammars: GrammarRegistry;
+    readonly grammars: GrammarRegistry;
 
     /** A HistoryManager instance. */
-    history: HistoryManager;
+    readonly history: HistoryManager;
 
     /** A PackageManager instance. */
-    packages: PackageManager;
+    readonly packages: PackageManager;
 
     /** A ThemeManager instance. */
-    themes: ThemeManager;
+    readonly themes: ThemeManager;
 
     /** A StyleManager instance. */
-    styles: StyleManager;
+    readonly styles: StyleManager;
 
     /** A DeserializerManager instance. */
-    deserializers: DeserializerManager;
+    readonly deserializers: DeserializerManager;
 
     /** A ViewRegistry instance. */
-    views: ViewRegistry;
+    readonly views: ViewRegistry;
 
     /** A Workspace instance. */
-    workspace: Workspace;
+    readonly workspace: Workspace;
 
     /** A TextEditorRegistry instance. */
-    textEditors: TextEditorRegistry;
+    readonly textEditors: TextEditorRegistry;
 
     // Event Subscription
     /** Invoke the given callback whenever ::beep is called. */
@@ -204,7 +204,27 @@ export interface AtomEnvironment {
     beep(): void;
 
     /**
-     *  A flexible way to open a dialog akin to an alert dialog.
+     *  A flexible way to open a dialog akin to an alert dialog. If a callback
+     *  is provided, then the confirmation will work asynchronously, which is
+     *  recommended.
+     *
+     *  If the dialog is closed (via `Esc` key or `X` in the top corner) without
+     *  selecting a button the first button will be clicked unless a "Cancel" or "No"
+     *  button is provided.
+     *
+     *  Returns the chosen button index number if the buttons option was an array.
+     *  @param response The index of the button that was clicked.
+     *  @param checkboxChecked The checked state of the checkbox if `checkboxLabel` was set.
+     *  Otherwise false.
+     */
+    confirm(options: ConfirmationOptions, callback: (response: number,
+        checkboxChecked: boolean) => void): void;
+
+    /**
+     *  A flexible way to open a dialog akin to an alert dialog. If a callback
+     *  is provided, then the confirmation will work asynchronously, which is
+     *  recommended.
+     *
      *  If the dialog is closed (via `Esc` key or `X` in the top corner) without
      *  selecting a button the first button will be clicked unless a "Cancel" or "No"
      *  button is provided.
@@ -218,7 +238,10 @@ export interface AtomEnvironment {
     }): void;
 
     /**
-     *  A flexible way to open a dialog akin to an alert dialog.
+     *  A flexible way to open a dialog akin to an alert dialog. If a callback
+     *  is provided, then the confirmation will work asynchronously, which is
+     *  recommended.
+     *
      *  If the dialog is closed (via `Esc` key or `X` in the top corner) without
      *  selecting a button the first button will be clicked unless a "Cancel" or "No"
      *  button is provided.
@@ -264,11 +287,11 @@ export interface CommandRegistryTargetMap extends HTMLElementTagNameMap {
 }
 
 export type CommandRegistryListener<TargetType extends EventTarget> = {
-  didDispatch(event: CommandEvent<TargetType>): void,
-  displayName?: string,
-  description?: string,
-  hiddenInCommandPalette?: boolean,
-} | ((event: CommandEvent<TargetType>) => void);
+    didDispatch(event: CommandEvent<TargetType>): void | Promise<void>,
+    displayName?: string,
+    description?: string,
+    hiddenInCommandPalette?: boolean,
+} | ((event: CommandEvent<TargetType>) => void | Promise<void>);
 
 /**
  *  Associates listener functions with commands in a context-sensitive way
@@ -305,9 +328,10 @@ export interface CommandRegistry {
 
     /**
      *  Simulate the dispatch of a command on a DOM node.
-     *  @return Whether or not there was a matching command for the target.
+     *  @return Either a Promise that resolves after all handlers complete or null if
+     *  no handlers were matched.
      */
-    dispatch(target: Node, commandName: string): boolean;
+    dispatch(target: Node, commandName: string): Promise<void> | null;
 
     /** Invoke the given callback before dispatching a command event. */
     onWillDispatch(callback: (event: CommandEvent) => void): Disposable;
@@ -446,7 +470,7 @@ export interface Config {
  */
 export interface Decoration {
     /** The identifier for this Decoration. */
-    id: number;
+    readonly id: number;
 
     // Construction and Destruction
     /**
@@ -654,7 +678,7 @@ export interface DisplayMarker {
  */
 export interface DisplayMarkerLayer {
     /** The identifier for the underlying MarkerLayer. */
-    id: string;
+    readonly id: string;
 
     // Lifecycle
     /** Destroy this layer. */
@@ -839,7 +863,7 @@ export interface LayerDecoration {
  */
 export interface Marker {
     /** The identifier for this Marker. */
-    id: number;
+    readonly id: number;
 
     // Lifecycle
     /**
@@ -952,7 +976,7 @@ export interface Marker {
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {
     /** The identifier for this MarkerLayer. */
-    id: string;
+    readonly id: string;
 
     // Lifecycle
     /** Create a copy of this layer with markers in the same state and locations. */
@@ -979,6 +1003,9 @@ export interface MarkerLayer {
 
     /** Find markers in the layer conforming to the given parameters. */
     findMarkers(params: FindMarkerOptions): Marker[];
+
+    /** Get the role of the marker layer e.g. "atom.selection". */
+    getRole(): string | undefined;
 
     // Marker Creation
     /** Create a marker with the given range. */
@@ -1035,12 +1062,12 @@ export class Notification {
 
 /** A notification manager used to create Notifications to be shown to the user. */
 export interface NotificationManager {
-    // Properties
-    notifications: Notification[];
-
     // Events
     /** Invoke the given callback after a notification has been added. */
     onDidAddNotification(callback: (notification: Notification) => void): Disposable;
+
+    /** Invoke the given callback after the notifications have been cleared. */
+    onDidClearNotifications(callback: () => void): Disposable;
 
     // Adding Notifications
     /** Add a success notification. */
@@ -1060,7 +1087,11 @@ export interface NotificationManager {
 
     // Getting Notifications
     /** Get all the notifications. */
-    getNotifications(): Notification[];
+    getNotifications(): ReadonlyArray<Notification>;
+
+    // Managing Notifications
+    /** Clear all the notifications. */
+    clear(): void;
 }
 
 /** Represents a point in a buffer in row/column coordinates. */
@@ -1272,8 +1303,7 @@ export class Range {
  *  including cursor and selection positions, folds, and soft wraps.
  */
 export class TextEditor {
-    id: number;
-    buffer: TextBuffer;
+    readonly id: number;
 
     // NOTE: undocumented within the public API. Don't go down the rabbit hole.
     constructor(options?: object);
@@ -1498,29 +1528,29 @@ export class TextEditor {
 
     // Mutating Text
     /** Replaces the entire contents of the buffer with the given string. */
-    setText(text: string): void;
+    setText(text: string, options?: ReadonlyEditOptions): void;
 
     /** Set the text in the given Range in buffer coordinates. */
     setTextInBufferRange(range: RangeCompatible, text: string, options?:
-        { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
+        TextEditOptions & ReadonlyEditOptions): Range;
 
     /* For each selection, replace the selected text with the given text. */
-    insertText(text: string, options?: TextInsertionOptions): Range|false;
+    insertText(text: string, options?: TextInsertionOptions & ReadonlyEditOptions): Range|false;
 
     /** For each selection, replace the selected text with a newline. */
-    insertNewline(): void;
+    insertNewline(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete the character following
      *  the cursor. Otherwise delete the selected text.
      */
-    delete(): void;
+    delete(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete the character preceding
      *  the cursor. Otherwise delete the selected text.
      */
-    backspace(): void;
+    backspace(options?: ReadonlyEditOptions): void;
 
     /**
      *  Mutate the text of all the selections in a single transaction.
@@ -1534,89 +1564,89 @@ export class TextEditor {
      *  If the selection is empty, the characters preceding and following the cursor
      *  are swapped. Otherwise, the selected characters are reversed.
      */
-    transpose(): void;
+    transpose(options?: ReadonlyEditOptions): void;
 
     /**
      *  Convert the selected text to upper case.
      *  For each selection, if the selection is empty, converts the containing word
      *  to upper case. Otherwise convert the selected text to upper case.
      */
-    upperCase(): void;
+    upperCase(options?: ReadonlyEditOptions): void;
 
     /**
      *  Convert the selected text to lower case.
      *  For each selection, if the selection is empty, converts the containing word
      *  to upper case. Otherwise convert the selected text to upper case.
      */
-    lowerCase(): void;
+    lowerCase(options?: ReadonlyEditOptions): void;
 
     /**
      *  Toggle line comments for rows intersecting selections.
      *  If the current grammar doesn't support comments, does nothing.
      */
-    toggleLineCommentsInSelection(): void;
+    toggleLineCommentsInSelection(options?: ReadonlyEditOptions): void;
 
     /** For each cursor, insert a newline at beginning the following line. */
-    insertNewlineBelow(): void;
+    insertNewlineBelow(options?: ReadonlyEditOptions): void;
 
     /** For each cursor, insert a newline at the end of the preceding line. */
-    insertNewlineAbove(): void;
+    insertNewlineAbove(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing word that precede the cursor. Otherwise delete the selected text.
      */
-    deleteToBeginningOfWord(): void;
+    deleteToBeginningOfWord(options?: ReadonlyEditOptions): void;
 
     /**
      *  Similar to ::deleteToBeginningOfWord, but deletes only back to the previous
      *  word boundary.
      */
-    deleteToPreviousWordBoundary(): void;
+    deleteToPreviousWordBoundary(options?: ReadonlyEditOptions): void;
 
     /** Similar to ::deleteToEndOfWord, but deletes only up to the next word boundary. */
-    deleteToNextWordBoundary(): void;
+    deleteToNextWordBoundary(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing subword following the cursor. Otherwise delete the selected text.
      */
-    deleteToBeginningOfSubword(): void;
+    deleteToBeginningOfSubword(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing subword following the cursor. Otherwise delete the selected text.
      */
-    deleteToEndOfSubword(): void;
+    deleteToEndOfSubword(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing line that precede the cursor. Otherwise delete the selected text.
      */
-    deleteToBeginningOfLine(): void;
+    deleteToBeginningOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is not empty, deletes the selection
      *  otherwise, deletes all characters of the containing line following the cursor.
      *  If the cursor is already at the end of the line, deletes the following newline.
      */
-    deleteToEndOfLine(): void;
+    deleteToEndOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing word following the cursor. Otherwise delete the selected text.
      */
-    deleteToEndOfWord(): void;
+    deleteToEndOfWord(options?: ReadonlyEditOptions): void;
 
     /** Delete all lines intersecting selections. */
-    deleteLine(): void;
+    deleteLine(options?: ReadonlyEditOptions): void;
 
     // History
     /** Undo the last change. */
-    undo(): void;
+    undo(options?: ReadonlyEditOptions): void;
 
     /** Redo the last change. */
-    redo(): void;
+    redo(options?: ReadonlyEditOptions): void;
 
     /**
      *  Batch multiple operations as a single undo/redo step.
@@ -2137,6 +2167,12 @@ export class TextEditor {
      */
     selectToBeginningOfPreviousParagraph(): void;
 
+    /** For each selection, select the syntax node that contains that selection. */
+    selectLargerSyntaxNode(): void;
+
+    /** Undo the effect a preceding call to `::selectLargerSyntaxNode`. */
+    selectSmallerSyntaxNode(): void;
+
     /** Select the range of the given marker if it is valid. */
     selectMarker(marker: DisplayMarker): Range|undefined;
 
@@ -2251,10 +2287,10 @@ export class TextEditor {
         { preserveLeadingWhitespace?: boolean }): void;
 
     /** Indent rows intersecting selections by one level. */
-    indentSelectedRows(): void;
+    indentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /** Outdent rows intersecting selections by one level. */
-    outdentSelectedRows(): void;
+    outdentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /**
      *  Get the indentation level of the given line of text.
@@ -2265,7 +2301,7 @@ export class TextEditor {
     indentLevelForLine(line: string): number;
 
     /** Indent rows intersecting selections based on the grammar's suggested indent level. */
-    autoIndentSelectedRows(): void;
+    autoIndentSelectedRows(options?: ReadonlyEditOptions): void;
 
     // Grammars
     /** Get the current Grammar of this editor. */
@@ -2295,7 +2331,7 @@ export class TextEditor {
     copySelectedText(): void;
 
     /** For each selection, cut the selected text. */
-    cutSelectedText(): void;
+    cutSelectedText(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, replace the selected text with the contents of the clipboard.
@@ -2303,19 +2339,19 @@ export class TextEditor {
      *  each selection will be replaced with the content of the corresponding clipboard
      *  selection text.
      */
-    pasteText(options?: TextInsertionOptions): void;
+    pasteText(options?: TextInsertionOptions & ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, cut all characters of the
      *  containing screen line following the cursor. Otherwise cut the selected text.
      */
-    cutToEndOfLine(): void;
+    cutToEndOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, cut all characters of the
      *  containing buffer line following the cursor. Otherwise cut the selected text.
      */
-    cutToEndOfBufferLine(): void;
+    cutToEndOfBufferLine(options?: ReadonlyEditOptions): void;
 
     // Folds
     /**
@@ -2347,7 +2383,10 @@ export class TextEditor {
     /** Unfold all existing folds. */
     unfoldAll(): void;
 
-    /** Fold all foldable lines at the given indent level. */
+    /**
+     * Fold all foldable lines at the given indent level.
+     * @param level A zero-indexed number.
+     */
     foldAllAtIndentLevel(level: number): void;
 
     /**
@@ -2522,10 +2561,6 @@ export interface TextEditorRegistry {
     // Event Subscription
     /** Invoke the given callback with all the current and future registered TextEditors. */
     observe(callback: (editor: TextEditor) => void): Disposable;
-}
-
-export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
-    jquery: string;
 }
 
 export type TooltipPlacement =
@@ -2984,7 +3019,7 @@ export interface WorkspaceCenter {
  *  Node's ChildProcess.
  */
 export class BufferedProcess {
-    process?: ChildProcess;
+    readonly process?: ChildProcess;
 
     constructor(options: ProcessOptions);
 
@@ -3290,7 +3325,7 @@ export class Directory {
     /** Returns a boolean, always false. */
     isFile(): this is File;
 
-    /** Returns a roolean, always true. */
+    /** Returns a boolean, always true. */
     isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
@@ -3451,6 +3486,12 @@ export interface Dock {
 
     /** Invoke the given callback when a pane item is destroyed. */
     onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
+
+    /**
+     *  Invoke the given callback when the hovered state of the dock changes.
+     *  @param hovered Is the dock now hovered?
+     */
+    onDidChangeHovered(callback: (hovered: boolean) => void): Disposable;
 
     // Pane Items
     /** Get all pane items in the dock. */
@@ -4052,10 +4093,10 @@ export interface MenuManager {
  */
 export interface Package {
     /** The name of the Package. */
-    name: string;
+    readonly name: string;
 
     /** The path to the Package on disk. */
-    path: string;
+    readonly path: string;
 
     // Event Subscription
     /** Invoke the given callback when all packages have been activated. */
@@ -4377,7 +4418,7 @@ export interface Pane {
  */
 export interface Panel<T = object> {
     /** Whether or not the Panel is visible. */
-    visible: boolean;
+    readonly visible: boolean;
 
     // Construction and Destruction
     /** Destroy and remove this panel from the UI. */
@@ -4444,6 +4485,10 @@ export interface Project {
     /** Invoke a callback when a filesystem change occurs within any open project path. */
     onDidChangeFiles(callback: (events: FilesystemChangeEvent) => void): Disposable;
 
+    /** Invoke a callback whenever the project's configuration has been replaced. */
+    onDidReplace(callback: (projectSpec: ProjectSpecification | null | undefined) => void):
+        Disposable;
+
     // Accessing the Git Repository
     /**
      * Get an Array of GitRepositorys associated with the project's directories.
@@ -4498,10 +4543,8 @@ export interface Project {
  *  syntax tree to a token including all scope names for the entire path.
  */
 export interface ScopeDescriptor {
-    scopes: string[];
-
     /** Returns all scopes for this descriptor. */
-    getScopesArray(): string[];
+    getScopesArray(): ReadonlyArray<string>;
 }
 
 /** Represents a selection in the TextEditor. */
@@ -4680,107 +4723,107 @@ export interface Selection {
 
     // Modifying the selected text
     /** Replaces text at the current selection. */
-    insertText(text: string, options?: TextInsertionOptions): void;
+    insertText(text: string, options?: TextInsertionOptions & ReadonlyEditOptions): void;
 
     /**
      *  Removes the first character before the selection if the selection is empty
      *  otherwise it deletes the selection.
      */
-    backspace(): void;
+    backspace(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or, if nothing is selected, then all characters from
      *  the start of the selection back to the previous word boundary.
      */
-    deleteToPreviousWordBoundary(): void;
+    deleteToPreviousWordBoundary(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or, if nothing is selected, then all characters from
      *  the start of the selection up to the next word boundary.
      */
-    deleteToNextWordBoundary(): void;
+    deleteToNextWordBoundary(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes from the start of the selection to the beginning of the current
      *  word if the selection is empty otherwise it deletes the selection.
      */
-    deleteToBeginningOfWord(): void;
+    deleteToBeginningOfWord(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes from the beginning of the line which the selection begins on all
      *  the way through to the end of the selection.
      */
-    deleteToBeginningOfLine(): void;
+    deleteToBeginningOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or the next character after the start of the selection
      *  if the selection is empty.
      */
-    delete(): void;
+    delete(options?: ReadonlyEditOptions): void;
 
     /**
      *  If the selection is empty, removes all text from the cursor to the end of
      *  the line. If the cursor is already at the end of the line, it removes the following
      *  newline. If the selection isn't empty, only deletes the contents of the selection.
      */
-    deleteToEndOfLine(): void;
+    deleteToEndOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or all characters from the start of the selection to
      *  the end of the current word if nothing is selected.
      */
-    deleteToEndOfWord(): void;
+    deleteToEndOfWord(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or all characters from the start of the selection to
      *  the end of the current word if nothing is selected.
      */
-    deleteToBeginningOfSubword(): void;
+    deleteToBeginningOfSubword(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the selection or all characters from the start of the selection to
      *  the end of the current word if nothing is selected.
      */
-    deleteToEndOfSubword(): void;
+    deleteToEndOfSubword(options?: ReadonlyEditOptions): void;
 
     /** Removes only the selected text. */
-    deleteSelectedText(): void;
+    deleteSelectedText(options?: ReadonlyEditOptions): void;
 
     /**
      *  Removes the line at the beginning of the selection if the selection is empty
      *  unless the selection spans multiple lines in which case all lines are removed.
      */
-    deleteLine(): void;
+    deleteLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  Joins the current line with the one below it. Lines will be separated by a single space.
      *  If there selection spans more than one line, all the lines are joined together.
      */
-    joinLines(): void;
+    joinLines(options?: ReadonlyEditOptions): void;
 
     /** Removes one level of indent from the currently selected rows. */
-    outdentSelectedRows(): void;
+    outdentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /**
      *  Sets the indentation level of all selected rows to values suggested by the
      *  relevant grammars.
      */
-    autoIndentSelectedRows(): void;
+    autoIndentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /**
      *  Wraps the selected lines in comments if they aren't currently part of a comment.
      *  Removes the comment if they are currently wrapped in a comment.
      */
-    toggleLineComments(): void;
+    toggleLineComments(options?: ReadonlyEditOptions): void;
 
     /** Cuts the selection until the end of the screen line. */
-    cutToEndOfLine(): void;
+    cutToEndOfLine(maintainClipboard?: boolean, options?: ReadonlyEditOptions): void;
 
     /** Cuts the selection until the end of the buffer line. */
-    cutToEndOfBufferLine(): void;
+    cutToEndOfBufferLine(maintainClipboard?: boolean, options?: ReadonlyEditOptions): void;
 
     /** Copies the selection to the clipboard and then deletes it. */
-    cut(maintainClipboard?: boolean, fullLine?: boolean): void;
+    cut(maintainClipboard?: boolean, fullLine?: boolean, options?: ReadonlyEditOptions): void;
 
     /** Copies the current selection to the clipboard. */
     copy(maintainClipboard?: boolean, fullLine?: boolean): void;
@@ -4789,7 +4832,7 @@ export interface Selection {
     fold(): void;
 
     /** If the selection spans multiple rows, indent all of them. */
-    indentSelectedRows(): void;
+    indentSelectedRows(options?: ReadonlyEditOptions): void;
 
     // Managing multiple selections
     /** Moves the selection down one row. */
@@ -4894,13 +4937,13 @@ export class Task {
  */
 export class TextBuffer {
     /** The unique identifier for this buffer. */
-    id: string;
+    readonly id: string;
 
     /** The number of retainers for the buffer. */
-    refcount: number;
+    readonly refcount: number;
 
     /** Whether or not the bufffer has been destroyed. */
-    destroyed: boolean;
+    readonly destroyed: boolean;
 
     /** Create a new buffer backed by the given file path. */
     static load(filePath: string, params?: BufferLoadOptions): Promise<TextBuffer>;
@@ -5068,7 +5111,10 @@ export class TextBuffer {
     /** Get the text of the last line of the buffer, without its line ending. */
     getLastLine(): string;
 
-    /** Get the text of the line at the given row, without its line ending. */
+    /**
+     *  Get the text of the line at the given 0-indexed row, without its line ending.
+     *  @param row A number representing the row.
+     */
     lineForRow(row: number): string|undefined;
 
     /** Get the line ending for the given 0-indexed row. */
@@ -5095,6 +5141,12 @@ export class TextBuffer {
      */
     nextNonBlankRow(startRow: number): number|null;
 
+    /**
+     *  Return true if the buffer contains any astral-plane Unicode characters that
+     *  are encoded as surrogate pairs.
+     */
+    hasAstral(): boolean;
+
     // Mutating Text
     /** Replace the entire contents of the buffer with the given text. */
     setText(text: string): Range;
@@ -5106,29 +5158,34 @@ export class TextBuffer {
     setTextViaDiff(text: string): void;
 
     /** Set the text in the given range. */
-    setTextInRange(range: RangeCompatible, text: string, options?:
-        { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
+    setTextInRange(range: RangeCompatible, text: string, options?: TextEditOptions): Range;
 
     /** Insert text at the given position. */
-    insert(position: PointCompatible, text: string, options?:
-        { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
+    insert(position: PointCompatible, text: string, options?: TextEditOptions): Range;
 
     /** Append text to the end of the buffer. */
-    append(text: string, options?: { normalizeLineEndings?: boolean, undo?:
-        "skip" }): Range;
+    append(text: string, options?: TextEditOptions): Range;
 
     /** Delete the text in the given range. */
     delete(range: RangeCompatible): Range;
 
-    /** Delete the line associated with a specified row. */
+    /**
+     *  Delete the line associated with a specified 0-indexed row.
+     *  @param row A number representing the row to delete.
+     */
     deleteRow(row: number): Range;
 
-    /** Delete the lines associated with the specified row range. */
+    /**
+     *  Delete the lines associated with the specified 0-indexed row range.
+     *
+     *  If the row range is out of bounds, it will be clipped. If the `startRow`
+     *  is greater than the `endRow`, they will be reordered.
+     */
     deleteRows(startRow: number, endRow: number): Range;
 
     // Markers
     /** Create a layer to contain a set of related markers. */
-    addMarkerLayer(options?: { maintainHistory?: boolean, persistent?: boolean }):
+    addMarkerLayer(options?: { maintainHistory?: boolean, persistent?: boolean, role?: string }):
         MarkerLayer;
 
     /**
@@ -5162,47 +5219,63 @@ export class TextBuffer {
     getMarkerCount(): number;
 
     // History
-    /** Undo the last operation. If a transaction is in progress, aborts it. */
-    undo(): boolean;
+    /**
+     *  Undo the last operation. If a transaction is in progress, aborts it.
+     *  @return A boolean of whether or not a change was made.
+     */
+    undo(options?: HistoryTraversalOptions): boolean;
 
-    /** Redo the last operation. */
-    redo(): boolean;
+    /**
+     *  Redo the last operation.
+     *  @return A boolean of whether or not a change was made.
+     */
+    redo(options?: HistoryTraversalOptions): boolean;
 
     /** Batch multiple operations as a single undo/redo step. */
-    transact<T>(groupingInterval: number, fn: () => T): T;
+    transact<T>(optionsOrInterval: number | { groupingInterval?: number } &
+        HistoryTransactionOptions, fn: () => T): T;
+    /** Batch multiple operations as a single undo/redo step. */
     transact<T>(fn: () => T): T;
 
     /**
-     *  Call within a transaction to terminate the function's execution and
-     *  revert any changes performed up to the abortion.
+     *  Abort the currently running transaction.
+     *
+     *  Only intended to be called within the `fn` option to `::transact`.
      */
     abortTransaction(): void;
 
-    /**
-     *  Clear the undo stack. When calling this method within a transaction,
-     *  the ::onDidChangeText event will not be triggered because the information
-     *  describing the changes is lost.
-     */
+    /** Clear the undo stack. */
     clearUndoStack(): void;
 
     /**
      *  Create a pointer to the current state of the buffer for use with
-     *  ::revertToCheckpoint and ::groupChangesSinceCheckpoint.
+     *  `::revertToCheckpoint` and `::groupChangesSinceCheckpoint`.
+     *  @return A checkpoint ID value.
      */
-    createCheckpoint(): number;
+    createCheckpoint(options?: HistoryTransactionOptions): number;
 
     /**
      *  Revert the buffer to the state it was in when the given checkpoint was created.
-     *  Returns a boolean indicating whether the operation succeeded.
+     *  @return A boolean indicating whether the operation succeeded.
      */
-    revertToCheckpoint(checkpoint: number): boolean;
+    revertToCheckpoint(checkpoint: number, options?: HistoryTraversalOptions):
+        boolean;
 
     /**
      *  Group all changes since the given checkpoint into a single transaction for
      *  purposes of undo/redo.
-     *  Returns a boolean indicating whether the operation succeeded.
+     *  @return A boolean indicating whether the operation succeeded.
      */
-    groupChangesSinceCheckpoint(checkpoint: number): boolean;
+    groupChangesSinceCheckpoint(checkpoint: number, options?: HistoryTransactionOptions): boolean;
+
+    /**
+     *  Group the last two text changes for purposes of undo/redo.
+     *
+     *  This operation will only succeed if there are two changes on the undo stack.
+     *  It will not group past the beginning of an open transaction.
+     *  @return A boolean indicating whether the operation succeeded.
+     */
+    groupLastChanges(): boolean;
 
     /**
      *  Returns a list of changes since the given checkpoint.
@@ -5293,17 +5366,26 @@ export class TextBuffer {
     /** Get the maximal position in the buffer, where new text would be appended. */
     getEndPosition(): Point;
 
+    /** Get the length of the buffer's text. */
+    getLength(): number;
+
     /** Get the length of the buffer in characters. */
     getMaxCharacterIndex(): number;
 
-    /** Get the range for the given row. */
-    rangeForRow(row: number, includeNewline: boolean): Range;
+    /**
+     *  Get the range for the given row.
+     *  @param row A number representing a 0-indexed row.
+     *  @param includeNewline A boolean indicating whether or not to include the
+     *  newline, which results in a range that extends to the start of the next line.
+     *  (default: false)
+     */
+    rangeForRow(row: number, includeNewline?: boolean): Range;
 
     /**
      *  Convert a position in the buffer in row/column coordinates to an absolute
      *  character offset, inclusive of line ending characters.
      */
-    characterIndexForPosition(position: Point|[number, number]): number;
+    characterIndexForPosition(position: PointCompatible): number;
 
     /**
      *  Convert an absolute character offset, inclusive of newlines, to a position
@@ -5578,19 +5660,28 @@ export interface FileSavedEvent {
     path: string;
 }
 
-export type FilesystemChangeEvent = Array<{
+export interface FilesystemChangeBasic<
+  Action extends "created"|"modified"|"deleted"|"renamed"
+  = "created"|"modified"|"deleted"
+> {
     /** A string describing the filesystem action that occurred. */
-    action: "created"|"modified"|"deleted"|"renamed";
+    action: Action;
 
     /** The absolute path to the filesystem entry that was acted upon. */
     path: string;
+}
 
+export interface FilesystemChangeRename extends FilesystemChangeBasic<"renamed"> {
     /**
      *  For rename events, a string containing the filesystem entry's former
      *  absolute path.
      */
-    oldPath?: string;
-}>;
+    oldPath: string;
+}
+
+export type FilesystemChange = FilesystemChangeBasic|FilesystemChangeRename;
+
+export type FilesystemChangeEvent = FilesystemChange[];
 
 export interface FullKeybindingMatchEvent {
   /** The string of keystrokes that matched the binding. */
@@ -5753,7 +5844,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.24.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.27.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -6039,7 +6130,60 @@ export interface BuildEnvironmentOptions {
     enablePersistence?: boolean;
 }
 
-export interface ContextMenuOptions {
+export interface ConfirmationOptions {
+    /** The type of the confirmation prompt. */
+    type?: "none"|"info"|"error"|"question"|"warning";
+
+    /** The text for the buttons. */
+    buttons?: ReadonlyArray<string>;
+
+    /** The index for the button to be selected by default in the prompt. */
+    defaultId?: number;
+
+    /** The title for the prompt. */
+    title?: string;
+
+    /** The content of the message box. */
+    message?: string;
+
+    /** Additional information regarding the message. */
+    detail?: string;
+
+    /** If provided, the message box will include a checkbox with the given label. */
+    checkboxLabel?: string;
+
+    /** Initial checked state of the checkbox. false by default. */
+    checkboxChecked?: boolean;
+
+    /** An Electron NativeImage to use as the prompt's icon. */
+    icon?: object;
+
+    /**
+     *  The index of the button to be used to cancel the dialog, via the `Esc` key.
+     *  By default this is assigned to the first button with "cancel" or "no" as the
+     *  label. If no such labeled buttons exist and this option is not set, 0 will be
+     *  used as the return value or callback response.
+     *
+     *  This option is ignored on Windows.
+     */
+    cancelId?: number;
+
+    /**
+     *  On Windows, Electron will try to figure out which one of the buttons are
+     *  common buttons (like `Cancel` or `Yes`), and show the others as command links
+     *  in the dialog. This can make the dialog appear in the style of modern Windows
+     *  apps. If you don't like this behavior, you can set noLink to true.
+     */
+    noLink?: boolean;
+
+    /**
+     * Normalize the keyboard access keys across platforms.
+     * Atom defaults this to true.
+     */
+    normalizeAccessKeys?: boolean;
+}
+
+export interface ContextMenuItemOptions {
     /** The menu item's label. */
     label?: string;
 
@@ -6058,12 +6202,6 @@ export interface ContextMenuOptions {
     /** An array of additional items. */
     submenu?: ReadonlyArray<ContextMenuOptions>;
 
-    /**
-     *  If you want to create a separator, provide an item with type: 'separator'
-     *  and no other keys.
-     */
-    type?: "separator";
-
     /** Whether the menu item should appear in the menu. Defaults to true. */
     visible?: boolean;
 
@@ -6078,7 +6216,27 @@ export interface ContextMenuOptions {
      *  given context menu deployment.
      */
     shouldDisplay?(event: Event): void;
+
+    /** Place this menu item before the menu items representing the given commands. */
+    before?: ReadonlyArray<string>;
+
+    /** Place this menu item after the menu items representing the given commands. */
+    after?: ReadonlyArray<string>;
+
+    /**
+     * Place this menu item's group before the containing group of the menu items
+     * representing the given commands.
+     */
+    beforeGroupContaining?: ReadonlyArray<string>;
+
+    /**
+     * Place this menu item's group after the containing group of the menu items
+     * representing the given commands.
+     */
+    afterGroupContaining?: ReadonlyArray<string>;
 }
+
+export type ContextMenuOptions = ContextMenuItemOptions | { type: "separator" };
 
 export interface CopyMarkerOptions {
     /** Whether or not the marker should be tailed. */
@@ -6214,6 +6372,16 @@ export interface FindMarkerOptions {
     intersectsRow?: number;
 }
 
+export interface HistoryTransactionOptions {
+    /** When provided, skip taking snapshot for other selections markerLayers except given one. */
+    selectionsMarkerLayer?: MarkerLayer;
+}
+
+export interface HistoryTraversalOptions {
+    /** Restore snapshot of selections marker layer to given selectionsMarkerLayer. */
+    selectionsMarkerLayer?: MarkerLayer;
+}
+
 export interface MenuOptions {
     /** The menu itme's label. */
     label: string;
@@ -6269,6 +6437,11 @@ export interface ProcessOptions extends NodeProcessOptions {
      *  created.
      */
     autoStart?: boolean;
+}
+
+export interface ReadonlyEditOptions {
+    /** Whether the readonly protections on the text editor should be ignored. */
+    bypassReadOnly?: boolean;
 }
 
 export interface ScanContextOptions {
@@ -6352,7 +6525,18 @@ export interface SpawnProcessOptions {
     shell?: boolean | string;
 }
 
-export interface TextInsertionOptions {
+export interface TextEditOptions {
+    /** If true, all line endings will be normalized to match the editor's current mode. */
+    normalizeLineEndings?: boolean;
+
+    /**
+     * If skip, skips the undo stack for this operation.
+     * @deprecated Call groupLastChanges() on the TextBuffer afterward instead.
+     */
+    undo?: "skip";
+}
+
+export interface TextInsertionOptions extends TextEditOptions {
     /** If true, selects the newly added text. */
     select?: boolean;
 
@@ -6375,12 +6559,6 @@ export interface TextInsertionOptions {
      *  true, this behavior is suppressed.
      */
     preserveTrailingLineIndentation?: boolean;
-
-    /** If true, all line endings will be normalized to match the editor's current mode. */
-    normalizeLineEndings?: boolean;
-
-    /** If skip, skips the undo stack for this operation. */
-    undo?: "skip";
 }
 
 /** The options for a Bootstrap 3 Tooltip class, which Atom uses a variant of. */
@@ -6504,6 +6682,10 @@ export interface Deserializer {
 
 export interface DisposableLike {
     dispose(): void;
+}
+
+export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
+    jquery: string;
 }
 
 /** The types usable when constructing a point via the Point::fromObject method. */
@@ -6671,6 +6853,12 @@ export interface ProjectHistory {
     lastOpened: Date;
 }
 
+export interface ProjectSpecification {
+    paths: string[];
+    originPath: string;
+    config?: ConfigValues;
+}
+
 export interface ScandalResult {
     filePath: string;
     matches: Array<{
@@ -6753,11 +6941,11 @@ export interface TokenizeLineResult {
  *  jQuery, which is an expensive dependency we want to eliminate.
  */
 export interface Tooltip {
-    options: TooltipOptions;
-    enabled: boolean;
-    timeout: number;
-    hoverState: "in"|"out"|null;
-    element: HTMLElement;
+    readonly options: TooltipOptions;
+    readonly enabled: boolean;
+    readonly timeout: number;
+    readonly hoverState: "in"|"out"|null;
+    readonly element: HTMLElement;
 
     getTitle(): string;
     getTooltipElement(): HTMLElement;
@@ -6774,11 +6962,11 @@ export interface ViewModel {
 }
 
 export interface WindowLoadSettings {
-    appVersion: string;
-    atomHome: string;
-    devMode: boolean;
-    resourcePath: string;
-    safeMode: boolean;
-    env?: { [key: string]: string|undefined };
-    profileStartup?: boolean;
+    readonly appVersion: string;
+    readonly atomHome: string;
+    readonly devMode: boolean;
+    readonly resourcePath: string;
+    readonly safeMode: boolean;
+    readonly env?: { [key: string]: string|undefined };
+    readonly profileStartup?: boolean;
 }

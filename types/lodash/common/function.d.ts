@@ -95,7 +95,7 @@ declare module "../index" {
     // bind
 
     interface FunctionBind {
-        placeholder: any;
+        placeholder: __;
 
         (
             func: (...args: any[]) => any,
@@ -145,7 +145,7 @@ declare module "../index" {
     // bindKey
 
     interface FunctionBindKey {
-        placeholder: any;
+        placeholder: __;
 
         (
             object: object,
@@ -195,7 +195,7 @@ declare module "../index" {
 
     // curry
 
-    interface LoDashStatic {
+    interface Curry {
         /**
          * Creates a function that accepts one or more arguments of func that when called either invokes func returning
          * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
@@ -204,7 +204,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curry<T1, R>(func: (t1: T1) => R, arity?: number):
+        <T1, R>(func: (t1: T1) => R, arity?: number):
             CurriedFunction1<T1, R>;
         /**
          * Creates a function that accepts one or more arguments of func that when called either invokes func returning
@@ -214,7 +214,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curry<T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number):
+        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number):
             CurriedFunction2<T1, T2, R>;
         /**
          * Creates a function that accepts one or more arguments of func that when called either invokes func returning
@@ -224,7 +224,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curry<T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number):
+        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number):
             CurriedFunction3<T1, T2, T3, R>;
         /**
          * Creates a function that accepts one or more arguments of func that when called either invokes func returning
@@ -234,7 +234,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curry<T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number):
+        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number):
             CurriedFunction4<T1, T2, T3, T4, R>;
         /**
          * Creates a function that accepts one or more arguments of func that when called either invokes func returning
@@ -244,7 +244,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curry<T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number):
+        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number):
             CurriedFunction5<T1, T2, T3, T4, T5, R>;
         /**
          * Creates a function that accepts one or more arguments of func that when called either invokes func returning
@@ -254,7 +254,13 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curry(func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
+        (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
+
+        placeholder: __;
+    }
+
+    interface LoDashStatic {
+        curry: Curry;
     }
 
     interface CurriedFunction1<T1, R> {
@@ -265,60 +271,149 @@ declare module "../index" {
     interface CurriedFunction2<T1, T2, R> {
         (): CurriedFunction2<T1, T2, R>;
         (t1: T1): CurriedFunction1<T2, R>;
+        (t1: __, t2: T2): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2): R;
     }
 
     interface CurriedFunction3<T1, T2, T3, R> {
         (): CurriedFunction3<T1, T2, T3, R>;
         (t1: T1): CurriedFunction2<T2, T3, R>;
+        (t1: __, t2: T2): CurriedFunction2<T1, T3, R>;
         (t1: T1, t2: T2): CurriedFunction1<T3, R>;
+        (t1: __, t2: __, t3: T3): CurriedFunction2<T1, T2, R>;
+        (t1: T1, t2: __, t3: T3): CurriedFunction1<T2, R>;
+        (t1: __, t2: T2, t3: T3): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3): R;
     }
 
     interface CurriedFunction4<T1, T2, T3, T4, R> {
         (): CurriedFunction4<T1, T2, T3, T4, R>;
         (t1: T1): CurriedFunction3<T2, T3, T4, R>;
+        (t1: __, t2: T2): CurriedFunction3<T1, T3, T4, R>;
         (t1: T1, t2: T2): CurriedFunction2<T3, T4, R>;
+        (t1: __, t2: __, t3: T3): CurriedFunction3<T1, T2, T4, R>;
+        (t1: __, t2: __, t3: T3): CurriedFunction2<T2, T4, R>;
+        (t1: __, t2: T2, t3: T3): CurriedFunction2<T1, T4, R>;
         (t1: T1, t2: T2, t3: T3): CurriedFunction1<T4, R>;
+        (t1: __, t2: __, t3: __, t4: T4): CurriedFunction3<T1, T2, T3, R>;
+        (t1: T1, t2: __, t3: __, t4: T4): CurriedFunction2<T2, T3, R>;
+        (t1: __, t2: T2, t3: __, t4: T4): CurriedFunction2<T1, T3, R>;
+        (t1: __, t2: __, t3: T3, t4: T4): CurriedFunction2<T1, T2, R>;
+        (t1: T1, t2: T2, t3: __, t4: T4): CurriedFunction1<T3, R>;
+        (t1: T1, t2: __, t3: T3, t4: T4): CurriedFunction1<T2, R>;
+        (t1: __, t2: T2, t3: T3, t4: T4): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
 
     interface CurriedFunction5<T1, T2, T3, T4, T5, R> {
         (): CurriedFunction5<T1, T2, T3, T4, T5, R>;
         (t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
+        (t1: __, t2: T2): CurriedFunction4<T1, T3, T4, T5, R>;
         (t1: T1, t2: T2): CurriedFunction3<T3, T4, T5, R>;
+        (t1: __, t2: __, t3: T3): CurriedFunction4<T1, T2, T4, T5, R>;
+        (t1: T1, t2: __, t3: T3): CurriedFunction3<T2, T4, T5, R>;
+        (t1: __, t2: T2, t3: T3): CurriedFunction3<T1, T4, T5, R>;
         (t1: T1, t2: T2, t3: T3): CurriedFunction2<T4, T5, R>;
+        (t1: __, t2: __, t3: __, t4: T4): CurriedFunction4<T1, T2, T3, T5, R>;
+        (t1: T1, t2: __, t3: __, t4: T4): CurriedFunction3<T2, T3, T5, R>;
+        (t1: __, t2: T2, t3: __, t4: T4): CurriedFunction3<T1, T3, T5, R>;
+        (t1: __, t2: __, t3: T3, t4: T4): CurriedFunction3<T1, T2, T5, R>;
+        (t1: T1, t2: T2, t3: __, t4: T4): CurriedFunction2<T3, T5, R>;
+        (t1: T1, t2: __, t3: T3, t4: T4): CurriedFunction2<T2, T5, R>;
+        (t1: __, t2: T2, t3: T3, t4: T4): CurriedFunction2<T1, T5, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction1<T5, R>;
+        (t1: __, t2: __, t3: __, t4: __, t5: T5): CurriedFunction4<T1, T2, T3, T4, R>;
+        (t1: T1, t2: __, t3: __, t4: __, t5: T5): CurriedFunction3<T2, T3, T4, R>;
+        (t1: __, t2: T2, t3: __, t4: __, t5: T5): CurriedFunction3<T1, T3, T4, R>;
+        (t1: __, t2: __, t3: T3, t4: __, t5: T5): CurriedFunction3<T1, T2, T4, R>;
+        (t1: __, t2: __, t3: __, t4: T4, t5: T5): CurriedFunction3<T1, T2, T3, R>;
+        (t1: T1, t2: T2, t3: __, t4: __, t5: T5): CurriedFunction2<T3, T4, R>;
+        (t1: T1, t2: __, t3: T3, t4: __, t5: T5): CurriedFunction2<T2, T4, R>;
+        (t1: T1, t2: __, t3: __, t4: T4, t5: T5): CurriedFunction2<T2, T3, R>;
+        (t1: __, t2: T2, t3: T3, t4: __, t5: T5): CurriedFunction2<T1, T4, R>;
+        (t1: __, t2: T2, t3: __, t4: T4, t5: T5): CurriedFunction2<T1, T3, R>;
+        (t1: __, t2: __, t3: T3, t4: T4, t5: T5): CurriedFunction2<T1, T2, R>;
+        (t1: T1, t2: T2, t3: T3, t4: __, t5: T5): CurriedFunction1<T4, R>;
+        (t1: T1, t2: T2, t3: __, t4: T4, t5: T5): CurriedFunction1<T3, R>;
+        (t1: T1, t2: __, t3: T3, t4: T4, t5: T5): CurriedFunction1<T2, R>;
+        (t1: __, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
+
     interface RightCurriedFunction1<T1, R> {
         (): RightCurriedFunction1<T1, R>;
         (t1: T1): R;
     }
+
     interface RightCurriedFunction2<T1, T2, R> {
         (): RightCurriedFunction2<T1, T2, R>;
         (t2: T2): RightCurriedFunction1<T1, R>;
+        (t1: T1, t2: __): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2): R;
     }
+
     interface RightCurriedFunction3<T1, T2, T3, R> {
         (): RightCurriedFunction3<T1, T2, T3, R>;
         (t3: T3): RightCurriedFunction2<T1, T2, R>;
+        (t2: T2, t3: __): RightCurriedFunction2<T1, T3, R>;
         (t2: T2, t3: T3): RightCurriedFunction1<T1, R>;
+        (t1: T1, t2: __, t3: __): RightCurriedFunction2<T2, T3, R>;
+        (t1: T1, t2: T2, t3: __): RightCurriedFunction1<T3, R>;
+        (t1: T1, t2: __, t3: T3): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3): R;
     }
+
     interface RightCurriedFunction4<T1, T2, T3, T4, R> {
         (): RightCurriedFunction4<T1, T2, T3, T4, R>;
         (t4: T4): RightCurriedFunction3<T1, T2, T3, R>;
+        (t3: T3, t4: __): RightCurriedFunction3<T1, T2, T4, R>;
         (t3: T3, t4: T4): RightCurriedFunction2<T1, T2, R>;
+        (t2: T2, t3: __, t4: __): RightCurriedFunction3<T1, T3, T4, R>;
+        (t2: T2, t3: T3, t4: __): RightCurriedFunction2<T1, T4, R>;
+        (t2: T2, t3: __, t4: T4): RightCurriedFunction2<T1, T3, R>;
         (t2: T2, t3: T3, t4: T4): RightCurriedFunction1<T1, R>;
+        (t1: T1, t2: __, t3: __, t4: __): RightCurriedFunction3<T2, T3, T4, R>;
+        (t1: T1, t2: T2, t3: __, t4: __): RightCurriedFunction2<T3, T4, R>;
+        (t1: T1, t2: __, t3: T3, t4: __): RightCurriedFunction2<T2, T4, R>;
+        (t1: T1, t2: __, t3: __, t4: T4): RightCurriedFunction2<T2, T3, R>;
+        (t1: T1, t2: T2, t3: T3, t4: __): RightCurriedFunction1<T4, R>;
+        (t1: T1, t2: T2, t3: __, t4: T4): RightCurriedFunction1<T3, R>;
+        (t1: T1, t2: __, t3: T3, t4: T4): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
+
     interface RightCurriedFunction5<T1, T2, T3, T4, T5, R> {
         (): RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         (t5: T5): RightCurriedFunction4<T1, T2, T3, T4, R>;
+        (t4: T4, t5: __): RightCurriedFunction4<T1, T2, T3, T5, R>;
         (t4: T4, t5: T5): RightCurriedFunction3<T1, T2, T3, R>;
+        (t3: T3, t4: __, t5: __): RightCurriedFunction4<T1, T2, T4, T5, R>;
+        (t3: T3, t4: T4, t5: __): RightCurriedFunction3<T1, T2, T5, R>;
+        (t3: T3, t4: __, t5: T5): RightCurriedFunction3<T1, T2, T4, R>;
         (t3: T3, t4: T4, t5: T5): RightCurriedFunction2<T1, T2, R>;
+        (t2: T2, t3: __, t4: __, t5: __): RightCurriedFunction4<T1, T3, T4, T5, R>;
+        (t2: T2, t3: T3, t4: __, t5: __): RightCurriedFunction3<T1, T4, T5, R>;
+        (t2: T2, t3: __, t4: T4, t5: __): RightCurriedFunction3<T1, T3, T5, R>;
+        (t2: T2, t3: __, t4: __, t5: T5): RightCurriedFunction3<T1, T3, T4, R>;
+        (t2: T2, t3: T3, t4: T4, t5: __): RightCurriedFunction2<T1, T5, R>;
+        (t2: T2, t3: T3, t4: __, t5: T5): RightCurriedFunction2<T1, T4, R>;
+        (t2: T2, t3: __, t4: T4, t5: T5): RightCurriedFunction2<T1, T3, R>;
         (t2: T2, t3: T3, t4: T4, t5: T5): RightCurriedFunction1<T1, R>;
+        (t1: T1, t2: __, t3: __, t4: __, t5: __): RightCurriedFunction4<T2, T3, T4, T5, R>;
+        (t1: T1, t2: T2, t3: __, t4: __, t5: __): RightCurriedFunction3<T3, T4, T5, R>;
+        (t1: T1, t2: __, t3: T3, t4: __, t5: __): RightCurriedFunction3<T2, T4, T5, R>;
+        (t1: T1, t2: __, t3: __, t4: T4, t5: __): RightCurriedFunction3<T2, T3, T5, R>;
+        (t1: T1, t2: __, t3: __, t4: __, t5: T5): RightCurriedFunction3<T2, T3, T4, R>;
+        (t1: T1, t2: T2, t3: T3, t4: __, t5: __): RightCurriedFunction2<T4, T5, R>;
+        (t1: T1, t2: T2, t3: __, t4: T4, t5: __): RightCurriedFunction2<T3, T5, R>;
+        (t1: T1, t2: T2, t3: __, t4: __, t5: T5): RightCurriedFunction2<T3, T4, R>;
+        (t1: T1, t2: __, t3: T3, t4: T4, t5: __): RightCurriedFunction2<T2, T5, R>;
+        (t1: T1, t2: __, t3: T3, t4: __, t5: T5): RightCurriedFunction2<T2, T4, R>;
+        (t1: T1, t2: __, t3: __, t4: T4, t5: T5): RightCurriedFunction2<T2, T3, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: __): RightCurriedFunction1<T5, R>;
+        (t1: T1, t2: T2, t3: T3, t4: __, t5: T5): RightCurriedFunction1<T4, R>;
+        (t1: T1, t2: T2, t3: __, t4: T4, t5: T5): RightCurriedFunction1<T3, R>;
+        (t1: T1, t2: __, t3: T3, t4: T4, t5: T5): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
 
@@ -398,7 +493,7 @@ declare module "../index" {
 
     // curryRight
 
-    interface LoDashStatic {
+    interface CurryRight {
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -406,7 +501,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curryRight<T1, R>(func: (t1: T1) => R, arity?: number):
+        <T1, R>(func: (t1: T1) => R, arity?: number):
             RightCurriedFunction1<T1, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
@@ -415,7 +510,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curryRight<T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number):
+        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number):
             RightCurriedFunction2<T1, T2, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
@@ -424,7 +519,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curryRight<T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number):
+        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number):
             RightCurriedFunction3<T1, T2, T3, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
@@ -433,7 +528,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curryRight<T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number):
+        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number):
             RightCurriedFunction4<T1, T2, T3, T4, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
@@ -442,7 +537,7 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curryRight<T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number):
+        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number):
             RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
@@ -451,7 +546,13 @@ declare module "../index" {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        curryRight(func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
+        (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
+
+        placeholder: __;
+    }
+
+    interface LoDashStatic {
+        curryRight: CurryRight;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -667,30 +768,30 @@ declare module "../index" {
     // flip
 
     interface LoDashStatic {
-       /**
-        * Creates a function that invokes `func` with arguments reversed.
-        *
-        * @category Function
-        * @param func The function to flip arguments for.
-        * @returns Returns the new function.
-        * @example
-        *
-        * var flipped = _.flip(function() {
-        *   return _.toArray(arguments);
-        * });
-        *
-        * flipped('a', 'b', 'c', 'd');
-        * // => ['d', 'c', 'b', 'a']
-        */
-       flip<T extends (...args: any[]) => any>(func: T): T;
-   }
+        /**
+         * Creates a function that invokes `func` with arguments reversed.
+         *
+         * @category Function
+         * @param func The function to flip arguments for.
+         * @returns Returns the new function.
+         * @example
+         *
+         * var flipped = _.flip(function() {
+         *   return _.toArray(arguments);
+         * });
+         *
+         * flipped('a', 'b', 'c', 'd');
+         * // => ['d', 'c', 'b', 'a']
+         */
+        flip<T extends (...args: any[]) => any>(func: T): T;
+    }
 
-   interface LoDashWrapper<TValue> {
-       /**
-        * @see _.flip
-        */
-       flip(): this;
-   }
+    interface LoDashWrapper<TValue> {
+        /**
+         * @see _.flip
+         */
+        flip(): this;
+    }
 
     // memoize
 
@@ -771,34 +872,34 @@ declare module "../index" {
 
     // overArgs
 
-   interface LoDashStatic {
-       /**
-        * Creates a function that runs each argument through a corresponding transform function.
-        *
-        * @param func The function to wrap.
-        * @param transforms The functions to transform arguments, specified as individual functions or arrays
-        * of functions.
-        * @return Returns the new function.
-        */
-       overArgs(
-           func: (...args: any[]) => any,
-           ...transforms: Array<Many<(...args: any[]) => any>>
-       ): (...args: any[]) => any;
-   }
+    interface LoDashStatic {
+        /**
+         * Creates a function that runs each argument through a corresponding transform function.
+         *
+         * @param func The function to wrap.
+         * @param transforms The functions to transform arguments, specified as individual functions or arrays
+         * of functions.
+         * @return Returns the new function.
+         */
+        overArgs(
+            func: (...args: any[]) => any,
+            ...transforms: Array<Many<(...args: any[]) => any>>
+        ): (...args: any[]) => any;
+    }
 
-   interface LoDashImplicitWrapper<TValue> {
-       /**
-        * @see _.overArgs
-        */
-       overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
-   }
+    interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.overArgs
+         */
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+    }
 
-   interface LoDashExplicitWrapper<TValue> {
-       /**
-        * @see _.overArgs
-        */
-       overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
-   }
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.overArgs
+         */
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+    }
 
     // partial
 
@@ -828,7 +929,8 @@ declare module "../index" {
         partial: ExplicitPartial;
     }
 
-    type PH = LoDashStatic;
+    /** The placeholder, to be used in curried functions */
+    type __ = LoDashStatic;
 
     type Function0<R> = () => R;
     type Function1<T1, R> = (t1: T1) => R;
@@ -845,36 +947,38 @@ declare module "../index" {
         // arity 2
         <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
         <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1):            Function1<    T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, plc1: PH, arg2: T2):  Function1<T1,     R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, plc1: __, arg2: T2):  Function1<T1,     R>;
         <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
         // arity 3
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1):                      Function2<    T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, arg2: T2):            Function2<T1,     T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2):            Function2<T1,     T3, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2):            Function1<        T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, plc2: PH, arg3: T3):  Function2<T1, T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, arg3: T3):  Function1<    T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, arg2: T2, arg3: T3):  Function1<T1,         R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, plc2: __, arg3: T3):  Function2<T1, T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3):  Function1<    T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2, arg3: T3):  Function1<T1,         R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
         // arity 4
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1):                                Function3<    T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2):                      Function3<T1,     T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2):                      Function3<T1,     T3, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2):                      Function2<        T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, arg3: T3):            Function3<T1, T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3):            Function2<    T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, arg3: T3):            Function2<T1,         T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3):            Function3<T1, T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3):            Function2<    T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3):            Function2<T1,         T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3):            Function1<            T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, plc3: PH, arg4: T4):  Function3<T1, T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  Function2<    T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, plc3: PH, arg4: T4):  Function2<T1,     T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  Function1<        T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  Function1<    T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, plc3: __, arg4: T4):  Function3<T1, T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Function2<    T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, plc3: __, arg4: T4):  Function2<T1,     T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Function1<        T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Function1<    T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
         // catch-all
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
+
+        placeholder: __;
     }
 
     interface ImplicitPartial {
@@ -886,33 +990,33 @@ declare module "../index" {
         // arity 2
         <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>):                      LoDashImplicitWrapper<Function2<T1, T2, R>>;
         <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1):            LoDashImplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, plc1: PH, arg2: T2):  LoDashImplicitWrapper<Function1<T1,     R>>;
+        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, plc1: __, arg2: T2):  LoDashImplicitWrapper<Function1<T1,     R>>;
         <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashImplicitWrapper<Function0<        R>>;
         // arity 3
         <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashImplicitWrapper<Function3<T1, T2, T3, R>>;
         <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1):                      LoDashImplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: PH, arg2: T2):            LoDashImplicitWrapper<Function2<T1,     T3, R>>;
+        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            LoDashImplicitWrapper<Function2<T1,     T3, R>>;
         <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            LoDashImplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: PH, plc2: PH, arg3: T3):  LoDashImplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: PH, arg3: T3):  LoDashImplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: PH, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function1<T1,         R>>;
+        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  LoDashImplicitWrapper<Function2<T1, T2,     R>>;
+        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashImplicitWrapper<Function1<    T2,     R>>;
+        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function1<T1,         R>>;
         <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function0<            R>>;
         // arity 4
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                LoDashImplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, arg2: T2):                      LoDashImplicitWrapper<Function3<T1,     T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      LoDashImplicitWrapper<Function3<T1,     T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      LoDashImplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, plc2: PH, arg3: T3):            LoDashImplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, arg3: T3):            LoDashImplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, arg2: T2, arg3: T3):            LoDashImplicitWrapper<Function2<T1,         T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            LoDashImplicitWrapper<Function3<T1, T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            LoDashImplicitWrapper<Function2<    T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            LoDashImplicitWrapper<Function2<T1,         T4, R>>;
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            LoDashImplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, plc2: PH, plc3: PH, arg4: T4):  LoDashImplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  LoDashImplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, arg2: T2, plc3: PH, arg4: T4):  LoDashImplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  LoDashImplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, plc2: PH, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<T1,             R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function3<T1, T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<    T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<T1,     T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function1<        T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function2<T1, T2,         R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<    T2,         R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<T1,             R>>;
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function0<                R>>;
         // catch-all
         (...args: any[]): LoDashImplicitWrapper<(...args: any[]) => any>;
@@ -927,33 +1031,33 @@ declare module "../index" {
         // arity 2
         <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>):                      LoDashExplicitWrapper<Function2<T1, T2, R>>;
         <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1):            LoDashExplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, plc1: PH, arg2: T2):  LoDashExplicitWrapper<Function1<T1,     R>>;
+        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, plc1: __, arg2: T2):  LoDashExplicitWrapper<Function1<T1,     R>>;
         <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashExplicitWrapper<Function0<        R>>;
         // arity 3
         <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashExplicitWrapper<Function3<T1, T2, T3, R>>;
         <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1):                      LoDashExplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: PH, arg2: T2):            LoDashExplicitWrapper<Function2<T1,     T3, R>>;
+        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            LoDashExplicitWrapper<Function2<T1,     T3, R>>;
         <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            LoDashExplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: PH, plc2: PH, arg3: T3):  LoDashExplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: PH, arg3: T3):  LoDashExplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: PH, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function1<T1,         R>>;
+        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  LoDashExplicitWrapper<Function2<T1, T2,     R>>;
+        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashExplicitWrapper<Function1<    T2,     R>>;
+        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function1<T1,         R>>;
         <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function0<            R>>;
         // arity 4
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                LoDashExplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, arg2: T2):                      LoDashExplicitWrapper<Function3<T1,     T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      LoDashExplicitWrapper<Function3<T1,     T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      LoDashExplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, plc2: PH, arg3: T3):            LoDashExplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, arg3: T3):            LoDashExplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, arg2: T2, arg3: T3):            LoDashExplicitWrapper<Function2<T1,         T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            LoDashExplicitWrapper<Function3<T1, T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            LoDashExplicitWrapper<Function2<    T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            LoDashExplicitWrapper<Function2<T1,         T4, R>>;
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            LoDashExplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, plc2: PH, plc3: PH, arg4: T4):  LoDashExplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  LoDashExplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, arg2: T2, plc3: PH, arg4: T4):  LoDashExplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  LoDashExplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, plc2: PH, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: PH, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<T1,             R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function3<T1, T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<    T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<T1,     T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function1<        T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function2<T1, T2,         R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<    T2,         R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<T1,             R>>;
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function0<                R>>;
         // catch-all
         (...args: any[]): LoDashExplicitWrapper<(...args: any[]) => any>;
@@ -994,37 +1098,39 @@ declare module "../index" {
         <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
         // arity 2
         <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: PH):  Function1<    T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: __):  Function1<    T2, R>;
         <T1, T2, R>(func: Function2<T1, T2, R>,           arg2: T2):  Function1<T1,     R>;
         <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
         // arity 3
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, plc3: PH):  Function2<    T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, plc3: PH):  Function2<T1,     T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, plc3: PH):  Function1<        T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, plc3: __):  Function2<    T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, plc3: __):  Function2<T1,     T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, plc3: __):  Function1<        T3, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,                     arg3: T3):  Function2<T1, T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, arg3: T3):  Function1<    T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3):  Function1<    T2,     R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, arg3: T3):  Function1<T1,         R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
         // arity 4
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, plc4: PH):  Function3<    T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: PH, plc4: PH):  Function3<T1,     T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, plc4: PH):  Function2<        T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, plc4: PH):  Function3<T1, T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, plc4: PH):  Function2<    T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, plc4: PH):  Function2<T1,         T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: PH):  Function1<            T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, plc4: __):  Function3<    T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: __, plc4: __):  Function3<T1,     T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, plc4: __):  Function2<        T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, plc4: __):  Function3<T1, T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, plc4: __):  Function2<    T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, plc4: __):  Function2<T1,         T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  Function1<            T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                               arg4: T4):  Function3<T1, T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  Function2<    T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: PH, arg4: T4):  Function2<T1,     T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  Function1<        T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Function2<    T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: __, arg4: T4):  Function2<T1,     T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Function1<        T3,     R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  Function1<    T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Function1<    T2,         R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
         // catch-all
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
+
+        placeholder: __;
     }
 
     interface ImplicitPartialRight {
@@ -1035,33 +1141,33 @@ declare module "../index" {
         <T1, R>(this: LoDashImplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashImplicitWrapper<Function0<R>>;
         // arity 2
         <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>):                      LoDashImplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, plc2: PH):  LoDashImplicitWrapper<Function1<    T2, R>>;
+        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, plc2: __):  LoDashImplicitWrapper<Function1<    T2, R>>;
         <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>,           arg2: T2):  LoDashImplicitWrapper<Function1<T1,     R>>;
         <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashImplicitWrapper<Function0<        R>>;
         // arity 3
         <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashImplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: PH, plc3: PH):  LoDashImplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: PH):  LoDashImplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: PH):  LoDashImplicitWrapper<Function1<        T3, R>>;
+        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  LoDashImplicitWrapper<Function2<    T2, T3, R>>;
+        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  LoDashImplicitWrapper<Function2<T1,     T3, R>>;
+        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  LoDashImplicitWrapper<Function1<        T3, R>>;
         <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,                     arg3: T3):  LoDashImplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: PH, arg3: T3):  LoDashImplicitWrapper<Function1<    T2,     R>>;
+        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashImplicitWrapper<Function1<    T2,     R>>;
         <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function1<T1,         R>>;
         <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function0<            R>>;
         // arity 4
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, plc3: PH, plc4: PH):  LoDashImplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: PH, plc4: PH):  LoDashImplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: PH, plc4: PH):  LoDashImplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: PH):  LoDashImplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, arg3: T3, plc4: PH):  LoDashImplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: PH):  LoDashImplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: PH):  LoDashImplicitWrapper<Function1<            T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  LoDashImplicitWrapper<Function3<    T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  LoDashImplicitWrapper<Function3<T1,     T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  LoDashImplicitWrapper<Function2<        T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  LoDashImplicitWrapper<Function3<T1, T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  LoDashImplicitWrapper<Function2<    T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  LoDashImplicitWrapper<Function2<T1,         T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  LoDashImplicitWrapper<Function1<            T4, R>>;
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  LoDashImplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  LoDashImplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: PH, arg4: T4):  LoDashImplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  LoDashImplicitWrapper<Function1<        T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<    T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<T1,     T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function1<        T3,     R>>;
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<    T2,         R>>;
+        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<    T2,         R>>;
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<T1,             R>>;
         <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function0<                R>>;
         // catch-all
@@ -1076,33 +1182,33 @@ declare module "../index" {
         <T1, R>(this: LoDashExplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashExplicitWrapper<Function0<R>>;
         // arity 2
         <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>):                      LoDashExplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, plc2: PH):  LoDashExplicitWrapper<Function1<    T2, R>>;
+        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, plc2: __):  LoDashExplicitWrapper<Function1<    T2, R>>;
         <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>,           arg2: T2):  LoDashExplicitWrapper<Function1<T1,     R>>;
         <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashExplicitWrapper<Function0<        R>>;
         // arity 3
         <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashExplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: PH, plc3: PH):  LoDashExplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: PH):  LoDashExplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: PH):  LoDashExplicitWrapper<Function1<        T3, R>>;
+        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  LoDashExplicitWrapper<Function2<    T2, T3, R>>;
+        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  LoDashExplicitWrapper<Function2<T1,     T3, R>>;
+        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  LoDashExplicitWrapper<Function1<        T3, R>>;
         <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,                     arg3: T3):  LoDashExplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: PH, arg3: T3):  LoDashExplicitWrapper<Function1<    T2,     R>>;
+        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashExplicitWrapper<Function1<    T2,     R>>;
         <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function1<T1,         R>>;
         <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function0<            R>>;
         // arity 4
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, plc3: PH, plc4: PH):  LoDashExplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: PH, plc4: PH):  LoDashExplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: PH, plc4: PH):  LoDashExplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: PH):  LoDashExplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, arg3: T3, plc4: PH):  LoDashExplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: PH):  LoDashExplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: PH):  LoDashExplicitWrapper<Function1<            T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  LoDashExplicitWrapper<Function3<    T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  LoDashExplicitWrapper<Function3<T1,     T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  LoDashExplicitWrapper<Function2<        T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  LoDashExplicitWrapper<Function3<T1, T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  LoDashExplicitWrapper<Function2<    T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  LoDashExplicitWrapper<Function2<T1,         T4, R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  LoDashExplicitWrapper<Function1<            T4, R>>;
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  LoDashExplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  LoDashExplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: PH, arg4: T4):  LoDashExplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  LoDashExplicitWrapper<Function1<        T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<    T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<T1,     T3,     R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function1<        T3,     R>>;
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<    T2,         R>>;
+        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<    T2,         R>>;
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<T1,             R>>;
         <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function0<                R>>;
         // catch-all

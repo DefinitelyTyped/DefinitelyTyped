@@ -158,6 +158,13 @@ declare namespace nock {
 
         (fixtureName: string, nockedFn: (nockDone: () => void) => void): void;
         (fixtureName: string, options: NockBackOptions, nockedFn: (nockDone: () => void) => void): void;
+        (fixtureName: string, options?: NockBackOptions): Promise<{ nockDone: () => void, context: NockBackContext }>;
+    }
+
+    export interface NockBackContext {
+      scopes: Scope[];
+      assertScopesFinished(): void;
+      isLoaded: boolean;
     }
 
     export interface NockBackOptions {

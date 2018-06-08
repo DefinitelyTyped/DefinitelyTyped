@@ -94,7 +94,7 @@ interface TransitionStyle {
  * Default style for transition
  */
 interface TransitionPlainStyle {
-    key: any;
+    key: string;
     data?: any;
     // same as TransitionStyle, passed as argument to style/children function
     style: PlainStyle;

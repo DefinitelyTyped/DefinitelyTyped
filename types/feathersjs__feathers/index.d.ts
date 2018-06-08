@@ -8,8 +8,10 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
+import * as self from '@feathersjs/feathers';
 
-export default function feathers(): Application<object>;
+declare const feathers: (() => Application<object>) & typeof self;
+export default feathers;
 
 export const version: string;
 
@@ -43,9 +45,9 @@ export interface Paginated<T> {
 }
 
 // tslint:disable-next-line void-return
-export type Hook = <T>(hook: HookContext<T>) => (Promise<HookContext<T>> | void);
+export type Hook = (hook: HookContext) => (Promise<HookContext> | void);
 
-export interface HookContext<T> {
+export interface HookContext<T = any> {
     app?: Application;
     data?: T;
     error?: any;
