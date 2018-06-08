@@ -1027,6 +1027,88 @@ function simplified_stream_ctor_test() {
     });
 }
 
+{
+    new stream.Stream.Stream.Stream();
+    new stream.Stream.Stream.Stream.Writable();
+    new stream.Readable.Readable(); // $ExpectError
+}
+
+{
+    // Check types compatibility
+
+    new stream.Readable<number>()
+        .pipe(new stream.Writable<string>()); // $ExpectError
+
+    // $ExpectType PassThrough<boolean>
+    stream.pipeline(
+        new stream.Readable<number>(),
+        new stream.Transform<number, string>(),
+        new stream.Transform<string, boolean>(),
+        new stream.PassThrough<boolean>(),
+    );
+
+    stream.pipeline(
+        new stream.Readable<number>(),
+        new stream.Readable<number>(), // $ExpectError
+    );
+
+    stream.pipeline(
+        new stream.Readable<number>(),
+        new stream.Writable<string>(), // $ExpectError
+    );
+
+    new stream.Duplex<string, number>({
+        read() { this.push(42); },
+        writev(chunks) {
+            chunks[0].chunk; // $ExpectType string
+        },
+    });
+
+    async function promisifiedPipeline() {
+        const pipeline = util.promisify(stream.pipeline);
+
+        // $ExpectType void
+        await pipeline(
+            new stream.Readable<number>(),
+            new stream.Transform<number, string>(),
+            new stream.Transform<string, boolean>(),
+            new stream.PassThrough<boolean>(),
+        );
+
+        await pipeline(
+            new stream.Readable<number>(),
+            new stream.Readable<number>(), // $ExpectError
+        );
+
+        await pipeline(
+            new stream.Readable<number>(),
+            new stream.Writable<string>(), // $ExpectError
+        );
+    }
+
+    new stream.Readable<number>({
+        read() {
+            // Should be able to push null even when the type is non-nullable
+            this.push(null);
+        },
+    });
+
+    new stream.Writable<string>()
+        .on('pipe', (source) => {
+            source; // $ExpectType Readable<string>
+        });
+
+    async function checkAsyncIterator() {
+        const readable = new stream.Readable<number>();
+        // Use intermediate iterator variable to fool await-promise tslint rule
+        // which can't handle `for await (const item of readable)` at the moment.
+        const iterator = readable[Symbol.asyncIterator]();
+        for await (const item of iterator) {
+            item; // $ExpectType number
+        }
+    }
+}
+
 ////////////////////////////////////////////////////////
 /// Crypto tests : http://nodejs.org/api/crypto.html ///
 ////////////////////////////////////////////////////////
