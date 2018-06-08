@@ -378,7 +378,7 @@ declare namespace cast.framework.events {
         /**
          * The time in the currently playing media when the break event occurred.
          */
-        currentMediaTime?: string;
+        currentMediaTime?: number;
 
         /**
          * The reason the break clip ended.
