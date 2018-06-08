@@ -103,13 +103,13 @@ export interface ServerOptions extends ClientOptions {
 }
 
 export abstract class Base extends events.EventEmitter {
-	constructor(opts: SsdpOptions);
+	constructor(opts?: SsdpOptions);
 
 	addUSN(device: string): void;
 }
 
 export class Client extends Base {
-	constructor(opts: ClientOptions);
+	constructor(opts?: ClientOptions);
 
 	/**
 	 * Start the listener for multicast notifications from SSDP devices
@@ -125,7 +125,7 @@ export class Client extends Base {
 }
 
 export class Server extends Base {
-	constructor(opts: ServerOptions);
+	constructor(opts?: ServerOptions);
 
 	/**
 	 * Binds UDP socket to an interface/port and starts advertising.
