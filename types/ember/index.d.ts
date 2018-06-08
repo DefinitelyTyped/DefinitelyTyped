@@ -2368,7 +2368,7 @@ declare module 'ember' {
             function Exception(message: string): void;
             class SafeString {
                 constructor(str: string);
-                static toString(): string;
+                toString(): string;
             }
             function parse(string: string): any;
             function print(ast: any): void;
