@@ -487,7 +487,7 @@ declare namespace NodeJS {
         cwd(): string;
         debugPort: number;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
-        env: any;
+        env: ProcessEnv;
         exit(code?: number): void;
         exitCode: number;
         getgid(): number;
