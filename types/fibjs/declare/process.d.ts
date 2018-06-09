@@ -206,251 +206,251 @@ declare module "process" {
 		
 		
 		/**
-			* 
-			* @brief 改变当前的 umask，Windows 不支持此方法
-			* @param mask 指定新的掩码
-			* @return 返回之前的 mask
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 改变当前的 umask，Windows 不支持此方法
+		 * @param mask 指定新的掩码
+		 * @return 返回之前的 mask
+		 * 
+		 * 
+		 * 
+		 */
 		export function umask(mask: number): number;
 	
 		/**
-			* 
-			* @brief 改变当前的 umask，Windows 不支持此方法
-			* @param mask 指定新的掩码， 字符串类型八进制(e.g: "0664")
-			* @return 返回之前的 mask
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 改变当前的 umask，Windows 不支持此方法
+		 * @param mask 指定新的掩码， 字符串类型八进制(e.g: "0664")
+		 * @return 返回之前的 mask
+		 * 
+		 * 
+		 * 
+		 */
 		export function umask(mask: string): number;
 	
 		/**
-			* 
-			* @brief 返回当前的 umask，Windows 不支持此方法
-			* @return 返回当前的 mask 值
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 返回当前的 umask，Windows 不支持此方法
+		 * @return 返回当前的 mask 值
+		 * 
+		 * 
+		 * 
+		 */
 		export function umask(): number;
 	
 		/**
-			* 
-			* @brief 返回系统高精度时间，此时间与当前时间无关，仅用于高精度计时
-			* @param diff 用于比较的初始时间
-			* @return 返回计时时间，格式为 [seconds, nanoseconds]
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 返回系统高精度时间，此时间与当前时间无关，仅用于高精度计时
+		 * @param diff 用于比较的初始时间
+		 * @return 返回计时时间，格式为 [seconds, nanoseconds]
+		 * 
+		 * 
+		 * 
+		 */
 		export function hrtime(diff?: any[]/** = v8::Array::New(isolate)*/): any[];
 	
 		/**
-			* 
-			* @brief 退出当前进程，并返回 exitCode 作为进程结果
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 退出当前进程，并返回 exitCode 作为进程结果
+		 * 
+		 * 
+		 */
 		export function exit(): void;
 	
 		/**
-			* 
-			* @brief 退出当前进程，并返回结果
-			* @param code 返回进程结果
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 退出当前进程，并返回结果
+		 * @param code 返回进程结果
+		 * 
+		 * 
+		 * 
+		 */
 		export function exit(code: number): void;
 	
 		/**
-			* 
-			* @brief 返回操作系统当前工作路径
-			* @return 返回当前系统路径
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 返回操作系统当前工作路径
+		 * @return 返回当前系统路径
+		 * 
+		 * 
+		 * 
+		 */
 		export function cwd(): string;
 	
 		/**
-			* 
-			* @brief 修改操作系统当前工作路径
-			* @param directory 指定设定的新路径
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 修改操作系统当前工作路径
+		 * @param directory 指定设定的新路径
+		 * 
+		 * 
+		 * 
+		 */
 		export function chdir(directory: string): void;
 	
 		/**
-			* 
-			* @brief 查询运行环境运行时间，以秒为单位
-			* @return 返回表示时间的数值
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 查询运行环境运行时间，以秒为单位
+		 * @return 返回表示时间的数值
+		 * 
+		 * 
+		 * 
+		 */
 		export function uptime(): number;
 	
 		/**
-			* 
-			* @brief 查询当前进程内存使用报告
-			* 
-			* 内存报告生成类似以下结果：
-			* ```JavaScript
-			* {
-			* "rss": 8622080,
-			* "heapTotal": 4083456,
-			* "heapUsed": 1621800
-			* }
-			* ```
-			* 其中：
-			* - rss 返回进程当前占用物理内存大小
-			* - heapTotal 返回 v8 引擎堆内存大小
-			* - heapUsed 返回 v8 引擎正在使用堆内存大小
-			* @return 返回包含内存报告
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 查询当前进程内存使用报告
+		 * 
+		 * 内存报告生成类似以下结果：
+		 * ```JavaScript
+		 * {
+		 * "rss": 8622080,
+		 * "heapTotal": 4083456,
+		 * "heapUsed": 1621800
+		 * }
+		 * ```
+		 * 其中：
+		 * - rss 返回进程当前占用物理内存大小
+		 * - heapTotal 返回 v8 引擎堆内存大小
+		 * - heapUsed 返回 v8 引擎正在使用堆内存大小
+		 * @return 返回包含内存报告
+		 * 
+		 * 
+		 * 
+		 */
 		export function memoryUsage(): Object;
 	
 		/**
-			* 
-			* @brief 启动一个纤程
-			* @param func 制定纤程执行的函数
-			* @param args 可变参数序列，此序列会在纤程内传递给函数
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 启动一个纤程
+		 * @param func 制定纤程执行的函数
+		 * @param args 可变参数序列，此序列会在纤程内传递给函数
+		 * 
+		 * 
+		 * 
+		 */
 		export function nextTick(func: Function, ...args: any[]): void;
 	
 		/**
-			* 
-			* @brief 运行指定的命令行，接管进程输入输出流，并返回进程对象
-			* 
-			* opts 支持的选项如下：
-			* ```JavaScript
-			* {
-			* "timeout": 100, // 单位为 ms
-			* "envs": [] // 进程环境变量
-			* }
-			* ```
-			* @param command 指定运行的命令行
-			* @param args 指定运行的参数列表
-			* @param opts 指定运行的选项
-			* @return 返回包含运行结果的进程对象
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 运行指定的命令行，接管进程输入输出流，并返回进程对象
+		 * 
+		 * opts 支持的选项如下：
+		 * ```JavaScript
+		 * {
+		 * "timeout": 100, // 单位为 ms
+		 * "envs": [] // 进程环境变量
+		 * }
+		 * ```
+		 * @param command 指定运行的命令行
+		 * @param args 指定运行的参数列表
+		 * @param opts 指定运行的选项
+		 * @return 返回包含运行结果的进程对象
+		 * 
+		 * 
+		 * 
+		 */
 		export function open(command: string, args: any[], opts?: Object/** = v8::Object::New(isolate)*/): Class_SubProcess;
 	
 		/**
-			* 
-			* @brief 运行指定的命令行，接管进程输入输出流，并返回进程对象
-			* 
-			* opts 支持的选项如下：
-			* ```JavaScript
-			* {
-			* "timeout": 100, // 单位为 ms
-			* "envs": [] // 进程环境变量
-			* }
-			* ```
-			* @param command 指定运行的命令行
-			* @param opts 指定运行的选项
-			* @return 返回包含运行结果的进程对象
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 运行指定的命令行，接管进程输入输出流，并返回进程对象
+		 * 
+		 * opts 支持的选项如下：
+		 * ```JavaScript
+		 * {
+		 * "timeout": 100, // 单位为 ms
+		 * "envs": [] // 进程环境变量
+		 * }
+		 * ```
+		 * @param command 指定运行的命令行
+		 * @param opts 指定运行的选项
+		 * @return 返回包含运行结果的进程对象
+		 * 
+		 * 
+		 * 
+		 */
 		export function open(command: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_SubProcess;
 	
 		/**
-			* 
-			* @brief 运行指定的命令行，并返回进程对象
-			* 
-			* opts 支持的选项如下：
-			* ```JavaScript
-			* {
-			* "timeout": 100, // 单位为 ms
-			* "envs": [] // 进程环境变量
-			* }
-			* ```
-			* @param command 指定运行的命令行
-			* @param args 指定运行的参数列表
-			* @param opts 指定运行的选项
-			* @return 返回包含运行结果的进程对象
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 运行指定的命令行，并返回进程对象
+		 * 
+		 * opts 支持的选项如下：
+		 * ```JavaScript
+		 * {
+		 * "timeout": 100, // 单位为 ms
+		 * "envs": [] // 进程环境变量
+		 * }
+		 * ```
+		 * @param command 指定运行的命令行
+		 * @param args 指定运行的参数列表
+		 * @param opts 指定运行的选项
+		 * @return 返回包含运行结果的进程对象
+		 * 
+		 * 
+		 * 
+		 */
 		export function start(command: string, args: any[], opts?: Object/** = v8::Object::New(isolate)*/): Class_SubProcess;
 	
 		/**
-			* 
-			* @brief 运行指定的命令行，并返回进程对象
-			* 
-			* opts 支持的选项如下：
-			* ```JavaScript
-			* {
-			* "timeout": 100, // 单位为 ms
-			* "envs": [] // 进程环境变量
-			* }
-			* ```
-			* @param command 指定运行的命令行
-			* @param opts 指定运行的选项
-			* @return 返回包含运行结果的进程对象
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 运行指定的命令行，并返回进程对象
+		 * 
+		 * opts 支持的选项如下：
+		 * ```JavaScript
+		 * {
+		 * "timeout": 100, // 单位为 ms
+		 * "envs": [] // 进程环境变量
+		 * }
+		 * ```
+		 * @param command 指定运行的命令行
+		 * @param opts 指定运行的选项
+		 * @return 返回包含运行结果的进程对象
+		 * 
+		 * 
+		 * 
+		 */
 		export function start(command: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_SubProcess;
 	
 		/**
-			* 
-			* @brief 运行指定的命令行，并返回进程的结束代码
-			* 
-			* opts 支持的选项如下：
-			* ```JavaScript
-			* {
-			* "timeout": 100, // 单位为 ms
-			* "envs": [] // 进程环境变量
-			* }
-			* ```
-			* @param command 指定运行的命令行
-			* @param args 指定运行的参数列表
-			* @param opts 指定运行的选项
-			* @return 返回命令的运行结果
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 运行指定的命令行，并返回进程的结束代码
+		 * 
+		 * opts 支持的选项如下：
+		 * ```JavaScript
+		 * {
+		 * "timeout": 100, // 单位为 ms
+		 * "envs": [] // 进程环境变量
+		 * }
+		 * ```
+		 * @param command 指定运行的命令行
+		 * @param args 指定运行的参数列表
+		 * @param opts 指定运行的选项
+		 * @return 返回命令的运行结果
+		 * 
+		 * 
+		 * 
+		 */
 		export function run(command: string, args: any[], opts?: Object/** = v8::Object::New(isolate)*/): number;
 	
 		/**
-			* 
-			* @brief 运行指定的命令行，并返回进程的结束代码
-			* 
-			* opts 支持的选项如下：
-			* ```JavaScript
-			* {
-			* "timeout": 100, // 单位为 ms
-			* "envs": [] // 进程环境变量
-			* }
-			* ```
-			* @param command 指定运行的命令行
-			* @param opts 指定运行的选项
-			* @return 返回命令的运行结果
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 运行指定的命令行，并返回进程的结束代码
+		 * 
+		 * opts 支持的选项如下：
+		 * ```JavaScript
+		 * {
+		 * "timeout": 100, // 单位为 ms
+		 * "envs": [] // 进程环境变量
+		 * }
+		 * ```
+		 * @param command 指定运行的命令行
+		 * @param opts 指定运行的选项
+		 * @return 返回命令的运行结果
+		 * 
+		 * 
+		 * 
+		 */
 		export function run(command: string, opts?: Object/** = v8::Object::New(isolate)*/): number;
 	
 	} /** end of `module process` */

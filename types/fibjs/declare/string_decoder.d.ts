@@ -204,11 +204,11 @@ declare module "string_decoder" {
 		
 		
 		/**
-			* 
-			* @brief 创建一个解码对象，参见 StringDecoder
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 创建一个解码对象，参见 StringDecoder
+		 * 
+		 * 
+		 */
 		
 		export class StringDecoder extends Class_StringDecoder {}
 		

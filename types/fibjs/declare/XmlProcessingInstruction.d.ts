@@ -21,6 +21,34 @@
 /// <reference path="XmlNode.d.ts" />
 declare class Class_XmlProcessingInstruction extends Class_XmlNode {
 	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 返回此处理指令的目标
+	 * 
+	 * 
+	 * @readonly
+	 * @type String
+	 */
+	
+	target: string
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 设置或返回此处理指令的内容
+	 * 
+	 * 
+	 * 
+	 * @type String
+	 */
+	
+	data: string
+	
+	
+	
 } /** endof class */
 
 /** } /** endof `module Or Internal Object` */

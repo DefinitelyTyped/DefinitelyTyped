@@ -21,14 +21,16 @@
 /// <reference path="DbConnection.d.ts" />
 declare class Class_MSSQL extends Class_DbConnection {
 	
+	
+	
 	/**
-		* 
-		* @brief 选择当前数据库连接的缺省数据库
-		* @param dbName 指定数据库名
-		* 
-		* 
-		* @async
-		*/
+	 * 
+	 * @brief 选择当前数据库连接的缺省数据库
+	 * @param dbName 指定数据库名
+	 * 
+	 * 
+	 * @async
+	 */
 	use(dbName: string): void;
 
 } /** endof class */

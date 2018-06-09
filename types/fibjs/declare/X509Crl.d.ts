@@ -21,61 +21,63 @@
 
 declare class Class_X509Crl extends Class__object {
 	
+	
+	
 	/**
-		* 
-		* @brief X509Crl 构造函数
-		* 
-		* 
-		*/
+	 * 
+	 * @brief X509Crl 构造函数
+	 * 
+	 * 
+	 */
 	constructor();
 
 	/**
-		* 
-		* @brief 加载一个 DER 格式的撤销证书，可多次调用
-		* @param derCrl DER 格式的撤销证书
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 加载一个 DER 格式的撤销证书，可多次调用
+	 * @param derCrl DER 格式的撤销证书
+	 * 
+	 * 
+	 * 
+	 */
 	load(derCrl: Class_Buffer): void;
 
 	/**
-		* 
-		* @brief 加载一个 PEM 格式的撤销证书，可多次调用
-		* @param pemCrl PEM 格式的撤销证书
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 加载一个 PEM 格式的撤销证书，可多次调用
+	 * @param pemCrl PEM 格式的撤销证书
+	 * 
+	 * 
+	 * 
+	 */
 	load(pemCrl: string): void;
 
 	/**
-		* 
-		* @brief 加载一个 PEM/DER 格式的撤销证书，可多次调用
-		* @param filename 撤销证书文件名
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 加载一个 PEM/DER 格式的撤销证书，可多次调用
+	 * @param filename 撤销证书文件名
+	 * 
+	 * 
+	 * 
+	 */
 	loadFile(filename: string): void;
 
 	/**
-		* 
-		* @brief 导出已经加载的撤销证书
-		* @return 以数组方式导出撤销证书链
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 导出已经加载的撤销证书
+	 * @return 以数组方式导出撤销证书链
+	 * 
+	 * 
+	 * 
+	 */
 	dump(): any[];
 
 	/**
-		* 
-		* @brief 清空已经加载的撤销证书
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 清空已经加载的撤销证书
+	 * 
+	 * 
+	 * 
+	 */
 	clear(): void;
 
 } /** endof class */

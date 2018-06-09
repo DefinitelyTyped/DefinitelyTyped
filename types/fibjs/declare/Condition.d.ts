@@ -21,46 +21,48 @@
 /// <reference path="Lock.d.ts" />
 declare class Class_Condition extends Class_Lock {
 	
+	
+	
 	/**
-		* 
-		* @brief 条件变量构造函数（条件变量所需的锁由fibjs内部构造）
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 条件变量构造函数（条件变量所需的锁由fibjs内部构造）
+	 * 
+	 * 
+	 */
 	constructor();
 
 	/**
-		* 
-		* @brief 条件变量构造函数
-		* @param lock 使用自行构造的锁
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 条件变量构造函数
+	 * @param lock 使用自行构造的锁
+	 * 
+	 * 
+	 * 
+	 */
 	constructor(lock: Class_Lock);
 
 	/**
-		* 
-		* @brief 使纤程进入阻塞状态
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 使纤程进入阻塞状态
+	 * 
+	 * 
+	 */
 	wait(): void;
 
 	/**
-		* 
-		* @brief 通知一个被阻塞的纤程（最后加入纤程池的）向下继续执行
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 通知一个被阻塞的纤程（最后加入纤程池的）向下继续执行
+	 * 
+	 * 
+	 */
 	notify(): void;
 
 	/**
-		* 
-		* @brief 通知所有被阻塞的纤程向下继续执行
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 通知所有被阻塞的纤程向下继续执行
+	 * 
+	 * 
+	 */
 	notifyAll(): void;
 
 } /** endof class */

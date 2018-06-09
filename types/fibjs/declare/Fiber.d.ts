@@ -22,11 +22,49 @@
 declare class Class_Fiber extends Class__object {
 	
 	/**
-		* 
-		* @brief 等待纤程结束
-		* 
-		* 
-		*/
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询纤程的唯一 id
+	 * 
+	 * @readonly
+	 * @type Long
+	 */
+	
+	id: number
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询纤程的调用纤程
+	 * 
+	 * @readonly
+	 * @type Fiber
+	 */
+	
+	caller: Class_Fiber
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询纤程的调用堆栈
+	 * 
+	 * @readonly
+	 * @type String
+	 */
+	
+	stack: string
+	
+	
+	
+	/**
+	 * 
+	 * @brief 等待纤程结束
+	 * 
+	 * 
+	 */
 	join(): void;
 
 } /** endof class */

@@ -225,113 +225,113 @@ declare module "encoding" {
 		
 		
 		/**
-			* 
-			* @brief base32 编码与解码模块
-			* 
-			* 
-			*/
+		 * 
+		 * @brief base32 编码与解码模块
+		 * 
+		 * 
+		 */
 		
 		export class base32 extends Class_base32 {}
 		
 		/**
-			* 
-			* @brief base64 编码与解码模块
-			* 
-			* 
-			*/
+		 * 
+		 * @brief base64 编码与解码模块
+		 * 
+		 * 
+		 */
 		
 		export class base64 extends Class_base64 {}
 		
 		/**
-			* 
-			* @brief base64vlq 编码与解码模块
-			* 
-			* 
-			*/
+		 * 
+		 * @brief base64vlq 编码与解码模块
+		 * 
+		 * 
+		 */
 		
 		export class base64vlq extends Class_base64vlq {}
 		
 		/**
-			* 
-			* @brief hex 编码与解码模块
-			* 
-			* 
-			*/
+		 * 
+		 * @brief hex 编码与解码模块
+		 * 
+		 * 
+		 */
 		
 		export class hex extends Class_hex {}
 		
 		/**
-			* 
-			* @brief iconv 编码与解码模块
-			* 
-			* 
-			*/
+		 * 
+		 * @brief iconv 编码与解码模块
+		 * 
+		 * 
+		 */
 		
 		export class iconv extends Class_iconv {}
 		
 		/**
-			* 
-			* @brief json 编码与解码模块
-			* 
-			* 
-			*/
+		 * 
+		 * @brief json 编码与解码模块
+		 * 
+		 * 
+		 */
 		
 		export class json extends Class_json {}
 		
 		/**
-			* 
-			* @brief bson 编码与解码模块
-			* 
-			* 
-			*/
+		 * 
+		 * @brief bson 编码与解码模块
+		 * 
+		 * 
+		 */
 		
 		export class bson extends Class_bson {}
 		
 		
 		
 		/**
-			* 
-			* @brief 将字符串编码为 javascript 转义字符串，用以在 javascript 代码中包含文本
-			* @param str 要编码的字符串
-			* @param json 是否生成json兼容字符串
-			* @return 返回编码的字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 将字符串编码为 javascript 转义字符串，用以在 javascript 代码中包含文本
+		 * @param str 要编码的字符串
+		 * @param json 是否生成json兼容字符串
+		 * @return 返回编码的字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function jsstr(str: string, json?: boolean/** = false*/): string;
 	
 		/**
-			* 
-			* @brief url 字符串安全编码
-			* @param url 要编码的 url
-			* @return 返回编码的字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief url 字符串安全编码
+		 * @param url 要编码的 url
+		 * @return 返回编码的字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function encodeURI(url: string): string;
 	
 		/**
-			* 
-			* @brief url 部件字符串安全编码
-			* @param url 要编码的 url
-			* @return 返回编码的字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief url 部件字符串安全编码
+		 * @param url 要编码的 url
+		 * @return 返回编码的字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function encodeURIComponent(url: string): string;
 	
 		/**
-			* 
-			* @brief url 安全字符串解码
-			* @param url 要解码的 url
-			* @return 返回解码的字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief url 安全字符串解码
+		 * @param url 要解码的 url
+		 * @return 返回解码的字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function decodeURI(url: string): string;
 	
 	} /** end of `module encoding` */

@@ -22,13 +22,39 @@
 declare class Class_MySQL extends Class_DbConnection {
 	
 	/**
-		* 
-		* @brief 选择当前数据库连接的缺省数据库
-		* @param dbName 指定数据库名
-		* 
-		* 
-		* @async
-		*/
+	 * class prop 
+	 *
+	 * 
+	 * @brief 数据库连接接收缓存尺寸
+	 * 
+	 * 
+	 * @type Integer
+	 */
+	
+	rxBufferSize: number
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 数据库连接发送缓存尺寸
+	 * 
+	 * 
+	 * @type Integer
+	 */
+	
+	txBufferSize: number
+	
+	
+	
+	/**
+	 * 
+	 * @brief 选择当前数据库连接的缺省数据库
+	 * @param dbName 指定数据库名
+	 * 
+	 * 
+	 * @async
+	 */
 	use(dbName: string): void;
 
 } /** endof class */

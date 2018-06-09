@@ -202,19 +202,19 @@ declare module "zip" {
 	module zip {
 		
 		/**
-			* 
-			* @brief 压缩类型常量, 不压缩, 仅存储
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 压缩类型常量, 不压缩, 仅存储
+		 * 
+		 * 
+		 */
 		export const ZIP_STORED = 0;
 		
 		/**
-			* 
-			* @brief 压缩类型常量, 需要依赖zlib库进行压缩
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 压缩类型常量, 需要依赖zlib库进行压缩
+		 * 
+		 * 
+		 */
 		export const ZIP_DEFLATED = 1;
 		
 		
@@ -222,53 +222,53 @@ declare module "zip" {
 		
 		
 		/**
-			* 
-			* @brief  判断文件是否是zip格式
-			* @param filename 文件名
-			* @return 返回true代表文件是zip文件
-			* 
-			* 
-			* @async
-			*/
+		 * 
+		 * @brief  判断文件是否是zip格式
+		 * @param filename 文件名
+		 * @return 返回true代表文件是zip文件
+		 * 
+		 * 
+		 * @async
+		 */
 		export function isZipFile(filename: string): boolean;
 	
 		/**
-			* 
-			* @brief 打开一个zip文件
-			* @param path 文件路径
-			* @param mod 打开文件模式, "r"代表读取, "w"代表创建, "a"代表在zip文件后追加
-			* @param compress_type 压缩类型, ZIP_STORED 代表不压缩, 仅存储。 默认使用ZIP_DEFLATED 代表使用zlib库进行压缩。
-			* @return 返回zip文件对象
-			* 
-			* 
-			* @async
-			*/
+		 * 
+		 * @brief 打开一个zip文件
+		 * @param path 文件路径
+		 * @param mod 打开文件模式, "r"代表读取, "w"代表创建, "a"代表在zip文件后追加
+		 * @param compress_type 压缩类型, ZIP_STORED 代表不压缩, 仅存储。 默认使用ZIP_DEFLATED 代表使用zlib库进行压缩。
+		 * @return 返回zip文件对象
+		 * 
+		 * 
+		 * @async
+		 */
 		export function open(path: string, mod?: string/** = "r"*/, compress_type?: number/** = undefined*/): Class_ZipFile;
 	
 		/**
-			* 
-			* @brief 打开一个zip文件
-			* @param data zip文件数据
-			* @param mod 打开文件模式, "r"代表读取, "w"代表创建, "a"代表在zip文件后追加
-			* @param compress_type 压缩类型, ZIP_STORED 代表不压缩, 仅存储。 默认使用ZIP_DEFLATED 代表使用zlib库进行压缩。
-			* @return 返回zip文件对象
-			* 
-			* 
-			* @async
-			*/
+		 * 
+		 * @brief 打开一个zip文件
+		 * @param data zip文件数据
+		 * @param mod 打开文件模式, "r"代表读取, "w"代表创建, "a"代表在zip文件后追加
+		 * @param compress_type 压缩类型, ZIP_STORED 代表不压缩, 仅存储。 默认使用ZIP_DEFLATED 代表使用zlib库进行压缩。
+		 * @return 返回zip文件对象
+		 * 
+		 * 
+		 * @async
+		 */
 		export function open(data: Class_Buffer, mod?: string/** = "r"*/, compress_type?: number/** = undefined*/): Class_ZipFile;
 	
 		/**
-			* 
-			* @brief 打开一个zip文件
-			* @param strm zip文件流
-			* @param mod 打开文件模式, "r"代表读取, "w"代表创建, "a"代表在zip文件后追加
-			* @param compress_type 压缩类型, ZIP_STORED 代表不压缩, 仅存储。 默认使用ZIP_DEFLATED 代表使用zlib库进行压缩。
-			* @return 返回zip文件对象
-			* 
-			* 
-			* @async
-			*/
+		 * 
+		 * @brief 打开一个zip文件
+		 * @param strm zip文件流
+		 * @param mod 打开文件模式, "r"代表读取, "w"代表创建, "a"代表在zip文件后追加
+		 * @param compress_type 压缩类型, ZIP_STORED 代表不压缩, 仅存储。 默认使用ZIP_DEFLATED 代表使用zlib库进行压缩。
+		 * @return 返回zip文件对象
+		 * 
+		 * 
+		 * @async
+		 */
 		export function open(strm: Class_SeekableStream, mod?: string/** = "r"*/, compress_type?: number/** = undefined*/): Class_ZipFile;
 	
 	} /** end of `module zip` */

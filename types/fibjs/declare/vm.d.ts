@@ -204,11 +204,11 @@ declare module "vm" {
 		
 		
 		/**
-			* 
-			* @brief 创建一个 SandBox 对象，参见 SandBox
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 创建一个 SandBox 对象，参见 SandBox
+		 * 
+		 * 
+		 */
 		
 		export class SandBox extends Class_SandBox {}
 		

@@ -206,25 +206,25 @@ declare module "json" {
 		
 		
 		/**
-			* 
-			* @brief 以 json 格式编码变量
-			* @param data 要编码的变量
-			* @return 返回编码的字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 以 json 格式编码变量
+		 * @param data 要编码的变量
+		 * @return 返回编码的字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function encode(data: any): string;
 	
 		/**
-			* 
-			* @brief 以 json 方式解码字符串为一个变量
-			* @param data 要解码的字符串
-			* @return 返回解码的变量
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 以 json 方式解码字符串为一个变量
+		 * @param data 要解码的字符串
+		 * @return 返回解码的变量
+		 * 
+		 * 
+		 * 
+		 */
 		export function decode(data: string): any;
 	
 	} /** end of `module json` */

@@ -22,52 +22,144 @@
 declare class Class_WebView extends Class_EventEmitter {
 	
 	/**
-		* 
-		* @brief 设置 webview 的页面 html
-		* @param html 设置的 html
-		* 
-		* 
-		* @async
-		*/
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询和设置窗口是否显示
+	 * 
+	 * 
+	 * @type Boolean
+	 */
+	
+	visible: boolean
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询和绑定加载成功事件，相当于 on("load", func);
+	 * 
+	 * 
+	 * @type Function
+	 */
+	
+	onload: Function
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询和绑定窗口移动事件，相当于 on("move", func);
+	 * 
+	 * 以下示例会在窗口移动时输出窗口的左上角坐标：
+	 * ```JavaScript
+	 * var gui = require('gui');
+	 * var webview = gui.open('fs:index.html');
+	 * 
+	 * webview.onmove = evt => console.log(evt.left, evt.top);
+	 * ```
+	 * 
+	 * 
+	 * 
+	 * @type Function
+	 */
+	
+	onmove: Function
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询和绑定窗口尺寸改变事件，相当于 on("size", func);
+	 * 
+	 * 以下示例会在窗口改变大小时输出窗口的尺寸：
+	 * ```JavaScript
+	 * var gui = require('gui');
+	 * var webview = gui.open('fs:index.html');
+	 * 
+	 * webview.onresize = evt => console.log(evt.width, evt.height);
+	 * ```
+	 * 
+	 * 
+	 * 
+	 * @type Function
+	 */
+	
+	onresize: Function
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询和绑定窗口关闭事件，WebView 关闭后会触发此时间，相当于 on("closed", func);
+	 * 
+	 * 
+	 * @type Function
+	 */
+	
+	onclosed: Function
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询和绑定接受 webview 内 postMessage 消息事件，相当于 on("message", func);
+	 * 
+	 * 
+	 * @type Function
+	 */
+	
+	onmessage: Function
+	
+	
+	
+	/**
+	 * 
+	 * @brief 设置 webview 的页面 html
+	 * @param html 设置的 html
+	 * 
+	 * 
+	 * @async
+	 */
 	setHtml(html: string): void;
 
 	/**
-		* 
-		* @brief 打印当前窗口文档
-		* @param mode 打印参数，0: 快速打印; 1: 标准打印; 2: 打印预览。缺省为 1
-		* 
-		* 
-		* @async
-		*/
+	 * 
+	 * @brief 打印当前窗口文档
+	 * @param mode 打印参数，0: 快速打印; 1: 标准打印; 2: 打印预览。缺省为 1
+	 * 
+	 * 
+	 * @async
+	 */
 	print(mode?: number/** = 1*/): void;
 
 	/**
-		* 
-		* @brief 关闭当前窗口
-		* 
-		* @async
-		*/
+	 * 
+	 * @brief 关闭当前窗口
+	 * 
+	 * @async
+	 */
 	close(): void;
 
 	/**
-		* 
-		* @brief 等待当前窗口关闭
-		* 宿主程序在创建窗口后，需要进入等待，否则随着宿主程序的退出，窗口将自动关闭。同时 wait 的调用也并不是必须的，你可以在打开窗口后处理其它业务，只需要保证程序不会自行退出即可。
-		* 
-		* 
-		* @async
-		*/
+	 * 
+	 * @brief 等待当前窗口关闭
+	 * 宿主程序在创建窗口后，需要进入等待，否则随着宿主程序的退出，窗口将自动关闭。同时 wait 的调用也并不是必须的，你可以在打开窗口后处理其它业务，只需要保证程序不会自行退出即可。
+	 * 
+	 * 
+	 * @async
+	 */
 	wait(): void;
 
 	/**
-		* 
-		* @brief 向 webview 内发送消息
-		* postMessage 需要在窗口加载完成后发送消息，在此之前发送的消息会丢失。因此建议在 onload 事件触发后再调用此方法。
-		* @param msg 要发送的消息
-		* 
-		* 
-		* @async
-		*/
+	 * 
+	 * @brief 向 webview 内发送消息
+	 * postMessage 需要在窗口加载完成后发送消息，在此之前发送的消息会丢失。因此建议在 onload 事件触发后再调用此方法。
+	 * @param msg 要发送的消息
+	 * 
+	 * 
+	 * @async
+	 */
 	postMessage(msg: string): void;
 
 } /** endof class */

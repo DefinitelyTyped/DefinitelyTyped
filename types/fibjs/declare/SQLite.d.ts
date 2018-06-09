@@ -22,12 +22,38 @@
 declare class Class_SQLite extends Class_DbConnection {
 	
 	/**
-		* 
-		* @brief 备份当前数据库到新文件
-		* @param fileName 指定备份的数据库文件名
-		* 
-		* @async
-		*/
+	 * class prop 
+	 *
+	 * 
+	 * @brief 当前数据库文件名
+	 * 
+	 * @readonly
+	 * @type String
+	 */
+	
+	fileName: string
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询和设置数据库超时时间，以毫秒为单位
+	 * 
+	 * 
+	 * @type Integer
+	 */
+	
+	timeout: number
+	
+	
+	
+	/**
+	 * 
+	 * @brief 备份当前数据库到新文件
+	 * @param fileName 指定备份的数据库文件名
+	 * 
+	 * @async
+	 */
 	backup(fileName: string): void;
 
 } /** endof class */

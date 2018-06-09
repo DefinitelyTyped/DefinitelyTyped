@@ -206,25 +206,25 @@ declare module "bson" {
 		
 		
 		/**
-			* 
-			* @brief 以 bson 格式编码变量
-			* @param data 要编码的变量
-			* @return 返回编码的二进制数据
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 以 bson 格式编码变量
+		 * @param data 要编码的变量
+		 * @return 返回编码的二进制数据
+		 * 
+		 * 
+		 * 
+		 */
 		export function encode(data: Object): Class_Buffer;
 	
 		/**
-			* 
-			* @brief 以 bson 方式解码字符串为一个变量
-			* @param data 要解码的二进制数据
-			* @return 返回解码的变量
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 以 bson 方式解码字符串为一个变量
+		 * @param data 要解码的二进制数据
+		 * @return 返回解码的变量
+		 * 
+		 * 
+		 * 
+		 */
 		export function decode(data: Class_Buffer): Object;
 	
 	} /** end of `module bson` */

@@ -206,25 +206,25 @@ declare module "hex" {
 		
 		
 		/**
-			* 
-			* @brief 以 hex 方式编码数据
-			* @param data 要编码的数据
-			* @return 返回编码的字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 以 hex 方式编码数据
+		 * @param data 要编码的数据
+		 * @return 返回编码的字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function encode(data: Class_Buffer): string;
 	
 		/**
-			* 
-			* @brief 以 hex 方式解码字符串为二进制数据
-			* @param data 要解码的字符串
-			* @return 返回解码的二进制数据
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 以 hex 方式解码字符串为二进制数据
+		 * @param data 要解码的字符串
+		 * @return 返回解码的二进制数据
+		 * 
+		 * 
+		 * 
+		 */
 		export function decode(data: string): Class_Buffer;
 	
 	} /** end of `module hex` */

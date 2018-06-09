@@ -21,56 +21,58 @@
 /// <reference path="Lock.d.ts" />
 declare class Class_Event extends Class_Lock {
 	
+	
+	
 	/**
-		* 
-		* @brief 事件对象构造函数
-		* @param value 指定是否等待，为 true 时等待，缺省为 false
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 事件对象构造函数
+	 * @param value 指定是否等待，为 true 时等待，缺省为 false
+	 * 
+	 * 
+	 * 
+	 */
 	constructor(value?: boolean/** = false*/);
 
 	/**
-		* 
-		* @brief 判断事件对象是否为真
-		* @return 如果事件为真，返回 true
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 判断事件对象是否为真
+	 * @return 如果事件为真，返回 true
+	 * 
+	 * 
+	 * 
+	 */
 	isSet(): boolean;
 
 	/**
-		* 
-		* @brief 激活事件（将事件状态改为true），并调用pulse()
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 激活事件（将事件状态改为true），并调用pulse()
+	 * 
+	 * 
+	 */
 	set(): void;
 
 	/**
-		* 
-		* @brief 激活等待该事件的所有纤程
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 激活等待该事件的所有纤程
+	 * 
+	 * 
+	 */
 	pulse(): void;
 
 	/**
-		* 
-		* @brief 重置事件（将事件状态改为false）
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 重置事件（将事件状态改为false）
+	 * 
+	 * 
+	 */
 	clear(): void;
 
 	/**
-		* 
-		* @brief 等待一个事件
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 等待一个事件
+	 * 
+	 * 
+	 */
 	wait(): void;
 
 } /** endof class */

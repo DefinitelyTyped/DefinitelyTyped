@@ -206,47 +206,47 @@ declare module "punycode" {
 		
 		
 		/**
-			* 
-			* @brief 将一个 Unicode 字符串转化为等价的只含有 ASCII 字符的 Punycode 字符串
-			* @param domain 给定Unicode 字符串
-			* @return 返回编码后的只含有 ASCII 字符的 Punycode 字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 将一个 Unicode 字符串转化为等价的只含有 ASCII 字符的 Punycode 字符串
+		 * @param domain 给定Unicode 字符串
+		 * @return 返回编码后的只含有 ASCII 字符的 Punycode 字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function encode(domain: string): string;
 	
 		/**
-			* 
-			* @brief 将一个 Punycode 字符串转化为等价的 Unicode 字符串
-			* @param domain 给定Unicode 字符串
-			* @return 返回解码后的 Unicode 字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 将一个 Punycode 字符串转化为等价的 Unicode 字符串
+		 * @param domain 给定Unicode 字符串
+		 * @return 返回解码后的 Unicode 字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function decode(domain: string): string;
 	
 		/**
-			* 
-			* @brief 转换一个代表了一个域名的Unicode字符串为一个只含有 ASCII 字符的字符串。只有代表了域名的部分的非 ASCII 字符串会被转换。也就是说，如果你调用了一个已经被转换为ASCII的字符串，也是没有问题的。
-			* @param domain 给定Unicode 字符串
-			* @return 返回编码后的 ASCII 字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 转换一个代表了一个域名的Unicode字符串为一个只含有 ASCII 字符的字符串。只有代表了域名的部分的非 ASCII 字符串会被转换。也就是说，如果你调用了一个已经被转换为ASCII的字符串，也是没有问题的。
+		 * @param domain 给定Unicode 字符串
+		 * @return 返回编码后的 ASCII 字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function toASCII(domain: string): string;
 	
 		/**
-			* 
-			* @brief 转换一个代表了一个域名的Punycode字符串为一个Unicode字符串。只有代表了域名的部分的Punycode字符串会被转换。也就是说，如果你调用了一个已经被转换为Unicode的字符串，也是没有问题的。
-			* @param domain 给定 ASCII 字符串
-			* @return 返回解码后的 Unicode 字符串
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 转换一个代表了一个域名的Punycode字符串为一个Unicode字符串。只有代表了域名的部分的Punycode字符串会被转换。也就是说，如果你调用了一个已经被转换为Unicode的字符串，也是没有问题的。
+		 * @param domain 给定 ASCII 字符串
+		 * @return 返回解码后的 Unicode 字符串
+		 * 
+		 * 
+		 * 
+		 */
 		export function toUnicode(domain: string): string;
 	
 	} /** end of `module punycode` */

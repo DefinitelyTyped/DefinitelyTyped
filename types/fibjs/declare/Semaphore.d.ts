@@ -21,40 +21,42 @@
 /// <reference path="Lock.d.ts" />
 declare class Class_Semaphore extends Class_Lock {
 	
+	
+	
 	/**
-		* 
-		* @brief 信号量构造函数
-		* @param value 计数器初始数值
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 信号量构造函数
+	 * @param value 计数器初始数值
+	 * 
+	 * 
+	 * 
+	 */
 	constructor(value?: number/** = 1*/);
 
 	/**
-		* 
-		* @brief 等待一个信号量，等同于 acquire(true)
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 等待一个信号量，等同于 acquire(true)
+	 * 
+	 * 
+	 */
 	wait(): void;
 
 	/**
-		* 
-		* @brief 释放一个信号量，等同于 release()
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 释放一个信号量，等同于 release()
+	 * 
+	 * 
+	 */
 	post(): void;
 
 	/**
-		* 
-		* @brief 尝试获取一个信号，如不能获取，则立即返回并返回 false，等同于 acquire(false)
-		* @return 获取成功则返回 true
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 尝试获取一个信号，如不能获取，则立即返回并返回 false，等同于 acquire(false)
+	 * @return 获取成功则返回 true
+	 * 
+	 * 
+	 * 
+	 */
 	trywait(): boolean;
 
 } /** endof class */

@@ -21,6 +21,56 @@
 
 declare class Class_EventInfo extends Class__object {
 	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * 查询事件错误编码
+	 * 
+	 * @readonly
+	 * @type Integer
+	 */
+	
+	code: number
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * 查询事件错误信息
+	 * 
+	 * @readonly
+	 * @type String
+	 */
+	
+	reason: string
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * 查询事件类型
+	 * 
+	 * @readonly
+	 * @type String
+	 */
+	
+	type: string
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * 查询触发事件的对象
+	 * 
+	 * @readonly
+	 * @type Object
+	 */
+	
+	target: Object
+	
+	
+	
 } /** endof class */
 
 /** } /** endof `module Or Internal Object` */

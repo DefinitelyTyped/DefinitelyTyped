@@ -202,166 +202,166 @@ declare module "ssl" {
 	module ssl {
 		
 		/**
-			* 
-			* @brief 证书验证模式，不验证
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 证书验证模式，不验证
+		 * 
+		 * 
+		 */
 		export const VERIFY_NONE = 0;
 		
 		/**
-			* 
-			* @brief 证书验证模式，可选验证，允许验证不通过
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 证书验证模式，可选验证，允许验证不通过
+		 * 
+		 * 
+		 */
 		export const VERIFY_OPTIONAL = 1;
 		
 		/**
-			* 
-			* @brief 证书验证模式，要求验证，验证不通过则中断
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 证书验证模式，要求验证，验证不通过则中断
+		 * 
+		 * 
+		 */
 		export const VERIFY_REQUIRED = 2;
 		
 		/**
-			* 
-			* @brief 证书验证结果，证书超时
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 证书验证结果，证书超时
+		 * 
+		 * 
+		 */
 		export const BADCERT_EXPIRED = 1;
 		
 		/**
-			* 
-			* @brief 证书验证结果，证书被撤销
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 证书验证结果，证书被撤销
+		 * 
+		 * 
+		 */
 		export const BADCERT_REVOKED = 2;
 		
 		/**
-			* 
-			* @brief 证书验证结果，证书名错误
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 证书验证结果，证书名错误
+		 * 
+		 * 
+		 */
 		export const BADCERT_CN_MISMATCH = 4;
 		
 		/**
-			* 
-			* @brief 证书验证结果，证书不可信
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 证书验证结果，证书不可信
+		 * 
+		 * 
+		 */
 		export const BADCERT_NOT_TRUSTED = 8;
 		
 		/**
-			* 
-			* @brief ssl 协议版本 ssl 3.0
-			* 
-			* 
-			*/
+		 * 
+		 * @brief ssl 协议版本 ssl 3.0
+		 * 
+		 * 
+		 */
 		export const ssl3 = 0;
 		
 		/**
-			* 
-			* @brief ssl 协议版本 tls 1.0
-			* 
-			* 
-			*/
+		 * 
+		 * @brief ssl 协议版本 tls 1.0
+		 * 
+		 * 
+		 */
 		export const tls1 = 1;
 		
 		/**
-			* 
-			* @brief ssl 协议版本 tls 1.1
-			* 
-			* 
-			*/
+		 * 
+		 * @brief ssl 协议版本 tls 1.1
+		 * 
+		 * 
+		 */
 		export const tls1_1 = 2;
 		
 		/**
-			* 
-			* @brief ssl 协议版本 tls 1.2
-			* 
-			* 
-			*/
+		 * 
+		 * @brief ssl 协议版本 tls 1.2
+		 * 
+		 * 
+		 */
 		export const tls1_2 = 3;
 		
 		
 		
 		/**
-			* 
-			* @brief 创建一个 SslSocket 对象，参见 SslSocket
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 创建一个 SslSocket 对象，参见 SslSocket
+		 * 
+		 * 
+		 */
 		
 		export class SslSocket extends Class_SslSocket {}
 		
 		/**
-			* 
-			* @brief 创建一个 SslHandler 对象，参见 SslHandler
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 创建一个 SslHandler 对象，参见 SslHandler
+		 * 
+		 * 
+		 */
 		
 		export class SslHandler extends Class_SslHandler {}
 		
 		/**
-			* 
-			* @brief 创建一个 SslServer 对象，参见 SslServer
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 创建一个 SslServer 对象，参见 SslServer
+		 * 
+		 * 
+		 */
 		
 		export class SslServer extends Class_SslServer {}
 		
 		
 		
 		/**
-			* 
-			* @brief 创建一个 SslSocket 对象并建立连接
-			* @param url 指定连接的协议，可以是：ssl://host:port
-			* @param timeout 指定超时时间，单位是毫秒，默认为0
-			* @return 返回连接成功的 SslSocket 对象
-			* 
-			* 
-			* @async
-			*/
+		 * 
+		 * @brief 创建一个 SslSocket 对象并建立连接
+		 * @param url 指定连接的协议，可以是：ssl://host:port
+		 * @param timeout 指定超时时间，单位是毫秒，默认为0
+		 * @return 返回连接成功的 SslSocket 对象
+		 * 
+		 * 
+		 * @async
+		 */
 		export function connect(url: string, timeout?: number/** = 0*/): Class_Stream;
 	
 		/**
-			* 
-			* @brief 设定缺省客户端证书
-			* @param crt X509Cert 证书，用于客户端验证服务器
-			* @param key PKey 私钥，用于与客户端会话
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 设定缺省客户端证书
+		 * @param crt X509Cert 证书，用于客户端验证服务器
+		 * @param key PKey 私钥，用于与客户端会话
+		 * 
+		 * 
+		 * 
+		 */
 		export function setClientCert(crt: Class_X509Cert, key: Class_PKey): void;
 	
 		/**
-			* 
-			* @brief 从文件中加载缺省客户端证书
-			* @param crtFile X509Cert 证书文件，用于客户端验证服务器
-			* @param keyFile PKey 私钥文件，用于与客户端会话
-			* @param password 解密密码
-			* 
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 从文件中加载缺省客户端证书
+		 * @param crtFile X509Cert 证书文件，用于客户端验证服务器
+		 * @param keyFile PKey 私钥文件，用于与客户端会话
+		 * @param password 解密密码
+		 * 
+		 * 
+		 * 
+		 */
 		export function loadClientCertFile(crtFile: string, keyFile: string, password?: string/** = ""*/): void;
 	
 		/**
-			* 
-			* @brief 加载自带的缺省根证书，等同于 ssl.ca.loadRootCerts
-			* 此证书内容源自：http://hg.mozilla.org/releases/mozilla-release/raw-file/default/security/nss/lib/ckfw/builtins/certdata.txt
-			* 
-			* 
-			*/
+		 * 
+		 * @brief 加载自带的缺省根证书，等同于 ssl.ca.loadRootCerts
+		 * 此证书内容源自：http://hg.mozilla.org/releases/mozilla-release/raw-file/default/security/nss/lib/ckfw/builtins/certdata.txt
+		 * 
+		 * 
+		 */
 		export function loadRootCerts(): void;
 	
 	} /** end of `module ssl` */

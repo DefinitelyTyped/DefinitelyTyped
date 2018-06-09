@@ -22,93 +22,191 @@
 declare class Class_Stat extends Class__object {
 	
 	/**
-		* 
-		* @brief 查询文件是否有写入权限
-		* @return 为 true 则有写入权限
-		* 
-		* 
-		* 
-		*/
+	 * class prop 
+	 *
+	 * 
+	 * @brief 文件名称
+	 * 
+	 * @readonly
+	 * @type String
+	 */
+	
+	name: string
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 文件尺寸
+	 * 
+	 * @readonly
+	 * @type Long
+	 */
+	
+	size: number
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 文件权限，Windows 不支持此属性
+	 * 
+	 * @readonly
+	 * @type Integer
+	 */
+	
+	mode: number
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 文件最后修改时间
+	 * 
+	 * @readonly
+	 * @type Date
+	 */
+	
+	mtime: Date
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 文件最后访问时间
+	 * 
+	 * @readonly
+	 * @type Date
+	 */
+	
+	atime: Date
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 文件创建时间
+	 * 
+	 * @readonly
+	 * @type Date
+	 */
+	
+	ctime: Date
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 文件拥有者的id
+	 * 
+	 * @readonly
+	 * @type Integer
+	 */
+	
+	uid: number
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 文件所属的组id
+	 * 
+	 * @readonly
+	 * @type Integer
+	 */
+	
+	gid: number
+	
+	
+	
+	/**
+	 * 
+	 * @brief 查询文件是否有写入权限
+	 * @return 为 true 则有写入权限
+	 * 
+	 * 
+	 * 
+	 */
 	isWritable(): boolean;
 
 	/**
-		* 
-		* @brief 查询文件是否有读权限
-		* @return 为 true 则有读权限
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 查询文件是否有读权限
+	 * @return 为 true 则有读权限
+	 * 
+	 * 
+	 * 
+	 */
 	isReadable(): boolean;
 
 	/**
-		* 
-		* @brief 查询文件是否有执行权限
-		* @return 为 true 则有执行权限
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 查询文件是否有执行权限
+	 * @return 为 true 则有执行权限
+	 * 
+	 * 
+	 * 
+	 */
 	isExecutable(): boolean;
 
 	/**
-		* 
-		* @brief 查询文件是否隐藏
-		* @return 为 true 则隐藏
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 查询文件是否隐藏
+	 * @return 为 true 则隐藏
+	 * 
+	 * 
+	 * 
+	 */
 	isHidden(): boolean;
 
 	/**
-		* 
-		* @brief 查询文件是否是目录
-		* @return 为 true 则是目录
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 查询文件是否是目录
+	 * @return 为 true 则是目录
+	 * 
+	 * 
+	 * 
+	 */
 	isDirectory(): boolean;
 
 	/**
-		* 
-		* @brief 查询文件是否是文件
-		* @return 为 true 则是文件
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 查询文件是否是文件
+	 * @return 为 true 则是文件
+	 * 
+	 * 
+	 * 
+	 */
 	isFile(): boolean;
 
 	/**
-		* 
-		* @brief 查询文件是否是符号链接
-		* @return 为 true 则是符号链接
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 查询文件是否是符号链接
+	 * @return 为 true 则是符号链接
+	 * 
+	 * 
+	 * 
+	 */
 	isSymbolicLink(): boolean;
 
 	/**
-		* 
-		* @brief 查询文件是否是内存文件
-		* @return 为 true 则是内存文件
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 查询文件是否是内存文件
+	 * @return 为 true 则是内存文件
+	 * 
+	 * 
+	 * 
+	 */
 	isMemory(): boolean;
 
 	/**
-		* 
-		* @brief 查询文件是否是 Socket
-		* @return 为 true 则是 Socket
-		* 
-		* 
-		* 
-		*/
+	 * 
+	 * @brief 查询文件是否是 Socket
+	 * @return 为 true 则是 Socket
+	 * 
+	 * 
+	 * 
+	 */
 	isSocket(): boolean;
 
 } /** endof class */

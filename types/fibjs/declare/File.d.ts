@@ -22,13 +22,39 @@
 declare class Class_File extends Class_SeekableStream {
 	
 	/**
-		* 
-		* @brief 查询当前文件的访问权限，Windows 不支持此方法
-		* @param mode 指定设定的访问权限
-		* 
-		* 
-		* @async
-		*/
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询当前文件名
+	 * 
+	 * @readonly
+	 * @type String
+	 */
+	
+	name: string
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询当前文件描述符
+	 * 
+	 * @readonly
+	 * @type Integer
+	 */
+	
+	fd: number
+	
+	
+	
+	/**
+	 * 
+	 * @brief 查询当前文件的访问权限，Windows 不支持此方法
+	 * @param mode 指定设定的访问权限
+	 * 
+	 * 
+	 * @async
+	 */
 	chmod(mode: number): void;
 
 } /** endof class */
