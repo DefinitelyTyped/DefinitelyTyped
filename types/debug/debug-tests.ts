@@ -1,11 +1,11 @@
 
 
-import debug = require("debug");
+import { debug, IDebugger } from "debug"
 
 debug.disable();
 debug.enable("DefinitelyTyped:*");
 
-var log:debug.IDebugger = debug("DefinitelyTyped:log");
+var log: IDebugger = debug("DefinitelyTyped:log");
 
 log("Just text");
 log("Formatted test (%d arg)", 1);
@@ -15,6 +15,6 @@ log("Enabled?: %s", debug.enabled("DefinitelyTyped:log"));
 log("Name Enabled: %s", debug.names.some(name => name.test("DefinitelyTyped:log")));
 log("Namespace: %s", log.namespace);
 
-var error:debug.IDebugger = debug("DefinitelyTyped:error");
+var error: IDebugger = debug("DefinitelyTyped:error");
 error.log = console.error.bind(console);
 error("This should be printed to stderr");

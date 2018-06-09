@@ -1,13 +1,15 @@
-// Type definitions for pouchdb-core 6.4
+// Type definitions for pouchdb-core 6.5
 // Project: https://pouchdb.com/
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>,
 //                 Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>,
-//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>
+//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>,
+//                 Waiting Song <https://github.com/waitingsong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="debug" />
 /// <reference types="pouchdb-find" />
+
+import { IDebug } from "debug";
 
 interface Buffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
@@ -607,7 +609,7 @@ declare namespace PouchDB {
 
         on(event: 'created' | 'destroyed', listener: (dbName: string) => any): this;
 
-        debug: debug.IDebug;
+        debug: IDebug;
 
         new<Content extends {} = {}>(name?: string,
                                      options?: Configuration.DatabaseConfiguration): Database<Content>;
