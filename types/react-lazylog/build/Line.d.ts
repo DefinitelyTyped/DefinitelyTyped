@@ -1,7 +1,7 @@
 import { Component, ReactNode, CSSProperties, MouseEventHandler } from "react";
 
 export interface LineProps {
-    data: { text: string }[];
+    data: Array<{ text: string }>;
     number: number;
     rowHeight: number;
     highlight?: boolean;

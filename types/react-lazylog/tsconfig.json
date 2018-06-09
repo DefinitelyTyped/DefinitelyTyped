@@ -16,7 +16,10 @@
     "files": [
         "react-lazylog-tests.tsx",
         "index.d.ts",
-        "lib/build/LazyLog.d.ts",
-        "lib/build/LinePart.d.ts"
+        "build/Line.d.ts",
+        "build/LineContent.d.ts",
+        "build/LineNumber.d.ts",
+        "build/LinePart.d.ts",
+        "build/Loading.d.ts"
     ]
 }

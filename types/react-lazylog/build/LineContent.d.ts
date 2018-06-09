@@ -1,7 +1,7 @@
 import { Component, ReactNode, CSSProperties } from "react";
 
 export interface LineContentProps {
-    data: { text: string }[];
+    data: Array<{ text: string }>;
     number: number;
     formatPart?: (text: string) => ReactNode;
     style?: CSSProperties;
