@@ -126,7 +126,7 @@ export class Client extends Base {
 	 * @param cb callback to socket.bind
 	 * @returns promise when socket.bind is ready
 	 */
-	start(cb?: (error: any) => void): Promise<void>;
+	start(cb?: (error: Error) => void): Promise<void>;
 	/**
 	 * Close UDP socket.
 	 */
@@ -146,7 +146,7 @@ export class Server extends Base {
 	 * @param cb callback to socket.bind
 	 * @returns promise when socket.bind is ready
 	 */
-	start(cb?: (error: any) => void): void | Promise<void>;
+	start(cb?: (error: Error) => void): void | Promise<void>;
 	/**
 	 * Advertise shutdown and close UDP socket.
 	 */
