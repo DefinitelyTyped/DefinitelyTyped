@@ -9,10 +9,10 @@ svgmin({ plugins: [{ removeDoctype: false }, { removeComments: false }] });
 
 // From examples given in README
 
-// $ExpectType Transform
+// $ExpectType Transform<any, any>
 svgmin();
 
-// $ExpectType Transform
+// $ExpectType Transform<any, any>
 svgmin({
     plugins: [{
         removeDoctype: false
@@ -30,14 +30,14 @@ svgmin({
     }]
 });
 
-// $ExpectType Transform
+// $ExpectType Transform<any, any>
 svgmin({
     js2svg: {
         pretty: true
     }
 });
 
-// $ExpectType Transform
+// $ExpectType Transform<any, any>
 svgmin(function getOptions(file) {
     const prefix = basename(file.relative, extname(file.relative));
     return {
