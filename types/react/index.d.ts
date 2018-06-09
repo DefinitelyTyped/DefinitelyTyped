@@ -1687,6 +1687,7 @@ declare namespace React {
         className?: string;
         color?: string;
         height?: number | string;
+        href?: string;
         id?: string;
         lang?: string;
         max?: number | string;
