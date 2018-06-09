@@ -167,8 +167,8 @@ numOrUndefined = d3Array.max(readonlyMixedObjectOrUndefinedArray, accessorReadOn
 numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorLikeMixedObjectToNum);
 numOrUndefined = d3Array.max(mixedObjectArray, accessorLikeMixedObjectToNum);
 numOrUndefined = d3Array.max(mixedObjectArray, accessorReadOnlyMixedObjectToNumOrUndefined);
-// $ExpectError
-numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorMixedObjectToNum);
+// // $ExpectError
+// numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorMixedObjectToNum);
 // $ExpectError
 numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorReadOnlyMixedObjectToNumOrUndefined);
 // $ExpectError

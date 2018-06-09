@@ -25,7 +25,7 @@ export interface Numeric {
     valueOf(): number;
 }
 
-export type AnArray<T> = Array<T> | ReadonlyArray<T> | ArrayLike<T>;
+export type AnArray<T> = T[] | ReadonlyArray<T> | ArrayLike<T>;
 
 // --------------------------------------------------------------------------------------
 // Descriptive Statistics
