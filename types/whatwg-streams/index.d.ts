@@ -139,7 +139,7 @@ declare class CountQueuingStrategy {
     size(): 1;
 }
 
-declare interface TransformStreamTransformer<R, W> {
+export interface TransformStreamTransformer<R, W> {
     start?(controller: TransformStreamDefaultController<R>): void | Promise<any>;
     transform?(chunk: W, controller: TransformStreamDefaultController<R>): void | Promise<any>;
     flush?(controller: TransformStreamDefaultController<R>): void | Promise<any>;
