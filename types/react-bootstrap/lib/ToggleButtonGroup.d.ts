@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Sizes } from 'react-bootstrap';
 import { Omit } from "../index";
 
 declare namespace ToggleButtonGroup {
@@ -13,6 +14,7 @@ declare namespace ToggleButtonGroup {
          * but you can technically use any|any[].
          */
         value?: any;
+        bsSize?: Sizes;
     }
 
     interface RadioProps {
