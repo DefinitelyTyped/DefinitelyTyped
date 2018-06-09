@@ -70,6 +70,7 @@ const mixedObjectArray = [
 ];
 
 const mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined];
+const mixedObjectArrayLike = mixedObjectArray as ArrayLike<MixedObject>;
 
 let typedArray = Uint8Array.from(numbersArray);
 let readonlyNumbersArray = numbersArray as ReadonlyArray<number>;
@@ -104,6 +105,34 @@ function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, ind
     return datum ? datum.str : undefined;
 }
 
+function accessorLikeMixedObjectToNum(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): number {
+    return datum.num;
+}
+
+function accessorLikeMixedObjectToStr(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): string {
+    return datum.str;
+}
+
+function accessorLikeMixedObjectToNumeric(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): NumCoercible {
+    return datum.numeric;
+}
+
+function accessorLikeMixedObjectToDate(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): Date {
+    return datum.date;
+}
+
+function accessorLikeMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+    return datum ? datum.num : undefined;
+}
+
+function accessorLikeMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject>): string | undefined | null {
+    return datum ? datum.str : undefined;
+}
+
+function accessorReadOnlyMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ReadonlyArray<MixedObject | undefined>): number | undefined | null {
+    return datum ? datum.num : undefined;
+}
+
 // -----------------------------------------------------------------------------
 // Test Statistics
 // -----------------------------------------------------------------------------
@@ -133,7 +162,17 @@ numericOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToNumeric)
 dateOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToDate);
 numOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToNumOrUndefined);
 strOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
-numOrUndefined = d3Array.max(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.max(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
+numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorLikeMixedObjectToNum);
+numOrUndefined = d3Array.max(mixedObjectArray, accessorLikeMixedObjectToNum);
+numOrUndefined = d3Array.max(mixedObjectArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+// $ExpectError
+numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorMixedObjectToNum);
+// $ExpectError
+numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorReadOnlyMixedObjectToNumOrUndefined);
+// $ExpectError
+numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => { a.push(3); return 0; });
 
 // min() -----------------------------------------------------------------------
 
@@ -160,7 +199,7 @@ numericOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNumeric)
 dateOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToDate);
 numOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNumOrUndefined);
 strOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
-numOrUndefined = d3Array.min(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.min(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
 // extent() --------------------------------------------------------------------
 
@@ -187,7 +226,7 @@ mixedOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToN
 dateMixedOrUndefined = d3Array.extent(mixedObjectArray, accessorMixedObjectToDate);
 numOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToNumOrUndefined);
 strOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
-numOrUndefinedExtent = d3Array.extent(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefinedExtent = d3Array.extent(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
 // mean() ----------------------------------------------------------------------
 
@@ -202,7 +241,7 @@ numOrUndefined = d3Array.mean(readonlyNumbersOrUndefinedArray);
 
 numOrUndefined = d3Array.mean(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.mean(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
-numOrUndefined = d3Array.mean(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.mean(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
 // median() --------------------------------------------------------------------
 
@@ -217,7 +256,7 @@ numOrUndefined = d3Array.median(readonlyNumbersOrUndefinedArray);
 
 numOrUndefined = d3Array.median(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.median(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
-numOrUndefined = d3Array.median(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.median(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
 // quantile() ------------------------------------------------------------------
 
@@ -232,7 +271,7 @@ numOrUndefined = d3Array.quantile(readonlyNumbersOrUndefinedArray, 0.5);
 
 numOrUndefined = d3Array.quantile(mixedObjectArray, 0.5, accessorMixedObjectToNum);
 numOrUndefined = d3Array.quantile(mixedObjectOrUndefinedArray, 0.5, accessorMixedObjectToNumOrUndefined);
-numOrUndefined = d3Array.quantile(readonlyMixedObjectOrUndefinedArray, 0.5, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.quantile(readonlyMixedObjectOrUndefinedArray, 0.5, accessorReadOnlyMixedObjectToNumOrUndefined);
 
 // sum() -----------------------------------------------------------------------
 
@@ -247,7 +286,7 @@ numOrUndefined = d3Array.sum(readonlyNumbersOrUndefinedArray);
 
 numOrUndefined = d3Array.sum(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.sum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
-numOrUndefined = d3Array.sum(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.sum(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
 // deviation() -----------------------------------------------------------------
 
@@ -262,7 +301,7 @@ numOrUndefined = d3Array.deviation(readonlyNumbersOrUndefinedArray);
 
 numOrUndefined = d3Array.deviation(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.deviation(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
-numOrUndefined = d3Array.deviation(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.deviation(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
 // variance() ------------------------------------------------------------------
 
@@ -277,7 +316,7 @@ numOrUndefined = d3Array.variance(readonlyNumbersOrUndefinedArray);
 
 numOrUndefined = d3Array.variance(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.variance(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
-numOrUndefined = d3Array.variance(readonlyMixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.variance(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
 // -----------------------------------------------------------------------------
 // Test Searching Arrays

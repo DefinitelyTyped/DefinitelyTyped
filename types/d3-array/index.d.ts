@@ -25,6 +25,8 @@ export interface Numeric {
     valueOf(): number;
 }
 
+export type AnArray<T> = Array<T> | ReadonlyArray<T> | ArrayLike<T>;
+
 // --------------------------------------------------------------------------------------
 // Descriptive Statistics
 // --------------------------------------------------------------------------------------
@@ -42,12 +44,12 @@ export function max<T extends Numeric>(array: ArrayLike<T>): T | undefined;
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to strings.
  */
-export function max<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => string | undefined | null): string | undefined;
+export function max<T, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => string | undefined | null): string | undefined;
 
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to easily-sorted values.
  */
-export function max<T, U extends Numeric>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => U | undefined | null): U | undefined;
+export function max<T, U extends Numeric, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => U | undefined | null): U | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
@@ -62,12 +64,12 @@ export function min<T extends Numeric>(array: ArrayLike<T>): T | undefined;
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => string | undefined | null): string | undefined;
+export function min<T, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => string | undefined | null): string | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T, U extends Numeric>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => U | undefined | null): U | undefined;
+export function min<T, U extends Numeric, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => U | undefined | null): U | undefined;
 
 /**
  * Return the min and max simultaneously.
@@ -82,30 +84,39 @@ export function extent<T extends Numeric>(array: ArrayLike<T>): [T, T] | [undefi
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => string | undefined | null): [string, string] | [undefined, undefined];
+export function extent<T, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => string | undefined | null): [string, string] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T, U extends Numeric>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => U | undefined | null): [U, U] | [undefined, undefined];
+export function extent<T, U extends Numeric, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => U | undefined | null): [U, U] | [undefined, undefined];
 
 /**
  * Return the mean of an array of numbers
  */
 export function mean<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
-export function mean<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+
+/**
+ * Return the mean of an array of numbers
+ */
+export function mean<T, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => number | undefined | null): number | undefined;
 
 /**
  * Return the median of an array of numbers
  */
 export function median<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
-export function median<T>(array: ArrayLike<T>, accessor: (element: T, i: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+
+/**
+ * Return the median of an array of numbers
+ */
+export function median<T, K extends AnArray<T>>(array: K, accessor: (element: T, i: number, array: K) => number | undefined | null): number | undefined;
 
 /**
  * Returns the p-quantile of an array of numbers
  */
 export function quantile<T extends Numeric>(array: ArrayLike<T | undefined | null>, p: number): number | undefined;
-export function quantile<T>(array: ArrayLike<T>, p: number, accessor: (element: T, i: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+
+export function quantile<T, K extends AnArray<T>>(array: K, p: number, accessor: (element: T, i: number, array: K) => number | undefined | null): number | undefined;
 
 /**
  * Compute the sum of an array of numbers.
@@ -115,7 +126,7 @@ export function sum<T extends Numeric>(array: ArrayLike<T | undefined | null>): 
 /**
  * Compute the sum of an array, using the given accessor to convert values to numbers.
  */
-export function sum<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number;
+export function sum<T, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => number | undefined | null): number;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array of numbers.
@@ -126,7 +137,7 @@ export function deviation<T extends Numeric>(array: ArrayLike<T | undefined | nu
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function deviation<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+export function deviation<T, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => number | undefined | null): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array of numbers.
@@ -137,7 +148,7 @@ export function variance<T extends Numeric>(array: ArrayLike<T | undefined | nul
  * Compute an unbiased estimator of the population variance of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function variance<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+export function variance<T, K extends AnArray<T>>(array: K, accessor: (datum: T, index: number, array: K) => number | undefined | null): number | undefined;
 
 // --------------------------------------------------------------------------------------
 // Searching Arrays
