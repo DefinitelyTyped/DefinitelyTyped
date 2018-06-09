@@ -257,7 +257,7 @@ declare module 'twit' {
       id?: string,
       slug?: string,
       status?: string,
-      user_id?: number,
+      user_id?: number | string,
       lat?: number,
       long?: number,
       follow?: boolean,
