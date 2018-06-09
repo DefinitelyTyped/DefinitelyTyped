@@ -3,21 +3,21 @@
 // Definitions by: Ragg <https://github.com/Ragg->
 //                 fsubal <https://github.com/fsubal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-import React = require('react');
+// TypeScript Version: 2.8
+import React = require("react");
 
-type CSSProperties = React.CSSProperties;
+type Style = { [key: string]: string | number };
 
 declare namespace Rnd {
     type Direction =
-        | 'bottom'
-        | 'bottomLeft'
-        | 'bottomRight'
-        | 'left'
-        | 'right'
-        | 'top'
-        | 'topLeft'
-        | 'topRight';
+        | "bottom"
+        | "bottomLeft"
+        | "bottomRight"
+        | "left"
+        | "right"
+        | "top"
+        | "topLeft"
+        | "topRight";
 
     interface Enable {
         bottom?: boolean;
@@ -42,14 +42,14 @@ declare namespace Rnd {
     }
 
     interface HandleStyles {
-        bottom?: CSSProperties;
-        bottomLeft?: CSSProperties;
-        bottomRight?: CSSProperties;
-        left?: CSSProperties;
-        right?: CSSProperties;
-        top?: CSSProperties;
-        topLeft?: CSSProperties;
-        topRight?: CSSProperties;
+        bottom?: Style;
+        bottomLeft?: Style;
+        bottomRight?: Style;
+        left?: Style;
+        right?: Style;
+        top?: Style;
+        topLeft?: Style;
+        topRight?: Style;
     }
 
     interface Position {
@@ -62,6 +62,43 @@ declare namespace Rnd {
         height: number;
     }
 
+    type defaultProps = {
+        x: number;
+        y: number;
+        width?: number | string;
+        height?: number | string;
+    };
+
+    type Enable = {
+        bottom?: boolean;
+        bottomLeft?: boolean;
+        bottomRight?: boolean;
+        left?: boolean;
+        right?: boolean;
+        top?: boolean;
+        topLeft?: boolean;
+        topRight?: boolean;
+    };
+
+    type ResizeStartCallback = (
+        e: MouseEvent | TouchEvent,
+        dir: Direction,
+        refToElement: HTMLDivElement
+    ) => void;
+
+    type ResizeCallback = (
+        e: MouseEvent | TouchEvent,
+        dir: Direction,
+        refToElement: HTMLDivElement,
+        delta: Size,
+        position: Position
+    ) => void;
+
+    type DraggableEventHandler = (
+        e: MouseEvent | TouchEvent,
+        data: DraggableData
+    ) => void | false;
+
     interface DraggableData {
         node: HTMLElement;
         x: number;
@@ -72,46 +109,45 @@ declare namespace Rnd {
         lastY: number;
     }
 
-    type DraggableEventHandler = (e: MouseEvent | TouchEvent, data: DraggableData) => void|false;
-
-    type ResizeHandler = (
-        e: MouseEvent|TouchEvent,
-        direction: Direction,
-        ref: HTMLDivElement,
-        delta: Size,
-        position: Position
-    ) => void;
-
     interface Options {
-        default: {
-            x?: number;
-            y?: number;
-            width?: number|string;
-            height?: number|string;
+        default: defaultProps;
+        size?: {
+            width: number | string;
+            height: number | string;
         };
-        className: string;
-        style: any;
-        width: number|string;
-        height: number|string;
-        minWidth: number|string;
-        minHeight: number|string;
-        maxWidth: number|string;
-        maxHeight: number|string;
-        z: number;
+        position?: Position;
+        className?: string;
+        style?: { [key: string]: string };
+        minWidth?: number | string;
+        minHeight?: number | string;
+        maxWidth?: number | string;
+        maxHeight?: number | string;
+        z?: number;
+        resizeGrid?: [number, number];
+        dragGrid?: [number, number];
+        lockAspectRatio?: boolean | number;
+        lockAspectRatioExtraWidth?: number;
+        lockAspectRatioExtraHeight?: number;
+        dragHandleClassName?: string;
+        resizeHandleStyles?: HandleStyles;
         resizeHandleClasses: HandleClasses;
-        resizeHandleStyles: HandleStyles;
-
-        lockAspectRatio: boolean;
-        enableResizing?: Enable;
+        resizeHandleWrapperClass?: string;
+        resizeHandleWrapperStyle?: Style;
+        enableResizing: Enable;
         disableDragging?: boolean;
+        cancel?: string;
+        extendsProps?: { [key: string]: any };
+        dragAxis?: "x" | "y" | "both" | "none";
+        bounds?: string;
+        enableUserSelectHack?: boolean;
 
-        onResizeStart: () => void;
-        onResize: () => void;
-        onResizeStop: ResizeHandler;
+        onResizeStart?: ResizeStartCallback;
+        onResize?: ResizeCallback;
+        onResizeStop?: ResizeCallback;
 
-        onDragStart: DraggableEventHandler;
-        onDrag: DraggableEventHandler;
-        onDragStop: DraggableEventHandler;
+        onDragStart?: DraggableEventHandler;
+        onDrag?: DraggableEventHandler;
+        onDragStop?: DraggableEventHandler;
     }
 }
 
