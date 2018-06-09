@@ -2,7 +2,7 @@
 // Project: https://github.com/tmpvar/jsdom#readme
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

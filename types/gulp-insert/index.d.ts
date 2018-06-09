@@ -2,6 +2,7 @@
 // Project: https://github.com/rschmukler/gulp-insert
 // Definitions by: Shant Marouti <https://github.com/shantmarouti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 /// <reference types="vinyl"/>

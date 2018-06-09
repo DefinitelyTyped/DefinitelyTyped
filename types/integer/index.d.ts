@@ -2,6 +2,7 @@
 // Project: https://github.com/JoshuaWise/integer#readme
 // Definitions by: Ben Davies <https://github.com/Morfent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // This can't just be written as a simple class since Integer instances can't
 // be constructed by its actual constructor without throwing, but calling it as

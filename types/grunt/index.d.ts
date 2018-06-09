@@ -2,6 +2,7 @@
 // Project: http://gruntjs.com
 // Definitions by: Jeff May <https://github.com/jeffmay>, Basarat Ali Syed <https://github.com/basarat>
 // Definitions: https://github.com/jeffmay/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

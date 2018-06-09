@@ -2,6 +2,7 @@
 // Project: https://github.com/flatiron/winston
 // Definitions by: bonnici <https://github.com/bonnici>, Peter Harris <https://github.com/codeanimal>, DABH <https://github.com/DABH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/winston.d.ts
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/jsdom/whatwg-url#readme
 // Definitions by: Alexander Marks <https://github.com/aomarks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

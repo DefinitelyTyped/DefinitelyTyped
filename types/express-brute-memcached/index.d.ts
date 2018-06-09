@@ -2,7 +2,7 @@
 // Project: https://github.com/AdamPflug/express-brute-memcached
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /**
  * @summary Memcached options.

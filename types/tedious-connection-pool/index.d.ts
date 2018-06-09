@@ -2,6 +2,7 @@
 // Project: https://github.com/pekim/tedious-connection-pool
 // Definitions by: Cyprien Autexier <https://github.com/sandorfr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

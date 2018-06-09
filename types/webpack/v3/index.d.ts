@@ -12,7 +12,7 @@
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

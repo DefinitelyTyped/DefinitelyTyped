@@ -2,6 +2,7 @@
 // Project: https://github.com/mcollina/pino.git
 // Definitions by: Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

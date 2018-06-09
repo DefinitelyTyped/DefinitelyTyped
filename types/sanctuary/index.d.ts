@@ -4,6 +4,7 @@
 //                 Juan J. Jimenez-Anca <https://github.com/cortopy>
 //                 Ken Aguilar <https://github.com/piq9117>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 declare var S: Sanctuary.Environment;
 export = S;

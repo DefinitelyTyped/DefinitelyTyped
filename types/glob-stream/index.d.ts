@@ -3,6 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 /// <reference types="glob" />

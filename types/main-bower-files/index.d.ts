@@ -2,7 +2,7 @@
 // Project: https://github.com/ck86/main-bower-files
 // Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

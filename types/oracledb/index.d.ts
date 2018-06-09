@@ -2,6 +2,7 @@
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Richard Natal <https://github.com/Bigous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

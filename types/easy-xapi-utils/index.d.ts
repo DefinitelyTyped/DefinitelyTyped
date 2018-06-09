@@ -2,7 +2,7 @@
 // Project: https://github.com/DeadAlready/easy-xapi-utils
 // Definitions by: Karl Düüna <https://github.com/DeadAlready>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import express = require('express');
 

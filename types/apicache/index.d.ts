@@ -2,6 +2,7 @@
 // Project: https://github.com/kwhitley/apicache
 // Definitions by: Daniel Sogl <https://github.com/danielsogl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import { RedisClient } from 'redis';
 

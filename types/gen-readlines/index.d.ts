@@ -2,6 +2,7 @@
 // Project: https://github.com/neurosnap/gen-readlines#readme
 // Definitions by: Peter Harris <https://github.com/CodeAnimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /**
  * Generator based line reader

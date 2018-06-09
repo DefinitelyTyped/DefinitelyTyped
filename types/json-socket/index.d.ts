@@ -2,6 +2,7 @@
 // Project: https://github.com/sebastianseilund/node-json-socket
 // Definitions by: Sven Reglitzki <https://github.com/svi3c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

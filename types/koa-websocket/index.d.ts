@@ -2,7 +2,7 @@
 // Project: https://github.com/kudos/koa-websocket
 // Definitions by: Maël Lavault <https://github.com/moimael>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import Koa = require('koa');
 import * as ws from 'ws';

@@ -5,7 +5,7 @@
 //                 Zhao Lei <https://github.com/zhaoleimxd>
 //                 Sheng Chen <https://github.com/jdneo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

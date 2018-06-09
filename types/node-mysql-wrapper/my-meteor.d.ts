@@ -2,6 +2,7 @@
 // Project: https://github.com/nodets/node-mysql-wrapper
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 declare namespace Mongo {
 	var Collection: CollectionStatic;

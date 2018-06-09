@@ -2,6 +2,7 @@
 // Project: https://github.com/jackfranklin/gulp-load-plugins
 // Definitions by: Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

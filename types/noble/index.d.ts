@@ -7,6 +7,7 @@
 //                 Michal Lower <https://github.com/keton>
 //                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

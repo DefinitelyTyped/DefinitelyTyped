@@ -2,6 +2,7 @@
 // Project: https://github.com/image-size/image-size
 // Definitions by: Elisée MAURER <https://github.com/elisee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

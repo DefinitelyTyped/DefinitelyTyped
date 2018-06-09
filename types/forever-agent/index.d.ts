@@ -2,6 +2,7 @@
 // Project: https://github.com/mikeal/forever-agent
 // Definitions by: Dmitry Guketlev <https://github.com/yavanosta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

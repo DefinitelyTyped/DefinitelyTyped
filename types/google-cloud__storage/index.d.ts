@@ -3,6 +3,7 @@
 // Definitions by: Brian Love <https://github.com/blove>
 //                 Nathan Brooker Perry <https://github.com/nbperry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

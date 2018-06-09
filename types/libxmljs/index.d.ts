@@ -3,6 +3,7 @@
 // Definitions by: François de Campredon <https://github.com/fdecampredon>
 //                 ComFreek <https://github.com/ComFreek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 import { EventEmitter } from 'events';

@@ -2,6 +2,7 @@
 // Project: https://github.com/indexzero/http-server#readme
 // Definitions by: York Yao <https://github.com/plantain-00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import * as http from "http";
 import * as https from "https";

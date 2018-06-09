@@ -3,7 +3,7 @@
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 //                 Maarten Mulders <https://github.com/mthmulders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import passport = require('passport');
 import express = require('express');

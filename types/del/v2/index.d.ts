@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/del
 // Definitions by: Asana <https://asana.com>, Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import glob = require("glob");
 

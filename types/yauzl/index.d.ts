@@ -2,6 +2,7 @@
 // Project: https://github.com/thejoshwolfe/yauzl
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

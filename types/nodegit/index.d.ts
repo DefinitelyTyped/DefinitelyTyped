@@ -2,6 +2,7 @@
 // Project: https://github.com/nodegit/nodegit
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>, Tobias Nießen <https://github.com/tniessen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export { AnnotatedCommit } from './annotated-commit';
 export { Attr } from './attr';

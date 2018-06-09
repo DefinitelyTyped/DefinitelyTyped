@@ -6,7 +6,7 @@
 //                 Ebrahim <https://github.com/br8h>
 //                 Shahar Mor <https://github.com/shaharmor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";

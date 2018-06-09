@@ -2,7 +2,7 @@
 // Project: https://github.com/mishoo/UglifyJS2
 // Definitions by: Alan Agius <https://github.com/alan-agius4>, Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import { RawSourceMap } from 'source-map';
 export interface ParseOptions {

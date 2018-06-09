@@ -2,6 +2,7 @@
 // Project: https://github.com/zhangyuanwei/node-images
 // Definitions by: Ding Weizhe <https://github.com/DingWeizhe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

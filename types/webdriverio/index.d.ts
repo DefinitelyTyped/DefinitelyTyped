@@ -6,6 +6,7 @@
 //                 Tanvir ul Islam <https://github.com/tanvirislam06>
 //                 Phil Leger <https://github.com/phil-lgr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

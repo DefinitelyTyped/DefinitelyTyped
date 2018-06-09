@@ -3,7 +3,7 @@
 // Definitions by: Santi Albo <https://github.com/santialbo>
 //                 Rob van der Burgt <https://github.com/rburgt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import * as express from 'express';
 

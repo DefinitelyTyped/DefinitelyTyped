@@ -2,6 +2,7 @@
 // Project: https://github.com/hapijs/wreck
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

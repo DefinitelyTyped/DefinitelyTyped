@@ -2,6 +2,7 @@
 // Project: https://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // Note/Disclaimer:
 // Copied directly from 918608a5e007d925f4f60a275881057f07c12619 which seems to

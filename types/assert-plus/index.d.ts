@@ -2,6 +2,7 @@
 // Project: https://github.com/mcavage/node-assert-plus#readme
 // Definitions by: Костя Третяк <https://github.com/KostyaTretyak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/TabDigital/restify-cors-middleware
 // Definitions by: Daniel Thunell <https://github.com/dthunell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

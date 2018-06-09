@@ -11,7 +11,7 @@
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 Hunter Tunnicliff <https://github.com/htunnicliff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

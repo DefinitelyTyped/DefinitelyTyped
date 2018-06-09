@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/bunyan-prettystream
 // Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, Vadim Macagon <https://github.com/enlight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

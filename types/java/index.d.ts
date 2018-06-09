@@ -2,7 +2,7 @@
 // Project: https://github.com/joeferner/node-java
 // Definitions by: Jim Lloyd <https://github.com/jimlloyd>, Kentaro Teramoto <https://github.com/hrl7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 
