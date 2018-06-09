@@ -2449,14 +2449,14 @@ declare namespace cytoscape {
          * @param selector The selector to match against.
          * http://js.cytoscape.org/#eles.filter
          */
-        nodes(selector: Selector): NodeCollection;
+        nodes(selector?: Selector): NodeCollection;
         /**
          * Get the edges that match the specified selector.
          *
          * @param selector The selector to match against.
          * http://js.cytoscape.org/#eles.filter
          */
-        edges(selector: Selector): EdgeCollection;
+        edges(selector?: Selector): EdgeCollection;
 
         /**
          * Get a new collection containing the elements sorted by the
