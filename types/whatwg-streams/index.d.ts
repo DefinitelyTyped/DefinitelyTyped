@@ -96,7 +96,7 @@ declare class ReadableStreamBYOBRequest<R = ArrayBufferView> {
 
 interface WritableStreamSink<W = ArrayBufferView> {
     start?(controller: WritableStreamDefaultController<W>): void | Promise<void>;
-    write?(chunk: W, controller?: WritableStreamDefaultController<W>): any;
+    write?(chunk: W, controller?: WritableStreamDefaultController<W>): void | Promise<void>;
     close?(controller: WritableStreamDefaultController<W>): void | Promise<void>;
     abort?(reason: any): void | Promise<void>;
 }
