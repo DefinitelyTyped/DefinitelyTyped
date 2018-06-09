@@ -6,15 +6,15 @@
 // TypeScript Version: 2.3
 
 export interface ReadableStreamSource<R = ArrayBufferView> {
-    start?(controller: ReadableStreamDefaultController<R>): void | Promise<void>;
-    pull?(controller: ReadableStreamDefaultController<R>): void | Promise<void>;
-    cancel?(reason: any): void | Promise<void>;
+    start?(controller: ReadableStreamDefaultController<R>): void | Promise<any>;
+    pull?(controller: ReadableStreamDefaultController<R>): void | Promise<any>;
+    cancel?(reason: any): void | Promise<any>;
 }
 
 export interface ReadableByteStreamSource<R = ArrayBufferView> {
-    start?(controller: ReadableByteStreamController<R>): void | Promise<void>;
-    pull?(controller: ReadableByteStreamController<R>): void | Promise<void>;
-    cancel?(reason: any): void | Promise<void>;
+    start?(controller: ReadableByteStreamController<R>): void | Promise<any>;
+    pull?(controller: ReadableByteStreamController<R>): void | Promise<any>;
+    cancel?(reason: any): void | Promise<any>;
 
     type: "bytes";
     autoAllocateChunkSize?: number;
@@ -95,10 +95,10 @@ declare class ReadableStreamBYOBRequest<R = ArrayBufferView> {
 }
 
 interface WritableStreamSink<W = ArrayBufferView> {
-    start?(controller: WritableStreamDefaultController<W>): void | Promise<void>;
-    write?(chunk: W, controller?: WritableStreamDefaultController<W>): void | Promise<void>;
-    close?(controller: WritableStreamDefaultController<W>): void | Promise<void>;
-    abort?(reason: any): void | Promise<void>;
+    start?(controller: WritableStreamDefaultController<W>): void | Promise<any>;
+    write?(chunk: W, controller?: WritableStreamDefaultController<W>): void | Promise<any>;
+    close?(controller: WritableStreamDefaultController<W>): void | Promise<any>;
+    abort?(reason: any): void | Promise<any>;
 }
 
 declare class WritableStream<W = ArrayBufferView> {
@@ -140,9 +140,9 @@ declare class CountQueuingStrategy {
 }
 
 declare interface TransformStreamTransformer<R, W> {
-    start?(controller: TransformStreamDefaultController<R>): void | Promise<void>;
-    transform?(chunk: W, controller: TransformStreamDefaultController<R>): void | Promise<void>;
-    flush?(controller: TransformStreamDefaultController<R>): void | Promise<void>;
+    start?(controller: TransformStreamDefaultController<R>): void | Promise<any>;
+    transform?(chunk: W, controller: TransformStreamDefaultController<R>): void | Promise<any>;
+    flush?(controller: TransformStreamDefaultController<R>): void | Promise<any>;
 }
 
 declare class TransformStream<R, W> implements WritableReadablePair<WritableStream<W>, ReadableStream<R>> {
