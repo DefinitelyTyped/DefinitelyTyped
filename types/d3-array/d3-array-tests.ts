@@ -695,37 +695,37 @@ type valueAccessor<D, V> = (d: D, i: number, data: D[]) => V;
 
 // number - number
 const valueFnNumber_Number: valueAccessor<number, number> = histoNumber_Number.value();
-histoNumber_Number = histoNumber_Number.value((d: number, i: number, data: number[]) => {
+histoNumber_Number = histoNumber_Number.value((d: number, i: number, data: ArrayLike<number>) => {
     return d - num;
 });
 
 // MixedObject - number | undefined
 const valueFnMixedObject_NumberOrUndefined: valueAccessor<MixedObject, number | undefined> = histoMixed_NumberOrUndefined.value();
-histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.value((d: MixedObject, i: number, data: MixedObject[]) => {
+histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.value((d: MixedObject, i: number, data: ArrayLike<MixedObject>) => {
     return d.str === "NA" ? undefined : d.num;
 });
 
 // MixedObject | undefined - number | undefined
 const valueFnMixedOrUndefined_NumberOrUndefined: valueAccessor<MixedObject | undefined, number | undefined> = histoMixedOrUndefined_NumberOrUndefined.value();
-histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.value((d: MixedObject | undefined, i: number, data: Array<MixedObject | undefined>) => {
+histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.value((d: MixedObject | undefined, i: number, data: ArrayLike<MixedObject | undefined>) => {
     return d ? d.num : undefined;
 });
 
 // MixedObject | undefined - number
 const valueFnMixedOrUndefined_Number: valueAccessor<MixedObject | undefined, number> = histoMixedOrUndefined_Number.value();
-histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.value((d: MixedObject | undefined, i: number, data: Array<MixedObject | undefined>) => {
+histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.value((d: MixedObject | undefined, i: number, data: ArrayLike<MixedObject | undefined>) => {
     return d ? d.num : 0;
 });
 
 // MixedObject - Date
 const valueFnMixedObject_Date: valueAccessor<MixedObject, Date> = histoMixedObject_Date.value();
-histoMixedObject_Date = histoMixedObject_Date.value((d: MixedObject, i: number, data: MixedObject[]) => {
+histoMixedObject_Date = histoMixedObject_Date.value((d: MixedObject, i: number, data: ArrayLike<MixedObject>) => {
     return d.date;
 });
 
 // MixedObject - Date | undefined
 const valueFnMixedObject_DateOrUndefined: valueAccessor<MixedObject, Date | undefined> = histoMixedObject_DateOrUndefined.value();
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.value((d: MixedObject, i: number, data: MixedObject[]) => {
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.value((d: MixedObject, i: number, data: ArrayLike<MixedObject>) => {
     return d.date;
 });
 
@@ -773,13 +773,14 @@ histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((valu
 // thresholds(...) -------------------------------------------------------------
 
 type thresholdsWithUndefinedCont = d3Array.ThresholdCountGenerator;
-type thresholdsWithUndefinedArray = d3Array.ThresholdArrayGenerator<number | undefined>;
+type thresholdsWithUndefinedArray = d3Array.ThresholdNumberArrayGenerator<number | undefined>;
 
-let thresholds: d3Array.ThresholdCountGenerator<number> | d3Array.ThresholdArrayGenerator<number>;
+let thresholds: d3Array.ThresholdCountGenerator<number> | d3Array.ThresholdNumberArrayGenerator<number>;
 let thresholdsWithUndefined: thresholdsWithUndefinedCont | thresholdsWithUndefinedArray;
-const thresholdsArray: d3Array.ThresholdArrayGenerator<number> = (x) => [5, 10, 20];
-let thresholdsDate: d3Array.ThresholdArrayGenerator<Date>;
-let thresholdsDateOrUndefined: d3Array.ThresholdArrayGenerator<Date | undefined>;
+const thresholdsArray: d3Array.ThresholdNumberArrayGenerator<number> = (x: ArrayLike<number>) => [5, 10, 20];
+
+let thresholdsDate: d3Array.ThresholdDateArrayGenerator<Date>;
+let thresholdsDateOrUndefined: d3Array.ThresholdDateArrayGenerator<Date | undefined>;
 
 // number - number
 thresholds = histoNumber_Number.thresholds();
@@ -801,7 +802,7 @@ histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefine
 histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.thresholds(d3Array.thresholdScott);
 
 // MixedObject | undefined - number
-thresholdsWithUndefined = histoMixedOrUndefined_Number.thresholds();
+thresholds = histoMixedOrUndefined_Number.thresholds();
 histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.thresholds(5);
 histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.thresholds([5, 10, 20]);
 histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.thresholds(d3Array.thresholdSturges);
@@ -810,7 +811,8 @@ histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.thresholds(d3Array.t
 thresholdsDate = histoMixedObject_Date.thresholds();
 histoMixedObject_Date = histoMixedObject_Date.thresholds([new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
 histoMixedObject_Date = histoMixedObject_Date.thresholds(timeScale.ticks(timeYear));
-histoMixedObject_Date = histoMixedObject_Date.thresholds((values: Date[], min: Date, max: Date) => {
+histoMixedObject_Date = histoMixedObject_Date.thresholds((values: ArrayLike<Date>) => [new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
+histoMixedObject_Date = histoMixedObject_Date.thresholds((values: ArrayLike<Date>, min: Date, max: Date) => {
     const thresholds: Date[] = [values[0], values[2], values[4]];
     return thresholds;
 });
@@ -821,8 +823,8 @@ histoMixedObject_Date = histoMixedObject_Date.thresholds(d3Array.thresholdScott)
 thresholdsDateOrUndefined = histoMixedObject_DateOrUndefined.thresholds();
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds([new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds(timeScale.ticks(timeYear));
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds((values: Date[], min: Date, max: Date) => {
-    const thresholds: Date[] = [values[0], values[2], values[4]];
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds((values: ArrayLike<Date | undefined>, min: Date, max: Date) => {
+    const thresholds: Date[] = [values[0]!, new Date(2015, 11, 15), values[values.length]!];
     return thresholds;
 });
 

@@ -334,12 +334,20 @@ export interface Bin<Datum, Value extends number | Date | undefined> extends Arr
 /**
  * Type definition for threshold generator which returns the count of recommended thresholds
  */
-export type ThresholdCountGenerator<Value extends number | undefined = number | undefined> = (values: ArrayLike<Value>, min?: number, max?: number) => number;
+export type ThresholdCountGenerator<Value extends number | undefined = number | undefined> =
+    (values: ArrayLike<Value>, min: number, max: number) => number;
 
 /**
- * Type definition for threshold generator which returns an array of recommended thresholds
+ * Type definition for threshold generator which returns an array of recommended numbers thresholds
  */
-export type ThresholdArrayGenerator<Value extends number | Date | undefined> = (values: ArrayLike<Value>, min?: Value, max?: Value) => Value[];
+export type ThresholdNumberArrayGenerator<Value extends number | undefined> =
+    (values: ArrayLike<Value>, min: number, max: number) => Value[];
+
+/**
+ * Type definition for threshold generator which returns an array of recommended dates thresholds
+ */
+export type ThresholdDateArrayGenerator<Value extends Date | undefined> =
+    (values: ArrayLike<Value>, min: Date, max: Date) => Value[];
 
 /**
  * @deprecated Use `HistogramGeneratorNumber<Datum, Value>` for `number` values and `HistogramGeneratorDate<Datum, Value> for `Date` values.
@@ -354,7 +362,6 @@ export interface HistogramGenerator<Datum, Value extends number | Date | undefin
     domain(domain: [Value, Value]): this;
     domain(domainAccessor: (values: ArrayLike<Value>) => [Value, Value] | [undefined, undefined]): this;
 
-    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<Value>;
     /**
      * Set the array of values to be used as thresholds in determining the bins.
      *
@@ -365,25 +372,13 @@ export interface HistogramGenerator<Datum, Value extends number | Date | undefin
      * be of the same type as the materialized values of the histogram.
      */
     thresholds(thresholds: ArrayLike<Value>): this;
-    /**
-     * Set a threshold accessor function, which returns the array of values to be used as
-     * thresholds in determining the bins.
-     *
-     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
-     * and the last bin.x1 is always equal to the maximum domain value.
-     *
-     * @param thresholds A function which accepts as arguments the array of materialized values, and
-     * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as
-     * thresholds in determining the bins.
-     */
-    thresholds(thresholds: ThresholdArrayGenerator<Value>): this;
 }
 
 export interface HistogramCommon<Datum, Value extends number | Date | undefined> {
     (data: ArrayLike<Datum>): Array<Bin<Datum, Value>>;
 
-    value(): (d: Datum, i: number, data: Datum[]) => Value;
-    value(valueAccessor: (d: Datum, i: number, data: Datum[]) => Value): this;
+    value(): (d: Datum, i: number, data: ArrayLike<Datum>) => Value;
+    value(valueAccessor: (d: Datum, i: number, data: ArrayLike<Datum>) => Value): this;
 }
 
 export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> extends HistogramCommon<Datum, Date> {
@@ -391,7 +386,7 @@ export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> e
     domain(domain: [Date, Date]): this;
     domain(domainAccessor: (values: ArrayLike<Value>) => [Date, Date]): this;
 
-    thresholds(): ThresholdArrayGenerator<Value>;
+    thresholds(): ThresholdDateArrayGenerator<Value>;
     /**
      * Set the array of values to be used as thresholds in determining the bins.
      *
@@ -413,7 +408,7 @@ export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> e
      * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as
      * thresholds in determining the bins.
      */
-    thresholds(thresholds: ThresholdArrayGenerator<Value>): this;
+    thresholds(thresholds: ThresholdDateArrayGenerator<Value>): this;
 }
 
 export interface HistogramGeneratorNumber<Datum, Value extends number | undefined> extends HistogramCommon<Datum, Value> {
@@ -421,7 +416,7 @@ export interface HistogramGeneratorNumber<Datum, Value extends number | undefine
     domain(domain: [number, number]): this;
     domain(domainAccessor: (values: ArrayLike<Value>) => [number, number] | [undefined, undefined]): this;
 
-    thresholds(): ThresholdCountGenerator<Value> | ThresholdArrayGenerator<Value>;
+    thresholds(): ThresholdCountGenerator<Value> | ThresholdNumberArrayGenerator<Value>;
     /**
      * Divide the domain uniformly into approximately count bins. IMPORTANT: This threshold
      * setting approach only works, when the materialized values are numbers!
@@ -466,7 +461,7 @@ export interface HistogramGeneratorNumber<Datum, Value extends number | undefine
      * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as
      * thresholds in determining the bins.
      */
-    thresholds(thresholds: ThresholdArrayGenerator<Value>): this;
+    thresholds(thresholds: ThresholdNumberArrayGenerator<Value>): this;
 }
 
 export function histogram(): HistogramGeneratorNumber<number, number>;
