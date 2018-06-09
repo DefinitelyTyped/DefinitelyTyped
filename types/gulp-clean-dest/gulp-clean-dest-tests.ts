@@ -2,7 +2,7 @@ import cleanDest = require("gulp-clean-dest");
 
 const someDir = ".";
 
-// $ExpectType ReadWriteStream
+// $ExpectType ReadWriteStream<any, any>
 cleanDest(someDir);
 cleanDest(someDir, {});
 cleanDest(someDir, { cwd: someDir });

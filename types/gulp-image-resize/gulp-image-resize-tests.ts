@@ -1,10 +1,10 @@
 import resize = require('gulp-image-resize');
 
-resize();                       // $ExpectType Transform
+resize();                       // $ExpectType Transform<any, any>
 resize(undefined);
 resize("1");                  // $ExpectError
 
-resize({                        // $ExpectType Transform
+resize({                        // $ExpectType Transform<any, any>
     width: 100,
     height: 100,
     crop: true,

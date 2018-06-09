@@ -2,7 +2,7 @@ import image = require('gulp-image');
 
 image(false);                   // $ExpectError
 
-image();                        // $ExpectType Transform
+image();                        // $ExpectType Transform<any, any>
 image({});
 image({
     pngquant: true,

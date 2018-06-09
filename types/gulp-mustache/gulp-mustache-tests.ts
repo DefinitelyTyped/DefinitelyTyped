@@ -1,7 +1,7 @@
 import mustache = require("gulp-mustache");
 import { Transform } from "stream";
 
-mustache({ // $ExpectType Transform
+mustache({ // $ExpectType Transform<any, any>
     msg: "Hello Gulp!"
 });
 mustache({
@@ -32,7 +32,7 @@ mustache({
   repo: []
 });
 
-mustache({ // $ExpectType Transform
+mustache({ // $ExpectType Transform<any, any>
     msg: "Hello Gulp!",
     nested_value: "I am nested.",
     another_value: "1 2 3"
@@ -41,4 +41,4 @@ mustache({ // $ExpectType Transform
     another_partial: "<div>{{another_value}}</div>"
 });
 
-mustache('your_json_file.json', {}, {}); // $ExpectType Transform
+mustache('your_json_file.json', {}, {}); // $ExpectType Transform<any, any>

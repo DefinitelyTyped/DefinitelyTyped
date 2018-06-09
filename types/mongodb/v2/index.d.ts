@@ -1167,7 +1167,7 @@ export type CursorResult = any | void | boolean;
 type Default = any;
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
-export class Cursor<T = Default> extends Readable {
+export class Cursor<T = Default> extends Readable<T> {
 
     sortValue: string;
     timeout: boolean;
@@ -1224,12 +1224,8 @@ export class Cursor<T = Default> extends Readable {
     next(callback: MongoCallback<T>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#project
     project(value: Object): Cursor<T>;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#read
-    read(size: number): string | Buffer | void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
     returnKey(returnKey: Object): Cursor<T>;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#rewind
-    rewind(): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setCursorOption
     setCursorOption(field: string, value: Object): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setReadPreference
@@ -1247,8 +1243,6 @@ export class Cursor<T = Default> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#toArray
     toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<T[]>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#unshift
-    unshift(stream: Buffer | string): void;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
@@ -1273,7 +1267,7 @@ export interface EndCallback {
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#~resultCallback
 export type AggregationCursorResult = any | void;
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
-export class AggregationCursor<T = Default> extends Readable {
+export class AggregationCursor<T = Default> extends Readable<T> {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#batchSize
     batchSize(value: number): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#clone
@@ -1305,21 +1299,17 @@ export class AggregationCursor<T = Default> extends Readable {
     out(destination: string): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#project
     project(document: Object): AggregationCursor<T>;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#read
-    read(size: number): string | Buffer | void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#redact
     redact(document: Object): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#rewind
     rewind(): AggregationCursor<T>;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#setEncoding
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#skip
     skip(value: number): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#sort
     sort(document: Object): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#toArray
     toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<T[]>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unshift
-    unshift(stream: Buffer | string): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unwind
     unwind(field: string): AggregationCursor<T>;
 }
@@ -1342,8 +1332,6 @@ export class CommandCursor extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#next
     next(): Promise<AggregationCursorResult>;
     next(callback: MongoCallback<AggregationCursorResult>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#read
-    read(size: number): string | Buffer | void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#rewind
     rewind(): CommandCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#setReadPreference
@@ -1351,8 +1339,6 @@ export class CommandCursor extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#toArray
     toArray(): Promise<any[]>;
     toArray(callback: MongoCallback<any[]>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#unshift
-    unshift(stream: Buffer | string): void;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html
