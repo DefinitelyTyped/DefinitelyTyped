@@ -2,6 +2,7 @@
 // Project: https://github.com/isaacs/chmodr#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import { URL } from 'url';

@@ -3,6 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

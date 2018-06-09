@@ -7,6 +7,7 @@
 //                 Behind The Math <https://github.com/BehindTheMath>
 //                 Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 import { EventEmitter } from 'events';

@@ -2,6 +2,7 @@
 // Project: https://github.com/shinnn/fs-readfile-promise
 // Definitions by: Motosugi Murata <https://github.com/mtsg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import { PathLike } from "fs";

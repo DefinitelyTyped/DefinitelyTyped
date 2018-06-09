@@ -2,8 +2,7 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>, Abraao Alves <https://github.com/AbraaoAlves>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

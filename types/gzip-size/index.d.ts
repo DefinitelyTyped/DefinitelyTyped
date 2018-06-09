@@ -4,6 +4,7 @@
 //                 Jimi van der Woning <https://github.com/jimivdw>
 //                 Andre Wiggins <https://github.com/andrewiggins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

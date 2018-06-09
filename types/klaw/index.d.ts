@@ -2,6 +2,7 @@
 // Project: https://github.com/jprichardson/node-klaw
 // Definitions by: Matthew McEachen <https://github.com/mceachen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

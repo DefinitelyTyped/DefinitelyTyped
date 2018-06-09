@@ -4,7 +4,7 @@
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Chris Barth <https://github.com/cjbarth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import passport = require("passport");
 import express = require("express");

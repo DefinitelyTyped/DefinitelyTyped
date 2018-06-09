@@ -2,6 +2,7 @@
 // Project: https://github.com/albertorestifo/node-dijkstra
 // Definitions by: Jorge López <https://github.com/nokutu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

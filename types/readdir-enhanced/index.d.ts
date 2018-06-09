@@ -2,6 +2,7 @@
 // Project: https://github.com/bigstickcarpet/readdir-enhanced
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

@@ -4,6 +4,7 @@
 //                 Harm van der Werf <https://github.com/harm-less>
 //                 Jouni Suorsa <https://github.com/jounisuo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="chai" />
 

@@ -3,6 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 remisery <https://github.com/remisery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

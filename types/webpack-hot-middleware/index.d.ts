@@ -4,7 +4,7 @@
 //                 Ron Martinez <https://github.com/icylace>
 //                 Chris Abrams <https://github.com/chrisabrams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import { NextHandleFunction } from 'connect';
 import * as webpack from 'webpack';

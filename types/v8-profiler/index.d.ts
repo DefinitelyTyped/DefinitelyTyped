@@ -2,6 +2,7 @@
 // Project: https://github.com/node-inspector/v8-profiler
 // Definitions by: York Yao <https://github.com/plantain-00/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /* =================== USAGE ===================
     import * as profiler from "v8-profiler";

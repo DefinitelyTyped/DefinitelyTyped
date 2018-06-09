@@ -2,6 +2,7 @@
 // Project: https://github.com/hunterloftis/stoppable
 // Definitions by: Eric Byers <https://github.com/EricByers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import { Server } from 'http';

@@ -2,6 +2,7 @@
 // Project: https://github.com/jergason/recursive-readdir/
 // Definitions by: Elisée Maurer <https://github.com/elisee>, Micah Zoltu <https://github.com/MicahZoltu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

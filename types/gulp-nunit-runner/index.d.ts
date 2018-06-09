@@ -2,6 +2,7 @@
 // Project: https://github.com/keithmorris/gulp-nunit-runner
 // Definitions by: Spicy Pixel <https://spicypixel.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

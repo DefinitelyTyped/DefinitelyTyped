@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/piwik-tracker
 // Definitions by: Guilherme Bernal <https://github.com/lbguilherme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

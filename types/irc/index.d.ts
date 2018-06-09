@@ -2,6 +2,7 @@
 // Project: https://github.com/martynsmith/node-irc
 // Definitions by: phillips1012 <https://github.com/phillips1012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

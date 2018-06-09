@@ -2,6 +2,7 @@
 // Project: https://github.com/brycebaril/through2-map
 // Definitions by: Lucas Hill <https://github.com/LucasHill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

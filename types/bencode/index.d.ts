@@ -2,6 +2,7 @@
 // Project: https://github.com/themasch/node-bencode#readme
 // Definitions by: Tobenna <https://github.com/tobenna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

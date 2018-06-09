@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/read-chunk
 // Definitions by: crispybee <https://github.com/crispybee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

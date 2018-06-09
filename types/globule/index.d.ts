@@ -2,6 +2,7 @@
 // Project: https://github.com/cowboy/node-globule
 // Definitions by: Dusan Radovanovic <https://github.com/durad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import minimatch = require('minimatch');
 import glob = require('glob');

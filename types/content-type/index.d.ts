@@ -3,6 +3,7 @@
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export function parse(input: RequestLike | ResponseLike | string): ParsedMediaType;
 export function format(obj: MediaType): string;

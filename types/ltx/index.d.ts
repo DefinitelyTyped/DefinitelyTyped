@@ -2,7 +2,7 @@
 // Project: github.com/node-xmpp/ltx/
 // Definitions by: PJakcson <https://github.com/PJakcson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 export {Element } from './lib/Element';
 export {nameEqual, attrsEqual, childrenEqual, equal} from './lib/equal';

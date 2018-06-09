@@ -2,6 +2,7 @@
 // Project: https://github.com/RnbWd/gulp-strip-comments
 // Definitions by: Aqours <https://github.com/Aqours>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

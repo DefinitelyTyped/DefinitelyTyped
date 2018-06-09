@@ -3,6 +3,7 @@
 // Definitions by: Ian Copp <https://github.com/icopp>,
 //                 nrlquaker <https://github.com/nrlquaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

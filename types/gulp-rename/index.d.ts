@@ -2,6 +2,7 @@
 // Project: https://github.com/hparra/gulp-rename
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

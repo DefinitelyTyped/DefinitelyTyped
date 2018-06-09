@@ -2,7 +2,7 @@
 // Project: https://github.com/orliesaurus/nodemailer-mailgun-transport
 // Definitions by: Oto Ciulis <https://github.com/otociulis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as nodemailer from 'nodemailer';
 import Mail = require('nodemailer/lib/mailer');

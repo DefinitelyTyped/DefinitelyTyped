@@ -2,6 +2,7 @@
 // Project: https://github.com/feross/magnet-uri
 // Definitions by: Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/dominictarr/level-sublevel
 // Definitions by: Bas Pennings <https://github.com/basp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import * as levelup from "levelup";
 

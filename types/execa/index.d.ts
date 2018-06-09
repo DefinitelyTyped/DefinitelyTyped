@@ -5,7 +5,7 @@
 //                 Borek Bernard <https://github.com/borekb>
 //                 Mick Dekkers <https://github.com/mickdekkers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

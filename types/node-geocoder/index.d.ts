@@ -2,6 +2,7 @@
 // Project: https://github.com/nchaulet/node-geocoder#readme
 // Definitions by: Krzysztof Rosinski <https://github.com/rosek86>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

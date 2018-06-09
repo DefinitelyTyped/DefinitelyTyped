@@ -2,6 +2,7 @@
 // Project: https://github.com/dashersw/cote#readme
 // Definitions by: makepost <https://github.com/makepost>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import { EventEmitter2 } from "eventemitter2";
 import * as SocketIO from "socket.io";

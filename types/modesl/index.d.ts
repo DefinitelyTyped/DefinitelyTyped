@@ -2,6 +2,7 @@
 // Project: https://github.com/englercj/node-esl
 // Definitions by: Nischit Ranganath <https://github.com/neeschit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

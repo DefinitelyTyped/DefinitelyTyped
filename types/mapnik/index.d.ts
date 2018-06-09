@@ -2,6 +2,7 @@
 // Project: http://mapnik.org
 // Definitions by: Loli <https://github.com/ipv4sec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 export const settings: any;

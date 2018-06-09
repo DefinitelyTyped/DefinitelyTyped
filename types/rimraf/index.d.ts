@@ -4,6 +4,7 @@
 //                 e-cloud <https://github.com/e-cloud>
 //                 Ruben Schmidmeister <https://github.com/bash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/rimraf.d.ts
 

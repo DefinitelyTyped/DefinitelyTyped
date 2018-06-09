@@ -4,6 +4,8 @@
 //                 Juan Arroyave <http://jarroyave.co>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
+// TypeScript Version: 2.4
 
 import * as vfs from "vinyl-fs";
 import * as chokidar from "chokidar";

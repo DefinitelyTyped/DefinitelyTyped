@@ -4,6 +4,7 @@
 //                 Lubomir Kaplan <https://github.com/castorw>
 //                 Panagiotis Kapros <https://github.com/loremaps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

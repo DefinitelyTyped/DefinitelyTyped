@@ -2,6 +2,7 @@
 // Project: https://github.com/strongloop/strong-cluster-control
 // Definitions by: Shun Takahashi <https://github.com/shuntksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 /// <reference types="node" />
 
 declare namespace StrongClusterControl {

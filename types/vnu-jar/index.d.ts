@@ -2,6 +2,7 @@
 // Project: https://github.com/validator/validator#readme
 // Definitions by: Umoxfo <https://github.com/Umoxfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export = vnu_jar;
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/vvo/selenium-standalone
 // Definitions by: Sander de Waal <https://github.com/SanderDeWaal1992>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

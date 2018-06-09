@@ -2,7 +2,7 @@
 // Project: https://github.com/TomFrost/node-vitalsigns
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 ///<reference types="express"/>
 

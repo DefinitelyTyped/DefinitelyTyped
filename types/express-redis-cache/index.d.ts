@@ -2,7 +2,7 @@
 // Project: https://github.com/rv-kip/express-redis-cache
 // Definitions by: AJ Livingston <https://github.com/ajliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import events = require('events');
 import express = require('express');

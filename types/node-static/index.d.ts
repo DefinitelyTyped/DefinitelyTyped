@@ -2,6 +2,7 @@
 // Project: https://github.com/cloudhead/node-static
 // Definitions by: Ben Davies <https://github.com/Morfent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

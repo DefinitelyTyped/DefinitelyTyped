@@ -2,6 +2,7 @@
 // Project: https://github.com/facebook/emitter
 // Definitions by: kmxz <https://github.com/kmxz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export declare class EventSubscription {
 

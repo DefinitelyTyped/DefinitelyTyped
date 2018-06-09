@@ -2,6 +2,7 @@
 // Project: https://github.com/bkonkle/jsx-chai
 // Definitions by: Philipp Holzer <https://github.com/nupplaphil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="chai" />
 

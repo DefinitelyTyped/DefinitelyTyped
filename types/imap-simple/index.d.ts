@@ -2,6 +2,7 @@
 // Project: https://github.com/chadxz/imap-simple
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/psnider/DefinitelyTyped/imap-simple
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

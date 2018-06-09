@@ -2,6 +2,7 @@
 // Project: https://github.com/Turbo87/chai-roughly#readme
 // Definitions by: Tomasz Nguyen <https://github.com/swist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 /// <reference types="chai" />
 
 declare global {

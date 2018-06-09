@@ -2,6 +2,7 @@
 // Project: https://github.com/mapbox/pixelmatch#readme
 // Definitions by: Oleg Repin <https://github.com/iamolegga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

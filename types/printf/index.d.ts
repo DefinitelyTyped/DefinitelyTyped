@@ -2,6 +2,7 @@
 // Project: https://github.com/adaltas/node-printf
 // Definitions by: Aluísio Augusto Silva Gonçalves <https://github.com/AluisioASG>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

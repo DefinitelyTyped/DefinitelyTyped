@@ -2,7 +2,7 @@
 // Project: https://github.com/isaacs/slocket#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import { EventEmitter } from 'events';

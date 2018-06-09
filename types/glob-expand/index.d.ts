@@ -2,6 +2,7 @@
 // Project: https://github.com/anodynos/node-glob-expand
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="glob"/>
 

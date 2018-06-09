@@ -2,6 +2,7 @@
 // Project: http://merencia.com/node-cron/
 // Definitions by: morsic <https://github.com/maximelkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // immediateStart - default true
 export function schedule(a: string, func: () => void, immediateStart?: boolean): ScheduledTask;

@@ -2,7 +2,7 @@
 // Project: https://github.com/BinaryMuse/atom-mocha-test-runner
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="mocha" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/ginman86/deluge
 // Definitions by: Felix Plymouth <https://github.com/Diasiare>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

@@ -3,7 +3,7 @@
 // Definitions by: Peter Safranek <https://github.com/pe8ter>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import {
     Context,

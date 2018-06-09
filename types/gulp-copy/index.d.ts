@@ -2,6 +2,7 @@
 // Project: https://github.com/klaascuvelier/gulp-copy
 // Definitions by: Arun Aravind <https://github.com/aravindarun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import through = require("through");
 
