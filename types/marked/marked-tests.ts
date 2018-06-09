@@ -19,7 +19,7 @@ const options: marked.MarkedOptions = {
 
 function callback(err: string, markdown: string) {
     console.log("Callback called!");
-    return markdown
+    return markdown;
 }
 
 const myOldMarked: typeof marked = marked.setOptions(options);
