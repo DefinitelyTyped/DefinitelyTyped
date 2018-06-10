@@ -1,4 +1,4 @@
-// Type definitions for mathjs 4.4.2
+// Type definitions for mathjs 4.4
 // Project: http://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
@@ -74,7 +74,7 @@ declare namespace math {
          * @param signatures Object with one or multiple function signatures
          * @returns The created typed-function.
          */
-        typed: (name: string, signatures: Record<string, Function>) => Function;
+        typed: (name: string, signatures: Record<string, (...args: any[]) => any>) => ((...args: any[]) => any);
 
         /*************************************************************************
          * Construction functions
@@ -327,7 +327,7 @@ declare namespace math {
          * @param search A function or function name for which to get help
          * @returns A help object
          */
-        help(search: Function | string | object): Help;
+        help(search: () => any): Help;
 
         /**
          * Parse an expression. Returns a node tree, which can be evaluated by
@@ -364,7 +364,7 @@ declare namespace math {
         derivative(
             expr: MathNode | string,
             variable: MathNode | string,
-            options?: object
+            options?: {simplify: boolean}
         ): MathNode;
 
         /**
@@ -1297,7 +1297,7 @@ declare namespace math {
          */
         filter(
             x: Matrix | MathArray,
-            test: ((value:any, index: any, matrix: Matrix | MathArray)=>Matrix | MathArray) | RegExp
+            test: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray) | RegExp
         ): Matrix | MathArray;
 
         /**
@@ -1315,7 +1315,7 @@ declare namespace math {
          * parameters: the value of the element, the index of the element, and
          * the Matrix/array being traversed.
          */
-        forEach(x: Matrix | MathArray, callback: ((value:any, index: any, matrix: Matrix | MathArray)=>void)): void;
+        forEach(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => void)): void;
 
         /**
          * Calculate the inverse of a square matrix.
@@ -1343,7 +1343,7 @@ declare namespace math {
          * the Matrix/array being traversed.
          * @returns Transformed map of x
          */
-        map(x: Matrix | MathArray, callback: ((value:any, index: any, matrix: Matrix | MathArray)=>Matrix | MathArray)): Matrix | MathArray;
+        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)): Matrix | MathArray;
 
         /**
          * Create a matrix filled with ones. The created matrix can have one or
@@ -1448,7 +1448,7 @@ declare namespace math {
          */
         sort(
             x: Matrix | MathArray,
-            compare: ((a:any, b:any)=>number) | "asc" | "desc" | "natural"
+            compare: ((a: any, b: any) => number) | "asc" | "desc" | "natural"
         ): Matrix | MathArray;
 
         /**
@@ -2129,7 +2129,7 @@ declare namespace math {
         format(
             value: any,
             options?: FormatOptions | number | ((item: any) => string),
-            callback?: ((value:any)=>string)
+            callback?: ((value: any) => string)
         ): string;
 
         /**
@@ -2518,7 +2518,7 @@ declare namespace math {
          * boolean. Returns false for other types. Throws an error in case of
          * unknown types.
          */
-        isNumeric(x: any): boolean;
+        isNumeric(x: any): x is number | BigNumber | Fraction | boolean;
 
         /**
          * Test whether a value is positive: larger than zero. The function
@@ -2600,7 +2600,7 @@ declare namespace math {
         ): void;
         toArray(): MathArray | Matrix;
         valueOff(): MathArray | Matrix;
-        format(options?: FormatOptions | number | ((value:any)=>string)): string;
+        format(options?: FormatOptions | number | ((value: any) => string)): string;
         toString(): string;
         toJSON(): any;
         diagonal(k?: number | BigNumber): any[];
@@ -3107,7 +3107,7 @@ declare namespace math {
          * @param options There is one option available, simplify, which is true
          * by default. When false, output will not be simplified.
          */
-        derivative(variable: MathNode | string, options?: object): MathJsChain;
+        derivative(variable: MathNode | string, options?: {simplify: boolean}): MathJsChain;
 
         /**
          * Solves the linear equation system by forwards substitution. Matrix
@@ -3155,7 +3155,7 @@ declare namespace math {
          * @param detailed  optional True if return an object, false if return
          * expression node (default)
          */
-        rationalize(optional: object | boolean, detailed: boolean): MathJsChain;
+        rationalize(optional?: object | boolean, detailed?: boolean): MathJsChain;
 
         /**
          * Simplify an expression tree.
@@ -3238,7 +3238,7 @@ declare namespace math {
          * the inverse of y: x * inv(y).
          * @param y Denominator
          */
-        divide(y: Unit | Number | MathType): MathJsChain;
+        divide(y: MathType): MathJsChain;
 
         /**
          * Divide two matrices element wise. The function accepts both matrices
@@ -3698,7 +3698,7 @@ declare namespace math {
         /**
          * Filter the items in an array or one dimensional matrix.
          */
-        filter(test: ((value:any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)| RegExp): MathJsChain;
+        filter(test: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)| RegExp): MathJsChain;
 
         /**
          * Flatten a multi dimensional matrix into a single dimensional matrix.
@@ -3709,7 +3709,7 @@ declare namespace math {
          * Iterate over all elements of a matrix/array, and executes the given
          * callback function.
          */
-        forEach(callback: ((value:any, index: any, matrix: Matrix | MathArray)=>void)): MathJsChain;
+        forEach(callback: ((value: any, index: any, matrix: Matrix | MathArray) => void)): MathJsChain;
 
         /**
          * Calculate the inverse of a square matrix.
@@ -3729,7 +3729,7 @@ declare namespace math {
          * parameters: the value of the element, the index of the element, and
          * the Matrix/array being traversed.
          */
-        map(callback: ((value:any, index: any, matrix: Matrix | MathArray)=>Matrix | MathArray)): MathJsChain;
+        map(callback: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)): MathJsChain;
 
         /**
          * Create a matrix filled with ones. The created matrix can have one or
@@ -3800,7 +3800,7 @@ declare namespace math {
          * is called as compare(a, b), and must return 1 when a > b, -1 when a <
          * b, and 0 when a == b. Default value: ‘asc’
          */
-        sort(compare: ((a:any, b:any)=>number) | "asc" | "desc" | "natural"): MathJsChain;
+        sort(compare: ((a: any, b: any) => number) | "asc" | "desc" | "natural"): MathJsChain;
 
         /**
          * Calculate the principal square root of a square matrix. The principal
@@ -3918,8 +3918,10 @@ declare namespace math {
          * @param min Minimum boundary for the random value, included
          * @param max Maximum boundary for the random value, excluded
          */
-        random(max?: number): number;
-        random(min?: number, max?: number): MathJsChain;
+        // tslint:disable-next-line unified-signatures
+        random(max?: number): MathJsChain;
+        // tslint:disable-next-line unified-signatures
+        random(min: number, max: number): MathJsChain;
 
         /**
          * Return a random integer number larger or equal to min and smaller
@@ -3927,8 +3929,10 @@ declare namespace math {
          * @param min Minimum boundary for the random value, included
          * @param max Maximum boundary for the random value, excluded
          */
+        // tslint:disable-next-line unified-signatures
         randomInt(max?: number): MathJsChain;
-        randomInt(min?: number, max?: number): MathJsChain;
+        // tslint:disable-next-line unified-signatures
+        randomInt(min: number, max: number): MathJsChain;
 
         /*************************************************************************
          * Relational functions
@@ -4146,9 +4150,6 @@ declare namespace math {
          * of a multi dimensional array, the maximum of the flattened array will
          * be calculated. When dim is provided, the maximum over the selected
          * dimension will be calculated. Parameter dim is zero-based.
-         */
-        max(): MathJsChain;
-        /**
          * @param dim The maximum over the selected dimension
          */
         max(dim?: number): MathJsChain;
@@ -4158,9 +4159,6 @@ declare namespace math {
          * multi dimensional array, the mean of the flattened array will be
          * calculated. When dim is provided, the maximum over the selected
          * dimension will be calculated. Parameter dim is zero-based.
-         */
-        mean(): MathJsChain;
-        /**
          * @param dim The mean over the selected dimension
          */
         mean(dim?: number): MathJsChain;
@@ -4180,11 +4178,7 @@ declare namespace math {
          * a multi dimensional array, the maximum of the flattened array will be
          * calculated. When dim is provided, the maximum over the selected
          * dimension will be calculated. Parameter dim is zero-based.
-         */
-        min(): MathJsChain;
-        /**
          * @param dim The minimum over the selected dimension
-         * @returns The minimum value
          */
         min(dim?: number): MathJsChain;
 
@@ -4257,13 +4251,10 @@ declare namespace math {
          * 1) Note that older browser may not like the variable name var. In
          * that case, the function can be called as math['var'](...) instead of
          * math.var(...).
-         * @returns The variance
-         */
-        var(): MathJsChain;
-        /**
          * @param normalization normalization Determines how to normalize the
          * variance. Choose ‘unbiased’ (default), ‘uncorrected’, or ‘biased’.
          * Default value: ‘unbiased’.
+         * @returns The variance
          */
         var(
             normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
@@ -4287,7 +4278,7 @@ declare namespace math {
         format(
             value: any,
             options?: FormatOptions | number | ((item: any) => string),
-            callback?: ((value:any)=>string)
+            callback?: ((value: any) => string)
         ): MathJsChain;
 
         /**
