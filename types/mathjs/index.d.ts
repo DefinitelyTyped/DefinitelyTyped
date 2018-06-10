@@ -275,7 +275,7 @@ declare namespace math {
          * @returns The created string
          */
         string(
-            value: any | MathArray | Matrix | null
+            value: MathType | null
         ): string | MathArray | Matrix;
 
         /**
@@ -450,7 +450,7 @@ declare namespace math {
          */
         simplify(
             expr: MathNode | string,
-            rules?: ({ l: string; r: string } | string | ((node: MathNode) => MathNode))[],
+            rules?: Array<({ l: string; r: string } | string | ((node: MathNode) => MathNode))>,
             scope?: object
         ): MathNode;
 
@@ -1112,8 +1112,8 @@ declare namespace math {
          * @returns Returns the distance from two/three points
          */
         distance(
-            x: MathArray | Matrix | Object,
-            y: MathArray | Matrix | Object
+            x: MathArray | Matrix | object,
+            y: MathArray | Matrix | object
         ): number | BigNumber;
 
         /**
@@ -1411,9 +1411,9 @@ declare namespace math {
          * @returns A reshaped clone of matrix x
          */
         reshape(
-            x: MathArray | Matrix | any,
+            x: MathArray | Matrix,
             sizes: number[]
-        ): any | MathArray | Matrix;
+        ): MathArray | Matrix;
 
         /**
          * Resize a matrix
@@ -2965,13 +2965,10 @@ declare namespace math {
 
         /**
          * Create a complex value or convert a value to a complex value.
-         */
-        complex(): MathJsChain;
-        /**
          * @param im Argument specifying the imaginary part of the complex
          * number
          */
-        complex(im: number): MathJsChain;
+        complex(im?: number): MathJsChain;
 
         /**
          * Create a user-defined unit and register it with the Unit type.
@@ -3169,7 +3166,7 @@ declare namespace math {
          * @param scope Scope to variables
          */
         simplify(
-            rules?: ({ l: string; r: string } | string | ((node: MathNode) => MathNode))[],
+            rules?: Array<({ l: string; r: string } | string | ((node: MathNode) => MathNode))>,
             scope?: object
         ): MathJsChain;
 
@@ -3241,9 +3238,7 @@ declare namespace math {
          * the inverse of y: x * inv(y).
          * @param y Denominator
          */
-        divide(y: Unit): MathJsChain;
-        divide(y: number): MathJsChain;
-        divide(y: MathType): MathJsChain;
+        divide(y: Unit | Number | MathType): MathJsChain;
 
         /**
          * Divide two matrices element wise. The function accepts both matrices
@@ -3309,10 +3304,7 @@ declare namespace math {
          * the function is evaluated element wise.
          * @param b An integer number
          */
-        lcm(b: number): MathJsChain;
-        lcm(b: BigNumber): MathJsChain;
-        lcm(b: MathArray): MathJsChain;
-        lcm(b: Matrix): MathJsChain;
+        lcm(b: number | BigNumber | MathArray | Matrix): MathJsChain;
 
         /**
          * Calculate the logarithm of a value. For matrices, the function is
@@ -3333,11 +3325,6 @@ declare namespace math {
          * evaluated element wise.
          */
         log1p(base?: number | BigNumber | Complex): MathJsChain;
-        log1p(base?: number | BigNumber | Complex): MathJsChain;
-        log1p(base?: number | BigNumber | Complex): MathJsChain;
-        log1p(base?: number | BigNumber | Complex): MathJsChain;
-        log1p(base?: number | BigNumber | Complex): MathJsChain;
-
         /**
          * Calculate the 2-base of a value. This is the same as calculating
          * log(x, 2). For matrices, the function is evaluated element wise.
@@ -3357,9 +3344,6 @@ declare namespace math {
          * matrix product is calculated.
          * @param y The second value to multiply
          */
-        multiply(y: MathType): MathJsChain;
-        multiply(y: Unit): MathJsChain;
-        multiply(y: number): MathJsChain;
         multiply(y: MathType): MathJsChain;
 
         /**
@@ -3467,10 +3451,7 @@ declare namespace math {
          * print base.
          * @param y Second value to or
          */
-        bitOr(y: number): MathJsChain;
-        bitOr(y: BigNumber): MathJsChain;
-        bitOr(y: MathArray): MathJsChain;
-        bitOr(y: Matrix): MathJsChain;
+        bitOr(y: number | BigNumber | MathArray | Matrix): MathJsChain;
 
         /**
          * Bitwise XOR two values, x ^ y. For matrices, the function is
@@ -3585,7 +3566,7 @@ declare namespace math {
          * c)
          * @param y Coordinates of the second point
          */
-        distance(y: MathArray | Matrix | Object): MathJsChain;
+        distance(y: MathArray | Matrix | object): MathJsChain;
 
         /**
          * Calculates the point of intersection of two lines in two or three
