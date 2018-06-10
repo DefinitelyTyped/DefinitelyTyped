@@ -3,6 +3,7 @@
 // Definitions by: Resi Respati <https://github.com/resir014>
 //                 Kingdaro <https://github.com/kingdaro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
 
@@ -101,7 +102,7 @@ declare namespace Signale {
          * Sets a timers and accepts an optional label. If none provided the timer will receive a unique label automatically.
          *
          * @param label Label corresponding to the timer. Each timer must have its own unique label.
-         * @returns {string} a string corresponding to the timer label.
+         * @returns a string corresponding to the timer label.
          */
         time(label?: string): string;
         /**
