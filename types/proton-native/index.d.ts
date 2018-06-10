@@ -214,6 +214,14 @@ export interface AreaTextProps extends AreaBaseProps {
      * A color string | 'spelling' | 'grammar' | 'auxiliary'
      */
     textUnderlineColor?: 'spelling' | 'grammar' | 'auxiliary' | string;
+    /**
+     * The x coordinate of the text's top left corner. (Only in a top level text component.)
+     */
+    x?: number | string;
+    /**
+     * The y coordinate of the text's top left corner. (Only in a top level text component.)
+     */
+    y?: number | string;
 }
 
 export class AreaText extends React.Component<AreaTextProps> { }
