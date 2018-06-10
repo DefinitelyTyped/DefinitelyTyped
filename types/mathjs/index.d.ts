@@ -4,7 +4,7 @@
 //                  Andy Patterson <https://github.com/andnp>,
 //                  Brad Besserman <https://github.com/bradbesserman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8.1
+// TypeScript Version: 2.2
 
 import { Decimal } from "decimal.js";
 
