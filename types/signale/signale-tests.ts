@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import signale, { Signale, SignaleOptions } from "signale";
 
 // --- Test 1: Basic Usage --- //
