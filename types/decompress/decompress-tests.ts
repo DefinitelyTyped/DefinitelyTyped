@@ -24,7 +24,7 @@ decompress('unicorn.zip', 'dist', {
 decompress('unicorn.zip')
 	.then(
 		(files: decompress.File[]) => {
-			console.log('Decompressed ' + files.length + " files with no write to filesystem");
+			console.log(`Decompressed ${files.length} files with no write to filesystem`);
 		}
 	);
 
@@ -37,6 +37,6 @@ decompress(
 )
 	.then(
 		(files: decompress.File[]) => {
-			console.log('Decompressed ' + files.length + " files with filter options");
+			console.log(`Decompressed ${files.length} files with filter options`);
 		}
 	);
