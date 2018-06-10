@@ -435,11 +435,8 @@ declare namespace math {
          * expression node (default)
          * @returns The rational polynomial of expr
          */
-        rationalize(
-            expr: MathNode | string,
-            optional: object | boolean,
-            detailed: boolean
-        ): object | MathNode;
+        rationalize(expr: MathNode | string, optional?: object | boolean, detailed?: true): { expression: MathNode | string, variables: string[], coefficients: MathType[] };
+        rationalize(expr: MathNode | string, optional?: object | boolean, detailed?: false): MathNode;
 
         /**
          * Simplify an expression tree.
