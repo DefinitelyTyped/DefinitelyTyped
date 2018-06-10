@@ -170,50 +170,52 @@ export interface AreaPathProps extends AreaBaseProps {
 export class AreaPath extends React.Component<AreaPathProps> { }
 
 export interface AreaTextProps extends AreaBaseProps {
-    /**
-     * The background color, specified as a CSS color string.
-     */
-    backgroundColor?: string;
-    /**
-     * The text color, specified as a CSS color string.
-     */
-    color?: string;
-    /**
-     * The font family (only if available on the system).
-     */
-    fontFamily?: string;
-    /**
-     * The font size (in pt).
-     */
-    fontSize?: number;
-    /**
-     * Whether an italic font should be used.
-     */
-    fontStyle?: 'normal' | 'oblique' | 'italic';
-    /**
-     * Whether a bold font should be used (and the amount).
-     */
-    fontWeight?: 'minimum' | 'thin' | 'ultraLight' | 'light' | 'book' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'ultraBold' | 'heavy' | 'ultraHeavy' | 'maximum' | number;
-    /**
-     * Wheter the text should be aligned to the left, center or right.
-     *
-     * **Works only on a top level text component, not it's children!**
-     */
-    textAlign?: 'left' | 'center' | 'right';
-    /**
-     * How wide or narrow the characters should be.
-     */
-    textStretch?: 'ultraCondensed' | 'extraCondensed' | 'condensed' | 'semiCondensed' | 'normal' | 'semiExpanded' | 'expanded' | 'extraExpanded' | 'ultraExpanded';
-    /**
-     * The text underline style.
-     */
-    textUnderline?: 'none' | 'single' | 'double' | 'suggestion';
-    /**
-     * The text underline color.
-     *
-     * A color string | 'spelling' | 'grammar' | 'auxiliary'
-     */
-    textUnderlineColor?: 'spelling' | 'grammar' | 'auxiliary' | string;
+    style?: {
+        /**
+         * The background color, specified as a CSS color string.
+         */
+        backgroundColor?: string;
+        /**
+         * The text color, specified as a CSS color string.
+         */
+        color?: string;
+        /**
+         * The font family (only if available on the system).
+         */
+        fontFamily?: string;
+        /**
+         * The font size (in pt).
+         */
+        fontSize?: number;
+        /**
+         * Whether an italic font should be used.
+         */
+        fontStyle?: 'normal' | 'oblique' | 'italic';
+        /**
+         * Whether a bold font should be used (and the amount).
+         */
+        fontWeight?: 'minimum' | 'thin' | 'ultraLight' | 'light' | 'book' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'ultraBold' | 'heavy' | 'ultraHeavy' | 'maximum' | number;
+        /**
+         * Wheter the text should be aligned to the left, center or right.
+         *
+         * **Works only on a top level text component, not it's children!**
+         */
+        textAlign?: 'left' | 'center' | 'right';
+        /**
+         * How wide or narrow the characters should be.
+         */
+        textStretch?: 'ultraCondensed' | 'extraCondensed' | 'condensed' | 'semiCondensed' | 'normal' | 'semiExpanded' | 'expanded' | 'extraExpanded' | 'ultraExpanded';
+        /**
+         * The text underline style.
+         */
+        textUnderline?: 'none' | 'single' | 'double' | 'suggestion';
+        /**
+         * The text underline color.
+         *
+         * A color string | 'spelling' | 'grammar' | 'auxiliary'
+         */
+        textUnderlineColor?: 'spelling' | 'grammar' | 'auxiliary' | string;
+    };
     /**
      * The x coordinate of the text's top left corner. (Only in a top level text component.)
      */

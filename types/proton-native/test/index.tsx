@@ -131,9 +131,18 @@ class AreaTest extends React.Component {
             <Area>
                 <Area.Rectangle height={10} width={20} x={30} y={40} />
                 <Area.Path d="test" fillMode="nonzero" />
-                <Area.Text fontSize={30}>
+                <Area.Text
+                    style={{
+                        fontSize: 30,
+                        fontWeight: "maximum",
+                        textAlign: "center",
+                        textStretch: "ultraCondensed",
+                    }}
+                >
                     Parent text
-                    <Area.Text fontWeight="maximum">Nested Text</Area.Text>
+                    <Area.Text>
+                        Nested Text
+                    </Area.Text>
                 </Area.Text>
             </Area>
         );
