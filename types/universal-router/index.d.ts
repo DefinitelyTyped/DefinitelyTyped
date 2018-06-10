@@ -35,11 +35,11 @@ export interface ActionContext<C extends Context, R = any> extends PathnameConte
     /**
      * Matched route object.
      */
-    route: Route<any, any>;
+    route: Route;
     /**
      * Middleware style function which can continue resolving.
      */
-    next: (resume?: boolean, parent?: Route<any, any>, prevResult?: any) => Promise<R>;
+    next: (resume?: boolean, parent?: Route, prevResult?: any) => Promise<R>;
     /**
      * Base URL path relative to the path of the current route.
      */
@@ -75,7 +75,7 @@ export interface Route<C extends Context = any, R = any> {
     /**
      * automatically filled by the router
      */
-    parent?: Route<any, any> | null;
+    parent?: Route | null;
     /**
      * array of route objects
      */
@@ -107,7 +107,8 @@ export interface Options<C extends Context = Context, R = any> {
 export default class UniversalRouter<C extends Context = Context, R = any> {
     constructor(routes: Routes<C, R> | Route<C, R>, options?: Options<C>)
     /**
-     * Traverses the list of routes in the order they are defined until it finds the first route that matches provided URL path string and whose action function returns anything other than null or undefined.
+     * Traverses the list of routes in the order they are defined until it finds the first route that matches provided URL path string
+     * and whose action function returns anything other than null or undefined.
      */
     resolve(pathnameOrContext: string | PathnameContext): Promise<R>;
     /**

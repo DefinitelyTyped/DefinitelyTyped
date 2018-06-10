@@ -12,11 +12,11 @@ new UniversalRouter(
         },
         baseUrl: '/base',
         errorHandler: (error) => {
-            console.error(error)
-            console.dir(error.context)
+            console.error(error);
+            console.dir(error.context);
             return error.code === 404
                 ? '<h1>Page Not Found</h1>'
-                : '<h1>Oops! Something went wrong</h1>'
+                : '<h1>Oops! Something went wrong</h1>';
         },
     },
 ).resolve('/').then(console.log);
@@ -48,18 +48,18 @@ new UniversalRouter({
 new UniversalRouter({
     path: '', // optional
     async action({ next }) {
-        console.log('middleware: start')
-        const child = await next()
-        console.log('middleware: end')
-        return child
+        console.log('middleware: start');
+        const child = await next();
+        console.log('middleware: end');
+        return child;
     },
     children: [
         {
             path: '/hello',
             action() {
-                console.log('route: return a result')
-                return 'Hello, world!'
+                console.log('route: return a result');
+                return 'Hello, world!';
             },
         },
     ],
-})
+});
