@@ -21,6 +21,7 @@
 //                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Lishude <https://github.com/islishude>
+//                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
