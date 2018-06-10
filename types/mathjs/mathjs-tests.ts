@@ -114,9 +114,7 @@ Complex numbers examples
 
 	// get polar coordinates of a complex number
 	{
-		const p: math.PolarCoordinates = math
-			.complex(3, 4)
-			.toPolar();
+		const p: math.PolarCoordinates = math.complex(3, 4).toPolar();
 	}
 }
 
@@ -175,7 +173,7 @@ Expressions examples
 	// get and set variables and functions
 	{
         parser.eval('x = 7 / 2');               // 3.5
-        parser.eval('x + 3');                   // 6.5
+     	parser.eval('x + 3');                   // 6.5
         parser.eval('f(x, y) = x^y');           // f(x, y)
         parser.eval('f(2, 3)');                 // 8
 
@@ -238,7 +236,8 @@ Matrices examples
 
 		b.subset(math.index(1, [0, 1]), [[7, 8]]);
 		const c = math.multiply(a, b);
-		const d: math.Matrix = (<math.Matrix>c).subset(math.index(1, 0));
+		let f: math.Matrix;
+		const d: math.Matrix = f.subset(math.index(1, 0));
 	}
 
 	// get a sub matrix
@@ -297,7 +296,7 @@ Units examples
 	const b = math.unit('0.1m'); // 100 mm
 
 	// creating units
-	math.createUnit('foo', '12 meters');
+	math.createUnit('foo');
 	math.createUnit('furlong', '220 yards');
 	math.createUnit('furlong', '220 yards', {override: true});
 	math.createUnit('testunit', {definition: '0.555556 kelvin', offset: 459.67});
@@ -310,7 +309,7 @@ Units examples
 		prefixes: 'long'
 	}, {override: true});
 	math.createUnit({
-		foo: {
+		foo_2: {
 			prefixes: 'long'
 		},
 		bar: '40 foo',

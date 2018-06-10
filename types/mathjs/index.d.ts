@@ -1,17 +1,18 @@
-// Type definitions for mathjs 4.4.2 Project: http://mathjs.org/ Definitions by:
-// Ilya Shestakov <https://github.com/siavol>, Andy Patterson
-// <https://github.com/andnp>, Brad Besserman <https://github.com/bradbesserman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped TypeScript
-// Version: 2.8.1
+// Type definitions for mathjs 4.4.2
+// Project: http://mathjs.org/ Definitions by:
+//                  Ilya Shestakov <https://github.com/siavol>,
+//                  Andy Patterson <https://github.com/andnp>,
+//                  Brad Besserman <https://github.com/bradbesserman>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8.1
 
 import { Decimal } from "decimal.js";
 
-declare const math: math.MathJsStatic; // tslint:disable-line strict-export-declare-modifiers
-export as namespace math; // tslint:disable-line strict-export-declare-modifiers
-export = math; // tslint:disable-line strict-export-declare-modifiers
+declare const math: math.MathJsStatic;
+export as namespace math;
+export = math;
 
 declare namespace math {
-    // tslint:disable-line strict-export-declare-modifiers
     type MathArray = number[] | number[][];
     type MathType =
         | number
@@ -62,7 +63,7 @@ declare namespace math {
          * randomly seed.
          * @returns Returns the current configuration
          */
-        config: (options: object) => object;
+        config: (options: ConfigOptions) => ConfigOptions;
         /**
          * Create a typed-function which checks the types of the arguments and
          * can match them against multiple provided signatures. The
@@ -73,7 +74,7 @@ declare namespace math {
          * @param signatures Object with one or multiple function signatures
          * @returns The created typed-function.
          */
-        typed: (name: string, signatures: object) => any;
+        typed: (name: string, signatures: Record<string, Function>) => Function;
 
         /*************************************************************************
          * Construction functions
@@ -163,13 +164,7 @@ declare namespace math {
         /**
          * Create a user-defined unit and register it with the Unit type.
          * @param units Definition of the unit
-         * @param options (optional) An object containing any of the following
-         * properties:</br>- prefixes {string} “none”, “short”, “long”,
-         * “binary_short”, or “binary_long”. The default is “none”.</br>-
-         * aliases {Array} Array of strings. Example: [‘knots’, ‘kt’,
-         * ‘kts’]</br>- offset {Numeric} An offset to apply when converting from
-         * the unit. For example, the offset for celsius is 273.15. Default is
-         * 0.
+         * @param options
          * @returns The new unit
          */
         createUnit(
@@ -2674,6 +2669,9 @@ declare namespace math {
     }
 
     interface CreateUnitOptions {
+        prefixes?: "none" | "short" | "long" | "binary_short" | "binary_long";
+        aliases?: string[];
+        offset?: number;
         override?: boolean;
     }
 
@@ -2935,6 +2933,15 @@ declare namespace math {
     interface Help {
         toString(): string;
         toJSON(): string;
+    }
+
+    interface ConfigOptions {
+        epsilon?: number;
+        matrix?: string;
+        number?: string;
+        precision?: number;
+        parenthesis?: string;
+        randomSeed?: string;
     }
 
     interface MathJsChain {
