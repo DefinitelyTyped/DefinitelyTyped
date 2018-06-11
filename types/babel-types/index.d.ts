@@ -39,9 +39,9 @@ export interface Node {
     leadingComments?: Comment[];
     innerComments?: Comment[];
     trailingComments?: Comment[];
-    start: number;
-    end: number;
-    loc: SourceLocation;
+    start?: number;
+    end?: number;
+    loc?: SourceLocation;
 }
 
 export interface ArrayExpression extends Node {
@@ -75,13 +75,13 @@ export interface DirectiveLiteral extends Node {
 
 export interface BlockStatement extends Node {
     type: "BlockStatement";
-    directives?: Directive[];
+    directives: Directive[];
     body: Statement[];
 }
 
 export interface BreakStatement extends Node {
     type: "BreakStatement";
-    label: Identifier;
+    label: Identifier | null;
 }
 
 export interface CallExpression extends Node {
@@ -105,7 +105,7 @@ export interface ConditionalExpression extends Node {
 
 export interface ContinueStatement extends Node {
     type: "ContinueStatement";
-    label: Identifier;
+    label: Identifier | null;
 }
 
 export interface DebuggerStatement extends Node {
@@ -143,9 +143,9 @@ export interface ForInStatement extends Node {
 
 export interface ForStatement extends Node {
     type: "ForStatement";
-    init: VariableDeclaration | Expression;
-    test: Expression;
-    update: Expression;
+    init: VariableDeclaration | Expression | null;
+    test: Expression | null;
+    update: Expression | null;
     body: Statement;
 }
 
@@ -162,7 +162,7 @@ export interface FunctionDeclaration extends Node {
 
 export interface FunctionExpression extends Node {
     type: "FunctionExpression";
-    id: Identifier;
+    id: Identifier | null;
     params: LVal[];
     body: BlockStatement;
     generator: boolean;
@@ -181,7 +181,7 @@ export interface IfStatement extends Node {
     type: "IfStatement";
     test: Expression;
     consequent: Statement;
-    alternate: Statement;
+    alternate: Statement | null;
 }
 
 export interface LabeledStatement extends Node {
@@ -212,7 +212,7 @@ export interface BooleanLiteral extends Node {
 export interface RegExpLiteral extends Node {
     type: "RegExpLiteral";
     pattern: string;
-    flags?: string;
+    flags: string;
 }
 
 export interface LogicalExpression extends Node {
@@ -281,7 +281,7 @@ export interface RestElement extends Node {
 
 export interface ReturnStatement extends Node {
     type: "ReturnStatement";
-    argument: Expression;
+    argument: Expression | null;
 }
 
 export interface SequenceExpression extends Node {
@@ -291,7 +291,7 @@ export interface SequenceExpression extends Node {
 
 export interface SwitchCase extends Node {
     type: "SwitchCase";
-    test: Expression;
+    test: Expression | null;
     consequent: Statement[];
 }
 
@@ -312,9 +312,9 @@ export interface ThrowStatement extends Node {
 
 export interface TryStatement extends Node {
     type: "TryStatement";
-    block: BlockStatement;
-    handler: CatchClause;
-    finalizer: BlockStatement;
+    block: BlockStatement | null;
+    handler: CatchClause | null;
+    finalizer: BlockStatement | null;
 }
 
 export interface UnaryExpression extends Node {
@@ -340,7 +340,7 @@ export interface VariableDeclaration extends Node {
 export interface VariableDeclarator extends Node {
     type: "VariableDeclarator";
     id: LVal;
-    init: Expression;
+    init: Expression | null;
 }
 
 export interface WhileStatement extends Node {
@@ -369,7 +369,6 @@ export interface ArrayPattern extends Node {
 
 export interface ArrowFunctionExpression extends Node {
     type: "ArrowFunctionExpression";
-    id: Identifier;
     params: LVal[];
     body: BlockStatement | Expression;
     generator: boolean;
@@ -387,7 +386,7 @@ export interface ClassBody extends Node {
 export interface ClassDeclaration extends Node {
     type: "ClassDeclaration";
     id: Identifier;
-    superClass: Expression;
+    superClass: Expression | null;
     body: ClassBody;
     decorators?: Decorator[];
     implements?: ClassImplements[];
@@ -398,8 +397,8 @@ export interface ClassDeclaration extends Node {
 
 export interface ClassExpression extends Node {
     type: "ClassExpression";
-    id: Identifier;
-    superClass: Expression;
+    id: Identifier | null;
+    superClass: Expression | null;
     body: ClassBody;
     decorators?: Decorator[];
     implements?: ClassImplements[];
@@ -522,7 +521,7 @@ export interface TemplateElement extends Node {
     value: {
         cooked: string;
         raw: string;
-    };
+    } | null;
 }
 
 export interface TemplateLiteral extends Node {
@@ -533,7 +532,7 @@ export interface TemplateLiteral extends Node {
 
 export interface YieldExpression extends Node {
     type: "YieldExpression";
-    argument: Expression;
+    argument: Expression | null;
     delegate: boolean;
 }
 
@@ -772,7 +771,7 @@ export interface VoidTypeAnnotation extends Node {
 export interface JSXAttribute extends Node {
     type: "JSXAttribute";
     name: JSXIdentifier | JSXNamespacedName;
-    value: JSXElement | StringLiteral | JSXExpressionContainer;
+    value: JSXElement | StringLiteral | JSXExpressionContainer | null;
 }
 
 export interface JSXClosingElement extends Node {
@@ -847,8 +846,8 @@ export interface AwaitExpression extends Node {
 
 export interface BindExpression extends Node {
     type: "BindExpression";
-    object: Expression;
-    callee: Expression;
+    object: Expression | null;
+    callee: Expression | null;
 }
 
 export interface Decorator extends Node {
@@ -1316,74 +1315,74 @@ export function binaryExpression(
 export function directive(value?: DirectiveLiteral): Directive;
 export function directiveLiteral(value?: string): DirectiveLiteral;
 export function blockStatement(body?: Statement[], directives?: Directive[]): BlockStatement;
-export function breakStatement(label?: Identifier): BreakStatement;
-export function callExpression(callee?: Expression, _arguments?: Array<Expression | SpreadElement>): CallExpression;
-export function catchClause(param?: Identifier, body?: BlockStatement): CatchClause;
-export function conditionalExpression(test?: Expression, consequent?: Expression, alternate?: Expression): ConditionalExpression;
-export function continueStatement(label?: Identifier): ContinueStatement;
+export function breakStatement(label?: Identifier | null): BreakStatement;
+export function callExpression(callee: Expression, _arguments: Array<Expression | SpreadElement>): CallExpression;
+export function catchClause(param: Identifier, body: BlockStatement): CatchClause;
+export function conditionalExpression(test: Expression, consequent: Expression, alternate: Expression): ConditionalExpression;
+export function continueStatement(label?: Identifier | null): ContinueStatement;
 export function debuggerStatement(): DebuggerStatement;
-export function doWhileStatement(test?: Expression, body?: Statement): DoWhileStatement;
+export function doWhileStatement(test: Expression, body: Statement): DoWhileStatement;
 export function emptyStatement(): EmptyStatement;
-export function expressionStatement(expression?: Expression): ExpressionStatement;
+export function expressionStatement(expression: Expression): ExpressionStatement;
 export function file(program?: Program, comments?: Comment[], tokens?: any[]): File;
-export function forInStatement(left?: VariableDeclaration | LVal, right?: Expression, body?: Statement): ForInStatement;
-export function forStatement(init?: VariableDeclaration | Expression, test?: Expression, update?: Expression, body?: Statement): ForStatement;
-export function functionDeclaration(id?: Identifier, params?: LVal[], body?: BlockStatement, generator?: boolean, async?: boolean): FunctionDeclaration;
-export function functionExpression(id?: Identifier, params?: LVal[], body?: BlockStatement, generator?: boolean, async?: boolean): FunctionExpression;
-export function identifier(name?: string): Identifier;
-export function ifStatement(test?: Expression, consequent?: Statement, alternate?: Statement): IfStatement;
-export function labeledStatement(label?: Identifier, body?: Statement): LabeledStatement;
-export function stringLiteral(value?: string): StringLiteral;
-export function numericLiteral(value?: number): NumericLiteral;
+export function forInStatement(left: VariableDeclaration | LVal, right: Expression, body: Statement): ForInStatement;
+export function forStatement(init: VariableDeclaration | Expression | null, test: Expression | null, update: Expression | null, body: Statement): ForStatement;
+export function functionDeclaration(id: Identifier | null, params: LVal[], body: BlockStatement, generator?: boolean, async?: boolean): FunctionDeclaration;
+export function functionExpression(id: Identifier | null, params: LVal[], body: BlockStatement, generator?: boolean, async?: boolean): FunctionExpression;
+export function identifier(name: string): Identifier;
+export function ifStatement(test: Expression, consequent: Statement, alternate?: Statement | null): IfStatement;
+export function labeledStatement(label: Identifier, body: Statement): LabeledStatement;
+export function stringLiteral(value: string): StringLiteral;
+export function numericLiteral(value: number): NumericLiteral;
 export function nullLiteral(): NullLiteral;
-export function booleanLiteral(value?: boolean): BooleanLiteral;
-export function regExpLiteral(pattern?: string, flags?: string): RegExpLiteral;
-export function logicalExpression(operator?: "||" | "&&", left?: Expression, right?: Expression): LogicalExpression;
+export function booleanLiteral(value: boolean): BooleanLiteral;
+export function regExpLiteral(pattern: string, flags?: string): RegExpLiteral;
+export function logicalExpression(operator: "||" | "&&", left: Expression, right: Expression): LogicalExpression;
 export function memberExpression(object?: Expression | Super, property?: Expression, computed?: boolean): MemberExpression;
-export function newExpression(callee?: Expression | Super, _arguments?: Array<Expression | SpreadElement>): NewExpression;
-export function program(body?: Array<Statement | ModuleDeclaration>, directives?: Directive[]): Program;
-export function objectExpression(properties?: Array<ObjectProperty | ObjectMethod | SpreadProperty>): ObjectExpression;
-export function objectMethod(kind?: "get" | "set" | "method", key?: Expression, params?: LVal[], body?: BlockStatement, computed?: boolean): ObjectMethod;
-export function objectProperty(key?: Expression, value?: Expression, computed?: boolean, shorthand?: boolean, decorators?: Decorator[]): ObjectProperty;
-export function restElement(argument?: LVal, typeAnnotation?: TypeAnnotation): RestElement;
-export function returnStatement(argument?: Expression): ReturnStatement;
-export function sequenceExpression(expressions?: Expression[]): SequenceExpression;
-export function switchCase(test?: Expression, consequent?: Statement[]): SwitchCase;
-export function switchStatement(discriminant?: Expression, cases?: SwitchCase[]): SwitchStatement;
+export function newExpression(callee: Expression | Super, _arguments: Array<Expression | SpreadElement>): NewExpression;
+export function program(body: Array<Statement | ModuleDeclaration>, directives?: Directive[]): Program;
+export function objectExpression(properties: Array<ObjectProperty | ObjectMethod | SpreadProperty>): ObjectExpression;
+export function objectMethod(kind: "get" | "set" | "method", key: Expression, params: LVal[], body: BlockStatement, computed?: boolean): ObjectMethod;
+export function objectProperty(key: Expression, value: Expression, computed?: boolean, shorthand?: boolean, decorators?: Decorator[]): ObjectProperty;
+export function restElement(argument: LVal, typeAnnotation?: TypeAnnotation): RestElement;
+export function returnStatement(argument?: Expression | null): ReturnStatement;
+export function sequenceExpression(expressions: Expression[]): SequenceExpression;
+export function switchCase(test: Expression | null, consequent: Statement[]): SwitchCase;
+export function switchStatement(discriminant: Expression, cases: SwitchCase[]): SwitchStatement;
 export function thisExpression(): ThisExpression;
-export function throwStatement(argument?: Expression): ThrowStatement;
-export function tryStatement(block?: BlockStatement, handler?: CatchClause, finalizer?: BlockStatement): TryStatement;
-export function unaryExpression(operator?: "void" | "delete" | "!" | "+" | "-" | "++" | "--" | "~" | "typeof", argument?: Expression, prefix?: boolean): UnaryExpression;
-export function updateExpression(operator?: "++" | "--", argument?: Expression, prefix?: boolean): UpdateExpression;
-export function variableDeclaration(kind?: "var" | "let" | "const", declarations?: VariableDeclarator[]): VariableDeclaration;
-export function variableDeclarator(id?: LVal, init?: Expression): VariableDeclarator;
-export function whileStatement(test?: Expression, body?: BlockStatement | Statement): WhileStatement;
-export function withStatement(object?: Expression, body?: BlockStatement | Statement): WithStatement;
-export function assignmentPattern(left?: Identifier, right?: Expression): AssignmentPattern;
-export function arrayPattern(elements?: Expression[], typeAnnotation?: TypeAnnotation): ArrayPattern;
-export function arrowFunctionExpression(params?: LVal[], body?: BlockStatement | Expression, async?: boolean): ArrowFunctionExpression;
-export function classBody(body?: Array<ClassMethod | ClassProperty>): ClassBody;
-export function classDeclaration(id?: Identifier, superClass?: Expression, body?: ClassBody, decorators?: Decorator[]): ClassDeclaration;
-export function classExpression(id?: Identifier, superClass?: Expression, body?: ClassBody, decorators?: Decorator[]): ClassExpression;
-export function exportAllDeclaration(source?: StringLiteral): ExportAllDeclaration;
-export function exportDefaultDeclaration(declaration?: FunctionDeclaration | ClassDeclaration | Expression): ExportDefaultDeclaration;
-export function exportNamedDeclaration(declaration?: Declaration, specifiers?: ExportSpecifier[], source?: StringLiteral): ExportNamedDeclaration;
-export function exportSpecifier(local?: Identifier, exported?: Identifier): ExportSpecifier;
-export function forOfStatement(left?: VariableDeclaration | LVal, right?: Expression, body?: Statement): ForOfStatement;
-export function importDeclaration(specifiers?: Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>, source?: StringLiteral): ImportDeclaration;
-export function importDefaultSpecifier(local?: Identifier): ImportDefaultSpecifier;
-export function importNamespaceSpecifier(local?: Identifier): ImportNamespaceSpecifier;
-export function importSpecifier(local?: Identifier, imported?: Identifier): ImportSpecifier;
-export function metaProperty(meta?: string, property?: string): MetaProperty;
-export function classMethod(kind?: "constructor" | "method" | "get" | "set", key?: Expression, params?: LVal[], body?: BlockStatement, computed?: boolean, _static?: boolean): ClassMethod;
-export function objectPattern(properties?: Array<AssignmentProperty | RestProperty>, typeAnnotation?: TypeAnnotation): ObjectPattern;
-export function spreadElement(argument?: Expression): SpreadElement;
-export function taggedTemplateExpression(tag?: Expression, quasi?: TemplateLiteral): TaggedTemplateExpression;
-export function templateElement(value?: { cooked?: string; raw?: string; }, tail?: boolean): TemplateElement;
+export function throwStatement(argument: Expression): ThrowStatement;
+export function tryStatement(block?: BlockStatement | null, handler?: CatchClause | null, finalizer?: BlockStatement | null): TryStatement;
+export function unaryExpression(operator: "void" | "delete" | "!" | "+" | "-" | "++" | "--" | "~" | "typeof", argument: Expression, prefix?: boolean): UnaryExpression;
+export function updateExpression(operator: "++" | "--", argument: Expression, prefix?: boolean): UpdateExpression;
+export function variableDeclaration(kind: "var" | "let" | "const", declarations: VariableDeclarator[]): VariableDeclaration;
+export function variableDeclarator(id: LVal, init?: Expression | null): VariableDeclarator;
+export function whileStatement(test: Expression, body: BlockStatement | Statement): WhileStatement;
+export function withStatement(object: Expression, body: BlockStatement | Statement): WithStatement;
+export function assignmentPattern(left: Identifier, right: Expression): AssignmentPattern;
+export function arrayPattern(elements: Expression[], typeAnnotation?: TypeAnnotation): ArrayPattern;
+export function arrowFunctionExpression(params: LVal[], body: BlockStatement | Expression, async?: boolean): ArrowFunctionExpression;
+export function classBody(body: Array<ClassMethod | ClassProperty>): ClassBody;
+export function classDeclaration(id: Identifier, superClass: Expression | null, body: ClassBody, decorators: Decorator[]): ClassDeclaration;
+export function classExpression(id: Identifier | null, superClass: Expression, body: ClassBody, decorators: Decorator[]): ClassExpression;
+export function exportAllDeclaration(source: StringLiteral): ExportAllDeclaration;
+export function exportDefaultDeclaration(declaration: FunctionDeclaration | ClassDeclaration | Expression): ExportDefaultDeclaration;
+export function exportNamedDeclaration(declaration: Declaration, specifiers: ExportSpecifier[], source?: StringLiteral | null): ExportNamedDeclaration;
+export function exportSpecifier(local: Identifier, exported: Identifier): ExportSpecifier;
+export function forOfStatement(left: VariableDeclaration | LVal, right: Expression, body: Statement): ForOfStatement;
+export function importDeclaration(specifiers: Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>, source: StringLiteral): ImportDeclaration;
+export function importDefaultSpecifier(local: Identifier): ImportDefaultSpecifier;
+export function importNamespaceSpecifier(local: Identifier): ImportNamespaceSpecifier;
+export function importSpecifier(local: Identifier, imported: Identifier): ImportSpecifier;
+export function metaProperty(meta: string, property: string): MetaProperty;
+export function classMethod(kind: "constructor" | "method" | "get" | "set", key: Expression, params: LVal[], body: BlockStatement, computed?: boolean, _static?: boolean): ClassMethod;
+export function objectPattern(properties: Array<AssignmentProperty | RestProperty>, typeAnnotation?: TypeAnnotation): ObjectPattern;
+export function spreadElement(argument: Expression): SpreadElement;
+export function taggedTemplateExpression(tag: Expression, quasi: TemplateLiteral): TaggedTemplateExpression;
+export function templateElement(value?: { cooked?: string; raw?: string; } | null, tail?: boolean): TemplateElement;
 export function templateLiteral(quasis?: TemplateElement[], expressions?: Expression[]): TemplateLiteral;
-export function yieldExpression(argument?: Expression, delegate?: boolean): YieldExpression;
+export function yieldExpression(argument?: Expression | null, delegate?: boolean): YieldExpression;
 export function anyTypeAnnotation(): AnyTypeAnnotation;
-export function arrayTypeAnnotation(elementType?: FlowTypeAnnotation): ArrayTypeAnnotation;
+export function arrayTypeAnnotation(elementType?: FlowTypeAnnotation | null): ArrayTypeAnnotation;
 export function booleanTypeAnnotation(): BooleanTypeAnnotation;
 export function booleanLiteralTypeAnnotation(): BooleanLiteralTypeAnnotation;
 export function nullLiteralTypeAnnotation(): NullLiteralTypeAnnotation;
@@ -1424,27 +1423,27 @@ export function objectTypeProperty(key?: Expression, value?: FlowTypeAnnotation)
 export function qualifiedTypeIdentifier(id?: Identifier, qualification?: Identifier | QualifiedTypeIdentifier): QualifiedTypeIdentifier;
 export function unionTypeAnnotation(types?: FlowTypeAnnotation[]): UnionTypeAnnotation;
 export function voidTypeAnnotation(): VoidTypeAnnotation;
-export function jSXAttribute(name?: JSXIdentifier | JSXNamespacedName, value?: JSXElement | StringLiteral | JSXExpressionContainer): JSXAttribute;
-export function jSXClosingElement(name?: JSXIdentifier | JSXMemberExpression): JSXClosingElement;
-export function jSXElement(openingElement?: JSXOpeningElement, closingElement?: JSXClosingElement, children?: Array<JSXElement | JSXExpressionContainer | JSXText>, selfClosing?: boolean): JSXElement;
+export function jSXAttribute(name: JSXIdentifier | JSXNamespacedName, value?: JSXElement | StringLiteral | JSXExpressionContainer | null): JSXAttribute;
+export function jSXClosingElement(name: JSXIdentifier | JSXMemberExpression): JSXClosingElement;
+export function jSXElement(openingElement: JSXOpeningElement, closingElement: JSXClosingElement, children: Array<JSXElement | JSXExpressionContainer | JSXText>, selfClosing?: boolean): JSXElement;
 export function jSXEmptyExpression(): JSXEmptyExpression;
-export function jSXExpressionContainer(expression?: Expression): JSXExpressionContainer;
-export function jSXIdentifier(name?: string): JSXIdentifier;
-export function jSXMemberExpression(object?: JSXMemberExpression | JSXIdentifier, property?: JSXIdentifier): JSXMemberExpression;
-export function jSXNamespacedName(namespace?: JSXIdentifier, name?: JSXIdentifier): JSXNamespacedName;
-export function jSXOpeningElement(name?: JSXIdentifier | JSXMemberExpression, attributes?: JSXAttribute[], selfClosing?: boolean): JSXOpeningElement;
-export function jSXSpreadAttribute(argument?: Expression): JSXSpreadAttribute;
-export function jSXText(value?: string): JSXText;
+export function jSXExpressionContainer(expression: Expression): JSXExpressionContainer;
+export function jSXIdentifier(name: string): JSXIdentifier;
+export function jSXMemberExpression(object: JSXMemberExpression | JSXIdentifier, property: JSXIdentifier): JSXMemberExpression;
+export function jSXNamespacedName(namespace: JSXIdentifier, name: JSXIdentifier): JSXNamespacedName;
+export function jSXOpeningElement(name: JSXIdentifier | JSXMemberExpression, attributes: JSXAttribute[], selfClosing?: boolean): JSXOpeningElement;
+export function jSXSpreadAttribute(argument: Expression): JSXSpreadAttribute;
+export function jSXText(value: string): JSXText;
 export function noop(): Noop;
-export function parenthesizedExpression(expression?: Expression): ParenthesizedExpression;
-export function awaitExpression(argument?: Expression): AwaitExpression;
-export function bindExpression(object?: Expression, callee?: Expression): BindExpression;
-export function decorator(expression?: Expression): Decorator;
-export function doExpression(body?: BlockStatement): DoExpression;
-export function exportDefaultSpecifier(exported?: Identifier): ExportDefaultSpecifier;
-export function exportNamespaceSpecifier(exported?: Identifier): ExportNamespaceSpecifier;
-export function restProperty(argument?: LVal): RestProperty;
-export function spreadProperty(argument?: Expression): SpreadProperty;
+export function parenthesizedExpression(expression: Expression): ParenthesizedExpression;
+export function awaitExpression(argument: Expression): AwaitExpression;
+export function bindExpression(object?: Expression | null, callee?: Expression | null): BindExpression;
+export function decorator(expression: Expression): Decorator;
+export function doExpression(body: BlockStatement): DoExpression;
+export function exportDefaultSpecifier(exported: Identifier): ExportDefaultSpecifier;
+export function exportNamespaceSpecifier(exported: Identifier): ExportNamespaceSpecifier;
+export function restProperty(argument: LVal): RestProperty;
+export function spreadProperty(argument: Expression): SpreadProperty;
 
 export function TSAnyKeyword(): TSAnyKeyword;
 export function TSArrayType(elementType: TSType): TSArrayType;
