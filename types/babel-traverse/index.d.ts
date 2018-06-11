@@ -3,7 +3,7 @@
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.9
 
 import * as t from 'babel-types';
 export type Node = t.Node;
@@ -588,7 +588,8 @@ export class NodePath<T = Node> {
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 
-    get(key: string, context?: boolean | TraversalContext): NodePath;
+    get<K extends keyof T>(key: K, context?: boolean | TraversalContext): T[K] extends (Node | null | undefined)[] ? NodePath<T[K][number]>[] : T[K] extends Node | null | undefined ? NodePath<T[K]> : never;
+    get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
     getBindingIdentifiers(duplicates?: boolean): Node[];
 
