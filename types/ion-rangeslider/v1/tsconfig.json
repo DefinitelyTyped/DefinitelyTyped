@@ -15,8 +15,8 @@
         ],
         "types": [],
         "paths": {
-            "ion.rangeslider": [
-                "ion.rangeslider/v1"
+            "ion-rangeslider": [
+                "ion-rangeslider/v1"
             ]
         },
         "noEmit": true,
@@ -24,6 +24,6 @@
     },
     "files": [
         "index.d.ts",
-        "ion.rangeslider-tests.ts"
+        "ion-rangeslider-tests.ts"
     ]
 }
