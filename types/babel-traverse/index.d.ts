@@ -340,7 +340,7 @@ export class NodePath<T = Node> {
     listKey: string;
     inList: boolean;
     parentKey: string;
-    key: string;
+    key: string | number;
     node: T;
     scope: Scope;
     type: string;
