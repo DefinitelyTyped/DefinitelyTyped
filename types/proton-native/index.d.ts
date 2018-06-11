@@ -228,6 +228,19 @@ export interface AreaTextProps extends AreaBaseProps {
 
 export class AreaText extends React.Component<AreaTextProps> { }
 
+export interface AreaGroupProps extends AreaBaseProps {
+    /**
+     * Specify `width` and `height` to be able to use percentage values in transforms.
+     */
+    width?: number | string;
+    /**
+     * Specify `width` and `height` to be able to use percentage values in transforms.
+     */
+    height?: number | string;
+}
+
+export class AreaGroup extends React.Component<AreaGroupProps> { }
+
 export interface MouseEvent {
     button: number;
     height: number;
@@ -301,6 +314,12 @@ export class Area extends React.Component<AreaProps> {
      * A circle to be displayed in an Area component.
      */
     static Circle: typeof AreaCircle;
+    /**
+     * A component to apply props to all it's children in an Area component.
+     *
+     * To be able to use percentage values in transforms, the props `width` and `height` need to be specified (they have no graphical effect).
+     */
+    static Group: typeof AreaGroup;
     /**
      * A straigt line to be displayed in an Area component.
      */
