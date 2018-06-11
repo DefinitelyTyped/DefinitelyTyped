@@ -580,6 +580,7 @@ declare namespace naver.maps {
     round(): Point;
     sub(point: Coord | PointLiteral): Point;
     sub(x: number, y: number): Point;
+    getPosition(): Coord;
     toString(): string;
   }
   class Size {
