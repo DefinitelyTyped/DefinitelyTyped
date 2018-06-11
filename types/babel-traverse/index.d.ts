@@ -26,6 +26,7 @@ export class Scope {
     bindings: { [name: string]: Binding; };
 
     /** Traverse node with current scope and path. */
+    traverse<S>(node: Node | Node[], opts: TraverseOptions<S>, state: S): void;
     traverse(node: Node | Node[], opts?: TraverseOptions, state?: any): void;
 
     /** Generate a unique identifier and add it to the current scope. */
