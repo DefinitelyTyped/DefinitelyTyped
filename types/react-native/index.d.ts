@@ -568,7 +568,7 @@ export interface FlexStyle {
     flexGrow?: number;
     flexShrink?: number;
     flexWrap?: "wrap" | "nowrap";
-    height?: number | string;
+    height?: number | string | null;
     justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
     left?: number | string;
     margin?: number | string;
@@ -598,7 +598,7 @@ export interface FlexStyle {
     right?: number | string;
     start?: number | string;
     top?: number | string;
-    width?: number | string;
+    width?: number | string | null;
     zIndex?: number;
 
     /**
