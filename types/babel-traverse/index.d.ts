@@ -374,10 +374,10 @@ export class NodePath<T = Node> {
     find(callback: (path: NodePath) => boolean): NodePath;
 
     /** Get the parent function of the current path. */
-    getFunctionParent(): NodePath;
+    getFunctionParent(): NodePath<t.Function>;
 
     /** Walk up the tree until we hit a parent node path in a list. */
-    getStatementParent(): NodePath;
+    getStatementParent(): NodePath<t.Statement>;
 
     /**
      * Get the deepest common ancestor and then from it, get the earliest relationship path
@@ -584,7 +584,9 @@ export class NodePath<T = Node> {
 
     getCompletionRecords(): NodePath[];
 
-    getSibling(key: string): NodePath;
+    getSibling(key: string | number): NodePath;
+    getAllPrevSiblings(): NodePath[];
+    getAllNextSiblings(): NodePath[];
 
     get(key: string, context?: boolean | TraversalContext): NodePath;
 
