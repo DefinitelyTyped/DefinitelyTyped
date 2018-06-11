@@ -10,6 +10,8 @@
 
 /// <reference types="react" />
 
+import * as React from 'react';
+
 declare namespace LoadableExport {
     interface LoadingComponentProps {
         isLoading: boolean;
@@ -187,9 +189,7 @@ declare namespace LoadableExport {
     }
 }
 
-declare const LoadableExport: LoadableExport.Loadable;
+export declare const LoadableExport: LoadableExport.Loadable;
 
 /* tslint:disable-next-line */
-declare module "react-loadable" {
-    export = LoadableExport;
-}
+declare module 'react-loadable';
