@@ -1,4 +1,4 @@
-// Type definitions for datatables.net-scroller 1.4.3
+// Type definitions for datatables.net-scroller 1.4
 // Project: https://datatables.net/extensions/scroller/
 // Definitions by: Konstantin Rohde <https://github.com/RohdeK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,14 +35,14 @@ declare namespace DataTables {
 
         /*
         * The display buffer is what Scroller uses to calculate how many rows it should pre-fetch
-        * for scrolling. 
+        * for scrolling.
          */
         displayBuffer?: number;
 
         /*
         * Scroller uses the boundary scaling factor to decide when to redraw the table - which it
         * typically does before you reach the end of the currently loaded data set (in order to
-        * allow the data to look continuous to a user scrolling through the data). 
+        * allow the data to look continuous to a user scrolling through the data).
          */
         boundaryScale?: number;
 
@@ -54,33 +54,38 @@ declare namespace DataTables {
     }
 
     interface Api {
-        scroller: {
-          /*
-          * Calculate and store information about how many rows are to be displayed
-          * in the scrolling viewport, based on current dimensions in the browser's
-          * rendering.
-          */
-          measure(redraw?: boolean): Api;
-          /*
-          * Get information about current displayed record range.
-          */
-          page(): PageInfo;
-        };
-        scroller(): ScrollerApi;
+        scroller: ScrollerMethodsModel;
     }
 
-    interface ScrollerApi extends Api {
-      /*
-      * Calculate the pixel position from the top of the scrolling container for
-      * a given row
-      */
-      rowToPixels(rowIdx: number, intParse?: boolean, virtual?: boolean): number;
-      /*
-      * Calculate the row number that will be found at the given pixel position
-      * (y-scroll).
-      */
-      pixelsToRow(pixels: number, intParse?: boolean, virtual?: boolean): number;
-      scrollToRow(rowIdx: number, animate?: boolean): Api;
+    interface ScrollerMethodsModel {
+        /*
+        * Calculate and store information about how many rows are to be displayed
+        * in the scrolling viewport, based on current dimensions in the browser's
+        * rendering.
+        */
+        measure(redraw?: boolean): Api;
+        /*
+        * Get information about current displayed record range.
+        */
+        page(): PageInfo;
+        /*
+        * Get Scroller Api
+        */
+        scroller(): ScrollerMethods;
+    }
+
+    interface ScrollerMethods extends Api {
+        /*
+        * Calculate the pixel position from the top of the scrolling container for
+        * a given row
+        */
+        rowToPixels(rowIdx: number, intParse?: boolean, virtual?: boolean): number;
+        /*
+        * Calculate the row number that will be found at the given pixel position
+        * (y-scroll).
+        */
+        pixelsToRow(pixels: number, intParse?: boolean, virtual?: boolean): number;
+        scrollToRow(rowIdx: number, animate?: boolean): Api;
     }
 
     /*
@@ -88,14 +93,14 @@ declare namespace DataTables {
     * end:   {int}, // the 0-indexed record at the bottom of the viewport
     */
     interface PageInfo {
-      start: number;
-      end: number;
+        start: number;
+        end: number;
     }
 
     interface RowMethods {
-      /**
-       * Scroll to a row
-       */
-      scrollTo(animate?: boolean): Api;
+        /**
+         * Scroll to a row
+         */
+        scrollTo(animate?: boolean): Api;
     }
 }
