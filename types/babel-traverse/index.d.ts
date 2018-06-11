@@ -593,7 +593,10 @@ export class NodePath<T = Node> {
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 
-    get<K extends keyof T>(key: K, context?: boolean | TraversalContext): T[K] extends (Node | null | undefined)[] ? NodePath<T[K][number]>[] : T[K] extends Node | null | undefined ? NodePath<T[K]> : never;
+    get<K extends keyof T>(key: K, context?: boolean | TraversalContext):
+        T[K] extends Array<Node | null | undefined> ? Array<NodePath<T[K][number]>> :
+        T[K] extends Node | null | undefined ? NodePath<T[K]> :
+        never;
     get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
     getBindingIdentifiers(duplicates?: boolean): Node[];
