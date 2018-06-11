@@ -2,6 +2,7 @@
 // Project: https://datatables.net
 // Definitions by: Konstantin Rohde <https://github.com/RohdeK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
