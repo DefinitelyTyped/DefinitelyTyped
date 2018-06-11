@@ -1,6 +1,7 @@
 // Type definitions for InboxSDK
 // Project: https://www.inboxsdk.com/
 // Definitions by: Raphaël Doursenaud <rdoursenaud@gpcsolutions.fr>
+//                 Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -8,7 +9,7 @@
  */
 export function load(version: number, appId?: string, opts?: LoadOptions): Promise<InboxSDKInstance>;
 
-export function loadScript(url: string): Promise<void>;
+export function loadScript(url: string, options?: LoadScriptOptions): Promise<void>;
 
 // // Undocummented
 // var IMPL_VERSION: string;
@@ -22,20 +23,26 @@ export function loadScript(url: string): Promise<void>;
 interface LoadOptions {
   appName?: string;
   appIconUrl?: string;
+  suppressAddonTitle?: string;
+}
+
+interface LoadScriptOptions {
+  nowrap?: boolean;
 }
 
 export interface InboxSDKInstance {
-  Compose: Compose.Compose;
+  Compose: Compose.ComposeInstance;
   Lists: Lists.Lists;
   Conversations: Conversations.Conversations;
   Toolbars: Toolbars.Toolbars;
   Router: Router.Router;
   NavMenu: NavMenu.NavMenu;
-  Widgets: Widgets.Widgets;
+  Widgets: Widgets.WidgetsInstance;
   ButterBar: ButterBar.ButterBar;
   Search: Search.Search;
   User: User.User;
   Keyboard: Keyboard.Keyboard;
+  Global: Global.Global;
 }
 
 declare namespace Common {
@@ -49,24 +56,35 @@ declare namespace Common {
 
     close(): void;
 
+    reposition(): void;
+
     el: HTMLElement;
     destroyed: boolean;
 
-    // TODO: Events
+    on(name: 'destroy', cb: () => void): void
+
+    on(name: 'preautoclose', cb: (event: PreAutoCloseEvent) => void): void
+  }
+
+  export interface PreAutoCloseEvent {
+    type: 'outsideInteraction' | 'escape',
+    cause: Event,
+
+    cancel(): void;
   }
 
   export interface PositionOptions {
-    position?: string; //: null
-    forcePosition?: boolean; //: false
-    hAlign?: string; //: null
-    forceHAlign?: boolean; //: false
-    vAlign?: string; //: null
-    forceVAlign?: boolean; //: false
-    buffer?: number; //: 0
-    topBuffer?: number; //:0
-    bottomBuffer?: number; //: 0
-    leftBuffer?: number; //:0
-    rightBuffer?: number; //:0
+    position?: string;
+    forcePosition?: boolean;
+    hAlign?: string;
+    forceHAlign?: boolean;
+    vAlign?: string;
+    forceVAlign?: boolean;
+    buffer?: number;
+    topBuffer?: number;
+    bottomBuffer?: number;
+    leftBuffer?: number;
+    rightBuffer?: number;
   }
 
   export interface SimpleElementView {
@@ -74,12 +92,14 @@ declare namespace Common {
 
     el: HTMLElement;
     destroyed: boolean;
+
+    on(name: 'destroy', cb: () => void): void
   }
 }
 
 declare namespace Compose {
-  export interface Compose {
-    registerComposeViewHandler(handler: (composeView: ComposeView) => void): Function;
+  export interface ComposeInstance {
+    registerComposeViewHandler(handler: (composeView: ComposeView) => void): () => void;
 
     openNewComposeView(): Promise<ComposeView>;
   }
@@ -87,13 +107,11 @@ declare namespace Compose {
   export interface ComposeView {
     addButton(buttonDescriptor: ComposeButtonDescriptor): void;
 
-    //addButton(buttonDescriptor: Stream<ComposeButtonDescriptor>): void;
-
     addStatusBar(statusBarDescriptor: StatusBarDescriptor): StatusBarView;
 
     close(): void;
 
-    send(): void;
+    send(options?: SendOptions): void;
 
     getBodyElement(): HTMLElement;
 
@@ -103,7 +121,7 @@ declare namespace Compose {
 
     getDraftID(): Promise<string>;
 
-    getCurrentDraftID(): Promise<string>;
+    getCurrentDraftID(): Promise<string | null>;
 
     getHTMLContent(): string;
 
@@ -123,11 +141,11 @@ declare namespace Compose {
 
     insertTextIntoBodyAtCursor(text: string): void;
 
-    insertHTMLIntoBodyAtCursor(html: string): HTMLElement;
-
-    insertHTMLIntoBodyAtCursor(html: HTMLElement): HTMLElement;
+    insertHTMLIntoBodyAtCursor(html: string | HTMLElement): HTMLElement;
 
     insertLinkChipIntoBodyAtCursor(text: string, url: string, iconUrl: string): HTMLElement;
+
+    insertLinkIntoBodyAtCursor(text: string, url: string): HTMLElement;
 
     isInlineReplyForm(): boolean;
 
@@ -141,6 +159,8 @@ declare namespace Compose {
 
     popOut(): Promise<ComposeView>;
 
+    setTitleBarColor(color: string): () => void;
+
     isReply(): boolean;
 
     setToRecipients(emails: string[]): void;
@@ -153,7 +173,7 @@ declare namespace Compose {
 
     getFromContactChoices(): Common.Contact[];
 
-    setFromEmail(email: string[]): void;
+    setFromEmail(email: string): void;
 
     setSubject(text: string): void;
 
@@ -161,25 +181,52 @@ declare namespace Compose {
 
     setBodyText(text: string): void;
 
-    attachFiles(files: Blob[]): void;
+    attachFiles(files: Blob[]): Promise<void>;
 
-    attachInlineFiles(Files: Blob[]): void;
+    attachInlineFiles(Files: Blob[]): Promise<void>;
 
-    // TODO: Events
+    on(name: 'destroy', cb: (event: { messageID: string, closedByInboxSDK: boolean }) => void): void;
 
-    // Properties
+    on(name: 'fullscreenChanged', cb: (event: { fullscreen: boolean }) => void): void;
+
+    on(name: 'fromContactChanged' | 'toContactAdded' | 'toContactRemoved' | 'ccContactAdded' | 'ccContactRemoved' | 'bccContactAdded' | 'bccContactRemoved',
+       cb: (event: { contact: Common.Contact }) => void): void;
+
+    on(name: 'recipientsChanged', cb: (event: RecipientsChangedEvent) => void): void;
+
+    on(name: 'presending', cb: (event: { cancel: () => void }) => void): void;
+
+    on(name: 'sent', cb: (event: { getThreadID: () => Promise<string>, getMessageID: () => Promise<string> }) => void): void;
+
+    on(name: 'discard' | 'sendCanceled' | 'sending' | 'bodyChanged' | 'minimized' | 'restored', cb: () => void): void;
+
     destroyed: boolean;
+  }
+
+  interface RecipientsChangedEvent {
+    to: {
+      added: Common.Contact[],
+      removed: Common.Contact[]
+    },
+    cc: {
+      added: Common.Contact[],
+      removed: Common.Contact[]
+    },
+    bcc: {
+      added: Common.Contact[],
+      removed: Common.Contact[]
+    }
   }
 
   interface ComposeButtonDescriptor {
     title: string;
-    iconUrl?: string;  //: null
-    iconClass?: string; //: null
+    iconUrl?: string;
+    iconClass?: string;
     onClick: (event: ComposeButtonClickEvent) => void;
-    hasDropdown?: boolean; //: false
-    type?: string; //: 'MODIFIER' // Permitted values SEND_ACTION, MODIFIER
-    orderHint?: number; //: 0
-    enabled?: boolean; //: true
+    hasDropdown?: boolean;
+    type?: 'MODIFIER' | 'SEND_ACTION';
+    orderHint?: number;
+    enabled?: boolean;
   }
 
   interface ComposeButtonClickEvent {
@@ -188,23 +235,22 @@ declare namespace Compose {
   }
 
   interface StatusBarDescriptor {
-    height?: number; //:40
-    orderHint?: number; //:0
+    height?: number;
+    orderHint?: number;
   }
 
-  interface StatusBarView {
-    el: HTMLElement;
-    destroyed: boolean;
+  interface StatusBarView extends Common.SimpleElementView {
+    setHeight(height: number): void;
+  }
 
-    destroy(): void;
-
-    // TODO: Events
+  interface SendOptions {
+    sendAndArchive?: boolean;
   }
 }
 
 declare namespace Lists {
   interface Lists {
-    registerThreadRowViewHandler(handler: (threadRowView: ThreadRowView) => any): void;
+    registerThreadRowViewHandler(handler: (threadRowView: ThreadRowView) => any): () => void;
   }
 
   interface ThreadRowView {
@@ -240,9 +286,9 @@ declare namespace Lists {
 
     getDateString(): string;
 
-    getThreadID(): string;
+    getThreadIDAsync(): Promise<string>;
 
-    getThreadIDIfStable(): string;
+    getThreadIDIfStableAsync(): Promise<string | null>;
 
     getDraftID(): Promise<string>;
 
@@ -252,27 +298,28 @@ declare namespace Lists {
 
     getContacts(): Common.Contact[];
 
-    // TODO: Events
+    on(name: 'destroyed', cb: () => void): void;
 
     destroyed: boolean;
   }
 
   interface ThreadRowButtonDescriptor {
+    title: string;
     iconUrl: string;
-    iconClass?: string; //: ''
+    iconClass?: string;
     onClick: (event: ThreadRowButtonClickEvent) => void;
-    hasDropdown?: boolean; //: false
+    hasDropdown?: boolean;
   }
 
   interface ThreadRowButtonClickEvent {
     threadRowView: ThreadRowView;
-    dropdown: Common.DropdownView;
+    dropdown?: Common.DropdownView;
   }
 
   interface ThreadRowActionButtonDescriptor {
-    type: ActionButtonTypes;
+    type: 'LINK';
     title: string;
-    className?: string; //: ''
+    className?: string;
     onClick?: (event: ThreadRowActionButtonClickEvent) => void;
     url: string;
   }
@@ -283,50 +330,47 @@ declare namespace Lists {
 
   interface LabelDescriptor {
     title: string;
-    foregroundColor?: string; //: ''
-    backgroundColor?: string; //: ''
+    foregroundColor?: string;
+    backgroundColor?: string;
     iconUrl: string;
-    iconClass?: string; //: ''
+    iconClass?: string;
+    iconBackgroundColor?: string;
   }
 
   interface ImageDescriptor {
     imageUrl: string;
-    imageClass?: string; //: null
-    tooltip?: string; //: null
-    orderHint?: number; //: 0
+    imageClass?: string;
+    tooltip?: string;
+    orderHint?: number;
   }
 
   interface ThreadRowDateDescriptor {
     text: string;
-    textColor?: string; //: ''
-    tooltip?: string; //: ''
+    textColor?: string;
+    tooltip?: string;
   }
 
   interface ThreadRowAttachmentIconDescriptor {
-    iconUrl?: string; //: ''
-    iconClass?: string; //: ''
-    tooltip?: string; //: ''
+    iconUrl?: string;
+    iconClass?: string;
+    tooltip?: string;
   }
 
   interface ThreadRowDraftLabelDescriptor {
     text: string;
-    count?: string; //: 1
-  }
-
-  enum ActionButtonTypes {
-    LINK
+    count?: string;
   }
 }
 
 declare namespace Conversations {
   interface Conversations {
-    registerThreadViewHandler(handler: (threadView: ThreadView) => void): void;
+    registerThreadViewHandler(handler: (threadView: ThreadView) => void): () => void;
 
-    registerMessageViewHandler(handler: (messageView: MessageView) => void): void;
+    registerMessageViewHandler(handler: (messageView: MessageView) => void): () => void;
 
-    registerMessageViewHandlerAll(handler: (messageView: MessageView) => void): void;
+    registerMessageViewHandlerAll(handler: (messageView: MessageView) => void): () => void;
 
-    registerFileAttachmentCardViewHandler(handler: (attachmentCardView: AttachmentCardView) => void): void;
+    registerFileAttachmentCardViewHandler(handler: (attachmentCardView: AttachmentCardView) => void): () => void;
   }
 
   interface ThreadView {
@@ -340,7 +384,7 @@ declare namespace Conversations {
 
     getSubject(): string;
 
-    getThreadID(): string;
+    getThreadIDAsync(): Promise<string>;
 
     on(name: 'contactHover', cb: (event: ContactHoverEvent) => void): void
 
@@ -357,17 +401,15 @@ declare namespace Conversations {
   }
 
   interface MessageView {
-    addAttachmentCardView(cardOptions: AttachmentCardOptions): AttachmentCardView;
+    addAttachmentCardView(cardOptions: AttachmentCardOptions | AttachmentCardNoPreviewOptions): AttachmentCardView;
 
-    addAttachmentCardView(cardOptions: AttachmentCardNoPreviewOptions): AttachmentCardView;
-
-    addaAttachmentsToolbarButton(buttonOptions: AttachmentsToolbarButtonDescriptor): void;
+    addAttachmentsToolbarButton(buttonOptions: AttachmentsToolbarButtonDescriptor): void;
 
     addToolbarButton(options: MessageViewToolbarButtonDescriptor): void;
 
     getBodyElement(): HTMLElement;
 
-    getMessageID(): string;
+    getMessageIDAsync(): Promise<string>;
 
     getFileAttachmentCardViews(): AttachmentCardView[];
 
@@ -375,11 +417,13 @@ declare namespace Conversations {
 
     isLoaded(): boolean;
 
-    getLinksInbody(): MessageViewLinkDescriptor[];
+    getLinksInBody(): MessageViewLinkDescriptor[];
 
     getSender(): Common.Contact;
 
-    getRecipients(): Common.Contact[];
+    getRecipientEmailAddresses(): string[];
+
+    getRecipientsFull(): Promise<Common.Contact[]>;
 
     getThreadView(): ThreadView;
 
@@ -391,15 +435,27 @@ declare namespace Conversations {
 
     getViewState(): MessageViewViewStates;
 
-    // TODO: Events
+    on(name: 'viewStateChange', cb: (event: { newViewState: MessageViewViewStates, oldViewState: MessageViewViewStates, messageView: MessageView }) => void): void;
+
+    on(name: 'contactHover', cb: (event: ContactHoverEvent) => void): void;
+
+    on(name: 'load', cb: () => void): void;
+
+    on(name: 'destroy', cb: () => void): void;
 
     destroyed: boolean;
   }
 
+  type MessageViewViewStates = 'HIDDEN' | 'COLLAPSED' | 'EXPANDED';
+
   interface ContentPanelView {
     remove(): void;
 
-    // TODO: Events
+    on(name: 'activate', cb: () => void): void;
+
+    on(name: 'deactivate', cb: () => void): void;
+
+    on(name: 'destroy', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -411,12 +467,14 @@ declare namespace Conversations {
 
     getTitle(): string;
 
+    /**
+     * @deprecated. Use AttachmentCardClickEvent.getDownloadURL() instead
+     */
     getDownloadURL(): Promise<string>;
 
-    getMessageView(): void; // TODO: null is not a type?
-    getMessageView(): MessageView;
+    getMessageView(): MessageView | null;
 
-    // TODO: Events
+    on(name: 'destroy', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -431,9 +489,9 @@ declare namespace Conversations {
     failoverPreviewIconUrl: string;
     previewOnClick: (event: PreviewClickEvent) => void;
     fileIconImageUrl: string;
-    buttons: DownloadButtonDescriptor[] | CustomButtonDescriptor[];
-    foldColor?: string; //: #BEBEBE
-    mimeType?: string; //: null
+    buttons: (DownloadButtonDescriptor | CustomButtonDescriptor)[];
+    foldColor?: string;
+    mimeType?: string;
   }
 
   interface AttachmentCardNoPreviewOptions {
@@ -443,8 +501,8 @@ declare namespace Conversations {
     iconThumbnailUrl: string;
     previewOnClick: (event: PreviewClickEvent) => void;
     fileIconImageUrl: string;
-    buttons: DownloadButtonDescriptor[] | CustomButtonDescriptor[];
-    foldColor?: string; //: #BEBEBE
+    buttons: (DownloadButtonDescriptor | CustomButtonDescriptor)[];
+    foldColor?: string;
   }
 
   interface PreviewClickEvent {
@@ -457,13 +515,18 @@ declare namespace Conversations {
     el: HTMLElement;
     title: string;
     iconUrl: string;
-    orderHint?: number; //: 0
+    appName?: string;
+    appIconUrl?: string;
+    id?: string;
+    hideTitleBar?: boolean;
+    orderHint?: number;
   }
 
   interface DownloadButtonDescriptor {
     downloadUrl: string;
+    downloadFilename?: string;
     onClick: (event: DownloadButtonClickEvent) => void;
-    openInNewTab?: boolean; //: false
+    openInNewTab?: boolean;
   }
 
   interface DownloadButtonClickEvent {
@@ -477,7 +540,7 @@ declare namespace Conversations {
   }
 
   interface AttachmentCardClickEvent {
-    // FIXME: testme, AttachmentCardClickEvent not documented
+    getDownloadURL(): Promise<string>;
   }
 
   interface AttachmentsToolbarButtonDescriptor {
@@ -500,34 +563,36 @@ declare namespace Conversations {
 
   interface MessageAttachmentIconDescriptor {
     iconUrl: string;
-    iconClass?: string; //: 'MODIFIER'
+    iconClass?: string;
     tooltip: string;
-    onClick: () => any; // TODO: check any?
+    onClick?: () => void;
   }
 
   interface MessageViewToolbarButtonDescriptor {
     section: 'MORE';
     title: string;
     iconUrl: string;
-    onClick: () => any;
+    onClick: () => void;
     iconClass?: string;
-    orderHint?: number;
-  }
-
-  enum MessageViewViewStates {
-    HIDDEN,
-    COLLAPSED,
-    EXPANDED
+    orderHint: number;
   }
 }
 
 declare namespace Toolbars {
   interface Toolbars {
-    registerThreadButton(toolbarButtonDescriptor: ToolbarButtonDescriptor): void;
+    registerThreadButton(toolbarButtonDescriptor: ToolbarButtonDescriptor): () => void;
 
-    registerToolbarButtonForList(toolbarButtonDescriptor: ToolbarButtonDescriptor): void;
+    /**
+     * @deprecated. use registerThreadButton
+     * @param toolbarButtonDescriptor
+     */
+    registerToolbarButtonForList(toolbarButtonDescriptor: ToolbarButtonDescriptor): () => void;
 
-    registerToolbarButtonForThreadView(toolbarButtonDescriptor: ToolbarButtonDescriptor): void;
+    /**
+     * @deprecated. use registerThreadButton
+     * @param toolbarButtonDescriptor
+     */
+    registerToolbarButtonForThreadView(toolbarButtonDescriptor: ToolbarButtonDescriptor): () => void;
 
     addToolbarButtonForApp(appToolbarButtonDescriptor: AppToolbarButtonDescriptor): AppToolbarButtonView;
   }
@@ -535,28 +600,33 @@ declare namespace Toolbars {
   interface ToolbarButtonDescriptor {
     title: string;
     onClick: (event: ToolbarButtonEvent) => void;
-    iconUrl?: string; //: null
-    iconClass?: string; //: null
-    section?: SectionNames;
-    hasDropdown?: boolean //: false
-    hideFor?: (routeView: Router.RouteView) => void; //: null
-    keyboardShortcutHandle?: Keyboard.KeyboardShortcutHandle; //: null
+    iconUrl?: string;
+    iconClass?: string;
+    positions: ToolbarButtonPosition[]
+    threadSection?: SectionNames;
+    listSection?: SectionNames;
+    hasDropdown?: boolean;
+    hideFor?: (routeView: Router.RouteView) => void;
+    orderHint?: number;
+    keyboardShortcutHandle?: Keyboard.KeyboardShortcutHandle;
   }
 
+  type ToolbarButtonPosition = 'THREAD' | 'ROW' | 'LIST';
+
   interface ToolbarButtonEvent {
+    position: ToolbarButtonPosition;
     selectedThreadRowViews: Lists.ThreadRowView[];
-    threadRowViews: Lists.ThreadRowView[];
-    threadView: Conversations.ThreadView;
-    dropdown: Common.DropdownView;
+    selectedThreadViews: Conversations.ThreadView[];
+    dropdown?: Common.DropdownView;
   }
 
   interface AppToolbarButtonDescriptor {
     title: string;
-    titleClass?: string; //: null
+    titleClass?: string;
     iconUrl: string;
-    iconClass?: string; //: null
+    iconClass?: string;
     onClick: (event: AppToolbarButtonEvent) => void;
-    arrowColor?: string; //: null
+    arrowColor?: string;
   }
 
   interface AppToolbarButtonView {
@@ -575,45 +645,61 @@ declare namespace Toolbars {
     dropdown: Common.DropdownView;
   }
 
-  enum SectionNames {
-    INBOX_STATE,
-    METADATA_STATE,
-    OTHER
-  }
+  type SectionNames = 'INBOX_STATE' | 'METADATA_STATE' | 'OTHER';
 }
 
 declare namespace Router {
   interface Router {
-    createLink(routeID: string, params: Object): string;
+    createLink(routeID: string | NativeRouteIDs, params: RouteParams): string;
 
-    goto(routeID: string, params: Object): void;
+    goto(routeID: string | NativeRouteIDs, params: RouteParams): void;
 
-    handleCustomRoute(routeID: string, handler: (customRouteView: CustomRouteView) => void): Function;
+    handleCustomRoute(routeID: string, handler: (customRouteView: CustomRouteView) => void): () => void;
 
-    handleAllRoutes(handler: (routeView: RouteView) => Function): Function;
+    handleAllRoutes(handler: (routeView: RouteView) => void): () => void;
 
-    handleListRoute(routeID: NativeListRouteIDs, handler: (listRouteView: ListRouteView) => Function): Function;
+    handleListRoute(routeID: NativeListRouteIDs, handler: (listRouteView: ListRouteView) => void): () => void;
 
-    handleCustomListRoute(routeID: string, handler: () => string[]): Function; // Array of ThreadIDs
-    handleCustomListRoute(routeID: string, handler: () => Promise<string[]>): Function; // Promise for an array of ThreadIDs
+    handleCustomListRoute(routeID: string, handler: (offset: number, max: number) => CustomListDescriptor | Promise<CustomListDescriptor>): () => void;
 
     getCurrentRouteView(): RouteView;
+  }
+
+  interface CustomListDescriptor {
+    threads: (ThreadDescriptor | string)[];
+    total?: number;
+    hasMore?: boolean;
+  }
+
+  interface ThreadDescriptor {
+    rfcMessageId?: string;
+    gmailThreadId?: string;
+  }
+
+  interface RouteParams {
+    [key: number]: string | number;
+
+    [key: string]: string | number;
   }
 
   interface RouteView {
     getRouteID(): string;
 
-    getRouteType(): string;
+    getRouteType(): RouteTypes;
 
-    getParams(): string;
+    getParams(): RouteParams;
 
-    // TODO: Events
+    on(name: 'destroy', cb: () => void): void;
 
     destroyed: boolean;
   }
 
+  type RouteTypes = 'LIST' | 'THREAD' | 'SETTINGS' | 'CHAT' | 'CUSTOM' | 'UNKNOWN';
+
   interface CustomRouteView extends RouteView {
     getElement(): HTMLElement;
+
+    setFullWidth(fullWidth: boolean): void;
   }
 
   interface ListRouteView extends RouteView {
@@ -646,15 +732,15 @@ declare namespace Router {
 
   interface SectionDescriptor {
     title: string;
-    subtitle?: string; //: null
-    titleLinkText?: string; //: null
-    onTitleLinkClick?: () => any; //: null // TODO: check any?
-    hasDropdown?: boolean; //: false
-    onDropdownClick?: (event: SectionDropdownClickEvent) => any; //: null // TODO: check any?
-    tableRows?: RowDescriptor[]; //: null
-    contentElement?: HTMLElement; //:null
-    footerLinkText?: string; //: null
-    onFooterLinkClick?: (event: SectionFooterLinkClickEvent) => any //: null // TODO: check any?
+    subtitle?: string;
+    titleLinkText?: string;
+    onTitleLinkClick?: () => void;
+    hasDropdown?: boolean;
+    onDropdownClick?: (event: SectionDropdownClickEvent) => void;
+    tableRows?: RowDescriptor[];
+    contentElement?: HTMLElement;
+    footerLinkText?: string;
+    onFooterLinkClick?: (event: SectionFooterLinkClickEvent) => void;
   }
 
   interface SectionDropdownClickEvent {
@@ -671,61 +757,50 @@ declare namespace Router {
     shortDetailText: string;
     isRead: string;
     labels: Lists.LabelDescriptor[];
-    iconUrl?: string; //: null
-    iconClass?: string; //: null
-    routeID?: string; //: null
-    routeParams?: string; //: null
-    onClick?: () => any; //: null
+    iconUrl?: string;
+    iconClass?: string;
+    routeID?: string;
+    routeParams?: string[];
+    onClick?: () => void;
   }
 
-  enum NativeRouteIDs {
-    INBOX,
-    ALL_MAIL,
-    SENT,
-    STARRED,
-    DRAFTS,
-    SNOOZED,
-    DONE,
-    REMINDERS,
-    LABEL,
-    TRASH,
-    SPAM,
-    IMPORTANT,
-    SEARCH,
-    THREAD,
-    CHATS,
-    CHAT,
-    CONTACTS,
-    CONTACT,
-    SETTINGS,
-    ANY_LIST
-  }
+  type NativeRouteIDs =
+    'INBOX' |
+    'ALL_MAIL' |
+    'SENT' |
+    'STARRED' |
+    'DRAFTS' |
+    'SNOOZED' |
+    'DONE' |
+    'REMINDERS' |
+    'LABEL' |
+    'TRASH' |
+    'SPAM' |
+    'IMPORTANT' |
+    'SEARCH' |
+    'THREAD' |
+    'CHATS' |
+    'CHAT' |
+    'CONTACTS' |
+    'CONTACT' |
+    'SETTINGS' |
+    'ANY_LIST';
 
-  enum NativeListRouteIDs {
-    INBOX,
-    ALL_MAIL,
-    SENT,
-    STARRED,
-    DRAFTS,
-    SNOOZED,
-    DONE,
-    REMINDERS,
-    LABEL,
-    TRASH,
-    SPAM,
-    IMPORTANT,
-    SEARCH,
-    ANY_LIST
-  }
-
-  enum RouteTypes {
-    LIST,
-    THREAD,
-    SETTINGS,
-    CHAT,
-    CUSTOM,
-    UNKNOWN
-  }
+  type NativeListRouteIDs =
+    'INBOX'
+    | 'ALL_MAIL'
+    | 'SENT'
+    | 'STARRED'
+    | 'DRAFTS'
+    | 'SNOOZED'
+    | 'DONE'
+    | 'REMINDERS'
+    | 'LABEL'
+    | 'TRASH'
+    | 'SPAM'
+    | 'IMPORTANT'
+    | 'SEARCH'
+    | 'ANY_LIST';
 }
 
 declare namespace NavMenu {
@@ -742,38 +817,44 @@ declare namespace NavMenu {
 
     setCollapsed(collapseValue: boolean): void;
 
-    // TODO: Events
+    on(name: 'destroy', cb: () => void): void;
 
     destroyed: boolean;
   }
 
   interface NavItemDescriptor {
     name: string;
-    routeId?: string; //: null
-    routeParams?: Object; //: null
-    orderHint?: number; //: Number.MAX_SAFE_INTEGER  // FIXME: integer
-    accessory?: CreateAccessoryDescriptor | IconButtonAccessoryDescriptor | DropdownButtonAccessoryDescriptor; //: null
-    iconUrl?: string; //: null
-    iconClass?: string; //: null
+    routeID?: string;
+    routeParams?: Object;
+
+    onClick?: (event: { preventDefault(): void }) => void;
+
+    orderHint?: number;
+    accessory?: CreateAccessoryDescriptor | IconButtonAccessoryDescriptor | DropdownButtonAccessoryDescriptor;
+    iconUrl?: string;
+    iconClass?: string;
+    backgroundColor?: string;
+    expanderForegroundColor?: string;
+    type?: NavItemTypes;
   }
 
   interface CreateAccessoryDescriptor {
-    type: string; //: 'CREATE'
-    onClick: () => any; // TODO: check any?
+    type: 'CREATE';
+    onClick: () => void;
   }
 
   interface IconButtonAccessoryDescriptor {
-    type: string; //: 'ICON_BUTTON'
-    onClick: () => any; // TODO: check any?
+    type: 'ICON_BUTTON';
+    onClick: () => void;
     iconUrl: string;
-    iconClass?: string; //: null
+    iconClass?: string;
   }
 
   interface DropdownButtonAccessoryDescriptor {
-    type: string; //: 'DROPDOWN_BUTTON'
+    type: 'DROPDOWN_BUTTON';
     buttonBackgroundColor: string;
     buttonForegroundColor: string;
-    onClick: (event: DropdownButtonClickEvent) => any; // TODO: check any?
+    onClick: (event: DropdownButtonClickEvent) => void;
   }
 
   interface DropdownButtonClickEvent {
@@ -781,10 +862,7 @@ declare namespace NavMenu {
   }
 
   // Undocumented
-  enum NavItemTypes {
-    MANAGE,
-    NAVIGATION
-  }
+  type NavItemTypes = 'MANAGE' | 'NAVIGATION';
 
   // Undocumented
   var SENT_MAIL: Object;
@@ -792,7 +870,7 @@ declare namespace NavMenu {
 
 declare namespace Widgets {
 
-  interface Widgets {
+  interface WidgetsInstance {
     showModalView(options: ModalOptions): ModalView;
 
     showMoleView(options: MoleOptions): MoleView;
@@ -802,49 +880,51 @@ declare namespace Widgets {
 
   interface ModalOptions {
     el: HTMLElement;
-    chrome?: boolean; //: true
-    showCloseButton?: boolean; //: false
-    title?: string; //: ''
-    buttons?: ModalButtonDescriptor[]; // []
+    chrome?: boolean;
+    constrainTitleWidth?: boolean;
+    showCloseButton?: boolean;
+    title?: string;
+    buttons?: ModalButtonDescriptor[];
   }
 
   interface ModalButtonDescriptor {
     text: string;
     title: string;
-    onClick: () => any; // TODO: check any?
-    type?: string; //: 'SECONDARY_ACTION'
-    orderHint?: number; //: 0
+    onClick: () => void;
+    type?: 'PRIMARY_ACTION' | 'SECONDARY_ACTION';
+    color?: string;
+    orderHint?: number;
   }
 
   interface MoleOptions {
     el: HTMLElement;
-    title?: string; //: ''
-    titleEl?: HTMLElement; //: null
-    minimizedTitleEl?: HTMLElement; //: null
-    className?: string; //: ''
-    titleButtons?: MoleButtonDescriptor[]; //: []
-    chrome?: boolean; //: false
+    title?: string;
+    titleEl?: HTMLElement;
+    minimizedTitleEl?: HTMLElement;
+    className?: string;
+    titleButtons?: MoleButtonDescriptor[];
+    chrome?: boolean;
   }
 
   interface MoleButtonDescriptor {
     title: string;
     iconUrl: string;
-    iconClass?: string; //: ''
-    onClick: () => any; // TODO: check any?
+    iconClass?: string;
+    onClick: () => void;
   }
 
   interface DrawerOptions {
     el: HTMLElement;
-    chrome?: boolean; //: true
-    title?: string; //: ''
-    composeView?: Compose.ComposeView; //: null
-    closeWithCompose?: boolean; //: false
+    chrome?: boolean;
+    title?: string;
+    composeView?: Compose.ComposeView;
+    closeWithCompose?: boolean;
   }
 
   interface ModalView {
     close(): void;
 
-    // TODO: Events
+    on(name: 'destroyed', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -858,7 +938,7 @@ declare namespace Widgets {
 
     getMinimized(): boolean;
 
-    // TODO: Events
+    on(name: 'destroyed' | 'minimize' | 'restore', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -868,7 +948,9 @@ declare namespace Widgets {
 
     associateComposeView(composeView: Compose.ComposeView, closeWithCompose: boolean): void;
 
-    // TODO: Events
+    disassociateComposeView(): void;
+
+    on(name: 'destroyed' | 'slideAnimationDone' | 'closing', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -890,12 +972,12 @@ declare namespace ButterBar {
   }
 
   interface MessageDescriptorBase {
-    className?: string; //: ''
-    priority?: number; //: 0
-    time?: number; //: 15000
-    hideOnViewChanged?: boolean; //: true
-    persistent?: boolean; //: false
-    messageKey?: Object; //: null
+    className?: string;
+    priority?: number;
+    time?: number;
+    hideOnViewChanged?: boolean;
+    persistent?: boolean;
+    messageKey?: Object;
   }
 
   interface MessageDescriptorText extends MessageDescriptorBase {
@@ -912,17 +994,28 @@ declare namespace ButterBar {
 
   type MessageDescriptor = MessageDescriptorText | MessageDescriptorHtml | MessageDescriptorHtmlElement;
 
-  interface SavingMessageDescriptor {
-    text?: string; //: 'Saving...'
-    confirmationText?: string; //: 'Saved'
-    priority?: number; //: 0
-    time?: number; //: Infinity
-    confirmationTime?: number; //: 1000
-    showConfirmation?: boolean; //: true
-    hideOnViewChanged?: boolean; //: true
-    persistent?: boolean; //: true
-    messageKey?: Object; //: null
+  interface SavingMessageDescriptorBase extends MessageDescriptorBase {
+    confirmationText?: string;
+    confirmationTime?: number;
+    showConfirmation?: boolean;
   }
+
+  interface SavingMessageDescriptorText extends SavingMessageDescriptorBase {
+    text: string;
+  }
+
+  interface SavingMessageDescriptorHtml extends SavingMessageDescriptorBase {
+    html: string;
+  }
+
+  interface SavingMessageDescriptorHtmlElement extends SavingMessageDescriptorBase {
+    el: HTMLElement;
+  }
+
+  type SavingMessageDescriptor =
+    SavingMessageDescriptorText
+    | SavingMessageDescriptorHtml
+    | SavingMessageDescriptorHtmlElement;
 }
 
 declare namespace Search {
@@ -937,6 +1030,7 @@ declare namespace Search {
     routeName?: string;
     routeParams?: string[]
     externalURL?: string;
+    onClick?: () => void;
   }
 
   interface AutocompleteSearchResultText extends AutocompleteSearchResultBase {
@@ -953,13 +1047,19 @@ declare namespace Search {
 
   interface SearchQueryRewriter {
     term: string;
-    termReplacer: () => any; // TODO: check any? // FIXME: function can take a string or a Promise
+    termReplacer: () => string | Promise<string>;
   }
 }
 
 declare namespace User {
   interface User {
     getEmailAddress(): string;
+
+    isUsingGmailMaterialUI(): boolean;
+
+    isConversationViewDisabled(): boolean;
+
+    getLanguage(): string;
 
     getAccountSwitcherContactList(): Common.Contact[];
   }
@@ -977,5 +1077,11 @@ declare namespace Keyboard {
   interface KeyboardShortcutDescriptor {
     chord: string;
     description: string;
+  }
+}
+
+declare namespace Global {
+  interface Global {
+    addSidebarContentPanel(contentPanelDescriptor: Conversations.ContentPanelDescriptor): Conversations.ContentPanelView;
   }
 }
