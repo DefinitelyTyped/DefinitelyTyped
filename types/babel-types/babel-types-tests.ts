@@ -72,7 +72,7 @@ t.TSEnumDeclaration(id, [t.TSEnumMember(id)]);
 t.TSEnumMember(id);
 const expo = t.TSExportAssignment(exp);
 t.TSExpressionWithTypeArguments(id);
-const ext = t.TSExternalModuleReference(t.stringLiteral());
+const ext = t.TSExternalModuleReference(t.stringLiteral("a"));
 t.TSFunctionType();
 t.TSImportEqualsDeclaration(id, ext);
 const sig = t.TSIndexSignature([id]);
