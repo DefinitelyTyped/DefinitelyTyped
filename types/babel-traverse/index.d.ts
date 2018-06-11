@@ -344,7 +344,7 @@ export class NodePath<T = Node> {
     key: string | number;
     node: T;
     scope: Scope;
-    type: string;
+    type: T extends undefined | null ? string | null : string;
     typeAnnotation: object;
 
     getScope(scope: Scope): Scope;
