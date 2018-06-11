@@ -35,6 +35,9 @@ fragment; // $ExpectType DocumentFragment
 parse5.parseFragment("<div>", {});
 parse5.parseFragment("<div>", { treeAdapter: defaultAdapter });
 
+const element = (parse5.parseFragment(
+    "<div>"
+)) as parse5.AST.Element;
 
 parse5.parseFragment(element, "<div>");
 parse5.parseFragment(element, "<div>", {});
