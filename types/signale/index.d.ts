@@ -134,4 +134,3 @@ declare const signale: signale.Signale<signale.DefaultMethods> & {
 };
 
 export = signale;
-export as namespace signale;
