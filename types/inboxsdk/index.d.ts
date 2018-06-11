@@ -1,8 +1,9 @@
-// Type definitions for InboxSDK
+// Type definitions for InboxSDK 2.0
 // Project: https://www.inboxsdk.com/
-// Definitions by: Raphaël Doursenaud <rdoursenaud@gpcsolutions.fr>
+// Definitions by: Raphaël Doursenaud <https://github.com/rdoursenaud>
 //                 Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /*
  * Copyright (c) 2016 GPC.solutions
@@ -20,13 +21,13 @@ export function loadScript(url: string, options?: LoadScriptOptions): Promise<vo
 //   event: () => any;
 // };
 
-interface LoadOptions {
+export interface LoadOptions {
   appName?: string;
   appIconUrl?: string;
   suppressAddonTitle?: string;
 }
 
-interface LoadScriptOptions {
+export interface LoadScriptOptions {
   nowrap?: boolean;
 }
 
@@ -45,13 +46,13 @@ export interface InboxSDKInstance {
   Global: Global.Global;
 }
 
-declare namespace Common {
-  export interface Contact {
+export namespace Common {
+  interface Contact {
     name: string;
     emailAddress: string;
   }
 
-  export interface DropdownView {
+  interface DropdownView {
     setPlacementOptions(options: PositionOptions): void;
 
     close(): void;
@@ -61,19 +62,19 @@ declare namespace Common {
     el: HTMLElement;
     destroyed: boolean;
 
-    on(name: 'destroy', cb: () => void): void
+    on(name: 'destroy', cb: () => void): void;
 
-    on(name: 'preautoclose', cb: (event: PreAutoCloseEvent) => void): void
+    on(name: 'preautoclose', cb: (event: PreAutoCloseEvent) => void): void;
   }
 
-  export interface PreAutoCloseEvent {
-    type: 'outsideInteraction' | 'escape',
-    cause: Event,
+  interface PreAutoCloseEvent {
+    type: 'outsideInteraction' | 'escape';
+    cause: Event;
 
     cancel(): void;
   }
 
-  export interface PositionOptions {
+  interface PositionOptions {
     position?: string;
     forcePosition?: boolean;
     hAlign?: string;
@@ -87,24 +88,24 @@ declare namespace Common {
     rightBuffer?: number;
   }
 
-  export interface SimpleElementView {
+  interface SimpleElementView {
     destroy(): void;
 
     el: HTMLElement;
     destroyed: boolean;
 
-    on(name: 'destroy', cb: () => void): void
+    on(name: 'destroy', cb: () => void): void;
   }
 }
 
-declare namespace Compose {
-  export interface ComposeInstance {
+export namespace Compose {
+  interface ComposeInstance {
     registerComposeViewHandler(handler: (composeView: ComposeView) => void): () => void;
 
     openNewComposeView(): Promise<ComposeView>;
   }
 
-  export interface ComposeView {
+  interface ComposeView {
     addButton(buttonDescriptor: ComposeButtonDescriptor): void;
 
     addStatusBar(statusBarDescriptor: StatusBarDescriptor): StatusBarView;
@@ -205,17 +206,17 @@ declare namespace Compose {
 
   interface RecipientsChangedEvent {
     to: {
-      added: Common.Contact[],
-      removed: Common.Contact[]
-    },
+      added: Common.Contact[];
+      removed: Common.Contact[];
+    };
     cc: {
-      added: Common.Contact[],
-      removed: Common.Contact[]
-    },
+      added: Common.Contact[];
+      removed: Common.Contact[];
+    };
     bcc: {
-      added: Common.Contact[],
-      removed: Common.Contact[]
-    }
+      added: Common.Contact[];
+      removed: Common.Contact[];
+    };
   }
 
   interface ComposeButtonDescriptor {
@@ -248,7 +249,7 @@ declare namespace Compose {
   }
 }
 
-declare namespace Lists {
+export namespace Lists {
   interface Lists {
     registerThreadRowViewHandler(handler: (threadRowView: ThreadRowView) => any): () => void;
   }
@@ -256,31 +257,31 @@ declare namespace Lists {
   interface ThreadRowView {
     addLabel(labelDescriptor: LabelDescriptor): void;
 
-    //addLabel(labelDescriptor: Stream<LabelDescriptor>): void;
+    // addLabel(labelDescriptor: Stream<LabelDescriptor>): void;
 
     addImage(imageDescriptor: ImageDescriptor): void;
 
-    //addImage(imageDescriptor: Stream<ImageDescriptor>): void;
+    // addImage(imageDescriptor: Stream<ImageDescriptor>): void;
 
     addButton(buttonDescriptor: ThreadRowButtonDescriptor): void;
 
-    //addButton(buttonDescriptor: Stream<ThreadRowButtonDescriptor>): void;
+    // addButton(buttonDescriptor: Stream<ThreadRowButtonDescriptor>): void;
 
     addActionButton(buttonDescriptor: ThreadRowActionButtonDescriptor): void;
 
-    //addActionButton(buttonDescriptor: Stream<ThreadRowActionButtonDescriptor>): void;
+    // addActionButton(buttonDescriptor: Stream<ThreadRowActionButtonDescriptor>): void;
 
-    addAttachmentIcon(threadRowAttachmentIconDescriptor: ThreadRowAttachmentIconDescriptor): void
+    addAttachmentIcon(threadRowAttachmentIconDescriptor: ThreadRowAttachmentIconDescriptor): void;
 
-    //addAttachmentIcon(threadRowAttachmentIconDescriptor: stream<ThreadRowAttachmentIconDescriptor>): void
+    // addAttachmentIcon(threadRowAttachmentIconDescriptor: stream<ThreadRowAttachmentIconDescriptor>): void
 
     replaceDate(threadRowDateDescriptor: ThreadRowDateDescriptor): void;
 
-    //replaceDate(threadRowDateDescriptor: Stream<ThreadRowDateDescriptor>): void;
+    // replaceDate(threadRowDateDescriptor: Stream<ThreadRowDateDescriptor>): void;
 
     replaceDraftLabel(draftLabelDescriptor: ThreadRowDraftLabelDescriptor): void;
 
-    //replaceDraftLabel(draftLabelDescriptor: Stream<ThreadRowDraftLabelDescriptor>): void;
+    // replaceDraftLabel(draftLabelDescriptor: Stream<ThreadRowDraftLabelDescriptor>): void;
 
     getSubject(): string;
 
@@ -320,12 +321,8 @@ declare namespace Lists {
     type: 'LINK';
     title: string;
     className?: string;
-    onClick?: (event: ThreadRowActionButtonClickEvent) => void;
+    onClick?: (event: any) => void;
     url: string;
-  }
-
-  interface ThreadRowActionButtonClickEvent {
-    // FIXME: testme, undocummented
   }
 
   interface LabelDescriptor {
@@ -362,7 +359,7 @@ declare namespace Lists {
   }
 }
 
-declare namespace Conversations {
+export namespace Conversations {
   interface Conversations {
     registerThreadViewHandler(handler: (threadView: ThreadView) => void): () => void;
 
@@ -386,9 +383,9 @@ declare namespace Conversations {
 
     getThreadIDAsync(): Promise<string>;
 
-    on(name: 'contactHover', cb: (event: ContactHoverEvent) => void): void
+    on(name: 'contactHover', cb: (event: ContactHoverEvent) => void): void;
 
-    on(name: 'destroy', cb: () => void): void
+    on(name: 'destroy', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -431,7 +428,7 @@ declare namespace Conversations {
 
     addAttachmentIcon(iconDescriptor: MessageAttachmentIconDescriptor): void;
 
-    //addAttachmentIcon(iconDescriptor: Stream<MessageAttachmentIconDescriptor>): void;
+    // addAttachmentIcon(iconDescriptor: Stream<MessageAttachmentIconDescriptor>): void;
 
     getViewState(): MessageViewViewStates;
 
@@ -439,9 +436,7 @@ declare namespace Conversations {
 
     on(name: 'contactHover', cb: (event: ContactHoverEvent) => void): void;
 
-    on(name: 'load', cb: () => void): void;
-
-    on(name: 'destroy', cb: () => void): void;
+    on(name: 'destroy' | 'load', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -451,11 +446,7 @@ declare namespace Conversations {
   interface ContentPanelView {
     remove(): void;
 
-    on(name: 'activate', cb: () => void): void;
-
-    on(name: 'deactivate', cb: () => void): void;
-
-    on(name: 'destroy', cb: () => void): void;
+    on(name: 'destroy' | 'activate' | 'deactivate', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -489,7 +480,7 @@ declare namespace Conversations {
     failoverPreviewIconUrl: string;
     previewOnClick: (event: PreviewClickEvent) => void;
     fileIconImageUrl: string;
-    buttons: (DownloadButtonDescriptor | CustomButtonDescriptor)[];
+    buttons: Array<DownloadButtonDescriptor | CustomButtonDescriptor>;
     foldColor?: string;
     mimeType?: string;
   }
@@ -501,7 +492,7 @@ declare namespace Conversations {
     iconThumbnailUrl: string;
     previewOnClick: (event: PreviewClickEvent) => void;
     fileIconImageUrl: string;
-    buttons: (DownloadButtonDescriptor | CustomButtonDescriptor)[];
+    buttons: Array<DownloadButtonDescriptor | CustomButtonDescriptor>;
     foldColor?: string;
   }
 
@@ -525,12 +516,8 @@ declare namespace Conversations {
   interface DownloadButtonDescriptor {
     downloadUrl: string;
     downloadFilename?: string;
-    onClick: (event: DownloadButtonClickEvent) => void;
+    onClick: (event: any) => void;
     openInNewTab?: boolean;
-  }
-
-  interface DownloadButtonClickEvent {
-    // FIXME: testme, undocumented
   }
 
   interface CustomButtonDescriptor {
@@ -578,7 +565,7 @@ declare namespace Conversations {
   }
 }
 
-declare namespace Toolbars {
+export namespace Toolbars {
   interface Toolbars {
     registerThreadButton(toolbarButtonDescriptor: ToolbarButtonDescriptor): () => void;
 
@@ -602,7 +589,7 @@ declare namespace Toolbars {
     onClick: (event: ToolbarButtonEvent) => void;
     iconUrl?: string;
     iconClass?: string;
-    positions: ToolbarButtonPosition[]
+    positions: ToolbarButtonPosition[];
     threadSection?: SectionNames;
     listSection?: SectionNames;
     hasDropdown?: boolean;
@@ -636,7 +623,7 @@ declare namespace Toolbars {
 
     remove(): void;
 
-    //TODO: Events
+    on(name: 'destroy', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -648,7 +635,7 @@ declare namespace Toolbars {
   type SectionNames = 'INBOX_STATE' | 'METADATA_STATE' | 'OTHER';
 }
 
-declare namespace Router {
+export namespace Router {
   interface Router {
     createLink(routeID: string | NativeRouteIDs, params: RouteParams): string;
 
@@ -666,7 +653,7 @@ declare namespace Router {
   }
 
   interface CustomListDescriptor {
-    threads: (ThreadDescriptor | string)[];
+    threads: Array<ThreadDescriptor | string>;
     total?: number;
     hasMore?: boolean;
   }
@@ -705,11 +692,11 @@ declare namespace Router {
   interface ListRouteView extends RouteView {
     addCollapsibleSection(options: SectionDescriptor): CollapsibleSectionView;
 
-    //addCollapsibleSection(options: Stream<SectionDescriptor>): CollapsibleSectionView;
+    // addCollapsibleSection(options: Stream<SectionDescriptor>): CollapsibleSectionView;
 
     addSection(options: SectionDescriptor): SectionView;
 
-    //addSection(options: Stream<SectionDescriptor>): SectionView;
+    // addSection(options: Stream<SectionDescriptor>): SectionView;
 
     refresh(): void;
   }
@@ -717,7 +704,7 @@ declare namespace Router {
   interface SectionView {
     remove(): void;
 
-    // TODO: Events
+    on(name: 'destroy', cb: () => void): void;
 
     destroyed: boolean;
   }
@@ -725,9 +712,9 @@ declare namespace Router {
   interface CollapsibleSectionView extends SectionView {
     setCollapsed(value: boolean): void;
 
-    remove(): void
+    remove(): void;
 
-    // TODO: Events
+    on(name: 'destroy' | 'expanded' | 'collapsed', cb: () => void): void;
   }
 
   interface SectionDescriptor {
@@ -740,15 +727,11 @@ declare namespace Router {
     tableRows?: RowDescriptor[];
     contentElement?: HTMLElement;
     footerLinkText?: string;
-    onFooterLinkClick?: (event: SectionFooterLinkClickEvent) => void;
+    onFooterLinkClick?: (event: any) => void;
   }
 
   interface SectionDropdownClickEvent {
     dropdown: Common.DropdownView;
-  }
-
-  interface SectionFooterLinkClickEvent {
-    // FIXME: testme, undocumented
   }
 
   interface RowDescriptor {
@@ -803,7 +786,7 @@ declare namespace Router {
     | 'ANY_LIST';
 }
 
-declare namespace NavMenu {
+export namespace NavMenu {
   interface NavMenu {
     addNavItem(navItemDescriptor: NavItemDescriptor): NavItemView;
   }
@@ -825,7 +808,7 @@ declare namespace NavMenu {
   interface NavItemDescriptor {
     name: string;
     routeID?: string;
-    routeParams?: Object;
+    routeParams?: object;
 
     onClick?: (event: { preventDefault(): void }) => void;
 
@@ -861,15 +844,10 @@ declare namespace NavMenu {
     dropdown: Common.DropdownView;
   }
 
-  // Undocumented
   type NavItemTypes = 'MANAGE' | 'NAVIGATION';
-
-  // Undocumented
-  var SENT_MAIL: Object;
 }
 
-declare namespace Widgets {
-
+export namespace Widgets {
   interface WidgetsInstance {
     showModalView(options: ModalOptions): ModalView;
 
@@ -956,17 +934,17 @@ declare namespace Widgets {
   }
 }
 
-declare namespace ButterBar {
+export namespace ButterBar {
   interface ButterBar {
-    showMessage(options: MessageDescriptor): Object;
+    showMessage(options: MessageDescriptor): object;
 
-    showLoading(): Object;
+    showLoading(): object;
 
-    showError(options: MessageDescriptor): Object;
+    showError(options: MessageDescriptor): object;
 
-    showSaving(options: SavingMessageDescriptor): Object;
+    showSaving(options: SavingMessageDescriptor): object;
 
-    hideMessage(messageKey: Object): void;
+    hideMessage(messageKey: object | string): void;
 
     hideGmailMessage(): void;
   }
@@ -977,7 +955,7 @@ declare namespace ButterBar {
     time?: number;
     hideOnViewChanged?: boolean;
     persistent?: boolean;
-    messageKey?: Object;
+    messageKey?: object | string;
   }
 
   interface MessageDescriptorText extends MessageDescriptorBase {
@@ -1018,7 +996,7 @@ declare namespace ButterBar {
     | SavingMessageDescriptorHtmlElement;
 }
 
-declare namespace Search {
+export namespace Search {
   interface Search {
     registerSearchSuggestionsProvider(handler: (query: string) => AutocompleteSearchResult[] | Promise<AutocompleteSearchResult[]>): void;
 
@@ -1028,7 +1006,7 @@ declare namespace Search {
   interface AutocompleteSearchResultBase {
     iconUrl?: string;
     routeName?: string;
-    routeParams?: string[]
+    routeParams?: string[];
     externalURL?: string;
     onClick?: () => void;
   }
@@ -1051,7 +1029,7 @@ declare namespace Search {
   }
 }
 
-declare namespace User {
+export namespace User {
   interface User {
     getEmailAddress(): string;
 
@@ -1065,7 +1043,7 @@ declare namespace User {
   }
 }
 
-declare namespace Keyboard {
+export namespace Keyboard {
   interface Keyboard {
     createShortcutHandle(keyboardShortcutDescriptor: KeyboardShortcutDescriptor): KeyboardShortcutHandle;
   }
@@ -1080,7 +1058,7 @@ declare namespace Keyboard {
   }
 }
 
-declare namespace Global {
+export namespace Global {
   interface Global {
     addSidebarContentPanel(contentPanelDescriptor: Conversations.ContentPanelDescriptor): Conversations.ContentPanelView;
   }

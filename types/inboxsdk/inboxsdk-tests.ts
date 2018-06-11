@@ -1,19 +1,18 @@
 import * as InboxSDK from 'inboxsdk';
-import {Common, Compose, Conversations, InboxSDKInstance, Lists, NavMenu, Router} from 'inboxsdk';
-import ComposeView = Compose.ComposeView;
-import Contact = Common.Contact;
-import ThreadRowView = Lists.ThreadRowView;
-import ThreadView = Conversations.ThreadView;
-import SimpleElementView = Common.SimpleElementView;
-import ContentPanelView = Conversations.ContentPanelView;
-import MessageView = Conversations.MessageView;
-import AttachmentCardView = Conversations.AttachmentCardView;
-import AttachmentCardClickEvent = Conversations.AttachmentCardClickEvent;
-import MessageViewLinkDescriptor = Conversations.MessageViewLinkDescriptor;
-import SectionDescriptor = Router.SectionDescriptor;
-import NavItemDescriptor = NavMenu.NavItemDescriptor;
+import ComposeView = InboxSDK.Compose.ComposeView;
+import Contact = InboxSDK.Common.Contact;
+import ThreadRowView = InboxSDK.Lists.ThreadRowView;
+import ThreadView = InboxSDK.Conversations.ThreadView;
+import SimpleElementView = InboxSDK.Common.SimpleElementView;
+import ContentPanelView = InboxSDK.Conversations.ContentPanelView;
+import MessageView = InboxSDK.Conversations.MessageView;
+import AttachmentCardView = InboxSDK.Conversations.AttachmentCardView;
+import AttachmentCardClickEvent = InboxSDK.Conversations.AttachmentCardClickEvent;
+import MessageViewLinkDescriptor = InboxSDK.Conversations.MessageViewLinkDescriptor;
+import SectionDescriptor = InboxSDK.Router.SectionDescriptor;
+import NavItemDescriptor = InboxSDK.NavMenu.NavItemDescriptor;
 
-InboxSDK.load(1, '1234').then((_sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((_sdk: InboxSDK.InboxSDKInstance) => {
   _sdk.ButterBar.hideGmailMessage();
 });
 
@@ -28,7 +27,7 @@ InboxSDK.loadScript('https://google.com').then(() => console.log('done'));
 InboxSDK.loadScript('https://google.com', {}).then(() => console.log('done'));
 InboxSDK.loadScript('https://google.com', {nowrap: true}).then(() => console.log('done'));
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   sdk.ButterBar.showMessage({
     text: 'text',
   });
@@ -87,9 +86,8 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   sdk.ButterBar.hideGmailMessage();
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const unregister = sdk.Compose.registerComposeViewHandler((composeView: ComposeView) => {
-
     composeView.addButton({
       title: 'button title',
       onClick: e => {
@@ -131,8 +129,8 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
     composeView.send({sendAndArchive: true});
 
     const element: HTMLElement = composeView.getBodyElement();
-    const msgId: String = composeView.getInitialMessageID();
-    const threadId: String = composeView.getThreadID();
+    const msgId: string = composeView.getInitialMessageID();
+    const threadId: string = composeView.getThreadID();
     composeView.getDraftID().then(draftId => {
       const id: string = draftId.toLowerCase();
     });
@@ -142,11 +140,11 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
       }
     });
 
-    const html: String = composeView.getHTMLContent();
-    const bodyHtml: String = composeView.getSelectedBodyHTML();
-    const bodyText: String = composeView.getSelectedBodyText();
-    const subject: String = composeView.getSubject();
-    const textContent: String = composeView.getTextContent();
+    const html: string = composeView.getHTMLContent();
+    const bodyHtml: string = composeView.getSelectedBodyHTML();
+    const bodyText: string = composeView.getSelectedBodyText();
+    const subject: string = composeView.getSubject();
+    const textContent: string = composeView.getTextContent();
     const contacts: Contact[] = composeView.getToRecipients();
     const contactsCC: Contact[] = composeView.getCcRecipients();
     const contactsBCC: Contact[] = composeView.getBccRecipients();
@@ -174,8 +172,8 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
     composeView.setCcRecipients(['a@a.com', 'b@b.com']);
     composeView.setBccRecipients(['a@a.com', 'b@b.com']);
 
-    const fromContact: Common.Contact = composeView.getFromContact();
-    const fromContacts: Common.Contact[] = composeView.getFromContactChoices();
+    const fromContact: InboxSDK.Common.Contact = composeView.getFromContact();
+    const fromContacts: InboxSDK.Common.Contact[] = composeView.getFromContactChoices();
 
     composeView.setFromEmail('a@a.com');
     composeView.setSubject('subject');
@@ -194,35 +192,35 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
     });
 
     composeView.on('fromContactChanged', event => {
-      const c: Common.Contact = event.contact;
+      const c: InboxSDK.Common.Contact = event.contact;
     });
 
     composeView.on('toContactAdded', event => {
-      const c: Common.Contact = event.contact;
+      const c: InboxSDK.Common.Contact = event.contact;
     });
 
     composeView.on('toContactRemoved', event => {
-      const c: Common.Contact = event.contact;
+      const c: InboxSDK.Common.Contact = event.contact;
     });
 
     composeView.on('ccContactAdded', event => {
-      const c: Common.Contact = event.contact;
+      const c: InboxSDK.Common.Contact = event.contact;
     });
 
     composeView.on('ccContactRemoved', event => {
-      const c: Common.Contact = event.contact;
+      const c: InboxSDK.Common.Contact = event.contact;
     });
 
     composeView.on('bccContactAdded', event => {
-      const c: Common.Contact = event.contact;
+      const c: InboxSDK.Common.Contact = event.contact;
     });
 
     composeView.on('bccContactRemoved', event => {
-      const c: Common.Contact = event.contact;
+      const c: InboxSDK.Common.Contact = event.contact;
     });
 
     composeView.on('recipientsChanged', event => {
-      let c: Common.Contact;
+      let c: InboxSDK.Common.Contact;
       c = event.to.added[0];
       c = event.to.removed[0];
       c = event.cc.added[0];
@@ -265,7 +263,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   unregister();
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const unregister = sdk.Lists.registerThreadRowViewHandler((threadRowView: ThreadRowView) => {
     threadRowView.addLabel({
       title: 'title',
@@ -359,7 +357,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
     const count1: number = threadRowView.getVisibleDraftCount();
     const count2: number = threadRowView.getVisibleMessageCount();
 
-    const contacts: Common.Contact[] = threadRowView.getContacts();
+    const contacts: InboxSDK.Common.Contact[] = threadRowView.getContacts();
 
     threadRowView.on('destroyed', () => console.log());
 
@@ -369,7 +367,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   unregister();
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const unregister = sdk.Conversations.registerThreadViewHandler((threadView: ThreadView) => {
     const noticeBar: SimpleElementView = threadView.addNoticeBar();
     noticeBar.destroy();
@@ -415,7 +413,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   unregister();
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const unregister = sdk.Conversations.registerMessageViewHandler((messageView: MessageView) => {
     const attachmentCardView: AttachmentCardView = messageView.addAttachmentCardView({
       title: 'title',
@@ -485,7 +483,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
     links[0].text.toLowerCase();
     links[0].element.click();
     links[0].html.toLowerCase();
-    links[0].isInQuotedArea === true;
+    const isInQuotedArea: boolean = links[0].isInQuotedArea;
     links[0].href.toLowerCase();
 
     const contact: Contact = messageView.getSender();
@@ -525,7 +523,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   unregister();
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const unregister = sdk.Conversations.registerMessageViewHandlerAll((messageView: MessageView) => {
     const isLoaded: boolean = messageView.isLoaded();
   });
@@ -533,7 +531,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   unregister();
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const unregister = sdk.Conversations.registerFileAttachmentCardViewHandler((attachmentCardView: AttachmentCardView) => {
     const messageView: MessageView | null = attachmentCardView.getMessageView();
   });
@@ -541,7 +539,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   unregister();
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const unregister = sdk.Toolbars.registerThreadButton({
     hasDropdown: true,
     hideFor: (routeView => routeView.getParams()),
@@ -571,7 +569,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   });
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   sdk.Router.createLink('1234', {p1: 1, 0: 1}).toLowerCase();
   sdk.Router.goto('1234', {p1: 1, 0: 1});
 
@@ -595,7 +593,6 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   unregister2();
 
   const unregister3 = sdk.Router.handleListRoute('ALL_MAIL', listRouteView => {
-
     const sectionDescriptor: SectionDescriptor = {
       contentElement: new HTMLElement(),
       footerLinkText: 'text',
@@ -655,10 +652,9 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   unregister4();
 
   sdk.Router.getCurrentRouteView().getRouteID().toLowerCase();
-
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const navItemDescriptor: NavItemDescriptor = {
     accessory: {
       type: 'CREATE',
@@ -690,7 +686,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   const destroyed: boolean = navItem.destroyed;
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const modalView = sdk.Widgets.showModalView({
     buttons: [{
       color: 'red',
@@ -711,7 +707,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   modalView.close();
   modalView.on('destroyed', () => {
   });
-  modalView.destroyed === true;
+  const destroyed: boolean = modalView.destroyed;
 
   const moleView = sdk.Widgets.showMoleView({
     chrome: true,
@@ -749,7 +745,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
 
   drawerView.close();
   drawerView.disassociateComposeView();
-  drawerView.destroyed === true;
+  const destroyed1: boolean = drawerView.destroyed;
   drawerView.on('destroyed', () => {
   });
   drawerView.on('slideAnimationDone', () => {
@@ -758,7 +754,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   });
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const searchResults = [{
     iconUrl: 'http://url.com',
     onClick: () => {
@@ -793,15 +789,15 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   });
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   sdk.User.getEmailAddress().toLowerCase();
-  sdk.User.isConversationViewDisabled() === true;
-  sdk.User.isUsingGmailMaterialUI() === true;
+  const isConversationViewDisabled: boolean = sdk.User.isConversationViewDisabled();
+  const isUsingGmailMaterialUI: boolean = sdk.User.isUsingGmailMaterialUI();
   sdk.User.getLanguage().toLowerCase();
   sdk.User.getAccountSwitcherContactList()[0].name.toLowerCase();
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const panel = sdk.Global.addSidebarContentPanel({
     el: new HTMLElement(),
     title: 'title',
@@ -810,7 +806,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
   panel.remove();
 });
 
-InboxSDK.load(1, '1234').then((sdk: InboxSDKInstance) => {
+InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const handler = sdk.Keyboard.createShortcutHandle({
     chord: 'a',
     description: 'b'
