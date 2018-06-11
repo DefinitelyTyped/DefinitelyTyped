@@ -25,7 +25,13 @@ declare namespace next {
         pathname: string;
         /** query string section of URL parsed as an object */
         query: {
-            [key: string]: any
+            [key: string]:
+                | boolean
+                | boolean[]
+                | number
+                | number[]
+                | string
+                | string[];
         };
         /** String of the actual path (including the query) shows in the browser */
         asPath: string;
@@ -39,9 +45,10 @@ declare namespace next {
         err?: Error;
     }
 
-    type NextSFC<P = {}> = NextStatelessComponent<P>;
-    interface NextStatelessComponent<P = {}> extends React.StatelessComponent<P> {
-        getInitialProps?: (ctx: NextContext) => Promise<any>;
+    type NextSFC<TProps = {}> = NextStatelessComponent<TProps>;
+    interface NextStatelessComponent<TProps = {}>
+        extends React.StatelessComponent<TProps> {
+        getInitialProps?: (ctx: NextContext) => Promise<TProps>;
     }
 
     type UrlLike = url.UrlObject | url.Url;
@@ -73,12 +80,12 @@ declare namespace next {
         handleRequest(
             req: http.IncomingMessage,
             res: http.ServerResponse,
-            parsedUrl?: UrlLike,
+            parsedUrl?: UrlLike
         ): Promise<void>;
         getRequestHandler(): (
             req: http.IncomingMessage,
             res: http.ServerResponse,
-            parsedUrl?: UrlLike,
+            parsedUrl?: UrlLike
         ) => Promise<void>;
         prepare(): Promise<void>;
         close(): Promise<void>;
@@ -87,7 +94,7 @@ declare namespace next {
         run(
             req: http.IncomingMessage,
             res: http.ServerResponse,
-            parsedUrl: UrlLike,
+            parsedUrl: UrlLike
         ): Promise<void>;
 
         render(
@@ -103,7 +110,7 @@ declare namespace next {
                     | string
                     | string[];
             },
-            parsedUrl?: UrlLike,
+            parsedUrl?: UrlLike
         ): Promise<void>;
         renderError(
             err: any,
@@ -118,12 +125,12 @@ declare namespace next {
                     | number[]
                     | string
                     | string[];
-            },
+            }
         ): Promise<void>;
         render404(
             req: http.IncomingMessage,
             res: http.ServerResponse,
-            parsedUrl: UrlLike,
+            parsedUrl: UrlLike
         ): Promise<void>;
         renderToHTML(
             req: http.IncomingMessage,
@@ -137,7 +144,7 @@ declare namespace next {
                     | number[]
                     | string
                     | string[];
-            },
+            }
         ): Promise<string>;
         renderErrorToHTML(
             err: any,
@@ -152,13 +159,13 @@ declare namespace next {
                     | number[]
                     | string
                     | string[];
-            },
+            }
         ): Promise<string>;
 
         serveStatic(
             req: http.IncomingMessage,
             res: http.ServerResponse,
-            path: string,
+            path: string
         ): Promise<void>;
         isServeableUrl(path: string): boolean;
         isInternalUrl(req: http.IncomingMessage): boolean;
@@ -167,12 +174,12 @@ declare namespace next {
         getCompilationError(
             page: string,
             req: http.IncomingMessage,
-            res: http.ServerResponse,
+            res: http.ServerResponse
         ): Promise<any>;
         handleBuildHash(
             filename: string,
             hash: string,
-            res: http.ServerResponse,
+            res: http.ServerResponse
         ): void;
         send404(res: http.ServerResponse): void;
     }

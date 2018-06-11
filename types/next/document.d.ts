@@ -29,5 +29,5 @@ export class Head extends React.Component<any> {}
 export class Main extends React.Component {}
 export class NextScript extends React.Component {}
 export default class extends React.Component<DocumentProps> {
-    static getInitialProps(ctx: Context): DocumentProps;
+    static getInitialProps(ctx: NextContext): DocumentProps;
 }
