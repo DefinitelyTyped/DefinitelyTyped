@@ -14,7 +14,7 @@ export interface Config {
 
 export type CosmiconfigResult = {
   config: Config;
-  filePath: string;
+  filepath: string;
   isEmpty?: boolean;
 } | null;
 
