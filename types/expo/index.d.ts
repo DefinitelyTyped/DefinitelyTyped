@@ -7,6 +7,7 @@
 //                 Fernando Helwanger <https://github.com/fhelwanger>
 //                 Umidbek Karimov <https://github.com/umidbekkarimov>
 //                 Moshe Feuchtwanger <https://github.com/moshfeu>
+//                 Michael Prokopchuk <https://github.com/prokopcm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -1390,12 +1391,24 @@ export namespace Font {
 }
 
 // #region GLView
+export interface ExpoWebGLRenderingContext extends WebGLRenderingContext {
+    endFrameEXP(): any;
+}
+
 /**
- * GLView
+ * A View that acts as an OpenGL ES render target. On mounting, an OpenGL ES
+ * context is created. Its drawing buffer is presented as the contents of
+ * the View every frame.
  */
 export interface GLViewProps extends ViewProps {
-    onContextCreate(): void;
-    msaaSamples: number;
+    /**
+     * A function that will be called when the OpenGL ES context is created.
+     * Passes an object with a WebGLRenderingContext interface as an argument.
+     */
+    onContextCreate(gl: ExpoWebGLRenderingContext): void;
+
+    /** Number of MSAA samples to use on iOS. Defaults to 4. Ignored on Android. */
+    msaaSamples?: number;
 }
 
 export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
