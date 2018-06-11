@@ -732,6 +732,12 @@ test('moduleName 2', () => {
     expect(moduleName()).toEqual(2);
 });
 
+describe('toHaveBeenNthCalledWith', () => {
+    const fn = jest.fn();
+
+    expect(fn).toHaveBeenNthCalledWith(3, "foo");
+});
+
 // Jest config
 {
 interface JestConfigModule {defaults: jest.DefaultOptions; }

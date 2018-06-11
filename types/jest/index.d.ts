@@ -14,6 +14,7 @@
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Bradley Ayers <https://github.com/bradleyayers>
 //                 Martin Hochel <https://github.com/hotell>
+//                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -474,6 +475,11 @@ declare namespace jest {
          * to test what arguments it was last called with.
          */
         toHaveBeenLastCalledWith(...params: any[]): R;
+        /**
+         * If you have a mock function, you can use `.toHaveBeenNthCalledWith`
+         * to test what arguments it was nth called with.
+         */
+        toHaveBeenNthCalledWith(nthCall: number, ...params: any[]): R;
         /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
