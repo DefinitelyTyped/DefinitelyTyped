@@ -266,6 +266,9 @@ declare namespace Office {
     /**
      * Toggles on and off the `Office` alias for the full `Microsoft.Office.WebExtension` namespace.
      * 
+     * @remarks
+     * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
+     * 
      * @param useShortNamespace True to use the shortcut alias; otherwise false to disable it. The default is true.
      */
     function useShortNamespace(useShortNamespace: boolean): void;
