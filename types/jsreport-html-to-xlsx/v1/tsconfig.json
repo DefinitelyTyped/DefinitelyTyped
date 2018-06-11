@@ -2,23 +2,25 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "esnext"
         ],
+        "strictFunctionTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "strictNullChecks": true,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
-        ],
+            "../../"
+       ],
+       "paths": {
+            "jsreport-html-to-xlsx": [ "jsreport-html-to-xlsx/v1" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "internal-types.d.ts",
-        "libxslt-tests.ts"
+        "jsreport-html-to-xlsx-tests.ts"
     ]
 }
