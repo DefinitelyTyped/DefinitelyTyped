@@ -240,8 +240,20 @@ declare namespace Office {
      */
     var context: Context;
     /**
-     * This method is called after the Office API was loaded.
-     * @param reason Indicates how the app was initialized
+     * Occurs when the runtime environment is loaded and the add-in is ready to start interacting with the application and hosted document. 
+     * 
+     * The reason parameter of the initialize event listener function returns an `InitializationReason` enumeration value that specifies how initialization occurred. A task pane or content add-in can be initialized in two ways:
+     * 
+     *  - The user just inserted it from Recently Used Add-ins section of the Add-in drop-down list on the Insert tab of the ribbon in the Office host application, or from Insert add-in dialog box.
+     * 
+     *  - The user opened a document that already contains the add-in.
+     * 
+     * *Note*: The reason parameter of the initialize event listener function only returns an `InitializationReason` enumeration value for task pane and content add-ins. It does not return a value for Outlook add-ins.
+     * 
+     * @remarks
+     * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
+     * 
+     * @param reason Indicates how the app was initialized.
      */
     function initialize(reason: InitializationReason): void;
     /**
@@ -252,8 +264,9 @@ declare namespace Office {
     */
     function onReady(callback?: (info: { host: HostType, platform: PlatformType }) => any): Promise<{ host: HostType, platform: PlatformType }>;
     /**
-     * Indicates if the large namespace for objects will be used or not.
-     * @param useShortNamespace Indicates if 'true' that the short namespace will be used
+     * Toggles on and off the `Office` alias for the full `Microsoft.Office.WebExtension` namespace.
+     * 
+     * @param useShortNamespace True to use the shortcut alias; otherwise false to disable it. The default is true.
      */
     function useShortNamespace(useShortNamespace: boolean): void;
     // Enumerations
