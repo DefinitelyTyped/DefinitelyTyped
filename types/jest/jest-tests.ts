@@ -731,3 +731,9 @@ test('moduleName 2', () => {
     const moduleName = require('../moduleName');
     expect(moduleName()).toEqual(2);
 });
+
+describe('toHaveBeenNthCalledWith', () => {
+    const fn = jest.fn();
+
+    expect(fn).toHaveBeenNthCalledWith(3, "foo");
+});
