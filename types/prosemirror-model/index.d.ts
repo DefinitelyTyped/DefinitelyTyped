@@ -35,12 +35,12 @@ export class ContentMatch<S extends Schema = any> {
    * Match a node type and marks, returning a match after that node
    * if successful.
    */
-  matchType(type: NodeType<S>): ContentMatch<S> | null | void;
+  matchType(type: NodeType<S>): ContentMatch<S> | null | undefined;
   /**
    * Try to match a fragment. Returns the resulting match when
    * successful.
    */
-  matchFragment(frag: Fragment<S>, start?: number, end?: number): ContentMatch<S> | null | void;
+  matchFragment(frag: Fragment<S>, start?: number, end?: number): ContentMatch<S> | null | undefined;
   /**
    * Try to match the given fragment, and if that fails, see if it can
    * be made to match by inserting nodes in front of it. When
@@ -49,14 +49,14 @@ export class ContentMatch<S extends Schema = any> {
    * return a fragment if the resulting match goes to the end of the
    * content expression.
    */
-  fillBefore(after: Fragment<S>, toEnd?: boolean, startIndex?: number): Fragment<S> | null | void;
+  fillBefore(after: Fragment<S>, toEnd?: boolean, startIndex?: number): Fragment<S> | null | undefined;
   /**
    * Find a set of wrapping node types that would allow a node of the
    * given type to appear at this position. The result may be empty
    * (when it fits directly) and will be null when no such wrapping
    * exists.
    */
-  findWrapping(target: NodeType<S>): Array<NodeType<S>> | null | void;
+  findWrapping(target: NodeType<S>): Array<NodeType<S>> | null | undefined;
   /**
    * Get the _n_th outgoing edge from this node in the finite automaton
    * that describes the content expression.
@@ -89,7 +89,7 @@ export class Fragment<S extends Schema = any> {
       start: number,
       parent: ProsemirrorNode<S>,
       index: number
-    ) => boolean | null | void,
+    ) => boolean | null | undefined | void,
     startPos?: number
   ): void;
   /**
@@ -101,7 +101,7 @@ export class Fragment<S extends Schema = any> {
       node: ProsemirrorNode<S>,
       pos: number,
       parent: ProsemirrorNode<S>
-    ) => boolean | null | void
+    ) => boolean | null | undefined | void
   ): void;
   /**
    * Create a new fragment containing the combined content of this
@@ -141,7 +141,7 @@ export class Fragment<S extends Schema = any> {
   /**
    * Get the child node at the given index, if it exists.
    */
-  maybeChild(index: number): ProsemirrorNode<S> | null | void;
+  maybeChild(index: number): ProsemirrorNode<S> | null | undefined;
   /**
    * Call `f` for every child node, passing the node, its offset
    * into this parent node, and its index.
@@ -151,14 +151,14 @@ export class Fragment<S extends Schema = any> {
    * Find the first position at which this fragment and another
    * fragment differ, or `null` if they are the same.
    */
-  findDiffStart(other: Fragment<S>): number | null | void;
+  findDiffStart(other: Fragment<S>): number | null | undefined;
   /**
    * Find the first position, searching from the end, at which this
    * fragment and the given fragment differ, or `null` if they are the
    * same. Since this position will not be the same in both nodes, an
    * object with two separate positions is returned.
    */
-  findDiffEnd(other: ProsemirrorNode<S>): { a: number; b: number } | null | void;
+  findDiffEnd(other: ProsemirrorNode<S>): { a: number; b: number } | null | undefined;
   /**
    * Return a debugging string that describes this fragment.
    */
@@ -166,7 +166,7 @@ export class Fragment<S extends Schema = any> {
   /**
    * Create a JSON-serializeable representation of this fragment.
    */
-  toJSON(): { [key: string]: any } | null | void;
+  toJSON(): { [key: string]: any } | null | undefined;
   /**
    * Deserialize a fragment from its JSON representation.
    */
@@ -326,7 +326,7 @@ export interface ParseRule<S extends Schema = any> {
    * Called with a DOM Element for `tag` rules, and with a string (the
    * style's value) for `style` rules.
    */
-  getAttrs?: ((p: Node | string) => { [key: string]: any } | false | null | void) | null;
+  getAttrs?: ((p: Node | string) => { [key: string]: any } | false | null | undefined) | null;
   /**
    * For `tag` rules that produce non-leaf nodes or marks, by default
    * the content of the DOM element is parsed as content of the mark
@@ -507,7 +507,7 @@ declare class ProsemirrorNode<S extends Schema = any> {
   /**
    * Get the child node at the given index, if it exists.
    */
-  maybeChild(index: number): ProsemirrorNode<S> | null | void;
+  maybeChild(index: number): ProsemirrorNode<S> | null | undefined;
   /**
    * Call `f` for every child node, passing the node, its offset
    * into this parent node, and its index.
@@ -529,7 +529,7 @@ declare class ProsemirrorNode<S extends Schema = any> {
       pos: number,
       parent: ProsemirrorNode<S>,
       index: number
-    ) => boolean | null | void,
+    ) => boolean | null | undefined | void,
     startPos?: number
   ): void;
   /**
@@ -541,7 +541,7 @@ declare class ProsemirrorNode<S extends Schema = any> {
       node: ProsemirrorNode<S>,
       pos: number,
       parent: ProsemirrorNode<S>
-    ) => boolean | null | void
+    ) => boolean | null | undefined | void
   ): void;
   /**
    * Concatenates all the text nodes found in this fragment and its
@@ -612,7 +612,7 @@ declare class ProsemirrorNode<S extends Schema = any> {
   /**
    * Find the node starting at the given position.
    */
-  nodeAt(pos: number): ProsemirrorNode<S> | null | void;
+  nodeAt(pos: number): ProsemirrorNode<S> | null | undefined;
   /**
    * Find the (direct) child node after the given offset, if any,
    * and return it along with its index and offset relative to this
@@ -769,7 +769,7 @@ export class Slice<S extends Schema = any> {
   /**
    * Convert a slice to a JSON-serializable representation.
    */
-  toJSON(): { [key: string]: any } | null | void;
+  toJSON(): { [key: string]: any } | null | undefined;
   /**
    * Deserialize a slice from its JSON representation.
    */
@@ -892,7 +892,7 @@ export class ResolvedPos<S extends Schema = any> {
    * its parent node or its parent node isn't a textblock (in which
    * case no marks should be preserved).
    */
-  marksAcross($end: ResolvedPos<S>): Array<Mark<S>> | null | void;
+  marksAcross($end: ResolvedPos<S>): Array<Mark<S>> | null | undefined;
   /**
    * The depth up to which this position and the given (non-resolved)
    * position share the same parent nodes.
@@ -910,7 +910,7 @@ export class ResolvedPos<S extends Schema = any> {
   blockRange(
     other?: ResolvedPos<S>,
     pred?: (p: ProsemirrorNode<S>) => boolean
-  ): NodeRange<S> | null | void;
+  ): NodeRange<S> | null | undefined;
   /**
    * Query whether the given position shares the same parent node.
    */
@@ -1061,7 +1061,7 @@ export class NodeType<S extends Schema = any> {
     attrs?: { [key: string]: any },
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
-  ): ProsemirrorNode<S> | null | void;
+  ): ProsemirrorNode<S> | null | undefined;
   /**
    * Returns true if the given fragment is valid content for this node
    * type with the given attributes.
@@ -1113,7 +1113,7 @@ export class MarkType<S extends Schema = any> {
   /**
    * Tests whether there is a mark of this type in the given set.
    */
-  isInSet(set: Array<Mark<S>>): Mark<S> | null | void;
+  isInSet(set: Array<Mark<S>>): Mark<S> | null | undefined;
   /**
    * Queries whether a given mark type is
    * [excluded](#model.MarkSpec.excludes) by this one.

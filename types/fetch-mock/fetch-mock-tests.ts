@@ -92,3 +92,9 @@ fetchMock.get("http://test.com", {
     body: 'abc',
     redirectUrl: "http://example.org"
 });
+
+const sandbox = fetchMock.sandbox();
+sandbox.get("http://test.com", {
+    body: 'abc',
+    redirectUrl: "http://example.org"
+});

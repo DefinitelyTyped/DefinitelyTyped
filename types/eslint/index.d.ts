@@ -241,7 +241,10 @@ export namespace Rule {
         meta?: RuleMetaData;
     }
 
-    interface RuleListener {
+    type NodeTypes = ESTree.Node['type'];
+    type NodeListener = { [T in NodeTypes]?: (node: ESTree.Node) => void };
+
+    interface RuleListener extends NodeListener {
         onCodePathStart?(codePath: CodePath, node: ESTree.Node): void;
 
         onCodePathEnd?(codePath: CodePath, node: ESTree.Node): void;

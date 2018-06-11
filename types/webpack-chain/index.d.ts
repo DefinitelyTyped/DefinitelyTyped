@@ -1,4 +1,4 @@
-// Type definitions for webpack-chain 4.0
+// Type definitions for webpack-chain 4.8
 // Project: https://github.com/mozilla-neutrino/webpack-chain
 // Definitions by: Eirikur Nilsson <https://github.com/eirikurn>, Paul Sachs <https://github.com/psachs21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,6 +48,7 @@ declare class Config extends __Config.ChainedMap<void> {
 	module: Config.Module;
 	node: Config.ChainedMap<this>;
 	output: Config.Output;
+	optimization: Config.Optimization;
 	performance: Config.Performance;
 	plugins: Config.Plugins<this>;
 	resolve: Config.Resolve;
@@ -198,6 +199,35 @@ declare namespace Config {
 		pre(): this;
 		post(): this;
 	}
+
+	class Optimization extends ChainedMap<Config> {
+		concatenateModules(value: boolean): this;
+		flagIncludedChunks(value: boolean): this;
+		mergeDuplicateChunks(value: boolean): this;
+		minimize(value: boolean): this;
+		minimizer(value: webpack.Plugin[]): this;
+		namedChunks(value: boolean): this;
+		namedModules(value: boolean): this;
+		nodeEnv(value: boolean | string): this;
+		noEmitOnErrors(value: boolean): this;
+		occurrenceOrder(value: boolean): this;
+		portableRecords(value: boolean): this;
+		providedExports(value: boolean): this;
+		removeAvailableModules(value: boolean): this;
+		removeEmptyChunks(value: boolean): this;
+		runtimeChunk(value: boolean | "single" | "multiple" | RuntimeChunk): this;
+		sideEffects(value: boolean): this;
+		splitChunks(value: SplitChunksOptions): this;
+		usedExports(value: boolean): this;
+	}
+
+	interface RuntimeChunk {
+		name: string | RuntimeChunkFunction;
+	}
+
+	type RuntimeChunkFunction = (entryPoint: EntryPoint) => string;
+
+	interface SplitChunksOptions { [name: string]: any; }
 
 	interface LoaderOptions { [name: string]: any; }
 

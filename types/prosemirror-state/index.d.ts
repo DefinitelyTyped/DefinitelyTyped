@@ -74,7 +74,7 @@ export interface PluginSpec<S extends Schema = any> {
     transactions: Transaction[],
     oldState: EditorState<S>,
     newState: EditorState<S>
-  ) => Transaction | null | void)
+  ) => Transaction | null | undefined | void)
   | null;
 }
 /**
@@ -147,11 +147,11 @@ export class PluginKey<S extends Schema = any> {
    * Get the active plugin with this key, if any, from an editor
    * state.
    */
-  get(state: EditorState<S>): Plugin<S> | null | void;
+  get(state: EditorState<S>): Plugin<S> | null | undefined;
   /**
    * Get the plugin's state from an editor state.
    */
-  getState(state: EditorState<S>): any | null | void;
+  getState(state: EditorState<S>): any | null | undefined;
 }
 /**
  * Superclass for editor selections. Every selection type should
@@ -263,7 +263,7 @@ export class Selection<S extends Schema = any> {
     $pos: ResolvedPos<S>,
     dir: number,
     textOnly?: boolean
-  ): Selection<S> | null | void;
+  ): Selection<S> | null | undefined;
   /**
    * Find a valid cursor or leaf node selection near the given
    * position. Searches forward first by default, but if `bias` is

@@ -403,7 +403,7 @@ export function replaceStep<S extends Schema = any>(
   from: number,
   to?: number,
   slice?: Slice<S>
-): Step<S> | null | void;
+): Step<S> | null | undefined;
 /**
  * A step object represents an atomic change. It generally applies
  * only to the document it was created for, since the positions
@@ -439,13 +439,13 @@ export class Step<S extends Schema = any> {
    * version of that step with its positions adjusted, or `null` if
    * the step was entirely deleted by the mapping.
    */
-  map(mapping: Mappable): Step<S> | null | void;
+  map(mapping: Mappable): Step<S> | null | undefined;
   /**
    * Try to merge this step with another one, to be applied directly
    * after it. Returns the merged step when possible, null if the
    * steps can't be merged.
    */
-  merge(other: Step<S>): Step<S> | null | void;
+  merge(other: Step<S>): Step<S> | null | undefined;
   /**
    * Create a JSON-serializeable representation of this step. When
    * defining this for a custom subclass, make sure the result object
@@ -504,18 +504,21 @@ export class StepResult<S extends Schema = any> {
  * can be lifted. Will not go across
  * [isolating](#model.NodeSpec.isolating) parent nodes.
  */
-export function liftTarget(range: NodeRange): number | null | void;
+export function liftTarget(range: NodeRange): number | null | undefined;
 /**
  * Try to find a valid way to wrap the content in the given range in a
  * node of the given type. May introduce extra nodes around and inside
  * the wrapper node, if necessary. Returns null if no valid wrapping
- * could be found.
+ * could be found. When `innerRange` is given, that range's content is
+ * used as the content to fit into the wrapping, instead of the
+ * content of range.
  */
 export function findWrapping<S extends Schema = any>(
   range: NodeRange<S>,
   nodeType: NodeType<S>,
-  attrs?: { [key: string]: any }
-): Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null }> | null | void;
+  attrs?: { [key: string]: any },
+  innerRange?: NodeRange<S>
+): Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null }> | null | undefined;
 /**
  * Check whether splitting at the given position is allowed.
  */
@@ -535,7 +538,7 @@ export function canJoin(doc: ProsemirrorNode, pos: number): boolean;
  * block before (or after if `dir` is positive). Returns the joinable
  * point, if any.
  */
-export function joinPoint(doc: ProsemirrorNode, pos: number, dir?: number): number | null | void;
+export function joinPoint(doc: ProsemirrorNode, pos: number, dir?: number): number | null | undefined;
 /**
  * Try to find a point where a node of the given type can be inserted
  * near `pos`, by searching up the node hierarchy when `pos` itself
@@ -546,4 +549,4 @@ export function insertPoint<S extends Schema = any>(
   doc: ProsemirrorNode<S>,
   pos: number,
   nodeType: NodeType<S>
-): number | null | void;
+): number | null | undefined;

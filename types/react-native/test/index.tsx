@@ -22,6 +22,7 @@ import {
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
+    Image,
     ImageStyle,
     InteractionManager,
     ListView,
@@ -48,8 +49,10 @@ import {
     NativeModules,
     MaskedViewIOS,
     TextInput,
+    TextInputFocusEventData,
     InputAccessoryView,
-    StatusBar
+    StatusBar,
+    NativeSyntheticEvent
 } from "react-native";
 
 declare module "react-native" {
@@ -259,6 +262,12 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
 }
 
 export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
+    myList: SectionList<any>
+
+    scrollMe = () => {
+        this.myList.scrollToLocation({itemIndex: 0, sectionIndex: 1});
+    }
+
     render() {
         const sections = [
             {
@@ -277,19 +286,24 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
         ];
 
         return (
-            <SectionList
-                sections={sections}
-                renderSectionHeader={({ section }) => (
-                    <View>
-                        <Text>{section.title}</Text>
-                    </View>
-                )}
-                renderItem={(info: { item: string }) => (
-                    <View>
-                        <Text>{info.item}</Text>
-                    </View>
-                )}
-            />
+            <React.Fragment>
+                <Button title="Press" onPress={this.scrollMe} />
+
+                <SectionList
+                    ref={(ref: any) => this.myList = ref}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => (
+                        <View>
+                            <Text>{section.title}</Text>
+                        </View>
+                    )}
+                    renderItem={(info: { item: string }) => (
+                        <View>
+                            <Text>{info.item}</Text>
+                        </View>
+                    )}
+                />
+            </React.Fragment>
         );
     }
 }
@@ -435,6 +449,25 @@ class TextInputRefTest extends React.Component<{}, {username: string}> {
     }
 }
 
+class TextInputFocusBlurEventTest extends React.Component {
+    handleOnBlur(e: NativeSyntheticEvent<TextInputFocusEventData>) {
+    }
+
+    handleOnFocus(e: NativeSyntheticEvent<TextInputFocusEventData>) {
+    }
+
+    render() {
+        return (
+            <View>
+                <TextInput
+                    onBlur={(e: NativeSyntheticEvent<TextInputFocusEventData>) => this.handleOnBlur(e)}
+                    onFocus={(e: NativeSyntheticEvent<TextInputFocusEventData>) => this.handleOnFocus(e)}
+                />
+            </View>
+        )
+    }
+}
+
 class StatusBarTest extends React.Component {
     render() {
         StatusBar.setBarStyle("dark-content", true);
@@ -447,6 +480,27 @@ class StatusBarTest extends React.Component {
                 barStyle="light-content"
                 translucent
             />
+        );
+    }
+}
+
+class StylePropsTest extends React.PureComponent {
+    render() {
+        const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
+
+        return (
+            <View backgroundColor="lightgray" flex={1} overflow="scroll">
+                <Image
+                    borderRadius={100}
+                    // height={200}
+                    margin={20}
+                    overflow="visible" // ps: must fail if "scroll"
+                    source={{ uri }}
+                    style={{ width: 200, height: 200, tintColor: 'green' }}
+                    // tintColor="green"
+                    // width={200}
+                />
+            </View>
         );
     }
 }

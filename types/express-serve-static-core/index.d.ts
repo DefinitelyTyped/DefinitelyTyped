@@ -1,4 +1,4 @@
-// Type definitions for Express 4.11
+// Type definitions for Express 4.16
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Michał Lytek <https://github.com/19majkel94>
@@ -23,6 +23,7 @@ declare global {
 
 import * as http from "http";
 import { EventEmitter } from "events";
+import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from "range-parser";
 
 export interface NextFunction {
     // tslint:disable-next-line callable-types (In ts2.1 it thinks the type alias has no call signatures)
@@ -174,7 +175,7 @@ export interface CookieOptions {
 
 export interface ByteRange { start: number; end: number; }
 
-export interface RequestRanges extends Array<ByteRange> { type: string; }
+export interface RequestRanges extends RangeParserRanges { }
 
 export type Errback = (err: Error) => void;
 
@@ -283,21 +284,19 @@ export interface Request extends http.IncomingMessage, Express.Request {
     acceptsLanguages(...lang: string[]): string | false;
 
     /**
-     * Parse Range header field,
-     * capping to the given `size`.
+     * Parse Range header field, capping to the given `size`.
      *
-     * Unspecified ranges such as "0-" require
-     * knowledge of your resource length. In
-     * the case of a byte range this is of course
-     * the total number of bytes. If the Range
-     * header field is not given `null` is returned,
-     * `-1` when unsatisfiable, `-2` when syntactically invalid.
+     * Unspecified ranges such as "0-" require knowledge of your resource length. In
+     * the case of a byte range this is of course the total number of bytes.
+     * If the Range header field is not given `undefined` is returned.
+     * If the Range header field is given, return value is a result of range-parser.
+     * See more ./types/range-parser/index.d.ts
      *
-     * NOTE: remember that ranges are inclusive, so
-     * for example "Range: users=0-3" should respond
-     * with 4 users when available, not 3.
+     * NOTE: remember that ranges are inclusive, so for example "Range: users=0-3"
+     * should respond with 4 users when available, not 3.
+     *
      */
-    range(size: number): RequestRanges|null|-1|-2;
+    range(size: number, options?: RangeParserOptions): RangeParserRanges | RangeParserResult | undefined;
 
     /**
      * Return an array of Accepted media types
@@ -450,6 +449,13 @@ export interface Request extends http.IncomingMessage, Express.Request {
     baseUrl: string;
 
     app: Application;
+
+    /**
+     * After middleware.init executed, Request will contain res and next properties
+     * See: express/lib/middleware/init.js
+     */
+    res?: Response;
+    next?: NextFunction;
 }
 
 export interface MediaType {
@@ -707,6 +713,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      */
     set(field: any): Response;
     set(field: string, value?: string): Response;
+    set(field: string, value?: string[]): Response;
 
     header(field: any): Response;
     header(field: string, value?: string): Response;
@@ -826,7 +833,13 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      * @since 4.11.0
      */
-    append(field: string, value?: string[]|string): Response;
+    append(field: string, value?: string[] | string): Response;
+
+    /**
+     * After middleware.init executed, Response will contain req property
+     * See: express/lib/middleware/init.js
+     */
+    req?: Request;
 }
 
 export interface Handler extends RequestHandler { }
@@ -1061,6 +1074,22 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
     _router: any;
 
     use: ApplicationRequestHandler<this>;
+
+    /**
+     * The mount event is fired on a sub-app, when it is mounted on a parent app.
+     * The parent app is passed to the callback function.
+     *
+     * NOTE:
+     * Sub-apps will:
+     *  - Not inherit the value of settings that have a default value. You must set the value in the sub-app.
+     *  - Inherit the value of settings with no default value.
+     */
+    on: (event: string, callback: (parent: Application) => void) => this;
+
+    /**
+     * The app.mountpath property contains one or more path patterns on which a sub-app was mounted.
+     */
+    mountpath: string | string[];
 }
 
 export interface Express extends Application {

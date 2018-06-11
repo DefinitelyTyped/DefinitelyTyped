@@ -5,8 +5,11 @@ export interface DocumentProps {
     __NEXT_DATA__?: any;
     dev?: boolean;
     chunks?: string[];
+    html?: string;
     head?: Array<React.ReactElement<any>>;
+    errorHtml?: string;
     styles?: Array<React.ReactElement<any>>;
+
     [key: string]: any;
 }
 
@@ -25,4 +28,6 @@ export interface NextDocumentContext extends NextContext {
 export class Head extends React.Component<any> {}
 export class Main extends React.Component {}
 export class NextScript extends React.Component {}
-export default class extends React.Component<DocumentProps> {}
+export default class extends React.Component<DocumentProps> {
+    static getInitialProps(ctx: Context): DocumentProps;
+}

@@ -4,6 +4,7 @@
 //                 Brice BERNARD <https://github.com/brikou>
 //                 James Hegedus <https://github.com/jthegedus>
 //                 Resi Respati <https://github.com/resir014>
+//                 Scott Jones <https://github.com/scottdj92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -68,6 +69,7 @@ declare namespace next {
     }
 
     interface Server {
+        setAssetPrefix: (cdnUrl: string) => void;
         handleRequest(
             req: http.IncomingMessage,
             res: http.ServerResponse,

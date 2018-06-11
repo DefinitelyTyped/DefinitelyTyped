@@ -1,11 +1,12 @@
+/// <reference types="windows-script-host" />
 /// <reference types="activex-msforms" />
 /// <reference types="activex-scripting" />
 
 // some helpers
 const toSafeArray = <T>(...items: T[]): SafeArray<T> => {
-    const dict = new ActiveXObject('Scripting.Dictionary');
+    const dict: Scripting.Dictionary<number, T> = new ActiveXObject('Scripting.Dictionary');
     items.forEach((x, index) => dict.Add(index, x));
-    return dict.Items() as SafeArray<T>;
+    return dict.Items();
 };
 const inCollection = <T = any>(collection: { Item(index: any): T }, index: string | number): T | undefined => {
     let item: T | undefined;
@@ -295,11 +296,17 @@ const setColumnVisibility = (visible: boolean) => {
 
         const combobox = sheet.OLEObjects('ComboBox1').Object as MSForms.ComboBox;
         combobox.Clear();
-        const enumerator = new Enumerator(dict.Items());
+
+        // iterate over keys using Enumerator
+        const enumerator = new Enumerator(dict);
         enumerator.moveFirst();
         while (!enumerator.atEnd()) {
             combobox.AddItem(enumerator.item());
+            enumerator.moveNext();
         }
+
+        // alternatively, make a JS array out of the keys, and iterate using forEach
+        // new VBArray(dict.Keys()).toArray().forEach(x => combobox.AddItem(x));
     })();
 })();
 

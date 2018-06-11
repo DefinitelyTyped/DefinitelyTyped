@@ -3039,6 +3039,37 @@ declare namespace AceAjax {
         **/
         new(container: HTMLElement, theme?: string): VirtualRenderer;
     }
+
+    export interface Completer {
+        /**
+         * Provides possible completion results asynchronously using the given callback.
+         * @param editor The editor to associate with
+         * @param session The `EditSession` to refer to
+         * @param pos An object containing the row and column
+         * @param prefix The prefixing string before the current position
+         * @param callback Function to provide the results or error
+         */
+        getCompletions: (editor: Editor, session: IEditSession, pos: Position, prefix: string, callback: CompletionCallback) => void;
+
+        /**
+         * Provides tooltip information about a completion result.
+         * @param item The completion result
+         */
+        getDocTooltip?: (item: Completion) => void;
+      }
+      
+      export interface Completion {
+        value: string;
+        meta: string;
+        type?: string;
+        caption?: string;
+        snippet?: any;
+        score?: number;
+        exactMatch?: number;
+        docHTML?: string;
+      }
+      
+      export type CompletionCallback = (error: Error, results: Completion[]) => void;
 }
 
 declare var ace: AceAjax.Ace;

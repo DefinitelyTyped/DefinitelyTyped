@@ -197,6 +197,12 @@ declare namespace angular {
          */
         component(name: string, options: IComponentOptions): IModule;
         /**
+         * Use this method to register a component.
+         *
+         * @param object Object map of components where the keys are the names and the values are the component definition objects
+         */
+        component(object: {[componentName: string]: IComponentOptions}): IModule;
+        /**
          * Use this method to register work which needs to be performed on module loading.
          *
          * @param configFn Execute this function on module load. Useful for service configuration.
@@ -1028,7 +1034,7 @@ declare namespace angular {
         all<T1, T2, T3, T4>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>]): IPromise<[T1, T2, T3, T4]>;
         all<T1, T2, T3>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>]): IPromise<[T1, T2, T3]>;
         all<T1, T2>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>]): IPromise<[T1, T2]>;
-        all<TAll>(promises: Array<IPromise<TAll>>): IPromise<TAll[]>;
+        all<TAll>(promises: Array<TAll | IPromise<TAll>>): IPromise<TAll[]>;
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
@@ -1273,6 +1279,7 @@ declare namespace angular {
         directive<TScope extends IScope = IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): ICompileProvider;
 
         component(name: string, options: IComponentOptions): ICompileProvider;
+        component(object: {[componentName: string]: IComponentOptions}): ICompileProvider;
 
         aHrefSanitizationWhitelist(): RegExp;
         aHrefSanitizationWhitelist(regexp: RegExp): ICompileProvider;

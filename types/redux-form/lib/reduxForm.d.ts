@@ -109,6 +109,7 @@ export interface ConfigProps<FormData = {}, P = {}> {
     immutableProps?: string[];
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
+    updateUnregisteredFields?: boolean;
     onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
     onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
     onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<any>, submitError: any, props: P & InjectedFormProps<FormData, P>): void;
@@ -132,6 +133,7 @@ export interface FormInstance<FormData, P> extends Component<P> {
     pristine: boolean;
     registeredFields: RegisteredFieldState[];
     reset(): void;
+    resetSection(...sections: string[]): void;
     submit(): Promise<any>;
     valid: boolean;
     values: Partial<FormData>;

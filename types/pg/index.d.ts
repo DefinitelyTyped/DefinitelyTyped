@@ -16,6 +16,7 @@ export interface ConnectionConfig {
     port?: number;
     host?: string;
     connectionString?: string;
+    keepAlive?: boolean;
 }
 
 export interface Defaults extends ConnectionConfig {

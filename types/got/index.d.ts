@@ -119,7 +119,7 @@ declare namespace got {
         followRedirect?: boolean;
         decompress?: boolean;
         useElectronNet?: boolean;
-        cache?: Map<string, any>;
+        cache?: Cache;
         agent?: http.Agent | boolean | AgentOptions;
         throwHttpErrors?: boolean;
     }
@@ -136,6 +136,12 @@ declare namespace got {
     }
 
     type RetryFunction = (retry: number, error: any) => number;
+
+    interface Cache {
+        set(key: string, value: any, ttl?: number): any;
+        get(key: string): any;
+        delete(key: string): any;
+    }
 
     interface Response<B extends Buffer | string | object> extends http.IncomingMessage {
         body: B;

@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLError, locatedError } from "../error";
 import { GraphQLSchema } from "../type/schema";
 import {
@@ -51,9 +52,9 @@ export type ExecutionArgs = {
     document: DocumentNode;
     rootValue?: any;
     contextValue?: any;
-    variableValues?: { [key: string]: any } | void;
-    operationName?: string | void;
-    fieldResolver?: GraphQLFieldResolver<any, any> | void;
+    variableValues?: Maybe<{ [key: string]: any }>;
+    operationName?: Maybe<string>;
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
 };
 
 /**
@@ -74,9 +75,9 @@ export function execute(
     document: DocumentNode,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: { [key: string]: any } | void,
-    operationName?: string | void,
-    fieldResolver?: GraphQLFieldResolver<any, any> | void
+    variableValues?: Maybe<{ [key: string]: any }>,
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
 ): MaybePromise<ExecutionResult>;
 
 /**
@@ -101,7 +102,7 @@ export function addPath(
 export function assertValidExecutionArguments(
     schema: GraphQLSchema,
     document: DocumentNode,
-    rawVariableValues: { [key: string]: any } | void
+    rawVariableValues: Maybe<{ [key: string]: any }>
 ): void;
 
 /**
@@ -115,9 +116,9 @@ export function buildExecutionContext(
     document: DocumentNode,
     rootValue: any,
     contextValue: any,
-    rawVariableValues: { [key: string]: any } | void,
-    operationName: string | void,
-    fieldResolver: GraphQLFieldResolver<any, any> | void
+    rawVariableValues: Maybe<{ [key: string]: any }>,
+    operationName: Maybe<string>,
+    fieldResolver: Maybe<GraphQLFieldResolver<any, any>>
 ): ReadonlyArray<GraphQLError> | ExecutionContext;
 
 /**
@@ -181,4 +182,4 @@ export function getFieldDef(
     schema: GraphQLSchema,
     parentType: GraphQLObjectType,
     fieldName: string
-): GraphQLField<any, any> | void;
+): Maybe<GraphQLField<any, any>>;

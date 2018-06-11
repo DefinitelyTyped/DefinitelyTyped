@@ -20,6 +20,7 @@ declare namespace helmet {
         ieNoOpen?: boolean,
         noCache?: boolean,
         noSniff?: boolean,
+        referrerPolicy?: boolean | IHelmetReferrerPolicyConfiguration,
         xssFilter?: boolean | IHelmetXssFilterConfiguration,
         expectCt?: boolean | IHelmetExpectCtConfiguration,
     }
