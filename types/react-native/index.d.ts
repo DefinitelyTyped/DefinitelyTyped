@@ -3582,13 +3582,13 @@ export interface ViewabilityConfig {
      */
     waitForInteraction?: boolean;
 }
-                                       
+
 export interface ViewabilityConfigCallbackPair {
     viewabilityConfig: ViewabilityConfig;
-    onViewableItemsChanged: (info: ViewabilityInfo) => void;
-};
+    onViewableItemsChanged: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null;
+}
 
-export type ViewabilityConfigCallbackPairs = ViewabilityConfigCallbackPair[];                           
+export type ViewabilityConfigCallbackPairs = ViewabilityConfigCallbackPair[];
 
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
@@ -4118,8 +4118,8 @@ export interface VirtualizedListProps<ItemT> extends ScrollViewProps {
     updateCellsBatchingPeriod?: number;
 
     viewabilityConfig?: ViewabilityConfig;
-                                       
-    viewabilityConfigCallbackPairs: ViewabilityConfigCallbackPairs;
+
+    viewabilityConfigCallbackPairs?: ViewabilityConfigCallbackPairs;
 
     /**
      * Determines the maximum number of items rendered outside of the visible area, in units of
