@@ -8292,7 +8292,7 @@ declare namespace Office {
         /**
          * The mailbox item.  Depending on the context in which the add-in opened, the item may be of any number of types.
          * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
-         * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentCompose`, `AppointmentRead`
+         * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentOrganizer`, `AppointmentAttendee`
          */
         item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentAttendee & AppointmentOrganizer;
         /**
