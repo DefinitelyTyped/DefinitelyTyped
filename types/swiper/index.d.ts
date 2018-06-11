@@ -1,9 +1,8 @@
 // Type definitions for Swiper
 // Project: https://github.com/nolimits4web/Swiper
-// Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions by: Luiz Machado <https://github.com/odahcam/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.8
 // Swiper Version: 4.2.6
 
 // declare namespace swiper {
