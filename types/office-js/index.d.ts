@@ -6436,19 +6436,15 @@ declare namespace Office {
     interface Appointment extends Item {
     }
     /**
-     * The compose mode of {@link Office.Appointment}.
+     * The appointment organizer mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
-     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of **Office.context.mailbox.item**. Refer to the Object Model pages for more information.
      */
-    interface AppointmentOrganizer extends Appointment, ItemCompose {
+    interface AppointmentCompose extends Appointment, ItemCompose {
         /**
          * Gets or sets the date and time that the appointment is to end.
          *
-         * The end property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
-         *
-         * *Compose mode*
-         *
-         * The end property returns a Time object.
+         * The end property is an {@link Office.Time} object expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
          *
          * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on the client to UTC for the server.
          *
@@ -6462,11 +6458,7 @@ declare namespace Office {
          */
         end: Time;
         /**
-         * Gets or sets the location of an appointment.
-         *
-         * *Compose mode*
-         *
-         * The location property returns a Location object that provides methods that are used to get and set the location of the appointment.
+         * Gets or sets the {@link Office.Location} of an appointment. The location property returns a Location object that provides methods that are used to get and set the location of the appointment.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -6478,11 +6470,7 @@ declare namespace Office {
          */
         location: Location;
         /**
-         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
-         *
-         * *Compose mode*
-         *
-         * The optionalAttendees property returns a Recipients object that provides methods to get or update the optional attendees for a meeting.
+         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item. The optionalAttendees property returns an {@link Office.Recipients} object that provides methods to get or update the optional attendees for a meeting.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -6494,11 +6482,7 @@ declare namespace Office {
          */
         optionalAttendees: Recipients;
         /**
-         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
-         *
-         * *Compose mode*
-         *
-         * The requiredAttendees property returns a Recipients object that provides methods to get or update the required attendees for a meeting.
+         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item. The requiredAttendees property returns an {@link Office.Recipients} object that provides methods to get or update the required attendees for a meeting.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -6512,11 +6496,7 @@ declare namespace Office {
         /**
          * Gets or sets the date and time that the appointment is to begin.
          *
-         * The start property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
-         *
-         * *Compose mode*
-         *
-         * The start property returns a Time object.
+         * The start property is an {@link Office.Time} object expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
          *
          * When you use the Time.setAsync method to set the start time, you should use the convertToUtcClientTime method to convert the local time on the client to UTC for the server.
          *
@@ -6531,17 +6511,15 @@ declare namespace Office {
         start: Time;
     }
     /**
-     * The read mode of {@link Office.Appointment}.
+     * The appointment attendee mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
-     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of **Office.context.mailbox.item**. Refer to the Object Model pages for more information.
      */
-    interface AppointmentAttendee extends Appointment, ItemRead {
+    interface AppointmentRead extends Appointment, ItemRead {
         /**
          * Gets the date and time that the appointment is to end.
          *
-         * The end property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
-         *
-         * The end property returns a Date object.
+         * The end property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
          *
          * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on the client to UTC for the server.
          *
@@ -6571,7 +6549,7 @@ declare namespace Office {
         /**
          * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
          *
-         * The optionalAttendees property returns an array that contains an EmailAddressDetails object for each optional attendee to the meeting.
+         * The optionalAttendees property returns an array that contains an {@link Office.EmailAddressDetails} object for each optional attendee to the meeting.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -6597,7 +6575,7 @@ declare namespace Office {
         /**
          * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
          *
-         * The requiredAttendees property returns an array that contains an EmailAddressDetails object for each required attendee to the meeting.
+         * The requiredAttendees property returns an array that contains an {@link Office.EmailAddressDetails} object for each required attendee to the meeting.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -6611,9 +6589,7 @@ declare namespace Office {
         /**
          * Gets the date and time that the appointment is to begin.
          *
-         * The start property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
-         *
-         * The start property returns a Date object.
+         * The start property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -6772,7 +6748,7 @@ declare namespace Office {
     }
 
     /**
-     * The item namespace is used to access the currently selected message, meeting request, or appointment. You can determine the type of the item by using the itemType property.
+     * The item namespace is used to access the currently selected message, meeting request, or appointment. You can determine the type of the item by using the `itemType` property.
      *
      * [Api set: Mailbox 1.0]
      *
@@ -6986,9 +6962,9 @@ declare namespace Office {
        removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
     }
     /**
-     * The compose mode of {@link Office.Item}.
+     * The compose mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
-     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of **Office.context.mailbox.item**. Refer to the Object Model pages for more information.
      */
     interface ItemCompose extends Item {
         /**
@@ -7582,9 +7558,9 @@ declare namespace Office {
         setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
     }
     /**
-     * The read mode of {@link Office.Appointment}.
+     * The read mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
-     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of **Office.context.mailbox.item**. Refer to the Object Model pages for more information.
      */
     interface ItemRead extends Item {
         /**
@@ -7919,9 +7895,9 @@ declare namespace Office {
     }
 
      /**
-     * The compose mode of {@link Office.Message}.
+     * The message compose mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
-     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of **Office.context.mailbox.item**. Refer to the Object Model pages for more information.
      */
     interface MessageCompose extends Message, ItemCompose {
         /**
@@ -7939,9 +7915,7 @@ declare namespace Office {
         /**
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the current item.
          *
-         * *Compose mode*
-         *
-         * The cc property returns a Recipients object that provides methods to get or update the recipients on the Cc line of the message.
+         * The cc property returns a {@link Office.Recipients} object that provides methods to get or update the recipients on the Cc line of the message.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -7984,7 +7958,7 @@ declare namespace Office {
         to: Recipients;
     }
     /**
-     * The read mode of {@link Office.Message}. 
+     * The message read mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
@@ -8292,9 +8266,9 @@ declare namespace Office {
         /**
          * The mailbox item.  Depending on the context in which the add-in opened, the item may be of any number of types.
          * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
-         * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentOrganizer`, `AppointmentAttendee`
+         * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentCompose`, `AppointmentRead`
          */
-        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentAttendee & AppointmentOrganizer;
+        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
         /**
          * Gets the URL of the REST endpoint for this email account.
          *
