@@ -1392,7 +1392,7 @@ export namespace Font {
 
 // #region GLView
 export interface ExpoWebGLRenderingContext extends WebGLRenderingContext {
-    endFrameEXP(): any;
+    endFrameEXP(): void;
 }
 
 /**
