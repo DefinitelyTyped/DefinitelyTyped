@@ -1,6 +1,8 @@
-import signale, { Signale, SignaleOptions } from "signale";
+import { Signale, SignaleOptions } from "signale";
 
 // --- Test 1: Basic Usage --- //
+
+const signale = new Signale();
 
 signale.success("Operation successful");
 signale.debug("Hello", "from", "L59");

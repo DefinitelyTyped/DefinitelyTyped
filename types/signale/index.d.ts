@@ -2,12 +2,13 @@
 // Project: https://github.com/klauscfhq/signale
 // Definitions by: Resi Respati <https://github.com/resir014>
 //                 Kingdaro <https://github.com/kingdaro>
+//                 Joydip Roy <https://github.com/rjoydip>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
 /// <reference types="node" />
 
-declare namespace Signale {
+declare namespace signale {
     type DefaultMethods =
         | "await"
         | "complete"
@@ -125,11 +126,12 @@ declare namespace Signale {
         Record<DefaultMethods, LoggerFunc>;
 }
 
-declare const Signale: Signale.Signale<Signale.DefaultMethods> & {
-    Signale: Signale.SignaleConstructor;
-    SignaleConfig: Signale.SignaleConfig;
-    SignaleOptions: Signale.SignaleOptions;
-    DefaultMethods: Signale.DefaultMethods;
+declare const signale: signale.Signale<signale.DefaultMethods> & {
+    Signale: signale.SignaleConstructor;
+    SignaleConfig: signale.SignaleConfig;
+    SignaleOptions: signale.SignaleOptions;
+    DefaultMethods: signale.DefaultMethods;
 };
-export = Signale;
-export as namespace Signale;
+
+export = signale;
+export as namespace signale;
