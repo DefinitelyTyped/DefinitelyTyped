@@ -1,13 +1,10 @@
 // Type definitions for Swiper
 // Project: https://github.com/nolimits4web/Swiper
+// Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions by: Luiz Machado <https://github.com/odahcam/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.5
 // Swiper Version: 4.2.6
-
-// @TODO: use namespaces over module declaration.
-// @TODO: finish typing definition of Swiper sub-modules.
-// @TODO: finish typing definition of Swiper main class.
 
 // declare namespace swiper {
 declare module 'swiper' {
@@ -609,6 +606,10 @@ declare module 'swiper' {
         resize: () => {};
     }
 
+    /*
+     * Options
+     */
+
     interface SwiperOptions {
 
         init?: boolean;
@@ -892,7 +893,9 @@ declare module 'swiper' {
         preloaderClass: string;
     }
 
-    // Effects
+    /*
+     * Options - Effects
+     */
 
     interface EffectFadeOptions {
         crossfade: boolean;
@@ -970,6 +973,11 @@ declare module 'swiper' {
         paginationBulletMessage: string;
         notificationClass: string;
     }
+}
+
+declare module 'swiper/dist/js/swiper.esm' {
+    import alias = require('swiper');
+    export = alias;
 }
 
 declare module 'swiper/dist/js/swiper.esm.js' {
