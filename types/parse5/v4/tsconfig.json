@@ -12,6 +12,7 @@
         "typeRoots": [
             "../../"
         ],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
