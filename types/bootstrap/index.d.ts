@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap 4.0
+// Type definitions for Bootstrap 4.1
 // Project: https://github.com/twbs/bootstrap/
 // Definitions by: denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -54,6 +54,14 @@ export interface CarouselOption {
      * @default true
      */
     keyboard?: boolean;
+
+    /**
+     * Use to easily control the position of the carousel. It accepts the keywords prev or next, which alters the slide position
+     * relative to its current position. Alternatively, use `data-slide-to` to pass a raw slide index to the carousel.
+     *
+     * @default false
+     */
+    slide?: "next" | "prev" | false;
 
     /**
      * If set to "hover", pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave.
@@ -116,6 +124,21 @@ export interface DropdownOption {
      * @default "scrollParent"
      */
     boundary?: Popper.Boundary | HTMLElement;
+
+    /**
+     * Reference element of the dropdown menu. Accepts the values of 'toggle', 'parent', or an HTMLElement reference.
+     * For more information refer to Popper.js's referenceObject docs.
+     *
+     * @default "toggle"
+     */
+    reference?: "toggle" | "parent" | HTMLElement;
+
+    /**
+     * By default, we use Popper.js for dynamic positioning. Disable this with 'static'.
+     *
+     * @default "dynamic"
+     */
+    display?: "dynamic" | "static";
 }
 
 export interface ModalOption {
@@ -154,6 +177,8 @@ export interface PopoverOption extends TooltipOption {
      * Default content value if data-content attribute isn't present.
      * If a function is given, it will be called with its this reference
      * set to the element that the popover is attached to.
+     *
+     * @default ""
      */
     content?: string | Element | ((this: Element) => string | Element);
 }
@@ -226,7 +251,7 @@ export interface TooltipOption {
      * the tooltip or popover DOM node as its first argument and the triggering element DOM node as its second.
      * The this context is set to the tooltip or popover instance.
      *
-     * @default "top"
+     * @default tooltip: "top", popover: "right"
      */
     placement?: Placement | ((this: TooltipInstance<this>, node: HTMLElement, trigger: Element) => Placement);
 

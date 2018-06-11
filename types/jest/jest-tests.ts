@@ -367,6 +367,11 @@ describe('missing tests', () => {
         expect(mock.getMockName()).toBe('Carrot');
     });
 
+    it('tests mock name functionality', () => {
+        const mock = spyOn(console, 'warn');
+        expect(mock).toHaveBeenCalled();
+    });
+
     it('creates snapshoter', () => {
        jest.disableAutomock().mock('./render', () => jest.fn((): string => "{Link to: \"facebook\"}"), { virtual: true });
        const render: () => string = require('./render');
@@ -725,4 +730,10 @@ test('moduleName 2', () => {
     });
     const moduleName = require('../moduleName');
     expect(moduleName()).toEqual(2);
+});
+
+describe('toHaveBeenNthCalledWith', () => {
+    const fn = jest.fn();
+
+    expect(fn).toHaveBeenNthCalledWith(3, "foo");
 });

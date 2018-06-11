@@ -30,12 +30,19 @@ auth0.auth.logoutUrl({
     returnTo: "http://localhost:3000"
 });
 
-auth0.auth.passwordRealm({
-    username: "me@example.com",
-    password: "password",
-    realm: "realm",
-    audience: "user-info"
-});
+auth0.auth
+    .passwordRealm({
+        username: "me@example.com",
+        password: "password",
+        realm: "realm",
+        audience: "user-info"
+    })
+    .then(res => {
+        if (res.refreshToken) {
+            return res.refreshToken;
+        }
+        return res.accessToken;
+    });
 
 auth0.auth.refreshToken({
     refreshToken: "refresh-token",

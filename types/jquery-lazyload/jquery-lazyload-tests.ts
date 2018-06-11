@@ -9,7 +9,10 @@ $(document).ready(() => {
         effect: 'fadeIn',
         container: $('#container'),
         failure_limit: 10,
-        skip_invisible: true
+        skip_invisible: true,
+        appear: (elementsLeft: number, settings: JQueryLazyLoad.Options) => {
+            console.log(elementsLeft);
+        }
     };
     $('.lazyload').lazyload(options);
 

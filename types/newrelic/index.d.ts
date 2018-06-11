@@ -1,4 +1,4 @@
-// Type definitions for newrelic 2.7
+// Type definitions for newrelic 3.3
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -148,6 +148,23 @@ declare namespace newrelic {
         getBrowserTimingHeader(): string;
 
         /**
+         * Instrument a particular method to improve visibility into a transaction,
+         * or optionally turn it into a metric.
+         *
+         * The name defines a name for the segment. This name will be visible in transaction traces and
+         * as a new metric in the New Relic UI.
+         * The record flag defines whether the segment should be recorded as a metric.
+         * The handler is the function you want to track as a segment.
+         * The optional callback is a function passed to the handler to fire after its work is done.
+         *
+         * The agent begins timing the segment when startSegment is called.
+         * The segment is ended when either the handler finishes executing, or callback is fired, if it is provided.
+         * If a promise is returned from the handler, the segment's ending will be tied to that promise resolving or rejecting.
+         */
+        startSegment<T extends PromiseLike<any>>(name: string, record: boolean, handler: T): T;
+        startSegment<T, C extends (...args: any[]) => any>(name: string, record: boolean, handler: (cb?: C) => T, callback?: C): T;
+
+        /**
          * Instrument a particular callback to improve visibility into a transaction.
          *
          * Use this API call to improve instrumentation of a particular method, or to track work across asynchronous
@@ -157,6 +174,9 @@ declare namespace newrelic {
          *
          * The agent begins timing the segment when createTracer is called, and ends the segment when the callback
          * defined by the callback argument finishes executing.
+         *
+         * @deprecated
+         * This method has been deprecated in favor of newrelic.startSegment()
          */
         createTracer<T extends (...args: any[]) => any>(name: string, handle: T): T;
 

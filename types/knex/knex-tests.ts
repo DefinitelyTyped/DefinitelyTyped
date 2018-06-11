@@ -206,6 +206,11 @@ knex('users').where('votes', '>', 100);
 knex('users').where('votes', null);
 knex('users').where('votes', 'is not', null);
 
+// Using Raw in where
+knex('users').where(knex.raw('votes + 1'), '>', 101);
+knex('users').where(knex.raw('votes + 1'), '>', knex.raw('100 + 1'));
+knex('users').where('votes', '>', knex.raw('100 + 1'));
+
 var subquery = knex('users').where('votes', '>', 100).andWhere('status', 'active').orWhere('name', 'John').select('id');
 knex('accounts').where('id', 'in', subquery);
 
@@ -246,6 +251,8 @@ knex('users').whereBetween('votes', [1, 100]);
 knex('users').whereNotBetween('votes', [1, 100]);
 
 knex('users').whereRaw('id = ?', [1]);
+knex('users').whereRaw('id = :id', { id: 1 });
+knex('users').whereRaw('id = :id', { id: knex('users').select('id').limit(1) });
 
 // Join methods
 knex('users')
@@ -408,7 +415,15 @@ knex.select('*').from('users').join('accounts', (join: Knex.JoinClause) => {
 
 knex.select('*').from('users').join('accounts', 'accounts.type', knex.raw('?', ['admin']));
 
+knex.raw('? ON CONFLICT DO NOTHING', [knex('account').insert([{}])]);
+knex.raw('select * from users where id = ? OR id = ?',
+  1,
+  knex('users').select('id').limit(1),
+);
 knex.raw('select * from users where id = :user_id', { user_id: 1 });
+knex.raw('select * from users where id = :user_id_query', {
+  user_id_query: knex('ids').select('id').limit(1)
+});
 
 knex.from('users').innerJoin('accounts', 'users.id', 'accounts.user_id');
 
@@ -811,7 +826,7 @@ knex('users')
   .orWhere(knex.raw('status <> ?', [1]))
   .groupBy('status');
 
-  knex.raw('select * from users where id = ?', [1]).then(function(resp) {
+knex.raw('select * from users where id = ?', [1]).then(function(resp) {
     // ...
   });
 
@@ -962,9 +977,9 @@ knex.select('*')
     // ...
   });
 
-  knex.select('*').from('users').where(knex.raw('id = ?', [1])).toString();
+knex.select('*').from('users').where(knex.raw('id = ?', [1])).toString();
 
-  knex.select('*').from('users').where(knex.raw('id = ?', [1])).toSQL();
+knex.select('*').from('users').where(knex.raw('id = ?', [1])).toSQL();
 
 //
 // Callback functions

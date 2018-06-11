@@ -9,6 +9,9 @@
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
 //                 Sergey Rubanov <https://github.com/chicoxyzzy>
+//                 Simon Archer <https://github.com/archy-bold>
+//                 Ken Elkabany <https://github.com/braincore>
+//                 Slavik Nychkalo <https://github.com/gebeto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -35,6 +38,7 @@ declare class Chart {
     canvas: HTMLCanvasElement|null;
     chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
+    static plugins: PluginServiceStatic;
 
     static defaults: {
         global: Chart.ChartOptions & Chart.ChartFontOptions;
@@ -54,40 +58,40 @@ declare class PluginServiceStatic {
 }
 
 interface PluginServiceRegistrationOptions {
-    beforeInit?(chartInstance: Chart): void;
-    afterInit?(chartInstance: Chart): void;
+    beforeInit?(chartInstance: Chart, options?: any): void;
+    afterInit?(chartInstance: Chart, options?: any): void;
 
-    resize?(chartInstance: Chart, newChartSize: Size): void;
+    resize?(chartInstance: Chart, newChartSize: Size, options?: any): void;
 
-    beforeUpdate?(chartInstance: Chart): void;
-    afterScaleUpdate?(chartInstance: Chart): void;
-    beforeDatasetsUpdate?(chartInstance: Chart): void;
-    afterDatasetsUpdate?(chartInstance: Chart): void;
-    afterUpdate?(chartInstance: Chart): void;
+    beforeUpdate?(chartInstance: Chart, options?: any): void;
+    afterScaleUpdate?(chartInstance: Chart, options?: any): void;
+    beforeDatasetsUpdate?(chartInstance: Chart, options?: any): void;
+    afterDatasetsUpdate?(chartInstance: Chart, options?: any): void;
+    afterUpdate?(chartInstance: Chart, options?: any): void;
 
     // This is called at the start of a render. It is only called once, even if the animation will run for a number of frames. Use beforeDraw or afterDraw
     // to do something on each animation frame
-    beforeRender?(chartInstance: Chart): void;
+    beforeRender?(chartInstance: Chart, options?: any): void;
 
     // Easing is for animation
-    beforeDraw?(chartInstance: Chart, easing: string): void;
-    afterDraw?(chartInstance: Chart, easing: string): void;
+    beforeDraw?(chartInstance: Chart, easing: string, options?: any): void;
+    afterDraw?(chartInstance: Chart, easing: string, options?: any): void;
     // Before the datasets are drawn but after scales are drawn
-    beforeDatasetsDraw?(chartInstance: Chart, easing: string): void;
-    afterDatasetsDraw?(chartInstance: Chart, easing: string): void;
+    beforeDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
+    afterDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
 
     // Called before drawing the `tooltip`. If any plugin returns `false`,
     // the tooltip drawing is cancelled until another `render` is triggered.
-    beforeTooltipDraw?(chartInstance: Chart): void;
+    beforeTooltipDraw?(chartInstance: Chart, tooltipData?: any, options?: any): void;
     // Called after drawing the `tooltip`. Note that this hook will not,
     // be called if the tooltip drawing has been previously cancelled.
-    afterTooltipDraw?(chartInstance: Chart): void;
+    afterTooltipDraw?(chartInstance: Chart, tooltipData?: any, options?: any): void;
 
     destroy?(chartInstance: Chart): void;
 
     // Called when an event occurs on the chart
-    beforeEvent?(chartInstance: Chart, event: Event): void;
-    afterEvent?(chartInstance: Chart, event: Event): void;
+    beforeEvent?(chartInstance: Chart, event: Event, options?: any): void;
+    afterEvent?(chartInstance: Chart, event: Event, options?: any): void;
 }
 
 interface Size {
@@ -96,7 +100,7 @@ interface Size {
 }
 
 declare namespace Chart {
-    type ChartType = 'line' | 'bar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie';
+    type ChartType = 'line' | 'bar' | 'horizontalBar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie';
 
     type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
 
@@ -124,6 +128,10 @@ declare namespace Chart {
         lineWidth?: number;
         strokeStyle?: string;
         pointStyle?: PointStyle;
+    }
+
+    interface ChartLegendLabelItem extends ChartLegendItem {
+        datasetIndex: number;
     }
 
     interface ChartTooltipItem {
@@ -161,8 +169,9 @@ declare namespace Chart {
 
     interface ChartPoint {
         x?: number | string | Date;
-        y?: number;
+        y?: number | string | Date;
         r?: number;
+        t?: number | string | Date;
     }
 
     interface ChartConfiguration {
@@ -184,6 +193,7 @@ declare namespace Chart {
         aspectRatio?: number;
         maintainAspectRatio?: boolean;
         events?: string[];
+        onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
         onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
         title?: ChartTitleOptions;
         legend?: ChartLegendOptions;
@@ -198,6 +208,7 @@ declare namespace Chart {
         cutoutPercentage?: number;
         circumference?: number;
         rotation?: number;
+        devicePixelRatio?: number;
         // Plugins can require any options
         plugins?: { [plugin: string]: any };
     }
@@ -212,21 +223,21 @@ declare namespace Chart {
     interface ChartTitleOptions {
         display?: boolean;
         position?: PositionType;
-        fullWdith?: boolean;
+        fullWidth?: boolean;
         fontSize?: number;
         fontFamily?: string;
         fontColor?: ChartColor;
         fontStyle?: string;
         padding?: number;
-        text?: string;
+        text?: string | string[];
     }
 
     interface ChartLegendOptions {
         display?: boolean;
         position?: PositionType;
         fullWidth?: boolean;
-        onClick?(event: MouseEvent, legendItem: ChartLegendItem): void;
-        onHover?(event: MouseEvent, legendItem: ChartLegendItem): void;
+        onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
+        onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
@@ -239,7 +250,7 @@ declare namespace Chart {
         fontFamily?: string;
         padding?: number;
         generateLabels?(chart: any): any;
-        filter?(item: ChartLegendItem, data: ChartData): any;
+        filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
         usePointStyle?: boolean;
     }
 
@@ -291,7 +302,7 @@ declare namespace Chart {
         mode?: string;
         animationDuration?: number;
         intersect?: boolean;
-        onHover?(active: any): void;
+        onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 
     interface ChartAnimationObject {
@@ -395,6 +406,10 @@ declare namespace Chart {
     interface TickOptions {
         autoSkip?: boolean;
         autoSkipPadding?: number;
+        backdropColor?: ChartColor;
+        backdropPaddingX?: number;
+        backdropPaddingY?: number;
+        beginAtZero?: boolean;
         callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
         fontColor?: ChartColor;
@@ -402,14 +417,18 @@ declare namespace Chart {
         fontSize?: number;
         fontStyle?: string;
         labelOffset?: number;
+        max?: any;
         maxRotation?: number;
+        maxTicksLimit?: number;
+        min?: any;
         minRotation?: number;
         mirror?: boolean;
         padding?: number;
         reverse?: boolean;
-        min?: any;
-        max?: any;
+        showLabelBackdrop?: boolean;
+        source?: 'auto' | 'data' | 'labels';
     }
+
     interface AngleLineOptions {
         display?: boolean;
         color?: ChartColor;
@@ -424,26 +443,15 @@ declare namespace Chart {
         fontStyle?: string;
     }
 
-    interface TickOptions {
-        backdropColor?: ChartColor;
-        backdropPaddingX?: number;
-        backdropPaddingY?: number;
-        maxTicksLimit?: number;
-        showLabelBackdrop?: boolean;
-    }
     interface LinearTickOptions extends TickOptions {
-        beginAtZero?: boolean;
-        min?: number;
-        max?: number;
         maxTicksLimit?: number;
         stepSize?: number;
         suggestedMin?: number;
         suggestedMax?: number;
     }
 
+    // tslint:disable-next-line no-empty-interface
     interface LogarithmicTickOptions extends TickOptions {
-        min?: number;
-        max?: number;
     }
 
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
@@ -506,7 +514,9 @@ declare namespace Chart {
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
         barThickness?: number;
+        maxBarThickness?: number;
         scaleLabel?: ScaleTitleOptions;
+        offset?: boolean;
         beforeUpdate?(scale?: any): void;
         beforeSetDimension?(scale?: any): void;
         beforeDataLimits?(scale?: any): void;
@@ -526,6 +536,7 @@ declare namespace Chart {
     interface ChartXAxe extends CommonAxe {
         categoryPercentage?: number;
         barPercentage?: number;
+        distribution?: 'linear' | 'series';
         time?: TimeScale;
     }
 

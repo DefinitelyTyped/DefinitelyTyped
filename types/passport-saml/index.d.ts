@@ -24,7 +24,7 @@ export type VerifyWithRequest = (req: express.Request, profile: {}, done: Verifi
 
 export type VerifyWithoutRequest = (profile: {}, done: VerifiedCallback) => void;
 
-export class Strategy implements passport.Strategy {
+export class Strategy extends passport.Strategy {
     constructor(config: SamlConfig, verify: VerifyWithRequest | VerifyWithoutRequest);
     authenticate(req: express.Request, options: AuthenticateOptions | AuthorizeOptions): void;
     logout(req: express.Request, callback: (err: Error | null, url: string) => void): void;

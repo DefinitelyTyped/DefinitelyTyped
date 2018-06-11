@@ -9,7 +9,6 @@
 // Hierarchy
 // -----------------------------------------------------------------------
 
-
 export interface HierarchyLink<Datum> {
     source: HierarchyNode<Datum>;
     target: HierarchyNode<Datum>;
@@ -45,15 +44,13 @@ export interface HierarchyNode<Datum> {
     copy(): HierarchyNode<Datum>;
 }
 
-
 export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] | null)): HierarchyNode<Datum>;
 
 // -----------------------------------------------------------------------
 // Stratify
 // -----------------------------------------------------------------------
 
-// TODO: Review the comment in the API documentation related to 'reserved properties': id, parentId, children. If this is refering to the element on node, it should be 'parent'?
-
+// TODO: Review the comment in the API documentation related to 'reserved properties': id, parentId, children. If this is referring to the element on node, it should be 'parent'?
 
 export interface StratifyOperator<Datum> {
     (data: Datum[]): HierarchyNode<Datum>;
@@ -212,7 +209,6 @@ export function treemap<Datum>(): TreemapLayout<Datum>;
 
 // Tiling functions ---------------------------------------------------------------------------------
 
-
 export function treemapBinary(node: HierarchyRectangularNode<any>, x0: number, y0: number, x1: number, y1: number): void;
 export function treemapDice(node: HierarchyRectangularNode<any>, x0: number, y0: number, x1: number, y1: number): void;
 export function treemapSlice(node: HierarchyRectangularNode<any>, x0: number, y0: number, x1: number, y1: number): void;
@@ -224,9 +220,8 @@ export interface RatioSquarifyTilingFactory {
     ratio(ratio: number): RatioSquarifyTilingFactory;
 }
 
-export var treemapSquarify: RatioSquarifyTilingFactory;
-export var treemapResquarify: RatioSquarifyTilingFactory;
-
+export const treemapSquarify: RatioSquarifyTilingFactory;
+export const treemapResquarify: RatioSquarifyTilingFactory;
 
 // -----------------------------------------------------------------------
 // Partition
@@ -286,7 +281,6 @@ export interface HierarchyCircularNode<Datum> {
     copy(): HierarchyCircularNode<Datum>;
 }
 
-
 export interface PackLayout<Datum> {
     (root: HierarchyNode<Datum>): HierarchyCircularNode<Datum>;
     radius(): null | ((node: HierarchyCircularNode<Datum>) => number);
@@ -299,7 +293,6 @@ export interface PackLayout<Datum> {
 }
 
 export function pack<Datum>(): PackLayout<Datum>;
-
 
 // -----------------------------------------------------------------------
 // Pack Siblings and Enclosure

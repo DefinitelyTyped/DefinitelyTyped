@@ -16,8 +16,9 @@
 //                 Egor Shulga <https://github.com/egorshulga>
 //                 Youen Toupin <https://github.com/neuoy>
 //                 Rahul Raina <https://github.com/rraina>
+//                 Maksim Sharipov <https://github.com/pret-a-porter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as H from 'history';
@@ -58,11 +59,15 @@ export interface RedirectProps {
 }
 export class Redirect extends React.Component<RedirectProps, any> { }
 
-export interface RouteComponentProps<P> {
-  match: match<P>;
-  location: H.Location;
+export interface StaticContext {
+  statusCode?: number;
+}
+
+export interface RouteComponentProps<P, C extends StaticContext = StaticContext> {
   history: H.History;
-  staticContext?: any;
+  location: H.Location;
+  match: match<P>;
+  staticContext: C | undefined;
 }
 
 export interface RouteProps {
@@ -101,9 +106,8 @@ export interface match<P> {
   url: string;
 }
 
-// Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-export type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
-export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+// Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
 

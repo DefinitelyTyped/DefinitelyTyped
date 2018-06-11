@@ -13,6 +13,7 @@ export declare namespace json2csv {
         fields?: Array<string | FieldInfo<T>>;
         ndjson?: boolean;
         unwind?: string | Array<string>;
+        unwindBlank?: boolean;
         flatten?: boolean;
         defaultValue?: string;
         quote?: string;

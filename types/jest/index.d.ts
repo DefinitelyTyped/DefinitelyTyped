@@ -1,4 +1,4 @@
-// Type definitions for Jest 22.2
+// Type definitions for Jest 23.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -13,6 +13,7 @@
 //                 Ahn <https://github.com/AhnpGit>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Bradley Ayers <https://github.com/bradleyayers>
+//                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -218,7 +219,7 @@ declare namespace jest {
          * @param fn The function for your test
          * @param timeout The timeout for an async function test
          */
-        (name: string, fn?: ProvidesCallback, timeout?: number): void;
+        (name: string, fn: ProvidesCallback, timeout?: number): void;
         /**
          * Only runs this test in the current file.
          */
@@ -474,6 +475,11 @@ declare namespace jest {
          */
         toHaveBeenLastCalledWith(...params: any[]): R;
         /**
+         * If you have a mock function, you can use `.toHaveBeenNthCalledWith`
+         * to test what arguments it was nth called with.
+         */
+        toHaveBeenNthCalledWith(nthCall: number, ...params: any[]): R;
+        /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
          */
@@ -560,7 +566,7 @@ declare namespace jest {
 // Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 // This file can't reference jasmine.d.ts since the globals aren't compatible.
 
-declare function spyOn(object: any, method: string): jasmine.Spy;
+declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
 /**
  * If you call the function pending anywhere in the spec body,
  * no matter the expectations, the spec will be marked pending.

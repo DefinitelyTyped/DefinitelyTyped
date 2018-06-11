@@ -8,7 +8,7 @@ export interface Options {
 
 export interface i18nProps {
     wait?: boolean;
-    ns: string | string[];
+    ns?: string | string[];
     nsMode?: string;
     bindI18n?: string;
     bindStore?: string;

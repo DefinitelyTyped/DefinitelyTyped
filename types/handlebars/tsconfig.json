@@ -19,5 +19,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "handlebars-tests.ts"
+    ]
 }

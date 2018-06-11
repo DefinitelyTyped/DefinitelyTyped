@@ -6,8 +6,8 @@
 
 import * as React from "react";
 
-declare namespace reactInputMask {
-    interface ReactInputMaskProps extends React.InputHTMLAttributes<HTMLInputElement> {
+declare namespace ReactInputMask {
+    interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
         /**
          * Mask string. Format characters are:
          * * `9`: `0-9`
@@ -41,8 +41,9 @@ declare namespace reactInputMask {
          */
         inputRef?: React.Ref<HTMLInputElement>;
     }
-    class ReactInputMask extends React.Component<ReactInputMaskProps> {
-    }
 }
-declare var ReactInputMask: typeof reactInputMask.ReactInputMask;
+
+declare class ReactInputMask extends React.Component<ReactInputMask.Props> {
+}
+
 export default ReactInputMask;

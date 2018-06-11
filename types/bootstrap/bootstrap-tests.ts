@@ -43,8 +43,13 @@ $("#carousel").on("slide.bs.carousel", function(ev) {
 $("#carousel").carousel({
     interval: 5000,
     keyboard: true,
+    slide: false,
     pause: "hover",
     wrap: true,
+});
+
+$("#carousel").carousel({
+    slide: "prev",
 });
 
 $("#carousel").carousel({
@@ -96,6 +101,8 @@ $("#dropdown").dropdown({
     offset: 10,
     flip: false,
     boundary: "window",
+    reference: "toggle",
+    display: "dynamic",
 });
 
 $("#dropdown").dropdown({
@@ -112,6 +119,10 @@ $("#dropdown").dropdown({
 
 $("#dropdown").dropdown({
     boundary: document.body,
+});
+
+$("#dropdown").dropdown({
+    reference: document.body,
 });
 
 // --------------------------------------------------------------------------------------

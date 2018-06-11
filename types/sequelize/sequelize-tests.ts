@@ -10,10 +10,14 @@ import Bluebird = require('bluebird');
 interface AnyAttributes { [name: string]: boolean | number | string | object; };
 interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
+interface UserModel extends Sequelize.Model<AnyInstance, AnyAttributes> {
+    findUser?(arbitraryThing: any): Promise<AnyInstance>;
+}
+
 var s         = new Sequelize( '' );
 var sequelize = s;
 var DataTypes = Sequelize;
-var User      = s.define<AnyInstance, AnyAttributes>( 'user', {} );
+var User: UserModel = s.define<AnyInstance, AnyAttributes>( 'user', {} );
 var user      = User.build();
 var Task      = s.define<AnyInstance, AnyAttributes>( 'task', {} );
 var Group     = s.define<AnyInstance, AnyAttributes>( 'group', {} );
@@ -893,6 +897,7 @@ User.addScope('lowAccessWithParam', function(id: number) {
 } );
 
 User.scope( 'lowAccess' ).count();
+User.scope( 'lowAccess' ).findUser( 'foo' );
 User.scope( { where : { parent_id : 2 } } );
 User.scope( [ 'lowAccess', { method: ['lowAccessWithParam', 2] }, { where : { parent_id : 2 } } ] )
 
@@ -949,6 +954,11 @@ User.findAll( { where : s.fn('count', [0, 10]) } );
 User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TEST@SEQUELIZEJS.COM')) } );
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
 User.findAll( { rejectOnEmpty: true });
+
+User.findAll( { include : [{ association: User.hasOne( Task, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: User.hasMany( Task, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: Task.belongsTo( User, { foreignKey : 'userId' } ) }] } );
+User.findAll( { include : [{ association: User.belongsToMany( User, { through : Task } ) }] } );
 
 User.findAll( { where: { $and:[ { username: "user" }, { theDate: new Date() } ] } } );
 User.findAll( { where: { $or:[ { username: "user" }, { theDate: new Date() } ] } } );
@@ -1050,6 +1060,7 @@ findOrRetVal = User.findOrCreate( { where : { email : 'unique.email.@d.com', com
 findOrRetVal = User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
 
 let upsertPromiseNoOptions: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
+let upsertPromiseWithNonReturningOptions: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { logging: true } );
 let upsertPromiseReturning: Bluebird<[AnyInstance, boolean]> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: true } );
 let upsertPromiseNotReturning: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: false } );
 
@@ -1238,11 +1249,11 @@ new Sequelize( 'wat', 'trololo', 'wow', { port : 99999 } );
 new Sequelize( 'localhost', 'wtf', 'lol', { port : 99999 } );
 new Sequelize( 'sequelize', null, null, {
     replication : {
-        read : {
+        read : [{
             host : 'localhost',
             username : 'omg',
             password : 'lol'
-        }
+        }]
     }
 } );
 new Sequelize( {
@@ -1511,6 +1522,13 @@ s.define( 'ScopeMe', {
         }
     }
 } );
+
+// Test convention method used to associate models after creation
+Object.keys(s.models).forEach(modelName => {
+    if (s.models[modelName].associate) {
+        s.models[modelName].associate(s.models);
+    }
+});
 
 // Generic find options
 interface ChairAttributes {

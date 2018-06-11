@@ -1,8 +1,20 @@
 import * as elasticsearch from "elasticsearch";
+import HttpConnector = require("elasticsearch/src/lib/connectors/http");
+
+class MyHttpConnector extends HttpConnector {
+  constructor(host: any, config: any) {
+    super(host, config);
+  }
+}
 
 let client = new elasticsearch.Client({
   host: 'localhost:9200',
   log: 'trace'
+});
+
+client = new elasticsearch.Client({
+  host: 'localhost:9200',
+  connectionClass: MyHttpConnector
 });
 
 client = new elasticsearch.Client({
@@ -194,7 +206,8 @@ client.mget({
   index: 'myindex',
   type: 'mytype',
   body: {
-    ids: [1, 2, 3]
+    ids: [1, 2, 3],
+    _source: ['test']
   }
 }, (error, response) => {
   // ...

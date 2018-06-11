@@ -10,7 +10,7 @@ export interface ParseOptions {
     bare_returns?: boolean;
     html5_comments?: boolean;
     /** Support `#!command` as the first line */
-    shebang: boolean;
+    shebang?: boolean;
 }
 
 export interface CompressOptions {
@@ -198,11 +198,13 @@ export interface MinifyOptions {
 
 export interface MinifyOutput {
     error?: Error;
+    warnings?: string[];
     code: string;
     map: string;
 }
 
 export interface SourceMapOptions {
+    includeSources?: boolean;
     filename?: string;
     url?: string | 'inline';
     root?: string;

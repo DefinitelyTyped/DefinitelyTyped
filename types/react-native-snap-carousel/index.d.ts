@@ -13,15 +13,14 @@ import {
     NativeSyntheticEvent,
     NativeScrollEvent,
     StyleProp,
-    ScrollViewProperties,
-    ScrollViewStyle,
+    ScrollViewProps,
     ViewStyle,
-    ImageProperties,
-    FlatListProperties
+    ImageProps,
+    FlatListProps
 } from 'react-native';
 
 export interface AdditionalParallaxProps {
-    carouselRef?: React.Component<FlatListProperties<any>>;
+    carouselRef?: React.Component<FlatListProps<any>>;
     itemHeight?: number;
     itemWidth?: number;
     scrollPosition?: Animated.Value;
@@ -30,7 +29,7 @@ export interface AdditionalParallaxProps {
     vertical?: boolean;
 }
 
-export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
+export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
     // Required
 
     /**
@@ -46,6 +45,10 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
      * Width in pixels of your slides, must be the same for all of them
      * Note: Required with horizontal carousel
      */
+    /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean;
     itemWidth?: number;
     /**
      * Height in pixels of carousel's items, must be the same for all of them
@@ -180,11 +183,11 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
     /**
      * Optional styles for Scrollview's global wrapper
      */
-    containerCustomStyle?: StyleProp<ScrollViewStyle>;
+    containerCustomStyle?: StyleProp<ViewStyle>;
     /**
      * Optional styles for Scrollview's items container
      */
-    contentContainerCustomStyle?: StyleProp<ScrollViewStyle>;
+    contentContainerCustomStyle?: StyleProp<ViewStyle>;
     /**
      * Value of the opacity effect applied to inactive slides
      */
@@ -278,9 +281,9 @@ export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>
     triggerRenderingHack(offset: number): void;
 }
 
-export type CarouselProperties<T> = ScrollViewProperties & CarouselProps<T> & React.Props<CarouselStatic<T>>;
+export type CarouselProperties<T> = ScrollViewProps & CarouselProps<T> & React.Props<CarouselStatic<T>>;
 
-export interface ParallaxImageProps extends ImageProperties, AdditionalParallaxProps {
+export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps {
     /**
      * Optional style for image's container
      */
@@ -330,7 +333,7 @@ export interface PaginationProps {
      * Reference to the Carousel component to which pagination is linked.
      * Needed only when setting tappableDots to true
      */
-    carouselRef?: React.Component<FlatListProperties<any>>;
+    carouselRef?: React.Component<FlatListProps<any>>;
     /**
      * Style for dots' container that will be merged with the default one
      */

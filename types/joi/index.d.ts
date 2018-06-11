@@ -11,6 +11,7 @@
 //                 Dan Kraus <https://github.com/dankraus>
 //                 Anjun Wang <https://github.com/wanganjun>
 //                 Rafael Kallis <https://github.com/rafaelkallis>
+//                 Conan Lai <https://github.com/aconanlai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -142,6 +143,17 @@ export interface WhenOptions {
      * the required condition joi type.
      */
     is: SchemaLike;
+    /**
+     * the alternative schema type if the condition is true. Required if otherwise is missing.
+     */
+    then?: SchemaLike;
+    /**
+     * the alternative schema type if the condition is false. Required if then is missing
+     */
+    otherwise?: SchemaLike;
+}
+
+export interface WhenSchemaOptions {
     /**
      * the alternative schema type if the condition is true. Required if otherwise is missing.
      */
@@ -347,6 +359,7 @@ export interface AnySchema extends JoiObject {
      */
     when(ref: string, options: WhenOptions): AlternativesSchema;
     when(ref: Reference, options: WhenOptions): AlternativesSchema;
+    when(ref: Schema, options: WhenSchemaOptions): AlternativesSchema;
 
     /**
      * Overrides the key name in error messages.
@@ -922,6 +935,7 @@ export interface AlternativesSchema extends AnySchema {
     try(...types: SchemaLike[]): this;
     when(ref: string, options: WhenOptions): this;
     when(ref: Reference, options: WhenOptions): this;
+    when(ref: Schema, options: WhenSchemaOptions): this;
 }
 
 export interface LazySchema extends AnySchema {
@@ -1218,6 +1232,7 @@ export function concat<T>(schema: T): T;
  */
 export function when(ref: string, options: WhenOptions): AlternativesSchema;
 export function when(ref: Reference, options: WhenOptions): AlternativesSchema;
+export function when(ref: Schema, options: WhenSchemaOptions): AlternativesSchema;
 
 /**
  * Overrides the key name in error messages.

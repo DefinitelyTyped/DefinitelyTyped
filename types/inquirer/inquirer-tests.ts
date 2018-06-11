@@ -584,3 +584,45 @@ inquirer.prompt(
         console.log(JSON.stringify(answers, null, '  '));
     }
 );
+
+//
+// Other tests not covered in the examples provided with inquirer
+//
+
+// Tests promises from default, choices, validate, filter, and when
+
+interface AsyncAnswers {
+    choice: 'ONE' | 'TWO' | 'THREE';
+    choseTwo: boolean;
+    confirmation: string;
+}
+
+async function testAsyncPrompt(): Promise<void> {
+    const answers: AsyncAnswers = await inquirer.prompt<AsyncAnswers>([
+        {
+            type: 'list',
+            name: 'choice',
+            message: 'How many do you want?',
+            default: () => Promise.resolve('two'),
+            choices: () => Promise.resolve(['one', 'two', 'three']),
+            filter: (input: string) => Promise.resolve(input.toUpperCase()),
+        },
+        {
+            type: 'confirm',
+            name: 'choseTwo',
+            message: 'Are you sure you want two?',
+            when: (choices: AsyncAnswers) => Promise.resolve(choices.choice === 'TWO'),
+        },
+        {
+            type: 'input',
+            name: 'confirmation',
+            message: 'Type YES if you really, really want it',
+            validate: (input: string) => Promise.resolve(input.toUpperCase() === 'YES' ? true : 'Enter YES'),
+            transformer: (input: string) => input.toUpperCase(),
+        },
+    ]);
+
+    console.log(JSON.stringify(answers, null, '  '));
+}
+
+testAsyncPrompt();

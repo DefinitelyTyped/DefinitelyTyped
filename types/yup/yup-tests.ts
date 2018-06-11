@@ -100,6 +100,7 @@ mixed.default(() => ({ number: 5}));
 mixed.default();
 mixed.nullable(true);
 mixed.required();
+mixed.notRequired(); // $ExpectType MixedSchema
 mixed.typeError('type error');
 mixed.oneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], 'message');
@@ -122,6 +123,7 @@ mixed.test({
     message: '${path} must be less than 5 characters',
     test: value => value == null || value.length <= 5
 });
+mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
 
 yup.string().transform(function(this, value: any, originalvalue: any) {
     return this.isType(value) && value !== null ? value.toUpperCase() : value;
@@ -230,6 +232,7 @@ yup.object({
 
 objSchema.from('prop', 'myProp');
 objSchema.from('prop', 'myProp', true);
+objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, 'message');
 objSchema.transformKeys(key => key.toUpperCase());
@@ -246,6 +249,14 @@ const description: SchemaDescription = {
 const testOptions: TestOptions = {
     name: 'name',
     test: value => true,
+    message: 'validation error message',
+    params: { param1: 'value'},
+    exclusive: true
+};
+
+const testOptionsWithPromise: TestOptions = {
+    name: 'name',
+    test: value => new Promise(resolve => true),
     message: 'validation error message',
     params: { param1: 'value'},
     exclusive: true
@@ -296,7 +307,7 @@ const testObject: MyInterface = {
     arrayField: ["hi"],
 };
 
-typedSchema.validateSync(testObject); // $ExpectType ValidationError | MyInterface
+typedSchema.validateSync(testObject); // $ExpectType MyInterface
 
 // $ExpectError
 yup.object<MyInterface>({

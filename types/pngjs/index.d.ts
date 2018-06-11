@@ -24,7 +24,7 @@ export class PNG extends Duplex {
 
 	static sync: {
 		read(buffer: Buffer, options?: ParserOptions): PNG;
-		write(buffer: Buffer, options?: PackerOptions): PNG;
+		write(png: PNG, options?: PackerOptions): Buffer;
 	};
 
 	constructor(options?: PNGOptions);

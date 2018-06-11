@@ -345,7 +345,11 @@ namespace isTests {
     { const a: boolean = is.binaryExtension("mp3"); }
     { const a: boolean = is.binaryPath("a.mp3"); }
     { const a: boolean = is.ip4("192.168.1.1"); }
+    { const a: boolean = is.ip4("192.168.1.1", { exact: true }); }
     { const a: boolean = is.ip6("::192.168.1.1"); }
+    { const a: boolean = is.ip6("::192.168.1.1", { exact: true }); }
+    { const a: boolean = is.ip("::192.168.1.1"); }
+    { const a: boolean = is.ip("::192.168.1.1", { exact: true }); }
     {
         const a: boolean = is.arrayBuffer({});
         const b: any = 2;
@@ -491,5 +495,8 @@ namespace isTests {
         if (is.uuid(b, 2)) {
             b.charCodeAt(0);
         }
+    }
+    {
+        const a: boolean = is.multiAddress(2);
     }
 }

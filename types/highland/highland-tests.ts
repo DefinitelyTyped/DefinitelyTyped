@@ -337,6 +337,8 @@ fooStream.toCallback((err: Error) => {});
 // UTILS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+bool = _.isNil(x);
+
 bool = _.isStream(x);
 bool = _.isStream(fooStream);
 

@@ -1,0 +1,7 @@
+{ 
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Interface is needed for merging GlideRecord types
+        "no-misused-new": false
+    }
+}

@@ -9723,7 +9723,6 @@ interface ActiveXObject {
     set(obj: Excel.Workbook, propertyName: 'Colors', parameterTypes: [any], newValue: any): void;
     set(obj: Excel.Range, propertyName: 'Value', parameterTypes: [Excel.XlRangeValueDataType], newValue: any): void;
     set(obj: Excel.Range, propertyName: 'Value', newValue: any): void; // because Value is defined on the type as a method, not a property
-    new <K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

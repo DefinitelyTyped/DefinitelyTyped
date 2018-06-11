@@ -5,7 +5,7 @@
 // TypeScript Version: 2.6
 import * as React from "react";
 
-interface CommonOptions {
+export interface CommonOptions {
     /**
      * The initial index of the slider.
      * @defaultValue 0

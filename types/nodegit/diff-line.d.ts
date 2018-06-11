@@ -11,10 +11,10 @@ export class DiffLine {
      *
      */
     rawContent(): string;
-    origin: number;
-    oldLineno: number;
-    newLineno: number;
-    numLines: number;
-    contentLen: number;
-    contentOffset: number;
+    origin(): number;
+    oldLineno(): number;
+    newLineno(): number;
+    numLines(): number;
+    contentLen(): number;
+    contentOffset(): number;
 }

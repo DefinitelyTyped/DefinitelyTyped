@@ -15,3 +15,7 @@ fs.writeFile('hello', 'hahahahah', 'utf-8', function (err) {
         console.log(err.message);
     }
 });
+
+fs.createReadStream('hello');
+
+fs.createWriteStream('hello');

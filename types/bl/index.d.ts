@@ -11,7 +11,7 @@ import stream = require('stream');
 declare class BufferList extends stream.Duplex {
     constructor(callback?: (err: Error, buffer: Buffer) => void);
 
-    append(buffer: Buffer): void;
+    append(buffer: Buffer | Buffer[] | BufferList | BufferList[] | string): void;
     get(index: number): number;
     slice(start?: number, end?: number): Buffer;
     copy(dest: Buffer, destStart?: number, srcStart?: number, srcEnd?: number): void;

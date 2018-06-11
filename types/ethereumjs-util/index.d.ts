@@ -20,64 +20,64 @@ export function addHexPrefix(str: string): string;
 
 export function arrayContainsArray(superset: any, subset: any, some: any): any;
 
-export function baToJSON(ba: Buffer | string[]): Buffer | string[];
+export function baToJSON(ba: Buffer | Uint8Array | string[]): Buffer | Uint8Array | string[];
 
-export function bufferToHex(buf: Buffer): string;
+export function bufferToHex(buf: Buffer | Uint8Array): string;
 
-export function bufferToInt(buf: Buffer): string;
+export function bufferToInt(buf: Buffer | Uint8Array): string;
 
 export function defineProperties(self: {[k: string]: any}, fields: string[], data: {[k: string]: any}): {[k: string]: any};
 
-export function ecrecover(msgHash: Buffer, v: number, r: Buffer, s: Buffer): Buffer;
+export function ecrecover(msgHash: Buffer | Uint8Array, v: number, r: Buffer | Uint8Array, s: Buffer | Uint8Array): Buffer | Uint8Array;
 
-export function ecsign(msgHash: Buffer, privateKey: Buffer): {[k: string]: any};
+export function ecsign(msgHash: Buffer | Uint8Array, privateKey: Buffer | Uint8Array): {[k: string]: any};
 
 export function fromRpcSig(sig: string): {[k: string]: any};
 
-export function fromSigned(num: Buffer): any;
+export function fromSigned(num: Buffer | Uint8Array): any;
 
-export function generateAddress(from: Buffer, nonce: Buffer): Buffer;
+export function generateAddress(from: Buffer | Uint8Array, nonce: Buffer | Uint8Array): Buffer | Uint8Array;
 
-export function hashPersonalMessage(message: string): Buffer;
+export function hashPersonalMessage(message: string): Buffer | Uint8Array;
 
-export function importPublic(publicKey: Buffer): Buffer;
+export function importPublic(publicKey: Buffer | Uint8Array): Buffer | Uint8Array;
 
 export function isValidAddress(address: string): boolean;
 
-export function isValidChecksumAddress(address: Buffer): boolean;
+export function isValidChecksumAddress(address: Buffer | Uint8Array): boolean;
 
-export function isValidPrivate(privateKey: Buffer): boolean;
+export function isValidPrivate(privateKey: Buffer | Uint8Array): boolean;
 
-export function isValidPublic(publicKey: Buffer, sanitize?: boolean): any;
+export function isValidPublic(publicKey: Buffer | Uint8Array, sanitize?: boolean): any;
 
-export function isValidSignature(v: Buffer, r: Buffer, s: Buffer, homestead?: boolean): boolean;
+export function isValidSignature(v: Buffer | Uint8Array, r: Buffer | Uint8Array, s: Buffer | Uint8Array, homestead?: boolean): boolean;
 
-export function privateToAddress(privateKey: Buffer): Buffer;
+export function privateToAddress(privateKey: Buffer | Uint8Array): Buffer | Uint8Array;
 
-export function privateToPublic(privateKey: Buffer): Buffer;
+export function privateToPublic(privateKey: Buffer | Uint8Array): Buffer | Uint8Array;
 
-export function pubToAddress(pubKey: Buffer, sanitize: boolean): Buffer;
+export function pubToAddress(pubKey: Buffer | Uint8Array, sanitize: boolean): Buffer | Uint8Array;
 
-export function ripemd160(a: Buffer | any[] | string | number, padded: boolean): Buffer;
+export function ripemd160(a: Buffer | Uint8Array | any[] | string | number, padded: boolean): Buffer | Uint8Array;
 
-export function rlphash(a: Buffer | any[] | string | number): Buffer;
+export function rlphash(a: Buffer | Uint8Array | any[] | string | number): Buffer | Uint8Array;
 
-export function setLengthLeft(msg: Buffer | any[], length: number, right?: boolean): Buffer | any[];
+export function setLengthLeft(msg: Buffer | Uint8Array | any[], length: number, right?: boolean): Buffer | Uint8Array | any[];
 
-export function setLengthRight(msg: Buffer | any[], length: number): Buffer | any[];
+export function setLengthRight(msg: Buffer | Uint8Array | any[], length: number): Buffer | Uint8Array | any[];
 
-export function sha256(a: Buffer | any[] | string | number): Buffer;
+export function sha256(a: Buffer | Uint8Array | any[] | string | number): Buffer | Uint8Array;
 
-export function sha3(a: Buffer | any[] | string | number, bits?: number): Buffer;
+export function sha3(a: Buffer | Uint8Array | any[] | string | number, bits?: number): Buffer | Uint8Array;
 
-export function toBuffer(v: any): Buffer;
+export function toBuffer(v: any): Buffer | Uint8Array;
 
 export function toChecksumAddress(address: string): string;
 
-export function toRpcSig(v: number, r: Buffer, s: Buffer): string;
+export function toRpcSig(v: number, r: Buffer | Uint8Array, s: Buffer | Uint8Array): string;
 
-export function toUnsigned(num: any): Buffer;
+export function toUnsigned(num: any): Buffer | Uint8Array;
 
-export function unpad<T extends Buffer | any[] | string>(a: T): T;
+export function unpad<T extends Buffer | Uint8Array | any[] | string>(a: T): T;
 
-export function zeros(bytes: number): Buffer;
+export function zeros(bytes: number): Buffer | Uint8Array;

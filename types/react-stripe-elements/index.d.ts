@@ -16,6 +16,8 @@ export namespace ReactStripeElements {
 	import ElementsOptions = stripe.elements.ElementsOptions;
 	import TokenOptions = stripe.TokenOptions;
 	import TokenResponse = stripe.TokenResponse;
+	import SourceResponse = stripe.SourceResponse;
+	import SourceOptions = stripe.SourceOptions;
 
 	/**
 	 * There's a bug in @types/stripe which defines the property as
@@ -25,11 +27,13 @@ export namespace ReactStripeElements {
 		error?: { decline_code?: string };
 	};
 
-    type StripeProviderProps = { apiKey: string; stripe?: never; } | { apiKey?: never; stripe: StripeProps | null; };
+	interface StripeProviderOptions {
+		stripeAccount?: string;
+	}
+	type StripeProviderProps = { apiKey: string; stripe?: never; } & StripeProviderOptions | { apiKey?: never; stripe: StripeProps | null; } & StripeProviderOptions;
 
 	interface StripeProps {
-		// I'm not sure what the definition for this is
-		createSource(): void;
+		createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
 
 		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
 	}

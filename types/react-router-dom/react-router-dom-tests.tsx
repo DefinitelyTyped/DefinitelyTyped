@@ -2,7 +2,8 @@ import * as React from 'react';
 import {
   NavLink,
   NavLinkProps,
-  match
+  match,
+  Link
 } from 'react-router-dom';
 import * as H from 'history';
 
@@ -19,3 +20,8 @@ export default function(props: Props) {
     <NavLink {...rest} isActive={isActive}/>
   );
 }
+
+<Link to="/url" />;
+
+const acceptRef = (node: HTMLAnchorElement | null) => {};
+<Link to="/url" replace={true} innerRef={acceptRef} />;
