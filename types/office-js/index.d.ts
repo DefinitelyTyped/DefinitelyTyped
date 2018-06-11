@@ -7564,7 +7564,7 @@ declare namespace Office {
      */
     interface ItemRead extends Item {
         /**
-         * Gets an array of attachments for the item. Read mode only.
+         * Gets an array of attachments for the item.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -7579,7 +7579,7 @@ declare namespace Office {
          */
         attachments: AttachmentDetails[];
         /**
-         * Gets the Exchange Web Services item class of the selected item. Read mode only.
+         * Gets the Exchange Web Services item class of the selected item.
          *
          * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
          *
@@ -7600,7 +7600,7 @@ declare namespace Office {
          */
         itemClass: string;
         /**
-         * Gets the Exchange Web Services item identifier for the current item. Read mode only.
+         * Gets the Exchange Web Services item identifier for the current item.
          *
          * The itemId property is not available in compose mode. If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier in the AsyncResult.value parameter in the callback function.
          *
@@ -7616,7 +7616,7 @@ declare namespace Office {
          */
         itemId: string;
         /**
-         * Gets the subject of an item, with all prefixes removed (including RE: and FWD:). Read mode only.
+         * Gets the subject of an item, with all prefixes removed (including RE: and FWD:).
          *
          * The normalizedSubject property gets the subject of the item, with any standard prefixes (such as RE: and FW:) that are added by email programs. To get the subject of the item with the prefixes intact, use the subject property.
          *
@@ -7665,7 +7665,7 @@ declare namespace Office {
          *
          * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
          *  OR
-         * A {@link Office.ReplyFormData} object that contains body or attachment data and a callback function
+         * An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function
          */
         displayReplyAllForm(formData: string | ReplyFormData): void;
         /**
@@ -7689,7 +7689,7 @@ declare namespace Office {
          *
          * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
          * OR
-         * A {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
+         * An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          */
         displayReplyForm(formData: string | ReplyFormData): void;
         /**
@@ -7873,7 +7873,7 @@ declare namespace Office {
     /**
      * A subclass of {@link Office.Item} for messages.
      * 
-     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
+     * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of **Office.context.mailbox.item**. Refer to the Object Model pages for more information.
      */
     interface Message extends Item {
         /**
@@ -7901,7 +7901,7 @@ declare namespace Office {
      */
     interface MessageCompose extends Message, ItemCompose {
         /**
-         * Gets an object that provides methods to get or update the recipients on the Bcc (blind carbon copy) line of a message. Compose mode only.
+         * Gets an object that provides methods to get or update the recipients on the Bcc (blind carbon copy) line of a message.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -7996,7 +7996,7 @@ declare namespace Office {
          */
         from: EmailAddressDetails;
         /**
-         * Gets the Internet message identifier for an email message. Read mode only.
+         * Gets the Internet message identifier for an email message.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -8008,7 +8008,7 @@ declare namespace Office {
          */
         internetMessageId: string;
         /**
-         * Gets the email address of the sender of an email message. Read mode only.
+         * Gets the email address of the sender of an email message.
          *
          * The from and sender properties represent the same person unless the message is sent by a delegate. In that case, the from property represents the delegator, and the sender property represents the delegate.
          *
