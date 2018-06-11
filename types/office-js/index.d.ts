@@ -624,6 +624,7 @@ declare namespace Office {
          */
         closeContainer(): void;
     }
+
     /**
      * Provides information about what Requirement Sets are supported in current environment.
      */
@@ -634,7 +635,26 @@ declare namespace Office {
         * @param minVersion - The minimum required version; e.g., "1.4".
         */
        isSetSupported(name: string, minVersion?: number): boolean;
-}
+    }
+
+    /**
+     * The object that is returned when `UI.displayDialogAsync` is called.
+     */
+    interface Dialog {
+        /**
+         * Called from a parent page to close the corresponding dialog box. 
+         */
+        close(): void;
+        /**
+         * Registers an event handler. The two supported events are:
+         *
+         * - DialogMessageReceived. Triggered when the dialog box sends a message to its parent.
+         *
+         * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
+         */
+        addEventHandler(eventType: Office.EventType, handler: Function): void;
+    }
+
     /**
      * Provides options for how a dialog is displayed.
      */
