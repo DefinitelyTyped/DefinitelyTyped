@@ -4,7 +4,7 @@
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Ryan Petrich <https://github.com/rpetrich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 2.8
 
 import * as t from 'babel-types';
 export type Node = t.Node;
