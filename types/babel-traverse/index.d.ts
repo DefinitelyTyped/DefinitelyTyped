@@ -540,6 +540,9 @@ export class NodePath<T = Node> {
     /** Get the source code associated with this node. */
     getSource(): string;
 
+    /** Check if the current path will maybe execute before another path */
+    willIMaybeExecuteBefore(path: NodePath): boolean;
+
     // ------------------------- context -------------------------
     call(key: string): boolean;
 
