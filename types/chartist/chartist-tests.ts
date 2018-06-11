@@ -247,7 +247,7 @@ new Chartist.Pie('.ct-chart', {
         value: 70,
         name: 'Series 3',
         className: 'my-custom-class-three',
-        meta: 'Meta Three'
+        meta: {  description: 'Meta Three' }
     }]
 });
 
