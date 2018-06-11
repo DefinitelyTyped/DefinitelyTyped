@@ -589,7 +589,7 @@ export namespace Toolbars {
     onClick: (event: ToolbarButtonEvent) => void;
     iconUrl?: string;
     iconClass?: string;
-    positions: ToolbarButtonPosition[];
+    positions?: ToolbarButtonPosition[];
     threadSection?: SectionNames;
     listSection?: SectionNames;
     hasDropdown?: boolean;
