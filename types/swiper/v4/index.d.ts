@@ -1,10 +1,13 @@
 // Type definitions for Swiper
 // Project: https://github.com/nolimits4web/Swiper
-// Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions by: Luiz Machado <https://github.com/odahcam/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.8
 // Swiper Version: 4.2.6
+
+// @TODO: use namespaces over module declaration.
+// @TODO: finish typing definition of Swiper sub-modules.
+// @TODO: finish typing definition of Swiper main class.
 
 // declare namespace swiper {
 declare module 'swiper' {
@@ -136,7 +139,9 @@ declare module 'swiper' {
         allowSlidePrev;
 
         /**
-         * Disable/enable ability move slider by grabbing it with mouse or by touching it with finger (on touch screens) by assigning false/true to this property
+         * Disable/enable ability move slider by grabbing it with
+         * mouse or by touching it with finger (on touch screens)
+         * by assigning false/true to this property
          */
         allowTouchMove;
 
@@ -166,8 +171,11 @@ declare module 'swiper' {
         slideTo: (index: number, speed: number, runCallbacks: boolean) => {};
 
         /**
-         * You should call it after you add/remove slides manually, or after you hide/show it, or do any custom DOM modifications with Swiper
-         * This method also includes subcall of the following methods which you can use separately:
+         * You should call it after you add/remove slides
+         * manually, or after you hide/show it, or do any
+         * custom DOM modifications with Swiper
+         * This method also includes subcall of the following
+         * methods which you can use separately:
          */
         update: () => {};
 
@@ -204,18 +212,25 @@ declare module 'swiper' {
          */
         deleteInstance: boolean;
         /**
-         * Set it to true (by default it is true) and all custom styles will be removed from slides, wrapper and container. Useful if you need to destroy Swiper and to init again with new options or in different direction
+         * Set it to true (by default it is true) and all
+         * custom styles will be removed from slides,
+         * wrapper and container. Useful if you need to
+         * destroy Swiper and to init again with new
+         * options or in different direction
          */
         cleanStyles: boolean;
         /**
-         * Add new slides to the end. slides could be HTMLElement or HTML string with new slide or array with such slides, for example:
+         * Add new slides to the end. slides could be
+         * HTMLElement or HTML string with new slide or
+         * array with such slides, for example:
          *
          * @example appendSlide('<div class="swiper-slide">Slide 10"</div>')
          * @example appendSlide(['<div class="swiper-slide">Slide 10"</div>', '<div class="swiper-slide">Slide 11"</div>']);
          */
         appendSlide: (slides: string | string[]) => {};
         /**
-         * Add new slides to the beginning. slides could be HTMLElement or HTML string with new slide or array with such slides, for example:
+         * Add new slides to the beginning. slides could be
+         * HTMLElement or HTML string with new slide or array with such slides, for example:
          *
          * @example prependSlide('<div class="swiper-slide">Slide 0"</div>')
          * @example prependSlide(['<div class="swiper-slide">Slide 1"</div>', '<div class="swiper-slide">Slide 2"</div>']);
@@ -428,7 +443,9 @@ declare module 'swiper' {
     interface SwiperEvents {
 
         /**
-         * Event will be fired right after Swiper initialization. Note that with swiper.on('init') syntax it will work only in case you set init: false parameter.
+         * Fired right after Swiper initialization.
+         * Note that with swiper.on('init') syntax it will
+         * work only in case you set init: false parameter.
          *
          * @example
          * var swiper = new Swiper('.swiper-container', {
@@ -519,7 +536,9 @@ declare module 'swiper' {
         touchMove: (event: any) => {};
 
         /**
-         * Event will be fired when user touch and move finger over Swiper in direction opposite to direction parameter. Receives 'touchmove' event as an arguments.
+         * Fired when user touch and move finger over
+         * Swiper in direction opposite to direction parameter.
+         * Receives 'touchmove' event as an arguments.
          */
         touchMoveOpposite: (event: any) => {};
 
@@ -838,7 +857,9 @@ declare module 'swiper' {
         delay?: number;
 
         /**
-         * Set to false and autoplay will not be disabled after user interactions (swipes), it will be restarted every time after interaction
+         * Set to false and autoplay will not be disabled after
+         * user interactions (swipes), it will be restarted
+         * every time after interaction
          *
          * @default true
          */
@@ -954,4 +975,4 @@ declare module 'swiper' {
 declare module 'swiper/dist/js/swiper.esm.js' {
     import alias = require('swiper');
     export = alias;
-  }
+}
