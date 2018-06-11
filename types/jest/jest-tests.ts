@@ -734,10 +734,11 @@ test('moduleName 2', () => {
 
 // Jest config
 {
+interface JestConfigModule {defaults: jest.DefaultOptions; }
 // tslint:disable-next-line:no-var-requires
-const {defaults} = require('jest-config') as {defaults: jest.ProjectConfig};
+const {defaults} = require('jest-config') as JestConfigModule;
 
-const config: Partial<jest.ProjectConfig> = {
+const config: jest.InitialOptions = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },
