@@ -5847,7 +5847,7 @@ declare namespace Office {
          *
          * The prependAsync method inserts the specified string at the beginning of the item body. After insertion, the cursor is returned to its original place, relative to the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
          *
@@ -5855,6 +5855,11 @@ declare namespace Office {
          * Minimum permission level: ReadWriteItem
          * Applicable Outlook mode: Compose
          * Errors: DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * prependAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * prependAsync(data: string, callback: (result: AsyncResult) => void): void;
+         * prependAsync(data: string): void;
          *
          * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -5868,7 +5873,7 @@ declare namespace Office {
          *
          * The prependAsync method inserts the specified string at the beginning of the item body. After insertion, the cursor is returned to its original place, relative to the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
          *
@@ -5888,7 +5893,7 @@ declare namespace Office {
          *
          * The prependAsync method inserts the specified string at the beginning of the item body. After insertion, the cursor is returned to its original place, relative to the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
          *
@@ -5906,7 +5911,7 @@ declare namespace Office {
          *
          * The prependAsync method inserts the specified string at the beginning of the item body. After insertion, the cursor is returned to its original place, relative to the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
          *
@@ -5923,7 +5928,7 @@ declare namespace Office {
          *
          * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.3]
          *
@@ -5935,6 +5940,11 @@ declare namespace Office {
          * Errors: DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.
          *
          * InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * setAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * setAsync(data: string, callback: (result: AsyncResult) => void): void;
+         * setAsync(data: string): void;         *
          *
          * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -5948,7 +5958,7 @@ declare namespace Office {
          *
          * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.3]
          *
@@ -5972,7 +5982,7 @@ declare namespace Office {
          *
          * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.3]
          *
@@ -5994,7 +6004,7 @@ declare namespace Office {
          *
          * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.3]
          *
@@ -6016,7 +6026,7 @@ declare namespace Office {
          *
          * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
          *
@@ -6028,7 +6038,12 @@ declare namespace Office {
          * Errors: DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.
          *
          * InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
-         *
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
+         * setSelectedDataAsync(data: string): void;         *
+         *         *
          * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -6041,7 +6056,7 @@ declare namespace Office {
          *
          * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
          *
@@ -6065,7 +6080,7 @@ declare namespace Office {
          *
          * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
          *
@@ -6087,7 +6102,7 @@ declare namespace Office {
          *
          * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to LPNoLP.
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
          *
@@ -6405,6 +6420,9 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          * 
          * Applicable Outlook mode: Compose
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * getAsync(callback?: (result: AsyncResult) => void): void;
          * 
          * @param options An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -6895,6 +6913,9 @@ declare namespace Office {
          *
          * Applicable Outlook mode: Compose or read
          * 
+         * In addition to this signature, the method also has the following signatures:
+         * addHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
+         * 
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -6954,6 +6975,9 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          *
          * Applicable Outlook mode: Compose or read
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
          * 
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
@@ -7023,6 +7047,11 @@ declare namespace Office {
          * FileTypeNotSupported - The attachment has an extension that is not allowed.
          *
          * NumberOfAttachmentsExceeded - The message or appointment has too many attachments.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * addFileAttachmentAsync(uri: string, attachmentName: string): void;
+         * addFileAttachmentAsync(uri: string, attachmentName: string, options: AsyncContextOptions): void;
+         * addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: AsyncResult) => void): void;
          *
          * @param uri The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
@@ -7134,6 +7163,11 @@ declare namespace Office {
          * Errors:
          *
          * NumberOfAttachmentsExceeded - The message or appointment has too many attachments.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * addItemAttachmentAsync(itemId: any, attachmentName: string): void;
+         * addItemAttachmentAsync(itemId: any, attachmentName: string, options: AsyncContextOptions): void;
+         * addItemAttachmentAsync(itemId: any, attachmentName: string, callback: (result: AsyncResult) => void): void;
          *
          * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters.
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
@@ -7256,7 +7290,34 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          */
         getInitializationContextAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
-        /**
+                /**
+         * Asynchronously returns selected data from the subject or body of a message.
+         *
+         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. If a field other than the body or subject is selected, the method returns the InvalidSelection error.
+         *
+         * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @returns
+         * The selected data as a string with format determined by coercionType.
+         *
+         * @remarks
+         *
+         * Minimum permission level: ReadWriteItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * In addition to this signature, the method also has these signatures:
+         * getSelectedDataAsync(coercionType: CoercionType, callback: (result: AsyncResult) => void): void;
+         *
+         * @param coercionType Requests a format for the data. If Text, the method returns the plain text as a string , removing any HTML tags present. If HTML, the method returns the selected text, whether it is plaintext or HTML.
+         * @param options An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
+         */
+        getSelectedDataAsync(coercionType: CoercionType, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
          * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. If a field other than the body or subject is selected, the method returns the InvalidSelection error.
@@ -7279,30 +7340,6 @@ declare namespace Office {
          */
         getSelectedDataAsync(coercionType: CoercionType, callback: (result: AsyncResult) => void): void;
         /**
-         * Asynchronously returns selected data from the subject or body of a message.
-         *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. If a field other than the body or subject is selected, the method returns the InvalidSelection error.
-         *
-         * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @returns
-         * The selected data as a string with format determined by coercionType.
-         *
-         * @remarks
-         *
-         * Minimum permission level: ReadWriteItem
-         *
-         * Applicable Outlook mode: Compose
-         *
-         * @param coercionType Requests a format for the data. If Text, the method returns the plain text as a string , removing any HTML tags present. If HTML, the method returns the selected text, whether it is plaintext or HTML.
-         * @param options An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
-         */
-        getSelectedDataAsync(coercionType: CoercionType, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
-        /**
          * Removes an attachment from a message or appointment.
          *
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form to continue in a separate window.
@@ -7316,6 +7353,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * removeAttachmentAsync(attachmentIndex: string): void;
+         * removeAttachmentAsync(attachmentIndex: string, options: AsyncContextOptions): void;
+         * removeAttachmentAsync(attachmentIndex: string, callback: (result: AsyncResult) => void): void;
          *
          * @param attachmentIndex The identifier of the attachment to remove. The maximum length of the string is 100 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -7405,6 +7447,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * saveAsync(): void;
+         * saveAsync(options: AsyncContextOptions): void;
+         * saveAsync(callback: (result: AsyncResult) => void): void;
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -7509,8 +7556,13 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * setSelectedDataAsync(data: string): void;
+         * setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
          *
-         * @param data The data to be inserted. Data is not to exceed 1,000,000 characters. If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
+        * @param data The data to be inserted. Data is not to exceed 1,000,000 characters. If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. If the field is an HTML editor, only the text data is inserted, even if the data is HTML. If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook Web App and the default style is applied in Outlook. If the field is a text field, an InvalidDataFormat error is returned. If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; if the field is text, then plain text is used.
@@ -7721,6 +7773,9 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          *
          * Applicable Outlook mode: Read
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -8123,6 +8178,10 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          *
          * Applicable Outlook mode: Compose
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * getAsync(callback: (result: AsyncResult) => void): void;
+         * 
          */
         getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -8158,6 +8217,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: DataExceedsMaximumSize - The location parameter is longer than 255 characters.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * setAsync(location: string): void;
+         * setAsync(location: string, options: AsyncContextOptions): void;
+         * setAsync(location: string, callback: (result: AsyncResult) => void): void;
          */
         setAsync(location: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -8214,7 +8278,6 @@ declare namespace Office {
          * Errors: DataExceedsMaximumSize - The location parameter is longer than 255 characters.
          */
         setAsync(location: string, callback: (result: AsyncResult) => void): void;
-
     }
     /**
      * Provides access to the Outlook Add-in object model for Microsoft Outlook and Microsoft Outlook on the web.
@@ -8498,6 +8561,10 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          *
          * Applicable Outlook mode: Compose and read
+         * 
+         * In addition to this signature, the method has the following signature:
+         * getCallbackTokenAsync(callback: (result: AsyncResult) => void): void;
+         * getCallbackTokenAsync(callback: (result: AsyncResult) => void, userContext?: any): void;
          *
          * @param options An object literal that contains one or more of the following properties.
          *        isRest: Determines if the token provided will be used for the Outlook REST APIs or Exchange Web Services. Default value is false.
@@ -8711,6 +8778,12 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          *
          * Applicable Outlook mode: Compose or read
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * addAsync(key: string, JSONmessage: NotificationMessageDetails): void;
+         * addAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions): void;
+         * addAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: AsyncResult) => void): void;
+         * 
          */
         addAsync(key: string, JSONmessage: NotificationMessageDetails, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -8773,6 +8846,9 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          *
          * Applicable Outlook mode: Compose or read
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * getAllAsync(callback: (result: AsyncResult) => void): void;
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -8801,6 +8877,11 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          *
          * Applicable Outlook mode: Compose or read
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * removeAsync(key: string): void;
+         * removeAsync(key: string, options: AsyncContextOptions): void;
+         * removeAsync(key: string, callback: (result: AsyncResult) => void): void;         * 
          *
          * @param key The key for the notification message to remove.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -8861,6 +8942,11 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          *
          * Applicable Outlook mode: Compose or read
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * replaceAsync(key: string, JSONmessage: NotificationMessageDetails): void;
+         * replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions): void;
+         * replaceAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: AsyncResult) => void): void;
          *
          * @param key The key for the notification message to replace. It can't be longer than 32 characters.
          * @param JSONmessage A JSON object that contains the new notification message to replace the existing message. It contains a NotificationMessageDetails object.
@@ -8975,6 +9061,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * addAsync(recipients: (string | EmailUser | EmailAddressDetails)[]): void;
+         * addAsync(recipients: (string | EmailUser | EmailAddressDetails)[], options: AsyncContextOptions): void;
+         * addAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (result: AsyncResult) => void): void;
          *
          * @param recipients The recipients to add to the recipients list.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -9054,7 +9145,26 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. If adding the recipients fails, the asyncResult.error property will contain an error code.
          */
         addAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (result: AsyncResult) => void): void;
-
+        /**
+         * Gets a recipient list for an appointment or message.
+         *
+         * When the call completes, the asyncResult.value property will contain an array of EmailAddressDetails objects.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * getAsync(callback: (result: AsyncResult) => void): void;
+         *
+         * @param options An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
+         */
+        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
         /**
          * Gets a recipient list for an appointment or message.
          *
@@ -9070,23 +9180,6 @@ declare namespace Office {
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
          */
         getAsync(callback: (result: AsyncResult) => void): void;
-        /**
-         * Gets a recipient list for an appointment or message.
-         *
-         * When the call completes, the asyncResult.value property will contain an array of EmailAddressDetails objects.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * Minimum permission level: ReadItem
-         *
-         * Applicable Outlook mode: Compose
-         *
-         * @param options An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
-         */
-        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
         /**
          * Sets a recipient list for an appointment or message.
          *
@@ -9108,6 +9201,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * setAsync(recipients: (string | EmailUser | EmailAddressDetails)[]): void;
+         * setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], options: AsyncContextOptions): void;
+         * setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (result: AsyncResult) => void): void;
          *
          * @param recipients The recipients to add to the recipients list.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -9282,6 +9380,9 @@ declare namespace Office {
          * 
          * Applicable Outlook mode: Compose or read
          * 
+         * In addition to the main signature, this method also has these signatures:
+         * getAsync(callback?: (result: AsyncResult) => void): void;
+         * 
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
@@ -9319,6 +9420,9 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          * 
          * Errors: InvalidEndTime - The appointment end time is before its start time.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * setAsync(recurrencePattern: Recurrence, callback?: (result: AsyncResult) => void): void;
          * 
          * @param recurrencePattern A recurrence object.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -9613,12 +9717,15 @@ declare namespace Office {
          * 
          * Errors: Invalid date format - The date is not in an acceptable format.
          * 
+         * In addition to the main signature, this method also has these signatures:
+         * setEndDate(date: string): void;
+         * Where date is the end date of the recurring appointment series represented in the {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD".
+         * 
          * @param year The year value of the end date.
          * @param month The month value of the end date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
          * @param day The day value of the end date.
          */
         setEndDate(year: number, month: number, day: number): void;
-
         /**
          * Sets the end date of a recurring appointment series.
          * 
@@ -9634,7 +9741,6 @@ declare namespace Office {
          * @param date End date of the recurring appointment series represented in the {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD".
          */
         setEndDate(date: string): void;
-
         /**
          * Sets the start date of a recurring appointment series.
          * 
@@ -9647,6 +9753,10 @@ declare namespace Office {
          * 
          * Errors: Invalid date format - The date is not in an acceptable format.
          * 
+         * In addition to the main signature, this method also has these signatures:
+         * setStartDate(date: string): void;
+         * Where date is the start date of the recurring appointment series represented in the {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD".
+         *  
          * @param year The year value of the start date.
          * @param month The month value of the start date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
          * @param day The day value of the start date.
@@ -9680,6 +9790,10 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          * 
          * Errors: Invalid time format - The time is not in an acceptable format.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * setStartTime(time: string): void;
+         * Where time is the start time of all instances represented by standard datetime string format: "THH:mm:ss:mmm". 
          * 
          * @param hours The hour value of the start time. Valid range: 0-24.
          * @param minutes The minute value of the start time. Valid range: 0-59.
@@ -9716,6 +9830,26 @@ declare namespace Office {
     interface Subject {
         /**
          * Gets the subject of an appointment or message.
+         *
+         * The getAsync method starts an asynchronous call to the Exchange server to get the subject of an appointment or message.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * Minimum permission level: ReadItem
+         *
+         * Applicable Outlook mode: Compose
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * getAsync(callback: (result: AsyncResult) => void): void;
+         *
+         * @param options An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
+         */
+        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+        /**
+         * Gets the subject of an appointment or message.
          * The getAsync method starts an asynchronous call to the Exchange server to get the subject of an appointment or message.
          *
          * [Api set: Mailbox 1.1]
@@ -9729,23 +9863,6 @@ declare namespace Office {
          */
         getAsync(callback: (result: AsyncResult) => void): void;
         /**
-         * Gets the subject of an appointment or message.
-         *
-         * The getAsync method starts an asynchronous call to the Exchange server to get the subject of an appointment or message.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * Minimum permission level: ReadItem
-         *
-         * Applicable Outlook mode: Compose
-         *
-         * @param options An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
-         */
-        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
-        /**
          * Sets the subject of an appointment or message.
          *
          * The setAsync method starts an asynchronous call to the Exchange server to set the subject of an appointment or message. Setting the subject overwrites the current subject, but leaves any prefixes, such as "Fwd:" or "Re:" in place.
@@ -9758,6 +9875,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: DataExceedsMaximumSize - The subject parameter is longer than 255 characters.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * setAsync(subject: string): void;
+         * setAsync(subject: string, options: AsyncContextOptions): void;
+         * setAsync(subject: string, callback: (result: AsyncResult) => void): void;
          *
          * @param subject The subject of the appointment or message. The string is limited to 255 characters.
          * @param options An object literal that contains one or more of the following properties.
@@ -9865,10 +9987,15 @@ declare namespace Office {
          * Minimum permission level: ReadItem
          *
          * Applicable Outlook mode: Compose
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * getAsync(callback: (result: AsyncResult) => void): void;
          *
+         * @param options An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
          */
-        getAsync(callback: (result: AsyncResult) => void): void;
+        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
         /**
          * Gets the start or end time of an appointment.
          *
@@ -9881,11 +10008,9 @@ declare namespace Office {
          *
          * Applicable Outlook mode: Compose
          *
-         * @param options An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
          */
-        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+        getAsync(callback: (result: AsyncResult) => void): void;
         /**
          * Sets the start or end time of an appointment.
          *
@@ -9901,6 +10026,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: InvalidEndTime - The appointment end time is before the appointment start time.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * setAsync(dateTime: Date): void;
+         * setAsync(dateTime: Date, options: AsyncContextOptions): void;
+         * setAsync(dateTime: Date, callback: (result: AsyncResult) => void): void;
          *
          * @param dateTime A date-time object in Coordinated Universal Time (UTC).
          * @param options An object literal that contains one or more of the following properties.
