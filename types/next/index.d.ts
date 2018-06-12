@@ -25,7 +25,13 @@ declare namespace next {
         pathname: string;
         /** query string section of URL parsed as an object */
         query: {
-            [key: string]: string;
+            [key: string]:
+                | boolean
+                | boolean[]
+                | number
+                | number[]
+                | string
+                | string[];
         };
         /** String of the actual path (including the query) shows in the browser */
         asPath: string;
