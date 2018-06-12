@@ -25,28 +25,23 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
 {
     // getIfUtils
     {
-        const expectedMethods = [
-            'ifProduction',
-            'ifNotProduction',
-            'ifProd',
-            'ifNotProd',
-            'ifTest',
-            'ifNotTest',
-            'ifDevelopment',
-            'ifNotDevelopment',
-            'ifDev',
-            'ifNotDev'
-        ];
+        // $ExpectType IfUtils
         const utils = getIfUtils({});
     }
     {
-        const expectedMethods = ['ifFoo', 'ifNotFoo', 'ifBar', 'ifNotBar'];
-        const utils = getIfUtils({}, ['foo', 'bar']);
-        const { ifFoo, ifBar, ifNotFoo, ifNotBar } = utils;
+        const utils = getIfUtils({}, ['foo', 'bar']); // 'ifFoo', 'ifNotFoo', 'ifBar', 'ifNotBar'
+        const {
+            ifFoo, // $ExpectType IfUtilsFn
+            ifBar, // $ExpectType IfUtilsFn
+            ifNotFoo, // $ExpectType IfUtilsFn
+            ifNotBar // $ExpectType IfUtilsFn
+        } = utils;
     }
 
     {
-        const { ifProduction } = getIfUtils('production');
+        const {
+            ifProduction // $ExpectType IfUtilsFn
+        } = getIfUtils('production');
 
         // $ExpectType "value" | "alternate"
         ifProduction('value', 'alternate'); // 'value'
@@ -89,11 +84,15 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
 
     // $ExpectType NonEmptyObject<{ a: number; b: string; c: undefined; d: null; }, "b" | "a" | "d">
     const emptiedObject = removeEmpty({ a: 1, b: 'b', c: undefined, d: null }); // {a: 1, b: 'b', d: null}
-    const {a, b, d} = emptiedObject;
+    const {
+        a, // $ExpectType number
+        b, // $ExpectType string
+        d // $ExpectType null
+    } = emptiedObject;
 
     {
         // $ExpectError
-        const {a, b, c, d} = emptiedObject; // Error
+        const {a, b, c, d} = emptiedObject;
     }
 
     // $ExpectType number | null
