@@ -589,14 +589,48 @@ declare module 'swiper' {
      * Navigation module.
      */
     class Navigation {
-        [x: string]: any;
+
+        /**
+         * HTMLElement of "next" navigation button
+         */
+        nextEl: HTMLElement;
+
+        /**
+         * HTMLElement of "previous" navigation button
+         */
+        prevEl: HTMLElement;
+
+        /**
+         * Update navigation buttons state (enabled/disabled)
+         */
+        update();
     }
 
     /**
      * Pagination module.
      */
     class Pagination {
-        [x: string]: any;
+
+        /**
+         * HTMLElement of pagination container element
+         */
+        el: HTMLElement
+
+        /**
+         * Dom7 array-like collection of pagination bullets HTML elements. To get specific slide HTMLElement use mySwiper.pagination.bullets[1]
+         */
+        bullets: DOM7Element[];
+
+        /**
+         * Render pagination layout
+         */
+        render();
+
+        /**
+         * Update pagination state (enabled/disabled/active)
+         */
+        update();
+
     }
 
     /**
