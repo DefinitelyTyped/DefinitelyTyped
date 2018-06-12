@@ -196,6 +196,7 @@ declare module 'luxon' {
             setLocale(locale: any): DateTime;
             setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
             startOf(unit: DurationUnit): DateTime;
+            toBSON(): Date;
             toFormat(format: string, options?: ToFormatOptions): string;
             toHTTP(): string;
             toISO(options?: ISOTimeOptions): string;
@@ -281,6 +282,7 @@ declare module 'luxon' {
                 includeConfig?: boolean;
             }): DurationObject;
             toString(): string;
+            valueOf(): number;
         }
 
         type EraLength = 'short' | 'long';
