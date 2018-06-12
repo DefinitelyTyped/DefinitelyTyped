@@ -6,7 +6,7 @@
 
 interface RichText {
     asHtml(richText: any, linkResolver?: (doc: any) => string): string;
-    asText(richText: any, linkResolver?: (doc: any) => string): string;
+    asText(richText: any,  joinString?: string): string;
 }
 
 export const RichText: RichText;
