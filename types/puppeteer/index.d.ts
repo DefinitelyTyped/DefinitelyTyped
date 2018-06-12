@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.3
+// Type definitions for puppeteer 1.4
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -454,17 +454,33 @@ export interface Box {
  */
 export interface ElementHandle extends JSHandle {
   /**
-   * The method runs element.querySelector within the page. If no element matches the selector, the return value resolve to null.
+   * The method runs element.querySelector within the page.
+   * If no element matches the selector, the return value resolve to null.
    * @param selector A selector to query element for
    * @since 0.13.0
    */
   $(selector: string): Promise<ElementHandle | null>;
+
   /**
-   * The method runs element.querySelectorAll within the page. If no elements match the selector, the return value resolve to [].
+   * The method runs element.querySelectorAll within the page.
+   * If no elements match the selector, the return value resolve to [].
    * @param selector A selector to query element for
    * @since 0.13.0
    */
   $$(selector: string): Promise<ElementHandle[]>;
+
+  /**
+   * This method runs `document.querySelector` within the element and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `frame.$eval` would wait for the promise to resolve and return its value.
+   */
+  $eval<T>(
+    selector: string,
+    pageFunction: (element: Element, ...args: any[]) => T,
+    ...args: any[]
+  ): Promise<T>;
+
   /**
    * @param selector XPath expression to evaluate.
    */
@@ -760,15 +776,19 @@ export interface Response {
 
 export interface FrameBase {
   /**
-   * The method runs document.querySelector within the page.
-   * If no element matches the selector, the return value resolve to null.
+   * The method queries frame for the selector.
+   * If there's no such element within the frame, the method will resolve to null.
    */
   $(selector: string): Promise<ElementHandle | null>;
+
   /**
-   * The method runs document.querySelectorAll within the page. If no elements match the selector, the return value resolve to [].
+   * The method runs document.querySelectorAll within the frame.
+   * If no elements match the selector, the return value resolve to [].
    */
   $$(selector: string): Promise<ElementHandle[]>;
+
   /**
+   * The method evaluates the XPath expression.
    * @param expression XPath expression to evaluate.
    */
   $x(expression: string): Promise<ElementHandle[]>;
@@ -785,8 +805,8 @@ export interface FrameBase {
   ): Promise<T>;
 
   /**
-   * This method runs document.querySelectorAll within the page and passes it as the first argument to `fn`.
-   * If `pageFunction` returns a Promise, then $$eval would wait for the promise to resolve and return its value.
+   * This method runs document.querySelectorAll within the frame and passes it as the first argument to pageFunction.
+   * If pageFunction returns a Promise, then frame.$$eval would wait for the promise to resolve and return its value.
    * @param selector A selector to query frame for
    * @param fn Function to be evaluated in browser context
    * @param args Arguments to pass to pageFunction
@@ -962,6 +982,11 @@ export interface PageEventObj {
   response: Response;
 }
 
+export interface PageCloseOptions {
+  /** Defaults to `false`. Whether to run the before unload page handlers. */
+  runBeforeUnload?: boolean;
+}
+
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
 export interface Page extends EventEmitter, FrameBase {
   /**
@@ -996,8 +1021,11 @@ export interface Page extends EventEmitter, FrameBase {
   /** Brings page to front (activates tab). */
   bringToFront(): Promise<void>;
 
+  /** Get the browser the page belongs to. */
+  browser(): Promise<Browser>;
+
   /** Closes the current page. */
-  close(): Promise<void>;
+  close(options?: PageCloseOptions): Promise<void>;
 
   /**
    * Gets the cookies.
@@ -1289,6 +1317,9 @@ export interface BrowserEventObj {
 }
 
 export interface Target {
+  /** Get the browser the target belongs to. */
+  browser(): Browser;
+
   /** Creates a Chrome Devtools Protocol session attached to the target. */
   createCDPSession(): Promise<CDPSession>;
 
