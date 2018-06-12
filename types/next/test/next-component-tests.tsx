@@ -24,5 +24,5 @@ const StatelessNext: NextStatelessComponent<NextComponentProps> = ({ example }) 
 
 StatelessNext.getInitialProps = async ({ query }: NextContext) => {
     const { example } = query;
-    return { example: example as string };
+    return { example };
 };
