@@ -73,3 +73,7 @@ nodeClock.nextTick(() => undefined);
 
 browserClock.uninstall();
 nodeClock.uninstall();
+
+// Clocks should be typed to have unbound method signatures that can be passed around
+const { clearTimeout } = browserClock;
+clearTimeout(0);

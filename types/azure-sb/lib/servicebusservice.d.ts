@@ -11,6 +11,8 @@ import CreateTopicOptions = Azure.ServiceBus.CreateTopicOptions;
 import ListNotificationHubsOptions = Azure.ServiceBus.ListNotificationHubsOptions;
 import ListRulesOptions = Azure.ServiceBus.ListRulesOptions;
 import ListSubscriptionsOptions = Azure.ServiceBus.ListSubscriptionsOptions;
+import ListTopicsOptions = Azure.ServiceBus.ListTopicsOptions;
+import ListQueuesOptions = Azure.ServiceBus.ListQueuesOptions;
 import MessageOrName = Azure.ServiceBus.MessageOrName;
 import Queue = Azure.ServiceBus.Results.Models.Queue;
 import ReceiveQueueMessageOptions = Azure.ServiceBus.ReceiveQueueMessageOptions;
@@ -88,7 +90,8 @@ declare class ServiceBusService extends ServiceBusServiceBase {
     public getQueue(queuePath: string,
                     callback: TypedResultAndResponseCallback<Queue>): void;
 
-    public listQueues(queuePath: string,
+    public listQueues(callback: TypedResultAndResponseCallback<Queue[]>): void;
+    public listQueues(options: ListQueuesOptions,
                       callback: TypedResultAndResponseCallback<Queue[]>): void;
 
     /*
@@ -115,7 +118,8 @@ declare class ServiceBusService extends ServiceBusServiceBase {
     public getTopic(topicPath: string,
                     callback: TypedResultAndResponseCallback<Topic>): void;
 
-    public listTopics(topicPath: string,
+    public listTopics(callback: TypedResultAndResponseCallback<Topic[]>): void;
+    public listTopics(options: ListTopicsOptions,
                       callback: TypedResultAndResponseCallback<Topic[]>): void;
 
     /*

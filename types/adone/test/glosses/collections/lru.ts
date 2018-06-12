@@ -8,15 +8,14 @@ namespace adoneTests.collection.LRU {
     type LRU = adone.collection.LRU;
 
     new LRU();
-    new LRU(100);
+    new LRU({ maxSize: 100 });
     new LRU({});
-    new LRU({ max: 100 });
     new LRU<string, number>({ dispose: (key: string, value: number) => null });
     new LRU<string, number>({ maxAge: 100 });
     new LRU<string, number>({ noDisposeOnSet: false });
     new LRU<string, number>({ stale: true });
-    { const a: number = new LRU<string, number>().max; }
-    { new LRU<string, number>().max = 100; }
+    { const a: number = new LRU<string, number>().maxSize; }
+    { new LRU<string, number>().maxSize = 100; }
     { const a: boolean = new LRU<string, number>().allowStale; }
     { new LRU<string, number>().allowStale = false; }
     { const a: number = new LRU<string, number>().maxAge; }

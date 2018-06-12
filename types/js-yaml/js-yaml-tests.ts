@@ -109,40 +109,44 @@ type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType any
+// $ExpectType DocumentLoadResult
 yaml.safeLoad(str);
-// $ExpectType any
+// $ExpectType DocumentLoadResult
 yaml.safeLoad(str, loadOpts);
 
-// $ExpectType any
+// $ExpectType DocumentLoadResult
 yaml.load(str);
-// $ExpectType any
+// $ExpectType DocumentLoadResult
 yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType any
+// $ExpectType DocumentLoadResult[]
 yaml.safeLoadAll(str);
-// $ExpectType any
+
+// $ExpectType undefined
 yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 });
-// $ExpectType any
+// $ExpectType undefined
 yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
+// $ExpectType DocumentLoadResult[]
 value = yaml.safeLoadAll(str, undefined, loadOpts);
 
-// $ExpectType any
+// $ExpectType DocumentLoadResult[]
 value = yaml.loadAll(str);
-// $ExpectType any
+
+// $ExpectType undefined
 yaml.loadAll(str, (doc) => {
 	value = doc;
 });
-// $ExpectType any
+// $ExpectType undefined
 yaml.loadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
+// $ExpectType DocumentLoadResult[]
 value = yaml.loadAll(str, undefined, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

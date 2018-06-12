@@ -2,6 +2,7 @@
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
+//                 Michael Auer <https://github.com/mcauer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -611,7 +612,7 @@ export interface PolylineOptions extends PathOptions {
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
     constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
     toGeoJSON(): geojson.Feature<T, P>;
-    getLatLngs(): LatLng[];
+    getLatLngs(): LatLng[] | LatLng[][] | LatLng[][][];
     setLatLngs(latlngs: LatLngExpression[]): this;
     isEmpty(): boolean;
     getCenter(): LatLng;

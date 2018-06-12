@@ -1,8 +1,12 @@
 import got = require('got');
 import cookie = require('cookie');
 import FormData = require('form-data');
+import Keyv = require('keyv');
 import * as fs from 'fs';
 import * as http from 'http';
+import * as https from 'https';
+import * as url from 'url';
+import QuickLRU = require('quick-lru');
 
 let str: string;
 let buf: Buffer;
@@ -94,6 +98,7 @@ let res: http.IncomingMessage | undefined;
 let opts: got.GotOptions<string | null>;
 let err: got.GotError;
 let href: string | undefined;
+let progress: got.Progress;
 
 const stream = got.stream('todomvc.com');
 stream.addListener('request', (r) => req = r);
@@ -107,6 +112,12 @@ stream.addListener('error', (e, b, r) => {
     err = e;
     res = r;
 });
+stream.addListener('downloadProgress', (p) => {
+    progress = p;
+});
+stream.addListener('uploadProgress', (p) => {
+    progress = p;
+});
 
 stream.on('request', (r) => req = r);
 stream.on('response', (r) => res = r);
@@ -118,6 +129,12 @@ stream.on('redirect', (r, o) => {
 stream.on('error', (e, b, r) => {
     err = e;
     res = r;
+});
+stream.on('downloadProgress', (p) => {
+    progress = p;
+});
+stream.on('uploadProgress', (p) => {
+    progress = p;
 });
 
 stream.once('request', (r) => req = r);
@@ -131,6 +148,12 @@ stream.once('error', (e, b, r) => {
     err = e;
     res = r;
 });
+stream.once('downloadProgress', (p) => {
+    progress = p;
+});
+stream.once('uploadProgress', (p) => {
+    progress = p;
+});
 
 stream.prependListener('request', (r) => req = r);
 stream.prependListener('response', (r) => res = r);
@@ -142,6 +165,12 @@ stream.prependListener('redirect', (r, o) => {
 stream.prependListener('error', (e, b, r) => {
     err = e;
     res = r;
+});
+stream.prependListener('downloadProgress', (p) => {
+    progress = p;
+});
+stream.prependListener('uploadProgress', (p) => {
+    progress = p;
 });
 
 stream.prependOnceListener('request', (r) => req = r);
@@ -155,6 +184,12 @@ stream.prependOnceListener('error', (e, b, r) => {
     err = e;
     res = r;
 });
+stream.prependOnceListener('downloadProgress', (p) => {
+    progress = p;
+});
+stream.prependOnceListener('uploadProgress', (p) => {
+    progress = p;
+});
 
 stream.removeListener('request', (r) => req = r);
 stream.removeListener('response', (r) => res = r);
@@ -166,6 +201,12 @@ stream.removeListener('redirect', (r, o) => {
 stream.removeListener('error', (e, b, r) => {
     err = e;
     res = r;
+});
+stream.removeListener('downloadProgress', (p) => {
+    progress = p;
+});
+stream.removeListener('uploadProgress', (p) => {
+    progress = p;
 });
 
 got('google.com', {
@@ -190,3 +231,30 @@ got('todomvc.com', {
 
 got('https://httpbin.org/404')
     .catch(err => err instanceof got.HTTPError && err.statusCode === 404);
+
+got('todomvc', {
+    throwHttpErrors: false
+});
+
+got('todomvc', {
+    agent: {
+        http: new http.Agent(),
+        https: new https.Agent()
+    }
+});
+
+got('todomvc', {
+    cache: new Map(),
+}).then(res => res.fromCache);
+
+got('todomvc', {
+    cache: new Keyv(),
+}).then(res => res.fromCache);
+
+got('todomvc', {
+    cache: new QuickLRU(),
+}).then(res => res.fromCache);
+
+got(new url.URL('http://todomvc.com'));
+
+got(url.parse('http://todomvc.com'));

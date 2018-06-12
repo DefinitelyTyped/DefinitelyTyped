@@ -1,10 +1,13 @@
-/// <reference types="mocha" />
-
 import oxford = require("project-oxford");
 
 import assert = require('assert');
 import _Promise = require('bluebird');
 import fs = require('fs');
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 var client = new oxford.Client(process.env.OXFORD_KEY);
 

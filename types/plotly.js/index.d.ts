@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.35
+// Type definitions for plotly.js 1.38
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 // 				Martin Duparc <https://github.com/martinduparc>
@@ -6,6 +6,8 @@
 // 				taoqf <https://github.com/taoqf>
 // 				Dadstart <https://github.com/Dadstart>
 // 				Jared Szechy <https://github.com/szechyjs>
+// 				Drew Diamantoukos <https://github.com/MercifulCode>
+// 				Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -346,6 +348,7 @@ export interface ModeBarButton {
 // Data
 
 export type Datum = string | number | Date;
+export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
 
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
@@ -354,10 +357,11 @@ export type Color = string | Array<string | undefined | null> | Array<Array<stri
 
 // Bar Scatter
 export interface ScatterData {
-	type: 'bar' | 'scatter' | 'scattergl' | 'scatter3d';
-	x: Datum[] | Datum[][];
-	y: Datum[] | Datum[][];
-	z: Datum[] | Datum[][] | Datum[][][];
+	type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' |'surface';
+	x: Datum[] | Datum[][] | TypedArray;
+	y: Datum[] | Datum[][] | TypedArray;
+	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+	xy: Float32Array;
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];
@@ -375,6 +379,7 @@ export interface ScatterData {
 	'marker.size': number | number[];
 	'marker.maxdisplayed': number;
 	'marker.sizeref': number;
+	'marker.sizemax': number;
 	'marker.sizemin': number;
 	'marker.sizemode': 'diameter' | 'area';
 	'marker.showscale': boolean;
@@ -382,7 +387,17 @@ export interface ScatterData {
 	'marker.colorbar': {}; // TODO
 	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
 	hoveron: 'points' | 'fills';
-	hoverinfo: 'text';
+	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
+               'x' | 'x+text' | 'x+name' |
+               'x+y' | 'x+y+text' | 'x+y+name' |
+               'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
+               'y+x' | 'y+x+text' | 'y+x+name' |
+               'y+z' | 'y+z+text' | 'y+z+name' |
+               'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
+               'z+x' | 'z+x+text' | 'z+x+name' |
+               'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
+               'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
+	hoverlabel: Partial<Label>;
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
@@ -390,25 +405,90 @@ export interface ScatterData {
 	connectgaps: boolean;
 }
 
+/**
+ * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
+ * examples: "x", "y", "x+y", "x+y+z", "all"
+ * default: "all"
+ */
 export interface ScatterMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | number[];
-	colorscale: string | string[];
+	colorscale: string | string[] | Array<Array<(string | number)>>;
 	cauto: boolean;
-	cmax: boolean;
-	cmin: boolean;
+	cmax: number;
+	cmin: number;
 	autocolorscale: boolean;
 	reversescale: boolean;
 	opacity: number | number[];
 	size: number | number[];
 	maxdisplayed: number;
 	sizeref: number;
+	sizemax: number;
 	sizemin: number;
 	sizemode: 'diameter' | 'area';
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
-	colorbar: {}; // TODO
-	gradient: {}; // TODO
+	colorbar: {
+        thicknessmode: 'fraction' | 'pixels',
+        thickness: number,
+        lenmode: 'fraction' | 'pixels',
+        len: number,
+        x: number,
+        xanchor: 'left' | 'center' | 'right',
+        xpad: number,
+        y: number,
+        yanchor: 'top' | 'middle' | 'bottom',
+        ypad: number,
+        outlinecolor: Color,
+        outlinewidth: number,
+        bordercolor: Color,
+        borderwidth: Color,
+        bgcolor: Color,
+        tickmode: 'auto' | 'linear' | 'array',
+        nticks: number,
+        tick0: number | string,
+        dtick: number | string,
+        tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray,
+        ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray,
+        ticks: 'outside' | 'inside' | '',
+        ticklen: number,
+        tickwidth: number,
+        tickcolor: Color,
+        showticklabels: boolean,
+        tickfont: {
+            family: string,
+            size: number,
+            color: Color,
+        },
+        tickangle: number,
+        tickformat: string,
+        tickformatstops: {
+            dtickrange: any[],
+            value: string,
+        },
+        tickprefix: string,
+        showtickprefix: 'all' | 'first' | 'last' | 'none',
+        ticksuffix: string,
+        showticksuffix: 'all' | 'first' | 'last' | 'none',
+        separatethousands: boolean,
+        exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B',
+        showexponent: 'all' | 'first' | 'last' | 'none',
+        title: string,
+        titlefont: {
+            family: string,
+            size: number,
+            color: Color,
+        },
+        titleside: 'right' | 'top' | 'bottom',
+        tickvalssrc: any,
+        ticktextsrc: any,
+    };
+	gradient: {
+        type: 'radial' | 'horizontal' | 'vertical' | 'none',
+        color: Color,
+        typesrc: any,
+        colorsrc: any,
+    };
 }
 
 export interface ScatterMarkerLine {

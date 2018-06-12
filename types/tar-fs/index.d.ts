@@ -8,16 +8,22 @@
 
 /// <reference types="node" />
 
-import fs = require("fs");
+import fs = require('fs');
+import stream = require('stream');
 
-export function pack(cwd: string, opts?: PackOptions): any;
-export function extract(cwd: string, opts?: ExtractOptions): any;
+// Replace these return values with the value of tar-stream when it becomes available
+export function pack(cwd: string, opts?: PackOptions): stream.Readable;
+export function extract(cwd: string, opts?: ExtractOptions): stream.Writable;
 
 export interface Options {
     ignore?: (name: string) => boolean;
     filter?: (name: string) => boolean;
     map?: (header: Headers) => Headers;
     mapStream?: (fileStream: fs.ReadStream, header: Headers) => fs.ReadStream;
+    dmode?: number;
+    fmode?: number;
+    readable?: boolean;
+    writable?: boolean;
     strict?: boolean;
 }
 
@@ -31,10 +37,6 @@ export interface PackOptions extends Options {
 export interface ExtractOptions extends Options {
     ignore?: (name: string, header?: Headers) => boolean;
     filter?: (name: string, header?: Headers) => boolean;
-    dmode?: number;
-    fmode?: number;
-    readable?: boolean;
-    writable?: boolean;
 }
 
 export interface Headers {
@@ -42,7 +44,7 @@ export interface Headers {
     mode: number;
     mtime: Date;
     size: number;
-    type: "file" | "directory" | "symlink";
+    type: 'file' | 'directory' | 'link' | 'symlink';
     uid: number;
     gid: number;
 }

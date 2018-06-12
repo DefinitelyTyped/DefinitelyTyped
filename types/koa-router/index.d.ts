@@ -87,12 +87,23 @@ declare module Router {
 
 }
 
+declare class ParamName {
+    asterisk: boolean;
+    delimiter: string;
+    name: string;
+    optional: boolean;
+    partial: boolean;
+    pattern: string;
+    prefix: string;
+    repeat: string;
+}
+
 declare class Layer {
 
     opts: Layer.ILayerOptions;
     name: string;
     methods: string[];
-    paramNames: string[];
+    paramNames: ParamName[];
     stack: Router.IMiddleware[];
     regexp: RegExp;
     path: string;

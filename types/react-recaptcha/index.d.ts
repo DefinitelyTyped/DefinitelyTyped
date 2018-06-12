@@ -34,4 +34,5 @@ declare class Recaptcha extends Component<Recaptcha.RecaptchaProps> {
     static propTypes: any;
     static defaultProps: Recaptcha.RecaptchaProps;
     reset(): void;
+    execute(): void;
 }

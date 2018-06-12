@@ -1,13 +1,12 @@
-// Type definitions for grid-styled 3.2
+// Type definitions for grid-styled 4.1
 // Project: https://github.com/jxnblk/grid-styled
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
+//                 Victor Orlov <https://github.com/vittorio>
+//                 Louis Hache <https://github.com/lhache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-export type Diff<T extends string, U extends string> = ({ [P in T]: P } &
-    { [P in U]: never } & { [x: string]: never })[T];
-
-export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 import { ComponentClass } from "react";
 import { StyledComponentClass } from "styled-components";
@@ -15,44 +14,45 @@ import { StyledComponentClass } from "styled-components";
 export type ResponsiveProp = number | string | Array<string | number>;
 
 export interface CommonProps {
-    width: ResponsiveProp;
-    fontSize: ResponsiveProp;
-    color: ResponsiveProp;
-    bg: ResponsiveProp;
-    m: ResponsiveProp;
-    mt: ResponsiveProp;
-    mr: ResponsiveProp;
-    mb: ResponsiveProp;
-    ml: ResponsiveProp;
-    mx: ResponsiveProp;
-    my: ResponsiveProp;
-    p: ResponsiveProp;
-    pt: ResponsiveProp;
-    pr: ResponsiveProp;
-    pb: ResponsiveProp;
-    pl: ResponsiveProp;
-    px: ResponsiveProp;
-    py: ResponsiveProp;
-    theme: any;
+    width?: ResponsiveProp;
+    fontSize?: ResponsiveProp;
+    color?: ResponsiveProp;
+    bg?: ResponsiveProp;
+    m?: ResponsiveProp;
+    mt?: ResponsiveProp;
+    mr?: ResponsiveProp;
+    mb?: ResponsiveProp;
+    ml?: ResponsiveProp;
+    mx?: ResponsiveProp;
+    my?: ResponsiveProp;
+    p?: ResponsiveProp;
+    pt?: ResponsiveProp;
+    pr?: ResponsiveProp;
+    pb?: ResponsiveProp;
+    pl?: ResponsiveProp;
+    px?: ResponsiveProp;
+    py?: ResponsiveProp;
+    theme?: any;
 }
 
 export interface BoxProps
     extends Omit<React.HTMLProps<HTMLDivElement>, "width" | "wrap" | "is"> {
-    flex: ResponsiveProp;
-    order: ResponsiveProp;
-    is: string | ComponentClass<any>;
+    flex?: ResponsiveProp;
+    order?: ResponsiveProp;
+    is?: string | ComponentClass<any>;
+    alignSelf?: ResponsiveProp;
 }
 
 export interface FlexProps extends BoxProps {
-    alignItems: ResponsiveProp;
-    justifyContent: ResponsiveProp;
-    flexDirection: ResponsiveProp;
-    flexWrap: ResponsiveProp;
+    alignItems?: ResponsiveProp;
+    justifyContent?: ResponsiveProp;
+    flexDirection?: ResponsiveProp;
+    flexWrap?: ResponsiveProp;
 
     // legacy aliases https://github.com/jxnblk/styled-system/releases/tag/v2.0.0
-    justify: ResponsiveProp;
-    align: ResponsiveProp;
-    wrap: ResponsiveProp | boolean;
+    justify?: ResponsiveProp;
+    align?: ResponsiveProp;
+    wrap?: ResponsiveProp | boolean;
 }
 
 export type BoxComponent = StyledComponentClass<
@@ -67,14 +67,14 @@ export type FlexComponent = StyledComponentClass<
 
 export interface Theme {
     breakpoints: string[];
-    space: number[];
-    fontSizes: number[];
+    space?: number[];
+    fontSizes?: number[];
 }
 
 export const Box: BoxComponent;
 export const Flex: FlexComponent;
 export const theme: Theme;
 export type DivProps = Omit<React.HTMLProps<HTMLDivElement>, "ref"> & {
-    innerRef: (el: HTMLDivElement) => any;
+    innerRef?: (el: HTMLDivElement) => any;
 };
 export const div: ComponentClass<DivProps>;

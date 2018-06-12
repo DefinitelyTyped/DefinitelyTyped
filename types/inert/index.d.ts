@@ -127,7 +127,7 @@ declare const inert: Plugin<inert.OptionalRegistrationOptions>;
 export = inert;
 
 declare module 'hapi' {
-    interface RouteOptions {
+    interface HandlerDecorations {
         /**
          * The file handler
          *

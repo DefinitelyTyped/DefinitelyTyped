@@ -30,3 +30,10 @@ const options: retry.Options = {
 };
 
 retry(logFail, options);
+
+function stopErrorExample() {
+    console.log('retrying\n');
+    throw new retry.StopError('stop retrying');
+}
+
+retry(stopErrorExample);

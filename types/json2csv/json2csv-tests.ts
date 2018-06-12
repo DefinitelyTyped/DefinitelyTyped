@@ -17,9 +17,27 @@ parse({});
 parse([]);
 parse({}, {});
 
+interface Car {
+    car: string;
+    price: number;
+}
+
 new Parser();
 const parser: Parser<ExampleObj> = new Parser({});
 s = parser.parse({ str: '', num: 1, obj: {} });
+
+const opts: json2csv.Options<Car> = {
+    fields: [{
+        label: 'Car Name',
+        value: 'car'
+    }, {
+        label: 'Price USD',
+        value: 'price'
+    }]
+};
+
+const json2csvParser = new Parser<Car>(opts);
+
 parser.parse([]);
 const transform: Transform<ExampleObj> = new Transform<ExampleObj>({ quote: '' });
 const nodeTransform: NodeTransform = transform;

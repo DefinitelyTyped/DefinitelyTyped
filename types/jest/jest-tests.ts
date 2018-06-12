@@ -10,6 +10,10 @@ declare const $: any;
 // Tests based on the Jest website
 jest.unmock('../sum');
 
+class TestClass { }
+
+describe(TestClass, () => { });
+
 describe('sum', () => {
     it('adds 1 + 2 to equal 3', () => {
         const sum: (a: number, b: number) => number = require('../sum');
@@ -209,6 +213,9 @@ describe('Assymetric matchers', () => {
             greeting: expect.stringContaining('hello'),
         });
 
+        expect("foo").toStrictEqual("foo");
+        expect({ a: "foo" }).toStrictEqual({ a: "foo" });
+
         const callback = jest.fn();
         expect(callback).toEqual(expect.any(Function));
         callback(5, "test");
@@ -248,6 +255,26 @@ describe('setTimeout', () => {
             done();
         }, 900);
     });
+});
+
+describe("spy call matchers", () => {
+    const spy = jest.fn();
+
+    expect(spy).lastReturnedWith("foo");
+    expect(spy).nthReturnedWith(3, "foo");
+    expect(spy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledTimes(7);
+    expect(spy).toHaveBeenCalledWith("foo");
+    expect(spy).toHaveBeenLastCalledWith("foo");
+    expect(spy).toHaveBeenNthCalledWith(3, "foo");
+    expect(spy).toHaveReturned();
+    expect(spy).toHaveReturnedTimes(7);
+    expect(spy).toHaveReturnedWith("foo");
+    expect(spy).toHaveLastReturnedWith("foo");
+    expect(spy).toHaveNthReturnedWith(3, "foo");
+    expect(spy).toReturn();
+    expect(spy).toReturnTimes(3);
+    expect(spy).toReturnWith("foo");
 });
 
 describe('Extending extend', () => {
@@ -361,6 +388,11 @@ describe('missing tests', () => {
         const mock: jest.Mock = jest.fn();
         mock.mockName('Carrot');
         expect(mock.getMockName()).toBe('Carrot');
+    });
+
+    it('tests mock name functionality', () => {
+        const mock = spyOn(console, 'warn');
+        expect(mock).toHaveBeenCalled();
     });
 
     it('creates snapshoter', () => {
@@ -721,4 +753,10 @@ test('moduleName 2', () => {
     });
     const moduleName = require('../moduleName');
     expect(moduleName()).toEqual(2);
+});
+
+describe('toHaveBeenNthCalledWith', () => {
+    const fn = jest.fn();
+
+    expect(fn).toHaveBeenNthCalledWith(3, "foo");
 });

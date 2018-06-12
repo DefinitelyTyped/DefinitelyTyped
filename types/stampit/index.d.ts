@@ -1,4 +1,4 @@
-// Type definitions for stampit 2.1
+// Type definitions for stampit 3.0
 // Project: https://github.com/stampit-org/stampit
 // Definitions by: Vasyl Boroviak <https://github.com/koresar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,9 +6,50 @@
 /**
  * Function used as .init() argument.
  */
-interface Init {
-    (ctx:Context): any | Promise<any>;
+type Init = (factoryArg: any, ctx?: Context) => any;
+
+/**
+ * Composer function
+ */
+type Composer = ({ stamp, composables }: { stamp: Stamp; composables: Composable[] }) => any;
+
+/** The stamp Descriptor */
+interface Descriptor {
+    /** Create a new stamp based on this descriptor */
+    (...composables: Composable[]): Stamp;
+    /**
+     * A hash containing methods (functions) of any future created instance.
+     */
+    methods?: {};
+    /**
+     * Initialization function(s) which will be called per each newly created
+     * instance.
+     */
+    initializers?: Init[];
+    /**
+     * Properties which will shallowly copied into any future created instance.
+     */
+    properties?: {};
+    /**
+     * Properties which will be mixed to the new and any other stamp which this stamp will be composed with.
+     */
+    staticProperties?: {};
+    /** Deeply merged properties of object instances */
+    deepProperties?: {};
+    /** ES5 Property Descriptors applied to object instances */
+    propertyDescriptors?: {};
+    /** Deeply merged properties of Stamps */
+    staticDeepProperties?: {};
+    /** ES5 Property Descriptors applied to Stamps */
+    staticPropertyDescriptors?: {};
+    /** A configuration object to be shallowly assigned to Stamps */
+    configuration?: {};
+    /** A configuration object to be deeply merged to Stamps */
+    deepConfiguration?: {};
 }
+
+/** Any composable object (stamp or descriptor) */
+type Composable = Stamp | Descriptor;
 
 /**
  * The .init() function argument.
@@ -30,56 +71,65 @@ interface Context {
     args: any[];
 }
 
-/**
- * An object map containing the fixed prototypes.
- */
-interface Fixed {
-    methods: {};
-
-    /**
-     * @deprecated Use .refs() instead.
-     */
-    state: {};
-
-    refs: {};
-
-    /**
-     * @deprecated Use .init() instead.
-     */
-    enclose: Init[];
-
-    init: Init[];
-
-    props: {};
-
-    static: {};
-}
-
 interface Options {
     /**
      * A hash containing methods (functions) of any future created instance.
      */
-    methods?: {} | {}[];
-
+    methods?: {};
+    /**
+     * Initialization function(s) which will be called per each newly created
+     * instance.
+     */
+    init?: Init | Init[];
+    /**
+     * Initialization function(s) which will be called per each newly created
+     * instance.
+     */
+    initializers?: Init | Init[];
+    /**
+     * Properties which will shallowly copied into any future created instance.
+     */
+    props?: {};
+    /**
+     * Properties which will shallowly copied into any future created instance.
+     */
+    properties?: {};
     /**
      * A hash containing references to the object. This hash will be shallow mixed into any future created instance.
      */
-    refs?: {} | {}[];
-
+    refs?: {};
     /**
-     * Initialization function which will be called per each newly created instance.
+     * Properties which will be mixed to the new and any other stamp which this
+     * stamp will be composed with.
      */
-    init?: Init | Init[];
-
+    staticProperties?: {};
     /**
-     * Properties which will be deeply (but safely, no data override) merged into any future created instance.
+     * Properties which will be mixed to the new and any other stamp which this
+     * stamp will be composed with.
      */
-    props?: {} | {}[];
-
-    /**
-     * Properties which will be mixed to the new and any other stamp which this stamp will be composed with.
-     */
-    static?: {} | {}[];
+    statics?: {};
+    /** Deeply merged properties of object instances */
+    deepProperties?: {};
+    /** Deeply merged properties of object instances */
+    deepProps?: {};
+    /** ES5 Property Descriptors applied to object instances */
+    propertyDescriptors?: {};
+    /** Deeply merged properties of Stamps */
+    staticDeepProperties?: {};
+    /** Deeply merged properties of Stamps */
+    deepStatics?: {};
+    /** ES5 Property Descriptors applied to Stamps */
+    staticPropertyDescriptors?: {};
+    /** A configuration object to be shallowly assigned to Stamps */
+    configuration?: {};
+    /** A configuration object to be shallowly assigned to Stamps */
+    conf?: {};
+    /** A configuration object to be deeply merged to Stamps */
+    deepConfiguration?: {};
+    /** A configuration object to be deeply merged to Stamps */
+    deepConf?: {};
+    /** Callback functions to execute each time a composition occurs */
+    composers?: Composer[];
 }
 
 /**
@@ -97,7 +147,7 @@ interface Stamp {
      * an .enclose() function is an anti-pattern that should be avoided, when possible.
      * @return A new object composed of the Stamps and prototypes provided.
      */
-    (state?:{}, ...encloseArgs:any[]): any | Promise<any>;
+    (state?: {}, ...encloseArgs: any[]): any;
 
     /**
      * Just like calling stamp(), stamp.create() invokes the stamp and returns a new instance.
@@ -109,69 +159,106 @@ interface Stamp {
      * an .enclose() function is an anti-pattern that should be avoided, when possible.
      * @return A new object composed of the Stamps and prototypes provided.
      */
-    create(state?:{}, ...encloseArgs:any[]): any | Promise<any>;
+    create(state?: {}, ...encloseArgs: any[]): any;
 
     /**
-     * An object map containing the fixed prototypes.
+     * Stamp metadata/composer function
      */
-    fixed: Fixed;
+    compose: Descriptor;
 
     /**
      * Add methods to the methods prototype.  Creates and returns new Stamp. Chainable.
      * @param methods Object(s) containing map of method names and bodies for delegation.
      * @return A new Stamp.
      */
-    methods(...methods:{}[]): Stamp;
+    methods(...methods: Array<{}>): Stamp;
 
     /**
      * Take n objects and add them to the state prototype. Creates and returns new Stamp. Chainable.
      * @param states Object(s) containing map of property names and values to clone for each new object.
      * @return A new Stamp.
      */
-    refs(...states:{}[]): Stamp;
+    refs(...states: Array<{}>): Stamp;
 
     /**
-     * Take n objects and merge them (but safely, no data override) to the of any future created instance.
-     * Creates and returns new Stamp. Chainable.
-     * @param objects Object(s) to merge for each new object.
+     * Take a variable number of objects and shallow assign them to any future
+     * created instance of the Stamp. Creates and returns new Stamp. Chainable.
+     * @param objects Object(s) to shallow assign for each new object.
      * @return A new Stamp.
      */
-    props(...objects:{}[]): Stamp;
+    props(...objects: Array<{}>): Stamp;
 
     /**
-     * @deprecated Use .refs() instead.
+     * Take a variable number of objects and shallow assign them to any future
+     * created instance of the Stamp. Creates and returns new Stamp. Chainable.
+     * @param objects Object(s) to shallow assign for each new object.
+     * @return A new Stamp.
      */
-    state(...states:{}[]): Stamp;
+    properties(...objects: Array<{}>): Stamp;
+
+    /**
+     * Take a variable number of objects and deeply merge them to any future
+     * created instance of the Stamp. Creates and returns a new Stamp.
+     * Chainable.
+     * @param deepObjects The object(s) to deeply merge for each new object
+     * @returns A new Stamp
+     */
+    deepProps(...deepObjects: Array<{}>): Stamp;
+
+    /**
+     * Take a variable number of objects and deeply merge them to any future
+     * created instance of the Stamp. Creates and returns a new Stamp.
+     * Chainable.
+     * @param deepObjects The object(s) to deeply merge for each new object
+     * @returns A new Stamp
+     */
+    deepProperties(...deepObjects: Array<{}>): Stamp;
 
     /**
      * @deprecated Use .init() instead.
      */
-    enclose(...functions:Init[]): Stamp;
+    enclose(...functions: Init[]): Stamp;
 
     /**
      * @deprecated Use .init() instead.
      */
-    enclose(...functions:{}[]): Stamp;
+    enclose(...functions: Array<{}>): Stamp;
 
     /**
-     * Take n functions, an array of functions, or n objects and add the functions to the enclose prototype.
-     * Functions passed into .enclose() are called any time an object is instantiated.
-     * That happens when the stamp function is invoked, or when the .create() method is called.
-     * Creates and returns new Stamp. Chainable.
-     * @param functions Closures (functions) used to create private data and privileged methods.
-     * @return A new Stamp.
+     * Take in a variable number of functions and add them to the enclose
+     * prototype as initializers.
+     * @param functions Initializer functions used to create private data and
+     * privileged methods
+     * @returns A new stamp
      */
-    init(...functions:Init[]): Stamp;
+    init(...functions: Init[]): Stamp;
 
     /**
-     * Take n functions, an array of functions, or n objects and add the functions to the enclose prototype.
-     * Functions passed into .enclose() are called any time an object is instantiated.
-     * That happens when the stamp function is invoked, or when the .create() method is called.
-     * Creates and returns new Stamp. Chainable.
-     * @param functions Function properties of these objects will be treated as closure functions.
-     * @return A new Stamp.
+     * Take in a variable number of functions and add them to the enclose
+     * prototype as initializers.
+     * @param functions Initializer functions used to create private data and
+     * privileged methods
+     * @returns A new stamp
      */
-    init(...functions:{}[]): Stamp;
+    init(functions: Init[]): Stamp;
+
+    /**
+     * Take in a variable number of functions and add them to the enclose
+     * prototype as initializers.
+     * @param functions Initializer functions used to create private data and
+     * privileged methods
+     * @returns A new stamp
+     */
+    initializers(...functions: Init[]): Stamp;
+
+    /**
+     * Take in a variable number of functions and add them to the enclose
+     * prototype as initializers.
+     * @param functions Initializer functions used to create private data and
+     * privileged methods
+     * @returns A new stamp
+     */
+    initializers(functions: Init[]): Stamp;
 
     /**
      * Take n objects and add them to a new stamp and any future stamp it composes with.
@@ -179,117 +266,250 @@ interface Stamp {
      * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
      * @return A new Stamp.
      */
-    static(...statics:{}[]): Stamp;
+    statics(...statics: Array<{}>): Stamp;
 
     /**
-     * Take one or more Stamps and
-     * combine them with `this` to produce and return a new Stamp.
-     * Combining overrides properties with last-in priority.
-     * NOT chainable.
-     * @param stamps Stampit factories, aka Stamps.
-     * @return A new Stamp composed from arguments and `this`.
+     * Take n objects and add them to a new stamp and any future stamp it composes with.
+     * Creates and returns new Stamp. Chainable.
+     * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
+     * @return A new Stamp.
      */
-    compose(...stamps:Stamp[]): Stamp;
+    staticProperties(...statics: Array<{}>): Stamp;
+
+    /**
+     * Deeply merge a variable number of objects and add them to a new stamp and
+     * any future stamp it composes. Creates and returns a new Stamp. Chainable.
+     * @param deepStatics The object(s) containing static properties to be
+     * merged
+     * @returns A new stamp
+     */
+    deepStatics(...deepStatics: Array<{}>): Stamp;
+
+    /**
+     * Deeply merge a variable number of objects and add them to a new stamp and
+     * any future stamp it composes. Creates and returns a new Stamp. Chainable.
+     * @param deepStatics The object(s) containing static properties to be
+     * merged
+     * @returns A new stamp
+     */
+    staticDeepProperties(...deepStatics: Array<{}>): Stamp;
+
+    /**
+     * Shallowly assign properties of Stamp arbitrary metadata and add them to
+     * a new stamp and any future Stamp it composes. Creates and returns a new
+     * Stamp. Chainable.
+     * @param confs The object(s) containing metadata properties
+     * @returns A new Stamp
+     */
+    conf(...confs: Array<{}>): Stamp;
+
+    /**
+     * Shallowly assign properties of Stamp arbitrary metadata and add them to
+     * a new stamp and any future Stamp it composes. Creates and returns a new
+     * Stamp. Chainable.
+     * @param confs The object(s) containing metadata properties
+     * @returns A new Stamp
+     */
+    configuration(...confs: Array<{}>): Stamp;
+
+    /**
+     * Deeply merge properties of Stamp arbitrary metadata and add them to a new
+     * Stamp and any future Stamp it composes. Creates and returns a new Stamp.
+     * Chainable.
+     * @param deepConfs The object(s) containing metadata properties
+     * @returns A new Stamp
+     */
+    deepConf(...deepConfs: Array<{}>): Stamp;
+
+    /**
+     * Deeply merge properties of Stamp arbitrary metadata and add them to a new
+     * Stamp and any future Stamp it composes. Creates and returns a new Stamp.
+     * Chainable.
+     * @param deepConfs The object(s) containing metadata properties
+     * @returns A new Stamp
+     */
+    deepConfiguration(...deepConfs: Array<{}>): Stamp;
+
+    /**
+     * Apply ES5 property descriptors to object instances created by the new
+     * Stamp returned by the function and any future Stamp it composes. Creates
+     * and returns a new stamp. Chainable.
+     * @param descriptors
+     * @returns A new Stamp
+     */
+    propertyDescriptors(...descriptors: Array<{}>): Stamp;
+
+    /**
+     * Apply ES5 property descriptors to a Stamp and any future Stamp it
+     * composes. Creates and returns a new stamp. Chainable.
+     * @param descriptors
+     * @returns A new Stamp
+     */
+    staticPropertyDescriptors(...descriptors: Array<{}>): Stamp;
 }
 
 /**
- * Return a factory (akaStamp) function that will produce new objects using the
+ * Return a factory (aka Stamp) function that will produce new objects using the
  * prototypes that are passed in or composed.
- * @param {object} options Stampit options object containing refs, methods, init, props, and static.
- * @param {object} options.methods A map of method names and bodies for delegation.
- * @param {object} options.refs A map of property names and values to clone for each new object.
- * @param {object} options.props A map of property names and values to clone for each new object.
- * @param {function} options.init A closure(s) (function(s)) used to create private data and privileged methods.
- * @param {object} options.static A map of properties to mixin into new and other stamp it will compose with.
- * */
-declare function stampit(options?: Options): Stamp
+ * @param options Stampit options object containing refs, methods,
+ * init, props, statics, configurations, and property descriptors.
+ */
+declare function stampit(options?: Options): Stamp;
 
 declare namespace stampit {
-
     /**
      * A shortcut methods for stampit().methods()
      * @param methods Object(s) containing map of method names and bodies for delegation.
      * @return A new Stamp.
      */
-    export function methods(...methods:{}[]): Stamp;
+    function methods(...methods: Array<{}>): Stamp;
 
     /**
      * A shortcut methods for stampit().refs()
      * @param states Object(s) containing map of property names and values to clone for each new object.
      * @return A new Stamp.
      */
-    export function refs(...states:{}[]): Stamp;
+    function refs(...states: Array<{}>): Stamp;
 
     /**
-     * A shortcut methods for stampit().props()
-     * @param states Object(s) to merge for each new object.
+     * A shortcut method for stampit().props()
+     * @param objects Object(s) to shallow assign for each new object.
      * @return A new Stamp.
      */
-    export function props(...states:{}[]): Stamp;
+    function props(...objects: Array<{}>): Stamp;
 
     /**
-     * A shortcut methods for stampit().init()
-     * @param functions Closures (functions) used to create private data and privileged methods.
+     * A shortcut method for stampit().properties()
+     * @param objects Object(s) to shallow assign for each new object.
      * @return A new Stamp.
      */
-    export function init(...functions:Init[]): Stamp;
+    function properties(...objects: Array<{}>): Stamp;
 
     /**
-     * A shortcut methods for stampit().static()
-     * @param statics Object(s) containing map of property names and values to mixin into each new stamp (NOT OBJECT).
+     * A shortcut method for stampit().deepProps()
+     * @param deepObjects The object(s) to deeply merge for each new object
+     * @returns A new Stamp
+     */
+    function deepProps(...deepObjects: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().deepProperties()
+     * @param deepObjects The object(s) to deeply merge for each new object
+     * @returns A new Stamp
+     */
+    function deepProperties(...deepObjects: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().init()
+     * @param functions Initializer functions used to create private data and
+     * privileged methods
+     * @returns A new stamp
+     */
+    function init(...functions: Init[]): Stamp;
+
+    /**
+     * A shortcut method for stampit().init()
+     * @param functions Initializer functions used to create private data and
+     * privileged methods
+     * @returns A new stamp
+     */
+    function init(functions: Init[]): Stamp;
+
+    /**
+     * A shortcut method for stampit().initializers()
+     * @param functions Initializer functions used to create private data and
+     * privileged methods
+     * @returns A new stamp
+     */
+    function initializers(...functions: Init[]): Stamp;
+
+    /**
+     * A shortcut method for stampit().initializers()
+     * @param functions Initializer functions used to create private data and
+     * privileged methods
+     * @returns A new stamp
+     */
+    function initializers(functions: Init[]): Stamp;
+
+    /**
+     * A shortcut method for stampit().statics()
+     * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
      * @return A new Stamp.
      */
-    export function static(...statics:{}[]): Stamp;
+    function statics(...statics: Array<{}>): Stamp;
 
     /**
-     * Take two or more Stamps and combine them to produce a new Stamp.
+     * A shortcut method for stampit().staticProperties()
+     * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
+     * @return A new Stamp.
+     */
+    function staticProperties(...statics: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().deepStatics()
+     * @param deepStatics The object(s) containing static properties to be
+     * merged
+     * @returns A new stamp
+     */
+    function deepStatics(...deepStatics: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().staticDeepProperties()
+     * @param deepStatics The object(s) containing static properties to be
+     * merged
+     * @returns A new stamp
+     */
+    function staticDeepProperties(...deepStatics: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().conf()
+     * @param confs The object(s) containing metadata properties
+     * @returns A new Stamp
+     */
+    function conf(...confs: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().configuration()
+     * @param confs The object(s) containing metadata properties
+     * @returns A new Stamp
+     */
+    function configuration(...confs: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().deepConf()
+     * @param deepConfs The object(s) containing metadata properties
+     * @returns A new Stamp
+     */
+    function deepConf(...deepConfs: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().deepConfiguration()
+     * @param deepConfs The object(s) containing metadata properties
+     * @returns A new Stamp
+     */
+    function deepConfiguration(...deepConfs: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().propertyDescriptors()
+     * @param descriptors
+     * @returns A new Stamp
+     */
+    function propertyDescriptors(...descriptors: Array<{}>): Stamp;
+
+    /**
+     * A shortcut method for stampit().staticPropertyDescriptors()
+     * @param descriptors
+     * @returns A new Stamp
+     */
+    function staticPropertyDescriptors(...descriptors: Array<{}>): Stamp;
+
+    /**
+     * Take two or more Composables and combine them to produce a new Stamp.
      * Combining overrides properties with last-in priority.
-     * @param stamps Stamps produced by stampit.
-     * @return A new Stamp made of all the given.
+     * @param composables Composable objects used to create the stamp.
+     * @return A new Stamp made of all the given composables.
      */
-    export function compose(...stamps:Stamp[]): Stamp;
-
-    /**
-     * Take a destination object followed by one or more source objects,
-     * and copy the source object properties to the destination object,
-     * with last in priority overrides.
-     * @param destination An object to copy properties to.
-     * @param source Objects to copy properties from.
-     * @return The destination object.
-     */
-    export function mixin(destination:any, ...source:any[]): any;
-
-    /**
-     * Alias for mixin()
-     */
-    export function mixIn(destination:any, ...source:any[]): any;
-
-    /**
-     * Alias for mixin()
-     */
-    export function extend(destination:any, ...source:any[]): any;
-
-    /**
-     * Alias for mixin()
-     */
-    export function assign(destination:any, ...source:any[]): any;
-
-    /**
-     * Check if an object is a Stamp.
-     * @param obj An object to check.
-     * @return true if the object is a Stamp; otherwise - false.
-     */
-    export function isStamp(obj:any): boolean;
-
-    /**
-     * Take an old-fashioned JS constructor and return a Stamp
-     * that you can freely compose with other Stamps.
-     * @param Constructor Old-fashioned constructor function.
-     * @return A new Stamp based on the given constructor.
-     */
-    export function convertConstructor(Constructor:any): Stamp;
+    function compose(...composables: Composable[]): Stamp;
 }
 
-declare module "stampit" {
-    export = stampit;
-}
+export = stampit;

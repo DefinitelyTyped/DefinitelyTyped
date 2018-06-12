@@ -368,7 +368,7 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     mangle: {
-        except: ['$super', '$', 'exports', 'require']
+        reserved: ['$super', '$', 'exports', 'require']
     }
 });
 plugin = new webpack.optimize.UglifyJsPlugin({

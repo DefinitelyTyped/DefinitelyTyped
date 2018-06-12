@@ -7,6 +7,10 @@ $('#phone').intlTelInput({
 });
 
 $('#phone').intlTelInput({
+  placeholderNumberType: "MOBILE",
+});
+
+$('#phone').intlTelInput({
   geoIpLookup: function(callback) {
     $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
       let countryCode = (resp && resp.country) ? <string> resp.country : '';

@@ -83,6 +83,7 @@ str = apiGwEvtReqCtx.httpMethod;
 strOrNull = apiGwEvtReqCtx.identity.accessKey;
 strOrNull = apiGwEvtReqCtx.identity.accountId;
 strOrNull = apiGwEvtReqCtx.identity.apiKey;
+strOrNull = apiGwEvtReqCtx.identity.apiKeyId;
 strOrNull = apiGwEvtReqCtx.identity.caller;
 strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
 strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationType;
@@ -92,6 +93,7 @@ str = apiGwEvtReqCtx.identity.sourceIp;
 strOrNull = apiGwEvtReqCtx.identity.user;
 strOrNull = apiGwEvtReqCtx.identity.userAgent;
 strOrNull = apiGwEvtReqCtx.identity.userArn;
+str = apiGwEvtReqCtx.path;
 str = apiGwEvtReqCtx.stage;
 str = apiGwEvtReqCtx.requestId;
 str = apiGwEvtReqCtx.resourceId;
@@ -259,15 +261,92 @@ statement = {
     Resource: str
 };
 
+// $ExpectError
 statement = {
+    Effect: str,
+    Action: str,
+    Principal: 123
+};
+
+// Bad Resource
+// $ExpectError
+statement = {
+    Effect: str,
+    Action: str,
+    Resource: 123
+};
+
+// Bad Resource with valid Principal
+// $ExpectError
+statement = {
+    Effect: str,
+    Action: str,
+    Principal: { Service: str},
+    Resource: 123
+};
+
+// Bad principal with valid Resource
+// $ExpectError
+statement = {
+    Effect: str,
+    Action: str,
+    Principal: 123,
+    Resource: str
+};
+
+// No Effect
+// $ExpectError
+statement = {
+    Action: str,
+    Principal: str
+};
+
+statement = {
+    Sid: str,
     Action: [str, str],
     Effect: str,
-    Resource: [str, str]
+    Resource: [str, str],
+    Condition: {
+        condition1: { key: "value" },
+        condition2: [{
+                key1: "value",
+                key2: "value"
+        }, {
+            key3: "value"
+        }]
+    },
+    Principal: [str, str],
+    NotPrincipal: [str, str]
+};
+
+statement = {
+    Action: str,
+    Principal: str,
+    Effect: str
+};
+
+statement = {
+    Action: str,
+    NotPrincipal: {
+        Service: str
+    },
+    Effect: str
+};
+
+statement = {
+    Effect: str,
+    NotAction: str,
+    NotResource: str
 };
 
 policyDocument = {
     Version: str,
     Statement: [statement]
+};
+
+policyDocument = {
+    Version: str,
+    Statement: [statement, statement]
 };
 
 authResponse = {
@@ -425,6 +504,7 @@ function callback(cb: AWSLambda.Callback) {
     cb();
     cb(null);
     cb(error);
+    cb(str); // https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
     cb(null, anyObj);
     cb(null, bool);
     cb(null, str);
@@ -446,6 +526,58 @@ function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
     cb(error);
     cb(null, authResponse);
 }
+
+/* CodePipeline events https://docs.aws.amazon.com/codepipeline/latest/userguide/actions-invoke-lambda-function.html#actions-invoke-lambda-function-json-event-example */
+const CodePipelineEvent: AWSLambda.CodePipelineEvent = {
+    "CodePipeline.job": {
+        id: "11111111-abcd-1111-abcd-111111abcdef",
+        accountId: "111111111111",
+        data: {
+            actionConfiguration: {
+                configuration: {
+                    FunctionName: "MyLambdaFunctionForAWSCodePipeline",
+                    UserParameters: "some-input-such-as-a-URL"
+                }
+            },
+            inputArtifacts: [
+                {
+                    location: {
+                        s3Location: {
+                            bucketName: "the name of the bucket configured as the pipeline artifact store in Amazon S3, for example codepipeline-us-east-2-1234567890",
+                            objectKey: "the name of the application, for example CodePipelineDemoApplication.zip"
+                        },
+                        type: "S3"
+                    },
+                    revision: null,
+                    name: "ArtifactName"
+                }
+            ],
+            outputArtifacts: [],
+            artifactCredentials: {
+                secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+                sessionToken: `MIICiTCCAfICCQD6m7oRw0uXOjANBgkqhkiG9w
+ 0BAQUFADCBiDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZ
+ WF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIw
+ EAYDVQQDEwlUZXN0Q2lsYWMxHzAdBgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5
+ jb20wHhcNMTEwNDI1MjA0NTIxWhcNMTIwNDI0MjA0NTIxWjCBiDELMAkGA1UEBh
+ MCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBb
+ WF6b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMx
+ HzAdBgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5jb20wgZ8wDQYJKoZIhvcNAQE
+ BBQADgY0AMIGJAoGBAMaK0dn+a4GmWIWJ21uUSfwfEvySWtC2XADZ4nB+BLYgVI
+ k60CpiwsZ3G93vUEIO3IyNoH/f0wYK8m9TrDHudUZg3qX4waLG5M43q7Wgc/MbQ
+ ITxOUSQv7c7ugFFDzQGBzZswY6786m86gpEIbb3OhjZnzcvQAaRHhdlQWIMm2nr
+ AgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAtCu4nUhVVxYUntneD9+h8Mg9q6q+auN
+ KyExzyLwaxlAoo7TJHidbtS4J5iNmZgXL0FkbFFBjvSfpJIlJ00zbhNYS5f6Guo
+ EDmFJl0ZxBHjJnyp378OD8uTs7fLvjx79LjSTbNYiytVbZPQUQ5Yaxu2jXnimvw
+ 3rrszlaEXAMPLE=`,
+                accessKeyId: "AKIAIOSFODNN7EXAMPLE"
+            },
+            continuationToken: "A continuation token if continuing job"
+        }
+    }
+};
+
+CodePipelineEvent["CodePipeline.job"].data.encryptionKey = { type: 'KMS', id: 'key' };
 
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
 const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
@@ -572,6 +704,28 @@ const CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
     ]
 };
 
+/* Kinesis Data Stream Events */
+declare let kinesisStreamEvent: AWSLambda.KinesisStreamEvent;
+declare let kinesisStreamRecord: AWSLambda.KinesisStreamRecord;
+declare let kinesisStreamRecordPayload: AWSLambda.KinesisStreamRecordPayload;
+
+kinesisStreamRecord = kinesisStreamEvent.Records[0];
+
+str = kinesisStreamRecord.awsRegion;
+str = kinesisStreamRecord.eventID;
+str = kinesisStreamRecord.eventName;
+str = kinesisStreamRecord.eventSource;
+str = kinesisStreamRecord.eventSourceARN;
+str = kinesisStreamRecord.eventVersion;
+str = kinesisStreamRecord.invokeIdentityArn;
+kinesisStreamRecordPayload = kinesisStreamRecord.kinesis;
+
+num = kinesisStreamRecordPayload.approximateArrivalTimestamp;
+str = kinesisStreamRecordPayload.data;
+str = kinesisStreamRecordPayload.kinesisSchemaVersion;
+str = kinesisStreamRecordPayload.partitionKey;
+str = kinesisStreamRecordPayload.sequenceNumber;
+
 /* Compatibility functions */
 context.done();
 context.done(error);
@@ -585,8 +739,27 @@ context.fail(str);
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 
-// async methods return Promise, test assignability
-let asyncHandler: AWSLambda.Handler = async (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+/* In node8.10 runtime, handlers may return a promise for the result value, so existing async
+ * handlers that return Promise<void> before calling the callback will now have a `null` result.
+ * Be safe and make that badly typed with a major verson bump to 8.10 so users expect the breaking change,
+ * since the upgrade effort should be pretty low in most cases, and it points them at a nicer solution.
+ */
+// $ExpectError
+let legacyAsyncHandler: AWSLambda.APIGatewayProxyHandler = async (
+    event: AWSLambda.APIGatewayProxyEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.Callback<AWSLambda.APIGatewayProxyResult>,
+) => {
+    cb(null, { statusCode: 200, body: 'No longer valid' });
+};
+
+let node8AsyncHandler: AWSLambda.APIGatewayProxyHandler = async (
+    event: AWSLambda.APIGatewayProxyEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.Callback<AWSLambda.APIGatewayProxyResult>,
+) => {
+    return { statusCode: 200, body: 'Is now valid!' };
+};
 
 let inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
     // $ExpectType S3Event
@@ -631,6 +804,8 @@ let apiGtwProxyHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.API
 let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
 apiGtwProxyHandler = proxyHandler;
 
+let codePipelineHandler: AWSLambda.CodePipelineHandler = (event: AWSLambda.CodePipelineEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+
 let cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => {
     cb();
     cb(null);
@@ -661,3 +836,5 @@ let customHandler: AWSLambda.Handler<CustomEvent, CustomResult> = (event, contex
     // $ExpectError
     cb(null, { resultString: bool });
 };
+
+let kinesisStreamHandler: AWSLambda.KinesisStreamHandler = (event: AWSLambda.KinesisStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };

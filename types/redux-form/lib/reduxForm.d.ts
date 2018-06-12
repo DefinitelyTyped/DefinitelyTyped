@@ -18,7 +18,7 @@ import {
 } from "../index";
 
 export type FormSubmitHandler<FormData = {}, P = {}, ErrorType = string> =
-    (values: Partial<FormData>, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData, ErrorType> | Promise<any>;
+    (values: FormData, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData, ErrorType> | Promise<any>;
 
 export interface SubmitHandler<FormData = {}, P = {}, ErrorType = string> {
     (
@@ -109,6 +109,7 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     immutableProps?: string[];
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
+    updateUnregisteredFields?: boolean;
     onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
     onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
     onSubmitFail?(
@@ -137,6 +138,7 @@ export interface FormInstance<FormData, P> extends Component<P> {
     pristine: boolean;
     registeredFields: RegisteredFieldState[];
     reset(): void;
+    resetSection(...sections: string[]): void;
     submit(): Promise<any>;
     valid: boolean;
     values: Partial<FormData>;

@@ -3,8 +3,10 @@
 // Definitions by: Abraao Alves <https://github.com/AbraaoAlves>, Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 // TypeScript Version: 2.3
+import * as self from '@feathersjs/authentication-client';
 
-export default function feathersAuthClient(config?: FeathersAuthClientConfig): () => void;
+declare const feathersAuthClient: ((config?: FeathersAuthClientConfig) => () => void) & typeof self;
+export default feathersAuthClient;
 
 export interface FeathersAuthClientConfig {
     storage?: Storage;

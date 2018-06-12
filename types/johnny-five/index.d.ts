@@ -102,6 +102,7 @@ export interface BoardOption {
     repl?: boolean;
     debug?: boolean;
     timeout?: number;
+    io?: any;
 }
 
 export declare class Board {

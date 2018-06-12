@@ -1,6 +1,7 @@
 // Type definitions for stellar-sdk 0.8
 // Project: https://github.com/stellar/js-stellar-sdk
 // Definitions by: Carl Foster <https://github.com/carl-foster>
+//                 Triston Jones <https://github.com/tristonj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -91,7 +92,7 @@ export interface AccountRecord extends Record {
     >;
     signers: Array<
     {
-        _key: string
+        public_key: string
         weight: number
     }
     >;
@@ -424,7 +425,7 @@ export class AccountResponse implements AccountRecord {
         >;
     signers: Array<
         {
-            _key: string
+            public_key: string
             weight: number
         }
         >;
@@ -596,7 +597,7 @@ export namespace Operation {
     }
     interface ChangeTrustOptions {
         asset: Asset;
-        limit: string;
+        limit?: string;
         source?: string;
     }
     function changeTrust(options: ChangeTrustOptions): xdr.Operation<ChangeTrust>;
@@ -739,10 +740,18 @@ export namespace Operation {
     function fromXDRObject<T extends Operation>(xdrOperation: xdr.Operation<T>): T;
 }
 
-export class OperationCallBuilder extends CallBuilder<OperationRecord> { }
+export class OperationCallBuilder extends CallBuilder<OperationRecord> {
+    forAccount(accountId: string): this;
+    forLedger(sequence: string): this;
+    forTransaction(transactionId: string): this;
+}
 export class OrderbookCallBuilder extends CallBuilder<OrderbookRecord> { }
 export class PathCallBuilder extends CallBuilder<PaymentPathRecord> { }
-export class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> { }
+export class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> {
+    forAccount(accountId: string): this;
+    forLedger(sequence: string): this;
+    forTransaction(transactionId: string): this;
+}
 
 export class Server {
     constructor(serverURL: string, options?: { allowHttp: boolean })

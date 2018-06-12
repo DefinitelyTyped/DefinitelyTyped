@@ -73,6 +73,15 @@ FB.ui({
 });
 
 FB.ui({
+    method: 'pay',
+    action: 'purchaseiap',
+    product_id: 'com.fb.friendsmash.coins.10',
+    developer_payload: 'this_is_a_test_payload'
+}, response => {
+    console.log(response);
+});
+
+FB.ui({
     method: 'pagetab',
     redirect_uri: 'YOUR_URL'
 }, response => {});

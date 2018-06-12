@@ -11,7 +11,7 @@ declare namespace ReactBootstrapDaterangepicker {
 
     export interface EventHandler { (event?: any, picker?: any): any; }
 
-    export interface Props extends  daterangepicker.Settings{
+    export interface Props extends daterangepicker.Options{
         onShow?: EventHandler;
         onHide?: EventHandler;
         onShowCalendar?: EventHandler;
@@ -19,6 +19,8 @@ declare namespace ReactBootstrapDaterangepicker {
         onApply?: EventHandler;
         onCancel?: EventHandler;
         onEvent?: EventHandler;
+        containerClass?: string;
+        containerStyles?: React.CSSProperties;
     }
 
     export class DateRangePicker extends React.Component<Props> { }

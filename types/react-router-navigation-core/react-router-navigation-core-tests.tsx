@@ -2,7 +2,7 @@ import * as React from "react";
 import { View } from "react-native";
 import { TabStack, renderSubView } from "react-router-navigation-core";
 import { TabBarProps, TabProps } from "react-router-navigation";
-import { TabViewAnimated } from "react-native-tab-view";
+import { TabView } from "react-native-tab-view";
 
 type Props = TabBarProps & {
     children?: Array<React.ReactElement<TabProps>>;
@@ -24,7 +24,7 @@ class BottomNavigation extends React.Component<Props, State> {
                 render={props => {
                     const ownProps = { ...this.props, ...props };
                     return (
-                        <TabViewAnimated
+                        <TabView
                             {...props}
                             key={`transitioner_${this.state.key}`}
                             animationEnabled={false}
@@ -32,10 +32,11 @@ class BottomNavigation extends React.Component<Props, State> {
                                 sceneProps => <View />,
                                 ownProps
                             )}
-                            renderFooter={renderSubView(
+                            renderTabBar={renderSubView(
                                 sceneProps => <View />,
                                 ownProps
                             )}
+                            tabBarPosition="bottom"
                             renderScene={renderSubView(
                                 sceneProps => <View />,
                                 ownProps

@@ -150,7 +150,8 @@ map.flyTo({
 	screenSpeed: 1,
 	easing: function(t: any) {
 		return t;
-	}
+	},
+	maxDuration: 1
 });
 
 /**
@@ -204,6 +205,22 @@ var videoSourceObj = new mapboxgl.VideoSource({
 });
 map.addSource('some id', videoSourceObj); // add
 map.removeSource('some id');  // remove
+
+/**
+ * Add Raster Source /// made URL optional to allow only tiles.
+ */
+map.addSource('radar', {
+	type: 'raster',
+	tiles: ['https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WmsServer?bbox={bbox-epsg-3857}&service=WMS&request=GetMap&version=1.3.0&layers=1&styles=&format=image/png&transparent=true&height=256&width=256&crs=EPSG:3857'],
+	tileSize: 256
+})
+
+map.addLayer({
+	id: 'radar',
+	type: 'raster',
+	source: 'radar',
+	paint: {}
+})
 
 /**
  * Popup

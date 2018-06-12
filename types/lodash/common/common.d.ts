@@ -1,4 +1,5 @@
 import _ = require("../index");
+// tslint:disable-next-line:strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
@@ -85,7 +86,6 @@ declare module "../index" {
         **/
         templateSettings: TemplateSettings;
     }
-
 
     /**
     * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby
@@ -182,7 +182,7 @@ declare module "../index" {
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | object | [string, any] | PartialDeep<T>;
+    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
     type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
 
     // Note: key should be string, not keyof T, because the actual object may contain extra properties that were not specified in the type.
@@ -193,23 +193,31 @@ declare module "../index" {
 
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 
+    /** @deprecated Use MemoVoidArrayIterator or MemoVoidDictionaryIterator instead. */
     type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => void;
 
-    /** @deprecated Use MemoListIterator or MemoObjectIterator instead.  */
+    /** @deprecated Use MemoListIterator or MemoObjectIterator instead. */
     type MemoIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => TResult;
     type MemoListIterator<T, TResult, TList> = (prev: TResult, curr: T, index: number, list: TList) => TResult;
     type MemoObjectIterator<T, TResult, TList> = (prev: TResult, curr: T, key: string, list: TList) => TResult;
+    type MemoIteratorCapped<T, TResult> = (prev: TResult, curr: T) => TResult;
+    type MemoIteratorCappedRight<T, TResult> = (curr: T, prev: TResult) => TResult;
 
     type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
+    type MemoVoidIteratorCapped<T, TResult> = (acc: TResult, curr: T) => void;
 
     type ValueIteratee<T> = ((value: T) => NotVoid) | string | [string, any] | PartialDeep<T>;
+    type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | string | [string, any] | PartialDeep<T>;
+    type ValueIteratorTypeGuard<T, S extends T> = (value: T) => value is S;
     type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | string | [string, any] | PartialDeep<T>;
     type Comparator<T> = (a: T, b: T) => boolean;
     type Comparator2<T1, T2> = (a: T1, b: T2) => boolean;
 
     type PropertyName = string | number | symbol;
     type PropertyPath = Many<PropertyName>;
+
+    type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never })[keyof T]>;
 
     /** Common interface between Arrays and jQuery objects */
     type List<T> = ArrayLike<T>;
