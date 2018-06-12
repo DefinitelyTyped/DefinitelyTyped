@@ -155,3 +155,19 @@ expect(spy).to.have.been.called.below(3);
 expect(spy).to.not.have.been.called.lt(3);
 spy.should.have.been.called.lt(3);
 spy.should.not.have.been.called.below(3);
+
+// You can also create sandbox
+let sb = chai.spy.sandbox();
+
+sb.on(array, 'pop', () => {
+    return 1;
+})
+
+let one = array.pop();
+expect(one).to.equal(1);
+
+// Can restore methods in sandbox
+sb.restore();
+array.push(2);
+let two = array.pop();
+expect(two).to.equal(2);
