@@ -11,3 +11,6 @@ declare class HttpConnector {
     makeReqParams(params: any): any;
     request(params: any, callback: (error: any, response: any, status: any, headers: any) => void): void;
 }
+
+declare namespace HttpConnector {
+}
