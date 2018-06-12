@@ -3561,7 +3561,9 @@ namespace http2_tests {
         let clientHttp2Stream: http2.ClientHttp2Stream;
         clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
-        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders, flags: number) => {});
+        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders & http2.IncomingHttpStatusHeader, flags: number) => {
+            const s: number = headers[':status'];
+        });
 
         // ServerHttp2Stream
         let serverHttp2Stream: http2.ServerHttp2Stream;
