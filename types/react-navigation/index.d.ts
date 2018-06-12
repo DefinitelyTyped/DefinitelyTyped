@@ -97,6 +97,10 @@ export interface NavigationLeafRoute<Params = NavigationParams> {
    */
   key: string;
   /**
+   * Index that represents the depth of the stack
+   */
+  index: number;
+  /**
    * For example 'Home'.
    * This is used as a key in a route config when creating a navigator.
    */
@@ -260,6 +264,30 @@ export interface NavigationInitAction extends NavigationInitActionPayload {
   type: 'Navigation/INIT';
 }
 
+export interface NavigationReplaceActionPayload {
+    key: string;
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationNavigateAction;
+}
+
+export interface NavigationReplaceAction {
+    type: 'Navigation/REPLACE';
+    key: string;
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationNavigateAction;
+}
+
+export interface NavigationCompleteTransitionActionPayload {
+    key?: string;
+}
+
+export interface NavigationCompleteTransitionAction {
+    type: 'Navigation/COMPLETE_TRANSITION';
+    key: string;
+}
+
 export interface NavigationResetActionPayload {
   index: number;
   key?: string | null;
@@ -296,6 +324,21 @@ export interface NavigationPopToTopActionPayload {
 export interface NavigationPopToTopAction
   extends NavigationPopToTopActionPayload {
   type: 'Navigation/POP_TO_TOP';
+}
+
+export interface NavigationPushActionPayload {
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationNavigateAction;
+    key?: string;
+}
+
+export interface NavigationPushAction {
+    type: 'Navigation/PUSH';
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationNavigateAction;
+    key?: string;
 }
 
 export interface NavigationStackViewConfig {
@@ -919,6 +962,34 @@ export namespace NavigationActions {
   function popToTop(
     options: NavigationPopToTopActionPayload
   ): NavigationPopToTopAction;
+}
+
+/**
+ * StackActions
+ */
+export namespace StackActions {
+    const POP: 'Navigation/POP';
+    const POP_TO_TOP: 'Navigation/POP_TO_TOP';
+    const PUSH: 'Navigation/PUSH';
+    const RESET: 'Navigation/RESET';
+    const REPLACE: 'Navigation/REPLACE';
+    const COMPLETE_TRANSITION: 'Navigation/COMPLETE_TRANSITION';
+
+    function pop(options: NavigationPopActionPayload): NavigationPopAction;
+    function popToTop(
+        options: NavigationPopToTopActionPayload
+    ): NavigationPopToTopAction;
+
+    function push(options: NavigationPushActionPayload): NavigationPushAction;
+    function reset(options: NavigationResetActionPayload): NavigationResetAction;
+
+    function replace(
+        options: NavigationReplaceActionPayload
+    ): NavigationReplaceAction;
+
+    function completeTransition(
+        payload: NavigationCompleteTransitionActionPayload
+    ): NavigationCompleteTransitionAction;
 }
 
 /**

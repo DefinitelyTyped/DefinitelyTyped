@@ -16,12 +16,12 @@ export = WebpackServe;
 
 declare module 'webpack' {
   interface Configuration {
-    serve: WebpackServe.Options;
+    serve?: WebpackServe.Options;
   }
 }
 
 declare function WebpackServe(
-  { config }: { config: WebpackServe.Options }
+  { config }: { config: webpack.Configuration }
 ): Promise<WebpackServe.Instance>;
 
 declare namespace WebpackServe {

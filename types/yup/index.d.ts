@@ -37,8 +37,8 @@ export interface Schema<T> {
     meta(): any;
     describe(): SchemaDescription;
     concat(schema: this): this;
-    validate(value: T, options?: ValidateOptions): Promise<ValidationError | T>;
-    validateSync(value: T, options?: ValidateOptions): ValidationError | T;
+    validate(value: T, options?: ValidateOptions): Promise<T>;
+    validateSync(value: T, options?: ValidateOptions): T;
     isValid(value: T, options?: any): Promise<boolean>;
     isValidSync(value: T, options?: any): boolean;
     cast(value: any, options?: any): T;

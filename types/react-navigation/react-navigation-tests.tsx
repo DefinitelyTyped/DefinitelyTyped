@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import {
     createDrawerNavigator,
+    createBottomTabNavigator,
     DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
@@ -451,3 +452,20 @@ class Page2 extends React.Component {
         return <RootNavigator ref={(instance: NavigationContainerComponent | null): void => { this.navigatorRef = instance; }} />;
     }
 }
+
+const BottomStack = createBottomTabNavigator({
+    Posts: {
+        screen: Page2,
+        navigationOptions: ({ navigation }: NavigationScreenProps) => {
+            let tabBarVisible = true;
+
+            if (navigation.state.index > 0) {
+                tabBarVisible = false;
+            }
+
+            return {
+                tabBarVisible
+            };
+        }
+    }
+});

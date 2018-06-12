@@ -1390,10 +1390,9 @@ declare namespace angular {
 
     interface IControllerService {
         // Although the documentation doesn't state this, locals are optional
-        <T>(controllerConstructor: new (...args: any[]) => T, locals?: any, later?: boolean, ident?: string): T;
-        <T>(controllerConstructor: Function, locals?: IControllerLocals, later?: boolean, ident?: string): T;
-        <T>(controllerConstructor: Function, locals?: any, later?: boolean, ident?: string): T;
-        <T>(controllerName: string, locals?: any, later?: boolean, ident?: string): T;
+        <T>(controllerConstructor: new (...args: any[]) => T, locals?: any): T;
+        <T>(controllerConstructor: (...args: any[]) => T, locals?: any): T;
+        <T>(controllerName: string, locals?: any): T;
     }
 
     interface IControllerProvider extends IServiceProvider {

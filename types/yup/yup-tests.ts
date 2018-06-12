@@ -307,7 +307,7 @@ const testObject: MyInterface = {
     arrayField: ["hi"],
 };
 
-typedSchema.validateSync(testObject); // $ExpectType ValidationError | MyInterface
+typedSchema.validateSync(testObject); // $ExpectType MyInterface
 
 // $ExpectError
 yup.object<MyInterface>({

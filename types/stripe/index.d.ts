@@ -8,6 +8,7 @@
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
 //                 Thomas Bruun <https://github.com/bruun>
+//                 Gal Talmor <https://github.com/galtalmor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -481,7 +482,7 @@ declare namespace Stripe {
             /**
              * ID of the Connect Application that earned the fee. [Expandable]
              */
-            application: string; //TODO: Implement IApplication interface and reference type here for expansion:- "string | IApplication"
+            application: string | applications.IApplication;
 
             /**
              * Balance transaction that describes the impact of this collected application
@@ -737,12 +738,17 @@ declare namespace Stripe {
              * charge if a partial refund was issued), positive integer or zero.
              */
             amount_refunded: number;
+            
+            /**
+             * ID of the Connect application that created the charge. [Expandable]
+             */
+            application?: string | applications.IApplication | null;
 
             /**
              * The application fee (if any) for the charge. See the Connect documentation
              * for details. [Expandable]
              */
-            application_fee?: string | applicationFees.IApplicationFee;
+            application_fee?: string | applicationFees.IApplicationFee | null;
 
             /**
              * ID of the balance transaction that describes the impact of this charge on
@@ -767,25 +773,33 @@ declare namespace Stripe {
             /**
              * ID of the customer this charge is for if one exists. [Expandable]
              */
-            customer: string | customers.ICustomer;
+            customer: string | customers.ICustomer | null;
 
             description?: string;
 
             /**
+             * The account (if any) the charge was made on behalf of, with an automatic
+             * transfer. See the [Connect documentation]
+             * <https://stripe.com/docs/connect/destination-charges> for details.
+             * [Expandable]
+             */
+            destination?: string | accounts.IAccount | null;
+
+            /**
              * Details about the dispute if the charge has been disputed.
              */
-            dispute?: disputes.IDispute;
+            dispute?: disputes.IDispute | null;
 
             /**
              * Error code explaining reason for charge failure if available (see the errors section for a list of
              * codes: https://stripe.com/docs/api#errors).
              */
-            failure_code: string;
+            failure_code: string | null;
 
             /**
              * Message to user further explaining reason for charge failure if available.
              */
-            failure_message: string;
+            failure_message: string | null;
 
             /**
              * Hash with information on fraud assessments for the charge.
@@ -805,16 +819,30 @@ declare namespace Stripe {
             /**
              * ID of the invoice this charge is for if one exists. [Expandable]
              */
-            invoice: string | invoices.IInvoice;
+            invoice: string | invoices.IInvoice | null;
 
             livemode: boolean;
 
             metadata: IMetadata;
 
             /**
+             * The Stripe account ID for which these funds are intended. Automatically
+             * set if you use the destination parameter. For details, see [Creating
+             * Separate Charges and Transfers]
+             * <https://stripe.com/docs/connect/charges-transfers#on-behalf-of>.
+             */
+            on_behalf_of?: string | null;
+
+            /**
              * ID of the order this charge is for if one exists. [Expandable]
              */
-            order: string | orders.IOrder;
+            order: string | orders.IOrder | null;
+
+            /**
+             * Details about whether the payment was accepted, and why. See
+             * understanding declines for details. [Expandable]
+             */
+            outcome?: charges.IOutcome;
 
             /**
              * true if the charge succeeded, or was successfully authorized for later capture.
@@ -824,12 +852,12 @@ declare namespace Stripe {
             /**
              * This is the email address that the receipt for this charge was sent to.
              */
-            receipt_email: string;
+            receipt_email: string | null;
 
             /**
              * This is the transaction number that appears on email receipts sent for this charge.
              */
-            receipt_number: string;
+            receipt_number: string | null;
 
             /**
              * Whether or not the charge has been fully refunded. If the charge is only partially refunded,
@@ -843,9 +871,14 @@ declare namespace Stripe {
             refunds: IChargeRefunds;
 
             /**
+             * ID of the review associated with this charge if one exists. [Expandable]
+             */
+            review?: string | reviews.IReview | null;
+
+            /**
              * Shipping information for the charge.
              */
-            shipping?: IShippingInformation;
+            shipping?: IShippingInformation | null;
 
             /**
              * For most Stripe users, the source of every charge is a credit or debit card.
@@ -858,13 +891,13 @@ declare namespace Stripe {
              * from another Stripe account. See the Connect documentation for details.
              * [Expandable]
              */
-            source_transfer: string | transfers.ITransfer;
+            source_transfer: string | transfers.ITransfer | null;
 
             /**
              * Extra information about a charge. This will appear on your customer’s
              * credit card statement.
              */
-            statement_descriptor: string;
+            statement_descriptor: string | null;
 
             /**
              * The status of the payment is either "succeeded", "pending", or "failed".
@@ -875,7 +908,15 @@ declare namespace Stripe {
              * ID of the transfer to the destination account (only applicable if the
              * charge was created using the destination parameter). [Expandable]
              */
-            transfer: string | transfers.ITransfer;
+            transfer?: string | transfers.ITransfer;
+
+            /**
+             * A string that identifies this transaction as part of a group.
+             * See the [Connect documentation]
+             * <https://stripe.com/docs/connect/charges-transfers#grouping-transactions>
+             * for details.
+             */
+            transfer_group?: string | null;
         }
 
         interface IChargeCreationOptions extends IDataOptionsWithMetadata {
@@ -1054,6 +1095,48 @@ declare namespace Stripe {
                  */
                 object: "all" | "alipay_account" | "bitcoin_receiver" | "card";
             }
+        }
+
+        interface IOutcome {
+            /**
+             * The value reversed_after_approval indicates the payment was blocked by Stripe after
+             * bank authorization, and may temporarily appear as “pending” on a cardholder’s statement.
+             */
+            network_status: "approved_by_network" | "declined_by_network" | "not_sent_to_network" | "reversed_after_approval";
+
+            /**
+             * An enumerated value providing a more detailed explanation of the outcome’s type. Charges
+             * blocked by Radar’s default block rule have the value highest_risk_level. Charges placed
+             * in review by Radar’s default review rule have the value elevated_risk_level. Charges
+             * authorized, blocked, or placed in review by custom rules have the value rule. See
+             * understanding declines for more details.
+             */
+            reason: string | null;
+
+            /**
+             * Stripe’s evaluation of the riskiness of the payment. Possible values for evaluated
+             * payments are normal, elevated, highest. For non-card payments, and card-based payments
+             * predating the public assignment of risk levels, this field will have the value not_assessed.
+             * In the event of an error in the evaluation, this field will have the value unknown.
+             */
+            risk_level?: string | null;
+
+            /**
+             * The ID of the Radar rule that matched the payment, if applicable. [Expandable]
+             */
+            rule?: string | string[] | null;
+
+            /**
+             * See [understanding declines]<https://stripe.com/docs/declines> and
+             * [Radar reviews]<https://stripe.com/docs/radar/review> for details.
+             */
+            type: "authorized" | "manual_review" | "issuer_declined" | "blocked" | "invalid";
+
+            /**
+             * A human-readable description of the outcome type and reason, designed for you (the
+             * recipient of the payment), not your customer.
+             */
+            seller_message: string;
         }
 
         interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds { }
@@ -4092,7 +4175,7 @@ declare namespace Stripe {
              * in the card object if the card belongs to an account or recipient
              * instead.
              */
-            customer?: string | customers.ICustomer;
+            customer?: string | customers.ICustomer | null;
 
             /**
              * Only applicable on accounts (not customers or recipients). This
@@ -4126,7 +4209,7 @@ declare namespace Stripe {
             /**
              * The card number
              */
-            number: string;
+            number?: string;
 
             /**
              * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
@@ -4140,20 +4223,20 @@ declare namespace Stripe {
              */
             funding: "credit" | "debit" | "prepaid" | "unknown";
             last4: string;
-            address_city: string;
+            address_city: string | null;
 
             /**
              * Billing address country, if provided when creating card
              */
-            address_country: string;
-            address_line1: string;
+            address_country: string | null;
+            address_line1: string | null;
 
             /**
              * If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.
              */
-            address_line1_check: string;
-            address_line2: string;
-            address_state: string;
+            address_line1_check: string | null;
+            address_line2: string | null;
+            address_state: string | null;
             address_zip: string;
 
             /**
@@ -4175,7 +4258,7 @@ declare namespace Stripe {
             /**
              * (For Apple Pay integrations only.) The last four digits of the device account number.
              */
-            dynamic_last4: string;
+            dynamic_last4: string | null;
 
             /**
              * Cardholder name
@@ -4194,7 +4277,7 @@ declare namespace Stripe {
              * If the card number is tokenized, this is the method that was
              * used. Can be "apple_pay" or "android_pay".
              */
-            tokenization_method: "apple_pay" | "android_pay";
+            tokenization_method: "apple_pay" | "android_pay" | null;
         }
 
         interface ICardUpdateOptions extends IDataOptionsWithMetadata {
@@ -4944,6 +5027,54 @@ declare namespace Stripe {
         }
     }
 
+    namespace reviews {
+        interface IReview extends IResourceObject {
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            object: "review";
+            
+            /**
+             * The charge associated with this review. [Expandable]
+             */
+            charge: string | charges.ICharge;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * If true, the review needs action.
+             */
+            open: boolean;
+
+            /**
+             * The reason the review is currently open or closed.
+             */
+            reason: "rule" | "manual" | "approved" | "refunded" | "refunded_as_fraud" | "disputed";
+        }
+    }
+
+    namespace applications {
+        interface IApplication extends IResourceObject {
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            object: "application";
+
+            /**
+             * String representing the application’s name.
+             */
+            name: string;
+        }
+    } 
+
     class StripeResource {
         constructor(stripe: Stripe, urlData: any);
     }
@@ -5388,18 +5519,18 @@ declare namespace Stripe {
              * Once entirely refunded, a charge can't be refunded again.
              * This method will throw an error when called on an already-refunded charge, or when trying to refund more money than is left on a charge.
              */
-            create(data: refunds.IRefundCreationOptions, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
-            create(data: refunds.IRefundCreationOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
-            create(options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
-            create(response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            create?(data: refunds.IRefundCreationOptions, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            create?(data: refunds.IRefundCreationOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            create?(options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            create?(response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
 
             /**
              * Retrieves the details of an existing refund.
              */
-            retrieve(id: string, data: IDataOptions, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
-            retrieve(id: string, data: IDataOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
-            retrieve(id: string, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
-            retrieve(id: string, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            retrieve?(id: string, data: IDataOptions, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            retrieve?(id: string, data: IDataOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            retrieve?(id: string, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            retrieve?(id: string, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
 
 
             /**
@@ -5408,18 +5539,18 @@ declare namespace Stripe {
              *
              * This request only accepts metadata as an argument.
              */
-            update(id: string, data: IDataOptionsWithMetadata, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
-            update(id: string, data: IDataOptionsWithMetadata, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            update?(id: string, data: IDataOptionsWithMetadata, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            update?(id: string, data: IDataOptionsWithMetadata, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
 
             /**
              * Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order,
              * with the most recent refunds appearing first.
              * For convenience, the 10 most recent refunds are always available by default on the charge object.
              */
-            list(data: refunds.IRefundListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            list(data: refunds.IRefundListOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            list(response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            list?(data: refunds.IRefundListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            list?(data: refunds.IRefundListOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            list?(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            list?(response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
         }
 
         class Coupons extends StripeResource {
