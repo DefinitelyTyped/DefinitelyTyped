@@ -9,187 +9,46 @@
 // declare namespace swiper {
 declare module 'swiper' {
 
+    type CommonEvent =
+        | 'init'
+        | 'beforeDestroy'
+        | 'slideChange'
+        | 'slideChangeTransitionStart'
+        | 'slideChangeTransitionEnd'
+        | 'slideNextTransitionStart'
+        | 'slideNextTransitionEnd'
+        | 'slidePrevTransitionStart'
+        | 'slidePrevTransitionEnd'
+        | 'transitionStart'
+        | 'transitionEnd'
+        | 'touchStart'
+        | 'touchMove'
+        | 'touchMoveOpposite'
+        | 'sliderMove'
+        | 'touchEnd'
+        | 'click'
+        | 'tap'
+        | 'doubleTap'
+        | 'imagesReady'
+        | 'progress'
+        | 'reachBeginning'
+        | 'reachEnd'
+        | 'fromEdge'
+        | 'setTranslate'
+        | 'setTransition'
+        | 'resize';
+
+    type PaginationEvent = 'paginationRender' | 'paginationUpdate';
+    type AutoplayEvent = 'autoplayStart' | 'autoplayStop' | 'autoplay';
+    type LazyLoadingEvent = 'lazyImageLoad' | 'lazyImageReady';
+
+    type SwiperEvent = CommonEvent | PaginationEvent | AutoplayEvent | LazyLoadingEvent;
+
     type DOM7Element = any;
     type SelectableElement = string | HTMLElement;
 
     /*
      * Swiper options and events.
-     */
-
-    /**
-     * All the Swiper events.
-     */
-    interface SwiperEvents {
-
-        /**
-         * Fired right after Swiper initialization.
-         * Note that with swiper.on('init') syntax it will
-         * work only in case you set init: false parameter.
-         *
-         * @example
-         * var swiper = new Swiper('.swiper-container', {
-         *   init: false,
-         *   // other parameters
-         * });
-         *
-         * @example
-         * swiper.on('init', function() {
-         *  // do something
-         * });
-         *
-         * @example
-         * // init Swiper
-         * swiper.init();
-         *
-         * @example
-         * // Otherwise use it as the parameter:
-         * var swiper = new Swiper('.swiper-container', {
-         *   // other parameters
-         *   on: {
-         *     init: function () {
-         *       // do something
-         *     },
-         *   }
-         * });
-         */
-        init: () => {};
-
-        /**
-         * Event will be fired right beforey Swiper destoryed
-         */
-        beforeDestroy: () => {};
-
-        /**
-         * Event will be fired when currently active slide is changed
-         */
-        slideChange: () => {};
-
-        /**
-         * Event will be fired in the beginning of animation to other slide (next or previous).
-         */
-        slideChangeTransitionStart: () => {};
-
-        /**
-         * Event will be fired after animation to other slide (next or previous).
-         */
-        slideChangeTransitionEnd: () => {};
-
-        /**
-         * Same as "slideChangeTransitionStart" but for "forward" direction only
-         */
-        slideNextTransitionStart: () => {};
-
-        /**
-         * Same as "slideChangeTransitionEnd" but for "forward" direction only
-         */
-        slideNextTransitionEnd: () => {};
-
-        /**
-         * Same as "slideChangeTransitionStart" but for "backward" direction only
-         */
-        slidePrevTransitionStart: () => {};
-
-        /**
-         * Same as "slideChangeTransitionEnd" but for "backward" direction only
-         */
-        slidePrevTransitionEnd: () => {};
-
-        /**
-         * Event will be fired in the beginning of transition.
-         */
-        transitionStart: () => {};
-
-        /**
-         * Event will be fired after transition.
-         */
-        transitionEnd: () => {};
-
-        /**
-         * Event will be fired when user touch Swiper. Receives 'touchstart' event as an arguments.
-         */
-        touchStart: (event: any) => {};
-
-        /**
-         * Event will be fired when user touch and move finger over Swiper. Receives 'touchmove' event as an arguments.
-         */
-        touchMove: (event: any) => {};
-
-        /**
-         * Fired when user touch and move finger over
-         * Swiper in direction opposite to direction parameter.
-         * Receives 'touchmove' event as an arguments.
-         */
-        touchMoveOpposite: (event: any) => {};
-
-        /**
-         * Event will be fired when user touch and move finger over Swiper and move it. Receives 'touchmove' event as an arguments.
-         */
-        sliderMove: (event: any) => {};
-
-        /**
-         * Event will be fired when user release Swiper. Receives 'touchend' event as an arguments.
-         */
-        touchEnd: (event: any) => {};
-
-        /**
-         * Event will be fired when user click/tap on Swiper after 300ms delay. Receives 'touchend' event as an arguments.
-         */
-        click: (event: any) => {};
-
-        /**
-         * Event will be fired when user click/tap on Swiper. Receives 'touchend' event as an arguments.
-         */
-        tap: (event: any) => {};
-
-        /**
-         * Event will be fired when user double tap on Swiper's container. Receives 'touchend' event as an arguments
-         */
-        doubleTap: (event: any) => {};
-
-        /**
-         * Event will be fired right after all inner images are loaded. updateOnImagesReady should be also enabled
-         */
-        imagesReady: () => {};
-
-        /**
-         * Event will be fired when Swiper progress is changed, as an arguments it receives progress that is always from 0 to 1
-         */
-        progress: (progress: any) => {};
-
-        /**
-         * Event will be fired when Swiper reach its beginning (initial position)
-         */
-        reachBeginning: () => {};
-
-        /**
-         * Event will be fired when Swiper reach last slide
-         */
-        reachEnd: () => {};
-
-        /**
-         * Event will be fired when Swiper goes from beginning or end position
-         */
-        fromEdge: () => {};
-
-        /**
-         * Event will be fired when swiper's wrapper change its position. Receives current translate value as an arguments
-         */
-        setTranslate: (translate: any) => {};
-
-
-        /**
-         * Event will be fired everytime when swiper starts animation. Receives current transition duration (in ms) as an      arguments,
-         */
-        setTransition: (transition: any) => {};
-
-        /**
-         * Event will be fired on window resize right before swiper's onresize manipulation
-         */
-        resize: () => {};
-    }
-
-    /*
-     * Options
      */
 
     interface SwiperOptions {
@@ -315,10 +174,10 @@ declare module 'swiper' {
         autoplay?: AutoplayOptions | boolean;
         parallax?: boolean;
         lazy?: LazyOptions | boolean;
-        fadeEffect?: EffectFadeOptions;
-        coverflowEffect?: EffectCoverflowOptions;
-        flipEffect?: EffectFlipOptions;
-        cubeEffect?: EffectCubeOptions;
+        fadeEffect?: FadeEffectOptions;
+        coverflowEffect?: CoverflowEffectOptions;
+        flipEffect?: FlipEffectOptions;
+        cubeEffect?: CubeEffectOptions;
         zoom?: ZoomOptions | boolean;
         keyboard?: KeyboardOptions | boolean;
         mousewheel?: MousewheelOptions | boolean;
@@ -329,32 +188,171 @@ declare module 'swiper' {
     }
 
     interface EventsOptions {
+
+        /**
+         * Fired right after Swiper initialization.
+         * Note that with swiper.on('init') syntax it will
+         * work only in case you set init: false parameter.
+         *
+         * @example
+         * var swiper = new Swiper('.swiper-container', {
+         *   init: false,
+         *   // other parameters
+         * });
+         *
+         * @example
+         * swiper.on('init', function() {
+         *  // do something
+         * });
+         *
+         * @example
+         * // init Swiper
+         * swiper.init();
+         *
+         * @example
+         * // Otherwise use it as the parameter:
+         * var swiper = new Swiper('.swiper-container', {
+         *   // other parameters
+         *   on: {
+         *     init: function () {
+         *       // do something
+         *     },
+         *   }
+         * });
+         */
         init: () => {};
+
+        /**
+         * Triggered right beforey Swiper destoryed
+         */
         beforeDestroy: () => {};
+
+        /**
+         * Triggered when currently active slide is changed
+         */
         slideChange: () => {};
+
+        /**
+         * Triggered in the beginning of animation to other slide (next or previous).
+         */
         slideChangeTransitionStart: () => {};
+
+        /**
+         * Triggered after animation to other slide (next or previous).
+         */
         slideChangeTransitionEnd: () => {};
+
+        /**
+         * Same as "slideChangeTransitionStart" but for "forward" direction only
+         */
         slideNextTransitionStart: () => {};
+
+        /**
+         * Same as "slideChangeTransitionEnd" but for "forward" direction only
+         */
         slideNextTransitionEnd: () => {};
+
+        /**
+         * Same as "slideChangeTransitionStart" but for "backward" direction only
+         */
         slidePrevTransitionStart: () => {};
+
+        /**
+         * Same as "slideChangeTransitionEnd" but for "backward" direction only
+         */
         slidePrevTransitionEnd: () => {};
+
+        /**
+         * Triggered in the beginning of transition.
+         */
         transitionStart: () => {};
+
+        /**
+         * Triggered after transition.
+         */
         transitionEnd: () => {};
+
+        /**
+         * Triggered when user touch Swiper. Receives 'touchstart' event as an arguments.
+         */
         touchStart: (event: any) => {};
+
+        /**
+         * Triggered when user touch and move finger over Swiper. Receives 'touchmove' event as an arguments.
+         */
         touchMove: (event: any) => {};
+
+        /**
+         * Fired when user touch and move finger over
+         * Swiper in direction opposite to direction parameter.
+         * Receives 'touchmove' event as an arguments.
+         */
         touchMoveOpposite: (event: any) => {};
+
+        /**
+         * Triggered when user touch and move finger over Swiper and move it. Receives 'touchmove' event as an arguments.
+         */
         sliderMove: (event: any) => {};
+
+        /**
+         * Triggered when user release Swiper. Receives 'touchend' event as an arguments.
+         */
         touchEnd: (event: any) => {};
+
+        /**
+         * Triggered when user click/tap on Swiper after 300ms delay. Receives 'touchend' event as an arguments.
+         */
         click: (event: any) => {};
+
+        /**
+         * Triggered when user click/tap on Swiper. Receives 'touchend' event as an arguments.
+         */
         tap: (event: any) => {};
+
+        /**
+         * Triggered when user double tap on Swiper's container. Receives 'touchend' event as an arguments
+         */
         doubleTap: (event: any) => {};
+
+        /**
+         * Triggered right after all inner images are loaded. updateOnImagesReady should be also enabled
+         */
         imagesReady: () => {};
+
+        /**
+         * Triggered when Swiper progress is changed, as an arguments it receives progress that is always from 0 to 1
+         */
         progress: (progress: any) => {};
+
+        /**
+         * Triggered when Swiper reach its beginning (initial position)
+         */
         reachBeginning: () => {};
+
+        /**
+         * Triggered when Swiper reach last slide
+         */
         reachEnd: () => {};
+
+        /**
+         * Triggered when Swiper goes from beginning or end position
+         */
         fromEdge: () => {};
+
+        /**
+         * Triggered when swiper's wrapper change its position. Receives current translate value as an arguments
+         */
         setTranslate: (translate: any) => {};
+
+
+        /**
+         * Triggered everytime when swiper starts animation. Receives current transition duration (in ms) as an      arguments,
+         */
         setTransition: (transition: any) => {};
+
+        /**
+         * Triggered on window resize right before swiper's onresize manipulation
+         */
         resize: () => {};
     }
 
@@ -399,15 +397,15 @@ declare module 'swiper' {
 
     interface PaginationOptions {
         el: SelectableElement;
-        type?: string;
+        type?: 'bullets' | 'fraction' | 'progressbar' | 'custom';
         bulletElement?: string;
         dynamicBullets?: boolean;
         hideOnClick?: boolean;
         clickable?: boolean;
-        renderBullet?: (index: any, className: any) => {};
-        renderFraction?: (currentClass: any, totalClass: any) => {};
-        renderProgressbar?: (progressbarFillClass: any) => {};
-        renderCustom?: (swiper: any, current: any, total: any) => {};
+        renderBullet?: (index: number, className: string) => {};
+        renderFraction?: (currentClass: string, totalClass: string) => {};
+        renderProgressbar?: (progressbarFillClass: string) => {};
+        renderCustom?: (swiper: Swiper, current: number, total: number) => {};
         bulletClass?: string;
         bulletActiveClass?: string;
         modifierClass?: string;
@@ -482,11 +480,11 @@ declare module 'swiper' {
      * Options - Effects
      */
 
-    interface EffectFadeOptions {
+    interface FadeEffectOptions {
         crossfade: boolean;
     }
 
-    interface EffectCoverflowOptions {
+    interface CoverflowEffectOptions {
         slideShadows: boolean;
         rotate: number;
         stretch: number;
@@ -494,12 +492,12 @@ declare module 'swiper' {
         modifier: number;
     }
 
-    interface EffectFlipOptions {
+    interface FlipEffectOptions {
         slideShadows: boolean;
         limitRotation: boolean;
     }
 
-    interface EffectCubeOptions {
+    interface CubeEffectOptions {
         slideShadows: boolean;
         shadow: boolean;
         shadowOffset: number;
@@ -905,7 +903,7 @@ declare module 'swiper' {
          * @example prependSlide('<div class="swiper-slide">Slide 0"</div>')
          * @example prependSlide(['<div class="swiper-slide">Slide 1"</div>', '<div class="swiper-slide">Slide 2"</div>']);
          */
-        prependSlide: (slides: string | string[]) => {};
+        prependSlide(slides: string | string[]);
         /**
          * Remove selected slides. slideIndex could be a number with slide index to remove or array with indexes.
          *
@@ -913,20 +911,20 @@ declare module 'swiper' {
          * @example removeSlide([0, 1]); // remove first and second slides
          * @example removeAllSlides();	// Remove all slides
          */
-        removeSlide: (slideIndex: number | number[]) => {};
+        public removeSlide(slideIndex: number | number[]);
         /**
          * Set custom css3 transform's translate value for swiper wrapper
          */
-        setTranslate: (translate: any) => {};
+        public setTranslate(translate: any);
         /**
          * Get current value of swiper wrapper css3 transform translate
          */
-        getTranslate: () => {};
+        public getTranslate(): any;
 
         /**
          * Add event listener
          */
-        on: (event: any, handler: any) => {};
+        public on(event: any, handler: any): any;
 
         /**
          * Add event listener that will be executed only once
