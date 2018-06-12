@@ -3,5 +3,5 @@
 // Definitions by: iKBAHT <https://github.com/iKBAHT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const createRegExp: () => RegExp;
+declare function createRegExp(): RegExp;
 export default createRegExp;
