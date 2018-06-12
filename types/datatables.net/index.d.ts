@@ -1432,6 +1432,11 @@ declare namespace DataTables {
          */
         tabIndex?: number;
 
+        /**
+         * Enable or disable datatables responsive. Since: 1.10
+         */
+        responsive?: boolean | object;
+
         //#endregion "Options"
 
         //#region "Callbacks"

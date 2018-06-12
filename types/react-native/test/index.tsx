@@ -49,8 +49,10 @@ import {
     NativeModules,
     MaskedViewIOS,
     TextInput,
+    TextInputFocusEventData,
     InputAccessoryView,
-    StatusBar
+    StatusBar,
+    NativeSyntheticEvent
 } from "react-native";
 
 declare module "react-native" {
@@ -444,6 +446,25 @@ class TextInputRefTest extends React.Component<{}, {username: string}> {
                 />
             </View>
         );
+    }
+}
+
+class TextInputFocusBlurEventTest extends React.Component {
+    handleOnBlur(e: NativeSyntheticEvent<TextInputFocusEventData>) {
+    }
+
+    handleOnFocus(e: NativeSyntheticEvent<TextInputFocusEventData>) {
+    }
+
+    render() {
+        return (
+            <View>
+                <TextInput
+                    onBlur={(e: NativeSyntheticEvent<TextInputFocusEventData>) => this.handleOnBlur(e)}
+                    onFocus={(e: NativeSyntheticEvent<TextInputFocusEventData>) => this.handleOnFocus(e)}
+                />
+            </View>
+        )
     }
 }
 
