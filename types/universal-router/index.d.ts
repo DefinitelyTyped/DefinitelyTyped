@@ -10,7 +10,7 @@
  * Each URL parameter resolves to a string.
  */
 export interface Params {
-    [_: string]: string;
+    [_: string]: any;
 }
 
 /**

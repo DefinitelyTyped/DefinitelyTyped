@@ -1,4 +1,5 @@
 import UniversalRouter from "universal-router";
+import generateUrls from "universal-router/generateUrls";
 
 new UniversalRouter(
     {
@@ -63,3 +64,11 @@ new UniversalRouter({
         },
     ],
 });
+
+const url = generateUrls(new UniversalRouter([
+    { name: 'users', path: '/users' },
+    { name: 'user', path: '/user/:username' },
+], { baseUrl: '/base' }));
+
+url('users'); // => '/base/users'
+url('user', { username: 'john' }); // => '/base/user/john'
