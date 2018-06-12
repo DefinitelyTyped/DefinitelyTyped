@@ -338,3 +338,28 @@ puppeteer.launch().then(async browser => {
 
   await page.tracing.start({ path: "trace.json", categories: ["one", "two"] });
 });
+
+// 1.5: From the BrowserContext example
+(async () => {
+  const browser = await puppeteer.launch();
+  // Create a new incognito browser context
+  const context = await browser.createIncognitoBrowserContext();
+  // Create a new page inside context.
+  const page = await context.newPage();
+  // ... do stuff with page ...
+  await page.goto('https://example.com');
+  // Dispose context once it's no longer needed.
+  await context.close();
+});
+
+// 1.5: From the Worker example
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  page.on('workercreated', worker => console.log('Worker created: ' + worker.url()));
+  page.on('workerdestroyed', worker => console.log('Worker destroyed: ' + worker.url()));
+
+  console.log('Current workers:');
+  for (const worker of page.workers())
+    console.log('  ' + worker.url());
+});

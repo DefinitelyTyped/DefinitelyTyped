@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.4
+// Type definitions for puppeteer 1.5
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -148,7 +148,9 @@ export type PageEvents =
   | "request"
   | "requestfailed"
   | "requestfinished"
-  | "response";
+  | "response"
+  | "workercreated"
+  | "workerdestroyed";
 
 export type BrowserEvents =
   | "disconnected"
@@ -450,6 +452,37 @@ export interface Box {
 }
 
 /**
+ * The Worker class represents a WebWorker.
+ * The events workercreated and workerdestroyed are emitted on the page object to signal the worker lifecycle.
+ */
+export interface Worker {
+  /**
+   * If the function passed to the `worker.evaluate` returns a Promise,
+   * then `worker.evaluate` would wait for the promise to resolve and return its value.
+   *
+   * If the function passed to the `worker.evaluate` returns a non-Serializable value,
+   * then `worker.evaluate` resolves to `undefined`.
+   */
+  evaluate<T>(
+    pageFunction: (...args: any[]) => T | Promise<T>,
+    ...args: any[],
+  ): Promise<T>;
+
+  /**
+   * The only difference between `worker.evaluate` and `worker.evaluateHandle` is
+   * that `worker.evaluateHandle` returns in-page object (JSHandle).
+   */
+  evaluateHandle<T>(
+    pageFunction: (...args: any[]) => T | Promise<T>,
+    ...args: any[],
+  ): Promise<T>;
+
+  executionContext(): Promise<ExecutionContext>;
+
+  url(): string;
+}
+
+/**
  * Represents an in-page DOM element. ElementHandles can be created with the page.$ method.
  */
 export interface ElementHandle extends JSHandle {
@@ -696,6 +729,10 @@ export interface Request {
    * All header names are lower-case.
    */
   headers(): Headers;
+
+  /** Whether this request is driving frame's navigation. */
+   isNavigationRequest(): boolean;
+
   /** Returns the request's method (GET, POST, etc.) */
 
   method(): HttpMethod;
@@ -980,6 +1017,10 @@ export interface PageEventObj {
   requestfinished: Request;
   /** Emitted when a response is received. */
   response: Response;
+  /** Emitted when a dedicated WebWorker is spawned by the page. */
+  workercreated: Worker;
+  /** Emitted when a dedicated WebWorker is terminated. */
+  workerdestroyed: Worker;
 }
 
 export interface PageCloseOptions {
@@ -1104,6 +1145,9 @@ export interface Page extends EventEmitter, FrameBase {
 
   /** Returns the virtual keyboard. */
   keyboard: Keyboard;
+
+  /** Indicates that the page has been closed. */
+  isClosed(): boolean;
 
   /** Page is guaranteed to have a main frame which persists during navigation's. */
   mainFrame(): Frame;
@@ -1238,6 +1282,9 @@ export interface Page extends EventEmitter, FrameBase {
    * @param options The navigation parameters.
    */
   waitForNavigation(options?: NavigationOptions): Promise<Response>;
+
+  /** This method returns all of the dedicated WebWorkers associated with the page. */
+  workers(): Worker[];
 }
 
 /** A Browser is created when Puppeteer connects to a Chromium instance, either through puppeteer.launch or puppeteer.connect. */
@@ -1266,10 +1313,22 @@ export interface Browser extends EventEmitter {
   ): this;
 
   /**
+   * Returns an array of all open browser contexts.
+   * In a newly created browser, this will return a single instance of BrowserContext.
+   */
+  browserContexts(): BrowserContext[];
+
+  /**
    * Closes browser with all the pages (if any were opened).
    * The browser object itself is considered to be disposed and can not be used anymore.
    */
   close(): Promise<void>;
+
+  /**
+   * Creates a new incognito browser context.
+   * This won't share cookies/cache with other browser contexts.
+   */
+  createIncognitoBrowserContext(): Promise<BrowserContext>;
 
   /**
    * Disconnects Puppeteer from the browser, but leaves the Chromium process running.
@@ -1316,12 +1375,77 @@ export interface BrowserEventObj {
   targetdestroyed: Target;
 }
 
+/**
+ * BrowserContexts provide a way to operate multiple independent browser sessions.
+ * When a browser is launched, it has a single BrowserContext used by default.
+ * The method `browser.newPage()` creates a page in the default browser context.
+ */
+export interface BrowserContext extends EventEmitter {
+  /**
+   * Adds the listener function to the end of the listeners array for the event named `eventName`.
+   * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
+   * `eventName` and listener will result in the listener being added, and called, multiple times.
+   * @param event The name of the event.
+   * @param handler The callback function.
+   */
+  on<K extends keyof BrowserContextEventObj>(
+    eventName: K,
+    handler: (e: BrowserContextEventObj[K], ...args: any[]) => void
+  ): this;
+
+  /**
+   * Adds a one time listener function for the event named `eventName`.
+   * The next time `eventName` is triggered, this listener is removed and then invoked.
+   * @param event The name of the event.
+   * @param handler The callback function.
+   */
+  once<K extends keyof BrowserContextEventObj>(
+    eventName: K,
+    handler: (e: BrowserContextEventObj[K], ...args: any[]) => void
+  ): this;
+
+  /** The browser this browser context belongs to. */
+  browser(): Browser;
+
+  /** Closes the browser context. All the targets that belong to the browser context will be closed. */
+  close(): Promise<void>;
+
+  /**
+   * Returns whether BrowserContext is incognito.
+   * The default browser context is the only non-incognito browser context.
+   */
+  isIncognito(): boolean;
+
+  /** Creates a new page in the browser context. */
+  newPage(): Promise<Page>;
+
+  /** An array of all active targets inside the browser context. */
+  targets(): Target[];
+}
+
+export interface BrowserContextEventObj {
+  /** Emitted when the url of a target inside the browser context changes. */
+  targetchanged: Target;
+
+  /** Emitted when a target is created, for example when a new page is opened by `window.open` or `browserContext.newPage`. */
+  targetcreated: Target;
+
+  /** Emitted when a target is destroyed, for example when a page is closed. */
+  targetdestroyed: Target;
+}
+
 export interface Target {
   /** Get the browser the target belongs to. */
   browser(): Browser;
 
+  /** The browser context the target belongs to. */
+  browserContext(): BrowserContext;
+
   /** Creates a Chrome Devtools Protocol session attached to the target. */
   createCDPSession(): Promise<CDPSession>;
+
+  /** Get the target that opened this target. Top-level targets return `null`. */
+  opener(): Target | null;
 
   /** Returns the target `Page` or a `null` if the type of the page is not "page". */
   page(): Promise<Page>;
