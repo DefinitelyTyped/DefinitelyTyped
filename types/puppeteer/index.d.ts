@@ -776,27 +776,27 @@ export interface FrameBase {
   /**
    * This method runs document.querySelector within the page and passes it as the first argument to `fn`.
    * If there's no element matching selector, the method throws an error.
-   * If `fn` returns a Promise, then $eval would wait for the promise to resolve and return its value.
+   * If `pageFunction` returns a Promise, then $eval would wait for the promise to resolve and return its value.
    */
-  $eval(
+  $eval<T>(
     selector: string,
-    pageFunction: (element: Element, ...args: any[]) => any,
+    pageFunction: (element: Element, ...args: any[]) => T,
     ...args: any[]
-  ): Promise<any>;
+  ): Promise<T>;
 
   /**
    * This method runs document.querySelectorAll within the page and passes it as the first argument to `fn`.
-   * If `fn` returns a Promise, then $$eval would wait for the promise to resolve and return its value.
+   * If `pageFunction` returns a Promise, then $$eval would wait for the promise to resolve and return its value.
    * @param selector A selector to query frame for
    * @param fn Function to be evaluated in browser context
    * @param args Arguments to pass to pageFunction
    * @returns Promise which resolves to the return value of pageFunction
    */
-  $$eval(
+  $$eval<T>(
     selector: string,
-    pageFunction: (elements: NodeListOf<Element>, ...args: any[]) => any,
+    pageFunction: (elements: NodeListOf<Element>, ...args: any[]) => T,
     ...args: any[]
-  ): Promise<any>;
+  ): Promise<T>;
 
   /** Adds a `<script>` tag into the page with the desired url or content. */
   addScriptTag(options: ScriptTagOptions): Promise<void>;
