@@ -1,5 +1,6 @@
 // Type definitions for Swiper
 // Project: https://github.com/nolimits4web/Swiper
+// Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions by: Luiz Machado <https://github.com/odahcam/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -10,424 +11,6 @@ declare module 'swiper' {
 
     type DOM7Element = any;
     type SelectableElement = string | HTMLElement;
-
-    /*
-     * Swiper exports the folloing as ES5 module (in swiper.esm.js).
-     */
-
-    /**
-     * Core module
-     */
-    class Swiper {
-
-        constructor(container: SelectableElement, options?: SwiperOptions);
-
-        /**
-         * Object with passed initialization parameters
-         */
-        params: SwiperOptions;
-
-        /**
-         * Element with slider container.
-         */
-        el: HTMLElement;
-
-        /**
-         * Dom7 element with slider container HTML element. To get vanilla HTMLElement use el
-         */
-        $el: DOM7Element;
-
-        /**
-         * Slider wrapper HTML element.
-         */
-        wrapperEl: HTMLElement;
-
-        /**
-         * Dom7 element with slider wrapper HTML element. To get vanilla HTMLElement use wrapperEl
-         */
-        $wrapperEl: DOM7Element;
-
-        /**
-         * Dom7 array-like collection of slides HTML elements. To get specific slide HTMLElement use slides[1]
-         */
-        slides: DOM7Element[];
-
-        /**
-         * Width of container
-         */
-        width;
-
-        /**
-         * Height of container
-         */
-        height;
-
-        /**
-         * Current value of wrapper translate
-         */
-        translate;
-
-        /**
-         * Current progress of wrapper translate (from 0 to 1)
-         */
-        progress;
-
-        /**
-         * Index number of currently active slide.
-         * Note, that in loop mode active index value will be always shifted on a number of looped/duplicated slides
-         */
-        activeIndex;
-
-        /**
-         * Index number of currently active slide considering duplicated slides in loop mode
-         */
-        realIndex;
-
-        /**
-         * Index number of previously active slide
-         */
-        previousIndex;
-
-        /**
-         * true if slider on most "left"/"top" position
-         */
-        isBeginning;
-
-        /**
-         * true if slider on most "right"/"bottom" position
-         */
-        isEnd;
-
-        /**
-         * true if swiper is in transition
-         */
-        animating;
-
-        /**
-         * Object with the following touch event properties:
-         */
-        touches: {
-            startX,
-            startY,
-            currentX,
-            currentY,
-            diff
-        };
-
-        /**
-         * Index number of last clicked slide
-         */
-        clickedIndex;
-
-        /**
-         * Link to last clicked slide (HTMLElement)
-         */
-        clickedSlide;
-
-        /**
-         * Disable/enable ability to slide to the next slides by assigning false/true to this property
-         */
-        allowSlideNext;
-
-        /**
-         * Disable/enable ability to slide to the previous slides by assigning false/true to this property
-         */
-        allowSlidePrev;
-
-        /**
-         * Disable/enable ability move slider by grabbing it with
-         * mouse or by touching it with finger (on touch screens)
-         * by assigning false/true to this property
-         */
-        allowTouchMove;
-
-        // Methods
-
-        /**
-         * Run transition to next slide
-         *  speed - number - transition duration (in ms). Optional
-         * runCallbacks - boolean - Set it to false (by default it is true) and transition will not produce transition events. Optional
-         */
-        slideNext: (speed: number, runCallbacks: boolean) => {};
-
-        /**
-         * Run transition to previous slide
-        // speed - number - transition duration (in ms). Optional
-        // runCallbacks - boolean - Set it to false (by default it is true) and transition will not produce transition events. Optional
-         */
-        slidePrev: (speed: number, runCallbacks: boolean) => {};
-
-        /**
-         * Run transition to the slide with index number equal to 'index' parameter for the duration equal to 'speed' parameter.
-         *
-         * @param index - index number of slide
-         * @param speed - transition duration (in ms). Optional
-         * @param runCallbacks - Set it to false (by default it is true) and transition will not produce transition events. Optional
-         */
-        slideTo: (index: number, speed: number, runCallbacks: boolean) => {};
-
-        /**
-         * You should call it after you add/remove slides
-         * manually, or after you hide/show it, or do any
-         * custom DOM modifications with Swiper
-         * This method also includes subcall of the following
-         * methods which you can use separately:
-         */
-        update: () => {};
-
-        /**
-         * recalculate size of swiper container
-         */
-        updateSize: () => {};
-        /**
-         * recalculate number of slides and their offsets. Useful after you add/remove slides with JavaScript
-         */
-        updateSlides: () => {};
-        /**
-         * recalculate swiper progress
-         */
-        updateProgress: () => {};
-        /**
-         * update active/prev/next classes on slides and bullets
-         */
-        updateSlidesClasses: () => {};
-        /**
-         * tach all events listeners
-         */
-        detachEvents: () => {};
-        /**
-         * Atach all events listeners again
-         */
-        attachEvents: () => {};
-        /**
-         * Destroy slider instance and detach all events listeners, where
-         */
-        destroy: (deleteInstance: any, cleanStyles: any) => {};
-        /**
-         * Set it to false (by default it is true) to not to delete Swiper instance
-         */
-        deleteInstance: boolean;
-        /**
-         * Set it to true (by default it is true) and all
-         * custom styles will be removed from slides,
-         * wrapper and container. Useful if you need to
-         * destroy Swiper and to init again with new
-         * options or in different direction
-         */
-        cleanStyles: boolean;
-        /**
-         * Add new slides to the end. slides could be
-         * HTMLElement or HTML string with new slide or
-         * array with such slides, for example:
-         *
-         * @example appendSlide('<div class="swiper-slide">Slide 10"</div>')
-         * @example appendSlide(['<div class="swiper-slide">Slide 10"</div>', '<div class="swiper-slide">Slide 11"</div>']);
-         */
-        appendSlide: (slides: string | string[]) => {};
-        /**
-         * Add new slides to the beginning. slides could be
-         * HTMLElement or HTML string with new slide or array with such slides, for example:
-         *
-         * @example prependSlide('<div class="swiper-slide">Slide 0"</div>')
-         * @example prependSlide(['<div class="swiper-slide">Slide 1"</div>', '<div class="swiper-slide">Slide 2"</div>']);
-         */
-        prependSlide: (slides: string | string[]) => {};
-        /**
-         * Remove selected slides. slideIndex could be a number with slide index to remove or array with indexes.
-         *
-         * @example removeSlide(0); // remove first slide
-         * @example removeSlide([0, 1]); // remove first and second slides
-         * @example removeAllSlides();	// Remove all slides
-         */
-        removeSlide: (slideIndex: number | number[]) => {};
-        /**
-         * Set custom css3 transform's translate value for swiper wrapper
-         */
-        setTranslate: (translate: any) => {};
-        /**
-         * Get current value of swiper wrapper css3 transform translate
-         */
-        getTranslate: () => {};
-
-        /**
-         * Add event listener
-         */
-        on: (event: any, handler: any) => {};
-
-        /**
-         * Add event listener that will be executed only once
-         */
-        once: (event: any, handler: any) => {};
-
-        /**
-         * Remove event listener for specified event
-         * If no handler specified, removes all listeners for specified event
-         */
-        off: (event: any, handler?: any) => {};
-
-        /**
-         * Disable mousewheel control
-         */
-        disableMousewheelControl: () => {};
-
-        /**
-         * Enable mousewheel control
-         */
-        enableMousewheelControl: () => {};
-
-        /**
-         * Disable keyboard control
-         */
-        disableKeyboardControl: () => {};
-
-        /**
-         * Enable keyboard control
-         */
-        enableKeyboardControl: () => {};
-
-        /**
-         * Unset grab cursor
-         */
-        unsetGrabCursor: () => {};
-
-        /**
-         * Set grab cursor
-         */
-        setGrabCursor: () => {};
-
-        /*
-         * Not documented as property.
-         */
-        public zoom: Zoom;
-
-        static use: (modules: any[]) => void;
-    }
-
-    /**
-     * Virtual Slides module (virtual as)
-     */
-    class Virtual {
-        [x: string]: any;
-    }
-
-    /**
-     * Keyboard Control module (keyboard as)
-     */
-    class Keyboard {
-        [x: string]: any;
-    }
-
-    /**
-     * Mousewheel Control module (mousewheel as)
-     */
-    class Mousewheel {
-        [x: string]: any;
-    }
-
-    /**
-     * Navigation module (navigation as)
-     */
-    class Navigation {
-        [x: string]: any;
-    }
-
-    /**
-     * Pagination module (pagination as)
-     */
-    class Pagination {
-        [x: string]: any;
-    }
-
-    /**
-     * Scrollbar module (scrollbar as)
-     */
-    class Scrollbar {
-        [x: string]: any;
-    }
-
-    /**
-     * Parallax module (parallax as)
-     */
-    class Parallax {
-        [x: string]: any;
-    }
-
-    /**
-     * Zoom module (zoom as)
-     */
-    class Zoom {
-        [x: string]: any;
-    }
-
-    /**
-     * Lazy module (lazy as)
-     */
-    class Lazy {
-        [x: string]: any;
-    }
-
-    /**
-     * Controller module (controller as)
-     */
-    class Controller {
-        [x: string]: any;
-    }
-
-    /**
-     * Accessibility module (a11y$)
-     */
-    class A11y {
-        [x: string]: any;
-    }
-
-    /**
-     * History Navigation module (history as)
-     */
-    class History {
-        [x: string]: any;
-    }
-
-    /**
-     * Hash Navigation module (hashNavigation as)
-     */
-    class HashNavigation {
-        [x: string]: any;
-    }
-
-    /**
-     * Autoplay module (autoplay as)
-     */
-    class Autoplay {
-        [x: string]: any;
-    }
-
-    /**
-     * Fade Effect module (effectFade as)
-     */
-    class EffectFade {
-        [x: string]: any;
-    }
-
-    /**
-     * Cube Effect module (effectCube as)
-     */
-    class EffectCube {
-        [x: string]: any;
-    }
-
-    /**
-     * Flip Effect module (effectFlip as)
-     */
-    class EffectFlip {
-        [x: string]: any;
-    }
-
-    /**
-     * Coverflow Effect module (effectCoverflow as)
-     */
-    class EffectCoverflow {
-        [x: string]: any;
-    }
 
     /*
      * Swiper options and events.
@@ -971,6 +554,424 @@ declare module 'swiper' {
         lastSlideMessage: string;
         paginationBulletMessage: string;
         notificationClass: string;
+    }
+
+    /*
+     * Swiper exports the following as ES5 module (in swiper.esm.js).
+     */
+
+    /**
+     * Virtual Slides module (virtual as)
+     */
+    class Virtual {
+        [x: string]: any;
+    }
+
+    /**
+     * Keyboard Control module (keyboard as)
+     */
+    class Keyboard {
+        [x: string]: any;
+    }
+
+    /**
+     * Mousewheel Control module (mousewheel as)
+     */
+    class Mousewheel {
+        [x: string]: any;
+    }
+
+    /**
+     * Navigation module (navigation as)
+     */
+    class Navigation {
+        [x: string]: any;
+    }
+
+    /**
+     * Pagination module (pagination as)
+     */
+    class Pagination {
+        [x: string]: any;
+    }
+
+    /**
+     * Scrollbar module (scrollbar as)
+     */
+    class Scrollbar {
+        [x: string]: any;
+    }
+
+    /**
+     * Parallax module (parallax as)
+     */
+    class Parallax {
+        [x: string]: any;
+    }
+
+    /**
+     * Zoom module (zoom as)
+     */
+    class Zoom {
+        [x: string]: any;
+    }
+
+    /**
+     * Lazy module (lazy as)
+     */
+    class Lazy {
+        [x: string]: any;
+    }
+
+    /**
+     * Controller module (controller as)
+     */
+    class Controller {
+        [x: string]: any;
+    }
+
+    /**
+     * Accessibility module (a11y$)
+     */
+    class A11y {
+        [x: string]: any;
+    }
+
+    /**
+     * History Navigation module (history as)
+     */
+    class History {
+        [x: string]: any;
+    }
+
+    /**
+     * Hash Navigation module (hashNavigation as)
+     */
+    class HashNavigation {
+        [x: string]: any;
+    }
+
+    /**
+     * Autoplay module (autoplay as)
+     */
+    class Autoplay {
+        [x: string]: any;
+    }
+
+    /**
+     * Fade Effect module (effectFade as)
+     */
+    class EffectFade {
+        [x: string]: any;
+    }
+
+    /**
+     * Cube Effect module (effectCube as)
+     */
+    class EffectCube {
+        [x: string]: any;
+    }
+
+    /**
+     * Flip Effect module (effectFlip as)
+     */
+    class EffectFlip {
+        [x: string]: any;
+    }
+
+    /**
+     * Coverflow Effect module (effectCoverflow as)
+     */
+    class EffectCoverflow {
+        [x: string]: any;
+    }
+
+    /**
+     * Core module
+     */
+    class Swiper {
+
+        constructor(container: SelectableElement, options?: SwiperOptions);
+
+        /**
+         * Object with passed initialization parameters
+         */
+        params: SwiperOptions;
+
+        /**
+         * Element with slider container.
+         */
+        el: HTMLElement;
+
+        /**
+         * Dom7 element with slider container HTML element. To get vanilla HTMLElement use el
+         */
+        $el: DOM7Element;
+
+        /**
+         * Slider wrapper HTML element.
+         */
+        wrapperEl: HTMLElement;
+
+        /**
+         * Dom7 element with slider wrapper HTML element. To get vanilla HTMLElement use wrapperEl
+         */
+        $wrapperEl: DOM7Element;
+
+        /**
+         * Dom7 array-like collection of slides HTML elements. To get specific slide HTMLElement use slides[1]
+         */
+        slides: DOM7Element[];
+
+        /**
+         * Width of container
+         */
+        width;
+
+        /**
+         * Height of container
+         */
+        height;
+
+        /**
+         * Current value of wrapper translate
+         */
+        translate;
+
+        /**
+         * Current progress of wrapper translate (from 0 to 1)
+         */
+        progress;
+
+        /**
+         * Index number of currently active slide.
+         * Note, that in loop mode active index value will be always shifted on a number of looped/duplicated slides
+         */
+        activeIndex;
+
+        /**
+         * Index number of currently active slide considering duplicated slides in loop mode
+         */
+        realIndex;
+
+        /**
+         * Index number of previously active slide
+         */
+        previousIndex;
+
+        /**
+         * true if slider on most "left"/"top" position
+         */
+        isBeginning;
+
+        /**
+         * true if slider on most "right"/"bottom" position
+         */
+        isEnd;
+
+        /**
+         * true if swiper is in transition
+         */
+        animating;
+
+        /**
+         * Object with the following touch event properties:
+         */
+        touches: {
+            startX,
+            startY,
+            currentX,
+            currentY,
+            diff
+        };
+
+        /**
+         * Index number of last clicked slide
+         */
+        clickedIndex;
+
+        /**
+         * Link to last clicked slide (HTMLElement)
+         */
+        clickedSlide;
+
+        /**
+         * Disable/enable ability to slide to the next slides by assigning false/true to this property
+         */
+        allowSlideNext;
+
+        /**
+         * Disable/enable ability to slide to the previous slides by assigning false/true to this property
+         */
+        allowSlidePrev;
+
+        /**
+         * Disable/enable ability move slider by grabbing it with
+         * mouse or by touching it with finger (on touch screens)
+         * by assigning false/true to this property
+         */
+        allowTouchMove;
+
+        // Methods
+
+        /**
+         * Run transition to next slide
+         *  speed - number - transition duration (in ms). Optional
+         * runCallbacks - boolean - Set it to false (by default it is true) and transition will not produce transition events. Optional
+         */
+        slideNext: (speed: number, runCallbacks: boolean) => {};
+
+        /**
+         * Run transition to previous slide
+        // speed - number - transition duration (in ms). Optional
+        // runCallbacks - boolean - Set it to false (by default it is true) and transition will not produce transition events. Optional
+         */
+        slidePrev: (speed: number, runCallbacks: boolean) => {};
+
+        /**
+         * Run transition to the slide with index number equal to 'index' parameter for the duration equal to 'speed' parameter.
+         *
+         * @param index - index number of slide
+         * @param speed - transition duration (in ms). Optional
+         * @param runCallbacks - Set it to false (by default it is true) and transition will not produce transition events. Optional
+         */
+        slideTo: (index: number, speed: number, runCallbacks: boolean) => {};
+
+        /**
+         * You should call it after you add/remove slides
+         * manually, or after you hide/show it, or do any
+         * custom DOM modifications with Swiper
+         * This method also includes subcall of the following
+         * methods which you can use separately:
+         */
+        update: () => {};
+
+        /**
+         * recalculate size of swiper container
+         */
+        updateSize: () => {};
+        /**
+         * recalculate number of slides and their offsets. Useful after you add/remove slides with JavaScript
+         */
+        updateSlides: () => {};
+        /**
+         * recalculate swiper progress
+         */
+        updateProgress: () => {};
+        /**
+         * update active/prev/next classes on slides and bullets
+         */
+        updateSlidesClasses: () => {};
+        /**
+         * tach all events listeners
+         */
+        detachEvents: () => {};
+        /**
+         * Atach all events listeners again
+         */
+        attachEvents: () => {};
+        /**
+         * Destroy slider instance and detach all events listeners, where
+         */
+        destroy: (deleteInstance: any, cleanStyles: any) => {};
+        /**
+         * Set it to false (by default it is true) to not to delete Swiper instance
+         */
+        deleteInstance: boolean;
+        /**
+         * Set it to true (by default it is true) and all
+         * custom styles will be removed from slides,
+         * wrapper and container. Useful if you need to
+         * destroy Swiper and to init again with new
+         * options or in different direction
+         */
+        cleanStyles: boolean;
+        /**
+         * Add new slides to the end. slides could be
+         * HTMLElement or HTML string with new slide or
+         * array with such slides, for example:
+         *
+         * @example appendSlide('<div class="swiper-slide">Slide 10"</div>')
+         * @example appendSlide(['<div class="swiper-slide">Slide 10"</div>', '<div class="swiper-slide">Slide 11"</div>']);
+         */
+        appendSlide: (slides: string | string[]) => {};
+        /**
+         * Add new slides to the beginning. slides could be
+         * HTMLElement or HTML string with new slide or array with such slides, for example:
+         *
+         * @example prependSlide('<div class="swiper-slide">Slide 0"</div>')
+         * @example prependSlide(['<div class="swiper-slide">Slide 1"</div>', '<div class="swiper-slide">Slide 2"</div>']);
+         */
+        prependSlide: (slides: string | string[]) => {};
+        /**
+         * Remove selected slides. slideIndex could be a number with slide index to remove or array with indexes.
+         *
+         * @example removeSlide(0); // remove first slide
+         * @example removeSlide([0, 1]); // remove first and second slides
+         * @example removeAllSlides();	// Remove all slides
+         */
+        removeSlide: (slideIndex: number | number[]) => {};
+        /**
+         * Set custom css3 transform's translate value for swiper wrapper
+         */
+        setTranslate: (translate: any) => {};
+        /**
+         * Get current value of swiper wrapper css3 transform translate
+         */
+        getTranslate: () => {};
+
+        /**
+         * Add event listener
+         */
+        on: (event: any, handler: any) => {};
+
+        /**
+         * Add event listener that will be executed only once
+         */
+        once: (event: any, handler: any) => {};
+
+        /**
+         * Remove event listener for specified event
+         * If no handler specified, removes all listeners for specified event
+         */
+        off: (event: any, handler?: any) => {};
+
+        /**
+         * Disable mousewheel control
+         */
+        disableMousewheelControl: () => {};
+
+        /**
+         * Enable mousewheel control
+         */
+        enableMousewheelControl: () => {};
+
+        /**
+         * Disable keyboard control
+         */
+        disableKeyboardControl: () => {};
+
+        /**
+         * Enable keyboard control
+         */
+        enableKeyboardControl: () => {};
+
+        /**
+         * Unset grab cursor
+         */
+        unsetGrabCursor: () => {};
+
+        /**
+         * Set grab cursor
+         */
+        setGrabCursor: () => {};
+
+        /*
+         * Not documented as property.
+         */
+        public zoom: Zoom;
+
+        static use: (modules: any[]) => void;
     }
 }
 
