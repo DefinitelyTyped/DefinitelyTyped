@@ -1,9 +1,5 @@
 import { FormErrors } from "../index";
 
-export interface SubmissionErrorConstructor<T> {
-    new (errors?: FormErrors<T>): Error;
+export default class SubmissionError<FormData = {}, ErrorType = string> extends Error {
+  constructor(errors?: FormErrors<FormData, ErrorType>);
 }
-
-export const SubmissionError: SubmissionErrorConstructor<any>;
-
-export default SubmissionError;

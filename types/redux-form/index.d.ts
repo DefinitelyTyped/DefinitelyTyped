@@ -18,13 +18,13 @@ import {
 
 export type FieldType = "Field" | "FieldArray";
 
-export interface ErrorOther<T = void> {
+export interface ErrorOther<T = string> {
     _error?: T;
 }
 
-export type FormErrors<FormData = {}, T = void> = {
-    [P in keyof FormData]?: ReactElement<any> | string | ErrorOther<T>;
-};
+export type FormErrors<FormData = {}, T = string> = {
+    [P in keyof FormData]?: ReactElement<any> | T;
+} & ErrorOther<T>;
 
 export interface WarningOther<T = void> {
     _warning?: T;

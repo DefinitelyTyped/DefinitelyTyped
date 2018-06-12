@@ -1,7 +1,7 @@
 import { FormErrors } from "../index";
 
 export type DataSelector<FormData = {}, State = {}> = (formName: string) => (state: State) => FormData;
-export type ErrorSelector<FormData = {}, State = {}> = (formName: string) => (state: State) => FormErrors<FormData>;
+export type ErrorSelector<FormData = {}, State = {}, ErrorType = string> = (formName: string) => (state: State) => FormErrors<FormData, ErrorType>;
 export type BooleanSelector<State = {}> = (formName: string) => (state: State) => boolean;
 
 export const getFormValues: DataSelector;

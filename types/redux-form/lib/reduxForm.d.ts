@@ -17,12 +17,12 @@ import {
     FormStateMap
 } from "../index";
 
-export type FormSubmitHandler<FormData = {}, P = {}> =
-    (values: Partial<FormData>, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData> | Promise<any>;
+export type FormSubmitHandler<FormData = {}, P = {}, ErrorType = string> =
+    (values: Partial<FormData>, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData, ErrorType> | Promise<any>;
 
-export interface SubmitHandler<FormData = {}, P = {}> {
+export interface SubmitHandler<FormData = {}, P = {}, ErrorType = string> {
     (
-        submit: FormSubmitHandler<FormData, P>,
+        submit: FormSubmitHandler<FormData, P, ErrorType>,
         props?: InjectedFormProps<FormData, P>,
         valid?: boolean,
         asyncValidate?: any,
@@ -39,8 +39,8 @@ export interface ValidateCallback<FormData, P> {
     structure: any;
 }
 
-export interface AsyncValidateCallback<FormData> {
-    asyncErrors?: FormErrors<FormData>;
+export interface AsyncValidateCallback<FormData, ErrorType = string> {
+    asyncErrors?: FormErrors<FormData, ErrorType>;
     initialized: boolean;
     trigger: "blur" | "submit";
     blurredField?: string;
@@ -67,7 +67,7 @@ export interface RegisteredField {
     type: "Field" | "FieldArray";
 }
 
-export interface InjectedFormProps<FormData = {}, P = {}> {
+export interface InjectedFormProps<FormData = {}, P = {}, ErrorType = string> {
     anyTouched: boolean;
     array: InjectedArrayProps;
     asyncValidate(): void;
@@ -78,9 +78,9 @@ export interface InjectedFormProps<FormData = {}, P = {}> {
     clearAsyncError(field: string): void;
     destroy(): void;
     dirty: boolean;
-    error: string;
+    error: ErrorType;
     form: string;
-    handleSubmit: SubmitHandler<FormData, P>;
+    handleSubmit: SubmitHandler<FormData, P, ErrorType>;
     initialize(data: Partial<FormData>): void;
     initialized: boolean;
     initialValues: Partial<FormData>;
@@ -97,7 +97,7 @@ export interface InjectedFormProps<FormData = {}, P = {}> {
     registeredFields: { [name: string]: RegisteredField };
 }
 
-export interface ConfigProps<FormData = {}, P = {}> {
+export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     form: string;
     asyncBlurFields?: string[];
     asyncChangeFields?: string[];
@@ -111,7 +111,12 @@ export interface ConfigProps<FormData = {}, P = {}> {
     keepDirtyOnReinitialize?: boolean;
     onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
     onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
-    onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<any>, submitError: any, props: P & InjectedFormProps<FormData, P>): void;
+    onSubmitFail?(
+        errors: FormErrors<FormData, ErrorType> | undefined,
+        dispatch: Dispatch<any>,
+        submitError: any,
+        props: P & InjectedFormProps<FormData, P>
+    ): void;
     onSubmitSuccess?(result: any, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
     propNamespace?: string;
     pure?: boolean;
@@ -122,7 +127,7 @@ export interface ConfigProps<FormData = {}, P = {}> {
     touchOnBlur?: boolean;
     touchOnChange?: boolean;
     persistentSubmitErrors?: boolean;
-    validate?(values: FormData, props: P & InjectedFormProps<FormData, P>): FormErrors<FormData>;
+    validate?(values: FormData, props: P & InjectedFormProps<FormData, P>): FormErrors<FormData, ErrorType>;
     warn?(values: FormData, props: P & InjectedFormProps<FormData, P>): FormWarnings<FormData>;
 }
 
