@@ -1,4 +1,3 @@
-import * as InboxSDK from 'inboxsdk';
 import ComposeView = InboxSDK.Compose.ComposeView;
 import Contact = InboxSDK.Common.Contact;
 import ThreadRowView = InboxSDK.Lists.ThreadRowView;
