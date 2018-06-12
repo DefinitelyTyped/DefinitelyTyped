@@ -4,12 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/*~ You can declare properties of the module using const, let, or var */
-// declare const getIfUtils: WebpackConfigUtils.GetIfUtils;
-// declare const removeEmpty: WebpackConfigUtils.RemoveEmpty;
-// declare const propIf: WebpackConfigUtils.PropIf;
-// declare const propIfNot: WebpackConfigUtils.PropIfNot;
-
 declare const api: WebpackConfigUtils.API;
 export = api;
 
@@ -27,6 +21,7 @@ declare namespace WebpackConfigUtils {
         env: { [P in E]: boolean | string } | E,
         vars?: Array<EnvVars | string>
     ) => IfUtils;
+
     // @TODO
     // with following defintion, generics will get flattened to base type -> string. Any ideas why or how to fix this?
     // $ExpectType "value" | "alternate"
@@ -34,6 +29,7 @@ declare namespace WebpackConfigUtils {
     //
     // type PropIf = <A, I, E>(add: A, value: I, alternate: E) => A extends Falsy ? E : I;
     // type PropIfNot = <A, I, E>(add: A, value: I, alternate: E) => A extends Falsy ? I : E;
+
     type PropIf = <I, E>(add: any, value: I, alternate: E) => I | E;
     type PropIfNot = PropIf;
 
