@@ -1,11 +1,11 @@
-// Type definitions for express-redis-cache 1.1.1
+// Type definitions for express-redis-cache 1.1
 // Project: https://github.com/rv-kip/express-redis-cache
 // Definitions by: AJ Livingston <https://github.com/ajliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import { EventEmitter } from 'events';
-import { RequestHandler } from 'express';
+import { RequestHandler, Request, Response } from 'express';
 import { RedisClient } from 'redis';
 
 declare module 'express-serve-static-core' {
@@ -34,10 +34,8 @@ declare namespace expressRedisCache {
         del(name: string, callback: (error: any, deleted: number) => void): void;
         get(name: string, callback: (error: any, entries: Entry[]) => void): void;
         get(callback: (error: any, entries: Entry[]) => void): void;
-        route(options: RouteOptions, expire?: ExpireOption): RequestHandler;
-        route(name: string, expire?: ExpireOption): RequestHandler;
-        route(expire: number): RequestHandler;
-        route(): RequestHandler;
+        route(nameOrOptions: string | RouteOptions, expire?: ExpireOption): RequestHandler;
+        route(expire?: number): RequestHandler;
         size(callback: (error: any, bytes: number) => void): void;
     }
 
@@ -59,10 +57,7 @@ declare namespace expressRedisCache {
     }
 
     type ExpireOption = number | ExpirationConfig;
-
-    interface ExpirationPolicy {
-        (req: Request, res: Response): number;
-    }
+    type ExpirationPolicy = (req: Request, res: Response) => number;
 
     interface Options {
         auth_pass?: string;
