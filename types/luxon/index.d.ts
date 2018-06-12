@@ -1,4 +1,4 @@
-// Type definitions for luxon 0.5
+// Type definitions for luxon 1.2
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -207,6 +207,7 @@ declare module 'luxon' {
             toLocal(): DateTime;
             toLocaleParts(options?: DateTimeFormatOptions): any[];
             toLocaleString(options?: DateTimeFormatOptions): string;
+            toMillis(): number;
             toObject(options?: { includeConfig?: boolean }): DateObject;
             toRFC2822(): string;
             toSQL(options?: Object): string;
