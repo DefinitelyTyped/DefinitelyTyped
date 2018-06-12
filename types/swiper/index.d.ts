@@ -3,7 +3,7 @@
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions by: Luiz Machado <https://github.com/odahcam/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.5
 // Swiper Version: 4.2.6
 
 // declare namespace swiper {
@@ -196,7 +196,7 @@ declare module 'swiper' {
 
         init?: boolean;
         initialSlide?: number;
-        direction?: string;
+        direction?: 'horizontal' | 'vertical';
         speed?: number;
         setWrapperSize?: boolean;
         virtualTranslate?: boolean;
@@ -206,16 +206,16 @@ declare module 'swiper' {
         roundLengths?: boolean;
         nested?: boolean;
         uniqueNavElements?: boolean;
-        effect?: string;
+        effect?: 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip';
         runCallbacksOnInit?: boolean;
         watchOverflow?: boolean;
         on?: EventsOptions;
 
         // Slides grid
         spaceBetween?: number;
-        slidesPerView?: number | string; // 'auto'
+        slidesPerView?: number | 'auto';
         slidesPerColumn?: number;
-        slidesPerColumnFill?: string;
+        slidesPerColumnFill?: 'row' | 'column';
         slidesPerGroup?: number;
         centeredSlides?: boolean;
         slidesOffsetBefore?: number;
@@ -226,7 +226,8 @@ declare module 'swiper' {
         grabCursor?: boolean;
 
         // Touches
-        touchEventsTarget?: string;
+        // @TODO: verify next property
+        touchEventsTarget?: 'container' | 'wrapper';
         touchRatio?: number;
         touchAngle?: number;
         simulateTouch?: boolean;
@@ -252,6 +253,7 @@ declare module 'swiper' {
         allowSlideNext?: boolean;
         noSwiping?: boolean;
         noSwipingClass?: string;
+        // noSwipingSelector?: string;
         swipeHandler?: SelectableElement;
 
         // Clicks
@@ -284,7 +286,10 @@ declare module 'swiper' {
         loopFillGroupWithBlank?: boolean;
 
         // Breakpoints
-        breakpoints?: object;
+        breakpoints?: {
+            // TODO: extract possible parameters for breakpoints to separate interface
+            [index: number]: any;
+        };
 
         // Observer
         observer?: boolean;
@@ -392,11 +397,8 @@ declare module 'swiper' {
 
     }
 
-    interface OptionsWithElement {
+    interface PaginationOptions {
         el: SelectableElement;
-    }
-
-    interface PaginationOptions extends OptionsWithElement {
         type?: string;
         bulletElement?: string;
         dynamicBullets?: boolean;
@@ -416,7 +418,8 @@ declare module 'swiper' {
         clickableClass?: string;
     }
 
-    interface ScrollbarOptions extends OptionsWithElement {
+    interface ScrollbarOptions {
+        el: SelectableElement;
         hide: boolean;
         draggable: boolean;
         snapOnRelease: boolean;
