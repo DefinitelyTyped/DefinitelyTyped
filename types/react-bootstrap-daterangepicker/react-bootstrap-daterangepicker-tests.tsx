@@ -16,6 +16,8 @@ class IntegrationTest extends React.Component {
       cancelClass: "myclass",
       autoApply: true,
       linkedCalendars: true,
+      containerClass: "custom-class",
+      containerStyles: { display: "block" },
     };
 
     return React.createElement(DateRangePicker, props);

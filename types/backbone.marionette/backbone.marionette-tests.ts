@@ -1,3 +1,4 @@
+import * as JQuery from 'jquery';
 import * as Marionette from 'backbone.marionette';
 import * as Backbone from 'backbone';
 
@@ -7,6 +8,10 @@ class DestroyWarn extends Marionette.Behavior {
     // they will be overriden if you pass in an option with the same key
     defaults = {
         message: 'you are destroying!'
+    };
+
+    ui = {
+        destroy: '.foo'
     };
 
     // behaviors have events that are bound to the views DOM
@@ -258,12 +263,18 @@ function RegionTests() {
     });
 }
 
+function BehaviorTest() {
+    const b = new DestroyWarn();
+    const uiHandle: JQuery = b.getUI('destroy');
+}
+
 function ViewTests() {
     const v = new MyView(new MyModel());
     const isDestroyed: boolean = v.isDestroyed();
     const isRendered: boolean = v.isRendered();
     const isAttached: boolean = v.isAttached();
     const vv: Marionette.View<Backbone.Model> = v.delegateEntityEvents();
+    const uiHandle: JQuery = v.getUI('destroy');
 }
 
 function CollectionViewTests() {

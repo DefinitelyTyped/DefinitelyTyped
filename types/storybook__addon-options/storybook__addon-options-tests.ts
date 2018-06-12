@@ -10,8 +10,10 @@ setOptions({
   downPanelInRight: false,
   sortStoriesByKind: false,
   hierarchySeparator: /\//,
+  hierarchyRootSeparator: /\|/
 });
 
 setOptions({
   hierarchySeparator: '.',
+  hierarchyRootSeparator: '#',
 });

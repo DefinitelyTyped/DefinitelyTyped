@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.12
+// Type definitions for Mongoose 5.0.15
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -47,8 +47,12 @@ declare module "mongoose" {
   import stream = require('stream');
   import mongoose = require('mongoose');
 
-  /** Pluralises the given name */
-  export function pluralize(str: string): string;
+  /**
+   * Gets and optionally overwrites the function used to pluralize collection names
+   * @param fn function to use for pluralization of collection names
+   * @returns the current function used to pluralize collection names (defaults to the `mongoose-legacy-pluralize` module's function)
+   */
+  export function pluralize(fn?: (str: string) => string): (str: string) => string;
 
   /*
    * Some mongoose classes have the same name as the native JS classes
@@ -186,6 +190,7 @@ declare module "mongoose" {
 
     /**
      * Opens the connection to MongoDB.
+     * @deprecated open() is deprecated in mongoose >= 4.11.0
      * @param mongodb://uri or the host to which you are connecting
      * @param database database name
      * @param port database port
@@ -195,6 +200,19 @@ declare module "mongoose" {
      *   Options passed take precedence over options included in connection strings.
      */
     open(connection_string: string, database?: string, port?: number,
+      options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
+    
+     /**
+     * Opens the connection to MongoDB.
+     * @param mongodb://uri or the host to which you are connecting
+     * @param database database name
+     * @param port database port
+     * @param options Mongoose forces the db option forceServerObjectId false and cannot be overridden.
+     *   Mongoose defaults the server auto_reconnect options to true which can be overridden.
+     *   See the node-mongodb-native driver instance for options that it understands.
+     *   Options passed take precedence over options included in connection strings.
+     */
+    openUri(connection_string: string, database?: string, port?: number,
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
 
     /** Helper for dropDatabase() */
@@ -217,6 +235,9 @@ declare module "mongoose" {
 
     /** Closes the connection */
     close(callback?: (err: any) => void): Promise<void>;
+
+    /** Closes the connection */
+    close(force?: boolean, callback?: (err: any) => void): Promise<void>;
 
     /**
      * Retrieves a collection, creating it if not cached.
@@ -412,7 +433,7 @@ declare module "mongoose" {
     $format(arg: any): string;
     /** Debug print helper */
     $print(name: any, i: any, args: any[]): void;
-    /** Retreives information about this collections indexes. */
+    /** Retrieves information about this collections indexes. */
     getIndexes(): any;
   }
 
@@ -430,6 +451,9 @@ declare module "mongoose" {
 
     /** Expose the possible connection states. */
     static STATES: any;
+
+    then: Promise<Connection>["then"];
+    catch: Promise<Connection>["catch"];
   }
 
   /*

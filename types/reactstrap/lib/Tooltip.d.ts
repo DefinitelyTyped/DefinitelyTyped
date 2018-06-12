@@ -1,9 +1,8 @@
-/// <reference types='react' />
-
+import * as React from 'react';
 import { CSSModule } from '../index';
 import {Popper} from './Popper';
 
-export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
+export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   target: string | HTMLElement;
   container?: string | HTMLElement;
   delay?: number | {show: number, hide: number};
@@ -13,15 +12,13 @@ export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
   placement?: Popper.Placement;
   modifiers?: Popper.Modifiers;
   cssModule?: CSSModule;
-}
-export interface UncontrolledTooltipProps extends UncontrolledProps {
-  /* intentionally blank */
-}
+} & T;
+export type UncontrolledTooltipProps<T = {}> = UncontrolledProps<T>;
 
-export interface TooltipProps extends UncontrolledTooltipProps {
+export type TooltipProps<T = {}> = UncontrolledTooltipProps<T> & {
   toggle?: () => void;
   isOpen?: boolean;
-}
+};
 
-declare const Tooltip: React.StatelessComponent<TooltipProps>;
+declare class Tooltip<T> extends React.Component<TooltipProps<T>> {}
 export default Tooltip;

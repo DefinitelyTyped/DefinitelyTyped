@@ -1018,7 +1018,7 @@ declare namespace MathJax {
         * to look for characters not included in the MathJax TeX fonts). IE will stop looking after the first font that
         * exists on the system (even if it doesn’t contain the needed character), so order these carefully.
         */
-        undefinedFamily?: string[];
+        undefinedFamily?: string;
         /*This setting controls whether <mtext> elements will be typeset using the math fonts or the font of the
         * surrounding text. When false, the font for mathvariant="normal" will be used; when true, the font will be
         * inherited from the surrounding paragraph.
@@ -1030,6 +1030,17 @@ declare namespace MathJax {
         * they were MathML, you might need to set this to true.
         */
         addMMLclasses?: boolean;
+        /*This controls whether the SVG output uses <use> elements to re-use font paths rather than repeat paths every
+        * time. If useGlobalCache (see below) is set to false, this will still reduce duplication of paths while keeping
+        * each SVG self-contained.
+        */
+        useFontCache?: boolean;
+        /*When set to true the SVG Output stores paths (corresponding to “fonts” in the SVG output) in a global SVG
+        * object using <defs> elements so that it can re-use them in all equations via <use> elements (much like a font
+        * file allows re-use of characters across the document). While set to true by default, it will have no effect if
+        * useFontCache is set to false.
+        */
+        useGlobalCache?: boolean;
         /*EqnChunk is the number of equations that will be typeset before they appear on screen. Larger values make for
         * less visual flicker as the equations are drawn, but also mean longer delays before the reader sees anything.
         */

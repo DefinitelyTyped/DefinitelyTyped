@@ -37,6 +37,11 @@ const connection3: null = mongoose.connect(connectUri, function (error) {
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
 mongooseConnection.dropDatabase().then(()=>{});
 mongooseConnection.dropCollection('foo').then(()=>{});
+mongoose.createConnection(connectUri).then((conn)=> {
+  return conn.collections;
+}, () => {
+
+});
 mongoose.createConnection(connectUri).open('');
 mongoose.createConnection(connectUri, {
   db: {
@@ -129,7 +134,16 @@ conn1.openSet('mongodb://localhost/test', 'db', {
   replset: null,
   mongos: true
 }, function (err) {}).then(cb).catch(cb);
-conn1.close().catch(function (err) {});
+conn1.openUri('mongodb://localhost/test', 'myDb', 27017, {
+  replset: null,
+  config: {
+    autoIndex: false
+  }
+}, function (err) {}).open('');
+conn1.close().then(function () {}).catch(function (err) {});
+conn1.close(true).then(function () {}).catch(function (err) {});
+conn1.close(function (err) {});
+conn1.close(true, function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
 conn1.models.myModel.findOne().exec();
@@ -170,7 +184,8 @@ mongooseError.stack;
 mongoose.Error.messages.hasOwnProperty('');
 mongoose.Error.Messages.hasOwnProperty('');
 
-const plural: string = mongoose.pluralize('foo');
+const pluralize = mongoose.pluralize();
+const plural: string = pluralize('foo');
 
 /*
  * section querycursor.js

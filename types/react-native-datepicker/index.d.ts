@@ -30,6 +30,7 @@ export interface DatePickerProps {
     placeholder?: string;
     modalOnResponderTerminationRequest?(e: any): boolean;
     is24Hour?: boolean;
+    getDateStr?: (date: Date) => string;
     style?: any;
     customStyles?: any;
     minuteInterval?: number;

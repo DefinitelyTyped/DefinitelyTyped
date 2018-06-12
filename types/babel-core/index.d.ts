@@ -3,7 +3,7 @@
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as t from 'babel-types';
 export { t as types };
@@ -169,9 +169,30 @@ export interface TransformOptions {
     wrapPluginVisitorMethod?(pluginAlias: string, visitorType: 'enter' | 'exit', callback: (path: NodePath, state: any) => void): (path: NodePath, state: any) => void ;
 }
 
+export interface BabelFileModulesMetadata {
+    imports: object[];
+    exports: {
+        exported: object[],
+        specifiers: object[]
+    };
+}
+
+export interface BabelFileMetadata {
+    usedHelpers: string[];
+    marked: Array<{
+        type: string;
+        message: string;
+        loc: object;
+    }>;
+    modules: BabelFileModulesMetadata;
+}
+
 export interface BabelFileResult {
     ast?: Node;
     code?: string;
+    ignored?: boolean;
     map?: object;
+    metadata?: BabelFileMetadata;
 }
+
 export as namespace babel;

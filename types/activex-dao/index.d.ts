@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
+
 declare namespace DAO {
     const enum _DAOSuppHelp {
         KeepLocal = 0,
@@ -881,10 +883,6 @@ declare namespace DAO {
         Refresh(): void;
         (Item: number | string): Workspace;
     }
-}
-
-interface ActiveXObject {
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

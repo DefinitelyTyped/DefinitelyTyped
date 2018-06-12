@@ -101,7 +101,7 @@ declare module 'angular' {
              * Note: This property is not currently supported in any browser.
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/vibrate
              */
-            vibrate?: boolean;
+            vibrate?: any;
 
             /**
              * The onclick property of the Notification interface specifies an event listener to receive click events.

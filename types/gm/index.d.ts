@@ -1,4 +1,4 @@
-// Type definitions for gm 1.17
+// Type definitions for gm 1.18
 // Project: https://github.com/aheckmann/gm
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>, Maarten van Vliet <https://github.com/maartenvanvliet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -123,7 +123,7 @@ declare namespace m {
         crop(width: number, height: number, x?: number, y?: number, percent?: boolean): State;
         cycle(amount: number): State;
         deconstruct(): State;
-        define(): State;
+        define(value: string): State;
         delay(milliseconds: number): State;
         density(width: number, height: number): State;
         despeckle(): State;

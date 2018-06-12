@@ -336,6 +336,7 @@ rule = {
             onCodePathSegmentStart(segment, node) {},
             onCodePathSegmentEnd(segment, node) {},
             onCodePathSegmentLoop(fromSegment, toSegment, node) {},
+            IfStatement(node) {},
             'Program:exit'() {},
         };
     },

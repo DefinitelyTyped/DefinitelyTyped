@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
 /// <reference types="activex-stdole" />
 /// <reference types="activex-office" />
 
@@ -5855,7 +5856,6 @@ interface ActiveXObject {
     on(obj: Outlook.TaskRequestDeclineItem, event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload', handler: (this: Outlook.TaskRequestDeclineItem, parameter: {}) => void): void;
     on(obj: Outlook.TaskRequestItem, event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload', handler: (this: Outlook.TaskRequestItem, parameter: {}) => void): void;
     on(obj: Outlook.TaskRequestUpdateItem, event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload', handler: (this: Outlook.TaskRequestUpdateItem, parameter: {}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
