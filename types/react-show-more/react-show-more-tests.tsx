@@ -10,4 +10,4 @@ const longText = "scenester Banksy single-origin coffee squid flannel XOXO chill
 	anchorClass=''
 >
 	{longText}
-</ShowMore >
+</ShowMore >;
