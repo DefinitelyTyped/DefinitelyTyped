@@ -1,8 +1,8 @@
-import { FormErrors } from "../index";
+import { FormErrors, GetFormState } from "../index";
 
-export type DataSelector<FormData = {}, State = {}> = (formName: string) => (state: State) => FormData;
-export type ErrorSelector<FormData = {}, State = {}> = (formName: string) => (state: State) => FormErrors<FormData>;
-export type BooleanSelector<State = {}> = (formName: string) => (state: State) => boolean;
+export type DataSelector<FormData = {}, State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => FormData;
+export type ErrorSelector<FormData = {}, State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => FormErrors<FormData>;
+export type BooleanSelector<State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => boolean;
 
 export const getFormValues: DataSelector;
 export const getFormInitialValues: DataSelector;
