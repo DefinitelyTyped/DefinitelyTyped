@@ -35,11 +35,11 @@ export declare function registerField(form: string, name: string, type: FieldTyp
 export declare function reset(form: string): FormAction;
 export declare function resetSection(form: string, ...sections: string[]): FormAction;
 export declare function startAsyncValidation(form: string): FormAction;
-export declare function stopAsyncValidation<T = any>(form: string, errors?: FormErrors<FormData, T>): FormAction;
+export declare function stopAsyncValidation(form: string, errors?: FormErrors<FormData, any>): FormAction;
 export declare function setSubmitFailed(form: string, ...fields: string[]): FormAction;
 export declare function setSubmitSucceeded(form: string, ...fields: string[]): FormAction;
 export declare function startSubmit(form: string): FormAction;
-export declare function stopSubmit<T = any>(form: string, errors?: FormErrors<FormData, T>): FormAction;
+export declare function stopSubmit(form: string, errors?: FormErrors<FormData, any>): FormAction;
 export declare function submit(form: string): FormAction;
 export declare function clearSubmit(form: string): FormAction;
 export declare function clearSubmitErrors(form: string): FormAction;

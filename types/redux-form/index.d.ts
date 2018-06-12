@@ -7,6 +7,7 @@
 //                 Alex Young <https://github.com/alsiola>
 //                 Anton Novik <https://github.com/tehbi4>
 //                 Huw Martin <https://github.com/huwmartin>
+//                 Ethan Resnick <https://github.com/ethanresnick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
