@@ -1,6 +1,8 @@
 // Type definitions for LESS
 // Project: http://lesscss.org/
-// Definitions by: Tom Hasner <https://github.com/thasner>, Pranay Prakash <https://github.com/pranaygp>
+// Definitions by: Tom Hasner <https://github.com/thasner>
+//                 Pranay Prakash <https://github.com/pranaygp>
+//                 Daniel Waxweiler <https://github.com/dwaxweiler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Less {
@@ -79,6 +81,10 @@ declare namespace Less {
 interface LessStatic {
     options: Less.StaticOptions;
     
+    modifyVars(vars: { [name: string]: string }): void;
+    
+    refreshStyles(): void;
+    
     render(input: string, callback: (error: Less.RenderError, output: Less.RenderOutput) => void): void;
     render(input: string, options: Less.Options, callback: (error: Less.RenderError, output: Less.RenderOutput) => void): void;
 
@@ -86,6 +92,8 @@ interface LessStatic {
     render(input: string, options: Less.Options): Promise<Less.RenderOutput>;
 
     version: number[];
+    
+    watch(): void;
 }
 
 declare module "less" {

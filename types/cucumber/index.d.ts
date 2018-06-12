@@ -129,7 +129,7 @@ export type GlobalHookCode = (callback?: CallbackStepDefinition) => void;
 
 export interface Transform {
     regexp: RegExp;
-    transformer(arg: string): any;
+    transformer(this: World, ...arg: string[]): any;
     useForSnippets?: boolean;
     preferForRegexpMatch?: boolean;
     name?: string;

@@ -719,6 +719,23 @@ const wmts: ol.source.WMTS = new ol.source.WMTS({
 });
 
 //
+// ol.source.ImageArcGISRest
+//
+const arcGISImageLoadFunction: ol.ImageLoadFunctionType = (image, url) => {};
+const imageArcGISRest: ol.source.ImageArcGISRest = new ol.source.ImageArcGISRest({
+    attributions: [attribution],
+    crossOrigin: stringValue,
+    hidpi: booleanValue,
+    logo: logoOptions,
+    imageLoadFunction: arcGISImageLoadFunction,
+    params: {},
+    projection: projectionLike,
+    ratio: numberValue,
+    resolutions: [numberValue, numberValue, numberValue, numberValue, numberValue],
+    url: stringValue
+});
+
+//
 // ol.coordinate
 //
 coordinate = ol.coordinate.add(coordinate, coordinate);

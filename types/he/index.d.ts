@@ -1,6 +1,7 @@
-// Type definitions for he v0.5.0
+// Type definitions for he v1.1.1
 // Project: https://github.com/mathiasbynens/he
 // Definitions by: Simon Edwards <https://github.com/sedwards2009>
+//                 Robin Tregaskis <https://github.com/lokidokicoki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // he - "HTML Entities" - A high quality pair of HTML encode and decode functions.
@@ -17,6 +18,18 @@ export interface EncodeOptions {
     * be used instead. Set it to true to enable the use of named references.
     */
     useNamedReferences?: boolean;
+
+    /**
+     * The default value for the decimal option is false. If the option is
+     * enabled, encode will generally use decimal escapes (e.g. &#169;)
+     * rather than hexadecimal escapes (e.g. &#xA9;). Beside of this
+     * replacement, the basic behavior remains the same when combined with
+     * other options. For example: if both options useNamedReferences and
+     * decimal are enabled, named references (e.g. &copy;) are used over
+     * decimal escapes. HTML entities without a named reference are encoded
+     * using decimal escapes.
+     */
+    decimal?: boolean;
 
     /**
     * The default value for the encodeEverything option is false. This means

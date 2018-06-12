@@ -22,4 +22,6 @@ c.result({ type: 'blob' }).then(blob => {
     x = blob;
 });
 
+c.get();
+
 c.destroy();

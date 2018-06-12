@@ -11,7 +11,8 @@ import SortableTree,
         ExtendedNodeData,
         FullTree,
         OnVisibilityToggleData,
-        PreviousAndNextLocation,
+        OnDragPreviousAndNextLocation,
+        OnMovePreviousAndNextLocation,
         PlaceholderRendererProps,
         ThemeProps
     } from "react-sortable-tree";
@@ -55,10 +56,10 @@ class Test extends React.Component {
                     searchFinishCallback={(matches: NodeData[]) => { const firstTitle = matches[0].node.title; }}
                     generateNodeProps={(data: ExtendedNodeData) => ({buttons: [data.node.title]}) }
                     getNodeKey={defaultGetNodeKey}
-                    onMoveNode={(data: NodeData & FullTree) => {}}
+                    onMoveNode={(data: NodeData & FullTree & OnMovePreviousAndNextLocation) => {}}
                     onVisibilityToggle={(data: OnVisibilityToggleData) => {}}
                     canDrag={true}
-                    canDrop={(data: PreviousAndNextLocation & NodeData) => true}
+                    canDrop={(data: OnDragPreviousAndNextLocation & NodeData) => true}
                     reactVirtualizedListProps={reactVirtualizedListProps}
                     rowHeight={62}
                     slideRegionSize={100}

@@ -40,3 +40,15 @@ transaction = transaction.setNodeMarkup(0);
 transaction = transaction.split(0);
 transaction = transaction.join(0);
 transaction = transaction.step(step);
+
+const res1_1: state.PluginSpec["appendTransaction"] = null;
+const res1_2: state.PluginSpec["appendTransaction"] = () => {};
+const res1_3: state.PluginSpec["appendTransaction"] = () => null;
+const res1_4: state.PluginSpec["appendTransaction"] = () => undefined;
+const res1_5: state.PluginSpec["appendTransaction"] = () => ({} as state.Transaction);
+
+const res2_1 = new state.PluginKey();
+const res2_2: state.Plugin = res2_1.get({} as state.EditorState)!;
+
+const res3_1 = new state.Selection({} as any, {} as any);
+const res3_2: state.Selection = state.Selection.findFrom({} as model.ResolvedPos, 0)!;

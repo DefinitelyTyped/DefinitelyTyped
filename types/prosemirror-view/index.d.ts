@@ -237,7 +237,7 @@ export class EditorView<S extends Schema = any> {
   posAtCoords(coords: {
     left: number;
     top: number;
-  }): { pos: number; inside: number } | null | void;
+  }): { pos: number; inside: number } | null | undefined;
   /**
    * Returns the viewport rectangle at a given document position. `left`
    * and `right` will be the same number, as this returns a flat
@@ -404,7 +404,7 @@ export interface EditorProps<S extends Schema = any> {
     view: EditorView<S>,
     anchor: ResolvedPos<S>,
     head: ResolvedPos<S>
-  ) => Selection<S> | null | void)
+  ) => Selection<S> | null | undefined)
   | null;
   /**
    * The [parser](#model.DOMParser) to use when reading editor changes
@@ -482,7 +482,7 @@ export interface EditorProps<S extends Schema = any> {
    * A set of [document decorations](#view.Decoration) to show in the
    * view.
    */
-  decorations?: ((state: EditorState<S>) => DecorationSet<S> | null | void) | null;
+  decorations?: ((state: EditorState<S>) => DecorationSet<S> | null | undefined) | null;
   /**
    * When this returns false, the content of the view is not directly
    * editable.
@@ -500,7 +500,7 @@ export interface EditorProps<S extends Schema = any> {
    */
   attributes?:
   | { [name: string]: string }
-  | ((p: EditorState<S>) => { [name: string]: string } | null | void)
+  | ((p: EditorState<S>) => { [name: string]: string } | null | undefined | void)
   | null;
   /**
    * Determines the distance (in pixels) between the cursor and the

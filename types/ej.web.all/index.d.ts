@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.1.0.32
+*  version : 16.1.0.37
 *  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -7995,9 +7995,9 @@ declare namespace ej {
              */
             footerTemplateId?: string;
 
-            /** This event is triggered before the dialog widgets gets open.
+            /** Triggered when the custom action button clicked.
              */
-            beforeOpen?(e: BeforeOpenEventArgs): void;
+            actionButtonClick?(e: ActionButtonClickEventArgs): void;
 
             /** This event is triggered whenever the AJAX request fails to retrieve the dialog content.
              */
@@ -8007,6 +8007,10 @@ declare namespace ej {
              */
             ajaxSuccess?(e: AjaxSuccessEventArgs): void;
 
+            /** This event is triggered before the dialog widgets gets open.
+             */
+            beforeOpen?(e: BeforeOpenEventArgs): void;
+
             /** This event is triggered before the dialog widgets get closed.
              */
             beforeClose?(e: BeforeCloseEventArgs): void;
@@ -8014,6 +8018,10 @@ declare namespace ej {
             /** This event is triggered after the dialog widget is closed.
              */
             close?(e: CloseEventArgs): void;
+
+            /** Triggered when the dialog content is collapsed.
+             */
+            collapse?(e: CollapseEventArgs): void;
 
             /** Triggered after the dialog content is loaded in DOM.
              */
@@ -8039,6 +8047,10 @@ declare namespace ej {
              */
             dragStop?(e: DragStopEventArgs): void;
 
+            /** Triggered when the dialog content is expanded.
+             */
+            expand?(e: ExpandEventArgs): void;
+
             /** Triggered after the dialog is opened.
              */
             open?(e: OpenEventArgs): void;
@@ -8054,33 +8066,33 @@ declare namespace ej {
             /** Triggered when the user stops resizing the dialog.
              */
             resizeStop?(e: ResizeStopEventArgs): void;
-
-            /** Triggered when the dialog content is expanded.
-             */
-            expand?(e: ExpandEventArgs): void;
-
-            /** Triggered when the dialog content is collapsed.
-             */
-            collapse?(e: CollapseEventArgs): void;
-
-            /** Triggered when the custom action button clicked.
-             */
-            actionButtonClick?(e: ActionButtonClickEventArgs): void;
         }
 
-        export interface BeforeOpenEventArgs {
+        export interface ActionButtonClickEventArgs {
 
             /** Set this option to true to cancel the event.
              */
             cancel?: boolean;
 
+            /** Name of the event target attribute.
+             */
+            buttonID?: string;
+
+            /** Name of the event.
+             */
+            type?: string;
+
             /** Instance of the dialog model object.
              */
             model?: ej.Dialog.Model;
 
-            /** Name of the event
+            /** Name of the event current target title.
              */
-            type?: string;
+            currentTarget?: string;
+
+            /** Name of the event.
+             */
+            event?: string;
         }
 
         export interface AjaxErrorEventArgs {
@@ -8137,6 +8149,21 @@ declare namespace ej {
             data?: string;
         }
 
+        export interface BeforeOpenEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the dialog model object.
+             */
+            model?: ej.Dialog.Model;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
         export interface BeforeCloseEventArgs {
 
             /** Current event object.
@@ -8154,6 +8181,10 @@ declare namespace ej {
             /** Name of the event.
              */
             type?: string;
+
+            /** returns true when the dialog activated by user interaction otherwise returns false
+             */
+            isInteraction?: boolean;
         }
 
         export interface CloseEventArgs {
@@ -8173,6 +8204,29 @@ declare namespace ej {
             /** Name of the event
              */
             type?: string;
+
+            /** returns true when the Dialog activated by user interaction otherwise returns false
+             */
+            isInteraction?: boolean;
+        }
+
+        export interface CollapseEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the dialog model object.
+             */
+            model?: ej.Dialog.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+
+            /** returns true when the Dialog activated by user interaction otherwise returns false
+             */
+            isInteraction?: boolean;
         }
 
         export interface ContentLoadEventArgs {
@@ -8285,6 +8339,25 @@ declare namespace ej {
             event?: any;
         }
 
+        export interface ExpandEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the dialog model object.
+             */
+            model?: ej.Dialog.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+
+            /** returns true when the Dialog activated by user interaction otherwise returns false
+             */
+            isInteraction?: boolean;
+        }
+
         export interface OpenEventArgs {
 
             /** Set this option to true to cancel the event.
@@ -8355,59 +8428,6 @@ declare namespace ej {
             /** Current event object.
              */
             event?: any;
-        }
-
-        export interface ExpandEventArgs {
-
-            /** Set this option to true to cancel the event.
-             */
-            cancel?: boolean;
-
-            /** Instance of the dialog model object.
-             */
-            model?: ej.Dialog.Model;
-
-            /** Name of the event.
-             */
-            type?: string;
-        }
-
-        export interface CollapseEventArgs {
-
-            /** Set this option to true to cancel the event.
-             */
-            cancel?: boolean;
-
-            /** Instance of the dialog model object.
-             */
-            model?: ej.Dialog.Model;
-
-            /** Name of the event.
-             */
-            type?: string;
-        }
-
-        export interface ActionButtonClickEventArgs {
-
-            /** Set this option to true to cancel the event.
-             */
-            cancel?: boolean;
-
-            /** Name of the event target attribute.
-             */
-            buttonID?: string;
-
-            /** Name of the event.
-             */
-            type?: string;
-
-            /** Instance of the dialog model object.
-             */
-            model?: ej.Dialog.Model;
-
-            /** Name of the event current target title.
-             */
-            currentTarget?: string;
         }
 
         export interface AjaxSettings {
@@ -23206,9 +23226,10 @@ declare namespace ej {
         getCurrentViewData(): any[];
 
         /** Get the data of given row index in grid.
+         * @param {number} Pass the index of the row to get the corresponding data
          * @returns {any}
          */
-        getDataByIndex(): any;
+        getDataByIndex(rowIndex: number): any;
 
         /** Get the column field name from the given header text in grid.
          * @param {string} Pass header text of the column to get its corresponding field name
@@ -35422,6 +35443,13 @@ declare namespace ej {
          */
         filterColumn(fieldName: string, filterOperator: string, filterValue: string, predicate?: string, matchCase?: boolean): void;
 
+        /** To filter multiple columns with multiple conditions dynamically in Gantt.
+         * @param {Gantt.EjPredicate} Pass the filtering column details and conditions as ejPredicate instance. The ejPredicate object is defined as fieldName,filterOperator, filterValue and
+         * ignoreCase properties.
+         * @returns {void}
+         */
+        filterContent(ejPredicate: Gantt.EjPredicate): void;
+
         /** To hide the column by using header text
          * @param {string} you can pass a header text of a column to hide
          * @returns {void}
@@ -35533,6 +35561,25 @@ declare namespace ej {
         updateTaskId(currentId: number, newId: number): void;
     }
     export namespace Gantt {
+
+        export interface EjPredicate {
+
+            /** Pass the field name of the column.
+             */
+            fieldName?: string;
+
+            /** string/integer/date operator.
+             */
+            filterOperator?: string;
+
+            /** Pass the value to be filtered in a column.
+             */
+            filterValue?: string;
+
+            /** Optional - pass the ignore case value as true/false.
+             */
+            ignoreCase?: boolean;
+        }
 
         export interface Model {
 
@@ -38232,6 +38279,13 @@ declare namespace ej {
          */
         filterColumn(fieldName: string, filterOperator: string, filterValue: string, predicate: string, matchcase: boolean, actualFilterValue: any): void;
 
+        /** To filter multiple columns with multiple conditions dynamically in TreeGrid.
+         * @param {TreeGrid.EjPredicate} Pass the filtering column details and conditions as ejPredicate instance. ejPredicate object is defined as fieldName,filterOperator, filterValue and
+         * ignoreCase properties
+         * @returns {void}
+         */
+        filterContent(ejPredicate: TreeGrid.EjPredicate): void;
+
         /** To change the index of the tree column in TreeGrid.
          * @param {number} Pass the column index to make the column as treeColumnIndex.
          * @returns {void}
@@ -38274,6 +38328,25 @@ declare namespace ej {
         getColumnByField(fieldName: string): any;
     }
     export namespace TreeGrid {
+
+        export interface EjPredicate {
+
+            /** Pass the field name of the column.
+             */
+            fieldName?: string;
+
+            /** string/integer/date operator.
+             */
+            filterOperator?: string;
+
+            /** Pass the value to be filtered in a column.
+             */
+            filterValue?: string;
+
+            /** Optional - pass the ignore case value as true/false.
+             */
+            ignoreCase?: boolean;
+        }
 
         export interface Model {
 
@@ -43128,6 +43201,14 @@ declare namespace ej {
         }
 
         export interface XLFormat {
+
+            /** This method is used to add the custom Date &amp; Time format and recognize it as a preferred pattern in spreadsheet.
+             * @param {string} Pass the name for custom format.
+             * @param {string} Pass the custom format string.
+             * @param {string} Pass the type for custom format.
+             * @returns {void}
+             */
+            addCustomFormatSpecifier(name: string, formatSpecifier: string, type: string): void;
 
             /** This method is used to add the font to the Ribbon font family dropdown.
              * @param {string} Font name which needs to add into the font family option.

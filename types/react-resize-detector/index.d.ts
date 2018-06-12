@@ -1,6 +1,6 @@
-// Type definitions for react-resize-detector 2.1
+// Type definitions for react-resize-detector 2.2
 // Project: https://github.com/maslianok/react-resize-detector
-// Definitions by: Matthew James <https://github.com/matthew-matvei>
+// Definitions by: Matthew James <https://github.com/matthew-matvei>, James Greenleaf <https://github.com/aMoniker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -17,6 +17,10 @@ interface ReactResizeDetectorProps extends React.Props<ReactResizeDetector> {
     skipOnMount?: boolean;
     /** Id of the element we want to observe. If none provided, parentElement of the component will be used. Default: "" */
     resizableElementId?: string;
+    /** Possible values: throttle and debounce */
+    refreshMode?: 'throttle' | 'debounce';
+    /** Makes sense only when refreshMode is set. Default: 1000. */
+    refreshRate?: number;
 }
 
 declare class ReactResizeDetector extends React.PureComponent<ReactResizeDetectorProps> { }

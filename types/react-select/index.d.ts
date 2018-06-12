@@ -40,7 +40,7 @@ export type FilterOptionsHandler<TValue = OptionValues> = (options: Options<TVal
 export type InputRendererHandler = (props: { [key: string]: any }) => HandlerRendererResult;
 export type MenuRendererHandler<TValue = OptionValues> = (props: MenuRendererProps<TValue>) => HandlerRendererResult;
 export type OnCloseHandler = () => void;
-export type OnInputChangeHandler = (inputValue: string) => void;
+export type OnInputChangeHandler = (inputValue: string) => string;
 export type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OnMenuScrollToBottomHandler = () => void;
 export type OnOpenHandler = () => void;

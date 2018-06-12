@@ -424,6 +424,7 @@ declare namespace NodeJS {
         rss: number;
         heapTotal: number;
         heapUsed: number;
+        external: number;
     }
 
     export interface CpuUsage {
@@ -476,6 +477,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        debugPort: number;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: any;
         exit(code?: number): never;
@@ -1847,7 +1849,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
-    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
         cwd?: string;
@@ -3818,8 +3820,8 @@ declare module "stream" {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
-            write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
+            write?: (chunk: any, encoding: string, callback: Function) => any;
+            writev?: (chunks: { chunk: any, encoding: string }[], callback: Function) => any;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {

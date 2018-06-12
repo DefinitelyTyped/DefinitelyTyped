@@ -7,7 +7,7 @@
 import * as React from 'react';
 
 export namespace Navigation {
-    function registerComponent(screenID: string, generator: () => React.ComponentType<any>, store?: any, provider?: any): void;
+    function registerComponent(screenID: string, generator: () => React.ComponentType<any>, store?: any, provider?: any, options?: any): void;
     function startTabBasedApp(params: TabBasedApp): void;
     function startSingleScreenApp(params: SingleScreenApp): void;
     function showModal(params: ModalScreen): void;
@@ -18,6 +18,7 @@ export namespace Navigation {
     function handleDeepLink(params?: { link: string; payload?: string; }): void;
     function registerScreen(screenId: string, generator: () => React.ComponentType<any>): void;
     function getCurrentlyVisibleScreenId(): Promise<string>;
+    function isAppLaunched(): Promise<boolean>;
 }
 
 export interface TabBasedApp {
@@ -56,6 +57,7 @@ export interface TabScreen {
     title?: string;
     navigatorStyle?: NavigatorStyle;
     navigatorButtons?: NavigatorButtons;
+    titleImage?: any;
 }
 
 export interface SingleScreenApp {
@@ -63,6 +65,11 @@ export interface SingleScreenApp {
     drawer?: Drawer;
     passProps?: object;
     animationType?: 'none' | 'slide-down' | 'fade';
+    appStyle?: {
+        orientation?: 'auto' | 'landscape' | 'portrait';
+        backButtonImage?: any;
+        hideBackButtonTitle?: boolean;
+    };
 }
 
 export interface Screen {
@@ -111,6 +118,10 @@ export interface LightBox {
     adjustSoftInput?: 'nothing' | 'pan' | 'resize' | 'unspecified';
 }
 
+export interface NavigatorEvent {
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress';
+}
+
 export class Navigator {
     push(params: PushedScreen): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
@@ -133,8 +144,8 @@ export class Navigator {
     setTabButton(params?: { tabIndex?: number; icon?: any; selectedIcon?: any; label?: string; }): void;
     switchToTab(params?: { tabIndex?: number }): void;
     toggleNavBar(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
-    setOnNavigatorEvent(callback: (event: { id: string }) => void): void;
-    addOnNavigatorEvent(callback: (event: { id: string }) => void): () => void;
+    setOnNavigatorEvent(callback: (event: NavigatorEvent) => void): void;
+    addOnNavigatorEvent(callback: (event: NavigatorEvent) => void): () => void;
     screenIsCurrentlyVisible(): Promise<boolean>;
     setStyle(params: NavigatorStyle): void;
 }
@@ -143,6 +154,11 @@ export class ScreenVisibilityListener {
     constructor(params: ScreenVisibilityListenerParams);
     register(): void;
     unregister(): void;
+}
+
+export class NativeEventsReceiver {
+    constructor();
+    appLaunched(callback: () => void): void;
 }
 
 export interface ScreenVisibilityListenerParams {
@@ -274,9 +290,24 @@ export interface FABAndroid {
 export interface Drawer {
     left?: {
         screen: string;
+        passProps?: any;
+        disableOpenGesture?: boolean;
+        fixedWidth?: number;
     };
     right?: {
         screen: string;
+        passProps?: any;
+        disableOpenGesture?: boolean;
+        fixedWidth?: number;
     };
+    style?: {
+        drawerShadow?: boolean;
+        contentOverlayColor?: string;
+        leftDrawerWidth?: number;
+        rightDrawerWidth?: number;
+        shouldStretchDrawer?: boolean;
+    };
+    type?: string;
+    animationType?: string;
     disableOpenGesture?: boolean;
 }

@@ -1,4 +1,4 @@
-// Type definitions for mathjs 3.20
+// Type definitions for mathjs 3.21
 // Project: http://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 // 				   Andy Patterson <https://github.com/andnp>
@@ -1307,9 +1307,26 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		phi: number;
     }
 
+	interface MathJSON {
+		mathjs?: string;
+		value: number;
+		unit: string;
+		fixPrefix?: boolean;
+	}
+
 	interface Unit {
 		to(unit: string): Unit;
 		toNumber(unit: string): number;
+    	clone(): Unit;
+		equalBase(unit: Unit): boolean;
+		equals(unit: Unit): boolean;
+		format(options: FormatOptions): string;
+		fromJSON(json: MathJSON): Unit;
+		toJSON(): MathJSON;
+		splitUnit(parts: ReadonlyArray<string>): Unit[];
+		toNumeric(unit: string): number | Fraction | BigNumber;
+		toSI(): Unit;
+		toString(): string;
 	}
 
 	interface CreateUnitOptions {

@@ -74,6 +74,9 @@ export class Parser {
 
     // Gets the cursor position
     getCharIndex(): number;
+
+    pause(): void;
+    resume(): void;
 }
 
 export interface ParseConfig {

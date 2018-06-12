@@ -13,7 +13,6 @@
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Kelvin Jin <https://github.com/kjin>
 //                 Alvis HT Tang <https://github.com/alvis>
-//                 Oliver Joseph Ash <https://github.com/OliverJAsh>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Alberto Schiabel <https://github.com/jkomyno>
@@ -472,6 +471,7 @@ declare namespace NodeJS {
         rss: number;
         heapTotal: number;
         heapUsed: number;
+        external: number;
     }
 
     export interface CpuUsage {
@@ -560,6 +560,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        debugPort: number;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
@@ -894,7 +895,7 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
-    interface ParsedUrlQuery { [key: string]: string | string[]; }
+    interface ParsedUrlQuery { [key: string]: string | string[] | undefined; }
 
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
     export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
@@ -1958,6 +1959,9 @@ declare module "readline" {
         completer?: Completer | AsyncCompleter;
         terminal?: boolean;
         historySize?: number;
+        prompt?: string;
+        crlfDelay?: number;
+        removeHistoryDuplicates?: boolean;
     }
 
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
@@ -2091,7 +2095,7 @@ declare module "child_process" {
         windowsHide?: boolean;
     }
 
-    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
         cwd?: string;
@@ -2850,8 +2854,8 @@ declare module "dgram" {
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     export class Socket extends events.EventEmitter {
-        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | string | Uint8Array | any[], port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | string | Uint8Array, offset: number, length: number, port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(port?: number, callback?: () => void): void;
         bind(callback?: () => void): void;
@@ -3367,7 +3371,7 @@ declare module "fs" {
      * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
      * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    export function symlink(target: PathLike, path: PathLike, type: string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function symlink(target: PathLike, path: PathLike, type: symlink.Type | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
@@ -3386,6 +3390,8 @@ declare module "fs" {
          * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
          */
         export function __promisify__(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
+
+        export type Type = "dir" | "file" | "junction";
     }
 
     /**
@@ -3395,7 +3401,7 @@ declare module "fs" {
      * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
      * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    export function symlinkSync(target: PathLike, path: PathLike, type?: string | null): void;
+    export function symlinkSync(target: PathLike, path: PathLike, type?: symlink.Type | null): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -5368,8 +5374,8 @@ declare module "stream" {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
-            write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
+            write?: (chunk: any, encoding: string, callback: Function) => any;
+            writev?: (chunks: Array<{ chunk: any, encoding: string }>, callback: Function) => any;
             destroy?: (error?: Error) => any;
             final?: (callback: (error?: Error) => void) => void;
         }
@@ -5587,7 +5593,7 @@ declare module "util" {
         );
         decode(
           input?:
-            | Int8Array
+            Int8Array
             | Int16Array
             | Int32Array
             | Uint8Array

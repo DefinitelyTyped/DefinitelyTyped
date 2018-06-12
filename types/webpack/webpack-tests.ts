@@ -607,6 +607,27 @@ configuration = {
     },
 };
 
+configuration = {
+    mode: "production",
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                common: {
+                    name: 'common',
+                    chunks(chunk: webpack.compilation.Chunk) {
+                        const allowedChunks = [
+                            'renderer',
+                            'component-window',
+                        ];
+                        return allowedChunks.indexOf(chunk.name) >= 0;
+                    },
+                    minChunks: 2
+                }
+            }
+        }
+    },
+};
+
 plugin = new webpack.SplitChunksPlugin({ chunks: "async", minChunks: 2 });
 
 class SingleEntryDependency extends webpack.compilation.Dependency {}
@@ -684,3 +705,58 @@ class BannerPlugin extends webpack.Plugin {
         });
     }
 }
+
+configuration = {
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                oneOf: [
+                    { resourceQuery: /global/, use: ["style-loader", "css-loader"] },
+                    { use: ["to-string-loader", "css-loader"] }
+                ]
+            }
+        ]
+    }
+};
+
+configuration = {
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                include: '/foo/bar',
+                exclude: path => path.startsWith('/foo'),
+                resourceQuery: ['foo', 'bar'],
+                resolve: {
+                    mainFields: ['foo'],
+                    aliasFields: [['bar']],
+                },
+                loader: 'foo-loader',
+                loaders: [
+                    'foo-loader',
+                    {
+                        loader: 'bar-loader',
+                        query: 'baz'
+                    }
+                ],
+                use: () => ([
+                    'foo-loader',
+                    {
+                        loader: 'bar-loader',
+                        query: {
+                            baz: 'qux'
+                        }
+                    },
+                ])
+            }
+        ]
+    }
+};
+
+let profiling = new webpack.debug.ProfilingPlugin();
+profiling = new webpack.debug.ProfilingPlugin({ outputPath: './path.json' });
+
+configuration = {
+    plugins: [profiling]
+};

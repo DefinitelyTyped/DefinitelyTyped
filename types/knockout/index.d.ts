@@ -1,10 +1,10 @@
 // Type definitions for Knockout v3.4.0
 // Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, 
-//                 Igor Oleinikov <https://github.com/Igorbek>, 
-//                 Clément Bourgeois <https://github.com/moonpyk>, 
-//                 Matt Brooks <https://github.com/EnableSoftware>, 
-//                 Benjamin Eckardt <https://github.com/BenjaminEckardt>, 
+// Definitions by: Boris Yankov <https://github.com/borisyankov>,
+//                 Igor Oleinikov <https://github.com/Igorbek>,
+//                 Clément Bourgeois <https://github.com/moonpyk>,
+//                 Matt Brooks <https://github.com/EnableSoftware>,
+//                 Benjamin Eckardt <https://github.com/BenjaminEckardt>,
 //                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -150,10 +150,10 @@ interface KnockoutAllBindingsAccessor {
     has(name: string): boolean;
 }
 
-interface KnockoutBindingHandler {
+interface KnockoutBindingHandler<E extends Node = any, V = any, VM = any> {
     after?: Array<string>;
-    init?: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
-    update?: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => void;
+    init?: (element: E, valueAccessor: () => V, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: VM, bindingContext: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
+    update?: (element: E, valueAccessor: () => V, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: VM, bindingContext: KnockoutBindingContext) => void;
     options?: any;
     preprocess?: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string;
     [s: string]: any;
@@ -440,7 +440,7 @@ interface KnockoutStatic {
     contextFor(node: any): any;
     isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
-  
+
     toJS(viewModel: any): any;
 
     isObservable(instance: any): instance is KnockoutObservable<any>;
@@ -451,7 +451,7 @@ interface KnockoutStatic {
 
     isComputed(instance: any): instance is KnockoutComputed<any>;
     isComputed<T>(instance: KnockoutObservable<T> | T): instance is KnockoutComputed<T>;
-  
+
     dataFor(node: any): any;
     removeNode(node: Node): void;
     cleanNode(node: Node): Node;
