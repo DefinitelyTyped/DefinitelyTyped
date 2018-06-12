@@ -614,10 +614,12 @@ declare module 'swiper' {
         /**
          * HTMLElement of pagination container element
          */
-        el: HTMLElement
+        el: HTMLElement;
 
         /**
-         * Dom7 array-like collection of pagination bullets HTML elements. To get specific slide HTMLElement use mySwiper.pagination.bullets[1]
+         * Dom7 array-like collection of pagination bullets
+         * HTML elements. To get specific slide HTMLElement
+         * use `mySwiper.pagination.bullets[1]`.
          */
         bullets: DOM7Element[];
 
@@ -655,7 +657,7 @@ declare module 'swiper' {
         /**
          * Whether the zoom module is enabled
          */
-        enabled: boolean
+        enabled: boolean;
 
         /**
          * Current image scale ratio
@@ -923,34 +925,42 @@ declare module 'swiper' {
          * recalculate size of swiper container
          */
         updateSize: () => {};
+
         /**
          * recalculate number of slides and their offsets. Useful after you add/remove slides with JavaScript
          */
         updateSlides: () => {};
+
         /**
          * recalculate swiper progress
          */
         updateProgress: () => {};
+
         /**
          * update active/prev/next classes on slides and bullets
          */
         updateSlidesClasses: () => {};
+
         /**
          * tach all events listeners
          */
         detachEvents: () => {};
+
         /**
          * Atach all events listeners again
          */
         attachEvents: () => {};
+
         /**
          * Destroy slider instance and detach all events listeners, where
          */
         destroy: (deleteInstance: any, cleanStyles: any) => {};
+
         /**
          * Set it to false (by default it is true) to not to delete Swiper instance
          */
         deleteInstance: boolean;
+
         /**
          * Set it to true (by default it is true) and all
          * custom styles will be removed from slides,
@@ -959,6 +969,17 @@ declare module 'swiper' {
          * options or in different direction
          */
         cleanStyles: boolean;
+
+        /*
+         * [If installed with use] The zoom module accessor.
+         */
+        zoom?: Zoom;
+
+        /**
+         * Installs modules on Swiper in runtime.
+         */
+        public static use(modules: any[]): void;
+
         /**
          * Add new slides to the end. slides could be
          * HTMLElement or HTML string with new slide or
@@ -967,7 +988,7 @@ declare module 'swiper' {
          * @example appendSlide('<div class="swiper-slide">Slide 10"</div>')
          * @example appendSlide(['<div class="swiper-slide">Slide 10"</div>', '<div class="swiper-slide">Slide 11"</div>']);
          */
-        appendSlide: (slides: string | string[]) => {};
+        public appendSlide(slides: string | string[]): void;
         /**
          * Add new slides to the beginning. slides could be
          * HTMLElement or HTML string with new slide or array with such slides, for example:
@@ -975,7 +996,7 @@ declare module 'swiper' {
          * @example prependSlide('<div class="swiper-slide">Slide 0"</div>')
          * @example prependSlide(['<div class="swiper-slide">Slide 1"</div>', '<div class="swiper-slide">Slide 2"</div>']);
          */
-        prependSlide(slides: string | string[]);
+        public prependSlide(slides: string | string[]);
         /**
          * Remove selected slides. slideIndex could be a number with slide index to remove or array with indexes.
          *
@@ -996,58 +1017,48 @@ declare module 'swiper' {
         /**
          * Add event listener
          */
-        public on(event: any, handler: any): any;
+        public on(event: any, handler: any): void;
 
         /**
          * Add event listener that will be executed only once
          */
-        once: (event: any, handler: any) => {};
+        public once(event: any, handler: any): void;
 
         /**
          * Remove event listener for specified event
          * If no handler specified, removes all listeners for specified event
          */
-        off: (event: any, handler?: any) => {};
+        public off(event: any, handler?: any): void;
 
         /**
          * Disable mousewheel control
          */
-        disableMousewheelControl: () => {};
+        public disableMousewheelControl();
 
         /**
          * Enable mousewheel control
          */
-        enableMousewheelControl: () => {};
+        public enableMousewheelControl();
 
         /**
          * Disable keyboard control
          */
-        disableKeyboardControl: () => {};
+        public disableKeyboardControl();
 
         /**
          * Enable keyboard control
          */
-        enableKeyboardControl: () => {};
+        public enableKeyboardControl();
 
         /**
          * Unset grab cursor
          */
-        unsetGrabCursor: () => {};
+        public unsetGrabCursor();
 
         /**
          * Set grab cursor
          */
-        setGrabCursor: () => {};
-
-        /*
-         * Not documented as property.
-         */
-        zoom: Zoom;
-
-        /**
-         * Installs modules on Swiper in runtime.
-         */
-        static use: (modules: any[]) => void;
+        public setGrabCursor();
     }
 }
 
