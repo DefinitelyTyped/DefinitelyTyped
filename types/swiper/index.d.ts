@@ -51,6 +51,9 @@ declare module 'swiper' {
      * Swiper options and events.
      */
 
+    /**
+     * Main constructor options.
+     */
     interface SwiperOptions {
 
         init?: boolean;
@@ -562,70 +565,105 @@ declare module 'swiper' {
      */
 
     /**
-     * Virtual Slides module (virtual as)
+     * Virtual Slides module.
      */
     class Virtual {
         [x: string]: any;
     }
 
     /**
-     * Keyboard Control module (keyboard as)
+     * Keyboard Control module.
      */
     class Keyboard {
         [x: string]: any;
     }
 
     /**
-     * Mousewheel Control module (mousewheel as)
+     * Mousewheel Control module.
      */
     class Mousewheel {
         [x: string]: any;
     }
 
     /**
-     * Navigation module (navigation as)
+     * Navigation module.
      */
     class Navigation {
         [x: string]: any;
     }
 
     /**
-     * Pagination module (pagination as)
+     * Pagination module.
      */
     class Pagination {
         [x: string]: any;
     }
 
     /**
-     * Scrollbar module (scrollbar as)
+     * Scrollbar module.
      */
     class Scrollbar {
         [x: string]: any;
     }
 
     /**
-     * Parallax module (parallax as)
+     * Parallax module.
      */
     class Parallax {
         [x: string]: any;
     }
 
     /**
-     * Zoom module (zoom as)
+     * Zoom module.
      */
     class Zoom {
-        [x: string]: any;
+
+        /**
+         * Whether the zoom module is enabled
+         */
+        enabled: boolean
+
+        /**
+         * Current image scale ratio
+         */
+        scale: number;
+
+        /**
+         * Enable zoom module
+         */
+        enable(): void;
+
+        /**
+         * Disable zoom module
+         */
+        disable(): void;
+
+        /**
+         * Zoom in image of the currently active slide
+         */
+        in(): void;
+
+        /**
+         * Zoom out image of the currently active slide
+         */
+        out(): void;
+
+        /**
+         * Toggle image zoom of the currently active slide
+         */
+        toggle(): void;
+
     }
 
     /**
-     * Lazy module (lazy as)
+     * Lazy module.
      */
     class Lazy {
         [x: string]: any;
     }
 
     /**
-     * Controller module (controller as)
+     * Controller module.
      */
     class Controller {
         [x: string]: any;
@@ -639,49 +677,49 @@ declare module 'swiper' {
     }
 
     /**
-     * History Navigation module (history as)
+     * History Navigation module.
      */
     class History {
         [x: string]: any;
     }
 
     /**
-     * Hash Navigation module (hashNavigation as)
+     * Hash Navigation module.
      */
     class HashNavigation {
         [x: string]: any;
     }
 
     /**
-     * Autoplay module (autoplay as)
+     * Autoplay module.
      */
     class Autoplay {
         [x: string]: any;
     }
 
     /**
-     * Fade Effect module (effectFade as)
+     * Fade Effect module.
      */
     class EffectFade {
         [x: string]: any;
     }
 
     /**
-     * Cube Effect module (effectCube as)
+     * Cube Effect module.
      */
     class EffectCube {
         [x: string]: any;
     }
 
     /**
-     * Flip Effect module (effectFlip as)
+     * Flip Effect module.
      */
     class EffectFlip {
         [x: string]: any;
     }
 
     /**
-     * Coverflow Effect module (effectCoverflow as)
+     * Coverflow Effect module.
      */
     class EffectCoverflow {
         [x: string]: any;
@@ -970,8 +1008,11 @@ declare module 'swiper' {
         /*
          * Not documented as property.
          */
-        public zoom: Zoom;
+        zoom: Zoom;
 
+        /**
+         * Installs modules on Swiper in runtime.
+         */
         static use: (modules: any[]) => void;
     }
 }
