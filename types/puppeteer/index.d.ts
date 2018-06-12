@@ -1327,7 +1327,7 @@ export interface Target {
   page(): Promise<Page>;
 
   /** Identifies what kind of target this is.  */
-  type(): "page" | "service_worker" | "other";
+  type(): "page" | "background_page" | "service_worker" | "browser" | "other";
 
   /** Returns the target URL. */
   url(): string;
