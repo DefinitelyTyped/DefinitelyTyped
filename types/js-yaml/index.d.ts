@@ -106,6 +106,6 @@ export let MINIMAL_SCHEMA: Schema;
 export let SAFE_SCHEMA: Schema;
 
 export class YAMLException extends Error {
-	constructor(reason?: any, mark?: any);
+	constructor(public reason?: any, public mark?: any);
 	toString(compact?: boolean): string;
 }
