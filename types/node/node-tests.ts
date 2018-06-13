@@ -1061,7 +1061,7 @@ namespace crypto_tests {
     {
         let hmac: crypto.Hmac;
         (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
-            let hash: Buffer | string = hmac.read();
+            let hash: Buffer | string | any = hmac.read();
         });
     }
 
