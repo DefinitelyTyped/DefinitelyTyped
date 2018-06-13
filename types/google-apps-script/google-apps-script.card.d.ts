@@ -82,6 +82,10 @@ declare namespace GoogleAppsScript {
              * Sets the URL to navigate to when the action is activated.
              */
             setOpenLink(openLink: OpenLink): ActionResponseBuilder;
+            /**
+             * Sets a flag to indicate that this action changed the existing data state.
+             */
+            setStateChanged(stateChanged: boolean): ActionResponseBuilder;
         }
 
         export interface AuthorizationAction {
