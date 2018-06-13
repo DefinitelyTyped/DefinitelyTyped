@@ -36,7 +36,7 @@ export function fromSigned(num: Buffer | Uint8Array): BN;
 
 export function generateAddress(from: Buffer | Uint8Array, nonce: Buffer | Uint8Array): Buffer | Uint8Array;
 
-export function hashPersonalMessage(message: string): Buffer | Uint8Array;
+export function hashPersonalMessage(message: Buffer | Uint8Array | any[]): Buffer | Uint8Array;
 
 export function importPublic(publicKey: Buffer | Uint8Array): Buffer | Uint8Array;
 
