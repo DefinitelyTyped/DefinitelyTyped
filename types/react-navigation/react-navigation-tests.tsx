@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+    Text,
     TouchableOpacity,
     View,
     ViewStyle,
@@ -466,6 +467,25 @@ const BottomStack = createBottomTabNavigator({
             return {
                 tabBarVisible
             };
+        }
+    }
+});
+
+const CustomHeaderStack = createStackNavigator({
+    Page1: { screen: Page1 },
+    Page2: { screen: Page2 }
+},
+{
+    navigationOptions: {
+        header: headerProps => {
+            const { scene } = headerProps;
+            const { options } = scene.descriptor;
+            const { title, headerStyle, headerTitleStyle } = options;
+            return (
+                <View style={headerStyle}>
+                    <Text style={headerTitleStyle}>{title}</Text>
+                </View>
+            );
         }
     }
 });

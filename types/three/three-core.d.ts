@@ -775,39 +775,39 @@ export class Float64Attribute extends BufferAttribute {
 }
 
 export class Int8BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint8BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint8ClampedBufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Int16BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint16BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Int32BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint32BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Float32BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Float64BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 /**
@@ -7434,10 +7434,11 @@ export class CameraHelper extends LineSegments {
 }
 
 export class DirectionalLightHelper extends Object3D {
-    constructor(light: Light, size?: number);
+    constructor(light: Light, size?: number, color?: Color | string | number);
 
     light: Light;
     lightPlane: Line;
+    color: Color | string | number;
 
     dispose(): void;
     update(): void;
@@ -7479,9 +7480,11 @@ export class HemisphereLightHelper extends Object3D {
 }
 
 export class PointLightHelper extends Object3D {
-    constructor(light: Light, sphereSize: number);
+    constructor(light: Light, sphereSize?: number, color?: Color | string | number);
 
     light: Light;
+    sphereSize: number;
+    color: Color | string | number;
 
     dispose(): void;
     update(): void;
@@ -7498,9 +7501,10 @@ export class SkeletonHelper extends LineSegments {
 }
 
 export class SpotLightHelper extends Object3D {
-    constructor(light: Light);
+    constructor(light: Light, color?: Color | string | number);
 
     light: Light;
+    color: Color | string | number;
 
     dispose(): void;
     update(): void;

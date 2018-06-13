@@ -22,6 +22,13 @@ Promise.all([
   explorer.loadSync(path.join(__dirname, "sample-config.json")),
 ]).then(result => result);
 
+const result = explorer.searchSync();
+if (result) {
+  const config = result.config;
+  const filepath = result.filepath;
+  const isEmpty = result.isEmpty;
+}
+
 explorer.clearLoadCache();
 explorer.clearSearchCache();
 explorer.clearCaches();
