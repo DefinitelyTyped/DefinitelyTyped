@@ -781,3 +781,8 @@ DDPRateLimiter.addRule({ userId: 'foo' }, 5, 1000);
 DDPRateLimiter.addRule({ userId: userId => userId == 'foo' }, 5, 1000);
 
 Template.instance().autorun(() => { }).stop();
+
+// Mongo Collection without connection (local collection)
+const collectionWithoutConnection = new Mongo.Collection<MonkeyDAO>("monkey", {
+    connection: null
+});

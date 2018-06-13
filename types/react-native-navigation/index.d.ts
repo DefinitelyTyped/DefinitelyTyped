@@ -1,6 +1,7 @@
 // Type definitions for react-native-navigation 1.1
 // Project: https://github.com/wix/react-native-navigation
 // Definitions by: Egor Shulga <https://github.com/egorshulga>
+//                 Jason Merino <https://github.com/jasonmerino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -85,13 +86,13 @@ export interface ModalScreen extends Screen {
     animationType?: 'slide-up' | 'none';
 }
 
-export interface ResetScreen extends Screen {
-    passProps?: object;
+export interface ResetScreen<P> extends Screen {
+    passProps?: P;
     animated?: boolean;
     animationType?: 'fade' | 'slide-horizontal';
 }
 
-export interface PushedScreen extends ResetScreen {
+export interface PushedScreen<P> extends ResetScreen<P> {
     titleImage?: any;
     backButtonTitle?: string;
     backButtonHidden?: boolean;
@@ -119,14 +120,15 @@ export interface LightBox {
 }
 
 export interface NavigatorEvent {
-    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress';
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress' | 'bottomTabSelected' | 'bottomTabReselected' | string;
+    type: 'NavBarButtonPress' | 'DeepLink';
 }
 
 export class Navigator {
-    push(params: PushedScreen): void;
+    push<P>(params: PushedScreen<P>): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
     popToRoot(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
-    resetTo(params: PushedScreen): void;
+    resetTo<P>(params: PushedScreen<P>): void;
     showModal(params: ModalScreen): void;
     dismissModal(params?: { animationType?: 'none' | 'slide-down' }): void;
     dismissAllModals(params?: { animationType?: 'none' | 'slide-down' }): void;

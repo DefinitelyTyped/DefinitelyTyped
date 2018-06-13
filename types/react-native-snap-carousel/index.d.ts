@@ -45,6 +45,10 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
      * Width in pixels of your slides, must be the same for all of them
      * Note: Required with horizontal carousel
      */
+    /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean;
     itemWidth?: number;
     /**
      * Height in pixels of carousel's items, must be the same for all of them

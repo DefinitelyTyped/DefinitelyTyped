@@ -49,8 +49,12 @@ import {
     NativeModules,
     MaskedViewIOS,
     TextInput,
+    TouchableNativeFeedback,
+    TextInputFocusEventData,
     InputAccessoryView,
-    StatusBar
+    StatusBar,
+    NativeSyntheticEvent,
+    GestureResponderEvent
 } from "react-native";
 
 declare module "react-native" {
@@ -192,6 +196,27 @@ class Welcome extends React.Component {
 }
 
 export default Welcome;
+
+// SyntheticEventsTest
+export class SyntheticEventsTest extends React.Component {
+    onPressButton(e: GestureResponderEvent) {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    }
+
+    render() {
+        return (
+            <TouchableNativeFeedback
+                onPress={this.onPressButton}
+            >
+                <View style={{width: 150, height: 100, backgroundColor: 'red'}}>
+                    <Text style={{margin: 30}}>Button</Text>
+                </View>
+            </TouchableNativeFeedback>
+        )
+    }
+}
 
 // App State
 
@@ -444,6 +469,25 @@ class TextInputRefTest extends React.Component<{}, {username: string}> {
                 />
             </View>
         );
+    }
+}
+
+class TextInputFocusBlurEventTest extends React.Component {
+    handleOnBlur(e: NativeSyntheticEvent<TextInputFocusEventData>) {
+    }
+
+    handleOnFocus(e: NativeSyntheticEvent<TextInputFocusEventData>) {
+    }
+
+    render() {
+        return (
+            <View>
+                <TextInput
+                    onBlur={(e: NativeSyntheticEvent<TextInputFocusEventData>) => this.handleOnBlur(e)}
+                    onFocus={(e: NativeSyntheticEvent<TextInputFocusEventData>) => this.handleOnFocus(e)}
+                />
+            </View>
+        )
     }
 }
 

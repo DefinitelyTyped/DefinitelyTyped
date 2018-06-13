@@ -9,21 +9,16 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
-        "paths": {
-            "ion.rangeslider": [
-                "ion.rangeslider/v1"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "ion.rangeslider-tests.ts"
+        "devexpress-aspnetcore-bootstrap-tests.ts"
     ]
 }

@@ -213,6 +213,9 @@ describe('Assymetric matchers', () => {
             greeting: expect.stringContaining('hello'),
         });
 
+        expect("foo").toStrictEqual("foo");
+        expect({ a: "foo" }).toStrictEqual({ a: "foo" });
+
         const callback = jest.fn();
         expect(callback).toEqual(expect.any(Function));
         callback(5, "test");
@@ -252,6 +255,26 @@ describe('setTimeout', () => {
             done();
         }, 900);
     });
+});
+
+describe("spy call matchers", () => {
+    const spy = jest.fn();
+
+    expect(spy).lastReturnedWith("foo");
+    expect(spy).nthReturnedWith(3, "foo");
+    expect(spy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledTimes(7);
+    expect(spy).toHaveBeenCalledWith("foo");
+    expect(spy).toHaveBeenLastCalledWith("foo");
+    expect(spy).toHaveBeenNthCalledWith(3, "foo");
+    expect(spy).toHaveReturned();
+    expect(spy).toHaveReturnedTimes(7);
+    expect(spy).toHaveReturnedWith("foo");
+    expect(spy).toHaveLastReturnedWith("foo");
+    expect(spy).toHaveNthReturnedWith(3, "foo");
+    expect(spy).toReturn();
+    expect(spy).toReturnTimes(3);
+    expect(spy).toReturnWith("foo");
 });
 
 describe('Extending extend', () => {
@@ -731,3 +754,31 @@ test('moduleName 2', () => {
     const moduleName = require('../moduleName');
     expect(moduleName()).toEqual(2);
 });
+
+describe('toHaveBeenNthCalledWith', () => {
+    const fn = jest.fn();
+
+    expect(fn).toHaveBeenNthCalledWith(3, "foo");
+});
+
+// Jest config
+{
+interface JestConfigModule {defaults: jest.DefaultOptions; }
+// tslint:disable-next-line:no-var-requires
+const {defaults} = require('jest-config') as JestConfigModule;
+
+const config: jest.InitialOptions = {
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest'
+  },
+  testMatch: [
+    ...defaults.testMatch,
+    '**/__tests__/**/*.ts?(x)',
+    '**/?(*.)+(spec|test).ts?(x)'
+  ],
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
+  globals: {
+    'ts-jest': {}
+  }
+};
+}

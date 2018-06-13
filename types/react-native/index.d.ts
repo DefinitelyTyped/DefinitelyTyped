@@ -10,6 +10,7 @@
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -360,6 +361,9 @@ export interface NativeSyntheticEvent<T> {
     eventPhase: number;
     isTrusted: boolean;
     nativeEvent: T;
+    isPropagationStopped(): boolean;
+    isDefaultPrevented(): boolean;
+    persist(): void;
     preventDefault(): void;
     stopPropagation(): void;
     target: NodeHandle;
@@ -1078,6 +1082,12 @@ export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call";
 export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS
 
+export interface TextInputFocusEventData {
+    target: number,
+    text: string,
+    eventCount: number
+}
+
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
@@ -1159,7 +1169,7 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input is blurred
      */
-    onBlur?: () => void;
+    onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
     /**
      * Callback that is called when the text input's text changes.
@@ -1198,7 +1208,7 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input is focused
      */
-    onFocus?: () => void;
+    onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
     /**
      * Callback that is called when the text input selection is changed.

@@ -144,4 +144,16 @@ declare namespace Autocomplete {
         debug?: boolean;
     }
 }
-declare class Autocomplete extends Component<Autocomplete.Props> {}
+declare class Autocomplete extends Component<Autocomplete.Props> {
+    /**
+     * Autocomplete exposes a subset of `HTMLInputElement` properties to the parent component.
+     * They can be accessed through Autocomplete's `ref` prop.
+     */
+    blur: HTMLInputElement['blur'];
+    checkValidity: HTMLInputElement['checkValidity'];
+    click: HTMLInputElement['click'];
+    focus: HTMLInputElement['focus'];
+    select: HTMLInputElement['select'];
+    setCustomValidity: HTMLInputElement['setCustomValidity'];
+    setSelectionRange: HTMLInputElement['setSelectionRange'];
+}
