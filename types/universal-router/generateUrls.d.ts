@@ -6,7 +6,6 @@ export interface GenerateUrlsOptions extends PathFunctionOptions {
      * Provide a function to stringifyQueryParams option to generate URL with query string from unknown route params.
      */
     stringifyQueryParams?: (params: Params) => string;
-    [_: string]: any;
 }
 
 /**
