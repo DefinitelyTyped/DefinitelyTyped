@@ -1,6 +1,7 @@
 // Type definitions for react-native-navigation 1.1
 // Project: https://github.com/wix/react-native-navigation
 // Definitions by: Egor Shulga <https://github.com/egorshulga>
+//                 Jason Merino <https://github.com/jasonmerino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -119,7 +120,8 @@ export interface LightBox {
 }
 
 export interface NavigatorEvent {
-    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress';
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress' | 'bottomTabSelected' | 'bottomTabReselected' | string;
+    type: 'NavBarButtonPress' | 'DeepLink';
 }
 
 export class Navigator {
