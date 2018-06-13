@@ -44,6 +44,7 @@ declare namespace math {
         version: string;
 
         expression: MathNode;
+        json: MathJsJson;
 
         /*************************************************************************
          * Core functions
@@ -96,6 +97,7 @@ declare namespace math {
                 | MathArray
                 | Matrix
                 | boolean
+                | Fraction
                 | null
         ): BigNumber;
 
@@ -2939,6 +2941,13 @@ declare namespace math {
         precision?: number;
         parenthesis?: string;
         randomSeed?: string;
+    }
+
+    interface MathJsJson {
+        /**
+         * Returns reviver function that can be used as reviver in JSON.parse function.
+         */
+        reviver(): (key: any, value: any) => any;
     }
 
     interface MathJsChain {

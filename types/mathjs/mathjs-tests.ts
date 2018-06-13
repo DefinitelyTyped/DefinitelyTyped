@@ -366,3 +366,15 @@ Expression tree examples
 		}
 	});
 }
+
+/*
+JSON serialization/deserialization
+*/
+{
+	const data = {
+		bigNumber: math.bignumber('1.5')
+	};
+	const stringified = JSON.stringify(data);
+	const parsed = JSON.parse(stringified, math.json.reviver);
+	parsed.bigNumber === math.bignumber('1.5'); // true
+}
