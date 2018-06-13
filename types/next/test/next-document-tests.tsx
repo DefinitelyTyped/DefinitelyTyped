@@ -11,16 +11,18 @@ const basicResults = (
     </Document>
 );
 
-const Wrapper: React.SFC = ({ children }) => <React.Fragment>{children}</React.Fragment>;
-
-export default class MyDocument extends Document {
+class MyDoc extends Document {
     static async getInitialProps({ renderPage }: NextDocumentContext) {
-        // Without callback
-        const page = renderPage();
-        // With callback
-        const differentPage = renderPage(App => props => <Wrapper><App {...props} /></Wrapper>);
+        // without callback
+        const _page = renderPage();
+
+        // with callback
+        const enhancer: Enhancer<PageProps, {}> = (App) => (props) => (<App />);
+        const { html, head, errorHtml, chunks, buildManifest } = renderPage(enhancer);
+
         const style = {};
-        return { ...page, style };
+
+        return { html, head, errorHtml, chunks, buildManifest, style };
     }
 
     render() {
@@ -29,32 +31,6 @@ export default class MyDocument extends Document {
                 <Head>
                     <title>My page</title>
                     <style id='cxs-style' dangerouslySetInnerHTML={{ __html: this.props.style }} />
-                </Head>
-                <body>
-                    <Main />
-                    <NextScript />
-                </body>
-            </html>
-        );
-    }
-}
-
-class MyDoc extends Document {
-    static async getInitialProps({ renderPage }: NextDocumentContext) {
-        const enhancer: Enhancer<PageProps, {}> = (App) => (props) => (<App />);
-        const { html, head, errorHtml, chunks, buildManifest } = renderPage(enhancer);
-
-        const now = Date.now();
-
-        return { html, head, errorHtml, chunks, buildManifest, now };
-    }
-
-    render() {
-        return (
-            <html>
-                <Head>
-                    <title>My page</title>
-                    rendered at {this.props.now}
                 </Head>
                 <body>
                     <Main />
