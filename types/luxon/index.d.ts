@@ -208,6 +208,7 @@ declare module 'luxon' {
             toLocaleParts(options?: DateTimeFormatOptions): any[];
             toLocaleString(options?: DateTimeFormatOptions): string;
             toObject(options?: { includeConfig?: boolean }): DateObject;
+            toMillis(): number;
             toRFC2822(): string;
             toSQL(options?: Object): string;
             toSQLDate(): string;
