@@ -97,7 +97,7 @@ declare module 'angular' {
   interface IControllerService {
     // Although the documentation doesn't state this, locals are optional
     <T>(controllerConstructor: new (...args: any[]) => T, locals?: any, bindings?: any): T;
-    <T>(controllerConstructor: Function, locals?: any, bindings?: any): T;
+    <T>(controllerConstructor: (...args: any[]) => T, locals?: any, bindings?: any): T;
     <T>(controllerName: string, locals?: any, bindings?: any): T;
   }
 

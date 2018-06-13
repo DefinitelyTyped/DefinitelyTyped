@@ -1,4 +1,4 @@
-// Type definitions for react-aria-menubutton 5.0
+// Type definitions for react-aria-menubutton 5.1
 // Project: https://github.com/davidtheclark/react-aria-menubutton
 // Definitions by: Muhammad Fawwaz Orabi <https://github.com/forabi>
 //                 Chris Rohlfs <https://github.com/crohlfs>
@@ -19,7 +19,7 @@ export interface WrapperProps<T extends HTMLElement>
 	 * It will be passed the value of the selected `MenuItem` and
 	 * the React `SyntheticEvent`.
 	 */
-	onSelection(value: any, event: React.SyntheticEvent<T>): any;
+	onSelection?(value: any, event: React.SyntheticEvent<T>): any;
 
 	/**
 	 * A callback to run when the menu is opened or closed.

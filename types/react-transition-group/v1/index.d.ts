@@ -11,13 +11,13 @@ export interface HTMLTransitionGroupProps<T> extends HTMLAttributes<T> {
     childFactory?(child: ReactElement<any>): ReactElement<any>;
 }
 
-import * as TransitionGroup from "./TransitionGroup";
+import TransitionGroup = require("./TransitionGroup");
 export {
     TransitionGroupProps,
     TransitionGroupChildLifecycle
 } from "./TransitionGroup";
 
-import * as CSSTransitionGroup from "./CSSTransitionGroup";
+import CSSTransitionGroup = require("./CSSTransitionGroup");
 export {
     CSSTransitionGroupProps,
     CSSTransitionGroupTransitionName

@@ -3007,7 +3007,7 @@ declare namespace EngineAPI {
          * @param qTable - Name of the table. This parameter must be set for XLS, XLSX, HTML and XML files.
          * @returns - return a Promise Array of DataField or String.
          */
-        getFileTableFields(qConnectionId: string, qDataFormat: IFileDataFormat, qTable: string, qRelativePath?: string): Promise<IDataField[]> | Promise<string>;
+        getFileTableFields(qConnectionId: string, qDataFormat: IFileDataFormat, qTable: string, qRelativePath?: string): Promise<{qFields: IDataField[], qFormatSpec: string}>;
 
         /**
          * Lists the values in a table for a folder connection.
@@ -3017,7 +3017,7 @@ declare namespace EngineAPI {
          * @param qTable - Name of the table. This parameter must be set for XLS, XLSX, HTML and XML files.
          * @returns - return a Promise <Array of DataField> or <String>.
          */
-        getFileTablePreview(qConnectionId: string, qRelativePath: string, qDataFormat: IFileDataFormat, qTable: string): Promise<IDataRecord[]> | Promise<string>;
+        getFileTablePreview(qConnectionId: string, qRelativePath: string, qDataFormat: IFileDataFormat, qTable: string): Promise<{qPreview: IDataRecord[], qFormatSpec: string}>;
 
         /**
          * Lists the tables and fields of a JSON or XML file for a folder connection.
@@ -3111,7 +3111,7 @@ declare namespace EngineAPI {
          * Note: This method is deprecated (not recommended to use). Use GetLibraryContent method instead.
          * @returns - return a Promise Boolean or MediaList
          */
-        getMediaList(): Promise<MediaList[]> | Promise<boolean>;
+        getMediaList(): Promise<MediaList[]>;
 
         /**
          * Returns the handle of a measure.
@@ -3193,7 +3193,7 @@ declare namespace EngineAPI {
          * @param qIncludeSysVars - If set to true, the system variables are included.
          * @returns - return a Promise <Array of TableRecord> or <Array of SourceKeyRecord>
          */
-        getTablesAndKeys(qWindowSize: ISize, qNullSize: ISize, qCellHeight: number, qSyntheticMode: boolean, qIncludeSysVars: boolean): Promise<ITableRecord[]> | Promise<ISourceKeyRecord[]>;
+        getTablesAndKeys(qWindowSize: ISize, qNullSize: ISize, qCellHeight: number, qSyntheticMode: boolean, qIncludeSysVars: boolean): Promise<{qtr: ITableRecord[], qk: ISourceKeyRecord[]}>;
 
         /**
          * Fetches updated variables after a statement execution.
@@ -5458,7 +5458,7 @@ declare namespace EngineAPI {
          * Options.MaxNbrTicks - maximum number of ticks.
          * @returns - A Promise <Boolean> or <Array of NxDataPage> or <Array of NxAxisData>
          */
-        getHyperCubeContinuousData(qPath: string, qOptions: IContinuousDataOptions[]): Promise<boolean> | Promise<INxDataPage[]> | Promise<INxAxisData[]>;
+        getHyperCubeContinuousData(qPath: string, qOptions: IContinuousDataOptions[]): Promise<{qDataPages: INxDataPage[], qAxisData: INxAxisData[]}>;
 
         /**
          * Retrieves the values of a chart, a table, or a scatter plot. It is possible to retrieve specific pages of data.
@@ -5586,7 +5586,7 @@ declare namespace EngineAPI {
          * - Options.MaxNbrTicks - maximum number of ticks.
          * @returns - A data set Array of (NxDataPage) or (NxAxisData)
          */
-        getListObjectContinuousData(qPath: string, qOptions: IContinuousDataOptions): Promise<INxDataPage[]> | Promise<INxAxisData[]>;
+        getListObjectContinuousData(qPath: string, qOptions: IContinuousDataOptions): Promise<{qDataPages: INxDataPage, qAxisData: INxAxisData[]}>;
 
         /**
          * Retrieves the values of a list object.

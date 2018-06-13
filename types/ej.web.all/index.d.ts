@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.1.0.24
+*  version : 16.1.0.37
 *  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -378,7 +378,7 @@ declare namespace ej {
         update(dm: ej.DataManager, keyField: string, value: any, tableName: string): any;
     }
     class ForeignKeyAdaptor extends ej.JsonAdaptor {
-        constructor();
+        constructor(data: any, type: string);
         processQuery(ds: any, query: ej.Query): any;
         insert(dm: ej.DataManager, data: any, tableName: string): { url: string; data: any };
         update(dm: ej.DataManager, keyField: string, value: any, tableName: string): { url: string; type: string; data: any };
@@ -7995,9 +7995,9 @@ declare namespace ej {
              */
             footerTemplateId?: string;
 
-            /** This event is triggered before the dialog widgets gets open.
+            /** Triggered when the custom action button clicked.
              */
-            beforeOpen?(e: BeforeOpenEventArgs): void;
+            actionButtonClick?(e: ActionButtonClickEventArgs): void;
 
             /** This event is triggered whenever the AJAX request fails to retrieve the dialog content.
              */
@@ -8007,6 +8007,10 @@ declare namespace ej {
              */
             ajaxSuccess?(e: AjaxSuccessEventArgs): void;
 
+            /** This event is triggered before the dialog widgets gets open.
+             */
+            beforeOpen?(e: BeforeOpenEventArgs): void;
+
             /** This event is triggered before the dialog widgets get closed.
              */
             beforeClose?(e: BeforeCloseEventArgs): void;
@@ -8014,6 +8018,10 @@ declare namespace ej {
             /** This event is triggered after the dialog widget is closed.
              */
             close?(e: CloseEventArgs): void;
+
+            /** Triggered when the dialog content is collapsed.
+             */
+            collapse?(e: CollapseEventArgs): void;
 
             /** Triggered after the dialog content is loaded in DOM.
              */
@@ -8039,6 +8047,10 @@ declare namespace ej {
              */
             dragStop?(e: DragStopEventArgs): void;
 
+            /** Triggered when the dialog content is expanded.
+             */
+            expand?(e: ExpandEventArgs): void;
+
             /** Triggered after the dialog is opened.
              */
             open?(e: OpenEventArgs): void;
@@ -8054,33 +8066,33 @@ declare namespace ej {
             /** Triggered when the user stops resizing the dialog.
              */
             resizeStop?(e: ResizeStopEventArgs): void;
-
-            /** Triggered when the dialog content is expanded.
-             */
-            expand?(e: ExpandEventArgs): void;
-
-            /** Triggered when the dialog content is collapsed.
-             */
-            collapse?(e: CollapseEventArgs): void;
-
-            /** Triggered when the custom action button clicked.
-             */
-            actionButtonClick?(e: ActionButtonClickEventArgs): void;
         }
 
-        export interface BeforeOpenEventArgs {
+        export interface ActionButtonClickEventArgs {
 
             /** Set this option to true to cancel the event.
              */
             cancel?: boolean;
 
+            /** Name of the event target attribute.
+             */
+            buttonID?: string;
+
+            /** Name of the event.
+             */
+            type?: string;
+
             /** Instance of the dialog model object.
              */
             model?: ej.Dialog.Model;
 
-            /** Name of the event
+            /** Name of the event current target title.
              */
-            type?: string;
+            currentTarget?: string;
+
+            /** Name of the event.
+             */
+            event?: string;
         }
 
         export interface AjaxErrorEventArgs {
@@ -8137,6 +8149,21 @@ declare namespace ej {
             data?: string;
         }
 
+        export interface BeforeOpenEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the dialog model object.
+             */
+            model?: ej.Dialog.Model;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
         export interface BeforeCloseEventArgs {
 
             /** Current event object.
@@ -8154,6 +8181,10 @@ declare namespace ej {
             /** Name of the event.
              */
             type?: string;
+
+            /** returns true when the dialog activated by user interaction otherwise returns false
+             */
+            isInteraction?: boolean;
         }
 
         export interface CloseEventArgs {
@@ -8173,6 +8204,29 @@ declare namespace ej {
             /** Name of the event
              */
             type?: string;
+
+            /** returns true when the Dialog activated by user interaction otherwise returns false
+             */
+            isInteraction?: boolean;
+        }
+
+        export interface CollapseEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the dialog model object.
+             */
+            model?: ej.Dialog.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+
+            /** returns true when the Dialog activated by user interaction otherwise returns false
+             */
+            isInteraction?: boolean;
         }
 
         export interface ContentLoadEventArgs {
@@ -8285,6 +8339,25 @@ declare namespace ej {
             event?: any;
         }
 
+        export interface ExpandEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the dialog model object.
+             */
+            model?: ej.Dialog.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+
+            /** returns true when the Dialog activated by user interaction otherwise returns false
+             */
+            isInteraction?: boolean;
+        }
+
         export interface OpenEventArgs {
 
             /** Set this option to true to cancel the event.
@@ -8355,59 +8428,6 @@ declare namespace ej {
             /** Current event object.
              */
             event?: any;
-        }
-
-        export interface ExpandEventArgs {
-
-            /** Set this option to true to cancel the event.
-             */
-            cancel?: boolean;
-
-            /** Instance of the dialog model object.
-             */
-            model?: ej.Dialog.Model;
-
-            /** Name of the event.
-             */
-            type?: string;
-        }
-
-        export interface CollapseEventArgs {
-
-            /** Set this option to true to cancel the event.
-             */
-            cancel?: boolean;
-
-            /** Instance of the dialog model object.
-             */
-            model?: ej.Dialog.Model;
-
-            /** Name of the event.
-             */
-            type?: string;
-        }
-
-        export interface ActionButtonClickEventArgs {
-
-            /** Set this option to true to cancel the event.
-             */
-            cancel?: boolean;
-
-            /** Name of the event target attribute.
-             */
-            buttonID?: string;
-
-            /** Name of the event.
-             */
-            type?: string;
-
-            /** Instance of the dialog model object.
-             */
-            model?: ej.Dialog.Model;
-
-            /** Name of the event current target title.
-             */
-            currentTarget?: string;
         }
 
         export interface AjaxSettings {
@@ -9567,8 +9587,8 @@ declare namespace ej {
              */
             cssClass?: string;
 
-            /** Sets the separator when the multiSelectMode with delimiter option or checkbox is enabled.When you enter the delimiter value, the text after the delimiter is considered as a
-             * separateword or query. The delimiter string is a single character and must be a symbol. Mostly,the delimiter symbol is used as comma (,), semi-colon (;), or any other special
+            /** Sets the separator when the multiSelectMode with delimiter option or checkbox is enabled. When you enter the delimiter value, the text after the delimiter is considered as a
+             * separate word or query. The delimiter string is a single character and must be a symbol. Mostly, the delimiter symbol is used as comma (,), semi-colon (;), or any other special
              * character.
              * @Default {,}
              */
@@ -9628,12 +9648,12 @@ declare namespace ej {
              */
             readOnly?: boolean;
 
-            /** The DropDownTreeâ€™s textbox is displayed with rounded corner style.
+            /** The DropDownTree's textbox is displayed with rounded corner style.
              * @Default {false}
              */
             showRoundedCorner?: boolean;
 
-            /** Specifies the targetID for the DropDownTreeâ€™s items.
+            /** Specifies the targetID for the DropDownTree's items.
              * @Default {null}
              */
             targetID?: string;
@@ -9653,8 +9673,8 @@ declare namespace ej {
              */
             validationRules?: any;
 
-            /** Specifies the value (text content) for the DropDownTree control. For the single selection mode, the selected itemâ€™s value will be returned in its data type, and for
-             * MultiSelectMode, returns the selected itemsâ€™ values separated by delimiter in string type.
+            /** Specifies the value (text content) for the DropDownTree control. For the single selection mode, the selected item's value will be returned in its data type, and for
+             * MultiSelectMode, returns the selected items values separated by delimiter in string type.
              * @Default {null}
              */
             value?: string;
@@ -9678,7 +9698,7 @@ declare namespace ej {
              */
             blur?(e: BlurEventArgs): void;
 
-            /** Fires the action when the DropDownTree controlâ€™s value is changed.
+            /** Fires the action when the DropDownTree control's value is changed.
              */
             change?(e: ChangeEventArgs): void;
 
@@ -9744,15 +9764,15 @@ declare namespace ej {
              */
             model?: any;
 
-            /** Selected itemâ€™s text.
+            /** Selected item's text.
              */
             selectedText?: string;
 
-            /** Selected itemâ€™s text.
+            /** Selected item's text.
              */
             text?: string;
 
-            /** Selected itemâ€™s value.
+            /** Selected item's value.
              */
             value?: string;
 
@@ -9779,11 +9799,11 @@ declare namespace ej {
              */
             model?: any;
 
-            /** Selected itemâ€™s text.
+            /** Selected item's text.
              */
             text?: string;
 
-            /** Selected itemâ€™s value.
+            /** Selected item's value.
              */
             value?: string;
 
@@ -9810,11 +9830,11 @@ declare namespace ej {
              */
             model?: any;
 
-            /** Selected itemâ€™s text.
+            /** Selected item's text.
              */
             text?: string;
 
-            /** Selected itemâ€™s value.
+            /** Selected item's value.
              */
             value?: string;
         }
@@ -9863,7 +9883,7 @@ declare namespace ej {
              */
             model?: any;
 
-            /** Selected itemâ€™s text.
+            /** Selected item's text.
              */
             selectedText?: string;
 
@@ -9905,11 +9925,11 @@ declare namespace ej {
              */
             model?: any;
 
-            /** Selected itemâ€™s text.
+            /** Selected item's text.
              */
             text?: string;
 
-            /** Selected itemâ€™s value.
+            /** Selected item's value.
              */
             value?: string;
         }
@@ -9928,11 +9948,11 @@ declare namespace ej {
              */
             model?: any;
 
-            /** Selected itemâ€™s text.
+            /** Selected item's text.
              */
             text?: string;
 
-            /** Selected itemâ€™s value.
+            /** Selected item's value.
              */
             value?: string;
 
@@ -9961,7 +9981,7 @@ declare namespace ej {
         }
     }
     enum Textmode {
-        //When TextMode property is set to none, only selected/checked nodeâ€™s text is presented.
+        //When TextMode property is set to none, only selected/checked node's text is presented.
         None,
         //When FullPath option is selected, the full path of the selected node is shown in the control.
         FullPath,
@@ -19622,6 +19642,11 @@ declare namespace ej {
              */
             value?: string|Date;
 
+            /** Specifies the water mark text to be displayed in input text.
+             * @Default {select a time}
+             */
+            watermarkText?: string;
+
             /** Defines the width of the TimePicker textbox.
              */
             width?: string|number;
@@ -23201,9 +23226,10 @@ declare namespace ej {
         getCurrentViewData(): any[];
 
         /** Get the data of given row index in grid.
+         * @param {number} Pass the index of the row to get the corresponding data
          * @returns {any}
          */
-        getDataByIndex(): any;
+        getDataByIndex(rowIndex: number): any;
 
         /** Get the column field name from the given header text in grid.
          * @param {string} Pass header text of the column to get its corresponding field name
@@ -30758,6 +30784,11 @@ declare namespace ej {
              */
             operationalMode?: ej.Pivot.OperationalMode|string;
 
+            /** To override x axis for particular series, create an axis object by providing unique name by using name property and add it to axes array.
+             * @Default {[]}
+             */
+            axes?: any[];
+
             /** This is a horizontal axis that contains options to configure the axis and it is the primary x-axis for all series in the series array. To override x-axis for particular series,
              * create an axis object by providing a unique name by using the name property and add it to the axes array. Then, assign the name to the seriesâ€™s xAxisName property to link both
              * the axis and the series.
@@ -30817,10 +30848,6 @@ declare namespace ej {
             /** Triggers before any AJAX request is passed from the pivot chart to service methods.
              */
             beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
-
-            /** Triggers before the pivot engine starts to populate.
-             */
-            beforePivotEnginePopulate?(e: BeforePivotEnginePopulateEventArgs): void;
 
             /** Triggers when performing drill up/down operation in the pivot chart control.
              */
@@ -30886,13 +30913,6 @@ declare namespace ej {
             /** returns the HTML element of PivotChart control.
              */
             element?: any;
-        }
-
-        export interface BeforePivotEnginePopulateEventArgs {
-
-            /** returns the current instance of PivotChart.
-             */
-            chartObj?: any;
         }
 
         export interface DrillSuccessEventArgs {
@@ -33505,6 +33525,11 @@ declare namespace ej {
              */
             allowInline?: boolean;
 
+            /** When set to false, disables the appointment delete option on the Scheduler.
+             * @Default {true}
+             */
+            allowDelete?: boolean;
+
             /** When set to true, Scheduler allows interaction through keyboard shortcut keys.
              * @Default {true}
              */
@@ -35418,6 +35443,13 @@ declare namespace ej {
          */
         filterColumn(fieldName: string, filterOperator: string, filterValue: string, predicate?: string, matchCase?: boolean): void;
 
+        /** To filter multiple columns with multiple conditions dynamically in Gantt.
+         * @param {Gantt.EjPredicate} Pass the filtering column details and conditions as ejPredicate instance. The ejPredicate object is defined as fieldName,filterOperator, filterValue and
+         * ignoreCase properties.
+         * @returns {void}
+         */
+        filterContent(ejPredicate: Gantt.EjPredicate): void;
+
         /** To hide the column by using header text
          * @param {string} you can pass a header text of a column to hide
          * @returns {void}
@@ -35529,6 +35561,25 @@ declare namespace ej {
         updateTaskId(currentId: number, newId: number): void;
     }
     export namespace Gantt {
+
+        export interface EjPredicate {
+
+            /** Pass the field name of the column.
+             */
+            fieldName?: string;
+
+            /** string/integer/date operator.
+             */
+            filterOperator?: string;
+
+            /** Pass the value to be filtered in a column.
+             */
+            filterValue?: string;
+
+            /** Optional - pass the ignore case value as true/false.
+             */
+            ignoreCase?: boolean;
+        }
 
         export interface Model {
 
@@ -37077,6 +37128,11 @@ declare namespace ej {
              * @Default {0}
              */
             weekStartDay?: number;
+
+            /** Enable or disable the automatic timescale update on cell editing, dialog editing and taskbar editing.
+             * @Default {true}
+             */
+            updateTimescaleView?: boolean;
         }
 
         export interface SelectedCellIndex {
@@ -38114,6 +38170,14 @@ declare namespace ej {
          */
         sortColumn(fieldName: string, columnSortDirection: string): void;
 
+        /** To move the TreeGrid rows programmatically with from index ,to index and position.
+         * @param {number} you can pass drag Index of the row
+         * @param {number} you can pass target Index of the row.
+         * @param {string} you can pass the drop position as above,below,child
+         * @returns {void}
+         */
+        moveRow(fromIndex: number, toIndex: number, position: string): void;
+
         /** To reorder the column with field name and target index values
          * @param {string} you can pass a name of column to reorder.
          * @param {string} you can pass a target column index to be inserted.
@@ -38215,6 +38279,13 @@ declare namespace ej {
          */
         filterColumn(fieldName: string, filterOperator: string, filterValue: string, predicate: string, matchcase: boolean, actualFilterValue: any): void;
 
+        /** To filter multiple columns with multiple conditions dynamically in TreeGrid.
+         * @param {TreeGrid.EjPredicate} Pass the filtering column details and conditions as ejPredicate instance. ejPredicate object is defined as fieldName,filterOperator, filterValue and
+         * ignoreCase properties
+         * @returns {void}
+         */
+        filterContent(ejPredicate: TreeGrid.EjPredicate): void;
+
         /** To change the index of the tree column in TreeGrid.
          * @param {number} Pass the column index to make the column as treeColumnIndex.
          * @returns {void}
@@ -38257,6 +38328,25 @@ declare namespace ej {
         getColumnByField(fieldName: string): any;
     }
     export namespace TreeGrid {
+
+        export interface EjPredicate {
+
+            /** Pass the field name of the column.
+             */
+            fieldName?: string;
+
+            /** string/integer/date operator.
+             */
+            filterOperator?: string;
+
+            /** Pass the value to be filtered in a column.
+             */
+            filterValue?: string;
+
+            /** Optional - pass the ignore case value as true/false.
+             */
+            ignoreCase?: boolean;
+        }
 
         export interface Model {
 
@@ -38650,6 +38740,10 @@ declare namespace ej {
             /** Triggered while drop a row in TreeGrid control
              */
             rowDragStop?(e: RowDragStopEventArgs): void;
+
+            /** Triggered before row drop action begins.
+             */
+            rowDropActionBegin?(e: RowDropActionBeginEventArgs): void;
 
             /** Triggered before selecting a cell
              */
@@ -39372,6 +39466,45 @@ declare namespace ej {
             /** Returns request type.
              */
             requestType?: string;
+
+            /** Returns the name of the event.
+             */
+            type?: string;
+        }
+
+        export interface RowDropActionBeginEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the row which we start to drag.
+             */
+            draggedRow?: any;
+
+            /** Returns the row index which we start to drag.
+             */
+            draggedRowIndex?: number;
+
+            /** Returns the multiple dragged row collection for multiple reorder
+             */
+            draggedRecords?: any[];
+
+            /** Returns the drop position.
+             */
+            dropPosition?: string;
+
+            /** Returns the row which we are dropped to row.
+             */
+            targetRow?: any;
+
+            /** Returns the row index which we are dropped to row.
+             */
+            targetRowIndex?: number;
+
+            /** Returns the TreeGrid model.
+             */
+            model?: any;
 
             /** Returns the name of the event.
              */
@@ -42693,6 +42826,8 @@ declare namespace ej {
 
         XLSort: Spreadsheet.XLSort;
 
+        XLSparkline: Spreadsheet.XLSparkline;
+
         XLValidate: Spreadsheet.XLValidate;
     }
     export namespace Spreadsheet {
@@ -43066,6 +43201,14 @@ declare namespace ej {
         }
 
         export interface XLFormat {
+
+            /** This method is used to add the custom Date &amp; Time format and recognize it as a preferred pattern in spreadsheet.
+             * @param {string} Pass the name for custom format.
+             * @param {string} Pass the custom format string.
+             * @param {string} Pass the type for custom format.
+             * @returns {void}
+             */
+            addCustomFormatSpecifier(name: string, formatSpecifier: string, type: string): void;
 
             /** This method is used to add the font to the Ribbon font family dropdown.
              * @param {string} Font name which needs to add into the font family option.
@@ -43547,6 +43690,35 @@ declare namespace ej {
             sortByRange(range: any[]|string, columnName: string, direction: any): boolean;
         }
 
+        export interface XLSparkline {
+
+            /** This method used for creating the sparkline chart for specified range in spreadsheet.
+             * @param {string} Pass the data range
+             * @param {string} Pass the location range
+             * @param {string} Pass the sparkline chart type
+             * @param {any} Pass the sparkline chart options
+             * @param {number} Pass the sheetIndex
+             * @returns {void}
+             */
+            createSparkline(dataRange: string, locationRange: string, type: string, options: any, sheetIndex: number): void;
+
+            /** This method used to change the sparkline color and marker point color in the spreadsheet.
+             * @param {string} Pass the sparkline ID
+             * @param {any} Pass the sparkline options
+             * @param {number} Optional. Pass the sheet index
+             * @returns {void}
+             */
+            changePointColor(sparklineId: string, option: any, sheetIdx: number): void;
+
+            /** This method used to change the sparkline type in the spreadsheet.
+             * @param {string} Pass the sparkline ID
+             * @param {string} Pass the sparkline type
+             * @param {number} Optional. Pass the sheet index
+             * @returns {void}
+             */
+            changeType(sparklineId: string, type: string, sheetIdx: number): void;
+        }
+
         export interface XLValidate {
 
             /** This method is used to apply data validation rules in a selected range of cells based on the defined condition in the Spreadsheet.
@@ -43736,6 +43908,11 @@ declare namespace ej {
              * @Default {true}
              */
             allowSorting?: boolean;
+
+            /** Gets or sets a value that indicates whether to enable the sparkline feature in the Spreadsheet.
+             * @Default {false}
+             */
+            allowSparkline?: boolean;
 
             /** Gets or sets a value that indicates whether to enable or disable undo and redo feature in the Spreadsheet.
              * @Default {true}

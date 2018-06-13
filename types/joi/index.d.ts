@@ -11,6 +11,7 @@
 //                 Dan Kraus <https://github.com/dankraus>
 //                 Anjun Wang <https://github.com/wanganjun>
 //                 Rafael Kallis <https://github.com/rafaelkallis>
+//                 Conan Lai <https://github.com/aconanlai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -152,6 +153,17 @@ export interface WhenOptions {
     otherwise?: SchemaLike;
 }
 
+export interface WhenSchemaOptions {
+    /**
+     * the alternative schema type if the condition is true. Required if otherwise is missing.
+     */
+    then?: SchemaLike;
+    /**
+     * the alternative schema type if the condition is false. Required if then is missing
+     */
+    otherwise?: SchemaLike;
+}
+
 export interface ReferenceOptions {
     separator?: string;
     contextPrefix?: string;
@@ -163,6 +175,11 @@ export interface ReferenceOptions {
 export interface IPOptions {
     version?: Array<string>;
     cidr?: string
+}
+
+export interface StringRegexOptions {
+    name?: string;
+    invert?: boolean;
 }
 
 export interface JoiObject {
@@ -342,6 +359,7 @@ export interface AnySchema extends JoiObject {
      */
     when(ref: string, options: WhenOptions): AlternativesSchema;
     when(ref: Reference, options: WhenOptions): AlternativesSchema;
+    when(ref: Schema, options: WhenSchemaOptions): AlternativesSchema;
 
     /**
      * Overrides the key name in error messages.
@@ -552,9 +570,13 @@ export interface StringSchema extends AnySchema {
     /**
      * Defines a regular expression rule.
      * @param pattern - a regular expression object the string value must match against.
-     * @param name - optional name for patterns (useful with multiple patterns). Defaults to 'required'.
+     * @param options - optional, can be:
+     *   Name for patterns (useful with multiple patterns). Defaults to 'required'.
+     *   An optional configuration object with the following supported properties:
+     *     name - optional pattern name.
+     *     invert - optional boolean flag. Defaults to false behavior. If specified as true, the provided pattern will be disallowed instead of required.
      */
-    regex(pattern: RegExp, name?: string): this;
+    regex(pattern: RegExp, options?: string | StringRegexOptions): this;
 
     /**
      * Replace characters matching the given pattern with the specified replacement string where:
@@ -913,6 +935,7 @@ export interface AlternativesSchema extends AnySchema {
     try(...types: SchemaLike[]): this;
     when(ref: string, options: WhenOptions): this;
     when(ref: Reference, options: WhenOptions): this;
+    when(ref: Schema, options: WhenSchemaOptions): this;
 }
 
 export interface LazySchema extends AnySchema {
@@ -1209,6 +1232,7 @@ export function concat<T>(schema: T): T;
  */
 export function when(ref: string, options: WhenOptions): AlternativesSchema;
 export function when(ref: Reference, options: WhenOptions): AlternativesSchema;
+export function when(ref: Schema, options: WhenSchemaOptions): AlternativesSchema;
 
 /**
  * Overrides the key name in error messages.

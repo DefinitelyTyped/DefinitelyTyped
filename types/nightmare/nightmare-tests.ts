@@ -54,6 +54,16 @@ new Nightmare()
 
 new Nightmare()
   .goto('http://www.wikipedia.org/')
+  .exists('a.link-box')
+  .then((exists: boolean) => { })
+
+new Nightmare()
+  .goto('http://www.wikipedia.org/')
+  .visible('a.link-box')
+  .then((isVisible: boolean) => { })
+
+new Nightmare()
+  .goto('http://www.wikipedia.org/')
   .title(function (title) {
   })
   .run(done);
@@ -188,6 +198,13 @@ new Nightmare()
   .goto('http://yahoo.com')
   .pdf('test/test.pdf')
   .run(done);
+
+new Nightmare()
+  .goto("http://yahoo.com")
+  .pdf((err,data)=>{
+    console.log(Buffer.isBuffer(data))
+  })
+  .run(done)
 
 new Nightmare()
   .goto('http://www.google.com/')
@@ -387,7 +404,3 @@ new Nightmare({ executionTimeout: 1000 })
       }, 2000)
     })
   })
-
-
-
-

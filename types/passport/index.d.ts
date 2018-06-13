@@ -51,6 +51,7 @@ declare namespace passport {
         pauseStream?: boolean;
         userProperty?: string;
         passReqToCallback?: boolean;
+        prompt?: string;
     }
 
     interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
@@ -73,6 +74,7 @@ declare namespace passport {
     interface PassportStatic extends Authenticator {
         Authenticator: { new(): Authenticator };
         Passport: PassportStatic["Authenticator"];
+        Strategy: { new(): Strategy & StrategyCreatedStatic };
     }
 
     interface Strategy {

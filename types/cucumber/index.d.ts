@@ -81,7 +81,7 @@ export interface HookScenarioResult {
 
 export interface SourceLocation {
     line: number;
-    url: string;
+    uri: string;
 }
 
 export interface ScenarioResult {
@@ -95,7 +95,7 @@ export namespace pickle {
         locations: Location[];
         name: string;
         steps: Step[];
-        tags: string[];
+        tags: Tag[];
     }
 
     interface Location {
@@ -117,6 +117,11 @@ export namespace pickle {
         location: Location;
         value: string;
     }
+
+    interface Tag {
+        name: string;
+        location: Location;
+    }
 }
 
 export type HookCode = (this: World, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
@@ -124,7 +129,7 @@ export type GlobalHookCode = (callback?: CallbackStepDefinition) => void;
 
 export interface Transform {
     regexp: RegExp;
-    transformer(arg: string): any;
+    transformer(this: World, ...arg: string[]): any;
     useForSnippets?: boolean;
     preferForRegexpMatch?: boolean;
     name?: string;

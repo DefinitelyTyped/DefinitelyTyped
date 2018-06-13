@@ -33,7 +33,8 @@ export interface WebIDLParseError {
 
 // tslint:disable-next-line interface-name
 export interface IDLTypeDescription {
-    type: string;
+    /** String indicating where this type is used. Can be null if not applicable. */
+    type: string | null;
     /** Boolean indicating if it is a sequence. Same as generic === "sequence" */
     sequence: boolean;
     /** String indicating the generic type (e.g. "Promise", "sequence"). null otherwise. */
@@ -191,7 +192,7 @@ export interface OperationMemberType {
     /** The name of the operation. If a stringifier, may be null. */
     name: string | null;
     /** An array of arguments for the operation. */
-    arguments: Argument[] | null;
+    arguments: Argument[];
     /** A list of extended attributes. */
     extAttrs: ExtendedAttributes[];
 }
@@ -218,8 +219,8 @@ export interface ConstantMemberType {
     type: "const";
     /** Whether its type is nullable. */
     nullable: boolean;
-    /** The type of the constant (a simple type, the type name). */
-    idlType: string;
+    /** An IDL Type of the constant that represents a simple type, the type name. */
+    idlType: IDLTypeDescription;
     /** The name of the constant. */
     name: string;
     /** The constant value */
@@ -248,7 +249,7 @@ export interface ExtendedAttributes {
     /** If the extended attribute takes arguments or if its right-hand side does they are listed here. */
     arguments: Argument[];
     /** If there is a right-hand side, this will capture its type ("identifier" or "identifier-list") and its value. */
-    rhs: ExtendedAttributeRightHandSideIdentifier | ExtendedAttributeRightHandSideIdentifierList;
+    rhs: ExtendedAttributeRightHandSideIdentifier | ExtendedAttributeRightHandSideIdentifierList | null;
 }
 
 export interface Token {

@@ -464,8 +464,8 @@ declare namespace WebdriverIO {
         run(): Promise<any>;
     }
 
-    class ErrorHandler {
-        constructor(type: string, msg: string | number);
+    class ErrorHandler extends Error {
+        constructor(type: string, msg: string | number, details?: string);
     }
 
     function multiremote(options: MultiRemoteOptions): Client<void>;
@@ -841,7 +841,7 @@ declare namespace WebdriverIO {
         setOrientation(setTo: 'landscape' | 'portrait'): Client<T>;
         settings(settings?: { [key: string]: string }): Client<T>;
         shake(): Client<T>;
-        startActivity(appPackage: string, activity: string): Client<T>;
+        startActivity(appPackage: string, activity: string, appWaitPackage?: string, appWaitActivity?: string): Client<T>;
         strings(language: string): Client<T>;
 
         swipe(

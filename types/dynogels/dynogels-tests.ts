@@ -148,12 +148,14 @@ dynogels.dynamoDriver(dynamodb);
 
 // Saving Models To DynamoDB
 Account.create({ email: 'foo@example.com', name: 'Foo Bar', age: 21 }, (err, acc) => {
-    acc.get('email');
+    const email = acc.get('email') as string;
+    console.log(`Created account ${email}`);
 });
 
 const acc = new Account({ email: 'test@example.com', name: 'Test Example' });
 acc.save((err) => {
-    acc.get('email');
+    const email = acc.get('email') as string;
+    console.log(`Created account ${email}`);
 });
 
 BlogPost.create({

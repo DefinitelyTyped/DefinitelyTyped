@@ -4,6 +4,7 @@
 //            customize-the-intercom-messenger/the-intercom-javascript-api
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 //                 Samer Albahra <https://github.com/salbahra>
+//                 Onat Yigit Mercan <https://github.com/onatm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Intercom_ {
@@ -27,6 +28,8 @@ declare namespace Intercom_ {
       monthly_spend?: number,
       [index: string]: any;
     };
+    vertical_padding?: number;
+    horizontal_padding?: number;
   }
 
   type IntercomCommand = 'boot'

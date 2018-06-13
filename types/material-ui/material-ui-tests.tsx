@@ -5710,6 +5710,10 @@ const ToggleExampleSimple = () => (
       style={styles.toggle}
     />
     <Toggle
+      label={<span>Element</span>}
+      style={styles.toggle}
+    />
+    <Toggle
       label="Toggled by default"
       defaultToggled={true}
       style={styles.toggle}
