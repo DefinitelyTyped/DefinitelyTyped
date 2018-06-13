@@ -124,3 +124,29 @@ class GridTest extends React.Component {
         );
     }
 }
+
+class AreaTest extends React.Component {
+    render() {
+        return (
+            <Area>
+                <Area.Group width={30} height={20}>
+                    <Area.Rectangle height={10} width={20} x={30} y={40} />
+                    <Area.Path d="test" fillMode="nonzero" />
+                    <Area.Text
+                        style={{
+                            fontSize: 30,
+                            fontWeight: "maximum",
+                            textAlign: "center",
+                            textStretch: "ultraCondensed",
+                        }}
+                    >
+                        Parent text
+                        <Area.Text>
+                            Nested Text
+                        </Area.Text>
+                    </Area.Text>
+                </Area.Group>
+            </Area>
+        );
+    }
+}

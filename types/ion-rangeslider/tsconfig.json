@@ -7,8 +7,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,6 +19,10 @@
     },
     "files": [
         "index.d.ts",
-        "ion.rangeslider-tests.ts"
+        "ion-rangeslider-tests.ts"
+    ],
+    "exclude": [
+        "util/**/*",
+        ".gitignore"
     ]
 }

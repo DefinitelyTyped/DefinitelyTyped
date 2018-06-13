@@ -506,6 +506,7 @@ declare namespace Chart {
     }
 
     interface CommonAxe {
+        bounds?: string;
         type?: ScaleType | string;
         display?: boolean;
         id?: string;
