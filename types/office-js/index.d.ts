@@ -5854,12 +5854,17 @@ declare namespace Office {
          *
          * @remarks
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * prependAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * 
          * prependAsync(data: string, callback: (result: AsyncResult) => void): void;
+         * 
          * prependAsync(data: string): void;
          *
          * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
@@ -5880,7 +5885,9 @@ declare namespace Office {
          *
          * @remarks
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadWriteItem
+         * 
          * Applicable Outlook mode: Compose
+         * 
          * Errors: DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.
          *
          * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
@@ -5943,9 +5950,12 @@ declare namespace Office {
          * InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * setAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * 
          * setAsync(data: string, callback: (result: AsyncResult) => void): void;
-         * setAsync(data: string): void;         *
+         * 
+         * setAsync(data: string): void;
          *
          * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -6041,10 +6051,13 @@ declare namespace Office {
          * InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * 
          * setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
-         * setSelectedDataAsync(data: string): void;         *
-         *         *
+         * 
+         * setSelectedDataAsync(data: string): void;         
+         *         
          * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -6423,6 +6436,7 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * getAsync(callback?: (result: AsyncResult) => void): void;
          * 
          * @param options An object literal that contains one or more of the following properties.
@@ -6710,6 +6724,10 @@ declare namespace Office {
          *
          * Applicable Outlook mode: Appointment Organizer
          * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
+         * 
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -6730,9 +6748,6 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          *
          * Applicable Outlook mode: Appointment Organizer
-         * 
-         * In addition to this signature, the method also has the following signatures:
-         * removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
          * 
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
@@ -6779,8 +6794,11 @@ declare namespace Office {
          * NumberOfAttachmentsExceeded - The message or appointment has too many attachments.
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * addFileAttachmentAsync(uri: string, attachmentName: string): void;
+         * 
          * addFileAttachmentAsync(uri: string, attachmentName: string, options: AsyncContextOptions): void;
+         * 
          * addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: AsyncResult) => void): void;
          *
          * @param uri The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
@@ -6895,8 +6913,11 @@ declare namespace Office {
          * NumberOfAttachmentsExceeded - The message or appointment has too many attachments.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * addItemAttachmentAsync(itemId: any, attachmentName: string): void;
+         * 
          * addItemAttachmentAsync(itemId: any, attachmentName: string, options: AsyncContextOptions): void;
+         * 
          * addItemAttachmentAsync(itemId: any, attachmentName: string, callback: (result: AsyncResult) => void): void;
          *
          * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters.
@@ -7082,8 +7103,11 @@ declare namespace Office {
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * removeAttachmentAsync(attachmentIndex: string): void;
+         * 
          * removeAttachmentAsync(attachmentIndex: string, options: AsyncContextOptions): void;
+         * 
          * removeAttachmentAsync(attachmentIndex: string, callback: (result: AsyncResult) => void): void;
          *
          * @param attachmentIndex The identifier of the attachment to remove. The maximum length of the string is 100 characters.
@@ -7176,8 +7200,11 @@ declare namespace Office {
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * saveAsync(): void;
+         * 
          * saveAsync(options: AsyncContextOptions): void;
+         * 
          * saveAsync(callback: (result: AsyncResult) => void): void;
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -7285,11 +7312,14 @@ declare namespace Office {
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * setSelectedDataAsync(data: string): void;
+         * 
          * setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * 
          * setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
          *
-        * @param data The data to be inserted. Data is not to exceed 1,000,000 characters. If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
+         * @param data The data to be inserted. Data is not to exceed 1,000,000 characters. If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. If the field is an HTML editor, only the text data is inserted, even if the data is HTML. If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook Web App and the default style is applied in Outlook. If the field is a text field, an InvalidDataFormat error is returned. If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; if the field is text, then plain text is used.
@@ -7623,6 +7653,10 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          *
          * Applicable Outlook mode: Appointment Attendee
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
          * 
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
@@ -8291,6 +8325,10 @@ declare namespace Office {
          *
          * Applicable Outlook mode: Compose or read
          * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
+         * 
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -8361,6 +8399,14 @@ declare namespace Office {
          * FileTypeNotSupported - The attachment has an extension that is not allowed.
          *
          * NumberOfAttachmentsExceeded - The message or appointment has too many attachments.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * addFileAttachmentAsync(uri: string, attachmentName: string): void;
+         * 
+         * addFileAttachmentAsync(uri: string, attachmentName: string, options: AsyncContextOptions): void;
+         * 
+         * addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: AsyncResult) => void): void;
          *
          * @param uri The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
@@ -8472,6 +8518,14 @@ declare namespace Office {
          * Errors:
          *
          * NumberOfAttachmentsExceeded - The message or appointment has too many attachments.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * 
+         * addItemAttachmentAsync(itemId: any, attachmentName: string): void;
+         * 
+         * addItemAttachmentAsync(itemId: any, attachmentName: string, options: AsyncContextOptions): void;
+         * 
+         * addItemAttachmentAsync(itemId: any, attachmentName: string, callback: (result: AsyncResult) => void): void;
          *
          * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters.
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
@@ -8654,6 +8708,14 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * removeAttachmentAsync(attachmentIndex: string): void;
+         * 
+         * removeAttachmentAsync(attachmentIndex: string, options: AsyncContextOptions): void;
+         * 
+         * removeAttachmentAsync(attachmentIndex: string, callback: (result: AsyncResult) => void): void;
          *
          * @param attachmentIndex The identifier of the attachment to remove. The maximum length of the string is 100 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -8743,6 +8805,14 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * saveAsync(): void;
+         * 
+         * saveAsync(options: AsyncContextOptions): void;
+         * 
+         * saveAsync(callback: (result: AsyncResult) => void): void;
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -8847,6 +8917,14 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          *
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * setSelectedDataAsync(data: string): void;
+         * 
+         * setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * 
+         * setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
          *
          * @param data The data to be inserted. Data is not to exceed 1,000,000 characters. If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -9492,6 +9570,10 @@ declare namespace Office {
          *
          * Applicable Outlook mode: Message Compose
          * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
+         * 
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -9556,6 +9638,14 @@ declare namespace Office {
          * FileTypeNotSupported - The attachment has an extension that is not allowed.
          *
          * NumberOfAttachmentsExceeded - The message or appointment has too many attachments.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * addFileAttachmentAsync(uri: string, attachmentName: string): void;
+         * 
+         * addFileAttachmentAsync(uri: string, attachmentName: string, options: AsyncContextOptions): void;
+         * 
+         * addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: AsyncResult) => void): void;
          *
          * @param uri The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
@@ -9667,6 +9757,14 @@ declare namespace Office {
          * Errors:
          *
          * NumberOfAttachmentsExceeded - The message or appointment has too many attachments.
+         * 
+         * In addition to the main signature, this method also has these signatures:
+         * 
+         * addItemAttachmentAsync(itemId: any, attachmentName: string): void;
+         * 
+         * addItemAttachmentAsync(itemId: any, attachmentName: string, options: AsyncContextOptions): void;
+         * 
+         * addItemAttachmentAsync(itemId: any, attachmentName: string, callback: (result: AsyncResult) => void): void;
          *
          * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters.
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
@@ -9849,6 +9947,14 @@ declare namespace Office {
          * Applicable Outlook mode: Message Compose
          *
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * removeAttachmentAsync(attachmentIndex: string): void;
+         * 
+         * removeAttachmentAsync(attachmentIndex: string, options: AsyncContextOptions): void;
+         * 
+         * removeAttachmentAsync(attachmentIndex: string, callback: (result: AsyncResult) => void): void;
          *
          * @param attachmentIndex The identifier of the attachment to remove. The maximum length of the string is 100 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -9938,6 +10044,14 @@ declare namespace Office {
          * Applicable Outlook mode: Message Compose
          *
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * saveAsync(): void;
+         * 
+         * saveAsync(options: AsyncContextOptions): void;
+         * 
+         * saveAsync(callback: (result: AsyncResult) => void): void;
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -10042,6 +10156,14 @@ declare namespace Office {
          * Applicable Outlook mode: Message Compose
          *
          * Errors: InvalidAttachmentId - The attachment identifier does not exist.
+         * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * setSelectedDataAsync(data: string): void;
+         * 
+         * setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+         * 
+         * setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
          *
          * @param data The data to be inserted. Data is not to exceed 1,000,000 characters. If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -10368,6 +10490,10 @@ declare namespace Office {
          *
          * Applicable Outlook mode: Message Read
          * 
+         * In addition to this signature, the method also has the following signatures:
+         * 
+         * removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
+         * 
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -10538,6 +10664,7 @@ declare namespace Office {
          * Applicable Outlook mode: Message Read
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -10781,6 +10908,7 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * getAsync(callback: (result: AsyncResult) => void): void;
          * 
          */
@@ -10820,8 +10948,11 @@ declare namespace Office {
          * Errors: DataExceedsMaximumSize - The location parameter is longer than 255 characters.
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * setAsync(location: string): void;
+         * 
          * setAsync(location: string, options: AsyncContextOptions): void;
+         * 
          * setAsync(location: string, callback: (result: AsyncResult) => void): void;
          */
         setAsync(location: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -11191,7 +11322,9 @@ declare namespace Office {
          * Applicable Outlook mode: Compose and read
          * 
          * In addition to this signature, the method has the following signature:
+         * 
          * getCallbackTokenAsync(callback: (result: AsyncResult) => void): void;
+         * 
          * getCallbackTokenAsync(callback: (result: AsyncResult) => void, userContext?: any): void;
          *
          * @param options An object literal that contains one or more of the following properties.
@@ -11408,8 +11541,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * addAsync(key: string, JSONmessage: NotificationMessageDetails): void;
+         * 
          * addAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions): void;
+         * 
          * addAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: AsyncResult) => void): void;
          * 
          */
@@ -11476,6 +11612,7 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * getAllAsync(callback: (result: AsyncResult) => void): void;
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -11507,9 +11644,12 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * removeAsync(key: string): void;
+         * 
          * removeAsync(key: string, options: AsyncContextOptions): void;
-         * removeAsync(key: string, callback: (result: AsyncResult) => void): void;         * 
+         * 
+         * removeAsync(key: string, callback: (result: AsyncResult) => void): void;
          *
          * @param key The key for the notification message to remove.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -11572,8 +11712,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * replaceAsync(key: string, JSONmessage: NotificationMessageDetails): void;
+         * 
          * replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions): void;
+         * 
          * replaceAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: AsyncResult) => void): void;
          *
          * @param key The key for the notification message to replace. It can't be longer than 32 characters.
@@ -11691,8 +11834,11 @@ declare namespace Office {
          * Errors: NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * addAsync(recipients: (string | EmailUser | EmailAddressDetails)[]): void;
+         * 
          * addAsync(recipients: (string | EmailUser | EmailAddressDetails)[], options: AsyncContextOptions): void;
+         * 
          * addAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (result: AsyncResult) => void): void;
          *
          * @param recipients The recipients to add to the recipients list.
@@ -11786,6 +11932,7 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * getAsync(callback: (result: AsyncResult) => void): void;
          *
          * @param options An object literal that contains one or more of the following properties.
@@ -11831,8 +11978,11 @@ declare namespace Office {
          * Errors: NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * setAsync(recipients: (string | EmailUser | EmailAddressDetails)[]): void;
+         * 
          * setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], options: AsyncContextOptions): void;
+         * 
          * setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (result: AsyncResult) => void): void;
          *
          * @param recipients The recipients to add to the recipients list.
@@ -12009,6 +12159,7 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * getAsync(callback?: (result: AsyncResult) => void): void;
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -12050,6 +12201,7 @@ declare namespace Office {
          * Errors: InvalidEndTime - The appointment end time is before its start time.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * setAsync(recurrencePattern: Recurrence, callback?: (result: AsyncResult) => void): void;
          * 
          * @param recurrencePattern A recurrence object.
@@ -12346,6 +12498,7 @@ declare namespace Office {
          * Errors: Invalid date format - The date is not in an acceptable format.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * setEndDate(date: string): void;
          * Where date is the end date of the recurring appointment series represented in the {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD".
          * 
@@ -12382,6 +12535,7 @@ declare namespace Office {
          * Errors: Invalid date format - The date is not in an acceptable format.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * setStartDate(date: string): void;
          * Where date is the start date of the recurring appointment series represented in the {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD".
          *  
@@ -12420,6 +12574,7 @@ declare namespace Office {
          * Errors: Invalid time format - The time is not in an acceptable format.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * setStartTime(time: string): void;
          * Where time is the start time of all instances represented by standard datetime string format: "THH:mm:ss:mmm". 
          * 
@@ -12469,6 +12624,7 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * getAsync(callback: (result: AsyncResult) => void): void;
          *
          * @param options An object literal that contains one or more of the following properties.
@@ -12505,8 +12661,11 @@ declare namespace Office {
          * Errors: DataExceedsMaximumSize - The subject parameter is longer than 255 characters.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * setAsync(subject: string): void;
+         * 
          * setAsync(subject: string, options: AsyncContextOptions): void;
+         * 
          * setAsync(subject: string, callback: (result: AsyncResult) => void): void;
          *
          * @param subject The subject of the appointment or message. The string is limited to 255 characters.
@@ -12617,6 +12776,7 @@ declare namespace Office {
          * Applicable Outlook mode: Compose
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * getAsync(callback: (result: AsyncResult) => void): void;
          *
          * @param options An object literal that contains one or more of the following properties.
@@ -12656,8 +12816,11 @@ declare namespace Office {
          * Errors: InvalidEndTime - The appointment end time is before the appointment start time.
          * 
          * In addition to the main signature, this method also has these signatures:
+         * 
          * setAsync(dateTime: Date): void;
+         * 
          * setAsync(dateTime: Date, options: AsyncContextOptions): void;
+         * 
          * setAsync(dateTime: Date, callback: (result: AsyncResult) => void): void;
          *
          * @param dateTime A date-time object in Coordinated Universal Time (UTC).
