@@ -6131,7 +6131,7 @@ function JQuery() {
         }
 
         function map() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6143,7 +6143,7 @@ function JQuery() {
                 return 'myVal';
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6155,7 +6155,7 @@ function JQuery() {
                 return ['myVal1', 'myVal2'];
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string | null>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6164,10 +6164,10 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 domElement;
 
-                return null;
+                return ['myVal1', 'myVal2', null];
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string | undefined>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6176,8 +6176,72 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 domElement;
 
-                return undefined;
+                return ['myVal1', 'myVal2', undefined];
             });
+
+            // $ExpectType JQuery<string>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                let value: string;
+
+                if (index % 2 === 0) {
+                    return null;
+                }
+
+                value = 'myVal';
+
+                return value;
+            });
+
+            // $ExpectType JQuery<string>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                let value: string;
+
+                if (index % 2 === 0) {
+                    return undefined;
+                }
+
+                value = 'myVal';
+
+                return value;
+            });
+
+            // // $ExpectType JQuery<never>
+            // $('p').map(function(index, domElement) {
+            //     // $ExpectType HTMLElement
+            //     this;
+            //     // $ExpectType number
+            //     index;
+            //     // $ExpectType HTMLElement
+            //     domElement;
+            //
+            //     return null;
+            // });
+
+            // // $ExpectType JQuery<never>
+            // $('p').map(function(index, domElement) {
+            //     // $ExpectType HTMLElement
+            //     this;
+            //     // $ExpectType number
+            //     index;
+            //     // $ExpectType HTMLElement
+            //     domElement;
+            //
+            //     return undefined;
+            // });
         }
 
         function slice() {

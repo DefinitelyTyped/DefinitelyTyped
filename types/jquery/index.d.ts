@@ -40,7 +40,7 @@ type _Event = Event;
 // Used by JQuery.Promise3 and JQuery.Promise
 type _Promise<T> = Promise<T>;
 
-interface JQueryStatic<TElement extends Node = HTMLElement> {
+interface JQueryStatic<TElement = HTMLElement> {
     /**
      * @see {@link http://api.jquery.com/jquery.ajax/#jQuery-ajax1}
      * @deprecated Use jQuery.ajaxSetup(options)
@@ -3098,7 +3098,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     when(...deferreds: any[]): JQuery.Promise<any, any, never>;
 }
 
-interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
+interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
      *
@@ -4253,7 +4253,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/map/}
      * @since 1.2
      */
-    map(callback: (this: TElement, index: number, domElement: TElement) => any | any[] | null | undefined): this;
+    map<TReturn>(callback: (this: TElement, index: number, domElement: TElement) => JQuery.TypeOrArray<TReturn> | null | undefined): JQuery<TReturn>;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      *
@@ -7922,9 +7922,9 @@ declare namespace JQuery {
 
     // endregion
 
-    interface EventHandler<TCurrentTarget extends EventTarget, TData = null> extends EventHandlerBase<TCurrentTarget, JQuery.Event<TCurrentTarget, TData>> { }
+    interface EventHandler<TCurrentTarget, TData = null> extends EventHandlerBase<TCurrentTarget, JQuery.Event<TCurrentTarget, TData>> { }
 
-    interface EventHandlerBase<TContext extends object, T> {
+    interface EventHandlerBase<TContext, T> {
         // Extra parameters can be passed from trigger()
         (this: TContext, t: T, ...args: any[]): void | false | any;
     }
