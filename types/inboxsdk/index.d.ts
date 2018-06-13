@@ -39,17 +39,17 @@ declare namespace InboxSDK {
 
   interface InboxSDKInstance {
     Compose: Compose.ComposeInstance;
-    Lists: Lists.Lists;
-    Conversations: Conversations.Conversations;
-    Toolbars: Toolbars.Toolbars;
-    Router: Router.Router;
-    NavMenu: NavMenu.NavMenu;
+    Lists: Lists.ListsInstance;
+    Conversations: Conversations.ConversationsInstance;
+    Toolbars: Toolbars.ToolbarsInstance;
+    Router: Router.RouterInstance;
+    NavMenu: NavMenu.NavMenuInstance;
     Widgets: Widgets.WidgetsInstance;
-    ButterBar: ButterBar.ButterBar;
-    Search: Search.Search;
-    User: User.User;
-    Keyboard: Keyboard.Keyboard;
-    Global: Global.Global;
+    ButterBar: ButterBar.ButterBarInstance;
+    Search: Search.SearchInstance;
+    User: User.UserInstance;
+    Keyboard: Keyboard.KeyboardInstance;
+    Global: Global.GlobalInstance;
   }
 
   namespace Common {
@@ -256,7 +256,7 @@ declare namespace InboxSDK {
   }
 
   export namespace Lists {
-    interface Lists {
+    interface ListsInstance {
       registerThreadRowViewHandler(handler: (threadRowView: ThreadRowView) => any): () => void;
     }
 
@@ -366,7 +366,7 @@ declare namespace InboxSDK {
   }
 
   export namespace Conversations {
-    interface Conversations {
+    interface ConversationsInstance {
       registerThreadViewHandler(handler: (threadView: ThreadView) => void): () => void;
 
       registerMessageViewHandler(handler: (messageView: MessageView) => void): () => void;
@@ -572,7 +572,7 @@ declare namespace InboxSDK {
   }
 
   export namespace Toolbars {
-    interface Toolbars {
+    interface ToolbarsInstance {
       registerThreadButton(toolbarButtonDescriptor: ToolbarButtonDescriptor): () => void;
 
       /**
@@ -642,7 +642,7 @@ declare namespace InboxSDK {
   }
 
   export namespace Router {
-    interface Router {
+    interface RouterInstance {
       createLink(routeID: string | NativeRouteIDs, params: RouteParams): string;
 
       goto(routeID: string | NativeRouteIDs, params: RouteParams): void;
@@ -793,7 +793,7 @@ declare namespace InboxSDK {
   }
 
   export namespace NavMenu {
-    interface NavMenu {
+    interface NavMenuInstance {
       addNavItem(navItemDescriptor: NavItemDescriptor): NavItemView;
     }
 
@@ -941,7 +941,7 @@ declare namespace InboxSDK {
   }
 
   export namespace ButterBar {
-    interface ButterBar {
+    interface ButterBarInstance {
       showMessage(options: MessageDescriptor): object;
 
       showLoading(): object;
@@ -1003,7 +1003,7 @@ declare namespace InboxSDK {
   }
 
   export namespace Search {
-    interface Search {
+    interface SearchInstance {
       registerSearchSuggestionsProvider(handler: (query: string) => AutocompleteSearchResult[] | Promise<AutocompleteSearchResult[]>): void;
 
       registerSearchQueryRewriter(rewriter: SearchQueryRewriter): void;
@@ -1036,7 +1036,7 @@ declare namespace InboxSDK {
   }
 
   export namespace User {
-    interface User {
+    interface UserInstance {
       getEmailAddress(): string;
 
       isUsingGmailMaterialUI(): boolean;
@@ -1050,7 +1050,7 @@ declare namespace InboxSDK {
   }
 
   export namespace Keyboard {
-    interface Keyboard {
+    interface KeyboardInstance {
       createShortcutHandle(keyboardShortcutDescriptor: KeyboardShortcutDescriptor): KeyboardShortcutHandle;
     }
 
@@ -1065,7 +1065,7 @@ declare namespace InboxSDK {
   }
 
   export namespace Global {
-    interface Global {
+    interface GlobalInstance {
       addSidebarContentPanel(contentPanelDescriptor: Conversations.ContentPanelDescriptor): Conversations.ContentPanelView;
     }
   }
