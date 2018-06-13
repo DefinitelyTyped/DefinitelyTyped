@@ -50,7 +50,7 @@ export interface locationChangeAction<P extends Pathname, S extends Search, H ex
         hash: H,
     };
 }
-export function locationChange<P extends string, S extends string, H extends string>(_: { pathname: P, search: S, hash: H }): locationChangeAction<P, S, H>;
+export function locationChange<P extends Pathname, S extends Search, H extends Hash>(_: { pathname: P, search: S, hash: H }): locationChangeAction<P, S, H>;
 
 export interface State {
     pathname: Pathname;
