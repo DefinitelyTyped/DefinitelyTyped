@@ -6,22 +6,20 @@
 
 /// <reference types="knockout"/>
 
-declare module 'i18nextko' {
-    import * as i18next from 'i18next';
+import * as i18next from 'i18next';
 
-    const i18n: i18next.i18n;
+export const i18n: i18next.i18n;
 
-    function init(resourceStore: i18nextkoResourceStore, language: string, ko: KnockoutStatic): void;
+export function init(resourceStore: i18nextkoResourceStore, language: string, ko: KnockoutStatic): void;
 
-    function setLanguage(language: string): void;
+export function setLanguage(language: string): void;
 
-    function t(key: string): KnockoutComputed<string>;
+export function t(key: string): KnockoutComputed<string>;
 
-    interface i18nextkoResourceStore {
-        [language: string]: {
-            translation: {
-                [key: string]: string
-            }
-        };
-    }
+export interface i18nextkoResourceStore {
+    [language: string]: {
+        translation: {
+            [key: string]: string
+        }
+    };
 }
