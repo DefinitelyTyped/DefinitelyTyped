@@ -1030,7 +1030,7 @@ declare namespace Office {
         controlForegroundColor: string;
     }
     /**
-     * The object that is returned when `UI.displayDialogAsync` is called.
+     * The object that is returned when `UI.displayDialogAsync` is called. It exposes methods for registering event handlers and closing the dialog.
      */
     interface Dialog {
         /**
