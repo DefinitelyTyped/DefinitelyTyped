@@ -699,7 +699,9 @@ function JQueryStatic() {
 
     function map() {
         // $ExpectType number[]
-        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+        $.map([1, 2, 3], function (elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
             // $ExpectType number
             elementOfArray;
             // $ExpectType number
@@ -709,7 +711,9 @@ function JQueryStatic() {
         });
 
         // $ExpectType number[]
-        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+        $.map([1, 2, 3], function (elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
             // $ExpectType number
             elementOfArray;
             // $ExpectType number
@@ -719,7 +723,9 @@ function JQueryStatic() {
         });
 
         // $ExpectType (number | null)[]
-        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+        $.map([1, 2, 3], function (elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
             // $ExpectType number
             elementOfArray;
             // $ExpectType number
@@ -729,7 +735,9 @@ function JQueryStatic() {
         });
 
         // $ExpectType (number | undefined)[]
-        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+        $.map([1, 2, 3], function (elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
             // $ExpectType number
             elementOfArray;
             // $ExpectType number
@@ -742,7 +750,9 @@ function JQueryStatic() {
         $.map({
             myProp: true,
             name: 'Rogers',
-        }, (propertyOfObject, key) => {
+        }, function (propertyOfObject, key) {
+            // $ExpectType Window
+            this;
             // $ExpectType string | boolean
             propertyOfObject;
             // $ExpectType "myProp" | "name"
@@ -760,7 +770,14 @@ function JQueryStatic() {
         $.map({
             myProp: true,
             name: 'Rogers',
-        }, (propertyOfObject, key) => {
+        }, function (propertyOfObject, key) {
+            // $ExpectType Window
+            this;
+            // $ExpectType string | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name"
+            key;
+
             return [propertyOfObject, 24];
         });
 
@@ -769,7 +786,9 @@ function JQueryStatic() {
             myProp: true,
             name: 'Rogers',
             anotherProp: 70,
-        }, (propertyOfObject, key) => {
+        }, function (propertyOfObject, key) {
+            // $ExpectType Window
+            this;
             // $ExpectType string | number | boolean
             propertyOfObject;
             // $ExpectType "myProp" | "name" | "anotherProp"
@@ -790,7 +809,9 @@ function JQueryStatic() {
             myProp: true,
             name: 'Rogers',
             anotherProp: 70,
-        }, (propertyOfObject, key) => {
+        }, function (propertyOfObject, key) {
+            // $ExpectType Window
+            this;
             // $ExpectType string | number | boolean
             propertyOfObject;
             // $ExpectType "myProp" | "name" | "anotherProp"
