@@ -2,8 +2,11 @@
 // Project: https://github.com/kriasoft/universal-router
 // Definitions by: Jack Moore <https://github.com/jtmthf>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
+//                 Lodin <https://github.com/Lodin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+
+import pathToRegexp = require('path-to-regexp');
 
 /**
  * Params is a key/value object that represents extracted URL paramters.
@@ -56,7 +59,7 @@ export interface ActionContext<C extends Context, R = any> extends PathnameConte
      * An array of keys found in the path, see `path-to-regexp` documentation for details.
      * @see https://github.com/pillarjs/path-to-regexp
      */
-    keys: any;
+    keys: pathToRegexp.Key[];
 }
 
 /**
@@ -114,5 +117,5 @@ export default class UniversalRouter<C extends Context = Context, R = any> {
     /**
      * `path-to-regexp` function
      */
-    static pathToRegexp: any;
+    static pathToRegexp: typeof pathToRegexp;
 }
