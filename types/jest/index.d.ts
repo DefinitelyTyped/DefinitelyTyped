@@ -12,7 +12,6 @@
 //                 Douglas Duteil <https://github.com/douglasduteil>
 //                 Ahn <https://github.com/ahnpnl>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
-//                 Bradley Ayers <https://github.com/bradleyayers>
 //                 Jeff Lau <https://github.com/UselessPickles>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Martin Hochel <https://github.com/hotell>
