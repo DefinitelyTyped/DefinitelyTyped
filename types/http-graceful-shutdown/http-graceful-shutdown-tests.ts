@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as GracefulShutdown from 'http-graceful-shutdown';
 import * as http from "http";
 
