@@ -3,25 +3,17 @@
 // Definitions by: Alessio Paccoia <https://github.com/alessiopcc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function pem2jwk(pem: string): RSAJWK;
-export function jwk2pem(jwk: RSAJWK): string;
-
-export type RSAJWK = RSAPrivateJWK | RSAPublicJWK;
-
-export interface RSAPrivateJWK {
+export interface RSA_JWK {
     kty: string;
     n: string;
     e: string;
-    d: string;
-    p: string;
-    q: string;
-    dp: string;
-    dq: string;
-    qi: string;
+    d?: string;
+    p?: string;
+    q?: string;
+    dp?: string;
+    dq?: string;
+    qi?: string;
 }
 
-export interface RSAPublicJWK {
-    kty: string;
-    n: string;
-    e: string;
-}
+export function pem2jwk(rsa_pem: string): RSA_JWK;
+export function jwk2pem(rsa_jwk: RSA_JWK): string;
