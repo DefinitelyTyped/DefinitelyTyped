@@ -708,6 +708,36 @@ function JQueryStatic() {
             return 200 + 10;
         });
 
+        // $ExpectType number[]
+        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return [200, 10];
+        });
+
+        // $ExpectType (number | null)[]
+        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return [200, 10, null];
+        });
+
+        // $ExpectType (number | undefined)[]
+        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return [200, 10, undefined];
+        });
+
         // $ExpectType (false | 1)[]
         $.map({
             myProp: true,
@@ -724,6 +754,56 @@ function JQueryStatic() {
                 case 'name':
                     return false;
             }
+        });
+
+        // $ExpectType (string | number | boolean)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+        }, (propertyOfObject, key) => {
+            return [propertyOfObject, 24];
+        });
+
+        // $ExpectType (false | 1)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+            anotherProp: 70,
+        }, (propertyOfObject, key) => {
+            // $ExpectType string | number | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name" | "anotherProp"
+            key;
+
+            switch (key) {
+                case 'myProp':
+                    return 1;
+                case 'name':
+                    return false;
+            }
+
+            return null;
+        });
+
+        // $ExpectType (false | 1)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+            anotherProp: 70,
+        }, (propertyOfObject, key) => {
+            // $ExpectType string | number | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name" | "anotherProp"
+            key;
+
+            switch (key) {
+                case 'myProp':
+                    return 1;
+                case 'name':
+                    return false;
+            }
+
+            return undefined;
         });
     }
 

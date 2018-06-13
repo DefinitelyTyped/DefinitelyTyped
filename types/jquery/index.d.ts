@@ -659,7 +659,7 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.map/}
      * @since 1.0
      */
-    map<T, R>(array: T[], callback: (elementOfArray: T, indexInArray: number) => R): R[];
+    map<T, TReturn>(array: T[], callback: (elementOfArray: T, indexInArray: number) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
     /**
      * Translate all items in an array or object to new array of items.
      *
@@ -671,7 +671,7 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.map/}
      * @since 1.6
      */
-    map<T, K extends keyof T, R>(obj: T, callback: (propertyOfObject: T[K], key: K) => R): R[];
+    map<T, K extends keyof T, TReturn>(obj: T, callback: (propertyOfObject: T[K], key: K) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
     /**
      * Merge the contents of two arrays together into the first array.
      *
