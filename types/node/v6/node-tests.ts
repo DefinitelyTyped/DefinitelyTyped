@@ -2395,6 +2395,12 @@ namespace dns_tests {
         const _family: number | undefined = family;
     });
 
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
+    });
+
     dns.resolve("nodejs.org", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
