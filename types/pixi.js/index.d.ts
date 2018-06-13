@@ -1,4 +1,4 @@
-// Type definitions for Pixi.js 4.7
+// Type definitions for pixi.js 4.8
 // Project: https://github.com/pixijs/pixi.js/tree/dev
 // Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -92,7 +92,7 @@ declare namespace PIXI {
             protected _onFocus(e: interaction.InteractionEvent): void;
             protected _onFocusOut(e: interaction.InteractionEvent): void;
             protected _onKeyDown(e: interaction.InteractionEvent): void;
-            protected _onMouseMove(): void;
+            protected _onMouseMove(e: MouseEvent): void;
 
             destroy(): void;
         }
@@ -200,6 +200,12 @@ declare namespace PIXI {
 
     // display
 
+    interface StageOptions{
+        children?: boolean;
+        texture?: boolean;
+        baseTexture?: boolean;
+    }
+
     class Application {
         constructor(options?: ApplicationOptions)
         constructor(width?: number, height?: number, options?: ApplicationOptions, noWebGL?: boolean, sharedTicker?: boolean, sharedLoader?: boolean);
@@ -215,7 +221,7 @@ declare namespace PIXI {
         stop(): void;
         start(): void;
         render(): void;
-        destroy(removeView?: boolean): void;
+        destroy(removeView?: boolean, stageOptions?: StageOptions | boolean): void;
         readonly view: HTMLCanvasElement;
     }
 
@@ -434,15 +440,17 @@ declare namespace PIXI {
     // graphics
     class GraphicsData {
         constructor(
-            lineWidth: number,
-            lineColor: number,
-            lineAlpha: number,
-            fillColor: number,
-            fillAlpha: number,
-            fill: boolean,
-            nativeLines: boolean,
-            shape: Circle | Rectangle | Ellipse | Polygon | RoundedRectangle | any);
+            lineWidth: number, 
+            lineColor: number, 
+            lineAlpha: number, 
+            fillColor: number, 
+            fillAlpha: number, 
+            fill: boolean, 
+            nativeLines: boolean, 
+            shape: Circle | Rectangle | Ellipse | Polygon | RoundedRectangle | any, 
+            lineAlignment?: number)
         lineWidth: number;
+        lineAlignment: number;
         nativeLines: boolean;
         lineColor: number;
         lineAlpha: number;
@@ -459,12 +467,20 @@ declare namespace PIXI {
         destroy(options?: DestroyOptions | boolean): void;
     }
     class Graphics extends Container {
+        static CURVES: {
+            adaptive: boolean;
+            maxLength: number;
+            minSegments: number;
+            maxSegments: number;
+        }
+
         constructor(nativeLines?: boolean);
 
         fillAlpha: number;
         lineWidth: number;
         nativeLines: boolean;
         lineColor: number;
+        lineAlignment: number;
         protected graphicsData: GraphicsData[];
         tint: number;
         protected _prevTint: number;
@@ -485,7 +501,10 @@ declare namespace PIXI {
         static _SPRITE_TEXTURE: Texture;
 
         clone(): Graphics;
-        lineStyle(lineWidth?: number, color?: number, alpha?: number): Graphics;
+        protected _quadraticCurveLength(fromX: number, fromY: number, cpX: number, cpY: number, toX: number, toY: number): number;
+        protected _bezierCurveLength(fromX: number, fromY: number, cpX: number, cpY: number, cpX2: number, cpY2: number, toX: number, toY: number): number
+        protected _segmentsCount(length: number): number;
+        lineStyle(lineWidth?: number, color?: number, alpha?: number, alignment?: number): Graphics;
         moveTo(x: number, y: number): Graphics;
         lineTo(x: number, y: number): Graphics;
         quadraticCurveTo(cpX: number, cpY: number, toX: number, toY: number): Graphics;
@@ -1067,6 +1086,8 @@ declare namespace PIXI {
         bounds: Rectangle;
     }
     class RenderTarget {
+        protected filterPoolKey: string;
+
         constructor(gl: WebGLRenderingContext, width: number, height: number, scaleMode: number, resolution: number, root?: boolean);
 
         gl: WebGLRenderingContext;
@@ -1343,6 +1364,7 @@ declare namespace PIXI {
         strokeThickness?: number;
         textBaseline?: string;
         trim?: boolean;
+        whiteSpace?: string;
         wordWrap?: boolean;
         wordWrapWidth?: number;
         leading?: number;
@@ -1408,6 +1430,8 @@ declare namespace PIXI {
         textBaseline: string;
         protected _trim: boolean;
         trim: boolean;
+        protected _whiteSpace: string;
+        whiteSpace: string;
         protected _wordWrap: boolean;
         wordWrap: boolean;
         protected _wordWrapWidth: number;
@@ -1415,9 +1439,15 @@ declare namespace PIXI {
         toFontString(): string;
     }
     class TextMetrics {
-        protected _canvas: HTMLCanvasElement;
-        protected _context: CanvasRenderingContext2D;
-        protected _fonts: FontMetrics;
+        static METRICS_STRING: string;
+        static BASELINE_SYMBOL: string;
+        static BASELINE_MULTIPLIER: number;
+
+        static _canvas: HTMLCanvasElement;
+        static _context: CanvasRenderingContext2D;
+        static _fonts: FontMetrics;
+        static _newLines: Array<number>;
+        static _breakingSpaces: Array<number>;
 
         text: string;
         style: TextStyle;
@@ -1431,11 +1461,21 @@ declare namespace PIXI {
 
         constructor(text: string, style: TextStyle, width: number, height: number, lines: number[], lineWidths: number[], lineHeight: number, maxLineWidth: number, fontProperties: any);
 
-        static addLine(line: string, newLine?: boolean): string;
         static measureText(text: string, style: TextStyle, wordWrap?: boolean, canvas?: HTMLCanvasElement): TextMetrics;
-        static wordWrap(text: string, style: TextStyle, canvas?: HTMLCanvasElement): string;
+        static wordWrap(text: string, style: TextStyle, canvas?: HTMLCanvasElement): string;	         static wordWrap(text: string, style: TextStyle, canvas?: HTMLCanvasElement): string;
+        static measureFont(font: string): FontMetrics;	
+        static addLine(line: string, newLine?: boolean): string;
+        static getFromCache(key: string, letterSpacing: number, cache: any, context: CanvasRenderingContext2D): number;	         static getFromCache(key: string, letterSpacing: number, cache: any, context: CanvasRenderingContext2D): number;
+        static collapseSpaces(whiteSpace?: string): boolean;
+        static collapseNewlines(whiteSpace?: string): boolean;
+        static trimRight(text?: string): string;
+        static isNewline(char?: string): boolean;
+        static isBreakingSpace(char?: string): boolean;
+        static tokenize(text?: string): Array<string>;
+        static canBreakWords(token?: string, breakWords?: boolean): boolean;
+        static canBreakChars(char: string, nextChar: string, token: string, index: number, breakWords?: boolean): boolean;
         static measureFont(font: string): FontMetrics;
-        static getFromCache(key: string, letterSpacing: number, cache: any, context: CanvasRenderingContext2D): number;
+        static clearMetrics(font: string): void;
     }
     interface FontMetrics {
         ascent: number;
@@ -1794,10 +1834,12 @@ declare namespace PIXI {
             tint?: number;
         }
         class BitmapText extends Container {
-            static registerFont(xml: XMLDocument, texture: Texture): any;
+            static registerFont(xml: XMLDocument, textures: Texture | Array<Texture> | {[key: string]: Texture}): any;
 
             constructor(text: string, style?: BitmapTextStyle);
 
+            letterSpacing: number;
+            protected _letterSpacing: number;
             protected _textWidth: number;
             protected _textHeight: number;
             textWidth: number;
@@ -2434,6 +2476,8 @@ declare namespace PIXI {
             indices: Uint16Array;
             dirty: number;
             indexDirty: number;
+            vertexDirty: number;
+            autoUpdate: boolean;
             dirtyVertex: boolean;
             protected _geometryVersion: number;
             blendMode: number;
@@ -2878,6 +2922,8 @@ declare namespace PIXI {
         function premultiplyTint(tint: number, alpha: number): number;
         function premultiplyRgba(rgb: Float32Array | number[], alpha: number, out?: Float32Array, premultiply?: boolean): Float32Array;
         function premultiplyTintToRgba(tint: number, alpha: number, out?: Float32Array, premultiply?: boolean): Float32Array;
+        function clearTextureCache(): void;
+        function destroyTextureCache(): void;
         const premultiplyBlendMode: number[][];
         const TextureCache: any;
         const BaseTextureCache: any;
