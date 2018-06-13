@@ -7,6 +7,7 @@
 //                 Christopher Currens <https://github.com/ccurrens>,
 //                 Jon Stevens <https://github.com/lookfirst>,
 //                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Jose Colella <https://github.com/josecolella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
