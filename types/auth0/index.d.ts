@@ -350,6 +350,7 @@ export interface Identity {
   user_id: string;
   provider: string;
   isSocial: boolean;
+  access_token?: string;
   profileData?: {
     email?: string;
     email_verified?: boolean;   

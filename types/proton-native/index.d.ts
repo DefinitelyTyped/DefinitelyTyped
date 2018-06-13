@@ -169,6 +169,78 @@ export interface AreaPathProps extends AreaBaseProps {
 
 export class AreaPath extends React.Component<AreaPathProps> { }
 
+export interface AreaTextProps extends AreaBaseProps {
+    style?: {
+        /**
+         * The background color, specified as a CSS color string.
+         */
+        backgroundColor?: string;
+        /**
+         * The text color, specified as a CSS color string.
+         */
+        color?: string;
+        /**
+         * The font family (only if available on the system).
+         */
+        fontFamily?: string;
+        /**
+         * The font size (in pt).
+         */
+        fontSize?: number;
+        /**
+         * Whether an italic font should be used.
+         */
+        fontStyle?: 'normal' | 'oblique' | 'italic';
+        /**
+         * Whether a bold font should be used (and the amount).
+         */
+        fontWeight?: 'minimum' | 'thin' | 'ultraLight' | 'light' | 'book' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'ultraBold' | 'heavy' | 'ultraHeavy' | 'maximum' | number;
+        /**
+         * Wheter the text should be aligned to the left, center or right.
+         *
+         * **Works only on a top level text component, not it's children!**
+         */
+        textAlign?: 'left' | 'center' | 'right';
+        /**
+         * How wide or narrow the characters should be.
+         */
+        textStretch?: 'ultraCondensed' | 'extraCondensed' | 'condensed' | 'semiCondensed' | 'normal' | 'semiExpanded' | 'expanded' | 'extraExpanded' | 'ultraExpanded';
+        /**
+         * The text underline style.
+         */
+        textUnderline?: 'none' | 'single' | 'double' | 'suggestion';
+        /**
+         * The text underline color.
+         *
+         * A color string | 'spelling' | 'grammar' | 'auxiliary'
+         */
+        textUnderlineColor?: 'spelling' | 'grammar' | 'auxiliary' | string;
+    };
+    /**
+     * The x coordinate of the text's top left corner. (Only in a top level text component.)
+     */
+    x?: number | string;
+    /**
+     * The y coordinate of the text's top left corner. (Only in a top level text component.)
+     */
+    y?: number | string;
+}
+
+export class AreaText extends React.Component<AreaTextProps> { }
+
+export interface AreaGroupProps extends AreaBaseProps {
+    /**
+     * Specify `width` and `height` to be able to use percentage values in transforms.
+     */
+    width?: number | string;
+    /**
+     * Specify `width` and `height` to be able to use percentage values in transforms.
+     */
+    height?: number | string;
+}
+
+export class AreaGroup extends React.Component<AreaGroupProps> { }
+
 export interface MouseEvent {
     button: number;
     height: number;
@@ -243,6 +315,12 @@ export class Area extends React.Component<AreaProps> {
      */
     static Circle: typeof AreaCircle;
     /**
+     * A component to apply props to all it's children in an Area component.
+     *
+     * To be able to use percentage values in transforms, the props `width` and `height` need to be specified (they have no graphical effect).
+     */
+    static Group: typeof AreaGroup;
+    /**
      * A straigt line to be displayed in an Area component.
      */
     static Line: typeof AreaLine;
@@ -256,6 +334,10 @@ export class Area extends React.Component<AreaProps> {
      * A rectangle to be displayed in an Area component.
      */
     static Rectangle: typeof AreaRectangle;
+    /**
+     * A (possibly styled) text to be displayed in an Area component. Nested `Area.Text` components inheirit the parent's style.
+     */
+    static Text: typeof AreaText;
 }
 
 export interface BoxProps extends GridChildrenProps, Label, Stretchy {

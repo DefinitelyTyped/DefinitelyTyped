@@ -49,10 +49,12 @@ import {
     NativeModules,
     MaskedViewIOS,
     TextInput,
+    TouchableNativeFeedback,
     TextInputFocusEventData,
     InputAccessoryView,
     StatusBar,
-    NativeSyntheticEvent
+    NativeSyntheticEvent,
+    GestureResponderEvent
 } from "react-native";
 
 declare module "react-native" {
@@ -194,6 +196,27 @@ class Welcome extends React.Component {
 }
 
 export default Welcome;
+
+// SyntheticEventsTest
+export class SyntheticEventsTest extends React.Component {
+    onPressButton(e: GestureResponderEvent) {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    }
+
+    render() {
+        return (
+            <TouchableNativeFeedback
+                onPress={this.onPressButton}
+            >
+                <View style={{width: 150, height: 100, backgroundColor: 'red'}}>
+                    <Text style={{margin: 30}}>Button</Text>
+                </View>
+            </TouchableNativeFeedback>
+        )
+    }
+}
 
 // App State
 

@@ -36,6 +36,7 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		version: string;
 
 		expression: MathNode;
+		json: MathJsJson;
 
 		config: (options: any) => void;
 
@@ -543,7 +544,7 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		/**
 		 * Create a number or convert a string, boolean, or unit to a number. When value is a matrix, all elements will be converted to number.
 		 */
-		number(value?: string|number|boolean|MathArray|Matrix|Unit|BigNumber): number|MathArray|Matrix;
+		number(value?: string|number|boolean|MathArray|Matrix|Unit|BigNumber|Fraction): number|MathArray|Matrix;
 		number(unit: Unit, valuelessUnit: Unit|string): number|MathArray|Matrix;
 
 		/**
@@ -2248,5 +2249,12 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		done(): any;
 		valueOf(): any;
 		toString(): string;
+	}
+
+	interface MathJsJson {
+		/**
+		 * Returns reviver function that can be used as reviver in JSON.parse function.
+		 */
+		reviver(): (key: any, value: any) => any;
 	}
 }

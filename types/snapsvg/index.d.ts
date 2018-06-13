@@ -280,7 +280,7 @@ declare namespace Snap {
         mask(varargs:any):Object;
         ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
         svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
-        toDataUrl(): string;
+        toDataURL(): string;
         toString():string;
         use(id?:string):Object;
         use(id?:Snap.Element):Object;
