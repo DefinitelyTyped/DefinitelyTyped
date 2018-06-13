@@ -1,4 +1,4 @@
-// Type definitions for com.wikitude.phonegap.wikitudeplugin 7.2.0
+// Type definitions for com.wikitude.phonegap.wikitudeplugin 7.2
 // Project: https://github.com/Wikitude/wikitude-cordova-plugin
 // Definitions by: zbarbuto <https://github.com/zbarbuto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,7 +23,7 @@ interface WikitudePlugin {
         errorCallback: (message: string) => void,
         architectWorldPath: string,
         requiredFeatures: [string],
-        startupConfiguration: JSON | Object
+        startupConfiguration: JSON | object
     ): void;
 
     close(): void;
