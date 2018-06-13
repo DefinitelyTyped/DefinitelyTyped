@@ -32,7 +32,11 @@ class Screen1 extends React.Component<Props> {
     };
 
     componentDidMount() {
-        this.props.navigator.push({ screen: 'example.Screen2', overrideBackPress: false });
+        this.props.navigator.push<Screen2OwnProps>({
+            screen: 'example.Screen2',
+            overrideBackPress: false,
+            passProps: { name: 'Henrik' },
+        });
         this.props.navigator.setTabBadge({ badge: null });
     }
 
@@ -45,7 +49,13 @@ class Screen1 extends React.Component<Props> {
     }
 }
 
-class Screen2 extends React.Component<NavigationComponentProps> {
+interface Screen2OwnProps {
+    name: string;
+}
+
+type Screen2Props = Screen2OwnProps & NavigationComponentProps;
+
+class Screen2 extends React.Component<Screen2Props> {
     static navigatorStyle: NavigatorStyle = {
         drawUnderNavBar: true,
         navBarTranslucent: true
@@ -59,6 +69,7 @@ class Screen2 extends React.Component<NavigationComponentProps> {
         return (
             <View>
                 <Text>Screen 2</Text>
+                <Text>Hello {this.props.name}</Text>
             </View>
         );
     }
