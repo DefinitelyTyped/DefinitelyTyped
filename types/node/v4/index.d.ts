@@ -3,6 +3,7 @@
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -407,6 +408,10 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
+    export interface ProcessEnv {
+        [key: string]: string | undefined;
+    }
+
     export interface Process extends EventEmitter {
         stdout: Socket;
         stderr: Socket;
@@ -418,7 +423,7 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
-        env: any;
+        env: ProcessEnv;
         exit(code?: number): void;
         exitCode: number;
         getgid(): number;
@@ -1444,6 +1449,8 @@ declare module "dns" {
     export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
     export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
     export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
 
     export interface MxRecord {
         priority: number;

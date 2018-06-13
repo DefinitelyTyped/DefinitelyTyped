@@ -617,126 +617,132 @@ describe("", () => {
 
 /* Test framework and config */
 
+const globalConfig: jest.GlobalConfig = {
+    bail: true,
+    collectCoverage: false,
+    collectCoverageFrom: ["glob"],
+    collectCoverageOnlyFrom: {
+        abc: true,
+        def: false,
+    },
+    coverageDirectory: "",
+    coverageReporters: [""],
+    coverageThreshold: {
+        global: {
+            abc: 90,
+            def: 100,
+        },
+    },
+    expand: true,
+    forceExit: false,
+    logHeapUsage: true,
+    mapCoverage: false,
+    noStackTrace: true,
+    notify: false,
+    projects: ["projects"],
+    replname: "",
+    reporters: [
+        ["abc", {}],
+        ["def", {}],
+    ],
+    rootDir: "path",
+    silent: true,
+    testNamePattern: "",
+    testPathPattern: "",
+    testResultsProcessor: "",
+    updateSnapshot: "all" as "all" | "new" | "none",
+    useStderr: true,
+    verbose: false,
+    watch: true,
+    watchman: false,
+};
+
+const projectConfig: jest.ProjectConfig = {
+    automock: true,
+    browser: false,
+    cache: true,
+    cacheDirectory: "",
+    clearMocks: true,
+    coveragePathIgnorePatterns: [""],
+    cwd: "",
+    detectLeaks: true,
+    displayName: "",
+    forceCoverageMatch: ["abc", "def"],
+    globals: {
+        "ts-jest": {},
+    },
+    haste: {
+        defaultPlatform: "",
+        hasteImplModulePath: "",
+        platforms: ["win95", "win2000", "clippy"],
+        providesModuleNodeModules: ["abc", "def"],
+    },
+    moduleDirectories: ["", ""],
+    moduleFileExtensions: [".ts", ".json"],
+    moduleLoader: "laoder",
+    moduleNameMapper: [
+        ["abc", "def"],
+        ["ghi", "jkl"],
+    ],
+    modulePathIgnorePatterns: ["abc", "def"],
+    modulePaths: ["abc", "def"],
+    name: "",
+    resetMocks: true,
+    resetModules: false,
+    resolver: "",
+    rootDir: "",
+    roots: ["", ""],
+    runner: "",
+    setupFiles: ["abc", "def"],
+    setupTestFrameworkScriptFile: "",
+    skipNodeResolution: true,
+    snapshotSerializers: ["abc", "def"],
+    testEnvironment: "",
+    testEnvironmentOptions: {},
+    testLocationInResults: true,
+    testMatch: [".test.ts"],
+    testPathIgnorePatterns: ["*.spec.*"],
+    testRegex: "abc",
+    testRunner: "m",
+    testURL: "localhost:3000",
+    timers: "real",
+    transform: [
+        ["abc", "def"],
+    ],
+    transformIgnorePatterns: ["", ""],
+    unmockedModulePathPatterns: ["abc"],
+    watchPathIgnorePatterns: ["def"],
+};
+
+const environment = {
+    global: {},
+    fakeTimers: {
+        clearAllTimers() { },
+        runAllImmediates() { },
+        runAllTicks() { },
+        runAllTimers() { },
+        runTimersToTime(time: number) { },
+        advanceTimersByTime(time: number) { },
+        runOnlyPendingTimers() { },
+        runWithRealTimers(callback: () => void) {
+            callback();
+        },
+        useFakeTimers() { },
+        useRealTimers() { },
+    },
+    testFilePath: "",
+    moduleMocker: {},
+    dispose() {},
+    runScript(script: "") {
+        return {};
+    },
+};
+
 const workTestFramework = async (testFramework: jest.TestFramework): Promise<jest.TestResult> => {
     return testFramework(
-        {
-            bail: true,
-            collectCoverage: false,
-            collectCoverageFrom: ["glob"],
-            collectCoverageOnlyFrom: {
-                abc: true,
-                def: false,
-            },
-            coverageDirectory: "",
-            coverageReporters: [""],
-            coverageThreshold: {
-                global: {
-                    abc: 90,
-                    def: 100,
-                },
-            },
-            expand: true,
-            forceExit: false,
-            logHeapUsage: true,
-            mapCoverage: false,
-            noStackTrace: true,
-            notify: false,
-            projects: ["projects"],
-            replname: "",
-            reporters: [
-                ["abc", {}],
-                ["def", {}],
-            ],
-            rootDir: "path",
-            silent: true,
-            testNamePattern: "",
-            testPathPattern: "",
-            testResultsProcessor: "",
-            updateSnapshot: "all" as "all" | "new" | "none",
-            useStderr: true,
-            verbose: false,
-            watch: true,
-            watchman: false,
-        },
-        {
-            automock: true,
-            browser: false,
-            cache: true,
-            cacheDirectory: "",
-            clearMocks: true,
-            coveragePathIgnorePatterns: [""],
-            cwd: "",
-            detectLeaks: true,
-            displayName: "",
-            forceCoverageMatch: ["abc", "def"],
-            globals: {
-                "ts-jest": {},
-            },
-            haste: {
-                defaultPlatform: "",
-                hasteImplModulePath: "",
-                platforms: ["win95", "win2000", "clippy"],
-                providesModuleNodeModules: ["abc", "def"],
-            },
-            moduleDirectories: ["", ""],
-            moduleFileExtensions: [".ts", ".json"],
-            moduleLoader: "laoder",
-            moduleNameMapper: [
-                ["abc", "def"],
-                ["ghi", "jkl"],
-            ],
-            modulePathIgnorePatterns: ["abc", "def"],
-            modulePaths: ["abc", "def"],
-            name: "",
-            resetMocks: true,
-            resetModules: false,
-            resolver: "",
-            rootDir: "",
-            roots: ["", ""],
-            runner: "",
-            setupFiles: ["abc", "def"],
-            setupTestFrameworkScriptFile: "",
-            skipNodeResolution: true,
-            snapshotSerializers: ["abc", "def"],
-            testEnvironment: "",
-            testEnvironmentOptions: {},
-            testLocationInResults: true,
-            testMatch: [".test.ts"],
-            testPathIgnorePatterns: ["*.spec.*"],
-            testRegex: "abc",
-            testRunner: "m",
-            testURL: "localhost:3000",
-            timers: "real",
-            transform: [
-                ["abc", "def"],
-            ],
-            transformIgnorePatterns: ["", ""],
-            unmockedModulePathPatterns: ["abc"],
-            watchPathIgnorePatterns: ["def"],
-        },
-        {
-            global: {},
-            fakeTimers: {
-                clearAllTimers() { },
-                runAllImmediates() { },
-                runAllTicks() { },
-                runAllTimers() { },
-                runTimersToTime(time: number) { },
-                advanceTimersByTime(time: number) { },
-                runOnlyPendingTimers() { },
-                runWithRealTimers(callback: () => void) {
-                    callback();
-                },
-                useFakeTimers() { },
-                useRealTimers() { },
-            },
-            testFilePath: "",
-            moduleMocker: {},
-            dispose() {},
-            runScript(script: "") {
-                return {};
-            },
-        },
+        globalConfig,
+        projectConfig,
+        environment,
         {},
         "testPath"
     );
@@ -932,4 +938,21 @@ let matchersUtil2: jasmine.MatchersUtil = {
     equals: (a: {}, b: {}, customTesters?: jasmine.CustomEqualityTester[]) => false,
 };
 
-matchersUtil2 = matchersUtil1;
+// Jest config
+
+const testJestConfig = (defaults: jest.DefaultOptions) => {
+    const config: jest.InitialOptions = {
+      transform: {
+        '^.+\\.(ts|tsx)$': 'ts-jest'
+      },
+      testMatch: [
+        ...defaults.testMatch,
+        '**/__tests__/**/*.ts?(x)',
+        '**/?(*.)+(spec|test).ts?(x)'
+      ],
+      moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
+      globals: {
+        'ts-jest': {}
+      }
+    };
+};

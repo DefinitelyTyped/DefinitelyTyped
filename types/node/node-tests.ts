@@ -3114,6 +3114,12 @@ namespace dns_tests {
         const _family: number | undefined = family;
     });
 
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
+    });
+
     dns.resolve("nodejs.org", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
@@ -3561,7 +3567,9 @@ namespace http2_tests {
         let clientHttp2Stream: http2.ClientHttp2Stream;
         clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
-        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders, flags: number) => {});
+        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders & http2.IncomingHttpStatusHeader, flags: number) => {
+            const s: number = headers[':status'];
+        });
 
         // ServerHttp2Stream
         let serverHttp2Stream: http2.ServerHttp2Stream;

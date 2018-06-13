@@ -324,6 +324,35 @@ tileSet.onload = () => {
     display.draw(2, 1, "#", "transparent", "rgba(250, 250, 0, 0.5)");
 };
 
+// Console display / graphical tiles / Colorized tile stacks
+
+tileSet = document.createElement("img");
+tileSet.src = "tiles.png";
+
+options = {
+    layout: "tile",
+    bg: "transparent",
+    tileWidth: 64,
+    tileHeight: 64,
+    tileSet,
+    tileColorize: true,
+    tileMap: {
+        "@": [0, 0],
+        "#": [0, 64]
+    },
+    width: 1,
+    height: 1
+};
+display = new ROT.Display(options);
+SHOW(display.getContainer());
+
+tileSet.onload = () => {
+    const ch = ["#", "@"];
+    const fg = ["rgba(255, 0, 0, 0.5)", "rgba(0, 0, 255, 0.5)"];
+    const bg = ["transparent", "transparent"];
+    display.draw(0, 0, ch, fg, bg);
+};
+
 // Map creation
 let map = new ROT.Map.Arena(3, 3);
 const userCallback = (x: number, y: number, value: number) => {

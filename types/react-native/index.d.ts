@@ -10,6 +10,7 @@
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -360,6 +361,9 @@ export interface NativeSyntheticEvent<T> {
     eventPhase: number;
     isTrusted: boolean;
     nativeEvent: T;
+    isPropagationStopped(): boolean;
+    isDefaultPrevented(): boolean;
+    persist(): void;
     preventDefault(): void;
     stopPropagation(): void;
     target: NodeHandle;

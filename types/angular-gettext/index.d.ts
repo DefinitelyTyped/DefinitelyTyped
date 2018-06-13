@@ -9,6 +9,7 @@
 
 import * as angular from 'angular';
 
+export type gettextCatalog = angular.gettext.gettextCatalog;
 
 declare module 'angular' {
   export namespace gettext {
