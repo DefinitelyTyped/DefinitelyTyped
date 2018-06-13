@@ -1075,17 +1075,23 @@ export type KeyboardTypeIOS =
     | "twitter"
     | "web-search";
 export type KeyboardTypeAndroid = "visible-password";
-export type KeyboardTypeOptions = KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS
+export type KeyboardTypeOptions = KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS;
 
 export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
 export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call";
-export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS
+export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS;
 
 export interface TextInputFocusEventData {
-    target: number,
-    text: string,
-    eventCount: number
+    target: number;
+    text: string;
+    eventCount: number;
+}
+
+export interface TextInputScrollEvent {
+    nativeEvent: {
+        contentOffset: { x: number; y: number; }
+    }
 }
 
 /**
@@ -1219,6 +1225,14 @@ export interface TextInputProps
      * Callback that is called when the text input's submit button is pressed.
      */
     onSubmitEditing?: (event: { nativeEvent: { text: string } }) => void;
+
+    /**
+     * Invoked on content scroll with
+     *  `{ nativeEvent: { contentOffset: { x, y } } }`.
+     *
+     * May also contain other properties from ScrollEvent but on Android contentSize is not provided for performance reasons.
+     */
+    onScroll?: (event: TextInputScrollEvent) => void;
 
     /**
      * The string that will be rendered before text input has been entered
