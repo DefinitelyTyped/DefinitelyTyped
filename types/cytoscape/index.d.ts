@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.1
+// Type definitions for Cytoscape.js 3.2
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
@@ -9,7 +9,7 @@
 //
 // Translation from Objects in help to Typescript interface.
 // http://js.cytoscape.org/#notation/functions
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /**
  * cy   --> Cy.Core
@@ -361,7 +361,7 @@ declare namespace cytoscape {
          *
          * The default value is 1.
          */
-        pixelRatio?: number;
+        pixelRatio?: number | 'auto';
     }
 
     /**
@@ -386,35 +386,42 @@ declare namespace cytoscape {
         /**
          * Add elements to the graph and return them.
          */
-        add(eles: ElementDefinition | ElementDefinition[] | Collection): CollectionElements;
+        add(eles: ElementDefinition | ElementDefinition[] | CollectionArgument): CollectionReturnValue;
 
         /**
          * Remove elements in collecion or match the selector from the graph and return them.
          */
-        remove(eles: Collection | Selector): CollectionElements;
+        remove(eles: CollectionArgument | Selector): CollectionReturnValue;
 
         /**
          * Get a collection from elements in the graph matching the specified selector or from an array of elements.
          * If no parameter specified, an empty collection will be returned
          */
-        collection(eles?: Selector | CollectionElements[]): CollectionElements;
+        collection(eles?: Selector | CollectionArgument[]): CollectionReturnValue;
 
         /**
          * Get an element from its ID in a very performant way.
+         * http://js.cytoscape.org/#cy.getElementById
          */
-        getElementById(id: string): CollectionElements;
+        getElementById(id: string): CollectionReturnValue;
+
+        /**
+         * Get an element from its ID in a very performant way.
+         * http://js.cytoscape.org/#cy.getElementById
+         */
+        $id(id: string): CollectionReturnValue;
 
         /**
          * Get elements in the graph matching the specified selector.
          * http://js.cytoscape.org/#cy.$
          */
-        $(selector: Selector): CollectionElements;
+        $(selector: Selector): CollectionReturnValue;
 
         /**
          * Get elements in the graph matching the specified selector.
          * http://js.cytoscape.org/#cy.$
          */
-        elements(selector?: Selector): CollectionElements;
+        elements(selector?: Selector): CollectionReturnValue;
 
         /**
          * Get nodes in the graph matching the specified selector.
@@ -428,7 +435,7 @@ declare namespace cytoscape {
         /**
          * Get elements in the graph matching the specified selector or filter function.
          */
-        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
 
         /**
          * Allow for manipulation of elements without triggering multiple style calculations or multiple redraws.
@@ -599,14 +606,20 @@ declare namespace cytoscape {
         ready(fn: EventHandler): void;
     }
 
-    interface ZoomOptions {
-        /** The zoom level to set. */
-        level: number;
+    interface ZoomOptionsModel {
         /** The position about which to zoom. */
         position: Position;
+    }
+    interface ZoomOptionsRendered {
         /** The rendered position about which to zoom. */
         renderedPosition: Position;
     }
+    interface ZoomOptionsLevel {
+        /** The zoom level to set. */
+        level: number;
+    }
+    type ZoomOptions = ZoomOptionsLevel & (ZoomOptionsModel | ZoomOptionsRendered);
+
     /**
      * http://js.cytoscape.org/#core/viewport-manipulation
      */
@@ -615,14 +628,21 @@ declare namespace cytoscape {
          * Get the HTML DOM element in which the graph is visualised.
          * A null value is returned if the Core is headless.
          */
-        container(): any;
+        container(): Element | null;
 
         /**
          * Pan the graph to the centre of a collection.
          *
          * @param eles The collection to centre upon.
          */
-        center(eles?: Collection): CollectionElements;
+        center(eles?: CollectionArgument): this;
+
+        /**
+         * Pan the graph to the centre of a collection.
+         *
+         * @param eles The collection to centre upon.
+         */
+        centre(eles?: CollectionArgument): this;
 
         /**
          * Pan and zooms the graph to fit to a collection.
@@ -631,13 +651,13 @@ declare namespace cytoscape {
          * @param eles [optional] The collection to fit to.
          * @param padding [optional] An amount of padding (in pixels) to have around the graph
          */
-        fit(eles?: Collection, padding?: number): CollectionElements;
+        fit(eles?: CollectionArgument, padding?: number): this;
 
         /**
          * Reset the graph to the default zoom level and panning position.
          * http://js.cytoscape.org/#cy.reset
          */
-        reset(): CollectionElements;
+        reset(): this;
 
         /**
          * Get the panning position of the graph.
@@ -651,7 +671,7 @@ declare namespace cytoscape {
          *
          * @param renderedPosition The rendered position to pan the graph to.
          */
-        pan(renderedPosition?: Position): void;
+        pan(renderedPosition?: Position): this;
 
         /**
          * Relatively pan the graph by a specified rendered position vector.
@@ -659,7 +679,7 @@ declare namespace cytoscape {
          *
          * @param renderedPosition The rendered position vector to pan the graph by.
          */
-        panBy(renderedPosition: Position): void;
+        panBy(renderedPosition: Position): this;
 
         /**
          * Get whether panning is enabled.
@@ -867,7 +887,8 @@ declare namespace cytoscape {
          * there is no resize or style event for arbitrary DOM elements.
          * http://js.cytoscape.org/#cy.resize
          */
-        resize(): CollectionElements;
+        resize(): this;
+        invalidateDimensions(): this;
     }
 
     /**
@@ -875,15 +896,15 @@ declare namespace cytoscape {
      *
      */
     interface AnimationFitOptions {
-        eles: CollectionElements | Selector; // to which the viewport will be fitted.
+        eles: CollectionArgument | Selector; // to which the viewport will be fitted.
         padding: number; //  Padding to use with the fitting.
     }
     interface CenterOptions {
-        eles: CollectionElements | Selector; // to which the viewport will be selected.
+        eles: CollectionArgument | Selector; // to which the viewport will be selected.
     }
-    interface AnimateOptionsCommon {
+    interface AnimationOptions {
         /** A zoom level to which the graph will be animated. */
-        zoom?: number;
+        zoom?: ZoomOptions;
         /** A panning position to which the graph will be animated. */
         pan?: Position;
         /** A relative panning position to which the graph will be animated. */
@@ -892,21 +913,15 @@ declare namespace cytoscape {
         fit?: AnimationFitOptions;
         /** An object containing centring options from which the graph will be animated. */
         center?: CenterOptions;
+        /** easing - A transition-timing-function easing style string that shapes the animation progress curve. */
+        easing?: string; // TODO: explicit type
 
         /** duration - The duration of the animation in milliseconds. */
         duration?: number;
     }
-    interface AnimateOptions extends AnimateOptionsCommon {
+    interface AnimateOptions extends AnimationOptions {
         /** queue - A boolean indicating whether to queue the animation. */
         queue?: boolean;
-        /** complete - A function to call when the animation is done. */
-        complete?(): void;
-        /** step - A function to call each time the animation steps. */
-        step?(): void;
-    }
-    interface AnimationOptions extends AnimateOptionsCommon {
-        /** queue - A transition-timing-function easing style string that shapes the animation progress curve. */
-        easing?: boolean;
         /** complete - A function to call when the animation is done. */
         complete?(): void;
         /** step - A function to call each time the animation steps. */
@@ -993,6 +1008,7 @@ declare namespace cytoscape {
          * An analogue to make a layout on a subset of the graph exists as eles.makeLayout().
          */
         makeLayout(options: LayoutOptions): LayoutManipulation;
+        createLayout(options: LayoutOptions): LayoutManipulation;
     }
 
     /**
@@ -1080,17 +1096,18 @@ declare namespace cytoscape {
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
-        jpg(options?: ExportOptions): string;
+        jpg(options?: ExportJpgOptions): string;
 
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
-        jpeg(options?: ExportOptions): string;
+        jpeg(options?: ExportJpgOptions): string;
 
         /**
          * Export the graph as JSON, the same format used at initialisation.
          */
-        json(): string;
+        json(): object;
+        json(json: object): this;
     }
 
     /**
@@ -1100,13 +1117,14 @@ declare namespace cytoscape {
      * The input can be any element (node and edge) collection.
      * http://js.cytoscape.org/#collection
      */
-    interface Collection extends Singular,
+    interface Collection<TOut = SingularElementReturnValue, TIn = SingularElementArgument>
+        extends Singular,
         CollectionGraphManipulation, CollectionEvents,
         CollectionData, CollectionPosition,
         CollectionLayout,
         CollectionSelection, CollectionStyle, CollectionAnimation,
-        CollectionComparision, CollectionIteration,
-        CollectionBuildingUnion, CollectionAlgorithms { }
+        CollectionComparision, CollectionIteration<TIn, TOut>,
+        CollectionBuildingFiltering<TOut>, CollectionAlgorithms { }
 
     /**
      * ele  --> Cy.Singular
@@ -1127,7 +1145,8 @@ declare namespace cytoscape {
     /**
      * The output is a collection of node and edge elements OR single element.
      */
-    type CollectionElements = EdgeCollection | NodeCollection | SingularElement;
+    type CollectionArgument = EdgeCollection | NodeCollection | SingularElementArgument;
+    type CollectionReturnValue = EdgeCollection & NodeCollection & SingularElementReturnValue;
 
     /**
      * edges -> Cy.EdgeCollection
@@ -1135,7 +1154,7 @@ declare namespace cytoscape {
      *
      * The output is a collection of edge elements OR single edge.
      */
-    interface EdgeCollection extends Collection, EdgeSingular,
+    interface EdgeCollection extends Collection<EdgeSingular, EdgeSingular>, EdgeSingular,
         EdgeCollectionTraversing { }
     /**
      *  nodes -> Cy.NodeCollection
@@ -1143,19 +1162,18 @@ declare namespace cytoscape {
      *
      * The output is a collection of node elements OR single node.
      */
-    interface NodeCollection extends Collection, NodeSingular,
+    interface NodeCollection extends Collection<NodeSingular, NodeSingular>, NodeSingular,
         NodeCollectionMetadata, NodeCollectionPosition, NodeCollectionTraversing,
         NodeCollectionCompound { }
 
-    interface SingularElement extends EdgeSingular, NodeSingular {
-        // Intentionally empty.
-    }
+    type SingularElementArgument = EdgeSingular | NodeSingular;
+    type SingularElementReturnValue = EdgeSingular & NodeSingular;
     /**
      *  edge --> Cy.EdgeSingular
      *  a collection of a single edge
      */
     interface EdgeSingular extends Singular,
-        EdgeSingularData, EdgeSingularTraversing { }
+        EdgeSingularData, EdgeSingularPoints, EdgeSingularTraversing { }
 
     /**
      *  node --> Cy.NodeSingular
@@ -1172,24 +1190,24 @@ declare namespace cytoscape {
          * Remove the elements from the graph.
          * http://js.cytoscape.org/#eles.remove
          */
-        remove(): CollectionElements;
+        remove(): CollectionReturnValue;
 
         /**
          * Put removed elements back into the graph.
          * http://js.cytoscape.org/#eles.restore
          */
-        restore(): CollectionElements;
+        restore(): CollectionReturnValue;
 
         /**
          * Get a new collection containing clones (i.e. copies) of the elements in the calling collection.
          * http://js.cytoscape.org/#eles.clone
          */
-        clone(): CollectionElements;
+        clone(): CollectionReturnValue;
         /**
          * Get a new collection containing clones (i.e. copies) of the elements in the calling collection.
          * http://js.cytoscape.org/#eles.clone
          */
-        copy(): CollectionElements;
+        copy(): CollectionReturnValue;
 
         /**
          * Effectively move edges to different nodes. The modified (actually new) elements are returned.
@@ -1207,6 +1225,10 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection/graph-manipulation
      */
     interface SingularGraphManipulation {
+        /**
+         * Get the core instance that owns the element.
+         */
+        cy(): Core;
         /**
          * Get whether the element has been removed from the graph.
          * http://js.cytoscape.org/#ele.removed
@@ -1279,8 +1301,8 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#eles.removeData
          * @param names A space-separated list of fields to delete.
          */
-        removeData(names?: string): CollectionElements;
-        removeAttr(names?: string): CollectionElements;
+        removeData(names?: string): CollectionReturnValue;
+        removeAttr(names?: string): CollectionReturnValue;
 
         /**
          * Get an array of the plain JavaScript object
@@ -1313,6 +1335,22 @@ declare namespace cytoscape {
          * @param obj The object containing name- value pairs to update data fields.
          */
         data(obj: any): void;
+        /**
+         * Get a particular data field for the element.
+         * @param name The name of the field to get.
+         */
+        attr(name?: string): any;
+        /**
+         * Set a particular data field for the element.
+         * @param name The name of the field to set.
+         * @param value The value to set for the field.
+         */
+        attr(name: string, value: any): void;
+        /**
+         * Update multiple data fields at once via an object.
+         * @param obj The object containing name- value pairs to update data fields.
+         */
+        attr(obj: any): void;
 
         /**
          * Get or set the scratchpad at a particular namespace,
@@ -1462,16 +1500,76 @@ declare namespace cytoscape {
          */
         position(): Position;
         /**
+         * Get the value of a specified position dimension.
+         * @param dimension The position dimension to set.
+         * @param value The value to set to the dimension.
+         */
+        position(dimension: PositionDimension): number;
+        /**
          * Set the value of a specified position dimension.
          * @param dimension The position dimension to set.
          * @param value The value to set to the dimension.
          */
-        position(dimension: PositionDimension, value?: Position): void;
+        position(dimension: PositionDimension, value: number): this;
         /**
          * Set the position using name-value pairs in the specified object.
          * @param pos An object specifying name-value pairs representing dimensions to set.
          */
-        position(pos: Position): void;
+        position(pos: Position): this;
+        /**
+         * Get the (model) position of a node.
+         */
+        modelPosition(): Position;
+        /**
+         * Get the value of a specified position dimension.
+         * @param dimension The position dimension to set.
+         * @param value The value to set to the dimension.
+         */
+        modelPosition(dimension: PositionDimension): number;
+        /**
+         * Set the value of a specified position dimension.
+         * @param dimension The position dimension to set.
+         * @param value The value to set to the dimension.
+         */
+        modelPosition(dimension: PositionDimension, value: number): this;
+        /**
+         * Set the position using name-value pairs in the specified object.
+         * @param pos An object specifying name-value pairs representing dimensions to set.
+         */
+        modelPosition(pos: Position): this;
+        /**
+         * Get the (model) position of a node.
+         */
+        point(): Position;
+        /**
+         * Get the value of a specified position dimension.
+         * @param dimension The position dimension to set.
+         * @param value The value to set to the dimension.
+         */
+        point(dimension: PositionDimension): number;
+        /**
+         * Set the value of a specified position dimension.
+         * @param dimension The position dimension to set.
+         * @param value The value to set to the dimension.
+         */
+        point(dimension: PositionDimension, value: number): this;
+        /**
+         * Set the position using name-value pairs in the specified object.
+         * @param pos An object specifying name-value pairs representing dimensions to set.
+         */
+        point(pos: Position): this;
+
+        /**
+         * Shift the positions of the nodes by a given model position vector.
+         * @param dimension The position dimension to shift.
+         * @param value The value to shift the dimension.
+         */
+        shift(dimension: PositionDimension, value?: number): this;
+        /**
+         * Shift the positions of the nodes by a given model position vector.
+         * @param pos An object specifying name-value pairs representing dimensions to shift.
+         */
+        shift(pos: Position): this;
 
         /**
          * Get or set the rendered (on-screen) position of a node.
@@ -1542,8 +1640,8 @@ declare namespace cytoscape {
      * @param ele The element being iterated over for which the function should return a position to set.
      * @param ix The index of the element when iterating over the elements in the collection.
      */
-    type ElementPositionFunction = (ele: CollectionElements, ix: number) => void;
-    type ElementCollectionFunction = (ele: CollectionElements, ix: number, eles: CollectionElements) => void;
+    type ElementPositionFunction = (ele: NodeSingular, ix: number) => void;
+    type ElementCollectionFunction = (ele: NodeSingular, ix: number, eles: CollectionArgument) => void;
 
     /**
      * http://js.cytoscape.org/#collection/position--dimensions
@@ -1556,9 +1654,7 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#nodes.positions
          */
         positions(handler: ElementPositionFunction | Position): void;
-
         modelPositions(handler: ElementPositionFunction | Position): void;
-
         points(handler: ElementPositionFunction | Position): void;
 
         /**
@@ -1647,11 +1743,13 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#eles.boundingBox
          */
         boundingBox(options: BoundingBoxOptions): BoundingBox12 | BoundingBoxWH;
+        boundingbox(options: BoundingBoxOptions): BoundingBox12 | BoundingBoxWH;
         /**
          * Get the bounding box of the elements in rendered coordinates.
          * @param options An object containing options for the function.
          */
         renderedBoundingBox(options: BoundingBoxOptions): BoundingBox12 | BoundingBoxWH;
+        renderedBoundingbox(options: BoundingBoxOptions): BoundingBox12 | BoundingBoxWH;
     }
 
     /**
@@ -1668,9 +1766,9 @@ declare namespace cytoscape {
          *
          * @param options The layout options.
          */
-        layout(options: LayoutOptions): CollectionElements;
-        makeLayout(options: LayoutOptions): CoreLayout;
-        createLayout(options: LayoutOptions): CoreLayout;
+        layout(options: LayoutOptions): LayoutManipulation;
+        makeLayout(options: LayoutOptions): LayoutManipulation;
+        createLayout(options: LayoutOptions): LayoutManipulation;
     }
 
     /**
@@ -1684,7 +1782,7 @@ declare namespace cytoscape {
         // easing of animation, if enabled
         animationEasing?: number;
         // collection of elements involved in the layout; set by cy.layout() or eles.layout()
-        eles: CollectionElements;
+        eles: CollectionArgument;
         // whether to fit the viewport to the graph
         fit?: boolean;
         // padding to leave between graph and viewport
@@ -1811,11 +1909,50 @@ declare namespace cytoscape {
         flashClass(classes: ClassNames, duration?: number): void;
 
         /**
-         * Get or set a particular style property value.
-         * @param name The name of the visual style property to get.
+         * Set a particular style property value.
+         * @param name The name of the visual style property to set.
          * @param value The value to which the property is set.
          */
-        style(name?: string, value?: any): any;
+        style(name: string, value: any): this;
+        /**
+         * Get a particular style property value.
+         * @param name The name of the visual style property to get.
+         */
+        style(name: string): any;
+        /**
+         * Set several particular style property values.
+         * @param obj An object of style property name-value pairs to set.
+         */
+        style(obj: object): this;
+        /**
+         * Get a name-value pair object containing visual style properties and their values for the element.
+         */
+        style(): {[index: string]: any};
+        /**
+         * Set a particular style property value.
+         * @param name The name of the visual style property to set.
+         * @param value The value to which the property is set.
+         */
+        css(name: string, value: any): this;
+        /**
+         * Get a particular style property value.
+         * @param name The name of the visual style property to get.
+         */
+        css(name: string): any;
+        /**
+         * Set several particular style property values.
+         * @param obj An object of style property name-value pairs to set.
+         */
+        css(obj: object): this;
+        /**
+         * Get a name-value pair object containing visual style properties and their values for the element.
+         */
+        css(): {[index: string]: any};
+        /**
+         * Remove all or specific style overrides.
+         * @param names A space-separated list of property names to remove overrides
+         */
+        removeStyle(names?: string): this;
     }
 
     /**
@@ -1977,27 +2114,36 @@ declare namespace cytoscape {
          *
          * @param eles The other elements to compare to.
          */
-        same(eles: Collection): boolean;
+        same(eles: CollectionArgument): boolean;
 
         /**
          * Determine whether this collection contains any of the same elements as another collection.
          *
          * @param eles The other elements to compare to.
          */
-        anySame(eles: Collection): boolean;
+        anySame(eles: CollectionArgument): boolean;
+
+        /**
+         * Determine whether this collection contains all of the elements of another collection.
+         */
+        contains(eles: CollectionArgument): boolean;
+        /**
+         * Determine whether this collection contains all of the elements of another collection.
+         */
+        has(eles: CollectionArgument): boolean;
 
         /**
          * Determine whether all elements in the specified collection are in the neighbourhood of the calling collection.
          *
          * @param eles The other elements to compare to.
          */
-        allAreNeighbors(eles: Collection): boolean;
+        allAreNeighbors(eles: CollectionArgument): boolean;
         /**
          * Determine whether all elements in the specified collection are in the neighbourhood of the calling collection.
          *
          * @param eles The other elements to compare to.
          */
-        allAreNeighbours(eles: Collection): boolean;
+        allAreNeighbours(eles: CollectionArgument): boolean;
 
         /**
          * Determine whether any element in this collection matches a selector.
@@ -2021,7 +2167,7 @@ declare namespace cytoscape {
          * eles - The collection of elements being tested.
          * @param thisArg [optional] The value for this within the test function.
          */
-        some(test: (ele: CollectionElements, i: number, eles: CollectionElements) => boolean, thisArg?: any): boolean;
+        some(test: (ele: CollectionArgument, i: number, eles: CollectionArgument) => boolean, thisArg?: any): boolean;
 
         /**
          * Determine whether all elements in this collection satisfy the specified test function.
@@ -2032,13 +2178,13 @@ declare namespace cytoscape {
          * eles - The collection of elements being tested.
          * @param thisArg [optional] The value for this within the test function.
          */
-        every(test: (ele: CollectionElements, i: number, eles: CollectionElements) => boolean, thisArg?: any): boolean;
+        every(test: (ele: CollectionArgument, i: number, eles: CollectionArgument) => boolean, thisArg?: any): boolean;
     }
 
     /**
      * http://js.cytoscape.org/#collection/iteration
      */
-    interface CollectionIteration {
+    interface CollectionIteration<TOut, TIn> {
         /**
          * Get the number of elements in the collection.
          */
@@ -2070,8 +2216,8 @@ declare namespace cytoscape {
          * eles - The collection of elements being iterated.
          * @param thisArg [optional] The value for this within the iterating function.
          */
-        each(each: (ele: CollectionElements, i: number, eles: CollectionElements) => void | boolean, thisArg?: any): void;
-        forEach(each: (ele: CollectionElements, i: number, eles: CollectionElements) => void | boolean, thisArg?: any): void;
+        each(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): void;
+        forEach(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): void;
 
         /**
          * Get an element at a particular index in the collection.
@@ -2080,21 +2226,21 @@ declare namespace cytoscape {
          *
          * @param index The index of the element to get.
          */
-        eq(index: number): CollectionElements;
+        eq(index: number): TOut;
         /**
          * Get an element at a particular index in the collection.
          *
          * @param index The index of the element to get.
          */
-        [index: number]: CollectionElements;
+        [index: number]: TOut;
         /**
          * Get the first element in the collection.
          */
-        first(): CollectionElements;
+        first(): TOut;
         /**
          * Get the last element in the collection.
          */
-        last(): CollectionElements;
+        last(): TOut;
 
         /**
          * Get a subset of the elements in the collection based on specified indices.
@@ -2106,7 +2252,12 @@ declare namespace cytoscape {
          *            If omitted, all elements from the start position and to the end of the array will be selected.
          *            Use negative numbers to select from the end of an array.
          */
-        slice(start?: number, end?: number): CollectionElements;
+        slice(start?: number, end?: number): this;
+
+        /**
+         * Get the collection as an array, maintaining the order of the elements.
+         */
+        toArray(): SingularElementReturnValue[];
     }
 
     /**
@@ -2118,7 +2269,7 @@ declare namespace cytoscape {
      * @param eles The elements or array of elements to add or elements in the graph matching the selector.
      * http://js.cytoscape.org/#eles.union
      */
-    type CollectionBuildingUnionFunc = (eles: Collection | Collection[] | Selector) => CollectionElements;
+    type CollectionBuildingUnionFunc = (eles: CollectionArgument | CollectionArgument[] | Selector) => CollectionReturnValue;
 
     /**
      * Get a new collection, resulting from the collection without some specified elements.
@@ -2126,7 +2277,7 @@ declare namespace cytoscape {
      * @param eles The elements that will not be in the resultant collection.
      *             Elements from the calling collection matching this selector will not be in the resultant collection.
      */
-    type CollectionBuildingDifferenceFunc = (eles: Collection | Selector) => CollectionElements;
+    type CollectionBuildingDifferenceFunc = (eles: CollectionArgument | Selector) => CollectionReturnValue;
 
     /**
      * Get the elements in both this collection and another specified collection.
@@ -2135,7 +2286,7 @@ declare namespace cytoscape {
      *             A selector representing the elements to intersect with.
      *             All elements in the graph matching the selector are used as the passed collection.
      */
-    type CollectionBuildingIntersectionFunc = (eles: Collection | Selector) => CollectionElements;
+    type CollectionBuildingIntersectionFunc = (eles: CollectionArgument | Selector) => CollectionReturnValue;
 
     /**
      * Get the elements that are in the calling collection or the passed collection but not in both.
@@ -2144,40 +2295,52 @@ declare namespace cytoscape {
      *             A selector representing the elements to apply the symmetric difference with.
      *             All elements in the graph matching the selector are used as the passed collection.
      */
-    type CollectionSymmetricDifferenceFunc = (eles: Collection | Selector) => CollectionElements;
+    type CollectionSymmetricDifferenceFunc = (eles: CollectionArgument | Selector) => CollectionReturnValue;
     /**
      * http://js.cytoscape.org/#collection/building--filtering
      */
-    interface CollectionBuildingUnion {
+    interface CollectionBuildingFiltering<TOut> {
+        /**
+         * Get an element in the collection from its ID in a very performant way.
+         * @param id The ID of the element to get.
+         */
+        getElementById(id: string): TOut;
+        /**
+         * Get an element in the collection from its ID in a very performant way.
+         * @param id The ID of the element to get.
+         */
+        $id(id: string): TOut;
+
         /**
          * Get a new collection, resulting from adding the collection with another one
          * http://js.cytoscape.org/#eles.union
          */
         union: CollectionBuildingUnionFunc;
-        // [index: "u"]: CollectionBuildingUnionFunc;
+        u: CollectionBuildingUnionFunc;
         add: CollectionBuildingUnionFunc;
-        // [index: "+"]: CollectionBuildingUnionFunc;
+        '+': CollectionBuildingUnionFunc;
         or: CollectionBuildingUnionFunc;
-        // [index: "|"]: CollectionBuildingUnionFunc;
+        '|': CollectionBuildingUnionFunc;
 
         /**
          * Get a new collection, resulting from the collection without some specified elements.
          * http://js.cytoscape.org/#eles.difference
          */
         difference: CollectionBuildingDifferenceFunc;
-        // [index: "\\"]: CollectionBuildingDifferenceFunc;
+        subtract: CollectionBuildingDifferenceFunc;
+        '\\': CollectionBuildingDifferenceFunc;
         not: CollectionBuildingDifferenceFunc;
-        // [index: "!"]: CollectionBuildingDifferenceFunc;
+        '!': CollectionBuildingDifferenceFunc;
         relativeComplement: CollectionBuildingDifferenceFunc;
-        // [index: "-"]: CollectionBuildingDifferenceFunc;
+        '-': CollectionBuildingDifferenceFunc;
 
         /**
          * Get all elements in the graph that are not in the calling collection.
          * http://js.cytoscape.org/#eles.absoluteComplement
          */
-        absoluteComplement(): CollectionElements;
-        abscomp(): CollectionElements;
-        complement(): CollectionElements;
+        absoluteComplement(): CollectionReturnValue;
+        abscomp(): CollectionReturnValue;
+        complement(): CollectionReturnValue;
 
         /**
          * Get the elements in both this collection and another specified collection.
@@ -2186,9 +2349,9 @@ declare namespace cytoscape {
         intersection: CollectionSymmetricDifferenceFunc;
         intersect: CollectionSymmetricDifferenceFunc;
         and: CollectionSymmetricDifferenceFunc;
-        // [index: "n"]: CollectionSymmetricDifferenceFunc;
-        // [index: "&"]: CollectionSymmetricDifferenceFunc;
-        // [index: "."]: CollectionSymmetricDifferenceFunc;
+        n: CollectionSymmetricDifferenceFunc;
+        '&': CollectionSymmetricDifferenceFunc;
+        '.': CollectionSymmetricDifferenceFunc;
 
         /**
          * Get the elements that are in the calling collection
@@ -2198,11 +2361,9 @@ declare namespace cytoscape {
         symmetricDifference: CollectionSymmetricDifferenceFunc;
         symdiff: CollectionSymmetricDifferenceFunc;
         xor: CollectionSymmetricDifferenceFunc;
-        // [index: "^"]: CollectionSymmetricDifferenceFunc;
-        // [index: "(+)"]: CollectionSymmetricDifferenceFunc;
-        // [index: "(-)"]: CollectionSymmetricDifferenceFunc;
-
-        // [index: string]: CollectionBuildingDifferenceFunc |CollectionBuildingUnionFunc | CollectionBuildingDifferenceFunc | CollectionSymmetricDifferenceFunc;
+        '^': CollectionSymmetricDifferenceFunc;
+        '(+)': CollectionSymmetricDifferenceFunc;
+        '(-)': CollectionSymmetricDifferenceFunc;
 
         /**
          * Perform a traditional left/right diff on the two collections.
@@ -2216,11 +2377,61 @@ declare namespace cytoscape {
          * both - is the set of elements in both collections.
          * http://js.cytoscape.org/#eles.diff
          */
-        diff(selector: Selector | Collection): {
-            left: CollectionElements,
-            right: CollectionElements,
-            both: CollectionElements
+        diff(selector: Selector | CollectionArgument): {
+            left: CollectionReturnValue,
+            right: CollectionReturnValue,
+            both: CollectionReturnValue
         };
+
+        /**
+         * Perform a in-place merge of the given elements into the calling collection.
+         * @param eles The elements to merge in-place or a selector representing the elements to merge.
+         * All elements in the graph matching the selector are used as the passed collection.
+         *
+         * This function modifies the calling collection instead of returning a new one.
+         * Use of this function should be considered for performance in some cases, but otherwise should be avoided. Consider using eles.union() instead.
+         * Use this function only on new collections that you create yourself, using cy.collection().
+         * This ensures that you do not unintentionally modify another collection.
+         *
+         * Examples
+         * With a collection:
+         * @example
+         * var col = cy.collection(); // new, empty collection
+         * var j = cy.$('#j');
+         * var e = cy.$('#e');
+         * col.merge( j ).merge( e );
+         *
+         * With a selector:
+         * @example
+         * var col = cy.collection(); // new, empty collection
+         * col.merge('#j').merge('#e');
+         */
+        merge(eles: CollectionArgument | string): this;
+        /**
+         * Perform an in-place operation on the calling collection to remove the given elements.
+         * @param eles The elements to remove  in-place or a selector representing the elements to remove .
+         * All elements in the graph matching the selector are used as the passed collection.
+         *
+         * This function modifies the calling collection instead of returning a new one.
+         * Use of this function should be considered for performance in some cases, but otherwise should be avoided. Consider using eles.filter() or eles.remove() instead.
+         * Use this function only on new collections that you create yourself, using cy.collection().
+         * This ensures that you do not unintentionally modify another collection.
+         *
+         * Examples
+         * With a collection:
+         * @example
+         * var col = cy.collection(); // new, empty collection
+         * var e = cy.$('#e');
+         * col.merge( cy.nodes() );
+         * col.unmerge( e );
+         *
+         * With a selector:
+         * @example
+         * var col = cy.collection(); // new, empty collection
+         * col.merge( cy.nodes() );
+         * col.unmerge('#e');
+         */
+        unmerge(eles: CollectionArgument | string): this;
 
         /**
          * Get a new collection containing elements that are accepted by the specified filter.
@@ -2231,21 +2442,21 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: TOut, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
         /**
          * Get the nodes that match the specified selector.
          *
          * @param selector The selector to match against.
          * http://js.cytoscape.org/#eles.filter
          */
-        nodes(selector: Selector): NodeCollection;
+        nodes(selector?: Selector): NodeCollection;
         /**
          * Get the edges that match the specified selector.
          *
          * @param selector The selector to match against.
          * http://js.cytoscape.org/#eles.filter
          */
-        edges(selector: Selector): EdgeCollection;
+        edges(selector?: Selector): EdgeCollection;
 
         /**
          * Get a new collection containing the elements sorted by the
@@ -2257,7 +2468,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.sort
          */
-        sort(sort: (ele1: CollectionElements, ele2: CollectionElements) => number): CollectionElements;
+        sort(sort: (ele1: CollectionArgument, ele2: CollectionArgument) => number): CollectionReturnValue;
 
         /**
          * Get an array containing values mapped from the collection.
@@ -2270,7 +2481,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.map
          */
-        map(fn: (ele: CollectionElements, i: number, eles: CollectionElements) => any, thisArg?: any): any[];
+        map(fn: (ele: CollectionArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): any[];
 
         /**
          * Reduce a single value by applying a
@@ -2282,11 +2493,13 @@ declare namespace cytoscape {
          * ele The current element.
          * ix The index of the current element.
          * eles The collection of elements being reduced.
-         *
+         * @param initialValue The initial value for reducing
+         * It is used also for type inference of output, but the type can be
+         * also stated explicitly as generic
          * http://js.cytoscape.org/#eles.reduce
          */
-        reduce(fn: (prevVal: any, ele: CollectionElements,
-            ix: number, eles: CollectionElements) => any): number[];
+        reduce<T>(fn: (prevVal: T, ele: SingularElementReturnValue,
+            ix: number, eles: CollectionReturnValue) => T, initialValue: T): T;
 
         /**
          * Find a minimum value in a collection.
@@ -2299,7 +2512,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.min
          */
-        min(fn: (ele: CollectionElements, i: number, eles: CollectionElements) => any, thisArg?: any): {
+        min(fn: (ele: CollectionArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
             /**
              * The minimum value found.
              */
@@ -2307,7 +2520,7 @@ declare namespace cytoscape {
             /**
              * The element that corresponds to the minimum value.
              */
-            ele: CollectionElements
+            ele: CollectionArgument
         };
 
         /**
@@ -2321,7 +2534,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.max
          */
-        max(fn: (ele: CollectionElements, i: number, eles: CollectionElements) => any, thisArg?: any): {
+        max(fn: (ele: CollectionArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
             /**
              * The maximum value found.
              */
@@ -2329,7 +2542,7 @@ declare namespace cytoscape {
             /**
              * The element that corresponds to the maximum value.
              */
-            ele: CollectionElements
+            ele: CollectionArgument
         };
     }
 
@@ -2351,7 +2564,7 @@ declare namespace cytoscape {
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        neighborhood(selector?: Selector): CollectionElements;
+        neighborhood(selector?: Selector): CollectionReturnValue;
 
         /**
          * Get the open neighbourhood of the elements.
@@ -2362,7 +2575,7 @@ declare namespace cytoscape {
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        openNeighborhood(selector?: Selector): CollectionElements;
+        openNeighborhood(selector?: Selector): CollectionReturnValue;
         /**
          * Get the closed neighbourhood of the elements.
          *
@@ -2372,13 +2585,54 @@ declare namespace cytoscape {
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        closedNeighborhood(selector?: Selector): CollectionElements;
+        closedNeighborhood(selector?: Selector): CollectionReturnValue;
 
         /**
          * Get the connected components, considering only the elements in the calling collection.
          * An array of collections is returned, with each collection representing a component.
          */
-        components(): Collection;
+        components(): CollectionReturnValue[];
+    }
+    /**
+     * http://js.cytoscape.org/#collection/edge-points
+     */
+    interface EdgeSingularPoints {
+        /**
+         * Get an array of control point model positions for a {@code curve-style: bezier) or {@code curve-style: unbundled-bezier} edge.
+         *
+         * While the control points may be specified relatively in the CSS,
+         * this function returns the absolute model positions of the control points.
+         * The points are specified in the order of source-to-target direction.
+         * This function works for bundled beziers, but it is not applicable to the middle, straight-line edge in the bundle.
+         */
+        controlPoints(): Position[];
+        /**
+         * Get an array of segment point model positions (i.e. bend points) for a {@code curve-style: segments} edge.
+         *
+         * While the segment points may be specified relatively in the stylesheet,
+         * this function returns the absolute model positions of the segment points.
+         * The points are specified in the order of source-to-target direction.
+         */
+        segmentPoints(): Position[];
+        /**
+         * Get the model position of where the edge ends, towards the source node.
+         */
+        sourceEndpoint(): Position;
+        /**
+         * Get the model position of where the edge ends, towards the target node.
+         */
+        targetEndpoint(): Position;
+        /**
+         * Get the model position of the midpoint of the edge.
+         *
+         * The midpoint is, by default, where the edge’s label is centred. It is also the position towards which mid arrows point.
+         * For curve-style: unbundled-bezier edges, the midpoint is the middle extremum if the number of control points is odd.
+         * For an even number of control points, the midpoint is where the two middle-most control points meet.
+         * This is the middle inflection point for bilaterally symmetric or skew symmetric edges, for example.
+         * For curve-style: segments edges, the midpoint is the middle segment point if the number of segment points is odd.
+         * For an even number of segment points, the overall midpoint is the midpoint of the middle-most line segment (i.e. the mean of the middle two segment points).
+         */
+        midpoint(): Position;
     }
     interface EdgeSingularTraversing {
         /**
@@ -2457,7 +2711,7 @@ declare namespace cytoscape {
          * @param eles The other collection.
          * @param selector The other collection, specified as a selector which is matched against all elements in the graph.
          */
-        edgesWith(eles: Collection | Selector): EdgeCollection;
+        edgesWith(eles: CollectionArgument | Selector): EdgeCollection;
 
         /**
          * Get the edges coming from the collection (i.e. the source) going to another collection (i.e. the target).
@@ -2465,7 +2719,7 @@ declare namespace cytoscape {
          * @param eles The other collection.
          * @param selector The other collection, specified as a selector which is matched against all elements in the graph.
          */
-        edgesTo(eles: Collection | Selector): EdgeCollection;
+        edgesTo(eles: CollectionArgument | Selector): EdgeCollection;
 
         /**
          * Get the edges connected to the nodes in the collection.
@@ -2537,7 +2791,7 @@ declare namespace cytoscape {
         /**
          * The root nodes (selector or collection) to start the search from.
          */
-        roots: Selector | Collection;
+        roots: Selector | CollectionArgument;
         /**
          * A handler function that is called when a node is visited in the search.
          */
@@ -2552,7 +2806,7 @@ declare namespace cytoscape {
          * The path of the search.
          * - The path returned includes edges such that if path[i] is a node, then path[i - 1] is the edge used to get to that node.
          */
-        path: CollectionElements;
+        path: CollectionArgument;
         /**
          * The node found by the search
          * - If no node was found, then found is empty.
@@ -2568,7 +2822,7 @@ declare namespace cytoscape {
         /**
          * The root node (selector or collection) where the algorithm starts.
          */
-        root: Selector | Collection;
+        root: Selector | CollectionArgument;
 
         /**
          * A function that returns the positive numeric weight for this edge.
@@ -2596,14 +2850,14 @@ declare namespace cytoscape {
          * The path starts with the source node and includes the edges between the nodes in the path such that if pathTo(node)[i] is an edge,
          * then pathTo(node)[i-1] is the previous node in the path and pathTo(node)[i+1] is the next node in the path.
          */
-        pathTo(node: NodeSingular): Collection;
+        pathTo(node: NodeSingular): CollectionReturnValue;
     }
     /**
      * http://js.cytoscape.org/#eles.aStar
      */
     interface SearchAStarOptions {
-        root: Selector | Collection;
-        goal: Selector | Collection;
+        root: Selector | CollectionArgument;
+        goal: Selector | CollectionArgument;
         weight?: WeightFn;
         heuristic?(node: NodeCollection): number;
         directed?: boolean;
@@ -2614,7 +2868,7 @@ declare namespace cytoscape {
     interface SearchAStarResult {
         found: boolean;
         distance: number;
-        path: Collection;
+        path: CollectionReturnValue;
     }
 
     /**
@@ -2641,7 +2895,7 @@ declare namespace cytoscape {
          * then pathTo(node)[i-1] is the previous node in the path and pathTo(node)[i+1]
          * is the next node in the path.
          */
-        path(fromNode: NodeSingular | CollectionSelection, toNode: NodeSingular | Selector): Collection;
+        path(fromNode: NodeSingular | CollectionSelection, toNode: NodeSingular | Selector): CollectionReturnValue;
     }
 
     /**
@@ -2670,7 +2924,7 @@ declare namespace cytoscape {
          * function that computes the shortest path from root node to the argument node
          * (either objects or selector string)
          */
-        pathTo(node: NodeSingular | Selector): Collection;
+        pathTo(node: NodeSingular | Selector): CollectionReturnValue;
 
         /**
          *  function that computes the shortest distance from root node to argument node
@@ -4368,13 +4622,13 @@ declare namespace cytoscape {
          * Start running the layout
          * http://js.cytoscape.org/#layout.run
          */
-        run(): void;
-        start(): void;
+        run(): this;
+        start(): this;
         /**
          * Stop running the (asynchronous/discrete) layout
          * http://js.cytoscape.org/#layout.stop
          */
-        stop(): void;
+        stop(): this;
     }
     interface LayoutEvents {
         /**
