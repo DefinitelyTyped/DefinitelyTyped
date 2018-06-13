@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.1
+// Type definitions for Mongoose 5.0.2
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -97,7 +97,10 @@ declare module "mongoose" {
   export function createConnection(): Connection;
   export function createConnection(uri: string,
     options?: ConnectionOptions
-  ): Connection;
+  ): Connection & {
+    then: Promise<Connection>["then"];
+    catch: Promise<Connection>["catch"];
+  };
 
   /**
    * Disconnects all connections.
@@ -403,9 +406,6 @@ declare module "mongoose" {
 
     /** Expose the possible connection states. */
     static STATES: any;
-
-    then: Promise<Connection>["then"];
-    catch: Promise<Connection>["catch"];
   }
 
   /*
