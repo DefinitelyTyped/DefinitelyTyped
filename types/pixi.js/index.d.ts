@@ -1465,7 +1465,7 @@ declare namespace PIXI {
         static wordWrap(text: string, style: TextStyle, canvas?: HTMLCanvasElement): string;	         static wordWrap(text: string, style: TextStyle, canvas?: HTMLCanvasElement): string;
         static measureFont(font: string): FontMetrics;	
         static addLine(line: string, newLine?: boolean): string;
-        static getFromCache(key: string, letterSpacing: number, cache: any, context: CanvasRenderingContext2D): number;	         static getFromCache(key: string, letterSpacing: number, cache: any, context: CanvasRenderingContext2D): number;
+        static getFromCache(key: string, letterSpacing: number, cache: any, context: CanvasRenderingContext2D): number;
         static collapseSpaces(whiteSpace?: string): boolean;
         static collapseNewlines(whiteSpace?: string): boolean;
         static trimRight(text?: string): string;
