@@ -760,3 +760,25 @@ describe('toHaveBeenNthCalledWith', () => {
 
     expect(fn).toHaveBeenNthCalledWith(3, "foo");
 });
+
+// Jest config
+{
+interface JestConfigModule {defaults: jest.DefaultOptions; }
+// tslint:disable-next-line:no-var-requires
+const {defaults} = require('jest-config') as JestConfigModule;
+
+const config: jest.InitialOptions = {
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest'
+  },
+  testMatch: [
+    ...defaults.testMatch,
+    '**/__tests__/**/*.ts?(x)',
+    '**/?(*.)+(spec|test).ts?(x)'
+  ],
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
+  globals: {
+    'ts-jest': {}
+  }
+};
+}
