@@ -3,22 +3,16 @@
 // Definitions by: Daniel Waxweiler <https://github.com/dwaxweiler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Tinycon {
-    function setBubble(count: number): void;
+export function setBubble(count: number): void;
 
-    function setOptions(options: TinyconOptions): void;
+export function setOptions(options: TinyconOptions): void;
 
-    interface TinyconOptions {
-        abbreviate?: boolean;
-        background?: string;
-        color?: string;
-        fallback?: boolean;
-        font?: string;
-        height?: number;
-        width?: number;
-    }
-}
-
-declare module "tinycon" {
-    export = Tinycon;
+export interface TinyconOptions {
+    abbreviate?: boolean;
+    background?: string;
+    color?: string;
+    fallback?: boolean;
+    font?: string;
+    height?: number;
+    width?: number;
 }

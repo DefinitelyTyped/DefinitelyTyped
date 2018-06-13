@@ -1,3 +1,5 @@
+import * as Tinycon from 'tinycon';
+
 Tinycon.setOptions({
     abbreviate: false,
     background: '#549A2F',
