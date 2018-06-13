@@ -313,14 +313,14 @@ declare namespace PIXI {
         destroy(options?: DestroyOptions | boolean): void;
 
         once(
-            event: 'added' | 'removed',
+            event: "added" | "removed",
             fn: (displayObject: DisplayObject) => void,
             context?: any
         ): this;
         //tslint:disable-next-line:ban-types forbidden-types
         once(event: string, fn: Function, context?: any): this;
         on(
-            event: 'added' | 'removed',
+            event: "added" | "removed",
             fn: (displayObject: DisplayObject) => void,
             context?: any
         ): this;
@@ -328,7 +328,7 @@ declare namespace PIXI {
         on(event: string, fn: Function, context?: any): this;
         //tslint:disable-next-line:ban-types forbidden-types
         off(
-            event: 'added' | 'removed' | string,
+            event: "added" | "removed" | string,
             fn?: Function,
             context?: any
         ): this;
@@ -1043,7 +1043,7 @@ declare namespace PIXI {
         /**
          * Parameter passed to webgl context, set to "high-performance" for devices with dual graphics card
          */
-        powerPreference?: 'high-performance';
+        powerPreference?: "high-performance";
     }
     interface ApplicationOptions extends RendererOptions {
         /**
@@ -1158,28 +1158,28 @@ declare namespace PIXI {
         invalidateBlendMode(): void;
 
         on(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn: () => void,
             context?: any
         ): this;
         once(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn: () => void,
             context?: any
         ): this;
         removeListener(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn?: () => void,
             context?: any
         ): this;
-        removeAllListeners(event?: 'prerender' | 'postrender'): this;
+        removeAllListeners(event?: "prerender" | "postrender"): this;
         off(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn?: () => void,
             context?: any
         ): this;
         addListener(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn: () => void,
             context?: any
         ): this;
@@ -1302,55 +1302,55 @@ declare namespace PIXI {
         destroy(removeView?: boolean): void;
 
         on(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn: () => void,
             context?: any
         ): this;
         on(
-            event: 'context',
+            event: "context",
             fn: (gl: WebGLRenderingContext) => void,
             context?: any
         ): this;
         once(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn: () => void,
             context?: any
         ): this;
         once(
-            event: 'context',
+            event: "context",
             fn: (gl: WebGLRenderingContext) => void,
             context?: any
         ): this;
         removeListener(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn?: () => void,
             context?: any
         ): this;
         removeListener(
-            event: 'context',
+            event: "context",
             fn?: (gl: WebGLRenderingContext) => void,
             context?: any
         ): this;
         removeAllListeners(
-            event?: 'prerender' | 'postrender' | 'context'
+            event?: "prerender" | "postrender" | "context"
         ): this;
         off(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn?: () => void,
             context?: any
         ): this;
         off(
-            event: 'context',
+            event: "context",
             fn?: (gl: WebGLRenderingContext) => void,
             context?: any
         ): this;
         addListener(
-            event: 'prerender' | 'postrender',
+            event: "prerender" | "postrender",
             fn: () => void,
             context?: any
         ): this;
         addListener(
-            event: 'context',
+            event: "context",
             fn: (gl: WebGLRenderingContext) => void,
             context?: any
         ): this;
@@ -1878,8 +1878,8 @@ declare namespace PIXI {
         static _canvas: HTMLCanvasElement;
         static _context: CanvasRenderingContext2D;
         static _fonts: FontMetrics;
-        static _newLines: Array<number>;
-        static _breakingSpaces: Array<number>;
+        static _newLines: number[];
+        static _breakingSpaces: number[];
 
         text: string;
         style: TextStyle;
@@ -1919,7 +1919,6 @@ declare namespace PIXI {
             style: TextStyle,
             canvas?: HTMLCanvasElement
         ): string;
-        static measureFont(font: string): FontMetrics;
         static addLine(line: string, newLine?: boolean): string;
         static getFromCache(
             key: string,
@@ -1932,7 +1931,7 @@ declare namespace PIXI {
         static trimRight(text?: string): string;
         static isNewline(char?: string): boolean;
         static isBreakingSpace(char?: string): boolean;
-        static tokenize(text?: string): Array<string>;
+        static tokenize(text?: string): string[];
         static canBreakWords(token?: string, breakWords?: boolean): boolean;
         static canBreakChars(
             char: string,
@@ -2015,28 +2014,28 @@ declare namespace PIXI {
         destroy(): void;
 
         on(
-            event: 'update',
+            event: "update",
             fn: (baseRenderTexture: BaseRenderTexture) => void,
             context?: any
         ): this;
         once(
-            event: 'update',
+            event: "update",
             fn: (baseRenderTexture: BaseRenderTexture) => void,
             context?: any
         ): this;
         removeListener(
-            event: 'update',
+            event: "update",
             fn?: (baseRenderTexture: BaseRenderTexture) => void,
             context?: any
         ): this;
-        removeAllListeners(event?: 'update'): this;
+        removeAllListeners(event?: "update"): this;
         off(
-            event: 'update',
+            event: "update",
             fn?: (baseRenderTexture: BaseRenderTexture) => void,
             context?: any
         ): this;
         addListener(
-            event: 'update',
+            event: "update",
             fn: (baseRenderTexture: BaseRenderTexture) => void,
             context?: any
         ): this;
@@ -2111,30 +2110,30 @@ declare namespace PIXI {
         static removeFromCache(baseTexture: string | BaseTexture): BaseTexture;
 
         on(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
         once(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
         removeListener(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn?: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
         removeAllListeners(
-            event?: 'update' | 'loaded' | 'error' | 'dispose'
+            event?: "update" | "loaded" | "error" | "dispose"
         ): this;
         off(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn?: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
         addListener(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
@@ -2234,28 +2233,28 @@ declare namespace PIXI {
         static WHITE: Texture;
 
         on(
-            event: 'update',
+            event: "update",
             fn: (texture: Texture) => void,
             context?: any
         ): this;
         once(
-            event: 'update',
+            event: "update",
             fn: (texture: Texture) => void,
             context?: any
         ): this;
         removeListener(
-            event: 'update',
+            event: "update",
             fn?: (texture: Texture) => void,
             context?: any
         ): this;
-        removeAllListeners(event?: 'update'): this;
+        removeAllListeners(event?: "update"): this;
         off(
-            event: 'update',
+            event: "update",
             fn?: (texture: Texture) => void,
             context?: any
         ): this;
         addListener(
-            event: 'update',
+            event: "update",
             fn: (texture: Texture) => void,
             context?: any
         ): this;
@@ -2487,7 +2486,7 @@ declare namespace PIXI {
         class BitmapText extends Container {
             static registerFont(
                 xml: XMLDocument,
-                textures: Texture | Array<Texture> | { [key: string]: Texture }
+                textures: Texture | Texture[] | { [key: string]: Texture }
             ): any;
 
             constructor(text: string, style?: BitmapTextStyle);
@@ -2844,35 +2843,35 @@ declare namespace PIXI {
             ): Point;
         }
         type InteractionPointerEvents =
-            | 'pointerdown'
-            | 'pointercancel'
-            | 'pointerup'
-            | 'pointertap'
-            | 'pointerupoutside'
-            | 'pointermove'
-            | 'pointerover'
-            | 'pointerout';
+            | "pointerdown"
+            | "pointercancel"
+            | "pointerup"
+            | "pointertap"
+            | "pointerupoutside"
+            | "pointermove"
+            | "pointerover"
+            | "pointerout";
         type InteractionTouchEvents =
-            | 'touchstart'
-            | 'touchcancel'
-            | 'touchend'
-            | 'touchendoutside'
-            | 'touchmove'
-            | 'tap';
+            | "touchstart"
+            | "touchcancel"
+            | "touchend"
+            | "touchendoutside"
+            | "touchmove"
+            | "tap";
         type InteractionMouseEvents =
-            | 'rightdown'
-            | 'mousedown'
-            | 'rightup'
-            | 'mouseup'
-            | 'rightclick'
-            | 'click'
-            | 'rightupoutside'
-            | 'mouseupoutside'
-            | 'mousemove'
-            | 'mouseover'
-            | 'mouseout'
-            | 'mouseover';
-        type InteractionPixiEvents = 'added' | 'removed';
+            | "rightdown"
+            | "mousedown"
+            | "rightup"
+            | "mouseup"
+            | "rightclick"
+            | "click"
+            | "rightupoutside"
+            | "mouseupoutside"
+            | "mousemove"
+            | "mouseover"
+            | "mouseout"
+            | "mouseover";
+        type InteractionPixiEvents = "added" | "removed";
         type InteractionEventTypes =
             | InteractionPointerEvents
             | InteractionTouchEvents
@@ -3145,12 +3144,12 @@ declare namespace PIXI {
             // depreciation
 
             on(
-                event: 'complete',
+                event: "complete",
                 fn: (loader: loaders.Loader, object: any) => void,
                 context?: any
             ): this;
             on(
-                event: 'error',
+                event: "error",
                 fn: (
                     error: Error,
                     loader: loaders.Loader,
@@ -3159,23 +3158,23 @@ declare namespace PIXI {
                 context?: any
             ): this;
             on(
-                event: 'load' | 'progress',
+                event: "load" | "progress",
                 fn: (loader: loaders.Loader, resource: Resource) => void,
                 context?: any
             ): this;
             on(
-                event: 'start',
+                event: "start",
                 fn: (loader: loaders.Loader) => void,
                 context?: any
             ): this;
 
             once(
-                event: 'complete',
+                event: "complete",
                 fn: (loader: loaders.Loader, object: any) => void,
                 context?: any
             ): this;
             once(
-                event: 'error',
+                event: "error",
                 fn: (
                     error: Error,
                     loader: loaders.Loader,
@@ -3184,23 +3183,23 @@ declare namespace PIXI {
                 context?: any
             ): this;
             once(
-                event: 'load' | 'progress',
+                event: "load" | "progress",
                 fn: (loader: loaders.Loader, resource: Resource) => void,
                 context?: any
             ): this;
             once(
-                event: 'start',
+                event: "start",
                 fn: (loader: loaders.Loader) => void,
                 context?: any
             ): this;
             //tslint:disable-next-line:ban-types forbidden-types
             off(
                 event:
-                    | 'complete'
-                    | 'error'
-                    | 'load'
-                    | 'progress'
-                    | 'start'
+                    | "complete"
+                    | "error"
+                    | "load"
+                    | "progress"
+                    | "start"
                     | string,
                 fn?: Function,
                 context?: any
@@ -4021,8 +4020,6 @@ declare namespace PIXI {
             out?: Float32Array,
             premultiply?: boolean
         ): Float32Array;
-        function clearTextureCache(): void;
-        function destroyTextureCache(): void;
         const premultiplyBlendMode: number[][];
         const TextureCache: any;
         const BaseTextureCache: any;
@@ -4172,7 +4169,7 @@ declare namespace PIXI {
                 context?: any
             ): this;
             /**
-             * This function doesn't apply anymore.
+             * This function doesn"t apply anymore.
              * @deprecated
              */
             setMaxListeners(): this;
@@ -4462,6 +4459,6 @@ declare namespace pixi {
 }
 
 //tslint:disable-next-line:no-single-declare-module
-declare module 'pixi.js' {
+declare module "pixi.js" {
     export = PIXI;
 }
