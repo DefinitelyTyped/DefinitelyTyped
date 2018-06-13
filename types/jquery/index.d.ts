@@ -137,23 +137,53 @@ interface JQueryStatic<TElement = HTMLElement> {
     // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
     <FElement extends Node = HTMLElement>(window: Window, discriminator: boolean): JQueryStatic<FElement>;
     /**
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
+     * by passing an HTML string.
+     *
+     * @param element_elementArray A DOM element to wrap in a jQuery object.
+     *                             An array containing a set of DOM elements to wrap in a jQuery object.
+     * @see {@link https://api.jquery.com/jQuery/}
+     * @since 1.0
+     */
+    <T extends Element>(element_elementArray: T | ArrayLike<T>): JQuery<T>;
+    /**
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
+     * by passing an HTML string.
+     *
+     * @param selection An existing jQuery object to clone.
+     * @see {@link https://api.jquery.com/jQuery/}
+     * @since 1.0
+     */
+    <T>(selection: JQuery<T>): JQuery<T>;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
      * Creates DOM elements on the fly from the provided string of raw HTML.
      *
      * Binds a function to be executed when the DOM has finished loading.
      *
      * @param selector_object_callback A string containing a selector expression
-     *                                 A DOM element to wrap in a jQuery object.
-     *                                 An array containing a set of DOM elements to wrap in a jQuery object.
-     *                                 A plain object to wrap in a jQuery object.
-     *                                 An existing jQuery object to clone.
+     *                                 A string of HTML to create on the fly. Note that this parses HTML, not XML.
      *                                 The function to execute when the DOM is ready.
      * @see {@link https://api.jquery.com/jQuery/}
      * @since 1.0
+     */
+    (selector_object_callback: JQuery.Selector | JQuery.htmlString | ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>; // tslint:disable-line:unified-signatures
+    /**
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
+     *
+     * @param object A plain object to wrap in a jQuery object.
+     * @see {@link https://api.jquery.com/jQuery/}
+     * @since 1.0
+     */
+    <T extends JQuery.PlainObject>(object: T): JQuery<T>;
+    /**
+     * Returns an empty jQuery set.
+     *
+     * @see {@link https://api.jquery.com/jQuery/}
      * @since 1.4
      */
-    (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
-        JQuery.PlainObject | Window |
-        ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>;
+    (): JQuery<TElement>;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
      *

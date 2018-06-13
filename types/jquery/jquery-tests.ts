@@ -42,7 +42,7 @@ function JQueryStatic() {
         // $ExpectType JQuery<HTMLElement>
         $([new HTMLElement()]);
 
-        // $ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<{ foo: string; hello: string; }>
         $({ foo: 'bar', hello: 'world' });
 
         // $ExpectType JQuery<HTMLElement>
@@ -58,6 +58,39 @@ function JQueryStatic() {
 
         // $ExpectType JQuery<HTMLElement>
         $();
+
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19597#issuecomment-378218432
+        function issue_19597_378218432() {
+            let myDiv = $(document.createElement('div')); // gets default jQuery<HTMLElement> 8-/
+            // $ExpectType JQuery<HTMLDivElement>
+            myDiv;
+            myDiv.on('click', (evt) => {
+                let target = evt.target; // HTMLElement
+                // $ExpectType HTMLDivElement
+                target;
+            });
+            let myDiv1 = $<HTMLDivElement>(document.createElement('div')); // expected 0-2 Arguments but got 1. huh?
+            // let myDiv2 = $<HTMLDivElement, null>(document.createElement('div')); // expected 0-1 Arguments but got 2. huh?
+            let myForcedDiv: JQuery<HTMLDivElement> = $(document.createElement('div')) as any;
+            myForcedDiv.on('click', (evt) => {
+                let target = evt.target; // HTMLDivElement
+                // $ExpectType HTMLDivElement
+                target;
+            });
+            let myDoc = $(document); // gets default jQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
+            myDoc;
+            myDoc.on('click', (evt) => {
+                let target = evt.target; // HTMLElement
+                // $ExpectType Document
+                target;
+            });
+            let myDocForced: JQuery<Document> = $(document); // type HTMLElement is not assignable to Type Document
+            let myWindow = $(window); // gets default jQuery<HTMLElement>
+            // $ExpectType JQuery<Window>
+            myWindow;
+            let myWindowForced: JQuery<Window> = $(window); // type Window does not satisfy contraint Node
+        }
     }
 
     function ajaxSettings() {
@@ -2142,7 +2175,7 @@ function JQuery() {
 
     function ajax() {
         function ajaxComplete() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
                 // $ExpectType Document
                 this;
@@ -2158,7 +2191,7 @@ function JQuery() {
         }
 
         function ajaxError() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
                 // $ExpectType Document
                 this;
@@ -2176,7 +2209,7 @@ function JQuery() {
         }
 
         function ajaxSend() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxSend(function(event, jqXHR, ajaxOptions) {
                 // $ExpectType Document
                 this;
@@ -2192,7 +2225,7 @@ function JQuery() {
         }
 
         function ajaxStart() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxStart(function() {
                 // $ExpectType Document
                 this;
@@ -2202,7 +2235,7 @@ function JQuery() {
         }
 
         function ajaxStop() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxStop(function() {
                 // $ExpectType Document
                 this;
@@ -2212,7 +2245,7 @@ function JQuery() {
         }
 
         function ajaxSuccess() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxSuccess(function(event, jqXHR, ajaxOptions, data) {
                 // $ExpectType Document
                 this;
@@ -5999,8 +6032,9 @@ function JQuery() {
         }
 
         function contents() {
-            // $ExpectType JQuery<HTMLElement | Comment | Text>
-            $('p').contents();
+            // TODO: Flaky test due to type ordering.
+            // // $ExpectType JQuery<HTMLElement | Comment | Text>
+            // $('p').contents();
         }
 
         function end() {
