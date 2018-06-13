@@ -638,24 +638,6 @@ declare namespace Office {
     }
 
     /**
-     * The object that is returned when `UI.displayDialogAsync` is called.
-     */
-    interface Dialog {
-        /**
-         * Called from a parent page to close the corresponding dialog box. 
-         */
-        close(): void;
-        /**
-         * Registers an event handler. The two supported events are:
-         *
-         * - DialogMessageReceived. Triggered when the dialog box sends a message to its parent.
-         *
-         * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
-         */
-        addEventHandler(eventType: Office.EventType, handler: Function): void;
-    }
-
-    /**
      * Provides options for how a dialog is displayed.
      */
     interface DialogOptions {
@@ -1048,11 +1030,11 @@ declare namespace Office {
         controlForegroundColor: string;
     }
     /**
-     * Dialog object returned as part of the displayDialogAsync callback. The object exposes methods for registering event handlers and closing the dialog
+     * The object that is returned when `UI.displayDialogAsync` is called.
      */
-    interface DialogHandler {
+    interface Dialog {
         /**
-         * When called from an active add-in dialog, asynchronously closes the dialog.
+         * Called from a parent page to close the corresponding dialog box. 
          */
         close(): void;
         /**
