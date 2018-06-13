@@ -2,7 +2,7 @@
 // Project: https://github.com/Tencent/wepy#readme
 // Definitions by: Jiayu Liu <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.2
 
 import component from "./component";
 import mixin from "./mixin";
