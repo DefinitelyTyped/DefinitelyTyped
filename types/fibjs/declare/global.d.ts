@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -11,9 +14,9 @@
 
 
 
-import console = require('console')
 
-import process = require('process')
+
+
 
 
 
@@ -215,8 +218,8 @@ declare module "global" {
 		 * 
 		 * 
 		 */
-		
 		export class Buffer extends Class_Buffer {}
+		
 		
 		/**
 		 * 
@@ -224,8 +227,8 @@ declare module "global" {
 		 * 
 		 * 
 		 */
-		
 		export class Int64 extends Class_Int64 {}
+		
 		
 		/**
 		 * 
@@ -234,7 +237,7 @@ declare module "global" {
 		 * 
 		 */
 		
-		export class console extends Class_console {}
+		export const console: typeof consoleNS
 		
 		/**
 		 * 
@@ -243,7 +246,7 @@ declare module "global" {
 		 * 
 		 */
 		
-		export class process extends Class_process {}
+		export const process: typeof processNS
 		
 		
 		

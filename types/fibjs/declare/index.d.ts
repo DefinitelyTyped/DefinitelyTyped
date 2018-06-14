@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -63,35 +66,41 @@
 import _Global from 'global';
 import _Process from 'process';
 
-declare const process: typeof _Process;
-declare const global: typeof _Global;
-declare const __filename: string;
-declare const __dirname: string;
-declare const require: typeof _Global.require;
+// declare const process: typeof _Process;
+// declare const global: typeof _Global;
+// declare const __filename: string;
+// declare const __dirname: string;
+// declare const require: typeof _Global.require;
 
 type GlobalExportsType = any;
 interface ModuleType {
 	exports: GlobalExportsType;
 }
 
+type O_Process = typeof _Process
+interface RealProcess extends O_Process {
+	env: {
+		[key: string]: string;
+	}
+}
+
 declare global {
 	var exports: GlobalExportsType;
 	const module: ModuleType;
+	const __filename: string;
+	const __dirname: string;
+	const process: RealProcess;
+	const global: typeof _Global;
 
-	/** const Buffer: Buffer; */
-	/** const Int64: Int64; */
+
+	const Buffer: typeof Class_Buffer;
+	const Int64: typeof Class_Int64;
 	/** const console: console; */
 	/** const process: process; */
-	const Master: Worker;
-	
+	const Master: typeof Class_Worker;
 	/** const global: Object; */
 	/** const run: null; */
 	const require: typeof _Global.require
-	/** const argv: Array; */
-	const __filename: string;
-	
-	const __dirname: string;
-	
 	/** const setTimeout: Timer; */
 	/** const clearTimeout: null; */
 	/** const setInterval: Timer; */

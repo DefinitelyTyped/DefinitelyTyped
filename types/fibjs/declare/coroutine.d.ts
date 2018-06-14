@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -209,8 +212,8 @@ declare module "coroutine" {
 		 * 
 		 * 
 		 */
-		
 		export class Lock extends Class_Lock {}
+		
 		
 		/**
 		 * 
@@ -218,8 +221,8 @@ declare module "coroutine" {
 		 * 
 		 * 
 		 */
-		
 		export class Semaphore extends Class_Semaphore {}
+		
 		
 		/**
 		 * 
@@ -227,8 +230,8 @@ declare module "coroutine" {
 		 * 
 		 * 
 		 */
-		
 		export class Condition extends Class_Condition {}
+		
 		
 		/**
 		 * 
@@ -236,8 +239,8 @@ declare module "coroutine" {
 		 * 
 		 * 
 		 */
-		
 		export class Event extends Class_Event {}
+		
 		
 		/**
 		 * 
@@ -245,8 +248,8 @@ declare module "coroutine" {
 		 * 
 		 * 
 		 */
-		
 		export class Worker extends Class_Worker {}
+		
 		
 		
 		

@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -377,8 +380,8 @@ declare module "crypto" {
 		 * 
 		 * 
 		 */
-		
 		export class Cipher extends Class_Cipher {}
+		
 		
 		/**
 		 * 
@@ -386,8 +389,8 @@ declare module "crypto" {
 		 * 
 		 * 
 		 */
-		
 		export class PKey extends Class_PKey {}
+		
 		
 		/**
 		 * 
@@ -395,8 +398,8 @@ declare module "crypto" {
 		 * 
 		 * 
 		 */
-		
 		export class X509Cert extends Class_X509Cert {}
+		
 		
 		/**
 		 * 
@@ -404,8 +407,8 @@ declare module "crypto" {
 		 * 
 		 * 
 		 */
-		
 		export class X509Crl extends Class_X509Crl {}
+		
 		
 		/**
 		 * 
@@ -413,8 +416,8 @@ declare module "crypto" {
 		 * 
 		 * 
 		 */
-		
 		export class X509Req extends Class_X509Req {}
+		
 		
 		
 		

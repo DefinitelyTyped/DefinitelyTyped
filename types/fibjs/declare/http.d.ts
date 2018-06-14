@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -209,8 +212,8 @@ declare module "http" {
 		 * 
 		 * 
 		 */
-		
 		export class HttpRequest extends Class_HttpRequest {}
+		
 		
 		/**
 		 * 
@@ -218,8 +221,8 @@ declare module "http" {
 		 * 
 		 * 
 		 */
-		
 		export class HttpResponse extends Class_HttpResponse {}
+		
 		
 		/**
 		 * 
@@ -227,8 +230,8 @@ declare module "http" {
 		 * 
 		 * 
 		 */
-		
 		export class HttpCookie extends Class_HttpCookie {}
+		
 		
 		/**
 		 * 
@@ -236,8 +239,8 @@ declare module "http" {
 		 * 
 		 * 
 		 */
-		
 		export class HttpServer extends Class_HttpServer {}
+		
 		
 		/**
 		 * 
@@ -245,8 +248,8 @@ declare module "http" {
 		 * 
 		 * 
 		 */
-		
 		export class HttpClient extends Class_HttpClient {}
+		
 		
 		/**
 		 * 
@@ -254,8 +257,8 @@ declare module "http" {
 		 * 
 		 * 
 		 */
-		
 		export class HttpsServer extends Class_HttpsServer {}
+		
 		
 		/**
 		 * 
@@ -263,8 +266,8 @@ declare module "http" {
 		 * 
 		 * 
 		 */
-		
 		export class HttpHandler extends Class_HttpHandler {}
+		
 		
 		
 		

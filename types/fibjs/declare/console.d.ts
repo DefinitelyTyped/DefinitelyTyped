@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -616,7 +619,18 @@ declare module "console" {
 	
 		/**
 		 * 
-		 * @brief 统计指定计时器的数值
+		 * @brief 输出指定计时器当前计时值
+		 * 
+		 * @param label 标题，缺省为空字符串。
+		 * 
+		 * 
+		 * 
+		 */
+		export function timeElapse(label?: string/** = "time"*/): void;
+	
+		/**
+		 * 
+		 * @brief 结束指定计时器，并输出最后计时值
 		 * 
 		 * @param label 标题，缺省为空字符串。
 		 * 

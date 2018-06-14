@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -62,7 +65,7 @@ declare class Class_Handler extends Class__object {
 	 * 
 	 * @async
 	 */
-	invoke(v: Class_object): Class_Handler;
+	invoke(v: Class__object): Class_Handler;
 
 } /** endof class */
 

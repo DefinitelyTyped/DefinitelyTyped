@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -297,8 +300,8 @@ declare module "ssl" {
 		 * 
 		 * 
 		 */
-		
 		export class SslSocket extends Class_SslSocket {}
+		
 		
 		/**
 		 * 
@@ -306,8 +309,8 @@ declare module "ssl" {
 		 * 
 		 * 
 		 */
-		
 		export class SslHandler extends Class_SslHandler {}
+		
 		
 		/**
 		 * 
@@ -315,8 +318,8 @@ declare module "ssl" {
 		 * 
 		 * 
 		 */
-		
 		export class SslServer extends Class_SslServer {}
+		
 		
 		
 		

@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -1010,7 +1013,7 @@ declare class Class_Buffer extends Class__object {
 	 * 
 	 * 
 	 */
-	equals(expected: Class_object): boolean;
+	equals(expected: Class__object): boolean;
 
 	/**
 	 * 
@@ -1097,7 +1100,7 @@ declare class Class_Buffer extends Class__object {
 	 * 
 	 * 
 	 */
-	toString(codec: string, offset?: number/** = 0*/, end: number): string;
+	toString(codec: string, offset?: number/** = 0*/, end?: number): string;
 
 	/**
 	 * 

@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -209,8 +212,8 @@ declare module "util" {
 		 * 
 		 * 
 		 */
-		
 		export class Stats extends Class_Stats {}
+		
 		
 		/**
 		 * 
@@ -218,8 +221,8 @@ declare module "util" {
 		 * 
 		 * 
 		 */
-		
 		export class LruCache extends Class_LruCache {}
+		
 		
 		
 		

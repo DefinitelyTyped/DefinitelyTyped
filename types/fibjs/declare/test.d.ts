@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -11,9 +14,9 @@
 
 
 
-import console = require('console')
 
-import assert = require('assert')
+
+
 
 
 
@@ -216,7 +219,7 @@ declare module "test" {
 		 * 
 		 */
 		
-		export class assert extends Class_assert {}
+		export const assert: typeof assertNS
 		
 		
 		

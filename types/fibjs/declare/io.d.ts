@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -209,8 +212,8 @@ declare module "io" {
 		 * 
 		 * 
 		 */
-		
 		export class MemoryStream extends Class_MemoryStream {}
+		
 		
 		/**
 		 * 
@@ -218,8 +221,8 @@ declare module "io" {
 		 * 
 		 * 
 		 */
-		
 		export class BufferedStream extends Class_BufferedStream {}
+		
 		
 		
 		

@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -11,19 +14,19 @@
 
 
 
-import base32 = require('base32')
 
-import base64 = require('base64')
 
-import base64vlq = require('base64vlq')
 
-import hex = require('hex')
 
-import iconv = require('iconv')
 
-import json = require('json')
 
-import bson = require('bson')
+
+
+
+
+
+
+
 
 
 
@@ -231,7 +234,7 @@ declare module "encoding" {
 		 * 
 		 */
 		
-		export class base32 extends Class_base32 {}
+		export const base32: typeof base32NS
 		
 		/**
 		 * 
@@ -240,7 +243,7 @@ declare module "encoding" {
 		 * 
 		 */
 		
-		export class base64 extends Class_base64 {}
+		export const base64: typeof base64NS
 		
 		/**
 		 * 
@@ -249,7 +252,7 @@ declare module "encoding" {
 		 * 
 		 */
 		
-		export class base64vlq extends Class_base64vlq {}
+		export const base64vlq: typeof base64vlqNS
 		
 		/**
 		 * 
@@ -258,7 +261,7 @@ declare module "encoding" {
 		 * 
 		 */
 		
-		export class hex extends Class_hex {}
+		export const hex: typeof hexNS
 		
 		/**
 		 * 
@@ -267,7 +270,7 @@ declare module "encoding" {
 		 * 
 		 */
 		
-		export class iconv extends Class_iconv {}
+		export const iconv: typeof iconvNS
 		
 		/**
 		 * 
@@ -276,7 +279,7 @@ declare module "encoding" {
 		 * 
 		 */
 		
-		export class json extends Class_json {}
+		export const json: typeof jsonNS
 		
 		/**
 		 * 
@@ -285,7 +288,7 @@ declare module "encoding" {
 		 * 
 		 */
 		
-		export class bson extends Class_bson {}
+		export const bson: typeof bsonNS
 		
 		
 		

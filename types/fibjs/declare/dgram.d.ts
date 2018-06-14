@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -211,8 +214,8 @@ declare module "dgram" {
 		 * 
 		 * 
 		 */
-		
 		export class DgramSocket extends Class_DgramSocket {}
+		
 		
 		
 		

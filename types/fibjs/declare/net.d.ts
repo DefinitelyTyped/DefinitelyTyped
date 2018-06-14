@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -241,8 +244,8 @@ declare module "net" {
 		 * 
 		 * 
 		 */
-		
 		export class Socket extends Class_Socket {}
+		
 		
 		/**
 		 * 
@@ -250,8 +253,8 @@ declare module "net" {
 		 * 
 		 * 
 		 */
-		
 		export class Smtp extends Class_Smtp {}
+		
 		
 		/**
 		 * 
@@ -259,8 +262,8 @@ declare module "net" {
 		 * 
 		 * 
 		 */
-		
 		export class TcpServer extends Class_TcpServer {}
+		
 		
 		/**
 		 * 
@@ -268,8 +271,8 @@ declare module "net" {
 		 * 
 		 * 
 		 */
-		
 		export class UrlObject extends Class_UrlObject {}
+		
 		
 		
 		

@@ -1,6 +1,9 @@
 /***************************************************************************
  *                                                                         *
- *   This file was automatically generated with idlc.js                   *
+ *   This file was automatically generated with idlc.js                    *
+ *	 build info: 								   						   *
+ *   	- fibjs	: 0.25.0                                                   *
+ *   	- date	: Jun 11 2018 14:17:22                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -209,8 +212,8 @@ declare module "mq" {
 		 * 
 		 * 
 		 */
-		
 		export class Message extends Class_Message {}
+		
 		
 		/**
 		 * 
@@ -218,8 +221,8 @@ declare module "mq" {
 		 * 
 		 * 
 		 */
-		
 		export class HttpHandler extends Class_HttpHandler {}
+		
 		
 		/**
 		 * 
@@ -249,8 +252,8 @@ declare module "mq" {
 		 * 
 		 * 
 		 */
-		
 		export class Handler extends Class_Handler {}
+		
 		
 		/**
 		 * 
@@ -258,8 +261,8 @@ declare module "mq" {
 		 * 
 		 * 
 		 */
-		
 		export class Chain extends Class_Chain {}
+		
 		
 		/**
 		 * 
@@ -267,8 +270,8 @@ declare module "mq" {
 		 * 
 		 * 
 		 */
-		
 		export class Routing extends Class_Routing {}
+		
 		
 		
 		
@@ -293,7 +296,7 @@ declare module "mq" {
 		 * 
 		 * @async
 		 */
-		export function invoke(hdlr: Class_Handler, v: Class_object): void;
+		export function invoke(hdlr: Class_Handler, v: Class__object): void;
 	
 	} /** end of `module mq` */
 	export = mq
