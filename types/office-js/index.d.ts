@@ -7703,12 +7703,7 @@ declare namespace Office {
         /**
          * Gets the Exchange Web Services item class of the selected item.
          *
-         * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
-         *
-         * [div class="mx-tdBreakAll"|Type|Description|item class|
-         * |-----------|------------|------------|
-         * |Appointment items|These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.|IPM.Appointment,IPM.Appointment.Occurence|
-         * |Message items|These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.|IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled|
+
          *
          * You can create custom message classes that extends a default message class, for example, a custom appointment message class IPM.Appointment.Contoso.
          *
@@ -7719,6 +7714,13 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          *
          * Applicable Outlook mode: Appointment Attendee
+         * 
+         * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
+         * 
+         * |Type|Description|item class|
+         * |-----------|------------|------------|
+         * |Appointment items|These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.|IPM.Appointment,IPM.Appointment.Occurence|
+         * |Message items|These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.|IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled|
          */
         itemClass: string;
         /**
@@ -7868,11 +7870,19 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
          * [Api set: Mailbox 1.0]
+         * 
+         * @param entityType One of the EntityType enumeration values.
          *
          * @returns
          * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present on the item, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
          *
+         * @remarks
+         * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: Restricted
+         *
+         * Applicable Outlook mode: Appointment Attendee
+         * 
          * While the minimum permission level to use this method is Restricted, some entity types require ReadItem to access, as specified in the following table.
+         * 
          * |Value of entityType|Type of objects in returned array|Required Permission Level|
          * |-------|-----------|----------|
          * |Address|String|Restricted|
@@ -7882,13 +7892,6 @@ declare namespace Office {
          * |PhoneNumber|PhoneNumber|Restricted|
          * |TaskSuggestion|TaskSuggestion|ReadItem|
          * |URL|String|Restricted|
-         *
-         * @remarks
-         * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: Restricted
-         *
-         * Applicable Outlook mode: Appointment Attendee
-         *
-         * @param entityType One of the EntityType enumeration values.
          */
         getEntitiesByType(entityType: Office.MailboxEnums.EntityType): (string | Contact | MeetingSuggestion | PhoneNumber | TaskSuggestion)[];
         /**
@@ -9016,12 +9019,6 @@ declare namespace Office {
         /**
          * Gets the Exchange Web Services item class of the selected item.
          *
-         * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
-         *
-         * [div class="mx-tdBreakAll"|Type|Description|item class|
-         * |-----------|------------|------------|
-         * |Appointment items|These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.|IPM.Appointment,IPM.Appointment.Occurence|
-         * |Message items|These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.|IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled|
          *
          * You can create custom message classes that extends a default message class, for example, a custom appointment message class IPM.Appointment.Contoso.
          *
@@ -9032,6 +9029,13 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          *
          * Applicable Outlook mode: Read
+         * 
+         * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
+         * 
+         * |Type|Description|item class|
+         * |-----------|------------|------------|
+         * |Appointment items|These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.|IPM.Appointment,IPM.Appointment.Occurence|
+         * |Message items|These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.|IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled|
          */
         itemClass: string;
         /**
@@ -9181,11 +9185,19 @@ declare namespace Office {
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
          * [Api set: Mailbox 1.0]
+         * 
+         * @param entityType One of the EntityType enumeration values.
          *
          * @returns
          * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present on the item, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
          *
+         * @remarks
+         * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: Restricted
+         *
+         * Applicable Outlook mode: Read
+         * 
          * While the minimum permission level to use this method is Restricted, some entity types require ReadItem to access, as specified in the following table.
+         * 
          * |Value of entityType|Type of objects in returned array|Required Permission Level|
          * |-------|-----------|----------|
          * |Address|String|Restricted|
@@ -9195,13 +9207,6 @@ declare namespace Office {
          * |PhoneNumber|PhoneNumber|Restricted|
          * |TaskSuggestion|TaskSuggestion|ReadItem|
          * |URL|String|Restricted|
-         *
-         * @remarks
-         * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: Restricted
-         *
-         * Applicable Outlook mode: Read
-         *
-         * @param entityType One of the EntityType enumeration values.
          */
         getEntitiesByType(entityType: Office.MailboxEnums.EntityType): (string | Contact | MeetingSuggestion | PhoneNumber | TaskSuggestion)[];
         /**
@@ -10538,23 +10543,24 @@ declare namespace Office {
         attachments: AttachmentDetails[];
         /**
          * Gets the Exchange Web Services item class of the selected item.
-         *
-         * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
-         *
+         * 
          * You can create custom message classes that extends a default message class, for example, a custom appointment message class IPM.Appointment.Contoso.
          *
          * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
+
+         * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
+         *
+         * Applicable Outlook mode: Message Read
+         * 
+         * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
+         * 
          * |Type|Description|Item Class|
          * |-----------|------------|------------|
          * |Appointment items|These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.|IPM.Appointment,IPM.Appointment.Occurence|
          * |Message items|These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.|IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled|
-         * 
-         * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
-         *
-         * Applicable Outlook mode: Message Read
          */
         itemClass: string;
         /**
@@ -10709,10 +10715,16 @@ declare namespace Office {
          *
          * [Api set: Mailbox 1.0]
          *
+         * @param entityType One of the EntityType enumeration values.
+         * 
          * @returns
          * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present on the item, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
          *
          * @remarks
+         * 
+         * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: Restricted
+         *
+         * Applicable Outlook mode: Message Read
          * 
          * While the minimum permission level to use this method is Restricted, some entity types require ReadItem to access, as specified in the following table.
          * 
@@ -10725,12 +10737,6 @@ declare namespace Office {
          * |PhoneNumber|PhoneNumber|Restricted|
          * |TaskSuggestion|TaskSuggestion|ReadItem|
          * |URL|String|Restricted|
-         * 
-         * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: Restricted
-         *
-         * Applicable Outlook mode: Message Read
-         *
-         * @param entityType One of the EntityType enumeration values.
          */
         getEntitiesByType(entityType: Office.MailboxEnums.EntityType): (string | Contact | MeetingSuggestion | PhoneNumber | TaskSuggestion)[];
         /**
