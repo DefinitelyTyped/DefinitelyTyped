@@ -7,6 +7,7 @@
 
 /*
  * Copyright (c) 2016 GPC.solutions
+ * Copyright (c) 2018 https://propelmypr.com
  */
 
 // tslint:disable-next-line:export-just-namespace
