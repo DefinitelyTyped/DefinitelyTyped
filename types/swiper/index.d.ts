@@ -887,6 +887,26 @@ declare module 'swiper' {
          */
         allowTouchMove;
 
+        // Modules
+        
+        public navigation?: Navigation;
+        public pagination?: Pagination;
+        public scrollbar?: Scrollbar;
+        public autoplay?: Autoplay;
+        public lazy?: Lazy;
+        // fadeEffect;
+        // coverflowEffect;
+        // flipEffect;
+        // cubeEffect;
+        public zoom?: Zoom;
+        public keyboard?: Keyboard;
+        public mousewheel?: Mousewheel;
+        public virtual?: Virtual;
+        // hash;
+        // history;
+        // controller;
+        // a11y;
+
         // Methods
 
         /**
@@ -894,14 +914,14 @@ declare module 'swiper' {
          *  speed - number - transition duration (in ms). Optional
          * runCallbacks - boolean - Set it to false (by default it is true) and transition will not produce transition events. Optional
          */
-        slideNext: (speed: number, runCallbacks: boolean) => {};
+        public slideNext(speed: number, runCallbacks: boolean): void;
 
         /**
          * Run transition to previous slide
         // speed - number - transition duration (in ms). Optional
         // runCallbacks - boolean - Set it to false (by default it is true) and transition will not produce transition events. Optional
          */
-        slidePrev: (speed: number, runCallbacks: boolean) => {};
+        public slidePrev(speed: number, runCallbacks: boolean): void;
 
         /**
          * Run transition to the slide with index number equal to 'index' parameter for the duration equal to 'speed' parameter.
@@ -910,7 +930,7 @@ declare module 'swiper' {
          * @param speed - transition duration (in ms). Optional
          * @param runCallbacks - Set it to false (by default it is true) and transition will not produce transition events. Optional
          */
-        slideTo: (index: number, speed: number, runCallbacks: boolean) => {};
+        public slideTo(index: number, speed: number, runCallbacks: boolean): void;
 
         /**
          * You should call it after you add/remove slides
@@ -919,66 +939,53 @@ declare module 'swiper' {
          * This method also includes subcall of the following
          * methods which you can use separately:
          */
-        update: () => {};
+        public update(): void;
 
         /**
          * recalculate size of swiper container
          */
-        updateSize: () => {};
+        public updateSize(): void;
 
         /**
          * recalculate number of slides and their offsets. Useful after you add/remove slides with JavaScript
          */
-        updateSlides: () => {};
+        public updateSlides(): void;
 
         /**
          * recalculate swiper progress
          */
-        updateProgress: () => {};
+        public updateProgress(): void;
 
         /**
          * update active/prev/next classes on slides and bullets
          */
-        updateSlidesClasses: () => {};
+        public updateSlidesClasses(): void;
 
         /**
          * tach all events listeners
          */
-        detachEvents: () => {};
+        public detachEvents(): void;
 
         /**
          * Atach all events listeners again
          */
-        attachEvents: () => {};
+        public attachEvents(): void;
 
         /**
          * Destroy slider instance and detach all events listeners, where
-         */
-        destroy: (deleteInstance: any, cleanStyles: any) => {};
-
-        /**
+         *
+         *
+         * @param deleteInstance: ;
          * Set it to false (by default it is true) to not to delete Swiper instance
-         */
-        deleteInstance: boolean;
-
-        /**
+         *
+         * @param cleanStyles
          * Set it to true (by default it is true) and all
          * custom styles will be removed from slides,
          * wrapper and container. Useful if you need to
          * destroy Swiper and to init again with new
          * options or in different direction
          */
-        cleanStyles: boolean;
-
-        /*
-         * [If installed with use] The zoom module accessor.
-         */
-        zoom?: Zoom;
-
-        /**
-         * Installs modules on Swiper in runtime.
-         */
-        public static use(modules: any[]): void;
+        public destroy(deleteInstance: boolean, cleanStyles: boolean): void;
 
         /**
          * Add new slides to the end. slides could be
@@ -1059,6 +1066,11 @@ declare module 'swiper' {
          * Set grab cursor
          */
         public setGrabCursor();
+
+        /**
+         * Installs modules on Swiper in runtime.
+         */
+        public static use(modules: any[]): void;
     }
 }
 
