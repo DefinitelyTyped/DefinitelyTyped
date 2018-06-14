@@ -5,7 +5,7 @@
 
 declare global {
     interface SymbolConstructor {
-        observable: symbol;
+        readonly observable: symbol;
     }
 
     namespace ZenObservable {
