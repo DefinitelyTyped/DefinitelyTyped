@@ -140,7 +140,7 @@ declare namespace request {
         method?: string;
         headers?: Headers;
         body?: any;
-        family?: number;
+        family?: 4 | 6;
         followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
         followAllRedirects?: boolean;
         followOriginalHttpMethod?: boolean;
