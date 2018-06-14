@@ -36,8 +36,16 @@ interface MyComponentState {
 }
 
 class MyComponent extends Component<MyComponentProps, MyComponentState> {
+    handleEcho(value: string) {
+        return value;
+    }
     setState(...args: any[]) {
         console.log(args);
+    }
+}
+class MyComponentPropsOnly extends Component<MyComponentProps> {
+    handleEcho(value: string) {
+        return value;
     }
 }
 
@@ -340,7 +348,16 @@ function ShallowWrapperTest() {
     }
 
     function test_instance() {
-        const myComponent: MyComponent = shallowWrapper.instance();
+        const myComponent = shallowWrapper.instance() as MyComponent;
+        myComponent.handleEcho('it works');
+
+        const wrapper = shallow<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapper.instance().handleEcho('it works');
+
+        const wrapperPropsOnly = shallow<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapperPropsOnly.setProps({stringProp: 'new value'});
+        // $ExpectError
+        wrapperPropsOnly.instance().handleEcho;
     }
 
     function test_update() {
@@ -696,7 +713,16 @@ function ReactWrapperTest() {
     }
 
     function test_instance() {
-        const myComponent: MyComponent = reactWrapper.instance();
+        const myComponent = reactWrapper.instance() as MyComponent;
+        myComponent.handleEcho('it works');
+
+        const wrapperPropsOnly = mount<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapperPropsOnly.setProps({stringProp: 'new value'});
+        // $ExpectError
+        wrapperPropsOnly.instance().handleEcho;
+
+        const wrapper = mount<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapper.instance().handleEcho('it works');
     }
 
     function test_update() {
