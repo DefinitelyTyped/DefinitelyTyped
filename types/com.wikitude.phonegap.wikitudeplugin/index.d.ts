@@ -2,6 +2,7 @@
 // Project: https://github.com/Wikitude/wikitude-cordova-plugin
 // Definitions by: zbarbuto <https://github.com/zbarbuto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // The following types are taken directly (unmodified) from the wikitude-ionic-3-starter-app
 // https://github.com/pbreuss/wikitude-ionic-3-starter-app
