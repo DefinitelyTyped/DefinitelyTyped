@@ -73,9 +73,9 @@ export class Authorizer {
 export interface Packet {
     topic: string;
     payload: any;
-    messageId: any;
-    qos: any;
-    retain: any;
+    messageId: string;
+    qos: number;
+    retain: boolean;
 }
 
 export interface Message {
