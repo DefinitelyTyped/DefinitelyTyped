@@ -64,6 +64,7 @@ export class GUI {
     destroy(): void;
 
     addFolder(propName:string): GUI;
+    removeFolder(subFolder:GUI):void;
 
     open(): void;
     close(): void;
