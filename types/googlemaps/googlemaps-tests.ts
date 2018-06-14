@@ -60,6 +60,33 @@ map.fitBounds({
     top: 50
 });
 
+/***** Pan map to bounds *****/
+map.panToBounds({
+    north: 10,
+    east: 10,
+    west: 10,
+    south: 10
+})
+
+map.panToBounds({
+    north: 10,
+    east: 10,
+    west: 10,
+    south: 10
+}, 50)
+
+map.panToBounds({
+    east: 10,
+    north: 10,
+    south: 10,
+    west: 10
+}, {
+    bottom: 100,
+    left: 150,
+    right: 150,
+    top: 50
+});
+
 
 /***** Data *****/
 
