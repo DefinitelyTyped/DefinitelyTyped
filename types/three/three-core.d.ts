@@ -5518,6 +5518,12 @@ export class WebGLRenderer implements Renderer {
     renderBufferDirect(camera: Camera, fog: Fog, material: Material, geometryGroup: any, object: Object3D): void;
 
     /**
+     * A build in function that can be used instead of requestAnimationFrame. For WebVR projects this function must be used.
+     * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
+     */
+    animate(callback: Function): void;
+
+    /**
      * Render a scene using a camera.
      * The render is done to the renderTarget (if specified) or to the canvas as usual.
      * If forceClear is true, the canvas will be cleared before rendering, even if the renderer's autoClear property is false.
