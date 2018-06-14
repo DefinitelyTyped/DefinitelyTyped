@@ -1,4 +1,4 @@
-import * as GracefulShutdown from 'http-graceful-shutdown';
+import GracefulShutdown = require('http-graceful-shutdown');
 import * as http from "http";
 
 const opts: GracefulShutdown.Options = {
