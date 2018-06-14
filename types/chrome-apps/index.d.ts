@@ -9,21 +9,21 @@
 ///////////////
 // WebView ref: https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json
 ///////////////
-
-////////////////////
-// Accessibility Features
-////////////////////
-/**
- * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features.
- * This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features.
- * In order to get feature states the extension must request accessibilityFeatures.read permission.
- * For modifying feature state, the extension needs accessibilityFeatures.modify permission.
- * Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
- * Permissions: 'accessibilityFeatures.read' (For read access); 'accessibilityFeatures.modify' (For modifications; Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.)
- * Important: This API works only on Chrome OS.
- * @since Availability: Since Chrome 37.
- */
 declare namespace chrome {
+
+    ////////////////////
+    // Accessibility Features
+    ////////////////////
+    /**
+     * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features.
+     * This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features.
+     * In order to get feature states the extension must request accessibilityFeatures.read permission.
+     * For modifying feature state, the extension needs accessibilityFeatures.modify permission.
+     * Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
+     * Permissions: 'accessibilityFeatures.read' (For read access); 'accessibilityFeatures.modify' (For modifications; Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.)
+     * Important: This API works only on Chrome OS.
+     * @since Availability: Since Chrome 37.
+     */
     namespace accessibilityFeatures {
         interface AccessibilityFeaturesGetArg {
             /** Optional. Whether to return the value that applies to the incognito session (default false).  */
@@ -706,8 +706,9 @@ declare namespace chrome {
     // Audio
     ////////////////////
     /**
-     * The chrome.audio API is provided to allow users to get information about and control the audio devices attached to the system. This API is currently only implemented for ChromeOS.
-     * @since Chrome 59
+     * The chrome.audio API is provided to allow users to get information about and control the audio devices attached to the system.
+     * This API is currently only implemented for ChromeOS.
+     * @since Since Chrome 59.
      */
     namespace audio {
         export type StreamType = 'INPUT' | 'OUTPUT';
@@ -836,37 +837,63 @@ declare namespace chrome {
      */
     namespace bluetooth {
         interface AdapterState {
+            /** The address of the adapter, in the format 'XX:XX:XX:XX:XX:XX'. */
             address: string;
+            /** The human-readable name of the adapter. */
             name: string;
+            /** Indicates whether or not the adapter has power. */
             powered: boolean;
+            /** Indicates whether or not the adapter is available (i.e. enabled). */
             available: boolean;
+            /** Indicates whether or not the adapter is currently discovering. */
             discovering: boolean;
         }
         interface Device {
+            /** The address of the device, in the format 'XX:XX:XX:XX:XX:XX'. */
             address: string;
+            /** The human-readable name of the device. */
             name?: string;
+            /** The class of the device, a bit-field defined by http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband. */
             deviceClass?: number;
+            /** The Device ID record of the device, where available. */
             vendorIdSource?: 'bluetooth' | 'usb';
             vendorId?: number;
             productId?: number;
             deviceId?: number;
+            /**
+             * The type of the device, if recognized by Chrome.
+             * This is obtained from the |deviceClass| field and only represents a small fraction of the possible device types.
+             * When in doubt you should use the |deviceClass| field directly.
+             */
             type?: 'computer' | 'phone' | 'modem' | 'audio' | 'carAudio' | 'video' | 'peripheral' | 'joystick' | 'gamepad' | 'keyboard' | 'mouse' | 'tablet' | 'keyboardMouseCombo';
+            /** Indicates whether or not the device is paired with the system. */
             paired?: boolean;
+            /** Indicates whether the device is currently connected to the system. */
             connected?: boolean;
             /**
+             * Indicates whether the device is currently connecting to the system.
              * @since Chrome 48
              */
             connecting?: boolean;
             /**
+             * Indicates whether the device is connectable.
              * @since Chrome 48
              */
             connectable?: boolean;
+            /**
+             * UUIDs of protocols, profiles and services advertised by the device.
+             * For classic Bluetooth devices, this list is obtained from EIR data and SDP tables.
+             * For Low Energy devices, this list is obtained from AD and GATT primary services.
+             * For dual mode devices this may be obtained from both.
+             */
             uuids?: string[];
             /**
+             * The received signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
              * @since Chrome 44
              */
             inquiryRssi: number;
             /**
+             * The transmitted power level. This field is avaliable only for LE devices that include this field in AD. It is avaliable and valid only during discovery.
              * @since Chrome 44
              */
             inquiryTxPower: number;
