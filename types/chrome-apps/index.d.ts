@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-/// <reference types="filesystem"/>
+/// <reference types='filesystem'/>
 
 ///////////////
 // WebView ref: https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json
@@ -16,7 +16,7 @@
 /**
  * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request accessibilityFeatures.read permission. For modifying feature state, the extension needs accessibilityFeatures.modify permission. Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
  * @since Availability: Since Chrome 37.
- * Permissions: "accessibilityFeatures.read" (For read access); "accessibilityFeatures.modify" (For modifications; Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.)
+ * Permissions: 'accessibilityFeatures.read' (For read access); 'accessibilityFeatures.modify' (For modifications; Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.)
  * Important: This API works only on Chrome OS.
  */
 declare namespace chrome {
@@ -36,7 +36,7 @@ declare namespace chrome {
              * • controllable_by_this_extension: can be controlled by this extension
              * • controlled_by_this_extension: controlled by this extension
              */
-            levelOfControl: string;
+            levelOfControl: 'not_controllable' | 'controlled_by_other_extensions' | 'controllable_by_this_extension' | 'controlled_by_this_extension';
             /** Optional. Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
             incognitoSpecific?: boolean;
         }
@@ -55,7 +55,7 @@ declare namespace chrome {
              * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
              * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: string;
+            scope?: 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
         }
 
         interface AccessibilityFeaturesClearArg {
@@ -67,7 +67,7 @@ declare namespace chrome {
              * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
              * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: string;
+            scope?: 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
         }
 
         interface AccessibilityFeaturesSetting {
@@ -96,13 +96,63 @@ declare namespace chrome {
             clear(details: AccessibilityFeaturesClearArg, callback?: () => void): void;
         }
 
+        /**
+         * Spoken feedback (text-to-speech). The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         */
         export var spokenFeedback: AccessibilityFeaturesSetting;
+        /**
+         * Enlarged cursor. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         */
         export var largeCursor: AccessibilityFeaturesSetting;
+        /**
+         * Sticky modifier keys (like shift or alt). The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         */
         export var stickyKeys: AccessibilityFeaturesSetting;
+        /**
+         * High contrast rendering mode. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         */
         export var highContrast: AccessibilityFeaturesSetting;
+        /**
+         * Full screen magnification. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         */
         export var screenMagnifier: AccessibilityFeaturesSetting;
+        /**
+         * Auto mouse click after mouse stops moving. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         */
         export var autoclick: AccessibilityFeaturesSetting;
+        /**
+         * Virtual on-screen keyboard. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         */
         export var virtualKeyboard: AccessibilityFeaturesSetting;
+        /**
+         * Caret highlighting. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         * @since Since Chrome 51.
+         */
+        export var caretHighlight: AccessibilityFeaturesSetting;
+        /**
+         * Cursor highlighting. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         * @since Since Chrome 51.
+         */
+        export var cursorHighlight: AccessibilityFeaturesSetting;
+        /**
+         * Focus highlighting. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         * @since Since Chrome 51.
+         */
+        export var focusHighlight: AccessibilityFeaturesSetting;
+        /**
+         * Select-to-speak. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         * @since Since Chrome 51.
+         */
+        export var selectToSpeak: AccessibilityFeaturesSetting;
+        /**
+         * Switch access. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         * @since Since Chrome 51.
+         */
+        export var switchAccess: AccessibilityFeaturesSetting;
+        /**
+         * get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
+         * @since Since Chrome 42.
+         */
         export var animationPolicy: AccessibilityFeaturesSetting;
     }
 
@@ -112,7 +162,7 @@ declare namespace chrome {
     /**
      * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future.
      * Availability: Since Chrome 22.
-     * Permissions:  "alarms"
+     * Permissions:  'alarms'
      */
     namespace alarms {
         interface AlarmCreateInfo {
@@ -137,14 +187,14 @@ declare namespace chrome {
 
         /**
          * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
-         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after 'now' without warning but won't actually cause the alarm to fire for at least 1 minute.
          * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
          * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
          */
         export function create(alarmInfo: AlarmCreateInfo): void;
         /**
          * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
-         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after 'now' without warning but won't actually cause the alarm to fire for at least 1 minute.
          * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
          * @param name Optional name to identify this alarm. Defaults to the empty string.
          * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
@@ -291,7 +341,7 @@ declare namespace chrome {
             maxHeight?: number;
             /**
              * @description
-             * @type {(string | FrameOptions)} string ("none", "chrome") or FrameOptions
+             * @type {(string | FrameOptions)} string ('none', 'chrome') or FrameOptions
              * @memberof CreateWindowOptions
              */
             frame?: string | FrameOptions;
@@ -299,7 +349,7 @@ declare namespace chrome {
             alphaEnabled?: boolean;
             /**
              * @description
-             * @type {string} "normal", "fullscreen", "maximized", "minimized"
+             * @type {string} 'normal', 'fullscreen', 'maximized', 'minimized'
              * @memberof CreateWindowOptions
              */
             state?: string;
@@ -376,8 +426,8 @@ declare namespace chrome {
             /** Stream type associated with this device. */
             streamType: StreamType;
             /** Type of the device. */
-            deviceType: "HEADPHONE" | "MIC" | "USB" | "BLUETOOTH" | "HDMI" | "INTERNAL_SPEAKER" | "INTERNAL_MIC" | "FRONT_MIC" | "REAR_MIC" | "KEYBOARD_MIC" | "HOTWORD" | "LINEOUT" | "POST_MIX_LOOPBACK" | "POST_DSP_LOOPBACK" | "OTHER";
-            /** The user-friendly name (e.g. "USB Microphone"). */
+            deviceType: 'HEADPHONE' | 'MIC' | 'USB' | 'BLUETOOTH' | 'HDMI' | 'INTERNAL_SPEAKER' | 'INTERNAL_MIC' | 'FRONT_MIC' | 'REAR_MIC' | 'KEYBOARD_MIC' | 'HOTWORD' | 'LINEOUT' | 'POST_MIX_LOOPBACK' | 'POST_DSP_LOOPBACK' | 'OTHER';
+            /** The user-friendly name (e.g. 'USB Microphone'). */
             displayName: string;
             /** Device name. */
             deviceName: string;
@@ -490,7 +540,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.bluetooth API to connect to a Bluetooth device. All functions report failures via chrome.runtime.lastError.
-     * Manifest: "bluetooth": {...}
+     * Manifest: 'bluetooth': {...}
      * @since Chrome 37
      */
     namespace bluetooth {
@@ -509,7 +559,7 @@ declare namespace chrome {
             vendorId?: number;
             productId?: number;
             deviceId?: number;
-            type?: "computer" | "phone" | "modem" | "audio" | "carAudio" | "video" | "peripheral" | "joystick" | "gamepad" | "keyboard" | "mouse" | "tablet" | "keyboardMouseCombo";
+            type?: 'computer' | 'phone' | 'modem' | 'audio' | 'carAudio' | 'video' | 'peripheral' | 'joystick' | 'gamepad' | 'keyboard' | 'mouse' | 'tablet' | 'keyboardMouseCombo';
             paired?: boolean;
             connected?: boolean;
             /**
@@ -572,7 +622,7 @@ declare namespace chrome {
     }
     /**
      * The chrome.bluetoothLowEnergy API is used to communicate with Bluetooth Smart (Low Energy) devices using the Generic Attribute Profile (GATT).
-     * Manifest: "bluetooth": {...}
+     * Manifest: 'bluetooth': {...}
      * @since Chrome 37
      * Important: This API works only on Chrome OS.
      * Note: With Chrome 56, users can select nearby Bluetooth Low Energy devices to provide to web sites that use the Web Bluetooth API.
@@ -586,7 +636,7 @@ declare namespace chrome {
     /**
      * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
      * @since Chrome 37
-     * Manifest: "bluetooth": {...}
+     * Manifest: 'bluetooth': {...}
      * Important: This API works only on OS X, Windows and Chrome OS.
      */
     namespace bluetoothSocket {
@@ -631,7 +681,7 @@ declare namespace chrome {
     /**
      * Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the extension.
      * Availability: Since Chrome 25.
-     * Manifest:  "commands": {...}
+     * Manifest:  'commands': {...}
      */
     namespace commands {
         interface Command {
@@ -663,17 +713,17 @@ declare namespace chrome {
     /**
      * Use the chrome.contextMenus API to add items to Google Chrome's context menu. You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages.
      * Availability: Since Chrome 6.
-     * Permissions:  "contextMenus"
+     * Permissions:  'contextMenus'
      */
     namespace contextMenus {
         /**
         * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
         **/
-        export type ContextType = "all" | "page" | "frame" | "selection" | "link" | "editable" | "image" | "video" | "audio" | "launcher" | "browser_action" | "page_action";
+        export type ContextType = 'all' | 'page' | 'frame' | 'selection' | 'link' | 'editable' | 'image' | 'video' | 'audio' | 'launcher' | 'browser_action' | 'page_action';
         /**
         * The type of menu item.
         **/
-        export type ItemType = "normal" | "checkbox" | "radio" | "separator";
+        export type ItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
 
         interface OnClickData {
             /**
@@ -746,7 +796,7 @@ declare namespace chrome {
             documentUrlPatterns?: string[];
             /** Optional. The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.  */
             checked?: boolean;
-            /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
+            /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is 'Translate '%s' to Pig Latin' and the user selects the word 'cool', the context menu item for the selection is 'Translate 'cool' to Pig Latin'.  */
             title?: string;
             /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
             contexts?: string[];
@@ -873,7 +923,7 @@ declare namespace chrome {
     /**
      * Use the chrome.documentScan API to discover and retrieve images from attached paper document scanners.
      * Availability: Since Chrome 44.
-     * Permissions:  "documentScan"
+     * Permissions:  'documentScan'
      * Important: This API works only on Chrome OS.
      */
     namespace documentScan {
@@ -885,7 +935,7 @@ declare namespace chrome {
         }
 
         interface DocumentScanCallbackArg {
-            /** The data image URLs in a form that can be passed as the "src" value to an image tag. */
+            /** The data image URLs in a form that can be passed as the 'src' value to an image tag. */
             dataUrls: string[];
             /** The MIME type of dataUrls. */
             mimeType: string;
@@ -1062,13 +1112,13 @@ declare namespace chrome {
          */
         interface ImageDetails {
             /**
-             * @description The format of the resulting image. Default is "jpeg".
+             * @description The format of the resulting image. Default is 'jpeg'.
              * @type {ImageFormat}
              * @memberof ImageDetails
              */
             format?: ImageFormat;
             /**
-             * @description When format is "jpeg", controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
+             * @description When format is 'jpeg', controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
              * @type {number}
              * @memberof ImageDetails
              */
@@ -1121,13 +1171,13 @@ declare namespace chrome {
              */
             matchAboutBlank?: boolean;
             /**
-             * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
+             * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to 'document_idle'.
              * @type {RunAt}
              * @memberof InjectDetails
              */
             runAt: RunAt;
             /**
-             * @description The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to "author".
+             * @description The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to 'author'.
              * @since Since Chrome 66.
              * @type {CSSOrigin}
              * @memberof InjectDetails
@@ -1174,7 +1224,7 @@ declare namespace chrome {
     /**
      * Use the chrome.fileSystemProvider API to create file systems, that can be accessible from the file manager on Chrome OS.
      * Availability: Since Chrome 40.
-     * Permissions:  "fileSystemProvider"
+     * Permissions:  'fileSystemProvider'
      * Important: This API works only on Chrome OS.
      */
     namespace fileSystemProvider {
@@ -1460,7 +1510,7 @@ declare namespace chrome {
         /**
          * Notifies about changes in the watched directory at observedPath in recursive mode. If the file system is mounted with supportsNofityTag, then tag must be provided, and all changes since the last notification always reported, even if the system was shutdown. The last tag can be obtained with getAll.
          * To use, the file_system_provider.notify manifest option must be set to true.
-         * Value of tag can be any string which is unique per call, so it's possible to identify the last registered notification. Eg. if the providing extension starts after a reboot, and the last registered notification's tag is equal to "123", then it should call notify for all changes which happened since the change tagged as "123". It cannot be an empty string.
+         * Value of tag can be any string which is unique per call, so it's possible to identify the last registered notification. Eg. if the providing extension starts after a reboot, and the last registered notification's tag is equal to '123', then it should call notify for all changes which happened since the change tagged as '123'. It cannot be an empty string.
          * Not all providers are able to provide a tag, but if the file system has a changelog, then the tag can be eg. a change number, or a revision number.
          * Note that if a parent directory is removed, then all descendant entries are also removed, and if they are watched, then the API must be notified about the fact. Also, if a directory is renamed, then all descendant entries are in fact removed, as there is no entry under their original paths anymore.
          * In case of an error, runtime.lastError will be set will a corresponding error code.
@@ -1486,7 +1536,7 @@ declare namespace chrome {
         export var onCreateDirectoryRequested: DirectoryPathRecursiveRequestedEvent;
         /** Raised when deleting an entry is requested. If recursive is true, and the entry is a directory, then all of the entries inside must be recursively deleted as well. */
         export var onDeleteEntryRequested: EntryPathRecursiveRequestedEvent;
-        /** Raised when creating a file is requested. If the file already exists, then errorCallback must be called with the "EXISTS" error code. */
+        /** Raised when creating a file is requested. If the file already exists, then errorCallback must be called with the 'EXISTS' error code. */
         export var onCreateFileRequested: FilePathRequestedEvent;
         /** Raised when copying an entry (recursively if a directory) is requested. If an error occurs, then errorCallback must be called. */
         export var onCopyEntryRequested: SourceTargetPathRequestedEvent;
@@ -1526,7 +1576,7 @@ declare namespace chrome {
     /**
      * Use chrome.gcm to enable apps and extensions to send and receive messages through the Google Cloud Messaging Service.
      * Availability: Since Chrome 35.
-     * Permissions:  "gcm"
+     * Permissions:  'gcm'
      */
     namespace gcm {
         interface OutgoingMessage {
@@ -1678,7 +1728,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.identity API to get OAuth2 access tokens.
-     * Permissions:  "identity"
+     * Permissions:  'identity'
      * @since Chrome 29.
      */
     namespace identity {
@@ -1697,7 +1747,7 @@ declare namespace chrome {
             /**
              * Optional.
              * The account ID whose token should be returned. If not specified, the primary account for the profile will be used.
-             * account is only supported when the "enable-new-profile-management" flag is set.
+             * account is only supported when the 'enable-new-profile-management' flag is set.
              * @since Chrome 37.
              */
             account?: AccountInfo;
@@ -1797,14 +1847,14 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.idle API to detect when the machine's idle state changes.
-     * Permissions:  "idle"
+     * Permissions:  'idle'
      * @since Chrome 6.
      */
     namespace idle {
         interface IdleStateChangedEvent extends chrome.events.Event<(newState: string) => void> { }
 
         /**
-         * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
+         * Returns 'locked' if the system is locked, 'idle' if the user has not generated any input for a specified number of seconds, or 'active' otherwise.
          * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
          * Since Chrome 25.
          * @param callback The callback parameter should be a function that looks like this:
@@ -1818,7 +1868,7 @@ declare namespace chrome {
          */
         export function setDetectionInterval(intervalInSeconds: number): void;
 
-        /** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
+        /** Fired when the system changes to an active, idle or locked state. The event fires with 'locked' if the screen is locked or the screensaver activates, 'idle' if the system is unlocked and the user has not generated any input for a specified number of seconds, and 'active' when the user generates input on an idle system. */
         export var onStateChanged: IdleStateChangedEvent;
     }
 
@@ -2071,7 +2121,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.notifications API to create rich notifications using templates and show these notifications to users in the system tray.
-     * Permissions:  "notifications"
+     * Permissions:  'notifications'
      * @since Chrome 28.
      */
     namespace notifications {
@@ -2307,7 +2357,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.power API to override the system's power management features.
-     * Permissions:  "power"
+     * Permissions:  'power'
      * @since Chrome 27.
      */
     namespace power {
@@ -2322,7 +2372,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * The chrome.printerProvider API exposes events used by print manager to query printers controlled by extensions, to query their capabilities and to submit print jobs to these printers.
-     * Permissions:  "printerProvider"
+     * Permissions:  'printerProvider'
      * @since Chrome 44.
      */
     namespace printerProvider {
@@ -2347,7 +2397,7 @@ declare namespace chrome {
             title: string;
             /** Print ticket in  CJT format. */
             ticket: Object;
-            /** The document content type. Supported formats are "application/pdf" and "image/pwg-raster". */
+            /** The document content type. Supported formats are 'application/pdf' and 'image/pwg-raster'. */
             contentType: string;
             /** Blob containing the document data to print. Format must match |contentType|. */
             document: Blob;
@@ -2400,7 +2450,7 @@ declare namespace chrome {
         interface InstalledDetails {
             /**
              * The reason that this event is being dispatched.
-             * One of: "install", "update", "chrome_update", or "shared_module_update"
+             * One of: 'install', 'update', 'chrome_update', or 'shared_module_update'
              */
             reason: string;
             /**
@@ -2452,17 +2502,17 @@ declare namespace chrome {
         interface PlatformInfo {
             /**
              * The operating system chrome is running on.
-             * One of: "mac", "win", "android", "cros", "linux", or "openbsd"
+             * One of: 'mac', 'win', 'android', 'cros', 'linux', or 'openbsd'
              */
             os: string;
             /**
              * The machine's processor architecture.
-             * One of: "arm", "x86-32", or "x86-64"
+             * One of: 'arm', 'x86-32', or 'x86-64'
              */
             arch: string;
             /**
              * The native client architecture. This may be different from arch on some platforms.
-             * One of: "arm", "x86-32", or "x86-64"
+             * One of: 'arm', 'x86-32', or 'x86-64'
              */
             nacl_arch: string;
         }
@@ -2629,14 +2679,14 @@ declare namespace chrome {
                 sub_package_path: string;
             }[];
             /**
-             * Technologies required by the app or extension. Hosting sites such as the Chrome Web Store may use this list to dissuade users from installing apps or extensions that will not work on their computer. Supported requirements currently include "3D" and "plugins"; additional requirements checks may be added in the future.
+             * Technologies required by the app or extension. Hosting sites such as the Chrome Web Store may use this list to dissuade users from installing apps or extensions that will not work on their computer. Supported requirements currently include '3D' and 'plugins'; additional requirements checks may be added in the future.
              */
             requirements?: {
                 /**
-                 * The "3D" requirement denotes GPU hardware acceleration. The "webgl" requirement refers to the WebGL API. For more information on Chrome 3D graphics support, see the help article on WebGL and 3D graphics. You can list the 3D-related features your app requires, as demonstrated in the following example:
-                 * "requirements": {
-                 *   "3D": {
-                 *     "features": ["webgl"]
+                 * The '3D' requirement denotes GPU hardware acceleration. The 'webgl' requirement refers to the WebGL API. For more information on Chrome 3D graphics support, see the help article on WebGL and 3D graphics. You can list the 3D-related features your app requires, as demonstrated in the following example:
+                 * 'requirements': {
+                 *   '3D': {
+                 *     'features': ['webgl']
                  *   }
                  * }
                  */
@@ -2644,10 +2694,10 @@ declare namespace chrome {
                     features?: Array<string | 'webgl'>;
                 };
                 /**
-                 * The "plugins" requirement indicates if an app or extension requires NPAPI to run. This requirement is enabled by default when the manifest includes the "plugins" field. For apps and extensions that still work when plugins aren't available, you can disable this requirement by setting NPAPI to false. You can also enable this requirement manually, by setting NPAPI to true, as shown in this example:
-                 * "requirements": {
-                 *   "plugins": {
-                 *     "npapi": true
+                 * The 'plugins' requirement indicates if an app or extension requires NPAPI to run. This requirement is enabled by default when the manifest includes the 'plugins' field. For apps and extensions that still work when plugins aren't available, you can disable this requirement by setting NPAPI to false. You can also enable this requirement manually, by setting NPAPI to true, as shown in this example:
+                 * 'requirements': {
+                 *   'plugins': {
+                 *     'npapi': true
                  *   }
                  * }
                  */
@@ -2754,7 +2804,7 @@ declare namespace chrome {
          * Requests an update check for this app/extension.
          * @since Chrome 25.
          * @param callback
-         * Parameter status: Result of the update check. One of: "throttled", "no_update", or "update_available"
+         * Parameter status: Result of the update check. One of: 'throttled', 'no_update', or 'update_available'
          * Optional parameter details: If an update is available, this contains more information about the available update.
          */
         export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
@@ -3029,7 +3079,7 @@ declare namespace chrome {
         interface SocketProperties {
             /**
              * Flag indicating if the socket remains open when the event page of the
-             * application is unloaded. The default value is "false." When the
+             * application is unloaded. The default value is 'false.' When the
              * application is loaded, any sockets previously opened with
              * persistent=true can be fetched with getSockets.
              *
@@ -3051,7 +3101,7 @@ declare namespace chrome {
             /**
              * Flag indicating if the socket remains open when the event page of the
              * application is unloaded (see SocketProperties.persistent). The
-             * default value is "false".
+             * default value is 'false'.
              */
             persistent: boolean;
 
@@ -3061,7 +3111,7 @@ declare namespace chrome {
             /**
              * Flag indicating whether connection requests on a listening socket are
              * dispatched through the onAccept event or queued up in the listen
-             * queue backlog. See setPaused. The default value is "false"
+             * queue backlog. See setPaused. The default value is 'false'
              */
             paused: boolean;
 
@@ -3203,7 +3253,7 @@ declare namespace chrome {
     /**
      * Use the chrome.sockets.udp API to send and receive data over the network
      * using UDP connections. This API supersedes the UDP functionality previously
-     * found in the "socket" API.
+     * found in the 'socket' API.
      *
      * @since Chrome 33
      * @see https://developer.chrome.com/apps/sockets_udp
@@ -3236,7 +3286,7 @@ declare namespace chrome {
         interface SocketProperties {
             /**
              * Flag indicating if the socket is left open when the event page of the
-             * application is unloaded. The default value is "false." When the
+             * application is unloaded. The default value is 'false.' When the
              * application is loaded, any sockets previously opened with
              * persistent=true can be fetched with getSockets.
              * @see http://developer.chrome.com/apps/app_lifecycle.html
@@ -3343,9 +3393,9 @@ declare namespace chrome {
          * @see https://developer.chrome.com/apps/sockets_udp#method-bind
          * @param socketId The socket ID.
          * @param address  The address of the local machine. DNS name, IPv4 and IPv6
-         *                 formats are supported. Use "0.0.0.0" to accept packets
+         *                 formats are supported. Use '0.0.0.0' to accept packets
          *                 from all local available network interfaces.
-         * @param port     The port of the local machine. Use "0" to bind to a free
+         * @param port     The port of the local machine. Use '0' to bind to a free
          *                 port.
          * @param callback Called when the bind operation completes.
          */
@@ -3499,7 +3549,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.storage API to store, retrieve, and track changes to user data.
-     * Permissions:  "storage"
+     * Permissions:  'storage'
      * @since Chrome 20.
      */
     namespace storage {
@@ -3526,7 +3576,7 @@ declare namespace chrome {
             /**
              * Sets multiple items.
              * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
-             * Primitive values such as numbers will serialize as expected. Values with a typeof "object" and "function" will typically serialize to {}, with the exception of Array (serializes as expected), Date, and Regex (serialize using their String representation).
+             * Primitive values such as numbers will serialize as expected. Values with a typeof 'object' and 'function' will typically serialize to {}, with the exception of Array (serializes as expected), Date, and Regex (serialize using their String representation).
              * @param callback Optional.
              * Callback on success, or on failure (in which case runtime.lastError will be set).
              */
@@ -3622,7 +3672,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the system.cpu API to query CPU metadata.
-     * Permissions: "system.cpu"
+     * Permissions: 'system.cpu'
      * @since Chrome 32.
      */
     namespace system.cpu {
@@ -3651,7 +3701,7 @@ declare namespace chrome {
             modelName: string;
             /**
              * A set of feature codes indicating some of the processor's capabilities.
-             * The currently supported codes are "mmx", "sse", "sse2", "sse3", "ssse3", "sse4_1", "sse4_2", and "avx".
+             * The currently supported codes are 'mmx', 'sse', 'sse2', 'sse3', 'ssse3', 'sse4_1', 'sse4_2', and 'avx'.
              */
             features: string[];
             /** Information about each logical processor. */
@@ -3667,7 +3717,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the system.display API to query display metadata.
-     * Permissions: "system.display"
+     * Permissions: 'system.display'
      * @since Chrome 30.
      */
     namespace system.display {
@@ -3830,7 +3880,7 @@ declare namespace chrome {
         interface DisplayInfo {
             /** The unique identifier of the display. */
             id: string;
-            /** The user-friendly name (e.g. "HP LCD monitor"). */
+            /** The user-friendly name (e.g. 'HP LCD monitor'). */
             name: string;
             /** Identifier of the display that is being mirrored on the display unit. If mirroring is not in progress, set to an empty string. Currently exposed only on ChromeOS. Will be empty string on other platforms. */
             mirroringSourceId: string;
@@ -4003,7 +4053,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * The chrome.system.memory API.
-     * Permissions:  "system.memory"
+     * Permissions:  'system.memory'
      * @since Chrome 32.
      */
     namespace system.memory {
@@ -4036,7 +4086,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.system.storage API to query storage device information and be notified when a removable storage device is attached and detached.
-     * Permissions:  "system.storage"
+     * Permissions:  'system.storage'
      * @since Chrome 30.
      */
     namespace system.storage {
@@ -4092,7 +4142,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.tts API to play synthesized text-to-speech (TTS). See also the related ttsEngine API, which allows an extension to implement a speech engine.
-     * Permissions:  "tts"
+     * Permissions:  'tts'
      * @since Chrome 14.
      */
     namespace tts {
@@ -4104,7 +4154,7 @@ declare namespace chrome {
             errorMessage?: string;
             /**
              * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
-             * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
+             * One of: 'start', 'end', 'word', 'sentence', 'marker', 'interrupted', 'cancelled', 'error', 'pause', or 'resume'
              */
             type: string;
         }
@@ -4115,7 +4165,7 @@ declare namespace chrome {
             lang?: string;
             /**
              * Optional. This voice's gender.
-             * One of: "male", or "female"
+             * One of: 'male', or 'female'
              */
             gender?: string;
             /** Optional. The name of the voice. */
@@ -4162,7 +4212,7 @@ declare namespace chrome {
             extensionId?: string;
             /**
              * Optional. Gender of voice for synthesized speech.
-             * One of: "male", or "female"
+             * One of: 'male', or 'female'
              */
             gender?: string;
             /** Optional. The TTS event types the voice must support. */
@@ -4412,7 +4462,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.vpnProvider API to implement a VPN client.
-     * Permissions:  "vpnProvider"
+     * Permissions:  'vpnProvider'
      * Important: This API works only on Chrome OS.
      * @since Chrome 43.
      */
@@ -4429,7 +4479,7 @@ declare namespace chrome {
              */
             exclusionList: string[];
             /**
-             * Include network traffic to the list of IP blocks in CIDR notation to the tunnel. This parameter can be used to set up a split tunnel. By default no traffic is directed to the tunnel. Adding the entry "0.0.0.0/0" to this list gets all the user traffic redirected to the tunnel. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
+             * Include network traffic to the list of IP blocks in CIDR notation to the tunnel. This parameter can be used to set up a split tunnel. By default no traffic is directed to the tunnel. Adding the entry '0.0.0.0/0' to this list gets all the user traffic redirected to the tunnel. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
              */
             inclusionList: string[];
             /** Optional. A list of search domains. (default: no search domain) */
@@ -4462,7 +4512,7 @@ declare namespace chrome {
          */
         export function destroyConfig(id: string, callback?: Function): void;
         /**
-         * Sets the parameters for the VPN session. This should be called immediately after "connected" is received from the platform. This will succeed only when the VPN session is owned by the extension.
+         * Sets the parameters for the VPN session. This should be called immediately after 'connected' is received from the platform. This will succeed only when the VPN session is owned by the extension.
          * @param parameters The parameters for the VPN session.
          * @param callback Called when the parameters are set or if there is an error.
          */
@@ -4499,7 +4549,7 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.wallpaper API to change the ChromeOS wallpaper.
-     * Permissions:  "wallpaper"
+     * Permissions:  'wallpaper'
      * Important: This API works only on Chrome OS.
      * @since Chrome 43.
      */
@@ -4511,7 +4561,7 @@ declare namespace chrome {
             url?: string;
             /**
              * The supported wallpaper layouts.
-             * One of: "STRETCH", "CENTER", or "CENTER_CROPPED"
+             * One of: 'STRETCH', 'CENTER', or 'CENTER_CROPPED'
              */
             layout: string;
             /** The file name of the saved wallpaper. */
@@ -4533,7 +4583,7 @@ declare namespace chrome {
     // Webview Tag
     ///////////////////
     /**
-     * Use the webview tag to actively load live content from the web over the network and embed it in your Chrome App. Your app can control the appearance of the <code>webview</code> and interact with the web content, initiate navigations in an embedded web page, react to error events that happen within it, and more (see <a href=\"#usage\">Usage</a>).
+     * Use the webview tag to actively load live content from the web over the network and embed it in your Chrome App. Your app can control the appearance of the <code>webview</code> and interact with the web content, initiate navigations in an embedded web page, react to error events that happen within it, and more (see <a href=\'#usage\'>Usage</a>).
      */
     namespace webview {
         /** Options that determine what data should be cleared by `clearData`. */
@@ -4611,7 +4661,7 @@ declare namespace chrome {
          */
         interface InjectDetails {
             /**
-             * @description JavaScript or CSS code to inject.<br><br><b>Warning:</b><br>Be careful using the <code>code</code> parameter. Incorrect use of it may open your app to <a href=\"https://en.wikipedia.org/wiki/Cross-site_scripting\">cross site scripting</a> attacks.
+             * @description JavaScript or CSS code to inject.<br><br><b>Warning:</b><br>Be careful using the <code>code</code> parameter. Incorrect use of it may open your app to <a href=\'https://en.wikipedia.org/wiki/Cross-site_scripting\'>cross site scripting</a> attacks.
              * @type {string}
              * @memberof InjectDetails
              */
@@ -4717,21 +4767,21 @@ declare namespace chrome {
         /**
         * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts.
         * Enum values:
-        * "all"
-        * "page"
-        * "frame"
-        * "selection"
-        * "link"
-        * "editable"
-        * "image"
-        * "video"
-        * "audio" */
-        export type ContextType = "all" | "page" | "frame" | "selection" | "link" | "editable" | "image" | "video" | "audio";
+        * 'all'
+        * 'page'
+        * 'frame'
+        * 'selection'
+        * 'link'
+        * 'editable'
+        * 'image'
+        * 'video'
+        * 'audio' */
+        export type ContextType = 'all' | 'page' | 'frame' | 'selection' | 'link' | 'editable' | 'image' | 'video' | 'audio';
         /**Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time. */
         interface InjectDetails {
 
             /**
-            * @description JavaScript or CSS code to inject.   Warning:  Be careful using the code parameter. Incorrect use of it may open your app to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">cross site scripting</a> attacks.
+            * @description JavaScript or CSS code to inject.   Warning:  Be careful using the code parameter. Incorrect use of it may open your app to <a href='https://en.wikipedia.org/wiki/Cross-site_scripting'>cross site scripting</a> attacks.
              */
             code?: string
 
@@ -4787,7 +4837,7 @@ declare namespace chrome {
             js?: InjectionItems
 
             /**
-            * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
+            * @description The soonest that the JavaScript or CSS will be injected into the tab. Defaults to 'document_idle'.
              */
             run_at?: chrome.extensionTypes.RunAt;
 
@@ -4820,7 +4870,7 @@ declare namespace chrome {
             id?: string
 
             /**
-            * @description The text to be displayed in the item; this is <em>required</em> unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".
+            * @description The text to be displayed in the item; this is <em>required</em> unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is 'Translate '%s' to Pig Latin' and the user selects the word 'cool', the context menu item for the selection is 'Translate 'cool' to Pig Latin'.
              */
             title?: string
 
@@ -4956,7 +5006,7 @@ declare namespace chrome {
         interface ContentWindow {
 
             /**
-            * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href="#event-contentload">contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it receives.</p><p>This API is identical to the <a href="https://developer.mozilla.org/en-US/docs/DOM/window.postMessage">HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
+            * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href='#event-contentload'>contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it receives.</p><p>This API is identical to the <a href='https://developer.mozilla.org/en-US/docs/DOM/window.postMessage'>HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
             * @param {any} message Message object to send to the guest.
             * @param {string} targetOrigin Specifies what the origin of the guest window must be for the event to be dispatched.
              */
@@ -5141,10 +5191,10 @@ declare namespace chrome {
              */
             height: number
         }
-        /**Interface which provides access to webRequest events on the guest page. See the <a href="http://developer.chrome.com/extensions/webRequest">chrome.webRequest</a> extensions API for details on webRequest life cycle and related concepts.<p>To illustrate how usage differs from the extensions webRequest API, consider the following example code which blocks any guest requests for URLs which match *://www.evil.com/*:</p><pre>webview.request.onBeforeRequest.addListener(
+        /**Interface which provides access to webRequest events on the guest page. See the <a href='http://developer.chrome.com/extensions/webRequest'>chrome.webRequest</a> extensions API for details on webRequest life cycle and related concepts.<p>To illustrate how usage differs from the extensions webRequest API, consider the following example code which blocks any guest requests for URLs which match *://www.evil.com/*:</p><pre>webview.request.onBeforeRequest.addListener(
           function(details) { return {cancel: true}; },
-          {urls: ["*://www.evil.com/*"]},
-          ["blocking"]);</pre><p>Additionally, this interface supports declarative webRequest rules through onRequest and onMessage events. See <a href="http://developer.chrome.com/extensions/declarativeWebRequest.html">declarativeWebRequest</a> for API details.</p>Note that conditions and actions for declarative webview webRequests should be instantiated from their chrome.webViewRequest.* counterparts. The following example code declaratively blocks all requests to "example.com" on the webview myWebview:</p><pre>var rule = {
+          {urls: ['*://www.evil.com/*']},
+          ['blocking']);</pre><p>Additionally, this interface supports declarative webRequest rules through onRequest and onMessage events. See <a href='http://developer.chrome.com/extensions/declarativeWebRequest.html'>declarativeWebRequest</a> for API details.</p>Note that conditions and actions for declarative webview webRequests should be instantiated from their chrome.webViewRequest.* counterparts. The following example code declaratively blocks all requests to 'example.com' on the webview myWebview:</p><pre>var rule = {
           conditions: [
             new chrome.webViewRequest.RequestMatcher({ url: { hostSuffix: 'example.com' } })
           ],
@@ -5156,13 +5206,13 @@ declare namespace chrome {
         /**
         * Defines the how zooming is handled in the webview.
         * Enum values:
-        * "per-origin"
+        * 'per-origin'
         * * Zoom changes will persist in the zoomed page's origin, i.e. all other webviews in the same partition that are navigated to that same origin will be zoomed as well. Moreover, per-origin zoom changes are saved with the origin, meaning that when navigating to other pages in the same origin, they will all be zoomed to the same zoom factor.
-        * "per-view"
+        * 'per-view'
         * * Zoom changes only take effect in this webview, and zoom changes in other webviews will not affect the zooming of this webview. Also, per-view zoom changes are reset on navigation; navigating a webview will always load pages with their per-origin zoom factors (within the scope of the partition).
-        * "disabled"
+        * 'disabled'
         * * Disables all zooming in the webview. The content will revert to the default zoom level, and all attempted zoom changes will be ignored. */
-        export type ZoomMode = "per-origin" | "per-view" | "disabled";
+        export type ZoomMode = 'per-origin' | 'per-view' | 'disabled';
 
         /**
         * @description Queries audio state.
@@ -5206,7 +5256,7 @@ declare namespace chrome {
           {
             name: 'anotherRule',
             matches: ['http://www.bar.com/*'],
-            js: { code: "document.body.style.backgroundColor = 'red';" },
+            js: { code: 'document.body.style.backgroundColor = 'red';' },
             run_at: 'document_end'
           }]);
          ...
@@ -5256,7 +5306,7 @@ declare namespace chrome {
         export function clearData(options: ClearDataOptions, types: ClearDataTypeSet, callback?: () => void): void;
 
         /**
-        * @description <p>Injects JavaScript code into the guest page.</p><p>The following sample code uses script injection to set the guest page's background color to red:</p><pre>webview.executeScript({ code: "document.body.style.backgroundColor = 'red'" });</pre>
+        * @description <p>Injects JavaScript code into the guest page.</p><p>The following sample code uses script injection to set the guest page's background color to red:</p><pre>webview.executeScript({ code: 'document.body.style.backgroundColor = 'red'' });</pre>
         * @param {any} details Details of the script to run.
         * @param {any} [object Object]
          */
@@ -5277,7 +5327,7 @@ declare namespace chrome {
         export function forward(callback?: (success: boolean) => void): void;
 
         /**
-        * @description Returns Chrome's internal process ID for the guest web page's current process, allowing embedders to know how many guests would be affected by terminating the process. Two guests will share a process only if they belong to the same app and have the same <a href="#partition">storage partition ID</a>. The call is synchronous and returns the embedder's cached notion of the current process ID. The process ID isn't the same as the operating system's process ID.
+        * @description Returns Chrome's internal process ID for the guest web page's current process, allowing embedders to know how many guests would be affected by terminating the process. Two guests will share a process only if they belong to the same app and have the same <a href='#partition'>storage partition ID</a>. The call is synchronous and returns the embedder's cached notion of the current process ID. The process ID isn't the same as the operating system's process ID.
          */
         export function getProcessId(): void;
 
@@ -5328,7 +5378,7 @@ declare namespace chrome {
         export function reload(): void;
 
         /**
-        * @description <p>Removes content scripts from a webview.</p><p>The following example removes "myRule" which was added before.</p><pre>webview.removeContentScripts(['myRule']);</pre><p>You can remove all the rules by calling:</p><pre>webview.removeContentScripts();</pre>
+        * @description <p>Removes content scripts from a webview.</p><p>The following example removes 'myRule' which was added before.</p><pre>webview.removeContentScripts(['myRule']);</pre><p>You can remove all the rules by calling:</p><pre>webview.removeContentScripts();</pre>
         * @param {any[]} scriptNameList A list of names of content scripts that will be removed. If the list is empty, all the content scripts added to the webview will be removed.
          */
         export function removeContentScripts(scriptNameList?: any[]): void;
@@ -5396,7 +5446,7 @@ declare namespace chrome {
 
         /**
         * @description Fired when the guest window fires a load event, i.e., when a new document is loaded. This does <em>not</em> include page navigation within the current document or asynchronous resource loads. <p>The following example code modifies the default font size of the guest's body element after the page loads:</p><pre>webview.addEventListener('contentload', function() {
-          webview.executeScript({ code: 'document.body.style.fontSize = "42px"' });
+          webview.executeScript({ code: 'document.body.style.fontSize = '42px'' });
         });</pre>
          */
 
@@ -5428,7 +5478,7 @@ declare namespace chrome {
         export var findupdate: chrome.events.Event<IFindupdate>;
 
         /**
-        * @description Fired when a top-level load has aborted without committing. An error message will be printed to the console unless the event is default-prevented. <p class="note"><strong>Note:</strong> When a resource load is aborted, a loadabort event will eventually be followed by a loadstop event, even if all committed loads since the last loadstop event (if any) were aborted.</p><p class="note"><strong>Note:</strong> When the load of either an about URL or a JavaScript URL is aborted, loadabort will be fired and then the webview will be navigated to 'about:blank'.</p>
+        * @description Fired when a top-level load has aborted without committing. An error message will be printed to the console unless the event is default-prevented. <p class='note'><strong>Note:</strong> When a resource load is aborted, a loadabort event will eventually be followed by a loadstop event, even if all committed loads since the last loadstop event (if any) were aborted.</p><p class='note'><strong>Note:</strong> When the load of either an about URL or a JavaScript URL is aborted, loadabort will be fired and then the webview will be navigated to 'about:blank'.</p>
         * @param {any} [object Object]
          */
 
@@ -5456,7 +5506,7 @@ declare namespace chrome {
         export var loadstart: chrome.events.Event<chrome.webview.ILoadstart>;
 
         /**
-        * @description Fired when all frame-level loads in a guest page (including all its subframes) have completed. This includes navigation within the current document as well as subframe document-level loads, but does <em>not</em> include asynchronous resource loads. This event fires every time the number of document-level loads transitions from one (or more) to zero. For example, if a page that has already finished loading (i.e., loadstop already fired once) creates a new iframe which loads a page, then a second loadstop will fire when the iframe page load completes. This pattern is commonly observed on pages that load ads. <p class="note"><strong>Note:</strong> When a committed load is aborted, a loadstop event will eventually follow a loadabort event, even if all committed loads since the last loadstop event (if any) were aborted.</p>
+        * @description Fired when all frame-level loads in a guest page (including all its subframes) have completed. This includes navigation within the current document as well as subframe document-level loads, but does <em>not</em> include asynchronous resource loads. This event fires every time the number of document-level loads transitions from one (or more) to zero. For example, if a page that has already finished loading (i.e., loadstop already fired once) creates a new iframe which loads a page, then a second loadstop will fire when the iframe page load completes. This pattern is commonly observed on pages that load ads. <p class='note'><strong>Note:</strong> When a committed load is aborted, a loadstop event will eventually follow a loadabort event, even if all committed loads since the last loadstop event (if any) were aborted.</p>
          */
 
         export function loadstop(event: chrome.events.Event<Event>): void;
