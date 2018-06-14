@@ -7,7 +7,7 @@ export class Server {
     opts: any;
     modernOpts: any;
     dedupId: any;
-    clients: any;
+    clients: Client[];
     closed: boolean;
 
     constructor(opts: any, callback?: () => void);
@@ -45,9 +45,6 @@ export class Client {
     nextId: number;
     inflight: any;
     inflightCounter: number;
-    _lastDedupId: number;
-    _closed: boolean;
-    _closing: boolean;
 
     constructor(connection: any, server: Server);
 
