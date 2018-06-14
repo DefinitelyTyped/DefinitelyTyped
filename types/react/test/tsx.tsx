@@ -59,14 +59,17 @@ interface State {
     foobar: string;
 }
 class ComponentWithPropsAndState extends React.Component<Props, State> {
+    render() { return null; }
 }
 <ComponentWithPropsAndState hello="TypeScript" />;
 
 class ComponentWithoutState extends React.Component<Props> {
+    render() { return null; }
 }
 <ComponentWithoutState hello="TypeScript" />;
 
 class ComponentWithoutPropsAndState extends React.Component {
+    render() { return null; }
 }
 <ComponentWithoutPropsAndState />;
 
@@ -101,6 +104,7 @@ const ContextWithRenderProps = React.createContext('defaultValue');
 
 // Below tests that setState() works properly for both regular and callback modes
 class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
+    render() { return null; }
     handleSomething = () => {
       this.setState({ foo: '' }); // $ExpectError
       this.setState({ foo: true });
@@ -186,10 +190,11 @@ class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', st
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a'|'b'|'c', string>> = () => {
         return { a: 'a' };
     }
+    render() { return null; }
 }
 const AssignedComponentWithLargeState: React.ComponentClass = ComponentWithLargeState;
 
-const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {})({});
+const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {render() {return null; }})({});
 componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
     return 'number';
 };
