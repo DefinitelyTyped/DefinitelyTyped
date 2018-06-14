@@ -981,7 +981,7 @@ declare namespace chrome {
      * Important: This API works only on OS X, Windows and Chrome OS.
      */
     namespace bluetoothSocket {
-        /** NOT IMPLEMENTED YET */
+        /* NOT IMPLEMENTED YET */
     }
 
     ////////////////////
@@ -1530,32 +1530,118 @@ declare namespace chrome {
     ////////////////////
     // FileSystem
     ////////////////////
+    /**
+     * Use the chrome.fileSystem API to create, read, navigate, and write to the user's local file system.
+     * With this API, Chrome Apps can read and write to a user-selected location.
+     * For example, a text editor app can use the API to read and write local documents.
+     * All failures are notified via chrome.runtime.lastError.
+     */
     namespace fileSystem {
 
         interface AcceptOptions {
+            /**
+             * This is the optional text description for this option.
+             * If not present, a description will be automatically generated;
+             * typically containing an expanded list of valid extensions (e.g. "text/html" may expand to "*.html, *.htm").
+             */
             description?: string;
+            /**
+             * Mime-types to accept, e.g. "image/jpeg" or "audio/*". One of mimeTypes or extensions must contain at least one valid element.
+             */
             mimeTypes?: string[];
+            /**
+             * Extensions to accept, e.g. "jpg", "gif", "crx".
+             */
             extensions?: string[];
         }
 
         interface ChooseEntryOptions {
-            type?: string;
+            /**
+             * Type of the prompt to show. The default is 'openFile'.
+             * openFile
+             *  - Prompts the user to open an existing file and returns a FileEntry on success. From Chrome 31 onwards, the FileEntry will be writable if the application has the 'write' permission under 'fileSystem'; otherwise, the FileEntry will be read-only.
+             * openWritableFile
+             *  - Prompts the user to open an existing file and returns a writable FileEntry on success. Calls using this type will fail with a runtime error if the application doesn't have the 'write' permission under 'fileSystem'.
+             * saveFile
+             *  - Prompts the user to open an existing file or a new file and returns a writable FileEntry on success. Calls using this type will fail with a runtime error if the application doesn't have the 'write' permission under 'fileSystem'.
+             * openDirectory
+             *  - Prompts the user to open a directory and returns a DirectoryEntry on success. Calls using this type will fail with a runtime error if the application doesn't have the 'directory' permission under 'fileSystem'. If the application has the 'write' permission under 'fileSystem', the returned DirectoryEntry will be writable; otherwise it will be read-only. New in Chrome 31.
+             */
+            type?: 'openFile' | 'openWritableFile' | 'saveFile' | 'openDirectory';
+            /** The suggested file name that will be presented to the user as the default name to read or write. This is optional. */
             suggestedName?: string;
+            /** The optional list of accept options for this file opener. Each option will be presented as a unique group to the end-user. */
             accepts?: AcceptOptions[];
+            /**
+             * Whether to accept all file types, in addition to the options specified in the accepts argument.
+             * The default is true. If the accepts field is unset or contains no valid entries, this will always be reset to true.
+             */
             acceptsAllTypes?: boolean;
+            /**
+             * Whether to accept multiple files. This is only supported for openFile and openWritableFile.
+             * The callback to chooseEntry will be called with a list of entries if this is set to true. Otherwise it will be called with a single Entry.
+             */
             acceptsMultiple?: boolean;
         }
 
+        type ChildChangeType = 'created' | 'removed' | 'changed';
+
+        interface Volume {
+            /** The ID of the requested volume. */
+            volumeId: string;
+            /** Whether the requested file system should be writable. The default is read-only. */
+            writable?: boolean;
+        }
+
+        /**
+         * Get the display path of an Entry object.
+         * The display path is based on the full path of the file or directory on the local file system, but may be made more readable for display purposes.
+         */
         export function getDisplayPath(entry: Entry, callback: (displayPath: string) => void): void;
+        /**
+         * Get a writable Entry from another Entry. This call will fail with a runtime error if the application does not have the 'write' permission under 'fileSystem'.
+         * If entry is a DirectoryEntry, this call will fail if the application does not have the 'directory' permission under 'fileSystem'.
+         */
         export function getWritableEntry(entry: Entry, callback: (entry: Entry) => void): void;
+        /** Gets whether this Entry is writable or not. */
         export function isWritableEntry(entry: Entry, callback: (isWritable: boolean) => void): void;
+        /** Ask the user to choose a file or directory. */
         export function chooseEntry(callback: (entry: Entry) => void): void;
+        /** Ask the user to choose a file or directory. */
         export function chooseEntry(callback: (fileEntries: FileEntry[]) => void): void;
+        /** Ask the user to choose a file or directory. */
         export function chooseEntry(options: ChooseEntryOptions, callback: (entry: Entry) => void): void;
+        /** Ask the user to choose a file or directory. */
         export function chooseEntry(options: ChooseEntryOptions, callback: (fileEntries: FileEntry[]) => void): void;
+        /** Returns the file entry with the given id if it can be restored. This call will fail with a runtime error otherwise. */
         export function restoreEntry(id: string, callback: (entry: Entry) => void): void;
+        /** Returns whether the app has permission to restore the entry with the given id. */
         export function isRestorable(id: string, callback: (isRestorable: boolean) => void): void;
+        /**
+         * Returns an id that can be passed to restoreEntry to regain access to a given file entry.
+         * Only the 500 most recently used entries are retained, where calls to retainEntry and restoreEntry count as use.
+         * If the app has the 'retainEntries' permission under 'fileSystem', entries are retained indefinitely.
+         * Otherwise, entries are retained only while the app is running and across restarts.
+         * */
         export function retainEntry(entry: Entry): string;
+        /**
+         * Requests access to a file system for a volume represented by options.volumeId.
+         * If options.writable is set to true, then the file system will be writable.
+         * Otherwise, it will be read-only.
+         * The writable option requires the "fileSystem": {"write"} permission in the manifest.
+         * Available to kiosk apps running in kiosk session only.
+         * For manual-launch kiosk mode, a confirmation dialog will be shown on top of the active app window.
+         * In case of an error, fileSystem will be undefined, and chrome.runtime.lastError will be set.
+         */
+        export function requestFileSystem(options: Volume, callback: (fileSystem: FileSystem) => void): void;
+        /**
+         * Returns a list of volumes available for requestFileSystem().
+         * The "fileSystem": {"requestFileSystem"} manifest permission is required.
+         * Available to kiosk apps running in the kiosk session only.
+         * In case of an error, volumes will be undefined, and chrome.runtime.lastError will be set.
+         */
+        export function getVolumeList(callback: (volumes: Volume[]) => void): void;
+        export var onVolumeListChanged: chrome.events.Event<(object: Volume[]) => void>;
     }
 
 
