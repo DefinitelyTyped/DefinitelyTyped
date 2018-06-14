@@ -1,7 +1,5 @@
 import * as React from 'react';
 import Pagination from 'react-js-pagination';
-import {ReactPaginationProps} from './'
-
 
 class ReactPagination extends React.Component<{},{activePage:number} > {
 	constructor(props: {}) {
