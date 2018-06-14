@@ -946,10 +946,33 @@ declare namespace chrome {
      * Note: With Chrome 56, users can select nearby Bluetooth Low Energy devices to provide to web sites that use the Web Bluetooth API.
      */
     namespace bluetoothLowEnergy {
-        /**
-         * NOT IMPLEMENTED YET
-         * @see https://developer.chrome.com/apps/bluetoothLowEnergy
-         * */
+        interface Service {
+            /** The UUID of the service, e.g. 0000180d-0000-1000-8000-00805f9b34fb. */
+            uuid: string;
+            /** Indicates whether the type of this service is primary or secondary. */
+            isPrimary: boolean;
+            /**
+             * Returns the identifier assigned to this service.
+             * Use the instance ID to distinguish between services from a peripheral with the same UUID and to make function calls that take in a service identifier.
+             * Present, if this instance represents a remote service.
+             **/
+            instanceId?: string;
+            /**
+             * The device address of the remote peripheral that the GATT service belongs to.
+             * Present, if this instance represents a remote service.
+             */
+            deviceAddress?: string;
+        }
+        interface Characteristic {
+            // WIP
+        }
+        export function connect(deviceAddress: string, callback: () => void): void;
+        export function connect(deviceAddress: string, properties: { persistent: boolean }, callback: () => void): void;
+        export function disconnect(deviceAddress: string, callback: () => void): void;
+
+        /*
+         WORK IN PROGRESS
+        */
     }
     /**
      * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
