@@ -88,6 +88,7 @@ export interface ReactDatePickerProps {
 	yearDropdownItemNumber?: number;
 	shouldCloseOnSelect?: boolean;
 	showTimeSelect?: boolean;
+	showTimeSelectOnly?: boolean;
 	timeFormat?: string;
 	timeIntervals?: number;
 	minTime?: moment.Moment;

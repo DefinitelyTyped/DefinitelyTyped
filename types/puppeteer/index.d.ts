@@ -188,6 +188,8 @@ export interface Cookie {
   expires: number;
   /** The cookie http only flag. */
   httpOnly: boolean;
+  /** The session cookie flag. */
+  session: boolean;
   /** The cookie secure flag. */
   secure: boolean;
   /** The cookie same site definition. */
@@ -218,6 +220,8 @@ export interface SetCookie {
   expires?: number;
   /** The cookie http only flag. */
   httpOnly?: boolean;
+  /** The session cookie flag. */
+  session?: boolean;
   /** The cookie secure flag. */
   secure?: boolean;
   /** The cookie same site definition. */

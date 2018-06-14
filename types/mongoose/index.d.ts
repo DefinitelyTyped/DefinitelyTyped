@@ -103,7 +103,10 @@ declare module "mongoose" {
   export function createConnection(): Connection;
   export function createConnection(uri: string,
     options?: ConnectionOptions
-  ): Connection;
+  ): Connection & {
+    then: Promise<Connection>["then"];
+    catch: Promise<Connection>["catch"];
+  };
 
   /**
    * Disconnects all connections.
@@ -201,7 +204,7 @@ declare module "mongoose" {
      */
     open(connection_string: string, database?: string, port?: number,
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
-    
+
      /**
      * Opens the connection to MongoDB.
      * @param mongodb://uri or the host to which you are connecting
@@ -451,9 +454,6 @@ declare module "mongoose" {
 
     /** Expose the possible connection states. */
     static STATES: any;
-
-    then: Promise<Connection>["then"];
-    catch: Promise<Connection>["catch"];
   }
 
   /*
@@ -2727,9 +2727,9 @@ declare module "mongoose" {
      * This function does not trigger save middleware.
      * @param docs Documents to insert.
      * @param options Optional settings.
-     * @param options.ordered  if true, will fail fast on the first error encountered. 
+     * @param options.ordered  if true, will fail fast on the first error encountered.
      *        If false, will insert all the documents it can and report errors later.
-     * @param options.rawResult if false, the returned promise resolves to the documents that passed mongoose document validation. 
+     * @param options.rawResult if false, the returned promise resolves to the documents that passed mongoose document validation.
      *        If `false`, will return the [raw result from the MongoDB driver](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#~insertWriteOpCallback)
      *        with a `mongoose` property that contains `validationErrors` if this is an unordered `insertMany`.
      */

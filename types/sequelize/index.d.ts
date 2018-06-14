@@ -13,6 +13,7 @@
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
 //                 Nick Schultz <https://github.com/nrschultz>
+//                 Thomas Breleur <https://github.com/thomas-b>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3270,6 +3271,11 @@ declare namespace sequelize {
         paranoid?: boolean;
 
         all?: boolean | string;
+
+        /**
+         * if true, it will also eager load the relations of the child models, recursively.
+         */
+        nested?: boolean;
     }
 
     /**
