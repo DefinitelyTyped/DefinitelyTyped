@@ -10198,10 +10198,42 @@ declare namespace OfficeExtension {
 }
 
 declare namespace OfficeExtension {
+    /**
+     * Represents an object that can be passed to the load method to specify the set of properties and relations to be loaded upon execution of sync() method that synchronizes the states between Office objects and corresponding JavaScript proxy objects.
+     * This takes in options such as select and expand parameters to specify a set of properties to be loaded on the object and also allows pagination on the collection.
+     * 
+     * @remarks
+     * 
+     * For Word, the preferred method for specifying the properties and paging information is by using a string literal. The first two examples show the preferred way to request the text and font size properties for paragraphs in a paragraph collection:
+     * 
+     * `context.load(paragraphs, 'text, font/size');`
+     * 
+     * `paragraphs.load('text, font/size');`
+     * 
+     * Here is a similar example using object notation (includes paging):
+     * 
+     * `context.load(paragraphs, {select: 'text, font/size', expand: 'font', top: 50, skip: 0});`
+     * 
+     * `paragraphs.load({select: 'text, font/size', expand: 'font', top: 50, skip: 0});`
+     * 
+     * Note that if we don't specify the specific properties on the font object in the select statement, the expand statement by itself would indicate that all of the font properties are loaded.
+     */
     interface LoadOption {
+        /**
+         * Contains a comma delimited list or an array of parameter/relationship names. Optional.
+         */
         select?: string | string[];
+        /**
+         * Contains a comma delimited list or an array of relationship names. Optional.
+         */
         expand?: string | string[];
+        /**
+         * Specifies the maximum number of collection items that can be included in the result. Optional. You can only use this option when you use the object notation option.
+         */
         top?: number;
+        /**
+         * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the result set will start after skipping the specified number of items. Optional. You can only use this option when you use the object notation option.
+         */
         skip?: number;
     }
     interface UpdateOptions {
