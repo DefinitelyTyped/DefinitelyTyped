@@ -14,10 +14,14 @@
 // Accessibility Features
 ////////////////////
 /**
- * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request accessibilityFeatures.read permission. For modifying feature state, the extension needs accessibilityFeatures.modify permission. Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
- * @since Availability: Since Chrome 37.
+ * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features.
+ * This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features.
+ * In order to get feature states the extension must request accessibilityFeatures.read permission.
+ * For modifying feature state, the extension needs accessibilityFeatures.modify permission.
+ * Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
  * Permissions: 'accessibilityFeatures.read' (For read access); 'accessibilityFeatures.modify' (For modifications; Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.)
  * Important: This API works only on Chrome OS.
+ * @since Availability: Since Chrome 37.
  */
 declare namespace chrome {
     namespace accessibilityFeatures {
@@ -161,8 +165,8 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future.
-     * Availability: Since Chrome 22.
      * Permissions:  'alarms'
+     * @since Availability: Since Chrome 22.
      */
     namespace alarms {
         interface AlarmCreateInfo {
@@ -187,14 +191,19 @@ declare namespace chrome {
 
         /**
          * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
-         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after 'now' without warning but won't actually cause the alarm to fire for at least 1 minute.
+         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more.
+         * That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning.
+         * `when` can be set to less than 1 minute after 'now' without warning but won't actually cause the alarm to fire for at least 1 minute.
          * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
          * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
          */
         export function create(alarmInfo: AlarmCreateInfo): void;
         /**
-         * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
-         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after 'now' without warning but won't actually cause the alarm to fire for at least 1 minute.
+         * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired.
+         * If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more.
+         * That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning.
+         * `when` can be set to less than 1 minute after 'now' without warning but won't actually cause the alarm to fire for at least 1 minute.
          * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
          * @param name Optional name to identify this alarm. Defaults to the empty string.
          * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
@@ -203,39 +212,39 @@ declare namespace chrome {
         /**
          * Gets an array of all the alarms.
          * @param callback The callback parameter should be a function that looks like this:
-         * function(array of Alarm alarms) {...};
+         * @example function(array of Alarm alarms) {...};
          */
         export function getAll(callback: (alarms: Alarm[]) => void): void;
         /**
          * Clears all alarms.
          * @param callback If you specify the callback parameter, it should be a function that looks like this:
-         * function(boolean wasCleared) {...};
+         * @example function(boolean wasCleared) {...};
          */
         export function clearAll(callback?: (wasCleared: boolean) => void): void;
         /**
          * Clears the alarm with the given name.
          * @param name The name of the alarm to clear. Defaults to the empty string.
          * @param callback If you specify the callback parameter, it should be a function that looks like this:
-         * function(boolean wasCleared) {...};
+         * @example function(boolean wasCleared) {...};
          */
         export function clear(name?: string, callback?: (wasCleared: boolean) => void): void;
         /**
          * Clears the alarm without a name.
          * @param callback If you specify the callback parameter, it should be a function that looks like this:
-         * function(boolean wasCleared) {...};
+         * @example function(boolean wasCleared) {...};
          */
         export function clear(callback: (wasCleared: boolean) => void): void;
         /**
          * Retrieves details about the specified alarm.
          * @param callback The callback parameter should be a function that looks like this:
-         * function( Alarm alarm) {...};
+         * @example function( Alarm alarm) {...};
          */
         export function get(callback: (alarm: Alarm) => void): void;
         /**
          * Retrieves details about the specified alarm.
          * @param name The name of the alarm to get. Defaults to the empty string.
          * @param callback The callback parameter should be a function that looks like this:
-         * function( Alarm alarm) {...};
+         * @example function( Alarm alarm) {...};
          */
         export function get(name: string, callback: (alarm: Alarm) => void): void;
 
@@ -246,6 +255,12 @@ declare namespace chrome {
     ////////////////////
     // App Runtime
     ////////////////////
+
+    /**
+     * Use the chrome.app.runtime API to manage the app lifecycle.
+     * The app runtime manages app installation, controls the event page, and can shut down the app at anytime.
+     * @since Availability: Since Chrome 24.
+     */
     namespace app.runtime {
         type LaunchSource = 'untracked' | 'app_launcher' | 'new_tab_page' | 'reload' | 'restart' |
             'load_and_launch' | 'command_line' | 'file_handler' | 'url_handler' | 'system_tray' |
@@ -269,7 +284,8 @@ declare namespace chrome {
 
         interface LaunchData {
             /**
-             * The ID of the file or URL handler that the app is being invoked with. Handler IDs are the top-level keys in the file_handlers and/or url_handlers dictionaries in the manifest.
+             * The ID of the file or URL handler that the app is being invoked with.
+             * Handler IDs are the top-level keys in the file_handlers and/or url_handlers dictionaries in the manifest.
              */
             id?: string;
             /**
@@ -335,7 +351,10 @@ declare namespace chrome {
          */
         export var onLaunched: LaunchedEvent;
         /**
-         * Fired at Chrome startup to apps that were running when Chrome last shut down, or when apps have been requested to restart from their previous state for other reasons (e.g. when the user revokes access to an app's retained files the runtime will restart the app). In these situations if apps do not have an onRestarted handler they will be sent an onLaunched event instead.
+         * Fired at Chrome startup to apps that were running when Chrome last shut down,
+         * or when apps have been requested to restart from their previous state for other reasons
+         * (e.g. when the user revokes access to an app's retained files the runtime will restart the app).
+         * In these situations if apps do not have an onRestarted handler they will be sent an onLaunched event instead.
          */
         export var onRestarted: RestartedEvent;
     }
@@ -343,6 +362,13 @@ declare namespace chrome {
     ////////////////////
     // App Window
     ////////////////////
+    /**
+     * Use the chrome.app.window API to create windows.
+     * Windows have an optional frame with title bar and size controls.
+     * They are not associated with any Chrome browser windows.
+     * See the Window State Sample for a demonstration of these options.
+     * @since Availability: Since Chrome 24.
+     */
     namespace app.window {
         interface ContentBounds {
             left?: number;
@@ -352,113 +378,326 @@ declare namespace chrome {
         }
 
         interface BoundsSpecification {
+            /** The X coordinate of the content or window. */
             left?: number;
+            /** The Y coordinate of the content or window. */
             top?: number;
+            /** The width of the content or window. */
             width?: number;
+            /** The height of the content or window. */
             height?: number;
+            /** The minimum width of the content or window. */
             minWidth?: number;
+            /** The minimum height of the content or window. */
             minHeight?: number;
+            /** The maximum width of the content or window. */
             maxWidth?: number;
+            /** The maximum height of the content or window. */
             maxHeight?: number;
         }
 
         interface Bounds {
+            /** This property can be used to read or write the current X coordinate of the content or window. */
             left: number;
+            /** This property can be used to read or write the current Y coordinate of the content or window. */
             top: number;
+            /** This property can be used to read or write the current width of the content or window. */
             width: number;
+            /** This property can be used to read or write the current height of the content or window. */
             height: number;
-            minWidth?: number;
-            minHeight?: number;
-            maxWidth?: number;
-            maxHeight?: number;
+            /** This property can be used to read or write the current minimum width of the content or window. A value of null indicates 'unspecified'. */
+            minWidth?: number | null;
+            /** This property can be used to read or write the current minimum height of the content or window. A value of null indicates 'unspecified'. */
+            minHeight?: number | null;
+            /** This property can be used to read or write the current maximum width of the content or window. A value of null indicates 'unspecified'. */
+            maxWidth?: number | null;
+            /** This property can be used to read or write the current maximum height of the content or window. A value of null indicates 'unspecified'. */
+            maxHeight?: number | null;
+            /** Set the left and top position of the content or window. */
             setPosition(left: number, top: number): void;
+            /** Set the width and height of the content or window. */
             setSize(width: number, height: number): void;
-            setMinimumSize(minWidth: number, minHeight: number): void;
-            setMaximumSize(maxWidth: number, maxHeight: number): void;
+            /** Set the minimum size constraints of the content or window.
+             * The minimum width or height can be set to null to remove the constraint.
+             * A value of undefined will leave a constraint unchanged.
+             **/
+            setMinimumSize(minWidth: number | null | undefined, minHeight: number | null | undefined): void;
+            /**
+             * Set the maximum size constraints of the content or window.
+             * The maximum width or height can be set to null to remove the constraint.
+             * A value of undefined will leave a constraint unchanged.
+             */
+            setMaximumSize(maxWidth: number | null | undefined, maxHeight: number | null | undefined): void;
         }
         interface FrameOptions {
-            type?: string;
+            /**
+             * Frame type: none or chrome (defaults to chrome).
+             *
+             * For none, the -webkit-app-region CSS property can be used to apply draggability to the app's window.
+             * -webkit-app-region: drag can be used to mark regions draggable. no-drag can be used to disable this style on nested elements.
+             */
+            type: 'none';
+        }
+        interface FrameOptionsChrome {
+            /**
+             * Frame type: none or chrome (defaults to chrome).
+             *
+             * For none, the -webkit-app-region CSS property can be used to apply draggability to the app's window.
+             * -webkit-app-region: drag can be used to mark regions draggable. no-drag can be used to disable this style on nested elements.
+             */
+            type?: 'chrome';
+            /**
+             * Allows the frame color to be set. Frame coloring is only available if the frame type is chrome.
+             * @since Frame coloring is new in Chrome 36.
+             */
             color?: string;
+            /**
+             * Allows the frame color of the window when active to be set. Frame coloring is only available if the frame type is chrome.
+             * Frame coloring is only available if the frame type is chrome.
+             * @since Frame coloring is new in Chrome 36.
+             */
             activeColor?: string;
+            /**
+             * Allows the frame color of the window when inactive to be set differently to the active color. Frame coloring is only available if the frame type is chrome.
+             * inactiveColor must be used in conjunction with color.
+             * @since Frame coloring is new in Chrome 36.
+             */
             inactiveColor?: string;
         }
 
         interface CreateWindowOptions {
+            /**
+             * Id to identify the window.
+             *
+             * This will be used to remember the size and position of the window and restore that geometry when a window with the same id is later opened.
+             * If a window with a given id is created while another window with the same id already exists,
+             * the currently opened window will be focused instead of creating a new window.
+             */
             id?: string;
+            /**
+             * Used to specify the initial position, initial size and constraints of the window's content (excluding window decorations).
+             * If an id is also specified and a window with a matching id has been shown before, the remembered bounds will be used instead.
+             * Note that the padding between the inner and outer bounds is determined by the OS.
+             * Therefore setting the same bounds property for both the innerBounds and outerBounds will result in an error.
+             * @since This property is new in Chrome 36.
+             */
             innerBounds?: BoundsSpecification;
+            /**
+             * Used to specify the initial position, initial size and constraints of the window (including window decorations such as the title bar and frame).
+             * If an id is also specified and a window with a matching id has been shown before, the remembered bounds will be used instead.
+             * Note that the padding between the inner and outer bounds is determined by the OS.
+             * Therefore setting the same bounds property for both the innerBounds and outerBounds will result in an error.
+             * @since This property is new in Chrome 36.
+             */
             outerBounds?: BoundsSpecification;
+            /**
+             * Minimum width of the window.
+             * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
+             */
             minWidth?: number;
+            /**
+             * Minimum height of the window.
+             * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
+             */
             minHeight?: number;
+            /**
+             * Maximum width of the window.
+             * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
+             */
             maxWidth?: number;
+            /**
+             * Maximum height of the window.
+             * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
+             */
             maxHeight?: number;
+            /** Type of window to create */
+            type?: 'shell';
             /**
-             * @description
-             * @type {(string | FrameOptions)} string ('none', 'chrome') or FrameOptions
-             * @memberof CreateWindowOptions
+             * If true, the window will have its own shelf icon.
+             * Otherwise the window will be grouped in the shelf with other windows that are associated with the app.
+             * Defaults to false.
+             * If showInShelf is set to true you need to specify an id for the window.
+             * @since Since Chrome 54.
              */
-            frame?: string | FrameOptions;
+            showInShelf: boolean;
+            /**
+             * URL of the window icon. A window can have its own icon when showInShelf is set to true. The URL should be a global or an extension local URL.
+             * @since Since Chrome 54.
+             */
+            icon: string;
+            /**
+             * Frame type: none or chrome (defaults to chrome).
+             * For none, the -webkit-app-region CSS property can be used to apply draggability to the app's window.
+             * -webkit-app-region: drag can be used to mark regions draggable. no-drag can be used to disable this style on nested elements.
+             * @since Use of FrameOptions is new in M36.
+             */
+            frame?: 'none' | 'chrome' | FrameOptions | FrameOptionsChrome;
+            /**
+             * Size and position of the content in the window (excluding the titlebar).
+             * If an id is also specified and a window with a matching id has been shown before,
+             * the remembered bounds of the window will be used instead.
+             * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
+             */
             bounds?: ContentBounds;
-            alphaEnabled?: boolean;
             /**
-             * @description
-             * @type {string} 'normal', 'fullscreen', 'maximized', 'minimized'
-             * @memberof CreateWindowOptions
+             * The initial state of the window, allowing it to be created already fullscreen, maximized, or minimized. Defaults to 'normal'.
              */
-            state?: string;
+            state?: 'normal' | 'fullscreen' | 'maximized' | 'minimized';
+            /**
+             * If true, the window will be created in a hidden state. Call show() on the window to show it once it has been created. Defaults to false.
+             */
             hidden?: boolean;
+            /**
+             * If true, the window will be resizable by the user. Defaults to true.
+             */
             resizable?: boolean;
+            /**
+             * @deprecated Deprecated since Chrome 34. Multiple windows with the same id is no longer supported.
+             * By default if you specify an id for the window,
+             * the window will only be created if another window with the same id doesn't already exist.
+             * If a window with the same id already exists that window is activated instead.
+             * If you do want to create multiple windows with the same id, you can set this property to false.
+             */
             singleton?: boolean;
+            /**
+             * If true, the window will stay above most other windows.
+             * If there are multiple windows of this kind, the currently focused window will be in the foreground.
+             * @requires alwaysOnTopWindows-permission.
+             * Defaults to false.
+             * Call setAlwaysOnTop() on the window to change this property after creation.
+             */
             alwaysOnTop?: boolean;
+            /** If true, the window will be focused when created. Defaults to true. */
             focused?: boolean;
+            /**
+             * If true, and supported by the platform, the window will be visible on all workspaces.
+             * @since Since Chrome 39.
+             */
             visibleOnAllWorkspaces?: boolean;
         }
 
         interface AppWindow {
+            /** Focus the window. */
             focus: () => void;
+            /**
+             * Fullscreens the window.
+             * The user will be able to restore the window by pressing ESC.
+             * An application can prevent the fullscreen state to be left when ESC is pressed by requesting the
+             * app.window.fullscreen.overrideEsc permission and canceling the event by calling .preventDefault(),
+             * in the keydown and keyup handlers, like this:
+             * @example window.onkeydown = window.onkeyup = function(e) { if (e.keyCode == 27 <<--``ESC``) { e.preventDefault(); }
+             * Note window.fullscreen() will cause the entire window to become fullscreen and does not require a user gesture.
+             * The HTML5 fullscreen API can also be used to enter fullscreen mode(see Web APIs for more details).
+             **/
             fullscreen: () => void;
+            /** Is the window fullscreen? This will be true if the window has been created fullscreen or was made fullscreen via the AppWindow or HTML5 fullscreen APIs. */
             isFullscreen: () => boolean;
+            /** Minimize the window. */
             minimize: () => void;
+            /** Is the window minimized? */
             isMinimized: () => boolean;
+            /** Maximize the window. */
             maximize: () => void;
+            /** Is the window maximized? */
             isMaximized: () => boolean;
+            /** Restore the window, exiting a maximized, minimized, or fullscreen state. */
             restore: () => void;
+            /**
+             * Move the window to the position (|left|, |top|).
+             * @deprecated Deprecated since Chrome 43. Use outerBounds.
+             */
             moveTo: (left: number, top: number) => void;
+            /**
+             * Resize the window to |width|x|height| pixels in size.
+             * @deprecated Deprecated since Chrome 43. Use outerBounds.
+             */
             resizeTo: (width: number, height: number) => void;
+            /** Draw attention to the window. */
             drawAttention: () => void;
+            /** Clear attention to the window. */
             clearAttention: () => void;
+            /** Close the window. */
             close: () => void;
-            show: () => void;
+            /** Show the window. Does nothing if the window is already visible. Focus the window if |focused| is set to true or omitted. */
+            show: (focused?: boolean) => void;
+            /** Hide the window. Does nothing if the window is already hidden. */
             hide: () => void;
+            /**
+             * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
+             * @description Get the window's inner bounds as a ContentBounds object.
+             */
             getBounds: () => ContentBounds;
+            /**
+             * Set the window's inner bounds.
+             * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
+             */
             setBounds: (bounds: ContentBounds) => void;
+            /** Is the window always on top? */
             isAlwaysOnTop: () => boolean;
+            /** Set whether the window should stay above most other windows. Requires the alwaysOnTopWindows permission. */
             setAlwaysOnTop: (alwaysOnTop: boolean) => void;
+            /** Set whether the window is visible on all workspaces. (Only for platforms that support this). */
             setVisibleOnAllWorkspaces: (alwaysVisible: boolean) => void;
+            /** The JavaScript 'window' object for the created child. */
             contentWindow: Window;
+            /** The id the window was created with. */
             id: string;
+            /**
+             * The position, size and constraints of the window's content, which does not include window decorations.
+             * @since This property is new in Chrome 36.
+             * */
             innerBounds: Bounds;
+            /**
+             * The position, size and constraints of the window, which includes window decorations, such as the title bar and frame.
+             * @since This property is new in Chrome 36.
+             */
             outerBounds: Bounds;
-            onBoundsChanged: WindowEvent;
-            onClosed: WindowEvent;
-            onFullscreened: WindowEvent;
-            onMaximized: WindowEvent;
-            onMinimized: WindowEvent;
-            onRestored: WindowEvent;
         }
-
+        /**
+         * The size and position of a window can be specified in a number of different ways. The most simple option is not specifying anything at all, in which case a default size and platform dependent position will be used.
+         * To set the position, size and constraints of the window, use the innerBounds or outerBounds properties. Inner bounds do not include window decorations. Outer bounds include the window's title bar and frame. Note that the padding between the inner and outer bounds is determined by the OS. Therefore setting the same property for both inner and outer bounds is considered an error (for example, setting both innerBounds.left and outerBounds.left).
+         * To automatically remember the positions of windows you can give them ids. If a window has an id, This id is used to remember the size and position of the window whenever it is moved or resized. This size and position is then used instead of the specified bounds on subsequent opening of a window with the same id. If you need to open a window with an id at a location other than the remembered default, you can create it hidden, move it to the desired location, then show it.
+         *
+         * @param url
+         * @param [options]
+         * @param [callback] Called in the creating window (parent) before the load event is called in the created window (child). The parent can set fields or functions on the child usable from onload. E.g. background.js: function(createdWindow) { createdWindow.contentWindow.foo = function () { }; }; window.js: window.onload = function () { foo(); } If you specify the callback parameter, it should be a function that looks like this: function(AppWindow createdWindow) {...};
+         */
         export function create(url: string, options?: CreateWindowOptions, callback?: (created_window: AppWindow) => void): void;
+        /**
+         * Returns an AppWindow object for the current script context (ie JavaScript 'window' object). This can also be called on a handle to a script context for another page, for example: otherWindow.chrome.app.window.current().
+         */
         export function current(): AppWindow;
+        /**
+         * Gets an AppWindow with the given id. If no window with the given id exists null is returned. This method is new in Chrome 33.
+         */
         export function get(id: string): AppWindow;
+        /**
+         * Gets an array of all currently created app windows. This method is new in Chrome 33.
+         */
         export function getAll(): AppWindow[];
+        /**
+         * Whether the current platform supports windows being visible on all workspaces.
+         */
         export function canSetVisibleOnAllWorkspaces(): boolean;
 
         interface WindowEvent extends chrome.events.Event<() => void> { }
 
+        /** Fired when the window is resized. */
         export var onBoundsChanged: WindowEvent;
+        /**
+         * Fired when the window is closed.
+         * Note, this should be listened to from a window other than the window being closed, for example from the background page.
+         * This is because the window being closed will be in the process of being torn down when the event is fired,
+         * which means not all APIs in the window's script context will be functional.
+         */
         export var onClosed: WindowEvent;
+        /** Fired when the window is fullscreened (either via the AppWindow or HTML5 APIs). */
         export var onFullscreened: WindowEvent;
+        /** Fired when the window is maximized. */
         export var onMaximized: WindowEvent;
+        /** Fired when the window is minimized. */
         export var onMinimized: WindowEvent;
+        /** Fired when the window is restored from being minimized or maximized. */
         export var onRestored: WindowEvent;
     }
 
@@ -545,15 +784,15 @@ declare namespace chrome {
             addListener(callback: (devices: AudioDeviceInfo[]) => void): void;
         }
         /**
-         * @description Device properties by which to filter the list of returned audio devices. If the filter is not set or set to {}, returned device list will contain all available audio devices.
+         * Device properties by which to filter the list of returned audio devices. If the filter is not set or set to {}, returned device list will contain all available audio devices.
          */
         interface Filter {
             /**
-             * @description If set, only audio devices whose stream type is included in this list will satisfy the filter.
+             * If set, only audio devices whose stream type is included in this list will satisfy the filter.
              */
             streamTypes?: StreamType[];
             /**
-             * @description If set, only audio devices whose active state matches this value will satisfy the filter.
+             * If set, only audio devices whose active state matches this value will satisfy the filter.
              */
             isActive?: boolean;
         }
