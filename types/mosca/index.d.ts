@@ -7,7 +7,7 @@ export class Server {
     opts: any;
     modernOpts: any;
     dedupId: any;
-    clients: Client[];
+    clients: any;
     closed: boolean;
 
     constructor(opts: any, callback?: () => void);
