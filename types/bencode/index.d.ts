@@ -5,20 +5,12 @@
 
 /// <reference types="node" />
 
-declare namespace bencode {
-    function byteLength(value: any): number;
-    function encodingLength(value: any): number;
-    function encode(
-        data: any,
-        buffer?: Buffer,
-        offset?: number
-    ): Buffer;
-    function decode(
-        data: Buffer,
-        start?: number,
-        end?: number,
-        encoding?: string
-    ): any;
-}
-
-export default bencode;
+export function byteLength(value: any): number;
+export function encodingLength(value: any): number;
+export function encode(data: any, buffer?: Buffer, offset?: number): Buffer;
+export function decode(
+    data: Buffer,
+    start?: number,
+    end?: number,
+    encoding?: string
+): any;
