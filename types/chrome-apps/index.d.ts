@@ -243,18 +243,6 @@ declare namespace chrome {
         export var onAlarm: AlarmEvent;
     }
 
-
-    ////////////////////
-    // App
-    ////////////////////
-    namespace app {
-        interface AppDetails extends chrome.runtime.Manifest {
-            id: string;
-        }
-
-        export function getDetails(): AppDetails;
-    }
-
     ////////////////////
     // App Runtime
     ////////////////////
