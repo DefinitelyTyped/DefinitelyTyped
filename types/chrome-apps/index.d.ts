@@ -519,12 +519,12 @@ declare namespace chrome {
              * If showInShelf is set to true you need to specify an id for the window.
              * @since Since Chrome 54.
              */
-            showInShelf: boolean;
+            showInShelf?: boolean;
             /**
              * URL of the window icon. A window can have its own icon when showInShelf is set to true. The URL should be a global or an extension local URL.
              * @since Since Chrome 54.
              */
-            icon: string;
+            icon?: string;
             /**
              * Frame type: none or chrome (defaults to chrome).
              * For none, the -webkit-app-region CSS property can be used to apply draggability to the app's window.
