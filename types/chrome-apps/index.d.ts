@@ -252,27 +252,91 @@ declare namespace chrome {
             'about_page' | 'keyboard' | 'extensions_page' | 'management_api' | 'ephemeral_app' |
             'background' | 'kiosk' | 'chrome_internal' | 'test' | 'installed_notification' | 'context_menu';
 
+        interface EmbedRequest {
+            /**
+             * Optional developer specified data that the app to be embedded can use when making an embedding decision.
+             */
+            data?: any;
+            /**
+             * Allows embedderId to embed this app in an <appview> element. The url specifies the content to embed.
+             */
+            allow: (url: string) => void;
+            /**
+             * Prevents embedderId from embedding this app in an <appview> element.
+             */
+            deny: () => void;
+        }
+
         interface LaunchData {
+            /**
+             * The ID of the file or URL handler that the app is being invoked with. Handler IDs are the top-level keys in the file_handlers and/or url_handlers dictionaries in the manifest.
+             */
             id?: string;
+            /**
+             * The file entries for the onLaunched event triggered by a matching file handler in the file_handlers manifest key.
+             */
             items?: LaunchDataItem[];
+            /**
+             * The URL for the onLaunched event triggered by a matching URL handler in the url_handlers manifest key.
+             */
             url?: string;
+            /**
+             * The referrer URL for the onLaunched event triggered by a matching URL handler in the url_handlers manifest key.
+             */
             referrerUrl?: string;
+            /**
+             * Whether the app is being launched in a Chrome OS kiosk session.
+             */
             isKioskSession?: boolean;
+            /**
+             * Whether the app is being launched in a Chrome OS public session.
+             * @since Since Chrome 47.
+             */
             isPublicSession?: boolean;
+            /**
+             * Where the app is launched from.
+             */
             source?: LaunchSource;
-            actionData?: {};
+            /**
+             * Contains data that specifies the ActionType this app was launched with. This is null if the app was not launched with a specific action intent.
+             *  ______________________________________________________________________________
+             * | enum of "new_note" | actionType | new_note                                   |
+             * |                    |            | The user wants to quickly take a new note. |
+             * |____________________|____________|____________________________________________|
+             * @since Since Chrome 54.
+             */
+            actionData?: Object;
         }
 
         interface LaunchDataItem {
+            /**
+             * Entry for the item
+             */
             entry: FileEntry;
-            type: string;
+            /**
+             * The MIME type of the file.
+             */
+            type?: string;
         }
+
+        interface EmbedRequestedEvent extends chrome.events.Event<(request: EmbedRequest) => void> { }
 
         interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> { }
 
         interface RestartedEvent extends chrome.events.Event<() => void> { }
 
+        /**
+         * Fired when an embedding app requests to embed this app. This event is only available on dev channel with the flag --enable-app-view.
+         * @since Since Chrome 38.
+         */
+        export var onEmbedRequest: EmbedRequestedEvent;
+        /**
+         * Fired when an app is launched from the launcher.
+         */
         export var onLaunched: LaunchedEvent;
+        /**
+         * Fired at Chrome startup to apps that were running when Chrome last shut down, or when apps have been requested to restart from their previous state for other reasons (e.g. when the user revokes access to an app's retained files the runtime will restart the app). In these situations if apps do not have an onRestarted handler they will be sent an onLaunched event instead.
+         */
         export var onRestarted: RestartedEvent;
     }
 
