@@ -652,7 +652,27 @@ declare namespace chrome {
              * @since This property is new in Chrome 36.
              */
             outerBounds: Bounds;
+
+
+            /** Fired when the window is resized. */
+            onBoundsChanged: WindowEvent;
+            /**
+             * Fired when the window is closed.
+             * Note, this should be listened to from a window other than the window being closed, for example from the background page.
+             * This is because the window being closed will be in the process of being torn down when the event is fired,
+             * which means not all APIs in the window's script context will be functional.
+             */
+            onClosed: WindowEvent;
+            /** Fired when the window is fullscreened (either via the AppWindow or HTML5 APIs). */
+            onFullscreened: WindowEvent;
+            /** Fired when the window is maximized. */
+            onMaximized: WindowEvent;
+            /** Fired when the window is minimized. */
+            onMinimized: WindowEvent;
+            /** Fired when the window is restored from being minimized or maximized. */
+            onRestored: WindowEvent;
         }
+        interface WindowEvent extends chrome.events.Event<() => void> { }
         /**
          * The size and position of a window can be specified in a number of different ways. The most simple option is not specifying anything at all, in which case a default size and platform dependent position will be used.
          * To set the position, size and constraints of the window, use the innerBounds or outerBounds properties. Inner bounds do not include window decorations. Outer bounds include the window's title bar and frame. Note that the padding between the inner and outer bounds is determined by the OS. Therefore setting the same property for both inner and outer bounds is considered an error (for example, setting both innerBounds.left and outerBounds.left).
@@ -679,26 +699,6 @@ declare namespace chrome {
          * Whether the current platform supports windows being visible on all workspaces.
          */
         export function canSetVisibleOnAllWorkspaces(): boolean;
-
-        interface WindowEvent extends chrome.events.Event<() => void> { }
-
-        /** Fired when the window is resized. */
-        export var onBoundsChanged: WindowEvent;
-        /**
-         * Fired when the window is closed.
-         * Note, this should be listened to from a window other than the window being closed, for example from the background page.
-         * This is because the window being closed will be in the process of being torn down when the event is fired,
-         * which means not all APIs in the window's script context will be functional.
-         */
-        export var onClosed: WindowEvent;
-        /** Fired when the window is fullscreened (either via the AppWindow or HTML5 APIs). */
-        export var onFullscreened: WindowEvent;
-        /** Fired when the window is maximized. */
-        export var onMaximized: WindowEvent;
-        /** Fired when the window is minimized. */
-        export var onMinimized: WindowEvent;
-        /** Fired when the window is restored from being minimized or maximized. */
-        export var onRestored: WindowEvent;
     }
 
 
@@ -5101,40 +5101,136 @@ declare namespace chrome {
             file?: string
         }
 
-        interface WebViewElementEventMap {
-            'close': Event,
-            'consolemessage': IConsolemessage,
-            'contentload': Event,
-            'dialog': IDialog,
-            'exit': IExit,
-            'findupdate': IFindupdate,
-            'loadabort': ILoadabort,
-            'loadcommit': ILoadcommit,
-            'loadredirect': ILoadredirect,
-            'loadstart': ILoadstart,
-            'loadstop': Event,
-            'newwindow': INewwindow,
-            'permissionrequest': IPermissionrequest,
-            'responsive': IResponsive,
-            'sizechanged': ISizechanged,
-            'unresponsive': IUnresponsive,
-            'zoomchange': IZoomchange,
-        }
-
-
         /**
-         * @description
-         * @export
-         * @interface HTMLWebViewElement
-         * @extends {Element}
+         * @description WebView element from html
          */
         interface HTMLWebViewElement extends Element {
+            /**
+             * This sets the guest content's window.name object.
+             */
+            name: string;
+            /**
+             * Returns the visible URL. Mirrors the logic in the browser's omnibox: either returning a pending new navigation if initiated by the embedder page, or the last committed navigation. Writing to this attribute initiates top-level navigation.
+             * Assigning src its own value will reload the current page.
+             * The src attribute cannot be cleared or removed once it has been set, unless the webview is removed from the DOM.
+             * The src attribute can also accept data URLs, such as "data:text/plain,Hello, world!".
+             */
             src: string;
-            contentWindow: Window;
-            addEventListener<K extends keyof WebViewElementEventMap>(type: K, listener: (this: HTMLWebViewElement, ev: WebViewElementEventMap[K]) => any, useCapture?: boolean): void;
+            /**
+             * Storage partition ID used by the webview tag. If the storage partition ID starts with persist: (partition="persist:googlepluswidgets"), the webview will use a persistent storage partition available to all guests in the app with the same storage partition ID. If the ID is unset or if there is no 'persist': prefix, the webview will use an in-memory storage partition. This value can only be modified before the first navigation, since the storage partition of an active renderer process cannot change. Subsequent attempts to modify the value will fail with a DOM exception. By assigning the same partition ID, multiple webviews can share the same storage partition.
+             */
+            partition?: string;
+            /**
+             * If present, portions of the embedder could be visible through the webview, where the contents are transparent. Without allowtransparency enabled, no part of the embedder will be shown through the webview, even if elements exist that are specified as transparent.
+             * This does not affect transparency within the contents of the webview itself.
+             */
+            allowtransparency?: boolean;
+            /**
+             * If "on", the webview container will automatically resize within the bounds specified by the attributes minwidth, minheight, maxwidth, and maxheight.
+             * These constraints do not impact the webview UNLESS autosize is enabled.
+             * When autosize is enabled, the webview container size cannot be less than the minimum values or greater than the maximum.
+             */
+            autosize?: 'on';
+            /**
+             * Object reference which can be used to post messages into the guest page.
+             */
+            contentWindow: ContentWindow;
+            /** Interface which provides access to webRequest events on the guest page. */
+            request: WebRequestEventInterface;
+            /** Similar to chrome's ContextMenus API, but applies to webview instead of browser. Use the webview.contextMenus API to add items to webview's context menu. You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages. */
+            contextMenus: webview.ContextMenus;
+            /**
+             * Fired when the guest window attempts to close itself.
+             * The following example code navigates the webview to about:blank when the guest attempts to close itself.
+             */
+            addEventListener(type: 'close', listener: (this: HTMLWebViewElement) => void, useCapture?: boolean): void;
+            /**
+             * Fired when the guest window logs a console message.
+             * The following example code forwards all log messages to the embedder's console without regard for log level or other properties.
+             */
+            addEventListener(type: 'consolemessage', listener: (this: HTMLWebViewElement, ev: IConsoleMessage) => void, useCapture?: boolean): void;
+            /**
+             * Fired when the guest window fires a load event, i.e., when a new document is loaded. This does not include page navigation within the current document or asynchronous resource loads.
+             * The following example code modifies the default font size of the guest's body element after the page loads:
+             * @example
+             * webview.addEventListener('contentload', function() {
+             *  webview.executeScript({ code: 'document.body.style.fontSize = "42px"' })
+             * });
+             */
+            addEventListener(type: 'contentload', listener: (this: HTMLWebViewElement) => void, useCapture?: boolean): void;
+            /**
+             * Fired when the guest window attempts to open a modal dialog via window.alert, window.confirm, or window.prompt.
+             * Handling this event will block the guest process until each event listener returns or the dialog object becomes unreachable (if preventDefault() was called.)
+             * The default behavior is to cancel the dialog.
+             */
+            addEventListener(type: 'dialog', listener: (this: HTMLWebViewElement, ev: IDialog) => void, useCapture?: boolean): void;
+            /**
+             * Fired when the process rendering the guest web content has exited.
+             */
+            addEventListener(type: 'exit', listener: (this: HTMLWebViewElement, ev: IExit) => void, useCapture?: boolean): void;
+            /**
+             * Fired when new find results are available for an active find request. This might happen multiple times for a single find request as matches are found.
+             */
+            addEventListener(type: 'findupdate', listener: (this: HTMLWebViewElement, ev: IFindupdate) => void, useCapture?: boolean): void;
+            /**
+             * Fired when a top-level load has aborted without committing. An error message will be printed to the console unless the event is default-prevented.
+             * Note: When a resource load is aborted, a loadabort event will eventually be followed by a loadstop event, even if all committed loads since the last loadstop event (if any) were aborted.
+             * Note: When the load of either an about URL or a JavaScript URL is aborted, loadabort will be fired and then the webview will be navigated to 'about:blank'.
+             */
+            addEventListener(type: 'loadabort', listener: (this: HTMLWebViewElement, ev: ILoadabort) => void, useCapture?: boolean): void;
+            /**
+             * Fired when a load has committed. This includes navigation within the current document as well as subframe document-level loads, but does not include asynchronous resource loads.
+             */
+            addEventListener(type: 'loadcommit', listener: (this: HTMLWebViewElement, ev: ILoadcommit) => void, useCapture?: boolean): void;
+            /**
+             * Fired when a top-level load request has redirected to a different URL.
+             */
+            addEventListener(type: 'loadredirect', listener: (this: HTMLWebViewElement, ev: ILoadredirect) => void, useCapture?: boolean): void;
+            /**
+             * Fired when a load has begun.
+             */
+            addEventListener(type: 'loadstart', listener: (this: HTMLWebViewElement, ev: ILoadstart) => void, useCapture?: boolean): void;
+            /**
+             * Fired when all frame-level loads in a guest page (including all its subframes) have completed.
+             * This includes navigation within the current document as well as subframe document-level loads, but does not include asynchronous resource loads.
+             * This event fires every time the number of document-level loads transitions from one (or more) to zero. For example, if a page that has already finished loading (i.e., loadstop already fired once) creates a new iframe which loads a page, then a second loadstop will fire when the iframe page load completes.
+             * This pattern is commonly observed on pages that load ads.
+             * Note: When a committed load is aborted, a loadstop event will eventually follow a loadabort event, even if all committed loads since the last loadstop event (if any) were aborted.
+             */
+            addEventListener(type: 'loadstop', listener: (this: HTMLWebViewElement) => void, useCapture?: boolean): void;
+            /**
+             * Fired when the guest page attempts to open a new browser window.
+             * The following example code will create and navigate a new webview in the embedder for each requested new window:
+             * @example
+             * webview.addEventListener('newwindow', function(e) {
+             *  var newWebview = document.createElement('webview');
+             *  document.body.appendChild(newWebview);
+             *  e.window.attach(newWebview);
+             * });
+             */
+            addEventListener(type: 'newwindow', listener: (this: HTMLWebViewElement, ev: INewwindow) => void, useCapture?: boolean): void;
+            /**
+             * Fired when the guest page needs to request special permission from the embedder.
+             * The following example code will grant the guest page access to the webkitGetUserMedia API.
+             * Note that an app using this example code must itself specify audioCapture and/or videoCapture manifest permissions:
+             * @example
+             * webview.addEventListener('permissionrequest', function(e) {
+             *  if (e.permission === 'media') {
+             *      e.request.allow();
+             *  }
+             * });
+             */
+            addEventListener(type: 'permissionrequest', listener: (this: HTMLWebViewElement, ev: IPermissionrequest) => void, useCapture?: boolean): void;
+            /** Fired when the process rendering the guest web content has become responsive again after being unresponsive. */
+            addEventListener(type: 'response', listener: (this: HTMLWebViewElement, ev: IResponsive) => void, useCapture?: boolean): void;
+            /** Fired when the embedded web content has been resized via autosize. Only fires if autosize is enabled. */
+            addEventListener(type: 'sizechanged', listener: (this: HTMLWebViewElement, ev: ISizechanged) => void, useCapture?: boolean): void;
+            /** Fired when the process rendering the guest web content has become unresponsive. This event will be generated once with a matching responsive event if the guest begins to respond again. */
+            addEventListener(type: 'unresponsive', listener: (this: HTMLWebViewElement, ev: IUnresponsive) => void, useCapture?: boolean): void;
+            /** Fired when the page's zoom changes. */
+            addEventListener(type: 'zoomchange', listener: (this: HTMLWebViewElement, ev: IZoomchange) => void, useCapture?: boolean): void;
             /**
             * @description Queries audio state.
-            * @param {any} [object Object]
             */
             getAudioState(callback: (audible: boolean) => void): void;
 
@@ -5146,7 +5242,6 @@ declare namespace chrome {
 
             /**
             * @description Queries whether audio is muted.
-            * @param {any} [object Object]
              */
             isAudioMuted(callback: (muted: boolean) => void): void;
 
@@ -5230,30 +5325,30 @@ declare namespace chrome {
 
             /**
             * @description <p>Clears browsing data for the webview partition.</p>
-            * @param {any} options Options determining which data to clear.
-            * @param {any} types The types of data to be cleared.
-            * @param {any} [object Object]
+            * @param options Options determining which data to clear.
+            * @param types The types of data to be cleared.
+            * @param callback
              */
             clearData(options: ClearDataOptions, types: ClearDataTypeSet, callback?: () => void): void;
 
             /**
             * @description <p>Injects JavaScript code into the guest page.</p><p>The following sample code uses script injection to set the guest page's background color to red:</p><pre>webview.executeScript({ code: 'document.body.style.backgroundColor = 'red'' });</pre>
-            * @param {any} details Details of the script to run.
-            * @param {any} [object Object]
+            * @param details Details of the script to run.
+            * @param callback
              */
             executeScript(details: InjectDetails, callback?: (result?: any[]) => void): void;
 
             /**
             * @description Initiates a find-in-page request.
             * @param {string} searchText The string to find in the page.
-            * @param {any} options Options for the find request.
-            * @param {any} [object Object]
+            * @param options Options for the find request.
+            * @param callback
              */
             find(searchText: string, options?: FindOptions, callback?: (results?: any) => void): void;
 
             /**
             * @description Navigates forward one history entry if possible. Equivalent to go(1).
-            * @param {any} [object Object]
+            * @param callback
              */
             forward(callback?: (success: boolean) => void): void;
 
@@ -5269,27 +5364,27 @@ declare namespace chrome {
 
             /**
             * @description Gets the current zoom factor.
-            * @param {any} [object Object]
+            * @param callback
              */
             getZoom(callback: (zoomFactor: number) => void): void;
 
             /**
             * @description Gets the current zoom mode.
-            * @param {any} [object Object]
+            * @param callback
              */
             getZoomMode(callback: (ZoomMode: any) => void): void;
 
             /**
             * @description Navigates to a history entry using a history index relative to the current navigation. If the requested navigation is impossible, this method has no effect.
             * @param {number} relativeIndex Relative history index to which the webview should be navigated. For example, a value of 2 will navigate forward 2 history entries if possible; a value of -3 will navigate backward 3 entries.
-            * @param {any} [object Object]
+            * @param callback
              */
             go(relativeIndex: number, callback?: (success: boolean) => void): void;
 
             /**
             * @description Injects CSS into the guest page.
-            * @param {any} details Details of the CSS to insert.
-            * @param {any} [object Object]
+            * @param details Details of the CSS to insert.
+            * @param callback
              */
             insertCSS(details: InjectDetails, callback?: () => void): void;
 
@@ -5327,14 +5422,14 @@ declare namespace chrome {
             /**
             * @description Changes the zoom factor of the page. The scope and persistence of this change are determined by the webview's current zoom mode (see $(ref:webviewTag.ZoomMode)).
             * @param {number} zoomFactor The new zoom factor.
-            * @param {any} [object Object]
+            * @param callback
              */
             setZoom(zoomFactor: number, callback?: () => void): void;
 
             /**
             * @description Sets the zoom mode of the webview.
-            * @param {any} ZoomMode Defines how zooming is handled in the webview.
-            * @param {any} [object Object]
+            * @param ZoomMode Defines how zooming is handled in the webview.
+            * @param callback
              */
             setZoomMode(ZoomMode: ZoomMode, callback?: () => void): void;
 
@@ -5374,10 +5469,10 @@ declare namespace chrome {
             * @description Fired when the guest window logs a console message.<p>The following example code forwards all log messages to the embedder's console without regard for log level or other properties.</p><pre>webview.addEventListener('consolemessage', function(e) {
               console.log('Guest page logged a message: ', e.message);
             });</pre>
-            * @param {any} [object Object]
+            * @param callback
              */
 
-            consolemessage: chrome.events.Event<IConsolemessage>;
+            consolemessage: chrome.events.Event<IConsoleMessage>;
 
             /**
             * @description Fired when the guest window fires a load event, i.e., when a new document is loaded. This does <em>not</em> include page navigation within the current document or asynchronous resource loads. <p>The following example code modifies the default font size of the guest's body element after the page loads:</p><pre>webview.addEventListener('contentload', function() {
@@ -5389,7 +5484,7 @@ declare namespace chrome {
 
             /**
             * @description Fired when the guest window attempts to open a modal dialog via window.alert, window.confirm, or window.prompt.<p>Handling this event will block the guest process until each event listener returns or the dialog object becomes unreachable (if preventDefault() was called.)</p><p>The default behavior is to cancel the dialog.</p>
-            * @param {any} [object Object]
+            * @param callback
              */
 
             dialog: chrome.events.Event<IDialog>;
@@ -5400,42 +5495,42 @@ declare namespace chrome {
                 webview.src = 'data:text/plain,Goodbye, world!';
               }
             });</pre>
-            * @param {any} [object Object]
+            * @param callback
              */
 
             exit: chrome.events.Event<IExit>;
 
             /**
             * @description Fired when new find results are available for an active find request. This might happen multiple times for a single find request as matches are found.
-            * @param {any} [object Object]
+            * @param callback
              */
 
             findupdate: chrome.events.Event<IFindupdate>;
 
             /**
             * @description Fired when a top-level load has aborted without committing. An error message will be printed to the console unless the event is default-prevented. <p class='note'><strong>Note:</strong> When a resource load is aborted, a loadabort event will eventually be followed by a loadstop event, even if all committed loads since the last loadstop event (if any) were aborted.</p><p class='note'><strong>Note:</strong> When the load of either an about URL or a JavaScript URL is aborted, loadabort will be fired and then the webview will be navigated to 'about:blank'.</p>
-            * @param {any} [object Object]
+            * @param callback
              */
 
             loadabort: chrome.events.Event<ILoadabort>;
 
             /**
             * @description Fired when a load has committed. This includes navigation within the current document as well as subframe document-level loads, but does <em>not</em> include asynchronous resource loads.
-            * @param {any} [object Object]
+            * @param callback
              */
 
             loadcommit: chrome.events.Event<chrome.webview.ILoadcommit>;
 
             /**
             * @description Fired when a top-level load request has redirected to a different URL.
-            * @param {any} [object Object]
+            * @param callback
              */
 
             loadredirect: chrome.events.Event<chrome.webview.ILoadredirect>;
 
             /**
             * @description Fired when a load has begun.
-            * @param {any} [object Object]
+            * @param callback
              */
 
             loadstart: chrome.events.Event<chrome.webview.ILoadstart>;
@@ -5452,7 +5547,7 @@ declare namespace chrome {
               document.body.appendChild(newWebview);
               e.window.attach(newWebview);
             });</pre>
-            * @param {any} [object Object]
+            * @param callback
              */
 
             newwindow: chrome.events.Event<INewwindow>;
@@ -5463,7 +5558,7 @@ declare namespace chrome {
                 e.request.allow();
               }
             });</pre>
-            * @param {any} [object Object]
+            * @param callback
              */
 
             permissionrequest: chrome.events.Event<IPermissionrequest>;
@@ -5476,28 +5571,28 @@ declare namespace chrome {
             webview.addEventListener('responsive', function() {
               webview.style.opacity = '1';
             });</pre>
-            * @param {any} [object Object]
+            * @param callback
              */
 
             responsive: chrome.events.Event<chrome.webview.IResponsive>;
 
             /**
             * @description Fired when the embedded web content has been resized via autosize. Only fires if autosize is enabled.
-            * @param {any} [object Object]
+            * @param callback
              */
 
             sizechanged: chrome.events.Event<chrome.webview.ISizechanged>;
 
             /**
             * @description Fired when the process rendering the guest web content has become unresponsive. This event will be generated once with a matching responsive event if the guest begins to respond again.
-            * @param {any} [object Object]
+            * @param callback
              */
 
             unresponsive: chrome.events.Event<chrome.webview.IUnresponsive>;
 
             /**
             * @description Fired when the page's zoom changes.
-            * @param {any} [object Object]
+            * @param callback
              */
 
             zoomchange: chrome.events.Event<chrome.webview.IZoomchange>;
@@ -5681,7 +5776,7 @@ declare namespace chrome {
 
             /**
             * @description A function that will be called back when the menu item is clicked.
-            * @param {any} [object Object]
+            * @param callback
              */
             onclick?: (info: any) => void
 
@@ -5730,7 +5825,7 @@ declare namespace chrome {
 
             /**
             * @description A function that will be called back when the menu item is clicked.
-            * @param {any} [object Object]
+            * @param callback
              */
             onclick?: (info: any) => void
 
@@ -5759,28 +5854,28 @@ declare namespace chrome {
             /**
             * @description Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
             * @param {object} createProperties The properties used to create the item
-            * @param {any} [object Object]
+            * @param callback
              */
             create(createProperties: object, callback?: () => void): void;
 
             /**
             * @description Updates a previously created context menu item.
-            * @param {any} id The ID of the item to update.
+            * @param id The ID of the item to update.
             * @param {object} updateProperties The properties to update. Accepts the same values as the create function.
-            * @param {any} [object Object]
+            * @param callback
              */
             update(id: number | string, updateProperties: object, callback?: () => void): void;
 
             /**
             * @description Removes a context menu item.
-            * @param {any} menuItemId The ID of the context menu item to remove.
-            * @param {any} [object Object]
+            * @param menuItemId The ID of the context menu item to remove.
+            * @param callback
              */
             remove(menuItemId: number | string, callback?: () => void): void;
 
             /**
             * @description Removes all context menu items added to this webview.
-            * @param {any} [object Object]
+            * @param callback
              */
             removeAll(callback?: () => void): void;
 
@@ -5802,7 +5897,7 @@ declare namespace chrome {
 
             /**
             * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href='#event-contentload'>contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it receives.</p><p>This API is identical to the <a href='https://developer.mozilla.org/en-US/docs/DOM/window.postMessage'>HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
-            * @param {any} message Message object to send to the guest.
+            * @param message Message object to send to the guest.
             * @param {string} targetOrigin Specifies what the origin of the guest window must be for the event to be dispatched.
              */
             postMessage(message: any, targetOrigin: string): void;
@@ -6011,13 +6106,18 @@ declare namespace chrome {
         * * Disables all zooming in the webview. The content will revert to the default zoom level, and all attempted zoom changes will be ignored. */
         export type ZoomMode = 'per-origin' | 'per-view' | 'disabled';
 
-        /**IConsolemessage (Auto generated interface) */
-        interface IConsolemessage {
+        export enum ConsoleMessageLevel {
+            LOG_VERBOSE = -1,
+            LOG_INFO = 0,
+            LOG_WARNING = 1,
+            LOG_ERROR = 2
+        }
+        interface IConsoleMessage {
 
             /**
             * @description The severity level of the log message. Ranges from -1 to 2. LOG_VERBOSE (console.debug) = -1, LOG_INFO (console.log, console.info) = 0, LOG_WARNING (console.warn) = 1, LOG_ERROR (console.error) = 2.
              */
-            level: number
+            level: ConsoleMessageLevel;
 
             /**
             * @description The logged message contents.
@@ -6034,7 +6134,6 @@ declare namespace chrome {
              */
             sourceId: string
         }
-        /**IDialog (Auto generated interface) */
         interface IDialog {
 
             /**
@@ -6052,7 +6151,6 @@ declare namespace chrome {
              */
             dialog: DialogController
         }
-        /**IExit (Auto generated interface) */
         interface IExit {
 
             /**
@@ -6065,7 +6163,6 @@ declare namespace chrome {
              */
             reason: 'normal' | 'abnormal' | 'crash' | 'kill'
         }
-        /**IFindupdate (Auto generated interface) */
         interface IFindupdate {
 
             /**
@@ -6098,7 +6195,6 @@ declare namespace chrome {
              */
             finalUpdate: string
         }
-        /**ILoadabort (Auto generated interface) */
         interface ILoadabort {
 
             /**
@@ -6121,7 +6217,6 @@ declare namespace chrome {
              */
             reason: 'ERR_ABORTED' | 'ERR_INVALID_URL' | 'ERR_DISALLOWED_URL_SCHEME' | 'ERR_BLOCKED_BY_CLIENT' | 'ERR_ADDRESS_UNREACHABLE' | 'ERR_EMPTY_RESPONSE' | 'ERR_FILE_NOT_FOUND' | 'ERR_UNKNOWN_URL_SCHEME'
         }
-        /**ILoadcommit (Auto generated interface) */
         interface ILoadcommit {
 
             /**
