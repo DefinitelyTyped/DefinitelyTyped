@@ -189,6 +189,8 @@ declare namespace Chance {
         year?: number;
         month?: number;
         day?: number;
+        min?: Date;
+        max?: Date;
     }
 
     interface Month {
