@@ -1,6 +1,11 @@
-// Type definitions for socket.io 1.4.4
+// Type definitions for socket.io 1.4.5
 // Project: http://socket.io/
-// Definitions by: PROGRE <https://github.com/progre>, Damian Connolly <https://github.com/divillysausages>, Florent Poujol <https://github.com/florentpoujol>, KentarouTakeda <https://github.com/KentarouTakeda>, Alexey Snigirev <https://github.com/gigi>
+// Definitions by: PROGRE <https://github.com/progre>
+//                 Damian Connolly <https://github.com/divillysausages>
+//                 Florent Poujol <https://github.com/florentpoujol>
+//                 KentarouTakeda <https://github.com/KentarouTakeda>
+//                 Alexey Snigirev <https://github.com/gigi>
+//                 Ezinwa Okpoechi <https://github.com/BrainMaestro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
@@ -127,7 +132,7 @@ declare namespace SocketIO {
 		 * Gets the allowed origins for requests
 		 * @default "*:*"
 		 */
-		origins(): string;
+		origins(): string|string[];
 
 		/**
 		 * Sets the allowed origins for requests
@@ -135,7 +140,7 @@ declare namespace SocketIO {
 		 * @default "*:*"
 		 * return This Server
 		 */
-		origins( v: string ): Server;
+		origins( v: string|string[] ): Server;
 
 		/**
 		 * Attaches socket.io to a server
@@ -299,7 +304,7 @@ declare namespace SocketIO {
 		 * Accepted origins
 		 * @default '*:*'
 		 */
-		origins?: string;
+		origins?: string|string[];
 
 		/**
 		 * How many milliseconds without a pong packed to consider the connection closed (engine.io)
