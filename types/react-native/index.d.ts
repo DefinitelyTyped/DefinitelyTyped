@@ -1332,7 +1332,10 @@ interface TextInputState {
 declare class TextInputComponent extends React.Component<TextInputProps> {}
 declare const TextInputBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & typeof TextInputComponent;
 export class TextInput extends TextInputBase {
-    State: TextInputState;
+    /**
+     * Access the current focus state.
+     */
+    static State: TextInputState;
 
     /**
      * Returns if the input is currently focused.
