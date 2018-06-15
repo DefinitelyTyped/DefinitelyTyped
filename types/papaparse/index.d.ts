@@ -4,6 +4,7 @@
 //                 Rain Shen <https://github.com/rainshen49>
 //                 João Loff <https://github.com/jfloff>
 //                 John Reilly <https://github.com/johnnyreilly>
+//                 Alberto Restifo <https://github.com/albertorestifo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -17,6 +18,8 @@ export function parse(csvString: string, config?: ParseConfig): ParseResult;
 export function parse(file: File, config?: ParseConfig): ParseResult;
 
 export function parse(stream: ReadableStream, config?: ParseConfig): ParseResult;
+
+export function parse(stream: 1, config?: ParseConfig): ReadableStream;
 
 /**
  * Unparses javascript data objects and returns a csv string
@@ -44,6 +47,9 @@ export const WORKERS_SUPPORTED: boolean;
 
 // The relative path to Papa Parse. This is automatically detected when Papa Parse is loaded synchronously.
 export const SCRIPT_PATH: string;
+
+// When passed to Papa Parse a Readable stream is returned.
+export const NODE_STREAM_INPUT = 1;
 
 /**
  * Configurable Properties
