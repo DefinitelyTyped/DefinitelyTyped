@@ -7,6 +7,13 @@
 import socketio = require('socket.io');
 import express = require('express');
 
+declare module "socket.io" {
+    interface Handshake {
+        session?: Express.Session;
+        sessionID?: string;
+    }
+}
+
 declare function sharedsession(
     expressSessionMiddleware: express.RequestHandler,
     cookieParserMiddleware: express.RequestHandler,
