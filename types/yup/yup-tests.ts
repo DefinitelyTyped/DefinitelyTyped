@@ -124,6 +124,22 @@ mixed.test({
     test: value => value == null || value.length <= 5
 });
 mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
+mixed.test('with-context', 'it uses function context', function() {
+    this.options.context;
+    this.path;
+    this.createError({ path: '1', message: '1' });
+    this.schema.meta();
+    return true;
+});
+mixed.test({
+    test() {
+        this.options.context;
+        this.path;
+        this.createError({ path: '1', message: '1' });
+        this.schema.meta();
+        return true;
+    }
+});
 
 yup.string().transform(function(this, value: any, originalvalue: any) {
     return this.isType(value) && value !== null ? value.toUpperCase() : value;
