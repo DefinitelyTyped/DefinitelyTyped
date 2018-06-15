@@ -1,4 +1,4 @@
-// Type definitions for reactstrap 5.0
+// Type definitions for reactstrap 6.0
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>
 //                 Marco Falkenberg <https://github.com/mfal>
@@ -101,6 +101,9 @@ export { CollapseProps } from './lib/Collapse';
 import { default as Container_ } from './lib/Container';
 export class Container<T = {}> extends Container_<T> {}
 export { ContainerProps } from './lib/Container';
+import { default as CustomInput_ } from './lib/CustomInput';
+export class CustomInput<T = {}> extends CustomInput_<T> {}
+export { CustomInputProps } from './lib/CustomInput';
 import { default as Dropdown_ } from './lib/Dropdown';
 export class Dropdown<T = {}> extends Dropdown_<T> {}
 export { DropdownProps } from './lib/Dropdown';
