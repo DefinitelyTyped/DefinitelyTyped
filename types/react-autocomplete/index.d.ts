@@ -149,12 +149,12 @@ declare namespace Autocomplete {
        * True when the menu is visible. Provided to `onMenuVisibilityChange`.
        */
       isOpen: boolean;
-      
+
       /**
        * Index of the highlighted item, `null` if none currently is.
        */
       highlightedIndex: number | null;
-      
+
       /**
        * These three `menu___` values are used in CSS to layout the menu.
        */
