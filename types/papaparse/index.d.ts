@@ -1,4 +1,4 @@
-// Type definitions for PapaParse v4.1
+// Type definitions for PapaParse v4.5
 // Project: https://github.com/mholt/PapaParse
 // Definitions by: Pedro Flemming <https://github.com/torpedro>
 //                 Rain Shen <https://github.com/rainshen49>
