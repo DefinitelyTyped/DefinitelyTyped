@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import { ButtonGroup } from 'react-bootstrap';
 import { Omit } from "../index";
 
 declare namespace ToggleButtonGroup {
@@ -14,7 +14,6 @@ declare namespace ToggleButtonGroup {
          * but you can technically use any|any[].
          */
         value?: any;
-        bsSize?: Sizes;
     }
 
     interface RadioProps {
@@ -36,5 +35,5 @@ declare namespace ToggleButtonGroup {
                                        & Omit<React.HTMLProps<ToggleButtonGroup>, "defaultValue" | "type" | "value" | "onChange">;
 
 }
-declare class ToggleButtonGroup extends React.Component<ToggleButtonGroup.ToggleButtonGroupProps> { }
+declare class ToggleButtonGroup extends React.Component<ToggleButtonGroup.ToggleButtonGroupProps & ButtonGroup.ButtonGroupProps> { }
 export = ToggleButtonGroup;

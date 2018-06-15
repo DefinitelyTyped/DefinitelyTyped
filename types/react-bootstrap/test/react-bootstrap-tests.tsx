@@ -1459,9 +1459,9 @@ export class ReactBootstrapTest extends Component {
                   <ToggleButtonGroup
                     type="checkbox"
                     defaultValue={[1, 3]}
-                    bsSize='small'
+                    bsSize="small"
                   >
-                    <ToggleButton value={1}>
+                    <ToggleButton value={1} bsSize="small" active>
                       Checkbox 1 (pre-checked)
                     </ToggleButton>
                     <ToggleButton value={2}>
@@ -1481,19 +1481,19 @@ export class ReactBootstrapTest extends Component {
                   >
                     <ToggleButton
                       value={1}
-                      bsSize='large'
+                      bsSize="large"
                     >
                       Radio 1 (pre-checked)
                     </ToggleButton>
                     <ToggleButton
                       value={2}
-                      bsSize='small'
+                      bsSize="small"
                     >
                       Radio 2
                     </ToggleButton>
                     <ToggleButton
                       value={3}
-                      bsSize='xsmall'
+                      bsSize="xsmall"
                     >
                       Radio 3
                     </ToggleButton>
