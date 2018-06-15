@@ -2252,12 +2252,28 @@ declare namespace Office {
          * 
          * In the callback function passed to the closeAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
-         * |Property |Use to...|
-         * |---------|---------|
-         * |AsyncResult.value|Always returns undefined because there is no object or data to retrieve.|
-         * |AsyncResult.status|Determine the success or failure of the operation.|
-         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
+         * <table>
+         *   <tr>
+         *     <th>Property</th>
+         *     <th>Use to...</th>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.value</td>
+         *     <td>Always returns undefined because there is no object or data to retrieve.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.status</td>
+         *     <td>Determine the success or failure of the operation.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.error</td>
+         *     <td>Access an Error object that provides error information if the operation failed.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.asyncContext</td>
+         *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
+         *   </tr>
+         * </table>
          *
          * Hosts: PowerPoint, Word
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
@@ -2272,12 +2288,28 @@ declare namespace Office {
          * 
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
-         * |Property |Use to...|
-         * |---------|---------|
-         * |AsyncResult.value|Access the Slice object.|
-         * |AsyncResult.status|Determine the success or failure of the operation.|
-         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
+         * <table>
+         *   <tr>
+         *     <th>Property</th>
+         *     <th>Use to...</th>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.value</td>
+         *     <td>Access the Slice object.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.status</td>
+         *     <td>Determine the success or failure of the operation.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.error</td>
+         *     <td>Access an Error object that provides error information if the operation failed.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.asyncContext</td>
+         *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
+         *   </tr>
+         * </table>
          * 
          * Hosts: PowerPoint, Word
          * @param sliceIndex Specifies the zero-based index of the slice to be retrieved. Required.
@@ -2348,12 +2380,28 @@ declare namespace Office {
          * 
          * In the callback function passed to the addHandlerAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
-         * |Property |Use to...|
-         * |---------|---------|
-         * |AsyncResult.value|Always returns undefined because there is no data or object to retrieve when adding an event handler.|
-         * |AsyncResult.status|Determine the success or failure of the operation.|
-         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
+         * <table>
+         *   <tr>
+         *     <th>Property</th>
+         *     <th>Use to...</th>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.value</td>
+         *     <td>Always returns undefined because there is no data or object to retrieve when adding an event handler.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.status</td>
+         *     <td>Determine the success or failure of the operation.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.error</td>
+         *     <td>Access an Error object that provides error information if the operation failed.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.asyncContext</td>
+         *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
+         *   </tr>
+         * </table>
          *
          * Hosts: Excel
          *
@@ -2387,12 +2435,28 @@ declare namespace Office {
          *
          * In the callback function passed to the refreshAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
-         * |Property |Use to...|
-         * |---------|---------|
-         * |AsyncResult.value|Access a Settings object with the refreshed values.|
-         * |AsyncResult.status|Determine the success or failure of the operation.|
-         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
+         * <table>
+         *   <tr>
+         *     <th>Property</th>
+         *     <th>Use to...</th>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.value</td>
+         *     <td>Access a Settings object with the refreshed values.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.status</td>
+         *     <td>Determine the success or failure of the operation.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.error</td>
+         *     <td>Access an Error object that provides error information if the operation failed.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.asyncContext</td>
+         *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
+         *   </tr>
+         * </table>
          * 
          * Hosts: Access, Excel, PowerPoint, Word
          *
@@ -2444,12 +2508,28 @@ declare namespace Office {
          * 
          * In the callback function passed to the saveAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
-         * |Property |Use to...|
-         * |---------|---------|
-         * |AsyncResult.value|Always returns undefined because there is no object or data to retrieve.|
-         * |AsyncResult.status|Determine the success or failure of the operation.|
-         * |AsyncResult.error|Access an Error object that provides error information if the operation failed.|
-         * |AsyncResult.asyncContext|A user-defined item of any type that is returned in the AsyncResult object without being altered.|
+         * <table>
+         *   <tr>
+         *     <th>Property</th>
+         *     <th>Use to...</th>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.value</td>
+         *     <td>Always returns undefined because there is no object or data to retrieve.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.status</td>
+         *     <td>Determine the success or failure of the operation.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.error</td>
+         *     <td>Access an Error object that provides error information if the operation failed.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.asyncContext</td>
+         *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
+         *   </tr>
+         * </table>
          *
          * Hosts: Access, Excel, PowerPoint, Word
          * @param options Provides options for saving settings.
@@ -7694,10 +7774,23 @@ declare namespace Office {
          *
          * @remarks
          *
-         * |Type|Description|Item Class|
-         * |-----------|------------|------------|
-         * |Appointment items|These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.|IPM.Appointment,IPM.Appointment.Occurence|
-         * |Message items|These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.|IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled|
+         * <table>
+         *   <tr>
+         *     <th>Type</th>
+         *     <th>Description</th>
+         *     <th>Item Class</th>
+         *   </tr>
+         *   <tr>
+         *     <td>Appointment items</td>
+         *     <td>These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.</td>
+         *     <td>IPM.Appointment,IPM.Appointment.Occurence</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Message items</td>
+         *     <td>These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.</td>
+         *     <td>IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled</td>
+         *   </tr>
+         * </table>
          * 
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          *
@@ -7862,15 +7955,48 @@ declare namespace Office {
          * 
          * While the minimum permission level to use this method is Restricted, some entity types require ReadItem to access, as specified in the following table.
          * 
-         * |Value of entityType|Type of objects in returned array|Required Permission Level|
-         * |-------|-----------|----------|
-         * |Address|String|Restricted|
-         * |Contact|Contact|ReadItem|
-         * |EmailAddress|String|ReadItem|
-         * |MeetingSuggestion|MeetingSuggestion|ReadItem|
-         * |PhoneNumber|PhoneNumber|Restricted|
-         * |TaskSuggestion|TaskSuggestion|ReadItem|
-         * |URL|String|Restricted|
+         * <table>
+         *   <tr>
+         *     <th>Value of entityType</th>
+         *     <th>Type of objects in returned array</th>
+         *     <th>Required Permission Leve</th>
+         *   </tr>
+         *   <tr>
+         *     <td>Address</td>
+         *     <td>String</td>
+         *     <td>Restricted</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Contact</td>
+         *     <td>Contact</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>EmailAddress</td>
+         *     <td>String</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>MeetingSuggestion</td>
+         *     <td>MeetingSuggestion</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>PhoneNumber</td>
+         *     <td>PhoneNumber</td>
+         *     <td>Restricted</td>
+         *   </tr>
+         *   <tr>
+         *     <td>TaskSuggestion</td>
+         *     <td>TaskSuggestion</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>URL</td>
+         *     <td>String</td>
+         *     <td>Restricted</td>
+         *   </tr>
+         * </table>
          * 
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: Restricted
          *
@@ -9340,14 +9466,43 @@ declare namespace Office {
      * 
      * @remarks
      * 
-     * |State|Editable?|Viewable?|
-     * |-----|---------|---------|
-     * |Appointment Organizer - Compose Series|Yes (setAsync)|Yes (getAsync)|
-     * |Appointment Organizer - Compose Instance|No (setAsync returns error)|Yes (getAsync)|
-     * |Appointment Attendee - Read Series|No (setAsync not available)|Yes (item.recurrence)|
-     * |Appointment Attendee - Read Instance|No (setAsync not available)|Yes (item.recurrence)|
-     * |Meeting Request - Read Series|No (setAsync not available)|Yes (item.recurrence)|
-     * |Meeting Request - Read Instance|No (setAsync not available)|Yes (item.recurrence)|
+     * <table>
+     *   <tr>
+     *     <th>State</th>
+     *     <th>Editable?</th>
+     *     <th>Viewable?</th>
+     *   </tr>
+     *   <tr>
+     *     <td>Appointment Organizer - Compose Series</td>
+     *     <td>Yes (setAsync)</td>
+     *     <td>Yes (getAsync)</td>
+     *   </tr>
+     *   <tr>
+     *     <td>Appointment Organizer - Compose Instance</td>
+     *     <td>No (setAsync returns error)</td>
+     *     <td>Yes (getAsync)</td>
+     *   </tr>
+     *   <tr>
+     *     <td>Appointment Attendee - Read Series</td>
+     *     <td>No (setAsync not available)</td>
+     *     <td>Yes (item.recurrence)</td>
+     *   </tr>
+     *   <tr>
+     *     <td>Appointment Attendee - Read Instance</td>
+     *     <td>No (setAsync not available)</td>
+     *     <td>Yes (item.recurrence)</td>
+     *   </tr>
+     *   <tr>
+     *     <td>Meeting Request - Read Series</td>
+     *     <td>No (setAsync not available)</td>
+     *     <td>Yes (item.recurrence)</td>
+     *   </tr>
+     *   <tr>
+     *     <td>Meeting Request - Read Instance</td>
+     *     <td>No (setAsync not available)</td>
+     *     <td>Yes (item.recurrence)</td>
+     *   </tr>
+     * </table>
      * 
      * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
      * 
@@ -10156,12 +10311,28 @@ declare namespace Office {
          *
          * @remarks
          *
-         * |Value    |Description   |
-         * |---------|--------------|
-         * |enterprise |The mailbox is on an on-premises Exchange server.|
-         * |gmail |The mailbox is associated with a Gmail account.|
-         * |office365 |The mailbox is associated with an Office 365 work or school account.|
-         * |outlookCom |The mailbox is associated with a personal Outlook.com account.|
+         * <table>
+         *   <tr>
+         *     <th>Value</th>
+         *     <th>Description?</th>
+         *   </tr>
+         *   <tr>
+         *     <td>enterprise</td>
+         *     <td>The mailbox is on an on-premises Exchange server.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>gmail</td>
+         *     <td>The mailbox is associated with a Gmail account.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>office365</td>
+         *     <td>The mailbox is associated with an Office 365 work or school account.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>outlookCom</td>
+         *     <td>The mailbox is associated with a personal Outlook.com account.</td>
+         *   </tr>
+         * </table>
          *
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          *
