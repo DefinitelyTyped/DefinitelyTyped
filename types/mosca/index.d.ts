@@ -6,7 +6,6 @@
 export class Server {
     opts: any;
     modernOpts: any;
-    dedupId: any;
     clients: any;
     closed: boolean;
 
@@ -32,14 +31,14 @@ export class Server {
     updateOfflinePacket(client: Client, originMessageId: number, packet: Packet,
         callback: (obj: any, packet: Packet) => void): void;
     persistClient(client: Client, callback: () => void): void;
-    close(callback: () => void): void;
+    close(callback?: () => void): void;
     attachHttpServer(server: any, path?: any): void;
 }
 
 export class Client {
-    id: any;
+    id: string;
     connection: any;
-    server: any;
+    server: Server;
     logger: any;
     subscriptions: any;
     nextId: number;
@@ -49,6 +48,7 @@ export class Client {
     constructor(connection: any, server: Server);
 
     close(callback: () => void, reason: string): void;
+    close(reason: string): void;
 }
 
 export class Stats {
