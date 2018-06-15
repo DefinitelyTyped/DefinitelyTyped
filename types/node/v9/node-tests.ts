@@ -1015,6 +1015,35 @@ function simplified_stream_ctor_test() {
     });
 }
 
+{
+    // Check types compatibility
+
+    new stream.Readable<number>()
+        .pipe(new stream.Writable<number>());
+
+    new stream.Readable<number>()
+        .pipe(new stream.Writable<string>()); // $ExpectError
+
+    new stream.Duplex<string, number>({
+        read() { this.push(42); },
+        writev(chunks) {
+            chunks[0].chunk; // $ExpectType string
+        },
+    });
+
+    new stream.Readable<number>({
+        read() {
+            // Should be able to push null even when the type is non-nullable
+            this.push(null);
+        },
+    });
+
+    new stream.Writable<string>()
+        .on('pipe', (source) => {
+            source; // $ExpectType Readable<string>
+        });
+}
+
 ////////////////////////////////////////////////////////
 /// Crypto tests : http://nodejs.org/api/crypto.html ///
 ////////////////////////////////////////////////////////
