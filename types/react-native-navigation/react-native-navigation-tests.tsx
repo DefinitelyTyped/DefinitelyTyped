@@ -32,10 +32,11 @@ class Screen1 extends React.Component<Props> {
     };
 
     componentDidMount() {
-        this.props.navigator.push<Screen2OwnProps>({
+        const passProps: Screen2OwnProps = { name: 'Henrik' };
+        this.props.navigator.push({
             screen: 'example.Screen2',
             overrideBackPress: false,
-            passProps: { name: 'Henrik' },
+            passProps,
         });
         this.props.navigator.setTabBadge({ badge: null });
     }

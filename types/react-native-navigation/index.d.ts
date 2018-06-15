@@ -125,10 +125,10 @@ export interface NavigatorEvent {
 }
 
 export class Navigator {
-    push<P>(params: PushedScreen<P>): void;
+    push(params: PushedScreen<any>): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
     popToRoot(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
-    resetTo<P>(params: PushedScreen<P>): void;
+    resetTo(params: PushedScreen<any>): void;
     showModal(params: ModalScreen): void;
     dismissModal(params?: { animationType?: 'none' | 'slide-down' }): void;
     dismissAllModals(params?: { animationType?: 'none' | 'slide-down' }): void;
