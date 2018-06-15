@@ -96,6 +96,12 @@ emailOpts = { minDomainAtoms: num };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+let hexOpts: Joi.HexOptions = null;
+
+hexOpts = { byteAligned: bool };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
 let ipOpts: Joi.IpOptions = null;
 
 ipOpts = { version: str };
@@ -602,6 +608,7 @@ numSchema = numSchema.precision(num);
 numSchema = numSchema.multiple(num);
 numSchema = numSchema.positive();
 numSchema = numSchema.negative();
+numSchema = numSchema.port();
 
 namespace common {
     numSchema = numSchema.allow(x);
@@ -658,6 +665,9 @@ objSchema = Joi.object(schemaMap);
 
 objSchema = objSchema.keys();
 objSchema = objSchema.keys(schemaMap);
+
+objSchema = objSchema.append();
+objSchema = objSchema.append(schemaMap);
 
 objSchema = objSchema.min(num);
 objSchema = objSchema.max(num);
@@ -801,6 +811,7 @@ strSchema = strSchema.guid();
 strSchema = strSchema.guid({ version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'] } as Joi.GuidOptions);
 strSchema = strSchema.guid({ version: 'uuidv4' });
 strSchema = strSchema.hex();
+strSchema = strSchema.hex(hexOpts);
 strSchema = strSchema.hostname();
 strSchema = strSchema.isoDate();
 strSchema = strSchema.lowercase();
@@ -969,6 +980,7 @@ description = Joi.describe(schema);
 description = schema.describe();
 
 schema = Joi.reach(objSchema, '');
+schema = Joi.reach(objSchema, []);
 
 const Joi2 = Joi.extend({ name: '', base: schema });
 
