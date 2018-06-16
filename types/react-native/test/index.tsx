@@ -24,7 +24,7 @@ import {
     Dimensions,
     Image,
     ImageStyle,
-    ImageLoadEvent,
+    ImageLoadEventData,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -56,7 +56,7 @@ import {
     StatusBar,
     NativeSyntheticEvent,
     GestureResponderEvent,
-    TextInputScrollEvent,
+    TextInputScrollEventData
 } from "react-native";
 
 declare module "react-native" {
@@ -150,6 +150,25 @@ const imageStyle: StyleProp<ImageStyle> = {
 const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
 const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
+
+const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
+    e.isDefaultPrevented();
+    e.preventDefault();
+    e.isPropagationStopped();
+    e.stopPropagation();
+    e.persist();
+    e.cancelable;
+    e.bubbles;
+    e.currentTarget;
+    e.defaultPrevented;
+    e.eventPhase;
+    e.isTrusted;
+    e.nativeEvent;
+    e.target;
+    e.timeStamp;
+    e.type;
+    e.nativeEvent;
+}
 
 class CustomView extends React.Component {
     render() {
@@ -459,15 +478,18 @@ class TextInputTest extends React.Component<{}, {username: string}> {
         console.log(`text: ${ text }`);
     }
 
-    onScroll = (e: TextInputScrollEvent) => {
+    onScroll = (e: NativeSyntheticEvent<TextInputScrollEventData>) => {
+        testNativeSyntheticEvent(e);
         console.log(`x: ${ e.nativeEvent.contentOffset.x }`);
         console.log(`y: ${ e.nativeEvent.contentOffset.y }`);
     }
 
     handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        testNativeSyntheticEvent(e);
     }
 
     handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        testNativeSyntheticEvent(e);
     }
 
     render() {
@@ -512,10 +534,11 @@ class StatusBarTest extends React.Component {
 }
 
 export class ImageTest extends React.Component {
-    onLoad(event: ImageLoadEvent) {
-        console.log('height:', event.nativeEvent.source.height);
-        console.log('width:', event.nativeEvent.source.width);
-        console.log('url:', event.nativeEvent.source.url);
+    onLoad(e: NativeSyntheticEvent<ImageLoadEventData>) {
+        testNativeSyntheticEvent(e);
+        console.log('height:', e.nativeEvent.source.height);
+        console.log('width:', e.nativeEvent.source.width);
+        console.log('url:', e.nativeEvent.source.url);
     }
 
     render() {
