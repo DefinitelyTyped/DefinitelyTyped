@@ -6393,7 +6393,9 @@ declare namespace JQuery {
         };
 
         // Writable properties on XMLHttpRequest
-        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials' | 'msCaching'>> { }
+        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials'>> {
+            msCaching?: string;
+        }
     }
 
     interface Transport {
