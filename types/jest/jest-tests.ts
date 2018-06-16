@@ -760,3 +760,103 @@ describe('toHaveBeenNthCalledWith', () => {
 
     expect(fn).toHaveBeenNthCalledWith(3, "foo");
 });
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/26368
+
+describe.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a: number, b: number, expected: number) => {
+        test(`returns ${expected}`, () => {
+            expect(a + b).toBe(expected);
+        });
+    }
+);
+
+interface Case {
+    a: number;
+    b: number;
+    expected: number;
+}
+
+describe.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("$a + $b", ({ a, b, expected }: Case) => {
+    test(`returns ${expected}`, () => {
+        expect(a + b).toBe(expected);
+    });
+});
+
+describe.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        test(`returns ${expected}`, () => {
+            expect(a + b).toBe(expected);
+        });
+    }
+);
+
+describe.only.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("$a + $b", ({ a, b, expected }: Case) => {
+    test(`returns ${expected}`, () => {
+        expect(a + b).toBe(expected);
+    });
+});
+
+describe.skip.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        test(`returns ${expected}`, () => {
+            expect(a + b).toBe(expected);
+        });
+    }
+);
+
+describe.skip.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("$a + $b", ({ a, b, expected }: Case) => {
+    test(`returns ${expected}`, () => {
+        expect(a + b).toBe(expected);
+    });
+});
+
+test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        expect(a + b).toBe(expected);
+    }
+);
+
+test.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("returns $expected when $a is added $b", ({ a, b, expected }: Case) => {
+    expect(a + b).toBe(expected);
+});
+
+test.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        expect(a + b).toBe(expected);
+    }
+);
+
+test.only.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("returns $expected when $a is added $b", ({ a, b, expected }: Case) => {
+    expect(a + b).toBe(expected);
+});

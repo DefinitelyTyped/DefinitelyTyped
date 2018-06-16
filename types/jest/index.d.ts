@@ -15,6 +15,7 @@
 //                 Bradley Ayers <https://github.com/bradleyayers>
 //                 Jeff Lau <https://github.com/UselessPickles>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Paweł Mikołajczyk <https://github.com/Miklet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -209,6 +210,14 @@ declare namespace jest {
         readonly name: string;
     }
 
+    interface Each {
+        (cases: any[]): (name: string, fn: (...args: any[]) => any) => void;
+        (strings: TemplateStringsArray, ...placeholders: any[]): (
+            name: string,
+            fn: (arg: any) => any
+        ) => void;
+    }
+
     /**
      * Creates a test closure
      */
@@ -227,6 +236,7 @@ declare namespace jest {
         only: It;
         skip: It;
         concurrent: It;
+        each: Each;
     }
 
     interface Describe {
@@ -234,6 +244,7 @@ declare namespace jest {
         (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
+        each: Each;
     }
 
     interface MatcherUtils {
