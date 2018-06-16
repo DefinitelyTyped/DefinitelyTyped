@@ -30,7 +30,7 @@ export namespace ReactStripeElements {
 	interface StripeProviderOptions {
 		stripeAccount?: string;
 	}
-	type StripeProviderProps = { apiKey: string; stripe?: never; } & StripeProviderOptions | { apiKey?: never; stripe: stripe.Stripe | null | null; } & StripeProviderOptions;
+	type StripeProviderProps = { apiKey: string; stripe?: never; } & StripeProviderOptions | { apiKey?: never; stripe: stripe.Stripe | null; } & StripeProviderOptions;
 
 	interface StripeProps {
 		createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
