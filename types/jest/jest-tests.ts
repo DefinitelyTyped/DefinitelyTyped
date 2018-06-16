@@ -1056,4 +1056,3 @@ test.only.each`
 `("returns $expected when $a is added $b", ({ a, b, expected }: Case) => {
     expect(a + b).toBe(expected);
 });
-
