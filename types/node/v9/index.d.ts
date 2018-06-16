@@ -24,6 +24,7 @@
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Lishude <https://github.com/islishude>
+//                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -2523,6 +2524,12 @@ declare module "dns" {
         export function __promisify__(hostname: string, options: LookupAllOptions): Promise<{ address: LookupAddress[] }>;
         export function __promisify__(hostname: string, options?: LookupOneOptions | number): Promise<{ address: string, family: number }>;
         export function __promisify__(hostname: string, options?: LookupOptions | number): Promise<{ address: string | LookupAddress[], family?: number }>;
+    }
+
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
+
+    export namespace lookupService {
+        export function __promisify__(address: string, port: number): Promise<{ hostname: string, service: string }>;
     }
 
     export interface ResolveOptions {

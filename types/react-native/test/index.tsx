@@ -24,6 +24,7 @@ import {
     Dimensions,
     Image,
     ImageStyle,
+    ImageLoadEvent,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -49,10 +50,13 @@ import {
     NativeModules,
     MaskedViewIOS,
     TextInput,
+    TouchableNativeFeedback,
     TextInputFocusEventData,
     InputAccessoryView,
     StatusBar,
-    NativeSyntheticEvent
+    NativeSyntheticEvent,
+    GestureResponderEvent,
+    TextInputScrollEvent,
 } from "react-native";
 
 declare module "react-native" {
@@ -195,8 +199,28 @@ class Welcome extends React.Component {
 
 export default Welcome;
 
-// App State
+// TouchableNativeFeedbackTest
+export class TouchableNativeFeedbackTest extends React.Component {
+    onPressButton = (e: GestureResponderEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    }
 
+    render() {
+        return (
+            <TouchableNativeFeedback
+                onPress={this.onPressButton}
+            >
+                <View style={{width: 150, height: 100, backgroundColor: 'red'}}>
+                    <Text style={{margin: 30}}>Button</Text>
+                </View>
+            </TouchableNativeFeedback>
+        )
+    }
+}
+
+// App State
 function appStateListener(state: string) {
     console.log("New state: " + state);
 }
@@ -212,7 +236,6 @@ function appStateIOSTest() {
 }
 
 // ViewPagerAndroid
-
 export class ViewPagerAndroidTest {
     render() {
         return (
@@ -429,42 +452,46 @@ deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
 
-class TextInputRefTest extends React.Component<{}, {username: string}> {
+class TextInputTest extends React.Component<{}, {username: string}> {
     username: TextInput | null = null;
 
-    handleUsernameChange(text: string) {
+    handleUsernameChange = (text: string) => {
+        console.log(`text: ${ text }`);
+    }
+
+    onScroll = (e: TextInputScrollEvent) => {
+        console.log(`x: ${ e.nativeEvent.contentOffset.x }`);
+        console.log(`y: ${ e.nativeEvent.contentOffset.y }`);
+    }
+
+    handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    }
+
+    handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     }
 
     render() {
         return (
             <View>
                 <Text onPress={() => this.username.focus()}>Username</Text>
+
                 <TextInput
                     ref={input => this.username = input}
                     value={this.state.username}
-                    onChangeText={this.handleUsernameChange.bind(this)}
+                    onChangeText={this.handleUsernameChange}
+                />
+
+                 <TextInput
+                    multiline
+                    onScroll={this.onScroll}
+                />
+
+                <TextInput
+                    onBlur={this.handleOnBlur}
+                    onFocus={this.handleOnFocus}
                 />
             </View>
         );
-    }
-}
-
-class TextInputFocusBlurEventTest extends React.Component {
-    handleOnBlur(e: NativeSyntheticEvent<TextInputFocusEventData>) {
-    }
-
-    handleOnFocus(e: NativeSyntheticEvent<TextInputFocusEventData>) {
-    }
-
-    render() {
-        return (
-            <View>
-                <TextInput
-                    onBlur={(e: NativeSyntheticEvent<TextInputFocusEventData>) => this.handleOnBlur(e)}
-                    onFocus={(e: NativeSyntheticEvent<TextInputFocusEventData>) => this.handleOnFocus(e)}
-                />
-            </View>
-        )
     }
 }
 
@@ -480,6 +507,25 @@ class StatusBarTest extends React.Component {
                 barStyle="light-content"
                 translucent
             />
+        );
+    }
+}
+
+export class ImageTest extends React.Component {
+    onLoad(event: ImageLoadEvent) {
+        console.log('height:', event.nativeEvent.source.height);
+        console.log('width:', event.nativeEvent.source.width);
+        console.log('url:', event.nativeEvent.source.url);
+    }
+
+    render() {
+        return (
+            <View>
+                <Image
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    onLoad={this.onLoad}
+                />
+            </View>
         );
     }
 }

@@ -341,6 +341,21 @@ export interface NavigationPushAction {
     key?: string;
 }
 
+export interface NavigationOpenDrawerAction {
+    key?: string;
+    type: 'Navigation/OPEN_DRAWER';
+}
+
+export interface NavigationCloseDrawerAction {
+    key?: string;
+    type: 'Navigation/CLOSE_DRAWER';
+}
+
+export interface NavigationToggleDrawerAction {
+    key?: string;
+    type: 'Navigation/TOGGLE_DRAWER';
+}
+
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
@@ -607,6 +622,7 @@ export interface NavigationScene {
   isStale: boolean;
   key: string;
   route: NavigationRoute;
+  descriptor: NavigationDescriptor;
 }
 
 export interface NavigationTransitionProps {
@@ -965,6 +981,19 @@ export namespace NavigationActions {
 }
 
 /**
+ * DrawerActions
+ */
+export namespace DrawerActions {
+    const OPEN_DRAWER: 'Navigation/OPEN_DRAWER';
+    const CLOSE_DRAWER: 'Navigation/CLOSE_DRAWER';
+    const TOGGLE_DRAWER: 'Navigation/TOGGLE_DRAWER';
+
+    function openDrawer(): NavigationOpenDrawerAction;
+    function closeDrawer(): NavigationCloseDrawerAction;
+    function toggleDrawer(): NavigationToggleDrawerAction;
+}
+
+/**
  * StackActions
  */
 export namespace StackActions {
@@ -1058,6 +1087,7 @@ export interface NavigationDescriptor<Params = NavigationParams> {
   key: string;
   state: NavigationLeafRoute<Params> | NavigationStateRoute<Params>;
   navigation: NavigationScreenProp<any>;
+  options: NavigationScreenOptions;
   getComponent: () => React.ComponentType;
 }
 

@@ -161,6 +161,13 @@ mongoose.Connection.STATES.hasOwnProperty('');
 conn1.on('data', cb);
 conn1.addListener('close', cb);
 
+// The connection returned by useDb is *not* thenable.
+// From https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26057#issuecomment-396150819
+const getDB = async (tenant: string)=> {
+  return conn1.useDb(tenant);
+};
+
+
 /*
  * section error/validation.js
  * http://mongoosejs.com/docs/api.html#error-validation-js
