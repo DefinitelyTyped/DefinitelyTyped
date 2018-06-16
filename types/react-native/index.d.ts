@@ -3412,8 +3412,29 @@ interface ImagePropsAndroid {
     fadeDuration?: number;
 }
 
-// See https://facebook.github.io/react-native/docs/image.html#source
+/**
+ * @see https://facebook.github.io/react-native/docs/image.html#source
+ */
 export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequireSource;
+
+/**
+ * @see ImagePropsBase.onLoad
+ */
+interface ImageLoadEventDataAndroid {
+    uri?: string;
+}
+
+interface ImageLoadEventData extends ImageLoadEventDataAndroid {
+    source: {
+        height: number;
+        width: number;
+        url: string;
+    }
+}
+
+export interface ImageLoadEvent {
+    nativeEvent: ImageLoadEventData;
+}
 
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
@@ -3435,8 +3456,9 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
 
     /**
      * Invoked when load completes successfully
+     * { source: { url, height, width } }.
      */
-    onLoad?: () => void;
+    onLoad?: (event: ImageLoadEvent) => void;
 
     /**
      * Invoked when load either succeeds or fails
