@@ -2201,6 +2201,7 @@ export interface VideoProps {
     translateY?: number;
     rotation?: number;
     ref?: Ref<PlaybackObject>;
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface VideoState {
