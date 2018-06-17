@@ -269,6 +269,7 @@ declare module 'twit' {
       trim_user?: boolean,
       exclude_replies?: boolean,
       include_rts?: boolean,
+      skip_status?: boolean,
     }
     export interface PromiseResponse {
       data: Response,
