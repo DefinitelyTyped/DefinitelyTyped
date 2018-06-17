@@ -7,6 +7,7 @@
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Synarque <https://github.com/synarque>
 //                 Justin Rockwood <https://github.com/jrockwood>
+//                 Keith Kelly <https://github.com/kwkelly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.3
