@@ -2564,12 +2564,12 @@ declare module "dns" {
     export interface AnyRecordWithTtl extends RecordWithTtl {
         type: "A" | "AAAA";
     }
-                                                       
+
     export interface MxRecord {
         priority: number;
         exchange: string;
     }
-    
+
     export interface AnyMxRecord extends MxRecord {
         type: "MX";
     }
@@ -2584,7 +2584,7 @@ declare module "dns" {
     }
 
     export interface AnyNaptrRecord extends NaptrRecord {
-        type: "NAPTR"
+        type: "NAPTR";
     }
 
     export interface SoaRecord {
