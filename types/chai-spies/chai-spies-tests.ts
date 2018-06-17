@@ -24,7 +24,12 @@ let array = [ 1, 2, 3 ];
 chai.spy.on(array, 'push');
 
 // or you can track multiple object's methods
-chai.spy.on(array, 'push', 'pop');
+chai.spy.on(array, ['push', 'pop']);
+
+// or you can track multiple object's methods
+chai.spy.on(array, 'push', function(item) {
+    array.push(item);
+});
 
 array.push(5);
 

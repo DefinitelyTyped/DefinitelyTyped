@@ -1,6 +1,7 @@
 // Type definitions for chai-spies
 // Project: https://github.com/chaijs/chai-spies
 // Definitions by: Ilya Kuznetsov <https://github.com/kuzn-ilya>
+//                 Harm van der Werf <https://github.com/harm-less>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="chai" />
@@ -107,10 +108,11 @@ declare namespace ChaiSpies {
          * var spy = chai.spy.on(Array, 'isArray');
          * ```
          * @param {Object} object
-         * @param {String} method name to spy on
+         * @param {String} methodNames name to spy on
+         * @param {function} fn replacement function
          * @returns function to actually call
-         */ 
-        on(object: Object, ...methodNames: string[]): any;
+         */
+        on(object: Object, methodNames: string | string[], fn?: (parameters: any[]) => any): any;
 
         /**
          * #### chai.spy.object (function)
@@ -123,10 +125,10 @@ declare namespace ChaiSpies {
          * @param {String[]|Object} method names or method definitions
          * @returns object with spied methods
          */
-        object(name: string, methods: string[]): any;           
-        object(methods: string[]): any;           
-        object<T>(name: string, methods: T): T;           
-        object<T>(methods: T): T;           
+        object(name: string, methods: string[]): any;
+        object(methods: string[]): any;
+        object<T>(name: string, methods: T): T;
+        object<T>(methods: T): T;
 
         /**
          * #### chai.spy.returns (function)
