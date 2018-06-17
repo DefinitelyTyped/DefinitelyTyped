@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import { Duplex } from 'stream';
+import { Transform } from 'stream';
 
-declare class LeUnix extends Duplex {}
+declare class LeUnix extends Transform {}
 
 export = LeUnix;

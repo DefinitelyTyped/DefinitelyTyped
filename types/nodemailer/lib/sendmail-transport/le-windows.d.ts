@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import { Duplex } from 'stream';
+import { Transform } from 'stream';
 
-declare class LeWindows extends Duplex {}
+declare class LeWindows extends Transform {}
 
 export = LeWindows;
