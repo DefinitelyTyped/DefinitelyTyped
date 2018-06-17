@@ -2703,7 +2703,10 @@ declare namespace wx {
    * 调用后会立刻弹窗询问用户是否同意授权小程序使用某项功能或获取用户的某些数据，
    * 但不会实际调用对应接口。如果用户之前已经同意授权，则不会出现弹窗，直接返回成功。
    */
-  function authorize(options: AuthSetting): void;
+  interface AuthorizeOptions extends BaseOptions {
+    scope: String;
+  }
+  function authorize(options: AuthorizeOptions): void;
   // 开放接口-----用户信息
   interface UserInfo {
     nickName: string;
@@ -2777,7 +2780,10 @@ declare namespace wx {
       shareTickets: string[];
     }): void;
   }
-  type ShareMenuOptions = BaseOptions;
+
+  interface ShareMenuOptions extends BaseOptions {
+    withShareTicket: boolean;
+  }
   /**
    * 显示分享按钮
    * @version 1.1.0
