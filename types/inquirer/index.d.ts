@@ -21,6 +21,9 @@ declare namespace inquirer {
         | Question<T>
         | ReadonlyArray<Question<T>>
         | Rx.Observable<Question<T>>;
+    type OutputStreamOption = {output: NodeJS.WritableStream};
+    type InputStreamOption = {input: NodeJS.ReadableStream};
+    type StreamOptions = InputStreamOption | OutputStreamOption | (InputStreamOption & OutputStreamOption);
 
     interface Inquirer {
         restoreDefaultPrompts(): void;
@@ -32,8 +35,9 @@ declare namespace inquirer {
         registerPrompt(name: string, prompt: PromptModule): void;
         /**
          * Create a new self-contained prompt module.
+         * @param opt Object specifying input and output streams for the prompt
          */
-        createPromptModule(): PromptModule;
+        createPromptModule(opt?: StreamOptions): PromptModule;
         /**
          * Public CLI helper interface
          * @param questions Questions settings array
