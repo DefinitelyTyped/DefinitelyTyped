@@ -726,8 +726,8 @@ function sendmail_test() {
 
 // line ending transforms using windows-style newlines
 
-function sendmail_line_endings_windows_test () {
-    function process_le (mail: MailMessage) {
+function sendmail_line_endings_windows_test() {
+    function process_le(mail: MailMessage) {
         const input = mail.message.createReadStream();
         input.pipe(new LeWindows());
     }
@@ -741,7 +741,6 @@ function sendmail_line_endings_unix_test() {
         input.pipe(new LeUnix());
     }
 }
-
 
 // 5. SES transport
 
