@@ -3,6 +3,7 @@
 // Definitions by: Volox <https://github.com/Volox>
 //                 lostfictions <https://github.com/lostfictions>
 //                 sapphiredev <https://github.com/sapphiredev>
+//                 araham <https://github.com/abraham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -256,14 +257,18 @@ declare module 'twit' {
       screen_name?: string,
       id?: string,
       slug?: string,
+      owner_screen_name?: string,
       status?: string,
-      user_id?: number,
+      user_id?: number | string,
       lat?: number,
       long?: number,
       follow?: boolean,
       include_email?: boolean,
       cursor?: number,
-      tweet_mode? :string,
+      tweet_mode?: string,
+      trim_user?: boolean,
+      exclude_replies?: boolean,
+      include_rts?: boolean,
     }
     export interface PromiseResponse {
       data: Response,
