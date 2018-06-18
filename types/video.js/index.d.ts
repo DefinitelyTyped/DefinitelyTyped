@@ -6,6 +6,7 @@
 //                 Christoph Wagner <https://github.com/IgelCampus>
 //                 Gio Freitas <https://github.com/giofreitas>
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
+//                 Adam Eisenreich <https://github.com/AkxeOne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -13,12 +14,15 @@
 // video, Flash, or any other supported playback technologies.
 
 declare function videojs(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
-export = videojs;
+export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
 	const getComponent: typeof Component.getComponent;
 	const registerComponent: typeof Component.registerComponent;
+	const registerPlugin: (pluginName: string, pluginFn: Function) => void;
+	const addLanguage: (lang: string, data: {[key:string]: string }) => void;
+	const mergeOptions: <A,B,C,D,E,F>(option: A, option2?: B, option3?: C, option4?: D, option5?: E, option6?: F) => A & B & C & D & E & F;
 
 	interface PlayerOptions {
 		techOrder?: string[];
@@ -41,7 +45,14 @@ declare namespace videojs {
 		notSupportedMessage?: string;
 		plugins?: any;
 		poster?: string;
+		controlBar: {
+			volumePanel: {
+				inline: boolean;
+				vertical: boolean;
+			}
+		}
 	}
+
 
 	interface Source {
 		type: string;
@@ -56,16 +67,23 @@ declare namespace videojs {
 	class Component {
 		constructor(player: Player, options: any);
 
-		static getComponent(name: 'Player'|'player'): typeof Player;
-		static getComponent(name: 'Component'|'component' | string): typeof Component;
+		static getComponent(name: 'Button'): typeof Button;
+		static getComponent(name: 'ClickableComponent'): typeof ClickableComponent;
+		static getComponent(name: 'ModalDialog'): typeof ModalDialog;
+		static getComponent(name: 'Player'): typeof Player;
+		static getComponent(name: 'Component' | string): typeof Component;
 		static registerComponent(name: string, ComponentToRegister: typeof Component): typeof Component;
 
 		$(selector: string, context?: string|Element): Element;
 		$$(selector: string, context?: string|Element): NodeList;
+		addChild(component: string): Component;
+		addChild<C extends (Component | Element)>(component: C): C;
 		addClass(classToAdd: string): void;
 		blur(): void;
+		buildCSSClass(): string;
 		cancelAnimationFrame(id: number): number;
 		children(): Component[];
+		controlText(key: string): string;
 		clearInterval(intervalId: number): number;
 		clearTimeout(timeoutId: number): number;
 		contentEl(): Element;
@@ -92,10 +110,17 @@ declare namespace videojs {
 		initChildren(): void;
 		localize(key: string, tokens?: string[], defaultValue?: string): string;
 		name(): string;
-		off(eventName?: string, callback?: (eventObject: Event) => void): void;
-		on(eventName: string, callback: (eventObject: Event) => void): void;
-		one(eventName: string, callback: (eventObject: Event) => void): void;
+		off(type: string, listener: Function): void;
+		off(target: Component , type: string, listener: Function): void;
+		off(targetOrType: Component | string, typeOrListener: string | Function, listener: Function): void;
+		on(type: string, listener: Function): void;
+		on(target: Component , type: string, listener: Function): void;
+		on(targetOrType: Component | string, typeOrListener: string | Function, listener: Function): void;
+		one(type: string, listener: Function): void;
+		one(target: Component , type: string, listener: Function): void;
+		one(targetOrType: Component | string, typeOrListener: string | Function, listener: Function): void;
 		options(obj: any): any;
+		played(): TimeRanges;
 		player(): Player;
 		ready(callback: (this: this) => void): this;
 		removeAttribute(attribute: string): void;
@@ -106,19 +131,40 @@ declare namespace videojs {
 		setInterval(fn: () => void, interval: number): number;
 		setTimeout(fn: () => void, timeout: number): number;
 		show(): void;
-		toggleClass(classToToggle: string, predicate?: string): void;
+		toggleClass(classToToggle: string, predicate?: boolean | ((element: Element, classToToggle: string) => boolean)): void;
+		trigger(eventName: string, ...arguments: any[]): void
 		triggerReady(): void;
 		width(): string | number;
 		width(num: number, skipListeners?: number): void;
 	}
 
+	class ModalDialog extends Component {
+		open(): void
+		close(): void
+		content(): Element;
+	}
+
+	class ClickableComponent extends Component {
+		handleClick(event: Event): void
+	}
+
+	class Button extends ClickableComponent {
+		handleClick(event: Event): void
+		disable(): boolean
+	}
+
 	class Player extends Component {
+		bigPlayButton: Button;
+		loadingSpinner: Component;
+		errorDisplay: ModalDialog
+
 		autoplay(value?: boolean): string;
 		addRemoteTextTrack(options: {}, manualCleanup?: boolean): HTMLTrackElement;
 		buffered(): TimeRanges;
 		bufferedPercent(): number;
 		cancelFullScreen(): Player;
 		controls(bool?: boolean): boolean;
+		currentSrc(): string;
 		currentTime(): number;
 		currentTime(seconds: number): Player;
 		duration(): number;
@@ -137,11 +183,12 @@ declare namespace videojs {
 		removeRemoteTextTrack(track: HTMLTrackElement): void;
 		requestFullScreen(): Player;
 		size(width: number, height: number): Player;
+		src(): string;
 		src(newSource: string | Source | Source[]): Player;
-		volume(): number;
-		volume(percentAsDecimal: number): TimeRanges;
+		volume(percentAsDecimal?: number): number;
 		width(): number;
 		width(num: number): void;
+		usingPlugin(pluginName: string): boolean;
 	}
 
 	namespace dom {
