@@ -5836,8 +5836,8 @@ declare module "crypto" {
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
-    export interface ECDH {
-        convertKey(key: string | Buffer /*| TypedArray*/ | DataView, curve: string, inputEncoding?: string, outputEncoding?: string, format?: string): Buffer | string;
+    export class ECDH {
+        static convertKey(key: string | Buffer /*| TypedArray*/ | DataView, curve: string, inputEncoding?: "latin1" | "hex" | "base64", outputEncoding?: "latin1" | "hex" | "base64", format?: "uncompressed" | "compressed" | "hybrid"): Buffer | string;
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         computeSecret(other_public_key: Buffer): Buffer;
