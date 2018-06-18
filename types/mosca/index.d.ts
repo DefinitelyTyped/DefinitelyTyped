@@ -47,8 +47,7 @@ export class Client {
 
     constructor(connection: any, server: Server);
 
-    close(callback: () => void, reason: string): void;
-    close(reason: string): void;
+    close(callback?: () => void, reason?: string): void;
 }
 
 export class Stats {
