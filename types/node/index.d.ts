@@ -2612,10 +2612,15 @@ declare module "dns" {
         type: "SRV";
     }
 
+    export interface AnyTxtRecord {
+        type: "TXT";
+        entries: string[]
+    }
+
     export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolve(hostname: string, rrtype: "ANY", callback: (err: NodeJS.ErrnoException, addresses: ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord>) => void): void;
+    export function resolve(hostname: string, rrtype: "ANY", callback: (err: NodeJS.ErrnoException, addresses: ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord | AnyTxtRecord>) => void): void;
     export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
     export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
@@ -2629,7 +2634,7 @@ declare module "dns" {
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace resolve {
         export function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
-        export function __promisify__(hostname: string, rrtype: "ANY"): Promise<ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord>>;
+        export function __promisify__(hostname: string, rrtype: "ANY"): Promise<ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord | AnyTxtRecord>>;
         export function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
         export function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
         export function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
@@ -2660,7 +2665,7 @@ declare module "dns" {
         export function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
     }
 
-    export function resolveAny(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord>) => void): void;
+    export function resolveAny(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord | AnyTxtRecord>) => void): void;
     export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
     export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
