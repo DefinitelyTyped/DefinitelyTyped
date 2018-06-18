@@ -16,7 +16,7 @@ export interface BaseAction {
 }
 
 export interface Action<Payload> extends BaseAction {
-    payload?: Payload;
+    payload: Payload;
     error?: boolean;
 }
 
