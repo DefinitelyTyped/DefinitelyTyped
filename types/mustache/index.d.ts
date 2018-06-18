@@ -183,7 +183,7 @@ interface MustacheStatic {
      * @param value
      * The string to escape.
      */
-    escape(value: string): string;
+    escape: (value: string) => string;
 
     /**
      * Clears all cached templates in this writer.
