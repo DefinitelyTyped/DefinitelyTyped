@@ -1,4 +1,4 @@
-// Type definitions for Parsimmon 1.6
+// Type definitions for Parsimmon 1.10.0
 // Project: https://github.com/jneen/parsimmon
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
