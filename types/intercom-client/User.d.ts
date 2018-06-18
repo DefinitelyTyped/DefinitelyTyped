@@ -22,7 +22,7 @@ export interface Tag {
     readonly "id": string
 }
 
-interface LocationData {
+export interface LocationData {
     "type": "location_data",
     "city_name": string | null,
     "continent_code": string | null,
