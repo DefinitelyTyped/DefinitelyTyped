@@ -656,6 +656,7 @@ declare namespace Office {
          */
         closeContainer(): void;
     }
+
     /**
      * Provides information about what Requirement Sets are supported in current environment.
      */
@@ -666,7 +667,8 @@ declare namespace Office {
         * @param minVersion - The minimum required version; e.g., "1.4".
         */
        isSetSupported(name: string, minVersion?: number): boolean;
-}
+    }
+
     /**
      * Provides options for how a dialog is displayed.
      */
@@ -1062,11 +1064,11 @@ declare namespace Office {
         controlForegroundColor: string;
     }
     /**
-     * Dialog object returned as part of the displayDialogAsync callback. The object exposes methods for registering event handlers and closing the dialog
+     * The object that is returned when `UI.displayDialogAsync` is called. It exposes methods for registering event handlers and closing the dialog.
      */
-    interface DialogHandler {
+    interface Dialog {
         /**
-         * When called from an active add-in dialog, asynchronously closes the dialog.
+         * Called from a parent page to close the corresponding dialog box. 
          */
         close(): void;
         /**

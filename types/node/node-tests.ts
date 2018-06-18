@@ -3142,6 +3142,9 @@ namespace dns_tests {
     dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
+    dns.resolve("nodejs.org", "ANY", (err, addresses) => {
+        const _addresses: ReadonlyArray<dns.AnySrvRecord | dns.AnySoaRecord | dns.AnyNaptrRecord | dns.AnyRecordWithTtl | dns.AnyMxRecord | dns.AnyTxtRecord> = addresses;
+    });
     dns.resolve("nodejs.org", "MX", (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
     });
