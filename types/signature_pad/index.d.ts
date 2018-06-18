@@ -16,9 +16,8 @@ declare module 'signature_pad' {
 
 	  constructor(x: number, y: number, time: number);
 
-	  velocityFrom(start: Point): number;
-
-	  distanceTo(start: Point): number;
+	  velocityFrom?: (start: Point) => number;
+	  distanceTo?: (start: Point) => number;
 	}
 
 	export class CurveControl {
@@ -128,6 +127,11 @@ declare module 'signature_pad' {
 	   *   Draws signature image from data URL
 	   */
 	  fromDataURL(dataUrl: string): void;
+
+	  /**
+	   *   Draws signature image from data
+	   */
+	  fromData(data: Array<Array<Point>>): void;
 
 	  /**
 	   *   Returns array of signature point groups
