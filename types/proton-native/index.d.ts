@@ -546,15 +546,15 @@ export interface PickerProps extends GridChildrenProps, Label, Stretchy {
     /**
      * When a *non-editable* Picker is changed. The current selection is passed as an argument.
      */
-    onSelect?: (selection: string) => void;
+    onSelect?: (selection: number) => void;
     /**
      * What element is selected if the picker *is not* editable.
      */
-    selected?: boolean;
+    selected?: number;
     /**
      * What text is selected/typed if the picker *is* editable.
      */
-    text?: boolean;
+    text?: string;
     /**
      * Whether the Picker can be seen.
      */
