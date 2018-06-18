@@ -1,6 +1,10 @@
 // Type definitions for styled-system 2.3
 // Project: https://github.com/jxnblk/styled-system#readme
-// Definitions by: Artsy <https://github.com/artsy>
+// Definitions by: Marshall Bowers <https://github.com/maxdeviant>
+//                 Ben McCormick   <https://github.com/phobon>
+//                 Justin Bennett  <https://github.com/zephraph>
+//                 Christopher Pappas <https://github.com/damassi>
+//                 Eloy Durán      <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
