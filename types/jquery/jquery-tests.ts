@@ -42,18 +42,6 @@ function JQueryStatic() {
         // $ExpectType JQuery<HTMLElement>
         $([new HTMLElement()]);
 
-        // $ExpectType JQuery<HTMLElement>
-        $(new HTMLParagraphElement());
-
-        // $ExpectType JQuery<HTMLElement>
-        $([new HTMLParagraphElement()]);
-
-        // $ExpectType JQuery<HTMLParagraphElement>
-        $<HTMLParagraphElement>(new HTMLParagraphElement());
-
-        // $ExpectType JQuery<HTMLParagraphElement>
-        $<HTMLParagraphElement>([new HTMLParagraphElement()]);
-
         // $ExpectType JQuery<{ foo: string; hello: string; }>
         $({ foo: 'bar', hello: 'world' });
 
