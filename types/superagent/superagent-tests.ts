@@ -397,7 +397,7 @@ const echoPlugin = (request: request.SuperAgentRequest) => {
   req.url = '' + req.url;
   req.cookies = '' + req.cookies;
   if (req.method) {
-    req.url = '/echo'
+    req.url = '/echo';
   }
 };
 
