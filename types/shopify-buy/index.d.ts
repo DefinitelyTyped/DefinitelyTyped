@@ -119,10 +119,25 @@ declare namespace ShopifyBuy {
     }
 
     export interface Product extends GraphModel {
+
+        createdAt: Date;
+
+        updatedAt: Date;
+
         /**
          * A product description.
          */
         description: string;
+
+        /**
+         * A product descriptions html representation for the shoppify store front.
+         */
+        descriptionHtml: string;
+
+        /**
+         * A product handle.
+         */
+        handle: string;
 
         /**
          * Product unique ID
@@ -135,16 +150,16 @@ declare namespace ShopifyBuy {
         images: Array<Image>;
 
         /**
-         * All variants of a product.
-         */
-        variants: Array<ProductVariant>;
-
-        /**
          * Get an array of Product Options. Product Options can be used to define
          * the currently selectedVariant from which you can get a checkout url (ProductVariant.checkoutUrl)
          * or can be added to a cart (Cart.createLineItemsFromVariants).
          */
         options: Array<Option>;
+
+        /**
+         * The product type
+         */
+        productType: string;
 
         /**
          * Retrieve variant for currently selected options. By default the first value in each option is selected
@@ -168,6 +183,21 @@ declare namespace ShopifyBuy {
          * The product title
          */
         title: string;
+
+        /**
+         * An Array of product tags
+         */
+        tags: Tag[];
+
+        /**
+         * All variants of a product.
+         */
+        variants: Array<ProductVariant>;
+
+        /**
+         * The product vendor
+         */
+        vendor: string;
     }
 
     export interface ProductVariant extends GraphModel {
@@ -267,12 +297,27 @@ declare namespace ShopifyBuy {
         value: any;
     }
 
-    export interface Collection {
-        handle: string;
+    export interface Tag {
+        value: string;
+        type: Type;
+    }
+
+    export interface Type {
+        name: string;
+        kind: string;
+        fieldBaseTypes?: any;
+        implementsNode?: boolean;
+    }
+
+    export interface Collection extends GraphModel {
         body_html: string;
-        image: Image;
+        handle: string;
+        description: string;
+        descriptionHtml: string;
         id: string;
+        image: Image;
         metafields: any[];
+        products?: Product[];
         published: boolean;
         published_at: string;
         published_scope: string;
@@ -459,6 +504,9 @@ declare namespace ShopifyBuy {
     export interface GraphModel {
         attrs?: any
         onlineStoreUrl?: string
+        hasNextPage: any;
+        hasPreviousPage: any;
+        variableValues: any;
     }
 }
 
