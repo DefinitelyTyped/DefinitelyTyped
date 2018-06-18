@@ -211,6 +211,7 @@ declare namespace Chart {
         devicePixelRatio?: number;
         // Plugins can require any options
         plugins?: { [plugin: string]: any };
+        pieceLabel?: any;
     }
 
     interface ChartFontOptions {
