@@ -1439,13 +1439,13 @@ declare namespace Office {
         */
         type: BindingType;
         /**
-         * Adds an event handler to the object for the specified event type.
+         * Adds an event handler to the object for the specified {@link Office.EventType}. Supported EventTypes are `Office.EventType.BindingDataChanged` and `Office.EventType.BindingSelectionChanged`.
          *
          * @remarks
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
-         * @param eventType The event type. For example, for bindings, it can be **Office.EventType.BindingSelectionChanged**, **Office.EventType.BindingDataChanged**, or the corresponding text values of these enumerations.
-         * @param handler The event handler function to add.
+         * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
+         * @param handler The event handler function to add, whose only parameter is of type {@link Office.BindingDataChangedEventArgs} or {@link Office.BindingSelectionChangedEventArgs}.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
@@ -1472,7 +1472,7 @@ declare namespace Office {
          *
          * Available in Requirement set: BindingEvents
          *
-         * @param eventType The event type. For binding can be 'bindingDataChanged' and 'bindingSelectionChanged'
+         * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
          * @param options Provides options to determine which event handler or handlers are removed.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
@@ -1503,6 +1503,74 @@ declare namespace Office {
          */
         setDataAsync(data: TableData | any, options?: SetBindingDataOptions, callback?: (result: AsyncResult) => void): void;
     }
+
+    /**
+     * Provides information about the binding that raised the DataChanged event.
+     * 
+     * @remarks
+     * Hosts: Access, Excel, Word
+     */
+    interface BindingDataChangedEventArgs {
+        /**
+         * Gets an {@link Office.Binding} object that represents the binding that raised the DataChanged event.
+         */
+        binding: Binding;
+
+        /**
+         * Gets an {@link Office.EventType} enumeration value that identifies the kind of event that was raised.
+         */
+        type: EventType;
+    }
+
+    /**
+     * Provides information about the binding that raised the SelectionChanged event.
+     * 
+     * @remarks
+     * Hosts: Access, Excel, Word
+     */
+    interface BindingSelectionChangedEventArgs {
+        /**
+         * Gets an {@link Office.Binding} object that represents the binding that raised the SelectionChanged event.
+         */
+        binding: Binding;
+        /**
+         * Gets the number of columns selected. If a single cell is selected returns 1. 
+         * 
+         * If the user makes a non-contiguous selection, the count for the last contiguous selection within the binding is returned. 
+         * 
+         * For Word, this property will work only for bindings of {@link Office.BindingType} "table". If the binding is of type "matrix", null is returned. Also, the call will fail if the table contains merged cells, because the structure of the table must be uniform for this property to work correctly.
+         */
+        columnCount: number;
+        /**
+         * Gets the number of rows selected. If a single cell is selected returns 1. 
+         * 
+         * If the user makes a non-contiguous selection, the count for the last contiguous selection within the binding is returned. 
+         * 
+         * For Word, this property will work only for bindings of {@link Office.BindingType} "table". If the binding is of type "matrix", null is returned. Also, the call will fail if the table contains merged cells, because the structure of the table must be uniform for this property to work correctly.
+         */
+        rowCount: number;
+        /**
+         * The zero-based index of the first column of the selection counting from the leftmost column in the binding. 
+         * 
+         * If the user makes a non-contiguous selection, the coordinates for the last contiguous selection within the binding are returned. 
+         * 
+         * For Word, this property will work only for bindings of {@link Office.BindingType} "table". If the binding is of type "matrix", null is returned. Also, the call will fail if the table contains merged cells, because the structure of the table must be uniform for this property to work correctly.
+         */
+        startColumn: number;
+        /**
+         * The zero-based index of the first row of the selection counting from the first row in the binding. 
+         * 
+         * If the user makes a non-contiguous selection, the coordinates for the last contiguous selection within the binding are returned. 
+         * 
+         * For Word, this property will work only for bindings of {@link Office.BindingType} "table". If the binding is of type "matrix", null is returned. Also, the call will fail if the table contains merged cells, because the structure of the table must be uniform for this property to work correctly.
+         */
+        startRow: number;
+        /**
+         * Gets an {@link Office.EventType} enumeration value that identifies the kind of event that was raised.
+         */
+        type: EventType;
+    }
+
     /**
     * Represents the bindings the add-in has within the document.
     *
@@ -1779,6 +1847,7 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          */
         namespaceManager: CustomXmlPrefixMappings;
+
         /**
          * Adds an event handler to the object using the specified event type.
          *
@@ -1787,9 +1856,9 @@ declare namespace Office {
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
-         * @param eventType Specifies the type of event to add. Required. For a CustomXmlPart object event, the eventType parameter can be specified as Office.EventType.DataNodeDeleted, Office.EventType.DataNodeInserted, Office.EventType.DataNodeReplaced, or the corresponding text values of these enumerations.
-         * @param handler The event handler function to add, whose only parameter is of type NodeDeletedEventArgs, NodeInsertedEventArgs, or NodeReplaceEventArgs. Required.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback..
+         * @param eventType The type of event to add. For a CustomXmlPart object, the eventType parameter can be specified as `Office.EventType.NodeDeleted`, `Office.EventType.NodeInserted`, and `Office.EventType.NodeReplaced`.
+         * @param handler The event handler function to add, whose only parameter is of type {@link Office.NodeDeletedEventArgs}, {@link Office.NodeInsertedEventArgs}, or {@link Office.NodeReplacedEventArgs}
+         * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addHandlerAsync(eventType: EventType, handler: (result: any) => void, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -1838,12 +1907,78 @@ declare namespace Office {
          *
          * Available in Requirement set: CustomXmlParts
          *
-         * @param eventType Specifies the type of event to remove. Required.For a CustomXmlPart object event, the eventType parameter can be specified as Office.EventType.DataNodeDeleted, Office.EventType.DataNodeInserted, Office.EventType.DataNodeReplaced, or the corresponding text values of these enumerations.
+         * @param eventType The type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as `Office.EventType.NodeDeleted`, `Office.EventType.NodeInserted`, and `Office.EventType.NodeReplaced`.
+         * @param handler The name of the handler to remove.
          * @param options Provides options to determine which event handler or handlers are removed.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         removeHandlerAsync(eventType: EventType, handler?: (result: any) => void, options?: RemoveHandlerOptions, callback?: (result: AsyncResult) => void): void;
     }
+
+    /**
+     * Provides information about the deleted node that raised the dataNodeDeleted event.
+     * 
+     * @remarks
+     * Hosts: Word
+     */
+    interface NodeDeletedEventArgs {
+        /**
+         * Gets whether the node was deleted as part of an Undo/Redo action by the user.
+         */
+        isUndoRedo: boolean;
+        /**
+         * Gets the former next sibling of the node that was just deleted from the {@link Office.CustomXmlPart} object.
+         */
+        oldNextSibling: CustomXmlNode;
+        /**
+         * Gets the node which was just deleted from the {@link Office.CustomXmlPart} object.
+         * 
+         * Note that this node may have children, if a subtree is being removed from the document. Also, this node will be a "disconnected" node in that you can query down from the node, but you cannot query up the tree - the node appears to exist alone.
+         */
+        oldNode: CustomXmlNode;
+    }
+
+    /**
+     * Provides information about the inserted node that raised the dataNodeInserted event.
+     * 
+     * @remarks
+     * Hosts: Word
+     */
+    interface NodeInsertedEventArgs  {
+        /**
+         * Gets whether the node was inserted as part of an Undo/Redo action by the user.
+         */
+        isUndoRedo: boolean;
+        /**
+         * Gets the node that was just added to the CustomXMLPart object.
+         * 
+         * Note that this node may have children, if a subtree was just added to the document.
+         */
+        newNode: CustomXmlNode;
+    }
+    
+    /**
+     * Provides information about the replaced node that raised the dataNodeReplaced event.
+     */
+    interface NodeReplacedEventArgs  {
+        /**
+         * Gets whether the replaced node was inserted as part of an undo or redo operation by the user.
+         */
+        isUndoRedo: boolean;
+        /**
+         * Gets the node that was just added to the CustomXMLPart object.
+         * 
+         * Note that this node may have children, if a subtree was just added to the document.
+         */
+        newNode: CustomXmlNode;
+        /**
+         * Gets the node which was just deleted (replaced) from the CustomXmlPart object.
+         * 
+         * Note that this node may have children, if a subtree is being removed from the document. Also, this node will be a "disconnected" node in that you can query down from the node, but you cannot query up the tree - the node appears to exist alone.
+         */
+        oldNode: CustomXmlNode;
+    }
+
     /**
      * Represents a collection of CustomXmlPart objects.
      *
