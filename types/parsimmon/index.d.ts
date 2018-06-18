@@ -183,6 +183,11 @@ declare namespace Parsimmon {
 		 */
 		tie(): Parser<string>;
 		/**
+		 * When called on a parser yielding an array of strings, yields all their strings
+		 * concatenated with the separator. Asserts that its input is actually an array of strings.
+		 */
+		tieWith(join: string): Parser<string>;
+		/**
 		 * expects parser zero or more times, and yields an array of the results.
 		 */
 		many(): Parser<T[]>;
@@ -244,7 +249,7 @@ declare namespace Parsimmon {
 		/**
 		 * Equivalent to Parsimmon.of(result).
 		 */
-		of<U>(result: U): U;
+		of<U>(result: U): Parser<U>;
 	}
 
 	/**
