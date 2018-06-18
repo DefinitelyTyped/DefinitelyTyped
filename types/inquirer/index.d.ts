@@ -42,7 +42,7 @@ declare namespace inquirer {
          * Create a new self-contained prompt module.
          * @param opt Object specifying input and output streams for the prompt
          */
-        createPromptModule(opt?: OutputStreamOption): PromptModule;
+        createPromptModule(opt?: StreamOptions): PromptModule;
         /**
          * Public CLI helper interface
          * @param questions Questions settings array
