@@ -608,7 +608,7 @@ declare namespace Office {
         *
         * The initial page must be on the same domain as the parent page (the startAddress parameter). After the initial page loads, you can go to other domains.
         *
-        * Any page calling office.context.ui.messageParent must also be on the same domain as the parent page.
+        * Any page calling `office.context.ui.messageParent` must also be on the same domain as the parent page.
         *
         * The following design considerations apply to dialog boxes:
         *
@@ -763,7 +763,7 @@ declare namespace Office {
      */
     interface GetBindingDataOptions {
         /**
-         * The expected shape of the selection. Use Office.CoercionType or text value. Default: The original, uncoerced type of the binding.
+         * The expected shape of the selection. Use {@link Office.CoercionType} or text value. Default: The original, uncoerced type of the binding.
          */
         coercionType?: Office.CoercionType | string
         /**
@@ -807,8 +807,9 @@ declare namespace Office {
      */
     interface SetBindingDataOptions {
         /**
-         * Use only with binding type table and when a TableData object is passed for the data parameter. An array of objects that specify a range of columns, rows, or cells and specify, as key-value pairs, the cell formatting to apply to that range. Example: [{cells: Office.Table.Data, format: {fontColor: "yellow"}},
-        {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]
+         * Use only with binding type table and when a TableData object is passed for the data parameter. An array of objects that specify a range of columns, rows, or cells and specify, as key-value pairs, the cell formatting to apply to that range. 
+         * 
+         * Example: `[{cells: Office.Table.Data, format: {fontColor: "yellow"}}, {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]`
          */
         cellFormat?: Array<RangeFormatConfiguration>
         /**
@@ -832,7 +833,7 @@ declare namespace Office {
         */
         startColumn?: number
         /**
-        * For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows. Example: {bandedRows: true,  filterButton: false}
+        * For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows. Example: `{bandedRows: true,  filterButton: false}`
         */
         tableOptions?: object
         /**
@@ -952,7 +953,7 @@ declare namespace Office {
          */
         valueFormat?: Office.ValueFormat | string
         /**
-         * Specify whether to get only the visible (that is, filtered-in) data or all the data. Useful when filtering data. Use Office.FilterType or string equivalent. This parameter is ignored in Word documents.
+         * Specify whether to get only the visible (that is, filtered-in) data or all the data. Useful when filtering data. Use {@link Office.FilterType} or string equivalent. This parameter is ignored in Word documents.
          */
         filterType?: Office.FilterType | string
         /**
@@ -964,7 +965,7 @@ declare namespace Office {
      * Provides options for whether to select the location that is navigated to.
      *
      * @remarks
-     * The behavior caused by the options.selectionMode option varies by host:
+     * The behavior caused by the {@link Office.SelectionMode | options.selectionMode} option varies by host:
      *
      * In Excel: Office.SelectionMode.Selected selects all content in the binding, or named item. Office.SelectionMode.None for text bindings, selects the cell; for matrix bindings, table bindings, and named items, selects the first data cell (not first cell in header row for tables).
      *
@@ -974,7 +975,7 @@ declare namespace Office {
      */
     interface GoToByIdOptions {
         /**
-         * Specifies whether the location specified by the id parameter is selected (highlighted). Use Office.SelectionMode or string equivalent. See the Remarks for more information.
+         * Specifies whether the location specified by the id parameter is selected (highlighted). Use {@link Office.SelectionMode} or string equivalent. See the Remarks for more information.
          */
         selectionMode?: Office.SelectionMode | string
         /**
@@ -987,8 +988,9 @@ declare namespace Office {
      */
     interface SetSelectedDataOptions {
         /**
-         * Use only with binding type table and when a TableData object is passed for the data parameter. An array of objects that specify a range of columns, rows, or cells and specify, as key-value pairs, the cell formatting to apply to that range. Example: [{cells: Office.Table.Data, format: {fontColor: "yellow"}},
-        {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]
+         * Use only with binding type table and when a TableData object is passed for the data parameter. An array of objects that specify a range of columns, rows, or cells and specify, as key-value pairs, the cell formatting to apply to that range. 
+         * 
+         * Example: `[{cells: Office.Table.Data, format: {fontColor: "yellow"}}, {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]`
          */
         cellFormat?: Array<RangeFormatConfiguration>
         /**
@@ -996,7 +998,7 @@ declare namespace Office {
          */
         coercionType?: Office.CoercionType | string
         /**
-         * For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows. Example: {bandedRows: true,  filterButton: false}
+         * For an inserted table, a list of key-value pairs that specify table formatting options, such as header row, total row, and banded rows. Example: `{bandedRows: true,  filterButton: false}`
          */
         tableOptions?: object
         /**
@@ -1124,7 +1126,7 @@ declare namespace Office {
      * Specifies how to coerce data returned or set by the invoked method.
      *
      * @remarks
-     * PowerPoint supports only Office.CoercionType.Text, Office.CoercionType.Image, and Office.CoercionType.SlideRange. Project supports only Office.CoercionType.Text.
+     * PowerPoint supports only `Office.CoercionType.Text`, `Office.CoercionType.Image`, and `Office.CoercionType.SlideRange`. Project supports only `Office.CoercionType.Text`.
      *
      * Hosts: Access, Excel, Outlook, PowerPoint, Project, Word
      */
@@ -1158,7 +1160,7 @@ declare namespace Office {
          */
         Ooxml,
         /**
-         * Return a JSON object that contains an array of the ids, titles, and indexes of the selected slides.For example,  {"slides":[{"id":257,"title":"Slide 2","index":2},{"id":256,"title":"Slide 1","index":1}]} for a selection of two slides.
+         * Return a JSON object that contains an array of the ids, titles, and indexes of the selected slides.For example,  `{"slides":[{"id":257,"title":"Slide 2","index":2},{"id":256,"title":"Slide 1","index":1}]}` for a selection of two slides.
          * @remarks
          * Only applies to data in PowerPoint when calling the Document.getSelectedData method to get the current slide or selected range of slides.
          */
@@ -1226,10 +1228,10 @@ declare namespace Office {
         Text,
     }
     /**
-     * Specifies the kind of event that was raised. Returned by the type property of an EventNameEventArgs object.
+     * Specifies the kind of event that was raised. Returned by the `type` property of an *EventName*EventArgs object.
      *
      * @remarks
-     * Add-ins for Project support the Office.EventType.ResourceSelectionChanged, Office.EventType.TaskSelectionChanged, and Office.EventType.ViewSelectionChanged event types.
+     * Add-ins for Project support the `Office.EventType.ResourceSelectionChanged`, `Office.EventType.TaskSelectionChanged`, and `Office.EventType.ViewSelectionChanged` event types.
      *
      * Hosts: Access, Excel, PowerPoint, Project, Word
      */
@@ -1417,6 +1419,8 @@ declare namespace Office {
     * The Binding object is never called directly. It is the abstract parent class of the objects that represent each type of binding: MatrixBinding, TableBinding, or TextBinding. All three of these objects inherit the getDataAsync and setDataAsync methods from the Binding object that enable to you interact with the data in the binding. They also inherit the id and type properties for querying those property values. Additionally, the MatrixBinding and TableBinding objects expose additional methods for matrix- and table-specific features, such as counting the number of rows and columns.
     */
     interface Binding {
+
+
         /**
         * Get the Document object associated with the binding.
         *
@@ -1511,9 +1515,9 @@ declare namespace Office {
     */
     interface Bindings {
         /**
-        * Gets a Document object that represents the document associated with this set of bindings.
+        * Gets an {@link Office.Document} object that represents the document associated with this set of bindings.
         *
-        *remarks
+        * @remarks
         * Hosts: Access, Excel, Word
         */
         document: Document;
@@ -1531,14 +1535,14 @@ declare namespace Office {
          *
          *     Note: In Excel, when specifying a table as a named item, you must fully qualify the name to include the worksheet name in the name of the table in this format: "Sheet1!Table1"
          *
-         * For Word, the itemName parameter refers to the Title property of a Rich Text content control. (You can't bind to content controls other than the Rich Text content control.)
+         * For Word, the itemName parameter refers to the Title property of a Rich Text content control. (You can't bind to content controls other than the Rich Text content control).
          *
          * By default, a content control has no Title value assigned. To assign a meaningful name in the Word UI, after inserting a Rich Text content control from the Controls group on the Developer tab of the ribbon, use the Properties command in the Controls group to display the Content Control Properties dialog box. Then set the Title property of the content control to the name you want to reference from your code.
          *
          *     Note: In Word, if there are multiple Rich Text content controls with the same Title property value (name), and you try to bind to one these content controls with this method (by specifying its name as the itemName parameter), the operation will fail.
          *
          * @param itemName Name of the bindable object in the document. For Example 'MyExpenses' table in Excel."
-         * @param bindingType The Office BindingType for the data. The method returns null if the selected object cannot be coerced into the specified type.
+         * @param bindingType The {@link Office.BindingType} for the data. The method returns null if the selected object cannot be coerced into the specified type.
          * @param options Provides options for configuring the binding that is created.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
@@ -1744,7 +1748,7 @@ declare namespace Office {
         setXmlAsync(xml: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     /**
-     * Represents a single CustomXMLPart in a CustomXMLParts collection.
+     * Represents a single CustomXMLPart in an {@link Office.CustomXmlParts} collection.
      *
      * @remarks
      * Hosts: Word
@@ -1771,7 +1775,7 @@ declare namespace Office {
          */
         id: string;
         /**
-         * Gets the set of namespace prefix mappings (CustomXMLPrefixMappings) used against the current CustomXMLPart.
+         * Gets the set of namespace prefix mappings ({@link Office.CustomXmlPrefixMappings}) used against the current CustomXMLPart.
          *
          * @remarks
          * Hosts: Word
@@ -1787,9 +1791,9 @@ declare namespace Office {
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
-         * @param eventType Specifies the type of event to add. Required. For a CustomXmlPart object event, the eventType parameter can be specified as Office.EventType.DataNodeDeleted, Office.EventType.DataNodeInserted, Office.EventType.DataNodeReplaced, or the corresponding text values of these enumerations.
+         * @param eventType Specifies the type of event to add. Required. For a CustomXmlPart object event, the eventType parameter can be specified as `Office.EventType.DataNodeDeleted`, `Office.EventType.DataNodeInserted`, `Office.EventType.DataNodeReplaced`, or the corresponding text values of these enumerations.
          * @param handler The event handler function to add, whose only parameter is of type NodeDeletedEventArgs, NodeInsertedEventArgs, or NodeReplaceEventArgs. Required.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback..
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         addHandlerAsync(eventType: EventType, handler: (result: any) => void, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -1838,7 +1842,7 @@ declare namespace Office {
          *
          * Available in Requirement set: CustomXmlParts
          *
-         * @param eventType Specifies the type of event to remove. Required.For a CustomXmlPart object event, the eventType parameter can be specified as Office.EventType.DataNodeDeleted, Office.EventType.DataNodeInserted, Office.EventType.DataNodeReplaced, or the corresponding text values of these enumerations.
+         * @param eventType Specifies the type of event to remove. Required.For a CustomXmlPart object event, the eventType parameter can be specified as `Office.EventType.DataNodeDeleted`, `Office.EventType.DataNodeInserted`, `Office.EventType.DataNodeReplaced`, or the corresponding text values of these enumerations.
          * @param options Provides options to determine which event handler or handlers are removed.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
@@ -1875,7 +1879,7 @@ declare namespace Office {
          * Available in Requirement set: CustomXmlParts
          *
          * @param id The GUID of the custom XML part, including opening and closing braces.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback..
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getByIdAsync(id: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -1960,7 +1964,7 @@ declare namespace Office {
          * @remarks
          * Hosts: Access, Excel, Word
          *
-         * You don't instantiate the Document object directly in your script. To call members of the Document object to interact with the current document or worksheet, use Office.context.document in your script.
+         * You don't instantiate the Document object directly in your script. To call members of the Document object to interact with the current document or worksheet, use `Office.context.document` in your script.
          */
         bindings: Bindings;
         /**
@@ -2001,8 +2005,8 @@ declare namespace Office {
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
-         * @param eventType For a Document object event, the eventType parameter can be specified as Office.EventType.Document.SelectionChanged or Office.EventType.Document.ActiveViewChanged, or the corresponding text value of this enumeration.
-         * @param handler The event handler function to add, whose only parameter is of type DocumentSelectionChangedEventArgs. Required.
+         * @param eventType For a Document object event, the eventType parameter can be specified as `Office.EventType.Document.SelectionChanged` or `Office.EventType.Document.ActiveViewChanged`, or the corresponding text value of this enumeration.
+         * @param handler The event handler function to add, whose only parameter is of type {@link Office.DocumentSelectionChangedEventArgs}. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
@@ -2017,7 +2021,7 @@ declare namespace Office {
          *
          * Can trigger an event when the view changes.
          *
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback..
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
         */
         getActiveViewAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -2031,15 +2035,15 @@ declare namespace Office {
          *
          * For add-ins running in Office host applications other than Office for iOS, the getFileAsync method supports getting files in slices of up to 4194304 bytes (4 MB). For add-ins running in Office for iOS apps, the getFileAsync method supports getting files in slices of up to 65536 (64 KB).
          *
-         * The fileType parameter can be specified by using the FileType enumeration or text values. But the possible values vary with the host:
+         * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with the host:
          *
-         * Excel Online, Win32, Mac, and iOS: Office.FileType.Compressed
+         * Excel Online, Win32, Mac, and iOS: `Office.FileType.Compressed`
          *
-         * PowerPoint on Windows desktop, Mac, and iPad, and PowerPoint Online: Office.FileType.Compressed, Office.FileType.Pdf
+         * PowerPoint on Windows desktop, Mac, and iPad, and PowerPoint Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
-         * Word on Windows desktop, Word on Mac, and Word Online: Office.FileType.Compressed, Office.FileType.Pdf, Office.FileType.Text
+         * Word on Windows desktop, Word on Mac, and Word Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
          *
-         * Word on iPad: Office.FileType.Compressed, Office.FileType.Text
+         * Word on iPad: `Office.FileType.Compressed`, `Office.FileType.Text`
          *
          * @param fileType The format in which the file will be returned
          * @param options Provides options for setting the size of slices that the document will be divided into.
@@ -2054,7 +2058,7 @@ declare namespace Office {
          *
          * Available in Requirement set: not in a set
          *
-         * You get the file's URL with the url property ( asyncResult.value.url).
+         * You get the file's URL with the url property (`asyncResult.value.url`).
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2070,17 +2074,17 @@ declare namespace Office {
          *
          * The possible values for the coercionType parameter vary by the host:
          *
-         * Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online only: Office.CoercionType.Text (string)
+         * Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online only: `Office.CoercionType.Text` (string)
          *
-         * Excel, Word, and Word Online only: Office.CoercionType.Matrix (array of arrays)
+         * Excel, Word, and Word Online only: `Office.CoercionType.Matrix` (array of arrays)
          *
-         * Access, Excel, Word, and Word Online only: Office.CoercionType.Table (TableData object)
+         * Access, Excel, Word, and Word Online only: `Office.CoercionType.Table` (TableData object)
          *
-         * Word only: Office.CoercionType.Html
+         * Word only: `Office.CoercionType.Html`
          *
-         * Word and Word Online only: Office.CoercionType.Ooxml (Office Open XML)
+         * Word and Word Online only: `Office.CoercionType.Ooxml` (Office Open XML)
          *
-         * PowerPoint and PowerPoint Online only: Office.CoercionType.SlideRange
+         * PowerPoint and PowerPoint Online only: `Office.CoercionType.SlideRange`
          *
          * @param coercionType The type of data structure to return.
          * @param options Provides options for customizing what data is returned and how it is formatted.
@@ -2120,7 +2124,7 @@ declare namespace Office {
          * Available in Requirement set: DocumentEvents
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
-         * @param options Provides options to determine which event handler or handlers are removed.         *
+         * @param options Provides options to determine which event handler or handlers are removed.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         removeHandlerAsync(eventType: EventType, options?: RemoveHandlerOptions, callback?: (result: AsyncResult) => void): void;
@@ -2146,7 +2150,7 @@ declare namespace Office {
          *
          * Office.CoercionType.Image: Excel, Word, PowerPoint
          *
-         * @param data The data to be set. Either a string or CoercionType value, 2d array or TableData object.
+         * @param data The data to be set. Either a string or {@link Office.CoercionType} value, 2d array or TableData object.
          * @param options Provides options for how to insert data to the selection.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
@@ -2211,11 +2215,11 @@ declare namespace Office {
      */
     interface DocumentSelectionChangedEventArgs {
         /**
-         * Gets a Document object that represents the document that raised the SelectionChanged event.
+         * Gets an {@link Office.Document} object that represents the document that raised the SelectionChanged event.
          */
         document: Document;
         /**
-         * Get an EventType enumeration value that identifies the kind of event that was raised.
+         * Get an {@link Office.EventType} enumeration value that identifies the kind of event that was raised.
          */
         type: EventType;
     }
@@ -2326,15 +2330,15 @@ declare namespace Office {
         url: string
     }
     /**
-    * Represents a binding in two dimensions of rows and columns.
-    *
-    * @remarks
-         * Hosts: Excel, Word
-    *
-    * Available in Requirement set: MatrixBindings
-    *
-    * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
-    */
+     * Represents a binding in two dimensions of rows and columns.
+     *
+     * @remarks
+     * Hosts: Excel, Word
+     *
+     * Available in Requirement set: MatrixBindings
+     *
+     * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
+     */
     interface MatrixBinding extends Binding {
         /**
         * Gets the number of columns in the matrix data structure, as an integer value.
@@ -2565,7 +2569,7 @@ declare namespace Office {
      */
     interface Slice {
         /**
-         * Gets the raw data of the file slice in Office.FileType.Text ("text") or Office.FileType.Compressed ("compressed") format as specified by the fileType parameter of the call to the Document.getFileAsync method.
+         * Gets the raw data of the file slice in `Office.FileType.Text` ("text") or `Office.FileType.Compressed` ("compressed") format as specified by the fileType parameter of the call to the Document.getFileAsync method.
          *
          * @remarks
          * Files in the "compressed" format will return a byte array that can be transformed to a base64-encoded string if required.
@@ -2764,7 +2768,7 @@ declare namespace Office {
         setTableOptionsAsync(tableOptions: any, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     /**
-     * Represents the data in a table or a TableBinding.
+     * Represents the data in a table or a {@link Office.TableBinding}.
      *
      * @remarks
      * Hosts: Excel, Word
@@ -2776,6 +2780,7 @@ declare namespace Office {
         constructor();
         /**
          * Gets or sets the headers of the table.
+         * 
          * @remarks
          * To specify headers, you must specify an array of arrays that corresponds to the structure of the table. For example, to specify headers for a two-column table you would set the header property to [['header1', 'header2']].
          *
@@ -2792,6 +2797,7 @@ declare namespace Office {
         headers: any[];
         /**
          * Gets or sets the rows in the table. Returns an array of arrays that contains the data in the table. Returns an empty array ``, if there are no rows.
+         * 
          * @remarks
          * To specify rows, you must specify an array of arrays that corresponds to the structure of the table. For example, to specify two rows of string values in a two-column table you would set the rows property to [['a', 'b'], ['c', 'd']].
          *
@@ -2835,7 +2841,7 @@ declare namespace Office {
     *
     * Available in Requirement set: TextBindings
     *
-    * The TextBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object. It does not implement any additional properties or methods of its own.
+    * The TextBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the {@link Office.Binding} object. It does not implement any additional properties or methods of its own.
     */
     interface TextBinding extends Binding { }
     /**
@@ -4948,15 +4954,15 @@ declare namespace Office {
             /**
              * The attachment is a file
              */
-            File,
+            File = "file",
             /**
              * The attachment is an Exchange item
              */
-            Item,
+            Item = "item",
             /**
              * The attachment is stored in a cloud location, such as OneDrive. The id property of the attachment contains a URL to the file.
              */
-            Cloud
+            Cloud = "cloud"
         }
         /**
          * Specifies the day of week or type of day.
@@ -5020,31 +5026,31 @@ declare namespace Office {
             /**
              * Specifies that the entity is a meeting suggestion.
              */
-            MeetingSuggestion,
+            MeetingSuggestion = "meetingSuggestion",
             /**
              * Specifies that the entity is a task suggestion.
              */
-            TaskSuggestion,
+            TaskSuggestion = "taskSuggestion",
             /**
              * Specifies that the entity is a postal address.
              */
-            Address,
+            Address = "address",
             /**
              * Specifies that the entity is an SMTP email address.
              */
-            EmailAddress,
+            EmailAddress = "emailAddress",
             /**
              * Specifies that the entity is an Internet URL.
              */
-            Url,
+            Url = "url",
             /**
              * Specifies that the entity is a US phone number.
              */
-            PhoneNumber,
+            PhoneNumber = "phoneNumber",
             /**
              * Specifies that the entity is a contact.
              */
-            Contact
+            Contact = "contact"
         }
         /**
          * Specifies the notification message type for an appointment or message.
@@ -5058,15 +5064,15 @@ declare namespace Office {
             /**
              * The notificationMessage is a progress indicator.
              */
-            ProgressIndicator,
+            ProgressIndicator = "progressIndicator",
             /**
              * The notificationMessage is an informational message.
              */
-            InformationalMessage,
+            InformationalMessage = "informationalMessage",
             /**
              * The notificationMessage is an error message.
              */
-            ErrorMessage
+            ErrorMessage = "errorMessage"
         }
         /**
          * Specifies an item's type.
@@ -5080,11 +5086,11 @@ declare namespace Office {
             /**
              * An email, meeting request, meeting response, or meeting cancellation.
              */
-            Message,
+            Message = "message",
             /**
              * An appointment item.
              */
-            Appointment
+            Appointment = "appointment"
         }
         /**
          * Specifies the month.
@@ -5156,19 +5162,19 @@ declare namespace Office {
             /**
              * Specifies that the recipient is a distribution list containing a list of email addresses.
              */
-            DistributionList,
+            DistributionList = "distributionList",
             /**
              * Specifies that the recipient is an SMTP email address that is on the Exchange server.
              */
-            User,
+            User = "user",
             /**
              * Specifies that the recipient is an SMTP email address that is not on the Exchange server.
              */
-            ExternalUser,
+            ExternalUser = "externalUser",
             /**
              * Specifies that the recipient is not one of the other recipient types.
              */
-            Other
+            Other = "other"
         }
         /**
          * Specifies the time zone applied to the recurrence.
@@ -5768,23 +5774,23 @@ declare namespace Office {
             /**
              * There has been no response from the attendee.
              */
-            None,
+            None = "none",
             /**
              * The attendee is the meeting organizer.
              */
-            Organizer,
+            Organizer = "organizer",
             /**
              * The meeting request was tentatively accepted by the attendee.
              */
-            Tentative,
+            Tentative = "tentative",
             /**
              * The meeting request was accepted by the attendee.
              */
-            Accepted,
+            Accepted = "accepted",
             /**
              * The meeting request was declined by the attendee.
              */
-            Declined
+            Declined = "declined"
         }
         /**
          * Specifies the version of the REST API that corresponds to a REST-formatted item ID.
@@ -5798,15 +5804,15 @@ declare namespace Office {
             /**
              * Version 1.0.
              */
-            v1_0,
+            v1_0 = "v1.0",
             /**
              * Version 2.0.
              */
-            v2_0,
+            v2_0 = "v2.0",
             /**
              * Beta.
              */
-            Beta
+            Beta = "beta"
         }
         /**
          * Specifies the week of the month.
@@ -6238,7 +6244,7 @@ declare namespace Office {
     /**
      * Represents a contact stored on the server. Read mode only.
      *
-     * The list of contacts associated with an email message or appointment is returned in the contacts property of the Entities object that is returned by the getEntities or getEntitiesByType method of the active item.
+     * The list of contacts associated with an email message or appointment is returned in the contacts property of the {@link Office.Entities} object that is returned by the getEntities or getEntitiesByType method of the active item.
      *
      * [Api set: Mailbox 1.0]
      *
@@ -6528,7 +6534,7 @@ declare namespace Office {
          * 
          * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
          * 
-         * The from value of the item is provided as an EmailAddressDetails in the asyncResult.value property.
+         * The from value of the item is provided as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -8686,9 +8692,9 @@ declare namespace Office {
          * Applicable Outlook mode: Read
          *
          * @param parameters A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
-         *        toRecipients: An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
-         *        ccRecipients: An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
-         *        bccRecipients: An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
+         *        toRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
+         *        ccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
+         *        bccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
          *        subject: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
          *        htmlBody: The HTML body of the message. The body content is limited to a maximum size of 32 KB.
          *        attachments: An array of JSON objects that are either file or item attachments.
@@ -8823,7 +8829,7 @@ declare namespace Office {
          *
          * When you use the makeEwsRequestAsync method in mail apps running in Outlook versions earlier than version 15.0.4535.1004, you should set the encoding value to ISO-8859-1.
          *
-         * <?xml version="1.0" encoding="iso-8859-1"?>
+         * `<?xml version="1.0" encoding="iso-8859-1"?>`
          *
          * You do not need to set the encoding value when your mail app is running in Outlook on the web. You can determine whether your mail app is running in Outlook or Outlook on the web by using the mailbox.diagnostics.hostName property. You can determine what version of Outlook is running by using the mailbox.diagnostics.hostVersion property.
          *
@@ -8898,7 +8904,7 @@ declare namespace Office {
          */
         key?: string;
         /**
-         * Specifies the Office.MailboxEnums.ItemNotificationMessageType of message. If type is ProgressIndicator or ErrorMessage, an icon is automatically supplied and the message is not persistent. Therefore the icon and persistent properties are not valid for these types of messages. Including them will result in an ArgumentException. If type is ProgressIndicator, the developer should remove or replace the progress indicator when the action is complete.
+         * Specifies the {@link Office.MailboxEnums.ItemNotificationMessageType} of message. If type is ProgressIndicator or ErrorMessage, an icon is automatically supplied and the message is not persistent. Therefore the icon and persistent properties are not valid for these types of messages. Including them will result in an ArgumentException. If type is ProgressIndicator, the developer should remove or replace the progress indicator when the action is complete.
          */
         type: Office.MailboxEnums.ItemNotificationMessageType;
         /**
@@ -8944,8 +8950,11 @@ declare namespace Office {
          * Applicable Outlook mode: Compose or read
          * 
          * In addition to this signature, the method also has the following signatures:
+         * 
          * addAsync(key: string, JSONmessage: NotificationMessageDetails): void;
+         * 
          * addAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions): void;
+         * 
          * addAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: AsyncResult) => void): void;
          * 
          */
@@ -9045,7 +9054,7 @@ declare namespace Office {
          * In addition to the main signature, this method also has these signatures:
          * removeAsync(key: string): void;
          * removeAsync(key: string, options: AsyncContextOptions): void;
-         * removeAsync(key: string, callback: (result: AsyncResult) => void): void;         * 
+         * removeAsync(key: string, callback: (result: AsyncResult) => void): void;
          *
          * @param key The key for the notification message to remove.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -9267,9 +9276,9 @@ declare namespace Office {
          *
          * - Strings containing SMTP email addresses
          *
-         * - EmailUser objects
+         * - {@link Office.EmailUser} objects
          *
-         * - EmailAddressDetails objects
+         * - {@link Office.EmailAddressDetails} objects
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9292,9 +9301,9 @@ declare namespace Office {
          *
          * - Strings containing SMTP email addresses
          *
-         * - EmailUser objects
+         * - {@link Office.EmailUser} objects
          *
-         * - EmailAddressDetails objects
+         * - {@link Office.EmailAddressDetails} objects
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9312,7 +9321,7 @@ declare namespace Office {
         /**
          * Gets a recipient list for an appointment or message.
          *
-         * When the call completes, the asyncResult.value property will contain an array of EmailAddressDetails objects.
+         * When the call completes, the asyncResult.value property will contain an array of{@link Office. EmailAddressDetails} objects.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9332,7 +9341,7 @@ declare namespace Office {
         /**
          * Gets a recipient list for an appointment or message.
          *
-         * When the call completes, the asyncResult.value property will contain an array of EmailAddressDetails objects.
+         * When the call completes, the asyncResult.value property will contain an array of {@link Office.EmailAddressDetails} objects.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9353,9 +9362,9 @@ declare namespace Office {
          *
          * - Strings containing SMTP email addresses
          *
-         * - EmailUser objects
+         * - {@link Office.EmailUser} objects
          *
-         * - EmailAddressDetails objects
+         * - {@link Office.EmailAddressDetails} objects
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9386,9 +9395,9 @@ declare namespace Office {
          *
          * - Strings containing SMTP email addresses
          *
-         * - EmailUser objects
+         * - {@link Office.EmailUser} objects
          *
-         * - EmailAddressDetails objects
+         * - {@link Office.EmailAddressDetails} objects
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9411,9 +9420,9 @@ declare namespace Office {
          *
          * - Strings containing SMTP email addresses
          *
-         * - EmailUser objects
+         * - {@link Office.EmailUser} objects
          *
-         * - EmailAddressDetails objects
+         * - {@link Office.EmailAddressDetails} objects
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9438,9 +9447,9 @@ declare namespace Office {
          *
          * - Strings containing SMTP email addresses
          *
-         * - EmailUser objects
+         * - {@link Office.EmailUser} objects
          *
-         * - EmailAddressDetails objects
+         * - {@link Office.EmailAddressDetails} objects
          *
          * [Api set: Mailbox 1.1]
          *
@@ -10391,11 +10400,11 @@ declare namespace Office {
 ////////////////////////////////////////////////////////////////
 
 declare namespace OfficeExtension {
-    /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
+    /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling `context.sync()`. */
     class ClientObject {
         /** The request context associated with the object */
         context: ClientRequestContext;
-        /** Returns a boolean value for whether the corresponding object is a null object. You must call "context.sync()" before reading the isNullObject property. */
+        /** Returns a boolean value for whether the corresponding object is a null object. You must call `context.sync()` before reading the isNullObject property. */
         isNullObject: boolean;
     }
 }
@@ -10424,7 +10433,7 @@ declare namespace OfficeExtension {
         pendingStatements: string[];
     }
 
-    /** An abstract RequestContext object that facilitates requests to the host Office application. The "Excel.run" and "Word.run" methods provide a request context. */
+    /** An abstract {@link Office.RequestContext} object that facilitates requests to the host Office application. The `Excel.run and `Word.run` methods provide a request context. */
     class ClientRequestContext {
         constructor(url?: string);
 
@@ -10434,23 +10443,24 @@ declare namespace OfficeExtension {
         /** Request headers */
         requestHeaders: { [name: string]: string };
 
-        /** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
+        /** Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties. */
         load(object: ClientObject, option?: string | string[] | LoadOption): void;
 
         /**
         * Queues up a command to recursively load the specified properties of the object and its navigation properties.
-        * You must call "context.sync()" before reading the properties.
+        * 
+        * You must call `context.sync()` before reading the properties.
         *
         * @param object The object to be loaded.
-        * @param options The key-value pairing of load options for the types, such as { "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }
+        * @param options The key-value pairing of load options for the types, such as `{ "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }`
         * @param maxDepth The maximum recursive depth.
         */
         loadRecursive(object: ClientObject, options: { [typeName: string]: string | string[] | LoadOption }, maxDepth?: number): void;
 
-        /** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
+        /** Adds a trace message to the queue. If the promise returned by `context.sync()` is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
         trace(message: string): void;
 
-        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code.�This method returns a promise, which is resolved when the synchronization is complete. */
+        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
         sync<T>(passThroughValue?: T): Promise<T>;
 
         /** Debug information */
@@ -10473,9 +10483,9 @@ declare namespace OfficeExtension {
 }
 
 declare namespace OfficeExtension {
-    /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
+    /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after `context.sync()` is invoked. */
     class ClientResult<T> {
-        /** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
+        /** The value of the result that is retrieved from the document after `context.sync()` is invoked. */
         value: T;
     }
 }
@@ -10527,7 +10537,7 @@ declare namespace OfficeExtension {
         fullStatements?: string[];
     }
 
-    /** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
+    /** The error object returned by `context.sync()`, if a promise is rejected due to an error while processing the request. */
     class Error {
         /** Error name: "OfficeExtension.Error".*/
         name: string;
@@ -10537,9 +10547,9 @@ declare namespace OfficeExtension {
         stack: string;
         /** Error code string, such as "InvalidArgument". */
         code: string;
-        /** Trace messages (if any) that were added via a "context.trace()" invocation before calling "context.sync()". If there was an error, this contains all trace messages that were executed before the error occurred. These messages can help you monitor the program execution sequence and detect the case of the error. */
+        /** Trace messages (if any) that were added via a `context.trace()` invocation before calling `context.sync()`. If there was an error, this contains all trace messages that were executed before the error occurred. These messages can help you monitor the program execution sequence and detect the case of the error. */
         traceMessages: Array<string>;
-        /** Debug info (useful for detailed logging of the error, i.e., via JSON.stringify(...)). */
+        /** Debug info (useful for detailed logging of the error, i.e., via `JSON.stringify(...)`). */
         debugInfo: DebugInfo;
         /** Inner error, if applicable. */
         innerError: Error;
@@ -10564,7 +10574,7 @@ declare namespace OfficeExtension {
 }
 
 declare namespace OfficeExtension {
-    /** A Promise object that represents a deferred interaction with the host Office application. The publicly-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a browser-provided native Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
+    /** A Promise object that represents a deferred interaction with the host Office application. The publicly-consumable {@link Office.OfficeExtension.Promise} is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a browser-provided native Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
     const Promise: Office.IPromiseConstructor;
     type IPromise<T> = Promise<T>;
 }
@@ -10576,9 +10586,9 @@ declare namespace OfficeExtension {
         add(object: ClientObject): void;
         /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
         add(objects: ClientObject[]): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
+        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect. */
         remove(object: ClientObject): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
+        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect. */
         remove(objects: ClientObject[]): void;
     }
 }
@@ -10836,45 +10846,45 @@ declare namespace Excel {
     }
     /**
      * Executes a batch script that performs actions on the Excel object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of `context.sync()`). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Excel object model, using a new remote RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      * @param requestInfo - The URL of the remote workbook and the request headers to be sent.
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of `context.sync()`). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo | Session, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     * @param contextObject - A previously-created object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     * @param contextObject - A previously-created object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by `context.sync()`.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of `context.sync()`). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by `context.sync()`.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of `context.sync()`). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Excel object model, using the remote RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      * @param requestInfo - The URL of the remote workbook and the request headers to be sent.
-     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by `context.sync()`.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of `context.sync()`). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo | Session, object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Excel object model, using the RequestContext of previously-created API objects.
-     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by `context.sync()`.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of `context.sync()`). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Excel object model, using the remote RequestContext of previously-created API objects.
      * @param requestInfo - The URL of the remote workbook and the request headers to be sent.
-     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by `context.sync()`.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of `context.sync()`). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo | Session, objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     /**

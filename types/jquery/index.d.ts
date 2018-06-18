@@ -40,7 +40,7 @@ type _Event = Event;
 // Used by JQuery.Promise3 and JQuery.Promise
 type _Promise<T> = Promise<T>;
 
-interface JQueryStatic<TElement extends Node = HTMLElement> {
+interface JQueryStatic<TElement = HTMLElement> {
     /**
      * @see {@link http://api.jquery.com/jquery.ajax/#jQuery-ajax1}
      * @deprecated Use jQuery.ajaxSetup(options)
@@ -137,23 +137,53 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
     <FElement extends Node = HTMLElement>(window: Window, discriminator: boolean): JQueryStatic<FElement>;
     /**
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
+     * by passing an HTML string.
+     *
+     * @param element_elementArray A DOM element to wrap in a jQuery object.
+     *                             An array containing a set of DOM elements to wrap in a jQuery object.
+     * @see {@link https://api.jquery.com/jQuery/}
+     * @since 1.0
+     */
+    <T extends Element>(element_elementArray: T | ArrayLike<T>): JQuery<T>;
+    /**
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
+     * by passing an HTML string.
+     *
+     * @param selection An existing jQuery object to clone.
+     * @see {@link https://api.jquery.com/jQuery/}
+     * @since 1.0
+     */
+    <T>(selection: JQuery<T>): JQuery<T>;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
      * Creates DOM elements on the fly from the provided string of raw HTML.
      *
      * Binds a function to be executed when the DOM has finished loading.
      *
      * @param selector_object_callback A string containing a selector expression
-     *                                 A DOM element to wrap in a jQuery object.
-     *                                 An array containing a set of DOM elements to wrap in a jQuery object.
-     *                                 A plain object to wrap in a jQuery object.
-     *                                 An existing jQuery object to clone.
+     *                                 A string of HTML to create on the fly. Note that this parses HTML, not XML.
      *                                 The function to execute when the DOM is ready.
      * @see {@link https://api.jquery.com/jQuery/}
      * @since 1.0
+     */
+    (selector_object_callback: JQuery.Selector | JQuery.htmlString | ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>; // tslint:disable-line:unified-signatures
+    /**
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
+     *
+     * @param object A plain object to wrap in a jQuery object.
+     * @see {@link https://api.jquery.com/jQuery/}
+     * @since 1.0
+     */
+    <T extends JQuery.PlainObject>(object: T): JQuery<T>;
+    /**
+     * Returns an empty jQuery set.
+     *
+     * @see {@link https://api.jquery.com/jQuery/}
      * @since 1.4
      */
-    (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
-        JQuery.PlainObject | Window |
-        ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>;
+    (): JQuery<TElement>;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
      *
@@ -659,7 +689,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.map/}
      * @since 1.0
      */
-    map<T, R>(array: T[], callback: (elementOfArray: T, indexInArray: number) => R): R[];
+    map<T, TReturn>(array: T[], callback: (this: Window, elementOfArray: T, indexInArray: number) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
     /**
      * Translate all items in an array or object to new array of items.
      *
@@ -671,7 +701,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.map/}
      * @since 1.6
      */
-    map<T, K extends keyof T, R>(obj: T, callback: (propertyOfObject: T[K], key: K) => R): R[];
+    map<T, K extends keyof T, TReturn>(obj: T, callback: (this: Window, propertyOfObject: T[K], key: K) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
     /**
      * Merge the contents of two arrays together into the first array.
      *
@@ -3098,7 +3128,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     when(...deferreds: any[]): JQuery.Promise<any, any, never>;
 }
 
-interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
+interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
      *
@@ -4253,7 +4283,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/map/}
      * @since 1.2
      */
-    map(callback: (this: TElement, index: number, domElement: TElement) => any | any[] | null | undefined): this;
+    map<TReturn>(callback: (this: TElement, index: number, domElement: TElement) => JQuery.TypeOrArray<TReturn> | null | undefined): JQuery<TReturn>;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      *
@@ -6363,7 +6393,9 @@ declare namespace JQuery {
         };
 
         // Writable properties on XMLHttpRequest
-        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials' | 'msCaching'>> { }
+        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials'>> {
+            msCaching?: string;
+        }
     }
 
     interface Transport {
@@ -7922,9 +7954,9 @@ declare namespace JQuery {
 
     // endregion
 
-    interface EventHandler<TCurrentTarget extends EventTarget, TData = null> extends EventHandlerBase<TCurrentTarget, JQuery.Event<TCurrentTarget, TData>> { }
+    interface EventHandler<TCurrentTarget, TData = null> extends EventHandlerBase<TCurrentTarget, JQuery.Event<TCurrentTarget, TData>> { }
 
-    interface EventHandlerBase<TContext extends object, T> {
+    interface EventHandlerBase<TContext, T> {
         // Extra parameters can be passed from trigger()
         (this: TContext, t: T, ...args: any[]): void | false | any;
     }

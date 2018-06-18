@@ -576,7 +576,7 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   closeDrawer: () => any;
   toggleDrawer: () => any;
   getParam: <T extends keyof P>(param: T, fallback?: P[T]) => P[T];
-  setParams: (newParams: P) => boolean;
+  setParams: (newParams: Partial<P>) => boolean;
   addListener: (
     eventName: string,
     callback: NavigationEventCallback

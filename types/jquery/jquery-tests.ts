@@ -42,7 +42,7 @@ function JQueryStatic() {
         // $ExpectType JQuery<HTMLElement>
         $([new HTMLElement()]);
 
-        // $ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<{ foo: string; hello: string; }>
         $({ foo: 'bar', hello: 'world' });
 
         // $ExpectType JQuery<HTMLElement>
@@ -58,6 +58,41 @@ function JQueryStatic() {
 
         // $ExpectType JQuery<HTMLElement>
         $();
+
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19597#issuecomment-378218432
+        function issue_19597_378218432() {
+            let myDiv = $(document.createElement('div'));
+            // $ExpectType JQuery<HTMLDivElement>
+            myDiv;
+            myDiv.on('click', (evt) => {
+                let target = evt.target;
+                // $ExpectType HTMLDivElement
+                target;
+            });
+            let myDiv1 = $<HTMLDivElement>(document.createElement('div'));
+
+            let myForcedDiv: JQuery<HTMLDivElement> = $(document.createElement('div')) as any;
+            myForcedDiv.on('click', (evt) => {
+                let target = evt.target; // HTMLDivElement
+                // $ExpectType HTMLDivElement
+                target;
+            });
+            let myDoc = $(document);
+            // $ExpectType JQuery<Document>
+            myDoc;
+            myDoc.on('click', (evt) => {
+                let target = evt.target;
+                // $ExpectType Document
+                target;
+            });
+            let myDocForced: JQuery<Document> = $(document);
+            let myWindow = $(window);
+            // $ExpectType JQuery<Window>
+            myWindow;
+            let myWindowForced: JQuery<Window> = $(window);
+            // $ExpectType JQuery<Window>
+            myWindowForced;
+        }
     }
 
     function ajaxSettings() {
@@ -699,7 +734,9 @@ function JQueryStatic() {
 
     function map() {
         // $ExpectType number[]
-        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+        $.map([1, 2, 3], function (elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
             // $ExpectType number
             elementOfArray;
             // $ExpectType number
@@ -708,11 +745,49 @@ function JQueryStatic() {
             return 200 + 10;
         });
 
+        // $ExpectType number[]
+        $.map([1, 2, 3], function (elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return [200, 10];
+        });
+
+        // $ExpectType (number | null)[]
+        $.map([1, 2, 3], function (elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return [200, 10, null];
+        });
+
+        // $ExpectType (number | undefined)[]
+        $.map([1, 2, 3], function (elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return [200, 10, undefined];
+        });
+
         // $ExpectType (false | 1)[]
         $.map({
             myProp: true,
             name: 'Rogers',
-        }, (propertyOfObject, key) => {
+        }, function (propertyOfObject, key) {
+            // $ExpectType Window
+            this;
             // $ExpectType string | boolean
             propertyOfObject;
             // $ExpectType "myProp" | "name"
@@ -724,6 +799,67 @@ function JQueryStatic() {
                 case 'name':
                     return false;
             }
+        });
+
+        // $ExpectType (string | number | boolean)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+        }, function (propertyOfObject, key) {
+            // $ExpectType Window
+            this;
+            // $ExpectType string | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name"
+            key;
+
+            return [propertyOfObject, 24];
+        });
+
+        // $ExpectType (false | 1)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+            anotherProp: 70,
+        }, function (propertyOfObject, key) {
+            // $ExpectType Window
+            this;
+            // $ExpectType string | number | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name" | "anotherProp"
+            key;
+
+            switch (key) {
+                case 'myProp':
+                    return 1;
+                case 'name':
+                    return false;
+            }
+
+            return null;
+        });
+
+        // $ExpectType (false | 1)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+            anotherProp: 70,
+        }, function (propertyOfObject, key) {
+            // $ExpectType Window
+            this;
+            // $ExpectType string | number | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name" | "anotherProp"
+            key;
+
+            switch (key) {
+                case 'myProp':
+                    return 1;
+                case 'name':
+                    return false;
+            }
+
+            return undefined;
         });
     }
 
@@ -2041,7 +2177,7 @@ function JQuery() {
 
     function ajax() {
         function ajaxComplete() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
                 // $ExpectType Document
                 this;
@@ -2057,7 +2193,7 @@ function JQuery() {
         }
 
         function ajaxError() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
                 // $ExpectType Document
                 this;
@@ -2075,7 +2211,7 @@ function JQuery() {
         }
 
         function ajaxSend() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxSend(function(event, jqXHR, ajaxOptions) {
                 // $ExpectType Document
                 this;
@@ -2091,7 +2227,7 @@ function JQuery() {
         }
 
         function ajaxStart() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxStart(function() {
                 // $ExpectType Document
                 this;
@@ -2101,7 +2237,7 @@ function JQuery() {
         }
 
         function ajaxStop() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxStop(function() {
                 // $ExpectType Document
                 this;
@@ -2111,7 +2247,7 @@ function JQuery() {
         }
 
         function ajaxSuccess() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxSuccess(function(event, jqXHR, ajaxOptions, data) {
                 // $ExpectType Document
                 this;
@@ -5898,8 +6034,9 @@ function JQuery() {
         }
 
         function contents() {
-            // $ExpectType JQuery<HTMLElement | Comment | Text>
-            $('p').contents();
+            // TODO: Flaky test due to type ordering.
+            // // $ExpectType JQuery<HTMLElement | Comment | Text>
+            // $('p').contents();
         }
 
         function end() {
@@ -6131,7 +6268,7 @@ function JQuery() {
         }
 
         function map() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6143,7 +6280,7 @@ function JQuery() {
                 return 'myVal';
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6155,7 +6292,7 @@ function JQuery() {
                 return ['myVal1', 'myVal2'];
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string | null>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6164,10 +6301,10 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 domElement;
 
-                return null;
+                return ['myVal1', 'myVal2', null];
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string | undefined>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6176,8 +6313,72 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 domElement;
 
-                return undefined;
+                return ['myVal1', 'myVal2', undefined];
             });
+
+            // $ExpectType JQuery<string>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                let value: string;
+
+                if (index % 2 === 0) {
+                    return null;
+                }
+
+                value = 'myVal';
+
+                return value;
+            });
+
+            // $ExpectType JQuery<string>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                let value: string;
+
+                if (index % 2 === 0) {
+                    return undefined;
+                }
+
+                value = 'myVal';
+
+                return value;
+            });
+
+            // // $ExpectType JQuery<never>
+            // $('p').map(function(index, domElement) {
+            //     // $ExpectType HTMLElement
+            //     this;
+            //     // $ExpectType number
+            //     index;
+            //     // $ExpectType HTMLElement
+            //     domElement;
+            //
+            //     return null;
+            // });
+
+            // // $ExpectType JQuery<never>
+            // $('p').map(function(index, domElement) {
+            //     // $ExpectType HTMLElement
+            //     this;
+            //     // $ExpectType number
+            //     index;
+            //     // $ExpectType HTMLElement
+            //     domElement;
+            //
+            //     return undefined;
+            // });
         }
 
         function slice() {
