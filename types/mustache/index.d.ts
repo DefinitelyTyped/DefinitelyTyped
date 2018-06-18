@@ -54,12 +54,12 @@ interface MustacheContext {
     /**
      * Initializes a new instance of the `MustacheContenxt` class.
      */
-    new(view: object): MustacheContext;
+    new(view: any): MustacheContext;
     
     /**
      * Initializes a new instance of the `MustacheContenxt` class.
      */
-    new(view: object, parentContext: MustacheContext): MustacheContext;
+    new(view: any, parentContext: MustacheContext): MustacheContext;
 
     /**
      * Creates a new context using the given view with this context as the parent.
