@@ -275,15 +275,19 @@ puppeteer.launch().then(async browser => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://example.com");
-  let elementText = await page.$eval('#someElement', (element) => {
+  const elementText = await page.$eval('#someElement', (element) => {
     return element.innerHTML;
   });
 
-  elementText = await page.$$eval('.someClassName', (elements) => {
+  // If one returns a DOM reference, puppeteer will wrap an ElementHandle instead
+  const someElement: puppeteer.ElementHandle<HTMLDivElement> = await page.$$eval('.someClassName', (elements) => {
     console.log(elements.length);
-    console.log(elements.item(0).outerHTML);
-    return elements[3].innerHTML;
+    console.log(elements[0].outerHTML);
+    return elements[3] as HTMLDivElement;
   });
+
+  // If one passes an ElementHandle, puppeteer will unwrap its DOM reference instead
+  await page.$eval('.hello-world', (e, x1: HTMLDivElement) => x1.noWrap, someElement);
 
   browser.close();
 })();
@@ -362,4 +366,12 @@ puppeteer.launch().then(async browser => {
   console.log('Current workers:');
   for (const worker of page.workers())
     console.log('  ' + worker.url());
+});
+
+// Test conditional types
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const eh: puppeteer.ElementHandle<HTMLTableRowElement> = (await page.$('tr.something'))!;
+  const index: number = await page.$eval('.demo', (e, x1) => x1.rowIndex, eh);
 });

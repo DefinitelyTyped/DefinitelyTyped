@@ -4,12 +4,199 @@
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
 import { ChildProcess } from "child_process";
+
+/** Wraps a DOM element into an ElementHandle instance */
+export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
+
+/** Unwraps a DOM element out of an ElementHandle instance */
+export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
+
+/** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
+export interface Evalable {
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R>(
+    selector: string,
+    pageFunction: (element: Element) => R | Promise<R>,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R, X1>(
+    selector: string,
+    pageFunction: (element: Element, x1: UnwrapElementHandle<X1>) => R | Promise<R>,
+    x1: X1,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @param x2 Second argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R, X1, X2>(
+    selector: string,
+    pageFunction: (element: Element, x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>) => R | Promise<R>,
+    x1: X1,
+    x2: X2,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @param x2 Second argument to pass to pageFunction
+   * @param x3 Third argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R, X1, X2, X3>(
+    selector: string,
+    pageFunction: (element: Element, x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>, x3: UnwrapElementHandle<X3>) => R | Promise<R>,
+    x1: X1,
+    x2: X2,
+    x3: X3,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param args Arguments to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R>(
+    selector: string,
+    pageFunction: (element: Element, ...args: any[]) => R | Promise<R>,
+    ...args: any[],
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R>(
+    selector: string,
+    pageFunction: (elements: Element[]) => R | Promise<R>,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R, X1>(
+    selector: string,
+    pageFunction: (elements: Element[], x1: UnwrapElementHandle<X1>) => R | Promise<R>,
+    x1: X1,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @param x2 Second argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R, X1, X2>(
+    selector: string,
+    pageFunction: (elements: Element[], x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>) => R | Promise<R>,
+    x1: X1,
+    x2: X2,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @param x2 Second argument to pass to pageFunction
+   * @param x3 Third argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R, X1, X2, X3>(
+    selector: string,
+    pageFunction: (elements: Element[], x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>, x3: UnwrapElementHandle<X3>) => R | Promise<R>,
+    x1: X1,
+    x2: X2,
+    x3: X3,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param args Arguments to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R>(
+    selector: string,
+    pageFunction: (elements: Element[], ...args: any[]) => R | Promise<R>,
+    ...args: any[]
+  ): Promise<WrapElementHandle<R>>;
+}
 
 /** Keyboard provides an api for managing a virtual keyboard. */
 export interface Keyboard {
@@ -485,7 +672,7 @@ export interface Worker {
 /**
  * Represents an in-page DOM element. ElementHandles can be created with the page.$ method.
  */
-export interface ElementHandle extends JSHandle {
+export interface ElementHandle<E extends Element = Element> extends JSHandle, Evalable {
   /**
    * The method runs element.querySelector within the page.
    * If no element matches the selector, the return value resolve to null.
@@ -501,18 +688,6 @@ export interface ElementHandle extends JSHandle {
    * @since 0.13.0
    */
   $$(selector: string): Promise<ElementHandle[]>;
-
-  /**
-   * This method runs `document.querySelector` within the element and passes it as the first argument to `pageFunction`.
-   * If there's no element matching `selector`, the method throws an error.
-   *
-   * If `pageFunction` returns a Promise, then `frame.$eval` would wait for the promise to resolve and return its value.
-   */
-  $eval<T>(
-    selector: string,
-    pageFunction: (element: Element, ...args: any[]) => T,
-    ...args: any[]
-  ): Promise<T>;
 
   /**
    * @param selector XPath expression to evaluate.
@@ -811,7 +986,7 @@ export interface Response {
   url(): string;
 }
 
-export interface FrameBase {
+export interface FrameBase extends Evalable {
   /**
    * The method queries frame for the selector.
    * If there's no such element within the frame, the method will resolve to null.
@@ -829,31 +1004,6 @@ export interface FrameBase {
    * @param expression XPath expression to evaluate.
    */
   $x(expression: string): Promise<ElementHandle[]>;
-
-  /**
-   * This method runs document.querySelector within the page and passes it as the first argument to `fn`.
-   * If there's no element matching selector, the method throws an error.
-   * If `pageFunction` returns a Promise, then $eval would wait for the promise to resolve and return its value.
-   */
-  $eval<T>(
-    selector: string,
-    pageFunction: (element: Element, ...args: any[]) => T,
-    ...args: any[]
-  ): Promise<T>;
-
-  /**
-   * This method runs document.querySelectorAll within the frame and passes it as the first argument to pageFunction.
-   * If pageFunction returns a Promise, then frame.$$eval would wait for the promise to resolve and return its value.
-   * @param selector A selector to query frame for
-   * @param fn Function to be evaluated in browser context
-   * @param args Arguments to pass to pageFunction
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $$eval<T>(
-    selector: string,
-    pageFunction: (elements: NodeListOf<Element>, ...args: any[]) => T,
-    ...args: any[]
-  ): Promise<T>;
 
   /** Adds a `<script>` tag into the page with the desired url or content. */
   addScriptTag(options: ScriptTagOptions): Promise<void>;
