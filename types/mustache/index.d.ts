@@ -14,7 +14,7 @@ interface MustacheScanner {
     /**
      * Initializes a new instance of the `MustacheScanner` class.
      */
-    new (string: string): MustacheScanner;
+    new(string: string): MustacheScanner;
 
     /**
      * Returns `true` if the tail is empty (end of string).
@@ -54,12 +54,12 @@ interface MustacheContext {
     /**
      * Initializes a new instance of the `MustacheContenxt` class.
      */
-    new(view: any): MustacheContext;
-    
+    new(view: any, parentContext: MustacheContext): MustacheContext;
+
     /**
      * Initializes a new instance of the `MustacheContenxt` class.
      */
-    new(view: any, parentContext: MustacheContext): MustacheContext;
+    new(view: any): MustacheContext;
 
     /**
      * Creates a new context using the given view with this context as the parent.
@@ -119,7 +119,7 @@ interface MustacheWriter {
      * 
      * A functino that is used to load partial template on the fly that takes a single argument: the n ame of the partial.
      */
-    render(template: string, view: any|MustacheContext, partials: any): string;
+    render(template: string, view: any | MustacheContext, partials: any): string;
 
     /**
      * Low-level method that renders the given array of `tokens` using the given `context` and `partials`.
@@ -159,12 +159,12 @@ interface MustacheStatic {
      * The opening and closing tags to parse.
      */
     tags: string;
-    
+
     /**
      * A simple string scanner that is used by the template parser to find tokens in template strings.
      */
     Scanner: MustacheScanner;
-    
+
     /**
      * Represents a rendering context by wrapping a view object and maintaining a reference to the parent context.
      */
@@ -176,7 +176,7 @@ interface MustacheStatic {
      * It also maintains a cache of templates to avoid the need to parse the same template twice.
      */
     Writer: MustacheWriter;
-    
+
     /**
      * Escapes HTML-characters.
      * 
@@ -219,8 +219,8 @@ interface MustacheStatic {
      * 
      * A functino that is used to load partial template on the fly that takes a single argument: the n ame of the partial.
      */
-    render(template: string, view: any|MustacheContext, partials?: any): string;
-    
+    render(template: string, view: any | MustacheContext, partials?: any): string;
+
     /**
      * Renders the `template` with the given `view` and `partials` using the default writer.
      * 
@@ -237,7 +237,7 @@ interface MustacheStatic {
      * 
      * A functino that is used to load partial template on the fly that takes a single argument: the n ame of the partial.
      */
-    to_html(template: string, view: any|MustacheContext, partials?: any, send?: any): any;
+    to_html(template: string, view: any | MustacheContext, partials?: any, send?: any): any;
 }
 
 /**
@@ -246,5 +246,5 @@ interface MustacheStatic {
 declare var Mustache: MustacheStatic;
 
 declare module 'mustache' {
-	export = Mustache;
+    export = Mustache;
 }
