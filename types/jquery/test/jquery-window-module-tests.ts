@@ -1,7 +1,7 @@
 import jq = require('jquery');
 
 const $window = jq(window);
-// $ExpectType JQuery<HTMLElement>
+// $ExpectType JQuery<Window>
 $window;
 
 class CanvasLayersDirective {

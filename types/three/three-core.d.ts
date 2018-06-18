@@ -490,6 +490,7 @@ export class OrthographicCamera extends Camera {
 
     zoom: number;
     view: {
+        enabled: boolean,
         fullWidth: number,
         fullHeight: number,
         offsetX: number,
@@ -579,6 +580,7 @@ export class PerspectiveCamera extends Camera {
 
     focus: number;
     view: {
+        enabled: boolean,
         fullWidth: number,
         fullHeight: number,
         offsetX: number,
