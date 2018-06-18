@@ -10,7 +10,8 @@ setOptions({
   addonPanelInRight: false,
   sortStoriesByKind: false,
   hierarchySeparator: /\//,
-  hierarchyRootSeparator: /\|/
+  hierarchyRootSeparator: /\|/,
+  selectedAddonPanel: 'storybook/actions/action-panel',
 });
 
 setOptions({

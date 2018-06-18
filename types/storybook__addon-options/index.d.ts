@@ -20,6 +20,7 @@ export interface Options {
     sortStoriesByKind?: boolean;
     hierarchySeparator?: RegExp | string;
     hierarchyRootSeparator?: RegExp | string;
+    selectedAddonPanel?: string;
 }
 
 export function setOptions(options: Options): void;
