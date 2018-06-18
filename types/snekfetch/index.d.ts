@@ -1,6 +1,6 @@
 // Type definitions for snekfetch 4.0
 // Project: https://github.com/GusCaplan/snekfetch
-// Definitions by: Iker Pérez Brunelli <https://github.com/DarkerTV>
+// Definitions by: Iker Pérez Brunelli <https://github.com/ANekoIsFineToo>
 //                 Shayne Hartford <https://github.com/ShayBox>
 //                 Yukine <https://github.com/Dev-Yukine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -110,13 +110,13 @@ declare class Snekfetch extends Readable {
     static unlock(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static unsubscribe(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
 
-    query(name: string | { [key: string]: string | string[] }, value?: string): Snekfetch;
+    query(name: string | { [key: string]: any }, value?: string): Snekfetch;
 
-    set(name: string | { [key: string]: string | string[] }, value?: string | string[]): Snekfetch;
+    set(name: string | { [key: string]: any }, value?: string): Snekfetch;
 
     attach(name: string, data: string | object | Buffer, filename?: string): Snekfetch;
 
-    send(data?: string|Buffer|object): Snekfetch;
+    send(data?: string | Buffer | object): Snekfetch;
 
     then(): Promise<Snekfetch.SnekfetchResponse>;
     then<T>(resolver: (res: Snekfetch.SnekfetchResponse) => T, rejector?: (err: Error) => any): Promise<T>;

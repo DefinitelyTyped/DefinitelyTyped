@@ -924,7 +924,7 @@ declare module 'ember' {
             function Exception(message: string): void;
             class SafeString {
                 constructor(str: string);
-                static toString(): string;
+                toString(): string;
             }
             function parse(string: string): any;
             function print(ast: any): void;
@@ -2007,7 +2007,7 @@ declare module '@ember/enumerable' {
          * key.  You can pass an optional second argument with the target value.  Otherwise
          * this will match any property that evaluates to false.
          */
-        rejectBy(key: string, value?: string): Ember.NativeArray<T>;
+        rejectBy(key: string, value?: any): Ember.NativeArray<T>;
         /**
          * Returns the first item in the array for which the callback returns true.
          * This method works similar to the `filter()` method defined in JavaScript 1.6

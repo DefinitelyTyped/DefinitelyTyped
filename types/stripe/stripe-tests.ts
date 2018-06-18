@@ -798,7 +798,10 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 
 //#region Orders tests
 // ##################################################################################
-
+stripe.orders.retrieve("or_1C8XKwEe31JkLCeQHg0jcisf", function (err, order) {
+    // asynchronously called
+    var amount_returned: number = order.amount_returned;
+});
 
 
 //#endregion

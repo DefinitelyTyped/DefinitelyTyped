@@ -1,8 +1,8 @@
 import * as React from 'react';
+import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
-import { Popper } from './Popper';
 
-export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
+export type PopoverProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
   toggle?: () => void;
   target: string | HTMLElement;
@@ -16,7 +16,7 @@ export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
   delay?: number | {show: number, hide: number};
   modifiers?: Popper.Modifiers;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare class Popover extends React.Component<PopoverProps> {}
+declare class Popover<T> extends React.Component<PopoverProps<T>> {}
 export default Popover;

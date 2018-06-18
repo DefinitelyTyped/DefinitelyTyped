@@ -2,7 +2,7 @@
 // Project: https://github.com/LeoLeBras/react-router-navigation#readme
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 // High-level wrappers
 import { PureComponent, ReactNode, ComponentClass, ReactElement } from "react";

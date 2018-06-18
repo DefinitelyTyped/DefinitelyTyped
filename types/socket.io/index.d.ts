@@ -474,6 +474,21 @@ declare namespace SocketIO {
 		compress( compress: boolean ): Namespace;
 	}
 
+	interface Packet extends Array<any> {
+		/**
+		 * Event name
+		 */
+		[0]: string;
+		/**
+		 * Packet data
+		 */
+		[1]: any;
+		/**
+		 * Ack function
+		 */
+		[2]: (...args: any[]) => void;
+	}
+
 	/**
 	 * The socket, which handles our connection for a namespace. NOTE: while
 	 * we technically extend NodeJS.EventEmitter, we're not putting it here
@@ -538,49 +553,7 @@ declare namespace SocketIO {
 		/**
 		 * The object used when negociating the handshake
 		 */
-		handshake: {
-			/**
-			 * The headers passed along with the request. e.g. 'host',
-			 * 'connection', 'accept', 'referer', 'cookie'
-			 */
-			headers: any;
-
-			/**
-			 * The current time, as a string
-			 */
-			time: string;
-
-			/**
-			 * The remote address of the connection request
-			 */
-			address: string;
-
-			/**
-			 * Is this a cross-domain request?
-			 */
-			xdomain: boolean;
-
-			/**
-			 * Is this a secure request?
-			 */
-			secure: boolean;
-
-			/**
-			 * The timestamp for when this was issued
-			 */
-			issued: number;
-
-			/**
-			 * The request url
-			 */
-			url: string;
-
-			/**
-			 * Any query string parameters in the request url
-			 */
-			query: any;
-		};
-
+		handshake: Handshake;
 		/**
 		 * Sets the 'json' flag when emitting an event
 		 */
@@ -611,6 +584,13 @@ declare namespace SocketIO {
 		 * @see to( room )
 		 */
 		in( room: string ): Socket;
+
+		/**
+		 * Registers a middleware, which is a function that gets executed for every incoming Packet and receives as parameter the packet and a function to optionally defer execution to the next registered middleware.
+		 *
+		 * Errors passed to middleware callbacks are sent as special error packets to clients.
+		 */
+		use( fn: ( packet: Packet, next: (err?: any) => void ) => void ): Socket;
 
 		/**
 		 * Sends a 'message' event
@@ -666,6 +646,49 @@ declare namespace SocketIO {
 		 * @return This Socket
 		 */
 		compress( compress: boolean ): Socket;
+	}
+
+	interface Handshake {
+		/**
+		 * The headers passed along with the request. e.g. 'host',
+		 * 'connection', 'accept', 'referer', 'cookie'
+		 */
+		headers: any;
+
+		/**
+		 * The current time, as a string
+		 */
+		time: string;
+
+		/**
+		 * The remote address of the connection request
+		 */
+		address: string;
+
+		/**
+		 * Is this a cross-domain request?
+		 */
+		xdomain: boolean;
+
+		/**
+		 * Is this a secure request?
+		 */
+		secure: boolean;
+
+		/**
+		 * The timestamp for when this was issued
+		 */
+		issued: number;
+
+		/**
+		 * The request url
+		 */
+		url: string;
+
+		/**
+		 * Any query string parameters in the request url
+		 */
+		query: any;
 	}
 
 	/**

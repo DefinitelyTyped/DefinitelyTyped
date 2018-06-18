@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface NavLinkProps extends React.HTMLProps<HTMLAnchorElement> {
+export type NavLinkProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
   tag?: React.ReactType;
   innerRef?: React.Ref<HTMLAnchorElement>;
   disabled?: boolean;
@@ -10,7 +10,7 @@ export interface NavLinkProps extends React.HTMLProps<HTMLAnchorElement> {
   cssModule?: CSSModule;
   onClick?: React.MouseEventHandler<any>;
   href?: string;
-}
+} & T;
 
-declare class NavLink extends React.Component<NavLinkProps> {}
+declare class NavLink<T> extends React.Component<NavLinkProps<T>> {}
 export default NavLink;

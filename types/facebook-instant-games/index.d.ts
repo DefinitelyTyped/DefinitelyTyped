@@ -33,7 +33,7 @@ declare namespace FBInstant {
     /**
      * The platform on which the game is currently running. The value will always be null until FBInstant.initializeAsync() resolves.
      */
-    function getPlatform(): Platform;
+    function getPlatform(): Platform | null;
 
     /**
      * The string representation of this SDK version.
@@ -174,11 +174,11 @@ declare namespace FBInstant {
      *
      * @param eventName Name of the event. Must be 2 to 40 characters, and can only contain '_', '-', ' ', and alphanumeric characters.
      * @param valueToSum An optional numeric value that FB Analytics can calculate a sum with.
-     * @param parameter An optional object that can contain up to 25 key-value pairs to be logged with the event. Keys must be 2 to 40 characters,
+     * @param parameters An optional object that can contain up to 25 key-value pairs to be logged with the event. Keys must be 2 to 40 characters,
      * and can only contain '_', '-', ' ', and alphanumeric characters. Values must be less than 100 characters in length.
      * @returns The error if the event failed to log; otherwise returns null.
      */
-    function logEvent(eventName: string, valueToSum?: number, parameter?: { [key: string]: string; }): APIError | null;
+    function logEvent(eventName: string, valueToSum?: number, parameters?: { [key: string]: string; }): APIError | null;
 
     /**
      * Set a callback to be fired when a pause event is triggered.
@@ -458,7 +458,7 @@ declare namespace FBInstant {
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
          */
-        chooseAsync(options: ContextOptions): Promise<void>;
+        chooseAsync(options?: ContextOptions): Promise<void>;
 
         /**
          * Attempts to create or switch into a context between a specified player and the current player. The returned promise will reject if the player listed is not a Connected Player of the current
@@ -521,7 +521,7 @@ declare namespace FBInstant {
          * @throws INVALID_OPERATION
          * @throws RATE_LIMITED
          */
-        setScoreAsync(score: number, extraData: string): Promise<LeaderboardEntry>;
+        setScoreAsync(score: number, extraData?: string): Promise<LeaderboardEntry>;
 
         /**
          * Retrieves the leaderboard's entry for the current player, or null if the player has not set one yet.

@@ -933,6 +933,7 @@ User.findAll( { include : [{ all : 'HasMany', attributes : ['name'] }] } );
 User.findAll( { include : [{ all : true }, { model : User, attributes : ['id'] }] } );
 User.findAll( { include : [{ all : 'BelongsTo' }] } );
 User.findAll( { include : [{ all : true }] } );
+User.findAll( { include : [{ nested : true }] } );
 User.findAll( { where : { username : 'barfooz' }, raw : true } );
 User.findAll( { where : { name : 'worker' }, include : [{ model : User, as : 'ToDos' }] } );
 User.findAll( { where : { user_id : 1 }, attributes : ['a', 'b'], include : [{ model : User, attributes : ['c'] }] } );

@@ -195,3 +195,9 @@ const TestStripeProviderProps2: React.SFC<{
 const TestStripeProviderProps3: React.SFC<{
     stripe: StripeProps;
 }> = props => <StripeProvider stripe={null} />;
+
+/**
+ * StripeProvider should be able to accept options.
+ * See: https://stripe.com/docs/stripe-js/reference#stripe-function for options.
+ */
+const TestStripeProviderOptions: React.SFC = () => <StripeProvider apiKey="" stripeAccount="" />;

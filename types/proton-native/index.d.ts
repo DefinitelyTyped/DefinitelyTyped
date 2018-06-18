@@ -1,4 +1,4 @@
-// Type definitions for proton-native 0.55
+// Type definitions for proton-native 1.1
 // Project: https://github.com/kusti8/proton-native
 // Definitions by: Nguyen Xuan Khanh <https://github.com/khanhas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,7 +18,7 @@ export interface AppProps {
  */
 export class App extends React.Component<AppProps> { }
 
-export interface AreaBaseProps {
+export interface AreaBaseProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The fill color for the component.
      */
@@ -169,6 +169,78 @@ export interface AreaPathProps extends AreaBaseProps {
 
 export class AreaPath extends React.Component<AreaPathProps> { }
 
+export interface AreaTextProps extends AreaBaseProps {
+    style?: {
+        /**
+         * The background color, specified as a CSS color string.
+         */
+        backgroundColor?: string;
+        /**
+         * The text color, specified as a CSS color string.
+         */
+        color?: string;
+        /**
+         * The font family (only if available on the system).
+         */
+        fontFamily?: string;
+        /**
+         * The font size (in pt).
+         */
+        fontSize?: number;
+        /**
+         * Whether an italic font should be used.
+         */
+        fontStyle?: 'normal' | 'oblique' | 'italic';
+        /**
+         * Whether a bold font should be used (and the amount).
+         */
+        fontWeight?: 'minimum' | 'thin' | 'ultraLight' | 'light' | 'book' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'ultraBold' | 'heavy' | 'ultraHeavy' | 'maximum' | number;
+        /**
+         * Wheter the text should be aligned to the left, center or right.
+         *
+         * **Works only on a top level text component, not it's children!**
+         */
+        textAlign?: 'left' | 'center' | 'right';
+        /**
+         * How wide or narrow the characters should be.
+         */
+        textStretch?: 'ultraCondensed' | 'extraCondensed' | 'condensed' | 'semiCondensed' | 'normal' | 'semiExpanded' | 'expanded' | 'extraExpanded' | 'ultraExpanded';
+        /**
+         * The text underline style.
+         */
+        textUnderline?: 'none' | 'single' | 'double' | 'suggestion';
+        /**
+         * The text underline color.
+         *
+         * A color string | 'spelling' | 'grammar' | 'auxiliary'
+         */
+        textUnderlineColor?: 'spelling' | 'grammar' | 'auxiliary' | string;
+    };
+    /**
+     * The x coordinate of the text's top left corner. (Only in a top level text component.)
+     */
+    x?: number | string;
+    /**
+     * The y coordinate of the text's top left corner. (Only in a top level text component.)
+     */
+    y?: number | string;
+}
+
+export class AreaText extends React.Component<AreaTextProps> { }
+
+export interface AreaGroupProps extends AreaBaseProps {
+    /**
+     * Specify `width` and `height` to be able to use percentage values in transforms.
+     */
+    width?: number | string;
+    /**
+     * Specify `width` and `height` to be able to use percentage values in transforms.
+     */
+    height?: number | string;
+}
+
+export class AreaGroup extends React.Component<AreaGroupProps> { }
+
 export interface MouseEvent {
     button: number;
     height: number;
@@ -243,6 +315,12 @@ export class Area extends React.Component<AreaProps> {
      */
     static Circle: typeof AreaCircle;
     /**
+     * A component to apply props to all it's children in an Area component.
+     *
+     * To be able to use percentage values in transforms, the props `width` and `height` need to be specified (they have no graphical effect).
+     */
+    static Group: typeof AreaGroup;
+    /**
      * A straigt line to be displayed in an Area component.
      */
     static Line: typeof AreaLine;
@@ -256,14 +334,13 @@ export class Area extends React.Component<AreaProps> {
      * A rectangle to be displayed in an Area component.
      */
     static Rectangle: typeof AreaRectangle;
+    /**
+     * A (possibly styled) text to be displayed in an Area component. Nested `Area.Text` components inheirit the parent's style.
+     */
+    static Text: typeof AreaText;
 }
 
-/**
- * Undocumented
- */
-export class AreaInternal extends React.Component { }
-
-export interface BoxProps {
+export interface BoxProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the Box is enabled.
      */
@@ -284,7 +361,11 @@ export interface BoxProps {
 
 export class Box extends React.Component<BoxProps> { }
 
-export interface ButtonProps {
+export interface ButtonProps extends GridChildrenProps, Label, Stretchy {
+    /**
+     * The text to display in the button.
+     */
+    children?: string;
     /**
      * Whether the button can be clicked.
      */
@@ -304,15 +385,19 @@ export interface ButtonProps {
  */
 export class Button extends React.Component<ButtonProps> { }
 
-export interface CheckboxProps {
-    /**
-     * Whether the checkbox can be used.
-     */
-    enabled?: boolean;
+export interface CheckboxProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the checkbox is checked or not.
      */
     checked?: boolean;
+    /**
+     * The text to display next to the check box.
+     */
+    children?: string;
+    /**
+     * Whether the checkbox can be used.
+     */
+    enabled?: boolean;
     /**
      * Called when the checkbox is clicked. The current checkbox state is passed as an argument.
      */
@@ -325,7 +410,7 @@ export interface CheckboxProps {
 
 export class Checkbox extends React.Component<CheckboxProps> { }
 
-export interface ColorButtonProps {
+export interface ColorButtonProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The initial color for the ColorButton. Can be passed as standard color seen in CSS (a color name, hex, rgb, rgba, hsl, hsla).
      */
@@ -333,7 +418,7 @@ export interface ColorButtonProps {
     /**
      * Called when the color is changed for the ColorButton. The current color is passed as an object of RGBA.
      */
-    onClick?: (color: {
+    onChange?: (color: {
         r: number,
         g: number,
         b: number,
@@ -346,32 +431,7 @@ export interface ColorButtonProps {
  */
 export class ColorButton extends React.Component<ColorButtonProps> { }
 
-/**
- * Undocumented
- */
-export class Combobox extends React.Component { }
-
-/**
- * Undocumented
- */
-export class ComboboxItem extends React.Component { }
-
-/**
- * Undocumented
- */
-export class EditableCombobox extends React.Component { }
-
-/**
- * Undocumented
- */
-export class Entry extends React.Component { }
-
-/**
- * Undocumented
- */
-export class FontButton extends React.Component { }
-
-export interface FormProps {
+export interface FormProps extends GridChildrenProps, Stretchy {
     /**
      * Whether the Form is enabled.
      */
@@ -438,7 +498,11 @@ export interface GridProps {
  */
 export class Grid extends React.Component<GridProps> { }
 
-export interface GroupProps {
+export interface GroupProps extends GridChildrenProps, Label, Stretchy {
+    /**
+     * Group can only have one child. To have more than one child, use boxes.
+     */
+    children?: JSX.Element;
     /**
      * Whether the Group is enabled.
      */
@@ -459,18 +523,17 @@ export interface GroupProps {
 
 /**
  * A named group of components.
+ *
+ * **Note:** Group can only have one child. To have more than one child, use boxes
  */
 export class Group extends React.Component<GroupProps> { }
 
-/**
- * Undocumented
- */
-export class HorizontalBox extends React.Component { }
-
-/**
- * Undocumented
- */
-export class HorizontalSeparator extends React.Component { }
+export interface Label {
+    /**
+     * Label for Form and Tab children
+     */
+    label?: string;
+}
 
 export interface MenuProps {
     /**
@@ -480,6 +543,14 @@ export interface MenuProps {
 }
 
 export interface MenuItemProps {
+    /**
+     * The text to display for the menu item.
+     */
+    children?: string;
+    /**
+     * If the type is `Check`, then set whether it is checked or not.
+     */
+    checked?: boolean;
     /**
      * How the menu item is displayed.
      *
@@ -492,15 +563,14 @@ export interface MenuItemProps {
      */
     type?: 'Check' | 'Quit' | 'About' | 'Preferences' | 'Separator' | 'Item';
     /**
-     * If the type is `Check`, then set whether it is checked or not.
-     */
-    checked?: boolean;
-    /**
      * Called when the menu item is clicked. If the type is `Check`, then it passes whether it is checked as an argument.
      */
     onClick?: (checked: boolean) => void;
 }
 
+/**
+ * A single item in a Menu.
+ */
 export class MenuItem extends React.Component<MenuItemProps> { }
 
 /**
@@ -515,27 +585,7 @@ export class Menu extends React.Component<MenuProps> {
     static Item: typeof MenuItem;
 }
 
-/**
- * Undocumented
- */
-export class MenuBar extends React.Component { }
-
-/**
- * Undocumented
- */
-export class MenuBarItem extends React.Component { }
-
-/**
- * Undocumented
- */
-export class MultilineEntry extends React.Component { }
-
-/**
- * Undocumented
- */
-export class PasswordEntry extends React.Component { }
-
-export interface PickerProps {
+export interface PickerProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the user can enter their own custom text in addition to the drop down menu.
      */
@@ -571,7 +621,7 @@ export interface PickerProps {
  */
 export class Picker extends React.Component<PickerProps> { }
 
-export interface ProgressBarProps {
+export interface ProgressBarProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the ProgressBar is enabled.
      */
@@ -591,14 +641,13 @@ export interface ProgressBarProps {
  */
 export class ProgressBar extends React.Component<ProgressBarProps> { }
 
-/**
- * Undocumented
- */
-export class RadioButton extends React.Component { }
+export interface RadioButtonsItemProps {
+    children: string;
+}
 
-export class RadioButtonItem extends React.Component { }
+export class RadioButtonsItem extends React.Component<RadioButtonsItemProps> { }
 
-export interface RadioButtonsProps {
+export interface RadioButtonsProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the RadioButtons can be used.
      */
@@ -623,10 +672,10 @@ export interface RadioButtonsProps {
  * Every child must be a RadioButtons.Item, that requires a string child that is the label to display to the right of the RadioButton.
  */
 export class RadioButtons extends React.Component<RadioButtonsProps> {
-    static Item: typeof RadioButtonItem;
+    static Item: typeof RadioButtonsItem;
 }
 
-export interface SeparatorProps {
+export interface SeparatorProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the Separator is enabled.
      */
@@ -646,11 +695,19 @@ export interface SeparatorProps {
  */
 export class Separator extends React.Component<SeparatorProps> { }
 
-export interface SliderProps {
+export interface SliderProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the Slider is enabled.
      */
     enabled?: boolean;
+    /**
+     * The minimum value for the slider.
+     */
+    min?: number;
+    /**
+     * The maximum value for the slider.
+     */
+    max?: number;
     /**
      * Called when the value of the slider is changed. The current value is passed as an argument.
      */
@@ -670,7 +727,7 @@ export interface SliderProps {
  */
 export class Slider extends React.Component<SliderProps> { }
 
-export interface SpinBoxProps {
+export interface SpinBoxProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the Spinbox is enabled.
      */
@@ -694,7 +751,20 @@ export interface SpinBoxProps {
  */
 export class SpinBox extends React.Component<SpinBoxProps> { }
 
-export interface TabProps {
+export interface Stretchy {
+    /**
+     * Whether the component should stretch to fill the available space. Defaults to true.
+     *
+     * Excluded on:
+     * - Tabs
+     * - Grid children
+     * - Combobox/RadioButton Items
+     * - MenuBar
+     */
+    stretchy?: boolean;
+}
+
+export interface TabProps extends GridChildrenProps {
     /**
      * Whether the Tab is enabled.
      */
@@ -712,12 +782,23 @@ export interface TabProps {
  */
 export class Tab extends React.Component<TabProps> { }
 
+export interface TextProps extends GridChildrenProps, Label, Stretchy {
+    /**
+     * The text to display.
+     */
+    children?: string;
+}
+
 /**
  * Displays some text.
  */
-export class Text extends React.Component { }
+export class Text extends React.Component<TextProps> { }
 
-export interface TextInputProps {
+export interface TextInputProps extends GridChildrenProps, Label, Stretchy {
+    /**
+     * The default text in the TextInput.
+     */
+    children?: string;
     /**
      * Whether the TextInput can be used.
      */
@@ -749,21 +830,15 @@ export interface TextInputProps {
  */
 export class TextInput extends React.Component<TextInputProps> { }
 
-/**
- * Undocumented
- */
-export class VerticalBox extends React.Component { }
-
-/**
- * Undocumented
- */
-export class VerticalSeparator extends React.Component { }
-
 export interface WindowProps {
     /**
      * Whether the window will have a border on the inside.
      */
     borderless?: boolean;
+    /**
+     * Window can only have one child. To have more than one child, use boxes.
+     */
+    children?: JSX.Element;
     /**
      * Whether the window is closed. If set to closed, then the window will be closed.
      */
@@ -810,10 +885,15 @@ export interface WindowProps {
 
 /**
  * The window is the basis where all other components reside.
+ *
+ * **Note:** Window can only have one child. To have more than one child, use boxes.
  */
 export class Window extends React.Component<WindowProps> { }
 
-export function render(element: JSX.Element): React.ReactNode;
+/**
+ * Renders the input component
+ */
+export function render(element: JSX.Element): void;
 
 /**
  * A method to display an alert, or a dialog to save or open a file.
@@ -830,8 +910,7 @@ export function Dialog(
     options?: {
         title: string,
         description?: string
-    }
-    | {
+    } | {
         title?: string,
         description: string
     }
