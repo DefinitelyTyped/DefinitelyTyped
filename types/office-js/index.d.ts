@@ -11191,7 +11191,7 @@ declare namespace Office {
          * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addHandlerAsync(eventType: EventType, handler: (type: EventType) => void, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Converts an item ID formatted for REST into EWS format.
          *
@@ -11567,7 +11567,7 @@ declare namespace Office {
          */
         key?: string;
         /**
-         * Specifies the {@link Office.MailboxEnums.ItemNotificationMessageType} of message. If type is ProgressIndicator or ErrorMessage, an icon is automatically supplied and the message is not persistent. Therefore the icon and persistent properties are not valid for these types of messages. Including them will result in an ArgumentException. If type is ProgressIndicator, the developer should remove or replace the progress indicator when the action is complete.
+         * Specifies the ItemNotificationMessageType of message. If type is ProgressIndicator or ErrorMessage, an icon is automatically supplied and the message is not persistent. Therefore the icon and persistent properties are not valid for these types of messages. Including them will result in an ArgumentException. If type is ProgressIndicator, the developer should remove or replace the progress indicator when the action is complete.
          */
         type: Office.MailboxEnums.ItemNotificationMessageType;
         /**
@@ -11994,7 +11994,7 @@ declare namespace Office {
         /**
          * Gets a recipient list for an appointment or message.
          *
-         * When the call completes, the asyncResult.value property will contain an array of{@link Office. EmailAddressDetails} objects.
+         * When the call completes, the asyncResult.value property will contain an array of{@link Office.EmailAddressDetails} objects.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13080,7 +13080,7 @@ declare namespace OfficeExtension {
         pendingStatements: string[];
     }
 
-    /** An abstract {@link Office.RequestContext} object that facilitates requests to the host Office application. The `Excel.run and `Word.run` methods provide a request context. */
+    /** An abstract RequestContext object that facilitates requests to the host Office application. The `Excel.run and `Word.run` methods provide a request context. */
     class ClientRequestContext {
         constructor(url?: string);
 
