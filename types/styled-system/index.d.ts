@@ -586,6 +586,7 @@ declare module "styled-system" {
         cssProperty?: string;
         key?: string;
         numberToPx?: boolean;
+        alias?: string;
     }
 
     export function style(args: LowLevelStyleFunctionArguments): any;
