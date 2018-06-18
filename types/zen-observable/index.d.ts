@@ -1,11 +1,12 @@
 // Type definitions for zen-observable 0.5
 // Project: https://github.com/zenparsing/zen-observable
 // Definitions by: Kombu <https://github.com/aicest>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
     interface SymbolConstructor {
-        observable: symbol;
+        readonly observable: symbol;
     }
 
     namespace ZenObservable {

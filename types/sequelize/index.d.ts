@@ -5262,6 +5262,11 @@ declare namespace sequelize {
          * Set to true or a string with the attribute name you want to use to enable.
          */
         version?: boolean | string;
+                     
+        /**
+         * Throws an error when no records found
+         */
+        rejectOnError?: boolean | Error;
     }
 
     /**

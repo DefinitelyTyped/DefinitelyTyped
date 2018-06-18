@@ -9,6 +9,7 @@
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
 //                 Thomas Bruun <https://github.com/bruun>
 //                 Gal Talmor <https://github.com/galtalmor>
+//                 Hunter Tunnicliff <https://github.com/htunnicliff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -738,7 +739,7 @@ declare namespace Stripe {
              * charge if a partial refund was issued), positive integer or zero.
              */
             amount_refunded: number;
-            
+
             /**
              * ID of the Connect application that created the charge. [Expandable]
              */
@@ -1994,7 +1995,7 @@ declare namespace Stripe {
             /**
              * The subscription that this invoice was prepared for, if any.
              */
-            subscription: string;
+            subscription: string | subscriptions.ISubscription;
 
             /**
              * Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
@@ -2302,7 +2303,7 @@ declare namespace Stripe {
             /**
              * The subscription that this invoice item has been created for, if any.
              */
-            subscription: string;
+            subscription: string | subscriptions.ISubscription;
         }
 
         interface InvoiceItemCreationOptions extends IDataOptionsWithMetadata {
@@ -2389,7 +2390,7 @@ declare namespace Stripe {
              * currency) representing the total amount for the order.
              */
             amount: number;
-            
+
             /**
              * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a 0-decimal
              * currency) representing the total amount returned for the order thus far.
@@ -5033,7 +5034,7 @@ declare namespace Stripe {
              * String representing the object’s type. Objects of the same type share the same value.
              */
             object: "review";
-            
+
             /**
              * The charge associated with this review. [Expandable]
              */
@@ -5073,7 +5074,7 @@ declare namespace Stripe {
              */
             name: string;
         }
-    } 
+    }
 
     class StripeResource {
         constructor(stripe: Stripe, urlData: any);

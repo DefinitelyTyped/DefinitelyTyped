@@ -12,6 +12,7 @@
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
+//                 ZSkycat <https://github.com/ZSkycat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -349,14 +350,16 @@ declare namespace webpack {
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
 
     interface Node {
-        console?: boolean;
+        console?: boolean | 'mock';
+        process?: boolean | 'mock';
         global?: boolean;
-        process?: boolean;
-        Buffer?: boolean;
-        __filename?: boolean | string;
-        __dirname?: boolean | string;
-        [nodeBuiltin: string]: boolean | string | undefined;
+        __filename?: boolean | 'mock';
+        __dirname?: boolean | 'mock';
+        Buffer?: boolean | 'mock';
+        setImmediate?: boolean | 'mock' | 'empty';
+        [nodeBuiltin: string]: boolean | 'mock' | 'empty' | undefined;
     }
+
     interface NewLoader {
         loader: string;
         options?: { [name: string]: any };
