@@ -46,13 +46,41 @@ declare namespace ShopifyBuy {
     }
 
     export interface CollectionResource {
-        fetch(id: string): Promise<Product[]>;
-        fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type: Docs: Fetches a single collection by ID on the shop, not including products.
-        fetchAll(pageSizeopt?: number): Promise<any[]>; // TODO fix to be a type: Docs: Fetches all collections on the shop, not including products.
-        fetchAllWithProducts(): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
-        fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
-        fetchByHandle(handle: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
-        fetchQuery(query: Query): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
+
+        /**
+        * Fetches a single collection by ID on the shop.
+        */
+        fetch(id: string): Promise<Collection>;
+
+        /**
+        * Fetches a single collection by ID on the shop, including products.
+        */
+        fetchWithProducts(id: string): Promise<Collection>;
+
+        /**
+        * Fetches all collections on the shop.
+        */
+        fetchAll(pageSizeopt?: number): Promise<Collection[]>;
+
+        /**
+        * Fetches all collections on the shop, including products.
+        */
+        fetchAllWithProducts(): Promise<Collection[]>;
+
+        /**
+        * Fetches all collections on the shop, including products.
+        */
+        fetchWithProducts(id: string): Promise<Collection>;
+
+        /**
+        * Fetches a collection by handle on the shop.
+        */
+        fetchByHandle(handle: string): Promise<Collection>;
+
+        /**
+        * Fetches a collection by query.
+        */
+        fetchQuery(query: Query): Promise<Collection>;
     }
 
     export interface CheckoutResource {
