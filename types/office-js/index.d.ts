@@ -4874,15 +4874,15 @@ declare namespace Office {
             /**
              * The attachment is a file
              */
-            File,
+            File = "file",
             /**
              * The attachment is an Exchange item
              */
-            Item,
+            Item = "item",
             /**
              * The attachment is stored in a cloud location, such as OneDrive. The id property of the attachment contains a URL to the file.
              */
-            Cloud
+            Cloud = "cloud"
         }
         /**
          * Specifies the day of week or type of day.
@@ -4946,31 +4946,31 @@ declare namespace Office {
             /**
              * Specifies that the entity is a meeting suggestion.
              */
-            MeetingSuggestion,
+            MeetingSuggestion = "meetingSuggestion",
             /**
              * Specifies that the entity is a task suggestion.
              */
-            TaskSuggestion,
+            TaskSuggestion = "taskSuggestion",
             /**
              * Specifies that the entity is a postal address.
              */
-            Address,
+            Address = "address",
             /**
              * Specifies that the entity is an SMTP email address.
              */
-            EmailAddress,
+            EmailAddress = "emailAddress",
             /**
              * Specifies that the entity is an Internet URL.
              */
-            Url,
+            Url = "url",
             /**
              * Specifies that the entity is a US phone number.
              */
-            PhoneNumber,
+            PhoneNumber = "phoneNumber",
             /**
              * Specifies that the entity is a contact.
              */
-            Contact
+            Contact = "contact"
         }
         /**
          * Specifies the notification message type for an appointment or message.
@@ -4984,15 +4984,15 @@ declare namespace Office {
             /**
              * The notificationMessage is a progress indicator.
              */
-            ProgressIndicator,
+            ProgressIndicator = "progressIndicator",
             /**
              * The notificationMessage is an informational message.
              */
-            InformationalMessage,
+            InformationalMessage = "informationalMessage",
             /**
              * The notificationMessage is an error message.
              */
-            ErrorMessage
+            ErrorMessage = "errorMessage"
         }
         /**
          * Specifies an item's type.
@@ -5006,11 +5006,11 @@ declare namespace Office {
             /**
              * An email, meeting request, meeting response, or meeting cancellation.
              */
-            Message,
+            Message = "message",
             /**
              * An appointment item.
              */
-            Appointment
+            Appointment = "appointment"
         }
         /**
          * Specifies the month.
@@ -5082,19 +5082,19 @@ declare namespace Office {
             /**
              * Specifies that the recipient is a distribution list containing a list of email addresses.
              */
-            DistributionList,
+            DistributionList = "distributionList",
             /**
              * Specifies that the recipient is an SMTP email address that is on the Exchange server.
              */
-            User,
+            User = "user",
             /**
              * Specifies that the recipient is an SMTP email address that is not on the Exchange server.
              */
-            ExternalUser,
+            ExternalUser = "externalUser",
             /**
              * Specifies that the recipient is not one of the other recipient types.
              */
-            Other
+            Other = "other"
         }
         /**
          * Specifies the time zone applied to the recurrence.
@@ -5694,23 +5694,23 @@ declare namespace Office {
             /**
              * There has been no response from the attendee.
              */
-            None,
+            None = "none",
             /**
              * The attendee is the meeting organizer.
              */
-            Organizer,
+            Organizer = "organizer",
             /**
              * The meeting request was tentatively accepted by the attendee.
              */
-            Tentative,
+            Tentative = "tentative",
             /**
              * The meeting request was accepted by the attendee.
              */
-            Accepted,
+            Accepted = "accepted",
             /**
              * The meeting request was declined by the attendee.
              */
-            Declined
+            Declined = "declined"
         }
         /**
          * Specifies the version of the REST API that corresponds to a REST-formatted item ID.
@@ -5724,15 +5724,15 @@ declare namespace Office {
             /**
              * Version 1.0.
              */
-            v1_0,
+            v1_0 = "v1.0",
             /**
              * Version 2.0.
              */
-            v2_0,
+            v2_0 = "v2.0",
             /**
              * Beta.
              */
-            Beta
+            Beta = "beta"
         }
         /**
          * Specifies the week of the month.
