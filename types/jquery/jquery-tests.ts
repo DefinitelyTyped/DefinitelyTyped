@@ -35,36 +35,24 @@ function JQueryStatic() {
 
         // $ExpectType JQuery<HTMLElement>
         $('<p></p>');
-        
-        // $ExpectType JQuery<HTMLParagraphElement>
-        $<HTMLParagraphElement>('<p></p>');
-        
-        // $ExpectType JQuery<HTMLParagraphElement>
-        $<HTMLParagraphElement>('<p></p>', document);
-        
-        // $ExpectType JQuery<HTMLParagraphElement>
-        $<HTMLParagraphElement>('p');
-        
-        // $ExpectType JQuery<HTMLParagraphElement>
-        $<HTMLParagraphElement>('p', document);        
 
         // $ExpectType JQuery<HTMLElement>
         $(new HTMLElement());
 
         // $ExpectType JQuery<HTMLElement>
         $([new HTMLElement()]);
-        
+
         // $ExpectType JQuery<HTMLElement>
         $(new HTMLParagraphElement());
-        
+
         // $ExpectType JQuery<HTMLElement>
         $([new HTMLParagraphElement()]);
-        
+
         // $ExpectType JQuery<HTMLParagraphElement>
         $<HTMLParagraphElement>(new HTMLParagraphElement());
-        
+
         // $ExpectType JQuery<HTMLParagraphElement>
-        $<HTMLParagraphElement>([new HTMLParagraphElement()]);        
+        $<HTMLParagraphElement>([new HTMLParagraphElement()]);
 
         // $ExpectType JQuery<{ foo: string; hello: string; }>
         $({ foo: 'bar', hello: 'world' });
@@ -94,7 +82,7 @@ function JQueryStatic() {
                 target;
             });
             let myDiv1 = $<HTMLDivElement>(document.createElement('div'));
-            
+
             let myForcedDiv: JQuery<HTMLDivElement> = $(document.createElement('div')) as any;
             myForcedDiv.on('click', (evt) => {
                 let target = evt.target; // HTMLDivElement
