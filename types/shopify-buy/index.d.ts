@@ -134,8 +134,6 @@ declare namespace ShopifyBuy {
     export interface Query {
      /**
       * query: title, collection_type, updated_at
-      * TODO probably will remove before Defintely Typed PR, 
-      * as their  community guidelines
       */
         query: string;
         sortBy: string;
