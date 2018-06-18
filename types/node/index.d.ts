@@ -2614,7 +2614,7 @@ declare module "dns" {
 
     export interface AnyTxtRecord {
         type: "TXT";
-        entries: string[]
+        entries: string[];
     }
 
     export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
