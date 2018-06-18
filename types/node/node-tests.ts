@@ -3130,7 +3130,7 @@ namespace dns_tests {
         const _addresses: string[] = addresses;
     });
     dns.resolve("nodejs.org", "ANY", (err, addresses) => {
-        const _addresses: ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord> = addresses;
+        const _addresses: ReadonlyArray<dns.AnySrvRecord | dms.AnySoaRecord | dns.AnyNaptrRecord | dns.AnyRecordWithTtl | dns.AnyMxRecord | dns.AnyTxtRecord> = addresses;
     });
     dns.resolve("nodejs.org", "MX", (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
