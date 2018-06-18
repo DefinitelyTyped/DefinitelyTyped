@@ -9,9 +9,9 @@ export interface Avatar {
 
 export interface SocialProfile {
     "name": "Twitter",
-    readonly "id": string,
-    "username": "th1sland",
-    "url": "http://twitter.com/th1sland"
+    readonly "id": string | null,
+    "username": string | null,
+    "url": string | null
 }
 
 export interface Segment {
