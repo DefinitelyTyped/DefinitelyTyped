@@ -2629,6 +2629,7 @@ declare module "dns" {
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace resolve {
         export function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
+        export function __promisify__(hostname: string, rrtype: "ANY"): Promise<ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord>>;
         export function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
         export function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
         export function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
