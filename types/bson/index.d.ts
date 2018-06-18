@@ -182,7 +182,7 @@ export class ObjectID {
      * @param {number} time optional parameter allowing to pass in a second based timestamp.
      * @return {string} return the 12 byte id binary string.
      */
-    generate(time?: number): string;
+    generate(time?: number): Buffer;
     /**
      * Returns the generation date (accurate up to the second) that this ID was generated.
      * @return {date} the generation date
