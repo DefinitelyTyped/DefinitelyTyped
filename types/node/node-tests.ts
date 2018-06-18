@@ -1151,6 +1151,19 @@ namespace crypto_tests {
         crypto.randomFill(arr, 2, (err: Error, buf: Uint8Array) => void {});
         crypto.randomFill(arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
     }
+
+    {
+        let key: string | Buffer = Buffer.from("buf");
+        let curve = "secp256k1";
+        let ret: string | Buffer = crypto.ECDH.convertKey(key, curve);
+        key = "0xfff";
+        ret = crypto.ECDH.convertKey(key, curve);
+        ret = crypto.ECDH.convertKey(key, curve, "hex");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "uncompressed");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "compressed");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "hybrid");
+    }
 }
 
 //////////////////////////////////////////////////

@@ -1252,7 +1252,7 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#limit */
     limit(value: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#map */
-    map<U>(transform: (el: T) => U): Cursor<U>;
+    map<U>(transform: (document: T) => U): Cursor<U>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#max */
     max(max: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#maxAwaitTimeMS */

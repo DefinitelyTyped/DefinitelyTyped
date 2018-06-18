@@ -5,10 +5,6 @@
 //                 matthias jobst <https://github.com/MatthiasJobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
-
-///<reference types="crossfilter" />
-
 import * as d3 from "d3";
 
 export = dc;

@@ -61,35 +61,37 @@ function JQueryStatic() {
 
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19597#issuecomment-378218432
         function issue_19597_378218432() {
-            let myDiv = $(document.createElement('div')); // gets default jQuery<HTMLElement> 8-/
+            let myDiv = $(document.createElement('div'));
             // $ExpectType JQuery<HTMLDivElement>
             myDiv;
             myDiv.on('click', (evt) => {
-                let target = evt.target; // HTMLElement
+                let target = evt.target;
                 // $ExpectType HTMLDivElement
                 target;
             });
-            let myDiv1 = $<HTMLDivElement>(document.createElement('div')); // expected 0-2 Arguments but got 1. huh?
-            // let myDiv2 = $<HTMLDivElement, null>(document.createElement('div')); // expected 0-1 Arguments but got 2. huh?
+            let myDiv1 = $<HTMLDivElement>(document.createElement('div'));
+
             let myForcedDiv: JQuery<HTMLDivElement> = $(document.createElement('div')) as any;
             myForcedDiv.on('click', (evt) => {
                 let target = evt.target; // HTMLDivElement
                 // $ExpectType HTMLDivElement
                 target;
             });
-            let myDoc = $(document); // gets default jQuery<HTMLElement>
+            let myDoc = $(document);
             // $ExpectType JQuery<Document>
             myDoc;
             myDoc.on('click', (evt) => {
-                let target = evt.target; // HTMLElement
+                let target = evt.target;
                 // $ExpectType Document
                 target;
             });
-            let myDocForced: JQuery<Document> = $(document); // type HTMLElement is not assignable to Type Document
-            let myWindow = $(window); // gets default jQuery<HTMLElement>
+            let myDocForced: JQuery<Document> = $(document);
+            let myWindow = $(window);
             // $ExpectType JQuery<Window>
             myWindow;
-            let myWindowForced: JQuery<Window> = $(window); // type Window does not satisfy contraint Node
+            let myWindowForced: JQuery<Window> = $(window);
+            // $ExpectType JQuery<Window>
+            myWindowForced;
         }
     }
 
