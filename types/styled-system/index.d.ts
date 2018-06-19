@@ -574,6 +574,7 @@ interface LowLevelStylefunctionArguments {
     key?: string;
     numberToPx?: boolean;
     alias?: string;
+    getter?: Function;
 }
 
 declare function style(args: LowLevelStylefunctionArguments): any;
