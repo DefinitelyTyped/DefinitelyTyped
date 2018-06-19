@@ -89,7 +89,7 @@ declare namespace Mustache {
     /**
      * A simple string scanner that is used by the template parser to find tokens in template strings.
      */
-    export class Scanner {
+    class Scanner {
         string: string;
         tail: string;
         pos: number;
@@ -130,7 +130,7 @@ declare namespace Mustache {
     /**
      * Represents a rendering context by wrapping a view object and maintaining a reference to the parent context.
      */
-    export class Context {
+    class Context {
         view: any;
         parentContext: Context;
 
@@ -166,7 +166,7 @@ declare namespace Mustache {
      *
      * It also maintains a cache of templates to avoid the need to parse the same template twice.
      */
-    export class Writer {
+    class Writer {
         /**
          * Initializes a new instance of the `MustacheWriter` class.
          */
