@@ -6356,6 +6356,8 @@ declare module "assert" {
         export function rejects(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
         export function doesNotReject(block: Function | Promise<any>, message?: string): Promise<void>;
         export function doesNotReject(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
+
+        export var strict: typeof internal;
     }
 
     export = internal;
