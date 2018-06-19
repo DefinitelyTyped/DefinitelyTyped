@@ -1,8 +1,4 @@
 function JQueryStatic() {
-    function type_assertion() {
-        const $Canvas = $ as JQueryStatic<HTMLCanvasElement>;
-    }
-
     function type_annotation() {
         const jq: JQueryStatic = $;
     }
@@ -52,7 +48,7 @@ function JQueryStatic() {
         $(function($) {
             // $ExpectType Document
             this;
-            // $ExpectType JQueryStatic<HTMLElement>
+            // $ExpectType JQueryStatic
             $;
         });
 
@@ -101,7 +97,7 @@ function JQueryStatic() {
     }
 
     function Event() {
-        // $ExpectType EventStatic<HTMLElement>
+        // $ExpectType EventStatic
         $.Event;
     }
 
@@ -138,7 +134,7 @@ function JQueryStatic() {
     }
 
     function ready() {
-        // $ExpectType Thenable<JQueryStatic<HTMLElement>>
+        // $ExpectType Thenable<JQueryStatic>
         $.ready;
     }
 
@@ -869,10 +865,10 @@ function JQueryStatic() {
     }
 
     function noConflict() {
-        // $ExpectType JQueryStatic<HTMLElement>
+        // $ExpectType JQueryStatic
         $.noConflict(true);
 
-        // $ExpectType JQueryStatic<HTMLElement>
+        // $ExpectType JQueryStatic
         $.noConflict();
     }
 
@@ -5344,7 +5340,7 @@ function JQuery() {
         function ready() {
             // $ExpectType JQuery<HTMLElement>
             $('p').ready(($) => {
-                // $ExpectType JQueryStatic<HTMLElement>
+                // $ExpectType JQueryStatic
                 $;
             });
         }
@@ -7188,7 +7184,7 @@ function JQuery_Promise3() {
             p.then(() => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(() => {
@@ -7218,7 +7214,7 @@ function JQuery_Promise3() {
             p.then(null, () => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(null, () => {
@@ -7574,7 +7570,7 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
             p.then(() => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(() => {
@@ -7601,7 +7597,7 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
             p.then(null, () => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(null, () => {
@@ -7701,7 +7697,7 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
             p.then(() => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(() => {
@@ -7725,7 +7721,7 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
             p.then(null, () => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(null, () => {

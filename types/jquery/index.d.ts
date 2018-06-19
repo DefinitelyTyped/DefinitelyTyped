@@ -38,7 +38,7 @@ declare const $: JQueryStatic;
 // Used by JQuery.Event
 type _Event = Event;
 
-interface JQueryStatic<TElement = HTMLElement> {
+interface JQueryStatic {
     /**
      * @see \`{@link http://api.jquery.com/jquery.ajax/#jQuery-ajax1 }\`
      * @deprecated Use jQuery.ajaxSetup(options)
@@ -54,7 +54,7 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @since 1.5
      */
     Deferred: JQuery.DeferredStatic;
-    Event: JQuery.EventStatic<TElement>;
+    Event: JQuery.EventStatic;
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
      * CSS property naming, or create custom properties.
@@ -62,7 +62,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.cssHooks/ }\`
      * @since 1.4.3
      */
-    cssHooks: JQuery.PlainObject<JQuery.CSSHook<TElement>>;
+    // Set to HTMLElement to minimize breaks but should probably be Element.
+    cssHooks: JQuery.PlainObject<JQuery.CSSHook<HTMLElement>>;
     /**
      * An object containing all CSS properties that may be used without a unit. The .css() method uses this
      * object to see if it may append px to unitless values.
@@ -71,7 +72,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @since 1.4.3
      */
     cssNumber: JQuery.PlainObject<boolean>;
-    readonly fn: JQuery<TElement>;
+    // Set to HTMLElement to minimize breaks but should probably be Element.
+    readonly fn: JQuery<HTMLElement>;
     fx: {
         /**
          * The rate (in milliseconds) at which animations fire.
@@ -96,7 +98,7 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.ready/ }\`
      * @since 1.8
      */
-    ready: JQuery.Thenable<JQueryStatic<TElement>>;
+    ready: JQuery.Thenable<JQueryStatic>;
     /**
      * A collection of properties that represent the presence of different browser features or bugs.
      * Intended for jQuery's internal use; specific properties may be removed when they are no longer
@@ -109,7 +111,11 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @deprecated 1.9
      */
     support: JQuery.PlainObject;
-    valHooks: JQuery.PlainObject<JQuery.ValHook<TElement>>;
+    // Set to HTMLElement to minimize breaks but should probably be Element.
+    valHooks: JQuery.PlainObject<JQuery.ValHook<HTMLElement>>;
+    // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
+    // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
+    (window: Window, discriminator: boolean): JQueryStatic;
     /**
      * Creates DOM elements on the fly from the provided string of raw HTML.
      *
@@ -121,7 +127,7 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    (html: JQuery.htmlString, ownerDocument_attributes: Document | JQuery.PlainObject): JQuery<TElement>;
+    <TElement extends HTMLElement = HTMLElement>(html: JQuery.htmlString, ownerDocument_attributes?: Document | JQuery.PlainObject): JQuery<TElement>;
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
      *
@@ -130,10 +136,7 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      */
-    (selector: JQuery.Selector, context: Element | Document | JQuery | undefined): JQuery<TElement>;
-    // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
-    // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
-    <FElement extends Node = HTMLElement>(window: Window, discriminator: boolean): JQueryStatic<FElement>;
+    <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery): JQuery<TElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
      * by passing an HTML string.
@@ -154,19 +157,13 @@ interface JQueryStatic<TElement = HTMLElement> {
      */
     <T>(selection: JQuery<T>): JQuery<T>;
     /**
-     * Accepts a string containing a CSS selector which is then used to match a set of elements.
-     *
-     * Creates DOM elements on the fly from the provided string of raw HTML.
-     *
      * Binds a function to be executed when the DOM has finished loading.
      *
-     * @param selector_object_callback A string containing a selector expression
-     *                                 A string of HTML to create on the fly. Note that this parses HTML, not XML.
-     *                                 The function to execute when the DOM is ready.
+     * @param callback The function to execute when the DOM is ready.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      */
-    (selector_object_callback: JQuery.Selector | JQuery.htmlString | ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>; // tslint:disable-line:unified-signatures
+    <TElement = HTMLElement>(callback: ((this: Document, $: JQueryStatic) => void)): JQuery<TElement>; // tslint:disable-line:unified-signatures
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      *
@@ -181,7 +178,7 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery/}
      * @since 1.4
      */
-    (): JQuery<TElement>;
+    <TElement = HTMLElement>(): JQuery<TElement>;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
      *
@@ -3000,7 +2997,7 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.speed/ }\`
      * @since 1.1
      */
-    speed(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): JQuery.EffectsOptions<TElement>;
+    speed<TElement extends Element = HTMLElement>(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): JQuery.EffectsOptions<TElement>;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
@@ -3011,8 +3008,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @since 1.0
      * @since 1.1
      */
-    speed(duration: JQuery.Duration,
-          easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
+    speed<TElement extends Element = HTMLElement>(duration: JQuery.Duration,
+                                                  easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
@@ -3022,7 +3019,7 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @since 1.0
      * @since 1.1
      */
-    speed(duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
+    speed<TElement extends Element = HTMLElement>(duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
     /**
      * Remove the whitespace from the beginning and end of a string.
      *
@@ -5023,7 +5020,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @since 1.0
      * @deprecated 3.0
      */
-    ready(handler: ($: JQueryStatic<TElement>) => void): this;
+    ready(handler: ($: JQueryStatic) => void): this;
     /**
      * Remove the set of matched elements from the DOM.
      *
@@ -7815,11 +7812,11 @@ declare namespace JQuery {
     // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
 
     // Static members
-    interface EventStatic<TTarget = EventTarget> {
-        <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
-        new <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        new <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+    interface EventStatic {
+        <T extends object, TTarget extends EventTarget = HTMLElement>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        <T extends EventLike, TTarget extends EventTarget = HTMLElement>(properties: T): JQuery.Event<TTarget> & T;
+        new <T extends object, TTarget extends EventTarget = HTMLElement>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        new <T extends EventLike, TTarget extends EventTarget = HTMLElement>(properties: T): JQuery.Event<TTarget> & T;
     }
 
     // Instance members
