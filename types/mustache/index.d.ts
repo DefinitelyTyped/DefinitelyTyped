@@ -23,10 +23,10 @@ interface MustacheScanner {
 
     /**
      * Tries to match the given regular expression at the current position.
-     * 
+     *
      * @param re
      * The regex-pattern to match.
-     * 
+     *
      * @returns
      * The matched text if it can match, the empty string otherwise.
      */
@@ -34,10 +34,10 @@ interface MustacheScanner {
 
     /**
      * Skips all text until the given regular expression can be matched.
-     * 
+     *
      * @param re
      * The regex-pattern to match.
-     * 
+     *
      * @returns
      * Returns the skipped string, which is the entire tail if no match can be made.
      */
@@ -63,7 +63,7 @@ interface MustacheContext {
 
     /**
      * Creates a new context using the given view with this context as the parent.
-     * 
+     *
      * @param view
      * The view to create the new context with.
      */
@@ -71,7 +71,7 @@ interface MustacheContext {
 
     /**
      * Returns the value of the given name in this context, traversing up the context hierarchy if the value is absent in this context's view.
-     * 
+     *
      * @param name
      * The name to look up.
      */
@@ -80,7 +80,7 @@ interface MustacheContext {
 
 /**
  * A Writer knows how to take a stream of tokens and render them to a `string`, given a context.
- * 
+ *
  * It also maintains a cache of templates to avoid the need to parse the same template twice.
  */
 interface MustacheWriter {
@@ -97,7 +97,7 @@ interface MustacheWriter {
 
     /**
      * Parses and caches the given `template` and returns the array of tokens that is generated from the parse.
-     * 
+     *
      * @param template
      * The template to parse.
      */
@@ -105,37 +105,37 @@ interface MustacheWriter {
 
     /**
      * High-level method that is used to render the given `template` with the given `view`.
-     * 
+     *
      * @param template
      * The template to render.
-     * 
+     *
      * @param view
      * The view to render the template with.
-     * 
+     *
      * @param partials
      * Either an object that contains the names and templates of partials that are used in a template
-     * 
+     *
      * -- or --
-     * 
-     * A functino that is used to load partial template on the fly that takes a single argument: the n ame of the partial.
+     *
+     * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
      */
     render(template: string, view: any | MustacheContext, partials: any): string;
 
     /**
      * Low-level method that renders the given array of `tokens` using the given `context` and `partials`.
-     * 
+     *
      * @param tokens
      * The tokens to render.
-     * 
+     *
      * @param context
      * The context to use for rendering the tokens.
-     * 
+     *
      * @param partials
      * The partials to use for rendering the tokens.
-     * 
+     *
      * @param originalTemplate
      * An object used to extract the portion of the original template that was contained in a higher-order section.
-     * 
+     *
      * If the template doesn't use higher-order sections, this argument may be omitted.
      */
     renderTokens(tokens: string[], context: MustacheContext, partials: any, originalTemplate: any): string;
@@ -172,14 +172,14 @@ interface MustacheStatic {
 
     /**
      * A Writer knows how to take a stream of tokens and render them to a `string`, given a context.
-     * 
+     *
      * It also maintains a cache of templates to avoid the need to parse the same template twice.
      */
     Writer: MustacheWriter;
 
     /**
      * Escapes HTML-characters.
-     * 
+     *
      * @param value
      * The string to escape.
      */
@@ -192,12 +192,12 @@ interface MustacheStatic {
 
     /**
      * Parses and caches the given template in the default writer and returns the array of tokens it contains.
-     * 
+     *
      * Doing this ahead of time avoids the need to parse templates on the fly as they are rendered.
-     * 
+     *
      * @param template
      * The template to parse.
-     * 
+     *
      * @param tags
      * The tags to use.
      */
@@ -205,37 +205,37 @@ interface MustacheStatic {
 
     /**
      * Renders the `template` with the given `view` and `partials` using the default writer.
-     * 
+     *
      * @param template
      * The template to render.
-     * 
+     *
      * @param view
      * The view to render the template with.
-     * 
+     *
      * @param partials
      * Either an object that contains the names and templates of partials that are used in a template
-     * 
+     *
      * -- or --
-     * 
-     * A functino that is used to load partial template on the fly that takes a single argument: the n ame of the partial.
+     *
+     * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
      */
     render(template: string, view: any | MustacheContext, partials?: any): string;
 
     /**
      * Renders the `template` with the given `view` and `partials` using the default writer.
-     * 
+     *
      * @param template
      * The template to render.
-     * 
+     *
      * @param view
      * The view to render the template with.
-     * 
+     *
      * @param partials
      * Either an object that contains the names and templates of partials that are used in a template
-     * 
+     *
      * -- or --
-     * 
-     * A functino that is used to load partial template on the fly that takes a single argument: the n ame of the partial.
+     *
+     * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
      */
     to_html(template: string, view: any | MustacheContext, partials?: any, send?: any): any;
 }
