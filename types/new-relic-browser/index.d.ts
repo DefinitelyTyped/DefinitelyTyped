@@ -3,8 +3,6 @@
 // Definitions by: Rene Hamburger <https://github.com/renehamburger>, Piotr Kubisa <https://github.com/piotrkubisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const newrelic: NewRelic.Browser;
-
 declare namespace NewRelic {
     interface Browser {
         /**
@@ -186,7 +184,7 @@ declare namespace NewRelic {
          * Adds a custom SPA attribute only to the current interaction in New Relic Browser.
          *
          * @param key Used as the attribute name on the BrowserInteraction event.
-         * @param Used as the attribute value on the BrowserInteraction event. This can be a
+         * @param value Used as the attribute value on the BrowserInteraction event. This can be a
          *   string, number, boolean, or object. If it is an object, New Relic serializes it to a JSON string.
          * @returns This method returns the same API object created by interaction().
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-set-attribute
@@ -205,3 +203,6 @@ declare namespace NewRelic {
         setName(name: string, trigger?: string): BrowserInteraction;
     }
 }
+
+declare const api: NewRelic.Browser;
+export = api;
