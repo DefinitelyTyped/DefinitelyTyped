@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { setLocale } from 'yup/lib/customLocale';
 
 // tslint:disable-next-line:no-duplicate-imports
-import { reach, date, Schema, ObjectSchema, ValidationError, MixedSchema, SchemaDescription, TestOptions, ValidateOptions, NumberSchema } from 'yup';
+import { reach, date, Schema, ObjectSchema, ValidationError, MixedSchema, SchemaDescription, TestOptions, ValidateOptions, NumberSchema, TestContext } from 'yup';
 
 // reach function
 let schema = yup.object().shape({
@@ -124,21 +124,22 @@ mixed.test({
     test: value => value == null || value.length <= 5
 });
 mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
-mixed.test('with-context', 'it uses function context', function() {
-    this.options.context;
+const testContext = function(this: TestContext) {
+    // $ExpectType string
     this.path;
+    // $ExpectType ValidateOptions
+    this.options;
+    // $ExpectType any
+    this.parent;
+    // $ExpectType Schema<any>
+    this.schema;
+    // $ExpectType ValidationError
     this.createError({ path: '1', message: '1' });
-    this.schema.meta();
     return true;
-});
+};
+mixed.test('with-context', 'it uses function context', testContext);
 mixed.test({
-    test() {
-        this.options.context;
-        this.path;
-        this.createError({ path: '1', message: '1' });
-        this.schema.meta();
-        return true;
-    }
+    test: testContext
 });
 
 yup.string().transform(function(this, value: any, originalvalue: any) {
