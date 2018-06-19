@@ -282,6 +282,8 @@ declare namespace chrome {
             deny: () => void;
         }
 
+        type actionType = 'new_note';
+
         interface LaunchData {
             /**
              * The ID of the file or URL handler that the app is being invoked with.
@@ -321,7 +323,7 @@ declare namespace chrome {
              * |____________________|____________|____________________________________________|
              * @since Since Chrome 54.
              */
-            actionData?: Object;
+            actionData?: actionType;
         }
 
         interface LaunchDataItem {
@@ -1681,7 +1683,7 @@ declare namespace chrome {
             /** File size in bytes. */
             size: number;
             /** The last modified time of this entry. */
-            modificationTime: Date;
+            modificationTime: any;
             /** Optional. Mime type for the entry.  */
             mimeType?: string;
             /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
@@ -2006,6 +2008,14 @@ declare namespace chrome {
      * Permissions:  'gcm'
      */
     namespace gcm {
+        interface IGCMData {
+            'collapse_key'?: never;
+            'goog'?: never;
+            'goog.'?: never;
+            'google'?: never;
+            'GOOGLE'?: never;
+            [key: string]: any;
+        }
         interface OutgoingMessage {
             /** The ID of the server to send the message to as assigned by Google API Console. */
             destinationId: string;
@@ -2013,13 +2023,15 @@ declare namespace chrome {
             messageId: string;
             /** Optional. Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The maximum and a default value of time-to-live is 86400 seconds (1 day). */
             timeToLive?: number;
-            /** Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE. */
-            data: Object;
+            /**
+             * @description Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE.
+             **/
+            data: IGCMData;
         }
 
         interface IncomingMessage {
             /** The message data. */
-            data: Object;
+            data: IGCMData;
             /**
              * Optional.
              * The sender who issued the message.
@@ -2048,7 +2060,7 @@ declare namespace chrome {
 
         interface GcmErrorEvent extends chrome.events.Event<(error: GcmError) => void> { }
 
-        /** The maximum size (in bytes) of all key/value pairs in a message. */
+        /** The maximum size (in bytes) of all key/value pairs in a message. Default: 4096 */
         export var MAX_MESSAGE_SIZE: number;
 
         /**
@@ -2106,9 +2118,11 @@ declare namespace chrome {
     namespace i18n {
         /** Holds detected ISO language code and its percentage in the input string */
         interface DetectedLanguage {
-            /** An ISO language code such as 'en' or 'fr'.
-             * For a complete list of languages supported by this method, see  [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}.
-             * For an unknown language, 'und' will be returned, which means that [percentage] of the text is unknown to CLD */
+            /**
+             * @description An ISO language code such as 'en' or 'fr'.
+             * @description For a complete list of languages supported by this method:
+             * @see [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}.
+             * @description For an unknown language, 'und' will be returned, which means that [percentage] of the text is unknown to CLD */
             language: string;
 
             /** The percentage of the detected language */
@@ -2136,7 +2150,7 @@ declare namespace chrome {
          * @param messageName The name of the message, as specified in the messages.json file.
          * @param substitutions Optional. Up to 9 substitution strings, if the message requires any.
          */
-        export function getMessage(messageName: string, substitutions?: any): string;
+        export function getMessage(messageName: string, substitutions?: any): string | undefined;
         /**
          * Gets the browser UI language of the browser. This is different from i18n.getAcceptLanguages which returns the preferred user languages.
          * @since Chrome 35.
@@ -6293,7 +6307,6 @@ declare namespace chrome {
              */
             windowOpenDisposition: 'ignore' | 'save_to_disk' | 'current_tab' | 'new_background_tab' | 'new_foreground_tab' | 'new_window' | 'new_popup'
         }
-        /**IPermissionrequest (Auto generated interface) */
         interface IPermissionrequest {
 
             /**
@@ -6304,8 +6317,9 @@ declare namespace chrome {
             /**
             * @description An object which holds details of the requested permission. Depending on the type of permission requested, this may be a $(ref:webviewTag.MediaPermissionRequest), $(ref:webviewTag.GeolocationPermissionRequest), $(ref:webviewTag.PointerLockPermissionRequest), $(ref:webviewTag.DownloadPermissionRequest), $(ref:webviewTag.LoadPluginPermissionRequest), or $(ref:webviewTag.FullscreenPermissionRequest).
              */
-            request: object
+            request: GeolocationPermissionRequest | PointerLockPermissionRequest | DownloadPermissionRequest | LoadPluginPermissionRequest | FullscreenPermissionRequest;
         }
+
         /**IResponsive (Auto generated interface) */
         interface IResponsive {
 
