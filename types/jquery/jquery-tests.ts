@@ -17,6 +17,9 @@ function JQueryStatic() {
             }
         });
 
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>('<p></p>');
+
         // $ExpectType JQuery<HTMLElement>
         $('span', new HTMLElement());
 
@@ -29,20 +32,20 @@ function JQueryStatic() {
         // $ExpectType JQuery<HTMLElement>
         $('span');
 
-        // $ExpectType JQuery<HTMLElement>
-        $('<p></p>');
+        // $ExpectType JQuery<SVGLineElement>
+        $<SVGLineElement>('.mysvgline');
 
-        // $ExpectType JQuery<HTMLElement>
-        $(new HTMLElement());
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $(new HTMLParagraphElement());
 
-        // $ExpectType JQuery<HTMLElement>
-        $([new HTMLElement()]);
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $([new HTMLParagraphElement()]);
 
         // $ExpectType JQuery<{ foo: string; hello: string; }>
         $({ foo: 'bar', hello: 'world' });
 
-        // $ExpectType JQuery<HTMLElement>
-        $($('p'));
+        // $ExpectType JQuery<SVGSVGElement>
+        $($(document.createElementNS("http://www.w3.org/2000/svg", "svg")));
 
         // $ExpectType JQuery<HTMLElement>
         $(function($) {
@@ -52,8 +55,19 @@ function JQueryStatic() {
             $;
         });
 
+        // $ExpectType JQuery<Element>
+        $<Element>(function($) {
+            // $ExpectType Document
+            this;
+            // $ExpectType JQueryStatic
+            $;
+        });
+
         // $ExpectType JQuery<HTMLElement>
         $();
+
+        // $ExpectType JQuery<Element>
+        $<Element>();
 
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19597#issuecomment-378218432
         function issue_19597_378218432() {
