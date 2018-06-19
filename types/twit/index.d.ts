@@ -3,7 +3,7 @@
 // Definitions by: Volox <https://github.com/Volox>
 //                 lostfictions <https://github.com/lostfictions>
 //                 sapphiredev <https://github.com/sapphiredev>
-//                 araham <https://github.com/abraham>
+//                 abraham <https://github.com/abraham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
