@@ -1,6 +1,6 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>
+// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -318,7 +318,7 @@ declare namespace chrome {
             /**
              * Contains data that specifies the ActionType this app was launched with. This is null if the app was not launched with a specific action intent.
              *  ______________________________________________________________________________
-             * | enum of "new_note" | actionType | new_note                                   |
+             * | enum of 'new_note' | actionType | new_note                                   |
              * |                    |            | The user wants to quickly take a new note. |
              * |____________________|____________|____________________________________________|
              * @since Since Chrome 54.
@@ -965,16 +965,184 @@ declare namespace chrome {
              */
             deviceAddress?: string;
         }
-        interface Characteristic {
-            // WIP
+        enum CharacteristicProperties {
+            'broadcast',
+            'read',
+            'writeWithoutResponse',
+            'write',
+            'notify',
+            'indicate',
+            'authenticatedSignedWrites',
+            'extendedProperties',
+            'reliableWrite',
+            'writableAuxiliaries',
+            'encryptRead',
+            'encryptWrite',
+            'encryptAuthenticatedRead',
+            'encryptAuthenticatedWrite'
         }
-        export function connect(deviceAddress: string, callback: () => void): void;
-        export function connect(deviceAddress: string, properties: { persistent: boolean }, callback: () => void): void;
-        export function disconnect(deviceAddress: string, callback: () => void): void;
-
-        /*
-         WORK IN PROGRESS
-        */
+        interface Characteristic {
+            /** The UUID of the characteristic, e.g. 00002a37-0000-1000-8000-00805f9b34fb. */
+            uuid: string;
+            /** The GATT service this characteristic belongs to. */
+            service?: Service;
+            /** The properties of this characteristic. */
+            properties: CharacteristicProperties[];
+            /** Returns the identifier assigned to this characteristic. Use the instance ID to distinguish between characteristics from a peripheral with the same UUID and to make function calls that take in a characteristic identifier. Present, if this instance represents a remote characteristic. */
+            instanceId?: string;
+            /** The currently cached characteristic value. This value gets updated when the value of the characteristic is read or updated via a notification or indication. */
+            value?: ArrayBuffer;
+        }
+        enum DescriptorPermissions {
+            'read',
+            'write',
+            'encryptedRead',
+            'encryptedWrite',
+            'encryptedAuthenticatedRead',
+            'encryptedAuthenticatedWrite'
+        }
+        interface Descriptor {
+            /** The UUID of the characteristic descriptor, e.g. 00002902-0000-1000-8000-00805f9b34fb. */
+            uuid: string;
+            /** The GATT characteristic this descriptor belongs to. */
+            characteristic?: Characteristic;
+            /**
+             * The permissions of this descriptor.
+             * @since Since Chrome 52.
+             */
+            permissions: DescriptorPermissions[];
+            /** Returns the identifier assigned to this descriptor. Use the instance ID to distinguish between descriptors from a peripheral with the same UUID and to make function calls that take in a descriptor identifier. Present, if this instance represents a remote characteristic. */
+            instanceId?: string;
+            /** The currently cached descriptor value. This value gets updated when the value of the descriptor is read. */
+            value?: ArrayBuffer;
+        }
+        interface RequestDevice {
+            /** The address of the device, in the format 'XX:XX:XX:XX:XX:XX'. */
+            address: string;
+            /** The human-readable name of the device. */
+            name?: string;
+            /** The class of the device, a bit - field defined by:
+             * @see [Specs]{@link http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband}
+             **/
+            deviceClass?: number;
+        }
+        interface Request {
+            /** Unique ID for this request. Use this ID when responding to this request. */
+            requestId: number;
+            /** Device that send this request. */
+            device: RequestDevice;
+            /** Value to write (if this is a write request). */
+            value?: ArrayBuffer;
+        }
+        interface IProperties {
+            /**
+             * Flag indicating whether a connection to the device is left open when the event page of the application is unloaded. The default value is false.
+             * @see [HowToManageAppLifecycle]{@link https://developer.chrome.com/apps/app_lifecycle}
+             * @default false
+             */
+            persistent: boolean;
+        }
+        interface INotification {
+            /** New value of the characteristic. */
+            value: ArrayBuffer;
+            /** Optional flag for sending an indication instead of a notification. */
+            shouldIndicate: boolean;
+        }
+        /**
+         * Establishes a connection between the application and the device with the given address. A device may be already connected and its GATT services available without calling connect, however, an app that wants to access GATT services of a device should call this function to make sure that a connection to the device is maintained. If the device is not connected, all GATT services of the device will be discovered after a successful call to connect.
+         * @param deviceAddress The Bluetooth address of the remote device to which a GATT connection should be opened.
+         * @param callback Called when the connect request has completed.
+         */
+        function connect(deviceAddress: string, callback: () => void): void;
+        /**
+         * Establishes a connection between the application and the device with the given address. A device may be already connected and its GATT services available without calling connect, however, an app that wants to access GATT services of a device should call this function to make sure that a connection to the device is maintained. If the device is not connected, all GATT services of the device will be discovered after a successful call to connect.
+         * @param deviceAddress The Bluetooth address of the remote device to which a GATT connection should be opened.
+         * @param properties Connection properties (optional).
+         * @param callback Called when the connect request has completed.
+         */
+        function connect(deviceAddress: string, properties: IProperties, callback: () => void): void;
+        /**
+         * Closes the app's connection to the device with the given address. Note that this will not always destroy the physical link itself, since there may be other apps with open connections.
+         * @param deviceAddress The Bluetooth address of the remote device.
+         * @param [callback] Called when the disconnect request has completed.
+         */
+        function disconnect(deviceAddress: string, callback?: () => void): void;
+        /**
+         * Get the GATT service with the given instance ID.
+         * @param serviceId The instance ID of the requested GATT service.
+         * @param callback Called with the requested Service object.
+         */
+        function getService(serviceId: string, callback: (result: Service) => void): void;
+        /**
+         * @description Create a locally hosted GATT service. This service can be registered to be available on a local GATT server. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         * @param service The service to create.
+         * @param callback Called with the created services's unique ID.
+         */
+        function createService(service: Service, callback: () => void): void;
+        /**
+         * Get all the GATT services that were discovered on the remote device with the given device address.
+         * Note: If service discovery is not yet complete on the device, this API will return a subset (possibly empty) of services. A work around is to add a time based delay and/or call repeatedly until the expected number of services is returned.
+         * @param deviceAddress The Bluetooth address of the remote device whose GATT services should be returned.
+         * @param callback Called with the list of requested Service objects.
+         */
+        function getServices(deviceAddress: string, callback: (result: Service[]) => void): void;
+        /**
+         * Get the GATT characteristic with the given instance ID that belongs to the given GATT service, if the characteristic exists.
+         * @param characteristicId The instance ID of the requested GATT characteristic.
+         * @param callback Called with the requested Characteristic object.
+         */
+        function getCharacteristic(characteristicId: string, callback: (result: Characteristic) => void): void;
+        /**
+         * @description Create a locally hosted GATT characteristic. This characteristic must be hosted under a valid service. If the service ID is not valid, the lastError will be set. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         * @param characteristic The characteristic to create.
+         * @param serviceId ID of the service to create this characteristic for.
+         * @param callback Called with the created characteristic's unique ID.
+         */
+        function createCharacteristic(characteristic: Characteristic, serviceId: string, callback: (characteristicId: string) => void): void;
+        /**
+         * Get a list of all discovered GATT characteristics that belong to the given service.
+         * @param serviceId The instance ID of the GATT service whose characteristics should be returned.
+         * @param callback Called with the list of characteristics that belong to the given service.
+         */
+        function getCharacteristics(serviceId: string, callback: (result: Characteristic[]) => void): void;
+        /**
+         * Get a list of GATT services that are included by the given service.
+         * @param serviceId The instance ID of the GATT service whose included services should be returned.
+         * @param callback Called with the list of GATT services included from the given service.
+         */
+        function getIncludedServices(serviceId: string, callback: (result: Service[]) => void): void;
+        function getDescriptor(descriptorId: string, callback: (result: Descriptor) => void): void;
+        function createDescriptor(descriptor: Descriptor, characteristicId: string, callback: (descriptorId: string) => void): void;
+        function getDescriptors(characteristicId: string, callback: (result: Descriptor[]) => void): void;
+        function readCharacteristicValue(characteristicId: string, callback: (result: Characteristic) => void): void;
+        function writeCharacteristicValue(characteristicId: string, value: ArrayBuffer, callback: () => void): void;
+        function startCharacteristicNotifications(characteristicId: string, callback: () => void): void;
+        function startCharacteristicNotifications(characteristicId: string, properties: IProperties, callback: () => void): void;
+        function stopCharacteristicNotifications(characteristicId: string, callback: () => void): void;
+        function notifyCharacteristicValueChanged(characteristicId: string, notification: INotification, callback: () => void): void;
+        function readDescriptorValue(descriptorId: string, callback: (result: Descriptor) => void): void;
+        function writeDescriptorValue(descriptorId: string, value: ArrayBuffer, callback: () => void): void;
+        function registerService(serviceId: string, callback: () => void): void;
+        function unregisterService(serviceId: string, callback: () => void): void;
+        function removeService(serviceId: string, callback?: () => void): void;
+        enum AdvertisementType {
+            'broadcast', 'peripheral'
+        }
+        interface Advertisement {
+            /** Type of advertisement. */
+            type: AdvertisementType;
+            /** List of UUIDs to include in the "Service UUIDs" field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
+            serviceUuids?: string[];
+            /** List of manufacturer specific data to be included in "Manufacturer Specific Data" fields of the advertising data. */
+            manufacturerData?: { id: number, data: number[] };
+            /** List of UUIDs to include in the "Solicit UUIDs" field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
+            solicitUuids?: string[];
+            /** List of service data to be included in "Service Data" fields of the advertising data. */
+            serviceData: { uuid: string, data: number[] };
+        }
+        function registerAdvertisement(advertisement: Advertisement, callback: () => void): void;
     }
     /**
      * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
@@ -1544,15 +1712,15 @@ declare namespace chrome {
             /**
              * This is the optional text description for this option.
              * If not present, a description will be automatically generated;
-             * typically containing an expanded list of valid extensions (e.g. "text/html" may expand to "*.html, *.htm").
+             * typically containing an expanded list of valid extensions (e.g. 'text/html' may expand to '*.html, *.htm').
              */
             description?: string;
             /**
-             * Mime-types to accept, e.g. "image/jpeg" or "audio/*". One of mimeTypes or extensions must contain at least one valid element.
+             * Mime-types to accept, e.g. 'image/jpeg' or 'audio/*'. One of mimeTypes or extensions must contain at least one valid element.
              */
             mimeTypes?: string[];
             /**
-             * Extensions to accept, e.g. "jpg", "gif", "crx".
+             * Extensions to accept, e.g. 'jpg' | 'gif' | 'crx'.
              */
             extensions?: string[];
         }
@@ -1630,7 +1798,7 @@ declare namespace chrome {
          * Requests access to a file system for a volume represented by options.volumeId.
          * If options.writable is set to true, then the file system will be writable.
          * Otherwise, it will be read-only.
-         * The writable option requires the "fileSystem": {"write"} permission in the manifest.
+         * The writable option requires the 'fileSystem': {'write'} permission in the manifest.
          * Available to kiosk apps running in kiosk session only.
          * For manual-launch kiosk mode, a confirmation dialog will be shown on top of the active app window.
          * In case of an error, fileSystem will be undefined, and chrome.runtime.lastError will be set.
@@ -1638,7 +1806,7 @@ declare namespace chrome {
         export function requestFileSystem(options: Volume, callback: (fileSystem: FileSystem) => void): void;
         /**
          * Returns a list of volumes available for requestFileSystem().
-         * The "fileSystem": {"requestFileSystem"} manifest permission is required.
+         * The 'fileSystem': {'requestFileSystem'} manifest permission is required.
          * Available to kiosk apps running in the kiosk session only.
          * In case of an error, volumes will be undefined, and chrome.runtime.lastError will be set.
          */
@@ -5127,11 +5295,11 @@ declare namespace chrome {
              * Returns the visible URL. Mirrors the logic in the browser's omnibox: either returning a pending new navigation if initiated by the embedder page, or the last committed navigation. Writing to this attribute initiates top-level navigation.
              * Assigning src its own value will reload the current page.
              * The src attribute cannot be cleared or removed once it has been set, unless the webview is removed from the DOM.
-             * The src attribute can also accept data URLs, such as "data:text/plain,Hello, world!".
+             * The src attribute can also accept data URLs, such as 'data:text/plain,Hello, world!'.
              */
             src: string;
             /**
-             * Storage partition ID used by the webview tag. If the storage partition ID starts with persist: (partition="persist:googlepluswidgets"), the webview will use a persistent storage partition available to all guests in the app with the same storage partition ID. If the ID is unset or if there is no 'persist': prefix, the webview will use an in-memory storage partition. This value can only be modified before the first navigation, since the storage partition of an active renderer process cannot change. Subsequent attempts to modify the value will fail with a DOM exception. By assigning the same partition ID, multiple webviews can share the same storage partition.
+             * Storage partition ID used by the webview tag. If the storage partition ID starts with persist: (partition='persist:googlepluswidgets'), the webview will use a persistent storage partition available to all guests in the app with the same storage partition ID. If the ID is unset or if there is no 'persist': prefix, the webview will use an in-memory storage partition. This value can only be modified before the first navigation, since the storage partition of an active renderer process cannot change. Subsequent attempts to modify the value will fail with a DOM exception. By assigning the same partition ID, multiple webviews can share the same storage partition.
              */
             partition?: string;
             /**
@@ -5140,7 +5308,7 @@ declare namespace chrome {
              */
             allowtransparency?: boolean;
             /**
-             * If "on", the webview container will automatically resize within the bounds specified by the attributes minwidth, minheight, maxwidth, and maxheight.
+             * If 'on', the webview container will automatically resize within the bounds specified by the attributes minwidth, minheight, maxwidth, and maxheight.
              * These constraints do not impact the webview UNLESS autosize is enabled.
              * When autosize is enabled, the webview container size cannot be less than the minimum values or greater than the maximum.
              */
@@ -5168,7 +5336,7 @@ declare namespace chrome {
              * The following example code modifies the default font size of the guest's body element after the page loads:
              * @example
              * webview.addEventListener('contentload', function() {
-             *  webview.executeScript({ code: 'document.body.style.fontSize = "42px"' })
+             *  webview.executeScript({ code: 'document.body.style.fontSize = '42px'' })
              * });
              */
             addEventListener(type: 'contentload', listener: (this: HTMLWebViewElement) => void, useCapture?: boolean): void;
