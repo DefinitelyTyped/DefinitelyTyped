@@ -20,5 +20,9 @@
                 "gramps__rest-helpers"
             ]
         }
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "gramps__rest-helpers-tests.ts"
+    ]
 }
