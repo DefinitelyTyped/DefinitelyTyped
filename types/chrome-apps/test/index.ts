@@ -359,3 +359,5 @@ wve.addEventListener('zoomchange', (ev) => {
 wve.addEventListener('loadredirect', (ev) => {
     return ev.newUrl || ev.oldUrl;
 });
+
+chrome.bluetoothLowEnergy.connect('1111111', () => { });

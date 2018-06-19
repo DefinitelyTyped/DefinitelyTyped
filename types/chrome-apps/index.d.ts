@@ -6,11 +6,12 @@
 
 /// <reference types='filesystem'/>
 
-///////////////
-// WebView ref: https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json
-///////////////
-declare namespace chrome {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// WebView ref                                                                                                    //
+// https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json     //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+declare namespace chrome {
     ////////////////////
     // Accessibility Features
     ////////////////////
@@ -1048,6 +1049,29 @@ declare namespace chrome {
             /** Optional flag for sending an indication instead of a notification. */
             shouldIndicate: boolean;
         }
+        enum AdvertisementType {
+            'broadcast', 'peripheral'
+        }
+        interface Advertisement {
+            /** Type of advertisement. */
+            type: AdvertisementType;
+            /** List of UUIDs to include in the 'Service UUIDs' field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
+            serviceUuids?: string[];
+            /** List of manufacturer specific data to be included in 'Manufacturer Specific Data' fields of the advertising data. */
+            manufacturerData?: { id: number, data: number[] };
+            /** List of UUIDs to include in the 'Solicit UUIDs' field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
+            solicitUuids?: string[];
+            /** List of service data to be included in 'Service Data' fields of the advertising data. */
+            serviceData: { uuid: string, data: number[] };
+        }
+        interface IResponse {
+            /** Id of the request this is a response to. */
+            requestId: number;
+            /** If this is an error response, this should be true. */
+            isError: boolean;
+            /** Response value. Write requests and error responses will ignore this parameter. */
+            value?: ArrayBuffer;
+        }
         /**
          * Establishes a connection between the application and the device with the given address. A device may be already connected and its GATT services available without calling connect, however, an app that wants to access GATT services of a device should call this function to make sure that a connection to the device is maintained. If the device is not connected, all GATT services of the device will be discovered after a successful call to connect.
          * @param deviceAddress The Bluetooth address of the remote device to which a GATT connection should be opened.
@@ -1113,36 +1137,154 @@ declare namespace chrome {
          * @param callback Called with the list of GATT services included from the given service.
          */
         function getIncludedServices(serviceId: string, callback: (result: Service[]) => void): void;
+        /**
+         * Get the GATT characteristic descriptor with the given instance ID.
+         * @param descriptorId The instance ID of the requested GATT characteristic descriptor.
+         * @param callback Called with the requested Descriptor object.
+         */
         function getDescriptor(descriptorId: string, callback: (result: Descriptor) => void): void;
+        /**
+         * Create a locally hosted GATT descriptor. This descriptor must be hosted under a valid characteristic. If the characteristic ID is not valid, the lastError will be set. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         * @param descriptor The descriptor to create.
+         * @param characteristicId ID of the characteristic to create this descriptor for.
+         * @param callback Called with the created desciptor's unique ID.
+         */
         function createDescriptor(descriptor: Descriptor, characteristicId: string, callback: (descriptorId: string) => void): void;
+        /**
+         * Get a list of GATT characteristic descriptors that belong to the given characteristic.
+         * @param characteristicId The instance ID of the GATT characteristic whose descriptors should be returned.
+         * @param callback Called with the list of descriptors that belong to the given characteristic.
+         */
         function getDescriptors(characteristicId: string, callback: (result: Descriptor[]) => void): void;
+        /**
+         * Retrieve the value of a specified characteristic from a remote peripheral.
+         * @param characteristicId The instance ID of the GATT characteristic whose value should be read from the remote device.
+         * @param callback Called with the Characteristic object whose value was requested. The value field of the returned Characteristic object contains the result of the read request.
+         */
         function readCharacteristicValue(characteristicId: string, callback: (result: Characteristic) => void): void;
+        /**
+         * Write the value of a specified characteristic from a remote peripheral.
+         * @param characteristicId The instance ID of the GATT characteristic whose value should be written to.
+         * @param value The value that should be sent to the remote characteristic as part of the write request.
+         * @param callback Called when the write request has completed.
+         */
         function writeCharacteristicValue(characteristicId: string, value: ArrayBuffer, callback: () => void): void;
+        /**
+         * Enable value notifications/indications from the specified characteristic. Once enabled, an application can listen to notifications using the onCharacteristicValueChanged event.
+         * @see onCharacteristicValueChanged
+         * @param characteristicId The instance ID of the GATT characteristic that notifications should be enabled on.
+         * @param callback Called when the request has completed.
+         */
         function startCharacteristicNotifications(characteristicId: string, callback: () => void): void;
+        /**
+         * Enable value notifications/indications from the specified characteristic. Once enabled, an application can listen to notifications using the onCharacteristicValueChanged event.
+         * @see onCharacteristicValueChanged
+         * @param characteristicId The instance ID of the GATT characteristic that notifications should be enabled on.
+         * @param properties Notification session properties (optional).
+         * @param callback Called when the request has completed.
+         */
         function startCharacteristicNotifications(characteristicId: string, properties: IProperties, callback: () => void): void;
-        function stopCharacteristicNotifications(characteristicId: string, callback: () => void): void;
+        /**
+         * Disable value notifications/indications from the specified characteristic. After a successful call, the application will stop receiving notifications/indications from this characteristic.
+         * @param characteristicId The instance ID of the GATT characteristic on which this app's notification session should be stopped.
+         * @param [callback] Called when the request has completed (optional).
+         */
+        function stopCharacteristicNotifications(characteristicId: string, callback?: () => void): void;
+        /**
+         * Notify a remote device of a new value for a characteristic.
+         * If the shouldIndicate flag in the notification object is true, an indication will be sent instead of a notification.
+         * Note, the characteristic needs to correctly set the 'notify' or 'indicate' property during creation for this call to succeed.
+         * This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true.
+         * The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         * @param characteristicId The characteristic to send the notication for.
+         * @param notification Notification object
+         * @param callback Callback called once the notification or indication has been sent successfully.
+         */
         function notifyCharacteristicValueChanged(characteristicId: string, notification: INotification, callback: () => void): void;
+        /**
+         * Retrieve the value of a specified characteristic descriptor from a remote peripheral.
+         * @param descriptorId The instance ID of the GATT characteristic descriptor whose value should be read from the remote device.
+         * @param callback Called with the Descriptor object whose value was requested. The value field of the returned Descriptor object contains the result of the read request.
+         */
         function readDescriptorValue(descriptorId: string, callback: (result: Descriptor) => void): void;
+        /**
+         * Write the value of a specified characteristic descriptor from a remote peripheral.
+         * @param descriptorId The instance ID of the GATT characteristic descriptor whose value should be written to.
+         * @param value The value that should be sent to the remote descriptor as part of the write request.
+         * @param callback Called when the write request has completed.
+         */
         function writeDescriptorValue(descriptorId: string, value: ArrayBuffer, callback: () => void): void;
+        /**
+         * Register the given service with the local GATT server.
+         * If the service ID is invalid, the lastError will be set.
+         * This function is only available if the app has both
+         *   the bluetooth:low_energy and the bluetooth:peripheral permissions set to true.
+         * The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         * @param serviceId Unique ID of a created service.
+         * @param callback Callback with the result of the register operation.
+         */
         function registerService(serviceId: string, callback: () => void): void;
+        /**
+         * Unregister the given service with the local GATT server.
+         * If the service ID is invalid, the lastError will be set.
+         * This function is only available if the app has both
+         *   the bluetooth:low_energy and the bluetooth:peripheral permissions set to true.
+         * The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         * @param serviceId Unique ID of a current registered service.
+         * @param callback Callback with the result of the register operation.
+         */
         function unregisterService(serviceId: string, callback: () => void): void;
+        /**
+         * Remove the specified service, unregistering it if it was registered.
+         * If the service ID is invalid, the lastError will be set.
+         * This function is only available if the app has both
+         *   the bluetooth:low_energy and the bluetooth:peripheral permissions set to true.
+         * The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         * @param serviceId Unique ID of a current registered service.
+         * @param [callback] Callback called once the service is removed.
+         */
         function removeService(serviceId: string, callback?: () => void): void;
-        enum AdvertisementType {
-            'broadcast', 'peripheral'
-        }
-        interface Advertisement {
-            /** Type of advertisement. */
-            type: AdvertisementType;
-            /** List of UUIDs to include in the "Service UUIDs" field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
-            serviceUuids?: string[];
-            /** List of manufacturer specific data to be included in "Manufacturer Specific Data" fields of the advertising data. */
-            manufacturerData?: { id: number, data: number[] };
-            /** List of UUIDs to include in the "Solicit UUIDs" field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
-            solicitUuids?: string[];
-            /** List of service data to be included in "Service Data" fields of the advertising data. */
-            serviceData: { uuid: string, data: number[] };
-        }
-        function registerAdvertisement(advertisement: Advertisement, callback: () => void): void;
+        /**
+         * Create an advertisement and register it for advertising.
+         * To call this function, the app must have
+         *  the bluetooth:low_energy and bluetooth:peripheral permissions set to true.
+         * Additionally this API is only available to auto launched apps in Kiosk Mode
+         *  of by setting the 'enable-ble-advertising-in-apps' flag.
+         *  See https://developer.chrome.com/apps/manifest/bluetooth
+         * Note: On some hardware, central and peripheral modes at the same time
+         *  is supported but on hardware that doesn't support this,
+         *  making this call will switch the device to peripheral mode.
+         * In the case of hardware which does not support both central and peripheral mode,
+         *  attempting to use the device in both modes will lead to undefined behavior
+         *  or prevent other central-role applications from behaving correctly
+         *  (including the discovery of Bluetooth Low Energy devices).
+         * @since Since Chrome 47.
+         * @param advertisement The advertisement to advertise.
+         * @param callback Called once the registeration is done and we've started advertising. Returns the id of the created advertisement.
+         */
+        function registerAdvertisement(advertisement: Advertisement, callback: (advertisementId: number) => void): void;
+        /**
+         * Unregisters an advertisement and stops its advertising.
+         * If the advertisement fails to unregister the only way
+         *  to stop advertising might be to restart the device.
+         * @since Since Chrome 47.
+         * @param advertisementId Id of the advertisement to unregister.
+         * @param callback Called once the advertisement is unregistered and is no longer being advertised.
+         */
+        function unregisterAdvertisement(advertisementId: number, callback: () => void): void;
+        function resetAdvertising(callback: () => void): void;
+        function setAdvertisingInterval(minInterval: number, maxInterval: number, callback: () => void): void;
+        /**
+         * Sends a response for a characteristic or descriptor read/write request. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         * @param response The response to the request.
+         */
+        function sendRequestResponse(response: IResponse): void;
     }
     /**
      * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
