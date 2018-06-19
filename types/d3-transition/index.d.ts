@@ -565,7 +565,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
  * Represents the union of the Selection and Transition types for any usages that operate on both.
  * Typically used for functions which take in either a selection or transition and set or update attributes.
  */
-type SelectionOrTransition<GElement extends d3.BaseType, Datum, PElement extends d3.BaseType, PDatum> = d3.Selection<GElement, Datum, PElement, PDatum> | d3.Transition<GElement, Datum, PElement, PDatum>
+export type SelectionOrTransition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> = Selection<GElement, Datum, PElement, PDatum> | Transition<GElement, Datum, PElement, PDatum>;
 
 /**
  * Returns a new transition with the specified name. If a name is not specified, null is used.
