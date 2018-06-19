@@ -1301,6 +1301,71 @@ declare namespace chrome {
          * @param response The response to the request.
          */
         function sendRequestResponse(response: IResponse): void;
+        /** Fired whan a new GATT service has been discovered on a remote device. */
+        var onServiceAdded: chrome.events.Event<(service: Service) => void>;
+        /**
+         * Fired when the state of a remote GATT service changes.
+         * This involves any characteristics and/or descriptors
+         *   that get added or removed from the service, as well as
+         *   "ServiceChanged" notifications from the remote device.
+         */
+        var onServiceChanged: chrome.events.Event<(service: Service) => void>;
+        /** Fired when a GATT service that was previously discovered on a remote device has been removed. */
+        var onServiceRemoved: chrome.events.Event<(service: Service) => void>;
+        /**
+         * Fired when the value of a remote GATT characteristic changes,
+         *   either as a result of a read request,
+         *   or a value change notification/indication.
+         * This event will only be sent if the app has enabled notifications
+         *   by calling startCharacteristicNotifications.
+         */
+        var onCharacteristicValueChanged: chrome.events.Event<(characteristic: Characteristic) => void>;
+        /**
+         * Fired when the value of a remote GATT characteristic descriptor changes,
+         *   usually as a result of a read request.
+         * This event exists mostly for convenience and will always be sent after
+         *   a successful call to readDescriptorValue.
+         */
+        var onDescriptorValueChanged: chrome.events.Event<(descriptor: Descriptor) => void>;
+        /**
+         * Fired when a connected central device requests to read the value of
+         *   a characteristic registered on the local GATT server.
+         * Not responding to this request for a long time may lead to a disconnection.
+         * This event is only available if the app has both the bluetooth:low_energy
+         *   and the bluetooth:peripheral permissions set to true.
+         * The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         */
+        var onCharacteristicReadRequest: chrome.events.Event<(characteristic: Characteristic) => void>;
+        /**
+         * Fired when a connected central device requests to write the value of
+         *   a characteristic registered on the local GATT server.
+         * Not responding to this request for a long time may lead to a disconnection.
+         * This event is only available if the app has both the bluetooth:low_energy
+         *   and the bluetooth:peripheral permissions set to true.
+         * The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         */
+        var onCharacteristicWriteRequest: chrome.events.Event<(characteristic: Characteristic) => void>;
+        /**
+         * Fired when a connected central device requests to read the value of
+         *   a descriptor registered on the local GATT server.
+         * Not responding to this request for a long time may lead to a disconnection.
+         * This event is only available if the app has both the bluetooth:low_energy
+         *   and the bluetooth:peripheral permissions set to true.
+         * The peripheral permission may not be available to all apps.
+         * @since Since Chrome 52.
+         */
+        var onDescriptorReadRequest: chrome.events.Event<(descriptor: Descriptor) => void>;
+        /**
+         * Fired when a connected central device requests to write the value of
+         *   a descriptor registered on the local GATT server.
+         * Not responding to this request for a long time may lead to a disconnection.
+         * This event is only available if the app has both the bluetooth:low_energy
+         *   and the bluetooth:peripheral permissions set to true.
+         * The peripheral permission may not be available to all apps.
+         */
+        var onDescriptorWriteRequest: chrome.events.Event<(descriptor: Descriptor) => void>;
     }
     /**
      * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
