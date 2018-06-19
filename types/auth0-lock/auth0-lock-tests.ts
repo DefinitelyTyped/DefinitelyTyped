@@ -39,7 +39,10 @@ const showOptions : Auth0LockShowOptions = {
     type: "error",
     text: "an error has occurred"
   },
-  rememberLastLogin: false
+  rememberLastLogin: false,
+  languageDictionary: {
+    title: "test"
+  }
 };
 
 lock.show(showOptions);

@@ -29,7 +29,10 @@ new Redis({
     password: 'auth',
     db: 0,
     retryStrategy() { return false; },
-    showFriendlyErrorStack: true
+    showFriendlyErrorStack: true,
+    tls: {
+        servername: 'tlsservername'
+    }
 });
 
 const pub = new Redis();

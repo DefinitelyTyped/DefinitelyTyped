@@ -16,7 +16,6 @@ import ElementChangeResponse = stripe.elements.ElementChangeResponse;
 import ElementsOptions = stripe.elements.ElementsOptions;
 import ElementsCreateOptions = stripe.elements.ElementsCreateOptions;
 import PatchedTokenResponse = ReactStripeElements.PatchedTokenResponse;
-import StripeProps = ReactStripeElements.StripeProps;
 
 const cardElementProps: ElementsOptions = {
     iconStyle: 'solid',
@@ -185,7 +184,7 @@ const ElementsDefaultPropsTest: React.SFC = () => (
 const TestStripeProviderProps1: React.SFC = () => <StripeProvider apiKey="" />;
 
 const TestStripeProviderProps2: React.SFC<{
-    stripe: StripeProps;
+    stripe: stripe.Stripe;
 }> = props => <StripeProvider stripe={props.stripe} />;
 
 /**
@@ -193,8 +192,21 @@ const TestStripeProviderProps2: React.SFC<{
  * See: https://github.com/stripe/react-stripe-elements#props-shape
  */
 const TestStripeProviderProps3: React.SFC<{
-    stripe: StripeProps;
+    stripe: stripe.Stripe;
 }> = props => <StripeProvider stripe={null} />;
+
+/**
+ * End-to-end usage of loading stripe.js asynchronously.
+ * See: https://github.com/stripe/react-stripe-elements#loading-stripejs-asynchronously
+ */
+const TestStripeProviderProps4: React.SFC<{
+    stripe: null | stripe.Stripe
+}> = props =>
+    <StripeProvider stripe={props.stripe}>
+        <Elements>
+            <div />
+        </Elements>
+    </StripeProvider>;
 
 /**
  * StripeProvider should be able to accept options.
