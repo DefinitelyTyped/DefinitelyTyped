@@ -5782,7 +5782,7 @@ declare module "crypto" {
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
     export function createDecipher(algorithm: string, password: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
-    export function createDecipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | Bufferalike, options?: stream.TransformOptions): Decipher;
+    export function createDecipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: ArrayBufferView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
@@ -5797,15 +5797,15 @@ declare module "crypto" {
     export function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
     export interface Signer extends NodeJS.WritableStream {
         update(data: string | ArrayBufferView): Signer;
-        update(data: string | ArrayBufferView, input_encoding: Utf8AsciiLatin1Encoding): Signer;
+        update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
         sign(private_key: string | { key: string; passphrase: string }): Buffer;
         sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
     export interface Verify extends NodeJS.WritableStream {
         update(data: string | ArrayBufferView): Verify;
-        update(data: string | ArrayBufferView, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: string | Object, signature: Bufferalike): boolean;
+        update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
+        verify(object: string | Object, signature: ArrayBufferView): boolean;
         verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
