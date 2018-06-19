@@ -19,7 +19,7 @@ export interface ReactTagsProps {
     handleDrag?: ((tag: { id: number; text: string; }, currPos: number, newPos: number) => void);
     handleInputChange?: ((value: string) => void);
     handleFilterSuggestions?: ((textInputValue: string, possibleSuggestionsArray: string[]) => boolean);
-    handleInputBlur?: (() => void);
+    handleInputBlur?: ((textInputValue: string) => void);
 
     autofocus?: boolean;
     allowDeleteFromEmptyInput?: boolean;
