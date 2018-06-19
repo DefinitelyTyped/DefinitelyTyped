@@ -51,7 +51,7 @@ declare namespace google.maps {
         getZoom(): number;
         panBy(x: number, y: number): void;
         panTo(latLng: LatLng|LatLngLiteral): void;
-        panToBounds(latLngBounds: LatLngBounds|LatLngBoundsLiteral): void;
+        panToBounds(latLngBounds: LatLngBounds|LatLngBoundsLiteral, padding?: number|Padding): void;
         setCenter(latlng: LatLng|LatLngLiteral): void;
         setHeading(heading: number): void;
         setMapTypeId(mapTypeId: MapTypeId|string): void;

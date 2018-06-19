@@ -1018,6 +1018,10 @@ stripe.invoices.list({ customer: "cus_5rfJKDJkuxzh5Q", limit: 3 }).then(function
     // asynchronously called
 });
 
+stripe.invoices.retrieve("in_15fvyXEe31JkLCeQH7QbgZZb", { expand: ["subscription"] }).then(function (invoice) {
+  invoice.subscription
+})
+
 //#endregion
 
 //#region Invoice Items tests

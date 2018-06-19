@@ -1151,6 +1151,19 @@ namespace crypto_tests {
         crypto.randomFill(arr, 2, (err: Error, buf: Uint8Array) => void {});
         crypto.randomFill(arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
     }
+
+    {
+        let key: string | Buffer = Buffer.from("buf");
+        let curve = "secp256k1";
+        let ret: string | Buffer = crypto.ECDH.convertKey(key, curve);
+        key = "0xfff";
+        ret = crypto.ECDH.convertKey(key, curve);
+        ret = crypto.ECDH.convertKey(key, curve, "hex");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "uncompressed");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "compressed");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "hybrid");
+    }
 }
 
 //////////////////////////////////////////////////
@@ -3128,6 +3141,9 @@ namespace dns_tests {
     });
     dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
         const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "ANY", (err, addresses) => {
+        const _addresses: ReadonlyArray<dns.AnySrvRecord | dns.AnySoaRecord | dns.AnyNaptrRecord | dns.AnyRecordWithTtl | dns.AnyMxRecord | dns.AnyTxtRecord> = addresses;
     });
     dns.resolve("nodejs.org", "MX", (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
