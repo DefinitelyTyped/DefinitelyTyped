@@ -832,7 +832,8 @@ function stream_buffer_unix_newlines_test() {
 
 function json_test() {
     const transporter = nodemailer.createTransport({
-        jsonTransport: true
+        jsonTransport: true,
+        skipEncoding: true
     });
     transporter.sendMail({
         from: 'sender@example.com',

@@ -150,7 +150,7 @@ declare namespace request {
         write(data: string | Buffer, encoding?: string): this;
     }
 
-    type Plugin = (req: Request) => void;
+    type Plugin = (req: SuperAgentRequest) => void;
 
     interface ProgressEvent {
         direction: 'download' | 'upload';

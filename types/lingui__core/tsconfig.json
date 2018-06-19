@@ -6,7 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,10 +14,15 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@lingui/core": [
+                "lingui__core"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "mongodb-tests.ts"
+        "lingui__core-tests.ts"
     ]
 }

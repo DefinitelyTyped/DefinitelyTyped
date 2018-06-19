@@ -854,6 +854,8 @@ declare module "mongoose" {
     typeKey?: string;
     /** defaults to false */
     useNestedStrict?: boolean;
+    /** defaults to false */
+    usePushEach?: boolean;
     /** defaults to true */
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
@@ -2273,6 +2275,12 @@ declare module "mongoose" {
 
     /** Adds a collation. */
     collation(options: CollationOptions): this;
+
+    /**
+     * Appends a new $count operator to this aggregate pipeline.
+     * @param countName name of the count field
+     */
+    count(countName: string): this;
 
     /**
      * Sets the cursor option option for the aggregation query (ignored for < 2.6.0).
