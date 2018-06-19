@@ -6,9 +6,9 @@
 /// <reference types="node" />
 
 import { List as UserList, User, UserIdentifier } from './User';
-import { CompanyIdentifier, List as CompanyList, Company } from './Company'
+import { CompanyIdentifier, List as CompanyList, Company } from './Company';
 import { Scroll } from './Scroll';
-import { IntercomError } from './IntercomError'
+import { IntercomError } from './IntercomError';
 
 import { IncomingMessage } from 'http';
 
@@ -31,11 +31,11 @@ export class Client {
     companies: Companies;
 }
 
-type ApiResponse<T> = IncomingMessage & {
+export type ApiResponse<T> = IncomingMessage & {
   body: T
-}
+};
 
-type callback<T> = ((d: T) => void) | ((err: IntercomError, d: T) => void);
+export type callback<T> = ((d: T) => void) | ((err: IntercomError, d: T) => void);
 
 export class Users {
     create(user: Partial<User>): Promise<ApiResponse<User>>;
@@ -60,9 +60,7 @@ export class Users {
     requestPermanentDeletion(): Promise<{id: number}>;
 }
 
-
 export class Companies {
-
     create(company: CompanyIdentifier & Partial<Company>): Promise<ApiResponse<Company>>;
     create(company: CompanyIdentifier & Partial<Company>, cb: callback<ApiResponse<Company>>): void;
 
